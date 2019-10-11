@@ -15,10 +15,10 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
-import com.powsybl.sld.svg.DefaultSubstationDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.svg.SubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -42,7 +42,7 @@ public abstract class AbstractTestCase {
 
     protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
-    protected final SubstationDiagramStyleProvider styleProvider = new DefaultSubstationDiagramStyleProvider();
+    protected final DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
@@ -67,7 +67,7 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
-                            new DefaultSubstationDiagramInitialValueProvider(network),
+                            new DefaultDiagramInitialValueProvider(network),
                             styleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
@@ -85,11 +85,11 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareSvg(Graph graph, LayoutParameters layoutParameters, String refSvgName, SubstationDiagramStyleProvider myStyleProvider) {
+    public void compareSvg(Graph graph, LayoutParameters layoutParameters, String refSvgName, DiagramStyleProvider myStyleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
-                            new DefaultSubstationDiagramInitialValueProvider(network),
+                            new DefaultDiagramInitialValueProvider(network),
                             myStyleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
@@ -111,7 +111,7 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
-                            new DefaultSubstationDiagramInitialValueProvider(network),
+                            new DefaultDiagramInitialValueProvider(network),
                             styleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
@@ -130,11 +130,11 @@ public abstract class AbstractTestCase {
     }
 
     public void compareSvg(SubstationGraph graph, LayoutParameters layoutParameters,
-                           String refSvgName, SubstationDiagramStyleProvider myStyleProvider) {
+                           String refSvgName, DiagramStyleProvider myStyleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
-                            new DefaultSubstationDiagramInitialValueProvider(network),
+                            new DefaultDiagramInitialValueProvider(network),
                             myStyleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);

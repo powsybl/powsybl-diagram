@@ -39,7 +39,7 @@ import java.util.Optional;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 @AutoService(Tool.class)
-public class SubstationDiagramTool implements Tool {
+public class SingleLineDiagramTool implements Tool {
 
     private static final String INPUT_FILE = "input-file";
     private static final String OUTPUT_DIR = "output-dir";
@@ -53,17 +53,17 @@ public class SubstationDiagramTool implements Tool {
 
             @Override
             public String getName() {
-                return "generate-substation-diagram";
+                return "generate-single-line-diagram";
             }
 
             @Override
             public String getTheme() {
-                return "Substation diagram";
+                return "Single line diagram";
             }
 
             @Override
             public String getDescription() {
-                return "generate substation diagram";
+                return "generate single line diagram";
             }
 
             @Override

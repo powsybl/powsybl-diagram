@@ -62,7 +62,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
 
             @Override
             public String getTheme() {
-                return "Substation diagram";
+                return "Single line diagram";
             }
 
             @Override

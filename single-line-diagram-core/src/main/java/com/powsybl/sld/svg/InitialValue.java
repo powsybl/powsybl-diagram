@@ -14,7 +14,7 @@ import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Injection;
 import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.sld.svg.SubstationDiagramInitialValueProvider.Direction;
+import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>

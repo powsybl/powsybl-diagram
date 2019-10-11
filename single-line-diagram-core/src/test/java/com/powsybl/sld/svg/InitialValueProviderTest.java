@@ -68,7 +68,7 @@ public class InitialValueProviderTest {
     @Test
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
-        DefaultSubstationDiagramInitialValueProvider initProvider = new DefaultSubstationDiagramInitialValueProvider(network2);
+        DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2);
         Graph g = Graph.create(vl, false, false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
@@ -77,7 +77,7 @@ public class InitialValueProviderTest {
         assertFalse(init.getLabel4().isPresent());
         assertFalse(init.getArrowDirection1().isPresent());
         assertFalse(init.getArrowDirection2().isPresent());
-        DefaultSubstationDiagramInitialValueProvider initProvider1 = new DefaultSubstationDiagramInitialValueProvider(network);
+        DefaultDiagramInitialValueProvider initProvider1 = new DefaultDiagramInitialValueProvider(network);
         InitialValue init1 = initProvider1.getInitialValue(g.getNode("svc"));
         assertTrue(init1.getLabel1().isPresent());
         assertTrue(init1.getLabel2().isPresent());

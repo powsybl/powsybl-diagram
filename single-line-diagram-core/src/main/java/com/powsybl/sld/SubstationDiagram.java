@@ -17,14 +17,14 @@ import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
-import com.powsybl.sld.svg.DefaultSubstationDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.GraphMetadata;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.NodeLabelConfiguration;
 import com.powsybl.sld.svg.SVGWriter;
-import com.powsybl.sld.svg.SubstationDiagramInitialValueProvider;
-import com.powsybl.sld.svg.SubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,8 +95,8 @@ public final class SubstationDiagram {
 
     public void writeSvg(String prefixId, SVGWriter writer, Writer svgWriter, Writer metadataWriter, Network network) {
         writeSvg(prefixId, writer,
-                new DefaultSubstationDiagramInitialValueProvider(network),
-                new DefaultSubstationDiagramStyleProvider(),
+                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
                 svgWriter,
                 metadataWriter);
@@ -104,8 +104,8 @@ public final class SubstationDiagram {
 
     public void writeSvg(String prefixId,
                          ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                         SubstationDiagramInitialValueProvider initProvider,
-                         SubstationDiagramStyleProvider styleProvider,
+                         DiagramInitialValueProvider initProvider,
+                         DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
                          Writer svgWriter, Writer metadataWriter) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
@@ -114,8 +114,8 @@ public final class SubstationDiagram {
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         SubstationDiagramInitialValueProvider initProvider,
-                         SubstationDiagramStyleProvider styleProvider,
+                         DiagramInitialValueProvider initProvider,
+                         DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
                          Writer svgWriter, Writer metadataWriter) {
         Objects.requireNonNull(writer);

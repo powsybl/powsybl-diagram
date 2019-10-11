@@ -39,11 +39,11 @@ import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
  */
-public class DefaultSubstationDiagramInitialValueProvider implements SubstationDiagramInitialValueProvider {
+public class DefaultDiagramInitialValueProvider implements DiagramInitialValueProvider {
 
     private final Network network;
 
-    public DefaultSubstationDiagramInitialValueProvider(Network net) {
+    public DefaultDiagramInitialValueProvider(Network net) {
         network = Objects.requireNonNull(net);
     }
 

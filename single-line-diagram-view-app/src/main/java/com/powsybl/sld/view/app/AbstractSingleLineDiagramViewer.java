@@ -20,7 +20,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageSubstationDiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.sld.view.AbstractContainerDiagramView;
@@ -77,9 +77,9 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public abstract class AbstractSubstationDiagramViewer extends Application implements DisplayVoltageLevel {
+public abstract class AbstractSingleLineDiagramViewer extends Application implements DisplayVoltageLevel {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractSubstationDiagramViewer.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractSingleLineDiagramViewer.class);
 
     private static final String SELECTED_VOLTAGE_LEVEL_IDS_PROPERTY = "selectedVoltageLevelIds";
     private static final String SELECTED_SUBSTATION_IDS_PROPERTY = "selectedSubstationIds";
@@ -94,9 +94,9 @@ public abstract class AbstractSubstationDiagramViewer extends Application implem
             .put("Cgmes", new CgmesVoltageLevelLayoutFactory())
             .build();
 
-    private final Map<String, SubstationDiagramStyleProvider> styles
-            = ImmutableMap.of("Default", new DefaultSubstationDiagramStyleProvider(),
-                              "Nominal voltage", new NominalVoltageSubstationDiagramStyleProvider(),
+    private final Map<String, DiagramStyleProvider> styles
+            = ImmutableMap.of("Default", new DefaultDiagramStyleProvider(),
+                              "Nominal voltage", new NominalVoltageDiagramStyleProvider(),
                               "Topology", new TopologicalStyleProvider(null));
 
     private final Map<String, SubstationLayoutFactory> substationsLayouts
@@ -237,8 +237,8 @@ public abstract class AbstractSubstationDiagramViewer extends Application implem
             String metadataData;
             try (StringWriter svgWriter = new StringWriter();
                  StringWriter metadataWriter = new StringWriter()) {
-                SubstationDiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
-                SubstationDiagramInitialValueProvider initProvider = new DefaultSubstationDiagramInitialValueProvider(networkProperty.get());
+                DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
+                DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
                 NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary());
 
                 String dName = getSelectedDiagramName();
@@ -276,9 +276,9 @@ public abstract class AbstractSubstationDiagramViewer extends Application implem
             try (InputStream svgInputStream = new ByteArrayInputStream(svgData.getBytes(StandardCharsets.UTF_8));
                  InputStream metadataInputStream = new ByteArrayInputStream(metadataData.getBytes(StandardCharsets.UTF_8))) {
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
-                    diagramView = VoltageLevelDiagramView.load(svgInputStream, metadataInputStream, AbstractSubstationDiagramViewer.this);
+                    diagramView = VoltageLevelDiagramView.load(svgInputStream, metadataInputStream, AbstractSingleLineDiagramViewer.this);
                 } else if (c.getContainerType() == ContainerType.SUBSTATION) {
-                    diagramView = SubstationDiagramView.load(svgInputStream, metadataInputStream, AbstractSubstationDiagramViewer.this);
+                    diagramView = SubstationDiagramView.load(svgInputStream, metadataInputStream, AbstractSingleLineDiagramViewer.this);
                 } else {
                     throw new AssertionError();
                 }
@@ -856,7 +856,7 @@ public abstract class AbstractSubstationDiagramViewer extends Application implem
         loadNetworkFromPreferences();
 
         Scene scene = new Scene(mainPane, 1000, 800);
-        primaryStage.setTitle("Substation diagram viewer");
+        primaryStage.setTitle("Single line diagram viewer");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

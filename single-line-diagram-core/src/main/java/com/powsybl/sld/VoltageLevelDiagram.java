@@ -14,14 +14,14 @@ import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
-import com.powsybl.sld.svg.DefaultSubstationDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.GraphMetadata;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.NodeLabelConfiguration;
 import com.powsybl.sld.svg.SVGWriter;
-import com.powsybl.sld.svg.SubstationDiagramInitialValueProvider;
-import com.powsybl.sld.svg.SubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,24 +71,24 @@ public final class VoltageLevelDiagram {
                          Path svgFile) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
         writeSvg(prefixId, writer,
-                new DefaultSubstationDiagramInitialValueProvider(network),
-                new DefaultSubstationDiagramStyleProvider(),
+                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
                 svgFile, false);
     }
 
     public void writeSvg(String prefixId, SVGWriter writer, Network network, Path svgFile) {
         writeSvg(prefixId, writer,
-                new DefaultSubstationDiagramInitialValueProvider(network),
-                new DefaultSubstationDiagramStyleProvider(),
+                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
                 svgFile, false);
     }
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         SubstationDiagramInitialValueProvider initProvider,
-                         SubstationDiagramStyleProvider styleProvider,
+                         DiagramInitialValueProvider initProvider,
+                         DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
                          Path svgFile,
                          boolean debug) {
@@ -107,8 +107,8 @@ public final class VoltageLevelDiagram {
 
     public void writeSvg(String prefixId,
                          ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                         SubstationDiagramInitialValueProvider initProvider,
-                         SubstationDiagramStyleProvider styleProvider,
+                         DiagramInitialValueProvider initProvider,
+                         DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
                          Writer svgWriter,
                          Writer metadataWriter) {
@@ -118,8 +118,8 @@ public final class VoltageLevelDiagram {
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         SubstationDiagramInitialValueProvider initProvider,
-                         SubstationDiagramStyleProvider styleProvider,
+                         DiagramInitialValueProvider initProvider,
+                         DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
                          Writer svgWriter,
                          Writer metadataWriter) {

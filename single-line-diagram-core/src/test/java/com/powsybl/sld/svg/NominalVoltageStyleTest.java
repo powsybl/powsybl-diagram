@@ -16,7 +16,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.util.NominalVoltageSubstationDiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,8 +68,8 @@ public class NominalVoltageStyleTest {
 
         SubstationDiagram.build(substation).writeSvg("", componentLibrary,
                 layoutParameters,
-                new DefaultSubstationDiagramInitialValueProvider(network),
-                new NominalVoltageSubstationDiagramStyleProvider(),
+                new DefaultDiagramInitialValueProvider(network),
+                new NominalVoltageDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(componentLibrary),
                 Files.newBufferedWriter(outSvg, StandardCharsets.UTF_8),
                 Files.newBufferedWriter(meta));

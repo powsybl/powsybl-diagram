@@ -1,4 +1,4 @@
-= Substation diagram core conception
+= Single line diagram core conception
 Benoît Jeanson <benoit.jeanson at rte-france.com>
 :toc:
 

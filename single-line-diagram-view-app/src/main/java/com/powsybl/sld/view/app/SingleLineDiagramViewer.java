@@ -30,7 +30,7 @@ import java.util.Properties;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class SubstationDiagramViewer extends AbstractSubstationDiagramViewer {
+public class SingleLineDiagramViewer extends AbstractSingleLineDiagramViewer {
 
     private static final String CASE_PATH_PROPERTY = "casePath";
 

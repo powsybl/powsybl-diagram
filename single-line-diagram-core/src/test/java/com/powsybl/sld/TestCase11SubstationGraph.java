@@ -17,8 +17,8 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
-import com.powsybl.sld.util.NominalVoltageSubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -430,7 +430,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
         // write SVG and compare to reference (horizontal layout and defaut style provider)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         compareSvg(g, layoutParameters, "/TestCase11SubstationGraphHorizontal.svg",
-                   new DefaultSubstationDiagramStyleProvider());
+                   new DefaultDiagramStyleProvider());
 
         // rebuild substation graph
         g = SubstationGraph.create(substation);
@@ -445,7 +445,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
          // write SVG and compare to reference (horizontal layout and nominal voltage style)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         compareSvg(g, layoutParameters, "/TestCase11SubstationGraphHorizontalNominalVoltageLevel.svg",
-                   new NominalVoltageSubstationDiagramStyleProvider());
+                   new NominalVoltageDiagramStyleProvider());
 
         // Create substation diagram (svg + metadata files)
         SubstationDiagram diagram = SubstationDiagram.build(substation);

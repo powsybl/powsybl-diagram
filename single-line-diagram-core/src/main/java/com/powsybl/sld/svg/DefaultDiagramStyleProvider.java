@@ -20,14 +20,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.SubstationDiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.SubstationDiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class DefaultSubstationDiagramStyleProvider implements SubstationDiagramStyleProvider {
+public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     private static final String ARROW1 = ".ARROW1_";
     private static final String ARROW2 = ".ARROW2_";

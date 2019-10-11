@@ -13,7 +13,7 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
@@ -21,13 +21,13 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.SubstationDiagramStyles.*;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageSubstationDiagramStyleProvider extends DefaultSubstationDiagramStyleProvider {
+public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
 
     private static final String DEFAULT_COLOR = "rgb(171, 175, 40)";
 

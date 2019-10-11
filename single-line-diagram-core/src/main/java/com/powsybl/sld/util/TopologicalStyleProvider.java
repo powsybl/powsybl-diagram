@@ -12,8 +12,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.svg.DefaultSubstationDiagramStyleProvider;
-import com.powsybl.sld.svg.SubstationDiagramStyles;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramStyles;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -28,13 +28,13 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.svg.SubstationDiagramStyles.escapeId;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
-public class TopologicalStyleProvider extends DefaultSubstationDiagramStyleProvider {
+public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     private BaseVoltageColor baseVoltageColor;
     private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap();
@@ -157,7 +157,7 @@ public class TopologicalStyleProvider extends DefaultSubstationDiagramStyleProvi
     public Optional<String> getWireStyle(Edge edge) {
 
         try {
-            String wireId = SubstationDiagramStyles
+            String wireId = DiagramStyles
                     .escapeId(URLEncoder.encode(
                             edge.getNode1().getGraph().getVoltageLevel().getId() + "_Wire"
                                     + edge.getNode1().getGraph().getEdges().indexOf(edge),

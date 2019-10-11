@@ -22,29 +22,29 @@ public interface SVGWriter {
 
     GraphMetadata write(String prefixId,
                         Graph graph,
-                        SubstationDiagramInitialValueProvider initProvider,
-                        SubstationDiagramStyleProvider styleProvider,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
                         NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         Graph graph,
-                        SubstationDiagramInitialValueProvider initProvider,
-                        SubstationDiagramStyleProvider styleProvider,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
                         NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
-                        SubstationDiagramInitialValueProvider initProvider,
-                        SubstationDiagramStyleProvider styleProvider,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
                         NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
-                        SubstationDiagramInitialValueProvider initProvider,
-                        SubstationDiagramStyleProvider styleProvider,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
                         NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 

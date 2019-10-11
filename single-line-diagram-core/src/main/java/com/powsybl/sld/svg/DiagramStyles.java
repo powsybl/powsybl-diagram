@@ -14,14 +14,14 @@ import java.util.regex.Pattern;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public final class SubstationDiagramStyles {
+public final class DiagramStyles {
 
     public static final String WIRE_STYLE_CLASS = "wire";
     public static final String GRID_STYLE_CLASS = "grid";
     public static final String BUS_STYLE_CLASS = "busbar-section";
     public static final String LABEL_STYLE_CLASS = "component-label";
 
-    private SubstationDiagramStyles() {
+    private DiagramStyles() {
     }
 
     public static String escapeClassName(String input) {

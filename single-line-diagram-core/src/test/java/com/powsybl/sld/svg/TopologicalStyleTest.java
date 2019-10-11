@@ -73,7 +73,7 @@ public class TopologicalStyleTest {
         SubstationDiagram.build(substation)
                 .writeSvg("", componentLibrary,
                         layoutParameters,
-                        new DefaultSubstationDiagramInitialValueProvider(network),
+                        new DefaultDiagramInitialValueProvider(network),
                         new TopologicalStyleProvider(config),
                         new DefaultNodeLabelConfiguration(componentLibrary),
                         Files.newBufferedWriter(outSvg, StandardCharsets.UTF_8),

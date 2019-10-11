@@ -21,7 +21,7 @@ import java.util.Optional;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public interface SubstationDiagramStyleProvider {
+public interface DiagramStyleProvider {
 
     Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication);
 

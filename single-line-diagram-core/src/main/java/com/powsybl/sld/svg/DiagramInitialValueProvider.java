@@ -14,7 +14,7 @@ import java.util.List;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public interface SubstationDiagramInitialValueProvider {
+public interface DiagramInitialValueProvider {
 
     public enum Direction {
         UP, DOWN;

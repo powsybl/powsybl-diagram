@@ -17,7 +17,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>powsybl single line diagram</name>
+    <name>Single line diagram</name>
     <description>PowSyBl single line diagram components</description>
     <url>http://www.powsybl.org</url>
 

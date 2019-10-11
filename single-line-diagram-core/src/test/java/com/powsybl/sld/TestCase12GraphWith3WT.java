@@ -15,9 +15,9 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
-import com.powsybl.sld.svg.DefaultSubstationDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.util.NominalVoltageSubstationDiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -440,8 +440,8 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
 
         ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
         diagram.writeSvg("", new DefaultSVGWriter(componentLibrary, layoutParameters),
-                new DefaultSubstationDiagramInitialValueProvider(network),
-                new NominalVoltageSubstationDiagramStyleProvider(),
+                new DefaultDiagramInitialValueProvider(network),
+                new NominalVoltageDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(componentLibrary),
                 pathSVG,
                 false);
