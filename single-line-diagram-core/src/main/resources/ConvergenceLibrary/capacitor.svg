@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
+    <line x1="6" y1="0" x2="6" y2="3"/>
+    <line x1="0" y1="3" x2="12" y2="3"/>
+    <line x1="0" y1="6" x2="12" y2="6"/>
+    <line x1="6" y1="6" x2="6" y2="9"/>
+</svg>

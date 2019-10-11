@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[.BUSBAR_SECTION {
+    stroke: rgb(0,0,0);
+    stroke-width: 3;
+}
+
+.BREAKER {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 2;
+    fill: rgb(255, 255, 255);
+}
+
+.DISCONNECTOR {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 3
+}
+
+.GENERATOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD_BREAK_SWITCH {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.NODE {
+    stroke: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    fill-opacity: 1;
+}
+
+.CAPACITOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.INDUCTOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.STATIC_VAR_COMPENSATOR {
+    stroke: rgb(0, 0, 255);
+}
+
+.TWO_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.THREE_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.VSC_CONVERTER_STATION {
+    stroke: rgb(0, 0, 255);
+    font-size: 7.4314661px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    writing-mode: lr-tb;
+    text-anchor: start;
+    stroke-miterlimit: 4;
+}
+
+.PHASE_SHIFT_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.wire {
+    stroke: rgb(200,0,0);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.grid {
+    stroke: rgb(0,55,0);
+    stroke-width: 1;
+    stroke-dasharray: 1,10;
+}
+
+.component-label {
+    fill: black;
+    color: black;
+    stroke: none;
+    fill-opacity: 1
+}
+.d1 .open { visibility: hidden;}.d1 .closed { visibility: visible;}._b .open { visibility: hidden;}._b .closed { visibility: visible;}.d2 .open { visibility: hidden;}.d2 .closed { visibility: visible;}.ds1 .open { visibility: hidden;}.ds1 .closed { visibility: visible;}.ds2 .open { visibility: hidden;}.ds2 .closed { visibility: visible;}.ds1fSwitch0 .open { visibility: hidden;}.ds1fSwitch0 .closed { visibility: visible;}.ds1fSwitch1 .open { visibility: hidden;}.ds1fSwitch1 .closed { visibility: visible;}.ds2fSwitch0 .open { visibility: hidden;}.ds2fSwitch0 .closed { visibility: visible;}.ds2fSwitch1 .open { visibility: hidden;}.ds2fSwitch1 .closed { visibility: visible;}]]></style>
+    <g>
+        <g class="grid" id="GRID_vl" transform="translate(20.0,50.0)">
+            <line y2="565.0" x1="0.0" x2="0.0" y1="-20.0"/>
+            <line y2="565.0" x1="50.0" x2="50.0" y1="-20.0"/>
+            <line y2="565.0" x1="100.0" x2="100.0" y1="-20.0"/>
+            <line y2="565.0" x1="150.0" x2="150.0" y1="-20.0"/>
+            <line y2="230.0" x1="0.0" x2="150.0" y1="230.0"/>
+            <line y2="315.0" x1="0.0" x2="150.0" y1="315.0"/>
+            <line y2="220.0" x1="0.0" x2="150.0" y1="220.0"/>
+            <line y2="325.0" x1="0.0" x2="150.0" y1="325.0"/>
+        </g>
+        <g class="BUSBAR_SECTION bbs1_1" id="bbs1_1" transform="translate(30.0,310.0)">
+            <line y2="0" x1="0" x2="30.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs1.1_NW_LABEL">bbs1.1</text>
+        </g>
+        <g class="BUSBAR_SECTION bbs1_2" id="bbs1_2" transform="translate(130.0,310.0)">
+            <line y2="0" x1="0" x2="30.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs1.2_NW_LABEL">bbs1.2</text>
+        </g>
+        <g class="BUSBAR_SECTION bbs2_1" id="bbs2_1" transform="translate(30.0,335.0)">
+            <line y2="0" x1="0" x2="30.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs2.1_NW_LABEL">bbs2.1</text>
+        </g>
+        <g class="BUSBAR_SECTION bbs2_2" id="bbs2_2" transform="translate(130.0,335.0)">
+            <line y2="0" x1="0" x2="30.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs2.2_NW_LABEL">bbs2.2</text>
+        </g>
+        <g class="DISCONNECTOR d1" id="d1" transform="translate(41.0,306.0)">
+    <g class="closed" id="d1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="d1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER b" id="b" transform="matrix(0.0,1.0,-1.0,0.0,80.0,260.0)">
+    <g class="closed" id="b_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="b_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR d2" id="d2" transform="translate(141.0,331.0)">
+    <g class="closed" id="d2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="d2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR ds1" id="ds1" transform="matrix(0.0,1.0,-1.0,0.0,99.0,306.0)">
+    <g class="closed" id="ds1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="ds1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR ds2" id="ds2" transform="matrix(0.0,1.0,-1.0,0.0,99.0,331.0)">
+    <g class="closed" id="ds2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="ds2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="NODE FICT_vl_d1Fictif" id="FICT_vl_d1Fictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,266.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_d2Fictif" id="FICT_vl_d2Fictif" transform="matrix(0.0,1.0,-1.0,0.0,149.0,266.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE ds1fSwitch0" id="ds1fSwitch0" transform="translate(66.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds1fNode0" id="FICT_vl_ds1fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE ds1fSwitch1" id="ds1fSwitch1" transform="translate(116.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds1fNode1" id="FICT_vl_ds1fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE ds2fSwitch0" id="ds2fSwitch0" transform="translate(66.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds2fNode0" id="FICT_vl_ds2fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE ds2fSwitch1" id="ds2fSwitch1" transform="translate(116.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds2fNode1" id="FICT_vl_ds2fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="vl_Wire0"/>
+        <polyline class="wire wire_vl" points="145.0,335.0,145.0,335.0" id="vl_Wire1"/>
+        <polyline class="wire wire_vl" points="60.0,270.0,45.0,270.0" id="vl_Wire2"/>
+        <polyline class="wire wire_vl" points="45.0,310.0,45.0,270.0" id="vl_Wire3"/>
+        <polyline class="wire wire_vl" points="80.0,270.0,145.0,270.0" id="vl_Wire4"/>
+        <polyline class="wire wire_vl" points="145.0,335.0,145.0,270.0" id="vl_Wire5"/>
+        <polyline class="wire wire_vl" points="60.0,310.0,70.0,310.0" id="vl_Wire6"/>
+        <polyline class="wire wire_vl" points="70.0,310.0,70.0,310.0" id="vl_Wire7"/>
+        <polyline class="wire wire_vl" points="70.0,310.0,95.0,310.0" id="vl_Wire8"/>
+        <polyline class="wire wire_vl" points="130.0,310.0,120.0,310.0" id="vl_Wire9"/>
+        <polyline class="wire wire_vl" points="120.0,310.0,120.0,310.0" id="vl_Wire10"/>
+        <polyline class="wire wire_vl" points="120.0,310.0,95.0,310.0" id="vl_Wire11"/>
+        <polyline class="wire wire_vl" points="60.0,335.0,70.0,335.0" id="vl_Wire12"/>
+        <polyline class="wire wire_vl" points="70.0,335.0,70.0,335.0" id="vl_Wire13"/>
+        <polyline class="wire wire_vl" points="70.0,335.0,95.0,335.0" id="vl_Wire14"/>
+        <polyline class="wire wire_vl" points="130.0,335.0,120.0,335.0" id="vl_Wire15"/>
+        <polyline class="wire wire_vl" points="120.0,335.0,120.0,335.0" id="vl_Wire16"/>
+        <polyline class="wire wire_vl" points="120.0,335.0,95.0,335.0" id="vl_Wire17"/>
+        <g id="LABEL_VL_vl">
+            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
+        </g>
+    </g>
+</svg>

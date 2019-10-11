@@ -1,0 +1,29 @@
+# Maven projects
+cgmes-dl/target
+cgmes-dl/cgmes-dl-conversion/target
+cgmes-dl/cgmes-iidm-extensions/target
+cgmes-gl/target
+cgmes-gl/cgmes-gl-conversion/target
+cgmes-gl/cgmes-gl-iidm-extensions/target
+substation-diagram/substation-diagram-cgmes/target
+substation-diagram/substation-diagram-core/target
+substation-diagram/substation-diagram-util/target
+substation-diagram/substation-diagram-view/target
+substation-diagram/target
+substation-webviewer/target
+target
+
+# IntelliJ
+/.idea
+*.iml
+
+# Compilation settings
+install.cfg
+
+# Eclipse projects
+.classpath
+.project
+org.eclipse.core.resources.prefs
+org.eclipse.jdt.core.prefs
+org.eclipse.m2e.core.prefs
+org.eclipse.jdt.groovy.core.prefs

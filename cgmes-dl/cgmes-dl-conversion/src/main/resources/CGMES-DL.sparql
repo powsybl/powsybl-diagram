@@ -1,0 +1,281 @@
+#
+# Copyright (c) 2019, RTE (http://www.rte-france.com)
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+
+# query: terminalDiagramData
+SELECT ?terminalEquipment ?terminalSide ?x ?y ?seq ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:Terminal ;
+        cim:ACDCTerminal.sequenceNumber ?terminalSide ;
+        cim:Terminal.ConductingEquipment ?terminalEquipment .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+
+# query: busDiagramData
+SELECT ?identifiedObject ?name ?voltageLevel ?vlname ?x ?y ?seq ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:TopologicalNode ;
+        cim:IdentifiedObject.name ?name ;
+        cim:TopologicalNode.ConnectivityNodeContainer ?voltageLevel .
+    ?voltageLevel
+        a cim:VoltageLevel ;
+        cim:IdentifiedObject.name ?vlname .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: busbarDiagramData
+SELECT ?busbarSection ?name ?x ?y ?seq ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:ConnectivityNode .
+    ?terminal
+        a cim:Terminal ;
+        cim:Terminal.ConnectivityNode ?identifiedObject ;
+        cim:Terminal.ConductingEquipment ?busbarSection .
+    ?busbarSection
+        a cim:BusbarSection ;
+        cim:IdentifiedObject.name ?name .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: lineDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a ?type ;
+        cim:IdentifiedObject.name ?name .
+    VALUES ?type { cim:ACLineSegment cim:SeriesCompensator } .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: generatorDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a ?type ;
+        cim:IdentifiedObject.name ?name .
+    VALUES ?type { cim:SynchronousMachine cim:ExternalNetworkInjection cim:EquivalentInjection } .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: loadDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a ?type ;
+        cim:IdentifiedObject.name ?name .
+    VALUES ?type { cim:EnergyConsumer cim:AsynchronousMachine cim:ConformLoad cim:NonConformLoad } .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: shuntDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a ?type ;
+        cim:IdentifiedObject.name ?name .
+    VALUES ?type { cim:LinearShuntCompensator cim:NonlinearShuntCompensator } .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: svcDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:StaticVarCompensator ;
+        cim:IdentifiedObject.name ?name .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: switchDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a ?type ;
+        cim:IdentifiedObject.name ?name .
+    VALUES ?type { cim:Breaker cim:Disconnector } .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: transformerDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.rotation ?rotation ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:PowerTransformer ;
+        cim:IdentifiedObject.name ?name .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: hvdcLineDiagramData
+SELECT ?identifiedObject ?name ?x ?y ?seq ?diagramName
+{
+    ?diagramObject
+        a cim:DiagramObject ;
+        cim:DiagramObject.IdentifiedObject ?identifiedObject ;
+        cim:DiagramObject.Diagram ?diagram .
+    ?identifiedObject
+        a cim:DCLineSegment ;
+        cim:IdentifiedObject.name ?name .
+    ?diagramObjectPoint
+        a cim:DiagramObjectPoint ;
+        cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
+        cim:DiagramObjectPoint.sequenceNumber ?seq ;
+        cim:DiagramObjectPoint.xPosition ?x ;
+        cim:DiagramObjectPoint.yPosition ?y .
+    ?diagram
+        a cim:Diagram ;
+        cim:IdentifiedObject.name ?diagramName .
+}
+
+# query: terminals
+SELECT ?terminal ?terminalSide ?equipment
+{
+    ?terminal
+        a cim:Terminal ; 
+        cim:ACDCTerminal.sequenceNumber ?terminalSide ; 
+        cim:Terminal.ConductingEquipment ?equipment .
+}
+
+# query: busbarNodes
+SELECT ?busbarNode ?busbarSection 
+{ 
+    ?busbarNode 
+        a cim:ConnectivityNode .
+    ?terminal 
+        a cim:Terminal ; 
+        cim:Terminal.ConnectivityNode ?busbarNode ; 
+        cim:Terminal.ConductingEquipment ?busbarSection . 
+    ?busbarSection
+        a cim:BusbarSection . 
+}

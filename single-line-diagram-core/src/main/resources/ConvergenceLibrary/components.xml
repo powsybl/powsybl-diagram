@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<components>
+    <component>
+        <fileName>breaker.svg</fileName>
+        <metadata type="BREAKER">
+            <size width="20" height="20" />
+            <anchorPoint x="0" y="-10" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="10" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>load-break-switch.svg</fileName>
+        <metadata type="LOAD_BREAK_SWITCH">
+            <size width="10" height="10"/>
+            <anchorPoint x="0" y="-5" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="5" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>load.svg</fileName>
+        <metadata type="LOAD">
+            <size width="16" height="9"/>
+            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>generator.svg</fileName>
+        <metadata type="GENERATOR">
+            <size width="12" height="12"/>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <anchorPoint x="-6" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>2-windings-transformer.svg</fileName>
+        <metadata type="TWO_WINDINGS_TRANSFORMER">
+            <size width="13" height="8"/>
+            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <anchorPoint x="-6" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>3-windings-transformer.svg</fileName>
+        <metadata type="THREE_WINDINGS_TRANSFORMER">
+            <size width="14" height="12"/>
+            <anchorPoint x="-7" y="-4" orientation="HORIZONTAL"/>
+            <anchorPoint x="7" y="-4" orientation="HORIZONTAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>capacitor.svg</fileName>
+        <metadata type="CAPACITOR">
+            <size width="12" height="12"/>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>inductor.svg</fileName>
+        <metadata type="INDUCTOR">
+            <size width="15" height="9"/>
+            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>disconnector.svg</fileName>
+        <metadata type="DISCONNECTOR">
+            <size height="8" width="8"/>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>node.svg</fileName>
+        <metadata type="NODE">
+            <size height="8" width="8"/>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>phaseShift.svg</fileName>
+        <metadata type="PHASE_SHIFT_TRANSFORMER">
+            <size width="15" height="15"/>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>svc.svg</fileName>
+        <metadata type="STATIC_VAR_COMPENSATOR">
+            <size width="12" height="12"/>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>vsc.svg</fileName>
+        <metadata type="VSC_CONVERTER_STATION">
+            <size width="16" height="8"/>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+    <component>
+        <fileName>arrow.svg</fileName>
+        <metadata type="ARROW">
+            <size height="10" width="10"/>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+        </metadata>
+    </component>
+</components>

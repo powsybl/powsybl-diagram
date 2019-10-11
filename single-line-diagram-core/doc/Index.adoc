@@ -1,0 +1,23 @@
+= Substation diagram core conception
+Benoît Jeanson <benoit.jeanson at rte-france.com>
+:toc:
+
+== package `model`
+=== Build the `Graph`
+    The `VoltageLevel` elements are gathered into graphical components (`Node` and `Edge`) bundled into a `Graph`.
+
+= package `layout`
+include::CellDetector.adoc[]
+
+include::CellBlockDecomposer.adoc[]
+
+include::PositionFinder.adoc[]
+
+include::Subsections.adoc[]
+
+== Horizontal positioning of the cells and horizontal Bus dimension calculation
+
+== Build Layout into _coordinates_
+
+= package `svg`
+== Elaborate `svg`

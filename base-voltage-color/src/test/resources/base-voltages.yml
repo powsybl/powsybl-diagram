@@ -1,0 +1,13 @@
+baseVoltages:
+    - name: "400"
+      minValue: 300
+      maxValue: 500
+      color: "#BBBBBBB"
+      profile: "RTE"
+    - name: "225"
+      minValue: 180
+      maxValue: 300
+      color: "#AAAAAAA"
+      profile: "RTE"
+
+defaultProfile: "RTE"
