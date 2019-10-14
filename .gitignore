@@ -1,15 +1,12 @@
 # Maven projects
-cgmes-dl/target
-cgmes-dl/cgmes-dl-conversion/target
-cgmes-dl/cgmes-iidm-extensions/target
-cgmes-gl/target
-cgmes-gl/cgmes-gl-conversion/target
-cgmes-gl/cgmes-gl-iidm-extensions/target
-substation-diagram/substation-diagram-cgmes/target
-substation-diagram/substation-diagram-core/target
-substation-diagram/substation-diagram-util/target
-substation-diagram/substation-diagram-view/target
-substation-diagram/target
+single-line-diagram-cgmes/target
+single-line-diagram-cgmes/substation-diagram-cgmes-dl-conversion/target
+single-line-diagram-cgmes/substation-diagram-cgmes-dl-iidm-extensions/target
+single-line-diagram-cgmes/substation-diagram-cgmes-layout/target
+single-line-diagram-core/target
+single-line-diagram-util/target
+single-line-diagram-view/target
+single-line-diagram-view-app/target
 substation-webviewer/target
 target
 
