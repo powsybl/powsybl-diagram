@@ -137,6 +137,42 @@
             <line y2="0" x1="0" x2="30.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs2.2_NW_LABEL">bbs2.2</text>
         </g>
+        <g class="NODE FICT_vl_d1Fictif" id="FICT_vl_d1Fictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,266.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_d2Fictif" id="FICT_vl_d2Fictif" transform="matrix(0.0,1.0,-1.0,0.0,149.0,266.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds1fNode0" id="FICT_vl_ds1fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds1fNode1" id="FICT_vl_ds1fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,306.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds2fNode0" id="FICT_vl_ds2fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <g class="NODE FICT_vl_ds2fNode1" id="FICT_vl_ds2fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,331.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
+        <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="vl_Wire0"/>
+        <polyline class="wire wire_vl" points="145.0,335.0,145.0,335.0" id="vl_Wire1"/>
+        <polyline class="wire wire_vl" points="60.0,270.0,45.0,270.0" id="vl_Wire2"/>
+        <polyline class="wire wire_vl" points="45.0,310.0,45.0,270.0" id="vl_Wire3"/>
+        <polyline class="wire wire_vl" points="80.0,270.0,145.0,270.0" id="vl_Wire4"/>
+        <polyline class="wire wire_vl" points="145.0,335.0,145.0,270.0" id="vl_Wire5"/>
+        <polyline class="wire wire_vl" points="60.0,310.0,70.0,310.0" id="vl_Wire6"/>
+        <polyline class="wire wire_vl" points="70.0,310.0,70.0,310.0" id="vl_Wire7"/>
+        <polyline class="wire wire_vl" points="70.0,310.0,95.0,310.0" id="vl_Wire8"/>
+        <polyline class="wire wire_vl" points="130.0,310.0,120.0,310.0" id="vl_Wire9"/>
+        <polyline class="wire wire_vl" points="120.0,310.0,120.0,310.0" id="vl_Wire10"/>
+        <polyline class="wire wire_vl" points="120.0,310.0,95.0,310.0" id="vl_Wire11"/>
+        <polyline class="wire wire_vl" points="60.0,335.0,70.0,335.0" id="vl_Wire12"/>
+        <polyline class="wire wire_vl" points="70.0,335.0,70.0,335.0" id="vl_Wire13"/>
+        <polyline class="wire wire_vl" points="70.0,335.0,95.0,335.0" id="vl_Wire14"/>
+        <polyline class="wire wire_vl" points="130.0,335.0,120.0,335.0" id="vl_Wire15"/>
+        <polyline class="wire wire_vl" points="120.0,335.0,120.0,335.0" id="vl_Wire16"/>
+        <polyline class="wire wire_vl" points="120.0,335.0,95.0,335.0" id="vl_Wire17"/>
         <g class="DISCONNECTOR d1" id="d1" transform="translate(41.0,306.0)">
     <g class="closed" id="d1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
@@ -165,7 +201,7 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
-        <g class="DISCONNECTOR ds1" id="ds1" transform="matrix(0.0,1.0,-1.0,0.0,99.0,306.0)">
+        <g class="DISCONNECTOR ds1" id="ds1" transform="translate(91.0,306.0)">
     <g class="closed" id="ds1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -174,7 +210,7 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
-        <g class="DISCONNECTOR ds2" id="ds2" transform="matrix(0.0,1.0,-1.0,0.0,99.0,331.0)">
+        <g class="DISCONNECTOR ds2" id="ds2" transform="translate(91.0,331.0)">
     <g class="closed" id="ds2_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -183,54 +219,18 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
-        <g class="NODE FICT_vl_d1Fictif" id="FICT_vl_d1Fictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,266.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
-        <g class="NODE FICT_vl_d2Fictif" id="FICT_vl_d2Fictif" transform="matrix(0.0,1.0,-1.0,0.0,149.0,266.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
         <g class="NODE ds1fSwitch0" id="ds1fSwitch0" transform="translate(66.0,306.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
-        <g class="NODE FICT_vl_ds1fNode0" id="FICT_vl_ds1fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,306.0)">
     <circle r="4" cx="4" cy="4"/>
 </g>
         <g class="NODE ds1fSwitch1" id="ds1fSwitch1" transform="translate(116.0,306.0)">
     <circle r="4" cx="4" cy="4"/>
 </g>
-        <g class="NODE FICT_vl_ds1fNode1" id="FICT_vl_ds1fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,306.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
         <g class="NODE ds2fSwitch0" id="ds2fSwitch0" transform="translate(66.0,331.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
-        <g class="NODE FICT_vl_ds2fNode0" id="FICT_vl_ds2fNode0" transform="matrix(0.0,1.0,-1.0,0.0,74.0,331.0)">
     <circle r="4" cx="4" cy="4"/>
 </g>
         <g class="NODE ds2fSwitch1" id="ds2fSwitch1" transform="translate(116.0,331.0)">
     <circle r="4" cx="4" cy="4"/>
 </g>
-        <g class="NODE FICT_vl_ds2fNode1" id="FICT_vl_ds2fNode1" transform="matrix(0.0,1.0,-1.0,0.0,124.0,331.0)">
-    <circle r="4" cx="4" cy="4"/>
-</g>
-        <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="vl_Wire0"/>
-        <polyline class="wire wire_vl" points="145.0,335.0,145.0,335.0" id="vl_Wire1"/>
-        <polyline class="wire wire_vl" points="60.0,270.0,45.0,270.0" id="vl_Wire2"/>
-        <polyline class="wire wire_vl" points="45.0,310.0,45.0,270.0" id="vl_Wire3"/>
-        <polyline class="wire wire_vl" points="80.0,270.0,145.0,270.0" id="vl_Wire4"/>
-        <polyline class="wire wire_vl" points="145.0,335.0,145.0,270.0" id="vl_Wire5"/>
-        <polyline class="wire wire_vl" points="60.0,310.0,70.0,310.0" id="vl_Wire6"/>
-        <polyline class="wire wire_vl" points="70.0,310.0,70.0,310.0" id="vl_Wire7"/>
-        <polyline class="wire wire_vl" points="70.0,310.0,95.0,310.0" id="vl_Wire8"/>
-        <polyline class="wire wire_vl" points="130.0,310.0,120.0,310.0" id="vl_Wire9"/>
-        <polyline class="wire wire_vl" points="120.0,310.0,120.0,310.0" id="vl_Wire10"/>
-        <polyline class="wire wire_vl" points="120.0,310.0,95.0,310.0" id="vl_Wire11"/>
-        <polyline class="wire wire_vl" points="60.0,335.0,70.0,335.0" id="vl_Wire12"/>
-        <polyline class="wire wire_vl" points="70.0,335.0,70.0,335.0" id="vl_Wire13"/>
-        <polyline class="wire wire_vl" points="70.0,335.0,95.0,335.0" id="vl_Wire14"/>
-        <polyline class="wire wire_vl" points="130.0,335.0,120.0,335.0" id="vl_Wire15"/>
-        <polyline class="wire wire_vl" points="120.0,335.0,120.0,335.0" id="vl_Wire16"/>
-        <polyline class="wire wire_vl" points="120.0,335.0,95.0,335.0" id="vl_Wire17"/>
         <g id="LABEL_VL_vl">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
         </g>

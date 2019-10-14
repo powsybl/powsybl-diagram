@@ -133,15 +133,6 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="l_N_LABEL">l</text>
         </g>
-        <g class="DISCONNECTOR b1_l" id="b1_l" transform="translate(41.0,306.0)">
-    <g class="closed" id="b1_l_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="b1_l_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
         <g class="NODE FICT_vl_b1_lFictif" id="FICT_vl_b1_lFictif" transform="translate(41.0,276.0)">
     <circle r="4" cx="4" cy="4"/>
 </g>
@@ -166,6 +157,15 @@
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
         </g>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,280.0" id="vl_Wire2"/>
+        <g class="DISCONNECTOR b1_l" id="b1_l" transform="translate(41.0,306.0)">
+    <g class="closed" id="b1_l_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="b1_l_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
         <g id="LABEL_VL_vl">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
         </g>

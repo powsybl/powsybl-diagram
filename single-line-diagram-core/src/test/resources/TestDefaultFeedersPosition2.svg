@@ -263,145 +263,13 @@
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="gen2__LABEL">gen2</text>
         </g>
         <g class="NODE FICT_vl1_14" id="FICT_vl1_14" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dsect11" id="dsect11" transform="translate(15.0,45.0)">
-    <g class="closed" id="dsect11_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dsect11_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_15" id="FICT_vl1_15" transform="translate(15.0,45.0)"/>
-        <g class="BREAKER dtrct11" id="dtrct11" transform="translate(9.0,39.0)">
-    <g class="closed" id="dtrct11_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="dtrct11_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR dsect12" id="dsect12" transform="translate(15.0,45.0)">
-    <g class="closed" id="dsect12_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dsect12_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_16" id="FICT_vl1_16" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dsect21" id="dsect21" transform="translate(15.0,45.0)">
-    <g class="closed" id="dsect21_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dsect21_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_17" id="FICT_vl1_17" transform="translate(15.0,45.0)"/>
-        <g class="BREAKER dtrct21" id="dtrct21" transform="translate(9.0,39.0)">
-    <g class="closed" id="dtrct21_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="dtrct21_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR dsect22" id="dsect22" transform="translate(15.0,45.0)">
-    <g class="closed" id="dsect22_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dsect22_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_5" id="FICT_vl1_5" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dload1" id="dload1" transform="translate(15.0,45.0)">
-    <g class="closed" id="dload1_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dload1_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER bload1" id="bload1" transform="translate(9.0,39.0)">
-    <g class="closed" id="bload1_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="bload1_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_7" id="FICT_vl1_7" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dgen1" id="dgen1" transform="translate(15.0,45.0)">
-    <g class="closed" id="dgen1_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dgen1_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER bgen1" id="bgen1" transform="translate(9.0,39.0)">
-    <g class="closed" id="bgen1_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="bgen1_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_9" id="FICT_vl1_9" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dload2" id="dload2" transform="translate(15.0,45.0)">
-    <g class="closed" id="dload2_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dload2_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER bload2" id="bload2" transform="translate(9.0,39.0)">
-    <g class="closed" id="bload2_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="bload2_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE FICT_vl1_11" id="FICT_vl1_11" transform="translate(15.0,45.0)"/>
-        <g class="DISCONNECTOR dgen2" id="dgen2" transform="translate(15.0,45.0)">
-    <g class="closed" id="dgen2_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="dgen2_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER bgen2" id="bgen2" transform="translate(9.0,39.0)">
-    <g class="closed" id="bgen2_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="bgen2_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="vl1_Wire0"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="vl1_Wire1"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,39.0" id="vl1_Wire2"/>
@@ -502,6 +370,138 @@
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl1" points="19.0,39.0,19.0,49.0" id="vl1_Wire27"/>
+        <g class="DISCONNECTOR dsect11" id="dsect11" transform="translate(15.0,45.0)">
+    <g class="closed" id="dsect11_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dsect11_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER dtrct11" id="dtrct11" transform="translate(9.0,39.0)">
+    <g class="closed" id="dtrct11_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="dtrct11_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dsect12" id="dsect12" transform="translate(15.0,45.0)">
+    <g class="closed" id="dsect12_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dsect12_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dsect21" id="dsect21" transform="translate(15.0,45.0)">
+    <g class="closed" id="dsect21_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dsect21_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER dtrct21" id="dtrct21" transform="translate(9.0,39.0)">
+    <g class="closed" id="dtrct21_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="dtrct21_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dsect22" id="dsect22" transform="translate(15.0,45.0)">
+    <g class="closed" id="dsect22_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dsect22_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dload1" id="dload1" transform="translate(15.0,45.0)">
+    <g class="closed" id="dload1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dload1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER bload1" id="bload1" transform="translate(9.0,39.0)">
+    <g class="closed" id="bload1_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="bload1_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dgen1" id="dgen1" transform="translate(15.0,45.0)">
+    <g class="closed" id="dgen1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dgen1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER bgen1" id="bgen1" transform="translate(9.0,39.0)">
+    <g class="closed" id="bgen1_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="bgen1_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dload2" id="dload2" transform="translate(15.0,45.0)">
+    <g class="closed" id="dload2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dload2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER bload2" id="bload2" transform="translate(9.0,39.0)">
+    <g class="closed" id="bload2_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="bload2_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR dgen2" id="dgen2" transform="translate(15.0,45.0)">
+    <g class="closed" id="dgen2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="dgen2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER bgen2" id="bgen2" transform="translate(9.0,39.0)">
+    <g class="closed" id="bgen2_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="bgen2_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
         <g id="LABEL_VL_vl1">
             <text x="50.0" font-size="12" y="50.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>

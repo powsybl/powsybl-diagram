@@ -120,10 +120,10 @@
     <circle r="4" cx="4" cy="4"/>
 </g>
         <g id="CAPACITOR">
-    <line y2="3" x1="6" x2="6" y1="0"/>
-    <line y2="3" x1="0" x2="12" y1="3"/>
-    <line y2="6" x1="0" x2="12" y1="6"/>
-    <line y2="9" x1="6" x2="6" y1="6"/>
+    <line y2="4.5" x1="6" x2="6" y1="0"/>
+    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
+    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
+    <line y2="12" x1="6" x2="6" y1="7.5"/>
 </g>
         <g id="DISCONNECTOR">
     <g class="closed" id="DISCONNECTOR-closed">
@@ -214,54 +214,6 @@
         <g class="CAPACITOR self6" id="self6" transform="translate(854.0,584.0)">
             <use href="#CAPACITOR"/>
             <text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="self6_S_LABEL">self6</text>
-        </g>
-        <g class="DISCONNECTOR dload4" id="dload4" transform="translate(56.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bload4" id="bload4" transform="translate(50.0,145.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dself4" id="dself4" transform="translate(136.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bself4" id="bself4" transform="translate(130.0,455.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf25" id="dtrf25" transform="translate(216.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf25" id="btrf25" transform="translate(210.0,455.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf36" id="dtrf36" transform="translate(336.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf36" id="btrf36" transform="translate(330.0,186.66666666666669)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf37" id="dtrf37" transform="translate(496.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf37" id="btrf37" transform="translate(490.0,413.3333333333333)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf38" id="dtrf38" transform="translate(656.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf38" id="btrf38" transform="translate(650.0,186.66666666666669)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dself5" id="dself5" transform="translate(776.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bself5" id="bself5" transform="translate(770.0,455.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dself6" id="dself6" transform="translate(856.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bself6" id="bself6" transform="translate(850.0,455.0)">
-            <use href="#BREAKER-closed"/>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER FICT_vl3_trf63_fictif" id="FICT_vl3_trf63_fictif" transform="translate(333.0,107.33333333333334)">
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
@@ -432,6 +384,54 @@
         <polyline class="wire wire_vl3" points="780.0,310.0,780.0,340.0" id="vl3_Wire35"/>
         <polyline class="wire wire_vl3" points="860.0,455.0,860.0,340.0" id="vl3_Wire36"/>
         <polyline class="wire wire_vl3" points="860.0,310.0,860.0,340.0" id="vl3_Wire37"/>
+        <g class="DISCONNECTOR dload4" id="dload4" transform="translate(56.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bload4" id="bload4" transform="translate(50.0,145.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dself4" id="dself4" transform="translate(136.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bself4" id="bself4" transform="translate(130.0,455.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf25" id="dtrf25" transform="translate(216.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf25" id="btrf25" transform="translate(210.0,455.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf36" id="dtrf36" transform="translate(336.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf36" id="btrf36" transform="translate(330.0,186.66666666666669)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf37" id="dtrf37" transform="translate(496.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf37" id="btrf37" transform="translate(490.0,413.3333333333333)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf38" id="dtrf38" transform="translate(656.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf38" id="btrf38" transform="translate(650.0,186.66666666666669)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dself5" id="dself5" transform="translate(776.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bself5" id="bself5" transform="translate(770.0,455.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dself6" id="dself6" transform="translate(856.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bself6" id="bself6" transform="translate(850.0,455.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
         <g id="LABEL_VL_vl3">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
         </g>

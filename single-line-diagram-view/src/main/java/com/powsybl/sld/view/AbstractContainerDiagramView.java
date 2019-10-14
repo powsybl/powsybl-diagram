@@ -97,11 +97,10 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
         });
     }
 
-    private static void installHandlers(Node node, GraphMetadata metadata,
-                                        Map<String, WireHandler> wireHandlers,
-                                        Map<String, NodeHandler> nodeHandlers,
-                                        Map<String, VoltageLevelHandler> vlHandlers,
-                                        DisplayVoltageLevel displayVL) {
+    private static void installNodesHandlers(Node node, GraphMetadata metadata,
+                                             Map<String, NodeHandler> nodeHandlers,
+                                             Map<String, VoltageLevelHandler> vlHandlers,
+                                             DisplayVoltageLevel displayVL) {
         if (node == null) {
             return;
         }
@@ -116,20 +115,11 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
                 }
                 installNodeHandlers(node, metadata, nodeMetadata, nodeHandlers, vlHandlers, displayVL);
             }
-            GraphMetadata.WireMetadata wireMetadata = metadata.getWireMetadata(node.getId());
-            if (wireMetadata != null) {
-                installWireHandlers(node, metadata, wireMetadata, nodeHandlers, wireHandlers);
-            }
-            GraphMetadata.ArrowMetadata arrowMetadata = metadata.getArrowMetadata(node.getId());
-            if (arrowMetadata != null) {
-                WireHandler wireHandler = wireHandlers.get(arrowMetadata.getWireId());
-                wireHandler.addArrow((Group) node);
-            }
         }
 
         // propagate to children
         if (node instanceof Group) {
-            ((Group) node).getChildren().forEach(child -> installHandlers(child, metadata, wireHandlers, nodeHandlers, vlHandlers, displayVL));
+            ((Group) node).getChildren().forEach(child -> installNodesHandlers(child, metadata, nodeHandlers, vlHandlers, displayVL));
         }
     }
 
@@ -151,6 +141,31 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
             VoltageLevelHandler vlHandler = new VoltageLevelHandler(node, metadata, nodeMetadata.getVId());
             LOGGER.trace("Add handler to voltageLvel label {}", node.getId());
             vlHandlers.put(nodeMetadata.getVId(), vlHandler);
+        }
+    }
+
+    private static void installWiresHandlers(Node node, GraphMetadata metadata,
+                                             Map<String, WireHandler> wireHandlers,
+                                             Map<String, NodeHandler> nodeHandlers) {
+        if (node == null) {
+            return;
+        }
+
+        if (!StringUtils.isEmpty(node.getId())) {
+            GraphMetadata.WireMetadata wireMetadata = metadata.getWireMetadata(node.getId());
+            if (wireMetadata != null) {
+                installWireHandlers(node, metadata, wireMetadata, nodeHandlers, wireHandlers);
+            }
+            GraphMetadata.ArrowMetadata arrowMetadata = metadata.getArrowMetadata(node.getId());
+            if (arrowMetadata != null) {
+                WireHandler wireHandler = wireHandlers.get(arrowMetadata.getWireId());
+                wireHandler.addArrow((Group) node);
+            }
+        }
+
+        // propagate to children
+        if (node instanceof Group) {
+            ((Group) node).getChildren().forEach(child -> installWiresHandlers(child, metadata, wireHandlers, nodeHandlers));
         }
     }
 
@@ -181,7 +196,11 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
         Map<String, NodeHandler> nodeHandlers = new HashMap<>();
         Map<String, VoltageLevelHandler> vlHandlers = new HashMap<>();
 
-        installHandlers(node, metadata, wireHandlers, nodeHandlers, vlHandlers, displayVL);
+        // installing all nodeHandlers
+        installNodesHandlers(node, metadata, nodeHandlers, vlHandlers, displayVL);
+
+        // installing all wireHandlers
+        installWiresHandlers(node, metadata, wireHandlers, nodeHandlers);
 
         // resolve links
         for (WireHandler wireHandler : wireHandlers.values()) {
@@ -200,16 +219,17 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
         Group svgImage = null;
         try {
             svgImage = new SvgLoader().loadSvg(svgInputStream);
+
+            // load metadata
+            GraphMetadata metadata = GraphMetadata.parseJson(metadataInputStream);
+
+            // install node and wire handlers to allow diagram edition
+            installHandlers(svgImage, metadata, displayVL);
         } catch (Exception e) {
             // to feed the content of the 'SVG' and 'Metadata' tab, even if the
-            // svg diagram cannot be loaded by svg loader
+            // svg diagram cannot be loaded by svg loader, or if the handlers cannot be installed
+            LOGGER.warn("Error in loading svg image or installing handlers : {}", e.getMessage());
         }
-
-        // load metadata
-        GraphMetadata metadata = GraphMetadata.parseJson(metadataInputStream);
-
-        // install node and wire handlers to allow diagram edition
-        installHandlers(svgImage, metadata, displayVL);
 
         return svgImage;
     }

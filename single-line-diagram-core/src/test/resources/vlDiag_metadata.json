@@ -58,7 +58,8 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "GENERATOR",
     "id" : null,
@@ -82,7 +83,8 @@
     "size" : {
       "width" : 12.0,
       "height" : 12.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "ARROW",
     "id" : null,
@@ -94,7 +96,8 @@
     "size" : {
       "width" : 10.0,
       "height" : 10.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "LOAD",
     "id" : null,
@@ -110,7 +113,8 @@
     "size" : {
       "width" : 16.0,
       "height" : 9.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "NODE",
     "id" : null,
@@ -122,19 +126,8 @@
     "size" : {
       "width" : 8.0,
       "height" : 8.0
-    }
-  }, {
-    "type" : "DISCONNECTOR",
-    "id" : null,
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    } ],
-    "size" : {
-      "width" : 8.0,
-      "height" : 8.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "LINE",
     "id" : null,
@@ -146,7 +139,21 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    }
+    },
+    "allowRotation" : true
+  }, {
+    "type" : "DISCONNECTOR",
+    "id" : null,
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 8.0,
+      "height" : 8.0
+    },
+    "allowRotation" : true
   }, {
     "type" : "INDUCTOR",
     "id" : null,
@@ -162,7 +169,8 @@
     "size" : {
       "width" : 15.0,
       "height" : 9.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -186,7 +194,8 @@
     "size" : {
       "width" : 13.0,
       "height" : 8.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -206,7 +215,8 @@
     "size" : {
       "width" : 14.0,
       "height" : 12.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "BREAKER",
     "id" : null,
@@ -222,7 +232,8 @@
     "size" : {
       "width" : 20.0,
       "height" : 20.0
-    }
+    },
+    "allowRotation" : true
   } ],
   "nodes" : [ {
     "id" : "dtrct21",
@@ -558,15 +569,6 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "dtrf13",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : "DISCONNECTOR",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "FICT_vl1_dtrf17Fictif",
     "vid" : "vl1",
     "nextVId" : null,
@@ -585,6 +587,15 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
+    "id" : "dtrf13",
+    "vid" : "vl1",
+    "nextVId" : null,
+    "componentType" : "DISCONNECTOR",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false
+  }, {
     "id" : "dtrf14",
     "vid" : "vl1",
     "nextVId" : null,
@@ -595,6 +606,15 @@
     "vlabel" : false
   }, {
     "id" : "self4_trf6",
+    "vid" : "vl1",
+    "nextVId" : "vl3",
+    "componentType" : "INDUCTOR",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "TOP",
+    "vlabel" : false
+  }, {
+    "id" : "self4_trf8",
     "vid" : "vl1",
     "nextVId" : "vl3",
     "componentType" : "INDUCTOR",
@@ -619,15 +639,6 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
-    "id" : "self4_trf8",
-    "vid" : "vl1",
-    "nextVId" : "vl3",
-    "componentType" : "INDUCTOR",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "TOP",
     "vlabel" : false
   }, {
     "id" : "self4_trf7",
@@ -774,20 +785,20 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "btrf15",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : "BREAKER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "FICT_vl1_dsect12Fictif",
     "vid" : "vl1",
     "nextVId" : null,
     "componentType" : "NODE",
     "rotationAngle" : 90.0,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false
+  }, {
+    "id" : "btrf15",
+    "vid" : "vl1",
+    "nextVId" : null,
+    "componentType" : "BREAKER",
+    "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false
@@ -837,15 +848,6 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "btrf18",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : "BREAKER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "trf7_ONE_TWO",
     "vid" : "vl1",
     "nextVId" : "vl2",
@@ -853,6 +855,15 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "BOTTOM",
+    "vlabel" : false
+  }, {
+    "id" : "btrf18",
+    "vid" : "vl1",
+    "nextVId" : null,
+    "componentType" : "BREAKER",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
     "vlabel" : false
   } ],
   "wires" : [ {
