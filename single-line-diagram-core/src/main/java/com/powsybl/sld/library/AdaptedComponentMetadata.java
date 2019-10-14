@@ -32,6 +32,8 @@ public class AdaptedComponentMetadata {
 
     private ComponentSize size;
 
+    private boolean allowRotation;
+
     public String getType() {
         return type;
     }
@@ -62,5 +64,13 @@ public class AdaptedComponentMetadata {
 
     public void setAnchorPoints(List<AnchorPoint> anchorPoints) {
         this.anchorPoints = anchorPoints;
+    }
+
+    public boolean isAllowRotation() {
+        return allowRotation;
+    }
+
+    public void setAllowRotation(boolean allowRotation) {
+        this.allowRotation = allowRotation;
     }
 }

@@ -147,7 +147,8 @@ public class NodeHandler implements BaseNode {
         node.setOnMouseReleased(event -> {
             if (event.getScreenX() == screenX &&
                 event.getScreenY() == screenY &&
-                    componentType.equals(LINE) || componentType.equals(TWO_WINDINGS_TRANSFORMER)) {
+                    componentType != null &&
+                    (componentType.equals(LINE) || componentType.equals(TWO_WINDINGS_TRANSFORMER))) {
                 displayNextVoltageLevel();
             }
         });

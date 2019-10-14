@@ -224,69 +224,6 @@
             <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="trf4_TWO_N_LABEL">trf4</text>
         </g>
-        <g class="DISCONNECTOR dscpl1" id="dscpl1" transform="translate(56.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER ddcpl1" id="ddcpl1" transform="matrix(0.0,1.0,-1.0,0.0,110.0,260.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dscpl2" id="dscpl2" transform="translate(136.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="DISCONNECTOR dload3" id="dload3" transform="translate(216.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bload3" id="bload3" transform="translate(210.0,145.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dgen4" id="dgen4" transform="translate(376.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER bgen4" id="bgen4" transform="translate(370.0,480.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf21" id="dtrf21" transform="translate(296.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf21" id="btrf21" transform="translate(290.0,145.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf22" id="dtrf22" transform="translate(1016.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf22" id="btrf22" transform="translate(1010.0,480.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf23" id="dtrf23" transform="translate(1096.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf23" id="btrf23" transform="translate(1090.0,480.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf24" id="dtrf24" transform="translate(456.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf24" id="btrf24" transform="translate(450.0,145.0)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf26" id="dtrf26" transform="translate(736.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf26" id="btrf26" transform="translate(730.0,186.66666666666669)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf27" id="dtrf27" transform="translate(576.0,306.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf27" id="btrf27" transform="translate(570.0,186.66666666666669)">
-            <use href="#BREAKER-closed"/>
-        </g>
-        <g class="DISCONNECTOR dtrf28" id="dtrf28" transform="translate(896.0,331.0)">
-            <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g class="BREAKER btrf28" id="btrf28" transform="translate(890.0,438.3333333333333)">
-            <use href="#BREAKER-closed"/>
-        </g>
         <g class="THREE_WINDINGS_TRANSFORMER FICT_vl2_trf62_fictif" id="FICT_vl2_trf62_fictif" transform="translate(733.0,107.33333333333334)">
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
@@ -476,6 +413,69 @@
         <polyline class="wire wire_vl2" points="740.0,335.0,740.0,280.0" id="vl2_Wire45"/>
         <polyline class="wire wire_vl2" points="900.0,438.3333333333333,900.0,365.0" id="vl2_Wire46"/>
         <polyline class="wire wire_vl2" points="900.0,335.0,900.0,365.0" id="vl2_Wire47"/>
+        <g class="DISCONNECTOR dscpl1" id="dscpl1" transform="translate(56.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER ddcpl1" id="ddcpl1" transform="matrix(0.0,1.0,-1.0,0.0,110.0,260.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dscpl2" id="dscpl2" transform="translate(136.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="DISCONNECTOR dload3" id="dload3" transform="translate(216.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bload3" id="bload3" transform="translate(210.0,145.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dgen4" id="dgen4" transform="translate(376.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER bgen4" id="bgen4" transform="translate(370.0,480.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf21" id="dtrf21" transform="translate(296.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf21" id="btrf21" transform="translate(290.0,145.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf22" id="dtrf22" transform="translate(1016.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf22" id="btrf22" transform="translate(1010.0,480.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf23" id="dtrf23" transform="translate(1096.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf23" id="btrf23" transform="translate(1090.0,480.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf24" id="dtrf24" transform="translate(456.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf24" id="btrf24" transform="translate(450.0,145.0)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf26" id="dtrf26" transform="translate(736.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf26" id="btrf26" transform="translate(730.0,186.66666666666669)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf27" id="dtrf27" transform="translate(576.0,306.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf27" id="btrf27" transform="translate(570.0,186.66666666666669)">
+            <use href="#BREAKER-closed"/>
+        </g>
+        <g class="DISCONNECTOR dtrf28" id="dtrf28" transform="translate(896.0,331.0)">
+            <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="BREAKER btrf28" id="btrf28" transform="translate(890.0,438.3333333333333)">
+            <use href="#BREAKER-closed"/>
+        </g>
         <g id="LABEL_VL_vl2">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl2</text>
         </g>

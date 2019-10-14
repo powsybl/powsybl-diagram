@@ -121,25 +121,6 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="network2_l_N_LABEL">l</text>
         </g>
-        <g class="DISCONNECTOR network2_d" id="network2_d" transform="translate(41.0,306.0)">
-    <g class="closed" id="network2_d_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="network2_d_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER network2_b" id="network2_b" transform="translate(35.0,145.0)">
-    <g class="closed" id="network2_b_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="network2_b_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE network2_FICT_vl_dFictif" id="network2_FICT_vl_dFictif" transform="translate(41.0,276.0)"/>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="network2_vl_Wire0"/>
         <polyline class="wire wire_vl" points="45.0,145.0,45.0,34.0" id="network2_vl_Wire1"/>
@@ -163,6 +144,25 @@
         </g>
         <polyline class="wire wire_vl" points="45.0,165.0,45.0,280.0" id="network2_vl_Wire2"/>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,280.0" id="network2_vl_Wire3"/>
+        <g class="DISCONNECTOR network2_d" id="network2_d" transform="translate(41.0,306.0)">
+    <g class="closed" id="network2_d_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="network2_d_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER network2_b" id="network2_b" transform="translate(35.0,145.0)">
+    <g class="closed" id="network2_b_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="network2_b_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
         <g id="network2_LABEL_VL_vl">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
         </g>

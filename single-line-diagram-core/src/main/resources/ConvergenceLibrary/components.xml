@@ -6,6 +6,7 @@
             <size width="20" height="20" />
             <anchorPoint x="0" y="-10" orientation="VERTICAL"/>
             <anchorPoint x="0" y="10" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -14,6 +15,7 @@
             <size width="10" height="10"/>
             <anchorPoint x="0" y="-5" orientation="VERTICAL"/>
             <anchorPoint x="0" y="5" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -22,6 +24,7 @@
             <size width="16" height="9"/>
             <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
             <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -32,6 +35,7 @@
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
             <anchorPoint x="-6" y="0" orientation="HORIZONTAL"/>
             <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -42,6 +46,7 @@
             <anchorPoint x="0" y="4" orientation="VERTICAL"/>
             <anchorPoint x="-6" y="0" orientation="HORIZONTAL"/>
             <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -51,6 +56,7 @@
             <anchorPoint x="-7" y="-4" orientation="HORIZONTAL"/>
             <anchorPoint x="7" y="-4" orientation="HORIZONTAL"/>
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -59,6 +65,7 @@
             <size width="12" height="12"/>
             <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -67,6 +74,7 @@
             <size width="15" height="9"/>
             <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
             <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -74,6 +82,7 @@
         <metadata type="DISCONNECTOR">
             <size height="8" width="8"/>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>false</allowRotation>
         </metadata>
     </component>
     <component>
@@ -81,6 +90,7 @@
         <metadata type="NODE">
             <size height="8" width="8"/>
             <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -89,6 +99,7 @@
             <size width="15" height="15"/>
             <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -97,6 +108,7 @@
             <size width="12" height="12"/>
             <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -105,6 +117,7 @@
             <size width="16" height="8"/>
             <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
             <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
     <component>
@@ -112,6 +125,7 @@
         <metadata type="ARROW">
             <size height="10" width="10"/>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
         </metadata>
     </component>
 </components>

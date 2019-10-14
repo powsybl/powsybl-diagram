@@ -30,15 +30,19 @@ public class ComponentMetadata {
 
     private final ComponentSize size;
 
+    private boolean allowRotation;
+
     @JsonCreator
     public ComponentMetadata(@JsonProperty("type") String type,
                              @JsonProperty("id") String id,
                              @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
-                             @JsonProperty("size") ComponentSize size) {
+                             @JsonProperty("size") ComponentSize size,
+                             @JsonProperty("allowRotation") boolean allowRotation) {
         this.type = Objects.requireNonNull(type);
         this.id = id;
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNull(anchorPoints));
         this.size = Objects.requireNonNull(size);
+        this.allowRotation = allowRotation;
     }
 
     public String getType() {
@@ -55,5 +59,9 @@ public class ComponentMetadata {
 
     public List<AnchorPoint> getAnchorPoints() {
         return anchorPoints;
+    }
+
+    public boolean isAllowRotation() {
+        return allowRotation;
     }
 }

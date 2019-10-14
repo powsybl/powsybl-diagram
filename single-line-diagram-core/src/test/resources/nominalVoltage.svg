@@ -232,25 +232,6 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="l_N_LABEL">l</text>
         </g>
-        <g class="DISCONNECTOR d" id="d" transform="translate(91.0,356.0)">
-    <g class="closed" id="d_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="d_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER b" id="b" transform="translate(85.0,195.0)">
-    <g class="closed" id="b_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="b_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE FICT_vl_dFictif" id="FICT_vl_dFictif" transform="translate(91.0,326.0)"/>
         <polyline class="wire wire_vl" points="95.0,360.0,95.0,360.0" id="vl_Wire0"/>
         <polyline class="wire wire_vl" points="95.0,195.0,95.0,84.0" id="vl_Wire1"/>
@@ -274,6 +255,25 @@
         </g>
         <polyline class="wire wire_vl" points="95.0,215.0,95.0,330.0" id="vl_Wire2"/>
         <polyline class="wire wire_vl" points="95.0,360.0,95.0,330.0" id="vl_Wire3"/>
+        <g class="DISCONNECTOR d" id="d" transform="translate(91.0,356.0)">
+    <g class="closed" id="d_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="d_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER b" id="b" transform="translate(85.0,195.0)">
+    <g class="closed" id="b_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="b_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
         <g id="LABEL_VL_vl">
             <text x="50.0" font-size="12" y="50.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
         </g>
