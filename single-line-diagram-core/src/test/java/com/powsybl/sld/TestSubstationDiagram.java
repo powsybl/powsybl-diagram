@@ -15,6 +15,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.SVGWriter;
 import org.junit.Before;
@@ -53,6 +54,7 @@ public class TestSubstationDiagram extends AbstractTestCase {
     @Before
     public void setUp() throws IOException {
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
@@ -73,11 +75,10 @@ public class TestSubstationDiagram extends AbstractTestCase {
     public void test() throws IOException {
         ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
         LayoutParameters layoutParameters = new LayoutParameters();
-        VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory();
-        SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
         Path outSvg = tmpDir.resolve("sub.svg");
 
-        SubstationDiagram.build(substation).writeSvg("", componentLibrary, layoutParameters, network, outSvg);
+        SubstationDiagram.build(graphBuilder, substation.getId())
+                .writeSvg("", componentLibrary, layoutParameters, new DefaultDiagramInitialValueProvider(network), outSvg);
         String svgStr = normalizeLineSeparator(new String(Files.readAllBytes(outSvg), StandardCharsets.UTF_8));
 
 //        FileWriter fw = new FileWriter(System.getProperty("user.home") + "/TestSubstation.svg");
@@ -99,7 +100,8 @@ public class TestSubstationDiagram extends AbstractTestCase {
 
         Path outSvg = tmpDir.resolve("sub.svg");
 
-        SubstationDiagram.build(substation).writeSvg("", writer, network, outSvg);
+        SubstationDiagram.build(graphBuilder, substation.getId())
+                .writeSvg("", writer, new DefaultDiagramInitialValueProvider(network), outSvg);
         String svgStr = normalizeLineSeparator(new String(Files.readAllBytes(outSvg), StandardCharsets.UTF_8));
 
         String refSvg = normalizeLineSeparator(

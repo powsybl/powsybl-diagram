@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
@@ -23,12 +24,15 @@ public abstract class AbstractCgmesVoltageLevelLayoutTest {
 
     protected static final String DIAGRAM_NAME = "default";
 
+    protected NetworkGraphBuilder graphBuilder;
+
     protected void test(VoltageLevel vl) {
-        Graph graph = Graph.create(vl);
+        graphBuilder = new NetworkGraphBuilder(vl.getNetwork());
+        Graph graph = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);
-        new CgmesVoltageLevelLayout(graph).run(layoutParameters);
+        new CgmesVoltageLevelLayout(graph, vl.getNetwork()).run(layoutParameters);
         checkGraph(graph);
         checkCoordinates(graph);
     }

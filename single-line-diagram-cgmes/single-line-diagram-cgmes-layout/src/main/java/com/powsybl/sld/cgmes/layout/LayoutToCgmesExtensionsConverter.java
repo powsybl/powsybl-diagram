@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.iidm.network.*;
@@ -85,21 +86,23 @@ public class LayoutToCgmesExtensionsConverter {
         return diagramData;
     }
 
-    private LayoutInfo applyLayout(Substation substation, double xoffset, double yoffset, String diagramName) {
+    private LayoutInfo applyLayout(Network network, String substationId, double xoffset, double yoffset, String diagramName) {
         OffsetPoint offsetPoint = new OffsetPoint(xoffset, yoffset);
 
         //apply the specified layout
-        SubstationGraph sgraph = SubstationGraph.create(substation, showNames);
+        NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(network);
+        SubstationGraph sgraph = graphBuilder.buildSubstationGraph(substationId, showNames);
         SubstationLayout sLayout = sFactory.create(sgraph, vFactory);
         sLayout.run(lparams);
 
         LayoutInfo subsBoundary = new LayoutInfo(0.0, 0.0);
+        Substation substation = network.getSubstation(substationId);
         substation.getVoltageLevelStream().forEach(voltageLevel -> {
             Graph vlGraph = sgraph.getNode(voltageLevel.getId());
 
             // remove fictitious nodes&switches (no CGMES DL data available for them)
             vlGraph.removeUnnecessaryFictitiousNodes();
-            vlGraph.removeFictitiousSwitchNodes();
+            AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
@@ -176,7 +179,7 @@ public class LayoutToCgmesExtensionsConverter {
                 switch (node.getComponentType()) {
                     case LINE:
                         FeederNode lineNode = (FeederNode) node;
-                        Line line = vlGraph.getVoltageLevel().getConnectable(getBranchId(lineNode.getId()), Line.class);
+                        Line line = voltageLevel.getConnectable(getBranchId(lineNode.getId()), Line.class);
                         if (line != null) {
                             LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
                             int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;
@@ -189,7 +192,7 @@ public class LayoutToCgmesExtensionsConverter {
                         break;
                     case DANGLING_LINE:
                         FeederNode danglingLineNode = (FeederNode) node;
-                        DanglingLine danglingLine = vlGraph.getVoltageLevel().getConnectable(danglingLineNode.getId(), DanglingLine.class);
+                        DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
                         if (danglingLine != null) {
                             LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
                             int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
@@ -247,8 +250,8 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER) &&
-            (((node instanceof Fictitious3WTNode) && ((Fictitious3WTNode) node).getTransformer().getId().equals(threeWindingsTransformer.getId()))
-                || ((node instanceof Feeder3WTNode) && ((Feeder3WTNode) node).getTransformer().getId().equals(threeWindingsTransformer.getId())));
+            (((node instanceof Fictitious3WTNode) && ((Fictitious3WTNode) node).getTransformerId().equals(threeWindingsTransformer.getId()))
+                || ((node instanceof Feeder3WTNode) && ((Feeder3WTNode) node).getTransformerId().equals(threeWindingsTransformer.getId())));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
@@ -269,7 +272,7 @@ public class LayoutToCgmesExtensionsConverter {
         final double[] xoffset = {0.0};
         subsStream.forEach(s -> {
             LOG.debug("Substation {}({} offset: {})", s.getId(), s.getName(), xoffset[0]);
-            LayoutInfo li = applyLayout(s, xoffset[0], 0.0, diagramName);
+            LayoutInfo li = applyLayout(network, s.getId(), xoffset[0], 0.0, diagramName);
             xoffset[0] += OFFSET_MULTIPLIER_X * li.getMaxX();
         });
     }
@@ -280,7 +283,7 @@ public class LayoutToCgmesExtensionsConverter {
             String subDiagramName = StringUtils.isEmpty(s.getName()) ? s.getId() : s.getName();
             NetworkDiagramData.addDiagramName(network, subDiagramName);
             LOG.debug("Substation {}", subDiagramName);
-            applyLayout(s, 0.0, 0.0, subDiagramName);
+            applyLayout(network, s.getId(), 0.0, 0.0, subDiagramName);
         });
     }
 

@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.DanglingLine;
@@ -56,6 +59,7 @@ import com.powsybl.sld.model.Node.NodeType;
 public abstract class AbstractCgmesLayout {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCgmesLayout.class);
+
     protected static final double X_MARGIN = 20;
     protected static final double Y_MARGIN = 10;
     protected static final double LINE_OFFSET = 20;
@@ -66,6 +70,8 @@ public abstract class AbstractCgmesLayout {
     protected boolean isNodeBreaker = true;
     protected boolean fixTransformersLabel = false;
 
+    protected Network network;
+
     protected void setMin(double x, double y) {
         if (minX == 0 || x < minX) {
             minX = x;
@@ -75,49 +81,49 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected Graph removeFictitiousNodes(Graph graph) {
+    protected Graph removeFictitiousNodes(Graph graph, VoltageLevel vl) {
         graph.removeUnnecessaryFictitiousNodes();
-        graph.removeFictitiousSwitchNodes();
+        removeFictitiousSwitchNodes(graph, vl);
         return graph;
     }
 
-    protected void setNodeCoordinates(Graph graph, String diagramName) {
-        isNodeBreaker = TopologyKind.NODE_BREAKER.equals(graph.getVoltageLevel().getTopologyKind());
+    protected void setNodeCoordinates(VoltageLevel vl, Graph graph, String diagramName) {
+        isNodeBreaker = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind());
         // skip line nodes: I need the coordinates of the adjacent node to know which side of the line belongs to this voltage level
-        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(graph, node, diagramName));
+        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, graph, node, diagramName));
         // set line nodes coordinates: I use the coordinates of the adjacent node to know which side of the line belongs to this voltage level
-        graph.getNodes().stream().filter(this::isLineNode).forEach(node -> setLineNodeCoordinates(graph, node, diagramName));
+        graph.getNodes().stream().filter(this::isLineNode).forEach(node -> setLineNodeCoordinates(vl, graph, node, diagramName));
     }
 
     protected boolean isLineNode(Node node) {
         return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
-    protected void setNodeCoordinates(Graph graph, Node node, String diagramName) {
+    protected void setNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getType()) {
             case BUS:
                 BusNode busNode = (BusNode) node;
-                if (TopologyKind.NODE_BREAKER.equals(graph.getVoltageLevel().getTopologyKind())) {
-                    BusbarSection busbar = graph.getVoltageLevel().getConnectable(busNode.getId(), BusbarSection.class);
+                if (TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind())) {
+                    BusbarSection busbar = vl.getConnectable(busNode.getId(), BusbarSection.class);
                     NodeDiagramData<BusbarSection> busbarDiagramData = busbar != null ? busbar.getExtension(NodeDiagramData.class) : null;
                     setBusNodeCoordinates(busNode, busbarDiagramData, diagramName);
                 } else {
-                    Bus bus = graph.getVoltageLevel().getBusBreakerView().getBus(busNode.getId());
+                    Bus bus = vl.getBusBreakerView().getBus(busNode.getId());
                     NodeDiagramData<Bus> busDiagramData =  bus != null ? bus.getExtension(NodeDiagramData.class) : null;
                     setBusNodeCoordinates(busNode, busDiagramData, diagramName);
                 }
                 break;
             case SWITCH:
                 SwitchNode switchNode = (SwitchNode) node;
-                Switch sw = TopologyKind.NODE_BREAKER.equals(graph.getVoltageLevel().getTopologyKind()) ?
-                            graph.getVoltageLevel().getNodeBreakerView().getSwitch(switchNode.getId()) :
-                            graph.getVoltageLevel().getBusBreakerView().getSwitch(switchNode.getId());
+                Switch sw = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind()) ?
+                            vl.getNodeBreakerView().getSwitch(switchNode.getId()) :
+                            vl.getBusBreakerView().getSwitch(switchNode.getId());
                 CouplingDeviceDiagramData<Switch> switchDiagramData =  sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
                 break;
             case FEEDER:
-                setFeederNodeCoordinates(graph, node, diagramName);
+                setFeederNodeCoordinates(vl, graph, node, diagramName);
                 break;
             default:
                 break;
@@ -167,37 +173,37 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setFeederNodeCoordinates(Graph graph, Node node, String diagramName) {
+    protected void setFeederNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
         switch (node.getComponentType()) {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;
-                Load load = graph.getVoltageLevel().getConnectable(loadNode.getId(), Load.class);
+                Load load = vl.getConnectable(loadNode.getId(), Load.class);
                 InjectionDiagramData<Load> loadDiagramData = load != null ? load.getExtension(InjectionDiagramData.class) : null;
                 setInjectionNodeCoordinates(loadNode, loadDiagramData, true, diagramName);
                 break;
             case GENERATOR:
                 FeederNode generatorNode = (FeederNode) node;
-                Generator generator = graph.getVoltageLevel().getConnectable(generatorNode.getId(), Generator.class);
+                Generator generator = vl.getConnectable(generatorNode.getId(), Generator.class);
                 InjectionDiagramData<Generator> generatorDiagramData = generator != null ? generator.getExtension(InjectionDiagramData.class) : null;
                 setInjectionNodeCoordinates(generatorNode, generatorDiagramData, false, diagramName);
                 break;
             case CAPACITOR:
             case INDUCTOR:
                 FeederNode shuntNode = (FeederNode) node;
-                ShuntCompensator shunt = graph.getVoltageLevel().getConnectable(shuntNode.getId(), ShuntCompensator.class);
+                ShuntCompensator shunt = vl.getConnectable(shuntNode.getId(), ShuntCompensator.class);
                 InjectionDiagramData<ShuntCompensator> shuntDiagramData = shunt != null ? shunt.getExtension(InjectionDiagramData.class) : null;
                 setInjectionNodeCoordinates(shuntNode, shuntDiagramData, true, diagramName);
                 break;
             case STATIC_VAR_COMPENSATOR:
                 FeederNode svcNode = (FeederNode) node;
-                StaticVarCompensator svc = graph.getVoltageLevel().getConnectable(svcNode.getId(), StaticVarCompensator.class);
+                StaticVarCompensator svc = vl.getConnectable(svcNode.getId(), StaticVarCompensator.class);
                 InjectionDiagramData<StaticVarCompensator> svcDiagramData = svc != null ? svc.getExtension(InjectionDiagramData.class) : null;
                 setInjectionNodeCoordinates(svcNode, svcDiagramData, true, diagramName);
                 break;
             case TWO_WINDINGS_TRANSFORMER:
             case PHASE_SHIFT_TRANSFORMER:
                 FeederNode transformerNode = (FeederNode) node;
-                TwoWindingsTransformer transformer = graph.getVoltageLevel().getConnectable(getBranchId(transformerNode.getId()), TwoWindingsTransformer.class);
+                TwoWindingsTransformer transformer = vl.getConnectable(getBranchId(transformerNode.getId()), TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
@@ -207,7 +213,7 @@ public abstract class AbstractCgmesLayout {
                 break;
             case THREE_WINDINGS_TRANSFORMER:
                 FeederNode transformer3wNode = (FeederNode) node;
-                ThreeWindingsTransformer transformer3w = graph.getVoltageLevel().getConnectable(getBranchId(transformer3wNode.getId()), ThreeWindingsTransformer.class);
+                ThreeWindingsTransformer transformer3w = vl.getConnectable(getBranchId(transformer3wNode.getId()), ThreeWindingsTransformer.class);
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
                 if (transformer3w != null) {
                     transformer3wDiagramData = transformer3w.getExtension(ThreeWindingsTransformerDiagramData.class);
@@ -262,18 +268,18 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setLineNodeCoordinates(Graph graph, Node node, String diagramName) {
+    protected void setLineNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getComponentType()) {
             case LINE:
                 FeederNode lineNode = (FeederNode) node;
-                Line line = graph.getVoltageLevel().getConnectable(getBranchId(lineNode.getId()), Line.class);
+                Line line = vl.getConnectable(getBranchId(lineNode.getId()), Line.class);
                 LineDiagramData<Line> lineDiagramData = line != null ? line.getExtension(LineDiagramData.class) : null;
                 setLineNodeCoordinates(lineNode, lineDiagramData, diagramName);
                 break;
             case DANGLING_LINE:
                 FeederNode danglingLineNode = (FeederNode) node;
-                DanglingLine danglingLine = graph.getVoltageLevel().getConnectable(danglingLineNode.getId(), DanglingLine.class);
+                DanglingLine danglingLine = vl.getConnectable(danglingLineNode.getId(), DanglingLine.class);
                 LineDiagramData<DanglingLine> danglingLineDiagramData = danglingLine != null ? danglingLine.getExtension(LineDiagramData.class) : null;
                 setLineNodeCoordinates(danglingLineNode, danglingLineDiagramData, diagramName);
                 break;
@@ -341,4 +347,25 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
+    public static void removeFictitiousSwitchNodes(Graph graph, VoltageLevel vl) {
+        List<Node> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
+                .filter(node -> node.getType() == Node.NodeType.SWITCH)
+                .filter(node -> isFictitiousSwitchNode(node, vl))
+                .filter(node -> node.getAdjacentNodes().size() == 2)
+                .collect(Collectors.toList());
+        for (Node n : fictitiousSwithcNodesToRemove) {
+            Node node1 = n.getAdjacentNodes().get(0);
+            Node node2 = n.getAdjacentNodes().get(1);
+            LOG.info("Remove fictitious switch node between {} and {}", node1.getId(), node2.getId());
+            graph.removeNode(n);
+            graph.addEdge(node1, node2);
+        }
+    }
+
+    private static boolean isFictitiousSwitchNode(Node node, VoltageLevel vl) {
+        Switch sw = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind()) ?
+                vl.getNodeBreakerView().getSwitch(node.getId()) :
+                vl.getBusBreakerView().getSwitch(node.getId());
+        return sw == null || sw.isFictitious();
+    }
 }
