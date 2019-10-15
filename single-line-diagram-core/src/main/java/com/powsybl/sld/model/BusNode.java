@@ -6,9 +6,11 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
@@ -78,5 +80,19 @@ public class BusNode extends Node {
 
     public void setStructuralPosition(Position structuralPosition) {
         this.structuralPosition = structuralPosition;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeNumberField("pxWidth", pxWidth);
+        if (structuralPosition != null) {
+            generator.writeFieldName("structuralPosition");
+            structuralPosition.writeJsonContent(generator);
+        }
+        if (position != null) {
+            generator.writeFieldName("position");
+            position.writeJsonContent(generator);
+        }
     }
 }

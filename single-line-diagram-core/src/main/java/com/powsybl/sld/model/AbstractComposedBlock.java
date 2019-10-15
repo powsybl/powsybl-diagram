@@ -72,7 +72,7 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
 
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        generator.writeFieldName("nodes");
+        generator.writeFieldName("subBlocks");
         generator.writeStartArray();
         for (Block subBlock : subBlocks) {
             subBlock.writeJson(generator);

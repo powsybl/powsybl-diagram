@@ -15,6 +15,8 @@ import com.powsybl.sld.model.Graph;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -26,16 +28,8 @@ public class TestCase1BusBreaker extends AbstractTestCase {
     public void setUp() {
         network = Network.create("busBreakerTestCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.BUS_BREAKER)
-                .setNominalV(400)
-                .add();
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 400, 10);
         VoltageLevel.BusBreakerView view = vl.getBusBreakerView();
         view.newBus()
                 .setId("b1")
@@ -83,7 +77,7 @@ public class TestCase1BusBreaker extends AbstractTestCase {
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        // write SVG and compare to reference
-        compareSvg(g, layoutParameters, "/TestCase1BusBreaker.svg");
+        // write Json and compare to reference
+        assertEquals(toJson(g), toString("/TestCase1BusBreaker.json"));
     }
 }
