@@ -161,164 +161,12 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs8_NW_LABEL">bbs8</text>
         </g>
         <g class="CAPACITOR idself6" id="idself6" transform="translate(854.0,584.0)">
-    <line y2="3" x1="6" x2="6" y1="0"/>
-    <line y2="3" x1="0" x2="12" y1="3"/>
-    <line y2="6" x1="0" x2="12" y1="6"/>
-    <line y2="9" x1="6" x2="6" y1="6"/>
+    <line y2="4.5" x1="6" x2="6" y1="0"/>
+    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
+    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
+    <line y2="12" x1="6" x2="6" y1="7.5"/>
 <text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="self6_S_LABEL">self6</text>
         </g>
-        <g class="DISCONNECTOR iddload4" id="iddload4" transform="translate(56.0,306.0)">
-    <g class="closed" id="iddload4_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddload4_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbload4" id="idbload4" transform="translate(50.0,145.0)">
-    <g class="closed" id="idbload4_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbload4_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddself4" id="iddself4" transform="translate(136.0,306.0)">
-    <g class="closed" id="iddself4_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddself4_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbself4" id="idbself4" transform="translate(130.0,455.0)">
-    <g class="closed" id="idbself4_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbself4_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddtrf25" id="iddtrf25" transform="translate(216.0,306.0)">
-    <g class="closed" id="iddtrf25_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddtrf25_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbtrf25" id="idbtrf25" transform="translate(210.0,455.0)">
-    <g class="closed" id="idbtrf25_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbtrf25_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddtrf36" id="iddtrf36" transform="translate(336.0,306.0)">
-    <g class="closed" id="iddtrf36_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddtrf36_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbtrf36" id="idbtrf36" transform="translate(330.0,186.66666666666669)">
-    <g class="closed" id="idbtrf36_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbtrf36_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddtrf37" id="iddtrf37" transform="translate(496.0,306.0)">
-    <g class="closed" id="iddtrf37_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddtrf37_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbtrf37" id="idbtrf37" transform="translate(490.0,413.3333333333333)">
-    <g class="closed" id="idbtrf37_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbtrf37_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddtrf38" id="iddtrf38" transform="translate(656.0,306.0)">
-    <g class="closed" id="iddtrf38_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddtrf38_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbtrf38" id="idbtrf38" transform="translate(650.0,186.66666666666669)">
-    <g class="closed" id="idbtrf38_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbtrf38_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddself5" id="iddself5" transform="translate(776.0,306.0)">
-    <g class="closed" id="iddself5_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddself5_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbself5" id="idbself5" transform="translate(770.0,455.0)">
-    <g class="closed" id="idbself5_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbself5_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddself6" id="iddself6" transform="translate(856.0,306.0)">
-    <g class="closed" id="iddself6_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddself6_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbself6" id="idbself6" transform="translate(850.0,455.0)">
-    <g class="closed" id="idbself6_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbself6_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_trf63_95_fictif" id="idFICT_95_vl3_95_trf63_95_fictif" transform="translate(333.0,107.33333333333334)">
     <circle r="4" id="idFICT_95_vl3_95_trf63_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4"/>
     <circle r="4" id="idFICT_95_vl3_95_trf63_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="10" cy="4"/>
@@ -596,6 +444,158 @@
         <polyline class="wire wire_vl3" points="780.0,310.0,780.0,340.0" id="idvl3_95_Wire35"/>
         <polyline class="wire wire_vl3" points="860.0,455.0,860.0,340.0" id="idvl3_95_Wire36"/>
         <polyline class="wire wire_vl3" points="860.0,310.0,860.0,340.0" id="idvl3_95_Wire37"/>
+        <g class="DISCONNECTOR iddload4" id="iddload4" transform="translate(56.0,306.0)">
+    <g class="closed" id="iddload4_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddload4_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbload4" id="idbload4" transform="translate(50.0,145.0)">
+    <g class="closed" id="idbload4_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbload4_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddself4" id="iddself4" transform="translate(136.0,306.0)">
+    <g class="closed" id="iddself4_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddself4_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbself4" id="idbself4" transform="translate(130.0,455.0)">
+    <g class="closed" id="idbself4_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbself4_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddtrf25" id="iddtrf25" transform="translate(216.0,306.0)">
+    <g class="closed" id="iddtrf25_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddtrf25_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbtrf25" id="idbtrf25" transform="translate(210.0,455.0)">
+    <g class="closed" id="idbtrf25_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbtrf25_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddtrf36" id="iddtrf36" transform="translate(336.0,306.0)">
+    <g class="closed" id="iddtrf36_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddtrf36_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbtrf36" id="idbtrf36" transform="translate(330.0,186.66666666666669)">
+    <g class="closed" id="idbtrf36_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbtrf36_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddtrf37" id="iddtrf37" transform="translate(496.0,306.0)">
+    <g class="closed" id="iddtrf37_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddtrf37_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbtrf37" id="idbtrf37" transform="translate(490.0,413.3333333333333)">
+    <g class="closed" id="idbtrf37_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbtrf37_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddtrf38" id="iddtrf38" transform="translate(656.0,306.0)">
+    <g class="closed" id="iddtrf38_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddtrf38_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbtrf38" id="idbtrf38" transform="translate(650.0,186.66666666666669)">
+    <g class="closed" id="idbtrf38_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbtrf38_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddself5" id="iddself5" transform="translate(776.0,306.0)">
+    <g class="closed" id="iddself5_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddself5_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbself5" id="idbself5" transform="translate(770.0,455.0)">
+    <g class="closed" id="idbself5_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbself5_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddself6" id="iddself6" transform="translate(856.0,306.0)">
+    <g class="closed" id="iddself6_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddself6_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbself6" id="idbself6" transform="translate(850.0,455.0)">
+    <g class="closed" id="idbself6_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbself6_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
         <g id="LABEL_VL_vl3">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
         </g>

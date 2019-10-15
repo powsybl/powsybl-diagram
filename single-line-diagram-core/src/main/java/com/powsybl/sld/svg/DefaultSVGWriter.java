@@ -6,24 +6,37 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.commons.exceptions.UncheckedTransformerException;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
-import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
-import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.dom.GenericDOMImplementation;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.math3.util.Precision;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.*;
-import org.w3c.dom.svg.SVGElement;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW;
+import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -31,19 +44,46 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import org.apache.batik.anim.dom.SVGOMDocument;
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.util.Precision;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+import org.w3c.dom.svg.SVGElement;
+
+import com.powsybl.commons.exceptions.UncheckedTransformerException;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.AnchorOrientation;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.AnchorPointProvider;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentMetadata;
+import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.ExternCell;
+import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.FeederBranchNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
+import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -196,8 +236,11 @@ public class DefaultSVGWriter implements SVGWriter {
             shiftFeedersPosition(graph, layoutParameters.getScaleShiftFeedersPosition());
         }
 
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration);
+        // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
+        // then we draw all the edges, and finally we draw the switch nodes
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
         drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
 
         // the drawing of the voltageLevel graph label is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
@@ -341,8 +384,11 @@ public class DefaultSVGWriter implements SVGWriter {
                 shiftFeedersPosition(vlGraph, layoutParameters.getScaleShiftFeedersPosition());
             }
 
-            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration);
+            // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
+            // then we draw all the edges, and finally we draw the switch nodes
+            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
             drawEdges(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider);
+            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
         }
 
         drawSnakeLines(prefixId, root, graph, metadata);
@@ -465,8 +511,9 @@ public class DefaultSVGWriter implements SVGWriter {
                              AnchorPointProvider anchorPointProvider,
                              DiagramInitialValueProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             NodeLabelConfiguration nodeLabelConfiguration) {
-        graph.getNodes().forEach(node -> {
+                             NodeLabelConfiguration nodeLabelConfiguration,
+                             Predicate<Node> predicate) {
+        graph.getNodes().stream().filter(predicate).forEach(node -> {
 
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement("g");
@@ -505,13 +552,13 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
                     nodeId,
                     anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, node.getId()),
-                    new ComponentSize(0, 0)));
+                    new ComponentSize(0, 0), true));
         } else {
             if (metadata.getComponentMetadata(node.getComponentType()) == null) {
                 metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
                         null,
                         componentLibrary.getAnchorPoints(node.getComponentType()),
-                        componentLibrary.getSize(node.getComponentType())));
+                        componentLibrary.getSize(node.getComponentType()), true));
             }
         }
     }
@@ -843,6 +890,12 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void transformComponent(Node node, Element g) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
 
+        // For a node marked for rotation during the graph building, but with an svg component not allowed
+        // to rotate (ex : disconnector in SVG component library), we cancel the rotation
+        if (node.isRotated() && !componentLibrary.isAllowRotation(node.getComponentType())) {
+            node.setRotationAngle(null);
+        }
+
         if (!node.isRotated()) {
             g.setAttribute(TRANSFORM,
                     TRANSLATE + "(" + (layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2) + ","
@@ -1027,7 +1080,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW)));
+                        componentLibrary.getSize(ARROW), true));
             }
 
             if (edge.getNode1() instanceof FeederNode) {
@@ -1078,7 +1131,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW)));
+                        componentLibrary.getSize(ARROW), true));
             }
         }
     }

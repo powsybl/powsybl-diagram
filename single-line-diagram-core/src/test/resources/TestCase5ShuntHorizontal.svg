@@ -136,54 +136,6 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="lb_N_LABEL">lb</text>
         </g>
-        <g class="BREAKER idba" id="idba" transform="translate(35.0,186.66666666666669)">
-    <g class="closed" id="idba_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idba_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR idda" id="idda" transform="translate(41.0,306.0)">
-    <g class="closed" id="idda_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="idda_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbb" id="idbb" transform="translate(85.0,186.66666666666669)">
-    <g class="closed" id="idbb_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbb_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
-        <g class="DISCONNECTOR iddb" id="iddb" transform="translate(91.0,306.0)">
-    <g class="closed" id="iddb_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="iddb_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
-        <g class="BREAKER idbs" id="idbs" transform="matrix(0.0,1.0,-1.0,0.0,80.0,103.3333)">
-    <g class="closed" id="idbs_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idbs_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
         <g class="NODE idFICT_95_vl_95_laFictif" id="idFICT_95_vl_95_laFictif" transform="translate(41.0,109.33333333333334)">
     <circle r="4" cx="4" cy="4"/>
 </g>
@@ -244,6 +196,54 @@
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,280.0" id="idvl_95_Wire9"/>
         <polyline class="wire wire_vl" points="95.0,206.66666666666669,95.0,280.0" id="idvl_95_Wire10"/>
         <polyline class="wire wire_vl" points="95.0,310.0,95.0,280.0" id="idvl_95_Wire11"/>
+        <g class="BREAKER idba" id="idba" transform="translate(35.0,186.66666666666669)">
+    <g class="closed" id="idba_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idba_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR idda" id="idda" transform="translate(41.0,306.0)">
+    <g class="closed" id="idda_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="idda_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbb" id="idbb" transform="translate(85.0,186.66666666666669)">
+    <g class="closed" id="idbb_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbb_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR iddb" id="iddb" transform="translate(91.0,306.0)">
+    <g class="closed" id="iddb_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="iddb_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idbs" id="idbs" transform="matrix(0.0,1.0,-1.0,0.0,80.0,103.3333)">
+    <g class="closed" id="idbs_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idbs_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
         <g id="LABEL_VL_vl">
             <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl</text>
         </g>

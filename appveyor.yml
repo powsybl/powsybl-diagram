@@ -13,9 +13,9 @@ install:
   - cmd: SET M2_HOME=C:\maven\apache-maven-3.2.5
   - cmd: SET PATH=%M2_HOME%\bin;%JAVA_HOME%\bin;%PATH%
 before_build:
-  - git clone https://github.com/powsybl/powsybl-core.git powsybl/powsybl-core
+  - git clone https://github.com/powsybl/powsybl-core.git C:\projects\powsybl-core
   - ps: |
-      pushd powsybl/powsybl-core
+      pushd C:\projects\powsybl-core
       mvn -DskipTests install --batch-mode
       popd
 build_script:

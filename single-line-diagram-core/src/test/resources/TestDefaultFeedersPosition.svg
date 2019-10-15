@@ -274,6 +274,114 @@
     <path d="M6,6 A 6 20 0 0 0 12,6"/>
 <text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="gen2_S_LABEL">gen2</text>
         </g>
+        <g class="NODE idFICT_95_vl1_95_dsect11Fictif" id="idFICT_95_vl1_95_dsect11Fictif" transform="matrix(0.0,1.0,-1.0,0.0,174.0,356.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dload1Fictif" id="idFICT_95_vl1_95_dload1Fictif" transform="translate(91.0,326.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dsect12Fictif" id="idFICT_95_vl1_95_dsect12Fictif" transform="matrix(0.0,1.0,-1.0,0.0,224.0,356.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dload2Fictif" id="idFICT_95_vl1_95_dload2Fictif" transform="translate(241.0,326.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dsect21Fictif" id="idFICT_95_vl1_95_dsect21Fictif" transform="matrix(0.0,1.0,-1.0,0.0,174.0,381.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dgen1Fictif" id="idFICT_95_vl1_95_dgen1Fictif" transform="translate(141.0,411.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dsect22Fictif" id="idFICT_95_vl1_95_dsect22Fictif" transform="matrix(0.0,1.0,-1.0,0.0,224.0,381.0)"/>
+        <g class="NODE idFICT_95_vl1_95_dgen2Fictif" id="idFICT_95_vl1_95_dgen2Fictif" transform="translate(291.0,411.0)"/>
+        <polyline class="wire wire_vl1" points="160.0,360.0,170.0,360.0" id="idvl1_95_Wire0"/>
+        <polyline class="wire wire_vl1" points="220.0,360.0,230.0,360.0" id="idvl1_95_Wire1"/>
+        <polyline class="wire wire_vl1" points="160.0,385.0,170.0,385.0" id="idvl1_95_Wire2"/>
+        <polyline class="wire wire_vl1" points="220.0,385.0,230.0,385.0" id="idvl1_95_Wire3"/>
+        <polyline class="wire wire_vl1" points="95.0,360.0,95.0,360.0" id="idvl1_95_Wire4"/>
+        <polyline class="wire wire_vl1" points="95.0,84.0,95.0,195.0" id="idvl1_95_Wire5"/>
+        <g class="ARROW1_load1_UP" id="idvl1_95_Wire5_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,90.0,99.0)">
+     <g class="arrow-up" id="idvl1_95_Wire5_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire5_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        </g>
+        <g class="ARROW2_load1_UP" id="idvl1_95_Wire5_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,90.0,119.0)">
+     <g class="arrow-up" id="idvl1_95_Wire5_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire5_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        </g>
+        <polyline class="wire wire_vl1" points="145.0,385.0,145.0,385.0" id="idvl1_95_Wire6"/>
+        <polyline class="wire wire_vl1" points="145.0,659.0,145.0,550.0" id="idvl1_95_Wire7"/>
+        <g class="ARROW1_gen1_DOWN" id="idvl1_95_Wire7_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,140.0,634.0)">
+     <g class="arrow-up" id="idvl1_95_Wire7_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire7_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <g class="ARROW2_gen1_DOWN" id="idvl1_95_Wire7_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,140.0,614.0)">
+     <g class="arrow-up" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_vl1" points="245.0,360.0,245.0,360.0" id="idvl1_95_Wire8"/>
+        <polyline class="wire wire_vl1" points="245.0,84.0,245.0,195.0" id="idvl1_95_Wire9"/>
+        <g class="ARROW1_load2_UP" id="idvl1_95_Wire9_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,240.0,99.0)">
+     <g class="arrow-up" id="idvl1_95_Wire9_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire9_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        </g>
+        <g class="ARROW2_load2_UP" id="idvl1_95_Wire9_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,240.0,119.0)">
+     <g class="arrow-up" id="idvl1_95_Wire9_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire9_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        </g>
+        <polyline class="wire wire_vl1" points="295.0,385.0,295.0,385.0" id="idvl1_95_Wire10"/>
+        <polyline class="wire wire_vl1" points="295.0,659.0,295.0,550.0" id="idvl1_95_Wire11"/>
+        <g class="ARROW1_gen2_DOWN" id="idvl1_95_Wire11_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,290.0,634.0)">
+     <g class="arrow-up" id="idvl1_95_Wire11_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire11_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <g class="ARROW2_gen2_DOWN" id="idvl1_95_Wire11_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,290.0,614.0)">
+     <g class="arrow-up" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_vl1" points="185.0,360.0,170.0,360.0" id="idvl1_95_Wire12"/>
+        <polyline class="wire wire_vl1" points="170.0,360.0,170.0,360.0" id="idvl1_95_Wire13"/>
+        <polyline class="wire wire_vl1" points="95.0,215.0,95.0,330.0" id="idvl1_95_Wire14"/>
+        <polyline class="wire wire_vl1" points="95.0,360.0,95.0,330.0" id="idvl1_95_Wire15"/>
+        <polyline class="wire wire_vl1" points="205.0,360.0,220.0,360.0" id="idvl1_95_Wire16"/>
+        <polyline class="wire wire_vl1" points="220.0,360.0,220.0,360.0" id="idvl1_95_Wire17"/>
+        <polyline class="wire wire_vl1" points="245.0,215.0,245.0,330.0" id="idvl1_95_Wire18"/>
+        <polyline class="wire wire_vl1" points="245.0,360.0,245.0,330.0" id="idvl1_95_Wire19"/>
+        <polyline class="wire wire_vl1" points="185.0,385.0,170.0,385.0" id="idvl1_95_Wire20"/>
+        <polyline class="wire wire_vl1" points="170.0,385.0,170.0,385.0" id="idvl1_95_Wire21"/>
+        <polyline class="wire wire_vl1" points="145.0,530.0,145.0,415.0" id="idvl1_95_Wire22"/>
+        <polyline class="wire wire_vl1" points="145.0,385.0,145.0,415.0" id="idvl1_95_Wire23"/>
+        <polyline class="wire wire_vl1" points="205.0,385.0,220.0,385.0" id="idvl1_95_Wire24"/>
+        <polyline class="wire wire_vl1" points="220.0,385.0,220.0,385.0" id="idvl1_95_Wire25"/>
+        <polyline class="wire wire_vl1" points="295.0,530.0,295.0,415.0" id="idvl1_95_Wire26"/>
+        <polyline class="wire wire_vl1" points="295.0,385.0,295.0,415.0" id="idvl1_95_Wire27"/>
         <g class="DISCONNECTOR iddsect11" id="iddsect11" transform="translate(166.0,356.0)">
     <g class="closed" id="iddsect11_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
@@ -406,114 +514,6 @@
         <line y2="10" x1="5" x2="15" y1="10"/>
     </g>
 </g>
-        <g class="NODE idFICT_95_vl1_95_dsect11Fictif" id="idFICT_95_vl1_95_dsect11Fictif" transform="matrix(0.0,1.0,-1.0,0.0,174.0,356.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dload1Fictif" id="idFICT_95_vl1_95_dload1Fictif" transform="translate(91.0,326.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dsect12Fictif" id="idFICT_95_vl1_95_dsect12Fictif" transform="matrix(0.0,1.0,-1.0,0.0,224.0,356.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dload2Fictif" id="idFICT_95_vl1_95_dload2Fictif" transform="translate(241.0,326.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dsect21Fictif" id="idFICT_95_vl1_95_dsect21Fictif" transform="matrix(0.0,1.0,-1.0,0.0,174.0,381.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dgen1Fictif" id="idFICT_95_vl1_95_dgen1Fictif" transform="translate(141.0,411.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dsect22Fictif" id="idFICT_95_vl1_95_dsect22Fictif" transform="matrix(0.0,1.0,-1.0,0.0,224.0,381.0)"/>
-        <g class="NODE idFICT_95_vl1_95_dgen2Fictif" id="idFICT_95_vl1_95_dgen2Fictif" transform="translate(291.0,411.0)"/>
-        <polyline class="wire wire_vl1" points="160.0,360.0,170.0,360.0" id="idvl1_95_Wire0"/>
-        <polyline class="wire wire_vl1" points="220.0,360.0,230.0,360.0" id="idvl1_95_Wire1"/>
-        <polyline class="wire wire_vl1" points="160.0,385.0,170.0,385.0" id="idvl1_95_Wire2"/>
-        <polyline class="wire wire_vl1" points="220.0,385.0,230.0,385.0" id="idvl1_95_Wire3"/>
-        <polyline class="wire wire_vl1" points="95.0,360.0,95.0,360.0" id="idvl1_95_Wire4"/>
-        <polyline class="wire wire_vl1" points="95.0,84.0,95.0,195.0" id="idvl1_95_Wire5"/>
-        <g class="ARROW1_load1_UP" id="idvl1_95_Wire5_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,90.0,99.0)">
-     <g class="arrow-up" id="idvl1_95_Wire5_ARROW1_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire5_ARROW1_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
-        </g>
-        <g class="ARROW2_load1_UP" id="idvl1_95_Wire5_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,90.0,119.0)">
-     <g class="arrow-up" id="idvl1_95_Wire5_ARROW2_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire5_ARROW2_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
-        </g>
-        <polyline class="wire wire_vl1" points="145.0,385.0,145.0,385.0" id="idvl1_95_Wire6"/>
-        <polyline class="wire wire_vl1" points="145.0,659.0,145.0,550.0" id="idvl1_95_Wire7"/>
-        <g class="ARROW1_gen1_DOWN" id="idvl1_95_Wire7_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,140.0,634.0)">
-     <g class="arrow-up" id="idvl1_95_Wire7_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire7_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
-        </g>
-        <g class="ARROW2_gen1_DOWN" id="idvl1_95_Wire7_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,140.0,614.0)">
-     <g class="arrow-up" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
-        </g>
-        <polyline class="wire wire_vl1" points="245.0,360.0,245.0,360.0" id="idvl1_95_Wire8"/>
-        <polyline class="wire wire_vl1" points="245.0,84.0,245.0,195.0" id="idvl1_95_Wire9"/>
-        <g class="ARROW1_load2_UP" id="idvl1_95_Wire9_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,240.0,99.0)">
-     <g class="arrow-up" id="idvl1_95_Wire9_ARROW1_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire9_ARROW1_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
-        </g>
-        <g class="ARROW2_load2_UP" id="idvl1_95_Wire9_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,240.0,119.0)">
-     <g class="arrow-up" id="idvl1_95_Wire9_ARROW2_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire9_ARROW2_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
-        </g>
-        <polyline class="wire wire_vl1" points="295.0,385.0,295.0,385.0" id="idvl1_95_Wire10"/>
-        <polyline class="wire wire_vl1" points="295.0,659.0,295.0,550.0" id="idvl1_95_Wire11"/>
-        <g class="ARROW1_gen2_DOWN" id="idvl1_95_Wire11_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,290.0,634.0)">
-     <g class="arrow-up" id="idvl1_95_Wire11_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire11_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
-        </g>
-        <g class="ARROW2_gen2_DOWN" id="idvl1_95_Wire11_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,290.0,614.0)">
-     <g class="arrow-up" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
-        </g>
-        <polyline class="wire wire_vl1" points="185.0,360.0,170.0,360.0" id="idvl1_95_Wire12"/>
-        <polyline class="wire wire_vl1" points="170.0,360.0,170.0,360.0" id="idvl1_95_Wire13"/>
-        <polyline class="wire wire_vl1" points="95.0,215.0,95.0,330.0" id="idvl1_95_Wire14"/>
-        <polyline class="wire wire_vl1" points="95.0,360.0,95.0,330.0" id="idvl1_95_Wire15"/>
-        <polyline class="wire wire_vl1" points="205.0,360.0,220.0,360.0" id="idvl1_95_Wire16"/>
-        <polyline class="wire wire_vl1" points="220.0,360.0,220.0,360.0" id="idvl1_95_Wire17"/>
-        <polyline class="wire wire_vl1" points="245.0,215.0,245.0,330.0" id="idvl1_95_Wire18"/>
-        <polyline class="wire wire_vl1" points="245.0,360.0,245.0,330.0" id="idvl1_95_Wire19"/>
-        <polyline class="wire wire_vl1" points="185.0,385.0,170.0,385.0" id="idvl1_95_Wire20"/>
-        <polyline class="wire wire_vl1" points="170.0,385.0,170.0,385.0" id="idvl1_95_Wire21"/>
-        <polyline class="wire wire_vl1" points="145.0,530.0,145.0,415.0" id="idvl1_95_Wire22"/>
-        <polyline class="wire wire_vl1" points="145.0,385.0,145.0,415.0" id="idvl1_95_Wire23"/>
-        <polyline class="wire wire_vl1" points="205.0,385.0,220.0,385.0" id="idvl1_95_Wire24"/>
-        <polyline class="wire wire_vl1" points="220.0,385.0,220.0,385.0" id="idvl1_95_Wire25"/>
-        <polyline class="wire wire_vl1" points="295.0,530.0,295.0,415.0" id="idvl1_95_Wire26"/>
-        <polyline class="wire wire_vl1" points="295.0,385.0,295.0,415.0" id="idvl1_95_Wire27"/>
         <g id="LABEL_VL_vl1">
             <text x="50.0" font-size="12" y="50.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>

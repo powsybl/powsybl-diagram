@@ -74,7 +74,8 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "GENERATOR",
     "id" : null,
@@ -98,7 +99,8 @@
     "size" : {
       "width" : 12.0,
       "height" : 12.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "ARROW",
     "id" : null,
@@ -110,7 +112,8 @@
     "size" : {
       "width" : 10.0,
       "height" : 10.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "LOAD",
     "id" : null,
@@ -126,7 +129,8 @@
     "size" : {
       "width" : 16.0,
       "height" : 9.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "NODE",
     "id" : null,
@@ -138,7 +142,8 @@
     "size" : {
       "width" : 8.0,
       "height" : 8.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "LINE",
     "id" : null,
@@ -150,7 +155,8 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "DISCONNECTOR",
     "id" : null,
@@ -162,7 +168,8 @@
     "size" : {
       "width" : 8.0,
       "height" : 8.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -186,7 +193,8 @@
     "size" : {
       "width" : 13.0,
       "height" : 8.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -206,7 +214,8 @@
     "size" : {
       "width" : 14.0,
       "height" : 12.0
-    }
+    },
+    "allowRotation" : true
   }, {
     "type" : "BREAKER",
     "id" : null,
@@ -222,7 +231,8 @@
     "size" : {
       "width" : 20.0,
       "height" : 20.0
-    }
+    },
+    "allowRotation" : true
   } ],
   "nodes" : [ {
     "id" : "idtrf6_95_ONE_95_THREE",
@@ -621,15 +631,6 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "iddsect21",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : "DISCONNECTOR",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "idtrf8_95_ONE_95_THREE",
     "vid" : "vl1",
     "nextVId" : "vl3",
@@ -637,6 +638,15 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
+    "vlabel" : false
+  }, {
+    "id" : "iddsect21",
+    "vid" : "vl1",
+    "nextVId" : null,
+    "componentType" : "DISCONNECTOR",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
     "id" : "idFICT_95_vl3_95_dtrf25Fictif",
@@ -846,19 +856,19 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "idbload1",
+    "id" : "idFICT_95_vl1_95_trf61_95_fictif",
     "vid" : "vl1",
     "nextVId" : null,
-    "componentType" : "BREAKER",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "idFICT_95_vl1_95_trf61_95_fictif",
+    "id" : "idbload1",
     "vid" : "vl1",
     "nextVId" : null,
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "componentType" : "BREAKER",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
@@ -882,15 +892,6 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "iddsect11",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : "DISCONNECTOR",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "idtrf8_95_ONE_95_TWO",
     "vid" : "vl1",
     "nextVId" : "vl2",
@@ -898,6 +899,15 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
+    "vlabel" : false
+  }, {
+    "id" : "iddsect11",
+    "vid" : "vl1",
+    "nextVId" : null,
+    "componentType" : "DISCONNECTOR",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
     "id" : "idtrf6_95_TWO_95_THREE",
@@ -954,19 +964,19 @@
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "iddtrf36",
+    "id" : "idFICT_95_vl3_95_dtrf36Fictif",
     "vid" : "vl3",
     "nextVId" : null,
-    "componentType" : "DISCONNECTOR",
+    "componentType" : "NODE",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "idFICT_95_vl3_95_dtrf36Fictif",
+    "id" : "iddtrf36",
     "vid" : "vl3",
     "nextVId" : null,
-    "componentType" : "NODE",
+    "componentType" : "DISCONNECTOR",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
@@ -999,19 +1009,19 @@
     "direction" : "BOTTOM",
     "vlabel" : false
   }, {
-    "id" : "idbtrf18",
+    "id" : "idFICT_95_vl1_95_dgen1Fictif",
     "vid" : "vl1",
     "nextVId" : null,
-    "componentType" : "BREAKER",
+    "componentType" : "NODE",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false
   }, {
-    "id" : "idFICT_95_vl1_95_dgen1Fictif",
+    "id" : "idbtrf18",
     "vid" : "vl1",
     "nextVId" : null,
-    "componentType" : "NODE",
+    "componentType" : "BREAKER",
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
@@ -1323,20 +1333,20 @@
     "direction" : "TOP",
     "vlabel" : false
   }, {
-    "id" : "idbtrf24",
-    "vid" : "vl2",
-    "nextVId" : null,
-    "componentType" : "BREAKER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false
-  }, {
     "id" : "idFICT_95_vl2_95_dscpl2Fictif",
     "vid" : "vl2",
     "nextVId" : null,
     "componentType" : "NODE",
     "rotationAngle" : 90.0,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false
+  }, {
+    "id" : "idbtrf24",
+    "vid" : "vl2",
+    "nextVId" : null,
+    "componentType" : "BREAKER",
+    "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false
