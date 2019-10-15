@@ -10,14 +10,16 @@ import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BaseNode;
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.svg.GraphMetadata;
+
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.svg.DiagramStyles.unescapeId;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -50,6 +52,8 @@ public class NodeHandler implements BaseNode {
 
     private DisplayVoltageLevel displayVL;
 
+    private SwitchPositionChangeListener switchListener;
+
     public NodeHandler(Node node, String componentType, Double rotationAngle,
                        GraphMetadata metadata,
                        String vId, String nextVId, BusCell.Direction direction) {
@@ -62,6 +66,16 @@ public class NodeHandler implements BaseNode {
         this.direction = direction;
 
         setDragAndDrop();
+
+        if (componentType != null && (componentType.equals(BREAKER) || componentType.equals(DISCONNECTOR)
+                || componentType.equals(LOAD_BREAK_SWITCH))) {
+            MouseClickNotDragDetector.clickNotDragDetectingOn(node).withPressedDurationTreshold(150)
+                    .setOnMouseClickedNotDragged(e -> {
+                        if (switchListener != null && e.getButton().equals(MouseButton.PRIMARY)) {
+                            switchListener.onPositionChange(unescapeId(node.getId()));
+                        }
+                    });
+        }
     }
 
     public Node getNode() {
@@ -165,5 +179,9 @@ public class NodeHandler implements BaseNode {
         if (nextVId != null) {
             displayVL.display(nextVId);
         }
+    }
+
+    public void setSwitchPositionListener(SwitchPositionChangeListener listener) {
+        switchListener = listener;
     }
 }

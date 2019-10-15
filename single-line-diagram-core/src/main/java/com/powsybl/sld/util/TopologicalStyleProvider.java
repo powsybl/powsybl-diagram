@@ -6,20 +6,13 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.basevoltage.BaseVoltageColor;
-import com.powsybl.iidm.network.Branch.Side;
-import com.powsybl.iidm.network.*;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import com.powsybl.sld.svg.DiagramStyles;
+import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +20,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+import com.powsybl.basevoltage.BaseVoltageColor;
+import com.powsybl.iidm.network.Branch.Side;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TopologyVisitor;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramStyles;
 
 
 /**
@@ -43,6 +52,10 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     private static final double FACTOR = 0.7;
     private String disconnectedColor;
 
+    public TopologicalStyleProvider() {
+        this(null);
+    }
+
     public TopologicalStyleProvider(Path config) {
         try {
             baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
@@ -50,6 +63,11 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
             throw new UncheckedIOException(e);
         }
         disconnectedColor = getBaseColor(0, "RTE", DISCONNECTED_COLOR);
+    }
+
+    @Override
+    public void reset() {
+        voltageLevelColorMap.clear();
     }
 
     private RGBColor getBusColor(Node node) {
@@ -65,7 +83,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
         long buses = vl.getBusView().getBusStream().count();
 
         HashMap<String, RGBColor> colorMap = new HashMap();
-        HashMap<String, RGBColor> busColorMap = new HashMap();
 
         RGBColor color = RGBColor.parse(basecolor);
 
@@ -73,7 +90,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
         vl.getBusView().getBuses().forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());
-            busColorMap.put(b.getId(), c);
 
             vl.getBusView().getBus(b.getId()).visitConnectedEquipments(new TopologyVisitor() {
                 @Override
@@ -139,42 +155,29 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
             return defaultStyle;
         }
 
-        try {
-            RGBColor c = getBusColor(node);
+        RGBColor c = getBusColor(node);
 
-            String color = c != null ? c.toString() : disconnectedColor;
+        String color = c != null ? c.toString() : disconnectedColor;
 
-            return Optional.of(defaultStyle.orElse("") + " #"
-                    + escapeId(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())) + " {stroke:"
-                    + color + ";}");
-
-        } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException(e);
-        }
+        return Optional.of(defaultStyle.orElse("") + " #"
+                + escapeId(node.getId()) + " {stroke:"
+                + color + ";}");
     }
 
     @Override
     public Optional<String> getWireStyle(Edge edge) {
 
-        try {
-            String wireId = DiagramStyles
-                    .escapeId(URLEncoder.encode(
-                            edge.getNode1().getGraph().getVoltageLevel().getId() + "_Wire"
-                                    + edge.getNode1().getGraph().getEdges().indexOf(edge),
-                            StandardCharsets.UTF_8.name()));
-            Node bus = findConnectedBus(edge);
-            String color = disconnectedColor;
-            if (bus != null) {
-                RGBColor c = getBusColor(bus);
-                if (c != null) {
-                    color = c.toString();
-                }
+        String wireId = DiagramStyles.escapeId(edge.getNode1().getGraph().getVoltageLevel().getId() + "_Wire"
+                + edge.getNode1().getGraph().getEdges().indexOf(edge));
+        Node bus = findConnectedBus(edge);
+        String color = disconnectedColor;
+        if (bus != null) {
+            RGBColor c = getBusColor(bus);
+            if (c != null) {
+                color = c.toString();
             }
-
-            return Optional.of(" #" + wireId + " {stroke:" + color + ";}");
-        } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException(e);
         }
+        return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;fill-opacity:0;}");
     }
 
     private Node findConnectedBus(Edge edge) {

@@ -6,6 +6,12 @@
  */
 package com.powsybl.sld.util;
 
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+
+import java.util.Optional;
+
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -14,14 +20,6 @@ import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-
-import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-
-import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -57,14 +55,10 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
         Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication);
 
         String color = getColor(node.getGraph().getVoltageLevel()).orElse(DEFAULT_COLOR);
-        try {
-            if (node.getType() == Node.NodeType.SWITCH) {
-                return defaultStyle;
-            } else {
-                return Optional.of(defaultStyle.orElse("") + " ." + escapeId(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())) + " {stroke:" + color + ";}");
-            }
-        } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException(e);
+        if (node.getType() == Node.NodeType.SWITCH) {
+            return defaultStyle;
+        } else {
+            return Optional.of(defaultStyle.orElse("") + " ." + escapeId(node.getId()) + " {stroke:" + color + ";}");
         }
     }
 

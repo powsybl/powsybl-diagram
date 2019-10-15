@@ -36,4 +36,6 @@ public interface DiagramStyleProvider {
     Optional<String> getColor(VoltageLevel vl);
 
     Map<String, String> getAttributesArrow(int num);
+
+    void reset();
 }

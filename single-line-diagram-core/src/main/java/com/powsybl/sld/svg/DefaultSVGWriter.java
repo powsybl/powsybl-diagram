@@ -33,10 +33,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -470,31 +467,27 @@ public class DefaultSVGWriter implements SVGWriter {
                              DiagramStyleProvider styleProvider,
                              NodeLabelConfiguration nodeLabelConfiguration) {
         graph.getNodes().forEach(node -> {
-            try {
-                String nodeId = DiagramStyles.escapeId(URLEncoder.encode(prefixId + node.getId(), StandardCharsets.UTF_8.name()));
-                Element g = root.getOwnerDocument().createElement("g");
-                g.setAttribute("id", nodeId);
 
-                g.setAttribute(CLASS, node.getComponentType() + " " + DiagramStyles.escapeId(nodeId));
+            String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
+            Element g = root.getOwnerDocument().createElement("g");
+            g.setAttribute("id", nodeId);
 
-                if (node.getType() == Node.NodeType.BUS) {
-                    drawBus((BusNode) node, g);
-                } else {
-                    incorporateComponents(prefixId, node, g, styleProvider);
-                }
+            g.setAttribute(CLASS, node.getComponentType() + " " + nodeId);
 
-                BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-
-                if (!node.isFictitious()) {
-                    drawNodeLabel(prefixId, g, node, initProvider, nodeLabelConfiguration);
-                }
-                root.appendChild(g);
-
-                setMetadata(metadata, node, nodeId, graph, direction, anchorPointProvider);
-
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            if (node.getType() == Node.NodeType.BUS) {
+                drawBus((BusNode) node, g);
+            } else {
+                incorporateComponents(prefixId, node, g, styleProvider);
             }
+
+            BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+
+            if (!node.isFictitious()) {
+                drawNodeLabel(prefixId, g, node, initProvider, nodeLabelConfiguration);
+            }
+            root.appendChild(g);
+
+            setMetadata(metadata, node, nodeId, graph, direction, anchorPointProvider);
         });
     }
 
@@ -954,13 +947,9 @@ public class DefaultSVGWriter implements SVGWriter {
             drawLabel(null, label1.get(), false, shX, shY, g1, FONT_SIZE);
         }
         if (dir1.isPresent()) {
-            try {
-                g1.setAttribute(CLASS, "ARROW1_" + escapeId(URLEncoder.encode(n.getId(), StandardCharsets.UTF_8.name())) + "_" + dir1.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(1).entrySet().stream().forEach(e -> ((Element) g1.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
+            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                styleProvider.getAttributesArrow(1).entrySet().stream().forEach(e -> ((Element) g1.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
             }
         }
         root.appendChild(g1);
@@ -987,13 +976,9 @@ public class DefaultSVGWriter implements SVGWriter {
             drawLabel(null, label2.get(), false, shX, shY, g2, FONT_SIZE);
         }
         if (dir2.isPresent()) {
-            try {
-                g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(URLEncoder.encode(n.getId(), StandardCharsets.UTF_8.name())) + "_" + dir2.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(2).entrySet().stream().forEach(e -> ((Element) g2.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
+            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                styleProvider.getAttributesArrow(2).entrySet().stream().forEach(e -> ((Element) g2.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
             }
         }
         Optional<String> label3 = init.getLabel3();
@@ -1014,47 +999,44 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
         String vId = graph.getVoltageLevel().getId();
-        try {
-            for (Edge edge : graph.getEdges()) {
-                // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
-                String wireId = escapeId(URLEncoder.encode(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge), StandardCharsets.UTF_8.name()));
 
-                Element g = root.getOwnerDocument().createElement(POLYLINE);
-                g.setAttribute("id", wireId);
+        for (Edge edge : graph.getEdges()) {
+            // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
+            String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
 
-                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
+            Element g = root.getOwnerDocument().createElement(POLYLINE);
+            g.setAttribute("id", wireId);
 
-                // Determine points of the polyline
-                List<Double> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
-                        layoutParameters.isDrawStraightWires());
+            WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
 
-                g.setAttribute(POINTS, pointsListToString(pol));
-                g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge));
-                root.appendChild(g);
+            // Determine points of the polyline
+            List<Double> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
+                    layoutParameters.isDrawStraightWires());
 
-                metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
-                        escapeClassName(URLEncoder.encode(edge.getNode1().getId(), StandardCharsets.UTF_8.name())),
-                        escapeClassName(URLEncoder.encode(edge.getNode2().getId(), StandardCharsets.UTF_8.name())),
-                        layoutParameters.isDrawStraightWires(),
-                        false));
+            g.setAttribute(POINTS, pointsListToString(pol));
+            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge));
+            root.appendChild(g);
 
-                if (metadata.getComponentMetadata(ARROW) == null) {
-                    metadata.addComponentMetadata(new ComponentMetadata(ARROW,
-                            null,
-                            componentLibrary.getAnchorPoints(ARROW),
-                            componentLibrary.getSize(ARROW)));
-                }
+            metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+                    escapeId(edge.getNode1().getId()),
+                    escapeId(edge.getNode2().getId()),
+                    layoutParameters.isDrawStraightWires(),
+                    false));
 
-                if (edge.getNode1() instanceof FeederNode) {
-                    if (!(edge.getNode2() instanceof FeederNode)) {
-                        insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
-                    }
-                } else if (edge.getNode2() instanceof FeederNode) {
-                    insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode2(), metadata, initProvider, styleProvider);
-                }
+            if (metadata.getComponentMetadata(ARROW) == null) {
+                metadata.addComponentMetadata(new ComponentMetadata(ARROW,
+                        null,
+                        componentLibrary.getAnchorPoints(ARROW),
+                        componentLibrary.getSize(ARROW)));
             }
-        } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException(e);
+
+            if (edge.getNode1() instanceof FeederNode) {
+                if (!(edge.getNode2() instanceof FeederNode)) {
+                    insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
+                }
+            } else if (edge.getNode2() instanceof FeederNode) {
+                insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode2(), metadata, initProvider, styleProvider);
+            }
         }
     }
 
@@ -1066,34 +1048,31 @@ public class DefaultSVGWriter implements SVGWriter {
         for (TwtEdge edge : graph.getEdges()) {
             String vId1 = edge.getNode1().getGraph().getVoltageLevel().getId();
             String vId2 = edge.getNode2().getGraph().getVoltageLevel().getId();
-            try {
-                String wireId = escapeId(URLEncoder.encode(prefixId + vId1 + "_" + vId2 + "_" + "Wire" + graph.getEdges().indexOf(edge), StandardCharsets.UTF_8.name()));
-                Element g = root.getOwnerDocument().createElement(POLYLINE);
-                g.setAttribute("id", wireId);
 
-                // Get points of the snakeLine
-                List<Double> pol = edge.getSnakeLine();
+            String wireId = escapeId(prefixId + vId1 + "_" + vId2 + "_" + "Wire" + graph.getEdges().indexOf(edge));
+            Element g = root.getOwnerDocument().createElement(POLYLINE);
+            g.setAttribute("id", wireId);
 
-                g.setAttribute(POINTS, pointsListToString(pol));
+            // Get points of the snakeLine
+            List<Double> pol = edge.getSnakeLine();
 
-                String vId;
-                if (edge.getNode1().getGraph().getVoltageLevel().getNominalV() > edge.getNode2().getGraph().getVoltageLevel().getNominalV()) {
-                    vId = vId1;
-                } else {
-                    vId = vId2;
-                }
+            g.setAttribute(POINTS, pointsListToString(pol));
 
-                g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
-                root.appendChild(g);
-
-                metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
-                        escapeClassName(URLEncoder.encode(edge.getNode1().getId(), StandardCharsets.UTF_8.name())),
-                        escapeClassName(URLEncoder.encode(edge.getNode2().getId(), StandardCharsets.UTF_8.name())),
-                        layoutParameters.isDrawStraightWires(),
-                        true));
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            String vId;
+            if (edge.getNode1().getGraph().getVoltageLevel().getNominalV() > edge.getNode2().getGraph().getVoltageLevel().getNominalV()) {
+                vId = vId1;
+            } else {
+                vId = vId2;
             }
+
+            g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
+            root.appendChild(g);
+
+            metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+                    escapeId(edge.getNode1().getId()),
+                    escapeId(edge.getNode2().getId()),
+                    layoutParameters.isDrawStraightWires(),
+                    true));
 
             if (metadata.getComponentMetadata(ARROW) == null) {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
