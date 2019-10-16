@@ -97,7 +97,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private final Map<String, DiagramStyleProvider> styles
             = ImmutableMap.of("Default", new DefaultDiagramStyleProvider(),
                               "Nominal voltage", new NominalVoltageDiagramStyleProvider(),
-                              "Topology", new TopologicalStyleProvider(null));
+                              "Topology", new TopologicalStyleProvider());
 
     private final Map<String, SubstationLayoutFactory> substationsLayouts
             = ImmutableMap.of("Horizontal", new HorizontalSubstationLayoutFactory(),
@@ -276,9 +276,9 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             try (InputStream svgInputStream = new ByteArrayInputStream(svgData.getBytes(StandardCharsets.UTF_8));
                  InputStream metadataInputStream = new ByteArrayInputStream(metadataData.getBytes(StandardCharsets.UTF_8))) {
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
-                    diagramView = VoltageLevelDiagramView.load(svgInputStream, metadataInputStream, AbstractSingleLineDiagramViewer.this);
+                    diagramView = VoltageLevelDiagramView.load(svgInputStream, metadataInputStream, switchId -> handleSwitchPositionchange(c, switchId), AbstractSingleLineDiagramViewer.this);
                 } else if (c.getContainerType() == ContainerType.SUBSTATION) {
-                    diagramView = SubstationDiagramView.load(svgInputStream, metadataInputStream, AbstractSingleLineDiagramViewer.this);
+                    diagramView = SubstationDiagramView.load(svgInputStream, metadataInputStream, switchId -> handleSwitchPositionchange(c, switchId), AbstractSingleLineDiagramViewer.this);
                 } else {
                     throw new AssertionError();
                 }
@@ -286,6 +286,23 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 throw new UncheckedIOException(e);
             }
             return new ContainerDiagramResult(diagramView, svgData, metadataData);
+        }
+
+        private void handleSwitchPositionchange(Container c, String switchId) {
+            Switch sw = null;
+            if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
+                VoltageLevel v = (VoltageLevel) c;
+                sw = v.getSubstation().getNetwork().getSwitch(switchId);
+            } else if (c.getContainerType() == ContainerType.SUBSTATION) {
+                Substation s = (Substation) c;
+                sw = s.getNetwork().getSwitch(switchId);
+            }
+            if (sw != null) {
+                sw.setOpen(!sw.isOpen());
+                DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
+                styleProvider.reset();
+                loadDiagram(c);
+            }
         }
 
         private void loadDiagram(Container c) {

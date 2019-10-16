@@ -6,10 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
-import org.apache.commons.lang3.StringUtils;
-
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.UncheckedIOException;
 import java.util.Objects;
-import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -20,6 +22,7 @@ public final class DiagramStyles {
     public static final String GRID_STYLE_CLASS = "grid";
     public static final String BUS_STYLE_CLASS = "busbar-section";
     public static final String LABEL_STYLE_CLASS = "component-label";
+    private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {
     }
@@ -31,19 +34,62 @@ public final class DiagramStyles {
         if (temp.length() < 2) {
             temp = StringUtils.leftPad(temp, 2, "_");
         }
-        return escapeId(temp);
+        return escape(temp);
     }
 
     public static String escapeId(String input) {
         Objects.requireNonNull(input);
-        String temp = input;
-        // class name cannot start with a digit
-        temp = Character.isDigit(temp.charAt(0)) ? "d" + temp : temp;
-        // class name cannot begin with two hyphens or a hyphen followed by a digit
-        if (temp.startsWith("--") || (temp.charAt(0) == '-' && Character.isDigit(temp.charAt(1)))) {
-            temp = "d" + temp;
+        String temp = ID_PREFIX + input;
+        return escape(temp);
+    }
+
+    public static String unescapeId(String input) {
+        Objects.requireNonNull(input);
+        return unescape(input.substring(ID_PREFIX.length()));
+    }
+
+    public static String escape(String input) {
+        Objects.requireNonNull(input);
+
+        StringBuilder sb = new StringBuilder();
+
+        char[] chars = input.toCharArray();
+
+        for (int i = 0; i < chars.length; i++) {
+            if (Character.isAlphabetic(chars[i]) || Character.isDigit(chars[i])) {
+                sb.append(chars[i]);
+            } else {
+                sb.append("_").append((int) chars[i]).append("_");
+            }
         }
-        // Substitution of all non authorized characters
-        return Pattern.compile("[^\\_\\-a-zA-Z0-9][^\\_\\-a-zA-Z0-9]*", 32).matcher(temp).replaceAll("_");
+        return sb.toString();
+    }
+
+    public static String unescape(String input) {
+        Objects.requireNonNull(input);
+        StringBuilder out = new StringBuilder();
+        StringReader sr = new StringReader(input);
+
+        try {
+            int c = sr.read();
+            while (c != -1) {
+                if (c == 95) {
+                    StringBuilder sb = new StringBuilder();
+                    int n = sr.read();
+                    while (n != 95 && n != -1) {
+                        sb.append((char) n);
+                        n = sr.read();
+                    }
+                    int x = Integer.parseInt(sb.toString());
+                    out.append((char) x);
+                } else {
+                    out.append((char) c);
+                }
+                c = sr.read();
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return out.toString();
     }
 }

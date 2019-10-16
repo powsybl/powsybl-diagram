@@ -6,22 +6,23 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.model.*;
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
-import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.Node;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -38,47 +39,41 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
         Objects.requireNonNull(node);
         if (node.getType() == Node.NodeType.SWITCH && !avoidSVGComponentsDuplication) {
-            try {
-                StringBuilder style = new StringBuilder();
-                String className = escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name()));
-                style.append(".").append(className)
-                        .append(" .open { visibility: ").append(node.isOpen() ? "visible;}" : "hidden;}");
 
-                style.append(".").append(className)
-                        .append(" .closed { visibility: ").append(node.isOpen() ? "hidden;}" : "visible;}");
+            StringBuilder style = new StringBuilder();
+            String className = escapeId(node.getId());
+            style.append(".").append(className)
+                    .append(" .open { visibility: ").append(node.isOpen() ? "visible;}" : "hidden;}");
 
-                return Optional.of(style.toString());
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
-            }
+            style.append(".").append(className)
+                    .append(" .closed { visibility: ").append(node.isOpen() ? "hidden;}" : "visible;}");
+
+            return Optional.of(style.toString());
+
         }
         if (node instanceof FeederNode && !avoidSVGComponentsDuplication) {
-            try {
-                StringBuilder style = new StringBuilder();
-                style.append(ARROW1).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                        .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
-                style.append(ARROW1).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
+            StringBuilder style = new StringBuilder();
+            style.append(ARROW1).append(escapeClassName(node.getId()))
+                    .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
+            style.append(ARROW1).append(escapeClassName(node.getId()))
+            .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
 
-                style.append(ARROW1).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
-                style.append(ARROW1).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
+            style.append(ARROW1).append(escapeClassName(node.getId()))
+            .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
+            style.append(ARROW1).append(escapeClassName(node.getId()))
+            .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
 
-                style.append(ARROW2).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
-                style.append(ARROW2).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
+            style.append(ARROW2).append(escapeClassName(node.getId()))
+            .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
+            style.append(ARROW2).append(escapeClassName(node.getId()))
+            .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
 
-                style.append(ARROW2).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
-                style.append(ARROW2).append(escapeClassName(URLEncoder.encode(node.getId(), StandardCharsets.UTF_8.name())))
-                .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
+            style.append(ARROW2).append(escapeClassName(node.getId()))
+            .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
+            style.append(ARROW2).append(escapeClassName(node.getId()))
+            .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
 
-                return Optional.of(style.toString());
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
-            }
+            return Optional.of(style.toString());
         }
         return Optional.empty();
     }
@@ -115,5 +110,11 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         ret.put("fill", num == 1 ? "black" : "blue");
         ret.put("fill-opacity", "1");
         return ret;
+    }
+
+    @Override
+    public void reset() {
+        // Nothing to reset for this implementation
+
     }
 }

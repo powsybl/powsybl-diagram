@@ -6,6 +6,58 @@
  */
 package com.powsybl.sld.svg;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW;
+import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.apache.batik.anim.dom.SVGOMDocument;
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.util.Precision;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+import org.w3c.dom.svg.SVGElement;
+
 import com.powsybl.commons.exceptions.UncheckedTransformerException;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
@@ -32,59 +84,6 @@ import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.TwtEdge;
 import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
-import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.dom.GenericDOMImplementation;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.math3.util.Precision;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-import org.w3c.dom.svg.SVGElement;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static com.powsybl.sld.library.ComponentTypeName.ARROW;
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -515,30 +514,27 @@ public class DefaultSVGWriter implements SVGWriter {
                              NodeLabelConfiguration nodeLabelConfiguration,
                              Predicate<Node> predicate) {
         graph.getNodes().stream().filter(predicate).forEach(node -> {
-            try {
-                String nodeId = DiagramStyles.escapeId(URLEncoder.encode(prefixId + node.getId(), StandardCharsets.UTF_8.name()));
-                Element g = root.getOwnerDocument().createElement("g");
-                g.setAttribute("id", nodeId);
 
-                g.setAttribute(CLASS, node.getComponentType() + " " + DiagramStyles.escapeId(nodeId));
+            String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
+            Element g = root.getOwnerDocument().createElement("g");
+            g.setAttribute("id", nodeId);
 
-                if (node.getType() == Node.NodeType.BUS) {
-                    drawBus((BusNode) node, g);
-                } else {
-                    incorporateComponents(prefixId, node, g, styleProvider);
-                }
+            g.setAttribute(CLASS, node.getComponentType() + " " + nodeId);
 
-                BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-
-                if (!node.isFictitious()) {
-                    drawNodeLabel(prefixId, g, node, initProvider, nodeLabelConfiguration);
-                }
-                root.appendChild(g);
-
-                setMetadata(metadata, node, nodeId, graph, direction, anchorPointProvider);
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            if (node.getType() == Node.NodeType.BUS) {
+                drawBus((BusNode) node, g);
+            } else {
+                incorporateComponents(prefixId, node, g, styleProvider);
             }
+
+            BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+
+            if (!node.isFictitious()) {
+                drawNodeLabel(prefixId, g, node, initProvider, nodeLabelConfiguration);
+            }
+            root.appendChild(g);
+
+            setMetadata(metadata, node, nodeId, graph, direction, anchorPointProvider);
         });
     }
 
@@ -1004,13 +1000,9 @@ public class DefaultSVGWriter implements SVGWriter {
             drawLabel(null, label1.get(), false, shX, shY, g1, FONT_SIZE);
         }
         if (dir1.isPresent()) {
-            try {
-                g1.setAttribute(CLASS, "ARROW1_" + escapeId(URLEncoder.encode(n.getId(), StandardCharsets.UTF_8.name())) + "_" + dir1.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(1).entrySet().stream().forEach(e -> ((Element) g1.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
+            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                styleProvider.getAttributesArrow(1).entrySet().stream().forEach(e -> ((Element) g1.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
             }
         }
         root.appendChild(g1);
@@ -1037,13 +1029,9 @@ public class DefaultSVGWriter implements SVGWriter {
             drawLabel(null, label2.get(), false, shX, shY, g2, FONT_SIZE);
         }
         if (dir2.isPresent()) {
-            try {
-                g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(URLEncoder.encode(n.getId(), StandardCharsets.UTF_8.name())) + "_" + dir2.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(2).entrySet().stream().forEach(e -> ((Element) g2.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
-                }
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
+            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                styleProvider.getAttributesArrow(2).entrySet().stream().forEach(e -> ((Element) g2.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
             }
         }
         Optional<String> label3 = init.getLabel3();
@@ -1064,47 +1052,44 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
         String vId = graph.getVoltageLevel().getId();
-        try {
-            for (Edge edge : graph.getEdges()) {
-                // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
-                String wireId = escapeId(URLEncoder.encode(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge), StandardCharsets.UTF_8.name()));
 
-                Element g = root.getOwnerDocument().createElement(POLYLINE);
-                g.setAttribute("id", wireId);
+        for (Edge edge : graph.getEdges()) {
+            // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
+            String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
 
-                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
+            Element g = root.getOwnerDocument().createElement(POLYLINE);
+            g.setAttribute("id", wireId);
 
-                // Determine points of the polyline
-                List<Double> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
-                        layoutParameters.isDrawStraightWires());
+            WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
 
-                g.setAttribute(POINTS, pointsListToString(pol));
-                g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge));
-                root.appendChild(g);
+            // Determine points of the polyline
+            List<Double> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
+                    layoutParameters.isDrawStraightWires());
 
-                metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
-                        escapeClassName(URLEncoder.encode(edge.getNode1().getId(), StandardCharsets.UTF_8.name())),
-                        escapeClassName(URLEncoder.encode(edge.getNode2().getId(), StandardCharsets.UTF_8.name())),
-                        layoutParameters.isDrawStraightWires(),
-                        false));
+            g.setAttribute(POINTS, pointsListToString(pol));
+            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge));
+            root.appendChild(g);
 
-                if (metadata.getComponentMetadata(ARROW) == null) {
-                    metadata.addComponentMetadata(new ComponentMetadata(ARROW,
-                            null,
-                            componentLibrary.getAnchorPoints(ARROW),
-                            componentLibrary.getSize(ARROW), true));
-                }
+            metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+                    escapeId(edge.getNode1().getId()),
+                    escapeId(edge.getNode2().getId()),
+                    layoutParameters.isDrawStraightWires(),
+                    false));
 
-                if (edge.getNode1() instanceof FeederNode) {
-                    if (!(edge.getNode2() instanceof FeederNode)) {
-                        insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
-                    }
-                } else if (edge.getNode2() instanceof FeederNode) {
-                    insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode2(), metadata, initProvider, styleProvider);
-                }
+            if (metadata.getComponentMetadata(ARROW) == null) {
+                metadata.addComponentMetadata(new ComponentMetadata(ARROW,
+                        null,
+                        componentLibrary.getAnchorPoints(ARROW),
+                        componentLibrary.getSize(ARROW), true));
             }
-        } catch (UnsupportedEncodingException e) {
-            throw new UncheckedIOException(e);
+
+            if (edge.getNode1() instanceof FeederNode) {
+                if (!(edge.getNode2() instanceof FeederNode)) {
+                    insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
+                }
+            } else if (edge.getNode2() instanceof FeederNode) {
+                insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode2(), metadata, initProvider, styleProvider);
+            }
         }
     }
 
@@ -1116,34 +1101,31 @@ public class DefaultSVGWriter implements SVGWriter {
         for (TwtEdge edge : graph.getEdges()) {
             String vId1 = edge.getNode1().getGraph().getVoltageLevel().getId();
             String vId2 = edge.getNode2().getGraph().getVoltageLevel().getId();
-            try {
-                String wireId = escapeId(URLEncoder.encode(prefixId + vId1 + "_" + vId2 + "_" + "Wire" + graph.getEdges().indexOf(edge), StandardCharsets.UTF_8.name()));
-                Element g = root.getOwnerDocument().createElement(POLYLINE);
-                g.setAttribute("id", wireId);
 
-                // Get points of the snakeLine
-                List<Double> pol = edge.getSnakeLine();
+            String wireId = escapeId(prefixId + vId1 + "_" + vId2 + "_" + "Wire" + graph.getEdges().indexOf(edge));
+            Element g = root.getOwnerDocument().createElement(POLYLINE);
+            g.setAttribute("id", wireId);
 
-                g.setAttribute(POINTS, pointsListToString(pol));
+            // Get points of the snakeLine
+            List<Double> pol = edge.getSnakeLine();
 
-                String vId;
-                if (edge.getNode1().getGraph().getVoltageLevel().getNominalV() > edge.getNode2().getGraph().getVoltageLevel().getNominalV()) {
-                    vId = vId1;
-                } else {
-                    vId = vId2;
-                }
+            g.setAttribute(POINTS, pointsListToString(pol));
 
-                g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
-                root.appendChild(g);
-
-                metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
-                        escapeClassName(URLEncoder.encode(edge.getNode1().getId(), StandardCharsets.UTF_8.name())),
-                        escapeClassName(URLEncoder.encode(edge.getNode2().getId(), StandardCharsets.UTF_8.name())),
-                        layoutParameters.isDrawStraightWires(),
-                        true));
-            } catch (UnsupportedEncodingException e) {
-                throw new UncheckedIOException(e);
+            String vId;
+            if (edge.getNode1().getGraph().getVoltageLevel().getNominalV() > edge.getNode2().getGraph().getVoltageLevel().getNominalV()) {
+                vId = vId1;
+            } else {
+                vId = vId2;
             }
+
+            g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
+            root.appendChild(g);
+
+            metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+                    escapeId(edge.getNode1().getId()),
+                    escapeId(edge.getNode2().getId()),
+                    layoutParameters.isDrawStraightWires(),
+                    true));
 
             if (metadata.getComponentMetadata(ARROW) == null) {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
