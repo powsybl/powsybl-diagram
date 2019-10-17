@@ -33,7 +33,7 @@ The main features are:
  - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
  - Voltage level and substation diagram (and zone diagram soon).
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
- - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL
+ - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
 ![Diagram demo](.github/diagram-demo.svg)
 
