@@ -25,22 +25,22 @@ By participating, you are expected to uphold this code. Please report unacceptab
 
 ## PowSyBl vs PowSyBl Single Line Diagram
 
-PowSyBl Single Line Diagram is a component build on top of `Network` model available in PowSyBl Core repository responsible 
-for generating [single line diagram](https://en.wikipedia.org/wiki/One-line_diagram).
+PowSyBl Single Line Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible 
+for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_diagram).
+
+The main features are:
  - Node/Breaker and bus/breaker topology.
  - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
  - Voltage level and substation diagram (and zone diagram soon).
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
- - Fully automatic layout
- - Semi-automatic layout using relative positions for busbar sections and feeders
- - CGMES DL layout support
+ - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL
 
 ![Diagram demo](.github/diagram-demo.svg)
 
 ## Getting started
 
-To generate an SVG single line diagram from a voltage level, we first need to add a few Maven dependency respectively 
-for `Network` model, `Network` test cases and simple logging capabilities:
+To generate a SVG single line diagram from a voltage level, we first need to add a Maven dependency for the `Network` model 
+and additionally for this example two other ones for the `Network` test case and simple logging capabilities:
 
 ```xml
 <dependency>
@@ -60,7 +60,7 @@ for `Network` model, `Network` test cases and simple logging capabilities:
 </dependency>
 ```
 
-We can now load a node/breaker test `Network` and get voltage level "c":
+We can now load a node/breaker test `Network` and get the voltage level "c":
 ```java
 Network network = FictitiousSwitchFactory.create();
 VoltageLevel c = network.getVoltageLevel("C");
@@ -75,7 +75,7 @@ After adding the single line diagram core module dependency:
 </dependency>
 ```
 
-We can generate a SVG for voltage level "C":
+We can generate a SVG for the voltage level "C":
 ```java
 // "Convergence" style component library
 ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
