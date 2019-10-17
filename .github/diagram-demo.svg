@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1563 690">
+    <style><![CDATA[.BUSBAR_SECTION {
+    stroke: rgb(0,0,0);
+    stroke-width: 3;
+}
+
+.BREAKER {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 2;
+    fill: rgb(255, 255, 255);
+}
+
+.DISCONNECTOR {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 3
+}
+
+.GENERATOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD_BREAK_SWITCH {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.NODE {
+    stroke: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    fill-opacity: 1;
+}
+
+.CAPACITOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.INDUCTOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.STATIC_VAR_COMPENSATOR {
+    stroke: rgb(0, 0, 255);
+}
+
+.TWO_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.THREE_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.VSC_CONVERTER_STATION {
+    stroke: rgb(0, 0, 255);
+    font-size: 7.4314661px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    writing-mode: lr-tb;
+    text-anchor: start;
+    stroke-miterlimit: 4;
+}
+
+.PHASE_SHIFT_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.wire {
+    stroke: rgb(200,0,0);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.grid {
+    stroke: rgb(0,55,0);
+    stroke-width: 1;
+    stroke-dasharray: 1,10;
+}
+
+.component-label {
+    fill: black;
+    color: black;
+    stroke: none;
+    fill-opacity: 1
+}
+ .AAP6_1_1 {stroke:rgb(34, 139, 34);} .AAP6_1_2 {stroke:rgb(34, 139, 34);} .AAP6_2_1 {stroke:rgb(34, 139, 34);} .AAP6_2_2 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR6111_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR6111_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR6111_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR6111_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6111_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR6111_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6111_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR6111_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR6111 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN3_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN3_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN3_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN3_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN3_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN3_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN3_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN3_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN3 {stroke:rgb(34, 139, 34);}.ARROW1_AAINC_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAINC_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAINC_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAINC_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAINC_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAINC_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAINC_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAINC_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAINC {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR6112_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR6112_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR6112_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR6112_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6112_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR6112_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6112_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR6112_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR6112 {stroke:rgb(34, 139, 34);}.ARROW1_AAL61BB_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAL61BB_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAL61BB_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAL61BB_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAL61BB_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAL61BB_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAL61BB_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAL61BB_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAL61BB_ONE {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR612_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR612_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR612_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR612_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR612_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR612_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR612_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR612_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR612 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN4_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN4_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN4_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN4_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN4_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN4_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN4_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN4_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN4 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR613_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR613_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR613_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR613_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR613_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR613_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR613_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR613_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR613 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN5_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN5_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN5_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN5_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN5_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN5_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN5_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN5_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN5 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR614_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR614_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR614_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR614_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR614_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR614_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR614_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR614_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR614 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN6_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN6_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN6_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN6_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN6_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN6_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN6_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN6_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN6 {stroke:rgb(34, 139, 34);}.ARROW1_AAY631_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY631_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY631_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY631_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY631_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY631_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY631_TWO {stroke:rgb(34, 139, 34);}.ARROW1_AAY632_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY632_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY632_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY632_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY632_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY632_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY632_TWO {stroke:rgb(34, 139, 34);} .FICT_AAP6_19 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR613_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR613_SA_1 .closed { visibility: visible;} .FICT_AAP6_13 {stroke:rgb(34, 139, 34);}.AAP6_AA_6BB_1_SA_1 .open { visibility: visible;}.AAP6_AA_6BB_1_SA_1 .closed { visibility: hidden;} .FICT_AAP6_29 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR632_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR632_SA_1 .closed { visibility: visible;} .FICT_AAP6_15 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR612_SA_1 .open { visibility: visible;}.AAP6_AA_6TR612_SA_1 .closed { visibility: hidden;} .FICT_AAP6_10 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR611_SA_1 .open { visibility: visible;}.AAP6_AA_6TR611_SA_1 .closed { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12 .closed { visibility: visible;} .FICT_AAP6_27 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR631_SA_1 .open { visibility: visible;}.AAP6_AA_6TR631_SA_1 .closed { visibility: hidden;} .FICT_AAP6_23 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR614_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR614_SA_1 .closed { visibility: visible;}.AAP6_AA_6COUPL_2_SA_1 .open { visibility: hidden;}.AAP6_AA_6COUPL_2_SA_1 .closed { visibility: visible;}.AAP6_AA_6TR613_SA_2 .open { visibility: visible;}.AAP6_AA_6TR613_SA_2 .closed { visibility: hidden;}.AAP6_AA_6BB_1_SA_2 .open { visibility: hidden;}.AAP6_AA_6BB_1_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR632_SA_2 .open { visibility: visible;}.AAP6_AA_6TR632_SA_2 .closed { visibility: hidden;}.AAP6_AA_6TR612_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR612_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR611_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR611_SA_2 .closed { visibility: visible;}.AAP6_AA_6SEC_12_SS_2_12 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12 .closed { visibility: visible;}.AAP6_AA_6TR631_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR631_SA_2 .closed { visibility: visible;}.AAP6_AA_6COUPL_2_SA_2 .open { visibility: hidden;}.AAP6_AA_6COUPL_2_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR614_SA_2 .open { visibility: visible;}.AAP6_AA_6TR614_SA_2 .closed { visibility: hidden;} .FICT_AAP6_11 {stroke:rgb(34, 139, 34);} .FICT_AAP6_4 {stroke:rgb(34, 139, 34);}.AAP6_AA6TR6111DJ .open { visibility: hidden;}.AAP6_AA6TR6111DJ .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AA6TR6111 .open { visibility: hidden;}.AAP6_AA6TR6111DJ_BT_AA6TR6111 .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAIN3 .open { visibility: hidden;}.AAP6_AA6TR6111DJ_BT_AAIN3 .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAINC .open { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAINC .closed { visibility: hidden;}.AAP6_AA_6COUPL_2_DJ .open { visibility: hidden;}.AAP6_AA_6COUPL_2_DJ .closed { visibility: visible;}.AAP6_AA_6TR611_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR611_DJ_HT .closed { visibility: visible;}.AAP6_AA6TR6112DJ_MT .open { visibility: hidden;}.AAP6_AA6TR6112DJ_MT .closed { visibility: visible;}.AAP6_AA_6BB_1_DJ .open { visibility: hidden;}.AAP6_AA_6BB_1_DJ .closed { visibility: visible;} .FICT_AAP6_16 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR612_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR612_DJ_BT_AA6TR612 .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_BT_AA6TR612 .closed { visibility: visible;}.AAP6_AA_6TR612_DJ_BT_AAIN4 .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_BT_AAIN4 .closed { visibility: visible;} .FICT_AAP6_20 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR613_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR613_DJ_BT_AA6TR613 .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_BT_AA6TR613 .closed { visibility: visible;}.AAP6_AA_6TR613_DJ_BT_AAIN5 .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_BT_AAIN5 .closed { visibility: visible;} .FICT_AAP6_24 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR614_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR614_DJ_BT_AA6TR614 .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_BT_AA6TR614 .closed { visibility: visible;}.AAP6_AA_6TR614_DJ_BT_AAIN6 .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_BT_AAIN6 .closed { visibility: visible;}.AAP6_AA_6TR631_DJ .open { visibility: hidden;}.AAP6_AA_6TR631_DJ .closed { visibility: visible;}.AAP6_AA_6TR632_DJ .open { visibility: hidden;}.AAP6_AA_6TR632_DJ .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6COUPL_2_SA_1Fictif {stroke:rgb(34, 139, 34);} .FICT_AAP6_AAP6_AA_6COUPL_2_SA_2Fictif {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_1_12fSwitch0 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12fSwitch0 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode0 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_1_12fSwitch1 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12fSwitch1 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode1 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_2_12fSwitch0 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12fSwitch0 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode0 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_2_12fSwitch1 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12fSwitch1 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode1 {stroke:rgb(34, 139, 34);}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;} .AAP3_1_1 {stroke:rgb(160, 32, 240);} .AAP3_1_2 {stroke:rgb(160, 32, 240);}.ARROW1_DD5L31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_DD5L31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_DD5L31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_DD5L31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_DD5L31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_DD5L31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_DD5L31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_DD5L31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .DD5L31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_CCL31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CCL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_CCL31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CCL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_CCL31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CCL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_CCL31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CCL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .CCL31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_GGL31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_GGL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_GGL31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_GGL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_GGL31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_GGL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_GGL31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_GGL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .GGL31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_AA3CD1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA3CD1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA3CD1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA3CD1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA3CD1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA3CD1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA3CD1 {stroke:rgb(160, 32, 240);}.ARROW1_AAINA_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAINA_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAINA_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAINA_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAINA_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAINA_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAINA_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAINA_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAINA {stroke:rgb(160, 32, 240);}.ARROW1_AAIN1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN1 {stroke:rgb(160, 32, 240);}.ARROW1_AA3CD2_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA3CD2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA3CD2_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA3CD2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD2_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA3CD2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD2_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA3CD2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA3CD2 {stroke:rgb(160, 32, 240);}.ARROW1_AAIN2_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN2_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN2_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN2_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN2 {stroke:rgb(160, 32, 240);}.ARROW1_AAY631_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY631_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY631_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY631_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY631_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY631_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY631_ONE {stroke:rgb(160, 32, 240);}.ARROW1_AAY632_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY632_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY632_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY632_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY632_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY632_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY632_ONE {stroke:rgb(160, 32, 240);}.AAP3_AA3TR632SA_1F .open { visibility: hidden;}.AAP3_AA3TR632SA_1F .closed { visibility: visible;}.AAP3_AA3TR311SA_1F .open { visibility: hidden;}.AAP3_AA3TR311SA_1F .closed { visibility: visible;}.AAP3_AA_3SEC_12_SS_1_12 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12 .closed { visibility: visible;}.AAP3_AA3CC_1SA_1F .open { visibility: hidden;}.AAP3_AA3CC_1SA_1F .closed { visibility: visible;}.AAP3_AA3DD5_1SA_1F .open { visibility: hidden;}.AAP3_AA3DD5_1SA_1F .closed { visibility: visible;}.AAP3_AA3GG_1SA_1F .open { visibility: hidden;}.AAP3_AA3GG_1SA_1F .closed { visibility: visible;}.AAP3_AA3TR312SA_1F .open { visibility: hidden;}.AAP3_AA3TR312SA_1F .closed { visibility: visible;}.AAP3_AA3TR631SA_1F .open { visibility: hidden;}.AAP3_AA3TR631SA_1F .closed { visibility: visible;}.AAP3_AA_3DD5_1_DJ .open { visibility: hidden;}.AAP3_AA_3DD5_1_DJ .closed { visibility: visible;}.AAP3_AA_3CC_1_DJ .open { visibility: hidden;}.AAP3_AA_3CC_1_DJ .closed { visibility: visible;}.AAP3_AA_3GG_1_DJ .open { visibility: hidden;}.AAP3_AA_3GG_1_DJ .closed { visibility: visible;} .FICT_AAP3_9 {stroke:rgb(160, 32, 240);}.AAP3_AA_3TR311_DJ_HT .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_HT .closed { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AA3TR311 .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AA3TR311 .closed { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AAINA .open { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AAINA .closed { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AAIN1 .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AAIN1 .closed { visibility: visible;} .FICT_AAP3_14 {stroke:rgb(160, 32, 240);}.AAP3_AA_3TR312_DJ_HT .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_HT .closed { visibility: visible;}.AAP3_AA_3TR312_DJ_BT_AA3TR312 .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_BT_AA3TR312 .closed { visibility: visible;}.AAP3_AA_3TR312_DJ_BT_AAIN2 .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_BT_AAIN2 .closed { visibility: visible;}.AAP3_AA_3TR631_DJ .open { visibility: hidden;}.AAP3_AA_3TR631_DJ .closed { visibility: visible;}.AAP3_AA_3TR632_DJ .open { visibility: hidden;}.AAP3_AA_3TR632_DJ .closed { visibility: visible;} .FICT_AAP3_AAP3_AA3TR632SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR311SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3CC_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3DD5_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3GG_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR312SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR631SA_1FFictif {stroke:rgb(160, 32, 240);}.AAP3_AA_3SEC_12_SS_1_12fSwitch0 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12fSwitch0 .closed { visibility: visible;} .FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode0 {stroke:rgb(160, 32, 240);}.AAP3_AA_3SEC_12_SS_1_12fSwitch1 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12fSwitch1 .closed { visibility: visible;} .FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode1 {stroke:rgb(160, 32, 240);}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}]]></style>
+    <style><![CDATA[.BUSBAR_SECTION {
+    stroke: rgb(0,0,0);
+    stroke-width: 3;
+}
+
+.BREAKER {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 2;
+    fill: rgb(255, 255, 255);
+}
+
+.DISCONNECTOR {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 3
+}
+
+.GENERATOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.LOAD_BREAK_SWITCH {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.NODE {
+    stroke: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    fill-opacity: 1;
+}
+
+.CAPACITOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.INDUCTOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.STATIC_VAR_COMPENSATOR {
+    stroke: rgb(0, 0, 255);
+}
+
+.TWO_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.THREE_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.VSC_CONVERTER_STATION {
+    stroke: rgb(0, 0, 255);
+    font-size: 7.4314661px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    writing-mode: lr-tb;
+    text-anchor: start;
+    stroke-miterlimit: 4;
+}
+
+.PHASE_SHIFT_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.wire {
+    stroke: rgb(200,0,0);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.grid {
+    stroke: rgb(0,55,0);
+    stroke-width: 1;
+    stroke-dasharray: 1,10;
+}
+
+.component-label {
+    fill: black;
+    color: black;
+    stroke: none;
+    fill-opacity: 1
+}
+ .AAP6_1_1 {stroke:rgb(34, 139, 34);} .AAP6_1_2 {stroke:rgb(34, 139, 34);} .AAP6_2_1 {stroke:rgb(34, 139, 34);} .AAP6_2_2 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR6111_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR6111_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR6111_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR6111_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6111_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR6111_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6111_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR6111_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR6111 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN3_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN3_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN3_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN3_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN3_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN3_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN3_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN3_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN3 {stroke:rgb(34, 139, 34);}.ARROW1_AAINC_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAINC_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAINC_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAINC_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAINC_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAINC_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAINC_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAINC_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAINC {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR6112_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR6112_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR6112_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR6112_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6112_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR6112_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR6112_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR6112_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR6112 {stroke:rgb(34, 139, 34);}.ARROW1_AAL61BB_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAL61BB_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAL61BB_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAL61BB_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAL61BB_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAL61BB_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAL61BB_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAL61BB_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAL61BB_ONE {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR612_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR612_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR612_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR612_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR612_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR612_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR612_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR612_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR612 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN4_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN4_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN4_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN4_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN4_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN4_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN4_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN4_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN4 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR613_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR613_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR613_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR613_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR613_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR613_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR613_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR613_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR613 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN5_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN5_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN5_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN5_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN5_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN5_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN5_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN5_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN5 {stroke:rgb(34, 139, 34);}.ARROW1_AA6TR614_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA6TR614_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA6TR614_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA6TR614_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR614_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA6TR614_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA6TR614_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA6TR614_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA6TR614 {stroke:rgb(34, 139, 34);}.ARROW1_AAIN6_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN6_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN6_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN6_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN6_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN6_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN6_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN6_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN6 {stroke:rgb(34, 139, 34);}.ARROW1_AAY631_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY631_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY631_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY631_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY631_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY631_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY631_TWO {stroke:rgb(34, 139, 34);}.ARROW1_AAY632_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY632_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY632_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY632_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY632_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY632_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY632_TWO {stroke:rgb(34, 139, 34);} .FICT_AAP6_19 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR613_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR613_SA_1 .closed { visibility: visible;} .FICT_AAP6_13 {stroke:rgb(34, 139, 34);}.AAP6_AA_6BB_1_SA_1 .open { visibility: visible;}.AAP6_AA_6BB_1_SA_1 .closed { visibility: hidden;} .FICT_AAP6_29 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR632_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR632_SA_1 .closed { visibility: visible;} .FICT_AAP6_15 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR612_SA_1 .open { visibility: visible;}.AAP6_AA_6TR612_SA_1 .closed { visibility: hidden;} .FICT_AAP6_10 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR611_SA_1 .open { visibility: visible;}.AAP6_AA_6TR611_SA_1 .closed { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12 .closed { visibility: visible;} .FICT_AAP6_27 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR631_SA_1 .open { visibility: visible;}.AAP6_AA_6TR631_SA_1 .closed { visibility: hidden;} .FICT_AAP6_23 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR614_SA_1 .open { visibility: hidden;}.AAP6_AA_6TR614_SA_1 .closed { visibility: visible;}.AAP6_AA_6COUPL_2_SA_1 .open { visibility: hidden;}.AAP6_AA_6COUPL_2_SA_1 .closed { visibility: visible;}.AAP6_AA_6TR613_SA_2 .open { visibility: visible;}.AAP6_AA_6TR613_SA_2 .closed { visibility: hidden;}.AAP6_AA_6BB_1_SA_2 .open { visibility: hidden;}.AAP6_AA_6BB_1_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR632_SA_2 .open { visibility: visible;}.AAP6_AA_6TR632_SA_2 .closed { visibility: hidden;}.AAP6_AA_6TR612_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR612_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR611_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR611_SA_2 .closed { visibility: visible;}.AAP6_AA_6SEC_12_SS_2_12 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12 .closed { visibility: visible;}.AAP6_AA_6TR631_SA_2 .open { visibility: hidden;}.AAP6_AA_6TR631_SA_2 .closed { visibility: visible;}.AAP6_AA_6COUPL_2_SA_2 .open { visibility: hidden;}.AAP6_AA_6COUPL_2_SA_2 .closed { visibility: visible;}.AAP6_AA_6TR614_SA_2 .open { visibility: visible;}.AAP6_AA_6TR614_SA_2 .closed { visibility: hidden;} .FICT_AAP6_11 {stroke:rgb(34, 139, 34);} .FICT_AAP6_4 {stroke:rgb(34, 139, 34);}.AAP6_AA6TR6111DJ .open { visibility: hidden;}.AAP6_AA6TR6111DJ .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AA6TR6111 .open { visibility: hidden;}.AAP6_AA6TR6111DJ_BT_AA6TR6111 .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAIN3 .open { visibility: hidden;}.AAP6_AA6TR6111DJ_BT_AAIN3 .closed { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAINC .open { visibility: visible;}.AAP6_AA6TR6111DJ_BT_AAINC .closed { visibility: hidden;}.AAP6_AA_6COUPL_2_DJ .open { visibility: hidden;}.AAP6_AA_6COUPL_2_DJ .closed { visibility: visible;}.AAP6_AA_6TR611_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR611_DJ_HT .closed { visibility: visible;}.AAP6_AA6TR6112DJ_MT .open { visibility: hidden;}.AAP6_AA6TR6112DJ_MT .closed { visibility: visible;}.AAP6_AA_6BB_1_DJ .open { visibility: hidden;}.AAP6_AA_6BB_1_DJ .closed { visibility: visible;} .FICT_AAP6_16 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR612_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR612_DJ_BT_AA6TR612 .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_BT_AA6TR612 .closed { visibility: visible;}.AAP6_AA_6TR612_DJ_BT_AAIN4 .open { visibility: hidden;}.AAP6_AA_6TR612_DJ_BT_AAIN4 .closed { visibility: visible;} .FICT_AAP6_20 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR613_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR613_DJ_BT_AA6TR613 .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_BT_AA6TR613 .closed { visibility: visible;}.AAP6_AA_6TR613_DJ_BT_AAIN5 .open { visibility: hidden;}.AAP6_AA_6TR613_DJ_BT_AAIN5 .closed { visibility: visible;} .FICT_AAP6_24 {stroke:rgb(34, 139, 34);}.AAP6_AA_6TR614_DJ_HT .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_HT .closed { visibility: visible;}.AAP6_AA_6TR614_DJ_BT_AA6TR614 .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_BT_AA6TR614 .closed { visibility: visible;}.AAP6_AA_6TR614_DJ_BT_AAIN6 .open { visibility: hidden;}.AAP6_AA_6TR614_DJ_BT_AAIN6 .closed { visibility: visible;}.AAP6_AA_6TR631_DJ .open { visibility: hidden;}.AAP6_AA_6TR631_DJ .closed { visibility: visible;}.AAP6_AA_6TR632_DJ .open { visibility: hidden;}.AAP6_AA_6TR632_DJ .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6COUPL_2_SA_1Fictif {stroke:rgb(34, 139, 34);} .FICT_AAP6_AAP6_AA_6COUPL_2_SA_2Fictif {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_1_12fSwitch0 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12fSwitch0 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode0 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_1_12fSwitch1 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_1_12fSwitch1 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode1 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_2_12fSwitch0 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12fSwitch0 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode0 {stroke:rgb(34, 139, 34);}.AAP6_AA_6SEC_12_SS_2_12fSwitch1 .open { visibility: hidden;}.AAP6_AA_6SEC_12_SS_2_12fSwitch1 .closed { visibility: visible;} .FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode1 {stroke:rgb(34, 139, 34);}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;}.wire_AAP6 {stroke:rgb(34, 139, 34);stroke-width:1;} .AAP3_1_1 {stroke:rgb(160, 32, 240);} .AAP3_1_2 {stroke:rgb(160, 32, 240);}.ARROW1_DD5L31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_DD5L31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_DD5L31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_DD5L31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_DD5L31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_DD5L31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_DD5L31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_DD5L31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .DD5L31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_CCL31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CCL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_CCL31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CCL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_CCL31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CCL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_CCL31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CCL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .CCL31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_GGL31AA_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_GGL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_GGL31AA_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_GGL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_GGL31AA_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_GGL31AA_TWO_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_GGL31AA_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_GGL31AA_TWO_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .GGL31AA_TWO {stroke:rgb(160, 32, 240);}.ARROW1_AA3CD1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA3CD1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA3CD1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA3CD1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA3CD1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA3CD1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA3CD1 {stroke:rgb(160, 32, 240);}.ARROW1_AAINA_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAINA_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAINA_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAINA_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAINA_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAINA_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAINA_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAINA_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAINA {stroke:rgb(160, 32, 240);}.ARROW1_AAIN1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN1 {stroke:rgb(160, 32, 240);}.ARROW1_AA3CD2_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AA3CD2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AA3CD2_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AA3CD2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD2_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AA3CD2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AA3CD2_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AA3CD2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AA3CD2 {stroke:rgb(160, 32, 240);}.ARROW1_AAIN2_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAIN2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAIN2_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAIN2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN2_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAIN2_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAIN2_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAIN2_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAIN2 {stroke:rgb(160, 32, 240);}.ARROW1_AAY631_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY631_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY631_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY631_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY631_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY631_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY631_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY631_ONE {stroke:rgb(160, 32, 240);}.ARROW1_AAY632_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_AAY632_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_AAY632_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_AAY632_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_AAY632_ONE_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_AAY632_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_AAY632_ONE_DOWN .arrow-up { fill-opacity:0; visibility: hidden;} .AAY632_ONE {stroke:rgb(160, 32, 240);}.AAP3_AA3TR632SA_1F .open { visibility: hidden;}.AAP3_AA3TR632SA_1F .closed { visibility: visible;}.AAP3_AA3TR311SA_1F .open { visibility: hidden;}.AAP3_AA3TR311SA_1F .closed { visibility: visible;}.AAP3_AA_3SEC_12_SS_1_12 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12 .closed { visibility: visible;}.AAP3_AA3CC_1SA_1F .open { visibility: hidden;}.AAP3_AA3CC_1SA_1F .closed { visibility: visible;}.AAP3_AA3DD5_1SA_1F .open { visibility: hidden;}.AAP3_AA3DD5_1SA_1F .closed { visibility: visible;}.AAP3_AA3GG_1SA_1F .open { visibility: hidden;}.AAP3_AA3GG_1SA_1F .closed { visibility: visible;}.AAP3_AA3TR312SA_1F .open { visibility: hidden;}.AAP3_AA3TR312SA_1F .closed { visibility: visible;}.AAP3_AA3TR631SA_1F .open { visibility: hidden;}.AAP3_AA3TR631SA_1F .closed { visibility: visible;}.AAP3_AA_3DD5_1_DJ .open { visibility: hidden;}.AAP3_AA_3DD5_1_DJ .closed { visibility: visible;}.AAP3_AA_3CC_1_DJ .open { visibility: hidden;}.AAP3_AA_3CC_1_DJ .closed { visibility: visible;}.AAP3_AA_3GG_1_DJ .open { visibility: hidden;}.AAP3_AA_3GG_1_DJ .closed { visibility: visible;} .FICT_AAP3_9 {stroke:rgb(160, 32, 240);}.AAP3_AA_3TR311_DJ_HT .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_HT .closed { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AA3TR311 .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AA3TR311 .closed { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AAINA .open { visibility: visible;}.AAP3_AA_3TR311_DJ_BT_AAINA .closed { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AAIN1 .open { visibility: hidden;}.AAP3_AA_3TR311_DJ_BT_AAIN1 .closed { visibility: visible;} .FICT_AAP3_14 {stroke:rgb(160, 32, 240);}.AAP3_AA_3TR312_DJ_HT .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_HT .closed { visibility: visible;}.AAP3_AA_3TR312_DJ_BT_AA3TR312 .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_BT_AA3TR312 .closed { visibility: visible;}.AAP3_AA_3TR312_DJ_BT_AAIN2 .open { visibility: hidden;}.AAP3_AA_3TR312_DJ_BT_AAIN2 .closed { visibility: visible;}.AAP3_AA_3TR631_DJ .open { visibility: hidden;}.AAP3_AA_3TR631_DJ .closed { visibility: visible;}.AAP3_AA_3TR632_DJ .open { visibility: hidden;}.AAP3_AA_3TR632_DJ .closed { visibility: visible;} .FICT_AAP3_AAP3_AA3TR632SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR311SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3CC_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3DD5_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3GG_1SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR312SA_1FFictif {stroke:rgb(160, 32, 240);} .FICT_AAP3_AAP3_AA3TR631SA_1FFictif {stroke:rgb(160, 32, 240);}.AAP3_AA_3SEC_12_SS_1_12fSwitch0 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12fSwitch0 .closed { visibility: visible;} .FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode0 {stroke:rgb(160, 32, 240);}.AAP3_AA_3SEC_12_SS_1_12fSwitch1 .open { visibility: hidden;}.AAP3_AA_3SEC_12_SS_1_12fSwitch1 .closed { visibility: visible;} .FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode1 {stroke:rgb(160, 32, 240);}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}.wire_AAP3 {stroke:rgb(160, 32, 240);stroke-width:1;}]]></style>
+    <g>
+        <g class="BUSBAR_SECTION AAP6_1_1" id="AAP6_1_1" transform="translate(80.0,360.0)">
+            <line y2="0" x1="0" x2="480.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP6_1.1_NW_LABEL">1.1</text>
+        </g>
+        <g class="BUSBAR_SECTION AAP6_1_2" id="AAP6_1_2" transform="translate(630.0,360.0)">
+            <line y2="0" x1="0" x2="230.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP6_1.2_NW_LABEL">1.2</text>
+        </g>
+        <g class="BUSBAR_SECTION AAP6_2_1" id="AAP6_2_1" transform="translate(80.0,385.0)">
+            <line y2="0" x1="0" x2="480.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP6_2.1_NW_LABEL">2.1</text>
+        </g>
+        <g class="BUSBAR_SECTION AAP6_2_2" id="AAP6_2_2" transform="translate(630.0,385.0)">
+            <line y2="0" x1="0" x2="230.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP6_2.2_NW_LABEL">2.2</text>
+        </g>
+        <g class="LOAD AA6TR6111" id="AA6TR6111" transform="translate(537.0,660.4999999999999)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA6TR6111_S_LABEL">TR6111  </text>
+        </g>
+        <g class="GENERATOR AAIN3" id="AAIN3" transform="translate(439.0,658.9999999999999)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN3_S_LABEL">AA 3 </text>
+        </g>
+        <g class="CAPACITOR AAINC" id="AAINC" transform="translate(489.0,658.9999999999999)">
+    <line y2="4.5" x1="6" x2="6" y1="0"/>
+    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
+    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
+    <line y2="12" x1="6" x2="6" y1="7.5"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAINC_S_LABEL">AAINC</text>
+        </g>
+        <g class="LOAD AA6TR6112" id="AA6TR6112" transform="translate(387.0,660.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA6TR6112_S_LABEL">TR6112  </text>
+        </g>
+        <g class="LINE AAL61BB_ONE" id="AAL61BB_ONE" transform="translate(195.0,665.0)">
+            <text x="-5.0" font-size="8" y="13.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAL61BB_ONE_S_LABEL">BB1  </text>
+        </g>
+        <g class="LOAD AA6TR612" id="AA6TR612" transform="translate(337.0,660.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA6TR612_S_LABEL">TR612   </text>
+        </g>
+        <g class="GENERATOR AAIN4" id="AAIN4" transform="translate(289.0,659.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN4_S_LABEL">AA 4 </text>
+        </g>
+        <g class="LOAD AA6TR613" id="AA6TR613" transform="translate(137.0,75.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA6TR613_N_LABEL">TR613   </text>
+        </g>
+        <g class="GENERATOR AAIN5" id="AAIN5" transform="translate(89.0,74.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN5_N_LABEL">AA 5 </text>
+        </g>
+        <g class="LOAD AA6TR614" id="AA6TR614" transform="translate(837.0,75.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA6TR614_N_LABEL">TR614   </text>
+        </g>
+        <g class="GENERATOR AAIN6" id="AAIN6" transform="translate(789.0,74.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN6_N_LABEL">AA 6 </text>
+        </g>
+        <g class="TWO_WINDINGS_TRANSFORMER AAY631_TWO" id="AAY631_TWO" transform="translate(738.5,76.0)">
+    <circle r="4" id="AAY631_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4" stroke="rgb(34, 139, 34)"/>
+    <circle r="4" id="AAY631_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4" stroke="rgb(160, 32, 240)"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAY631_TWO_N_LABEL">TR631   </text>
+        </g>
+        <g class="TWO_WINDINGS_TRANSFORMER AAY632_TWO" id="AAY632_TWO" transform="translate(238.5,76.0)">
+    <circle r="4" id="AAY632_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4" stroke="rgb(34, 139, 34)"/>
+    <circle r="4" id="AAY632_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4" stroke="rgb(160, 32, 240)"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAY632_TWO_N_LABEL">TR632   </text>
+        </g>
+        <g class="NODE FICT_AAP6_19" id="FICT_AAP6_19" transform="translate(116.0,326.0)"/>
+        <g class="NODE FICT_AAP6_13" id="FICT_AAP6_13" transform="translate(191.0,411.0)"/>
+        <g class="NODE FICT_AAP6_29" id="FICT_AAP6_29" transform="translate(241.0,326.0)"/>
+        <g class="NODE FICT_AAP6_15" id="FICT_AAP6_15" transform="translate(316.0,411.0)"/>
+        <g class="NODE FICT_AAP6_10" id="FICT_AAP6_10" transform="translate(466.0,411.0)"/>
+        <g class="NODE FICT_AAP6_27" id="FICT_AAP6_27" transform="translate(741.0,326.0)"/>
+        <g class="NODE FICT_AAP6_23" id="FICT_AAP6_23" transform="translate(816.0,326.0)"/>
+        <g class="NODE FICT_AAP6_11" id="FICT_AAP6_11" transform="translate(449.3333333333333,494.3333333333333)"/>
+        <g class="NODE FICT_AAP6_4" id="FICT_AAP6_4" transform="translate(491.0,577.6666666666665)"/>
+        <g class="NODE FICT_AAP6_16" id="FICT_AAP6_16" transform="translate(316.0,536.0)"/>
+        <g class="NODE FICT_AAP6_20" id="FICT_AAP6_20" transform="translate(116.0,201.0)"/>
+        <g class="NODE FICT_AAP6_24" id="FICT_AAP6_24" transform="translate(816.0,201.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6COUPL_2_SA_1Fictif" id="FICT_AAP6_AAP6_AA_6COUPL_2_SA_1Fictif" transform="matrix(0.0,1.0,-1.0,0.0,649.0,316.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6COUPL_2_SA_2Fictif" id="FICT_AAP6_AAP6_AA_6COUPL_2_SA_2Fictif" transform="matrix(0.0,1.0,-1.0,0.0,699.0,316.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode0" id="FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode0" transform="matrix(0.0,1.0,-1.0,0.0,574.0,356.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode1" id="FICT_AAP6_AAP6_AA_6SEC_12_SS_1_12fNode1" transform="matrix(0.0,1.0,-1.0,0.0,624.0,356.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode0" id="FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode0" transform="matrix(0.0,1.0,-1.0,0.0,574.0,381.0)"/>
+        <g class="NODE FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode1" id="FICT_AAP6_AAP6_AA_6SEC_12_SS_2_12fNode1" transform="matrix(0.0,1.0,-1.0,0.0,624.0,381.0)"/>
+        <polyline class="wire wire_AAP6" points="120.0,360.0,120.0,360.0" id="AAP6_Wire0"/>
+        <polyline class="wire wire_AAP6" points="120.0,360.0,120.0,330.0" id="AAP6_Wire1"/>
+        <polyline class="wire wire_AAP6" points="195.0,360.0,195.0,360.0" id="AAP6_Wire2"/>
+        <polyline class="wire wire_AAP6" points="195.0,360.0,195.0,415.0" id="AAP6_Wire3"/>
+        <polyline class="wire wire_AAP6" points="245.0,360.0,245.0,360.0" id="AAP6_Wire4"/>
+        <polyline class="wire wire_AAP6" points="245.0,360.0,245.0,330.0" id="AAP6_Wire5"/>
+        <polyline class="wire wire_AAP6" points="320.0,360.0,320.0,360.0" id="AAP6_Wire6"/>
+        <polyline class="wire wire_AAP6" points="320.0,360.0,320.0,415.0" id="AAP6_Wire7"/>
+        <polyline class="wire wire_AAP6" points="470.0,360.0,470.0,360.0" id="AAP6_Wire8"/>
+        <polyline class="wire wire_AAP6" points="470.0,360.0,470.0,415.0" id="AAP6_Wire9"/>
+        <polyline class="wire wire_AAP6" points="745.0,360.0,745.0,360.0" id="AAP6_Wire10"/>
+        <polyline class="wire wire_AAP6" points="745.0,360.0,745.0,330.0" id="AAP6_Wire11"/>
+        <polyline class="wire wire_AAP6" points="820.0,360.0,820.0,360.0" id="AAP6_Wire12"/>
+        <polyline class="wire wire_AAP6" points="820.0,360.0,820.0,330.0" id="AAP6_Wire13"/>
+        <polyline class="wire wire_AAP6" points="645.0,360.0,645.0,360.0" id="AAP6_Wire14"/>
+        <polyline class="wire wire_AAP6" points="120.0,385.0,120.0,385.0" id="AAP6_Wire15"/>
+        <polyline class="wire wire_AAP6" points="120.0,385.0,120.0,330.0" id="AAP6_Wire16"/>
+        <polyline class="wire wire_AAP6" points="195.0,385.0,195.0,385.0" id="AAP6_Wire17"/>
+        <polyline class="wire wire_AAP6" points="195.0,385.0,195.0,415.0" id="AAP6_Wire18"/>
+        <polyline class="wire wire_AAP6" points="245.0,385.0,245.0,385.0" id="AAP6_Wire19"/>
+        <polyline class="wire wire_AAP6" points="245.0,385.0,245.0,330.0" id="AAP6_Wire20"/>
+        <polyline class="wire wire_AAP6" points="320.0,385.0,320.0,385.0" id="AAP6_Wire21"/>
+        <polyline class="wire wire_AAP6" points="320.0,385.0,320.0,415.0" id="AAP6_Wire22"/>
+        <polyline class="wire wire_AAP6" points="470.0,385.0,470.0,385.0" id="AAP6_Wire23"/>
+        <polyline class="wire wire_AAP6" points="470.0,385.0,470.0,415.0" id="AAP6_Wire24"/>
+        <polyline class="wire wire_AAP6" points="745.0,385.0,745.0,385.0" id="AAP6_Wire25"/>
+        <polyline class="wire wire_AAP6" points="745.0,385.0,745.0,330.0" id="AAP6_Wire26"/>
+        <polyline class="wire wire_AAP6" points="695.0,385.0,695.0,385.0" id="AAP6_Wire27"/>
+        <polyline class="wire wire_AAP6" points="820.0,385.0,820.0,385.0" id="AAP6_Wire28"/>
+        <polyline class="wire wire_AAP6" points="820.0,385.0,820.0,330.0" id="AAP6_Wire29"/>
+        <polyline class="wire wire_AAP6" points="453.3333333333333,498.3333333333333,495.0,498.3333333333333,495.0,530.0" id="AAP6_Wire30"/>
+        <polyline class="wire wire_AAP6" points="495.0,550.0,495.0,581.6666666666665" id="AAP6_Wire31"/>
+        <polyline class="wire wire_AAP6" points="545.0,660.9999999999999,545.0,633.3333333333333" id="AAP6_Wire32"/>
+        <g class="ARROW1_AA6TR6111_UP" id="AAP6_Wire32_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,540.0,636.0)">
+     <g class="arrow-up" id="AAP6_Wire32_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire32_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">11</text>
+        </g>
+        <g class="ARROW2_AA6TR6111_UP" id="AAP6_Wire32_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,540.0,616.0)">
+     <g class="arrow-up" id="AAP6_Wire32_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire32_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">1</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="545.0,613.3333333333333,545.0,581.6666666666665,495.0,581.6666666666665" id="AAP6_Wire33"/>
+        <polyline class="wire wire_AAP6" points="445.0,658.9999999999999,445.0,633.3333333333333" id="AAP6_Wire34"/>
+        <g class="ARROW1_AAIN3_DOWN" id="AAP6_Wire34_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,440.0,634.0)">
+     <g class="arrow-up" id="AAP6_Wire34_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire34_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_AAIN3_DOWN" id="AAP6_Wire34_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,440.0,614.0)">
+     <g class="arrow-up" id="AAP6_Wire34_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire34_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="445.0,613.3333333333333,445.0,581.6666666666665,495.0,581.6666666666665" id="AAP6_Wire35"/>
+        <polyline class="wire wire_AAP6" points="495.0,658.9999999999999,495.0,633.3333333333333" id="AAP6_Wire36"/>
+        <g class="ARROW1_AAINC_DOWN" id="AAP6_Wire36_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,490.0,634.0)">
+     <g class="arrow-up" id="AAP6_Wire36_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire36_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <g class="ARROW2_AAINC_UP" id="AAP6_Wire36_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,490.0,614.0)">
+     <g class="arrow-up" id="AAP6_Wire36_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire36_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">9999</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="495.0,613.3333333333333,495.0,581.6666666666665" id="AAP6_Wire37"/>
+        <polyline class="wire wire_AAP6" points="470.0,415.0,470.0,446.6666666666667" id="AAP6_Wire38"/>
+        <polyline class="wire wire_AAP6" points="470.0,466.6666666666667,470.0,498.3333333333333,453.3333333333333,498.3333333333333" id="AAP6_Wire39"/>
+        <polyline class="wire wire_AAP6" points="453.3333333333333,498.3333333333333,395.0,498.3333333333333,395.0,571.6666666666666" id="AAP6_Wire40"/>
+        <polyline class="wire wire_AAP6" points="395.0,591.6666666666666,395.0,661.0" id="AAP6_Wire41"/>
+        <g class="ARROW1_AA6TR6112_UP" id="AAP6_Wire41_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,390.0,606.6667)">
+     <g class="arrow-up" id="AAP6_Wire41_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire41_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">15</text>
+        </g>
+        <g class="ARROW2_AA6TR6112_UP" id="AAP6_Wire41_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,390.0,626.6667)">
+     <g class="arrow-up" id="AAP6_Wire41_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire41_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">1</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="195.0,415.0,195.0,530.0" id="AAP6_Wire42"/>
+        <polyline class="wire wire_AAP6" points="195.0,550.0,195.0,665.0" id="AAP6_Wire43"/>
+        <g class="ARROW1_AAL61BB_ONE_DOWN" id="AAP6_Wire43_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,190.0,565.0)">
+     <g class="arrow-up" id="AAP6_Wire43_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire43_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-88</text>
+        </g>
+        <g class="ARROW2_AAL61BB_ONE_UP" id="AAP6_Wire43_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,190.0,585.0)">
+     <g class="arrow-up" id="AAP6_Wire43_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire43_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">14</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="320.0,415.0,320.0,467.5" id="AAP6_Wire44"/>
+        <polyline class="wire wire_AAP6" points="320.0,487.5,320.0,540.0" id="AAP6_Wire45"/>
+        <polyline class="wire wire_AAP6" points="345.0,661.0,345.0,612.5" id="AAP6_Wire46"/>
+        <g class="ARROW1_AA6TR612_UP" id="AAP6_Wire46_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,340.0,636.0)">
+     <g class="arrow-up" id="AAP6_Wire46_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire46_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">9</text>
+        </g>
+        <g class="ARROW2_AA6TR612_DOWN" id="AAP6_Wire46_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,340.0,616.0)">
+     <g class="arrow-up" id="AAP6_Wire46_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire46_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="345.0,592.5,345.0,540.0,320.0,540.0" id="AAP6_Wire47"/>
+        <polyline class="wire wire_AAP6" points="295.0,659.0,295.0,612.5" id="AAP6_Wire48"/>
+        <g class="ARROW1_AAIN4_DOWN" id="AAP6_Wire48_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,290.0,634.0)">
+     <g class="arrow-up" id="AAP6_Wire48_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire48_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_AAIN4_DOWN" id="AAP6_Wire48_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,290.0,614.0)">
+     <g class="arrow-up" id="AAP6_Wire48_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire48_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="295.0,592.5,295.0,540.0,320.0,540.0" id="AAP6_Wire49"/>
+        <polyline class="wire wire_AAP6" points="120.0,330.0,120.0,277.5" id="AAP6_Wire50"/>
+        <polyline class="wire wire_AAP6" points="120.0,257.5,120.0,205.0" id="AAP6_Wire51"/>
+        <polyline class="wire wire_AAP6" points="145.0,84.0,145.0,132.5" id="AAP6_Wire52"/>
+        <g class="ARROW1_AA6TR613_UP" id="AAP6_Wire52_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,140.0,99.0)">
+     <g class="arrow-up" id="AAP6_Wire52_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire52_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">17</text>
+        </g>
+        <g class="ARROW2_AA6TR613_UP" id="AAP6_Wire52_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,140.0,119.0)">
+     <g class="arrow-up" id="AAP6_Wire52_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire52_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">4</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="145.0,152.5,145.0,205.0,120.0,205.0" id="AAP6_Wire53"/>
+        <polyline class="wire wire_AAP6" points="95.0,86.0,95.0,132.5" id="AAP6_Wire54"/>
+        <g class="ARROW1_AAIN5_DOWN" id="AAP6_Wire54_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,90.0,101.0)">
+     <g class="arrow-up" id="AAP6_Wire54_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire54_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_AAIN5_DOWN" id="AAP6_Wire54_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,90.0,121.0)">
+     <g class="arrow-up" id="AAP6_Wire54_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire54_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="95.0,152.5,95.0,205.0,120.0,205.0" id="AAP6_Wire55"/>
+        <polyline class="wire wire_AAP6" points="820.0,330.0,820.0,277.5" id="AAP6_Wire56"/>
+        <polyline class="wire wire_AAP6" points="820.0,257.5,820.0,205.0" id="AAP6_Wire57"/>
+        <polyline class="wire wire_AAP6" points="845.0,84.0,845.0,132.5" id="AAP6_Wire58"/>
+        <g class="ARROW1_AA6TR614_UP" id="AAP6_Wire58_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,840.0,99.0)">
+     <g class="arrow-up" id="AAP6_Wire58_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire58_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">12</text>
+        </g>
+        <g class="ARROW2_AA6TR614_DOWN" id="AAP6_Wire58_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,840.0,119.0)">
+     <g class="arrow-up" id="AAP6_Wire58_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire58_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="845.0,152.5,845.0,205.0,820.0,205.0" id="AAP6_Wire59"/>
+        <polyline class="wire wire_AAP6" points="795.0,86.0,795.0,132.5" id="AAP6_Wire60"/>
+        <g class="ARROW1_AAIN6_DOWN" id="AAP6_Wire60_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,790.0,101.0)">
+     <g class="arrow-up" id="AAP6_Wire60_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire60_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-3</text>
+        </g>
+        <g class="ARROW2_AAIN6_DOWN" id="AAP6_Wire60_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,790.0,121.0)">
+     <g class="arrow-up" id="AAP6_Wire60_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire60_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="795.0,152.5,795.0,205.0,820.0,205.0" id="AAP6_Wire61"/>
+        <polyline class="wire wire_AAP6" points="745.0,330.0,745.0,215.0" id="AAP6_Wire62"/>
+        <polyline class="wire wire_AAP6" points="745.0,195.0,745.0,84.0" id="AAP6_Wire63"/>
+        <g class="ARROW1_AAY631_TWO_UP" id="AAP6_Wire63_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,740.0,170.0)">
+     <g class="arrow-up" id="AAP6_Wire63_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire63_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">14</text>
+        </g>
+        <g class="ARROW2_AAY631_TWO_DOWN" id="AAP6_Wire63_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,740.0,150.0)">
+     <g class="arrow-up" id="AAP6_Wire63_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire63_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-12</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="245.0,330.0,245.0,215.0" id="AAP6_Wire64"/>
+        <polyline class="wire wire_AAP6" points="245.0,195.0,245.0,84.0" id="AAP6_Wire65"/>
+        <g class="ARROW1_AAY632_TWO_UP" id="AAP6_Wire65_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,240.0,170.0)">
+     <g class="arrow-up" id="AAP6_Wire65_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire65_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">14</text>
+        </g>
+        <g class="ARROW2_AAY632_TWO_DOWN" id="AAP6_Wire65_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,240.0,150.0)">
+     <g class="arrow-up" id="AAP6_Wire65_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP6_Wire65_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-9</text>
+        </g>
+        <polyline class="wire wire_AAP6" points="660.0,320.0,645.0,320.0" id="AAP6_Wire66"/>
+        <polyline class="wire wire_AAP6" points="645.0,360.0,645.0,320.0" id="AAP6_Wire67"/>
+        <polyline class="wire wire_AAP6" points="680.0,320.0,695.0,320.0" id="AAP6_Wire68"/>
+        <polyline class="wire wire_AAP6" points="695.0,385.0,695.0,320.0" id="AAP6_Wire69"/>
+        <polyline class="wire wire_AAP6" points="560.0,360.0,570.0,360.0" id="AAP6_Wire70"/>
+        <polyline class="wire wire_AAP6" points="570.0,360.0,570.0,360.0" id="AAP6_Wire71"/>
+        <polyline class="wire wire_AAP6" points="570.0,360.0,595.0,360.0" id="AAP6_Wire72"/>
+        <polyline class="wire wire_AAP6" points="630.0,360.0,620.0,360.0" id="AAP6_Wire73"/>
+        <polyline class="wire wire_AAP6" points="620.0,360.0,620.0,360.0" id="AAP6_Wire74"/>
+        <polyline class="wire wire_AAP6" points="620.0,360.0,595.0,360.0" id="AAP6_Wire75"/>
+        <polyline class="wire wire_AAP6" points="560.0,385.0,570.0,385.0" id="AAP6_Wire76"/>
+        <polyline class="wire wire_AAP6" points="570.0,385.0,570.0,385.0" id="AAP6_Wire77"/>
+        <polyline class="wire wire_AAP6" points="570.0,385.0,595.0,385.0" id="AAP6_Wire78"/>
+        <polyline class="wire wire_AAP6" points="630.0,385.0,620.0,385.0" id="AAP6_Wire79"/>
+        <polyline class="wire wire_AAP6" points="620.0,385.0,620.0,385.0" id="AAP6_Wire80"/>
+        <polyline class="wire wire_AAP6" points="620.0,385.0,595.0,385.0" id="AAP6_Wire81"/>
+        <g class="DISCONNECTOR AAP6_AA_6TR613_SA_1" id="AAP6_AA_6TR613_SA_1" transform="translate(116.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR613_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR613_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6BB_1_SA_1" id="AAP6_AA_6BB_1_SA_1" transform="translate(191.0,356.0)">
+    <g class="closed" id="AAP6_AA_6BB_1_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6BB_1_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR632_SA_1" id="AAP6_AA_6TR632_SA_1" transform="translate(241.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR632_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR632_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR612_SA_1" id="AAP6_AA_6TR612_SA_1" transform="translate(316.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR612_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR612_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR611_SA_1" id="AAP6_AA_6TR611_SA_1" transform="translate(466.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR611_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR611_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6SEC_12_SS_1_12" id="AAP6_AA_6SEC_12_SS_1_12" transform="translate(591.0,356.0)">
+    <g class="closed" id="AAP6_AA_6SEC_12_SS_1_12_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6SEC_12_SS_1_12_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR631_SA_1" id="AAP6_AA_6TR631_SA_1" transform="translate(741.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR631_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR631_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR614_SA_1" id="AAP6_AA_6TR614_SA_1" transform="translate(816.0,356.0)">
+    <g class="closed" id="AAP6_AA_6TR614_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR614_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6COUPL_2_SA_1" id="AAP6_AA_6COUPL_2_SA_1" transform="translate(641.0,356.0)">
+    <g class="closed" id="AAP6_AA_6COUPL_2_SA_1_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6COUPL_2_SA_1_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR613_SA_2" id="AAP6_AA_6TR613_SA_2" transform="translate(116.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR613_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR613_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6BB_1_SA_2" id="AAP6_AA_6BB_1_SA_2" transform="translate(191.0,381.0)">
+    <g class="closed" id="AAP6_AA_6BB_1_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6BB_1_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR632_SA_2" id="AAP6_AA_6TR632_SA_2" transform="translate(241.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR632_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR632_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR612_SA_2" id="AAP6_AA_6TR612_SA_2" transform="translate(316.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR612_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR612_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR611_SA_2" id="AAP6_AA_6TR611_SA_2" transform="translate(466.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR611_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR611_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6SEC_12_SS_2_12" id="AAP6_AA_6SEC_12_SS_2_12" transform="translate(591.0,381.0)">
+    <g class="closed" id="AAP6_AA_6SEC_12_SS_2_12_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6SEC_12_SS_2_12_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR631_SA_2" id="AAP6_AA_6TR631_SA_2" transform="translate(741.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR631_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR631_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6COUPL_2_SA_2" id="AAP6_AA_6COUPL_2_SA_2" transform="translate(691.0,381.0)">
+    <g class="closed" id="AAP6_AA_6COUPL_2_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6COUPL_2_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP6_AA_6TR614_SA_2" id="AAP6_AA_6TR614_SA_2" transform="translate(816.0,381.0)">
+    <g class="closed" id="AAP6_AA_6TR614_SA_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR614_SA_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA6TR6111DJ" id="AAP6_AA6TR6111DJ" transform="translate(485.0,530.0)">
+    <g class="closed" id="AAP6_AA6TR6111DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA6TR6111DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA6TR6111DJ_BT_AA6TR6111" id="AAP6_AA6TR6111DJ_BT_AA6TR6111" transform="translate(535.0,613.3333333333333)">
+    <g class="closed" id="AAP6_AA6TR6111DJ_BT_AA6TR6111_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA6TR6111DJ_BT_AA6TR6111_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA6TR6111DJ_BT_AAIN3" id="AAP6_AA6TR6111DJ_BT_AAIN3" transform="translate(435.0,613.3333333333333)">
+    <g class="closed" id="AAP6_AA6TR6111DJ_BT_AAIN3_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA6TR6111DJ_BT_AAIN3_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA6TR6111DJ_BT_AAINC" id="AAP6_AA6TR6111DJ_BT_AAINC" transform="translate(485.0,613.3333333333333)">
+    <g class="closed" id="AAP6_AA6TR6111DJ_BT_AAINC_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA6TR6111DJ_BT_AAINC_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6COUPL_2_DJ" id="AAP6_AA_6COUPL_2_DJ" transform="matrix(0.0,1.0,-1.0,0.0,680.0,310.0)">
+    <g class="closed" id="AAP6_AA_6COUPL_2_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6COUPL_2_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR611_DJ_HT" id="AAP6_AA_6TR611_DJ_HT" transform="translate(460.0,446.6666666666667)">
+    <g class="closed" id="AAP6_AA_6TR611_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR611_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA6TR6112DJ_MT" id="AAP6_AA6TR6112DJ_MT" transform="translate(385.0,571.6666666666666)">
+    <g class="closed" id="AAP6_AA6TR6112DJ_MT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA6TR6112DJ_MT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6BB_1_DJ" id="AAP6_AA_6BB_1_DJ" transform="translate(185.0,530.0)">
+    <g class="closed" id="AAP6_AA_6BB_1_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6BB_1_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR612_DJ_HT" id="AAP6_AA_6TR612_DJ_HT" transform="translate(310.0,467.5)">
+    <g class="closed" id="AAP6_AA_6TR612_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR612_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR612_DJ_BT_AA6TR612" id="AAP6_AA_6TR612_DJ_BT_AA6TR612" transform="translate(335.0,592.5)">
+    <g class="closed" id="AAP6_AA_6TR612_DJ_BT_AA6TR612_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR612_DJ_BT_AA6TR612_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR612_DJ_BT_AAIN4" id="AAP6_AA_6TR612_DJ_BT_AAIN4" transform="translate(285.0,592.5)">
+    <g class="closed" id="AAP6_AA_6TR612_DJ_BT_AAIN4_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR612_DJ_BT_AAIN4_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR613_DJ_HT" id="AAP6_AA_6TR613_DJ_HT" transform="translate(110.0,257.5)">
+    <g class="closed" id="AAP6_AA_6TR613_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR613_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR613_DJ_BT_AA6TR613" id="AAP6_AA_6TR613_DJ_BT_AA6TR613" transform="translate(135.0,132.5)">
+    <g class="closed" id="AAP6_AA_6TR613_DJ_BT_AA6TR613_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR613_DJ_BT_AA6TR613_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR613_DJ_BT_AAIN5" id="AAP6_AA_6TR613_DJ_BT_AAIN5" transform="translate(85.0,132.5)">
+    <g class="closed" id="AAP6_AA_6TR613_DJ_BT_AAIN5_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR613_DJ_BT_AAIN5_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR614_DJ_HT" id="AAP6_AA_6TR614_DJ_HT" transform="translate(810.0,257.5)">
+    <g class="closed" id="AAP6_AA_6TR614_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR614_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR614_DJ_BT_AA6TR614" id="AAP6_AA_6TR614_DJ_BT_AA6TR614" transform="translate(835.0,132.5)">
+    <g class="closed" id="AAP6_AA_6TR614_DJ_BT_AA6TR614_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR614_DJ_BT_AA6TR614_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR614_DJ_BT_AAIN6" id="AAP6_AA_6TR614_DJ_BT_AAIN6" transform="translate(785.0,132.5)">
+    <g class="closed" id="AAP6_AA_6TR614_DJ_BT_AAIN6_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR614_DJ_BT_AAIN6_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR631_DJ" id="AAP6_AA_6TR631_DJ" transform="translate(735.0,195.0)">
+    <g class="closed" id="AAP6_AA_6TR631_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR631_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP6_AA_6TR632_DJ" id="AAP6_AA_6TR632_DJ" transform="translate(235.0,195.0)">
+    <g class="closed" id="AAP6_AA_6TR632_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP6_AA_6TR632_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="NODE AAP6_AA_6SEC_12_SS_1_12fSwitch0" id="AAP6_AA_6SEC_12_SS_1_12fSwitch0" transform="translate(566.0,356.0)"/>
+        <g class="NODE AAP6_AA_6SEC_12_SS_1_12fSwitch1" id="AAP6_AA_6SEC_12_SS_1_12fSwitch1" transform="translate(616.0,356.0)"/>
+        <g class="NODE AAP6_AA_6SEC_12_SS_2_12fSwitch0" id="AAP6_AA_6SEC_12_SS_2_12fSwitch0" transform="translate(566.0,381.0)"/>
+        <g class="NODE AAP6_AA_6SEC_12_SS_2_12fSwitch1" id="AAP6_AA_6SEC_12_SS_2_12fSwitch1" transform="translate(616.0,381.0)"/>
+        <g class="BUSBAR_SECTION AAP3_1_1" id="AAP3_1_1" transform="translate(1030.0,360.0)">
+            <line y2="0" x1="0" x2="230.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP3_1.1_NW_LABEL">1.1</text>
+        </g>
+        <g class="BUSBAR_SECTION AAP3_1_2" id="AAP3_1_2" transform="translate(1330.0,360.0)">
+            <line y2="0" x1="0" x2="230.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAP3_1.2_NW_LABEL">1.2</text>
+        </g>
+        <g class="LINE DD5L31AA_TWO" id="DD5L31AA_TWO" transform="translate(1345.0,80.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="DD5L31AA_TWO_N_LABEL">DD51  </text>
+        </g>
+        <g class="LINE CCL31AA_TWO" id="CCL31AA_TWO" transform="translate(1045.0,80.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="CCL31AA_TWO_N_LABEL">CC1  </text>
+        </g>
+        <g class="LINE GGL31AA_TWO" id="GGL31AA_TWO" transform="translate(1545.0,640.0)">
+            <text x="-5.0" font-size="8" y="13.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="GGL31AA_TWO_S_LABEL">GG1  </text>
+        </g>
+        <g class="LOAD AA3CD1" id="AA3CD1" transform="translate(1187.0,635.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA3CD1_S_LABEL">TR311   </text>
+        </g>
+        <g class="CAPACITOR AAINA" id="AAINA" transform="translate(1089.0,634.0)">
+    <line y2="4.5" x1="6" x2="6" y1="0"/>
+    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
+    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
+    <line y2="12" x1="6" x2="6" y1="7.5"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAINA_S_LABEL">AAINA</text>
+        </g>
+        <g class="GENERATOR AAIN1" id="AAIN1" transform="translate(1139.0,634.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN1_S_LABEL">AA 1 </text>
+        </g>
+        <g class="LOAD AA3CD2" id="AA3CD2" transform="translate(1487.0,635.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AA3CD2_S_LABEL">TR312   </text>
+        </g>
+        <g class="GENERATOR AAIN2" id="AAIN2" transform="translate(1439.0,634.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 20 0 0 0 0,6"/>
+    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+<text x="-5.0" font-size="8" y="25.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAIN2_S_LABEL">AA 2 </text>
+        </g>
+        <g class="TWO_WINDINGS_TRANSFORMER AAY631_ONE" id="AAY631_ONE" transform="translate(1388.5,636.0)">
+    <circle r="4" id="AAY631_ONE_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4" stroke="rgb(160, 32, 240)"/>
+    <circle r="4" id="AAY631_ONE_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4" stroke="rgb(34, 139, 34)"/>
+<text x="-5.0" font-size="8" y="21.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAY631_ONE_S_LABEL">TR631   </text>
+        </g>
+        <g class="TWO_WINDINGS_TRANSFORMER AAY632_ONE" id="AAY632_ONE" transform="translate(1238.5,636.0)">
+    <circle r="4" id="AAY632_ONE_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4" stroke="rgb(160, 32, 240)"/>
+    <circle r="4" id="AAY632_ONE_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4" stroke="rgb(34, 139, 34)"/>
+<text x="-5.0" font-size="8" y="21.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="AAY632_ONE_S_LABEL">TR632   </text>
+        </g>
+        <g class="NODE FICT_AAP3_9" id="FICT_AAP3_9" transform="translate(1141.0,511.0)"/>
+        <g class="NODE FICT_AAP3_14" id="FICT_AAP3_14" transform="translate(1466.0,511.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3TR632SA_1FFictif" id="FICT_AAP3_AAP3_AA3TR632SA_1FFictif" transform="translate(1241.0,386.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3TR311SA_1FFictif" id="FICT_AAP3_AAP3_AA3TR311SA_1FFictif" transform="translate(1141.0,386.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3CC_1SA_1FFictif" id="FICT_AAP3_AAP3_AA3CC_1SA_1FFictif" transform="translate(1041.0,326.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3DD5_1SA_1FFictif" id="FICT_AAP3_AAP3_AA3DD5_1SA_1FFictif" transform="translate(1341.0,326.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3GG_1SA_1FFictif" id="FICT_AAP3_AAP3_AA3GG_1SA_1FFictif" transform="translate(1541.0,386.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3TR312SA_1FFictif" id="FICT_AAP3_AAP3_AA3TR312SA_1FFictif" transform="translate(1466.0,386.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA3TR631SA_1FFictif" id="FICT_AAP3_AAP3_AA3TR631SA_1FFictif" transform="translate(1391.0,386.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode0" id="FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode0" transform="matrix(0.0,1.0,-1.0,0.0,1274.0,356.0)"/>
+        <g class="NODE FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode1" id="FICT_AAP3_AAP3_AA_3SEC_12_SS_1_12fNode1" transform="matrix(0.0,1.0,-1.0,0.0,1324.0,356.0)"/>
+        <polyline class="wire wire_AAP3" points="1245.0,360.0,1245.0,360.0" id="AAP3_Wire0"/>
+        <polyline class="wire wire_AAP3" points="1145.0,360.0,1145.0,360.0" id="AAP3_Wire1"/>
+        <polyline class="wire wire_AAP3" points="1045.0,360.0,1045.0,360.0" id="AAP3_Wire2"/>
+        <polyline class="wire wire_AAP3" points="1345.0,360.0,1345.0,360.0" id="AAP3_Wire3"/>
+        <polyline class="wire wire_AAP3" points="1545.0,360.0,1545.0,360.0" id="AAP3_Wire4"/>
+        <polyline class="wire wire_AAP3" points="1470.0,360.0,1470.0,360.0" id="AAP3_Wire5"/>
+        <polyline class="wire wire_AAP3" points="1395.0,360.0,1395.0,360.0" id="AAP3_Wire6"/>
+        <polyline class="wire wire_AAP3" points="1345.0,195.0,1345.0,80.0" id="AAP3_Wire7"/>
+        <g class="ARROW1_DD5L31AA_TWO_DOWN" id="AAP3_Wire7_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1340.0,170.0)">
+     <g class="arrow-up" id="AAP3_Wire7_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire7_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_DD5L31AA_TWO_DOWN" id="AAP3_Wire7_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1340.0,150.0)">
+     <g class="arrow-up" id="AAP3_Wire7_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire7_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-8</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1045.0,195.0,1045.0,80.0" id="AAP3_Wire8"/>
+        <g class="ARROW1_CCL31AA_TWO_UP" id="AAP3_Wire8_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1040.0,170.0)">
+     <g class="arrow-up" id="AAP3_Wire8_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire8_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">11</text>
+        </g>
+        <g class="ARROW2_CCL31AA_TWO_DOWN" id="AAP3_Wire8_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1040.0,150.0)">
+     <g class="arrow-up" id="AAP3_Wire8_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire8_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-7</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1545.0,525.0,1545.0,640.0" id="AAP3_Wire9"/>
+        <g class="ARROW1_GGL31AA_TWO_UP" id="AAP3_Wire9_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1540.0,540.0)">
+     <g class="arrow-up" id="AAP3_Wire9_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire9_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">7</text>
+        </g>
+        <g class="ARROW2_GGL31AA_TWO_DOWN" id="AAP3_Wire9_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1540.0,560.0)">
+     <g class="arrow-up" id="AAP3_Wire9_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire9_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-8</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1145.0,462.5,1145.0,515.0" id="AAP3_Wire10"/>
+        <polyline class="wire wire_AAP3" points="1195.0,636.0,1195.0,587.5" id="AAP3_Wire11"/>
+        <g class="ARROW1_AA3CD1_UP" id="AAP3_Wire11_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1190.0,611.0)">
+     <g class="arrow-up" id="AAP3_Wire11_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire11_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">6</text>
+        </g>
+        <g class="ARROW2_AA3CD1_UP" id="AAP3_Wire11_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1190.0,591.0)">
+     <g class="arrow-up" id="AAP3_Wire11_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire11_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1195.0,567.5,1195.0,515.0,1145.0,515.0" id="AAP3_Wire12"/>
+        <polyline class="wire wire_AAP3" points="1095.0,634.0,1095.0,587.5" id="AAP3_Wire13"/>
+        <g class="ARROW1_AAINA_DOWN" id="AAP3_Wire13_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1090.0,609.0)">
+     <g class="arrow-up" id="AAP3_Wire13_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire13_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <g class="ARROW2_AAINA_UP" id="AAP3_Wire13_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1090.0,589.0)">
+     <g class="arrow-up" id="AAP3_Wire13_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire13_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">9999</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1095.0,567.5,1095.0,515.0,1145.0,515.0" id="AAP3_Wire14"/>
+        <polyline class="wire wire_AAP3" points="1145.0,634.0,1145.0,587.5" id="AAP3_Wire15"/>
+        <g class="ARROW1_AAIN1_DOWN" id="AAP3_Wire15_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1140.0,609.0)">
+     <g class="arrow-up" id="AAP3_Wire15_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire15_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_AAIN1_DOWN" id="AAP3_Wire15_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1140.0,589.0)">
+     <g class="arrow-up" id="AAP3_Wire15_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire15_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1145.0,567.5,1145.0,515.0" id="AAP3_Wire16"/>
+        <polyline class="wire wire_AAP3" points="1470.0,462.5,1470.0,515.0" id="AAP3_Wire17"/>
+        <polyline class="wire wire_AAP3" points="1495.0,636.0,1495.0,587.5" id="AAP3_Wire18"/>
+        <g class="ARROW1_AA3CD2_UP" id="AAP3_Wire18_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1490.0,611.0)">
+     <g class="arrow-up" id="AAP3_Wire18_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire18_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">6</text>
+        </g>
+        <g class="ARROW2_AA3CD2_UP" id="AAP3_Wire18_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1490.0,591.0)">
+     <g class="arrow-up" id="AAP3_Wire18_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire18_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1495.0,567.5,1495.0,515.0,1470.0,515.0" id="AAP3_Wire19"/>
+        <polyline class="wire wire_AAP3" points="1445.0,634.0,1445.0,587.5" id="AAP3_Wire20"/>
+        <g class="ARROW1_AAIN2_DOWN" id="AAP3_Wire20_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,1440.0,609.0)">
+     <g class="arrow-up" id="AAP3_Wire20_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire20_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-1</text>
+        </g>
+        <g class="ARROW2_AAIN2_DOWN" id="AAP3_Wire20_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,1440.0,589.0)">
+     <g class="arrow-up" id="AAP3_Wire20_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire20_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1445.0,567.5,1445.0,515.0,1470.0,515.0" id="AAP3_Wire21"/>
+        <polyline class="wire wire_AAP3" points="1395.0,525.0,1395.0,636.0" id="AAP3_Wire22"/>
+        <g class="ARROW1_AAY631_ONE_DOWN" id="AAP3_Wire22_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1390.0,540.0)">
+     <g class="arrow-up" id="AAP3_Wire22_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire22_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-14</text>
+        </g>
+        <g class="ARROW2_AAY631_ONE_UP" id="AAP3_Wire22_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1390.0,560.0)">
+     <g class="arrow-up" id="AAP3_Wire22_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire22_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">13</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1245.0,525.0,1245.0,636.0" id="AAP3_Wire23"/>
+        <g class="ARROW1_AAY632_ONE_DOWN" id="AAP3_Wire23_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1240.0,540.0)">
+     <g class="arrow-up" id="AAP3_Wire23_ARROW1_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire23_ARROW1_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">-14</text>
+        </g>
+        <g class="ARROW2_AAY632_ONE_UP" id="AAP3_Wire23_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1240.0,560.0)">
+     <g class="arrow-up" id="AAP3_Wire23_ARROW2_ARROW-arrow-up">
+        <polygon points="5,0 10,10 0,10"/>
+     </g>
+     <g class="arrow-down" id="AAP3_Wire23_ARROW2_ARROW-arrow-down">
+        <polygon points="0,0 10,0 5,10"/>
+     </g>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        </g>
+        <polyline class="wire wire_AAP3" points="1245.0,505.0,1245.0,390.0" id="AAP3_Wire24"/>
+        <polyline class="wire wire_AAP3" points="1245.0,360.0,1245.0,390.0" id="AAP3_Wire25"/>
+        <polyline class="wire wire_AAP3" points="1145.0,442.5,1145.0,390.0" id="AAP3_Wire26"/>
+        <polyline class="wire wire_AAP3" points="1145.0,360.0,1145.0,390.0" id="AAP3_Wire27"/>
+        <polyline class="wire wire_AAP3" points="1045.0,215.0,1045.0,330.0" id="AAP3_Wire28"/>
+        <polyline class="wire wire_AAP3" points="1045.0,360.0,1045.0,330.0" id="AAP3_Wire29"/>
+        <polyline class="wire wire_AAP3" points="1345.0,215.0,1345.0,330.0" id="AAP3_Wire30"/>
+        <polyline class="wire wire_AAP3" points="1345.0,360.0,1345.0,330.0" id="AAP3_Wire31"/>
+        <polyline class="wire wire_AAP3" points="1545.0,505.0,1545.0,390.0" id="AAP3_Wire32"/>
+        <polyline class="wire wire_AAP3" points="1545.0,360.0,1545.0,390.0" id="AAP3_Wire33"/>
+        <polyline class="wire wire_AAP3" points="1470.0,442.5,1470.0,390.0" id="AAP3_Wire34"/>
+        <polyline class="wire wire_AAP3" points="1470.0,360.0,1470.0,390.0" id="AAP3_Wire35"/>
+        <polyline class="wire wire_AAP3" points="1395.0,505.0,1395.0,390.0" id="AAP3_Wire36"/>
+        <polyline class="wire wire_AAP3" points="1395.0,360.0,1395.0,390.0" id="AAP3_Wire37"/>
+        <polyline class="wire wire_AAP3" points="1260.0,360.0,1270.0,360.0" id="AAP3_Wire38"/>
+        <polyline class="wire wire_AAP3" points="1270.0,360.0,1270.0,360.0" id="AAP3_Wire39"/>
+        <polyline class="wire wire_AAP3" points="1270.0,360.0,1295.0,360.0" id="AAP3_Wire40"/>
+        <polyline class="wire wire_AAP3" points="1330.0,360.0,1320.0,360.0" id="AAP3_Wire41"/>
+        <polyline class="wire wire_AAP3" points="1320.0,360.0,1320.0,360.0" id="AAP3_Wire42"/>
+        <polyline class="wire wire_AAP3" points="1320.0,360.0,1295.0,360.0" id="AAP3_Wire43"/>
+        <g class="DISCONNECTOR AAP3_AA3TR632SA_1F" id="AAP3_AA3TR632SA_1F" transform="translate(1241.0,356.0)">
+    <g class="closed" id="AAP3_AA3TR632SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3TR632SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3TR311SA_1F" id="AAP3_AA3TR311SA_1F" transform="translate(1141.0,356.0)">
+    <g class="closed" id="AAP3_AA3TR311SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3TR311SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA_3SEC_12_SS_1_12" id="AAP3_AA_3SEC_12_SS_1_12" transform="translate(1291.0,356.0)">
+    <g class="closed" id="AAP3_AA_3SEC_12_SS_1_12_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA_3SEC_12_SS_1_12_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3CC_1SA_1F" id="AAP3_AA3CC_1SA_1F" transform="translate(1041.0,356.0)">
+    <g class="closed" id="AAP3_AA3CC_1SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3CC_1SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3DD5_1SA_1F" id="AAP3_AA3DD5_1SA_1F" transform="translate(1341.0,356.0)">
+    <g class="closed" id="AAP3_AA3DD5_1SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3DD5_1SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3GG_1SA_1F" id="AAP3_AA3GG_1SA_1F" transform="translate(1541.0,356.0)">
+    <g class="closed" id="AAP3_AA3GG_1SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3GG_1SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3TR312SA_1F" id="AAP3_AA3TR312SA_1F" transform="translate(1466.0,356.0)">
+    <g class="closed" id="AAP3_AA3TR312SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3TR312SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="DISCONNECTOR AAP3_AA3TR631SA_1F" id="AAP3_AA3TR631SA_1F" transform="translate(1391.0,356.0)">
+    <g class="closed" id="AAP3_AA3TR631SA_1F_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="AAP3_AA3TR631SA_1F_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3DD5_1_DJ" id="AAP3_AA_3DD5_1_DJ" transform="translate(1335.0,195.0)">
+    <g class="closed" id="AAP3_AA_3DD5_1_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3DD5_1_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3CC_1_DJ" id="AAP3_AA_3CC_1_DJ" transform="translate(1035.0,195.0)">
+    <g class="closed" id="AAP3_AA_3CC_1_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3CC_1_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3GG_1_DJ" id="AAP3_AA_3GG_1_DJ" transform="translate(1535.0,505.0)">
+    <g class="closed" id="AAP3_AA_3GG_1_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3GG_1_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR311_DJ_HT" id="AAP3_AA_3TR311_DJ_HT" transform="translate(1135.0,442.5)">
+    <g class="closed" id="AAP3_AA_3TR311_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR311_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR311_DJ_BT_AA3TR311" id="AAP3_AA_3TR311_DJ_BT_AA3TR311" transform="translate(1185.0,567.5)">
+    <g class="closed" id="AAP3_AA_3TR311_DJ_BT_AA3TR311_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR311_DJ_BT_AA3TR311_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR311_DJ_BT_AAINA" id="AAP3_AA_3TR311_DJ_BT_AAINA" transform="translate(1085.0,567.5)">
+    <g class="closed" id="AAP3_AA_3TR311_DJ_BT_AAINA_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR311_DJ_BT_AAINA_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR311_DJ_BT_AAIN1" id="AAP3_AA_3TR311_DJ_BT_AAIN1" transform="translate(1135.0,567.5)">
+    <g class="closed" id="AAP3_AA_3TR311_DJ_BT_AAIN1_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR311_DJ_BT_AAIN1_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR312_DJ_HT" id="AAP3_AA_3TR312_DJ_HT" transform="translate(1460.0,442.5)">
+    <g class="closed" id="AAP3_AA_3TR312_DJ_HT_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR312_DJ_HT_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR312_DJ_BT_AA3TR312" id="AAP3_AA_3TR312_DJ_BT_AA3TR312" transform="translate(1485.0,567.5)">
+    <g class="closed" id="AAP3_AA_3TR312_DJ_BT_AA3TR312_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR312_DJ_BT_AA3TR312_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR312_DJ_BT_AAIN2" id="AAP3_AA_3TR312_DJ_BT_AAIN2" transform="translate(1435.0,567.5)">
+    <g class="closed" id="AAP3_AA_3TR312_DJ_BT_AAIN2_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR312_DJ_BT_AAIN2_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR631_DJ" id="AAP3_AA_3TR631_DJ" transform="translate(1385.0,505.0)">
+    <g class="closed" id="AAP3_AA_3TR631_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR631_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="BREAKER AAP3_AA_3TR632_DJ" id="AAP3_AA_3TR632_DJ" transform="translate(1235.0,505.0)">
+    <g class="closed" id="AAP3_AA_3TR632_DJ_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="AAP3_AA_3TR632_DJ_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="NODE AAP3_AA_3SEC_12_SS_1_12fSwitch0" id="AAP3_AA_3SEC_12_SS_1_12fSwitch0" transform="translate(1266.0,356.0)"/>
+        <g class="NODE AAP3_AA_3SEC_12_SS_1_12fSwitch1" id="AAP3_AA_3SEC_12_SS_1_12fSwitch1" transform="translate(1316.0,356.0)"/>
+        <polyline class="wire wire_AAP6" points="1395.0,640.0,1395.0,665.0,1000.0,665.0,1000.0,55.0,745.0,55.0,745.0,80.0" id="AAP3_AAP6_Wire0"/>
+        <polyline class="wire wire_AAP6" points="1245.0,640.0,1245.0,690.0,980.0,690.0,980.0,30.0,245.0,30.0,245.0,80.0" id="AAP3_AAP6_Wire1"/>
+        <g id="LABEL_VL_AAP6">
+            <text x="50.0" font-size="12" y="50.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">AAP6</text>
+        </g>
+        <g id="LABEL_VL_AAP3">
+            <text x="1000.0" font-size="12" y="50.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">AAP3</text>
+        </g>
+    </g>
+</svg>

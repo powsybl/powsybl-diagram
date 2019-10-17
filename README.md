@@ -35,6 +35,8 @@ for generating [single line diagram](https://en.wikipedia.org/wiki/One-line_diag
  - Semi-automatic layout using relative positions for busbar sections and feeders
  - CGMES DL layout support
 
+![Diagram demo](.github/diagram-demo.svg)
+
 ## Getting started
 
 To generate an SVG single line diagram from a voltage level, we first need to add a few Maven dependency respectively 
