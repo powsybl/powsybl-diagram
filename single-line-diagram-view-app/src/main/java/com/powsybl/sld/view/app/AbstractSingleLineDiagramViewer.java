@@ -21,7 +21,7 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.util.SmartVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.sld.view.AbstractContainerDiagramView;
 import com.powsybl.sld.view.DisplayVoltageLevel;

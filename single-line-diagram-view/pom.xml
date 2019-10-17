@@ -32,11 +32,6 @@
             <artifactId>powsybl-single-line-diagram-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

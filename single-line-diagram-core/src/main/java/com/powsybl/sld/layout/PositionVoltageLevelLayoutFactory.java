@@ -33,6 +33,10 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         this.positionFinder = Objects.requireNonNull(positionFinder);
     }
 
+    PositionFinder getPositionFinder() {
+        return positionFinder;
+    }
+
     public boolean isFeederStacked() {
         return feederStacked;
     }

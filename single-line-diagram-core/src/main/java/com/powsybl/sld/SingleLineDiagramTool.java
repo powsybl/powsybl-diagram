@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.util;
+package com.powsybl.sld;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.commons.PowsyblException;
@@ -12,12 +12,7 @@ import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.SubstationDiagram;
-import com.powsybl.sld.VoltageLevelDiagram;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.tools.Command;
