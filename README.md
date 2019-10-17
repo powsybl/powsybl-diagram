@@ -81,7 +81,7 @@ We can generate a SVG for voltage level "C":
 ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
 // fully automatic layout
-PositionVoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
+VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
 //  create diagram
 VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(c, voltageLevelLayoutFactory, false, false);
