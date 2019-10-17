@@ -115,7 +115,7 @@
         <maven.versions.version>2.7</maven.versions.version>
 
         <sonar.exclusions>
-            **/generated/**/*
+            **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
         <powsyblcore.version>3.0.0-SNAPSHOT</powsyblcore.version>
