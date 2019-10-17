@@ -78,7 +78,7 @@ After adding the single line diagram core module dependency:
 We can generate a SVG for voltage level "C":
 ```java
 // "Convergence" style component library
-ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
