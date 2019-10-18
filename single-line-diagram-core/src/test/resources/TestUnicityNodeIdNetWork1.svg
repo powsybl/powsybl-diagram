@@ -124,23 +124,23 @@
         <g class="NODE idnetwork1_95_FICT_95_vl_95_dFictif" id="idnetwork1_95_FICT_95_vl_95_dFictif" transform="translate(41.0,276.0)"/>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="idnetwork1_95_vl_95_Wire0"/>
         <polyline class="wire wire_vl" points="45.0,145.0,45.0,34.0" id="idnetwork1_95_vl_95_Wire1"/>
-        <g class="ARROW1__95_l_UP" id="idnetwork1_95_vl_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,40.0,120.0)">
+        <g class="ARROW1__95_l_DOWN" id="idnetwork1_95_vl_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,40.0,120.0)">
      <g class="arrow-up" id="network1_idnetwork1_95_vl_95_Wire1_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="network1_idnetwork1_95_vl_95_Wire1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
-        <g class="ARROW2__95_l_UP" id="idnetwork1_95_vl_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,40.0,100.0)">
+        <g class="ARROW2__95_l_DOWN" id="idnetwork1_95_vl_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,40.0,100.0)">
      <g class="arrow-up" id="network1_idnetwork1_95_vl_95_Wire1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="network1_idnetwork1_95_vl_95_Wire1_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl" points="45.0,165.0,45.0,280.0" id="idnetwork1_95_vl_95_Wire2"/>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,280.0" id="idnetwork1_95_vl_95_Wire3"/>

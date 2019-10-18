@@ -258,13 +258,13 @@
         <g class="NODE idFICT_95_vl3_95_dself6Fictif" id="idFICT_95_vl3_95_dself6Fictif" transform="translate(856.0,336.0)"/>
         <polyline class="wire wire_vl3" points="60.0,310.0,60.0,310.0" id="idvl3_95_Wire0"/>
         <polyline class="wire wire_vl3" points="60.0,145.0,60.0,34.0" id="idvl3_95_Wire1"/>
-        <g class="ARROW1_load4_UP" id="idvl3_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,55.0,120.0)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)" stroke="black"/>
-            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        <g class="ARROW1_load4_DOWN" id="idvl3_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,55.0,120.0)">
+            <use fill="black" fill-opacity="1" href="#ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)" stroke="black"/>
+            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
-        <g class="ARROW2_load4_UP" id="idvl3_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,55.0,100.0)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)" stroke="blue"/>
-            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        <g class="ARROW2_load4_DOWN" id="idvl3_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,55.0,100.0)">
+            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)" stroke="blue"/>
+            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl3" points="140.0,310.0,140.0,310.0" id="idvl3_95_Wire2"/>
         <polyline class="wire wire_vl3" points="140.0,475.0,140.0,586.0" id="idvl3_95_Wire3"/>
