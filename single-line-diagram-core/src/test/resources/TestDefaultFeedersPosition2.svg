@@ -285,23 +285,23 @@
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire12"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire13"/>
         <polyline class="wire wire_vl1" points="19.0,45.0,19.0,39.0" id="idvl1_95_Wire14"/>
-        <g class="ARROW1_load1_UP" id="idvl1_95_Wire14_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,14.0,20.0)">
+        <g class="ARROW1_load1_DOWN" id="idvl1_95_Wire14_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,14.0,20.0)">
      <g class="arrow-up" id="idvl1_95_Wire14_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="idvl1_95_Wire14_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
-        <g class="ARROW2_load1_UP" id="idvl1_95_Wire14_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,14.0,0.0)">
+        <g class="ARROW2_load1_DOWN" id="idvl1_95_Wire14_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,14.0,0.0)">
      <g class="arrow-up" id="idvl1_95_Wire14_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="idvl1_95_Wire14_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl1" points="19.0,39.0,19.0,49.0" id="idvl1_95_Wire15"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire16"/>
@@ -329,23 +329,23 @@
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire20"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire21"/>
         <polyline class="wire wire_vl1" points="19.0,45.0,19.0,39.0" id="idvl1_95_Wire22"/>
-        <g class="ARROW1_load2_UP" id="idvl1_95_Wire22_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,14.0,20.0)">
+        <g class="ARROW1_load2_DOWN" id="idvl1_95_Wire22_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,14.0,20.0)">
      <g class="arrow-up" id="idvl1_95_Wire22_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="idvl1_95_Wire22_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
-        <g class="ARROW2_load2_UP" id="idvl1_95_Wire22_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,14.0,0.0)">
+        <g class="ARROW2_load2_DOWN" id="idvl1_95_Wire22_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,14.0,0.0)">
      <g class="arrow-up" id="idvl1_95_Wire22_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
         <polygon points="5,0 10,10 0,10"/>
      </g>
      <g class="arrow-down" id="idvl1_95_Wire22_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl1" points="19.0,39.0,19.0,49.0" id="idvl1_95_Wire23"/>
         <polyline class="wire wire_vl1" points="19.0,49.0,19.0,49.0" id="idvl1_95_Wire24"/>

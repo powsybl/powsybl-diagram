@@ -12,7 +12,6 @@ import java.util.Optional;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 
@@ -42,18 +41,6 @@ public class InitialValue {
         Objects.requireNonNull(side);
         double p = side.equals(Side.ONE) ? ln.getTerminal1().getP() : ln.getTerminal2().getP();
         double q = side.equals(Side.ONE) ? ln.getTerminal1().getQ() : ln.getTerminal2().getQ();
-        label1 = String.valueOf(Math.round(p));
-        label2 = String.valueOf(Math.round(q));
-        label3 = null;
-        label4 = null;
-        direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-    }
-
-    public InitialValue(Load load) {
-        Objects.requireNonNull(load);
-        double p = load.getP0();
-        double q = load.getQ0();
         label1 = String.valueOf(Math.round(p));
         label2 = String.valueOf(Math.round(q));
         label3 = null;

@@ -60,9 +60,21 @@ public class InitialValueProviderTest {
             .setCurrentSectionCount(1)
             .setMaximumSectionCount(1)
             .add();
+        vl.newDanglingLine()
+                .setId("dl1")
+                .setName("Dangling line 1")
+                .setNode(5)
+                .setP0(1)
+                .setQ0(1)
+                .setR(0)
+                .setX(0)
+                .setB(0)
+                .setG(0)
+                .add();
         view.newDisconnector().setId("d").setNode1(0).setNode2(1).add();
         view.newBreaker().setId("b").setNode1(1).setNode2(2).add();
         view.newBreaker().setId("b2").setNode1(3).setNode2(4).add();
+        view.newBreaker().setId("b3").setNode1(3).setNode2(5).add();
     }
 
     @Test
@@ -106,5 +118,12 @@ public class InitialValueProviderTest {
         assertFalse(init4.getLabel4().isPresent());
         assertFalse(init4.getArrowDirection1().isPresent());
         assertFalse(init4.getArrowDirection2().isPresent());
+        InitialValue init5 = initProvider1.getInitialValue(g.getNode("dl1"));
+        assertTrue(init5.getLabel1().isPresent());
+        assertTrue(init5.getLabel2().isPresent());
+        assertFalse(init5.getLabel3().isPresent());
+        assertFalse(init5.getLabel4().isPresent());
+        assertTrue(init5.getArrowDirection1().isPresent());
+        assertTrue(init5.getArrowDirection2().isPresent());
     }
 }

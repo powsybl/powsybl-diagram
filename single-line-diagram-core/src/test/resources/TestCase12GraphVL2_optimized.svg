@@ -275,13 +275,13 @@
         <polyline class="wire wire_vl2" points="140.0,335.0,140.0,335.0" id="idvl2_95_Wire1"/>
         <polyline class="wire wire_vl2" points="220.0,310.0,220.0,310.0" id="idvl2_95_Wire2"/>
         <polyline class="wire wire_vl2" points="220.0,34.0,220.0,145.0" id="idvl2_95_Wire3"/>
-        <g class="ARROW1_load3_UP" id="idvl2_95_Wire3_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,215.0,49.0)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
-            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        <g class="ARROW1_load3_DOWN" id="idvl2_95_Wire3_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,215.0,49.0)">
+            <use fill="black" fill-opacity="1" href="#ARROW-arrow-down" stroke="black"/>
+            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
-        <g class="ARROW2_load3_UP" id="idvl2_95_Wire3_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,215.0,69.0)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-up" stroke="blue"/>
-            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+        <g class="ARROW2_load3_DOWN" id="idvl2_95_Wire3_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,215.0,69.0)">
+            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
+            <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">0</text>
         </g>
         <polyline class="wire wire_vl2" points="380.0,335.0,380.0,335.0" id="idvl2_95_Wire4"/>
         <polyline class="wire wire_vl2" points="380.0,609.0,380.0,500.0" id="idvl2_95_Wire5"/>
