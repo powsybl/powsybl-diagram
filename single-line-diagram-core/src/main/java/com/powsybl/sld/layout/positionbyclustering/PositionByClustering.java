@@ -158,6 +158,10 @@ public class PositionByClustering implements PositionFinder {
         }
     }
 
+    private void establishPositionsWithFromClusterLanes() {
+
+    }
+
     private void establishBusPositions(Context context) {
         context.graph.getNodeBuses().forEach(busNode -> busNode.setStructuralPosition(null));
         LBSCluster finalCluster = context.lbsClusterSets.get(0);
@@ -214,15 +218,6 @@ public class PositionByClustering implements PositionFinder {
             for (BusNode bus : lbs.getBusNodeSet()) {
                 if (remainingBuses.contains(bus)
                         && !busOnLeftSide.contains(bus)
-                    // if bus is connected through a flatCell to a bus that is remaining and on left, then, this bus should be in a next lane
-/*
-                        && !lbs.getCandidateFlatCells().keySet().stream()
-                        .filter(internCell -> internCell.getBusNodes().contains(bus))
-                        .flatMap(internCell -> internCell.getBusNodes().stream())
-                        .anyMatch(busNode -> busNode != bus
-                                && remainingBuses.contains(busNode)
-                                && busOnLeftSide.contains(busNode))
-*/
                 ) {
                     busIndex.busNode = bus;
                     return;
