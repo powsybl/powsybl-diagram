@@ -12,6 +12,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.datasource.FileDataSource;
 import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.AbstractSingleLineDiagramCommand;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLExporter;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.layout.*;
@@ -25,10 +26,11 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import static com.powsybl.sld.AbstractSingleLineDiagramCommand.INPUT_FILE;
+import static com.powsybl.sld.AbstractSingleLineDiagramCommand.OUTPUT_DIR;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -36,8 +38,6 @@ import java.util.stream.Collectors;
 @AutoService(Tool.class)
 public class LayoutToCgmesDlExporterTool implements Tool {
 
-    private static final String INPUT_FILE = "input-file";
-    private static final String OUTPUT_DIR = "output-dir";
     private static final String VOLTAGE_LEVEL_LAYOUT = "voltage-level-layout";
     private static final String SUBSTATION_LAYOUT = "substation-layout";
     private static final String DEFAULT_VOLTAGE_LAYOUT = "auto-without-extensions";
@@ -53,16 +53,11 @@ public class LayoutToCgmesDlExporterTool implements Tool {
 
     @Override
     public Command getCommand() {
-        return new Command() {
+        return new AbstractSingleLineDiagramCommand() {
 
             @Override
             public String getName() {
                 return "generate-cgmes-dl";
-            }
-
-            @Override
-            public String getTheme() {
-                return "Single line diagram";
             }
 
             @Override
@@ -73,18 +68,8 @@ public class LayoutToCgmesDlExporterTool implements Tool {
             @Override
             public Options getOptions() {
                 Options options = new Options();
-                options.addOption(Option.builder().longOpt(INPUT_FILE)
-                        .desc("input file")
-                        .hasArg()
-                        .argName("INPUT_FILE")
-                        .required()
-                        .build());
-                options.addOption(Option.builder().longOpt(OUTPUT_DIR)
-                        .desc("output directory")
-                        .hasArg()
-                        .argName("OUTPUT_DIR")
-                        .required()
-                        .build());
+                addInputFileOption(options);
+                addOutputDirectoryOption(options);
                 options.addOption(Option.builder().longOpt(VOLTAGE_LEVEL_LAYOUT)
                         .desc("voltage level layout")
                         .hasArg()
@@ -100,14 +85,14 @@ public class LayoutToCgmesDlExporterTool implements Tool {
 
             @Override
             public String getUsageFooter() {
-                return "Where SUBSTATION LAYOUT is one of: " + substationsLayouts.keySet().stream().collect(Collectors.joining(", ")) + " (default is: " + DEFAULT_SUBSTATION_LAYOUT + ")"
-                        + " and VOLTAGE LEVEL LAYOUT is one of: " + voltageLevelsLayouts.keySet().stream().collect(Collectors.joining(", ")) + " (default is: " + DEFAULT_VOLTAGE_LAYOUT + ")";
+                return "Where SUBSTATION LAYOUT is one of: " + String.join(", ", substationsLayouts.keySet()) + " (default is: " + DEFAULT_SUBSTATION_LAYOUT + ")"
+                        + " and VOLTAGE LEVEL LAYOUT is one of: " + String.join(", ", voltageLevelsLayouts.keySet()) + " (default is: " + DEFAULT_VOLTAGE_LAYOUT + ")";
             }
         };
     }
 
     @Override
-    public void run(CommandLine line, ToolRunningContext context) throws UnsupportedEncodingException {
+    public void run(CommandLine line, ToolRunningContext context) {
         ToolOptions toolOptions = new ToolOptions(line, context);
         Path inputFile = toolOptions.getPath(INPUT_FILE).orElseThrow(() -> new PowsyblException(INPUT_FILE + " parameter is missing"));
         Path outputDir = toolOptions.getPath(OUTPUT_DIR).orElseThrow(() -> new PowsyblException(OUTPUT_DIR + " parameter is missing"));

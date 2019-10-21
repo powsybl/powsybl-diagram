@@ -13,7 +13,6 @@ import java.util.Objects;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.model.BusNode;
@@ -25,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
+import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
 import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
 import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
 import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
@@ -63,7 +63,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
                     break;
 
                 case LOAD:
-                    initialValue = getLoadInitialValue(network.getLoad(nodeId));
+                    initialValue = getInjectionInitialValue(network.getLoad(nodeId));
                     break;
 
                 case INDUCTOR:
@@ -83,6 +83,10 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
                     initialValue = getInjectionInitialValue(network.getVscConverterStation(nodeId));
                     break;
 
+                case DANGLING_LINE:
+                    initialValue = getInjectionInitialValue(network.getDanglingLine(nodeId));
+                    break;
+
                 case BUSBAR_SECTION:
                 case BREAKER:
                 case LOAD_BREAK_SWITCH:
@@ -97,14 +101,6 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     private InitialValue getInjectionInitialValue(Injection<?> injection) {
         if (injection != null) {
             return new InitialValue(injection);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
-        }
-    }
-
-    private InitialValue getLoadInitialValue(Load load) {
-        if (load != null) {
-            return new InitialValue(load);
         } else {
             return new InitialValue(null, null, null, null, null, null);
         }
