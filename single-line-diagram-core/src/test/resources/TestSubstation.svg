@@ -109,7 +109,7 @@
     stroke: none;
     fill-opacity: 1;
 }
-.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}]]></style>
+.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}.idFICT_95_vl_95_dFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}]]></style>
     <style><![CDATA[.BUSBAR_SECTION {
     stroke: rgb(0,0,0);
     stroke-width: 3;
@@ -220,7 +220,7 @@
     stroke: none;
     fill-opacity: 1;
 }
-.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}]]></style>
+.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}.idFICT_95_vl_95_dFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}]]></style>
     <g>
         <g class="BUSBAR_SECTION idbbs" id="idbbs" transform="translate(80.0,360.0)">
             <line y2="0" x1="0" x2="30.0" y1="0"/>
@@ -232,7 +232,9 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="l_N_LABEL">l</text>
         </g>
-        <g class="NODE idFICT_95_vl_95_dFictif" id="idFICT_95_vl_95_dFictif" transform="translate(91.0,326.0)"/>
+        <g class="NODE idFICT_95_vl_95_dFictif" id="idFICT_95_vl_95_dFictif" transform="translate(91.0,326.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
         <polyline class="wire wire_vl" points="95.0,360.0,95.0,360.0" id="idvl_95_Wire0"/>
         <polyline class="wire wire_vl" points="95.0,195.0,95.0,84.0" id="idvl_95_Wire1"/>
         <g class="ARROW1__95_l_DOWN" id="idvl_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,90.0,170.0)">

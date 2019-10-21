@@ -248,14 +248,30 @@
         <g class="LINE idtrf8_95_THREE_95_TWO" id="idtrf8_95_THREE_95_TWO" transform="translate(620.0,30.00000000000002)">
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="trf8_THREE_TWO_N_LABEL">trf8_THREE_TWO</text>
         </g>
-        <g class="NODE idFICT_95_vl3_95_dload4Fictif" id="idFICT_95_vl3_95_dload4Fictif" transform="translate(56.0,276.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dself4Fictif" id="idFICT_95_vl3_95_dself4Fictif" transform="translate(136.0,336.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dtrf25Fictif" id="idFICT_95_vl3_95_dtrf25Fictif" transform="translate(216.0,336.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dtrf36Fictif" id="idFICT_95_vl3_95_dtrf36Fictif" transform="translate(336.0,276.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dtrf37Fictif" id="idFICT_95_vl3_95_dtrf37Fictif" transform="translate(496.0,336.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dtrf38Fictif" id="idFICT_95_vl3_95_dtrf38Fictif" transform="translate(656.0,276.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dself5Fictif" id="idFICT_95_vl3_95_dself5Fictif" transform="translate(776.0,336.0)"/>
-        <g class="NODE idFICT_95_vl3_95_dself6Fictif" id="idFICT_95_vl3_95_dself6Fictif" transform="translate(856.0,336.0)"/>
+        <g class="NODE idFICT_95_vl3_95_dload4Fictif" id="idFICT_95_vl3_95_dload4Fictif" transform="translate(56.0,276.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dself4Fictif" id="idFICT_95_vl3_95_dself4Fictif" transform="translate(136.0,336.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dtrf25Fictif" id="idFICT_95_vl3_95_dtrf25Fictif" transform="translate(216.0,336.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dtrf36Fictif" id="idFICT_95_vl3_95_dtrf36Fictif" transform="translate(336.0,276.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dtrf37Fictif" id="idFICT_95_vl3_95_dtrf37Fictif" transform="translate(496.0,336.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dtrf38Fictif" id="idFICT_95_vl3_95_dtrf38Fictif" transform="translate(656.0,276.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dself5Fictif" id="idFICT_95_vl3_95_dself5Fictif" transform="translate(776.0,336.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
+        <g class="NODE idFICT_95_vl3_95_dself6Fictif" id="idFICT_95_vl3_95_dself6Fictif" transform="translate(856.0,336.0)">
+            <use stroke-opacity="0" href="#NODE" fill-opacity="0"/>
+        </g>
         <polyline class="wire wire_vl3" points="60.0,310.0,60.0,310.0" id="idvl3_95_Wire0"/>
         <polyline class="wire wire_vl3" points="60.0,145.0,60.0,34.0" id="idvl3_95_Wire1"/>
         <g class="ARROW1_load4_DOWN" id="idvl3_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,55.0,120.0)">

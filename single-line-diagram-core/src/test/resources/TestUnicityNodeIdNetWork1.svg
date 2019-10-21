@@ -109,7 +109,7 @@
     stroke: none;
     fill-opacity: 1;
 }
-.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}]]></style>
+.ARROW1__95_l_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1__95_l_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2__95_l_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2__95_l_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2__95_l_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idd .open { visibility: hidden;}.idd .closed { visibility: visible;}.idb .open { visibility: hidden;}.idb .closed { visibility: visible;}.idFICT_95_vl_95_dFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}]]></style>
     <g>
         <g class="BUSBAR_SECTION idnetwork1_95_bbs" id="idnetwork1_95_bbs" transform="translate(30.0,310.0)">
             <line y2="0" x1="0" x2="30.0" y1="0"/>
@@ -121,7 +121,9 @@
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="network1_l_N_LABEL">l</text>
         </g>
-        <g class="NODE idnetwork1_95_FICT_95_vl_95_dFictif" id="idnetwork1_95_FICT_95_vl_95_dFictif" transform="translate(41.0,276.0)"/>
+        <g class="NODE idnetwork1_95_FICT_95_vl_95_dFictif" id="idnetwork1_95_FICT_95_vl_95_dFictif" transform="translate(41.0,276.0)">
+    <circle r="4" cx="4" cy="4"/>
+</g>
         <polyline class="wire wire_vl" points="45.0,310.0,45.0,310.0" id="idnetwork1_95_vl_95_Wire0"/>
         <polyline class="wire wire_vl" points="45.0,145.0,45.0,34.0" id="idnetwork1_95_vl_95_Wire1"/>
         <g class="ARROW1__95_l_DOWN" id="idnetwork1_95_vl_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,40.0,120.0)">
