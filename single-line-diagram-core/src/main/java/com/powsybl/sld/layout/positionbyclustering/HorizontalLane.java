@@ -1,6 +1,7 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.Position;
 import com.powsybl.sld.model.Side;
 
 import java.util.*;
@@ -23,14 +24,21 @@ class HorizontalLane {
         index = parentSize - index - length;
     }
 
-    void merge(LBSCluster otherLbsCluster, HorizontalLane otherLane, int actualMaxLBSIndex) {
+    void merge(HorizontalLane otherLane, int actualMaxLBSIndex) {
         List<BusNode> otherBuses = new ArrayList<>(otherLane.getBusNodes());
         if (busNodes.get(busNodes.size() - 1).equals(otherBuses.get(0))) {
             otherBuses.remove(0);
         }
         busNodes.addAll(otherBuses);
-        length = actualMaxLBSIndex - index + otherLane.getLength();
-        otherLbsCluster.removeLane(otherLane);
+        length = actualMaxLBSIndex - index + otherLane.getIndex() + otherLane.getLength();
+    }
+
+    void establishBusPosition(int v) {
+        int h = 1;
+        for (BusNode busNode : busNodes) {
+            busNode.setStructuralPosition(new Position(h, v));
+            h++;
+        }
     }
 
     public List<BusNode> getBusNodes() {

@@ -10,6 +10,10 @@ import java.util.Set;
 abstract class AbstractLinkable {
     abstract Set<BusNode> getBusNodeSet();
 
+    int getDistanceToEdge(InternCell internCell) {
+        return 0;
+    }
+
     abstract List<InternCell> getCandidateFlatCellList();
 
     abstract List<InternCell> getCrossOverCellList();

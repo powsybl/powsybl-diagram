@@ -22,51 +22,51 @@ import java.util.stream.Collectors;
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANISE THE VOLTAGELEVEL CONSISTENTLY
 
 public class PositionByClustering implements PositionFinder {
+    boolean useLBSLinkOnly;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
 
-    private static final BusCell.Direction DEFAULTDIRECTION = BusCell.Direction.TOP;
+    public PositionByClustering(boolean useLBSLinkOnly) {
+        this.useLBSLinkOnly = useLBSLinkOnly;
+    }
 
-    private class Context {
-        private final Graph graph;
-        private final Map<BusNode, Integer> busToNb = new HashMap<>();
-        private final List<LegBusSet> legBusSets = new ArrayList<>();
-        private final Map<BusNode, List<LegBusSet>> busToLBSs = new HashMap<>();
-        private final List<LBSCluster> lbsClusterSets = new ArrayList<>();
-
-        Context(Graph graph) {
-            this.graph = Objects.requireNonNull(graph);
-        }
+    public PositionByClustering() {
+        this(false);
     }
 
     @Override
     public void buildLayout(Graph graph) {
         LOGGER.info("start BuildLayout");
-        Context context = new Context(graph);
+        Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
 
-        indexBusPosition(context);
+        List<LegBusSet> legBusSets = initLegBusSets(graph, busToNb);
+        LBSCluster lbsCluster;
 
-        initLegBusSets(context.graph, context.legBusSets, context.busToNb);
-        mapBusToLbs(context.legBusSets, context.busToLBSs);
-
-//        clusteringByLBSLink(context);
-        clusteringByLBSClusterLink(context);
-        establishBusPositions(context);
-        establishFeederPositions(context);
+        if (useLBSLinkOnly) {
+            lbsCluster = clusteringByLBSLink(graph, legBusSets);
+        } else {
+            lbsCluster = clusteringByLBSClusterLink(legBusSets);
+        }
+        establishFeederPositions(lbsCluster);
 
         graph.setMaxBusPosition();
         forceSameOrientationForShuntedCell(graph);
     }
 
-    private void indexBusPosition(Context context) {
+    private Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes) {
+        Map<BusNode, Integer> busToNb = new HashMap<>();
         int i = 1;
-        for (BusNode n : new ArrayList<>(context.graph.getNodeBuses())) {
-            context.busToNb.put(n, i);
+        for (BusNode n : busNodes.stream()
+                .sorted(Comparator.comparing(BusNode::getId))
+                .collect(Collectors.toList())) {
+            busToNb.put(n, i);
             i++;
         }
+        return busToNb;
     }
 
-    private void initLegBusSets(Graph graph, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
+    private List<LegBusSet> initLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
+        List<LegBusSet> legBusSets = new ArrayList<>();
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)
                 .map(BusCell.class::cast)
@@ -84,6 +84,7 @@ public class PositionByClustering implements PositionFinder {
                 .flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
         allBusNodes.forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
         legBusSets.forEach(LegBusSet::checkInternCells);
+        return legBusSets;
     }
 
     private void mapBusToLbs(List<LegBusSet> legBusSets, Map<BusNode, List<LegBusSet>> busToLBSs) {
@@ -116,9 +117,10 @@ public class PositionByClustering implements PositionFinder {
         legBusSets.add(legBusSet);
     }
 
-    private void clusteringByLBSLink(Context context) {
-        context.legBusSets.forEach(lbs -> new LBSCluster(this, context.lbsClusterSets, lbs));
-        Links<LegBusSet> links = new Links<>(context.legBusSets);
+    private LBSCluster clusteringByLBSLink(Graph graph, List<LegBusSet> legBusSets) {
+        List<LBSCluster> lbsClusters = new ArrayList<>();
+        legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
+        Links<LegBusSet> links = new Links<>(legBusSets);
 
         // Cluster with lbslinks: stronger lbslinks first
         List<Link<LegBusSet>> linksToHandle = links.getLinkSet().stream()
@@ -128,18 +130,21 @@ public class PositionByClustering implements PositionFinder {
         for (Link<LegBusSet> link : linksToHandle) {
             link.mergeClusters();
         }
-        LBSCluster mainCluster = context.lbsClusterSets.get(0);
+        LBSCluster mainCluster = lbsClusters.get(0);
 
         // Merge Cluster with no link
-        while (context.lbsClusterSets.size() != 1) {
-            mainCluster.merge(Side.RIGHT, context.lbsClusterSets.get(1), Side.LEFT);
+        while (lbsClusters.size() != 1) {
+            mainCluster.merge(Side.RIGHT, lbsClusters.get(1), Side.LEFT);
         }
+        establishBusPositions(graph, lbsClusters.get(0));
+        return lbsClusters.get(0);
     }
 
-    private void clusteringByLBSClusterLink(Context context) {
-        context.legBusSets.forEach(lbs -> new LBSCluster(this, context.lbsClusterSets, lbs));
+    private LBSCluster clusteringByLBSClusterLink(List<LegBusSet> legBusSets) {
+        List<LBSCluster> lbsClusters = new ArrayList<>();
+        legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
         Links<LBSClusterSide> links = new Links<>();
-        context.lbsClusterSets.forEach(lbsCluster -> {
+        lbsClusters.forEach(lbsCluster -> {
             links.addLinkable(new LBSClusterSide(lbsCluster, Side.LEFT));
             links.addLinkable(new LBSClusterSide(lbsCluster, Side.RIGHT));
         });
@@ -156,19 +161,18 @@ public class PositionByClustering implements PositionFinder {
             links.addLinkable(new LBSClusterSide(mergedCluster, Side.LEFT));
             links.addLinkable(new LBSClusterSide(mergedCluster, Side.RIGHT));
         }
+
+        lbsClusters.get(0).mergeHorizontalLanes();
+        lbsClusters.get(0).establishBusNodePosition();
+        return lbsClusters.get(0);
     }
 
-    private void establishPositionsWithFromClusterLanes() {
-
-    }
-
-    private void establishBusPositions(Context context) {
-        context.graph.getNodeBuses().forEach(busNode -> busNode.setStructuralPosition(null));
-        LBSCluster finalCluster = context.lbsClusterSets.get(0);
+    private void establishBusPositions(Graph graph, LBSCluster lbsCluster) {
+        graph.getNodeBuses().forEach(busNode -> busNode.setStructuralPosition(null));
         int v = 1;
-        Set<BusNode> remainingBuses = new HashSet<>(context.graph.getNodeBuses());
+        Set<BusNode> remainingBuses = new HashSet<>(graph.getNodeBuses());
         while (!remainingBuses.isEmpty()) {
-            buildLane(finalCluster, remainingBuses, v);
+            buildLane(lbsCluster, remainingBuses, v);
             v++;
         }
     }
@@ -276,10 +280,10 @@ public class PositionByClustering implements PositionFinder {
         return false;
     }
 
-    private void establishFeederPositions(Context context) {
+    private void establishFeederPositions(LBSCluster lbsCluster) {
         int cellPos = 0;
         int feederPosition = 1;
-        for (LegBusSet lbs : context.lbsClusterSets.get(0).getLbsList()) {
+        for (LegBusSet lbs : lbsCluster.getLbsList()) {
             for (ExternCell busCell : lbs.getEmbededCells().stream()
                     .filter(busCell -> busCell.getType() == Cell.CellType.EXTERN)
                     .map(ExternCell.class::cast)
