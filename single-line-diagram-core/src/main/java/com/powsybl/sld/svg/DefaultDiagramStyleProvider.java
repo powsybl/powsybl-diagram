@@ -36,8 +36,16 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     private static final String DOWN = "_DOWN";
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
+    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
+
+        if (node.getComponentType().equals("NODE") && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+            StringBuilder style = new StringBuilder();
+            String className = escapeId(node.getId());
+            style.append(".").append(className)
+                    .append(" {stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+            return Optional.of(style.toString());
+        }
         if (node.getType() == Node.NodeType.SWITCH && !avoidSVGComponentsDuplication) {
 
             StringBuilder style = new StringBuilder();

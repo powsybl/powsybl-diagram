@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 public interface DiagramStyleProvider {
 
-    Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication);
+    Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes);
 
     String getIdWireStyle(Edge edge);
 

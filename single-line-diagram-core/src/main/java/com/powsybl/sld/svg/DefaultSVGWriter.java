@@ -13,6 +13,7 @@ import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
 import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.NODE;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -166,7 +167,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Set<String> listUsedComponentSVG = new HashSet<>();
 
         graph.getNodes().forEach(n -> {
-            Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
+            Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
             nodeStyle.ifPresent(graphStyle::append);
             listUsedComponentSVG.add(n.getComponentType());
         });
@@ -297,7 +298,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (Graph vlGraph : graph.getNodes()) {
             vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
+                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
                 nodeStyle.ifPresent(graphStyle::append);
                 listUsedComponentSVG.add(n.getComponentType());
             });
@@ -406,7 +407,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (Graph vlGraph : graph.getNodes()) {
             vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
+                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
                 nodeStyle.ifPresent(graphStyle::append);
             });
             vlGraph.getEdges().forEach(e -> {
@@ -647,9 +648,10 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected boolean canInsertComponentSVG(Node node) {
-        return layoutParameters.isShowInternalNodes() ||
-                ((!node.isFictitious() && node.getType() != Node.NodeType.SHUNT) ||
-                        (node.isFictitious() && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)));
+        return (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT) ||
+                        (node.isFictitious() && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER) ||
+                                (node.isFictitious() && node.getComponentType().equals(NODE)));
+
     }
 
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
@@ -734,6 +736,13 @@ public class DefaultSVGWriter implements SVGWriter {
         if (color.isPresent()) {
             attributes.put(STROKE, color.get());
         }
+        return attributes;
+    }
+
+    protected Map<String, String> getAttributesHiddenNode(Node node, DiagramStyleProvider styleProvider) {
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("stroke-opacity", "0");
+        attributes.put("fill-opacity", "0");
         return attributes;
     }
 
@@ -838,7 +847,9 @@ public class DefaultSVGWriter implements SVGWriter {
                 if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
                     getAttributesInductor(node, styleProvider).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
                 }
-
+                if (!layoutParameters.isShowInternalNodes() && node.getComponentType().equals(NODE)) {
+                    getAttributesHiddenNode(node, styleProvider).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
+                }
                 g.getOwnerDocument().adoptNode(eltUse);
                 g.appendChild(eltUse);
             }
