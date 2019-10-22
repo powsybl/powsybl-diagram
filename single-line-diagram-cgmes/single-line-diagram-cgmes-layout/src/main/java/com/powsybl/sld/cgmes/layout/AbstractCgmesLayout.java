@@ -6,48 +6,50 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Switch;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-
 import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
+import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
 import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
 import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
 import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD;
 import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.SwitchNode;
 
 /**
  *
@@ -79,6 +81,18 @@ public abstract class AbstractCgmesLayout {
         graph.removeUnnecessaryFictitiousNodes();
         graph.removeFictitiousSwitchNodes();
         return graph;
+    }
+
+    protected boolean checkDiagram(String diagramName, Network network, String equipment) {
+        if (diagramName == null) {
+            LOG.warn("layout parameter diagramName not set: CGMES-DL layout will not be applied");
+            return false;
+        }
+        if (!NetworkDiagramData.containsDiagramName(network, diagramName)) {
+            LOG.warn("diagram name {} not found in network: CGMES-DL layout will not be applied to network {},  {}", diagramName, network.getId(), equipment);
+            return false;
+        }
+        return true;
     }
 
     protected void setNodeCoordinates(Graph graph, String diagramName) {

@@ -18,7 +18,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +32,13 @@ import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Graph;
@@ -289,6 +295,8 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("Bus2", graph.getNodes().get(0).getId());
         assertEquals("Svc", graph.getNodes().get(1).getId());
         assertEquals("Transformer_TWO", graph.getNodes().get(2).getId());
+
+        assertEquals("Transformer", graph.getNodes().get(2).getLabel());
 
         assertEquals(BUSBAR_SECTION, graph.getNodes().get(0).getComponentType());
         assertEquals(STATIC_VAR_COMPENSATOR, graph.getNodes().get(1).getComponentType());

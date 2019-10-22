@@ -11,8 +11,6 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayout;
 import com.powsybl.sld.model.Graph;
@@ -40,16 +38,10 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     @Override
     public void run(LayoutParameters layoutParam) {
         String diagramName = layoutParam.getDiagramName();
-        if (diagramName == null) {
-            LOG.warn("layout parameter diagramName not set: CGMES-DL layout will not be applied");
+        if (!checkDiagram(diagramName, graph.getSubstation().getNetwork(), "substation " + graph.getSubstation().getId())) {
             return;
         }
-        Network network = graph.getSubstation().getNetwork();
-        if (!NetworkDiagramData.containsDiagramName(network, diagramName)) {
-            LOG.warn("diagram name {} not found in network: CGMES-DL layout will not be applied to network {}, substation {}", diagramName, network.getId(), graph.getSubstation().getId());
-            return;
-        }
-        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstation().getId(), diagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", graph.getSubstation().getNetwork().getId(), graph.getSubstation().getId(), diagramName);
         for (Graph vlGraph : graph.getNodes()) {
             setNodeCoordinates(vlGraph, diagramName);
         }

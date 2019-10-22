@@ -6,15 +6,14 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.VoltageLevelLayout;
-import com.powsybl.sld.model.Graph;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Objects;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.VoltageLevelLayout;
+import com.powsybl.sld.model.Graph;
 
 /**
  *
@@ -34,21 +33,14 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
     @Override
     public void run(LayoutParameters layoutParam) {
         String diagramName = layoutParam.getDiagramName();
-        if (diagramName == null) {
-            LOG.warn("layout parameter diagramName not set: CGMES-DL layout will not be applied");
-        } else {
-            Network network = graph.getVoltageLevel().getSubstation().getNetwork();
-            if (NetworkDiagramData.containsDiagramName(network, diagramName)) {
-                LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevel().getId(), diagramName);
-
-                setNodeCoordinates(graph, diagramName);
-                graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
-                if (layoutParam.getScaleFactor() != 1) {
-                    graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
-                }
-            } else {
-                LOG.warn("diagram name {} not found in network: CGMES-DL layout will not be applied to network {}, voltage level {}", diagramName, network.getId(), graph.getVoltageLevel().getId());
-            }
+        if (!checkDiagram(diagramName, graph.getVoltageLevel().getSubstation().getNetwork(), "voltage level " + graph.getVoltageLevel().getId())) {
+            return;
+        }
+        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", graph.getVoltageLevel().getSubstation().getNetwork().getId(), graph.getVoltageLevel().getId(), diagramName);
+        setNodeCoordinates(graph, diagramName);
+        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
+        if (layoutParam.getScaleFactor() != 1) {
+            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
     }
 }
