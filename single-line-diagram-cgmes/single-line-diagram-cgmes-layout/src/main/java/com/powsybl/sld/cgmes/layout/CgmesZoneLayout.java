@@ -22,6 +22,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.ZoneLayout;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.LineEdge;
+import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
 
 /**
@@ -37,7 +38,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
 
     public CgmesZoneLayout(ZoneGraph graph) {
         Objects.requireNonNull(graph);
-        vlGraphs = graph.getNodes().stream().map(g -> g.getNodes()).flatMap(Collection::stream).collect(Collectors.toList());
+        vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
         for (Graph vlGraph : vlGraphs) {
             removeFictitiousNodes(vlGraph);
         }
@@ -47,7 +48,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        if (graph.getZone().size() == 0) {
+        if (graph.getZone().isEmpty()) {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }

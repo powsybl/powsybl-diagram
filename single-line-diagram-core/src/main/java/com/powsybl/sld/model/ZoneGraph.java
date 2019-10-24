@@ -15,6 +15,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Substation;
 
@@ -55,12 +56,12 @@ public class ZoneGraph {
         });
         // add edges -> lines
         List<String> lines = new ArrayList<>();
-        zone.forEach(substation -> {
-            substation.getVoltageLevelStream().forEach(voltageLevel -> {
+        zone.forEach(substation ->
+            substation.getVoltageLevelStream().forEach(voltageLevel ->
                 voltageLevel.getConnectableStream(Line.class).forEach(line -> {
                     if (!lines.contains(line.getId())) {
-                        String nodeId1 = line.getId() + "_" + Line.Side.ONE;
-                        String nodeId2 = line.getId() + "_" + Line.Side.TWO;
+                        String nodeId1 = line.getId() + "_" + Branch.Side.ONE;
+                        String nodeId2 = line.getId() + "_" + Branch.Side.TWO;
                         String voltageLevelId1 = line.getTerminal1().getVoltageLevel().getId();
                         String voltageLevelId2 = line.getTerminal2().getVoltageLevel().getId();
                         String substationId1 = line.getTerminal1().getVoltageLevel().getSubstation().getId();
@@ -77,9 +78,9 @@ public class ZoneGraph {
                             lines.add(line.getId());
                         }
                     }
-                });
-            });
-        });
+                })
+            )
+        );
     }
 
     private void addNode(SubstationGraph sGraph) {
