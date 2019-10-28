@@ -6,10 +6,13 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.SubstationLayout;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
+
+import java.util.Objects;
 
 /**
  *
@@ -17,9 +20,14 @@ import com.powsybl.sld.model.SubstationGraph;
  */
 public class CgmesSubstationLayoutFactory implements SubstationLayoutFactory {
 
-    @Override
-    public SubstationLayout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new CgmesSubstationLayout(graph);
+    private final Network network;
+
+    public CgmesSubstationLayoutFactory(Network network) {
+        this.network = Objects.requireNonNull(network);
     }
 
+    @Override
+    public SubstationLayout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
+        return new CgmesSubstationLayout(graph, network);
+    }
 }

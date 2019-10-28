@@ -43,6 +43,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
     @Before
     public void setUp() {
         network = Network.create("testCase11", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
 
         substation = createSubstation(network, "subst", "subst", Country.FR);
 
@@ -405,17 +406,17 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
                 .setShowInductorFor3WT(true);
 
         // build voltage level 1 graph
-        Graph g1 = Graph.create(vl1, false, true, true);
+        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true, true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(layoutParameters);
 
-        Graph g2 = Graph.create(vl2, false, true, true);
+        Graph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true, true);
         new ImplicitCellDetector().detectCells(g2);
         new BlockOrganizer().organize(g2);
         new PositionVoltageLevelLayout(g2).run(layoutParameters);
 
-        Graph g3 = Graph.create(vl3, false, true, false);
+        Graph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true, false);
         new ImplicitCellDetector().detectCells(g3);
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(layoutParameters);
@@ -434,14 +435,16 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
         compareSvg(g3, layoutParametersOptimized, "/TestCase12GraphVL3_optimized.svg");
 
         // Create voltageLevel diagram (svg + metadata files)
-        VoltageLevelDiagram diagram = VoltageLevelDiagram.build(vl1, new PositionVoltageLevelLayoutFactory(), false, true);
+        VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
+                                                                new PositionVoltageLevelLayoutFactory(),
+                                                                false, true);
         Path pathSVG = Paths.get(System.getProperty("user.home"), "vlDiag.svg");
         Path pathMetadata = Paths.get(System.getProperty("user.home"), "vlDiag_metadata.json");
 
         ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
         diagram.writeSvg("", new DefaultSVGWriter(componentLibrary, layoutParameters),
                 new DefaultDiagramInitialValueProvider(network),
-                new NominalVoltageDiagramStyleProvider(),
+                new NominalVoltageDiagramStyleProvider(network),
                 new DefaultNodeLabelConfiguration(componentLibrary),
                 pathSVG,
                 false);

@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.iidm.network.Connectable;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
@@ -48,7 +49,7 @@ public class CgmesVoltageLevelLayoutFactorySmartSelector implements VoltageLevel
     }
 
     @Override
-    public VoltageLevelLayoutFactory createFactory() {
-        return new CgmesVoltageLevelLayoutFactory();
+    public VoltageLevelLayoutFactory createFactory(Network network) {
+        return new CgmesVoltageLevelLayoutFactory(network);
     }
 }

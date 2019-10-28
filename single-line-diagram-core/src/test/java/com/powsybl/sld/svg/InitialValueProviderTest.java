@@ -8,6 +8,8 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
+import com.powsybl.sld.GraphBuilder;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.model.Graph;
 import org.junit.Before;
@@ -24,10 +26,12 @@ public class InitialValueProviderTest {
     private Network network;
     private Substation substation;
     private VoltageLevel vl;
+    private GraphBuilder graphBuilder;
 
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
@@ -81,7 +85,7 @@ public class InitialValueProviderTest {
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
         DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2);
-        Graph g = Graph.create(vl, false, false, false);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
         assertFalse(init.getLabel2().isPresent());

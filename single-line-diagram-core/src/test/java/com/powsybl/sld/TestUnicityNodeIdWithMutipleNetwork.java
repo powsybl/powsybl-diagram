@@ -16,6 +16,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +38,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
     private Path tmpDir;
 
     private Network network2;
+    private GraphBuilder graphBuilder2;
     private Substation substation2;
     private VoltageLevel vl2;
 
@@ -44,6 +46,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
     public void setUp() throws IOException {
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
@@ -57,6 +60,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
 
         // Create second network with a substation and a voltageLevel
         network2 = Network.create("n2", "test");
+        graphBuilder2 = new NetworkGraphBuilder(network2);
         substation2 = network2.newSubstation().setId("s").setCountry(Country.FR).add();
         vl2 = substation2.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view2 = vl2.getNodeBreakerView().setNodeCount(10);
@@ -79,7 +83,9 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
 
         // Generating svg for voltage level in first network
         Path outSvg1 = tmpDir.resolve("vl_network1.svg");
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("network1_", componentLibrary, layoutParameters, network, outSvg1);
+        VoltageLevelDiagram.build(graphBuilder, vl.getId(), new PositionVoltageLevelLayoutFactory(), false, false)
+                .writeSvg("network1_", componentLibrary,
+                        layoutParameters, new DefaultDiagramInitialValueProvider(network), outSvg1);
         String svgStr1 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg1), StandardCharsets.UTF_8));
 
 //        FileWriter fw1 = new FileWriter(System.getProperty("user.home") + "/TestUnicityNodeIdNetWork1.svg");
@@ -91,7 +97,9 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
 
         // Generating svg for voltage level in second network
         Path outSvg2 = tmpDir.resolve("vl_network2.svg");
-        VoltageLevelDiagram.build(vl2, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("network2_", componentLibrary, layoutParameters, network2, outSvg2);
+        VoltageLevelDiagram.build(graphBuilder2, vl2.getId(), new PositionVoltageLevelLayoutFactory(), false, false)
+                .writeSvg("network2_", componentLibrary, layoutParameters,
+                        new DefaultDiagramInitialValueProvider(network2), outSvg2);
         String svgStr2 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg2), StandardCharsets.UTF_8));
 
 //        FileWriter fw2 = new FileWriter(System.getProperty("user.home") + "/TestUnicityNodeIdNetWork2.svg");
@@ -104,10 +112,14 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
         assertNotEquals(svgStr1, svgStr2);
 
         // Generating the svg for the voltage levels, without the prefix identifying each network
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", componentLibrary, layoutParameters, network, outSvg1);
+        VoltageLevelDiagram.build(graphBuilder, vl.getId(), new PositionVoltageLevelLayoutFactory(), false, false)
+                .writeSvg("", componentLibrary, layoutParameters,
+                        new DefaultDiagramInitialValueProvider(network), outSvg1);
         svgStr1 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg1), StandardCharsets.UTF_8));
 
-        VoltageLevelDiagram.build(vl2, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", componentLibrary, layoutParameters, network2, outSvg2);
+        VoltageLevelDiagram.build(graphBuilder2, vl2.getId(), new PositionVoltageLevelLayoutFactory(), false, false)
+                .writeSvg("", componentLibrary, layoutParameters,
+                        new DefaultDiagramInitialValueProvider(network2), outSvg2);
         svgStr2 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg2), StandardCharsets.UTF_8));
 
         assertEquals(svgStr1, svgStr2);

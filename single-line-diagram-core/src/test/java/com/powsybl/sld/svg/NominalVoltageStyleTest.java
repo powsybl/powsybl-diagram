@@ -10,6 +10,8 @@ import com.google.common.io.ByteStreams;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.GraphBuilder;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.SubstationDiagram;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
@@ -39,10 +41,12 @@ public class NominalVoltageStyleTest {
     private VoltageLevel vl;
     private FileSystem fileSystem;
     private Path tmpDir;
+    private GraphBuilder graphBuilder;
 
     @Before
     public void setUp() throws IOException {
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
@@ -66,10 +70,10 @@ public class NominalVoltageStyleTest {
         Path outSvg = tmpDir.resolve("sub.svg");
         Path meta = tmpDir.resolve("meta.json");
 
-        SubstationDiagram.build(substation).writeSvg("", componentLibrary,
+        SubstationDiagram.build(graphBuilder, substation.getId()).writeSvg("", componentLibrary,
                 layoutParameters,
                 new DefaultDiagramInitialValueProvider(network),
-                new NominalVoltageDiagramStyleProvider(),
+                new NominalVoltageDiagramStyleProvider(network),
                 new DefaultNodeLabelConfiguration(componentLibrary),
                 Files.newBufferedWriter(outSvg, StandardCharsets.UTF_8),
                 Files.newBufferedWriter(meta));

@@ -52,6 +52,8 @@ public class TestCase5ShuntVertical extends AbstractTestCase {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
 
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
+
         Substation s = network.newSubstation()
                 .setId("s")
                 .setCountry(Country.FR)
@@ -127,7 +129,7 @@ public class TestCase5ShuntVertical extends AbstractTestCase {
     @Test
     public void test() throws IOException {
         // build graph
-        Graph g = Graph.create(vl);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
 
         // assert graph structure
         assertEquals(10, g.getNodes().size());
