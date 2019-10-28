@@ -14,10 +14,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
@@ -48,11 +44,6 @@ public class SingleLineDiagramTool implements Tool {
     private static final String IDS = "ids";
     private static final String ALL_VOLTAGE_LEVELS = "all-voltage-levels";
     private static final String ALL_SUBSTATIONS = "all-substations";
-
-    private final LayoutParameters parameters = new LayoutParameters();
-    private final ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
-    private VoltageLevelLayoutFactory voltageLevelLayoutFactory;
-    private final SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
 
     @Override
     public Command getCommand() {

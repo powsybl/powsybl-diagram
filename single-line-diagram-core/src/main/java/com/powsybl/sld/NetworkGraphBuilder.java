@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld;
 
 import com.powsybl.commons.PowsyblException;
@@ -66,7 +72,11 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
 
+/**
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ */
 public class NetworkGraphBuilder implements GraphBuilder {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkGraphBuilder.class);
 
     private static final ServiceLoaderCache<GraphBuildPostProcessor> POST_PROCESSOR_LOADER = new ServiceLoaderCache<>(GraphBuildPostProcessor.class);
