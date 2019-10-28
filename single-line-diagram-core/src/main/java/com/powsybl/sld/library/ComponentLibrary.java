@@ -9,17 +9,19 @@ package com.powsybl.sld.library;
 import org.apache.batik.anim.dom.SVGOMDocument;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface ComponentLibrary {
 
     List<AnchorPoint> getAnchorPoints(String type);
 
-    SVGOMDocument getSvgDocument(String type);
+    Map<String, SVGOMDocument> getSvgDocument(String type);
 
     ComponentSize getSize(String type);
 

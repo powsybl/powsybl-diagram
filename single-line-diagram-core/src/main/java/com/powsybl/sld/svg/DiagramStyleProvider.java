@@ -6,9 +6,8 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Node;
 
 import java.util.Map;
@@ -26,9 +25,7 @@ public interface DiagramStyleProvider {
 
     Optional<String> getWireStyle(Edge edge);
 
-    Optional<String> getNode3WTStyle(Fictitious3WTNode node, boolean rotate, String vId, String idWinding);
-
-    Optional<String> getNode2WTStyle(Feeder2WTNode node, String idWinding);
+    Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent);
 
     Optional<String> getColor(double nominalV);
 

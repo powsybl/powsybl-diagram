@@ -18,7 +18,9 @@ import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Position;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
@@ -330,6 +332,8 @@ public class TestSVGWriter extends AbstractTestCase {
             }
         };
 
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider(null);
+
         // Layout parameters :
         //
         LayoutParameters layoutParameters = new LayoutParameters()
@@ -354,16 +358,34 @@ public class TestSVGWriter extends AbstractTestCase {
                 .setShowInductorFor3WT(true);
 
         Map<String, Graph> mapGr = new HashMap<>();
-        mapGr.put("vl1.svg", g1);
-        mapGr.put("vl2.svg", g2);
-        mapGr.put("vl3.svg", g3);
+        mapGr.put("/vl1.svg", g1);
+        mapGr.put("/vl2.svg", g2);
+        mapGr.put("/vl3.svg", g3);
 
         for (String filename : mapGr.keySet()) {
             // SVG file generation first voltage level and comparison to reference :
-            assertEquals(toSVG(mapGr.get(filename), layoutParameters, initValueProvider), toString("/" + filename));
+            assertEquals(toSVG(mapGr.get(filename), filename, layoutParameters, initValueProvider, styleProvider), toString(filename));
         }
 
         // SVG file generation for substation and comparison to reference
-        assertEquals(toSVG(substG, layoutParameters, initValueProvider), toString("/substation.svg"));
+        assertEquals(toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider), toString("/substation.svg"));
+
+        // Same tests than before, with optimized svg :
+        //
+        LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
+        layoutParameters2.setAvoidSVGComponentsDuplication(true);
+
+        mapGr.clear();
+        mapGr.put("/vl1_optimized.svg", g1);
+        mapGr.put("/vl2_optimized.svg", g2);
+        mapGr.put("/vl3_optimized.svg", g3);
+
+        for (String filename : mapGr.keySet()) {
+            // SVG file generation first voltage level and comparison to reference :
+            assertEquals(toSVG(mapGr.get(filename), filename, layoutParameters2, initValueProvider, styleProvider), toString(filename));
+        }
+
+        // SVG file generation for substation and comparison to reference
+        assertEquals(toSVG(substG, "/substation_optimized.svg", layoutParameters2, initValueProvider, styleProvider), toString("/substation_optimized.svg"));
     }
 }

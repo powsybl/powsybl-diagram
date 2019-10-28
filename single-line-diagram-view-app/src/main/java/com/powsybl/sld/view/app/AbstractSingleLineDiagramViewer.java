@@ -237,8 +237,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
                     VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected(),
                             layoutParameters.get().isShowInductorFor3WT());
-                    diagram.writeSvg("", getComponentLibrary(),
-                            diagramLayoutParameters,
+                    diagram.writeSvg("",
+                            new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
                             styleProvider,
                             nodeLabelConfiguration,
@@ -246,8 +246,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                             metadataWriter);
                 } else if (c.getContainerType() == ContainerType.SUBSTATION) {
                     SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, c.getId(), getSubstationLayoutFactory(), getVoltageLevelLayoutFactory(), showNames.isSelected());
-                    diagram.writeSvg("", getComponentLibrary(),
-                            diagramLayoutParameters,
+                    diagram.writeSvg("",
+                            new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
                             styleProvider,
                             nodeLabelConfiguration,
@@ -1021,12 +1021,13 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     }
 
     private void initStylesProvider() {
-        styles.put("Default", new DefaultDiagramStyleProvider());
+        styles.put("Default", new DefaultDiagramStyleProvider(null));
         styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider(null));
         styles.put("Topology", new TopologicalStyleProvider(null, null));
     }
 
     private void updateStylesProvider(Network network) {
+        styles.put("Default", new DefaultDiagramStyleProvider(network));
         styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider(network));
         styles.put("Topology", new TopologicalStyleProvider(null, network));
     }
