@@ -10,15 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.iidm.network.Bus;
@@ -126,6 +122,16 @@ public abstract class AbstractCgmesLayout {
                 setFeederNodeCoordinates(vl, graph, node, diagramName);
                 break;
             default:
+                // retrieve internal nodes points, if available in VoltageLevel extensions
+                if (node.isFictitious() && StringUtils.isNumeric(node.getName())) {
+                    DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getName()));
+                    if (nodePoint != null) {
+                        node.setX(nodePoint.getX());
+                        node.setY(nodePoint.getY());
+                    }
+                } else {
+                    LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
+                }
                 break;
         }
     }

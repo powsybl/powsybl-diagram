@@ -7,6 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Before;
 
@@ -38,6 +39,7 @@ public abstract class AbstractCgmesDLTest {
     protected PropertyBags svcsPropertyBags;
     protected PropertyBags terminals;
     protected PropertyBags busbarNodes;
+    protected PropertyBags voltageLevels;
 
     @Before
     public void setUp() {
@@ -98,6 +100,7 @@ public abstract class AbstractCgmesDLTest {
                                                    createTerminal(NAMESPACE + "HvdcLine_0", 1, NAMESPACE + "HvdcLine"),
                                                    createTerminal(NAMESPACE + "HvdcLine_1", 2, NAMESPACE + "HvdcLine")));
         busbarNodes = new PropertyBags(Arrays.asList(createBusbarNode(NAMESPACE + "Busbar", NAMESPACE + "BusbarNode")));
+        voltageLevels = new PropertyBags(Collections.emptyList());
     }
 
     protected PropertyBag createPropertyBag(String identifiedObject, String name, double x, double y, int seq, String diagramName) {

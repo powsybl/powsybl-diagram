@@ -86,6 +86,10 @@ public class LayoutToCgmesExtensionsConverter {
         return diagramData;
     }
 
+    private boolean isNodeSurroundedbySwitches(Node node) {
+        return node.isFictitious() && node.getAdjacentNodes().stream().allMatch(n -> Node.NodeType.SWITCH.equals(n.getType()));
+    }
+
     private LayoutInfo applyLayout(Network network, String substationId, double xoffset, double yoffset, String diagramName) {
         OffsetPoint offsetPoint = new OffsetPoint(xoffset, yoffset);
 
@@ -103,6 +107,12 @@ public class LayoutToCgmesExtensionsConverter {
             // remove fictitious nodes&switches (no CGMES DL data available for them)
             vlGraph.removeUnnecessaryFictitiousNodes();
             AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
+
+            //retrieve fictitious nodes surrounded by switches, to be exported to DL
+            List<Node> nodesSurroundedBySwitches = vlGraph.getNodes().stream().filter(this::isNodeSurroundedbySwitches).collect(Collectors.toList());
+            nodesSurroundedBySwitches.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode -> {
+                VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName, Integer.parseInt(fNode.getName()), new DiagramPoint(fNode.getX(), fNode.getY(), 0));
+            });
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);

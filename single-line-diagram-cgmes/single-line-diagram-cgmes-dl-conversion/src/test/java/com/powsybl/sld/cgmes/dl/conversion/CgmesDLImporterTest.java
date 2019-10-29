@@ -52,6 +52,7 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
         Mockito.when(cgmesDLModel.getTransformersDiagramData()).thenReturn(tranformersPropertyBags);
         Mockito.when(cgmesDLModel.getHvdcLinesDiagramData()).thenReturn(hvdcLinesPropertyBags);
         Mockito.when(cgmesDLModel.getSvcsDiagramData()).thenReturn(svcsPropertyBags);
+        Mockito.when(cgmesDLModel.getVoltageLevelDiagramData()).thenReturn(voltageLevels);
     }
 
     private <T> void checkDiagramData(NodeDiagramData.NodeDiagramDataDetails diagramDetails) {

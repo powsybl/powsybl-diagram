@@ -6,7 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,9 @@ public class CgmesDLModel {
     public static final String SVC_DIAGRAM_DATA_QUERY_KEY = "svcDiagramData";
     public static final String TERMINALS_QUERY_KEY = "terminals";
     public static final String BUSBAR_NODES_QUERY_KEY = "busbarNodes";
+    public static final String FORK_CONNECTIVITY_NODES_QUERY_KEY = "forkConnectivityNodes";
+    public static final String VOLTAGELEVEL_DIAGRAM_DATA_QUERY_KEY = "voltageLevelDiagramData";
+    public static final String VOLTAGELEVEL_NO_SWITCHES_DIAGRAM_DATA_QUERY_KEY = "voltageLevelNoSwitchesDiagramData";
     public static final String MODEL_DESCRIPTION = "Model.description";
     public static final String MODEL_DEPENDENT_ON = "Model.DependentOn";
     public static final String MODEL_VERSION = "Model.version";
@@ -138,4 +142,23 @@ public class CgmesDLModel {
         return queryTripleStore(BUSBAR_NODES_QUERY_KEY);
     }
 
+    public PropertyBags getVoltageLevelDiagramData() {
+        LOG.info("Querying triple store for VoltageLevel diagram data");
+        PropertyBags nodesConnectedToSwitches = queryTripleStore(VOLTAGELEVEL_DIAGRAM_DATA_QUERY_KEY);
+        Set<String> filterNodes = queryTripleStore(VOLTAGELEVEL_NO_SWITCHES_DIAGRAM_DATA_QUERY_KEY).stream().map(p -> p.get("connectivityNode")).collect(Collectors.toSet());
+        return new PropertyBags(nodesConnectedToSwitches.stream().filter(p -> !filterNodes.contains(p.get("connectivityNode"))).collect(Collectors.toList()));
+    }
+
+    public Map<String, Set<String>> findCgmesConnectivityNodesSwitchesForks() {
+        Map<String, Set<String>> forkMap = new HashMap<>();
+        //retrieve (connectivity-node, terminal, switch) from the triple store
+        queryTripleStore(FORK_CONNECTIVITY_NODES_QUERY_KEY).forEach(fork -> {
+            String nodeId = fork.getId("forkNode");
+            String switchId = fork.getId("switch");
+            forkMap.putIfAbsent(nodeId, new HashSet<>());
+            forkMap.get(nodeId).add(switchId);
+        });
+        forkMap.entrySet().removeIf(entry -> entry.getValue().size() < 2);
+        return forkMap;
+    }
 }

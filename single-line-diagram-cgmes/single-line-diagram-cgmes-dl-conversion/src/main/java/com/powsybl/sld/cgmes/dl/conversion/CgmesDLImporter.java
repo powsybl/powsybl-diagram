@@ -9,21 +9,15 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.sld.cgmes.dl.conversion.importers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.powsybl.cgmes.conversion.Profiling;
-import com.powsybl.sld.cgmes.dl.conversion.importers.BusDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.BusbarDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.GeneratorDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.HvdcLineDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.LineDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.LoadDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.ShuntDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.SvcDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.SwitchDiagramDataImporter;
-import com.powsybl.sld.cgmes.dl.conversion.importers.TransformerDiagramDataImporter;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.triplestore.api.PropertyBags;
 
@@ -64,6 +58,7 @@ public class CgmesDLImporter {
         importTransformersDLData();
         importHvdcLinesDLData();
         importSvcsDLData();
+        importVoltageLevelDLData();
         if (logProfile) {
             profiling.report();
         }
@@ -162,6 +157,27 @@ public class CgmesDLImporter {
         SvcDiagramDataImporter diagramDataImporter = new SvcDiagramDataImporter(network, terminalsDiagramData);
         cgmesDLModel.getSvcsDiagramData().forEach(diagramDataImporter::importDiagramData);
         profiling.end("DLSVCs");
+    }
+
+    private void importVoltageLevelDLData() {
+        LOG.info("Importing VoltageLevel DL Data");
+        profiling.start();
+        Map<String, Set<String>> nodeSwitches = cgmesDLModel.findCgmesConnectivityNodesSwitchesForks();
+        Map<String, Map<String, Integer>> mapCnodeInode = new HashMap<>();
+        network.getVoltageLevelStream().forEach(vl -> {
+            if (vl.getTopologyKind().equals(TopologyKind.NODE_BREAKER)) {
+                for (int n : vl.getNodeBreakerView().getNodes()) {
+                    Set<Switch> switches = CgmesDLUtils.findSurroundingSwitches(vl.getNodeBreakerView(), n);
+                    if (switches.size() > 1) {
+                        mapCnodeInode.putIfAbsent(vl.getId(), new HashMap<>());
+                        mapCnodeInode.get(vl.getId()).putIfAbsent(CgmesDLUtils.findMatchingConnectivityNodeId(nodeSwitches, switches), n);
+                    }
+                }
+            }
+        });
+        VoltageLevelDiagramDataImporter diagramDataImporter = new VoltageLevelDiagramDataImporter(network, mapCnodeInode);
+        cgmesDLModel.getVoltageLevelDiagramData().forEach(diagramDataImporter::importDiagramData);
+        profiling.end("DLVoltageLevels");
     }
 
     public Network getNetworkWithDLData() {
