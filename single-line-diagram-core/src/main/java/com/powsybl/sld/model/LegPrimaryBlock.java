@@ -54,7 +54,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     // TODO : is it a clean manner ?!
     @Override
     public void reverseBlock() {
-
+        // nothing to do
     }
 
     @Override

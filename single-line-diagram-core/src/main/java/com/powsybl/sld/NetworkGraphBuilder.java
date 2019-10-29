@@ -8,69 +8,20 @@ package com.powsybl.sld;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.Connectable;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.DefaultTopologyVisitor;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.HvdcConverterStation;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.Switch;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Feeder3WTNode;
-import com.powsybl.sld.model.FeederLineNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
-import com.powsybl.sld.model.FictitiousNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Position;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD_BREAK_SWITCH;
-import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -140,15 +91,99 @@ public class NetworkGraphBuilder implements GraphBuilder {
         handleConnectedComponents(graph);
     }
 
-    private abstract class AbstractGraphBuilder extends DefaultTopologyVisitor {
+    private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final Graph graph;
 
-        public AbstractGraphBuilder(Graph graph) {
+        protected AbstractGraphBuilder(Graph graph) {
             this.graph = graph;
         }
 
         protected abstract void addFeeder(FeederNode node, Terminal terminal);
+
+        private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(line);
+
+            String id = line.getId() + "_" + side.name();
+            String name = line.getName() + "_" + side.name();
+            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+            VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
+            return new FeederLineNode(id, name, LINE, false, graph, vlOtherSide.getId(), vlOtherSide.getNominalV());
+        }
+
+        private FeederNode createFeederNode(Graph graph, Injection injection) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(injection);
+            String componentType;
+            switch (injection.getType()) {
+                case GENERATOR:
+                    componentType = GENERATOR;
+                    break;
+                case LOAD:
+                    componentType = LOAD;
+                    break;
+                case HVDC_CONVERTER_STATION:
+                    componentType = VSC_CONVERTER_STATION;
+                    break;
+                case STATIC_VAR_COMPENSATOR:
+                    componentType = STATIC_VAR_COMPENSATOR;
+                    break;
+                case SHUNT_COMPENSATOR:
+                    componentType = ((ShuntCompensator) injection).getbPerSection() >= 0 ? CAPACITOR : INDUCTOR;
+                    break;
+                case DANGLING_LINE:
+                    componentType = DANGLING_LINE;
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            return new FeederNode(injection.getId(), injection.getName(), componentType, false, graph);
+        }
+
+        private FeederNode createFeeder2WTNode(Graph graph,
+                                               TwoWindingsTransformer branch,
+                                               Branch.Side side) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(branch);
+            String componentType;
+
+            if (branch.getPhaseTapChanger() == null) {
+                componentType = TWO_WINDINGS_TRANSFORMER;
+            } else {
+                componentType = PHASE_SHIFT_TRANSFORMER;
+            }
+
+            String id = branch.getId() + "_" + side.name();
+            String name = branch.getName() + "_" + side.name();
+            Branch.Side otherSide = side == Branch.Side.ONE
+                    ? Branch.Side.TWO
+                    : Branch.Side.ONE;
+            VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
+            return new Feeder2WTNode(id, name, componentType, false, graph,
+                    vlOtherSide.getId(), vlOtherSide.getNominalV());
+        }
+
+        protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(terminal);
+            Bus bus = terminal.getBusBreakerView().getConnectableBus();
+            String id = bus.getId() + "_" + terminal.getConnectable().getId();
+            String name = bus.getName() + "_" + terminal.getConnectable().getName();
+            return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
+        }
+
+        private Feeder3WTNode createFeeder3WTNode(Graph graph,
+                                                  ThreeWindingsTransformer twt,
+                                                  ThreeWindingsTransformer.Side side) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(twt);
+            Objects.requireNonNull(side);
+            String id = twt.getId() + "_" + side.name();
+            String name = twt.getName() + "_" + side.name();
+            Feeder3WTNode.Side s = Feeder3WTNode.Side.valueOf(side.name());
+            return new Feeder3WTNode(id, name, THREE_WINDINGS_TRANSFORMER, false, graph, twt.getId(), s);
+        }
 
         @Override
         public void visitLoad(Load load) {
@@ -182,12 +217,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
-                                                TwoWindingsTransformer.Side side) {
+                                                Branch.Side side) {
             addFeeder(createFeeder2WTNode(graph, transformer, side), transformer.getTerminal(side));
         }
 
         @Override
-        public void visitLine(Line line, Line.Side side) {
+        public void visitLine(Line line, Branch.Side side) {
             addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
@@ -633,78 +668,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(line);
-
-        String id = line.getId() + "_" + side.name();
-        String name = line.getName() + "_" + side.name();
-        Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-        VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-        return new FeederLineNode(id, name, LINE, false, graph, vlOtherSide.getId(), vlOtherSide.getNominalV());
-    }
-
-    private FeederNode createFeederNode(Graph graph, Injection injection) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(injection);
-        String componentType;
-        switch (injection.getType()) {
-            case GENERATOR:
-                componentType = GENERATOR;
-                break;
-            case LOAD:
-                componentType = LOAD;
-                break;
-            case HVDC_CONVERTER_STATION:
-                componentType = VSC_CONVERTER_STATION;
-                break;
-            case STATIC_VAR_COMPENSATOR:
-                componentType = STATIC_VAR_COMPENSATOR;
-                break;
-            case SHUNT_COMPENSATOR:
-                componentType = ((ShuntCompensator) injection).getbPerSection() >= 0 ? CAPACITOR : INDUCTOR;
-                break;
-            case DANGLING_LINE:
-                componentType = DANGLING_LINE;
-                break;
-            default:
-                throw new AssertionError();
-        }
-        return new FeederNode(injection.getId(), injection.getName(), componentType, false, graph);
-    }
-
-    private FeederNode createFeeder2WTNode(Graph graph,
-                                           TwoWindingsTransformer branch,
-                                           TwoWindingsTransformer.Side side) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(branch);
-        String componentType;
-
-        if (branch.getPhaseTapChanger() == null) {
-            componentType = TWO_WINDINGS_TRANSFORMER;
-        } else {
-            componentType = PHASE_SHIFT_TRANSFORMER;
-        }
-
-        String id = branch.getId() + "_" + side.name();
-        String name = branch.getName() + "_" + side.name();
-        TwoWindingsTransformer.Side otherSide = side == TwoWindingsTransformer.Side.ONE
-                ? TwoWindingsTransformer.Side.TWO
-                : TwoWindingsTransformer.Side.ONE;
-        VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-        return new Feeder2WTNode(id, name, componentType, false, graph,
-                vlOtherSide.getId(), vlOtherSide.getNominalV());
-    }
-
-    private SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(terminal);
-        Bus bus = terminal.getBusBreakerView().getConnectableBus();
-        String id = bus.getId() + "_" + terminal.getConnectable().getId();
-        String name = bus.getName() + "_" + terminal.getConnectable().getName();
-        return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
-    }
-
     private SwitchNode createSwitchNodeFromSwitch(Graph graph, Switch aSwitch) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(aSwitch);
@@ -724,17 +687,5 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
         return new SwitchNode(aSwitch.getId(), aSwitch.getName(), componentType, false, graph, sk, aSwitch.isOpen());
-    }
-
-    private Feeder3WTNode createFeeder3WTNode(Graph graph,
-                                              ThreeWindingsTransformer twt,
-                                              ThreeWindingsTransformer.Side side) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(twt);
-        Objects.requireNonNull(side);
-        String id = twt.getId() + "_" + side.name();
-        String name = twt.getName() + "_" + side.name();
-        Feeder3WTNode.Side s = Feeder3WTNode.Side.valueOf(side.name());
-        return new Feeder3WTNode(id, name, THREE_WINDINGS_TRANSFORMER, false, graph, twt.getId(), s);
     }
 }
