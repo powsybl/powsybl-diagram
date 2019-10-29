@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -155,32 +156,48 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
         Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
-        Element style = document.createElement("style");
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-
-        graph.getNodes().forEach(n -> {
-            Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
-            nodeStyle.ifPresent(graphStyle::append);
-            listUsedComponentSVG.add(n.getComponentType());
-        });
-        graph.getEdges().forEach(e -> {
-            Optional<String> wireStyle = styleProvider.getWireStyle(e);
-            wireStyle.ifPresent(graphStyle::append);
-        });
-        CDATASection cd = document.createCDATASection(graphStyle.toString());
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
+        addStyle(document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
+        transformDocument(document, writer);
+
+        return metadata;
+    }
+
+    protected void addStyle(Document document, DiagramStyleProvider styleProvider, List<Graph> graphs, Set<String> listUsedComponentSVG) {
+        Element style = document.createElement("style");
+
+        StringBuilder graphStyle = new StringBuilder();
+        graphStyle.append(componentLibrary.getStyleSheet());
+
+        for (Graph graph : graphs) {
+            graph.getNodes().forEach(n -> {
+                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
+                nodeStyle.ifPresent(graphStyle::append);
+                listUsedComponentSVG.add(n.getComponentType());
+            });
+            graph.getEdges().forEach(e -> {
+                Optional<String> wireStyle = styleProvider.getWireStyle(e);
+                wireStyle.ifPresent(graphStyle::append);
+            });
+        }
+        String cssStr = graphStyle.toString()
+                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
+                .replace("\r", "\n");
+        CDATASection cd = document.createCDATASection(cssStr);
+        style.appendChild(cd);
+        style.appendChild(cd);
+
+        document.adoptNode(style);
+        document.getDocumentElement().appendChild(style);
+    }
+
+    protected void transformDocument(Document document, Writer writer) {
         try {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(writer);
@@ -192,8 +209,6 @@ public class DefaultSVGWriter implements SVGWriter {
         } catch (TransformerException e) {
             throw new UncheckedTransformerException(e);
         }
-
-        return metadata;
     }
 
     /**
@@ -213,6 +228,25 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
+        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+
+        // the drawing of the voltageLevel graph label is done at the end in order to
+        // facilitate the move of a voltageLevel in the diagram
+        drawGraphLabel(prefixId, root, graph, metadata);
+
+        document.adoptNode(root);
+        document.getDocumentElement().appendChild(root);
+
+        return metadata;
+    }
+
+    protected void drawVoltageLevel(String prefixId,
+                                    Graph graph,
+                                    Element root,
+                                    GraphMetadata metadata,
+                                    DiagramInitialValueProvider initProvider,
+                                    DiagramStyleProvider styleProvider,
+                                    NodeLabelConfiguration nodeLabelConfiguration) {
         AnchorPointProvider anchorPointProvider = (type, id) -> {
             if (type.equals(BUSBAR_SECTION)) {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
@@ -238,15 +272,6 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
         drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider);
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
-
-        // the drawing of the voltageLevel graph label is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        drawGraphLabel(prefixId, root, graph, metadata);
-
-        document.adoptNode(root);
-        document.getDocumentElement().appendChild(root);
-
-        return metadata;
     }
 
     /**
@@ -285,45 +310,15 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
         Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
-        Element style = document.createElement("style");
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
-
-        for (Graph vlGraph : graph.getNodes()) {
-            vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
-                nodeStyle.ifPresent(graphStyle::append);
-                listUsedComponentSVG.add(n.getComponentType());
-            });
-            vlGraph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e);
-                wireStyle.ifPresent(graphStyle::append);
-            });
-        }
-        CDATASection cd = document.createCDATASection(graphStyle.toString());
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
+        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
-        try {
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(writer);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            throw new UncheckedTransformerException(e);
-        }
+        transformDocument(document, writer);
 
         return metadata;
     }
@@ -358,37 +353,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        // Drawing the voltageLevels
-        for (Graph vlGraph : graph.getNodes()) {
-            AnchorPointProvider anchorPointProvider = (type, id) -> {
-                if (type.equals(BUSBAR_SECTION)) {
-                    BusNode busbarSectionNode = (BusNode) vlGraph.getNode(id);
-                    List<AnchorPoint> result = new ArrayList<>();
-                    result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                    for (int i = 1; i < 2 * busbarSectionNode.getPosition().getHSpan(); i++) {
-                        result.add(new AnchorPoint(
-                                ((double) i / 2) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding() / 2,
-                                0, AnchorOrientation.VERTICAL));
-                    }
-                    result.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
-                    return result;
-                } else {
-                    return componentLibrary.getAnchorPoints(type);
-                }
-            };
-
-            if (layoutParameters.isShiftFeedersPosition()) {
-                shiftFeedersPosition(vlGraph, layoutParameters.getScaleShiftFeedersPosition());
-            }
-
-            // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
-            // then we draw all the edges, and finally we draw the switch nodes
-            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
-            drawEdges(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider);
-            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
-        }
-
-        drawSnakeLines(prefixId, root, graph, metadata);
+        drawSubstation(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
@@ -396,35 +361,25 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGraphLabel(prefixId, root, vlGraph, metadata);
         }
 
-        Element style = document.createElement("style");
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
-
-        for (Graph vlGraph : graph.getNodes()) {
-            vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
-                nodeStyle.ifPresent(graphStyle::append);
-            });
-            vlGraph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e);
-                wireStyle.ifPresent(graphStyle::append);
-            });
-        }
-
-        String cssStr = graphStyle.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-        CDATASection cd = document.createCDATASection(cssStr);
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
-
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
 
         return metadata;
+    }
+
+    protected void drawSubstation(String prefixId,
+                                  SubstationGraph graph,
+                                  Element root,
+                                  GraphMetadata metadata,
+                                  DiagramInitialValueProvider initProvider,
+                                  DiagramStyleProvider styleProvider,
+                                  NodeLabelConfiguration nodeLabelConfiguration) {
+        // Drawing the voltageLevels
+        for (Graph vlGraph : graph.getNodes()) {
+            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        }
+
+        drawSnakeLines(prefixId, root, graph, metadata);
     }
 
     /*
