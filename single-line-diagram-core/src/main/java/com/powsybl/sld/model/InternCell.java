@@ -18,9 +18,10 @@ import java.util.*;
  */
 public class InternCell extends AbstractBusCell {
 
+    private static final Side BODY_SIDE = Side.LEFT;
+
     private Map<Side, LegBlock> legs;
     private Block body;
-    private static Side BODYSIDE = Side.LEFT;
     private boolean exceptionIfPatternNotHandled;
 
     public InternCell(Graph graph, boolean exceptionIfPatternNotHandled) {
@@ -157,7 +158,7 @@ public class InternCell extends AbstractBusCell {
             legs.get(Side.LEFT).getPosition().setH(h);
             h += legs.get(Side.LEFT).getPosition().getHSpan();
         }
-        if (side == BODYSIDE) {
+        if (side == BODY_SIDE) {
             h -= 1;
             body.getPosition().setHV(h, 1);
             h += body.getPosition().getHSpan();

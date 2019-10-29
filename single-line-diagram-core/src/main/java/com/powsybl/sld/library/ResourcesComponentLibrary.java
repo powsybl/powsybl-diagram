@@ -81,7 +81,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public boolean isAllowRotation(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component != null ? component.getMetadata().isAllowRotation() : true;
+        return component == null || component.getMetadata().isAllowRotation();
     }
 
     public String getStyleSheet() {

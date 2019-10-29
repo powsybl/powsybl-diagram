@@ -8,8 +8,6 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.commons.util.ServiceLoaderCache;
-import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -21,18 +19,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,8 +36,6 @@ import java.util.stream.Stream;
 public final class Graph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
-
-    private static final ServiceLoaderCache<GraphBuildPostProcessor> POST_PROCESSOR_LOADER = new ServiceLoaderCache<>(GraphBuildPostProcessor.class);
 
     private String voltageLevelId;
 
@@ -99,8 +84,7 @@ public final class Graph {
                                boolean useName, boolean forVoltageLevelDiagram,
                                boolean showInductorFor3WT) {
         Objects.requireNonNull(id);
-        Graph g = new Graph(id, name, nominalV, useName, forVoltageLevelDiagram, showInductorFor3WT);
-        return g;
+        return new Graph(id, name, nominalV, useName, forVoltageLevelDiagram, showInductorFor3WT);
     }
 
     public boolean isUseName() {
