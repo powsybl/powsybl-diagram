@@ -167,7 +167,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
-        transform(document, writer);
+        transformDocument(document, writer);
 
         return metadata;
     }
@@ -200,7 +200,7 @@ public class DefaultSVGWriter implements SVGWriter {
         document.getDocumentElement().appendChild(style);
     }
 
-    protected void transform(Document document, Writer writer) {
+    protected void transformDocument(Document document, Writer writer) {
         try {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(writer);
@@ -321,7 +321,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
-        transform(document, writer);
+        transformDocument(document, writer);
 
         return metadata;
     }
