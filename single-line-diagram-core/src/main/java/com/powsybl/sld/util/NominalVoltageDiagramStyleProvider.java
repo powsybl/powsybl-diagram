@@ -12,9 +12,8 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 import java.util.Optional;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
@@ -28,21 +27,30 @@ import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
 
     private static final String DEFAULT_COLOR = "rgb(171, 175, 40)";
+    protected static final String WINDING1 = "WINDING1";
+    protected static final String WINDING2 = "WINDING2";
+    protected static final String WINDING3 = "WINDING3";
+
+    private final Network network;
+
+    public NominalVoltageDiagramStyleProvider(Network network) {
+        this.network = network;
+    }
 
     @Override
-    public Optional<String> getColor(VoltageLevel vl) {
+    public Optional<String> getColor(double nominalV) {
         String color;
-        if (vl.getNominalV() >= 300) {
+        if (nominalV >= 300) {
             color = "rgb(255, 0, 0)";
-        } else if (vl.getNominalV() >= 170 && vl.getNominalV() < 300) {
+        } else if (nominalV >= 170 && nominalV < 300) {
             color = "rgb(34, 139, 34)";
-        } else if (vl.getNominalV() >= 120 && vl.getNominalV() < 170) {
+        } else if (nominalV >= 120 && nominalV < 170) {
             color = "rgb(1, 175, 175)";
-        } else if (vl.getNominalV() >= 70 && vl.getNominalV() < 120) {
+        } else if (nominalV >= 70 && nominalV < 120) {
             color = "rgb(204, 85, 0)";
-        } else if (vl.getNominalV() >= 50 && vl.getNominalV() < 70) {
+        } else if (nominalV >= 50 && nominalV < 70) {
             color = "rgb(160, 32, 240)";
-        } else if (vl.getNominalV() >= 30 && vl.getNominalV() < 50) {
+        } else if (nominalV >= 30 && nominalV < 50) {
             color = "rgb(255, 130, 144)";
         } else {
             color = DEFAULT_COLOR;
@@ -54,7 +62,7 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
         Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication);
 
-        String color = getColor(node.getGraph().getVoltageLevel()).orElse(DEFAULT_COLOR);
+        String color = getColor(node.getGraph().getVoltageLevelNominalV()).orElse(DEFAULT_COLOR);
         if (node.getType() == Node.NodeType.SWITCH) {
             return defaultStyle;
         } else {
@@ -68,10 +76,12 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
         Node node2 = edge.getNode2();
         if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
                 (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
-            VoltageLevel vl = node1 instanceof Feeder2WTNode ? ((Feeder2WTNode) node1).getVlOtherSide() : ((Feeder2WTNode) node2).getVlOtherSide();
-            return WIRE_STYLE_CLASS + "_" + escapeClassName(vl.getId());
+            String vlId = node1 instanceof Feeder2WTNode
+                    ? ((Feeder2WTNode) node1).getVIdOtherSide()
+                    : ((Feeder2WTNode) node2).getVIdOtherSide();
+            return WIRE_STYLE_CLASS + "_" + escapeClassName(vlId);
         } else {
-            return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevel().getId());
+            return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelId());
         }
     }
 
@@ -79,27 +89,65 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     public Optional<String> getWireStyle(Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        VoltageLevel vl;
         if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
                 (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
-            vl = node1 instanceof Feeder2WTNode ? ((Feeder2WTNode) node1).getVlOtherSide() : ((Feeder2WTNode) node2).getVlOtherSide();
+            String vlId = node1 instanceof Feeder2WTNode
+                    ? ((Feeder2WTNode) node1).getVIdOtherSide()
+                    : ((Feeder2WTNode) node2).getVIdOtherSide();
+            double nominalV = node1 instanceof Feeder2WTNode
+                    ? ((Feeder2WTNode) node1).getNominalVOtherSide()
+                    : ((Feeder2WTNode) node2).getNominalVOtherSide();
+            String color = getColor(nominalV).orElse(DEFAULT_COLOR);
+            StringBuilder style = new StringBuilder();
+            style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
+            return Optional.of(style.toString());
         } else {
-            vl = edge.getNode1().getGraph().getVoltageLevel();
+            return Optional.empty();
         }
-        String idVL = escapeClassName(vl.getId());
-        String color = getColor(vl).orElse(DEFAULT_COLOR);
-        StringBuilder style = new StringBuilder();
-        style.append(".").append(WIRE_STYLE_CLASS).append("_").append(idVL).append(" {stroke:").append(color).append(";stroke-width:1;}");
-        return Optional.of(style.toString());
     }
 
     @Override
-    public Optional<String> getNode3WTStyle(Fictitious3WTNode node, ThreeWindingsTransformer.Side side) {
-        return getColor(node.getTransformer().getTerminal(side).getVoltageLevel());
+    public Optional<String> getNode3WTStyle(Fictitious3WTNode node, boolean rotateSVG, String vlId, String idWinding) {
+        Optional<String> color = Optional.empty();
+
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getTransformerId());
+        ThreeWindingsTransformer.Side otherSide = ThreeWindingsTransformer.Side.ONE;
+
+        if (idWinding.endsWith(WINDING1)) {
+            if (transformer.getLeg1().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.THREE : ThreeWindingsTransformer.Side.TWO;
+            } else if (transformer.getLeg2().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.THREE : ThreeWindingsTransformer.Side.ONE;
+            } else if (transformer.getLeg3().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.TWO : ThreeWindingsTransformer.Side.ONE;
+            }
+            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV());
+        } else if (idWinding.endsWith(WINDING2)) {
+            if (transformer.getLeg1().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.TWO : ThreeWindingsTransformer.Side.THREE;
+            } else if (transformer.getLeg2().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.ONE : ThreeWindingsTransformer.Side.THREE;
+            } else if (transformer.getLeg3().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.ONE : ThreeWindingsTransformer.Side.TWO;
+            }
+            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV());
+        } else {
+            if (transformer.getLeg1().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                color = getColor(transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getNominalV());
+            } else if (transformer.getLeg2().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                color = getColor(transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getNominalV());
+            } else if (transformer.getLeg3().getTerminal().getVoltageLevel().getId().equals(vlId)) {
+                color = getColor(transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).getVoltageLevel().getNominalV());
+            }
+        }
+
+        return color;
     }
 
     @Override
-    public Optional<String> getNode2WTStyle(Feeder2WTNode node, TwoWindingsTransformer.Side side) {
-        return getColor(side == TwoWindingsTransformer.Side.ONE ? node.getGraph().getVoltageLevel() : node.getVlOtherSide());
+    public Optional<String> getNode2WTStyle(Feeder2WTNode node, String idWinding) {
+        return getColor(idWinding.endsWith(WINDING1)
+                ? node.getGraph().getVoltageLevelNominalV()
+                : node.getNominalVOtherSide());
     }
 }

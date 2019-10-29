@@ -7,8 +7,6 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.Objects;
@@ -32,16 +30,9 @@ public class BusNode extends Node {
         super(NodeType.BUS, id, name, BUSBAR_SECTION, fictitious, graph);
     }
 
-    public static BusNode create(Graph graph, BusbarSection busbarSection) {
+    public static BusNode create(Graph graph, String id, String name) {
         Objects.requireNonNull(graph);
-        Objects.requireNonNull(busbarSection);
-        return new BusNode(busbarSection.getId(), busbarSection.getName(), false, graph);
-    }
-
-    public static BusNode create(Graph graph, Bus bus) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(bus);
-        return new BusNode(bus.getId(), bus.getName(), false, graph);
+        return new BusNode(id, name, false, graph);
     }
 
     public static BusNode createFictitious(Graph graph, String id) {

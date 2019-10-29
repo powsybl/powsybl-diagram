@@ -16,6 +16,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.SVGWriter;
 import org.junit.Before;
@@ -54,6 +55,7 @@ public class TestVoltageLevelDiagram extends AbstractTestCase {
     @Before
     public void setUp() throws IOException {
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
         VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
@@ -76,7 +78,10 @@ public class TestVoltageLevelDiagram extends AbstractTestCase {
 
         Path outSvg = tmpDir.resolve("vl.svg");
 
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", componentLibrary, layoutParameters, network, outSvg);
+        VoltageLevelDiagram.build(graphBuilder, vl.getId(),
+                                  new PositionVoltageLevelLayoutFactory(), false, false)
+                .writeSvg("", componentLibrary, layoutParameters,
+                        new DefaultDiagramInitialValueProvider(network), outSvg);
         String svgStr = normalizeLineSeparator(new String(Files.readAllBytes(outSvg), StandardCharsets.UTF_8));
 
 //        FileWriter fw = new FileWriter(System.getProperty("user.home") + "/TestVL.svg");
@@ -97,7 +102,10 @@ public class TestVoltageLevelDiagram extends AbstractTestCase {
 
         Path outSvg = tmpDir.resolve("vl.svg");
 
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", writer, network, outSvg);
+        VoltageLevelDiagram.build(graphBuilder, vl.getId(),
+                                  new PositionVoltageLevelLayoutFactory(),
+                                  false, false)
+                .writeSvg("", writer, new DefaultDiagramInitialValueProvider(network), outSvg);
         String svgStr = normalizeLineSeparator(new String(Files.readAllBytes(outSvg), StandardCharsets.UTF_8));
 
         String refSvg = normalizeLineSeparator(new String(

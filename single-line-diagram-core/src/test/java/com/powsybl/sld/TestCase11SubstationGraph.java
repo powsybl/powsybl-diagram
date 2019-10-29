@@ -16,6 +16,7 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
@@ -40,6 +41,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
     @Before
     public void setUp() {
         network = Network.create("testCase11", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
 
         substation = createSubstation(network, "subst", "subst", Country.FR);
 
@@ -421,7 +423,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
                 .setShowInductorFor3WT(false);
 
         // build substation graph
-        SubstationGraph g = SubstationGraph.create(substation);
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // assert substation graph structure
         assertEquals(3, g.getNodes().size());
@@ -433,25 +435,26 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
                    new DefaultDiagramStyleProvider());
 
         // rebuild substation graph
-        g = SubstationGraph.create(substation);
+        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write SVG and compare to reference (vertical layout)
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         compareSvg(g, layoutParameters, "/TestCase11SubstationGraphVertical.svg");
 
         // rebuild substation graph
-        g = SubstationGraph.create(substation);
+        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
          // write SVG and compare to reference (horizontal layout and nominal voltage style)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         compareSvg(g, layoutParameters, "/TestCase11SubstationGraphHorizontalNominalVoltageLevel.svg",
-                   new NominalVoltageDiagramStyleProvider());
+                   new NominalVoltageDiagramStyleProvider(network));
 
         // Create substation diagram (svg + metadata files)
-        SubstationDiagram diagram = SubstationDiagram.build(substation);
+        SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
         Path pathSVG = Paths.get(System.getProperty("user.home"), "substDiag.svg");
         Path pathMetadata = Paths.get(System.getProperty("user.home"), "substDiag_metadata.json");
-        diagram.writeSvg("", new DefaultSVGWriter(new ResourcesComponentLibrary("/ConvergenceLibrary"), layoutParameters), pathSVG, network);
+        diagram.writeSvg("", new DefaultSVGWriter(new ResourcesComponentLibrary("/ConvergenceLibrary"), layoutParameters),
+                pathSVG, new DefaultDiagramInitialValueProvider(network));
         assertTrue(Files.exists(pathSVG));
         assertTrue(Files.exists(pathMetadata));
         try {

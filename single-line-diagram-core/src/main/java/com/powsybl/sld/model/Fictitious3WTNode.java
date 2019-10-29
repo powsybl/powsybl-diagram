@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.model;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
 /**
@@ -15,14 +13,14 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  */
 public class Fictitious3WTNode extends FictitiousNode {
 
-    private final ThreeWindingsTransformer transformer;
+    private final String transformerId;
 
-    public Fictitious3WTNode(Graph graph, String id, ThreeWindingsTransformer transformer) {
+    public Fictitious3WTNode(Graph graph, String id, String transformerId) {
         super(graph, id, THREE_WINDINGS_TRANSFORMER);
-        this.transformer = transformer;
+        this.transformerId = transformerId;
     }
 
-    public ThreeWindingsTransformer getTransformer() {
-        return transformer;
+    public String getTransformerId() {
+        return transformerId;
     }
 }

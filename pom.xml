@@ -74,7 +74,7 @@
         <httpclient.version>4.5.10</httpclient.version>
         <httpcore.version>4.4.12</httpcore.version>
         <httpmime.version>4.5.10</httpmime.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <jimfs.version>1.1</jimfs.version>
         <jgrapht.version>1.0.1</jgrapht.version>
         <junit.version>4.12</junit.version>
@@ -117,7 +117,7 @@
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.1.0-SNAPSHOT</powsyblcore.version>
+        <powsyblcore.version>3.0.0</powsyblcore.version>
     </properties>
 
     <build>
