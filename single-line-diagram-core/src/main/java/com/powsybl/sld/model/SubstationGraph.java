@@ -6,14 +6,7 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
 
 /**
  * This class builds the connectivity among the voltageLevels of a substation
@@ -22,8 +15,6 @@ import org.slf4j.LoggerFactory;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public final class SubstationGraph {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SubstationGraph.class);
 
     private String substationId;
 
@@ -42,8 +33,7 @@ public final class SubstationGraph {
 
     public static SubstationGraph create(String id) {
         Objects.requireNonNull(id);
-        SubstationGraph g = new SubstationGraph(id);
-        return g;
+        return new SubstationGraph(id);
     }
 
     public void addNode(Graph node) {
