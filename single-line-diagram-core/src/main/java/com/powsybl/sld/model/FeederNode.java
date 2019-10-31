@@ -6,7 +6,10 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+
+import java.io.IOException;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
@@ -52,5 +55,12 @@ public class FeederNode extends Node {
 
     public void setDirection(BusCell.Direction direction) {
         this.direction = direction;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeNumberField("order", order);
+        generator.writeStringField("direction", direction.name());
     }
 }

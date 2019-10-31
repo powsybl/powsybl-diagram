@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -35,5 +38,12 @@ public class Edge {
 
     public Node getNode2() {
         return node2;
+    }
+
+    void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        generator.writeStringField("node1", node1.getId());
+        generator.writeStringField("node2", node2.getId());
+        generator.writeEndObject();
     }
 }

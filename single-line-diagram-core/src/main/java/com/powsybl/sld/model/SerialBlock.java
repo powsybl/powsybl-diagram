@@ -6,10 +6,8 @@
  */
 package com.powsybl.sld.model;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -201,16 +199,6 @@ public class SerialBlock extends AbstractComposedBlock {
             sub.setYSpan(getCoord().getYSpan());
             sub.calculateCoord(layoutParam);
         }
-    }
-
-    @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        generator.writeFieldName("blocks");
-        generator.writeStartArray();
-        for (Block subBlock : subBlocks) {
-            subBlock.writeJson(generator);
-        }
-        generator.writeEndArray();
     }
 
     @Override

@@ -1,0 +1,91 @@
+[ {
+  "id" : "vl1",
+  "x" : 50.0,
+  "y" : 50.0,
+  "cells" : [ ],
+  "edges" : [ {
+    "node1" : "bbs1",
+    "node2" : "dsect11"
+  }, {
+    "node1" : "dsect11",
+    "node2" : "FICT_vl1_14"
+  }, {
+    "node1" : "FICT_vl1_14",
+    "node2" : "dtrct11"
+  }, {
+    "node1" : "dtrct11",
+    "node2" : "FICT_vl1_15"
+  }, {
+    "node1" : "FICT_vl1_15",
+    "node2" : "dsect12"
+  }, {
+    "node1" : "dsect12",
+    "node2" : "bbs2"
+  }, {
+    "node1" : "bbs3",
+    "node2" : "dsect21"
+  }, {
+    "node1" : "dsect21",
+    "node2" : "FICT_vl1_16"
+  }, {
+    "node1" : "FICT_vl1_16",
+    "node2" : "dtrct21"
+  }, {
+    "node1" : "dtrct21",
+    "node2" : "FICT_vl1_17"
+  }, {
+    "node1" : "FICT_vl1_17",
+    "node2" : "dsect22"
+  }, {
+    "node1" : "dsect22",
+    "node2" : "bbs4"
+  }, {
+    "node1" : "bbs1",
+    "node2" : "dload1"
+  }, {
+    "node1" : "dload1",
+    "node2" : "FICT_vl1_5"
+  }, {
+    "node1" : "load1",
+    "node2" : "bload1"
+  }, {
+    "node1" : "bload1",
+    "node2" : "FICT_vl1_5"
+  }, {
+    "node1" : "bbs3",
+    "node2" : "dgen1"
+  }, {
+    "node1" : "dgen1",
+    "node2" : "FICT_vl1_7"
+  }, {
+    "node1" : "gen1",
+    "node2" : "bgen1"
+  }, {
+    "node1" : "bgen1",
+    "node2" : "FICT_vl1_7"
+  }, {
+    "node1" : "bbs2",
+    "node2" : "dload2"
+  }, {
+    "node1" : "dload2",
+    "node2" : "FICT_vl1_9"
+  }, {
+    "node1" : "load2",
+    "node2" : "bload2"
+  }, {
+    "node1" : "bload2",
+    "node2" : "FICT_vl1_9"
+  }, {
+    "node1" : "bbs4",
+    "node2" : "dgen2"
+  }, {
+    "node1" : "dgen2",
+    "node2" : "FICT_vl1_11"
+  }, {
+    "node1" : "gen2",
+    "node2" : "bgen2"
+  }, {
+    "node1" : "bgen2",
+    "node2" : "FICT_vl1_11"
+  } ]
+} ]

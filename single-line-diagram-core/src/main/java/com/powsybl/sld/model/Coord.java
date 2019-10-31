@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -79,6 +82,15 @@ public class Coord {
     @Override
     public String toString() {
         return "Coord(x=" + x + ", y=" + y + ", xSpan=" + xSpan + ", ySpan=" + ySpan + ")";
+    }
+
+    public void writeJsonContent(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        generator.writeNumberField("x", x);
+        generator.writeNumberField("y", y);
+        generator.writeNumberField("xSpan", xSpan);
+        generator.writeNumberField("ySpan", ySpan);
+        generator.writeEndObject();
     }
 }
 

@@ -201,6 +201,17 @@ public abstract class AbstractBlock implements Block {
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("type", type.name());
+        generator.writeArrayFieldStart("cardinalities");
+        for (Map.Entry<Extremity, Integer> ex : cardinality.entrySet()) {
+            generator.writeStartObject();
+            generator.writeObjectField(ex.getKey().name(), ex.getValue());
+            generator.writeEndObject();
+        }
+        generator.writeEndArray();
+        generator.writeFieldName("position");
+        position.writeJsonContent(generator);
+        generator.writeFieldName("coord");
+        coord.writeJsonContent(generator);
         writeJsonContent(generator);
         generator.writeEndObject();
     }

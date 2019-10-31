@@ -478,13 +478,30 @@ public final class Graph {
         try (JsonGenerator generator = new JsonFactory()
                 .createGenerator(writer)
                 .useDefaultPrettyPrinter()) {
-            generator.writeStartArray();
-            for (Cell cell : cells) {
-                cell.writeJson(generator);
-            }
-            generator.writeEndArray();
+            writeJson(generator);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+
+        generator.writeStringField("id", voltageLevelId);
+        generator.writeNumberField("x", x);
+        generator.writeNumberField("y", y);
+
+        generator.writeArrayFieldStart("cells");
+        for (Cell cell : cells) {
+            cell.writeJson(generator);
+        }
+        generator.writeEndArray();
+
+        generator.writeArrayFieldStart("edges");
+        for (Edge edge : edges) {
+            edge.writeJson(generator);
+        }
+        generator.writeEndArray();
+        generator.writeEndObject();
     }
 }

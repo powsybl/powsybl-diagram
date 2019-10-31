@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 
 /**
  * <pre>
@@ -24,89 +23,25 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase8JumpOverStacked extends AbstractTestCase {
 
     @Override
     void setUp() {
         network = Network.create("testCase", "test");
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView()
-                .setNodeCount(15);
-
-        BusbarSection bbs11 = view.newBusbarSection()
-                .setId("bbs11")
-                .setNode(0)
-                .add();
-        bbs11.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs11, 1, 1));
-
-        BusbarSection bbs12 = view.newBusbarSection()
-                .setId("bbs12")
-                .setNode(1)
-                .add();
-        bbs12.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs12, 1, 2));
-
-        view.newDisconnector()
-                .setId("d1")
-                .setNode1(0)
-                .setNode2(1)
-                .add();
-
-        BusbarSection bbs21 = view.newBusbarSection()
-                .setId("bbs21")
-                .setNode(2)
-                .add();
-        bbs21.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs21, 2, 1));
-
-        BusbarSection bbs22 = view.newBusbarSection()
-                .setId("bbs22")
-                .setNode(3)
-                .add();
-        bbs22.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs22, 2, 2));
-
-        view.newDisconnector()
-                .setId("d2")
-                .setNode1(2)
-                .setNode2(3)
-                .add();
-
-        view.newDisconnector()
-                .setId("d11")
-                .setNode1(0)
-                .setNode2(4)
-                .add();
-
-        view.newDisconnector()
-                .setId("d12")
-                .setNode1(1)
-                .setNode2(5)
-                .add();
-
-        view.newDisconnector()
-                .setId("d21")
-                .setNode1(2)
-                .setNode2(4)
-                .add();
-
-        view.newDisconnector()
-                .setId("d22")
-                .setNode1(3)
-                .setNode2(5)
-                .add();
-
-        view.newBreaker()
-                .setId("b")
-                .setNode1(4)
-                .setNode2(5)
-                .add();
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 15);
+        createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
+        createBusBarSection(vl, "bbs12", "bbs12", 1, 1, 2);
+        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createBusBarSection(vl, "bbs21", "bbs21", 2, 2, 1);
+        createBusBarSection(vl, "bbs22", "bbs22", 3, 2, 2);
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
+        createSwitch(vl, "d11", "d11", SwitchKind.DISCONNECTOR, false, false, false, 0, 4);
+        createSwitch(vl, "d12", "d12", SwitchKind.DISCONNECTOR, false, false, false, 1, 5);
+        createSwitch(vl, "d21", "d21", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+        createSwitch(vl, "d22", "d22", SwitchKind.DISCONNECTOR, false, false, false, 3, 5);
+        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 4, 5);
     }
 }

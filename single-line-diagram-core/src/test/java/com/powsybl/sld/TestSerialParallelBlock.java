@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
@@ -21,6 +20,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestSerialParallelBlock extends AbstractTestCase {
 
@@ -28,71 +28,22 @@ public class TestSerialParallelBlock extends AbstractTestCase {
     public void setUp() {
         Network network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView()
-                .setNodeCount(10);
-
-        BusbarSection bbs11 = view.newBusbarSection()
-                .setId("bbs")
-                .setNode(0)
-                .add();
-        bbs11.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs11, 1, 1));
-
-        view.newDisconnector()
-                .setId("da")
-                .setNode1(0)
-                .setNode2(1)
-                .add();
-
-        view.newBreaker()
-                .setId("ba")
-                .setNode1(1)
-                .setNode2(2)
-                .add();
-
-        view.newBreaker()
-                .setId("ba1")
-                .setNode1(2)
-                .setNode2(4)
-                .add();
-
-        view.newBreaker()
-                .setId("ba2")
-                .setNode1(2)
-                .setNode2(5)
-                .add();
-
-        Load la1 = vl.newLoad()
-                .setId("la1")
-                .setNode(4)
-                .setP0(10)
-                .setQ0(10)
-                .add();
-        la1.addExtension(ConnectablePosition.class, new ConnectablePosition<>(la1, new ConnectablePosition
-                .Feeder("la1", 10, ConnectablePosition.Direction.TOP), null, null, null));
-
-        Load la2 = vl.newLoad()
-                .setId("la2")
-                .setNode(5)
-                .setP0(10)
-                .setQ0(10)
-                .add();
-        la2.addExtension(ConnectablePosition.class, new ConnectablePosition<>(la2, new ConnectablePosition
-                .Feeder("la2", 10, ConnectablePosition.Direction.TOP), null, null, null));
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
+        createSwitch(vl, "da", "da", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 1, 2);
+        createSwitch(vl, "ba1", "ba1", SwitchKind.BREAKER, false, false, false, 2, 4);
+        createSwitch(vl, "ba2", "ba2", SwitchKind.BREAKER, false, false, false, 2, 5);
+        createLoad(vl, "la1", "la1", "la1", 10, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createLoad(vl, "la2", "la2", "la2", 10, ConnectablePosition.Direction.TOP, 5, 10, 10);
     }
 
     @Test
     public void test() {
         // build graph
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
+
         // detect cells
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);

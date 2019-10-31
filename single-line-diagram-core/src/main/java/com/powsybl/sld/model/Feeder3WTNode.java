@@ -6,6 +6,10 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
+
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -53,5 +57,12 @@ public class Feeder3WTNode extends FeederNode {
 
     public Side getSide() {
         return side;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("transformerId", transformerId);
+        generator.writeStringField("transformerSide", side.name());
     }
 }

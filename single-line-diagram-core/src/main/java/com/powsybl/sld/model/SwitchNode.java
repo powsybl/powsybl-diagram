@@ -6,8 +6,10 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
@@ -47,5 +49,11 @@ public class SwitchNode extends Node {
             throw new PowsyblException("Error switch node not having exactly 2 adjacent nodes " + getId());
         }
         return getAdjacentNodes().get(getAdjacentNodes().get(0).equals(adj) ? 1 : 0);
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("kind", kind.name());
     }
 }

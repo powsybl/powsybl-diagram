@@ -79,9 +79,14 @@ public abstract class AbstractCell implements Cell {
         return number;
     }
 
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        generator.writeStringField("type", type.name());
+        generator.writeNumberField("number", number);
+    }
+
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        generator.writeStringField("type", type.name());
+        writeJsonContent(generator);
         if (rootBlock != null) {
             generator.writeFieldName("rootBlock");
             rootBlock.writeJson(generator);
