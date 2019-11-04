@@ -30,14 +30,16 @@ public class ImplicitCellDetector implements CellDetector {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
     private boolean removeUnnecessaryFictitiousNodes;
     private boolean substituteSingularFictitiousByFeederNode;
+    private boolean exceptionIfPatternNotHandled;
 
-    public ImplicitCellDetector(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
+    public ImplicitCellDetector(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode, boolean exceptionIfPatternNotHandled) {
         this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
         this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
+        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     public ImplicitCellDetector() {
-        this(true, true);
+        this(true, true, false);
     }
 
 
@@ -121,7 +123,7 @@ public class ImplicitCellDetector implements CellDetector {
             if (searchOK && !cellNodes.isEmpty()) {
                 cellNodes.add(adj);
                 cellNodes.add(bus);
-                Cell cell = isCellIntern ? new InternCell(graph) : new ExternCell(graph);
+                Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
                 cell.setNodes(cellNodes);
                 allocatedNodes.addAll(cellNodes);
                 // remove the BusNodes from allocatedNode for a BusNode can be part of many cells

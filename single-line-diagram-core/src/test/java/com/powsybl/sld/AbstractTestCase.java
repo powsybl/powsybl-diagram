@@ -40,6 +40,8 @@ public abstract class AbstractTestCase {
     protected VoltageLevel vl;
     protected Substation substation;
 
+    protected GraphBuilder graphBuilder;
+
     protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
     protected final DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
@@ -151,5 +153,4 @@ public abstract class AbstractTestCase {
             throw new UncheckedIOException(e);
         }
     }
-
 }

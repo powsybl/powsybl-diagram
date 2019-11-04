@@ -74,8 +74,8 @@ public class Node implements BaseNode {
         this.graph = Objects.requireNonNull(graph);
         // for unicity purpose (in substation diagram), we prefix the id of the fictitious node with the voltageLevel id and "_"
         String tmpId = Objects.requireNonNull(id);
-        if (type == NodeType.FICTITIOUS && !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevel().getId() + "_")) {
-            this.id = "FICT_" + this.graph.getVoltageLevel().getId() + "_" + tmpId;
+        if (type == NodeType.FICTITIOUS && !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelId() + "_")) {
+            this.id = "FICT_" + this.graph.getVoltageLevelId() + "_" + tmpId;
         } else {
             this.id = tmpId;
         }

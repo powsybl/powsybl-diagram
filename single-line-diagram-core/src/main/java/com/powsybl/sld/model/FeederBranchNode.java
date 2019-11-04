@@ -6,21 +6,28 @@
  */
 package com.powsybl.sld.model;
 
-import com.powsybl.iidm.network.VoltageLevel;
-
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class FeederBranchNode extends FeederNode {
 
-    private VoltageLevel vlOtherSide;
+    private final String vIdOtherSide;
 
-    protected FeederBranchNode(String id, String name, String componentType, boolean fictitious, Graph graph, VoltageLevel vlOtherSide) {
+    private final double nominalVOtherSide;
+
+    protected FeederBranchNode(String id, String name, String componentType,
+                               boolean fictitious, Graph graph,
+                               String vIdOtherSide, double nominalVOtherSide) {
         super(id, name, componentType, fictitious, graph);
-        this.vlOtherSide = vlOtherSide;
+        this.vIdOtherSide = vIdOtherSide;
+        this.nominalVOtherSide = nominalVOtherSide;
     }
 
-    public VoltageLevel getVlOtherSide() {
-        return vlOtherSide;
+    public String getVIdOtherSide() {
+        return vIdOtherSide;
+    }
+
+    public double getNominalVOtherSide() {
+        return nominalVOtherSide;
     }
 }

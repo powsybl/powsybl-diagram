@@ -37,6 +37,8 @@ public class TestCase3Coupling extends AbstractTestCase {
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
+
         Substation s = network.newSubstation()
                 .setId("s")
                 .setCountry(Country.FR)
@@ -85,7 +87,7 @@ public class TestCase3Coupling extends AbstractTestCase {
     @Test
     public void test() {
         // build graph
-        Graph g = Graph.create(vl);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
 
         // assert graph structure
         assertEquals(7, g.getNodes().size());

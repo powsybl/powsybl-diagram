@@ -20,12 +20,13 @@ public class InternCell extends AbstractBusCell {
 
     private Map<Side, LegBlock> legs;
     private Block body;
-    private int hSpan;
     private static Side BODYSIDE = Side.LEFT;
+    private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(Graph graph) {
+    public InternCell(Graph graph, boolean exceptionIfPatternNotHandled) {
         super(graph, CellType.INTERN);
         setDirection(Direction.TOP);
+        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     public void organizeBlocks() {
@@ -37,10 +38,12 @@ public class InternCell extends AbstractBusCell {
             assignLeg(serialRootBlock, candidateLegs.get(1));
             body = serialRootBlock.extractBody(new ArrayList<>(legs.values()));
             body.setOrientation(Orientation.HORIZONTAL);
-        } else {     // if (candidateLegs.size() == 1) { TODO: to choose ?
-            legs.put(Side.UNDEFINED, candidateLegs.get(0));
-//        } else {
-//            throw new PowsyblException("InternCell pattern not recognized");
+        } else {
+            if (candidateLegs.size() == 1 || !exceptionIfPatternNotHandled) {
+                legs.put(Side.UNDEFINED, candidateLegs.get(0));
+            } else {
+                throw new PowsyblException("InternCell pattern not recognized");
+            }
         }
     }
 

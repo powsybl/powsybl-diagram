@@ -9,6 +9,8 @@ package com.powsybl.sld.view.app;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import com.powsybl.sld.GraphBuilder;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.iidm.network.*;
@@ -60,6 +62,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -85,25 +88,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private static final String SELECTED_VOLTAGE_LEVEL_IDS_PROPERTY = "selectedVoltageLevelIds";
     private static final String SELECTED_SUBSTATION_IDS_PROPERTY = "selectedSubstationIds";
 
-    private final Map<String, VoltageLevelLayoutFactory> voltageLevelsLayouts
-            = new ImmutableMap.Builder<String, VoltageLevelLayoutFactory>()
-            .put("Smart", new SmartVoltageLevelLayoutFactory())
-            .put("Auto extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()))
-            .put("Auto without extensions", new PositionVoltageLevelLayoutFactory(new PositionFree()))
-            .put("Auto without extensions Clustering", new PositionVoltageLevelLayoutFactory(new PositionByClustering()))
-            .put("Random", new RandomVoltageLevelLayoutFactory(500, 500))
-            .put("Cgmes", new CgmesVoltageLevelLayoutFactory())
-            .build();
+    private Map<String, VoltageLevelLayoutFactory> voltageLevelsLayouts = new LinkedHashMap<>();
 
-    private final Map<String, DiagramStyleProvider> styles
-            = ImmutableMap.of("Default", new DefaultDiagramStyleProvider(),
-                              "Nominal voltage", new NominalVoltageDiagramStyleProvider(),
-                              "Topology", new TopologicalStyleProvider());
+    private Map<String, DiagramStyleProvider> styles = new LinkedHashMap<>();
 
-    private final Map<String, SubstationLayoutFactory> substationsLayouts
-            = ImmutableMap.of("Horizontal", new HorizontalSubstationLayoutFactory(),
-                              "Vertical", new VerticalSubstationLayoutFactory(),
-                              "Cgmes", new CgmesSubstationLayoutFactory());
+    private Map<String, SubstationLayoutFactory> substationsLayouts = new LinkedHashMap<>();
 
     private final ComponentLibrary convergenceComponentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
@@ -241,11 +230,12 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
                 DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
                 NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary());
+                GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
 
                 String dName = getSelectedDiagramName();
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
-                    VoltageLevelDiagram diagram = VoltageLevelDiagram.build((VoltageLevel) c, getVoltageLevelLayoutFactory(), showNames.isSelected(),
+                    VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected(),
                             layoutParameters.get().isShowInductorFor3WT());
                     diagram.writeSvg("", getComponentLibrary(),
                             diagramLayoutParameters,
@@ -255,7 +245,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                             svgWriter,
                             metadataWriter);
                 } else if (c.getContainerType() == ContainerType.SUBSTATION) {
-                    SubstationDiagram diagram = SubstationDiagram.build((Substation) c, getSubstationLayoutFactory(), getVoltageLevelLayoutFactory(), showNames.isSelected());
+                    SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, c.getId(), getSubstationLayoutFactory(), getVoltageLevelLayoutFactory(), showNames.isSelected());
                     diagram.writeSvg("", getComponentLibrary(),
                             diagramLayoutParameters,
                             initProvider,
@@ -776,6 +766,9 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
     @Override
     public void start(Stage primaryStage) {
+        initLayoutsFactory();
+        initStylesProvider();
+
         initTreeCellFactory();
 
         showNames.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -874,7 +867,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         loadNetworkFromPreferences();
 
         Scene scene = new Scene(mainPane, 1000, 800);
-        primaryStage.setTitle("Single line diagram viewer");
+        primaryStage.setTitle("Substation diagram viewer");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -1000,8 +993,41 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     }
 
     protected void setNetwork(Network network) {
+        updateLayoutsFactory(network);
+        updateStylesProvider(network);
         networkProperty.setValue(network);
         initSubstationsTree();
         setDiagramsNamesContent(network, true);
+    }
+
+    private void initLayoutsFactory() {
+        voltageLevelsLayouts.put("Smart", null);
+        voltageLevelsLayouts.put("Auto extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()));
+        voltageLevelsLayouts.put("Auto without extensions", new PositionVoltageLevelLayoutFactory(new PositionFree()));
+        voltageLevelsLayouts.put("Auto without extensions Clustering", new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
+        voltageLevelsLayouts.put("Random", new RandomVoltageLevelLayoutFactory(500, 500));
+        voltageLevelsLayouts.put("Cgmes", null);
+
+        substationsLayouts.put("Horizontal", new HorizontalSubstationLayoutFactory());
+        substationsLayouts.put("Vertical", new VerticalSubstationLayoutFactory());
+        substationsLayouts.put("Cgmes", null);
+    }
+
+    private void updateLayoutsFactory(Network network) {
+        voltageLevelsLayouts.put("Smart", new SmartVoltageLevelLayoutFactory(network));
+        voltageLevelsLayouts.put("Cgmes", new CgmesVoltageLevelLayoutFactory(network));
+
+        substationsLayouts.put("Cgmes", new CgmesSubstationLayoutFactory(network));
+    }
+
+    private void initStylesProvider() {
+        styles.put("Default", new DefaultDiagramStyleProvider());
+        styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider(null));
+        styles.put("Topology", new TopologicalStyleProvider(null, null));
+    }
+
+    private void updateStylesProvider(Network network) {
+        styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider(network));
+        styles.put("Topology", new TopologicalStyleProvider(null, network));
     }
 }

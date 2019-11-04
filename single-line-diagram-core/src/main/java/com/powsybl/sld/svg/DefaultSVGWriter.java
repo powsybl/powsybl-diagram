@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,9 +61,6 @@ import org.w3c.dom.Text;
 import org.w3c.dom.svg.SVGElement;
 
 import com.powsybl.commons.exceptions.UncheckedTransformerException;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
@@ -159,32 +157,48 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
         Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
-        Element style = document.createElement("style");
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-
-        graph.getNodes().forEach(n -> {
-            Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
-            nodeStyle.ifPresent(graphStyle::append);
-            listUsedComponentSVG.add(n.getComponentType());
-        });
-        graph.getEdges().forEach(e -> {
-            Optional<String> wireStyle = styleProvider.getWireStyle(e);
-            wireStyle.ifPresent(graphStyle::append);
-        });
-        CDATASection cd = document.createCDATASection(graphStyle.toString());
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
+        addStyle(document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
+        transformDocument(document, writer);
+
+        return metadata;
+    }
+
+    protected void addStyle(Document document, DiagramStyleProvider styleProvider, List<Graph> graphs, Set<String> listUsedComponentSVG) {
+        Element style = document.createElement("style");
+
+        StringBuilder graphStyle = new StringBuilder();
+        graphStyle.append(componentLibrary.getStyleSheet());
+
+        for (Graph graph : graphs) {
+            graph.getNodes().forEach(n -> {
+                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
+                nodeStyle.ifPresent(graphStyle::append);
+                listUsedComponentSVG.add(n.getComponentType());
+            });
+            graph.getEdges().forEach(e -> {
+                Optional<String> wireStyle = styleProvider.getWireStyle(e);
+                wireStyle.ifPresent(graphStyle::append);
+            });
+        }
+        String cssStr = graphStyle.toString()
+                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
+                .replace("\r", "\n");
+        CDATASection cd = document.createCDATASection(cssStr);
+        style.appendChild(cd);
+        style.appendChild(cd);
+
+        document.adoptNode(style);
+        document.getDocumentElement().appendChild(style);
+    }
+
+    protected void transformDocument(Document document, Writer writer) {
         try {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(writer);
@@ -196,8 +210,6 @@ public class DefaultSVGWriter implements SVGWriter {
         } catch (TransformerException e) {
             throw new UncheckedTransformerException(e);
         }
-
-        return metadata;
     }
 
     /**
@@ -217,6 +229,25 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
+        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+
+        // the drawing of the voltageLevel graph label is done at the end in order to
+        // facilitate the move of a voltageLevel in the diagram
+        drawGraphLabel(prefixId, root, graph, metadata);
+
+        document.adoptNode(root);
+        document.getDocumentElement().appendChild(root);
+
+        return metadata;
+    }
+
+    protected void drawVoltageLevel(String prefixId,
+                                    Graph graph,
+                                    Element root,
+                                    GraphMetadata metadata,
+                                    DiagramInitialValueProvider initProvider,
+                                    DiagramStyleProvider styleProvider,
+                                    NodeLabelConfiguration nodeLabelConfiguration) {
         AnchorPointProvider anchorPointProvider = (type, id) -> {
             if (type.equals(BUSBAR_SECTION)) {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
@@ -242,15 +273,6 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
         drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider);
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
-
-        // the drawing of the voltageLevel graph label is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        drawGraphLabel(prefixId, root, graph, metadata);
-
-        document.adoptNode(root);
-        document.getDocumentElement().appendChild(root);
-
-        return metadata;
     }
 
     /**
@@ -289,45 +311,15 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
         Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
-        Element style = document.createElement("style");
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
-
-        for (Graph vlGraph : graph.getNodes()) {
-            vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
-                nodeStyle.ifPresent(graphStyle::append);
-                listUsedComponentSVG.add(n.getComponentType());
-            });
-            vlGraph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e);
-                wireStyle.ifPresent(graphStyle::append);
-            });
-        }
-        CDATASection cd = document.createCDATASection(graphStyle.toString());
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
+        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
         GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
-        try {
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(writer);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            throw new UncheckedTransformerException(e);
-        }
+        transformDocument(document, writer);
 
         return metadata;
     }
@@ -362,37 +354,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        // Drawing the voltageLevels
-        for (Graph vlGraph : graph.getNodes()) {
-            AnchorPointProvider anchorPointProvider = (type, id) -> {
-                if (type.equals(BUSBAR_SECTION)) {
-                    BusNode busbarSectionNode = (BusNode) vlGraph.getNode(id);
-                    List<AnchorPoint> result = new ArrayList<>();
-                    result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                    for (int i = 1; i < 2 * busbarSectionNode.getPosition().getHSpan(); i++) {
-                        result.add(new AnchorPoint(
-                                ((double) i / 2) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding() / 2,
-                                0, AnchorOrientation.VERTICAL));
-                    }
-                    result.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
-                    return result;
-                } else {
-                    return componentLibrary.getAnchorPoints(type);
-                }
-            };
-
-            if (layoutParameters.isShiftFeedersPosition()) {
-                shiftFeedersPosition(vlGraph, layoutParameters.getScaleShiftFeedersPosition());
-            }
-
-            // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
-            // then we draw all the edges, and finally we draw the switch nodes
-            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
-            drawEdges(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider);
-            drawNodes(prefixId, root, vlGraph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
-        }
-
-        drawSnakeLines(prefixId, root, graph, metadata);
+        drawSubstation(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
@@ -400,35 +362,25 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGraphLabel(prefixId, root, vlGraph, metadata);
         }
 
-        Element style = document.createElement("style");
-
-        StringBuilder graphStyle = new StringBuilder();
-        graphStyle.append(componentLibrary.getStyleSheet());
-
-        for (Graph vlGraph : graph.getNodes()) {
-            vlGraph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
-                nodeStyle.ifPresent(graphStyle::append);
-            });
-            vlGraph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e);
-                wireStyle.ifPresent(graphStyle::append);
-            });
-        }
-
-        String cssStr = graphStyle.toString()
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-        CDATASection cd = document.createCDATASection(cssStr);
-        style.appendChild(cd);
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
-
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
 
         return metadata;
+    }
+
+    protected void drawSubstation(String prefixId,
+                                  SubstationGraph graph,
+                                  Element root,
+                                  GraphMetadata metadata,
+                                  DiagramInitialValueProvider initProvider,
+                                  DiagramStyleProvider styleProvider,
+                                  NodeLabelConfiguration nodeLabelConfiguration) {
+        // Drawing the voltageLevels
+        for (Graph vlGraph : graph.getNodes()) {
+            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        }
+
+        drawSnakeLines(prefixId, root, graph, metadata);
     }
 
     /*
@@ -443,7 +395,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 .max().orElse(1) - 1;
 
         Element gridRoot = document.createElement("g");
-        String gridId = prefixId + "GRID_" + graph.getVoltageLevel().getId();
+
+        String gridId = prefixId + "GRID_" + graph.getVoltageLevelId();
         gridRoot.setAttribute("id", gridId);
         gridRoot.setAttribute(CLASS, DiagramStyles.GRID_STYLE_CLASS);
         gridRoot.setAttribute(TRANSFORM,
@@ -469,7 +422,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         + layoutParameters.getVerticalSpaceBus() * maxV));
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
-                graph.getVoltageLevel().getId(),
+                graph.getVoltageLevelId(),
                 null,
                 null,
                 null,
@@ -542,11 +495,11 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, Graph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
         String nextVId = null;
         if (node instanceof FeederBranchNode) {
-            nextVId = ((FeederBranchNode) node).getVlOtherSide().getId();
+            nextVId = ((FeederBranchNode) node).getVIdOtherSide();
         }
 
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevel().getId(), nextVId,
+                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelId(), nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false));
         if (node.getType() == Node.NodeType.BUS) {
@@ -586,18 +539,18 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
         // drawing the label of the voltageLevel
-        String idLabelVoltageLevel = prefixId + "LABEL_VL_" + graph.getVoltageLevel().getId();
+        String idLabelVoltageLevel = prefixId + "LABEL_VL_" + graph.getVoltageLevelId();
         Element gLabel = root.getOwnerDocument().createElement("g");
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
         drawLabel(null, graph.isUseName()
-                     ? graph.getVoltageLevel().getName()
-                     : graph.getVoltageLevel().getId(),
+                     ? graph.getVoltageLevelName()
+                     : graph.getVoltageLevelId(),
                   false, graph.getX(), graph.getY(), gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
-                graph.getVoltageLevel().getId(),
+                graph.getVoltageLevelId(),
                 null,
                 null,
                 null,
@@ -668,57 +621,24 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected Map<String, String> getAttributesTransformer(Node node,
-                                                         String idWinding,
-                                                         DiagramStyleProvider styleProvider,
-                                                         ComponentSize size) {
+                                                           String idWinding,
+                                                           DiagramStyleProvider styleProvider,
+                                                           ComponentSize size) {
         Map<String, String> attributes = new HashMap<>();
         Optional<String> color = Optional.empty();
-        VoltageLevel vl = node.getGraph().getVoltageLevel();
+        String vlId = node.getGraph().getVoltageLevelId();
 
         // We will rotate the 3WT SVG, if cell orientation is BOTTOM
         boolean rotateSVG = node instanceof Fictitious3WTNode
                 && node.getCell() != null
                 && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM;
 
-        if (idWinding.endsWith(WINDING1)) {
-            if (node instanceof Fictitious3WTNode) {
-                ThreeWindingsTransformer.Side otherSide = ThreeWindingsTransformer.Side.ONE;
-
-                if (((Fictitious3WTNode) node).getTransformer().getLeg1().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.TWO : ThreeWindingsTransformer.Side.THREE;
-                } else if (((Fictitious3WTNode) node).getTransformer().getLeg2().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.ONE : ThreeWindingsTransformer.Side.THREE;
-                } else if (((Fictitious3WTNode) node).getTransformer().getLeg3().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.ONE : ThreeWindingsTransformer.Side.TWO;
-                }
-                color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, otherSide);
-            } else {
-                color = styleProvider.getNode2WTStyle((Feeder2WTNode) node, TwoWindingsTransformer.Side.ONE);
-            }
-        } else if (idWinding.endsWith(WINDING2)) {  // second winding
-            if (node instanceof Fictitious3WTNode) {
-                ThreeWindingsTransformer.Side otherSide = ThreeWindingsTransformer.Side.ONE;
-
-                if (((Fictitious3WTNode) node).getTransformer().getLeg1().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.THREE : ThreeWindingsTransformer.Side.TWO;
-                } else if (((Fictitious3WTNode) node).getTransformer().getLeg2().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.THREE : ThreeWindingsTransformer.Side.ONE;
-                } else if (((Fictitious3WTNode) node).getTransformer().getLeg3().getTerminal().getVoltageLevel() == vl) {
-                    otherSide = !rotateSVG ? ThreeWindingsTransformer.Side.TWO : ThreeWindingsTransformer.Side.ONE;
-                }
-                color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, otherSide);
-            } else {
-                color = styleProvider.getNode2WTStyle((Feeder2WTNode) node, TwoWindingsTransformer.Side.TWO);
-            }
-        } else if (idWinding.endsWith(WINDING3) && node instanceof Fictitious3WTNode) {  // third winding
-            if (((Fictitious3WTNode) node).getTransformer().getLeg1().getTerminal().getVoltageLevel() == vl) {
-                color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, ThreeWindingsTransformer.Side.ONE);
-            } else if (((Fictitious3WTNode) node).getTransformer().getLeg2().getTerminal().getVoltageLevel() == vl) {
-                color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, ThreeWindingsTransformer.Side.TWO);
-            } else if (((Fictitious3WTNode) node).getTransformer().getLeg3().getTerminal().getVoltageLevel() == vl) {
-                color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, ThreeWindingsTransformer.Side.THREE);
-            }
+        if (node instanceof Fictitious3WTNode) {
+            color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, rotateSVG, vlId, idWinding);
+        } else {
+            color = styleProvider.getNode2WTStyle((Feeder2WTNode) node, idWinding);
         }
+
         if (color.isPresent()) {
             attributes.put(STROKE, color.get());
         }
@@ -732,7 +652,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected Map<String, String> getAttributesInductor(Node node, DiagramStyleProvider styleProvider) {
         Map<String, String> attributes = new HashMap<>();
-        Optional<String> color = styleProvider.getColor(((Feeder2WTNode) node).getVlOtherSide());
+        Optional<String> color = styleProvider.getColor(((Feeder2WTNode) node).getNominalVOtherSide());
         if (color.isPresent()) {
             attributes.put(STROKE, color.get());
         }
@@ -751,22 +671,11 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void handleTransformerSvgDocument(Node node, DiagramStyleProvider styleProvider,
                                               ComponentSize size, org.w3c.dom.Node n) {
-        if (((SVGElement) n).getId().endsWith(WINDING1)) {  // first winding
-            getAttributesTransformer(node, WINDING1, styleProvider, size).entrySet().stream().forEach(e -> {
-                ((Element) n).removeAttribute(e.getKey());
-                ((Element) n).setAttribute(e.getKey(), e.getValue());
-            });
-        } else if (((SVGElement) n).getId().endsWith(WINDING2)) {  // second winding
-            getAttributesTransformer(node, WINDING2, styleProvider, size).entrySet().stream().forEach(e -> {
-                ((Element) n).removeAttribute(e.getKey());
-                ((Element) n).setAttribute(e.getKey(), e.getValue());
-            });
-        } else if (((SVGElement) n).getId().endsWith(WINDING3) && node instanceof Fictitious3WTNode) {  // third winding
-            getAttributesTransformer(node, WINDING3, styleProvider, size).entrySet().stream().forEach(e -> {
-                ((Element) n).removeAttribute(e.getKey());
-                ((Element) n).setAttribute(e.getKey(), e.getValue());
-            });
-        }
+        String idWinding = StringUtils.substringAfterLast(((SVGElement) n).getId(), "-");
+        getAttributesTransformer(node, idWinding, styleProvider, size).entrySet().stream().forEach(e -> {
+            ((Element) n).removeAttribute(e.getKey());
+            ((Element) n).setAttribute(e.getKey(), e.getValue());
+        });
     }
 
     /*
@@ -818,28 +727,17 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         } else {
             // Adding <use> markup to reuse the svg defined in the <defs> part
-            if (node instanceof Fictitious3WTNode ||
-                    (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
-
-                Element eltUse1 = g.getOwnerDocument().createElement("use");
-                eltUse1.setAttribute("href", "#" + componentDefsId + "-WINDING1");
-                getAttributesTransformer(node, WINDING1, styleProvider, size).entrySet().stream().forEach(e -> eltUse1.setAttribute(e.getKey(), e.getValue()));
-                g.getOwnerDocument().adoptNode(eltUse1);
-                g.appendChild(eltUse1);
-
-                Element eltUse2 = g.getOwnerDocument().createElement("use");
-                eltUse2.setAttribute("href", "#" + componentDefsId + "-WINDING2");
-                getAttributesTransformer(node, WINDING2, styleProvider, size).entrySet().stream().forEach(e -> eltUse2.setAttribute(e.getKey(), e.getValue()));
-                g.getOwnerDocument().adoptNode(eltUse2);
-                g.appendChild(eltUse2);
-
-                if (node instanceof Fictitious3WTNode) {
-                    Element eltUse3 = g.getOwnerDocument().createElement("use");
-                    eltUse3.setAttribute("href", "#" + componentDefsId + "-WINDING3");
-                    getAttributesTransformer(node, WINDING3, styleProvider, size).entrySet().stream().forEach(e -> eltUse3.setAttribute(e.getKey(), e.getValue()));
-                    g.getOwnerDocument().adoptNode(eltUse3);
-                    g.appendChild(eltUse3);
-                }
+            if (node instanceof Fictitious3WTNode || (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
+                List<String> lsWindings = node instanceof Fictitious3WTNode
+                        ? Arrays.asList(WINDING1, WINDING2, WINDING3)
+                        : Arrays.asList(WINDING1, WINDING2);
+                lsWindings.stream().forEach(s -> {
+                    Element eltUse = g.getOwnerDocument().createElement("use");
+                    eltUse.setAttribute("href", "#" + componentDefsId + "-" + s);
+                    getAttributesTransformer(node, s, styleProvider, size).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
+                    g.getOwnerDocument().adoptNode(eltUse);
+                    g.appendChild(eltUse);
+                });
             } else {
                 Element eltUse = g.getOwnerDocument().createElement("use");
                 eltUse.setAttribute("href", "#" + componentDefsId);
@@ -1062,7 +960,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel graph edges
      */
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
-        String vId = graph.getVoltageLevel().getId();
+        String vId = graph.getVoltageLevelId();
 
         for (Edge edge : graph.getEdges()) {
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
@@ -1110,8 +1008,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph, GraphMetadata metadata) {
 
         for (TwtEdge edge : graph.getEdges()) {
-            String vId1 = edge.getNode1().getGraph().getVoltageLevel().getId();
-            String vId2 = edge.getNode2().getGraph().getVoltageLevel().getId();
+            String vId1 = edge.getNode1().getGraph().getVoltageLevelId();
+            String vId2 = edge.getNode2().getGraph().getVoltageLevelId();
 
             String wireId = escapeId(prefixId + vId1 + "_" + vId2 + "_" + "Wire" + graph.getEdges().indexOf(edge));
             Element g = root.getOwnerDocument().createElement(POLYLINE);
@@ -1123,7 +1021,7 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(POINTS, pointsListToString(pol));
 
             String vId;
-            if (edge.getNode1().getGraph().getVoltageLevel().getNominalV() > edge.getNode2().getGraph().getVoltageLevel().getNominalV()) {
+            if (edge.getNode1().getGraph().getVoltageLevelNominalV() > edge.getNode2().getGraph().getVoltageLevelNominalV()) {
                 vId = vId1;
             } else {
                 vId = vId2;
