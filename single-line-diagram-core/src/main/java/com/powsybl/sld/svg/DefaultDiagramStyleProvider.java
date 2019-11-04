@@ -15,9 +15,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.FeederNode;
@@ -80,7 +77,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
     public String getIdWireStyle(Edge edge) {
-        return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevel().getId());
+        return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelId());
     }
 
     @Override
@@ -89,17 +86,17 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Optional<String> getNode3WTStyle(Fictitious3WTNode node, ThreeWindingsTransformer.Side side) {
+    public Optional<String> getNode3WTStyle(Fictitious3WTNode node, boolean rotate, String vId, String idWinding) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<String> getNode2WTStyle(Feeder2WTNode node, TwoWindingsTransformer.Side side) {
+    public Optional<String> getNode2WTStyle(Feeder2WTNode node, String idWinding) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<String> getColor(VoltageLevel vl) {
+    public Optional<String> getColor(double nominalV) {
         return Optional.empty();
     }
 

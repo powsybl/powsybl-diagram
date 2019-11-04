@@ -11,6 +11,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayout;
 import com.powsybl.sld.model.Graph;
@@ -25,19 +27,21 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
 
     private final Graph graph;
 
-    public CgmesVoltageLevelLayout(Graph graph) {
+    public CgmesVoltageLevelLayout(Graph graph, Network network) {
+        this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
-        this.graph = removeFictitiousNodes(graph);
+        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelId()));
     }
 
     @Override
     public void run(LayoutParameters layoutParam) {
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelId());
         String diagramName = layoutParam.getDiagramName();
-        if (!checkDiagram(diagramName, graph.getVoltageLevel().getSubstation().getNetwork(), "voltage level " + graph.getVoltageLevel().getId())) {
+        if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", graph.getVoltageLevel().getSubstation().getNetwork().getId(), graph.getVoltageLevel().getId(), diagramName);
-        setNodeCoordinates(graph, diagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelId(), diagramName);
+        setNodeCoordinates(vl, graph, diagramName);
         graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         if (layoutParam.getScaleFactor() != 1) {
             graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));

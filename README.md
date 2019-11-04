@@ -46,12 +46,12 @@ and additionally for this example two other ones for the `Network` test case and
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -60,10 +60,9 @@ and additionally for this example two other ones for the `Network` test case and
 </dependency>
 ```
 
-We can now load a node/breaker test `Network` and get the voltage level "c":
+We can now load a node/breaker test `Network`:
 ```java
 Network network = FictitiousSwitchFactory.create();
-VoltageLevel c = network.getVoltageLevel("C");
 ```
 
 After adding the single line diagram core module dependency:
@@ -83,14 +82,14 @@ ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceL
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
-//  create diagram
-VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(c, voltageLevelLayoutFactory, false, false);
+//  create diagram for the voltage level "C"
+VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "C", voltageLevelLayoutFactory, false, false);
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
                              new DefaultSVGWriter(componentLibrary, new LayoutParameters()),
                              new DefaultDiagramInitialValueProvider(network),
-                             new NominalVoltageDiagramStyleProvider(),
+                             new NominalVoltageDiagramStyleProvider(network),
                              new DefaultNodeLabelConfiguration(componentLibrary),
                              Paths.get("/tmp/c.svg"),
                              false);

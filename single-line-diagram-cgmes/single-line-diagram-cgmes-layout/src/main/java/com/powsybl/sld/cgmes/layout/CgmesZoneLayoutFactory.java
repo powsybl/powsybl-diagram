@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import java.util.Objects;
+
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.ZoneLayout;
 import com.powsybl.sld.layout.ZoneLayoutFactory;
 import com.powsybl.sld.model.ZoneGraph;
@@ -15,9 +18,15 @@ import com.powsybl.sld.model.ZoneGraph;
  */
 public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
 
+    private final Network network;
+
+    public CgmesZoneLayoutFactory(Network network) {
+        this.network = Objects.requireNonNull(network);
+    }
+
     @Override
     public ZoneLayout create(ZoneGraph graph) {
-        return new CgmesZoneLayout(graph);
+        return new CgmesZoneLayout(graph, network);
     }
 
 }

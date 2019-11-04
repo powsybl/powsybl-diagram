@@ -6,110 +6,73 @@
  */
 package com.powsybl.sld;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.layout.BlockOrganizer;
+import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.model.Graph;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCase {
 
-    private FileSystem fileSystem;
-    private Path tmpDir;
-
     private Network network2;
+    private GraphBuilder graphBuilder2;
     private Substation substation2;
     private VoltageLevel vl2;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() {
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");
-        substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
-        vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
-        BusbarSection bbs = view.newBusbarSection().setId("bbs").setNode(0).add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
-        Load l = vl.newLoad().setId("l").setNode(2).setP0(10).setQ0(10).add();
-        l.addExtension(ConnectablePosition.class, new ConnectablePosition<>(l,
-                new ConnectablePosition.Feeder("l", 0, ConnectablePosition.Direction.TOP), null, null, null));
-        view.newDisconnector().setId("d").setNode1(0).setNode2(1).add();
-        view.newBreaker().setId("b").setNode1(1).setNode2(2).add();
+        graphBuilder = new NetworkGraphBuilder(network);
+
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
+        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
 
         // Create second network with a substation and a voltageLevel
         network2 = Network.create("n2", "test");
-        substation2 = network2.newSubstation().setId("s").setCountry(Country.FR).add();
-        vl2 = substation2.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
-        VoltageLevel.NodeBreakerView view2 = vl2.getNodeBreakerView().setNodeCount(10);
-        BusbarSection bbs2 = view2.newBusbarSection().setId("bbs").setNode(0).add();
-        bbs2.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs2, 1, 1));
-        Load l2 = vl2.newLoad().setId("l").setNode(2).setP0(10).setQ0(10).add();
-        l2.addExtension(ConnectablePosition.class, new ConnectablePosition<>(l2,
-                new ConnectablePosition.Feeder("l", 0, ConnectablePosition.Direction.TOP), null, null, null));
-        view2.newDisconnector().setId("d").setNode1(0).setNode2(1).add();
-        view2.newBreaker().setId("b").setNode1(1).setNode2(2).add();
-
-        fileSystem = Jimfs.newFileSystem(Configuration.unix());
-        tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
+        substation2 = createSubstation(network2, "s", "s", Country.FR);
+        vl2 = createVoltageLevel(substation2, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createBusBarSection(vl2, "bbs", "bbs", 0, 1, 1);
+        createLoad(vl2, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createSwitch(vl2, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl2, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
     }
 
     @Test
-    public void test() throws IOException {
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+    public void test() {
         LayoutParameters layoutParameters = new LayoutParameters();
 
-        // Generating svg for voltage level in first network
-        Path outSvg1 = tmpDir.resolve("vl_network1.svg");
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("network1_", componentLibrary, layoutParameters, network, outSvg1);
-        String svgStr1 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg1), StandardCharsets.UTF_8));
+        // Generating json for voltage level in first network
+        Graph graph1 = Graph.create(vl.getId(), vl.getName(), vl.getNominalV(), false, true, false);
+        new ImplicitCellDetector().detectCells(graph1);
+        new BlockOrganizer().organize(graph1);
+        new PositionVoltageLevelLayout(graph1).run(layoutParameters);
 
-//        FileWriter fw1 = new FileWriter(System.getProperty("user.home") + "/TestUnicityNodeIdNetWork1.svg");
-//        fw1.write(svgStr1);
-//        fw1.close();
+        String refJson1 = toString("/TestUnicityNodeIdNetWork1.json");
+        assertEquals(toJson(graph1), refJson1);
 
-        String refSvg1 = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream("/TestUnicityNodeIdNetWork1.svg")), StandardCharsets.UTF_8));
-        assertEquals(refSvg1, svgStr1);
+        // Generating json for voltage level in second network
+        Graph graph2 = Graph.create(vl2.getId(), vl2.getName(), vl2.getNominalV(), false, true, false);
+        new ImplicitCellDetector().detectCells(graph2);
+        new BlockOrganizer().organize(graph2);
+        new PositionVoltageLevelLayout(graph2).run(layoutParameters);
 
-        // Generating svg for voltage level in second network
-        Path outSvg2 = tmpDir.resolve("vl_network2.svg");
-        VoltageLevelDiagram.build(vl2, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("network2_", componentLibrary, layoutParameters, network2, outSvg2);
-        String svgStr2 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg2), StandardCharsets.UTF_8));
+        String refJson2 = toString("/TestUnicityNodeIdNetWork2.json");
+        assertEquals(toJson(graph2), refJson2);
 
-//        FileWriter fw2 = new FileWriter(System.getProperty("user.home") + "/TestUnicityNodeIdNetWork2.svg");
-//        fw2.write(svgStr2);
-//        fw2.close();
-
-        String refSvg2 = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream("/TestUnicityNodeIdNetWork2.svg")), StandardCharsets.UTF_8));
-        assertEquals(refSvg2, svgStr2);
-
-        assertNotEquals(svgStr1, svgStr2);
-
-        // Generating the svg for the voltage levels, without the prefix identifying each network
-        VoltageLevelDiagram.build(vl, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", componentLibrary, layoutParameters, network, outSvg1);
-        svgStr1 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg1), StandardCharsets.UTF_8));
-
-        VoltageLevelDiagram.build(vl2, new PositionVoltageLevelLayoutFactory(), false, false).writeSvg("", componentLibrary, layoutParameters, network2, outSvg2);
-        svgStr2 = normalizeLineSeparator(new String(Files.readAllBytes(outSvg2), StandardCharsets.UTF_8));
-
-        assertEquals(svgStr1, svgStr2);
+        assertEquals(refJson1, refJson2);
     }
 }

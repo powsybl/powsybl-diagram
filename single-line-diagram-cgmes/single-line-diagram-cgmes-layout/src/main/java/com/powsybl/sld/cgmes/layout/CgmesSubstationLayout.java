@@ -11,6 +11,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayout;
 import com.powsybl.sld.model.Graph;
@@ -26,10 +28,11 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
 
     private final SubstationGraph graph;
 
-    public CgmesSubstationLayout(SubstationGraph graph) {
+    public CgmesSubstationLayout(SubstationGraph graph, Network network) {
+        this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         for (Graph vlGraph : graph.getNodes()) {
-            removeFictitiousNodes(vlGraph);
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelId()));
         }
         fixTransformersLabel = true;
         this.graph = graph;
@@ -38,12 +41,13 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     @Override
     public void run(LayoutParameters layoutParam) {
         String diagramName = layoutParam.getDiagramName();
-        if (!checkDiagram(diagramName, graph.getSubstation().getNetwork(), "substation " + graph.getSubstation().getId())) {
+        if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", graph.getSubstation().getNetwork().getId(), graph.getSubstation().getId(), diagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
         for (Graph vlGraph : graph.getNodes()) {
-            setNodeCoordinates(vlGraph, diagramName);
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelId());
+            setNodeCoordinates(vl, vlGraph, diagramName);
         }
         for (Graph vlGraph : graph.getNodes()) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));

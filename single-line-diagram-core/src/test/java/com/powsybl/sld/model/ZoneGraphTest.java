@@ -87,8 +87,8 @@ public class ZoneGraphTest {
         List<Substation> zone = Arrays.asList(network.getSubstation(SUBSTATION_ID_1), network.getSubstation(SUBSTATION_ID_2));
         ZoneGraph graph = ZoneGraph.create(zone);
         assertEquals(2, graph.getNodes().size());
-        assertEquals(SUBSTATION_ID_1, graph.getNodes().get(0).getSubstation().getId());
-        assertEquals(SUBSTATION_ID_2, graph.getNodes().get(1).getSubstation().getId());
+        assertEquals(SUBSTATION_ID_1, graph.getNodes().get(0).getSubstationId());
+        assertEquals(SUBSTATION_ID_2, graph.getNodes().get(1).getSubstationId());
         assertEquals(1, graph.getEdges().size());
         LineEdge edge = graph.getEdges().get(0);
         assertEquals(LINE_ID, edge.getLineId());

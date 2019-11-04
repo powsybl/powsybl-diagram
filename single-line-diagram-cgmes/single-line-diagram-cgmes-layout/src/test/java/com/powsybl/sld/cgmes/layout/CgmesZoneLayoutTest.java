@@ -224,13 +224,13 @@ public class CgmesZoneLayoutTest {
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_ID);
-        new CgmesZoneLayout(graph).run(layoutParameters);
+        new CgmesZoneLayout(graph, network).run(layoutParameters);
 
         assertEquals(2, graph.getNodes().size());
         assertEquals(2, graph.getNode(SUBSTATION_1_ID).getNodes().size());
         assertEquals(1, graph.getNode(SUBSTATION_2_ID).getNodes().size());
-        assertEquals(SUBSTATION_1_ID, graph.getNodes().get(0).getSubstation().getId());
-        assertEquals(SUBSTATION_2_ID, graph.getNodes().get(1).getSubstation().getId());
+        assertEquals(SUBSTATION_1_ID, graph.getNodes().get(0).getSubstationId());
+        assertEquals(SUBSTATION_2_ID, graph.getNodes().get(1).getSubstationId());
 
         Graph vlGraph11 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_11_ID);
         assertEquals(3, vlGraph11.getNodes().size());

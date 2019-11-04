@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
@@ -32,16 +32,9 @@ public class BusNode extends Node {
         super(NodeType.BUS, id, name, BUSBAR_SECTION, fictitious, graph);
     }
 
-    public static BusNode create(Graph graph, BusbarSection busbarSection) {
+    public static BusNode create(Graph graph, String id, String name) {
         Objects.requireNonNull(graph);
-        Objects.requireNonNull(busbarSection);
-        return new BusNode(busbarSection.getId(), busbarSection.getName(), false, graph);
-    }
-
-    public static BusNode create(Graph graph, Bus bus) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(bus);
-        return new BusNode(bus.getId(), bus.getName(), false, graph);
+        return new BusNode(id, name, false, graph);
     }
 
     public static BusNode createFictitious(Graph graph, String id) {
@@ -87,5 +80,19 @@ public class BusNode extends Node {
 
     public void setStructuralPosition(Position structuralPosition) {
         this.structuralPosition = structuralPosition;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeNumberField("pxWidth", pxWidth);
+        if (structuralPosition != null) {
+            generator.writeFieldName("structuralPosition");
+            structuralPosition.writeJsonContent(generator);
+        }
+        if (position != null) {
+            generator.writeFieldName("position");
+            position.writeJsonContent(generator);
+        }
     }
 }

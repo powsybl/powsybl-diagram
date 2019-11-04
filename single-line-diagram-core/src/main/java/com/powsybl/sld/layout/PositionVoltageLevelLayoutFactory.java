@@ -25,6 +25,8 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private boolean substituteSingularFictitiousByFeederNode = true;
 
+    private boolean exceptionIfPatternNotHandled = false;
+
     public PositionVoltageLevelLayoutFactory() {
         this(new PositionFromExtension());
     }
@@ -63,7 +65,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     @Override
     public VoltageLevelLayout create(Graph graph) {
         // detect cells
-        new ImplicitCellDetector(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode)
+        new ImplicitCellDetector(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode, exceptionIfPatternNotHandled)
                 .detectCells(graph);
 
         // build blocks from cells

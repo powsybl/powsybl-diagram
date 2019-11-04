@@ -15,6 +15,8 @@ import com.powsybl.sld.model.Graph;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -25,15 +27,9 @@ public class TestCase1BusBreaker extends AbstractTestCase {
     @Before
     public void setUp() {
         network = Network.create("busBreakerTestCase1", "test");
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.BUS_BREAKER)
-                .setNominalV(400)
-                .add();
+        graphBuilder = new NetworkGraphBuilder(network);
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 400, 10);
         VoltageLevel.BusBreakerView view = vl.getBusBreakerView();
         view.newBus()
                 .setId("b1")
@@ -53,7 +49,7 @@ public class TestCase1BusBreaker extends AbstractTestCase {
     @Test
     public void test() {
         // build graph
-        Graph g = Graph.create(vl);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
@@ -81,7 +77,7 @@ public class TestCase1BusBreaker extends AbstractTestCase {
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        // write SVG and compare to reference
-        compareSvg(g, layoutParameters, "/TestCase1BusBreaker.svg");
+        // write Json and compare to reference
+        assertEquals(toJson(g), toString("/TestCase1BusBreaker.json"));
     }
 }

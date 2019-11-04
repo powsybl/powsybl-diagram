@@ -6,7 +6,9 @@
  */
 package com.powsybl.sld.model;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
@@ -15,14 +17,20 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  */
 public class Fictitious3WTNode extends FictitiousNode {
 
-    private final ThreeWindingsTransformer transformer;
+    private final String transformerId;
 
-    public Fictitious3WTNode(Graph graph, String id, ThreeWindingsTransformer transformer) {
+    public Fictitious3WTNode(Graph graph, String id, String transformerId) {
         super(graph, id, THREE_WINDINGS_TRANSFORMER);
-        this.transformer = transformer;
+        this.transformerId = transformerId;
     }
 
-    public ThreeWindingsTransformer getTransformer() {
-        return transformer;
+    public String getTransformerId() {
+        return transformerId;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("transformerId", transformerId);
     }
 }

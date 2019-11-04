@@ -32,6 +32,7 @@ import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
@@ -54,6 +55,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     private VoltageLevel voltageLevel;
     private Substation substation;
     private VoltageLevel voltageLevel2;
+    Network network;
 
     @Before
     public void setUp() {
@@ -61,7 +63,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     private void createNetwork() {
-        Network network = Network.create("test", "test");
+        network = Network.create("test", "test");
         substation = network.newSubstation()
                 .setId("Substation")
                 .setCountry(Country.FR)
@@ -217,11 +219,12 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
 
     @Test
     public void testSubstationLayout() {
-        SubstationGraph graph = SubstationGraph.create(substation);
+        graphBuilder = new NetworkGraphBuilder(network);
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId(), false);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);
-        new CgmesSubstationLayout(graph).run(layoutParameters);
+        new CgmesSubstationLayout(graph, network).run(layoutParameters);
         checkGraph(graph.getNode(voltageLevel.getId()));
         checkCoordinates(graph.getNode(voltageLevel.getId()));
         checkGraphVl2(graph.getNode(voltageLevel2.getId()));

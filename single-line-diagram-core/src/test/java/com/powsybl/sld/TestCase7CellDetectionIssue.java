@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.Graph;
@@ -25,6 +24,7 @@ import static org.junit.Assert.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase7CellDetectionIssue extends AbstractTestCase {
 
@@ -33,43 +33,23 @@ public class TestCase7CellDetectionIssue extends AbstractTestCase {
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView()
-                .setNodeCount(10);
-        Load l = vl.newLoad()
-                .setId("l")
-                .setNode(0)
-                .setP0(10)
-                .setQ0(10)
-                .add();
-        l.addExtension(ConnectablePosition.class, new ConnectablePosition<>(l, new ConnectablePosition
-                .Feeder("l", 0, ConnectablePosition.Direction.TOP), null, null, null));
-        view.newInternalConnection()
+        graphBuilder = new NetworkGraphBuilder(network);
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 0, 10, 10);
+
+        vl.getNodeBreakerView().newInternalConnection()
                 .setNode1(0)
                 .setNode2(1)
                 .add();
-        BusbarSection bbs = view.newBusbarSection()
-                .setId("bbs")
-                .setNode(1)
-                .add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
+
+        createBusBarSection(vl, "bbs", "bbs", 1, 1, 1);
     }
 
 //    @Test
     public void test() {
         // build graph
-        Graph g = Graph.create(vl);
-
-        // assert graph structure
-        assertEquals(2, g.getNodes().size());
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

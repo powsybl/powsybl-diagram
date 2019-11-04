@@ -15,7 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -36,11 +38,12 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
     private final ZoneGraph graph;
     private List<Graph> vlGraphs;
 
-    public CgmesZoneLayout(ZoneGraph graph) {
+    public CgmesZoneLayout(ZoneGraph graph, Network network) {
+        this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
         for (Graph vlGraph : vlGraphs) {
-            removeFictitiousNodes(vlGraph);
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelId()));
         }
         fixTransformersLabel = true;
         this.graph = graph;
@@ -53,15 +56,17 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             return;
         }
         String diagramName = layoutParam.getDiagramName();
-        if (!checkDiagram(diagramName, graph.getZone().get(0).getNetwork(), "")) {
+        if (!checkDiagram(diagramName, "")) {
             return;
         }
         // assign coordinates
         for (Graph vlGraph : vlGraphs) {
-            setNodeCoordinates(vlGraph, diagramName);
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelId());
+            setNodeCoordinates(vl, vlGraph, diagramName);
         }
         for (LineEdge edge : graph.getEdges()) {
-            setLineCoordinates(edge, diagramName);
+            VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getGraph().getVoltageLevelId());
+            setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates
         for (Graph vlGraph : vlGraphs) {
@@ -81,10 +86,10 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         }
     }
 
-    private void setLineCoordinates(LineEdge edge, String diagramName) {
-        Line line = edge.getNode1().getGraph().getVoltageLevel().getConnectable(edge.getLineId(), Line.class);
+    private void setLineCoordinates(VoltageLevel vl, LineEdge edge, String diagramName) {
+        Line line = vl.getConnectable(edge.getLineId(), Line.class);
         if (line == null) {
-            LOG.warn("No line {} in voltage level {}, skipping line edge", edge.getLineId(), edge.getNode1().getGraph().getVoltageLevel().getId());
+            LOG.warn("No line {} in voltage level {}, skipping line edge", edge.getLineId(), edge.getLineId());
             return;
         }
         LineDiagramData<Line> lineDiagramData = line.getExtension(LineDiagramData.class);

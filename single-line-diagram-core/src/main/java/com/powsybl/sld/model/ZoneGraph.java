@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Substation;
+import com.powsybl.sld.GraphBuilder;
+import com.powsybl.sld.NetworkGraphBuilder;
 
 /**
  *
@@ -48,10 +50,15 @@ public class ZoneGraph {
     }
 
     private void buildGraph(boolean useName) {
+        if (zone.isEmpty()) {
+            LOGGER.warn("No substations in the zone: skipping graph building");
+            return;
+        }
         // add nodes -> substation graphs
+        GraphBuilder graphBuilder = new NetworkGraphBuilder(zone.get(0).getNetwork());
         zone.forEach(substation -> {
             LOGGER.info("Adding substation {} to zone graph", substation.getId());
-            SubstationGraph sGraph = SubstationGraph.create(substation, useName);
+            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), useName);
             addNode(sGraph);
         });
         // add edges -> lines
@@ -85,7 +92,7 @@ public class ZoneGraph {
 
     private void addNode(SubstationGraph sGraph) {
         nodes.add(sGraph);
-        nodesById.put(sGraph.getSubstation().getId(), sGraph);
+        nodesById.put(sGraph.getSubstationId(), sGraph);
     }
 
     public List<Substation> getZone() {
