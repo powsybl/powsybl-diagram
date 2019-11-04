@@ -660,7 +660,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return attributes;
     }
 
-    protected Map<String, String> getAttributesHiddenNode(Node node, DiagramStyleProvider styleProvider) {
+    protected Map<String, String> getAttributesHiddenNode() {
         Map<String, String> attributes = new HashMap<>();
         attributes.put("stroke-opacity", "0");
         attributes.put("fill-opacity", "0");
@@ -747,7 +747,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     getAttributesInductor(node, styleProvider).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
                 }
                 if (!layoutParameters.isShowInternalNodes() && node.getComponentType().equals(NODE)) {
-                    getAttributesHiddenNode(node, styleProvider).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
+                    getAttributesHiddenNode().entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
                 }
                 g.getOwnerDocument().adoptNode(eltUse);
                 g.appendChild(eltUse);
