@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -203,6 +204,7 @@ public class DefaultSVGWriter implements SVGWriter {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(writer);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
@@ -456,7 +458,6 @@ public class DefaultSVGWriter implements SVGWriter {
         line.setAttribute("y2", Double.toString(y2));
         return line;
     }
-
 
     /*
      * Drawing the voltageLevel graph nodes

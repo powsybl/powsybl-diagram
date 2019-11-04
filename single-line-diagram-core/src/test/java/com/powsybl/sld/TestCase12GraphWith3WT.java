@@ -6,28 +6,14 @@
  */
 package com.powsybl.sld;
 
-import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
@@ -217,171 +203,6 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
         createSwitch(vl3, "bself6", "bself6", SwitchKind.BREAKER, true, false, true, 17, 16);
     }
 
-    private static Substation createSubstation(Network n, String id, String name, Country country) {
-        Substation s = n.newSubstation()
-                .setId(id)
-                .setName(name)
-                .setCountry(country)
-                .add();
-        return s;
-    }
-
-    private static VoltageLevel createVoltageLevel(Substation s, String id, String name,
-                                                   TopologyKind topology, double vNom, int nodeCount) {
-        VoltageLevel vl = s.newVoltageLevel()
-                .setId(id)
-                .setName(name)
-                .setTopologyKind(topology)
-                .setNominalV(vNom)
-                .add();
-        vl.getNodeBreakerView()
-                .setNodeCount(nodeCount);
-        return vl;
-    }
-
-    private static void createSwitch(VoltageLevel vl, String id, String name, SwitchKind kind, boolean retained, boolean open, boolean fictitious, int node1, int node2) {
-        vl.getNodeBreakerView().newSwitch()
-                .setId(id)
-                .setName(name)
-                .setKind(kind)
-                .setRetained(retained)
-                .setOpen(open)
-                .setFictitious(fictitious)
-                .setNode1(node1)
-                .setNode2(node2)
-                .add();
-    }
-
-    private static void createBusBarSection(VoltageLevel vl, String id, String name, int node, int busbarIndex, int sectionIndex) {
-        BusbarSection bbs = vl.getNodeBreakerView().newBusbarSection()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, busbarIndex, sectionIndex));
-    }
-
-    private static void createLoad(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
-                                   ConnectablePosition.Direction direction, int node, double p0, double q0) {
-        Load load = vl.newLoad()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .setP0(p0)
-                .setQ0(q0)
-                .add();
-        load.addExtension(ConnectablePosition.class, new ConnectablePosition<>(load, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
-    }
-
-    private static void createGenerator(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
-                                        ConnectablePosition.Direction direction, int node,
-                                        double minP, double maxP, boolean voltageRegulator,
-                                        double targetP, double targetQ) {
-        Generator gen = vl.newGenerator()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .setMinP(minP)
-                .setMaxP(maxP)
-                .setVoltageRegulatorOn(voltageRegulator)
-                .setTargetP(targetP)
-                .setTargetQ(targetQ)
-                .add();
-        gen.addExtension(ConnectablePosition.class, new ConnectablePosition<>(gen, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
-    }
-
-    private static void createShunt(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
-                                   ConnectablePosition.Direction direction, int node,
-                                    double bPerSection, int maximumSectionCount, int currentSectionCount) {
-        ShuntCompensator shunt = vl.newShuntCompensator()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .setbPerSection(bPerSection)
-                .setMaximumSectionCount(maximumSectionCount)
-                .setCurrentSectionCount(currentSectionCount)
-                .add();
-        shunt.addExtension(ConnectablePosition.class, new ConnectablePosition<>(shunt, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
-    }
-
-    private static void createTwoWindingsTransformer(Substation s, String id, String name,
-                                                     double r, double x, double g, double b,
-                                                     double ratedU1, double ratedU2,
-                                                     int node1, int node2,
-                                                     String idVoltageLevel1, String idVoltageLevel2,
-                                                     String feederName1, int feederOrder1, ConnectablePosition.Direction direction1,
-                                                     String feederName2, int feederOrder2, ConnectablePosition.Direction direction2) {
-        TwoWindingsTransformer t = s.newTwoWindingsTransformer()
-                .setId(id)
-                .setName(name)
-                .setR(r)
-                .setX(x)
-                .setG(g)
-                .setB(b)
-                .setRatedU1(ratedU1)
-                .setRatedU2(ratedU2)
-                .setNode1(node1)
-                .setVoltageLevel1(idVoltageLevel1)
-                .setNode2(node2)
-                .setVoltageLevel2(idVoltageLevel2)
-                .add();
-        t.addExtension(ConnectablePosition.class,
-                       new ConnectablePosition<>(t,
-                               null,
-                               new ConnectablePosition.Feeder(feederName1, feederOrder1, direction1),
-                               new ConnectablePosition.Feeder(feederName2, feederOrder2, direction2),
-                               null));
-    }
-
-    private static void createThreeWindingsTransformer(Substation s, String id, String name,
-                                                       String vl1, String vl2, String vl3,
-                                                       double r1, double r2, double r3,
-                                                       double x1, double x2, double x3,
-                                                       double g1, double b1,
-                                                       double ratedU1, double ratedU2, double ratedU3,
-                                                       int node1, int node2, int node3,
-                                                       String feederName1, int feederOrder1, ConnectablePosition.Direction direction1,
-                                                       String feederName2, int feederOrder2, ConnectablePosition.Direction direction2,
-                                                       String feederName3, int feederOrder3, ConnectablePosition.Direction direction3) {
-        ThreeWindingsTransformer t = s.newThreeWindingsTransformer()
-                .setId(id)
-                .setName(name)
-                .newLeg1()
-                .setR(r1)
-                .setX(x1)
-                .setG(g1)
-                .setB(b1)
-                .setRatedU(ratedU1)
-                .setVoltageLevel(vl1)
-                .setNode(node1)
-                .add()
-                .newLeg2()
-                .setR(r2)
-                .setX(x2)
-                .setRatedU(ratedU2)
-                .setVoltageLevel(vl2)
-                .setNode(node2)
-                .add()
-                .newLeg3()
-                .setR(r3)
-                .setX(x3)
-                .setRatedU(ratedU3)
-                .setVoltageLevel(vl3)
-                .setNode(node3)
-                .add()
-                .add();
-
-        t.addExtension(ConnectablePosition.class,
-                new ConnectablePosition<>(t,
-                        null,
-                        new ConnectablePosition.Feeder(feederName1, feederOrder1, direction1),
-                        new ConnectablePosition.Feeder(feederName2, feederOrder2, direction2),
-                        new ConnectablePosition.Feeder(feederName3, feederOrder3, direction3)));
-    }
-
     @Test
     public void test() {
         LayoutParameters layoutParameters = new LayoutParameters()
@@ -421,48 +242,19 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(layoutParameters);
 
-        // write SVG and compare to reference (horizontal layout)
-        compareSvg(g1, layoutParameters, "/TestCase12GraphVL1.svg");
-        compareSvg(g2, layoutParameters, "/TestCase12GraphVL2.svg");
-        compareSvg(g3, layoutParameters, "/TestCase12GraphVL3.svg");
+        // write JSON and compare to reference (horizontal layout)
+        assertEquals(toJson(g1), toString("/TestCase12GraphVL1.json"));
+        assertEquals(toJson(g2), toString("/TestCase12GraphVL2.json"));
+        assertEquals(toJson(g3), toString("/TestCase12GraphVL3.json"));
 
-        // write optimized SVG and compare to reference (horizontal layout)
         LayoutParameters layoutParametersOptimized = new LayoutParameters(layoutParameters);
         layoutParametersOptimized.setAvoidSVGComponentsDuplication(true);
 
-        compareSvg(g1, layoutParametersOptimized, "/TestCase12GraphVL1_optimized.svg");
-        compareSvg(g2, layoutParametersOptimized, "/TestCase12GraphVL2_optimized.svg");
-        compareSvg(g3, layoutParametersOptimized, "/TestCase12GraphVL3_optimized.svg");
-
-        // Create voltageLevel diagram (svg + metadata files)
+        // compare metadata of voltage level diagram with reference
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
-                                                                new PositionVoltageLevelLayoutFactory(),
-                                                                false, true);
-        Path pathSVG = Paths.get(System.getProperty("user.home"), "vlDiag.svg");
-        Path pathMetadata = Paths.get(System.getProperty("user.home"), "vlDiag_metadata.json");
-
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
-        diagram.writeSvg("", new DefaultSVGWriter(componentLibrary, layoutParameters),
-                new DefaultDiagramInitialValueProvider(network),
+                new PositionVoltageLevelLayoutFactory(), false, true);
+        compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
                 new NominalVoltageDiagramStyleProvider(network),
-                new DefaultNodeLabelConfiguration(componentLibrary),
-                pathSVG,
-                false);
-        Assert.assertTrue(Files.exists(pathSVG));
-        Assert.assertTrue(Files.exists(pathMetadata));
-        try {
-            String refSvg = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream("/vlDiag.svg")), StandardCharsets.UTF_8));
-            String svg = normalizeLineSeparator(new String(Files.readAllBytes(pathSVG), StandardCharsets.UTF_8));
-            assertEquals(refSvg, svg);
-            Files.deleteIfExists(pathSVG);
-
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream("/vlDiag_metadata.json")), StandardCharsets.UTF_8));
-            String metadata = normalizeLineSeparator(new String(Files.readAllBytes(pathMetadata), StandardCharsets.UTF_8));
-            assertEquals(refMetadata, metadata);
-            Files.deleteIfExists(pathMetadata);
-
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+                new DefaultDiagramInitialValueProvider(network));
     }
 }

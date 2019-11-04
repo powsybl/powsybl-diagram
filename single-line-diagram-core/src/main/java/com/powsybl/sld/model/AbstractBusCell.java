@@ -6,8 +6,10 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,6 +65,12 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         getRootBlock().calculateRootCoord(layoutParam);
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("direction", getDirection().name());
     }
 
     @Override

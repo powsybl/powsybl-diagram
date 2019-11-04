@@ -6,9 +6,11 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -18,9 +20,10 @@ import java.util.*;
  */
 public class InternCell extends AbstractBusCell {
 
+    private static final Side BODY_SIDE = Side.LEFT;
+
     private Map<Side, LegBlock> legs;
     private Block body;
-    private static Side BODYSIDE = Side.LEFT;
     private boolean exceptionIfPatternNotHandled;
 
     public InternCell(Graph graph, boolean exceptionIfPatternNotHandled) {
@@ -157,7 +160,7 @@ public class InternCell extends AbstractBusCell {
             legs.get(Side.LEFT).getPosition().setH(h);
             h += legs.get(Side.LEFT).getPosition().getHSpan();
         }
-        if (side == BODYSIDE) {
+        if (side == BODY_SIDE) {
             h -= 1;
             body.getPosition().setHV(h, 1);
             h += body.getPosition().getHSpan();
@@ -187,5 +190,11 @@ public class InternCell extends AbstractBusCell {
 
     public Block getBodyBlock() {
         return body;
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("direction", getDirection().name());
     }
 }

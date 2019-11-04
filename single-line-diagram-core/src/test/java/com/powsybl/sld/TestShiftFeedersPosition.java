@@ -7,17 +7,17 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestShiftFeedersPosition extends AbstractTestCase {
 
@@ -61,81 +61,6 @@ public class TestShiftFeedersPosition extends AbstractTestCase {
 
     }
 
-    private static Substation createSubstation(Network n, String id, String name, Country country) {
-        Substation s = n.newSubstation()
-                .setId(id)
-                .setName(name)
-                .setCountry(country)
-                .add();
-        return s;
-    }
-
-    private static VoltageLevel createVoltageLevel(Substation s, String id, String name,
-                                                   TopologyKind topology, double vNom, int nodeCount) {
-        VoltageLevel vl = s.newVoltageLevel()
-                .setId(id)
-                .setName(name)
-                .setTopologyKind(topology)
-                .setNominalV(vNom)
-                .add();
-        vl.getNodeBreakerView()
-                .setNodeCount(nodeCount);
-        return vl;
-    }
-
-    private static void createSwitch(VoltageLevel vl, String id, String name, SwitchKind kind, boolean retained, boolean open, boolean fictitious, int node1, int node2) {
-        vl.getNodeBreakerView().newSwitch()
-                .setId(id)
-                .setName(name)
-                .setKind(kind)
-                .setRetained(retained)
-                .setOpen(open)
-                .setFictitious(fictitious)
-                .setNode1(node1)
-                .setNode2(node2)
-                .add();
-    }
-
-    private static void createBusBarSection(VoltageLevel vl, String id, String name, int node, int busbarIndex, int sectionIndex) {
-        BusbarSection bbs = vl.getNodeBreakerView().newBusbarSection()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, busbarIndex, sectionIndex));
-    }
-
-    private static void createLoad(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
-                                   ConnectablePosition.Direction direction, int node, double p0, double q0) {
-        Load load = vl.newLoad()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .setP0(p0)
-                .setQ0(q0)
-                .add();
-        load.addExtension(ConnectablePosition.class, new ConnectablePosition<>(load, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
-    }
-
-    private static void createGenerator(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
-                                        ConnectablePosition.Direction direction, int node,
-                                        double minP, double maxP, boolean voltageRegulator,
-                                        double targetP, double targetQ) {
-        Generator gen = vl.newGenerator()
-                .setId(id)
-                .setName(name)
-                .setNode(node)
-                .setMinP(minP)
-                .setMaxP(maxP)
-                .setVoltageRegulatorOn(voltageRegulator)
-                .setTargetP(targetP)
-                .setTargetQ(targetQ)
-                .add();
-        gen.addExtension(ConnectablePosition.class, new ConnectablePosition<>(gen, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
-    }
-
     @Test
     public void test() {
         LayoutParameters layoutParameters = new LayoutParameters()
@@ -162,42 +87,22 @@ public class TestShiftFeedersPosition extends AbstractTestCase {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
-        // write SVG and compare to reference (horizontal layout and defaut style provider)
+        // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        compareSvg(g, layoutParameters, "/TestDefaultFeedersPosition.svg", new DefaultDiagramStyleProvider());
-
-        // re-build substation graph, write SVG using the shifted feeders positioner and compare to reference (same layout providers)
-        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        compareSvg(g, layoutParameters.setShiftFeedersPosition(true), "/TestShiftFeedersPosition.svg", new DefaultDiagramStyleProvider());
+        assertEquals(toJson(g), toString("/TestDefaultFeedersPosition.json"));
     }
 
     @Test
     public void test2() {
         LayoutParameters layoutParameters = new LayoutParameters();
-        VoltageLevelLayoutFactory fakeVoltageLevelLayoutFactory = new VoltageLevelLayoutFactory() {
-            @Override
-            public VoltageLevelLayout create(Graph graph) {
-                return new VoltageLevelLayout() {
-                    @Override
-                    public void run(LayoutParameters layoutParam) {
-                    }
-                };
-            }
+        VoltageLevelLayoutFactory fakeVoltageLevelLayoutFactory = graph -> (VoltageLevelLayout) layoutParam -> {
         };
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-
         new HorizontalSubstationLayoutFactory().create(g, fakeVoltageLevelLayoutFactory).run(layoutParameters);
-        // write SVG and compare to reference (with a fake VL layout)
-        compareSvg(g, layoutParameters, "/TestDefaultFeedersPosition2.svg", new DefaultDiagramStyleProvider());
 
-        // re-build substation graph, write SVG using the shifted feeders positioner (same output as before expected)
-        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-
-        new HorizontalSubstationLayoutFactory().create(g, fakeVoltageLevelLayoutFactory).run(layoutParameters);
-        compareSvg(g, layoutParameters.setShiftFeedersPosition(true), "/TestDefaultFeedersPosition2.svg", new DefaultDiagramStyleProvider());
+        // write Json and compare to reference (with a fake VL layout)
+        assertEquals(toJson(g), toString("/TestDefaultFeedersPosition2.json"));
     }
 }

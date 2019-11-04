@@ -6,14 +6,16 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 
 /**
  * This class builds the connectivity among the voltageLevels of a substation
@@ -22,8 +24,6 @@ import org.slf4j.LoggerFactory;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public final class SubstationGraph {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SubstationGraph.class);
 
     private String substationId;
 
@@ -42,8 +42,7 @@ public final class SubstationGraph {
 
     public static SubstationGraph create(String id) {
         Objects.requireNonNull(id);
-        SubstationGraph g = new SubstationGraph(id);
-        return g;
+        return new SubstationGraph(id);
     }
 
     public void addNode(Graph node) {
@@ -81,5 +80,29 @@ public final class SubstationGraph {
 
     public String getSubstationId() {
         return substationId;
+    }
+
+    public void writeJson(Path file) {
+        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
+            writeJson(writer);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    public void writeJson(Writer writer) {
+        Objects.requireNonNull(writer);
+        try (JsonGenerator generator = new JsonFactory()
+                .createGenerator(writer)
+                .useDefaultPrettyPrinter()) {
+            generator.writeStartArray();
+            for (Graph graph : nodes) {
+                graph.writeJson(generator);
+            }
+
+            generator.writeEndArray();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
