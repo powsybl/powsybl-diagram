@@ -105,17 +105,17 @@ public class TopologicalStyleTest extends AbstractTestCase {
         DiagramStyleProvider styleProvider = new TopologicalStyleProvider(config, network);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false);
+        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
         assertTrue(nodeStyle1.isPresent());
         assertEquals(" #idbbs1 {stroke:#FF4848;}", nodeStyle1.get());
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false);
+        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
         assertTrue(nodeStyle2.isPresent());
         assertEquals(" #idbbs2 {stroke:#48FF48;}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false);
+        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
         assertTrue(nodeStyle3.isPresent());
         assertEquals(" #idbbs3 {stroke:#FF0000;}", nodeStyle3.get());
 
