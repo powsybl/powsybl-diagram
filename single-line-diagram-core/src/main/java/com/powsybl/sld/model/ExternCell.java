@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 /**
@@ -56,5 +59,12 @@ public class ExternCell extends AbstractBusCell {
     @Override
     public String toString() {
         return "ExternCell(order=" + order + ", direction=" + getDirection() + ", nodes=" + nodes + ")";
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        generator.writeStringField("direction", getDirection().name());
+        generator.writeNumberField("order", order);
     }
 }

@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 
 /**
  * <pre>
@@ -19,60 +18,20 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase7DoubleDJ extends AbstractTestCase {
 
     @Override
     void setUp() {
         network = Network.create("testCase", "test");
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView()
-                .setNodeCount(10);
-
-        BusbarSection bbs1 = view.newBusbarSection()
-                .setId("bbs1")
-                .setNode(0)
-                .add();
-        bbs1.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs1, 1, 1));
-
-        view.newDisconnector()
-                .setId("d1")
-                .setNode1(0)
-                .setNode2(1)
-                .add();
-
-        view.newBreaker()
-                .setId("b1")
-                .setNode1(1)
-                .setNode2(2)
-                .add();
-
-        view.newBreaker()
-                .setId("b2")
-                .setNode1(2)
-                .setNode2(3)
-                .add();
-
-        view.newDisconnector()
-                .setId("d2")
-                .setNode1(3)
-                .setNode2(4)
-                .add();
-
-        BusbarSection bbs2 = view.newBusbarSection()
-                .setId("bbs2")
-                .setNode(4)
-                .add();
-        bbs2.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs2, 1, 2));
-
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl, "b1", "b1", SwitchKind.BREAKER, false, false, false, 1, 2);
+        createSwitch(vl, "b2", "b2", SwitchKind.BREAKER, false, false, false, 2, 3);
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 3, 4);
+        createBusBarSection(vl, "bbs2", "bbs2", 4, 1, 2);
     }
 }
