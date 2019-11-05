@@ -32,6 +32,7 @@ import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
@@ -218,9 +219,8 @@ public class CgmesZoneLayoutTest {
     public void test() {
         Network network = createNetwork();
         addDiagramData(network);
-        Substation substation1 = network.getSubstation(SUBSTATION_1_ID);
-        Substation substation2 = network.getSubstation(SUBSTATION_2_ID);
-        ZoneGraph graph = ZoneGraph.create(Arrays.asList(substation1, substation2));
+        List<String> zone = Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID);
+        ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_ID);

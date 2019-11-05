@@ -21,6 +21,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.NetworkGraphBuilder;
 
 /**
  *
@@ -83,9 +84,8 @@ public class ZoneGraphTest {
 
     @Test
     public void test() {
-        Network network = createNetwork();
-        List<Substation> zone = Arrays.asList(network.getSubstation(SUBSTATION_ID_1), network.getSubstation(SUBSTATION_ID_2));
-        ZoneGraph graph = ZoneGraph.create(zone);
+        List<String> zone = Arrays.asList(SUBSTATION_ID_1, SUBSTATION_ID_2);
+        ZoneGraph graph = new NetworkGraphBuilder(createNetwork()).buildZoneGraph(zone, false);
         assertEquals(2, graph.getNodes().size());
         assertEquals(SUBSTATION_ID_1, graph.getNodes().get(0).getSubstationId());
         assertEquals(SUBSTATION_ID_2, graph.getNodes().get(1).getSubstationId());
