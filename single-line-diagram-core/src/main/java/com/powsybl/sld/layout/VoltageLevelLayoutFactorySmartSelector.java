@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 
 import java.util.Comparator;
@@ -55,5 +56,5 @@ public interface VoltageLevelLayoutFactorySmartSelector {
      *
      * @return a {@link VoltageLevelLayoutFactory} instance
      */
-    VoltageLevelLayoutFactory createFactory();
+    VoltageLevelLayoutFactory createFactory(Network network);
 }

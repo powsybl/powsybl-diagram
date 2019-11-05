@@ -9,17 +9,8 @@ package com.powsybl.sld.util;
 import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.powsybl.basevoltage.BaseVoltageColor;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.BusbarSection;
@@ -27,6 +18,7 @@ import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ShuntCompensator;
 import com.powsybl.iidm.network.StaticVarCompensator;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
@@ -39,6 +31,14 @@ import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -52,11 +52,10 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     private static final double FACTOR = 0.7;
     private String disconnectedColor;
 
-    public TopologicalStyleProvider() {
-        this(null);
-    }
+    private final Network network;
 
-    public TopologicalStyleProvider(Path config) {
+    public TopologicalStyleProvider(Path config, Network network) {
+        this.network = network;
         try {
             baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
         } catch (IOException e) {
@@ -72,7 +71,7 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     private RGBColor getBusColor(Node node) {
         String id = node.getId();
-        VoltageLevel vl = node.getGraph().getVoltageLevel();
+        VoltageLevel vl = network.getVoltageLevel(node.getGraph().getVoltageLevelId());
         return voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl)).get(id);
     }
 
@@ -129,7 +128,7 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
                 @Override
                 public void visitThreeWindingsTransformer(ThreeWindingsTransformer e,
-                        com.powsybl.iidm.network.ThreeWindingsTransformer.Side s) {
+                                                          ThreeWindingsTransformer.Side s) {
                     colorMap.put(e.getId(), c);
                 }
 
@@ -167,7 +166,7 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     @Override
     public Optional<String> getWireStyle(Edge edge) {
 
-        String wireId = DiagramStyles.escapeId(edge.getNode1().getGraph().getVoltageLevel().getId() + "_Wire"
+        String wireId = DiagramStyles.escapeId(edge.getNode1().getGraph().getVoltageLevelId() + "_Wire"
                 + edge.getNode1().getGraph().getEdges().indexOf(edge));
         Node bus = findConnectedBus(edge);
         String color = disconnectedColor;

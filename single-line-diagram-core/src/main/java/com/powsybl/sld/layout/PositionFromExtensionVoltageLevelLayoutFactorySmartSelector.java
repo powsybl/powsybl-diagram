@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.iidm.network.Connectable;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
@@ -43,7 +44,7 @@ public class PositionFromExtensionVoltageLevelLayoutFactorySmartSelector impleme
     }
 
     @Override
-    public VoltageLevelLayoutFactory createFactory() {
+    public VoltageLevelLayoutFactory createFactory(Network network) {
         return new PositionVoltageLevelLayoutFactory();
     }
 }

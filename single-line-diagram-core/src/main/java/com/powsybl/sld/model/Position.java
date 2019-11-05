@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -112,5 +115,17 @@ public class Position {
     public String toString() {
         return "Position(h=" + h + ", v=" + v + ", hSpan=" + hSpan + ", vSpan=" + vSpan + ", absolute="
                 + absolute + ", orientation=" + orientation + ")";
+    }
+
+    public void writeJsonContent(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        generator.writeNumberField("h", h);
+        generator.writeNumberField("v", v);
+        generator.writeNumberField("hSpan", hSpan);
+        generator.writeNumberField("vSpan", vSpan);
+        if (orientation != null) {
+            generator.writeStringField("orientation", orientation.name());
+        }
+        generator.writeEndObject();
     }
 }

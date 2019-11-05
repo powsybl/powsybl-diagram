@@ -74,8 +74,8 @@ public class Node implements BaseNode {
         this.graph = Objects.requireNonNull(graph);
         // for unicity purpose (in substation diagram), we prefix the id of the fictitious node with the voltageLevel id and "_"
         String tmpId = Objects.requireNonNull(id);
-        if (type == NodeType.FICTITIOUS && !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevel().getId() + "_")) {
-            this.id = "FICT_" + this.graph.getVoltageLevel().getId() + "_" + tmpId;
+        if (type == NodeType.FICTITIOUS && !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelId() + "_")) {
+            this.id = "FICT_" + this.graph.getVoltageLevelId() + "_" + tmpId;
         } else {
             this.id = tmpId;
         }
@@ -260,13 +260,28 @@ public class Node implements BaseNode {
         y = ys.stream().mapToDouble(d -> d).average().orElse(0);
     }
 
-    public void writeJson(JsonGenerator generator) throws IOException {
-        generator.writeStartObject();
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeStringField("id", id);
         if (name != null) {
             generator.writeStringField("name", name);
         }
+        generator.writeStringField("componentType", componentType);
+        generator.writeBooleanField("fictitious", fictitious);
+        generator.writeNumberField("x", x);
+        generator.writeNumberField("y", y);
+        if (rotationAngle != null) {
+            generator.writeNumberField("rotationAngle", rotationAngle);
+        }
+        generator.writeBooleanField("open", open);
+        if (label != null) {
+            generator.writeStringField("label", label);
+        }
+    }
+
+    public void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        writeJsonContent(generator);
         generator.writeEndObject();
     }
 
