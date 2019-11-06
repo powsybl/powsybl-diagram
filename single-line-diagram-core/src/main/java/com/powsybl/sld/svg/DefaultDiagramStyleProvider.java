@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import static com.powsybl.sld.library.ComponentTypeName.NODE;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -36,7 +37,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
-        if (node.getComponentType().equals("NODE") && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+        if (node.getComponentType().equals(NODE) && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
