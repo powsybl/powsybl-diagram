@@ -26,76 +26,14 @@ public class DoubleBusbarSectionTest {
 
     private static final String DIAGRAM_NAME = "default";
 
-    private int countNodes = 0;
-    private int bbN1 = countNodes++;
-    private int bbN2 = countNodes++;
-    private int iN1 = countNodes++;
-    private int gN1 = countNodes++;
-
     private VoltageLevel voltageLevel;
+
+    private int iNode = 2;
 
     @Before
     public void setUp() {
-        Network network = createNetwork();
+        Network network = Networks.createNetworkWithDoubleBusbarSections();
         voltageLevel = network.getVoltageLevel("VoltageLevel1");
-    }
-
-    private Network createNetwork() {
-
-        Network network = Network.create("network1", "test");
-
-        Substation substation1 = network.newSubstation()
-                .setId("Substation1")
-                .setCountry(Country.FR)
-                .add();
-
-        VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
-                .setId("VoltageLevel1")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-
-        voltageLevel1.getNodeBreakerView().setNodeCount(countNodes);
-
-        voltageLevel1.getNodeBreakerView().newBusbarSection()
-                .setId("BusbarSection1")
-                .setNode(bbN1)
-                .add();
-        voltageLevel1.getNodeBreakerView().newBusbarSection()
-                .setId("BusbarSection2")
-                .setNode(bbN2)
-                .add();
-
-        voltageLevel1.getNodeBreakerView().newDisconnector()
-                .setId("Disconnector1")
-                .setNode1(bbN1)
-                .setNode2(iN1)
-                .setOpen(true)
-                .add();
-
-        voltageLevel1.getNodeBreakerView().newDisconnector()
-                .setId("Disconnector2")
-                .setNode1(bbN2)
-                .setNode2(iN1)
-                .setOpen(false)
-                .add();
-
-        voltageLevel1.newGenerator()
-                .setId("Generator1")
-                .setNode(gN1)
-                .setTargetP(100)
-                .setTargetV(380)
-                .setVoltageRegulatorOn(true)
-                .setMaxP(100)
-                .setMinP(0)
-                .add();
-
-        voltageLevel1.getNodeBreakerView().newBreaker()
-                .setId("Breaker1")
-                .setNode1(gN1)
-                .setNode2(iN1)
-                .add();
-        return network;
     }
 
     private void addDiagramData(boolean isVoltageLevelDataEnabled) {
@@ -109,7 +47,7 @@ public class DoubleBusbarSectionTest {
         addSwitchDiagramData(network.getSwitch("Disconnector2"), new DiagramPoint(75, 40, 0), 0);
         addSwitchDiagramData(network.getSwitch("Breaker1"), new DiagramPoint(80, 50, 0), 0);
         if (isVoltageLevelDataEnabled) {
-            VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, DIAGRAM_NAME, iN1, new DiagramPoint(80, 45, 0));
+            VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, DIAGRAM_NAME, iNode, new DiagramPoint(80, 45, 0));
         }
         NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
     }
