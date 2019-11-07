@@ -14,15 +14,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * LBSCluster contains a list of LegBusSets (LBS) that is orderly build by successively merging LBSCluster initially
+ * containing a single LBS.
+ * LBSCluster handles the building of the horizontalLanes.
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class LBSCluster {
-    List<LegBusSet> lbsList;
-    Map<Side, LegBusSet> sideToLbs;
-
-    List<HorizontalLane> horizontalLanes;
-
-    List<LBSCluster> lbsClusters;
+    private List<LegBusSet> lbsList;
+    private Map<Side, LegBusSet> sideToLbs;
+    private List<HorizontalLane> horizontalLanes;
+    private List<LBSCluster> lbsClusters;
 
     LBSCluster(List<LBSCluster> lbsClusters, LegBusSet lbs) {
         lbsList = new ArrayList<>();
@@ -47,7 +49,7 @@ class LBSCluster {
             otherLbsCluster.reverse();
         }
         otherLbsCluster.getLbsList().forEach(legBusSet -> legBusSet.setLbsCluster(this));
-        buildHorizontalLanes(otherLbsCluster, lbsList.size());
+        mergeHorizontalLanes(otherLbsCluster, lbsList.size());
         lbsList.addAll(otherLbsCluster.lbsList);
         sideToLbs.put(Side.RIGHT, otherLbsCluster.sideToLbs.get(Side.RIGHT));
         lbsClusters.remove(otherLbsCluster);
@@ -57,30 +59,30 @@ class LBSCluster {
         return laneSideBuses(side, horizontalLanes);
     }
 
-    List<BusNode> laneSideBuses(Side side, List<HorizontalLane> horizontalLaneList) {
+    private List<BusNode> laneSideBuses(Side side, List<HorizontalLane> horizontalLaneList) {
         return horizontalLaneList.stream()
                 .map(hl -> hl.getSideNode(side)).collect(Collectors.toList());
     }
 
-    private void buildHorizontalLanes(LBSCluster otherCluster, int lastIndexBeforeMerge) {
+    private void mergeHorizontalLanes(LBSCluster otherCluster, int lastIndexBeforeMerge) {
         List<HorizontalLane> availableLanesToMerge = new ArrayList<>(horizontalLanes);
-        buildLaneWithCommonBusNode(otherCluster, availableLanesToMerge, lastIndexBeforeMerge);
-        buildLaneWithFlatCell(otherCluster, availableLanesToMerge, lastIndexBeforeMerge);
-        buildLaneWithNoStrongLink(otherCluster, lastIndexBeforeMerge);
+        mergeLaneWithCommonBusNode(otherCluster, availableLanesToMerge, lastIndexBeforeMerge);
+        mergeLaneWithFlatCell(otherCluster, availableLanesToMerge, lastIndexBeforeMerge);
+        mergeLaneWithNoStrongLink(otherCluster, lastIndexBeforeMerge);
     }
 
-    void removeLane(HorizontalLane lane) {
+    private void removeLane(HorizontalLane lane) {
         horizontalLanes.remove(lane);
     }
 
-    private void buildLaneWithCommonBusNode(LBSCluster otherCluster, List<HorizontalLane> availableLanesToMerge, int lastIndexBeforeMerge) {
+    private void mergeLaneWithCommonBusNode(LBSCluster otherCluster, List<HorizontalLane> availableLanesToMerge, int lastIndexBeforeMerge) {
         List<BusNode> commonNodes = new ArrayList<>(laneSideBuses(Side.RIGHT));
         commonNodes.retainAll(otherCluster.laneSideBuses(Side.LEFT));
         commonNodes.forEach(busNode ->
                 finalizeLaneBuilding(otherCluster, busNode, busNode, availableLanesToMerge, lastIndexBeforeMerge));
     }
 
-    private void buildLaneWithFlatCell(LBSCluster otherCluster,
+    private void mergeLaneWithFlatCell(LBSCluster otherCluster,
                                        List<HorizontalLane> availableLanesToMerge,
                                        int lastIndexBeforeMerge) {
         List<BusNode> myAvailableRightBuses = laneSideBuses(Side.RIGHT, availableLanesToMerge);
@@ -100,7 +102,7 @@ class LBSCluster {
         });
     }
 
-    private void buildLaneWithNoStrongLink(LBSCluster otherCluster, int lastIndexBeforeMerge) {
+    private void mergeLaneWithNoStrongLink(LBSCluster otherCluster, int lastIndexBeforeMerge) {
         otherCluster.getHorizontalLanes().forEach(lane -> lane.shift(lastIndexBeforeMerge));
         horizontalLanes.addAll(otherCluster.getHorizontalLanes());
         otherCluster.getHorizontalLanes().removeAll(otherCluster.getHorizontalLanes());
@@ -120,7 +122,7 @@ class LBSCluster {
         }
     }
 
-    public void mergeHorizontalLanes() {
+    void tetrisHorizontalLanes() {
         List<HorizontalLane> sortedLanes = horizontalLanes.stream()
                 .sorted(Comparator.comparingInt(HorizontalLane::getIndex))
                 .collect(Collectors.toList());
@@ -166,7 +168,7 @@ class LBSCluster {
                 .orElse(null);
     }
 
-    LegBusSet getLbsSideFromBusNode(BusNode busNode, Side side) {
+    private LegBusSet getLbsSideFromBusNode(BusNode busNode, Side side) {
         if (side != Side.RIGHT && side != Side.LEFT) {
             return null;
         }
@@ -187,7 +189,7 @@ class LBSCluster {
                 .collect(Collectors.toList());
     }
 
-    void reverse() {
+    private void reverse() {
         Collections.reverse(lbsList);
         LegBusSet lbs = sideToLbs.get(Side.LEFT);
         sideToLbs.put(Side.LEFT, sideToLbs.get(Side.RIGHT));
