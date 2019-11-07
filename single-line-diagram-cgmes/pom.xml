@@ -20,6 +20,7 @@
 
     <artifactId>powsybl-single-line-diagram-cgmes</artifactId>
     <name>Single line diagram CGMES</name>
+    <description>Single line diagram CGMES parent project</description>
     <packaging>pom</packaging>
 
     <modules>

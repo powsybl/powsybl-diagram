@@ -20,6 +20,7 @@
 
     <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
     <name>Single line diagram IIDM extensions</name>
+    <description>A collection of IIDM extensions for busbar sections and feeders position</description>
 
     <dependencies>
         <!-- compile dependencies -->

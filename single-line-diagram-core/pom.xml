@@ -19,6 +19,7 @@
 
     <artifactId>powsybl-single-line-diagram-core</artifactId>
     <name>Single line diagram core</name>
+    <description>Single line diagram core components like graph data models, automatic layouts, SVG renderer</description>
 
     <dependencies>
         <!-- compilation dependencies -->

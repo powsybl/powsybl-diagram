@@ -20,6 +20,7 @@
 
     <artifactId>powsybl-single-line-diagram-view-app</artifactId>
     <name>Single line diagram JavaFX view app</name>
+    <description>A JavaFX based application for single line diagrams visualization and debugging</description>
 
     <dependencies>
         <dependency>
