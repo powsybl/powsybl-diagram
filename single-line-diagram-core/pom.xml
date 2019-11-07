@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-base-voltage-color</artifactId>
+            <artifactId>powsybl-single-line-diagram-color</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

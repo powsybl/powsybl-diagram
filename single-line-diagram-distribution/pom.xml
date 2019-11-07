@@ -26,11 +26,6 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>powsybl-base-voltage-color</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-cgmes-dl-conversion</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -42,6 +37,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-cgmes-layout</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>powsybl-single-line-diagram-color</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
