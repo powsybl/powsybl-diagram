@@ -17,6 +17,7 @@
 
     <artifactId>powsybl-single-line-diagram-cgmes-dl-conversion</artifactId>
     <name>Single line diagram CGMES-DL conversion</name>
+    <description>A converter between CGMES-DL and IIDM</description>
 
     <dependencies>
         <dependency>

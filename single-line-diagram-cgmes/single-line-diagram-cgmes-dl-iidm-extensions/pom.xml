@@ -17,6 +17,7 @@
 
     <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
     <name>Single line diagram CGMES-DL IIDM extensions</name>
+    <description>A collection of IIDM extensions to store CGMES-DL data</description>
 
     <build>
         <plugins>

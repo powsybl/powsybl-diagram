@@ -18,7 +18,7 @@
     <packaging>pom</packaging>
 
     <name>Single line diagram</name>
-    <description>PowSyBl single line diagram components</description>
+    <description>PowSyBl single line diagram parent project</description>
     <url>http://www.powsybl.org</url>
 
     <licenses>

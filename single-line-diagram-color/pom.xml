@@ -20,6 +20,7 @@
 
     <artifactId>powsybl-single-line-diagram-color</artifactId>
     <name>Single line diagram color configuration</name>
+    <description>Color configuration utilities for single line diagram</description>
 
     <dependencies>
         <!-- compile dependencies -->
