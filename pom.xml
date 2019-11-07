@@ -50,9 +50,9 @@
     </developers>
 
     <modules>
-        <module>base-voltage-color</module>
-        <module>single-line-diagram-core</module>
         <module>single-line-diagram-cgmes</module>
+        <module>single-line-diagram-color</module>
+        <module>single-line-diagram-core</module>
         <module>single-line-diagram-distribution</module>
         <module>single-line-diagram-iidm-extensions</module>
         <module>single-line-diagram-view</module>
