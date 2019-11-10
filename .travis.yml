@@ -9,8 +9,7 @@ jdk:
 addons:
     sonarcloud:
         organization: "powsybl-ci-github"
-        token:
-            secure: ${SONAR_TOKEN}
+        token: ${SONAR_TOKEN}
 
 script:
 - mvn --batch-mode -Pjacoco,checks clean verify sonar:sonar
