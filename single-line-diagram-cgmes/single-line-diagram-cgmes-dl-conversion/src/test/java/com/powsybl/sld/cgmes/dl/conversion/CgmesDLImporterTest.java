@@ -6,26 +6,15 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Switch;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -292,6 +281,21 @@ public class CgmesDLImporterTest extends AbstractCgmesDLTest {
         CgmesDLUtils.removeIidmCgmesExtensions(network);
         CgmesDLUtils.clearCgmesDl(network);
         assertNull(load.getExtension(InjectionDiagramData.class));
+    }
+
+    @Test
+    public void testVoltageLevels() {
+        voltageLevels = new PropertyBags(Arrays.asList(createVoltageLevelPropertyBag(NAMESPACE + "2", "2", "Breaker1", 0, 0, 0)));
+        Mockito.when(cgmesDLModel.getVoltageLevelDiagramData()).thenReturn(voltageLevels);
+        Network network = Networks.createNetworkWithDoubleBusbarSections();
+        Map<String, Set<String>> nodesSwitchesForks = new HashMap<>();
+        nodesSwitchesForks.put("2", Arrays.asList("Breaker1", "Disconnector1", "Disconnector2").stream().collect(Collectors.toSet()));
+        Mockito.when(cgmesDLModel.findCgmesConnectivityNodesSwitchesForks()).thenReturn(nodesSwitchesForks);
+        CgmesDLImporter cgmesDLImporter = new CgmesDLImporter(network, cgmesDLModel);
+        cgmesDLImporter.importDLData();
+        Network network1 = cgmesDLImporter.getNetworkWithDLData();
+        VoltageLevel voltageLevel = network1.getVoltageLevel("VoltageLevel1");
+        assertTrue(VoltageLevelDiagramData.checkDiagramData(voltageLevel));
     }
 
 }

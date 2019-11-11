@@ -7,6 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion.importers;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
@@ -37,19 +38,23 @@ public class VoltageLevelDiagramDataImporter {
     public void importDiagramData(PropertyBag diagramData) {
         Objects.requireNonNull(diagramData);
         String connectivityNode = diagramData.getLocal("connectivityNode");
-        String aSwitch = diagramData.getLocal("switch");
+        String switchName = diagramData.getLocal("switch");
         String diagramName = diagramData.getLocal("diagramName");
         double x = diagramData.asDouble("x");
         double y = diagramData.asDouble("y");
         int seq = diagramData.asInt("seq");
 
-        VoltageLevel vl = network.getSwitch(aSwitch).getVoltageLevel();
-        if (vl != null) {
-            int aNode = mapCnodeInode.get(vl.getId()).get(connectivityNode);
-            VoltageLevelDiagramData.addInternalNodeDiagramPoint(vl, diagramName, aNode, new DiagramPoint(x, y, seq));
+        Switch aSwitch = network.getSwitch(switchName);
+        if (aSwitch != null) {
+            VoltageLevel vl = aSwitch.getVoltageLevel();
+            if (mapCnodeInode.containsKey(vl.getId())) {
+                Integer iNode = mapCnodeInode.get(vl.getId()).get(connectivityNode);
+                if (iNode != null) {
+                    VoltageLevelDiagramData.addInternalNodeDiagramPoint(vl, diagramName, iNode, new DiagramPoint(x, y, seq));
+                }
+            }
         } else {
-            LOG.warn("Cannot find voltage level for switch {} in network {}: skipping switch diagram data", aSwitch, network.getId());
+            LOG.warn("Cannot find voltage level for switch {} in network {}: skipping switch diagram data", switchName, network.getId());
         }
     }
-
 }

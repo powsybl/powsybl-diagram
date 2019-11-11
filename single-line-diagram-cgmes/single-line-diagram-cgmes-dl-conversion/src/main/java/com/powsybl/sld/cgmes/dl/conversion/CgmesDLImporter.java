@@ -170,7 +170,10 @@ public class CgmesDLImporter {
                     Set<Switch> switches = CgmesDLUtils.findSurroundingSwitches(vl.getNodeBreakerView(), n);
                     if (switches.size() > 1) {
                         mapCnodeInode.putIfAbsent(vl.getId(), new HashMap<>());
-                        mapCnodeInode.get(vl.getId()).putIfAbsent(CgmesDLUtils.findMatchingConnectivityNodeId(nodeSwitches, switches), n);
+                        String matchedCnode = CgmesDLUtils.findMatchingConnectivityNodeId(nodeSwitches, switches);
+                        if (matchedCnode != null) {
+                            mapCnodeInode.get(vl.getId()).putIfAbsent(matchedCnode, n);
+                        }
                     }
                 }
             }

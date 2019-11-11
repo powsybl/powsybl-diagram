@@ -211,4 +211,20 @@ public abstract class AbstractCgmesDLTest {
         return propertyBag;
     }
 
+    protected PropertyBag createVoltageLevelPropertyBag(String connectivityNode, String name, String aSwitch, double x, double y, int seq, String diagramName) {
+        PropertyBag propertyBag = new PropertyBag(Arrays.asList("connectivityNode", "switch", "name", "type", "x", "y", "seq"));
+        propertyBag.put("connectivityNode", connectivityNode);
+        propertyBag.put("switch", aSwitch);
+        propertyBag.put("name", name);
+        propertyBag.put("type", "");
+        propertyBag.put("x", Double.toString(x));
+        propertyBag.put("y", Double.toString(y));
+        propertyBag.put("seq", Integer.toString(seq));
+        propertyBag.put("diagramName", diagramName);
+        return propertyBag;
+    }
+
+    protected PropertyBag createVoltageLevelPropertyBag(String connectivityNode, String name, String aSwitch, double x, double y, int seq) {
+        return createVoltageLevelPropertyBag(connectivityNode, name, aSwitch, x, y, seq, DEFAULT_DIAGRAM_NAME);
+    }
 }
