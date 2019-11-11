@@ -95,6 +95,9 @@ import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
  */
 public class DefaultSVGWriter implements SVGWriter {
 
+    private static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+    private static final String SVG_QUALIFIED_NAME = "svg";
+
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSVGWriter.class);
 
     protected static final String CLASS = "class";
@@ -159,7 +162,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
-        Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
+        Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG);
@@ -314,7 +317,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
-        Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
+        Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG);
@@ -1134,7 +1137,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
-        Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
+        Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         List<Graph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
 
