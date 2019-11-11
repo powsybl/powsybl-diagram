@@ -94,17 +94,21 @@ public abstract class AbstractCgmesLayout {
                 setFeederNodeCoordinates(vl, graph, node, diagramName);
                 break;
             default:
-                // retrieve internal nodes points, if available in VoltageLevel extensions
-                if (node.isFictitious() && StringUtils.isNumeric(node.getName())) {
-                    DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getName()));
-                    if (nodePoint != null) {
-                        node.setX(nodePoint.getX());
-                        node.setY(nodePoint.getY());
-                    }
-                } else {
-                    LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
-                }
+                processDefaultNodeCase(vl, node, diagramName);
                 break;
+        }
+    }
+
+    protected void processDefaultNodeCase(VoltageLevel vl, Node node, String diagramName) {
+        // retrieve internal nodes points, if available in VoltageLevel extensions
+        if (node.isFictitious() && StringUtils.isNumeric(node.getName())) {
+            DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getName()));
+            if (nodePoint != null) {
+                node.setX(nodePoint.getX());
+                node.setY(nodePoint.getY());
+            }
+        } else {
+            LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         }
     }
 
