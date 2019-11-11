@@ -63,6 +63,30 @@ class LBSClusterSide extends AbstractLinkable {
                         && side.getFlip() == ((LBSClusterSide) linkable).getSide()).findAny().orElse(null);
     }
 
+    @Override
+    int getDistanceToEdge(InternCell internCell) {
+        List<BusNode> buses = internCell.getBusNodes();
+        buses.retainAll(getBusNodeSet());
+        if (buses.isEmpty()) {
+            return 0;
+        }
+        BusNode busNode = buses.get(0);
+        HorizontalLane horizontalLane = lbsCluster.getHorizontalLanes()
+                .stream()
+                .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
+                        || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
+                .findFirst().orElse(null);
+        if (horizontalLane == null) {
+            return 0;
+        } else {
+            if (side == Side.LEFT) {
+                return horizontalLane.getIndex();
+            } else {
+                return lbsCluster.getLbsList().size() - horizontalLane.getIndex() - horizontalLane.getLength();
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     <T extends AbstractLinkable> void addLink(Link<T> link) {
         myLinks.add((Link<LBSClusterSide>) link);

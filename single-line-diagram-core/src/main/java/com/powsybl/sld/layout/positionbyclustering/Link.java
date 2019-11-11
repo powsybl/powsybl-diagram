@@ -43,7 +43,15 @@ class Link<T extends AbstractLinkable> implements Comparable {
 
         HashSet<InternCell> flatCellIntersect = new HashSet<>(linkable1.getCandidateFlatCellList());
         flatCellIntersect.retainAll(linkable2.getCandidateFlatCellList());
-        categoryToWeight.put(LinkCategory.FLATCELLS, flatCellIntersect.size());
+        if (flatCellIntersect.isEmpty()) {
+            categoryToWeight.put(LinkCategory.FLATCELLS, 0);
+        } else {
+            categoryToWeight.put(LinkCategory.FLATCELLS,
+                    flatCellIntersect.size() * 100
+                            - flatCellIntersect.stream()
+                            .mapToInt(internCell -> linkable1.getDistanceToEdge(internCell)
+                                    + linkable2.getDistanceToEdge(internCell)).sum());
+        }
 
         HashSet<InternCell> commonInternCells = new HashSet<>(linkable1.getCrossOverCellList());
         commonInternCells.retainAll(linkable2.getCrossOverCellList());
@@ -123,5 +131,12 @@ class Link<T extends AbstractLinkable> implements Comparable {
             }
         }
         return this.hashCode() - o.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "CommonBus: " + categoryToWeight.get(LinkCategory.COMMONBUSES)
+                + " FlatCell: " + categoryToWeight.get(LinkCategory.FLATCELLS)
+                + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER);
     }
 }
