@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
 import com.powsybl.iidm.network.VoltageLevel;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.*;
 
@@ -73,7 +74,7 @@ public final class VoltageLevelDiagramData extends AbstractExtension<VoltageLeve
         if (voltageLevelDiagramData.internalNodesPoints.get(diagramName) != null) {
             return voltageLevelDiagramData.internalNodesPoints.get(diagramName).keySet().stream().mapToInt(Integer::intValue).sorted().toArray();
         } else {
-            return null;
+            return ArrayUtils.EMPTY_INT_ARRAY;
         }
     }
 }

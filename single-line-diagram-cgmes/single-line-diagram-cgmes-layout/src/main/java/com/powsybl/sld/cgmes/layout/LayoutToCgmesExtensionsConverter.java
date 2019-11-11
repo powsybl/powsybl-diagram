@@ -110,9 +110,9 @@ public class LayoutToCgmesExtensionsConverter {
 
             //retrieve fictitious nodes surrounded by switches, to be exported to DL
             List<Node> nodesSurroundedBySwitches = vlGraph.getNodes().stream().filter(this::isNodeSurroundedbySwitches).collect(Collectors.toList());
-            nodesSurroundedBySwitches.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode -> {
-                VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName, Integer.parseInt(fNode.getName()), new DiagramPoint(fNode.getX(), fNode.getY(), 0));
-            });
+            nodesSurroundedBySwitches.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode ->
+                VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName, Integer.parseInt(fNode.getName()), new DiagramPoint(fNode.getX(), fNode.getY(), 0))
+            );
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
