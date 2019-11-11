@@ -6,27 +6,34 @@
  */
 package com.powsybl.sld.svg;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableList;
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
-import com.powsybl.commons.json.JsonUtil;
-import com.powsybl.sld.library.*;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.ComponentTypeName.LINE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableList;
+import com.google.common.jimfs.Configuration;
+import com.google.common.jimfs.Jimfs;
+import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.sld.library.AnchorOrientation;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.ComponentMetadata;
+import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -43,6 +50,11 @@ public class GraphMetadataTest {
     public void setUp() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        fileSystem.close();
     }
 
     @Test
@@ -119,4 +131,61 @@ public class GraphMetadataTest {
         assertFalse(metadata3.getWireMetadata("id3").isStraight());
         assertEquals("id3", metadata3.getArrowMetadata("id1").getWireId());
     }
+
+    @Test
+    public void testGraphMetadataWithLine() throws IOException {
+        GraphMetadata metadata = new GraphMetadata();
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, null, false, BusCell.Direction.UNDEFINED, false));
+        metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid2", "vid2", null, LINE, null, false, BusCell.Direction.UNDEFINED, false));
+        metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, false));
+        metadata.addLineMetadata(new GraphMetadata.LineMetadata("lid", "lid1", "lid2"));
+
+        ObjectMapper objectMapper = JsonUtil.createObjectMapper();
+        String json = objectMapper.writerWithDefaultPrettyPrinter()
+                                  .writeValueAsString(metadata);
+        GraphMetadata metadata2 = objectMapper.readValue(json, GraphMetadata.class);
+        checkMetadata(metadata2);
+
+        Path meta = tmpDir.resolve("meta.json");
+        metadata.writeJson(meta);
+        GraphMetadata metadata3 = GraphMetadata.parseJson(meta);
+        checkMetadata(metadata3);
+    }
+
+    private void checkMetadata(GraphMetadata metadata)  {
+        assertEquals(4, metadata.getNodeMetadata().size());
+        assertNotNull(metadata.getNodeMetadata("bid1"));
+        assertEquals("bid1", metadata.getNodeMetadata("bid1").getId());
+        assertEquals("vid1", metadata.getNodeMetadata("bid1").getVId());
+        assertEquals(BUSBAR_SECTION, metadata.getNodeMetadata("bid1").getComponentType());
+        assertEquals("lid1", metadata.getNodeMetadata("lid1").getId());
+        assertEquals("vid1", metadata.getNodeMetadata("lid1").getVId());
+        assertEquals(LINE, metadata.getNodeMetadata("lid1").getComponentType());
+        assertEquals("bid2", metadata.getNodeMetadata("bid2").getId());
+        assertEquals("vid2", metadata.getNodeMetadata("bid2").getVId());
+        assertEquals(BUSBAR_SECTION, metadata.getNodeMetadata("bid2").getComponentType());
+        assertEquals("lid2", metadata.getNodeMetadata("lid2").getId());
+        assertEquals("vid2", metadata.getNodeMetadata("lid2").getVId());
+        assertEquals(LINE, metadata.getNodeMetadata("lid2").getComponentType());
+
+        assertEquals(2, metadata.getWireMetadata().size());
+        assertNotNull(metadata.getWireMetadata("wid1"));
+        assertEquals("wid1", metadata.getWireMetadata("wid1").getId());
+        assertEquals("bid1", metadata.getWireMetadata("wid1").getNodeId1());
+        assertEquals("lid1", metadata.getWireMetadata("wid1").getNodeId2());
+        assertNotNull(metadata.getWireMetadata("wid2"));
+        assertEquals("wid2", metadata.getWireMetadata("wid2").getId());
+        assertEquals("bid2", metadata.getWireMetadata("wid2").getNodeId1());
+        assertEquals("lid2", metadata.getWireMetadata("wid2").getNodeId2());
+
+        assertEquals(1, metadata.getLineMetadata().size());
+        assertNotNull(metadata.getLineMetadata("lid"));
+        assertEquals("lid", metadata.getLineMetadata("lid").getId());
+        assertEquals("lid1", metadata.getLineMetadata("lid").getNodeId1());
+        assertEquals("lid2", metadata.getLineMetadata("lid").getNodeId2());
+    }
+
 }

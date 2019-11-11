@@ -91,7 +91,7 @@ public class CgmesZoneLayoutTest {
                 .add();
         VoltageLevel voltageLevel12 = substation1.newVoltageLevel()
                 .setId(VOLTAGE_LEVEL_12_ID)
-                .setNominalV(400)
+                .setNominalV(280)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel12.getBusBreakerView().newBus()
@@ -119,7 +119,7 @@ public class CgmesZoneLayoutTest {
                 .add();
         VoltageLevel voltageLevel21 = substation2.newVoltageLevel()
                 .setId(VOLTAGE_LEVEL_21_ID)
-                .setNominalV(400)
+                .setNominalV(280)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel21.getBusBreakerView().newBus()

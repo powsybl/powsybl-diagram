@@ -1245,6 +1245,7 @@
     "straight" : false,
     "snakeLine" : false
   } ],
+  "lines" : [ ],
   "arrows" : [ {
     "id" : "idvl1_95_Wire7_ARROW1",
     "wireId" : "idvl1_95_Wire7",

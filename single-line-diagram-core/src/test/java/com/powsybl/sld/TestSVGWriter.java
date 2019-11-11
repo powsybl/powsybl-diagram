@@ -6,22 +6,7 @@
  */
 package com.powsybl.sld;
 
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Position;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
-import com.powsybl.sld.svg.InitialValue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,20 +14,56 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.powsybl.iidm.network.Branch.Side;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.FeederLineNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.Position;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.InitialValue;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestSVGWriter extends AbstractTestCase {
 
+    private static final String SUBSTATION_1_ID = "Substation1";
+    private static final String SUBSTATION_2_ID = "Substation2";
+    private static final String VOLTAGE_LEVEL_11_ID = "VoltageLevel11";
+    private static final double VOLTAGE_LEVEL_11_V = 400;
+    private static final String VOLTAGE_LEVEL_12_ID = "VoltageLevel12";
+    private static final double VOLTAGE_LEVEL_12_V = 280;
+    private static final String VOLTAGE_LEVEL_21_ID = "VoltageLevel21";
+    private static final double VOLTAGE_LEVEL_21_V = 280;
+    private static final String BUS_11_ID = "Bus11";
+    private static final String BUS_12_ID = "Bus12";
+    private static final String BUS_21_ID = "Bus21";
+    private static final String LOAD_ID = "Load";
+    private static final String LINE_ID = "Line";
+    private static final String GENERATOR_ID = "Generator";
+    private static final String TRANSFORMER_ID = "Transformer";
+
     private Graph g1;
     private Graph g2;
     private Graph g3;
     private SubstationGraph substG;
+    private DiagramInitialValueProvider initValueProvider;
+    private ZoneGraph zGraph;
 
-    @Before
-    public void setUp() {
+    private void createGraphs() {
         // Creation "by hand" (without any network) of 3 voltage level graph and one substation graph
         // and then generation of a SVG with DefaultDiagramStyleProvider (no network necessary)
         //
@@ -304,11 +325,86 @@ public class TestSVGWriter extends AbstractTestCase {
         substG.getEdges().get(substG.getEdges().size() - 1).setSnakeLine(Arrays.asList(740., 80., 740., 10., 1040., 10., 1040., 80.));
     }
 
-    @Test
-    public void test() {
+    private void createZoneGraph() {
+      //create first voltage level graph
+        Graph vl11Graph = Graph.create(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V, false, false, false);
+        BusNode bus11Node = BusNode.create(vl11Graph, BUS_11_ID, BUS_11_ID);
+        bus11Node.setX(30);
+        bus11Node.setY(200);
+        bus11Node.setPxWidth(40);
+        vl11Graph.addNode(bus11Node);
+        FeederNode loadNode = new FeederNode(LOAD_ID, LOAD_ID, ComponentTypeName.LOAD, false, vl11Graph);
+        loadNode.setX(50);
+        loadNode.setY(50);
+        vl11Graph.addNode(loadNode);
+        Feeder2WTNode twtSide1Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.ONE, ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, vl11Graph, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V);
+        twtSide1Node.setX(50);
+        twtSide1Node.setY(350);
+        vl11Graph.addNode(twtSide1Node);
+        vl11Graph.addEdge(bus11Node, loadNode);
+        vl11Graph.addEdge(bus11Node, twtSide1Node);
+        // create second voltage level graph
+        Graph vl12Graph = Graph.create(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V, false, false, false);
+        BusNode bus12Node = BusNode.create(vl12Graph, BUS_12_ID, BUS_12_ID);
+        bus12Node.setX(30);
+        bus12Node.setY(500);
+        bus12Node.setPxWidth(40);
+        vl12Graph.addNode(bus12Node);
+        Feeder2WTNode twtSide2Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID + "_" + Side.TWO, ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, vl12Graph, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V);
+        twtSide2Node.setX(50);
+        twtSide2Node.setY(350);
+        vl12Graph.addNode(twtSide2Node);
+        FeederLineNode lineSide1Node = new FeederLineNode(LINE_ID + "_" + Side.ONE, LINE_ID + "_" + Side.ONE, ComponentTypeName.LINE, false, vl12Graph, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V);
+        lineSide1Node.setX(50);
+        lineSide1Node.setY(650);
+        vl12Graph.addNode(lineSide1Node);
+        vl12Graph.addEdge(bus12Node, twtSide2Node);
+        vl12Graph.addEdge(bus12Node, lineSide1Node);
+        // create third voltage level graph
+        Graph vl21Graph = Graph.create(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V, false, false, false);
+        BusNode bus21Node = BusNode.create(vl21Graph, BUS_21_ID, BUS_21_ID);
+        bus21Node.setX(130);
+        bus21Node.setY(1100);
+        bus21Node.setPxWidth(40);
+        vl21Graph.addNode(bus21Node);
+        FeederNode genNode = new FeederNode(GENERATOR_ID, GENERATOR_ID, ComponentTypeName.GENERATOR, false, vl21Graph);
+        genNode.setX(150);
+        genNode.setY(1250);
+        vl21Graph.addNode(genNode);
+        FeederLineNode lineSide2Node = new FeederLineNode(LINE_ID + "_" + Side.TWO, LINE_ID + "_" + Side.TWO, ComponentTypeName.LINE, false, vl21Graph, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V);
+        lineSide2Node.setX(150);
+        lineSide2Node.setY(950);
+        vl21Graph.addNode(lineSide2Node);
+        vl21Graph.addEdge(bus21Node, genNode);
+        vl21Graph.addEdge(bus21Node, lineSide2Node);
+        // create first substation graph
+        SubstationGraph s1Graph = SubstationGraph.create(SUBSTATION_1_ID);
+        s1Graph.addNode(vl11Graph);
+        s1Graph.addNode(vl12Graph);
+        twtSide1Node.setLabel(TRANSFORMER_ID);
+        twtSide2Node.setLabel(TRANSFORMER_ID);
+        s1Graph.addEdge(twtSide1Node, twtSide2Node);
+        // create second substation graph
+        SubstationGraph s2Graph = SubstationGraph.create(SUBSTATION_2_ID);
+        s2Graph.addNode(vl21Graph);
+        // create zone graph
+        zGraph = ZoneGraph.create(Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID));
+        zGraph.addNode(s1Graph);
+        zGraph.addNode(s2Graph);
+        zGraph.addEdge(LINE_ID, lineSide1Node, lineSide2Node);
+        zGraph.getEdge(LINE_ID).addPoint(50, 650);
+        zGraph.getEdge(LINE_ID).addPoint(50, 800);
+        zGraph.getEdge(LINE_ID).addPoint(150, 800);
+        zGraph.getEdge(LINE_ID).addPoint(150, 950);
+    }
+
+    @Before
+    public void setUp() {
+        createGraphs();
+        createZoneGraph();
         // initValueProvider example for the test :
         //
-        DiagramInitialValueProvider initValueProvider = new DiagramInitialValueProvider() {
+        initValueProvider = new DiagramInitialValueProvider() {
             @Override
             public InitialValue getInitialValue(Node node) {
                 InitialValue initialValue;
@@ -329,7 +425,10 @@ public class TestSVGWriter extends AbstractTestCase {
                 return res;
             }
         };
+    }
 
+    @Test
+    public void test() {
         // Layout parameters :
         //
         LayoutParameters layoutParameters = new LayoutParameters()
@@ -366,4 +465,31 @@ public class TestSVGWriter extends AbstractTestCase {
         // SVG file generation for substation and comparison to reference
         assertEquals(toSVG(substG, layoutParameters, initValueProvider), toString("/substation.svg"));
     }
+
+    @Test
+    public void testWriteZone() {
+        LayoutParameters layoutParameters = new LayoutParameters()
+                .setTranslateX(20)
+                .setTranslateY(50)
+                .setInitialXBus(0)
+                .setInitialYBus(260)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(80)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(false)
+                .setShowInternalNodes(false)
+                .setScaleFactor(1)
+                .setHorizontalSubstationPadding(50)
+                .setVerticalSubstationPadding(50)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30)
+                .setShowInductorFor3WT(true);
+
+        assertEquals(toString("/zone.svg"), toSVG(zGraph, layoutParameters, initValueProvider));
+    }
+
 }

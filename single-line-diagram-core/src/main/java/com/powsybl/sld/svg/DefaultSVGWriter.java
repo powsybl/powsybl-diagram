@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -77,10 +78,12 @@ import com.powsybl.sld.model.FeederBranchNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 
@@ -1107,4 +1110,110 @@ public class DefaultSVGWriter implements SVGWriter {
             defs.appendChild(n);
         }
     }
+
+    @Override
+    public GraphMetadata write(String prefixId,
+                               ZoneGraph graph,
+                               DiagramInitialValueProvider initProvider,
+                               DiagramStyleProvider styleProvider,
+                               NodeLabelConfiguration nodeLabelConfiguration,
+                               Path svgFile) {
+        try (Writer writer = Files.newBufferedWriter(svgFile)) {
+            return write(prefixId, graph, initProvider, styleProvider, nodeLabelConfiguration, writer);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    @Override
+    public GraphMetadata write(String prefixId,
+                               ZoneGraph graph,
+                               DiagramInitialValueProvider initProvider,
+                               DiagramStyleProvider styleProvider,
+                               NodeLabelConfiguration nodeLabelConfiguration,
+                               Writer writer) {
+        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+
+        Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
+
+        List<Graph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
+
+        Set<String> listUsedComponentSVG = new HashSet<>();
+        addStyle(document, styleProvider, vlGraphs, listUsedComponentSVG);
+
+        createDefsSVGComponents(document, listUsedComponentSVG);
+
+        GraphMetadata metadata = writegraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider, nodeLabelConfiguration);
+
+        transformDocument(document, writer);
+
+        return metadata;
+    }
+
+    private GraphMetadata writegraph(String prefixId,
+                                     ZoneGraph graph,
+                                     List<Graph> vlGraphs,
+                                     Document document,
+                                     DiagramInitialValueProvider initProvider,
+                                     DiagramStyleProvider styleProvider,
+                                     NodeLabelConfiguration nodeLabelConfiguration) {
+        GraphMetadata metadata = new GraphMetadata();
+
+        Element root = document.createElement("g");
+
+        // Drawing grid lines
+        if (layoutParameters.isShowGrid()) {
+            for (Graph vlGraph : vlGraphs) {
+                root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+            }
+        }
+
+        drawZone(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+
+        // the drawing of the voltageLevel graph labels is done at the end in order to
+        // facilitate the move of a voltageLevel in the diagram
+        for (Graph vlGraph : vlGraphs) {
+            drawGraphLabel(prefixId, root, vlGraph, metadata);
+        }
+
+        document.adoptNode(root);
+        document.getDocumentElement().appendChild(root);
+
+        return metadata;
+    }
+
+    private void drawZone(String prefixId,
+                          ZoneGraph graph,
+                          Element root,
+                          GraphMetadata metadata,
+                          DiagramInitialValueProvider initProvider,
+                          DiagramStyleProvider styleProvider,
+                          NodeLabelConfiguration nodeLabelConfiguration) {
+        for (SubstationGraph sGraph : graph.getNodes()) {
+            drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        }
+
+        drawLines(prefixId, root, graph, metadata);
+    }
+
+    private void drawLines(String prefixId, Element root, ZoneGraph graph, GraphMetadata metadata) {
+        for (LineEdge edge : graph.getEdges()) {
+            String lineId = escapeId(prefixId + edge.getLineId());
+
+            Element g = root.getOwnerDocument().createElement(POLYLINE);
+            g.setAttribute("id", lineId);
+            String polyline = edge.getPoints()
+                                  .stream()
+                                  .map(point -> (point.getX() + layoutParameters.getTranslateX()) + "," + (point.getY() + layoutParameters.getTranslateY()))
+                                  .collect(Collectors.joining(","));
+            g.setAttribute(POINTS, polyline);
+            g.setAttribute(CLASS, DiagramStyles.LINE_STYLE_CLASS + " " + escapeClassName(edge.getLineId()));
+            root.appendChild(g);
+
+            metadata.addLineMetadata(new GraphMetadata.LineMetadata(lineId,
+                    escapeId(edge.getNode1().getId()),
+                    escapeId(edge.getNode2().getId())));
+        }
+    }
+
 }

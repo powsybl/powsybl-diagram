@@ -22,6 +22,7 @@ public final class ZoneGraph {
     private List<SubstationGraph> nodes = new ArrayList<>();
     private List<LineEdge> edges = new ArrayList<>();
     private Map<String, SubstationGraph> nodesById = new HashMap<>();
+    private Map<String, LineEdge> edgesById = new HashMap<>();
 
     private ZoneGraph(List<String> zone) {
         this.zone = Objects.requireNonNull(zone);
@@ -37,7 +38,9 @@ public final class ZoneGraph {
     }
 
     public void addEdge(String lineId, Node node1, Node node2) {
-        edges.add(new LineEdge(lineId, node1, node2));
+        LineEdge edge = new LineEdge(lineId, node1, node2);
+        edges.add(edge);
+        edgesById.put(lineId, edge);
     }
 
     public List<String> getZone() {
@@ -55,6 +58,11 @@ public final class ZoneGraph {
     public SubstationGraph getNode(String id) {
         Objects.requireNonNull(id);
         return nodesById.get(id);
+    }
+
+    public LineEdge getEdge(String lineId) {
+        Objects.requireNonNull(lineId);
+        return edgesById.get(lineId);
     }
 
 }
