@@ -2,6 +2,7 @@ package com.powsybl.sld.view.app;
 
 import java.util.List;
 
+import com.powsybl.sld.util.HSLColor;
 import com.powsybl.sld.util.RGBColor;
 
 import javafx.application.Application;
@@ -71,6 +72,9 @@ public class TestColor extends Application {
                 List<RGBColor> colors2 = color.getColorGradient2(cn);
                 List<RGBColor> colors3 = color.getColorGradient3(cn);
 
+                HSLColor hsb = new HSLColor(RGBColor.parse(basecolor.getText()));
+                List<RGBColor> colors4 = hsb.getColorsList(cn);
+
                 pane.getChildren().clear();
 
                 for (int i = 0; i < cn; i++) {
@@ -99,6 +103,13 @@ public class TestColor extends Application {
                     l3.setBackground(new Background(new BackgroundFill(Color.web(colors3.get(i).toString()), CornerRadii.EMPTY, Insets.EMPTY)));
                     l3.setText(colors3.get(i).toString());
                     pane.add(l3, 3, i);
+
+                    Label l4 = new Label();
+                    l4.setMinWidth(100);
+                    l4.setTextFill(Color.web("#FFFFFF"));
+                    l4.setBackground(new Background(new BackgroundFill(Color.web(colors4.get(i).toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+                    l4.setText(colors4.get(i).toString());
+                    pane.add(l4, 4, i);
                 }
             }
         });
