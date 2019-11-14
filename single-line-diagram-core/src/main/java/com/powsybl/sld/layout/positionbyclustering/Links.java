@@ -14,9 +14,9 @@ import java.util.TreeSet;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Links<T extends AbstractLinkable> {
-    List<T> linkables;
-    TreeSet<Link<T>> linkSet = new TreeSet<>();
+class Links<T extends Linkable> {
+    private List<T> linkables;
+    private TreeSet<Link<T>> linkSet = new TreeSet<>();
 
     Links(List<T> linkables) {
         this.linkables = linkables;

@@ -17,13 +17,13 @@ import java.util.*;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LegBusSet extends AbstractLinkable {
+class LegBusSet implements Linkable {
     private Set<BusNode> busNodeSet;
     private Set<BusCell> embededCells;
     private Map<InternCell, Side> candidateFlatCells;
     private Map<InternCell, Side> crossoverInternCells;
-    LBSCluster lbsCluster;
-    List<Link<LegBusSet>> myLinks;
+    private LBSCluster lbsCluster;
+    private List<Link<LegBusSet>> myLinks;
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
@@ -65,7 +65,7 @@ class LegBusSet extends AbstractLinkable {
         absorbMap(crossoverInternCells, lbsToAbsorb.getCrossoverInternCell());
     }
 
-    void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
+    private void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
         Set<InternCell> commonCells = new HashSet<>(myMap.keySet());
         Set<InternCell> cellToAbsorb = map.keySet();
         commonCells.retainAll(cellToAbsorb);
@@ -116,6 +116,7 @@ class LegBusSet extends AbstractLinkable {
         return candidateFlatCells;
     }
 
+    @Override
     public List<InternCell> getCandidateFlatCellList() {
         return new ArrayList<>(candidateFlatCells.keySet());
     }
@@ -124,15 +125,24 @@ class LegBusSet extends AbstractLinkable {
         return crossoverInternCells;
     }
 
+    @Override
     public List<InternCell> getCrossOverCellList() {
         return new ArrayList<>(crossoverInternCells.keySet());
     }
 
+    @Override
     public Set<BusNode> getBusNodeSet() {
         return busNodeSet;
     }
 
-    boolean hasSameRoot(Object other) {
+    @Override
+    public int getDistanceToEdge(InternCell internCell) {
+        return 0;
+    }
+
+
+    @Override
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LegBusSet.class) {
             return false;
         }
@@ -140,22 +150,29 @@ class LegBusSet extends AbstractLinkable {
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void addLink(Link<T> link) {
+    @Override
+    public <T extends Linkable> void addLink(Link<T> link) {
         myLinks.add((Link<LegBusSet>) link);
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LegBusSet>) link);
+    @Override
+    public <T extends Linkable> void removeLink(Link<T> link) {
+        myLinks.remove(link);
     }
 
     @SuppressWarnings("unchecked")
-    List<Link<LegBusSet>> getLinks() {
+    @Override
+    public List<Link<LegBusSet>> getLinks() {
         return myLinks;
     }
 
     Set<BusCell> getEmbededCells() {
         return embededCells;
+    }
+
+    public <T extends Linkable> T getOtherSameRoot(List<T> linkables) {
+        return null;
     }
 
     @Override

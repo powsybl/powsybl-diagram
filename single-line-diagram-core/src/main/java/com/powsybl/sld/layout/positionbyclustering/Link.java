@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Link<T extends AbstractLinkable> implements Comparable {
+class Link<T extends Linkable> implements Comparable {
 
     enum LinkCategory {
         COMMONBUSES, FLATCELLS, CROSSOVER//, SHUNT
@@ -36,7 +36,7 @@ class Link<T extends AbstractLinkable> implements Comparable {
         assessLink();
     }
 
-    void assessLink() {
+    private void assessLink() {
         HashSet<BusNode> nodeBusesIntersect = new HashSet<>(linkable1.getBusNodeSet());
         nodeBusesIntersect.retainAll(linkable2.getBusNodeSet());
         categoryToWeight.put(LinkCategory.COMMONBUSES, nodeBusesIntersect.size());
@@ -62,7 +62,7 @@ class Link<T extends AbstractLinkable> implements Comparable {
                 .count()));
     }
 
-    int getLinkCategoryWeight(LinkCategory cat) {
+    private int getLinkCategoryWeight(LinkCategory cat) {
         return categoryToWeight.get(cat);
     }
 

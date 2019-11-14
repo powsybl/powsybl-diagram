@@ -43,10 +43,6 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
         setCardinality(Extremity.END, this.subBlocks.size());
     }
 
-    abstract double initX0();
-
-    abstract double intitXStep();
-
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
         final double x0Final = initX0();

@@ -46,12 +46,12 @@ public class BodyParallelBlock extends AbstractParallelBlock {
     }
 
     @Override
-    double initX0() {
+    public double initX0() {
         return getCoord().getX() - getCoord().getXSpan() / 2;
     }
 
     @Override
-    double intitXStep() {
+    public double intitXStep() {
         return getCoord().getXSpan() / getPosition().getHSpan();
     }
 

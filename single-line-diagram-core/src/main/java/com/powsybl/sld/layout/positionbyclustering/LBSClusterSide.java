@@ -18,10 +18,10 @@ import java.util.Set;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide extends AbstractLinkable {
-    LBSCluster lbsCluster;
-    Side side;
-    List<Link<LBSClusterSide>> myLinks;
+class LBSClusterSide implements Linkable {
+    private LBSCluster lbsCluster;
+    private Side side;
+    private List<Link<LBSClusterSide>> myLinks;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = lbsCluster;
@@ -49,7 +49,7 @@ class LBSClusterSide extends AbstractLinkable {
         return side;
     }
 
-    boolean hasSameRoot(Object other) {
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
@@ -57,14 +57,14 @@ class LBSClusterSide extends AbstractLinkable {
     }
 
     @Override
-    <T extends AbstractLinkable> T getOtherSameRoot(List<T> linkables) {
+    public <T extends Linkable> T getOtherSameRoot(List<T> linkables) {
         return linkables.stream().filter(linkable ->
                 linkable.getCluster() == lbsCluster
-                        && side.getFlip() == ((LBSClusterSide) linkable).getSide()).findAny().orElse(null);
+                        && side.getFlip() == linkable.getMySidInCluster()).findAny().orElse(null);
     }
 
     @Override
-    int getDistanceToEdge(InternCell internCell) {
+    public int getDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
@@ -88,13 +88,13 @@ class LBSClusterSide extends AbstractLinkable {
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void addLink(Link<T> link) {
+    public <T extends Linkable> void addLink(Link<T> link) {
         myLinks.add((Link<LBSClusterSide>) link);
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LBSClusterSide>) link);
+    public <T extends Linkable> void removeLink(Link<T> link) {
+        myLinks.remove(link);
     }
 
     @SuppressWarnings("unchecked")
@@ -102,7 +102,4 @@ class LBSClusterSide extends AbstractLinkable {
         return myLinks;
     }
 
-    public Side getSide() {
-        return side;
-    }
 }
