@@ -53,22 +53,22 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             style.append(ARROW1).append(escapeClassName(node.getId()))
                     .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
             style.append(ARROW1).append(escapeClassName(node.getId()))
-            .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
+            .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW1).append(escapeClassName(node.getId()))
             .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
             style.append(ARROW1).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
+            .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW2).append(escapeClassName(node.getId()))
             .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(UP).append(" .arrow-down { fill-opacity:0; visibility: hidden;}");
+            .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW2).append(escapeClassName(node.getId()))
             .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-up { fill-opacity:0; visibility: hidden;}");
+            .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             return Optional.of(style.toString());
         }

@@ -89,21 +89,26 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     public Optional<String> getWireStyle(Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
+        String vlId;
+        double nominalV;
+
         if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
                 (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
-            String vlId = node1 instanceof Feeder2WTNode
+            vlId = node1 instanceof Feeder2WTNode
                     ? ((Feeder2WTNode) node1).getVIdOtherSide()
                     : ((Feeder2WTNode) node2).getVIdOtherSide();
-            double nominalV = node1 instanceof Feeder2WTNode
+            nominalV = node1 instanceof Feeder2WTNode
                     ? ((Feeder2WTNode) node1).getNominalVOtherSide()
                     : ((Feeder2WTNode) node2).getNominalVOtherSide();
-            String color = getColor(nominalV).orElse(DEFAULT_COLOR);
-            StringBuilder style = new StringBuilder();
-            style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
-            return Optional.of(style.toString());
         } else {
-            return Optional.empty();
+            vlId = node1.getGraph().getVoltageLevelId();
+            nominalV = node1.getGraph().getVoltageLevelNominalV();
         }
+
+        String color = getColor(nominalV).orElse(DEFAULT_COLOR);
+        StringBuilder style = new StringBuilder();
+        style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
+        return Optional.of(style.toString());
     }
 
     @Override
