@@ -13,13 +13,20 @@ import com.powsybl.sld.model.Side;
 import java.util.*;
 
 /**
+ * An horizontalLane contains a list of BusNodes that have to be displayed horizontally connected.
+ * The index of the HorizontalLane is its horizontal position in the LBSCluster it belongs. The horizontal position is
+ * the index in the cluster of the first LegBusSet that contains the first BusNode of the HorizontalLane.
+ * The length is the spanning of the HorizontalLane in the LBSCluster (note that a busNode can span over many
+ * LegBusSet in the cluster). Therefore index + length - 1 = the last position occupied by the HorizontalLane in
+ * the LBSCluster.
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class HorizontalLane {
 
-    List<BusNode> busNodes;
-    int index;
-    int length;
+    private List<BusNode> busNodes;
+    private int index;
+    private int length;
 
     HorizontalLane(BusNode busNode) {
         this.busNodes = new ArrayList<>();
@@ -64,15 +71,15 @@ class HorizontalLane {
         return busNodes.get(busNodes.size() - 1);
     }
 
-    public int getLength() {
+    int getLength() {
         return length;
     }
 
-    public void shift(int i) {
+    void shift(int i) {
         index += i;
     }
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
 }

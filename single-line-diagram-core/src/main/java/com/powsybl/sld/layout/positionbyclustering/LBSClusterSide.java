@@ -16,12 +16,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
+ *
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide extends AbstractLinkable {
-    LBSCluster lbsCluster;
-    Side side;
-    List<Link<LBSClusterSide>> myLinks;
+class LBSClusterSide extends AbstractClusterConnector {
+    private LBSCluster lbsCluster;
+    private Side side;
+    private List<Link<LBSClusterSide>> myLinks;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = lbsCluster;
@@ -45,11 +48,16 @@ class LBSClusterSide extends AbstractLinkable {
         return lbsCluster;
     }
 
-    public Side getMySidInCluster() {
+    public Side getMySideInCluster() {
         return side;
     }
 
-    boolean hasSameRoot(Object other) {
+    /**
+     *
+     * @param other one object
+     * @return true if other is one LBSClusterSide based on the same LBSCluster
+     */
+    boolean hasSameLBSCluster(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
@@ -57,10 +65,10 @@ class LBSClusterSide extends AbstractLinkable {
     }
 
     @Override
-    <T extends AbstractLinkable> T getOtherSameRoot(List<T> linkables) {
-        return linkables.stream().filter(linkable ->
-                linkable.getCluster() == lbsCluster
-                        && side.getFlip() == ((LBSClusterSide) linkable).getSide()).findAny().orElse(null);
+    <T extends AbstractClusterConnector> T getOtherSameWithSameLBSCluster(List<T> clusterConnectors) {
+        return clusterConnectors.stream().filter(clusterConnector ->
+                clusterConnector.getCluster() == lbsCluster
+                        && side.getFlip() == ((LBSClusterSide) clusterConnector).getSide()).findAny().orElse(null);
     }
 
     @Override
@@ -88,12 +96,12 @@ class LBSClusterSide extends AbstractLinkable {
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void addLink(Link<T> link) {
+    <T extends AbstractClusterConnector> void addLink(Link<T> link) {
         myLinks.add((Link<LBSClusterSide>) link);
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void removeLink(Link<T> link) {
+    <T extends AbstractClusterConnector> void removeLink(Link<T> link) {
         myLinks.remove((Link<LBSClusterSide>) link);
     }
 
