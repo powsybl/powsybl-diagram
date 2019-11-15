@@ -6,16 +6,13 @@
  */
 package com.powsybl.sld;
 
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayout;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
-import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.GraphMetadata;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.NodeLabelConfiguration;
@@ -52,12 +49,14 @@ public final class VoltageLevelDiagram {
         this.vlLayout = Objects.requireNonNull(layout);
     }
 
-    public static VoltageLevelDiagram build(VoltageLevel vl, VoltageLevelLayoutFactory layoutFactory,
+    public static VoltageLevelDiagram build(GraphBuilder graphBuilder, String voltageLevelId,
+                                            VoltageLevelLayoutFactory layoutFactory,
                                             boolean useName, boolean showInductorFor3WT) {
-        Objects.requireNonNull(vl);
+        Objects.requireNonNull(graphBuilder);
+        Objects.requireNonNull(voltageLevelId);
         Objects.requireNonNull(layoutFactory);
 
-        Graph graph = Graph.create(vl, useName, true, showInductorFor3WT);
+        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevelId, useName, true, showInductorFor3WT);
 
         VoltageLevelLayout layout = layoutFactory.create(graph);
 
@@ -67,19 +66,21 @@ public final class VoltageLevelDiagram {
     public void writeSvg(String prefixId,
                          ComponentLibrary componentLibrary,
                          LayoutParameters layoutParameters,
-                         Network network,
+                         DiagramInitialValueProvider initialValueProvider,
                          Path svgFile) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
         writeSvg(prefixId, writer,
-                new DefaultDiagramInitialValueProvider(network),
+                initialValueProvider,
                 new DefaultDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
                 svgFile, false);
     }
 
-    public void writeSvg(String prefixId, SVGWriter writer, Network network, Path svgFile) {
+    public void writeSvg(String prefixId, SVGWriter writer,
+                         DiagramInitialValueProvider initialValueProvider,
+                         Path svgFile) {
         writeSvg(prefixId, writer,
-                new DefaultDiagramInitialValueProvider(network),
+                initialValueProvider,
                 new DefaultDiagramStyleProvider(),
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
                 svgFile, false);

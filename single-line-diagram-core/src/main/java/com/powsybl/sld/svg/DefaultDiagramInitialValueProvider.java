@@ -100,7 +100,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
 
     private InitialValue getInjectionInitialValue(Injection<?> injection) {
         if (injection != null) {
-            return new InitialValue(injection);
+            return buildInitialValue(injection);
         } else {
             return new InitialValue(null, null, null, null, null, null);
         }
@@ -124,14 +124,14 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
             }
 
             if (transformer != null) {
-                return new InitialValue(transformer, side);
+                return buildInitialValue(transformer, side);
             } else {
                 return new InitialValue(null, null, null, null, null, null);
             }
         } else {
             Branch branch = network.getBranch(nodeId.substring(0, nodeId.length() - 4));
             if (branch != null) {
-                return new InitialValue(branch, Side.valueOf(nodeId.substring(nodeId.length() - 3)));
+                return buildInitialValue(branch, Side.valueOf(nodeId.substring(nodeId.length() - 3)));
             } else {
                 return new InitialValue(null, null, null, null, null, null);
             }
@@ -147,5 +147,43 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
             res.add(node.getLabel());
         }
         return res;
+    }
+
+    private InitialValue buildInitialValue(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+        Objects.requireNonNull(transformer);
+        Objects.requireNonNull(side);
+        double p = transformer.getTerminal(side).getP();
+        double q = transformer.getTerminal(side).getQ();
+        String label1 = String.valueOf(Math.round(p));
+        String label2 = String.valueOf(Math.round(q));
+        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
+        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
+
+        return new InitialValue(direction1, direction2, label1, label2, null, null);
+    }
+
+    private InitialValue buildInitialValue(Injection<?> injection) {
+        Objects.requireNonNull(injection);
+        double p = injection.getTerminal().getP();
+        double q = injection.getTerminal().getQ();
+        String label1 = String.valueOf(Math.round(p));
+        String label2 = String.valueOf(Math.round(q));
+        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
+        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
+
+        return new InitialValue(direction1, direction2, label1, label2, null, null);
+    }
+
+    private InitialValue buildInitialValue(Branch<?> ln, Side side) {
+        Objects.requireNonNull(ln);
+        Objects.requireNonNull(side);
+        double p = side.equals(Side.ONE) ? ln.getTerminal1().getP() : ln.getTerminal2().getP();
+        double q = side.equals(Side.ONE) ? ln.getTerminal1().getQ() : ln.getTerminal2().getQ();
+        String label1 = String.valueOf(Math.round(p));
+        String label2 = String.valueOf(Math.round(q));
+        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
+        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
+
+        return new InitialValue(direction1, direction2, label1, label2, null, null);
     }
 }

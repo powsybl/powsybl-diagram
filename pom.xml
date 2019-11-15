@@ -14,11 +14,11 @@
 
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Single line diagram</name>
-    <description>PowSyBl single line diagram components</description>
+    <description>PowSyBl single line diagram parent project</description>
     <url>http://www.powsybl.org</url>
 
     <licenses>
@@ -50,9 +50,10 @@
     </developers>
 
     <modules>
-        <module>base-voltage-color</module>
-        <module>single-line-diagram-core</module>
         <module>single-line-diagram-cgmes</module>
+        <module>single-line-diagram-color</module>
+        <module>single-line-diagram-core</module>
+        <module>single-line-diagram-distribution</module>
         <module>single-line-diagram-iidm-extensions</module>
         <module>single-line-diagram-view</module>
         <module>single-line-diagram-view-app</module>
@@ -74,7 +75,7 @@
         <httpclient.version>4.5.10</httpclient.version>
         <httpcore.version>4.4.12</httpcore.version>
         <httpmime.version>4.5.10</httpmime.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <jimfs.version>1.1</jimfs.version>
         <jgrapht.version>1.0.1</jgrapht.version>
         <junit.version>4.12</junit.version>
@@ -113,11 +114,16 @@
         <maven.templating.version>1.0.0</maven.templating.version>
         <maven.versions.version>2.7</maven.versions.version>
 
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
+            ../../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
+        </sonar.coverage.jacoco.xmlReportPaths>
+
         <sonar.exclusions>
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.0.0-SNAPSHOT</powsyblcore.version>
+        <powsyblcore.version>3.0.0</powsyblcore.version>
     </properties>
 
     <build>
@@ -200,6 +206,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven.javadoc.version}</version>
+                    <configuration>
+                        <additionalOptions>-Xdoclint:none</additionalOptions>
+                        <docfilessubdirs>true</docfilessubdirs>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
@@ -29,11 +26,11 @@ public interface DiagramStyleProvider {
 
     Optional<String> getWireStyle(Edge edge);
 
-    Optional<String> getNode3WTStyle(Fictitious3WTNode node, ThreeWindingsTransformer.Side side);
+    Optional<String> getNode3WTStyle(Fictitious3WTNode node, boolean rotate, String vId, String idWinding);
 
-    Optional<String> getNode2WTStyle(Feeder2WTNode node, TwoWindingsTransformer.Side side);
+    Optional<String> getNode2WTStyle(Feeder2WTNode node, String idWinding);
 
-    Optional<String> getColor(VoltageLevel vl);
+    Optional<String> getColor(double nominalV);
 
     Map<String, String> getAttributesArrow(int num);
 

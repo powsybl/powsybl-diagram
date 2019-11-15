@@ -9,13 +9,7 @@ jdk:
 addons:
     sonarcloud:
         organization: "powsybl-ci-github"
-        token:
-            secure: ${SONAR_TOKEN}
-
-install:
-# Build powsybl-core
-- git clone https://github.com/powsybl/powsybl-core powsybl/powsybl-core
-- pushd powsybl/powsybl-core && mvn --batch-mode -DskipTests install && popd
+        token: ${SONAR_TOKEN}
 
 script:
 - mvn --batch-mode -Pjacoco,checks clean verify sonar:sonar

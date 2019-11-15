@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 
 /**
@@ -24,40 +23,17 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase10TestBreakerToBus extends AbstractTestCase {
 
     @Override
     void setUp() {
         network = Network.create("testCase1", "AbstractTest");
-        Substation s = network.newSubstation()
-                .setId("s")
-                .setCountry(Country.FR)
-                .add();
-        vl = s.newVoltageLevel()
-                .setId("vl")
-                .setTopologyKind(TopologyKind.NODE_BREAKER)
-                .setNominalV(400)
-                .add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView()
-                .setNodeCount(10);
-        BusbarSection bbs = view.newBusbarSection()
-                .setId("bbs")
-                .setNode(0)
-                .add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
-        Load l = vl.newLoad()
-                .setId("l")
-                .setNode(2)
-                .setP0(10)
-                .setQ0(10)
-                .add();
-        l.addExtension(ConnectablePosition.class, new ConnectablePosition<>(l, new ConnectablePosition
-                .Feeder("l", 0, ConnectablePosition.Direction.TOP), null, null, null));
-        view.newBreaker()
-                .setId("b")
-                .setNode1(0)
-                .setNode2(2)
-                .add();
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
+        createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 0, 2);
     }
 }
