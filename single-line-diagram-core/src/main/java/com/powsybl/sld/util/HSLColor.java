@@ -1,8 +1,18 @@
+/**
+ * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
+ */
 public class HSLColor {
     private static final RGBColor BLACK = new RGBColor(0, 0, 0);
     private static final RGBColor WHITE = new RGBColor(255, 255, 255);
@@ -22,10 +32,6 @@ public class HSLColor {
         this.hue = h;
         this.saturation = s;
         this.luminance = l;
-    }
-
-    public HSLColor(RGBColor rgb) {
-        this(rgb.getRed(), rgb.getGreen(), rgb.getBlue());
     }
 
     public HSLColor(int red, int green, int blue) {
@@ -63,7 +69,48 @@ public class HSLColor {
         this.luminance = l * 100;
     }
 
-    public List<RGBColor> getColorsList(int steps) {
+    public static HSLColor parse(String color) {
+        Objects.requireNonNull(color);
+
+        if (color.length() < 7) {
+            throw new IllegalArgumentException("Invalid length");
+        }
+
+        int r = Integer.parseInt(color.substring(1, 3), 16);
+        int g = Integer.parseInt(color.substring(3, 5), 16);
+        int b = Integer.parseInt(color.substring(5, 7), 16);
+        return new HSLColor(r, g, b);
+    }
+
+    public RGBColor toRGBColor() {
+
+        float h = this.hue % 360.0f;
+        h /= 360f;
+        float s = this.saturation / 100f;
+        float l = this.luminance / 100f;
+
+        float q = 0;
+
+        if (l < 0.5) {
+            q = l * (1 + s);
+        } else {
+            q = (l + s) - (s * l);
+        }
+
+        float p = 2 * l - q;
+
+        float r = Math.max(0, hueToRGB(p, q, h + (1.0f / 3.0f)));
+        float g = Math.max(0, hueToRGB(p, q, h));
+        float b = Math.max(0, hueToRGB(p, q, h - (1.0f / 3.0f)));
+
+        r = Math.min(r, 1.0f);
+        g = Math.min(g, 1.0f);
+        b = Math.min(b, 1.0f);
+
+        return new RGBColor((int) (255 * r), (int) (255 *  g), (int) (255 * b));
+    }
+
+    public List<RGBColor> getColorGradient(int steps) {
         ArrayList<RGBColor> gradient = new ArrayList();
         gradient.addAll(getDarkColorsList(steps / 2));
 
@@ -77,16 +124,15 @@ public class HSLColor {
         return gradient;
     }
 
-    public List<RGBColor> getLightColorsList(int steps) {
+    private List<RGBColor> getLightColorsList(int steps) {
         ArrayList<RGBColor> gradient = new ArrayList();
         for (int step = 0; step < steps; step++) {
-            RGBColor c =  rotate((float) (step + 1) / steps * -LIGHT_COLORS_MIX_ROTATE).saturate((float) (step + 1) / steps * ((float) this.LIGHT_SATURATION / 100)).mix(WHITE,  ((float) LIGHTEST_AMOUNT / 100) * (float) (step + 1) / steps);
-            gradient.add(c);
+            gradient.add(rotate((float) (step + 1) / steps * -LIGHT_COLORS_MIX_ROTATE).saturate((float) (step + 1) / steps * ((float) this.LIGHT_SATURATION / 100)).mix(WHITE,  ((float) LIGHTEST_AMOUNT / 100) * (float) (step + 1) / steps));
         }
         return gradient;
     }
 
-    public List<RGBColor> getDarkColorsList(int steps) {
+    private List<RGBColor> getDarkColorsList(int steps) {
         ArrayList<RGBColor> gradient = new ArrayList();
 
         for (int step = steps - 1; step >= 0; step--) {
@@ -119,34 +165,6 @@ public class HSLColor {
                 (int) (w1 * mixColor.getBlue() + w2 * color2.getBlue()));
     }
 
-    public RGBColor toRGBColor() {
-
-        float h = this.hue % 360.0f;
-        h /= 360f;
-        float s = this.saturation / 100f;
-        float l = this.luminance / 100f;
-
-        float q = 0;
-
-        if (l < 0.5) {
-            q = l * (1 + s);
-        } else {
-            q = (l + s) - (s * l);
-        }
-
-        float p = 2 * l - q;
-
-        float r = Math.max(0, hueToRGB(p, q, h + (1.0f / 3.0f)));
-        float g = Math.max(0, hueToRGB(p, q, h));
-        float b = Math.max(0, hueToRGB(p, q, h - (1.0f / 3.0f)));
-
-        r = Math.min(r, 1.0f);
-        g = Math.min(g, 1.0f);
-        b = Math.min(b, 1.0f);
-
-        return new RGBColor((int) (255 * r), (int) (255 *  g), (int) (255 * b));
-    }
-
     private static float hueToRGB(float p, float q, float h) {
         float hsx = h;
         if (hsx < 0) {
@@ -170,11 +188,6 @@ public class HSLColor {
         }
 
         return p;
-    }
-
-    @Override
-    public String toString() {
-        return "HSLColor [hue=" + hue + ", saturation=" + saturation + ", luminance=" + luminance + "]";
     }
 
 }

@@ -89,25 +89,6 @@ public class RGBColor {
     public List<RGBColor> getColorGradient(int steps) {
         ArrayList<RGBColor> gradient = new ArrayList();
 
-        double factor = 0.7d;
-
-        RGBColor c1 = getBrighter(factor);
-        RGBColor c2 = getDarker(factor);
-
-        for (int i = 0; i < steps; i++) {
-            float ratio = (float) Math.pow(i / (float) steps, 2);
-            int r = (int) (c2.getRed() * ratio + c1.getRed() * (1 - ratio));
-            int g = (int) (c2.getGreen() * ratio + c1.getGreen() * (1 - ratio));
-            int b = (int) (c2.getBlue() * ratio + c1.getBlue() * (1 - ratio));
-            RGBColor c = new RGBColor(r, g, b);
-            gradient.add(c);
-        }
-        return gradient;
-    }
-
-    public List<RGBColor> getColorGradient1(int steps) {
-        ArrayList<RGBColor> gradient = new ArrayList();
-
         double factor = Math.min(Math.max(1d / steps, 0.2), 0.75);
 
         RGBColor c1 = getBrighter(factor);
@@ -124,35 +105,6 @@ public class RGBColor {
                 RGBColor c = new RGBColor(r, g, b);
                 gradient.add(c);
             }
-        }
-        return gradient;
-    }
-
-    public List<RGBColor> getColorGradient2(int steps) {
-        ArrayList<RGBColor> gradient = new ArrayList();
-
-        double factor = 0.8;
-
-        RGBColor c1 = getBrighter(factor);
-
-        RGBColor c2 = c1;
-        for (int i = 0; i < steps; i++) {
-            gradient.add(c2);
-            c2 = c2.getDarker(factor);
-        }
-        return gradient;
-    }
-
-    public List<RGBColor> getColorGradient3(int steps) {
-        ArrayList<RGBColor> gradient = new ArrayList();
-
-        RGBColor c1 = getBrighter(0.7);
-
-        RGBColor c2 = c1;
-        for (int i = 0; i < steps; i++) {
-            gradient.add(c2);
-            double factor = Math.min(Math.max((double) i / steps, 0.6), 0.75);
-            c2 = c2.getDarker(factor);
         }
         return gradient;
     }

@@ -83,9 +83,9 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
         HashMap<String, RGBColor> colorMap = new HashMap();
 
-        RGBColor color = RGBColor.parse(basecolor);
+        HSLColor color = HSLColor.parse(basecolor);
 
-        List<RGBColor> colors = color.getColorGradient1((int) buses);
+        List<RGBColor> colors = color.getColorGradient((int) buses);
 
         vl.getBusView().getBuses().forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());
