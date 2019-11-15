@@ -32,6 +32,6 @@ public class TestRGBColor {
         List<RGBColor> gradient = color.getColorGradient(3);
         assertEquals(3, gradient.size());
         assertEquals(color.getBrighter(factor), gradient.get(0));
-        assertEquals("#CB0000", gradient.get(2).toString());
+        assertEquals("#B30000", gradient.get(2).toString());
     }
 }
