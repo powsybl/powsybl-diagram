@@ -125,7 +125,7 @@ public class TopologicalStyleTest extends AbstractTestCase {
         idWireStyle = styleProvider.getIdWireStyle(edge);
         assertEquals("wire_vl1", idWireStyle);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge);
+        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
         assertTrue(wireStyle.isPresent());
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 
@@ -137,7 +137,7 @@ public class TopologicalStyleTest extends AbstractTestCase {
         Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertTrue(node2WTStyle.isEmpty());
 
-        Optional<String> color = styleProvider.getColor(400);
+        Optional<String> color = styleProvider.getColor(400, null);
         assertFalse(color.isPresent());
 
         Map<String, String> attributesArrow = styleProvider.getAttributesArrow(1);

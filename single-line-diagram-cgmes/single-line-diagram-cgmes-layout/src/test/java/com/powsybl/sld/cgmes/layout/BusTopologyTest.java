@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.layout;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
 import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
+import static com.powsybl.sld.library.ComponentTypeName.LINE;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD;
 import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
@@ -250,7 +251,8 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(LOAD, graph.getNodes().get(1).getComponentType());
         assertEquals(CAPACITOR, graph.getNodes().get(2).getComponentType());
         assertEquals(DANGLING_LINE, graph.getNodes().get(3).getComponentType());
-        assertEquals(TWO_WINDINGS_TRANSFORMER, graph.getNodes().get(4).getComponentType());
+        assertTrue(graph.getNodes().get(4).getComponentType().equals(TWO_WINDINGS_TRANSFORMER) ||
+                graph.getNodes().get(4).getComponentType().equals(LINE));
 
         assertEquals(4, graph.getNodes().get(0).getAdjacentNodes().size());
         checkAdjacentNodes(graph.getNodes().get(0), Arrays.asList("Load", "Shunt", "DanglingLine", "Transformer_ONE"));
@@ -298,11 +300,9 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("Svc", graph.getNodes().get(1).getId());
         assertEquals("Transformer_TWO", graph.getNodes().get(2).getId());
 
-        assertEquals("Transformer", graph.getNodes().get(2).getLabel());
-
         assertEquals(BUSBAR_SECTION, graph.getNodes().get(0).getComponentType());
         assertEquals(STATIC_VAR_COMPENSATOR, graph.getNodes().get(1).getComponentType());
-        assertEquals(TWO_WINDINGS_TRANSFORMER, graph.getNodes().get(2).getComponentType());
+        assertEquals(LINE, graph.getNodes().get(2).getComponentType());
 
         assertEquals(2, graph.getNodes().get(0).getAdjacentNodes().size());
         assertEquals("Svc", graph.getNodes().get(0).getAdjacentNodes().get(0).getId());

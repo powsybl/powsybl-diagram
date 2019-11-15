@@ -111,7 +111,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         idWireStyle = styleProvider.getIdWireStyle(edge);
         assertEquals("wire_vl2", idWireStyle);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge);
+        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
         assertTrue(wireStyle.isPresent());
         assertEquals(".wire_vl2 {stroke:rgb(34, 139, 34);stroke-width:1;}", wireStyle.get());
 
@@ -127,7 +127,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         assertTrue(node2WTStyle.containsKey("stroke"));
         assertEquals("rgb(255, 0, 0)", node2WTStyle.get("stroke"));
 
-        Optional<String> color = styleProvider.getColor(400);
+        Optional<String> color = styleProvider.getColor(400, null);
         assertTrue(color.isPresent());
         assertEquals("rgb(255, 0, 0)", color.get());
 

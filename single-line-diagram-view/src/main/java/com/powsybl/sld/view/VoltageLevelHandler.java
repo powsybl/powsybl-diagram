@@ -148,16 +148,18 @@ public class VoltageLevelHandler implements BaseNode {
                     wh,
                     posVL,
                     nbSnakeLinesTopBottom,
-                    nbSnakeLinesBetween);
+                    nbSnakeLinesBetween,
+                    false);
             ((Polyline) wh.getNode()).getPoints().setAll(pol);
         }
     }
 
     private List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam,
-                                                   WireHandler wh,
-                                                   Map<String, Coord> posVL,
-                                                   Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom,
-                                                   Map<String, Integer> nbSnakeLinesBetween) {
+                                                    WireHandler wh,
+                                                    Map<String, Coord> posVL,
+                                                    Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom,
+                                                    Map<String, Integer> nbSnakeLinesBetween,
+                                                    boolean increment) {
         NodeHandler nh1 = wh.getNodeHandler1();
         NodeHandler nh2 = wh.getNodeHandler2();
 
@@ -192,6 +194,7 @@ public class VoltageLevelHandler implements BaseNode {
         info.setY2(y2);
         info.setxMaxGraph(xMaxGraph);
         info.setIdMaxGraph(idMaxGraph);
+        info.setIncrement(increment);
 
         return HorizontalSubstationLayout.calculatePolylinePoints(info);
     }

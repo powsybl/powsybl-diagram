@@ -14,6 +14,7 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +29,7 @@ import com.powsybl.sld.model.ExternCell;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 
 /**
@@ -42,6 +44,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     private static final String STROKE = "stroke";
     protected static final String WINDING1 = "WINDING1";
     protected static final String WINDING2 = "WINDING2";
+    protected static final String WINDING3 = "WINDING3";
 
     protected final Network network;
 
@@ -106,51 +109,122 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index) {
         return Optional.empty();
     }
 
     @Override
     public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
-        Optional<String> color;
-        String vlId = node.getGraph().getVoltageLevelId();
+        Optional<String> color = Optional.empty();
+        Graph g = node.getGraph();
 
-        if (node instanceof Fictitious3WTNode ||
-                (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
-            // We will rotate the 3WT SVG, if cell orientation is BOTTOM
-            boolean rotateSVG = node instanceof Fictitious3WTNode
-                    && node.getCell() != null
-                    && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM;
+        if (g != null) {  // node inside a voltageLevel graph
+            String vlId = g.getVoltageLevelId();
 
-            if (node instanceof Fictitious3WTNode) {
-                color = network != null ? getColor3WT(node, nameSubComponent, rotateSVG, vlId) : Optional.empty();
-            } else {
-                color = getColor(nameSubComponent.equals(WINDING1) ? node.getGraph().getVoltageLevelNominalV() : ((Feeder2WTNode) node).getNominalVOtherSide());
+            if (node instanceof Fictitious3WTNode ||
+                    (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
+                // We will rotate the 3WT SVG, if cell orientation is BOTTOM
+                boolean rotateSVG = node instanceof Fictitious3WTNode
+                        && node.getCell() != null
+                        && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM;
+
+                if (node instanceof Fictitious3WTNode) {
+                    color = network != null ? getColor3WT(((Fictitious3WTNode) node).getTransformerId(), nameSubComponent, rotateSVG, vlId) : Optional.empty();
+                } else {
+                    color = getColor(nameSubComponent.equals(WINDING1) ? node.getGraph().getVoltageLevelNominalV() : ((Feeder2WTNode) node).getNominalVOtherSide(), null);
+                }
+
+                color.ifPresent(s -> attributes.put(STROKE, s));
+
+                if (rotateSVG) {  // SVG element rotation
+                    attributes.put("transform", "rotate(" + 180. + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                    // We store the rotation angle in order to transform correctly the anchor points when further drawing the edges
+                    node.setRotationAngle(180.);
+                }
+            } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
+                color = getColor(((Feeder2WTNode) node).getNominalVOtherSide(), null);
+                color.ifPresent(s -> attributes.put(STROKE, s));
+            } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
+                attributes.put("stroke-opacity", "0");
+                attributes.put("fill-opacity", "0");
+            }
+        } else {  // node outside any voltageLevel graph (multi-terminal node)
+            List<Node> adjacentNodes = node.getAdjacentNodes();
+            boolean rotateSVG = false;
+
+            if (adjacentNodes.size() == 2) {
+                Node n1 = adjacentNodes.get(0);
+                Node n2 = adjacentNodes.get(1);
+
+                double vNom1 = n1.getGraph().getVoltageLevelNominalV();
+                double vNom2 = n2.getGraph().getVoltageLevelNominalV();
+
+                // We will rotate the SVG, if node 1 cell orientation is different from node 2 cell orientation
+                BusCell.Direction dir1 = n1.getCell() != null ? ((ExternCell) n1.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+                BusCell.Direction dir2 = n2.getCell() != null ? ((ExternCell) n2.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+                rotateSVG = dir1 != dir2;
+
+                double vNom = 0;
+                Node n = null;
+                switch (nameSubComponent) {
+                    case WINDING1:
+                        vNom = vNom1;
+                        n = rotateSVG ? n1 : n2;
+                        break;
+                    case WINDING2:
+                        vNom = vNom2;
+                        n = rotateSVG ? n2 : n1;
+                        break;
+                    default:
+                }
+                color = getColor(vNom, n);
+            } else if (adjacentNodes.size() == 3) {
+                Node n1 = adjacentNodes.get(0);
+                Node n2 = adjacentNodes.get(1);
+                Node n3 = adjacentNodes.get(2);
+
+                // We will rotate the SVG, if cell orientation for node 2 is BOTTOM
+                rotateSVG = n2.getCell() != null && ((ExternCell) n2.getCell()).getDirection() == BusCell.Direction.BOTTOM;
+
+                double nominalV = 0;
+                Node n = null;
+                switch (nameSubComponent) {
+                    case WINDING1:
+                        nominalV = !rotateSVG ? n1.getGraph().getVoltageLevelNominalV() : n3.getGraph().getVoltageLevelNominalV();
+                        n = n1;
+                        break;
+                    case WINDING2:
+                        nominalV = !rotateSVG ? n3.getGraph().getVoltageLevelNominalV() : n1.getGraph().getVoltageLevelNominalV();
+                        n = n2;
+                        break;
+                    case WINDING3:
+                        nominalV = n2.getGraph().getVoltageLevelNominalV();
+                        n = n3;
+                        break;
+                    default:
+                }
+                color = getColor(nominalV, n);
             }
 
             color.ifPresent(s -> attributes.put(STROKE, s));
 
             if (rotateSVG) {  // SVG element rotation
-                attributes.put("transform", "rotate(" + 180 + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                double rotationValue = adjacentNodes.size() == 3 ? 180 : 90;
+
+                attributes.put("transform", "rotate(" + rotationValue + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
                 // We store the rotation angle in order to transform correctly the anchor points when further drawing the edges
-                node.setRotationAngle(180.);
+                node.setRotationAngle(rotationValue);
             }
-        } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
-            color = getColor(((Feeder2WTNode) node).getNominalVOtherSide());
-            color.ifPresent(s -> attributes.put(STROKE, s));
-        } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
-            attributes.put("stroke-opacity", "0");
-            attributes.put("fill-opacity", "0");
         }
 
         return attributes;
     }
 
-    private Optional<String> getColor3WT(Node node, String nameSubComponent, boolean rotateSVG, String vlId) {
+    private Optional<String> getColor3WT(String transformerId, String nameSubComponent, boolean rotateSVG, String vlId) {
         Optional<String> color = Optional.empty();
 
-        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(((Fictitious3WTNode) node).getTransformerId());
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(transformerId);
         ThreeWindingsTransformer.Side otherSide = ThreeWindingsTransformer.Side.ONE;
 
         VoltageLevel leg1Vl = transformer.getLeg1().getTerminal().getVoltageLevel();
@@ -169,7 +243,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             } else if (leg3Vl.getId().equals(vlId)) {
                 otherSide = !rotateSVG ? side2 : side1;
             }
-            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV());
+            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV(), null);
         } else if (nameSubComponent.equals(WINDING2)) {
             if (leg1Vl.getId().equals(vlId)) {
                 otherSide = !rotateSVG ? side2 : side3;
@@ -178,14 +252,14 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             } else if (leg3Vl.getId().equals(vlId)) {
                 otherSide = !rotateSVG ? side1 : side2;
             }
-            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV());
+            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV(), null);
         } else {
             if (leg1Vl.getId().equals(vlId)) {
-                color = getColor(leg1Vl.getNominalV());
+                color = getColor(leg1Vl.getNominalV(), null);
             } else if (leg2Vl.getId().equals(vlId)) {
-                color = getColor(leg2Vl.getNominalV());
+                color = getColor(leg2Vl.getNominalV(), null);
             } else if (leg3Vl.getId().equals(vlId)) {
-                color = getColor(leg3Vl.getNominalV());
+                color = getColor(leg3Vl.getNominalV(), null);
             }
         }
 
@@ -193,7 +267,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Optional<String> getColor(double nominalV) {
+    public Optional<String> getColor(double nominalV, Node node) {
         return Optional.empty();
     }
 

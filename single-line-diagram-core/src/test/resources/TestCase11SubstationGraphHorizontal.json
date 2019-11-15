@@ -35,14 +35,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 10,
+          "h" : 8,
           "v" : 0,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "HORIZONTAL"
         },
         "coord" : {
-          "x" : 500.0,
+          "x" : 400.0,
           "y" : 235.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
@@ -56,7 +56,7 @@
           "x" : 60.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -66,7 +66,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -75,7 +75,7 @@
           "name" : "dsect11",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -85,7 +85,7 @@
           "name" : "dsect11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 310.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -116,7 +116,7 @@
           "name" : "dsect11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 310.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -126,7 +126,7 @@
           "name" : "dtrct11",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 575.0,
+          "x" : 475.0,
           "y" : 310.0,
           "rotationAngle" : 90.0,
           "open" : false,
@@ -137,7 +137,7 @@
           "name" : "dsect12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 310.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -150,14 +150,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 11,
+          "h" : 9,
           "v" : 2,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "HORIZONTAL"
         },
         "coord" : {
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 285.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
@@ -168,10 +168,10 @@
           "name" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 510.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 2,
             "v" : 1,
@@ -179,9 +179,9 @@
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 9,
             "v" : 1,
-            "hSpan" : 6,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -190,7 +190,7 @@
           "name" : "dsect12",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -200,7 +200,7 @@
           "name" : "dsect12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 310.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -240,14 +240,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 10,
+          "h" : 8,
           "v" : 0,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "HORIZONTAL"
         },
         "coord" : {
-          "x" : 500.0,
+          "x" : 400.0,
           "y" : 235.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
@@ -261,7 +261,7 @@
           "x" : 60.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -271,7 +271,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -280,7 +280,7 @@
           "name" : "dsect21",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -290,7 +290,7 @@
           "name" : "dsect21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 335.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -321,7 +321,7 @@
           "name" : "dsect21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 335.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -331,7 +331,7 @@
           "name" : "dtrct21",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 575.0,
+          "x" : 475.0,
           "y" : 335.0,
           "rotationAngle" : 90.0,
           "open" : false,
@@ -342,7 +342,7 @@
           "name" : "dsect22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 335.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -355,14 +355,14 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 11,
+          "h" : 9,
           "v" : 2,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "HORIZONTAL"
         },
         "coord" : {
-          "x" : 550.0,
+          "x" : 450.0,
           "y" : 285.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
@@ -373,10 +373,10 @@
           "name" : "bbs4",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 510.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 2,
             "v" : 2,
@@ -384,9 +384,9 @@
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 9,
             "v" : 2,
-            "hSpan" : 6,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -395,7 +395,7 @@
           "name" : "dsect22",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -405,7 +405,7 @@
           "name" : "dsect22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 600.0,
+          "x" : 500.0,
           "y" : 335.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -467,7 +467,7 @@
           "x" : 60.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -477,7 +477,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -609,7 +609,7 @@
           "x" : 60.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -619,7 +619,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -685,7 +685,7 @@
           "type" : "FEEDER",
           "id" : "trf1_ONE",
           "name" : "trf1_ONE",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
           "x" : 125.0,
           "y" : 30.0,
@@ -752,7 +752,7 @@
           "x" : 60.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -762,7 +762,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -828,7 +828,7 @@
           "type" : "FEEDER",
           "id" : "trf5_ONE",
           "name" : "trf5_ONE",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
           "x" : 275.0,
           "y" : 30.0,
@@ -851,19 +851,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
         "h" : 5,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 300.0,
+        "x" : 275.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -881,9 +881,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 300.0,
+          "x" : 275.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -895,7 +895,7 @@
           "x" : 60.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -905,7 +905,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -914,7 +914,7 @@
           "name" : "dtrf16",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 350.0,
+          "x" : 325.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -924,7 +924,7 @@
           "name" : "dtrf16Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 350.0,
+          "x" : 325.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -943,10 +943,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 300.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 275.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -954,7 +954,7 @@
           "name" : "dtrf16Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 350.0,
+          "x" : 325.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -963,127 +963,24 @@
           "name" : "btrf16",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 350.0,
-          "y" : 196.66666666666669,
+          "x" : 325.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_trf61_fictif",
-          "name" : "trf61_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 350.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf6_ONE",
+          "name" : "trf6_ONE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 325.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf6"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 300.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 275.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf61_fictif",
-            "name" : "trf61_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 350.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_ONE_THREE",
-            "name" : "trf6_ONE_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 325.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 325.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf61_fictif",
-            "name" : "trf61_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 350.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_ONE_TWO",
-            "name" : "trf6_ONE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 375.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl2"
-          } ]
+          "label" : "trf61",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf6",
+          "transformerSide" : "ONE"
         } ]
       } ]
     }
@@ -1093,6 +990,149 @@
     "direction" : "TOP",
     "direction" : "TOP",
     "order" : 3,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 7,
+        "v" : 0,
+        "hSpan" : 1,
+        "vSpan" : 2,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : 375.0,
+        "y" : 105.0,
+        "xSpan" : 50.0,
+        "ySpan" : 250.0
+      },
+      "subBlocks" : [ {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 375.0,
+          "y" : 230.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "bbs1",
+          "name" : "bbs1",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 60.0,
+          "y" : 310.0,
+          "open" : false,
+          "pxWidth" : 380.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 1,
+            "hSpan" : 8,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "dline11_2",
+          "name" : "dline11_2",
+          "componentType" : "DISCONNECTOR",
+          "fictitious" : false,
+          "x" : 425.0,
+          "y" : 310.0,
+          "open" : false,
+          "kind" : "DISCONNECTOR"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl1_dline11_2Fictif",
+          "name" : "dline11_2Fictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 425.0,
+          "y" : 280.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 2,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 375.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl1_dline11_2Fictif",
+          "name" : "dline11_2Fictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 425.0,
+          "y" : 280.0,
+          "open" : false
+        }, {
+          "type" : "SWITCH",
+          "id" : "bline11_2",
+          "name" : "bline11_2",
+          "componentType" : "BREAKER",
+          "fictitious" : false,
+          "x" : 425.0,
+          "y" : 155.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FEEDER",
+          "id" : "line1_ONE",
+          "name" : "line1_ONE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 425.0,
+          "y" : 30.0,
+          "open" : false,
+          "label" : "line1",
+          "order" : 3,
+          "direction" : "TOP",
+          "otherSideVlId" : "vlSubst2"
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 7,
+    "direction" : "TOP",
+    "direction" : "TOP",
+    "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1135,30 +1175,30 @@
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs1",
-          "name" : "bbs1",
+          "id" : "bbs2",
+          "name" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 60.0,
+          "x" : 510.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
-            "h" : 1,
+            "h" : 2,
             "v" : 1,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
-            "h" : 0,
+            "h" : 9,
             "v" : 1,
-            "hSpan" : 10,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dline11_2",
-          "name" : "dline11_2",
+          "id" : "dload2",
+          "name" : "dload2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "x" : 525.0,
@@ -1167,8 +1207,8 @@
           "kind" : "DISCONNECTOR"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dline11_2Fictif",
-          "name" : "dline11_2Fictif",
+          "id" : "FICT_vl1_dload2Fictif",
+          "name" : "dload2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 525.0,
@@ -1197,154 +1237,11 @@
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dline11_2Fictif",
-          "name" : "dline11_2Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 525.0,
-          "y" : 280.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "bline11_2",
-          "name" : "bline11_2",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 525.0,
-          "y" : 155.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "line1_ONE",
-          "name" : "line1_ONE",
-          "componentType" : "LINE",
-          "fictitious" : false,
-          "x" : 525.0,
-          "y" : 30.0,
-          "open" : false,
-          "label" : "line1",
-          "order" : 3,
-          "direction" : "TOP",
-          "otherSideVlId" : "vlSubst2"
-        } ]
-      } ]
-    }
-  }, {
-    "type" : "EXTERN",
-    "number" : 7,
-    "direction" : "TOP",
-    "direction" : "TOP",
-    "order" : 2,
-    "rootBlock" : {
-      "type" : "SERIAL",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : 11,
-        "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 2,
-        "orientation" : "VERTICAL"
-      },
-      "coord" : {
-        "x" : 575.0,
-        "y" : 105.0,
-        "xSpan" : 50.0,
-        "ySpan" : 250.0
-      },
-      "subBlocks" : [ {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 575.0,
-          "y" : 230.0,
-          "xSpan" : 50.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs2",
-          "name" : "bbs2",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 610.0,
-          "y" : 310.0,
-          "open" : false,
-          "pxWidth" : 280.0,
-          "structuralPosition" : {
-            "h" : 2,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 11,
-            "v" : 1,
-            "hSpan" : 6,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dload2",
-          "name" : "dload2",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 625.0,
-          "y" : 310.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dload2Fictif",
           "name" : "dload2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 625.0,
-          "y" : 280.0,
-          "open" : false
-        } ]
-      }, {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 575.0,
-          "y" : 105.0,
-          "xSpan" : 50.0,
-          "ySpan" : 250.0
-        },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dload2Fictif",
-          "name" : "dload2Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 625.0,
+          "x" : 525.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -1353,7 +1250,7 @@
           "name" : "bload2",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 625.0,
+          "x" : 525.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -1363,7 +1260,7 @@
           "name" : "load2",
           "componentType" : "LOAD",
           "fictitious" : false,
-          "x" : 625.0,
+          "x" : 525.0,
           "y" : 30.0,
           "open" : false,
           "label" : "load2",
@@ -1386,14 +1283,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 15,
+        "h" : 12,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 775.0,
+        "x" : 625.0,
         "y" : 105.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -1413,7 +1310,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 230.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -1424,10 +1321,10 @@
           "name" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 510.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 2,
             "v" : 1,
@@ -1435,9 +1332,9 @@
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 9,
             "v" : 1,
-            "hSpan" : 6,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -1446,7 +1343,7 @@
           "name" : "dtrf12",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 825.0,
+          "x" : 675.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -1456,7 +1353,7 @@
           "name" : "dtrf12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 825.0,
+          "x" : 675.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -1475,7 +1372,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 105.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -1486,7 +1383,7 @@
           "name" : "dtrf12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 825.0,
+          "x" : 675.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -1495,7 +1392,7 @@
           "name" : "btrf12",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 825.0,
+          "x" : 675.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -1503,9 +1400,9 @@
           "type" : "FEEDER",
           "id" : "trf2_ONE",
           "name" : "trf2_ONE",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 825.0,
+          "x" : 675.0,
           "y" : 30.0,
           "open" : false,
           "label" : "trf2",
@@ -1526,19 +1423,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
-        "h" : 12,
+        "h" : 10,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 650.0,
+        "x" : 525.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -1556,9 +1453,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 650.0,
+          "x" : 525.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -1567,10 +1464,10 @@
           "name" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 510.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 2,
             "v" : 1,
@@ -1578,9 +1475,9 @@
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 9,
             "v" : 1,
-            "hSpan" : 6,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -1589,7 +1486,7 @@
           "name" : "dtrf18",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 700.0,
+          "x" : 575.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -1599,7 +1496,7 @@
           "name" : "dtrf18Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 700.0,
+          "x" : 575.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -1618,10 +1515,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 650.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 525.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -1629,7 +1526,7 @@
           "name" : "dtrf18Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 700.0,
+          "x" : 575.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -1638,127 +1535,24 @@
           "name" : "btrf18",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 700.0,
-          "y" : 196.66666666666669,
+          "x" : 575.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_trf81_fictif",
-          "name" : "trf81_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 700.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf8_ONE",
+          "name" : "trf8_ONE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 575.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf8"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 650.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 625.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf81_fictif",
-            "name" : "trf81_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 700.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_ONE_THREE",
-            "name" : "trf8_ONE_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 675.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 675.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf81_fictif",
-            "name" : "trf81_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 700.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_ONE_TWO",
-            "name" : "trf8_ONE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 725.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl2"
-          } ]
+          "label" : "trf81",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf8",
+          "transformerSide" : "ONE"
         } ]
       } ]
     }
@@ -1817,7 +1611,7 @@
           "x" : 60.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -1827,7 +1621,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -1959,7 +1753,7 @@
           "x" : 60.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 480.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -1969,7 +1763,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 10,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -2035,7 +1829,7 @@
           "type" : "FEEDER",
           "id" : "trf3_ONE",
           "name" : "trf3_ONE",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
           "x" : 225.0,
           "y" : 615.0,
@@ -2058,264 +1852,17 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
-      } ],
-      "position" : {
-        "h" : 7,
-        "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
-        "orientation" : "VERTICAL"
-      },
-      "coord" : {
-        "x" : 400.0,
-        "y" : 440.0,
-        "xSpan" : 100.0,
-        "ySpan" : 250.0
-      },
-      "subBlocks" : [ {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 400.0,
-          "y" : 315.0,
-          "xSpan" : 100.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs3",
-          "name" : "bbs3",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 60.0,
-          "y" : 335.0,
-          "open" : false,
-          "pxWidth" : 480.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 10,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf17",
-          "name" : "dtrf17",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 450.0,
-          "y" : 335.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dtrf17Fictif",
-          "name" : "dtrf17Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 450.0,
-          "y" : 365.0,
-          "open" : false
-        } ]
-      }, {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 400.0,
-          "y" : 398.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
-        },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dtrf17Fictif",
-          "name" : "dtrf17Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 450.0,
-          "y" : 365.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf17",
-          "name" : "btrf17",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 450.0,
-          "y" : 448.3333333333333,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_trf71_fictif",
-          "name" : "trf71_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 450.0,
-          "y" : 531.6666666666665,
-          "open" : false,
-          "transformerId" : "trf7"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 400.0,
-          "y" : 523.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 375.0,
-            "y" : 523.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf71_fictif",
-            "name" : "trf71_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 450.0,
-            "y" : 531.6666666666665,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_ONE_THREE",
-            "name" : "trf7_ONE_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 425.0,
-            "y" : 614.9999999999999,
-            "open" : false,
-            "order" : 3,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 425.0,
-            "y" : 523.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl1_trf71_fictif",
-            "name" : "trf71_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 450.0,
-            "y" : 531.6666666666665,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_ONE_TWO",
-            "name" : "trf7_ONE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 475.0,
-            "y" : 614.9999999999999,
-            "open" : false,
-            "order" : 2,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl2"
-          } ]
-        } ]
-      } ]
-    }
-  }, {
-    "type" : "EXTERN",
-    "number" : 13,
-    "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
-    "order" : 3,
-    "rootBlock" : {
-      "type" : "SERIAL",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
         "END" : 1
       } ],
       "position" : {
-        "h" : 16,
+        "h" : 6,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 825.0,
+        "x" : 325.0,
         "y" : 440.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -2335,50 +1882,50 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 825.0,
+          "x" : 325.0,
           "y" : 315.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs4",
-          "name" : "bbs4",
+          "id" : "bbs3",
+          "name" : "bbs3",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 60.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
-            "h" : 2,
+            "h" : 1,
             "v" : 2,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 0,
             "v" : 2,
-            "hSpan" : 6,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dgen2",
-          "name" : "dgen2",
+          "id" : "dtrf17",
+          "name" : "dtrf17",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 875.0,
+          "x" : 375.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl1_dgen2Fictif",
-          "name" : "dgen2Fictif",
+          "id" : "FICT_vl1_dtrf17Fictif",
+          "name" : "dtrf17Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 875.0,
+          "x" : 375.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -2397,7 +1944,151 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 825.0,
+          "x" : 325.0,
+          "y" : 440.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl1_dtrf17Fictif",
+          "name" : "dtrf17Fictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 375.0,
+          "y" : 365.0,
+          "open" : false
+        }, {
+          "type" : "SWITCH",
+          "id" : "btrf17",
+          "name" : "btrf17",
+          "componentType" : "BREAKER",
+          "fictitious" : false,
+          "x" : 375.0,
+          "y" : 490.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FEEDER",
+          "id" : "trf7_ONE",
+          "name" : "trf7_ONE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 375.0,
+          "y" : 615.0,
+          "open" : false,
+          "label" : "trf71",
+          "order" : 2,
+          "direction" : "BOTTOM",
+          "transformerId" : "trf7",
+          "transformerSide" : "ONE"
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 13,
+    "direction" : "BOTTOM",
+    "direction" : "BOTTOM",
+    "order" : 3,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 13,
+        "v" : 0,
+        "hSpan" : 1,
+        "vSpan" : 2,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : 675.0,
+        "y" : 440.0,
+        "xSpan" : 50.0,
+        "ySpan" : 250.0
+      },
+      "subBlocks" : [ {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 675.0,
+          "y" : 315.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "bbs4",
+          "name" : "bbs4",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 510.0,
+          "y" : 335.0,
+          "open" : false,
+          "pxWidth" : 230.0,
+          "structuralPosition" : {
+            "h" : 2,
+            "v" : 2,
+            "hSpan" : 1,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 9,
+            "v" : 2,
+            "hSpan" : 5,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "dgen2",
+          "name" : "dgen2",
+          "componentType" : "DISCONNECTOR",
+          "fictitious" : false,
+          "x" : 725.0,
+          "y" : 335.0,
+          "open" : false,
+          "kind" : "DISCONNECTOR"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl1_dgen2Fictif",
+          "name" : "dgen2Fictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 725.0,
+          "y" : 365.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 2,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 675.0,
           "y" : 440.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -2408,7 +2099,7 @@
           "name" : "dgen2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 875.0,
+          "x" : 725.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -2417,7 +2108,7 @@
           "name" : "bgen2",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 875.0,
+          "x" : 725.0,
           "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -2427,7 +2118,7 @@
           "name" : "gen2",
           "componentType" : "GENERATOR",
           "fictitious" : false,
-          "x" : 875.0,
+          "x" : 725.0,
           "y" : 615.0,
           "open" : false,
           "label" : "gen2",
@@ -2450,14 +2141,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 14,
+        "h" : 11,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 725.0,
+        "x" : 575.0,
         "y" : 440.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -2477,7 +2168,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 725.0,
+          "x" : 575.0,
           "y" : 315.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -2488,10 +2179,10 @@
           "name" : "bbs4",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 610.0,
+          "x" : 510.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 2,
             "v" : 2,
@@ -2499,9 +2190,9 @@
             "vSpan" : 0
           },
           "position" : {
-            "h" : 11,
+            "h" : 9,
             "v" : 2,
-            "hSpan" : 6,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -2510,7 +2201,7 @@
           "name" : "dtrf14",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -2520,7 +2211,7 @@
           "name" : "dtrf14Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -2539,7 +2230,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 725.0,
+          "x" : 575.0,
           "y" : 440.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -2550,7 +2241,7 @@
           "name" : "dtrf14Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -2559,7 +2250,7 @@
           "name" : "btrf14",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -2567,9 +2258,9 @@
           "type" : "FEEDER",
           "id" : "trf4_ONE",
           "name" : "trf4_ONE",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 775.0,
+          "x" : 625.0,
           "y" : 615.0,
           "open" : false,
           "label" : "trf4",
@@ -2650,44 +2341,26 @@
     "node1" : "bbs1",
     "node2" : "dtrf16"
   }, {
+    "node1" : "btrf16",
+    "node2" : "trf6_ONE"
+  }, {
     "node1" : "bbs3",
     "node2" : "dtrf17"
   }, {
+    "node1" : "btrf17",
+    "node2" : "trf7_ONE"
+  }, {
     "node1" : "bbs2",
     "node2" : "dtrf18"
+  }, {
+    "node1" : "btrf18",
+    "node2" : "trf8_ONE"
   }, {
     "node1" : "bbs1",
     "node2" : "dline11_2"
   }, {
     "node1" : "bline11_2",
     "node2" : "line1_ONE"
-  }, {
-    "node1" : "btrf16",
-    "node2" : "FICT_vl1_trf61_fictif"
-  }, {
-    "node1" : "FICT_vl1_trf61_fictif",
-    "node2" : "trf6_ONE_TWO"
-  }, {
-    "node1" : "FICT_vl1_trf61_fictif",
-    "node2" : "trf6_ONE_THREE"
-  }, {
-    "node1" : "btrf17",
-    "node2" : "FICT_vl1_trf71_fictif"
-  }, {
-    "node1" : "FICT_vl1_trf71_fictif",
-    "node2" : "trf7_ONE_TWO"
-  }, {
-    "node1" : "FICT_vl1_trf71_fictif",
-    "node2" : "trf7_ONE_THREE"
-  }, {
-    "node1" : "btrf18",
-    "node2" : "FICT_vl1_trf81_fictif"
-  }, {
-    "node1" : "FICT_vl1_trf81_fictif",
-    "node2" : "trf8_ONE_TWO"
-  }, {
-    "node1" : "FICT_vl1_trf81_fictif",
-    "node2" : "trf8_ONE_THREE"
   }, {
     "node1" : "dtrct11",
     "node2" : "FICT_vl1_dsect11Fictif"
@@ -2793,7 +2466,7 @@
   } ]
 }, {
   "id" : "vl2",
-  "x" : 1050.0,
+  "x" : 900.0,
   "y" : 50.0,
   "cells" : [ {
     "type" : "INTERN",
@@ -2846,10 +2519,10 @@
           "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -2859,7 +2532,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -2868,7 +2541,7 @@
           "name" : "dscpl1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1075.0,
+          "x" : 925.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -2878,7 +2551,7 @@
           "name" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1075.0,
+          "x" : 925.0,
           "y" : 270.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -2909,7 +2582,7 @@
           "name" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1075.0,
+          "x" : 925.0,
           "y" : 270.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -2919,7 +2592,7 @@
           "name" : "ddcpl1",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1100.0,
+          "x" : 950.0,
           "y" : 270.0,
           "rotationAngle" : 90.0,
           "open" : false,
@@ -2930,7 +2603,7 @@
           "name" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1125.0,
+          "x" : 975.0,
           "y" : 270.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -2961,10 +2634,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -2974,7 +2647,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -2983,7 +2656,7 @@
           "name" : "dscpl2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1125.0,
+          "x" : 975.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -2993,7 +2666,7 @@
           "name" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1125.0,
+          "x" : 975.0,
           "y" : 270.0,
           "rotationAngle" : 90.0,
           "open" : false
@@ -3052,10 +2725,10 @@
           "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -3065,7 +2738,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3074,7 +2747,7 @@
           "name" : "dload3",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1175.0,
+          "x" : 1025.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3084,7 +2757,7 @@
           "name" : "dload3Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1175.0,
+          "x" : 1025.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -3114,7 +2787,7 @@
           "name" : "dload3Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1175.0,
+          "x" : 1025.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -3123,7 +2796,7 @@
           "name" : "bload3",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1175.0,
+          "x" : 1025.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -3133,7 +2806,7 @@
           "name" : "load3",
           "componentType" : "LOAD",
           "fictitious" : false,
-          "x" : 1175.0,
+          "x" : 1025.0,
           "y" : 30.0,
           "open" : false,
           "label" : "load3",
@@ -3194,10 +2867,10 @@
           "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -3207,7 +2880,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3216,7 +2889,7 @@
           "name" : "dtrf21",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1225.0,
+          "x" : 1075.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3226,7 +2899,7 @@
           "name" : "dtrf21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1225.0,
+          "x" : 1075.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -3256,7 +2929,7 @@
           "name" : "dtrf21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1225.0,
+          "x" : 1075.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -3265,7 +2938,7 @@
           "name" : "btrf21",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1225.0,
+          "x" : 1075.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -3273,9 +2946,9 @@
           "type" : "FEEDER",
           "id" : "trf1_TWO",
           "name" : "trf1_TWO",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 1225.0,
+          "x" : 1075.0,
           "y" : 30.0,
           "open" : false,
           "label" : "trf1",
@@ -3337,10 +3010,10 @@
           "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -3350,7 +3023,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3359,7 +3032,7 @@
           "name" : "dtrf24",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1325.0,
+          "x" : 1175.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3369,7 +3042,7 @@
           "name" : "dtrf24Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1325.0,
+          "x" : 1175.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -3399,7 +3072,7 @@
           "name" : "dtrf24Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1325.0,
+          "x" : 1175.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -3408,7 +3081,7 @@
           "name" : "btrf24",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1325.0,
+          "x" : 1175.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -3416,9 +3089,9 @@
           "type" : "FEEDER",
           "id" : "trf4_TWO",
           "name" : "trf4_TWO",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 1325.0,
+          "x" : 1175.0,
           "y" : 30.0,
           "open" : false,
           "label" : "trf4",
@@ -3439,19 +3112,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
         "h" : 6,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 350.0,
+        "x" : 325.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -3469,9 +3142,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 350.0,
+          "x" : 325.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -3480,10 +3153,10 @@
           "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -3493,7 +3166,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3502,7 +3175,7 @@
           "name" : "dtrf27",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1400.0,
+          "x" : 1225.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3512,7 +3185,7 @@
           "name" : "dtrf27Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1400.0,
+          "x" : 1225.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -3531,10 +3204,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 350.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 325.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -3542,7 +3215,7 @@
           "name" : "dtrf27Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1400.0,
+          "x" : 1225.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -3551,127 +3224,24 @@
           "name" : "btrf27",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1400.0,
-          "y" : 196.66666666666669,
+          "x" : 1225.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf72_fictif",
-          "name" : "trf72_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 1400.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf7_TWO",
+          "name" : "trf7_TWO",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1225.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf7"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 350.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 325.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf72_fictif",
-            "name" : "trf72_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1400.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_TWO_THREE",
-            "name" : "trf7_TWO_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1375.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 375.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf72_fictif",
-            "name" : "trf72_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1400.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_TWO_ONE",
-            "name" : "trf7_TWO_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1425.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf72",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf7",
+          "transformerSide" : "TWO"
         } ]
       } ]
     }
@@ -3727,10 +3297,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -3740,7 +3310,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3749,7 +3319,7 @@
           "name" : "dgen4",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1275.0,
+          "x" : 1125.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3759,7 +3329,7 @@
           "name" : "dgen4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1275.0,
+          "x" : 1125.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -3789,7 +3359,7 @@
           "name" : "dgen4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1275.0,
+          "x" : 1125.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -3798,7 +3368,7 @@
           "name" : "bgen4",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1275.0,
+          "x" : 1125.0,
           "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -3808,7 +3378,7 @@
           "name" : "gen4",
           "componentType" : "GENERATOR",
           "fictitious" : false,
-          "x" : 1275.0,
+          "x" : 1125.0,
           "y" : 615.0,
           "open" : false,
           "label" : "gen4",
@@ -3831,14 +3401,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 12,
+        "h" : 9,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 625.0,
+        "x" : 475.0,
         "y" : 440.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -3858,7 +3428,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 625.0,
+          "x" : 475.0,
           "y" : 315.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -3869,10 +3439,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -3882,7 +3452,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -3891,7 +3461,7 @@
           "name" : "dtrf22",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1675.0,
+          "x" : 1375.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -3901,7 +3471,7 @@
           "name" : "dtrf22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1675.0,
+          "x" : 1375.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -3920,7 +3490,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 625.0,
+          "x" : 475.0,
           "y" : 440.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -3931,7 +3501,7 @@
           "name" : "dtrf22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1675.0,
+          "x" : 1375.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -3940,7 +3510,7 @@
           "name" : "btrf22",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1675.0,
+          "x" : 1375.0,
           "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -3948,9 +3518,9 @@
           "type" : "FEEDER",
           "id" : "trf2_TWO",
           "name" : "trf2_TWO",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 1675.0,
+          "x" : 1375.0,
           "y" : 615.0,
           "open" : false,
           "label" : "trf2",
@@ -3974,14 +3544,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 13,
+        "h" : 10,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 675.0,
+        "x" : 525.0,
         "y" : 440.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -4001,7 +3571,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 675.0,
+          "x" : 525.0,
           "y" : 315.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -4012,10 +3582,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -4025,7 +3595,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -4034,7 +3604,7 @@
           "name" : "dtrf23",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1725.0,
+          "x" : 1425.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -4044,7 +3614,7 @@
           "name" : "dtrf23Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1725.0,
+          "x" : 1425.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -4063,7 +3633,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 675.0,
+          "x" : 525.0,
           "y" : 440.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -4074,7 +3644,7 @@
           "name" : "dtrf23Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1725.0,
+          "x" : 1425.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -4083,7 +3653,7 @@
           "name" : "btrf23",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1725.0,
+          "x" : 1425.0,
           "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -4091,9 +3661,9 @@
           "type" : "FEEDER",
           "id" : "trf3_TWO",
           "name" : "trf3_TWO",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 1725.0,
+          "x" : 1425.0,
           "y" : 615.0,
           "open" : false,
           "label" : "trf3",
@@ -4114,19 +3684,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
-        "h" : 8,
+        "h" : 7,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 450.0,
+        "x" : 375.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -4144,9 +3714,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 450.0,
+          "x" : 375.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -4155,10 +3725,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -4168,7 +3738,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -4177,7 +3747,7 @@
           "name" : "dtrf26",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1500.0,
+          "x" : 1275.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -4187,7 +3757,7 @@
           "name" : "dtrf26Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1500.0,
+          "x" : 1275.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -4206,10 +3776,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 450.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 375.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -4217,7 +3787,7 @@
           "name" : "dtrf26Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1500.0,
+          "x" : 1275.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -4226,127 +3796,24 @@
           "name" : "btrf26",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1500.0,
-          "y" : 196.66666666666669,
+          "x" : 1275.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf62_fictif",
-          "name" : "trf62_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 1500.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf6_TWO",
+          "name" : "trf6_TWO",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1275.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf6"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 450.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 425.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf62_fictif",
-            "name" : "trf62_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1500.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_TWO_THREE",
-            "name" : "trf6_TWO_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1475.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 475.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf62_fictif",
-            "name" : "trf62_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1500.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_TWO_ONE",
-            "name" : "trf6_TWO_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1525.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf62",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf6",
+          "transformerSide" : "TWO"
         } ]
       } ]
     }
@@ -4361,19 +3828,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
-        "h" : 10,
+        "h" : 8,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 550.0,
+        "x" : 425.0,
         "y" : 440.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -4391,9 +3858,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 550.0,
+          "x" : 425.0,
           "y" : 315.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -4402,10 +3869,10 @@
           "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1060.0,
+          "x" : 910.0,
           "y" : 335.0,
           "open" : false,
-          "pxWidth" : 680.0,
+          "pxWidth" : 530.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -4415,7 +3882,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 14,
+            "hSpan" : 11,
             "vSpan" : 0
           }
         }, {
@@ -4424,7 +3891,7 @@
           "name" : "dtrf28",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1600.0,
+          "x" : 1325.0,
           "y" : 335.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -4434,7 +3901,7 @@
           "name" : "dtrf28Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1600.0,
+          "x" : 1325.0,
           "y" : 365.0,
           "open" : false
         } ]
@@ -4453,10 +3920,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 550.0,
-          "y" : 398.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 425.0,
+          "y" : 440.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -4464,7 +3931,7 @@
           "name" : "dtrf28Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1600.0,
+          "x" : 1325.0,
           "y" : 365.0,
           "open" : false
         }, {
@@ -4473,127 +3940,24 @@
           "name" : "btrf28",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1600.0,
-          "y" : 448.3333333333333,
+          "x" : 1325.0,
+          "y" : 490.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf82_fictif",
-          "name" : "trf82_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 1600.0,
-          "y" : 531.6666666666665,
+          "type" : "FEEDER",
+          "id" : "trf8_TWO",
+          "name" : "trf8_TWO",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1325.0,
+          "y" : 615.0,
           "open" : false,
-          "transformerId" : "trf8"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 550.0,
-          "y" : 523.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 525.0,
-            "y" : 523.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf82_fictif",
-            "name" : "trf82_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1600.0,
-            "y" : 531.6666666666665,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_TWO_THREE",
-            "name" : "trf8_TWO_THREE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1575.0,
-            "y" : 614.9999999999999,
-            "open" : false,
-            "order" : 3,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl3"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 575.0,
-            "y" : 523.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf82_fictif",
-            "name" : "trf82_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 1600.0,
-            "y" : 531.6666666666665,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_TWO_ONE",
-            "name" : "trf8_TWO_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 1625.0,
-            "y" : 614.9999999999999,
-            "open" : false,
-            "order" : 2,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf82",
+          "order" : 2,
+          "direction" : "BOTTOM",
+          "transformerId" : "trf8",
+          "transformerSide" : "TWO"
         } ]
       } ]
     }
@@ -4644,38 +4008,20 @@
     "node1" : "bbs6",
     "node2" : "dtrf26"
   }, {
+    "node1" : "btrf26",
+    "node2" : "trf6_TWO"
+  }, {
     "node1" : "bbs5",
     "node2" : "dtrf27"
+  }, {
+    "node1" : "btrf27",
+    "node2" : "trf7_TWO"
   }, {
     "node1" : "bbs6",
     "node2" : "dtrf28"
   }, {
-    "node1" : "btrf26",
-    "node2" : "FICT_vl2_trf62_fictif"
-  }, {
-    "node1" : "FICT_vl2_trf62_fictif",
-    "node2" : "trf6_TWO_ONE"
-  }, {
-    "node1" : "FICT_vl2_trf62_fictif",
-    "node2" : "trf6_TWO_THREE"
-  }, {
-    "node1" : "btrf27",
-    "node2" : "FICT_vl2_trf72_fictif"
-  }, {
-    "node1" : "FICT_vl2_trf72_fictif",
-    "node2" : "trf7_TWO_ONE"
-  }, {
-    "node1" : "FICT_vl2_trf72_fictif",
-    "node2" : "trf7_TWO_THREE"
-  }, {
     "node1" : "btrf28",
-    "node2" : "FICT_vl2_trf82_fictif"
-  }, {
-    "node1" : "FICT_vl2_trf82_fictif",
-    "node2" : "trf8_TWO_ONE"
-  }, {
-    "node1" : "FICT_vl2_trf82_fictif",
-    "node2" : "trf8_TWO_THREE"
+    "node2" : "trf8_TWO"
   }, {
     "node1" : "ddcpl1",
     "node2" : "FICT_vl2_dscpl1Fictif"
@@ -4745,7 +4091,7 @@
   } ]
 }, {
   "id" : "vl3",
-  "x" : 1900.0,
+  "x" : 1600.0,
   "y" : 50.0,
   "cells" : [ {
     "type" : "EXTERN",
@@ -4799,10 +4145,10 @@
           "name" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1910.0,
+          "x" : 1610.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 380.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -4812,7 +4158,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 8,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -4821,7 +4167,7 @@
           "name" : "dload4",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1925.0,
+          "x" : 1625.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -4831,7 +4177,7 @@
           "name" : "dload4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1925.0,
+          "x" : 1625.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -4861,7 +4207,7 @@
           "name" : "dload4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1925.0,
+          "x" : 1625.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -4870,7 +4216,7 @@
           "name" : "bload4",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1925.0,
+          "x" : 1625.0,
           "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -4880,7 +4226,7 @@
           "name" : "load4",
           "componentType" : "LOAD",
           "fictitious" : false,
-          "x" : 1925.0,
+          "x" : 1625.0,
           "y" : 30.0,
           "open" : false,
           "label" : "load4",
@@ -4941,10 +4287,10 @@
           "name" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1910.0,
+          "x" : 1610.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 380.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -4954,7 +4300,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 8,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -4963,7 +4309,7 @@
           "name" : "dtrf25",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 1975.0,
+          "x" : 1675.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -4973,7 +4319,7 @@
           "name" : "dtrf25Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1975.0,
+          "x" : 1675.0,
           "y" : 340.0,
           "open" : false
         } ]
@@ -5003,7 +4349,7 @@
           "name" : "dtrf25Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 1975.0,
+          "x" : 1675.0,
           "y" : 340.0,
           "open" : false
         }, {
@@ -5012,7 +4358,7 @@
           "name" : "btrf25",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 1975.0,
+          "x" : 1675.0,
           "y" : 465.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -5020,9 +4366,9 @@
           "type" : "FEEDER",
           "id" : "trf5_TWO",
           "name" : "trf5_TWO",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
+          "componentType" : "LINE",
           "fictitious" : false,
-          "x" : 1975.0,
+          "x" : 1675.0,
           "y" : 590.0,
           "open" : false,
           "label" : "trf5",
@@ -5043,19 +4389,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
         "h" : 2,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 150.0,
+        "x" : 125.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -5073,9 +4419,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 150.0,
+          "x" : 125.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -5084,10 +4430,10 @@
           "name" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1910.0,
+          "x" : 1610.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 380.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -5097,7 +4443,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 8,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -5106,7 +4452,7 @@
           "name" : "dtrf36",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 2050.0,
+          "x" : 1725.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -5116,7 +4462,7 @@
           "name" : "dtrf36Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2050.0,
+          "x" : 1725.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -5135,10 +4481,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 150.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 125.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -5146,7 +4492,7 @@
           "name" : "dtrf36Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2050.0,
+          "x" : 1725.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -5155,127 +4501,24 @@
           "name" : "btrf36",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 2050.0,
-          "y" : 196.66666666666669,
+          "x" : 1725.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf63_fictif",
-          "name" : "trf63_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 2050.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf6_THREE",
+          "name" : "trf6_THREE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1725.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf6"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 150.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 125.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf63_fictif",
-            "name" : "trf63_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2050.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_THREE_TWO",
-            "name" : "trf6_THREE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2025.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl2"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 175.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf63_fictif",
-            "name" : "trf63_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2050.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf6"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_THREE_ONE",
-            "name" : "trf6_THREE_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2075.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf63",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf6",
+          "transformerSide" : "THREE"
         } ]
       } ]
     }
@@ -5290,19 +4533,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
-        "h" : 4,
+        "h" : 3,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 250.0,
+        "x" : 175.0,
         "y" : 415.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -5320,9 +4563,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 250.0,
+          "x" : 175.0,
           "y" : 290.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -5331,10 +4574,10 @@
           "name" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1910.0,
+          "x" : 1610.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 380.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -5344,7 +4587,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 8,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -5353,7 +4596,7 @@
           "name" : "dtrf37",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 2150.0,
+          "x" : 1775.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -5363,7 +4606,7 @@
           "name" : "dtrf37Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2150.0,
+          "x" : 1775.0,
           "y" : 340.0,
           "open" : false
         } ]
@@ -5382,10 +4625,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 250.0,
-          "y" : 373.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 175.0,
+          "y" : 415.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -5393,7 +4636,7 @@
           "name" : "dtrf37Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2150.0,
+          "x" : 1775.0,
           "y" : 340.0,
           "open" : false
         }, {
@@ -5402,127 +4645,24 @@
           "name" : "btrf37",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 2150.0,
-          "y" : 423.3333333333333,
+          "x" : 1775.0,
+          "y" : 465.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf73_fictif",
-          "name" : "trf73_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 2150.0,
-          "y" : 506.6666666666667,
+          "type" : "FEEDER",
+          "id" : "trf7_THREE",
+          "name" : "trf7_THREE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1775.0,
+          "y" : 590.0,
           "open" : false,
-          "transformerId" : "trf7"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 250.0,
-          "y" : 498.3333333333333,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 225.0,
-            "y" : 498.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf73_fictif",
-            "name" : "trf73_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2150.0,
-            "y" : 506.6666666666667,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_THREE_TWO",
-            "name" : "trf7_THREE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2125.0,
-            "y" : 590.0,
-            "open" : false,
-            "order" : 3,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl2"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 275.0,
-            "y" : 498.3333333333333,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf73_fictif",
-            "name" : "trf73_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2150.0,
-            "y" : 506.6666666666667,
-            "open" : false,
-            "transformerId" : "trf7"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_THREE_ONE",
-            "name" : "trf7_THREE_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2175.0,
-            "y" : 590.0,
-            "open" : false,
-            "order" : 2,
-            "direction" : "BOTTOM",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf73",
+          "order" : 2,
+          "direction" : "BOTTOM",
+          "transformerId" : "trf7",
+          "transformerSide" : "THREE"
         } ]
       } ]
     }
@@ -5537,19 +4677,19 @@
       "cardinalities" : [ {
         "START" : 1
       }, {
-        "END" : 2
+        "END" : 1
       } ],
       "position" : {
-        "h" : 6,
+        "h" : 4,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 3,
+        "hSpan" : 1,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 350.0,
+        "x" : 225.0,
         "y" : 105.0,
-        "xSpan" : 100.0,
+        "xSpan" : 50.0,
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
@@ -5567,9 +4707,9 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 350.0,
+          "x" : 225.0,
           "y" : 230.0,
-          "xSpan" : 100.0,
+          "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ {
@@ -5578,10 +4718,10 @@
           "name" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
-          "x" : 1910.0,
+          "x" : 1610.0,
           "y" : 310.0,
           "open" : false,
-          "pxWidth" : 380.0,
+          "pxWidth" : 230.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -5591,7 +4731,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 8,
+            "hSpan" : 5,
             "vSpan" : 0
           }
         }, {
@@ -5600,7 +4740,7 @@
           "name" : "dtrf38",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 2250.0,
+          "x" : 1825.0,
           "y" : 310.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -5610,7 +4750,7 @@
           "name" : "dtrf38Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2250.0,
+          "x" : 1825.0,
           "y" : 280.0,
           "open" : false
         } ]
@@ -5629,10 +4769,10 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 350.0,
-          "y" : 146.66666666666669,
-          "xSpan" : 100.0,
-          "ySpan" : 166.66666666666666
+          "x" : 225.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -5640,7 +4780,7 @@
           "name" : "dtrf38Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 2250.0,
+          "x" : 1825.0,
           "y" : 280.0,
           "open" : false
         }, {
@@ -5649,127 +4789,24 @@
           "name" : "btrf38",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 2250.0,
-          "y" : 196.66666666666669,
+          "x" : 1825.0,
+          "y" : 155.0,
           "open" : false,
           "kind" : "BREAKER"
         }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf83_fictif",
-          "name" : "trf83_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 2250.0,
-          "y" : 113.33333333333333,
+          "type" : "FEEDER",
+          "id" : "trf8_THREE",
+          "name" : "trf8_THREE",
+          "componentType" : "LINE",
+          "fictitious" : false,
+          "x" : 1825.0,
+          "y" : 30.0,
           "open" : false,
-          "transformerId" : "trf8"
-        } ]
-      }, {
-        "type" : "PARALLEL",
-        "cardinalities" : [ {
-          "START" : 2
-        }, {
-          "END" : 2
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 2,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 350.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 100.0,
-          "ySpan" : 83.33333333333333
-        },
-        "subBlocks" : [ {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 325.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf83_fictif",
-            "name" : "trf83_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2250.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_THREE_TWO",
-            "name" : "trf8_THREE_TWO",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2225.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 3,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl2"
-          } ]
-        }, {
-          "type" : "PRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 1,
-            "v" : 0,
-            "hSpan" : 1,
-            "vSpan" : 1,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 375.0,
-            "y" : 21.666666666666686,
-            "xSpan" : 50.0,
-            "ySpan" : 83.33333333333333
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf83_fictif",
-            "name" : "trf83_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 2250.0,
-            "y" : 113.33333333333333,
-            "open" : false,
-            "transformerId" : "trf8"
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_THREE_ONE",
-            "name" : "trf8_THREE_ONE",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 2275.0,
-            "y" : 30.00000000000002,
-            "open" : false,
-            "order" : 2,
-            "direction" : "TOP",
-            "otherSideVlId" : "vl1"
-          } ]
+          "label" : "trf83",
+          "order" : 2,
+          "direction" : "TOP",
+          "transformerId" : "trf8",
+          "transformerSide" : "THREE"
         } ]
       } ]
     }
@@ -5790,38 +4827,20 @@
     "node1" : "bbs7",
     "node2" : "dtrf36"
   }, {
+    "node1" : "btrf36",
+    "node2" : "trf6_THREE"
+  }, {
     "node1" : "bbs7",
     "node2" : "dtrf37"
+  }, {
+    "node1" : "btrf37",
+    "node2" : "trf7_THREE"
   }, {
     "node1" : "bbs7",
     "node2" : "dtrf38"
   }, {
-    "node1" : "btrf36",
-    "node2" : "FICT_vl3_trf63_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf63_fictif",
-    "node2" : "trf6_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf63_fictif",
-    "node2" : "trf6_THREE_TWO"
-  }, {
-    "node1" : "btrf37",
-    "node2" : "FICT_vl3_trf73_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf73_fictif",
-    "node2" : "trf7_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf73_fictif",
-    "node2" : "trf7_THREE_TWO"
-  }, {
     "node1" : "btrf38",
-    "node2" : "FICT_vl3_trf83_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf83_fictif",
-    "node2" : "trf8_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf83_fictif",
-    "node2" : "trf8_THREE_TWO"
+    "node2" : "trf8_THREE"
   }, {
     "node1" : "bload4",
     "node2" : "FICT_vl3_dload4Fictif"

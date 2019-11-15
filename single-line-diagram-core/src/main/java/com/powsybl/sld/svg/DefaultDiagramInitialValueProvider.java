@@ -17,6 +17,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.Feeder3WTNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,7 @@ import static com.powsybl.sld.library.ComponentTypeName.LINE;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD_BREAK_SWITCH;
 import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
 
@@ -59,6 +61,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
             switch (node.getComponentType()) {
                 case LINE:
                 case TWO_WINDINGS_TRANSFORMER:
+                case THREE_WINDINGS_TRANSFORMER:
                     initialValue = getBranchInitialValue(node);
                     break;
 
@@ -106,35 +109,60 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         }
     }
 
-    private InitialValue getBranchInitialValue(Node node) {
-        String nodeId = node.getId();
-        if (node instanceof Feeder2WTNode && node.getComponentType().equals(LINE)) {
-            // special case : branch of threeWindingsTransformer
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.ONE;
-            ThreeWindingsTransformer transformer = null;
+    private boolean isNodeTransformer(Node node) {
+        return (node instanceof Feeder2WTNode
+                && node.getComponentType().equals(LINE)
+                && node.getGraph().isForVoltageLevelDiagram())
+                || (node instanceof Feeder3WTNode && !node.getGraph().isForVoltageLevelDiagram());
+    }
 
-            int posSide = StringUtils.lastOrdinalIndexOf(nodeId, "_", 1);
-            if (posSide != -1) {
-                side = ThreeWindingsTransformer.Side.valueOf(nodeId.substring(posSide + 1));
+    private InitialValue getTransformerInitialValue(Node node) {
+        String nodeId = node.getId();
+
+        // special cases : branch of threeWindingsTransformer in voltageLevel graph
+        //               : branch of threeWindingsTransformer in substation graph
+        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.ONE;
+        ThreeWindingsTransformer transformer = null;
+
+        String idTransformer = "";
+        int posSide = StringUtils.lastOrdinalIndexOf(nodeId, "_", 1);
+        if (posSide != -1) {
+            side = ThreeWindingsTransformer.Side.valueOf(nodeId.substring(posSide + 1));
+            if (node.getGraph().isForVoltageLevelDiagram()) {
                 posSide = StringUtils.lastOrdinalIndexOf(nodeId, "_", 2);
                 if (posSide != -1) {
-                    String idTransformer = nodeId.substring(0, posSide);
-                    transformer = network.getThreeWindingsTransformer(idTransformer);
+                    idTransformer = nodeId.substring(0, posSide);
                 }
+            } else {
+                idTransformer = nodeId.substring(0, posSide);
             }
+            transformer = network.getThreeWindingsTransformer(idTransformer);
+        }
 
-            if (transformer != null) {
-                return buildInitialValue(transformer, side);
-            } else {
-                return new InitialValue(null, null, null, null, null, null);
-            }
+        if (transformer != null) {
+            return buildInitialValue(transformer, side);
         } else {
-            Branch branch = network.getBranch(nodeId.substring(0, nodeId.length() - 4));
-            if (branch != null) {
-                return buildInitialValue(branch, Side.valueOf(nodeId.substring(nodeId.length() - 3)));
-            } else {
-                return new InitialValue(null, null, null, null, null, null);
-            }
+            return new InitialValue(null, null, null, null, null, null);
+        }
+    }
+
+    private InitialValue getLineInitialValue(Node node) {
+        String nodeId = node.getId();
+
+        // Note : the nodeId is built with branch id, "_", and the side (ONE or TWO)
+        Branch branch = network.getBranch(nodeId.substring(0, nodeId.length() - 4));
+        if (branch != null) {
+            return buildInitialValue(branch, Side.valueOf(nodeId.substring(nodeId.length() - 3)));
+        } else {
+            return new InitialValue(null, null, null, null, null, null);
+        }
+    }
+
+    private InitialValue getBranchInitialValue(Node node) {
+        if (isNodeTransformer(node)) {
+            return getTransformerInitialValue(node);
+        } else {
+            return getLineInitialValue(node);
         }
     }
 

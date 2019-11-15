@@ -281,6 +281,11 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -298,6 +303,10 @@ public abstract class AbstractTestCase {
                     initValueProvider, styleProvider,
                     new DefaultNodeLabelConfiguration(componentLibrary),
                     writer, metadataWriter);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + refMetdataName);
+//            fw.write(metadataWriter.toString());
+//            fw.close();
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
@@ -319,6 +328,11 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -338,6 +352,10 @@ public abstract class AbstractTestCase {
                     new DefaultNodeLabelConfiguration(componentLibrary),
                     writer, metadataWriter);
 
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + refMetdataName);
+//            fw.write(metadataWriter.toString());
+//            fw.close();
+
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
             assertEquals(refMetadata, metadata);
@@ -346,18 +364,28 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toJson(Graph graph) {
+    public String toJson(Graph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
-    public String toJson(SubstationGraph graph) {
+    public String toJson(SubstationGraph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -372,7 +400,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toSVG(ZoneGraph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider, DiagramStyleProvider styleProvider) {
+    public String toSVG(ZoneGraph graph, String filename, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
@@ -380,6 +408,11 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
+
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);

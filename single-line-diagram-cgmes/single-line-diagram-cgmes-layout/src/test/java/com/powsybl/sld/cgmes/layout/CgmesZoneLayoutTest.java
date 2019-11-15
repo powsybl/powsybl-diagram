@@ -10,7 +10,6 @@ import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
 import static com.powsybl.sld.library.ComponentTypeName.LINE;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -237,13 +236,13 @@ public class CgmesZoneLayoutTest {
         assertEquals(2, vlGraph11.getEdges().size());
         checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(LOAD_ID, TRANSFORMER_ID + "_" + Side.ONE), 60, 10, true);
         checkNode(vlGraph11.getNodes().get(1), Node.NodeType.FEEDER, LOAD_ID, LOAD, Arrays.asList(BUS_11_ID), 20, 30, true);
-        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, TWO_WINDINGS_TRANSFORMER, Arrays.asList(BUS_11_ID), 100, 30, false);
+        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, LINE, Arrays.asList(BUS_11_ID), 100, 30, false);
 
         Graph vlGraph12 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_12_ID);
         assertEquals(3, vlGraph12.getNodes().size());
         assertEquals(2, vlGraph12.getEdges().size());
         checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.TWO), 140, 10, true);
-        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.TWO, TWO_WINDINGS_TRANSFORMER, Arrays.asList(BUS_12_ID), 100, 30, false);
+        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.TWO, LINE, Arrays.asList(BUS_12_ID), 100, 30, false);
         checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.ONE, LINE, Arrays.asList(BUS_12_ID), 180, 30, true);
 
         Graph vlGraph21 = graph.getNode(SUBSTATION_2_ID).getNode(VOLTAGE_LEVEL_21_ID);
