@@ -51,7 +51,7 @@ public class GraphMetadataTest {
         metadata.addComponentMetadata(new ComponentMetadata(BREAKER,
                                                             "br1",
                                                             ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
-                                                            new ComponentSize(10, 12), true));
+                                                            new ComponentSize(10, 12), true, null));
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false));
