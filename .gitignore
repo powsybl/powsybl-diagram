@@ -1,21 +1,9 @@
 # Maven projects
-single-line-diagram-cgmes/target
-single-line-diagram-cgmes/substation-diagram-cgmes-dl-conversion/target
-single-line-diagram-cgmes/substation-diagram-cgmes-dl-iidm-extensions/target
-single-line-diagram-cgmes/substation-diagram-cgmes-layout/target
-single-line-diagram-core/target
-single-line-diagram-util/target
-single-line-diagram-view/target
-single-line-diagram-view-app/target
-substation-webviewer/target
-target
+target/
 
 # IntelliJ
 /.idea
 *.iml
-
-# Compilation settings
-install.cfg
 
 # Eclipse projects
 .classpath
