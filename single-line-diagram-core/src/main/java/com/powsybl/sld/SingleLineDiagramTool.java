@@ -17,6 +17,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolOptions;
@@ -115,7 +116,10 @@ public class SingleLineDiagramTool implements Tool {
         context.getOutputStream().println("Generating '" + svgFile + "' (" + vl.getNominalV() + ")");
         try {
             VoltageLevelDiagram.build(graphBuilder, vl.getId(), generationConfig.voltageLevelLayoutFactory, true, generationConfig.parameters.isShowInductorFor3WT())
-                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters, new DefaultDiagramInitialValueProvider(network), svgFile);
+                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
+                            new DefaultDiagramInitialValueProvider(network),
+                            new DefaultDiagramStyleProvider(network),
+                            svgFile);
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }
@@ -127,7 +131,10 @@ public class SingleLineDiagramTool implements Tool {
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
             SubstationDiagram.build(graphBuilder, s.getId(), generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory, true)
-                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters, new DefaultDiagramInitialValueProvider(network), svgFile);
+                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
+                            new DefaultDiagramInitialValueProvider(network),
+                            new DefaultDiagramStyleProvider(network),
+                            svgFile);
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }
