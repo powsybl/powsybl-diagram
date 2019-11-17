@@ -11,7 +11,6 @@ import com.powsybl.sld.layout.VoltageLevelLayout;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.GraphMetadata;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -67,23 +66,14 @@ public final class VoltageLevelDiagram {
                          ComponentLibrary componentLibrary,
                          LayoutParameters layoutParameters,
                          DiagramInitialValueProvider initialValueProvider,
+                         DiagramStyleProvider styleProvider,
                          Path svgFile) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
         writeSvg(prefixId, writer,
                 initialValueProvider,
-                new DefaultDiagramStyleProvider(),
+                styleProvider,
                 new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
-                svgFile, false);
-    }
-
-    public void writeSvg(String prefixId, SVGWriter writer,
-                         DiagramInitialValueProvider initialValueProvider,
-                         Path svgFile) {
-        writeSvg(prefixId, writer,
-                initialValueProvider,
-                new DefaultDiagramStyleProvider(),
-                new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
-                svgFile, false);
+                svgFile);
     }
 
     public void writeSvg(String prefixId,
@@ -91,8 +81,7 @@ public final class VoltageLevelDiagram {
                          DiagramInitialValueProvider initProvider,
                          DiagramStyleProvider styleProvider,
                          NodeLabelConfiguration nodeLabelConfiguration,
-                         Path svgFile,
-                         boolean debug) {
+                         Path svgFile) {
         Path dir = svgFile.toAbsolutePath().getParent();
         String svgFileName = svgFile.getFileName().toString();
         if (!svgFileName.endsWith(".svg")) {
@@ -104,17 +93,6 @@ public final class VoltageLevelDiagram {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    public void writeSvg(String prefixId,
-                         ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                         DiagramInitialValueProvider initProvider,
-                         DiagramStyleProvider styleProvider,
-                         NodeLabelConfiguration nodeLabelConfiguration,
-                         Writer svgWriter,
-                         Writer metadataWriter) {
-        SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
-        writeSvg(prefixId, writer, initProvider, styleProvider, nodeLabelConfiguration, svgWriter, metadataWriter);
     }
 
     public void writeSvg(String prefixId,

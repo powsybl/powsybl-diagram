@@ -14,6 +14,7 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -244,6 +245,8 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
         // compare metadata of substation diagram with reference
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
 
-        compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json", new DefaultDiagramInitialValueProvider(network));
+        compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",
+                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramStyleProvider(network));
     }
 }

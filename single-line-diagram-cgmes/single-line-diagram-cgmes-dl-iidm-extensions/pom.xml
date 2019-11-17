@@ -12,11 +12,12 @@
     <parent>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-single-line-diagram-cgmes</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
     <name>Single line diagram CGMES-DL IIDM extensions</name>
+    <description>A collection of IIDM extensions to store CGMES-DL data</description>
 
     <build>
         <plugins>
