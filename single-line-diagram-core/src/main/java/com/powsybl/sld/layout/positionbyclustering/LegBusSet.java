@@ -146,7 +146,6 @@ class LegBusSet implements ClusterConnector {
         return 0;
     }
 
-
     @Override
     public boolean hasSameRoot(Object other) {
         if (other.getClass() != LegBusSet.class) {
