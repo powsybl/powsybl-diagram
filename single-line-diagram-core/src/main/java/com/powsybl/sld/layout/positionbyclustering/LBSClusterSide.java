@@ -18,7 +18,6 @@ import java.util.Set;
 /**
  * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
  *
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class LBSClusterSide implements ClusterConnector {
@@ -63,7 +62,7 @@ class LBSClusterSide implements ClusterConnector {
     public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
         return clusterConnectors.stream().filter(clusterConnector ->
                 clusterConnector.getCluster() == lbsCluster
-                        && side.getFlip() == clusterConnector.getMySidInCluster()).findAny().orElse(null);
+                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
     @Override
@@ -105,7 +104,4 @@ class LBSClusterSide implements ClusterConnector {
         return myLinks;
     }
 
-    public Side getSide() {
-        return side;
-    }
 }

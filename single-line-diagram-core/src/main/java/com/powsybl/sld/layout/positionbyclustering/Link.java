@@ -115,8 +115,8 @@ class Link<T extends ClusterConnector> implements Comparable {
 
     void mergeClusters() {
         if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
-                || clusterConnector1.getMySidInCluster() == Side.UNDEFINED
-                || clusterConnector2.getMySidInCluster() == Side.UNDEFINED) {
+                || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
+                || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
         if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
@@ -125,9 +125,9 @@ class Link<T extends ClusterConnector> implements Comparable {
             return;
         }
         clusterConnector1.getCluster().merge(
-                clusterConnector1.getMySidInCluster(),
+                clusterConnector1.getMySideInCluster(),
                 clusterConnector2.getCluster(),
-                clusterConnector2.getMySidInCluster());
+                clusterConnector2.getMySideInCluster());
         clusterConnector1.getCluster().merge(
                 clusterConnector1.getMySideInCluster(),
                 clusterConnector2.getCluster(),

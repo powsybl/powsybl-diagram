@@ -27,7 +27,7 @@ interface ClusterConnector {
 
     LBSCluster getCluster();
 
-    Side getMySidInCluster();
+    Side getMySideInCluster();
 
     boolean hasSameRoot(Object other);
 
