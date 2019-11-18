@@ -22,7 +22,8 @@ import java.util.*;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LegBusSet implements ClusterConnector {
+class LegBusSet implements ClusterConnector<LegBusSet> {
+
     private Set<BusNode> busNodeSet;
     private Set<BusCell> embeddedCells;
     private Map<InternCell, Side> candidateFlatCells;
@@ -154,19 +155,16 @@ class LegBusSet implements ClusterConnector {
         return this == other;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends ClusterConnector> void addLink(Link<T> link) {
-        myLinks.add((Link<LegBusSet>) link);
+    public void addLink(Link<LegBusSet> link) {
+        myLinks.add(link);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends ClusterConnector> void removeLink(Link<T> link) {
+    public void removeLink(Link<LegBusSet> link) {
         myLinks.remove(link);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<Link<LegBusSet>> getLinks() {
         return myLinks;
@@ -176,7 +174,7 @@ class LegBusSet implements ClusterConnector {
         return embeddedCells;
     }
 
-    public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
+    public LegBusSet getOtherSameRoot(List<LegBusSet> clusterConnectors) {
         return null;
     }
 

@@ -20,7 +20,8 @@ import java.util.Set;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide implements ClusterConnector {
+class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
+
     private LBSCluster lbsCluster;
     private Side side;
     private List<Link<LBSClusterSide>> myLinks;
@@ -59,7 +60,7 @@ class LBSClusterSide implements ClusterConnector {
     }
 
     @Override
-    public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
+    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
         return clusterConnectors.stream().filter(clusterConnector ->
                 clusterConnector.getCluster() == lbsCluster
                         && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
@@ -89,19 +90,15 @@ class LBSClusterSide implements ClusterConnector {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends ClusterConnector> void addLink(Link<T> link) {
-        myLinks.add((Link<LBSClusterSide>) link);
+    public void addLink(Link<LBSClusterSide> link) {
+        myLinks.add(link);
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends ClusterConnector> void removeLink(Link<T> link) {
+    public void removeLink(Link<LBSClusterSide> link) {
         myLinks.remove(link);
     }
 
-    @SuppressWarnings("unchecked")
     public List<Link<LBSClusterSide>> getLinks() {
         return myLinks;
     }
-
 }
