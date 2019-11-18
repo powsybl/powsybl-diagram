@@ -45,7 +45,8 @@ import java.util.Map;
 
 // TODO implement SHUNT in the link assessment
 
-class Link<T extends AbstractClusterConnector> implements Comparable {
+
+class Link<T extends ClusterConnector> implements Comparable {
 
     enum LinkCategory {
         COMMONBUSES, FLATCELLS, CROSSOVER//, SHUNT
@@ -93,7 +94,7 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
         return categoryToWeight.get(cat);
     }
 
-    T getOtherclusterConnector(T clusterConnector) {
+    T getOtherClusterConnector(T clusterConnector) {
         if (clusterConnector == clusterConnector1) {
             return clusterConnector2;
         }
@@ -103,7 +104,7 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
         return null;
     }
 
-    T getclusterConnector(int i) {
+    T getClusterConnector(int i) {
         if (i == 0) {
             return clusterConnector1;
         } else if (i == 1) {
@@ -114,10 +115,19 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
 
     void mergeClusters() {
         if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
+                || clusterConnector1.getMySidInCluster() == Side.UNDEFINED
+                || clusterConnector2.getMySidInCluster() == Side.UNDEFINED) {
+            return;
+        }
+        if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
                 || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
                 || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
+        clusterConnector1.getCluster().merge(
+                clusterConnector1.getMySidInCluster(),
+                clusterConnector2.getCluster(),
+                clusterConnector2.getMySidInCluster());
         clusterConnector1.getCluster().merge(
                 clusterConnector1.getMySideInCluster(),
                 clusterConnector2.getCluster(),

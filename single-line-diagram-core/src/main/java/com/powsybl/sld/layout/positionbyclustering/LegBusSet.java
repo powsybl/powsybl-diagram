@@ -22,7 +22,7 @@ import java.util.*;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LegBusSet extends AbstractClusterConnector {
+class LegBusSet implements ClusterConnector {
     private Set<BusNode> busNodeSet;
     private Set<BusCell> embeddedCells;
     private Map<InternCell, Side> candidateFlatCells;
@@ -113,6 +113,7 @@ class LegBusSet extends AbstractClusterConnector {
         return lbsCluster;
     }
 
+    @Override
     public Side getMySideInCluster() {
         return lbsCluster.getLbsSide(this);
     }
@@ -121,6 +122,7 @@ class LegBusSet extends AbstractClusterConnector {
         return candidateFlatCells;
     }
 
+    @Override
     public List<InternCell> getCandidateFlatCellList() {
         return new ArrayList<>(candidateFlatCells.keySet());
     }
@@ -129,41 +131,54 @@ class LegBusSet extends AbstractClusterConnector {
         return crossoverInternCells;
     }
 
+    @Override
     public List<InternCell> getCrossOverCellList() {
         return new ArrayList<>(crossoverInternCells.keySet());
     }
 
+    @Override
     public Set<BusNode> getBusNodeSet() {
         return busNodeSet;
     }
 
     @Override
-    boolean hasSameLBSCluster(Object other) {
+    public int getDistanceToEdge(InternCell internCell) {
+        return 0;
+    }
+
+
+    @Override
+    public boolean hasSameRoot(Object other) {
+        if (other.getClass() != LegBusSet.class) {
+            return false;
+        }
         return this == other;
     }
 
-    @Override
-    <T extends AbstractClusterConnector> T getOtherSameWithSameLBSCluster(List<T> clusterConnectors) {
-        return null;
-    }
-
     @SuppressWarnings("unchecked")
-    <T extends AbstractClusterConnector> void addLink(Link<T> link) {
+    @Override
+    public <T extends ClusterConnector> void addLink(Link<T> link) {
         myLinks.add((Link<LegBusSet>) link);
     }
 
     @SuppressWarnings("unchecked")
-    <T extends AbstractClusterConnector> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LegBusSet>) link);
+    @Override
+    public <T extends ClusterConnector> void removeLink(Link<T> link) {
+        myLinks.remove(link);
     }
 
     @SuppressWarnings("unchecked")
-    List<Link<LegBusSet>> getLinks() {
+    @Override
+    public List<Link<LegBusSet>> getLinks() {
         return myLinks;
     }
 
     Set<BusCell> getEmbeddedCells() {
         return embeddedCells;
+    }
+
+    public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
+        return null;
     }
 
     @Override

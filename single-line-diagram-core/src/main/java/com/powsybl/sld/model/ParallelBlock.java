@@ -10,4 +10,8 @@ package com.powsybl.sld.model;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public interface ParallelBlock extends ComposedBlock {
+
+    double initX0();
+
+    double intitXStep();
 }
