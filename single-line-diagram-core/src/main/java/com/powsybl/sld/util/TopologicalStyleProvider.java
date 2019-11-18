@@ -35,7 +35,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap();
     private static final String DEFAULT_COLOR = "#FF0000";
     private static final String DISCONNECTED_COLOR = "#808080";
-    private static final double FACTOR = 0.7;
     private String disconnectedColor;
 
     public TopologicalStyleProvider(Path config, Network network) {
@@ -67,9 +66,9 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
         HashMap<String, RGBColor> colorMap = new HashMap();
 
-        RGBColor color = RGBColor.parse(basecolor);
+        HSLColor color = HSLColor.parse(basecolor);
 
-        List<RGBColor> colors = color.getColorGradient((int) buses, FACTOR);
+        List<RGBColor> colors = color.getColorGradient((int) buses);
 
         vl.getBusView().getBuses().forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());

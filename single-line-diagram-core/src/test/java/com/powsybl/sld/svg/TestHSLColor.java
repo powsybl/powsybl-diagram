@@ -12,26 +12,23 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.powsybl.sld.util.HSLColor;
 import com.powsybl.sld.util.RGBColor;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
-public class TestRGBColor {
+public class TestHSLColor {
 
     @Test
     public void test() {
         String red = "#FF0000";
-        RGBColor color = RGBColor.parse(red);
-        assertEquals(red, color.toString());
-        assertEquals(new RGBColor(255, 0, 0), color);
-        assertEquals(255, color.getRed());
-        assertEquals(0, color.getGreen());
-        assertEquals(0, color.getBlue());
-        double factor = 0.7d;
+        HSLColor color = HSLColor.parse(red);
+        assertEquals(new RGBColor(255, 0, 0), color.toRGBColor());
         List<RGBColor> gradient = color.getColorGradient(3);
         assertEquals(3, gradient.size());
-        assertEquals(color.getBrighter(factor), gradient.get(0));
-        assertEquals("#B30000", gradient.get(2).toString());
+        assertEquals("#7F6C00", gradient.get(0).toString());
+        assertEquals("#FF0000", gradient.get(1).toString());
+        assertEquals("#F6B2FF", gradient.get(2).toString());
     }
 }
