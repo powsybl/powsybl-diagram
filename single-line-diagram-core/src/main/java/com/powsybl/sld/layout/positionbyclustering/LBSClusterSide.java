@@ -18,10 +18,10 @@ import java.util.Set;
 /**
  * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
  *
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide extends AbstractClusterConnector {
+class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
+
     private LBSCluster lbsCluster;
     private Side side;
     private List<Link<LBSClusterSide>> myLinks;
@@ -52,12 +52,7 @@ class LBSClusterSide extends AbstractClusterConnector {
         return side;
     }
 
-    /**
-     *
-     * @param other one object
-     * @return true if other is one LBSClusterSide based on the same LBSCluster
-     */
-    boolean hasSameLBSCluster(Object other) {
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
@@ -65,14 +60,14 @@ class LBSClusterSide extends AbstractClusterConnector {
     }
 
     @Override
-    <T extends AbstractClusterConnector> T getOtherSameWithSameLBSCluster(List<T> clusterConnectors) {
+    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
         return clusterConnectors.stream().filter(clusterConnector ->
                 clusterConnector.getCluster() == lbsCluster
-                        && side.getFlip() == ((LBSClusterSide) clusterConnector).getSide()).findAny().orElse(null);
+                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
     @Override
-    int getDistanceToEdge(InternCell internCell) {
+    public int getDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
@@ -95,22 +90,15 @@ class LBSClusterSide extends AbstractClusterConnector {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractClusterConnector> void addLink(Link<T> link) {
-        myLinks.add((Link<LBSClusterSide>) link);
+    public void addLink(Link<LBSClusterSide> link) {
+        myLinks.add(link);
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractClusterConnector> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LBSClusterSide>) link);
+    public void removeLink(Link<LBSClusterSide> link) {
+        myLinks.remove(link);
     }
 
-    @SuppressWarnings("unchecked")
     public List<Link<LBSClusterSide>> getLinks() {
         return myLinks;
-    }
-
-    public Side getSide() {
-        return side;
     }
 }
