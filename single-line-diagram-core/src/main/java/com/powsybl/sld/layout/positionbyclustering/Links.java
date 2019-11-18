@@ -14,31 +14,31 @@ import java.util.TreeSet;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Links<T extends Linkable> {
-    private List<T> linkables;
+class Links<T extends ClusterConnector> {
+    private List<T> clusterConnectors;
     private TreeSet<Link<T>> linkSet = new TreeSet<>();
 
-    Links(List<T> linkables) {
-        this.linkables = linkables;
-        for (int i = 0; i < linkables.size(); i++) {
-            for (int j = i + 1; j < linkables.size(); j++) {
-                buildNewLink(linkables.get(i), linkables.get(j));
+    Links(List<T> clusterConnectors) {
+        this.clusterConnectors = clusterConnectors;
+        for (int i = 0; i < clusterConnectors.size(); i++) {
+            for (int j = i + 1; j < clusterConnectors.size(); j++) {
+                buildNewLink(clusterConnectors.get(i), clusterConnectors.get(j));
             }
         }
     }
 
     Links() {
-        this.linkables = new ArrayList<>();
+        this.clusterConnectors = new ArrayList<>();
     }
 
-    void addLinkable(T linkable) {
-        linkables.add(linkable);
-        linkables.forEach(lk -> buildNewLink(lk, linkable));
+    void addClusterConnector(T clusterConnector) {
+        clusterConnectors.add(clusterConnector);
+        clusterConnectors.forEach(lk -> buildNewLink(lk, clusterConnector));
     }
 
-    private void buildNewLink(T linkable1, T linkable2) {
-        if (!linkable1.hasSameRoot(linkable2)) {
-            linkSet.add(new Link<>(linkable1, linkable2));
+    private void buildNewLink(T clusterConnector1, T clusterConnector2) {
+        if (!clusterConnector1.hasSameRoot(clusterConnector2)) {
+            linkSet.add(new Link<>(clusterConnector1, clusterConnector2));
         }
     }
 
@@ -46,13 +46,13 @@ class Links<T extends Linkable> {
         return linkSet.last();
     }
 
-    void removeLinkable(T linkable) {
-        linkables.remove(linkable);
-        removeLinksToLinkable(linkable);
+    void removeClusterConnector(T clusterConnector) {
+        clusterConnectors.remove(clusterConnector);
+        removeLinksToClusterConnector(clusterConnector);
     }
 
-    private void removeLinksToLinkable(T linkable) {
-        List<Link<T>> linksCopy = new ArrayList<>(linkable.getLinks());
+    private void removeLinksToClusterConnector(T clusterConnector) {
+        List<Link<T>> linksCopy = new ArrayList<>(clusterConnector.getLinks());
         linksCopy.forEach(link -> {
             link.unregister();
             linkSet.remove(link);
@@ -67,7 +67,7 @@ class Links<T extends Linkable> {
         return linkSet.isEmpty();
     }
 
-    List<T> getLinkables() {
-        return linkables;
+    List<T> getClusterConnectors() {
+        return clusterConnectors;
     }
 }

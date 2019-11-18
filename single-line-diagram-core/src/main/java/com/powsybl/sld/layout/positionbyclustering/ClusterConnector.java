@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-interface Linkable {
+interface ClusterConnector {
     Set<BusNode> getBusNodeSet();
 
     int getDistanceToEdge(InternCell internCell);
@@ -31,12 +31,12 @@ interface Linkable {
 
     boolean hasSameRoot(Object other);
 
-    <T extends Linkable> void addLink(Link<T> link);
+    <T extends ClusterConnector> void addLink(Link<T> link);
 
-    <T extends Linkable> void removeLink(Link<T> link);
+    <T extends ClusterConnector> void removeLink(Link<T> link);
 
-    <T extends Linkable> List<Link<T>> getLinks();
+    <T extends ClusterConnector> List<Link<T>> getLinks();
 
-    <T extends Linkable> T getOtherSameRoot(List<T> linkables);
+    <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors);
 
 }

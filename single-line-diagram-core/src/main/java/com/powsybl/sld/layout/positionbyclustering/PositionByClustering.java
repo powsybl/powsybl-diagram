@@ -145,21 +145,21 @@ public class PositionByClustering implements PositionFinder {
         legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
         Links<LBSClusterSide> links = new Links<>();
         lbsClusters.forEach(lbsCluster -> {
-            links.addLinkable(new LBSClusterSide(lbsCluster, Side.LEFT));
-            links.addLinkable(new LBSClusterSide(lbsCluster, Side.RIGHT));
+            links.addClusterConnector(new LBSClusterSide(lbsCluster, Side.LEFT));
+            links.addClusterConnector(new LBSClusterSide(lbsCluster, Side.RIGHT));
         });
         while (!links.isEmpty()) {
             Link<LBSClusterSide> link = links.getStrongerLink();
             link.mergeClusters();
-            LBSCluster mergedCluster = link.getLinkable(0).getCluster();
-            links.removeLinkable(link.getLinkable(0));
-            links.removeLinkable(link.getLinkable(1));
-            links.removeLinkable(link.getLinkable(0).getOtherSameRoot(links.getLinkables()));
-            links.removeLinkable(link.getLinkable(1).getOtherSameRoot(links.getLinkables()));
+            LBSCluster mergedCluster = link.getClusterConnector(0).getCluster();
+            links.removeClusterConnector(link.getClusterConnector(0));
+            links.removeClusterConnector(link.getClusterConnector(1));
+            links.removeClusterConnector(link.getClusterConnector(0).getOtherSameRoot(links.getClusterConnectors()));
+            links.removeClusterConnector(link.getClusterConnector(1).getOtherSameRoot(links.getClusterConnectors()));
             link.unregister();
 
-            links.addLinkable(new LBSClusterSide(mergedCluster, Side.LEFT));
-            links.addLinkable(new LBSClusterSide(mergedCluster, Side.RIGHT));
+            links.addClusterConnector(new LBSClusterSide(mergedCluster, Side.LEFT));
+            links.addClusterConnector(new LBSClusterSide(mergedCluster, Side.RIGHT));
         }
 
         lbsClusters.get(0).mergeHorizontalLanes();

@@ -18,7 +18,7 @@ import java.util.Set;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide implements Linkable {
+class LBSClusterSide implements ClusterConnector {
     private LBSCluster lbsCluster;
     private Side side;
     private List<Link<LBSClusterSide>> myLinks;
@@ -57,10 +57,10 @@ class LBSClusterSide implements Linkable {
     }
 
     @Override
-    public <T extends Linkable> T getOtherSameRoot(List<T> linkables) {
-        return linkables.stream().filter(linkable ->
-                linkable.getCluster() == lbsCluster
-                        && side.getFlip() == linkable.getMySidInCluster()).findAny().orElse(null);
+    public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
+        return clusterConnectors.stream().filter(clusterConnector ->
+                clusterConnector.getCluster() == lbsCluster
+                        && side.getFlip() == clusterConnector.getMySidInCluster()).findAny().orElse(null);
     }
 
     @Override
@@ -88,12 +88,12 @@ class LBSClusterSide implements Linkable {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Linkable> void addLink(Link<T> link) {
+    public <T extends ClusterConnector> void addLink(Link<T> link) {
         myLinks.add((Link<LBSClusterSide>) link);
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Linkable> void removeLink(Link<T> link) {
+    public <T extends ClusterConnector> void removeLink(Link<T> link) {
         myLinks.remove(link);
     }
 

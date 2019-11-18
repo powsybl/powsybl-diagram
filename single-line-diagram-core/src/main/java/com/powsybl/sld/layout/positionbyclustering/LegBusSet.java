@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LegBusSet implements Linkable {
+class LegBusSet implements ClusterConnector {
     private Set<BusNode> busNodeSet;
     private Set<BusCell> embededCells;
     private Map<InternCell, Side> candidateFlatCells;
@@ -151,13 +151,13 @@ class LegBusSet implements Linkable {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Linkable> void addLink(Link<T> link) {
+    public <T extends ClusterConnector> void addLink(Link<T> link) {
         myLinks.add((Link<LegBusSet>) link);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Linkable> void removeLink(Link<T> link) {
+    public <T extends ClusterConnector> void removeLink(Link<T> link) {
         myLinks.remove(link);
     }
 
@@ -171,7 +171,7 @@ class LegBusSet implements Linkable {
         return embededCells;
     }
 
-    public <T extends Linkable> T getOtherSameRoot(List<T> linkables) {
+    public <T extends ClusterConnector> T getOtherSameRoot(List<T> clusterConnectors) {
         return null;
     }
 
