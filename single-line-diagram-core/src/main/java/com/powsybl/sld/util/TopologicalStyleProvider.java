@@ -31,17 +31,14 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
 public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
-
     private BaseVoltageColor baseVoltageColor;
     private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap();
     private static final String DEFAULT_COLOR = "#FF0000";
     private static final String DISCONNECTED_COLOR = "#808080";
     private String disconnectedColor;
 
-    private final Network network;
-
     public TopologicalStyleProvider(Path config, Network network) {
-        this.network = network;
+        super(network);
         try {
             baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
         } catch (IOException e) {
@@ -129,12 +126,10 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     private String getBaseColor(double v, String profile, String defaultColor) {
         return baseVoltageColor.getColor(v, profile) != null ? baseVoltageColor.getColor(v, profile) : defaultColor;
-
     }
 
     @Override
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
-
         Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication);
         if (node.getType() == NodeType.SWITCH || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER) || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)) {
             return defaultStyle;
@@ -151,7 +146,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     @Override
     public Optional<String> getWireStyle(Edge edge) {
-
         String wireId = DiagramStyles.escapeId(edge.getNode1().getGraph().getVoltageLevelId() + "_Wire"
                 + edge.getNode1().getGraph().getEdges().indexOf(edge));
         Node bus = findConnectedBus(edge);
@@ -202,5 +196,4 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
         }
         return null;
     }
-
 }
