@@ -16,7 +16,7 @@ import java.util.TreeSet;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Links<T extends AbstractClusterConnector> {
+class Links<T extends ClusterConnector> {
     private List<T> clusterConnectors;
     private TreeSet<Link<T>> linkSet = new TreeSet<>();
 
@@ -39,7 +39,7 @@ class Links<T extends AbstractClusterConnector> {
     }
 
     private void buildNewLink(T clusterConnector1, T clusterConnector2) {
-        if (!clusterConnector1.hasSameLBSCluster(clusterConnector2)) {
+        if (!clusterConnector1.hasSameRoot(clusterConnector2)) {
             linkSet.add(new Link<>(clusterConnector1, clusterConnector2));
         }
     }

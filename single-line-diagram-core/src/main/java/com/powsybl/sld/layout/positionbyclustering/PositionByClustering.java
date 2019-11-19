@@ -73,7 +73,7 @@ public class PositionByClustering implements PositionFinder {
         if (useLBSLinkOnly) {
             lbsCluster = clusteringByLBSLink(graph, legBusSets);
         } else {
-            lbsCluster = clusteringByLBSClusterSideLink(legBusSets);
+            lbsCluster = clusteringByLBSClusterLink(legBusSets);
         }
         establishFeederPositions(lbsCluster);
 
@@ -161,7 +161,7 @@ public class PositionByClustering implements PositionFinder {
         return lbsClusters.get(0);
     }
 
-    private LBSCluster clusteringByLBSClusterSideLink(List<LegBusSet> legBusSets) {
+    private LBSCluster clusteringByLBSClusterLink(List<LegBusSet> legBusSets) {
         List<LBSCluster> lbsClusters = new ArrayList<>();
         legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
         Links<LBSClusterSide> links = new Links<>();
@@ -172,11 +172,11 @@ public class PositionByClustering implements PositionFinder {
         while (!links.isEmpty()) {
             Link<LBSClusterSide> link = links.getStrongestLink();
             link.mergeClusters();
-            LBSCluster mergedCluster = link.getclusterConnector(0).getCluster();
-            links.removeClusterConnector(link.getclusterConnector(0));
-            links.removeClusterConnector(link.getclusterConnector(1));
-            links.removeClusterConnector(link.getclusterConnector(0).getOtherSameWithSameLBSCluster(links.getClusterConnectors()));
-            links.removeClusterConnector(link.getclusterConnector(1).getOtherSameWithSameLBSCluster(links.getClusterConnectors()));
+            LBSCluster mergedCluster = link.getClusterConnector(0).getCluster();
+            links.removeClusterConnector(link.getClusterConnector(0));
+            links.removeClusterConnector(link.getClusterConnector(1));
+            links.removeClusterConnector(link.getClusterConnector(0).getOtherSameRoot(links.getClusterConnectors()));
+            links.removeClusterConnector(link.getClusterConnector(1).getOtherSameRoot(links.getClusterConnectors()));
             link.removeMe();
 
             links.addClusterConnector(new LBSClusterSide(mergedCluster, Side.LEFT));

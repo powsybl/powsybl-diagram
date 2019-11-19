@@ -44,16 +44,15 @@ import java.util.Map;
  */
 
 // TODO implement SHUNT in the link assessment
-
-class Link<T extends AbstractClusterConnector> implements Comparable {
+class Link<T extends ClusterConnector> implements Comparable {
 
     enum LinkCategory {
         COMMONBUSES, FLATCELLS, CROSSOVER//, SHUNT
     }
 
-    private T clusterConnector1;
-    private T clusterConnector2;
-    private Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
+    private final T clusterConnector1;
+    private final T clusterConnector2;
+    private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
 
     Link(T clusterConnector1, T clusterConnector2) {
         this.clusterConnector1 = clusterConnector1;
@@ -93,7 +92,7 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
         return categoryToWeight.get(cat);
     }
 
-    T getOtherclusterConnector(T clusterConnector) {
+    T getOtherClusterConnector(T clusterConnector) {
         if (clusterConnector == clusterConnector1) {
             return clusterConnector2;
         }
@@ -103,7 +102,7 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
         return null;
     }
 
-    T getclusterConnector(int i) {
+    T getClusterConnector(int i) {
         if (i == 0) {
             return clusterConnector1;
         } else if (i == 1) {
@@ -118,6 +117,15 @@ class Link<T extends AbstractClusterConnector> implements Comparable {
                 || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
+        if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
+                || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
+                || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
+            return;
+        }
+        clusterConnector1.getCluster().merge(
+                clusterConnector1.getMySideInCluster(),
+                clusterConnector2.getCluster(),
+                clusterConnector2.getMySideInCluster());
         clusterConnector1.getCluster().merge(
                 clusterConnector1.getMySideInCluster(),
                 clusterConnector2.getCluster(),
