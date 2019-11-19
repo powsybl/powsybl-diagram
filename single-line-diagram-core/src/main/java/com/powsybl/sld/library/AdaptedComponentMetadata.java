@@ -17,6 +17,7 @@ import java.util.List;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AdaptedComponentMetadata {
@@ -33,6 +34,9 @@ public class AdaptedComponentMetadata {
     private ComponentSize size;
 
     private boolean allowRotation;
+
+    @XmlElement(name = "subComponent")
+    private List<SubComponent> subComponents = new ArrayList<>();
 
     public String getType() {
         return type;
@@ -72,5 +76,13 @@ public class AdaptedComponentMetadata {
 
     public void setAllowRotation(boolean allowRotation) {
         this.allowRotation = allowRotation;
+    }
+
+    public List<SubComponent> getSubComponents() {
+        return subComponents;
+    }
+
+    public void setSubComponents(List<SubComponent> subComponents) {
+        this.subComponents = subComponents;
     }
 }

@@ -18,6 +18,7 @@ import java.util.Objects;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 @XmlJavaTypeAdapter(ComponentMetadataAdapter.class)
 public class ComponentMetadata {
@@ -32,17 +33,25 @@ public class ComponentMetadata {
 
     private boolean allowRotation;
 
+    private final List<SubComponent> subComponents;
+
     @JsonCreator
     public ComponentMetadata(@JsonProperty("type") String type,
                              @JsonProperty("id") String id,
                              @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
                              @JsonProperty("size") ComponentSize size,
-                             @JsonProperty("allowRotation") boolean allowRotation) {
+                             @JsonProperty("allowRotation") boolean allowRotation,
+                             @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.id = id;
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNull(anchorPoints));
         this.size = Objects.requireNonNull(size);
         this.allowRotation = allowRotation;
+        if (subComponents != null) {
+            this.subComponents = Collections.unmodifiableList(subComponents);
+        } else {
+            this.subComponents = null;
+        }
     }
 
     public String getType() {
@@ -63,5 +72,9 @@ public class ComponentMetadata {
 
     public boolean isAllowRotation() {
         return allowRotation;
+    }
+
+    public List<SubComponent> getSubComponents() {
+        return subComponents;
     }
 }

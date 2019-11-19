@@ -34,7 +34,6 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
@@ -51,12 +50,9 @@ public abstract class AbstractTestCase {
     protected Network network;
     protected VoltageLevel vl;
     protected Substation substation;
-
     protected GraphBuilder graphBuilder;
 
     protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
-
-    protected final DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
@@ -273,7 +269,11 @@ public abstract class AbstractTestCase {
                         null));
     }
 
-    public String toSVG(Graph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider) {
+    public String toSVG(Graph graph,
+                        String filename,
+                        LayoutParameters layoutParameters,
+                        DiagramInitialValueProvider initValueProvider,
+                        DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
@@ -289,11 +289,13 @@ public abstract class AbstractTestCase {
 
     public void compareMetadata(VoltageLevelDiagram diagram, LayoutParameters layoutParameters,
                                 String refMetdataName,
-                                DiagramStyleProvider styleProvider,
-                                DiagramInitialValueProvider initValueProvider) {
+                                DiagramInitialValueProvider initValueProvider,
+                                DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
-            diagram.writeSvg("", componentLibrary, layoutParameters, initValueProvider, styleProvider,
+            diagram.writeSvg("",
+                    new DefaultSVGWriter(componentLibrary, layoutParameters),
+                    initValueProvider, styleProvider,
                     new DefaultNodeLabelConfiguration(componentLibrary),
                     writer, metadataWriter);
 
@@ -305,7 +307,11 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toSVG(SubstationGraph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider) {
+    public String toSVG(SubstationGraph graph,
+                        String filename,
+                        LayoutParameters layoutParameters,
+                        DiagramInitialValueProvider initValueProvider,
+                        DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
@@ -321,10 +327,14 @@ public abstract class AbstractTestCase {
 
     public void compareMetadata(SubstationDiagram diagram, LayoutParameters layoutParameters,
                                 String refMetdataName,
-                                DiagramInitialValueProvider initValueProvider) {
+                                DiagramInitialValueProvider initValueProvider,
+                                DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
-            diagram.writeSvg("", componentLibrary, layoutParameters, initValueProvider, styleProvider,
+            diagram.writeSvg("",
+                    new DefaultSVGWriter(componentLibrary, layoutParameters),
+                    initValueProvider,
+                    styleProvider,
                     new DefaultNodeLabelConfiguration(componentLibrary),
                     writer, metadataWriter);
 
@@ -362,7 +372,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toSVG(ZoneGraph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider) {
+    public String toSVG(ZoneGraph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,

@@ -10,9 +10,7 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW;
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -27,7 +25,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -73,10 +70,8 @@ import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.FeederBranchNode;
 import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
@@ -110,10 +105,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final int FONT_VOLTAGE_LEVEL_LABEL_SIZE = 12;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
-    protected static final String STROKE = "stroke";
-    protected static final String WINDING1 = "WINDING1";
-    protected static final String WINDING2 = "WINDING2";
-    protected static final String WINDING3 = "WINDING3";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -185,19 +176,22 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Graph graph : graphs) {
             graph.getNodes().forEach(n -> {
                 Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
-                nodeStyle.ifPresent(graphStyle::append);
+                if (nodeStyle.isPresent()) {
+                    graphStyle.append(nodeStyle.get()).append("\n");
+                }
                 listUsedComponentSVG.add(n.getComponentType());
             });
             graph.getEdges().forEach(e -> {
                 Optional<String> wireStyle = styleProvider.getWireStyle(e);
-                wireStyle.ifPresent(graphStyle::append);
+                if (wireStyle.isPresent()) {
+                    graphStyle.append(wireStyle.get()).append("\n");
+                }
             });
         }
         String cssStr = graphStyle.toString()
                 .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
                 .replace("\r", "\n");
         CDATASection cd = document.createCDATASection(cssStr);
-        style.appendChild(cd);
         style.appendChild(cd);
 
         document.adoptNode(style);
@@ -467,7 +461,10 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph nodes
      */
-    protected void drawNodes(String prefixId, Element root, Graph graph, GraphMetadata metadata,
+    protected void drawNodes(String prefixId,
+                             Element root,
+                             Graph graph,
+                             GraphMetadata metadata,
                              AnchorPointProvider anchorPointProvider,
                              DiagramInitialValueProvider initProvider,
                              DiagramStyleProvider styleProvider,
@@ -512,13 +509,13 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
                     nodeId,
                     anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, node.getId()),
-                    new ComponentSize(0, 0), true));
+                    new ComponentSize(0, 0), true, null));
         } else {
             if (metadata.getComponentMetadata(node.getComponentType()) == null) {
                 metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
                         null,
                         componentLibrary.getAnchorPoints(node.getComponentType()),
-                        componentLibrary.getSize(node.getComponentType()), true));
+                        componentLibrary.getSize(node.getComponentType()), true, null));
             }
         }
     }
@@ -613,173 +610,114 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
-        SVGOMDocument obj = componentLibrary.getSvgDocument(node.getComponentType());
+        Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(node.getComponentType());
         transformComponent(node, g);
-        if (obj != null && canInsertComponentSVG(node)) {
+        if (subComponents != null && canInsertComponentSVG(node)) {
             String componentDefsId = node.getComponentType();
             if (node.getComponentType().equals(BREAKER)
                     || node.getComponentType().equals(DISCONNECTOR)) {
                 componentDefsId += node.isOpen() ? "-open" : "-closed";
             }
-            insertComponentSVGIntoDocumentSVG(prefixId, obj, g, node, styleProvider, componentLibrary.getSize(node.getComponentType()), componentDefsId);
+            insertComponentSVGIntoDocumentSVG(prefixId, subComponents, g, node, styleProvider, componentDefsId, false);
         }
-    }
-
-    protected Map<String, String> getAttributesTransformer(Node node,
-                                                           String idWinding,
-                                                           DiagramStyleProvider styleProvider,
-                                                           ComponentSize size) {
-        Map<String, String> attributes = new HashMap<>();
-        Optional<String> color = Optional.empty();
-        String vlId = node.getGraph().getVoltageLevelId();
-
-        // We will rotate the 3WT SVG, if cell orientation is BOTTOM
-        boolean rotateSVG = node instanceof Fictitious3WTNode
-                && node.getCell() != null
-                && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM;
-
-        if (node instanceof Fictitious3WTNode) {
-            color = styleProvider.getNode3WTStyle((Fictitious3WTNode) node, rotateSVG, vlId, idWinding);
-        } else {
-            color = styleProvider.getNode2WTStyle((Feeder2WTNode) node, idWinding);
-        }
-
-        if (color.isPresent()) {
-            attributes.put(STROKE, color.get());
-        }
-        if (rotateSVG) {  // SVG element rotation
-            attributes.put(TRANSFORM, ROTATE + "(" + 180 + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-            // We store the rotation angle in order to transform correctly the anchor points when further drawing the edges
-            node.setRotationAngle(180.);
-        }
-        return attributes;
-    }
-
-    protected Map<String, String> getAttributesInductor(Node node, DiagramStyleProvider styleProvider) {
-        Map<String, String> attributes = new HashMap<>();
-        Optional<String> color = styleProvider.getColor(((Feeder2WTNode) node).getNominalVOtherSide());
-        if (color.isPresent()) {
-            attributes.put(STROKE, color.get());
-        }
-        return attributes;
-    }
-
-    /*
-     * Handling the transformer SVG part (rotation, colorization)
-     */
-    protected void handleTransformerSvgDocument(Node node, DiagramStyleProvider styleProvider,
-                                              ComponentSize size, org.w3c.dom.Node n) {
-        String idWinding = StringUtils.substringAfterLast(((SVGElement) n).getId(), "-");
-        getAttributesTransformer(node, idWinding, styleProvider, size).entrySet().stream().forEach(e -> {
-            ((Element) n).removeAttribute(e.getKey());
-            ((Element) n).setAttribute(e.getKey(), e.getValue());
-        });
-    }
-
-    /*
-     * Handling the inductor SVG part (colorization)
-     */
-    protected void handleInductorSvgDocument(Node node, DiagramStyleProvider styleProvider, org.w3c.dom.Node n) {
-        getAttributesInductor(node, styleProvider).entrySet().stream().forEach(e -> {
-            ((Element) n).removeAttribute(e.getKey());
-            ((Element) n).setAttribute(e.getKey(), e.getValue());
-        });
     }
 
     protected void insertComponentSVGIntoDocumentSVG(String prefixId,
-                                                     SVGOMDocument obj, Element g, Node node,
+                                                     Map<String, SVGOMDocument> subComponents,
+                                                     Element g, Node node,
                                                      DiagramStyleProvider styleProvider,
-                                                     ComponentSize size,
-                                                     String componentDefsId) {
+                                                     String componentDefsId,
+                                                     boolean forArrow) {
+        ComponentSize size = componentLibrary.getSize(node.getComponentType());
+
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
-            // The following code work correctly considering SVG part describing the component is the first child of "obj" the SVGDocument.
+            // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
             // If SVG are written otherwise, it will not work correctly.
-            for (int i = 0; i < obj.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                org.w3c.dom.Node n = obj.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+            for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
+                String nameSubComponent = subComponent.getKey();
+                SVGOMDocument svgSubComponent = subComponent.getValue();
 
-                if (n instanceof SVGElement) {
-                    if (node instanceof Fictitious3WTNode ||
-                            (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
-                        handleTransformerSvgDocument(node, styleProvider, size, n);
-                    } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
-                        handleInductorSvgDocument(node, styleProvider, n);
+                for (int i = 0; i < svgSubComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+                    org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+
+                    if (n instanceof SVGElement) {
+                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent);
+                        svgStyle.forEach(((Element) n)::setAttribute);
                     }
-                }
 
-                // Adding prefixId and node id before id of n : to ensure unicity of ids
-                if (n.getAttributes() != null) {
-                    org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
-                    if (nodeId != null) {
-                        String nodeIdValue = nodeId.getTextContent();
-                        String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
-                        if (StringUtils.isEmpty(prefixId)) {
-                            nodeId.setTextContent(gIdValue + "_" + nodeIdValue);
-                        } else {
+                    // Adding prefixId and node id before id of n : to ensure unicity of ids
+                    if (n.getAttributes() != null) {
+                        org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
+                        if (nodeId != null) {
+                            String nodeIdValue = nodeId.getTextContent();
+                            String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
                             nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
                         }
                     }
-                }
 
-                g.getOwnerDocument().adoptNode(n);
-                g.appendChild(n);
+                    g.getOwnerDocument().adoptNode(n);
+                    g.appendChild(n);
+                }
             }
         } else {
             // Adding <use> markup to reuse the svg defined in the <defs> part
-            if (node instanceof Fictitious3WTNode || (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
-                List<String> lsWindings = node instanceof Fictitious3WTNode
-                        ? Arrays.asList(WINDING1, WINDING2, WINDING3)
-                        : Arrays.asList(WINDING1, WINDING2);
-                lsWindings.stream().forEach(s -> {
+            String prefixHref = "#" + componentDefsId;
+            String componentType = !forArrow ? node.getComponentType() : ARROW;
+
+            Map<String, SVGOMDocument> subCmps = componentLibrary.getSvgDocument(componentType);
+            if (subCmps != null) {
+                Set<String> subCmpsName = subCmps.keySet();
+                subCmpsName.forEach(s -> {
                     Element eltUse = g.getOwnerDocument().createElement("use");
-                    eltUse.setAttribute("href", "#" + componentDefsId + "-" + s);
-                    getAttributesTransformer(node, s, styleProvider, size).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
+                    eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
+
+                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s);
+                    svgStyle.forEach(eltUse::setAttribute);
+
                     g.getOwnerDocument().adoptNode(eltUse);
                     g.appendChild(eltUse);
                 });
-            } else {
-                Element eltUse = g.getOwnerDocument().createElement("use");
-                eltUse.setAttribute("href", "#" + componentDefsId);
-
-                if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
-                    getAttributesInductor(node, styleProvider).entrySet().stream().forEach(e -> eltUse.setAttribute(e.getKey(), e.getValue()));
-                }
-
-                g.getOwnerDocument().adoptNode(eltUse);
-                g.appendChild(eltUse);
             }
         }
     }
 
     protected void insertRotatedComponentSVGIntoDocumentSVG(String prefixId,
-                                                            SVGOMDocument obj, Element g, double angle,
+                                                            Map<String, SVGOMDocument> subComponents,
+                                                            Element g, double angle,
                                                             double cx, double cy,
                                                             String componentDefsId) {
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
-            // The following code work correctly considering SVG part describing the component is the first child of "obj" the SVGDocument.
+            // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
             // If SVG are written otherwise, it will not work correctly.
-            for (int i = 0; i < obj.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                org.w3c.dom.Node n = obj.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                if (n.getNodeName().equals("g") && n.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                    Element e = (Element) n;
-                    e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
-                }
+            if (subComponents != null) {
+                for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
+                    SVGOMDocument svgSubComponent = subComponent.getValue();
 
-                // Adding prefixId and g id before id of n : to ensure unicity of ids
-                if (n.getAttributes() != null) {
-                    org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
-                    if (nodeId != null) {
-                        String nodeIdValue = nodeId.getTextContent();
-                        String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
-                        if (StringUtils.isEmpty(prefixId)) {
-                            nodeId.setTextContent(gIdValue + "_" + nodeIdValue);
-                        } else {
-                            nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
+                    for (int i = 0; i < svgSubComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+                        org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+                        if (n.getNodeName().equals("g") && n.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                            Element e = (Element) n;
+                            e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
                         }
+
+                        // Adding prefixId and g id before id of n : to ensure unicity of ids
+                        if (n.getAttributes() != null) {
+                            org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
+                            if (nodeId != null) {
+                                String nodeIdValue = nodeId.getTextContent();
+                                String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
+                                if (StringUtils.isEmpty(prefixId)) {
+                                    nodeId.setTextContent(gIdValue + "_" + nodeIdValue);
+                                } else {
+                                    nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
+                                }
+                            }
+                        }
+
+                        g.getOwnerDocument().adoptNode(n);
+                        g.appendChild(n);
                     }
                 }
-
-                g.getOwnerDocument().adoptNode(n);
-                g.appendChild(n);
             }
         } else {
             // Adding <use> markup to reuse the svg defined in the <defs> part
@@ -814,7 +752,7 @@ public class DefaultSVGWriter implements SVGWriter {
 */
         int precision = 4;
 
-        double angle = Math.toRadians(node.isRotated() ? 90 : 0);
+        double angle = Math.toRadians(90);
         double cosRo = Math.cos(angle);
         double sinRo = Math.sin(angle);
         double cdx = componentSize.getWidth() / 2;
@@ -874,7 +812,14 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertArrowsAndLabels(String prefixId, String wireId, List<Double> points, Element root, Node n, GraphMetadata metadata, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void insertArrowsAndLabels(String prefixId,
+                                         String wireId,
+                                         List<Double> points,
+                                         Element root,
+                                         Node n,
+                                         GraphMetadata metadata,
+                                         DiagramInitialValueProvider initProvider,
+                                         DiagramStyleProvider styleProvider) {
         InitialValue init = initProvider.getInitialValue(n);
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
 
@@ -884,7 +829,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g1 = root.getOwnerDocument().createElement("g");
         String arrow1WireId = wireId + "_ARROW1";
         g1.setAttribute("id", arrow1WireId);
-        SVGOMDocument arr = componentLibrary.getSvgDocument(ARROW);
+        Map<String, SVGOMDocument> arr = componentLibrary.getSvgDocument(ARROW);
         transformArrow(points, cd.getSize(), 0, g1);
         double y1 = points.get(1);
         double y2 = points.get(3);
@@ -898,16 +843,15 @@ public class DefaultSVGWriter implements SVGWriter {
         if (y1 > y2) {
             insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
         } else {
-            insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, componentLibrary.getSize(n.getComponentType()), defsId);
+            insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, defsId, true);
         }
         Optional<String> label1 = init.getLabel1();
-        if (label1.isPresent()) {
-            drawLabel(null, label1.get(), false, shX, shY, g1, FONT_SIZE);
-        }
+        label1.ifPresent(s -> drawLabel(null, s, false, shX, shY, g1, FONT_SIZE));
+
         if (dir1.isPresent()) {
             g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
             if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                styleProvider.getAttributesArrow(1).entrySet().stream().forEach(e -> ((Element) g1.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
+                styleProvider.getAttributesArrow(1).forEach(((Element) g1.getFirstChild())::setAttribute);
             }
         }
         root.appendChild(g1);
@@ -927,26 +871,22 @@ public class DefaultSVGWriter implements SVGWriter {
         if (y1 > y2) {
             insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g2, 180, 5, 5, defsId);
         } else {
-            insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, componentLibrary.getSize(n.getComponentType()), defsId);
+            insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, defsId, true);
         }
         Optional<String> label2 = init.getLabel2();
-        if (label2.isPresent()) {
-            drawLabel(null, label2.get(), false, shX, shY, g2, FONT_SIZE);
-        }
+        label2.ifPresent(s -> drawLabel(null, s, false, shX, shY, g2, FONT_SIZE));
+
         if (dir2.isPresent()) {
             g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
             if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                styleProvider.getAttributesArrow(2).entrySet().stream().forEach(e -> ((Element) g2.getFirstChild()).setAttribute(e.getKey(), e.getValue()));
+                styleProvider.getAttributesArrow(2).forEach(((Element) g2.getFirstChild())::setAttribute);
             }
         }
         Optional<String> label3 = init.getLabel3();
-        if (label3.isPresent()) {
-            drawLabel(null, label3.get(), false, -(label3.get().length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE);
-        }
+        label3.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE));
+
         Optional<String> label4 = init.getLabel4();
-        if (label4.isPresent()) {
-            drawLabel(null, label4.get(), false, -(label4.get().length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE);
-        }
+        label4.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE));
 
         root.appendChild(g2);
         metadata.addArrowMetadata(new ArrowMetadata(arrow2WireId, wireId, layoutParameters.getArrowDistance()));
@@ -985,7 +925,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW), true));
+                        componentLibrary.getSize(ARROW), true, null));
             }
 
             if (edge.getNode1() instanceof FeederNode) {
@@ -1036,7 +976,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW), true));
+                        componentLibrary.getSize(ARROW), true, null));
             }
         }
     }
@@ -1062,15 +1002,14 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Stream.of(BusCell.Direction.values())
                 .filter(direction -> orderedFeederNodesByDirection.get(direction) != null)
-                .forEach(direction -> {
+                .forEach(direction ->
                     orderedFeederNodesByDirection.get(direction).stream().skip(1).forEach(node -> {
                         int componentHeight = (int) (componentLibrary.getSize(node.getComponentType()).getHeight());
                         double oldY = node.getY() - graph.getY();
                         double newY = mapLev.get(direction) + scaleShiftFeederNames * FONT_SIZE + (componentHeight == 0 ? LABEL_OFFSET : componentHeight);
                         node.setY(oldY + ((direction == BusCell.Direction.TOP) ? 1 : -1) * newY);
                         mapLev.put(direction, newY);
-                    });
-                });
+                    }));
     }
 
     /**
@@ -1078,39 +1017,35 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void createDefsSVGComponents(Document document, Set<String> listUsedComponentSVG) {
         if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+            listUsedComponentSVG.add(ARROW);  // adding also arrows
+
             Element defs = document.createElement("defs");
 
-            listUsedComponentSVG.stream().forEach(c -> {
-                SVGOMDocument obj = componentLibrary.getSvgDocument(c);
-                if (obj != null) {
+            listUsedComponentSVG.forEach(c -> {
+                Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(c);
+                if (subComponents != null) {
                     Element group = document.createElement("g");
                     group.setAttribute("id", c);
 
-                    insertSVGComponentIntoDefsArea(group, obj);
+                    insertSVGComponentIntoDefsArea(group, subComponents);
 
                     defs.getOwnerDocument().adoptNode(group);
                     defs.appendChild(group);
                 }
             });
 
-            // Adding also arrows
-            Element group = document.createElement("g");
-            group.setAttribute("id", ARROW);
-            SVGOMDocument obj = componentLibrary.getSvgDocument(ARROW);
-            insertSVGComponentIntoDefsArea(group, obj);
-            defs.getOwnerDocument().adoptNode(group);
-            defs.appendChild(group);
-
             document.adoptNode(defs);
             document.getDocumentElement().appendChild(defs);
         }
     }
 
-    protected void insertSVGComponentIntoDefsArea(Element defs, SVGOMDocument obj) {
-        for (int i = 0; i < obj.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-            org.w3c.dom.Node n = obj.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-            defs.getOwnerDocument().adoptNode(n);
-            defs.appendChild(n);
+    protected void insertSVGComponentIntoDefsArea(Element group, Map<String, SVGOMDocument> subComponents) {
+        for (SVGOMDocument subComponent : subComponents.values()) {
+            for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+                org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+                group.getOwnerDocument().adoptNode(n);
+                group.appendChild(n);
+            }
         }
     }
 
