@@ -109,6 +109,12 @@
     stroke: none;
     fill-opacity: 1;
 }
+
+.LINE {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
 ]]></style>
     <defs>
         <g id="ARROW">

@@ -109,6 +109,12 @@
     stroke: none;
     fill-opacity: 1;
 }
+
+.LINE {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
 .ARROW1_vl2_95_gen1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl2_95_gen1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_vl2_95_gen1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl2_95_gen1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl2_95_gen1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl2_95_gen1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl2_95_gen1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl2_95_gen1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
 .idvl2_95_bgen1 .open { visibility: hidden;}.idvl2_95_bgen1 .closed { visibility: visible;}
 .idvl2_95_dgen1 .open { visibility: hidden;}.idvl2_95_dgen1 .closed { visibility: visible;}
