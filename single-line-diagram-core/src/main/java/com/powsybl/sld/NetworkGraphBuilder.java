@@ -6,22 +6,74 @@
  */
 package com.powsybl.sld;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.commons.util.ServiceLoaderCache;
-import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
+import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
+import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
+import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
+import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
+import static com.powsybl.sld.library.ComponentTypeName.LINE;
+import static com.powsybl.sld.library.ComponentTypeName.LOAD;
+import static com.powsybl.sld.library.ComponentTypeName.LOAD_BREAK_SWITCH;
+import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+
 import org.jgrapht.alg.ConnectivityInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
-
-import static com.powsybl.sld.library.ComponentTypeName.*;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.commons.util.ServiceLoaderCache;
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.BusbarSection;
+import com.powsybl.iidm.network.Connectable;
+import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.DefaultTopologyVisitor;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.HvdcConverterStation;
+import com.powsybl.iidm.network.Injection;
+import com.powsybl.iidm.network.Line;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ShuntCompensator;
+import com.powsybl.iidm.network.StaticVarCompensator;
+import com.powsybl.iidm.network.Substation;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.Terminal;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.TwoWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
+import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.Feeder3WTNode;
+import com.powsybl.sld.model.FeederLineNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.FictitiousNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.Position;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -688,4 +740,64 @@ public class NetworkGraphBuilder implements GraphBuilder {
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
         return new SwitchNode(aSwitch.getId(), aSwitch.getName(), componentType, false, graph, sk, aSwitch.isOpen());
     }
+
+    @Override
+    public ZoneGraph buildZoneGraph(List<String> substationIds, boolean useName) {
+        Objects.requireNonNull(substationIds);
+
+        List<Substation> zone = substationIds.stream().map(substationId -> {
+            Substation substation = network.getSubstation(substationId);
+            if (substation == null) {
+                throw new PowsyblException("Substation '" + substationId + "' not in network " + network.getId());
+            }
+            return substation;
+        }).collect(Collectors.toList());
+
+        ZoneGraph graph = ZoneGraph.create(substationIds);
+        buildZoneGraph(graph, zone, useName);
+
+        return graph;
+    }
+
+    private void buildZoneGraph(ZoneGraph graph, List<Substation> zone, boolean useName) {
+        if (zone.isEmpty()) {
+            LOGGER.warn("No substations in the zone: skipping graph building");
+            return;
+        }
+        // add nodes -> substation graphs
+        GraphBuilder graphBuilder = new NetworkGraphBuilder(network);
+        zone.forEach(substation -> {
+            LOGGER.info("Adding substation {} to zone graph", substation.getId());
+            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), useName);
+            graph.addNode(sGraph);
+        });
+        // add edges -> lines
+        List<String> lines = new ArrayList<>();
+        zone.forEach(substation ->
+            substation.getVoltageLevelStream().forEach(voltageLevel ->
+                voltageLevel.getConnectableStream(Line.class).forEach(line -> {
+                    if (!lines.contains(line.getId())) {
+                        String nodeId1 = line.getId() + "_" + Branch.Side.ONE;
+                        String nodeId2 = line.getId() + "_" + Branch.Side.TWO;
+                        String voltageLevelId1 = line.getTerminal1().getVoltageLevel().getId();
+                        String voltageLevelId2 = line.getTerminal2().getVoltageLevel().getId();
+                        String substationId1 = line.getTerminal1().getVoltageLevel().getSubstation().getId();
+                        String substationId2 = line.getTerminal2().getVoltageLevel().getSubstation().getId();
+                        SubstationGraph sGraph1 = graph.getNode(substationId1);
+                        SubstationGraph sGraph2 = graph.getNode(substationId2);
+                        if (sGraph1 != null && sGraph2 != null) {
+                            Graph vlGraph1 = sGraph1.getNode(voltageLevelId1);
+                            Graph vlGraph2 = sGraph2.getNode(voltageLevelId2);
+                            Node node1 = vlGraph1.getNode(nodeId1);
+                            Node node2 = vlGraph2.getNode(nodeId2);
+                            LOGGER.info("Adding line {} to zone graph", line.getId());
+                            graph.addEdge(line.getId(), node1, node2);
+                            lines.add(line.getId());
+                        }
+                    }
+                })
+            )
+        );
+    }
+
 }

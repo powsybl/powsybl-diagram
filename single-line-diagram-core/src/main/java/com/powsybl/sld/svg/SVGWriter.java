@@ -6,13 +6,14 @@
  */
 package com.powsybl.sld.svg;
 
+import java.io.Writer;
+import java.nio.file.Path;
+
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
-
-import java.io.Writer;
-import java.nio.file.Path;
+import com.powsybl.sld.model.ZoneGraph;
 
 /**
  * @author Gilles Brada <gilles.brada at rte-france.com>
@@ -43,6 +44,20 @@ public interface SVGWriter {
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
+                        NodeLabelConfiguration nodeLabelConfiguration,
+                        Writer writer);
+
+    GraphMetadata write(String prefixId,
+                        ZoneGraph graph,
+                        DiagramInitialValueProvider initProvider,
+                        DiagramStyleProvider styleProvider,
+                        NodeLabelConfiguration nodeLabelConfiguration,
+                        Path svgFile);
+
+    GraphMetadata write(String prefixId,
+                        ZoneGraph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
                         NodeLabelConfiguration nodeLabelConfiguration,

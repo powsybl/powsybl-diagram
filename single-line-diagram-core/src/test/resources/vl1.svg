@@ -109,6 +109,12 @@
     stroke: none;
     fill-opacity: 1;
 }
+
+.LINE {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
 .idvl1_95_d1 .open { visibility: hidden;}.idvl1_95_d1 .closed { visibility: visible;}
 .idvl1_95_b1 .open { visibility: hidden;}.idvl1_95_b1 .closed { visibility: visible;}
 .idvl1_95_d2 .open { visibility: hidden;}.idvl1_95_d2 .closed { visibility: visible;}

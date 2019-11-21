@@ -2580,6 +2580,7 @@
     "straight" : false,
     "snakeLine" : false
   } ],
+  "lines" : [ ],
   "arrows" : [ {
     "id" : "idvl2_95_Wire11_ARROW1",
     "wireId" : "idvl2_95_Wire11",

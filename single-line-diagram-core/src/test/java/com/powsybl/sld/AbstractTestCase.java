@@ -6,6 +6,13 @@
  */
 package com.powsybl.sld;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+
 import com.google.common.io.ByteStreams;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Country;
@@ -26,17 +33,11 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -370,4 +371,19 @@ public abstract class AbstractTestCase {
             throw new UncheckedIOException(e);
         }
     }
+
+    public String toSVG(ZoneGraph graph, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider, DiagramStyleProvider styleProvider) {
+        try (StringWriter writer = new StringWriter()) {
+            new DefaultSVGWriter(componentLibrary, layoutParameters)
+                    .write("", graph,
+                            initValueProvider,
+                            styleProvider,
+                            new DefaultNodeLabelConfiguration(componentLibrary),
+                            writer);
+            return normalizeLineSeparator(writer.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
 }
