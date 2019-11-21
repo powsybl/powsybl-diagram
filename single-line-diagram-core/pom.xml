@@ -21,6 +21,19 @@
     <name>Single line diagram core</name>
     <description>Single line diagram core components like graph data models, automatic layouts, SVG renderer</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- compilation dependencies -->
         <dependency>
