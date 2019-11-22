@@ -25,7 +25,7 @@ public interface DiagramStyleProvider {
 
     Optional<String> getWireStyle(Edge edge);
 
-    Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent);
+    Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes);
 
     Optional<String> getColor(double nominalV);
 

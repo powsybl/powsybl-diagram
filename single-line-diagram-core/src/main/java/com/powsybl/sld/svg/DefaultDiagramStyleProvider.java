@@ -111,7 +111,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent) {
+    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
         Optional<String> color;
         String vlId = node.getGraph().getVoltageLevelId();
@@ -139,6 +139,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
             color = getColor(((Feeder2WTNode) node).getNominalVOtherSide());
             color.ifPresent(s -> attributes.put(STROKE, s));
+        } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
+            attributes.put("stroke-opacity", "0");
+            attributes.put("fill-opacity", "0");
         }
 
         return attributes;

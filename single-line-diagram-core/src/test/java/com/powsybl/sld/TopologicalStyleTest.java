@@ -130,11 +130,11 @@ public class TopologicalStyleTest extends AbstractTestCase {
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF3333;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1");
+        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertTrue(node3WTStyle.isEmpty());
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1");
+        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertTrue(node2WTStyle.isEmpty());
 
         Optional<String> color = styleProvider.getColor(400);

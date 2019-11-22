@@ -10,9 +10,8 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW;
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -644,7 +643,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
 
                     if (n instanceof SVGElement) {
-                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent);
+                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent, layoutParameters.isShowInternalNodes());
                         svgStyle.forEach(((Element) n)::setAttribute);
                     }
 
@@ -674,7 +673,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
 
-                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s);
+                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s, layoutParameters.isShowInternalNodes());
                     svgStyle.forEach(eltUse::setAttribute);
 
                     g.getOwnerDocument().adoptNode(eltUse);
