@@ -20,11 +20,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -265,7 +261,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
-        return node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) && node.getId().startsWith(twoWindingsTransformer.getId());
+        return (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)) && node.getId().startsWith(twoWindingsTransformer.getId());
     }
 
     private double rotationValue(Node node) {

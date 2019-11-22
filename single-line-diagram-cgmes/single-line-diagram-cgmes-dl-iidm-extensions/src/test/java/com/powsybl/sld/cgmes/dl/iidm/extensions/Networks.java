@@ -6,17 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.iidm.network.*;
 import org.joda.time.DateTime;
-
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.NetworkFactory;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.iidm.network.VscConverterStation;
 
 /**
  *
@@ -524,4 +515,41 @@ public final class Networks {
                 .add();
         return network;
     }
+
+    public static Network createNetworkWithPhaseShiftTransformer() {
+        Network network = Networks.createNetworkWithTwoWindingsTransformer();
+        TwoWindingsTransformer twt = network.getTwoWindingsTransformerStream().findFirst().get();
+        twt.newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getTerminal2())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        return network;
+    }
+
 }
