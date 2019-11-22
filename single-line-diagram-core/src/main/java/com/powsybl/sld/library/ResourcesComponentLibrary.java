@@ -22,12 +22,13 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
 
-    private final Map<String, SVGOMDocument> svgDocuments = new HashMap<>();
+    private final Map<String, Map<String, SVGOMDocument>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components;
 
@@ -43,12 +44,21 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
         // preload SVG documents
         SVGLoaderToDocument svgLoadDoc = new SVGLoaderToDocument();
-        for (Component component : components.values()) {
-            String resourceName = directory + "/" + component.getFileName();
-            LOGGER.debug("Reading component {}", resourceName);
-            SVGOMDocument doc = svgLoadDoc.read(resourceName);
-            svgDocuments.put(component.getMetadata().getType(), doc);
-        }
+        components.values().stream().forEach(c ->
+            c.getMetadata().getSubComponents().stream().forEach(s -> {
+                String resourceName = directory + "/" + s.getFileName();
+                LOGGER.debug("Reading subComponent {}", resourceName);
+                SVGOMDocument doc = svgLoadDoc.read(resourceName);
+                Map<String, SVGOMDocument> mapSubDoc;
+                if (!svgDocuments.containsKey(c.getMetadata().getType())) {
+                    mapSubDoc = new TreeMap<>();
+                    svgDocuments.put(c.getMetadata().getType(), mapSubDoc);
+                } else {
+                    mapSubDoc = svgDocuments.get(c.getMetadata().getType());
+                }
+                mapSubDoc.put(s.getName(), doc);
+            }));
+
         try {
             styleSheet = new String(ByteStreams.toByteArray(getClass().getResourceAsStream(directory + "/" + "components.css")), StandardCharsets.UTF_8);
         } catch (IOException e) {
@@ -57,7 +67,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
-    public SVGOMDocument getSvgDocument(String type) {
+    public Map<String, SVGOMDocument> getSvgDocument(String type) {
         Objects.requireNonNull(type);
         return svgDocuments.get(type);
     }

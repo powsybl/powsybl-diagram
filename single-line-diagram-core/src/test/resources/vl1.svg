@@ -109,7 +109,26 @@
     stroke: none;
     fill-opacity: 1;
 }
-.idvl1_95_d1 .open { visibility: hidden;}.idvl1_95_d1 .closed { visibility: visible;}.idvl1_95_b1 .open { visibility: hidden;}.idvl1_95_b1 .closed { visibility: visible;}.idvl1_95_d2 .open { visibility: hidden;}.idvl1_95_d2 .closed { visibility: visible;}.ARROW1_vl1_95_load1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_load1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_load1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_load1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_load1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_load1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_load1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_load1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idvl1_95_bload1 .open { visibility: hidden;}.idvl1_95_bload1 .closed { visibility: visible;}.idvl1_95_dload1 .open { visibility: hidden;}.idvl1_95_dload1 .closed { visibility: visible;}.ARROW1_vl1_95_trf1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf1_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf1_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idvl1_95_btrf1 .open { visibility: hidden;}.idvl1_95_btrf1 .closed { visibility: visible;}.idvl1_95_dtrf1 .open { visibility: hidden;}.idvl1_95_dtrf1 .closed { visibility: visible;}.ARROW1_vl1_95_trf2_95_one_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf2_95_one_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf2_95_one_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf2_95_one_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_one_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf2_95_one_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_one_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf2_95_one_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf2_95_two_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf2_95_two_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf2_95_two_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf2_95_two_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_two_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf2_95_two_UP .arrow-down { fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_two_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf2_95_two_DOWN .arrow-up { fill-opacity:0; visibility: hidden;}.idvl1_95_btrf2 .open { visibility: hidden;}.idvl1_95_btrf2 .closed { visibility: visible;}.idvl1_95_dtrf2 .open { visibility: hidden;}.idvl1_95_dtrf2 .closed { visibility: visible;}]]></style>
+
+.LINE {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+.idvl1_95_d1 .open { visibility: hidden;}.idvl1_95_d1 .closed { visibility: visible;}
+.idvl1_95_b1 .open { visibility: hidden;}.idvl1_95_b1 .closed { visibility: visible;}
+.idvl1_95_d2 .open { visibility: hidden;}.idvl1_95_d2 .closed { visibility: visible;}
+.ARROW1_vl1_95_load1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_load1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_load1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_load1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_load1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_load1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_load1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_load1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idvl1_95_bload1 .open { visibility: hidden;}.idvl1_95_bload1 .closed { visibility: visible;}
+.idvl1_95_dload1 .open { visibility: hidden;}.idvl1_95_dload1 .closed { visibility: visible;}
+.ARROW1_vl1_95_trf1_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf1_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf1_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf1_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf1_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf1_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idvl1_95_btrf1 .open { visibility: hidden;}.idvl1_95_btrf1 .closed { visibility: visible;}
+.idvl1_95_dtrf1 .open { visibility: hidden;}.idvl1_95_dtrf1 .closed { visibility: visible;}
+.ARROW1_vl1_95_trf2_95_one_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf2_95_one_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf2_95_one_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf2_95_one_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_one_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf2_95_one_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_one_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf2_95_one_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.ARROW1_vl1_95_trf2_95_two_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_vl1_95_trf2_95_two_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_vl1_95_trf2_95_two_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_vl1_95_trf2_95_two_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_two_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_vl1_95_trf2_95_two_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_vl1_95_trf2_95_two_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_vl1_95_trf2_95_two_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idvl1_95_btrf2 .open { visibility: hidden;}.idvl1_95_btrf2 .closed { visibility: visible;}
+.idvl1_95_dtrf2 .open { visibility: hidden;}.idvl1_95_dtrf2 .closed { visibility: visible;}
+]]></style>
     <g>
         <g class="grid" id="GRID_vl1" transform="translate(20.0,50.0)">
             <line y2="560.0" x1="0.0" x2="0.0" y1="0.0"/>
@@ -140,6 +159,7 @@
         </g>
         <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(93.5,566.0)">
     <circle r="4" id="idvl1_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4"/>
+
     <circle r="4" id="idvl1_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
         </g>
@@ -151,7 +171,9 @@
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl1_95_vl1_95_trf2" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(413.0,204.0)">
     <circle r="4" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4"/>
+
     <circle r="4" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="10" cy="4"/>
+
     <circle r="4" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="7" cy="8"/>
 </g>
         <polyline class="wire wire_vl1" points="220.0,370.0,240.0,370.0" id="idvl1_95_Wire0"/>

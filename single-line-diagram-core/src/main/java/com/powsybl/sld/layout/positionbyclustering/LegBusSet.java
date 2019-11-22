@@ -15,20 +15,26 @@ import com.powsybl.sld.model.Side;
 import java.util.*;
 
 /**
+ * A LegBusSet contains the set of BusNodes that shall be vertically presented, and the cells that have a pattern of
+ * connection included in the busNodeSet. It is embedded into a LBSCluster. It contains links to all the other
+ * LegBusSet of the Graph. It extends AbstractClusterConnector as it can be used as a clusterConnector for the cluster
+ * merging strategy based on LegBusSet Link.
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LegBusSet extends AbstractLinkable {
+class LegBusSet implements ClusterConnector<LegBusSet> {
+
     private Set<BusNode> busNodeSet;
-    private Set<BusCell> embededCells;
+    private Set<BusCell> embeddedCells;
     private Map<InternCell, Side> candidateFlatCells;
     private Map<InternCell, Side> crossoverInternCells;
-    LBSCluster lbsCluster;
-    List<Link<LegBusSet>> myLinks;
+    private LBSCluster lbsCluster;
+    private List<Link<LegBusSet>> myLinks;
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
-        embededCells = new HashSet<>();
+        embeddedCells = new HashSet<>();
         candidateFlatCells = new HashMap<>();
         crossoverInternCells = new HashMap<>();
         myLinks = new ArrayList<>();
@@ -36,13 +42,13 @@ class LegBusSet extends AbstractLinkable {
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, BusCell cell) {
         this(nodeToNb, cell.getBusNodes());
-        embededCells.add(cell);
+        embeddedCells.add(cell);
     }
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
         this(nodeToNb, internCell.getSideBusNodes(side));
         if (internCell.getBusNodes().size() == 1) {
-            embededCells.add(internCell);
+            embeddedCells.add(internCell);
         } else if (internCell.getBusNodes().size() == 2) {
             candidateFlatCells.put(internCell, side);
         } else {
@@ -60,19 +66,19 @@ class LegBusSet extends AbstractLinkable {
 
     void absorbs(LegBusSet lbsToAbsorb) {
         busNodeSet.addAll(lbsToAbsorb.getBusNodeSet());
-        embededCells.addAll(lbsToAbsorb.getEmbededCells());
+        embeddedCells.addAll(lbsToAbsorb.getEmbeddedCells());
         absorbMap(candidateFlatCells, lbsToAbsorb.getCandidateFlatCells());
         absorbMap(crossoverInternCells, lbsToAbsorb.getCrossoverInternCell());
     }
 
-    void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
+    private void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
         Set<InternCell> commonCells = new HashSet<>(myMap.keySet());
         Set<InternCell> cellToAbsorb = map.keySet();
         commonCells.retainAll(cellToAbsorb);
         for (InternCell commonCell : commonCells) {
             if (myMap.get(commonCell) == Side.RIGHT && map.get(commonCell) == Side.LEFT
                     || myMap.get(commonCell) == Side.LEFT && map.get(commonCell) == Side.RIGHT) {
-                embededCells.add(commonCell);
+                embeddedCells.add(commonCell);
                 myMap.remove(commonCell);
             } else {
                 throw new PowsyblException("Absorption of InternCell in a LegBusSet should concern both side of the InternCell");
@@ -97,7 +103,7 @@ class LegBusSet extends AbstractLinkable {
             }
         });
         cellActuallyEmbeded.forEach(cells::remove);
-        embededCells.addAll(cellActuallyEmbeded);
+        embeddedCells.addAll(cellActuallyEmbeded);
     }
 
     void setLbsCluster(LBSCluster lbsCluster) {
@@ -108,7 +114,8 @@ class LegBusSet extends AbstractLinkable {
         return lbsCluster;
     }
 
-    public Side getMySidInCluster() {
+    @Override
+    public Side getMySideInCluster() {
         return lbsCluster.getLbsSide(this);
     }
 
@@ -116,6 +123,7 @@ class LegBusSet extends AbstractLinkable {
         return candidateFlatCells;
     }
 
+    @Override
     public List<InternCell> getCandidateFlatCellList() {
         return new ArrayList<>(candidateFlatCells.keySet());
     }
@@ -124,38 +132,50 @@ class LegBusSet extends AbstractLinkable {
         return crossoverInternCells;
     }
 
+    @Override
     public List<InternCell> getCrossOverCellList() {
         return new ArrayList<>(crossoverInternCells.keySet());
     }
 
+    @Override
     public Set<BusNode> getBusNodeSet() {
         return busNodeSet;
     }
 
-    boolean hasSameRoot(Object other) {
+    @Override
+    public int getDistanceToEdge(InternCell internCell) {
+        return 0;
+    }
+
+    @Override
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LegBusSet.class) {
             return false;
         }
         return this == other;
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void addLink(Link<T> link) {
-        myLinks.add((Link<LegBusSet>) link);
+    @Override
+    public void addLink(Link<LegBusSet> link) {
+        myLinks.add(link);
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LegBusSet>) link);
+    @Override
+    public void removeLink(Link<LegBusSet> link) {
+        myLinks.remove(link);
     }
 
-    @SuppressWarnings("unchecked")
-    List<Link<LegBusSet>> getLinks() {
+    @Override
+    public List<Link<LegBusSet>> getLinks() {
         return myLinks;
     }
 
-    Set<BusCell> getEmbededCells() {
-        return embededCells;
+    Set<BusCell> getEmbeddedCells() {
+        return embeddedCells;
+    }
+
+    public LegBusSet getOtherSameRoot(List<LegBusSet> clusterConnectors) {
+        return null;
     }
 
     @Override

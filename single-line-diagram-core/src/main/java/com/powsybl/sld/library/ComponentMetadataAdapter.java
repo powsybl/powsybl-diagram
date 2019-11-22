@@ -12,13 +12,15 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class ComponentMetadataAdapter extends XmlAdapter<AdaptedComponentMetadata, ComponentMetadata> {
 
     @Override
     public ComponentMetadata unmarshal(AdaptedComponentMetadata adapted) {
         return new ComponentMetadata(adapted.getType(), adapted.getId(),
-                adapted.getAnchorPoints(), adapted.getSize(), adapted.isAllowRotation());
+                adapted.getAnchorPoints(), adapted.getSize(), adapted.isAllowRotation(),
+                adapted.getSubComponents());
     }
 
     @Override
@@ -29,6 +31,7 @@ public class ComponentMetadataAdapter extends XmlAdapter<AdaptedComponentMetadat
         adapted.setSize(componentMetadata.getSize());
         adapted.setAnchorPoints(componentMetadata.getAnchorPoints());
         adapted.setAllowRotation(componentMetadata.isAllowRotation());
+        adapted.setSubComponents(componentMetadata.getSubComponents());
         return adapted;
     }
 }

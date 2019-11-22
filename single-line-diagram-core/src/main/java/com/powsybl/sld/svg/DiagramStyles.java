@@ -22,6 +22,7 @@ public final class DiagramStyles {
     public static final String GRID_STYLE_CLASS = "grid";
     public static final String BUS_STYLE_CLASS = "busbar-section";
     public static final String LABEL_STYLE_CLASS = "component-label";
+    public static final String LINE_STYLE_CLASS = "LINE";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

@@ -10,20 +10,11 @@ package com.powsybl.sld.library;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Component {
 
-    private String fileName;
-
     private ComponentMetadata metadata;
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
 
     public ComponentMetadata getMetadata() {
         return metadata;

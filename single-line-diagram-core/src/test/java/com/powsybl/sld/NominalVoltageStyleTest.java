@@ -8,9 +8,8 @@ package com.powsybl.sld;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -22,6 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -115,15 +115,17 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         assertTrue(wireStyle.isPresent());
         assertEquals(".wire_vl2 {stroke:rgb(34, 139, 34);stroke-width:1;}", wireStyle.get());
 
-        Fictitious3WTNode fict3WTNode = (Fictitious3WTNode) graph1.getNode("FICT_vl1_3WT_1_fictif");
-        Optional<String> node3WTStyle = styleProvider.getNode3WTStyle(fict3WTNode, false, vl1.getId(), "WINDING1");
-        assertTrue(node3WTStyle.isPresent());
-        assertEquals("rgb(160, 32, 240)", node3WTStyle.get());
+        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
+        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1");
+        assertFalse(node3WTStyle.isEmpty());
+        assertTrue(node3WTStyle.containsKey("stroke"));
+        assertEquals("rgb(160, 32, 240)", node3WTStyle.get("stroke"));
 
-        Feeder2WTNode f2WTNode = (Feeder2WTNode) graph1.getNode("2WT_ONE");
-        Optional<String> node2WTStyle = styleProvider.getNode2WTStyle(f2WTNode, "WINDING1");
-        assertTrue(node2WTStyle.isPresent());
-        assertEquals("rgb(255, 0, 0)", node2WTStyle.get());
+        Node f2WTNode = graph1.getNode("2WT_ONE");
+        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1");
+        assertFalse(node2WTStyle.isEmpty());
+        assertTrue(node2WTStyle.containsKey("stroke"));
+        assertEquals("rgb(255, 0, 0)", node2WTStyle.get("stroke"));
 
         Optional<String> color = styleProvider.getColor(400);
         assertTrue(color.isPresent());

@@ -59,7 +59,8 @@
       "width" : 0.0,
       "height" : 0.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "GENERATOR",
     "id" : null,
@@ -84,7 +85,8 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "ARROW",
     "id" : null,
@@ -97,7 +99,8 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "LOAD",
     "id" : null,
@@ -114,7 +117,8 @@
       "width" : 16.0,
       "height" : 9.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "NODE",
     "id" : null,
@@ -127,7 +131,8 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "LINE",
     "id" : null,
@@ -140,7 +145,8 @@
       "width" : 0.0,
       "height" : 0.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "DISCONNECTOR",
     "id" : null,
@@ -153,7 +159,8 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "INDUCTOR",
     "id" : null,
@@ -170,7 +177,8 @@
       "width" : 15.0,
       "height" : 9.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -195,7 +203,8 @@
       "width" : 13.0,
       "height" : 8.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -216,7 +225,8 @@
       "width" : 14.0,
       "height" : 12.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   }, {
     "type" : "BREAKER",
     "id" : null,
@@ -233,7 +243,8 @@
       "width" : 20.0,
       "height" : 20.0
     },
-    "allowRotation" : true
+    "allowRotation" : true,
+    "subComponents" : null
   } ],
   "nodes" : [ {
     "id" : "idFICT_95_vl1_95_dtrf15Fictif",
@@ -1245,6 +1256,7 @@
     "straight" : false,
     "snakeLine" : false
   } ],
+  "lines" : [ ],
   "arrows" : [ {
     "id" : "idvl1_95_Wire7_ARROW1",
     "wireId" : "idvl1_95_Wire7",

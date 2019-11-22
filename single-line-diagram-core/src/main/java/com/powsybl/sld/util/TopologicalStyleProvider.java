@@ -6,25 +6,9 @@
  */
 package com.powsybl.sld.util;
 
-import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
-import com.powsybl.basevoltage.BaseVoltageColor;
 import com.powsybl.iidm.network.Branch.Side;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TopologyVisitor;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
+import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
@@ -40,22 +24,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
 public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
-
     private BaseVoltageColor baseVoltageColor;
     private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap();
     private static final String DEFAULT_COLOR = "#FF0000";
     private static final String DISCONNECTED_COLOR = "#808080";
-    private static final double FACTOR = 0.7;
     private String disconnectedColor;
 
-    private final Network network;
-
     public TopologicalStyleProvider(Path config, Network network) {
-        this.network = network;
+        super(network);
         try {
             baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
         } catch (IOException e) {
@@ -83,9 +66,9 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
         HashMap<String, RGBColor> colorMap = new HashMap();
 
-        RGBColor color = RGBColor.parse(basecolor);
+        HSLColor color = HSLColor.parse(basecolor);
 
-        List<RGBColor> colors = color.getColorGradient((int) buses, FACTOR);
+        List<RGBColor> colors = color.getColorGradient((int) buses);
 
         vl.getBusView().getBuses().forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());
@@ -143,7 +126,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     private String getBaseColor(double v, String profile, String defaultColor) {
         return baseVoltageColor.getColor(v, profile) != null ? baseVoltageColor.getColor(v, profile) : defaultColor;
-
     }
 
     @Override
@@ -165,7 +147,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
 
     @Override
     public Optional<String> getWireStyle(Edge edge) {
-
         String wireId = DiagramStyles.escapeId(edge.getNode1().getGraph().getVoltageLevelId() + "_Wire"
                 + edge.getNode1().getGraph().getEdges().indexOf(edge));
         Node bus = findConnectedBus(edge);
@@ -216,5 +197,4 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
         }
         return null;
     }
-
 }

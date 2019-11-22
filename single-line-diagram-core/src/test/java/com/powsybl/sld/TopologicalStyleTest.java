@@ -10,9 +10,8 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -107,12 +106,12 @@ public class TopologicalStyleTest extends AbstractTestCase {
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
         assertTrue(nodeStyle1.isPresent());
-        assertEquals(" #idbbs1 {stroke:#FF4848;}", nodeStyle1.get());
+        assertEquals(" #idbbs1 {stroke:#FF3333;}", nodeStyle1.get());
 
         Node node2 = graph2.getNode("bbs2");
         Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
         assertTrue(nodeStyle2.isPresent());
-        assertEquals(" #idbbs2 {stroke:#48FF48;}", nodeStyle2.get());
+        assertEquals(" #idbbs2 {stroke:#33FF33;}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
         Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
@@ -128,15 +127,15 @@ public class TopologicalStyleTest extends AbstractTestCase {
 
         Optional<String> wireStyle = styleProvider.getWireStyle(edge);
         assertTrue(wireStyle.isPresent());
-        assertEquals(" #idvl1_95_Wire12 {stroke:#FF4848;stroke-width:1;fill-opacity:0;}", wireStyle.get());
+        assertEquals(" #idvl1_95_Wire12 {stroke:#FF3333;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 
-        Fictitious3WTNode fict3WTNode = (Fictitious3WTNode) graph1.getNode("FICT_vl1_3WT_1_fictif");
-        Optional<String> node3WTStyle = styleProvider.getNode3WTStyle(fict3WTNode, false, vl1.getId(), "WINDING1");
-        assertFalse(node3WTStyle.isPresent());
+        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
+        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1");
+        assertTrue(node3WTStyle.isEmpty());
 
-        Feeder2WTNode f2WTNode = (Feeder2WTNode) graph1.getNode("2WT_ONE");
-        Optional<String> node2WTStyle = styleProvider.getNode2WTStyle(f2WTNode, "WINDING1");
-        assertFalse(node2WTStyle.isPresent());
+        Node f2WTNode = graph1.getNode("2WT_ONE");
+        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1");
+        assertTrue(node2WTStyle.isEmpty());
 
         Optional<String> color = styleProvider.getColor(400);
         assertFalse(color.isPresent());

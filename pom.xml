@@ -14,11 +14,11 @@
 
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Single line diagram</name>
-    <description>PowSyBl single line diagram components</description>
+    <description>PowSyBl single line diagram parent project</description>
     <url>http://www.powsybl.org</url>
 
     <licenses>
@@ -50,9 +50,9 @@
     </developers>
 
     <modules>
-        <module>base-voltage-color</module>
-        <module>single-line-diagram-core</module>
         <module>single-line-diagram-cgmes</module>
+        <module>single-line-diagram-color</module>
+        <module>single-line-diagram-core</module>
         <module>single-line-diagram-distribution</module>
         <module>single-line-diagram-iidm-extensions</module>
         <module>single-line-diagram-view</module>
@@ -206,6 +206,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven.javadoc.version}</version>
+                    <configuration>
+                        <additionalOptions>-Xdoclint:none</additionalOptions>
+                        <docfilessubdirs>true</docfilessubdirs>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

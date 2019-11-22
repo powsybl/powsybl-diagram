@@ -16,12 +16,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide extends AbstractLinkable {
-    LBSCluster lbsCluster;
-    Side side;
-    List<Link<LBSClusterSide>> myLinks;
+class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
+
+    private LBSCluster lbsCluster;
+    private Side side;
+    private List<Link<LBSClusterSide>> myLinks;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = lbsCluster;
@@ -45,11 +48,11 @@ class LBSClusterSide extends AbstractLinkable {
         return lbsCluster;
     }
 
-    public Side getMySidInCluster() {
+    public Side getMySideInCluster() {
         return side;
     }
 
-    boolean hasSameRoot(Object other) {
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
@@ -57,28 +60,45 @@ class LBSClusterSide extends AbstractLinkable {
     }
 
     @Override
-    <T extends AbstractLinkable> T getOtherSameRoot(List<T> linkables) {
-        return linkables.stream().filter(linkable ->
-                linkable.getCluster() == lbsCluster
-                        && side.getFlip() == ((LBSClusterSide) linkable).getSide()).findAny().orElse(null);
+    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
+        return clusterConnectors.stream().filter(clusterConnector ->
+                clusterConnector.getCluster() == lbsCluster
+                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void addLink(Link<T> link) {
-        myLinks.add((Link<LBSClusterSide>) link);
+    @Override
+    public int getDistanceToEdge(InternCell internCell) {
+        List<BusNode> buses = internCell.getBusNodes();
+        buses.retainAll(getBusNodeSet());
+        if (buses.isEmpty()) {
+            return 0;
+        }
+        BusNode busNode = buses.get(0);
+        HorizontalLane horizontalLane = lbsCluster.getHorizontalLanes()
+                .stream()
+                .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
+                        || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
+                .findFirst().orElse(null);
+        if (horizontalLane == null) {
+            return 0;
+        } else {
+            if (side == Side.LEFT) {
+                return horizontalLane.getIndex();
+            } else {
+                return lbsCluster.getLbsList().size() - horizontalLane.getIndex() - horizontalLane.getLength();
+            }
+        }
     }
 
-    @SuppressWarnings("unchecked")
-    <T extends AbstractLinkable> void removeLink(Link<T> link) {
-        myLinks.remove((Link<LBSClusterSide>) link);
+    public void addLink(Link<LBSClusterSide> link) {
+        myLinks.add(link);
     }
 
-    @SuppressWarnings("unchecked")
+    public void removeLink(Link<LBSClusterSide> link) {
+        myLinks.remove(link);
+    }
+
     public List<Link<LBSClusterSide>> getLinks() {
         return myLinks;
-    }
-
-    public Side getSide() {
-        return side;
     }
 }

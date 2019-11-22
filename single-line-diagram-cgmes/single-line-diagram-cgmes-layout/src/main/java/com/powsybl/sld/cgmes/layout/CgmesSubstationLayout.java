@@ -11,7 +11,6 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -30,7 +29,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     private final SubstationGraph graph;
 
     public CgmesSubstationLayout(SubstationGraph graph, Network network) {
-        this.network = network;
+        this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         for (Graph vlGraph : graph.getNodes()) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelId()));
@@ -42,13 +41,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     @Override
     public void run(LayoutParameters layoutParam) {
         String diagramName = layoutParam.getDiagramName();
-        if (diagramName == null) {
-            LOG.warn("layout parameter diagramName not set: CGMES-DL layout will not be applied");
-            return;
-        }
-
-        if (!NetworkDiagramData.containsDiagramName(network, diagramName)) {
-            LOG.warn("diagram name {} not found in network: CGMES-DL layout will not be applied to network {}, substation {}", diagramName, network.getId(), graph.getSubstationId());
+        if (!checkDiagram(diagramName, "substation " + graph.getSubstationId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
@@ -65,4 +58,5 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
             }
         }
     }
+
 }
