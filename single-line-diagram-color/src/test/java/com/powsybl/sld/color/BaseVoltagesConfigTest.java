@@ -40,7 +40,7 @@ public class BaseVoltagesConfigTest {
         assertEquals(300, config.getBaseVoltages().get(1).getMaxValue(), 0);
         assertEquals("#AAAAAAA", config.getBaseVoltages().get(1).getColor());
         assertEquals("RTE", config.getBaseVoltages().get(1).getProfile());
-        assertEquals("RTE", config.getDefaultProfile());
+        assertEquals("Default", config.getDefaultProfile());
     }
 
 }

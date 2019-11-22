@@ -30,7 +30,7 @@ public class BaseVoltageColorTest {
         // getProfiles
         assertEquals(Arrays.asList("RTE"), baseVoltageColor.getProfiles());
         // getDefaultProfile
-        assertEquals("RTE", baseVoltageColor.getDefaultProfile());
+        assertEquals("Default", baseVoltageColor.getDefaultProfile());
         // getBaseVoltageNames
         assertEquals(Arrays.asList("400", "225"), baseVoltageColor.getBaseVoltageNames("RTE"));
         // getBaseVoltageName

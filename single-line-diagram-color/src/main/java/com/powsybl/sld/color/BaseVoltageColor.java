@@ -27,13 +27,22 @@ public class BaseVoltageColor {
 
     private static final String CONFIG_FILE = "base-voltages.yml";
 
-    private final BaseVoltagesConfig config;
+    private BaseVoltagesConfig config;
 
     public BaseVoltageColor(Path configFile) throws IOException {
         Objects.requireNonNull(configFile);
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
-        InputStream configInputStream = Files.newInputStream(configFile);
-        config = yaml.load(configInputStream);
+        if (Files.exists(configFile)) {
+            InputStream configInputStream = Files.newInputStream(configFile);
+            config = yaml.load(configInputStream);
+        } else {
+            InputStream configInputStream = BaseVoltageColor.class.getResourceAsStream("/" + CONFIG_FILE);
+            if (configInputStream != null) {
+                config = yaml.load(configInputStream);
+            } else {
+                throw new IOException("No base voltages configuration found");
+            }
+        }
     }
 
     public BaseVoltageColor() throws IOException {
