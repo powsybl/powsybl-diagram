@@ -226,7 +226,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Element root = document.createElement("g");
 
-        if (layoutParameters.isShowGrid()) {
+        if (layoutParameters.isShowGrid() && graph.isPositionNodeBusesCalculated()) {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
@@ -351,7 +351,9 @@ public class DefaultSVGWriter implements SVGWriter {
         // Drawing grid lines
         if (layoutParameters.isShowGrid()) {
             for (Graph vlGraph : graph.getNodes()) {
-                root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                if (vlGraph.isPositionNodeBusesCalculated()) {
+                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                }
             }
         }
 
@@ -1102,7 +1104,9 @@ public class DefaultSVGWriter implements SVGWriter {
         // Drawing grid lines
         if (layoutParameters.isShowGrid()) {
             for (Graph vlGraph : vlGraphs) {
-                root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                if (vlGraph.isPositionNodeBusesCalculated()) {
+                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                }
             }
         }
 
