@@ -3,16 +3,16 @@ baseVoltages:
       minValue: 0
       maxValue: 1
       color: "#808080"
-      profile: "RTE"
+      profile: "Default"
     - name: "400"
       minValue: 300
       maxValue: 500
-      color: "#FF3333"
-      profile: "RTE"
+      color: "#FF0000"
+      profile: "Default"
     - name: "225"
       minValue: 180
       maxValue: 300
-      color: "#33FF33"
-      profile: "RTE"
+      color: "#228B22"
+      profile: "Default"
 
-defaultProfile: "RTE"
+defaultProfile: "Default"

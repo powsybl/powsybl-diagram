@@ -6,6 +6,10 @@
  */
 package com.powsybl.sld.color;
 
+import com.powsybl.commons.config.PlatformConfig;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,11 +17,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-
-import com.powsybl.commons.config.PlatformConfig;
 
 /**
  *
@@ -33,8 +32,9 @@ public class BaseVoltageColor {
         Objects.requireNonNull(configFile);
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
         if (Files.exists(configFile)) {
-            InputStream configInputStream = Files.newInputStream(configFile);
-            config = yaml.load(configInputStream);
+            try (InputStream configInputStream = Files.newInputStream(configFile)) {
+                config = yaml.load(configInputStream);
+            }
         } else {
             InputStream configInputStream = BaseVoltageColor.class.getResourceAsStream("/" + CONFIG_FILE);
             if (configInputStream != null) {

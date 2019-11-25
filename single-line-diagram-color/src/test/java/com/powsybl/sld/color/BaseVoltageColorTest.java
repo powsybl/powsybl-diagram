@@ -28,31 +28,31 @@ public class BaseVoltageColorTest {
         Path configFile = Paths.get(getClass().getResource("/base-voltages.yml").toURI());
         BaseVoltageColor baseVoltageColor = new BaseVoltageColor(configFile);
         // getProfiles
-        assertEquals(Arrays.asList("RTE"), baseVoltageColor.getProfiles());
+        assertEquals(Arrays.asList("Default"), baseVoltageColor.getProfiles());
         // getDefaultProfile
         assertEquals("Default", baseVoltageColor.getDefaultProfile());
         // getBaseVoltageNames
-        assertEquals(Arrays.asList("400", "225"), baseVoltageColor.getBaseVoltageNames("RTE"));
+        assertEquals(Arrays.asList("0", "400", "225"), baseVoltageColor.getBaseVoltageNames("Default"));
         // getBaseVoltageName
-        assertNull(baseVoltageColor.getBaseVoltageName(500, "RTE"));
-        assertEquals("400", baseVoltageColor.getBaseVoltageName(450, "RTE"));
-        assertEquals("400", baseVoltageColor.getBaseVoltageName(400, "RTE"));
-        assertEquals("400", baseVoltageColor.getBaseVoltageName(300, "RTE"));
-        assertEquals("225", baseVoltageColor.getBaseVoltageName(250, "RTE"));
-        assertEquals("225", baseVoltageColor.getBaseVoltageName(180, "RTE"));
-        assertNull(baseVoltageColor.getBaseVoltageName(150, "RTE"));
+        assertNull(baseVoltageColor.getBaseVoltageName(500, "Default"));
+        assertEquals("400", baseVoltageColor.getBaseVoltageName(450, "Default"));
+        assertEquals("400", baseVoltageColor.getBaseVoltageName(400, "Default"));
+        assertEquals("400", baseVoltageColor.getBaseVoltageName(300, "Default"));
+        assertEquals("225", baseVoltageColor.getBaseVoltageName(250, "Default"));
+        assertEquals("225", baseVoltageColor.getBaseVoltageName(180, "Default"));
+        assertNull(baseVoltageColor.getBaseVoltageName(150, "Default"));
         // getColor by name
-        assertEquals("#BBBBBBB", baseVoltageColor.getColor("400", "RTE"));
-        assertEquals("#AAAAAAA", baseVoltageColor.getColor("225", "RTE"));
-        assertNull(baseVoltageColor.getColor("150", "RTE"));
+        assertEquals("#FF0000", baseVoltageColor.getColor("400", "Default"));
+        assertEquals("#228B22", baseVoltageColor.getColor("225", "Default"));
+        assertNull(baseVoltageColor.getColor("150", "Default"));
         // getColor by voltage
-        assertNull(baseVoltageColor.getColor(500, "RTE"));
-        assertEquals("#BBBBBBB", baseVoltageColor.getColor(450, "RTE"));
-        assertEquals("#BBBBBBB", baseVoltageColor.getColor(400, "RTE"));
-        assertEquals("#BBBBBBB", baseVoltageColor.getColor(300, "RTE"));
-        assertEquals("#AAAAAAA", baseVoltageColor.getColor(250, "RTE"));
-        assertEquals("#AAAAAAA", baseVoltageColor.getColor(180, "RTE"));
-        assertNull(baseVoltageColor.getColor(150, "RTE"));
+        assertNull(baseVoltageColor.getColor(500, "Default"));
+        assertEquals("#FF0000", baseVoltageColor.getColor(450, "Default"));
+        assertEquals("#FF0000", baseVoltageColor.getColor(400, "Default"));
+        assertEquals("#FF0000", baseVoltageColor.getColor(300, "Default"));
+        assertEquals("#228B22", baseVoltageColor.getColor(250, "Default"));
+        assertEquals("#228B22", baseVoltageColor.getColor(180, "Default"));
+        assertNull(baseVoltageColor.getColor(150, "Default"));
     }
 
 }

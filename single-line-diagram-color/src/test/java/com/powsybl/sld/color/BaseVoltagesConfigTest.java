@@ -29,17 +29,17 @@ public class BaseVoltagesConfigTest {
         BaseVoltagesConfig config = yaml.load(configInputStream);
         assertNotNull(config);
         assertNotNull(config.getBaseVoltages());
-        assertEquals(2, config.getBaseVoltages().size());
-        assertEquals("400", config.getBaseVoltages().get(0).getName());
-        assertEquals(300, config.getBaseVoltages().get(0).getMinValue(), 0);
-        assertEquals(500, config.getBaseVoltages().get(0).getMaxValue(), 0);
-        assertEquals("#BBBBBBB", config.getBaseVoltages().get(0).getColor());
-        assertEquals("RTE", config.getBaseVoltages().get(0).getProfile());
-        assertEquals("225", config.getBaseVoltages().get(1).getName());
-        assertEquals(180, config.getBaseVoltages().get(1).getMinValue(), 0);
-        assertEquals(300, config.getBaseVoltages().get(1).getMaxValue(), 0);
-        assertEquals("#AAAAAAA", config.getBaseVoltages().get(1).getColor());
-        assertEquals("RTE", config.getBaseVoltages().get(1).getProfile());
+        assertEquals(3, config.getBaseVoltages().size());
+        assertEquals("400", config.getBaseVoltages().get(1).getName());
+        assertEquals(300, config.getBaseVoltages().get(1).getMinValue(), 0);
+        assertEquals(500, config.getBaseVoltages().get(1).getMaxValue(), 0);
+        assertEquals("#FF0000", config.getBaseVoltages().get(1).getColor());
+        assertEquals("Default", config.getBaseVoltages().get(1).getProfile());
+        assertEquals("225", config.getBaseVoltages().get(2).getName());
+        assertEquals(180, config.getBaseVoltages().get(2).getMinValue(), 0);
+        assertEquals(300, config.getBaseVoltages().get(2).getMaxValue(), 0);
+        assertEquals("#228B22", config.getBaseVoltages().get(2).getColor());
+        assertEquals("Default", config.getBaseVoltages().get(2).getProfile());
         assertEquals("Default", config.getDefaultProfile());
     }
 
