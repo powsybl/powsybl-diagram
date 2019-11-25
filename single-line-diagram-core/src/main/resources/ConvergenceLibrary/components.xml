@@ -164,4 +164,11 @@
             <allowRotation>true</allowRotation>
         </metadata>
     </component>
+    <component>
+        <metadata type="LINE">
+            <size height="0" width="0"/>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
 </components>
