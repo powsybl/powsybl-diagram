@@ -164,9 +164,9 @@ SELECT ?identifiedObject ?name ?x ?y ?seq ?rotation ?diagramName
         cim:DiagramObject.IdentifiedObject ?identifiedObject ;
         cim:DiagramObject.Diagram ?diagram .
     ?identifiedObject
-        a ?type ;
-        cim:IdentifiedObject.name ?name .
-    VALUES ?type { cim:EnergyConsumer cim:AsynchronousMachine cim:ConformLoad cim:NonConformLoad } .
+        a ?type .
+        OPTIONAL { ?identifiedObject cim:IdentifiedObject.name ?name . }
+    VALUES ?type { cim:EnergyConsumer cim:AsynchronousMachine cim:ConformLoad cim:NonConformLoad cim:SvInjection } .
     ?diagramObjectPoint
         a cim:DiagramObjectPoint ;
         cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
@@ -234,7 +234,7 @@ SELECT ?identifiedObject ?name ?x ?y ?rotation ?diagramName
     ?identifiedObject
         a ?type ;
         cim:IdentifiedObject.name ?name .
-    VALUES ?type { cim:Breaker cim:Disconnector } .
+    VALUES ?type { cim:Breaker cim:Disconnector cim:LoadBreakSwitch } .
     ?diagramObjectPoint
         a cim:DiagramObjectPoint ;
         cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
@@ -321,7 +321,7 @@ SELECT ?forkNode ?switch ?type
         cim:Terminal.ConductingEquipment ?switch .
     ?switch
         a ?type .
-	VALUES ?type { cim:Breaker cim:Disconnector } .
+	VALUES ?type { cim:Breaker cim:Disconnector cim:LoadBreakSwitch } .
 }
 
 # query: voltageLevelDiagramData
@@ -340,7 +340,7 @@ SELECT ?connectivityNode ?switch ?name ?type ?diagramName ?x ?y ?seq
     ?switch
         a ?type ;
         cim:IdentifiedObject.name ?name .
-        VALUES ?type { cim:Breaker cim:Disconnector } .
+        VALUES ?type { cim:Breaker cim:Disconnector cim:LoadBreakSwitch } .
     ?diagramObjectPoint
         a cim:DiagramObjectPoint ;
         cim:DiagramObjectPoint.DiagramObject ?diagramObject ;
@@ -368,7 +368,7 @@ SELECT DISTINCT ?connectivityNode
     ?switch
         a ?type ;
         cim:IdentifiedObject.name ?name .
-        FILTER ( ?type not in ( cim:Breaker, cim:Disconnector ) ) .
+        FILTER ( ?type not in ( cim:Breaker, cim:Disconnector, cim:LoadBreakSwitch ) ) .
     ?diagram
         a cim:Diagram ;
         cim:IdentifiedObject.name ?diagramName .
