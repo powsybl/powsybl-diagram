@@ -465,6 +465,10 @@ public final class Graph {
         this.y = y;
     }
 
+    public boolean isPositionNodeBusesCalculated() {
+        return getNodeBuses().stream().allMatch(n -> n.getPosition().getH() != -1 && n.getPosition().getV() != -1);
+    }
+
     public void writeJson(Path file) {
         try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
             writeJson(writer);
