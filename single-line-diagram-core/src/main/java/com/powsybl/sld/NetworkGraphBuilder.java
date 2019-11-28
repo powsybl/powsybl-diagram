@@ -136,7 +136,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
 
-        constructCellForThreeWindingsTransformer(graph);
+        if (graph.isForVoltageLevelDiagram()) {
+            // in a voltageLevel diagram only, we replace the 3WT node with a fictitious node and 2 feeder nodes,
+            // in order to have a more detailed representation of the 3WT
+            constructCellForThreeWindingsTransformer(graph);
+        } else {
+            // in a substation diagram, we set the component type name associated to the 2WT and 3WT feeder node,
+            // to line type, in order to avoid the graphic svg symbol being drawed for those nodes
+            changeFeederComponentTypeName(graph);
+        }
 
         handleGraphPostProcessors(graph);
 
@@ -595,6 +603,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 });
     }
 
+    private void changeFeederComponentTypeName(Graph graph) {
+        graph.getNodes().stream()
+                .filter(n -> n instanceof Feeder3WTNode || n instanceof Feeder2WTNode)
+                .forEach(n -> n.setComponentType(LINE));
+    }
+
     /**
      * Check if the graph is connected or not
      *
@@ -654,8 +668,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         LOGGER.info("Number of node : {} ", graph.getNodes().size());
 
-        // Creation of snake lines for transformers between the voltage levels
-        // in the substation diagram
+        // Creation of snake lines for transformers between the voltage levels in the substation diagram
         addSnakeLines(graph, substation);
     }
 
@@ -669,16 +682,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
             String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
 
-            VoltageLevel v1 = t1.getVoltageLevel();
-            VoltageLevel v2 = t2.getVoltageLevel();
-
-            Graph g1 = graph.getNode(v1.getId());
-            Graph g2 = graph.getNode(v2.getId());
+            Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
+            Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
 
-            graph.addEdge(n1, n2);
+            graph.addEdge(TWO_WINDINGS_TRANSFORMER, n1, n2);
         }
 
         // Three windings transformer
@@ -688,35 +698,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Terminal t2 = transfo.getLeg2().getTerminal();
             Terminal t3 = transfo.getLeg3().getTerminal();
 
-            String id12 = transfo.getId() + "_" + transfo.getSide(t1).name() + "_" + transfo.getSide(t2).name();
-            String id13 = transfo.getId() + "_" + transfo.getSide(t1).name() + "_" + transfo.getSide(t3).name();
+            String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
+            String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
+            String id3 = transfo.getId() + "_" + transfo.getSide(t3).name();
 
-            String id21 = transfo.getId() + "_" + transfo.getSide(t2).name() + "_" + transfo.getSide(t1).name();
-            String id23 = transfo.getId() + "_" + transfo.getSide(t2).name() + "_" + transfo.getSide(t3).name();
+            Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
+            Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
+            Graph g3 = graph.getNode(t3.getVoltageLevel().getId());
 
-            String id31 = transfo.getId() + "_" + transfo.getSide(t3).name() + "_" + transfo.getSide(t1).name();
-            String id32 = transfo.getId() + "_" + transfo.getSide(t3).name() + "_" + transfo.getSide(t2).name();
+            Node n1 = g1.getNode(id1);
+            Node n2 = g2.getNode(id2);
+            Node n3 = g3.getNode(id3);
 
-            VoltageLevel v1 = t1.getVoltageLevel();
-            VoltageLevel v2 = t2.getVoltageLevel();
-            VoltageLevel v3 = t3.getVoltageLevel();
-
-            Graph g1 = graph.getNode(v1.getId());
-            Graph g2 = graph.getNode(v2.getId());
-            Graph g3 = graph.getNode(v3.getId());
-
-            Node n12 = g1.getNode(id12);
-            Node n13 = g1.getNode(id13);
-
-            Node n21 = g2.getNode(id21);
-            Node n23 = g2.getNode(id23);
-
-            Node n31 = g3.getNode(id31);
-            Node n32 = g3.getNode(id32);
-
-            graph.addEdge(n12, n21);
-            graph.addEdge(n13, n31);
-            graph.addEdge(n23, n32);
+            graph.addEdge(THREE_WINDINGS_TRANSFORMER, n1, n2, n3);
         }
     }
 

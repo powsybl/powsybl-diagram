@@ -29,9 +29,11 @@ public final class SubstationGraph {
 
     private final List<Graph> nodes = new ArrayList<>();
 
-    private final List<TwtEdge> edges = new ArrayList<>();
+    private List<TwtEdge> edges = new ArrayList<>();
 
     private final Map<String, Graph> nodesById = new HashMap<>();
+
+    private List<Node> multiTermNodes = new ArrayList<>();
 
     /**
      * Constructor
@@ -55,9 +57,10 @@ public final class SubstationGraph {
         return nodesById.get(id);
     }
 
-    public void addEdge(Node n1, Node n2) {
-        TwtEdge sl = new TwtEdge(n1, n2);
+    public TwtEdge addEdge(String componentType, Node... nodes) {
+        TwtEdge sl = new TwtEdge(componentType, nodes);
         edges.add(sl);
+        return sl;
     }
 
     public List<Graph> getNodes() {
@@ -66,6 +69,10 @@ public final class SubstationGraph {
 
     public List<TwtEdge> getEdges() {
         return new ArrayList<>(edges);
+    }
+
+    public void setEdges(List<TwtEdge> edges) {
+        this.edges = edges;
     }
 
     public boolean graphAdjacents(Graph g1, Graph g2) {
@@ -80,6 +87,14 @@ public final class SubstationGraph {
 
     public String getSubstationId() {
         return substationId;
+    }
+
+    public void addMultiTermNode(Node node) {
+        multiTermNodes.add(node);
+    }
+
+    public List<Node> getMultiTermNodes() {
+        return multiTermNodes;
     }
 
     public void writeJson(Path file) {

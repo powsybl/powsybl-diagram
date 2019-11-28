@@ -23,11 +23,11 @@ public interface DiagramStyleProvider {
 
     String getIdWireStyle(Edge edge);
 
-    Optional<String> getWireStyle(Edge edge);
+    Optional<String> getWireStyle(Edge edge, String id, int index);
 
     Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes);
 
-    Optional<String> getColor(double nominalV);
+    Optional<String> getColor(double nominalV, Node node);
 
     Map<String, String> getAttributesArrow(int num);
 

@@ -47,7 +47,7 @@ public class WireConnection {
         return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
     }
 
-    private static List<AnchorPoint> getAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node) {
+    public static List<AnchorPoint> getAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node) {
         return anchorPointProvider.getAnchorPoints(node.getComponentType(), node.getId())
                 .stream()
                 .map(anchorPoint -> node.isRotated() ? anchorPoint.rotate(node.getRotationAngle()) : anchorPoint)
@@ -77,6 +77,40 @@ public class WireConnection {
                                                          node1.getY() + anchorPoint1.getY(),
                                                          node2.getX() + anchorPoint2.getX(),
                                                          node2.getY() + anchorPoint2.getY());
+                if (distance < currentDistance) {
+                    betterAnchorPoint1 = anchorPoint1;
+                    betterAnchorPoint2 = anchorPoint2;
+                    currentDistance = distance;
+                }
+            }
+        }
+
+        return new WireConnection(betterAnchorPoint1, betterAnchorPoint2);
+    }
+
+    public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
+                                                          BaseNode node1,
+                                                          double x, double y) {
+        Objects.requireNonNull(anchorPointProvider);
+        Objects.requireNonNull(node1);
+
+        List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
+        List<AnchorPoint> anchorPoints2 = new ArrayList<>();
+        anchorPoints2.add(new AnchorPoint(x, y, AnchorOrientation.NONE));
+        AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
+        AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
+
+        double currentDistance = calculateDistancePoint(node1.getX() + betterAnchorPoint1.getX(),
+                node1.getY() + betterAnchorPoint1.getY(),
+                betterAnchorPoint2.getX(),
+                betterAnchorPoint2.getY());
+
+        for (AnchorPoint anchorPoint1 : anchorPoints1) {
+            for (AnchorPoint anchorPoint2 : anchorPoints2) {
+                double distance = calculateDistancePoint(node1.getX() + anchorPoint1.getX(),
+                        node1.getY() + anchorPoint1.getY(),
+                        anchorPoint2.getX(),
+                        anchorPoint2.getY());
                 if (distance < currentDistance) {
                     betterAnchorPoint1 = anchorPoint1;
                     betterAnchorPoint2 = anchorPoint2;

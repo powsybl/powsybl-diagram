@@ -9,7 +9,8 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -18,32 +19,41 @@ import java.util.Objects;
  */
 public class Edge {
 
-    private final Node node1;
-
-    private final Node node2;
+    private final List<Node> nodes;
 
     /**
      * Constructor
-     * @param node1 node1
-     * @param node2 node2
+     * @param nodes list of nodes
      */
-    public Edge(Node node1, Node node2) {
-        this.node1 = Objects.requireNonNull(node1);
-        this.node2 = Objects.requireNonNull(node2);
+    public Edge(Node...nodes) {
+        this.nodes = Arrays.asList(nodes);
+    }
+
+    public Node getNode(int index) {
+        return nodes.get(index);
     }
 
     public Node getNode1() {
-        return node1;
+        return getNode(0);
     }
 
     public Node getNode2() {
-        return node2;
+        return getNode(1);
+    }
+
+    public Node getNode3() {
+        return getNode(2);
+    }
+
+    public List<Node> getNodes() {
+        return nodes;
     }
 
     void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        generator.writeStringField("node1", node1.getId());
-        generator.writeStringField("node2", node2.getId());
+        for (int i = 1; i <= nodes.size(); ++i) {
+            generator.writeStringField("node" + i, nodes.get(i - 1).getId());
+        }
         generator.writeEndObject();
     }
 }

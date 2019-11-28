@@ -89,7 +89,7 @@ public class TestShiftFeedersPosition extends AbstractTestCase {
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toJson(g), toString("/TestDefaultFeedersPosition.json"));
+        assertEquals(toJson(g, "/TestDefaultFeedersPosition.json"), toString("/TestDefaultFeedersPosition.json"));
     }
 
     @Test
@@ -103,6 +103,6 @@ public class TestShiftFeedersPosition extends AbstractTestCase {
         new HorizontalSubstationLayoutFactory().create(g, fakeVoltageLevelLayoutFactory).run(layoutParameters);
 
         // write Json and compare to reference (with a fake VL layout)
-        assertEquals(toJson(g), toString("/TestDefaultFeedersPosition2.json"));
+        assertEquals(toJson(g, "/TestDefaultFeedersPosition2.json"), toString("/TestDefaultFeedersPosition2.json"));
     }
 }

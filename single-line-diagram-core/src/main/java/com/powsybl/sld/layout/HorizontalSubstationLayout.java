@@ -40,16 +40,8 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
      * Calculate polyline points of a snakeLine in the substation graph
      */
     @Override
-    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam,
-                                                   Edge edge,
-                                                   Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom,
-                                                   Map<Side, Integer> nbSnakeLinesLeftRight,
-                                                   Map<String, Integer> nbSnakeLinesBetween,
-                                                   Map<String, Integer> nbSnakeLinesBottomVL,
-                                                   Map<String, Integer> nbSnakeLinesTopVL) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-
+    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+                                                      InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
         BusCell.Direction dNode1 = getNodeDirection(node1, 1);
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
 
@@ -73,14 +65,15 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         info.setLayoutParam(layoutParam);
         info.setdNode1(dNode1);
         info.setdNode2(dNode2);
-        info.setNbSnakeLinesTopBottom(nbSnakeLinesTopBottom);
-        info.setNbSnakeLinesBetween(nbSnakeLinesBetween);
+        info.setNbSnakeLinesTopBottom(infosNbSnakeLines.getNbSnakeLinesTopBottom());
+        info.setNbSnakeLinesBetween(infosNbSnakeLines.getNbSnakeLinesBetween());
         info.setX1(x1);
         info.setX2(x2);
         info.setY1(y1);
         info.setY2(y2);
         info.setxMaxGraph(xMaxGraph);
         info.setIdMaxGraph(idMaxGraph);
+        info.setIncrement(increment);
 
         return calculatePolylinePoints(info);
     }
@@ -103,7 +96,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         switch (dNode1) {
             case BOTTOM:
                 if (dNode2 == BusCell.Direction.BOTTOM) {  // BOTTOM to BOTTOM
-                    nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                    if (info.isIncrement()) {
+                        nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                    }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double yDecal = Math.max(y1 + decalV, y2 + decalV);
 
@@ -113,9 +108,12 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                             x2, y2));
 
                 } else {  // BOTTOM to TOP
-                    nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
-                    nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
+                    if (info.isIncrement()) {
+                        nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                        nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
+                    }
                     nbSnakeLinesBetween.compute(idMaxGraph, (k, v) -> v + 1);
+
                     double decal1V = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double decal2V = nbSnakeLinesTopBottom.get(dNode2) * layoutParam.getVerticalSnakeLinePadding();
                     double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
@@ -131,7 +129,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
             case TOP:
                 if (dNode2 == BusCell.Direction.TOP) {  // TOP to TOP
-                    nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                    if (info.isIncrement()) {
+                        nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                    }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double yDecal = Math.min(y1 - decalV, y2 - decalV);
 
@@ -140,8 +140,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                             x2, yDecal,
                             x2, y2));
                 } else {  // TOP to BOTTOM
-                    nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
-                    nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
+                    if (info.isIncrement()) {
+                        nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
+                        nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
+                    }
                     nbSnakeLinesBetween.compute(idMaxGraph, (k, v) -> v + 1);
                     double decal1V = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double decal2V = nbSnakeLinesTopBottom.get(dNode2) * layoutParam.getVerticalSnakeLinePadding();

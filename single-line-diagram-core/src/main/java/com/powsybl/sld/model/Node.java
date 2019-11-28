@@ -71,11 +71,15 @@ public class Node implements BaseNode {
         this.name = name;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
-        this.graph = Objects.requireNonNull(graph);
+        // graph can be null here : for example, in a substation diagram, a fictitious node is created outside
+        // any graph, in order to link the different windings together
+        this.graph = graph;
         // for unicity purpose (in substation diagram), we prefix the id of the fictitious node with the voltageLevel id and "_"
         String tmpId = Objects.requireNonNull(id);
-        if (type == NodeType.FICTITIOUS && !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelId() + "_")) {
-            this.id = "FICT_" + this.graph.getVoltageLevelId() + "_" + tmpId;
+        if (type == NodeType.FICTITIOUS &&
+                graph != null &&
+                !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelId() + "_")) {
+            this.id = "FICT_" + graph.getVoltageLevelId() + "_" + tmpId;
         } else {
             this.id = tmpId;
         }
@@ -146,7 +150,7 @@ public class Node implements BaseNode {
         return adjacentEdges;
     }
 
-    void addAdjacentEdge(Edge e) {
+    public void addAdjacentEdge(Edge e) {
         adjacentEdges.add(e);
     }
 

@@ -243,9 +243,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
         new PositionVoltageLevelLayout(g3).run(layoutParameters);
 
         // write JSON and compare to reference (horizontal layout)
-        assertEquals(toJson(g1), toString("/TestCase12GraphVL1.json"));
-        assertEquals(toJson(g2), toString("/TestCase12GraphVL2.json"));
-        assertEquals(toJson(g3), toString("/TestCase12GraphVL3.json"));
+        assertEquals(toJson(g1, "/TestCase12GraphVL1.json"), toString("/TestCase12GraphVL1.json"));
+        assertEquals(toJson(g2, "/TestCase12GraphVL2.json"), toString("/TestCase12GraphVL2.json"));
+        assertEquals(toJson(g3, "/TestCase12GraphVL3.json"), toString("/TestCase12GraphVL3.json"));
 
         LayoutParameters layoutParametersOptimized = new LayoutParameters(layoutParameters);
         layoutParametersOptimized.setAvoidSVGComponentsDuplication(true);
