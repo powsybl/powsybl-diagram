@@ -410,6 +410,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
         protected final BooleanProperty checkedProperty = new SimpleBooleanProperty();
 
+        protected boolean saveDiagrams = true;
+
         AbstractSelectableContainer(String id, String name) {
             this.id = id;
             this.name = name;
@@ -419,7 +421,9 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 } else {
                     removeDiagramTab();
                 }
-                saveSelectedDiagrams();
+                if (saveDiagrams) {
+                    saveSelectedDiagrams();
+                }
             });
         }
 
@@ -445,28 +449,13 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             checkedProperty.setValue(b);
         }
 
+        public void setSaveDiagrams(boolean saveDiagrams) {
+            this.saveDiagrams = saveDiagrams;
+        }
+
         @Override
         public String toString() {
             return getIdOrName();
-        }
-
-        private void saveSelectedDiagrams() {
-            try {
-                String selectedVoltageLevelIdsPropertyValue = objectMapper.writeValueAsString(selectableVoltageLevels.stream()
-                        .filter(selectableVoltageLevel -> selectableVoltageLevel.checkedProperty().get())
-                        .map(SelectableVoltageLevel::getId)
-                        .collect(Collectors.toList()));
-                preferences.put(SELECTED_VOLTAGE_LEVEL_IDS_PROPERTY, selectedVoltageLevelIdsPropertyValue);
-
-                String selectedSubstationIdsPropertyValue = objectMapper.writeValueAsString(selectableSubstations.stream()
-                        .filter(selectableSubstation -> selectableSubstation.checkedProperty().get())
-                        .map(SelectableSubstation::getId)
-                        .collect(Collectors.toList()));
-                preferences.put(SELECTED_SUBSTATION_IDS_PROPERTY, selectedSubstationIdsPropertyValue);
-
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
         }
     }
 
@@ -482,15 +471,27 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             if (vl != null) {
                 Tab tab = new Tab(id, new ContainerDiagramPane(vl));
                 tab.setTooltip(new Tooltip(vl.getName()));
-                tab.setOnCloseRequest(event -> {
-                    checkedProperty.set(false);
-                    checkvItemTree(id, false);
-                });
+                tab.setOnCloseRequest(e -> closeTab());
+
+                ContextMenu menu = new ContextMenu();
+                MenuItem itemCloseTab = new MenuItem("Close tab");
+                itemCloseTab.setOnAction(e -> closeTab());
+                MenuItem itemCloseAllTabs = new MenuItem("Close all tabs");
+                itemCloseAllTabs.setOnAction(e -> closeAllTabs());
+
+                menu.getItems().add(itemCloseTab);
+                menu.getItems().add(itemCloseAllTabs);
+                tab.setContextMenu(menu);
                 checkedDiagramsPane.getTabs().add(tab);
                 checkedDiagramsPane.getSelectionModel().select(tab);
             } else {
                 LOGGER.warn("Voltage level {} not found", id);
             }
+        }
+
+        public void closeTab() {
+            checkedProperty.set(false);
+            checkvItemTree(id, false);
         }
     }
 
@@ -505,10 +506,18 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             if (s != null) {
                 Tab tab = new Tab(id, new ContainerDiagramPane(s));
                 tab.setTooltip(new Tooltip(s.getName()));
-                tab.setOnCloseRequest(event -> {
-                    checkedProperty.set(false);
-                    checksItemTree(id, false);
-                });
+                tab.setOnCloseRequest(e -> closeTab());
+
+                ContextMenu menu = new ContextMenu();
+                MenuItem itemCloseTab = new MenuItem("Close tab");
+                itemCloseTab.setOnAction(e -> closeTab());
+
+                MenuItem itemCloseAllTabs = new MenuItem("Close all tabs");
+                itemCloseAllTabs.setOnAction(e -> closeAllTabs());
+
+                menu.getItems().add(itemCloseTab);
+                menu.getItems().add(itemCloseAllTabs);
+                tab.setContextMenu(menu);
                 checkedDiagramsPane.getTabs().add(tab);
                 checkedDiagramsPane.getSelectionModel().select(tab);
             } else {
@@ -522,6 +531,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                     ((CheckBoxTreeItem) child).setSelected(selected);
                 }
             });
+        }
+
+        public void closeTab() {
+            checkedProperty.set(false);
+            checksItemTree(id, false);
         }
     }
 
@@ -715,7 +729,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 }));
                 selectableVoltageLevels.stream()
                         .filter(selectableObject -> selectedIds.contains(selectableObject.getId()))
-                        .forEach(selectableVoltageLevel -> selectableVoltageLevel.checkedProperty().set(true));
+                        .forEach(selectableVoltageLevel -> {
+                            selectableVoltageLevel.setSaveDiagrams(false);
+                            selectableVoltageLevel.checkedProperty().set(true);
+                            selectableVoltageLevel.setSaveDiagrams(true);
+                        });
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
@@ -731,7 +749,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 }));
                 selectableSubstations.stream()
                         .filter(selectableSubstation -> selectedSubstationIds.contains(selectableSubstation.getId()))
-                        .forEach(selectableSubstation -> selectableSubstation.checkedProperty().set(true));
+                        .forEach(selectableSubstation -> {
+                            selectableSubstation.setSaveDiagrams(false);
+                            selectableSubstation.checkedProperty().set(true);
+                            selectableSubstation.setSaveDiagrams(true);
+                        });
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
@@ -990,6 +1012,29 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                     }
                 })
         );
+    }
+
+    public void saveSelectedDiagrams() {
+        try {
+            String selectedVoltageLevelIdsPropertyValue = objectMapper.writeValueAsString(selectableVoltageLevels.stream()
+                    .filter(selectableVoltageLevel -> selectableVoltageLevel.checkedProperty().get())
+                    .map(SelectableVoltageLevel::getId)
+                    .collect(Collectors.toList()));
+            preferences.put(SELECTED_VOLTAGE_LEVEL_IDS_PROPERTY, selectedVoltageLevelIdsPropertyValue);
+
+            String selectedSubstationIdsPropertyValue = objectMapper.writeValueAsString(selectableSubstations.stream()
+                    .filter(selectableSubstation -> selectableSubstation.checkedProperty().get())
+                    .map(SelectableSubstation::getId)
+                    .collect(Collectors.toList()));
+            preferences.put(SELECTED_SUBSTATION_IDS_PROPERTY, selectedSubstationIdsPropertyValue);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private void closeAllTabs() {
+        selectableVoltageLevels.stream().filter(s -> s.checkedProperty().get()).forEach(s -> s.closeTab());
+        selectableSubstations.stream().filter(s -> s.checkedProperty().get()).forEach(s -> s.closeTab());
     }
 
     protected void setNetwork(Network network) {
