@@ -191,11 +191,11 @@
       "y" : 4.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : -6.0,
+      "x" : -6.5,
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     }, {
-      "x" : 6.0,
+      "x" : 6.5,
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     } ],

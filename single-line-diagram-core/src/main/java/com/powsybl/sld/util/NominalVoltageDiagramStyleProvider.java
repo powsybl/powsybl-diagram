@@ -31,7 +31,7 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     }
 
     @Override
-    public Optional<String> getColor(double nominalV) {
+    public Optional<String> getColor(double nominalV, Node node) {
         String color;
         if (nominalV >= 300) {
             color = "rgb(255, 0, 0)";
@@ -55,7 +55,7 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
 
-        String color = getColor(node.getGraph().getVoltageLevelNominalV()).orElse(DEFAULT_COLOR);
+        String color = getColor(node.getGraph().getVoltageLevelNominalV(), null).orElse(DEFAULT_COLOR);
         if (node.getType() == Node.NodeType.SWITCH) {
             return defaultStyle;
         } else {
@@ -79,7 +79,7 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         String vlId;
@@ -94,11 +94,11 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
                     ? ((Feeder2WTNode) node1).getNominalVOtherSide()
                     : ((Feeder2WTNode) node2).getNominalVOtherSide();
         } else {
-            vlId = node1.getGraph().getVoltageLevelId();
-            nominalV = node1.getGraph().getVoltageLevelNominalV();
+            vlId = node1.getGraph() != null ? node1.getGraph().getVoltageLevelId() : node2.getGraph().getVoltageLevelId();
+            nominalV = node1.getGraph() != null ? node1.getGraph().getVoltageLevelNominalV() : node2.getGraph().getVoltageLevelNominalV();
         }
 
-        String color = getColor(nominalV).orElse(DEFAULT_COLOR);
+        String color = getColor(nominalV, null).orElse(DEFAULT_COLOR);
         StringBuilder style = new StringBuilder();
         style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
         return Optional.of(style.toString());

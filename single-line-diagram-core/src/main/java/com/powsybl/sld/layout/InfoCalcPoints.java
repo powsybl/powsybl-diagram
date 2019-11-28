@@ -25,6 +25,7 @@ public class InfoCalcPoints {
     private double y2;
     private double xMaxGraph;
     private String idMaxGraph;
+    private boolean increment;
 
     public LayoutParameters getLayoutParam() {
         return layoutParam;
@@ -112,5 +113,13 @@ public class InfoCalcPoints {
 
     public void setIdMaxGraph(String idMaxGraph) {
         this.idMaxGraph = idMaxGraph;
+    }
+
+    public boolean isIncrement() {
+        return increment;
+    }
+
+    public void setIncrement(boolean increment) {
+        this.increment = increment;
     }
 }

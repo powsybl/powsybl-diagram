@@ -57,8 +57,8 @@
             </subComponent>
             <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
             <anchorPoint x="0" y="4" orientation="VERTICAL"/>
-            <anchorPoint x="-6" y="0" orientation="HORIZONTAL"/>
-            <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="-6.5" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="6.5" y="0" orientation="HORIZONTAL"/>
             <allowRotation>true</allowRotation>
         </metadata>
     </component>

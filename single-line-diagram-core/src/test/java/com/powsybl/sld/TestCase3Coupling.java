@@ -79,6 +79,6 @@ public class TestCase3Coupling extends AbstractTestCase {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g), toString("/TestCase3Coupling.json"));
+        assertEquals(toJson(g, "/TestCase3Coupling.json"), toString("/TestCase3Coupling.json"));
     }
 }

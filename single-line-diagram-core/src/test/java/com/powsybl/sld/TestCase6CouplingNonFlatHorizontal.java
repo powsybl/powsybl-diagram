@@ -83,6 +83,6 @@ public class TestCase6CouplingNonFlatHorizontal extends AbstractTestCase {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g), toString("/TestCase6CouplingNonFlatHorizontal.json"));
+        assertEquals(toJson(g, "/TestCase6CouplingNonFlatHorizontal.json"), toString("/TestCase6CouplingNonFlatHorizontal.json"));
     }
 }
