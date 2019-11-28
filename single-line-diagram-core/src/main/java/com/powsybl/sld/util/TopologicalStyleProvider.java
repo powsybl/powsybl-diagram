@@ -60,7 +60,7 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
         String id = node.getId();
         // il faut enlever le side de l'id du node pour retrouver l'id du composant
         if (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)) {
-            id = id.substring(0, id.lastIndexOf("_"));
+            id = id.substring(0, id.lastIndexOf('_'));
         }
         VoltageLevel vl = network.getVoltageLevel(node.getGraph().getVoltageLevelId());
         return voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl)).get(id);
