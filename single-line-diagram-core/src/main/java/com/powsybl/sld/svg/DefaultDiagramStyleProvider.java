@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
+import static com.powsybl.sld.library.ComponentTypeName.NODE;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
@@ -49,8 +50,16 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
+    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
+
+        if (node.getComponentType().equals(NODE) && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+            StringBuilder style = new StringBuilder();
+            String className = escapeId(node.getId());
+            style.append(".").append(className)
+                    .append(" {stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+            return Optional.of(style.toString());
+        }
         if (node.getType() == Node.NodeType.SWITCH && !avoidSVGComponentsDuplication) {
 
             StringBuilder style = new StringBuilder();
@@ -102,7 +111,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent) {
+    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
         Optional<String> color;
         String vlId = node.getGraph().getVoltageLevelId();
@@ -130,6 +139,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
             color = getColor(((Feeder2WTNode) node).getNominalVOtherSide());
             color.ifPresent(s -> attributes.put(STROKE, s));
+        } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
+            attributes.put("stroke-opacity", "0");
+            attributes.put("fill-opacity", "0");
         }
 
         return attributes;

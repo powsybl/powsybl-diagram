@@ -10,6 +10,7 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW;
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.ComponentTypeName.NODE;
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
@@ -175,7 +176,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (Graph graph : graphs) {
             graph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication());
+                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
                 if (nodeStyle.isPresent()) {
                     graphStyle.append(nodeStyle.get()).append("\n");
                 }
@@ -606,9 +607,10 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected boolean canInsertComponentSVG(Node node) {
-        return layoutParameters.isShowInternalNodes() ||
-                ((!node.isFictitious() && node.getType() != Node.NodeType.SHUNT) ||
-                        (node.isFictitious() && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)));
+        return (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT) ||
+                        (node.isFictitious() && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER) ||
+                                (node.isFictitious() && node.getComponentType().equals(NODE)));
+
     }
 
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
@@ -643,7 +645,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
 
                     if (n instanceof SVGElement) {
-                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent);
+                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent, layoutParameters.isShowInternalNodes());
                         svgStyle.forEach(((Element) n)::setAttribute);
                     }
 
@@ -673,7 +675,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
 
-                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s);
+                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s, layoutParameters.isShowInternalNodes());
                     svgStyle.forEach(eltUse::setAttribute);
 
                     g.getOwnerDocument().adoptNode(eltUse);

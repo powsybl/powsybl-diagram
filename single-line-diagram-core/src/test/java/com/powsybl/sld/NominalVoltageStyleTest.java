@@ -90,17 +90,17 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(network);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false);
+        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
         assertTrue(nodeStyle1.isPresent());
         assertEquals(" .idbbs1 {stroke:rgb(255, 0, 0);}", nodeStyle1.get());
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false);
+        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
         assertTrue(nodeStyle2.isPresent());
         assertEquals(" .idbbs2 {stroke:rgb(34, 139, 34);}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false);
+        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
         assertTrue(nodeStyle3.isPresent());
         assertEquals(" .idbbs3 {stroke:rgb(160, 32, 240);}", nodeStyle3.get());
 
@@ -116,13 +116,13 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         assertEquals(".wire_vl2 {stroke:rgb(34, 139, 34);stroke-width:1;}", wireStyle.get());
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1");
+        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertFalse(node3WTStyle.isEmpty());
         assertTrue(node3WTStyle.containsKey("stroke"));
         assertEquals("rgb(160, 32, 240)", node3WTStyle.get("stroke"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1");
+        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertFalse(node2WTStyle.isEmpty());
         assertTrue(node2WTStyle.containsKey("stroke"));
         assertEquals("rgb(255, 0, 0)", node2WTStyle.get("stroke"));
