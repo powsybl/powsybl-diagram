@@ -6,17 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.iidm.extensions;
 
+import com.powsybl.iidm.network.*;
 import org.joda.time.DateTime;
-
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.HvdcLine;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.NetworkFactory;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.iidm.network.VscConverterStation;
 
 /**
  *
@@ -460,4 +451,105 @@ public final class Networks {
                 .add();
         return network;
     }
+
+    public static Network createNetworkWithDoubleBusbarSections() {
+        int countNodes = 0;
+
+        int bbN1 = countNodes++;
+        int bbN2 = countNodes++;
+        int iN1 = countNodes++;
+        int gN1 = countNodes++;
+
+        Network network = Network.create("network1", "test");
+
+        Substation substation1 = network.newSubstation()
+                .setId("Substation1")
+                .setCountry(Country.FR)
+                .add();
+
+        VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
+                .setId("VoltageLevel1")
+                .setTopologyKind(TopologyKind.NODE_BREAKER)
+                .setNominalV(400)
+                .add();
+
+        voltageLevel1.getNodeBreakerView().setNodeCount(countNodes);
+
+        voltageLevel1.getNodeBreakerView().newBusbarSection()
+                .setId("BusbarSection1")
+                .setNode(bbN1)
+                .add();
+        voltageLevel1.getNodeBreakerView().newBusbarSection()
+                .setId("BusbarSection2")
+                .setNode(bbN2)
+                .add();
+
+        voltageLevel1.getNodeBreakerView().newDisconnector()
+                .setId("Disconnector1")
+                .setNode1(bbN1)
+                .setNode2(iN1)
+                .setOpen(true)
+                .add();
+
+        voltageLevel1.getNodeBreakerView().newDisconnector()
+                .setId("Disconnector2")
+                .setNode1(bbN2)
+                .setNode2(iN1)
+                .setOpen(false)
+                .add();
+
+        voltageLevel1.newGenerator()
+                .setId("Generator1")
+                .setNode(gN1)
+                .setTargetP(100)
+                .setTargetV(380)
+                .setVoltageRegulatorOn(true)
+                .setMaxP(100)
+                .setMinP(0)
+                .add();
+
+        voltageLevel1.getNodeBreakerView().newBreaker()
+                .setId("Breaker1")
+                .setNode1(gN1)
+                .setNode2(iN1)
+                .add();
+        return network;
+    }
+
+    public static Network createNetworkWithPhaseShiftTransformer() {
+        Network network = Networks.createNetworkWithTwoWindingsTransformer();
+        TwoWindingsTransformer twt = network.getTwoWindingsTransformerStream().findFirst().get();
+        twt.newPhaseTapChanger()
+                .setTapPosition(1)
+                .setRegulationTerminal(twt.getTerminal2())
+                .setRegulationMode(PhaseTapChanger.RegulationMode.FIXED_TAP)
+                .setRegulationValue(200)
+                .beginStep()
+                .setAlpha(-20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(0.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .beginStep()
+                .setAlpha(20.0)
+                .setRho(1.0)
+                .setR(0.0)
+                .setX(0.0)
+                .setG(0.0)
+                .setB(0.0)
+                .endStep()
+                .add();
+        return network;
+    }
+
 }

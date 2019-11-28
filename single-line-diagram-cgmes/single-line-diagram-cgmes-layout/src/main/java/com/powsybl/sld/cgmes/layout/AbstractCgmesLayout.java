@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,13 +41,6 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Graph;
@@ -139,7 +134,21 @@ public abstract class AbstractCgmesLayout {
                 setFeederNodeCoordinates(vl, graph, node, diagramName);
                 break;
             default:
+                processDefaultNodeCase(vl, node, diagramName);
                 break;
+        }
+    }
+
+    protected void processDefaultNodeCase(VoltageLevel vl, Node node, String diagramName) {
+        // retrieve internal nodes points, if available in VoltageLevel extensions
+        if (node.isFictitious() && StringUtils.isNumeric(node.getName())) {
+            DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getName()));
+            if (nodePoint != null) {
+                node.setX(nodePoint.getX());
+                node.setY(nodePoint.getY());
+            }
+        } else {
+            LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         }
     }
 
@@ -358,6 +367,15 @@ public abstract class AbstractCgmesLayout {
             BusNode nodeBus = (BusNode) node;
             nodeBus.setPxWidth(nodeBus.getPxWidth() * scaleFactor);
         }
+    }
+
+    protected void setVoltageLevelCoord(Graph vlGraph) {
+        vlGraph.setX(vlGraph.getNodes().stream()
+                .mapToDouble(Node::getX)
+                .min().orElse(0));
+        vlGraph.setY(vlGraph.getNodes().stream()
+                .mapToDouble(Node::getY)
+                .min().orElse(0));
     }
 
     public static void removeFictitiousSwitchNodes(Graph graph, VoltageLevel vl) {

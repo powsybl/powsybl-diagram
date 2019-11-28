@@ -57,6 +57,9 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
         }
+        for (Graph vlGraph : graph.getNodes()) {
+            setVoltageLevelCoord(vlGraph);
+        }
     }
 
 }

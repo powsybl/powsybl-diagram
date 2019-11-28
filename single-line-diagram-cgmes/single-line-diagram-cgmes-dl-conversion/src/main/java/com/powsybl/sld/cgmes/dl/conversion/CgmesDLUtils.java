@@ -9,10 +9,18 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import com.powsybl.cgmes.conversion.CgmesModelExtension;
 import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.triplestore.api.TripleStore;
+import gnu.trove.set.TIntSet;
+import gnu.trove.set.hash.TIntHashSet;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -64,4 +72,27 @@ public final class CgmesDLUtils {
             tStore.contextNames().stream().filter(CgmesSubset.DIAGRAM_LAYOUT::isValidName).findFirst().ifPresent(tStore::clear);
         }
     }
+
+    //retrieve all the switches adjacent to a specific node id
+    public static Set<Switch> findSurroundingSwitches(VoltageLevel.NodeBreakerView nodeBreakerView, int n) {
+        Objects.requireNonNull(nodeBreakerView);
+        final Set<Switch> encounteredSwitches = new HashSet<>();
+        final TIntSet encountered = new TIntHashSet();
+        nodeBreakerView.traverse(n, (n1, sw, n2) -> {
+            encountered.add(n2);
+            if (sw != null) {
+                encounteredSwitches.add(sw);
+            }
+            return !encountered.contains(n1);
+        });
+        return encounteredSwitches;
+    }
+
+    public static String findMatchingConnectivityNodeId(Map<String, Set<String>> nodeSwitches, Set<Switch> switchSet) {
+        Objects.requireNonNull(nodeSwitches);
+        Objects.requireNonNull(switchSet);
+        Set<String> switchesIdsSet = switchSet.stream().map(Switch::getId).collect(Collectors.toSet());
+        return nodeSwitches.entrySet().stream().filter(x -> x.getValue().equals(switchesIdsSet)).map(Map.Entry::getKey).findFirst().orElse(null);
+    }
+
 }

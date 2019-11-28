@@ -7,11 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PrefixNamespace;
@@ -71,6 +67,7 @@ public class CgmesDLExporter {
         exportSwitchesDLData(context, terminals);
         exportTransformers3WDLData(context, terminals);
         exportHvdcLinesDLData(context);
+        exportAdjacentSwitchesDLData(context);
         tripleStore.write(dataSource);
     }
 
@@ -208,6 +205,13 @@ public class CgmesDLExporter {
         LOG.info("Exporting HVDC Lines DL Data");
         HvdcLineDiagramDataExporter diagramDataExporter = new HvdcLineDiagramDataExporter(tripleStore, context);
         network.getHvdcLineStream().forEach(diagramDataExporter::exportDiagramData);
+    }
+
+    private void exportAdjacentSwitchesDLData(ExportContext context) {
+        LOG.info("Exporting adjacent switches DL Data");
+        Map<String, Set<String>> nodeSwitches = cgmesDLModel.findCgmesConnectivityNodesSwitchesForks();
+        VoltageLevelDiagramDataExporter voltageLevelDiagramDataExporter = new VoltageLevelDiagramDataExporter(tripleStore, context, nodeSwitches);
+        network.getVoltageLevelStream().forEach(voltageLevelDiagramDataExporter::exportDiagramData);
     }
 
 }
