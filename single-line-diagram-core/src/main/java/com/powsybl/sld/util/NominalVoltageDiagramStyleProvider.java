@@ -52,8 +52,8 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
     }
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication) {
-        Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication);
+    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
+        Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
 
         String color = getColor(node.getGraph().getVoltageLevelNominalV()).orElse(DEFAULT_COLOR);
         if (node.getType() == Node.NodeType.SWITCH) {
