@@ -155,7 +155,7 @@
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,
-      "orientation" : "NONE"
+      "orientation" : "VERTICAL"
     } ],
     "size" : {
       "width" : 0.0,

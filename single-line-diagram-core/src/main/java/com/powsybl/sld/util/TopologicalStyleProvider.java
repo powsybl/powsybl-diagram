@@ -31,8 +31,11 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  */
 public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
+
+    private static final String PROFILE = "Default";
+
     private BaseVoltageColor baseVoltageColor;
-    private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap();
+    private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
     private static final String DEFAULT_COLOR = "#FF0000";
     private static final String DISCONNECTED_COLOR = "#808080";
     private String disconnectedColor;
@@ -44,7 +47,7 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-        disconnectedColor = getBaseColor(0, "RTE", DISCONNECTED_COLOR);
+        disconnectedColor = getBaseColor(0, PROFILE, DISCONNECTED_COLOR);
     }
 
     @Override
@@ -59,12 +62,12 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     }
 
     private HashMap<String, RGBColor> getColorMap(VoltageLevel vl) {
-        String basecolor = getBaseColor(vl.getNominalV(), "RTE", DEFAULT_COLOR);
+        String basecolor = getBaseColor(vl.getNominalV(), PROFILE, DEFAULT_COLOR);
 
         AtomicInteger idxColor = new AtomicInteger(0);
         long buses = vl.getBusView().getBusStream().count();
 
-        HashMap<String, RGBColor> colorMap = new HashMap();
+        HashMap<String, RGBColor> colorMap = new HashMap<>();
 
         HSLColor color = HSLColor.parse(basecolor);
 
