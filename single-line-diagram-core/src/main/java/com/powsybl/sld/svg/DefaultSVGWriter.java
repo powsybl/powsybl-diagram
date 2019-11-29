@@ -849,74 +849,82 @@ public class DefaultSVGWriter implements SVGWriter {
                                          DiagramStyleProvider styleProvider) {
         InitialValue init = initProvider.getInitialValue(n);
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
+        Map<String, SVGOMDocument> arr = componentLibrary.getSvgDocument(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
         double shY = cd.getSize().getHeight() - LABEL_OFFSET + (double) FONT_SIZE / 2;
 
-        Element g1 = root.getOwnerDocument().createElement("g");
-        String arrow1WireId = wireId + "_ARROW1";
-        g1.setAttribute("id", arrow1WireId);
-        Map<String, SVGOMDocument> arr = componentLibrary.getSvgDocument(ARROW);
-        transformArrow(points, cd.getSize(), 0, g1);
+        String defsId = ARROW;
         double y1 = points.get(1);
         double y2 = points.get(3);
-        String defsId = ARROW;
 
-        Optional<Direction> dir1 = init.getArrowDirection1();
-        if (dir1.isPresent()) {
-            defsId += dir1.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
-        }
-
-        if (y1 > y2) {
-            insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
-        } else {
-            insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, defsId, true);
-        }
         Optional<String> label1 = init.getLabel1();
-        label1.ifPresent(s -> drawLabel(null, s, false, shX, shY, g1, FONT_SIZE));
 
-        if (dir1.isPresent()) {
-            g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
-            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                styleProvider.getAttributesArrow(1).forEach(((Element) g1.getFirstChild())::setAttribute);
+        if (label1.isPresent()) {  // we draw the arrow only if value 1 is present
+            Element g1 = root.getOwnerDocument().createElement("g");
+            String arrow1WireId = wireId + "_ARROW1";
+            g1.setAttribute("id", arrow1WireId);
+            transformArrow(points, cd.getSize(), 0, g1);
+
+            Optional<Direction> dir1 = init.getArrowDirection1();
+            if (dir1.isPresent()) {
+                defsId += dir1.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
             }
-        }
-        root.appendChild(g1);
-        metadata.addArrowMetadata(new ArrowMetadata(arrow1WireId, wireId, layoutParameters.getArrowDistance()));
 
-        Element g2 = root.getOwnerDocument().createElement("g");
-        String arrow2WireId = wireId + "_ARROW2";
-        g2.setAttribute("id", arrow2WireId);
-        transformArrow(points, cd.getSize(), 2 * cd.getSize().getHeight(), g2);
+            if (y1 > y2) {
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
+            } else {
+                insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, defsId, true);
+            }
+            drawLabel(null, label1.get(), false, shX, shY, g1, FONT_SIZE);
 
-        defsId = ARROW;
-        Optional<Direction> dir2 = init.getArrowDirection2();
-        if (dir2.isPresent()) {
-            defsId += dir2.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
+            if (dir1.isPresent()) {
+                g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
+                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                    styleProvider.getAttributesArrow(1).forEach(((Element) g1.getFirstChild())::setAttribute);
+                }
+            }
+
+            Optional<String> label3 = init.getLabel3();
+            label3.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE));
+
+            root.appendChild(g1);
+            metadata.addArrowMetadata(new ArrowMetadata(arrow1WireId, wireId, layoutParameters.getArrowDistance()));
         }
 
-        if (y1 > y2) {
-            insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g2, 180, 5, 5, defsId);
-        } else {
-            insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, defsId, true);
-        }
         Optional<String> label2 = init.getLabel2();
-        label2.ifPresent(s -> drawLabel(null, s, false, shX, shY, g2, FONT_SIZE));
+        if (label2.isPresent()) {  // we draw the arrow only if value 2 is present
+            Element g2 = root.getOwnerDocument().createElement("g");
+            String arrow2WireId = wireId + "_ARROW2";
+            g2.setAttribute("id", arrow2WireId);
+            transformArrow(points, cd.getSize(), 2 * cd.getSize().getHeight(), g2);
 
-        if (dir2.isPresent()) {
-            g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
-            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                styleProvider.getAttributesArrow(2).forEach(((Element) g2.getFirstChild())::setAttribute);
+            defsId = ARROW;
+            Optional<Direction> dir2 = init.getArrowDirection2();
+            if (dir2.isPresent()) {
+                defsId += dir2.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
             }
+
+            if (y1 > y2) {
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g2, 180, 5, 5, defsId);
+            } else {
+                insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, defsId, true);
+            }
+            drawLabel(null, label2.get(), false, shX, shY, g2, FONT_SIZE);
+
+            if (dir2.isPresent()) {
+                g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
+                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                    styleProvider.getAttributesArrow(2).forEach(((Element) g2.getFirstChild())::setAttribute);
+                }
+            }
+
+            Optional<String> label4 = init.getLabel4();
+            label4.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE));
+
+            root.appendChild(g2);
+            metadata.addArrowMetadata(new ArrowMetadata(arrow2WireId, wireId, layoutParameters.getArrowDistance()));
         }
-        Optional<String> label3 = init.getLabel3();
-        label3.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE));
-
-        Optional<String> label4 = init.getLabel4();
-        label4.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE));
-
-        root.appendChild(g2);
-        metadata.addArrowMetadata(new ArrowMetadata(arrow2WireId, wireId, layoutParameters.getArrowDistance()));
     }
 
     /*
