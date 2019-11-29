@@ -87,9 +87,15 @@ public class TestShiftFeedersPosition extends AbstractTestCase {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
-        // write Json and compare to reference (with horizontal substation layout)
+        // write Json and compare to reference (with no shift feeder height and horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toJson(g, "/TestDefaultFeedersPosition.json"), toString("/TestDefaultFeedersPosition.json"));
+
+        // write Json and compare to reference (with shift feeder height and horizontal substation layout)
+        LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
+        layoutParameters2.setShiftFeedersPosition(true);
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters2);
+        assertEquals(toJson(g, "/TestShiftFeedersPosition.json"), toString("/TestShiftFeedersPosition.json"));
     }
 
     @Test

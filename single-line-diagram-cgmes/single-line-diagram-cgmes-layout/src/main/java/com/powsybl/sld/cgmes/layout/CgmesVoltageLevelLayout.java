@@ -46,5 +46,8 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
         if (layoutParam.getScaleFactor() != 1) {
             graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
+        if (layoutParam.isShiftFeedersPosition()) {
+            graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
+        }
     }
 }

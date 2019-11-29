@@ -49,8 +49,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
         double x1 = node1.getX();
         double y1 = node1.getY();
+        double initY1 = node1.getInitY() != -1 ? node1.getInitY() : y1;
         double x2 = node2.getX();
         double y2 = node2.getY();
+        double initY2 = node2.getInitY() != -1 ? node2.getInitY() : y2;
 
         int maxH1 = node1.getGraph().getNodeBuses().stream()
                 .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
@@ -77,10 +79,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                     double xSnakeLine = maxH + infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) * layoutParam.getHorizontalSnakeLinePadding();
 
                     pol.addAll(Arrays.asList(x1, y1,
-                            x1, y1 + decal1V,
-                            xSnakeLine, y1 + decal1V,
-                            xSnakeLine, y2 + decal2V,
-                            x2, y2 + decal2V,
+                            x1, initY1 + decal1V,
+                            xSnakeLine, initY1 + decal1V,
+                            xSnakeLine, initY2 + decal2V,
+                            x2, initY2 + decal2V,
                             x2, y2));
                 } else {  // BOTTOM to TOP
                     if (!graph.graphAdjacents(node1.getGraph(), node2.getGraph())) {
@@ -94,10 +96,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                         double xSnakeLine = maxH + infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) * layoutParam.getHorizontalSnakeLinePadding();
 
                         pol.addAll(Arrays.asList(x1, y1,
-                                x1, y1 + decal1V,
-                                xSnakeLine, y1 + decal1V,
-                                xSnakeLine, y2 - decal2V,
-                                x2, y2 - decal2V,
+                                x1, initY1 + decal1V,
+                                xSnakeLine, initY1 + decal1V,
+                                xSnakeLine, initY2 - decal2V,
+                                x2, initY2 - decal2V,
                                 x2, y2));
                     } else {  // node1 and node2 adjacent and node1 before node2
                         if (increment) {
@@ -106,7 +108,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                         }
                         double decal1V = infosNbSnakeLines.getNbSnakeLinesBottomVL().get(node1.getGraph().getVoltageLevelId()) * layoutParam.getVerticalSnakeLinePadding();
                         double decal2V = infosNbSnakeLines.getNbSnakeLinesTopVL().get(node2.getGraph().getVoltageLevelId()) * layoutParam.getVerticalSnakeLinePadding();
-                        double ySnakeLine = Math.max(y1 + decal1V, y2 - decal2V);
+                        double ySnakeLine = Math.max(initY1 + decal1V, initY2 - decal2V);
 
                         pol.addAll(Arrays.asList(x1, y1,
                                 x1, ySnakeLine,
@@ -128,10 +130,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                     double xSnakeLine = xMinGraph - infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT) * layoutParam.getHorizontalSnakeLinePadding();
 
                     pol.addAll(Arrays.asList(x1, y1,
-                            x1, y1 - decal1V,
-                            xSnakeLine, y1 - decal1V,
-                            xSnakeLine, y2 - decal2V,
-                            x2, y2 - decal2V,
+                            x1, initY1 - decal1V,
+                            xSnakeLine, initY1 - decal1V,
+                            xSnakeLine, initY2 - decal2V,
+                            x2, initY2 - decal2V,
                             x2, y2));
                 } else {  // TOP to BOTTOM
                     if (!graph.graphAdjacents(node2.getGraph(), node1.getGraph())) {
@@ -145,10 +147,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                         double xSnakeLine = xMinGraph - infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT) * layoutParam.getHorizontalSnakeLinePadding();
 
                         pol.addAll(Arrays.asList(x1, y1,
-                                x1, y1 - decal1V,
-                                xSnakeLine, y1 - decal1V,
-                                xSnakeLine, y2 + decal2V,
-                                x2, y2 + decal2V,
+                                x1, initY1 - decal1V,
+                                xSnakeLine, initY1 - decal1V,
+                                xSnakeLine, initY2 + decal2V,
+                                x2, initY2 + decal2V,
                                 x2, y2));
                     } else {  // node1 and node2 adjacent and node2 before node1
                         if (increment) {
@@ -157,7 +159,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                         }
                         double decal1V = infosNbSnakeLines.getNbSnakeLinesTopVL().get(node1.getGraph().getVoltageLevelId()) * layoutParam.getVerticalSnakeLinePadding();
                         double decal2V = infosNbSnakeLines.getNbSnakeLinesBottomVL().get(node2.getGraph().getVoltageLevelId()) * layoutParam.getVerticalSnakeLinePadding();
-                        double ySnakeLine = Math.max(y1 - decal1V, y2 + decal2V);
+                        double ySnakeLine = Math.max(initY1 - decal1V, initY2 + decal2V);
 
                         pol.addAll(Arrays.asList(x1, y1,
                                 x1, ySnakeLine,

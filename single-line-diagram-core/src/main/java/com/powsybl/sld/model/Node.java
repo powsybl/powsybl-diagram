@@ -53,6 +53,8 @@ public class Node implements BaseNode {
     private boolean xPriority = false;
     private boolean yPriority = false;
 
+    private double initY = -1;
+
     private Cell cell;
 
     private Double rotationAngle;
@@ -218,6 +220,14 @@ public class Node implements BaseNode {
             this.y = yNode;
             ys.add(yNode);
         }
+    }
+
+    public double getInitY() {
+        return initY;
+    }
+
+    public void setInitY(double initY) {
+        this.initY = initY;
     }
 
     public NodeType getType() {

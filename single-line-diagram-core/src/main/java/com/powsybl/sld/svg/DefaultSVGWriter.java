@@ -23,21 +23,17 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
@@ -111,9 +107,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected final ComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
-
-    Function<Node, BusCell.Direction> nodeDirection = node ->
-            (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
 
     public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
@@ -280,10 +273,6 @@ public class DefaultSVGWriter implements SVGWriter {
             }
             return componentLibrary.getAnchorPoints(type);
         };
-
-        if (layoutParameters.isShiftFeedersPosition()) {
-            shiftFeedersPosition(graph, layoutParameters.getScaleShiftFeedersPosition());
-        }
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
         // then we draw all the edges, and finally we draw the switch nodes
@@ -1070,29 +1059,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 .collect(Collectors.joining(","));
     }
 
-    /**
-     * Adjust feeders height, positioning them on a descending/ascending ramp
-     * (depending on their BusCell direction)
-     */
-    private void shiftFeedersPosition(Graph graph, double scaleShiftFeederNames) {
-        Map<BusCell.Direction, List<Node>> orderedFeederNodesByDirection = graph.getNodes().stream()
-                .filter(node -> !node.isFictitious() && node instanceof FeederNode && node.getCell() != null)
-                .sorted(Comparator.comparing(Node::getX))
-                .collect(Collectors.groupingBy(node -> nodeDirection.apply(node)));
-
-        Map<BusCell.Direction, Double> mapLev = Arrays.stream(BusCell.Direction.values()).collect(Collectors.toMap(d -> d, d -> 0.0));
-
-        Stream.of(BusCell.Direction.values())
-                .filter(direction -> orderedFeederNodesByDirection.get(direction) != null)
-                .forEach(direction ->
-                    orderedFeederNodesByDirection.get(direction).stream().skip(1).forEach(node -> {
-                        int componentHeight = (int) (componentLibrary.getSize(node.getComponentType()).getHeight());
-                        double oldY = node.getY() - graph.getY();
-                        double newY = mapLev.get(direction) + scaleShiftFeederNames * FONT_SIZE + (componentHeight == 0 ? LABEL_OFFSET : componentHeight);
-                        node.setY(oldY + ((direction == BusCell.Direction.TOP) ? 1 : -1) * newY);
-                        mapLev.put(direction, newY);
-                    }));
-    }
 
     /**
      * Creation of the defs area for the SVG components
