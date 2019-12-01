@@ -408,11 +408,11 @@
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
         </g>
-        <polyline class="wire wire_vl1" points="100.0,550.0,100.0,600.0,372.0,600.0" id="idvl1_95__95_Wire0"/>
-        <polyline class="wire wire_vl2" points="398.0,600.0,670.0,600.0,670.0,550.0" id="id_95_vl2_95_Wire1"/>
-        <polyline class="wire wire_vl1" points="420.0,130.0,420.0,92.0,716.0,92.0" id="idvl1_95__95_Wire2"/>
-        <polyline class="wire wire_vl2" points="730.0,112.0,730.0,130.0" id="id_95_vl2_95_Wire3"/>
-        <polyline class="wire wire_vl3" points="744.0,92.0,1020.0,92.0,1020.0,130.0" id="id_95_vl3_95_Wire4"/>
+        <polyline class="wire wire_vl1" points="100.0,550.0,100.0,600.0,365.5,600.0" id="idvl1_95__95_Wire0"/>
+        <polyline class="wire wire_vl2" points="404.5,600.0,670.0,600.0,670.0,550.0" id="id_95_vl2_95_Wire1"/>
+        <polyline class="wire wire_vl1" points="420.0,130.0,420.0,88.0,709.0,88.0" id="idvl1_95__95_Wire2"/>
+        <polyline class="wire wire_vl2" points="730.0,118.0,730.0,130.0" id="id_95_vl2_95_Wire3"/>
+        <polyline class="wire wire_vl3" points="751.0,88.0,1020.0,88.0,1020.0,130.0" id="id_95_vl3_95_Wire4"/>
         <g id="LABEL_VL_vl1">
             <text x="0.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>

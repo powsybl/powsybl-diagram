@@ -66,6 +66,7 @@ public class TestSVGWriter extends AbstractTestCase {
     private Graph g3;
     private SubstationGraph substG;
     private DiagramInitialValueProvider initValueProvider;
+    private DiagramInitialValueProvider noFeederValueProvider;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -670,6 +671,30 @@ public class TestSVGWriter extends AbstractTestCase {
                 return res;
             }
         };
+
+        // no feeder value provider example for the test :
+        //
+        noFeederValueProvider = new DiagramInitialValueProvider() {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, null, null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                }
+                return initialValue;
+            }
+
+            @Override
+            public List<String> getNodeLabelValue(Node node) {
+                List<String> res = new ArrayList<>();
+                if (node instanceof FeederNode || node instanceof BusNode) {
+                    res.add(node.getLabel());
+                }
+                return res;
+            }
+        };
     }
 
     @Test
@@ -712,6 +737,9 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // SVG file generation for substation and comparison to reference
         assertEquals(toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider), toString("/substation.svg"));
+
+        // SVG file generation for substation and comparison to reference but with no feeder values
+        assertEquals(toSVG(substG, "/substation_no_feeder_values.svg", layoutParameters, noFeederValueProvider, styleProvider), toString("/substation_no_feeder_values.svg"));
 
         // Same tests than before, with optimized svg :
         //
