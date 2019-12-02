@@ -1056,6 +1056,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         substationsLayouts.put("Horizontal", new HorizontalSubstationLayoutFactory());
         substationsLayouts.put("Vertical", new VerticalSubstationLayoutFactory());
         substationsLayouts.put("Cgmes", null);
+        substationsLayouts.put("Force", new ForceSubstationLayoutFactory());
     }
 
     private void updateLayoutsFactory(Network network) {
