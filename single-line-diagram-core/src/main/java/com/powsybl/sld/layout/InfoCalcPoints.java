@@ -22,7 +22,9 @@ public class InfoCalcPoints {
     private double x1;
     private double x2;
     private double y1;
+    private double initY1;
     private double y2;
+    private double initY2;
     private double xMaxGraph;
     private String idMaxGraph;
     private boolean increment;
@@ -97,6 +99,22 @@ public class InfoCalcPoints {
 
     public void setY2(double y2) {
         this.y2 = y2;
+    }
+
+    public double getInitY1() {
+        return initY1;
+    }
+
+    public void setInitY1(double initY1) {
+        this.initY1 = initY1;
+    }
+
+    public double getInitY2() {
+        return initY2;
+    }
+
+    public void setInitY2(double initY2) {
+        this.initY2 = initY2;
     }
 
     public double getxMaxGraph() {

@@ -40,6 +40,9 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         graph.getNodes().stream()
                 .filter(node -> node.getType() != Node.NodeType.BUS)
                 .forEach(Node::finalizeCoord);
+        if (layoutParam.isShiftFeedersPosition()) {
+            graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
+        }
     }
 
     private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {

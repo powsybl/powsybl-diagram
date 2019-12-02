@@ -58,8 +58,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
         double x1 = node1.getX();
         double y1 = node1.getY();
+        double initY1 = node1.getInitY() != -1 ? node1.getInitY() : y1;
         double x2 = node2.getX();
         double y2 = node2.getY();
+        double initY2 = node2.getInitY() != -1 ? node2.getInitY() : y2;
 
         InfoCalcPoints info = new InfoCalcPoints();
         info.setLayoutParam(layoutParam);
@@ -70,7 +72,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         info.setX1(x1);
         info.setX2(x2);
         info.setY1(y1);
+        info.setInitY1(initY1);
         info.setY2(y2);
+        info.setInitY2(initY2);
         info.setxMaxGraph(xMaxGraph);
         info.setIdMaxGraph(idMaxGraph);
         info.setIncrement(increment);
@@ -89,7 +93,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double x1 = info.getX1();
         double x2 = info.getX2();
         double y1 = info.getY1();
+        double initY1 = info.getInitY1();
         double y2 = info.getY2();
+        double initY2 = info.getInitY2();
         double xMaxGraph = info.getxMaxGraph();
         String idMaxGraph = info.getIdMaxGraph();
 
@@ -100,7 +106,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                         nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
                     }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
-                    double yDecal = Math.max(y1 + decalV, y2 + decalV);
+                    double yDecal = Math.max(initY1 + decalV, initY2 + decalV);
 
                     pol.addAll(Arrays.asList(x1, y1,
                             x1, yDecal,
@@ -119,10 +125,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                     double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
                     pol.addAll(Arrays.asList(x1, y1,
-                            x1, y1 + decal1V,
-                            xBetweenGraph, y1 + decal1V,
-                            xBetweenGraph, y2 - decal2V,
-                            x2, y2 - decal2V,
+                            x1, initY1 + decal1V,
+                            xBetweenGraph, initY1 + decal1V,
+                            xBetweenGraph, initY2 - decal2V,
+                            x2, initY2 - decal2V,
                             x2, y2));
                 }
                 break;
@@ -133,7 +139,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                         nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
                     }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
-                    double yDecal = Math.min(y1 - decalV, y2 - decalV);
+                    double yDecal = Math.min(initY1 - decalV, initY2 - decalV);
 
                     pol.addAll(Arrays.asList(x1, y1,
                             x1, yDecal,
@@ -151,10 +157,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                     double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
                     pol.addAll(Arrays.asList(x1, y1,
-                            x1, y1 - decal1V,
-                            xBetweenGraph, y1 - decal1V,
-                            xBetweenGraph, y2 + decal2V,
-                            x2, y2 + decal2V,
+                            x1, initY1 - decal1V,
+                            xBetweenGraph, initY1 - decal1V,
+                            xBetweenGraph, initY2 + decal2V,
+                            x2, initY2 + decal2V,
                             x2, y2));
                 }
                 break;

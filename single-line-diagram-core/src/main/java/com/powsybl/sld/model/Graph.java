@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,6 +70,11 @@ public final class Graph {
                                                    // false if substation diagram
 
     private final boolean showInductorFor3WT;
+
+    Function<Node, BusCell.Direction> nodeDirection = node ->
+            (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+
+    protected static final int VALUE_SHIFT_FEEDER = 8;
 
     private Graph(String id, String name, double nominalV,
                   boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
@@ -467,6 +473,30 @@ public final class Graph {
 
     public boolean isPositionNodeBusesCalculated() {
         return getNodeBuses().stream().allMatch(n -> n.getPosition().getH() != -1 && n.getPosition().getV() != -1);
+    }
+
+    /**
+     * Adjust feeders height, positioning them on a descending/ascending ramp
+     * (depending on their BusCell direction)
+     */
+    public void shiftFeedersPosition(double scaleShiftFeederNames) {
+        Map<BusCell.Direction, List<Node>> orderedFeederNodesByDirection = getNodes().stream()
+                .filter(node -> !node.isFictitious() && node instanceof FeederNode && node.getCell() != null)
+                .sorted(Comparator.comparing(Node::getX))
+                .collect(Collectors.groupingBy(node -> nodeDirection.apply(node)));
+
+        Map<BusCell.Direction, Double> mapLev = Arrays.stream(BusCell.Direction.values()).collect(Collectors.toMap(d -> d, d -> 0.0));
+
+        Stream.of(BusCell.Direction.values())
+                .filter(direction -> orderedFeederNodesByDirection.get(direction) != null)
+                .forEach(direction ->
+                        orderedFeederNodesByDirection.get(direction).stream().skip(1).forEach(node -> {
+                            double oldY = node.getY();
+                            double newY = mapLev.get(direction) + scaleShiftFeederNames * VALUE_SHIFT_FEEDER;
+                            node.setY(oldY - getY() + ((direction == BusCell.Direction.TOP) ? 1 : -1) * newY);
+                            node.setInitY(oldY);
+                            mapLev.put(direction, newY);
+                        }));
     }
 
     public void writeJson(Path file) {
