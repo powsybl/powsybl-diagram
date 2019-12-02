@@ -16,6 +16,9 @@ import com.powsybl.triplestore.api.PropertyBags;
 import com.powsybl.triplestore.api.QueryCatalog;
 import com.powsybl.triplestore.api.TripleStore;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
@@ -44,6 +47,7 @@ public class CgmesDLModelTest extends AbstractCgmesDLTest {
         setQuery(CgmesDLModel.SVC_DIAGRAM_DATA_QUERY_KEY, "SvcLineQuery", svcsPropertyBags);
         setQuery(CgmesDLModel.TERMINALS_QUERY_KEY, "TerminalsQuery", terminals);
         setQuery(CgmesDLModel.BUSBAR_NODES_QUERY_KEY, "BusbarNodesQuery", busbarNodes);
+        Mockito.when(tripleStore.contextNames()).thenReturn(new HashSet<>(Arrays.asList("Network_EQ.xml", "Network_SV.xml", "Network_TP.xml", "Network_DL.xml")));
         cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
     }
 
