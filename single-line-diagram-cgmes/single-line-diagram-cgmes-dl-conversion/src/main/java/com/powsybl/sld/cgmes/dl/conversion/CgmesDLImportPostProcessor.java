@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import java.util.Objects;
 
+import com.powsybl.cgmes.model.CgmesSubset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,11 +44,19 @@ public class CgmesDLImportPostProcessor implements CgmesImportPostProcessor {
         return NAME;
     }
 
-    @Override
-    public void process(Network network, TripleStore tripleStore, Profiling profiling) {
-        LOG.info("Execute {} CGMES import post processor on network {}", getName(), network.getId());
-        CgmesDLModel cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
-        new CgmesDLImporter(network, cgmesDLModel, profiling).importDLData();
+    private boolean isDlProfileAvailable(Network network, TripleStore tripleStore) {
+        return (tripleStore != null) && (tripleStore.contextNames().contains(ContextUtils.contextNameFor(CgmesSubset.DIAGRAM_LAYOUT, tripleStore, network.getId())));
     }
 
+    @Override
+    public void process(Network network, TripleStore tripleStore, Profiling profiling) {
+        if (isDlProfileAvailable(network, tripleStore)) {
+            LOG.info("Execute {} CGMES import post processor on network {}", getName(), network.getId());
+
+            CgmesDLModel cgmesDLModel = new CgmesDLModel(tripleStore, queryCatalog);
+            new CgmesDLImporter(network, cgmesDLModel, profiling).importDLData();
+        } else {
+            LOG.info("DL profile not found for network {}", network.getId());
+        }
+    }
 }
