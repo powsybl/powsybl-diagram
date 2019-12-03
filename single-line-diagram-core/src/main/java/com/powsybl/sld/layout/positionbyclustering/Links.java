@@ -35,7 +35,7 @@ class Links<T extends ClusterConnector> {
 
     void addClusterConnector(T clusterConnector) {
         clusterConnectors.add(clusterConnector);
-        clusterConnectors.forEach(lk -> buildNewLink(lk, clusterConnector));
+        clusterConnectors.forEach(cc -> buildNewLink(cc, clusterConnector));
     }
 
     private void buildNewLink(T clusterConnector1, T clusterConnector2) {

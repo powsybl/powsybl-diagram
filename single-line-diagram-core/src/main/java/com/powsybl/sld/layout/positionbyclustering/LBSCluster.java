@@ -9,6 +9,8 @@ package com.powsybl.sld.layout.positionbyclustering;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class LBSCluster {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
     private List<LegBusSet> lbsList;
     private Map<Side, LegBusSet> sideToLbs;
     private List<HorizontalLane> horizontalLanes;
@@ -123,8 +126,10 @@ class LBSCluster {
     }
 
     void tetrisHorizontalLanes() {
+        LOGGER.info(horizontalLanes.toString());
         List<HorizontalLane> sortedLanes = horizontalLanes.stream()
-                .sorted(Comparator.comparingInt(HorizontalLane::getIndex))
+                .sorted(Comparator.comparingInt(HorizontalLane::getIndex)
+                        .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness
                 .collect(Collectors.toList());
         int clusterLength = sortedLanes.stream()
                 .mapToInt(l -> l.getIndex() + l.getLength())
@@ -222,5 +227,16 @@ class LBSCluster {
 
     List<LegBusSet> getLbsList() {
         return lbsList;
+    }
+
+    @Override
+    public int hashCode() {
+        int i = 2029;
+        int hash = 0;
+        for (LegBusSet lbs : lbsList) {
+            hash += lbs.hashCode() * i;
+            i *= 2029;
+        }
+        return hash;
     }
 }
