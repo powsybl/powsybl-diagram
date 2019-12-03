@@ -30,8 +30,10 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
     private Map<InternCell, Side> crossoverInternCells;
     private LBSCluster lbsCluster;
     private List<Link<LegBusSet>> myLinks;
+    Map<BusNode, Integer> nodeToNb;
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
+        this.nodeToNb = nodeToNb;
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
         embeddedCells = new HashSet<>();
@@ -60,8 +62,16 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
         this(nodeToNb, Collections.singletonList(busNode));
     }
 
+    boolean contains(Collection<BusNode> busNodeCollection) {
+        return busNodeSet.containsAll(busNodeCollection);
+    }
+
     boolean contains(LegBusSet lbs) {
-        return busNodeSet.containsAll(lbs.getBusNodeSet());
+        return contains(lbs.getBusNodeSet());
+    }
+
+    void addEmbededCell(BusCell busCell) {
+        embeddedCells.add(busCell);
     }
 
     void absorbs(LegBusSet lbsToAbsorb) {
@@ -189,7 +199,13 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
 
     @Override
     public int hashCode() {
-        return busNodeSet.hashCode();
+        int i = 2039;
+        int hash = 0;
+        for (BusNode busNode : busNodeSet) {
+            hash += i * nodeToNb.get(busNode);
+            i *= 2029;
+        }
+        return hash;
     }
 
 }
