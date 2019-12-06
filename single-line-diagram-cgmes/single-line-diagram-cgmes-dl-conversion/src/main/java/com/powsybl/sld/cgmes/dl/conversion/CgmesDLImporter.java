@@ -68,7 +68,7 @@ public class CgmesDLImporter {
         LOG.info("Importing Terminals DL Data");
         profiling.start();
         cgmesDLModel.getTerminalsDiagramData().forEach(terminalDiagramData -> {
-            String terminalKey = terminalDiagramData.getId("terminalEquipment") + "_" + terminalDiagramData.get("terminalSide");
+            String terminalKey = terminalDiagramData.get("diagramName") + "_" + terminalDiagramData.getId("terminalEquipment") + "_" + terminalDiagramData.get("terminalSide");
             PropertyBags equipmentTerminalsDiagramData = new PropertyBags();
             if (terminalsDiagramData.containsKey(terminalKey)) {
                 equipmentTerminalsDiagramData = terminalsDiagramData.get(terminalKey);
