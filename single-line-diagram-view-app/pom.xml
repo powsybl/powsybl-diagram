@@ -30,6 +30,12 @@
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-single-line-diagram-cgmes-dl-conversion</artifactId>
+            <version>${project.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-view</artifactId>
             <version>${project.version}</version>
         </dependency>
