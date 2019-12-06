@@ -60,6 +60,9 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
         for (Graph vlGraph : graph.getNodes()) {
             setVoltageLevelCoord(vlGraph);
         }
+        // TODO Try to get width/height from the DL file. If missing, use a generic boundingbox algorithm on the Graph nodes
+        // TODO graph.setWidth(width);
+        // TODO graph.setHeight(height);
     }
 
 }

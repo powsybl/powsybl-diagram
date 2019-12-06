@@ -87,6 +87,9 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         double graphX = layoutParameters.getHorizontalSubstationPadding();
         double graphY = layoutParameters.getVerticalSubstationPadding();
 
+        double maxEndX = graphX;
+        double maxEndY = graphY;
+
         for (Graph vlGraph : graph.getNodes()) {
             vlGraph.setX(graphX);
             vlGraph.setY(graphY);
@@ -95,12 +98,24 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
             VoltageLevelLayout vLayout = vLayoutFactory.create(vlGraph);
             vLayout.run(layoutParameters);
 
+            double endX = graphX + vlGraph.getWidth();
+            if (endX > maxEndX) {
+                maxEndX = endX;
+            }
+            double endY = graphY + vlGraph.getHeigth();
+            if (endY > maxEndY) {
+                maxEndY = endY;
+            }
+
             // Calculate the global coordinate of the voltageLevel graph
             Coord posVLGraph = calculateCoordVoltageLevel(layoutParameters, vlGraph);
 
             graphX += posVLGraph.getX() + getHorizontalSubstationPadding(layoutParameters);
             graphY += posVLGraph.getY() + getVerticalSubstationPadding(layoutParameters);
         }
+
+        graph.setWidth(maxEndX + layoutParameters.getHorizontalSubstationPadding());
+        graph.setHeigth(maxEndY + layoutParameters.getVerticalSubstationPadding());
 
         // Calculate all the coordinates for the links between the voltageLevel graphs
         // (new fictitious nodes and new edges are introduced in this stage)

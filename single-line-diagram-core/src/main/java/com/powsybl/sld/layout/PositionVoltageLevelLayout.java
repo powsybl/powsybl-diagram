@@ -43,6 +43,7 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         if (layoutParam.isShiftFeedersPosition()) {
             graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
         }
+        calculateSize(graph, layoutParam);
     }
 
     private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {
@@ -57,5 +58,31 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
                 .forEach(cell -> cell.calculateCoord(layoutParam));
+    }
+
+    private void calculateSize(Graph graph, LayoutParameters layoutParam) {
+        int maxH = graph.getNodeBuses().stream()
+                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan()).max().orElse(0);
+
+        // TODO is this what we want ? for a simple diagram with 1 bus
+        // and 1 cell with the default parameters, we get:
+        // 0..20 20 px left margin
+        // 20..70 50 px cell
+        // 70..150 80 px right margin
+        // It feels weird that the margin is not symmetrical (but right now it helps
+        // because
+        // the names of the feeders are often bigger dans the cells and overflowing on
+        // the right side)
+        double width = layoutParam.getInitialXBus() + (maxH + 2) * layoutParam.getCellWidth();
+
+        int maxV = graph.getNodeBuses().stream()
+                .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan()).max().orElse(0);
+
+        // TODO this crops the feeder name
+        double height = layoutParam.getInitialYBus() + layoutParam.getStackHeight() + layoutParam.getExternCellHeight()
+                + layoutParam.getVerticalSpaceBus() * (maxV + 2);
+
+        graph.setWidth(width);
+        graph.setHeigth(height);
     }
 }

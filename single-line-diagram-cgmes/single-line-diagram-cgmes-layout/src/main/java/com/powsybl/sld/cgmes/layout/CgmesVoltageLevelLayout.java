@@ -49,5 +49,8 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
         if (layoutParam.isShiftFeedersPosition()) {
             graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
         }
+        // TODO Try to get width/height from the DL file. If missing, use a generic boundingbox algorithm on the Graph nodes
+        // TODO graph.setWidth(width);
+        // TODO graph.setHeight(height);
     }
 }

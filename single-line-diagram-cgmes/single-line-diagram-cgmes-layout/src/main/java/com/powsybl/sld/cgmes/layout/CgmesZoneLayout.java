@@ -84,6 +84,9 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
                 scaleLineCoordinates(edge, layoutParam.getScaleFactor());
             }
         }
+        // TODO Try to get width/height from the DL file. If missing, use a generic boundingbox algorithm on the Graph nodes
+        // TODO graph.setWidth(width);
+        // TODO graph.setHeight(height);
     }
 
     private void setLineCoordinates(VoltageLevel vl, LineEdge edge, String diagramName) {

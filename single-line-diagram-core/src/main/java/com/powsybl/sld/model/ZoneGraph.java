@@ -24,6 +24,9 @@ public final class ZoneGraph {
     private Map<String, SubstationGraph> nodesById = new HashMap<>();
     private Map<String, LineEdge> edgesById = new HashMap<>();
 
+    private double width = 0;
+    private double heigth = 0;
+
     private ZoneGraph(List<String> zone) {
         this.zone = Objects.requireNonNull(zone);
     }
@@ -53,6 +56,22 @@ public final class ZoneGraph {
 
     public List<LineEdge> getEdges() {
         return edges;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(double heigth) {
+        this.heigth = heigth;
     }
 
     public SubstationGraph getNode(String id) {

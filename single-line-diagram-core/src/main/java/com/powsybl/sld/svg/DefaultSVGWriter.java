@@ -90,6 +90,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg";
     private static final String SVG_QUALIFIED_NAME = "svg";
+    private static final String ATTRIBUTE_VIEWBOX = "viewBox";
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSVGWriter.class);
 
@@ -247,6 +248,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
+        document.getDocumentElement().setAttribute(ATTRIBUTE_VIEWBOX, "0 " + (-FONT_VOLTAGE_LEVEL_LABEL_SIZE) + " " + graph.getWidth() + " " + graph.getHeigth());
 
         return metadata;
     }
@@ -373,6 +375,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
+        document.getDocumentElement().setAttribute(ATTRIBUTE_VIEWBOX, "0 " + (-FONT_VOLTAGE_LEVEL_LABEL_SIZE) + " " + graph.getWidth() + " " + graph.getHeigth());
 
         return metadata;
     }
@@ -1174,6 +1177,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
+        document.getDocumentElement().setAttribute(ATTRIBUTE_VIEWBOX, "0 " + (-FONT_VOLTAGE_LEVEL_LABEL_SIZE) + " " + graph.getWidth() + " " + graph.getHeigth());
 
         return metadata;
     }

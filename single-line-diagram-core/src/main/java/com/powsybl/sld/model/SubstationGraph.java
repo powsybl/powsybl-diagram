@@ -35,6 +35,9 @@ public final class SubstationGraph {
 
     private List<Node> multiTermNodes = new ArrayList<>();
 
+    private double width = 0;
+    private double heigth = 0;
+
     /**
      * Constructor
      */
@@ -73,6 +76,22 @@ public final class SubstationGraph {
 
     public void setEdges(List<TwtEdge> edges) {
         this.edges = edges;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(double heigth) {
+        this.heigth = heigth;
     }
 
     public boolean graphAdjacents(Graph g1, Graph g2) {

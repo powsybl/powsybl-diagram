@@ -23,17 +23,11 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     /**
-     * Calculate relative coordinate of voltageLevel in the substation
+     * Calculate relative coordinate of the next voltageLevel in the substation
      */
     @Override
     protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, Graph vlGraph) {
-        int maxH = vlGraph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
-                .max().orElse(0);
-
-        double x = layoutParam.getInitialXBus() + (maxH + 2) * layoutParam.getCellWidth();
-        double y = 0;
-        return new Coord(x, y);
+        return new Coord(vlGraph.getWidth(), 0);
     }
 
     /*

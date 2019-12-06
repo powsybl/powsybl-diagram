@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -65,6 +66,9 @@ public final class Graph {
 
     private double x = 0;
     private double y = 0;
+
+    private double width = 0;
+    private double heigth = 0;
 
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
                                                    // false if substation diagram
@@ -469,6 +473,22 @@ public final class Graph {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(double heigth) {
+        this.heigth = heigth;
     }
 
     public boolean isPositionNodeBusesCalculated() {

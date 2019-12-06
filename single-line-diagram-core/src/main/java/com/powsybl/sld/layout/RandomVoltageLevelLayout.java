@@ -44,5 +44,7 @@ public class RandomVoltageLevelLayout implements VoltageLevelLayout {
                 ((BusNode) node).setPxWidth(50);
             }
         }
+        graph.setWidth(width);
+        graph.setHeigth(height);
     }
 }
