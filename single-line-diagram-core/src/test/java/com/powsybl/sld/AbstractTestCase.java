@@ -59,7 +59,7 @@ public abstract class AbstractTestCase {
                 .replace("\r", "\n");
     }
 
-    abstract void setUp() throws IOException;
+    public abstract void setUp() throws IOException;
 
     String getName() {
         return getClass().getSimpleName();
@@ -390,6 +390,11 @@ public abstract class AbstractTestCase {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public String toJson(SubstationGraph graph, String filename, boolean generateCoordsInJson) {
+        graph.setGenerateCoordsInJson(generateCoordsInJson);
+        return toJson(graph, filename);
     }
 
     public String toString(String resourceName) {

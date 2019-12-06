@@ -55,6 +55,7 @@
         <module>single-line-diagram-iidm-extensions</module>
         <module>single-line-diagram-view</module>
         <module>single-line-diagram-view-app</module>
+        <module>single-line-diagram-force-layout</module>
     </modules>
 
     <properties>
@@ -92,7 +93,7 @@
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <sonar.exclusions>
-            **/generated/**/*, **/com/powsybl/sld/view/**/*
+            **/generated/**/*, **/com/powsybl/sld/view/**/*, **/com/powsybl/sld/force/layout/gephi/**/*
         </sonar.exclusions>
 
         <powsyblcore.version>3.0.0</powsyblcore.version>
@@ -224,7 +225,6 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-iidm-api</artifactId>
@@ -245,8 +245,18 @@
                 <artifactId>powsybl-triple-store-api</artifactId>
                 <version>${powsyblcore.version}</version>
             </dependency>
+            <dependency>
+                <groupId>it.unimi.dsi</groupId>
+                <artifactId>fastutil</artifactId>
+                <version>8.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>colt</groupId>
+                <artifactId>colt</artifactId>
+                <version>1.2.0</version>
+            </dependency>
 
-            <!-- Runtime dependencies -->
+        <!-- Runtime dependencies -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>

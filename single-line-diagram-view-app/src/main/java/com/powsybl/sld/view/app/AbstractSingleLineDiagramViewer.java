@@ -9,22 +9,42 @@ package com.powsybl.sld.view.app;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.iidm.network.Container;
+import com.powsybl.iidm.network.ContainerType;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.Substation;
+import com.powsybl.iidm.network.Switch;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.commons.json.JsonUtil;
-import com.powsybl.iidm.network.*;
 import com.powsybl.sld.SubstationDiagram;
 import com.powsybl.sld.VoltageLevelDiagram;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.layout.CgmesSubstationLayoutFactory;
 import com.powsybl.sld.cgmes.layout.CgmesVoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.force.layout.ForceSubstationLayoutFactory;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionFree;
+import com.powsybl.sld.layout.PositionFromExtension;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.RandomVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.SubstationLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.svg.NodeLabelConfiguration;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.sld.view.AbstractContainerDiagramView;
 import com.powsybl.sld.view.DisplayVoltageLevel;
@@ -47,9 +67,31 @@ import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -59,7 +101,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -80,6 +128,7 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractSingleLineDiagramViewer extends Application implements DisplayVoltageLevel {
 
@@ -1038,6 +1087,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     }
 
     protected void setNetwork(Network network) {
+        closeAllTabs();
         updateLayoutsFactory(network);
         updateStylesProvider(network);
         networkProperty.setValue(network);
@@ -1056,6 +1106,9 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         substationsLayouts.put("Horizontal", new HorizontalSubstationLayoutFactory());
         substationsLayouts.put("Vertical", new VerticalSubstationLayoutFactory());
         substationsLayouts.put("Cgmes", null);
+        substationsLayouts.put("Smart", new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.NONE));
+        substationsLayouts.put("Smart with horizontal compaction", new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.HORIZONTAL));
+        substationsLayouts.put("Smart with vertical compaction", new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.VERTICAL));
     }
 
     private void updateLayoutsFactory(Network network) {

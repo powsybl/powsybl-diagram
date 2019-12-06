@@ -71,6 +71,8 @@ public final class Graph {
 
     private final boolean showInductorFor3WT;
 
+    private boolean generateCoordsInJson = true;
+
     Function<Node, BusCell.Direction> nodeDirection = node ->
             (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
 
@@ -522,8 +524,10 @@ public final class Graph {
         generator.writeStartObject();
 
         generator.writeStringField("id", voltageLevelId);
-        generator.writeNumberField("x", x);
-        generator.writeNumberField("y", y);
+        if (generateCoordsInJson) {
+            generator.writeNumberField("x", x);
+            generator.writeNumberField("y", y);
+        }
 
         generator.writeArrayFieldStart("cells");
         for (Cell cell : cells) {
@@ -537,5 +541,31 @@ public final class Graph {
         }
         generator.writeEndArray();
         generator.writeEndObject();
+    }
+
+    public void resetCoords() {
+        maxBusStructuralPosition = new Position(0, 0);
+        vPosToHPosToNodeBus = null;
+        nodes.stream().forEach(Node::resetCoords);
+    }
+
+    public int getMaxH() {
+        return getNodeBuses().stream()
+                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .max().orElse(0);
+    }
+
+    public int getMaxV() {
+        return getNodeBuses().stream()
+                .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan())
+                .max().orElse(0);
+    }
+
+    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
+        this.generateCoordsInJson = generateCoordsInJson;
+    }
+
+    public boolean isGenerateCoordsInJson() {
+        return generateCoordsInJson;
     }
 }

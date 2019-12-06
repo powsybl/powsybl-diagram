@@ -243,6 +243,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
         assertEquals(toJson(g, "/TestCase11SubstationGraphVertical.json"), toString("/TestCase11SubstationGraphVertical.json"));
 
         // compare metadata of substation diagram with reference
+        // (with horizontal substation layout)
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
 
         compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",

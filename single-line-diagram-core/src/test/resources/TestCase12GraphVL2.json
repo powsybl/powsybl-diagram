@@ -6,7 +6,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "TOP",
-    "direction" : "TOP",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -211,7 +210,6 @@
     "type" : "EXTERN",
     "number" : 1,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 0,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -352,7 +350,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 2,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 1,
     "rootBlock" : {
@@ -496,7 +493,6 @@
     "type" : "EXTERN",
     "number" : 3,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -638,7 +634,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 4,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -886,7 +881,6 @@
     "type" : "EXTERN",
     "number" : 5,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -1027,7 +1021,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 6,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 3,
     "rootBlock" : {
@@ -1171,7 +1164,6 @@
     "type" : "EXTERN",
     "number" : 7,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 4,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -1313,7 +1305,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 8,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -1560,7 +1551,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 9,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {

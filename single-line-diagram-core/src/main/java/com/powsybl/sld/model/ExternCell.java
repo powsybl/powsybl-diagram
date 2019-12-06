@@ -64,7 +64,6 @@ public class ExternCell extends AbstractBusCell {
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
-        generator.writeStringField("direction", getDirection().name());
         generator.writeNumberField("order", order);
     }
 }
