@@ -23,8 +23,9 @@ public class GraphBuildPostProcessorMock implements GraphBuildPostProcessor {
         return ID;
     }
 
-    public void addNode(Graph graph) {
+    public void addNode(Graph graph, Object network) {
         Objects.requireNonNull(graph);
+        Objects.requireNonNull(network);
 
         // this mock does nothing
     }
