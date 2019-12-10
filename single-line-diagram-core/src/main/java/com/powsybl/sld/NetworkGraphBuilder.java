@@ -651,7 +651,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         for (GraphBuildPostProcessor gbp : listPostProcessors) {
             LOGGER.info("Graph post-processor id '{}' : Adding custom node in graph '{}'",
                     gbp.getId(), graph.getVoltageLevelId());
-            gbp.addNode(graph);
+            gbp.addNode(graph, network);
         }
     }
 

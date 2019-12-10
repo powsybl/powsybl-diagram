@@ -15,5 +15,5 @@ import com.powsybl.sld.model.Graph;
 public interface GraphBuildPostProcessor {
     String getId();
 
-    void addNode(Graph graph);
+    void addNode(Graph graph, Object network);
 }
