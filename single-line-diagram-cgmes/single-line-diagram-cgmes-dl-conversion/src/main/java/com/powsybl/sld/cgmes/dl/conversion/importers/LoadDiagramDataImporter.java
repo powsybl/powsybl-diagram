@@ -9,14 +9,14 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
 
@@ -37,10 +37,13 @@ public class LoadDiagramDataImporter extends AbstractInjectionDiagramDataImporte
         String loadId = loadDiagramData.getId("identifiedObject");
         Load load = network.getLoad(loadId);
         if (load != null) {
-            InjectionDiagramData<Load> loadIidmDiagramData = new InjectionDiagramData<>(load);
+            InjectionDiagramData<Load> loadIidmDiagramData = load.getExtension(InjectionDiagramData.class);
+            if (loadIidmDiagramData == null) {
+                loadIidmDiagramData = new InjectionDiagramData<>(load);
+            }
             InjectionDiagramData.InjectionDiagramDetails diagramDetails = loadIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(loadDiagramData.asDouble("x"), loadDiagramData.asDouble("y"), loadDiagramData.asInt("seq")),
                     loadDiagramData.asDouble("rotation"));
-            addTerminalPoints(loadId, load.getName(), diagramDetails);
+            addTerminalPoints(loadId, load.getName(), loadDiagramData.get("diagramName"), diagramDetails);
             loadIidmDiagramData.addData(loadDiagramData.get("diagramName"), diagramDetails);
             load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
             NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"));

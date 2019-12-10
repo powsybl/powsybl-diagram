@@ -9,14 +9,14 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
 
@@ -37,14 +37,16 @@ public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataIm
         String generatorId = generatorDiagramData.getId("identifiedObject");
         Generator generator = network.getGenerator(generatorId);
         if (generator != null) {
-            InjectionDiagramData<Generator> generatorIidmDiagramData = new InjectionDiagramData<>(generator);
+            InjectionDiagramData<Generator> generatorIidmDiagramData = generator.getExtension(InjectionDiagramData.class);
+            if (generatorIidmDiagramData == null) {
+                generatorIidmDiagramData = new InjectionDiagramData<>(generator);
+            }
             InjectionDiagramData.InjectionDiagramDetails diagramDetails = generatorIidmDiagramData.new InjectionDiagramDetails(new DiagramPoint(generatorDiagramData.asDouble("x"), generatorDiagramData.asDouble("y"), generatorDiagramData.asInt("seq")),
                     generatorDiagramData.asDouble("rotation"));
-            addTerminalPoints(generatorId, generator.getName(), diagramDetails);
-            String diagramName = generatorDiagramData.get("diagramName");
-            generatorIidmDiagramData.addData(diagramName, diagramDetails);
+            addTerminalPoints(generatorId, generator.getName(), generatorDiagramData.get("diagramName"), diagramDetails);
+            generatorIidmDiagramData.addData(generatorDiagramData.get("diagramName"), diagramDetails);
             generator.addExtension(InjectionDiagramData.class, generatorIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, diagramName);
+            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"));
         } else {
             LOG.warn("Cannot find generator {}, name {} in network {}: skipping generator diagram data", generatorId, generatorDiagramData.get("name"), network.getId());
         }
