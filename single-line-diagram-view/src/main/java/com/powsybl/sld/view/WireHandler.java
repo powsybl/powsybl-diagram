@@ -6,23 +6,24 @@
  */
 package com.powsybl.sld.view;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.powsybl.sld.library.ComponentTypeName.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import com.google.common.collect.ImmutableList;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.svg.GraphMetadata;
 import com.powsybl.sld.svg.WireConnection;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Polyline;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -80,7 +81,20 @@ public class WireHandler {
         WireConnection wireConnection = WireConnection.searchBetterAnchorPoints(metadata, nodeHandler1, nodeHandler2);
 
         List<Double> pol = wireConnection.calculatePolylinePoints(nodeHandler1, nodeHandler2, straight);
-        node.getPoints().setAll(pol);
+
+        if (nodeHandler1.getComponentType().equals(BREAKER) || nodeHandler1.getComponentType().equals(DISCONNECTOR) || nodeHandler1.getComponentType().equals(LOAD_BREAK_SWITCH)) {
+            List<Double> reversePoints = new ArrayList();
+
+            for (int i = pol.size() - 1; i >= 0; i--) {
+                if (i % 2 == 0) {
+                    reversePoints.add(pol.get(i));
+                    reversePoints.add(pol.get(i + 1));
+                }
+            }
+            node.getPoints().setAll(reversePoints);
+        } else {
+            node.getPoints().setAll(pol);
+        }
 
         relocateArrows();
     }
