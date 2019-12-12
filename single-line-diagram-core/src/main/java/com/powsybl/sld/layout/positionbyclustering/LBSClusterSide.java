@@ -104,7 +104,7 @@ class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
 
     @Override
     public int hashCode() {
-        return side == Side.RIGHT ? 0 : 2017 + 2017 * 2017 * lbsCluster.hashCode();
+        return side == Side.LEFT ? 0 : 2017 + 2017 * 2017 * lbsCluster.hashCode();
     }
 
     @Override

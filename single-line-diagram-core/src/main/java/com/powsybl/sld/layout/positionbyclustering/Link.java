@@ -139,7 +139,9 @@ class Link<T extends ClusterConnector> implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (!(obj instanceof Link)) return false;
+        return clusterConnector1.equals(((Link<T>) obj).clusterConnector1)
+                && clusterConnector2.equals(((Link<T>) obj).clusterConnector2);
     }
 
     @Override

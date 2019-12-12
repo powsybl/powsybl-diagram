@@ -30,7 +30,7 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
     private Map<InternCell, Side> crossoverInternCells;
     private LBSCluster lbsCluster;
     private List<Link<LegBusSet>> myLinks;
-    Map<BusNode, Integer> nodeToNb;
+    private Map<BusNode, Integer> nodeToNb;
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         this.nodeToNb = nodeToNb;

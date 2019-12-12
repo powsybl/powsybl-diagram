@@ -98,29 +98,23 @@ public class PositionByClustering implements PositionFinder {
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || (cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).isUniLeg()))
-                .sorted(Comparator.comparing(Cell::getFullId)) // cope with randomness
                 .map(BusCell.class::cast)
+                .sorted(Comparator.comparing(Cell::getFullId)) // avoid randomness
                 .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).isUniLeg())
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
-                        .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // cope with randomness
+                        .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEach(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
-
-/*
-        if (cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).isUniLeg())
-            pushNewLBS(legBusSets, nodeToNb, cell, Side.LEFT);
-            pushNewLBS(legBusSets, nodeToNb, cell, Side.RIGHT);
-*/
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
         allBusNodes.removeAll(legBusSets.stream().
                 flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
         allBusNodes.stream()
-                .sorted(Comparator.comparing(Node::getId))              //cope with randomness
+                .sorted(Comparator.comparing(Node::getId))              //avoid randomness
                 .forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
         legBusSets.forEach(LegBusSet::checkInternCells);
         return legBusSets;
