@@ -9,6 +9,8 @@ package com.powsybl.sld.layout.positionbyclustering;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
@@ -45,6 +47,7 @@ import java.util.Map;
 
 // TODO implement SHUNT in the link assessment
 class Link<T extends ClusterConnector> implements Comparable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
     enum LinkCategory {
         COMMONBUSES, FLATCELLS, CROSSOVER//, SHUNT
@@ -112,20 +115,13 @@ class Link<T extends ClusterConnector> implements Comparable {
     }
 
     void mergeClusters() {
+        LOGGER.info("Merging Link: " + toString());
+
         if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
                 || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
                 || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
-        if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
-                || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
-                || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
-            return;
-        }
-        clusterConnector1.getCluster().merge(
-                clusterConnector1.getMySideInCluster(),
-                clusterConnector2.getCluster(),
-                clusterConnector2.getMySideInCluster());
         clusterConnector1.getCluster().merge(
                 clusterConnector1.getMySideInCluster(),
                 clusterConnector2.getCluster(),
@@ -143,12 +139,14 @@ class Link<T extends ClusterConnector> implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (!(obj instanceof Link)) return false;
+        return clusterConnector1.equals(((Link<T>) obj).clusterConnector1)
+                && clusterConnector2.equals(((Link<T>) obj).clusterConnector2);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return clusterConnector1.hashCode() + 2027 * clusterConnector2.hashCode();
     }
 
     @Override
@@ -172,6 +170,8 @@ class Link<T extends ClusterConnector> implements Comparable {
     public String toString() {
         return "CommonBus: " + categoryToWeight.get(LinkCategory.COMMONBUSES)
                 + " FlatCell: " + categoryToWeight.get(LinkCategory.FLATCELLS)
-                + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER);
+                + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER)
+                + "\n\tConnector1: " + clusterConnector1.toString()
+                + "\n\tConnector2: " + clusterConnector2.toString();
     }
 }

@@ -26,21 +26,21 @@ import java.util.stream.Collectors;
  * The LBSClusters are then merged 2 by 2 starting by LBSclusters that have the strongest Link.
  * Two strategies of strength assessment of the links between clusters are implemented:
  * <ul>
- *     <li>
- *         if useLBSLinkOnly is true: the strength between LegBusSets is considered: this means that the strength of
- *         the link between two clusters is the one of the strongest link between two LegBusSets (one per cluster). This
- *         is a simple implementation that is limited as it it does not consider the difference between the side of a
- *         cluster: if two clusters A and B are to be merged, the result can either be A-B or B-A.
- *     </li>
- *     <li>
- *         if useLBSLinkOnly is false: the strength between LBSClusterSide is considered. This is similar
- *         to what si done with LegBusSet but the assessment of the strength of the link considers both sides of the
- *         cluster.
- *         Therefore, with cluster A and B, there are 4 LBSClusterSide A-Right A-Left B-Right and B-Left. The links that
- *         are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
- *         alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
- *         2 clusters are respected : 1st cluster-Right is merged with 2nd cluster-left).
- *     </li>
+ * <li>
+ * if useLBSLinkOnly is true: the strength between LegBusSets is considered: this means that the strength of
+ * the link between two clusters is the one of the strongest link between two LegBusSets (one per cluster). This
+ * is a simple implementation that is limited as it it does not consider the difference between the side of a
+ * cluster: if two clusters A and B are to be merged, the result can either be A-B or B-A.
+ * </li>
+ * <li>
+ * if useLBSLinkOnly is false: the strength between LBSClusterSide is considered. This is similar
+ * to what si done with LegBusSet but the assessment of the strength of the link considers both sides of the
+ * cluster.
+ * Therefore, with cluster A and B, there are 4 LBSClusterSide A-Right A-Left B-Right and B-Left. The links that
+ * are considered are (A-Right, B-Left), (A-Right, B-Right), (B-Right, B-Left), (B-Right, B-Right). When merging,
+ * alignment is required (meaning that clusters could be reversed to ensure the connection sides between the
+ * 2 clusters are respected : 1st cluster-Right is merged with 2nd cluster-left).
+ * </li>
  * </ul>
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -96,27 +96,31 @@ public class PositionByClustering implements PositionFinder {
     private List<LegBusSet> initLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
         List<LegBusSet> legBusSets = new ArrayList<>();
         graph.getCells().stream()
-                .filter(cell -> cell instanceof BusCell)
+                .filter(cell -> cell.getType() == Cell.CellType.EXTERN
+                        || (cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).isUniLeg()))
                 .map(BusCell.class::cast)
-                .forEach(cell -> {
-                    if (cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).isUniLeg()) {
-                        pushNewLBS(legBusSets, nodeToNb, cell, Side.LEFT);
-                        pushNewLBS(legBusSets, nodeToNb, cell, Side.RIGHT);
-                    } else {
-                        pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED);
-                    }
-                });
+                .sorted(Comparator.comparing(Cell::getFullId)) // avoid randomness
+                .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+
+        graph.getCells().stream()
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).isUniLeg())
+                .map(InternCell.class::cast)
+                .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
+                        .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
+                .forEach(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
-        allBusNodes.removeAll(legBusSets.stream()
-                .flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
-        allBusNodes.forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
+        allBusNodes.removeAll(legBusSets.stream().
+                flatMap(legBusSet -> legBusSet.getBusNodeSet().stream()).collect(Collectors.toList()));
+        allBusNodes.stream()
+                .sorted(Comparator.comparing(Node::getId))              //avoid randomness
+                .forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
         legBusSets.forEach(LegBusSet::checkInternCells);
         return legBusSets;
     }
 
-    private void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, BusCell busCell, Side
-            side) {
+    private void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, BusCell busCell, Side side) {
         LegBusSet legBusSet = side == Side.UNDEFINED ?
                 new LegBusSet(nodeToNb, busCell) :
                 new LegBusSet(nodeToNb, (InternCell) busCell, side);
@@ -136,6 +140,17 @@ public class PositionByClustering implements PositionFinder {
         });
         legBusSets.removeAll(absorbedLBS);
         legBusSets.add(legBusSet);
+    }
+
+    private void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
+        for (LegBusSet lbs : legBusSets) {
+            if (lbs.contains(internCell.getBusNodes())) {
+                lbs.addEmbededCell(internCell);
+                return;
+            }
+        }
+        pushNewLBS(legBusSets, nodeToNb, internCell, Side.LEFT);
+        pushNewLBS(legBusSets, nodeToNb, internCell, Side.RIGHT);
     }
 
     private LBSCluster clusteringByLBSLink(Graph graph, List<LegBusSet> legBusSets) {

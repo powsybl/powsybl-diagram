@@ -101,4 +101,14 @@ class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
     public List<Link<LBSClusterSide>> getLinks() {
         return myLinks;
     }
+
+    @Override
+    public int hashCode() {
+        return side == Side.LEFT ? 0 : 2017 + 2017 * 2017 * lbsCluster.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return side.toString() + " " + lbsCluster.laneSideBuses(side).toString();
+    }
 }
