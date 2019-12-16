@@ -46,7 +46,6 @@ class Links<T extends ClusterConnector> {
     private void buildNewLink(T clusterConnector1, T clusterConnector2) {
         if (!clusterConnector1.hasSameRoot(clusterConnector2)) {
             Link<T> linkToAdd = new Link<>(clusterConnector1, clusterConnector2);
-            LOGGER.info("Link Hashcode: {}", linkToAdd.hashCode());
             linkSet.add(linkToAdd);
         }
     }

@@ -146,7 +146,7 @@ class Link<T extends ClusterConnector> implements Comparable {
 
     @Override
     public int hashCode() {
-        return clusterConnector1.hashCode() + 2027 * clusterConnector2.hashCode();
+        return clusterConnector1.hashCode() + 41 * clusterConnector2.hashCode();
     }
 
     @Override
