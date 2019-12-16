@@ -29,7 +29,9 @@ class LBSCluster {
     private List<HorizontalLane> horizontalLanes;
     private List<LBSCluster> lbsClusters;
 
-    LBSCluster(List<LBSCluster> lbsClusters, LegBusSet lbs) {
+    private int nb = 0;
+
+    LBSCluster(List<LBSCluster> lbsClusters, LegBusSet lbs, int nb) {
         lbsList = new ArrayList<>();
         lbsList.add(lbs);
         horizontalLanes = new ArrayList<>();
@@ -42,6 +44,7 @@ class LBSCluster {
 
         this.lbsClusters = lbsClusters;
         this.lbsClusters.add(this);
+        this.nb = nb;
     }
 
     void merge(Side myConcernedSide, LBSCluster otherLbsCluster, Side otherSide) {
@@ -229,14 +232,8 @@ class LBSCluster {
         return lbsList;
     }
 
-    @Override
-    public int hashCode() {
-        int i = 2029;
-        int hash = 0;
-        for (LegBusSet lbs : lbsList) {
-            hash += lbs.hashCode() * i;
-            i *= 2029;
-        }
-        return hash;
+    int getNb() {
+        return nb;
     }
+
 }

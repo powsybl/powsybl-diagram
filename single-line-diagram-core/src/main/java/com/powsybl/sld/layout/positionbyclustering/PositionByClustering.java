@@ -154,8 +154,7 @@ public class PositionByClustering implements PositionFinder {
     }
 
     private LBSCluster clusteringByLBSLink(Graph graph, List<LegBusSet> legBusSets) {
-        List<LBSCluster> lbsClusters = new ArrayList<>();
-        legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
+        List<LBSCluster> lbsClusters = initLBSCluster(legBusSets);
         Links<LegBusSet> links = new Links<>(legBusSets);
 
         // Cluster with lbslinks: stronger lbslinks first
@@ -177,8 +176,7 @@ public class PositionByClustering implements PositionFinder {
     }
 
     private LBSCluster clusteringByLBSClusterLink(List<LegBusSet> legBusSets) {
-        List<LBSCluster> lbsClusters = new ArrayList<>();
-        legBusSets.forEach(lbs -> new LBSCluster(lbsClusters, lbs));
+        List<LBSCluster> lbsClusters = initLBSCluster(legBusSets);
         Links<LBSClusterSide> links = new Links<>();
         lbsClusters.forEach(lbsCluster -> {
             links.addClusterConnector(new LBSClusterSide(lbsCluster, Side.LEFT));
@@ -211,6 +209,15 @@ public class PositionByClustering implements PositionFinder {
             buildLane(lbsCluster, remainingBuses, v);
             v++;
         }
+    }
+
+    private List<LBSCluster> initLBSCluster(List<LegBusSet> legBusSets) {
+        List<LBSCluster> lbsClusters = new ArrayList<>();
+        int nb = 0;
+        for (LegBusSet lbs : legBusSets) {
+            new LBSCluster(lbsClusters, lbs, nb++);
+        }
+        return lbsClusters;
     }
 
     /**
@@ -323,7 +330,8 @@ public class PositionByClustering implements PositionFinder {
             for (ExternCell busCell : lbs.getEmbeddedCells().stream()
                     .filter(busCell -> busCell.getType() == Cell.CellType.EXTERN)
                     .map(ExternCell.class::cast)
-                    .collect(Collectors.toSet())) {
+                    .sorted(Comparator.comparingInt(ExternCell::getNumber))
+                    .collect(Collectors.toList())) {
                 busCell.setDirection(cellPos % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
                 busCell.setOrder(cellPos);
                 cellPos++;
