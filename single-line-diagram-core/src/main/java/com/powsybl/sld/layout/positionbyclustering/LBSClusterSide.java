@@ -103,8 +103,19 @@ class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof LBSClusterSide)) {
+            return false;
+        }
+        LBSClusterSide other = (LBSClusterSide) o;
+        return myLinks == other.myLinks
+                && lbsCluster == other.lbsCluster
+                && side == other.side;
+    }
+
+    @Override
     public int hashCode() {
-        return side == Side.LEFT ? 0 : 2017 + 2017 * 2017 * lbsCluster.hashCode();
+        return (side == Side.LEFT ? 0 : 2017) + 2017 * 2017 * lbsCluster.getNb();
     }
 
     @Override

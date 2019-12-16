@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +20,8 @@ import java.util.TreeSet;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class Links<T extends ClusterConnector> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Links.class);
+
     private List<T> clusterConnectors;
     private TreeSet<Link<T>> linkSet = new TreeSet<>();
 
@@ -40,7 +45,9 @@ class Links<T extends ClusterConnector> {
 
     private void buildNewLink(T clusterConnector1, T clusterConnector2) {
         if (!clusterConnector1.hasSameRoot(clusterConnector2)) {
-            linkSet.add(new Link<>(clusterConnector1, clusterConnector2));
+            Link<T> linkToAdd = new Link<>(clusterConnector1, clusterConnector2);
+            LOGGER.info("Link Hashcode: {}", linkToAdd.hashCode());
+            linkSet.add(linkToAdd);
         }
     }
 
