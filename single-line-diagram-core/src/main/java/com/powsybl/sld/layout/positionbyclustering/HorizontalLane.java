@@ -11,6 +11,7 @@ import com.powsybl.sld.model.Position;
 import com.powsybl.sld.model.Side;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * An horizontalLane contains a list of BusNodes that have to be displayed horizontally connected.
@@ -81,5 +82,10 @@ class HorizontalLane {
 
     int getIndex() {
         return index;
+    }
+
+    @Override
+    public String toString() {
+        return String.join(";", busNodes.stream().map(BusNode::getId).collect(Collectors.toList()));
     }
 }
