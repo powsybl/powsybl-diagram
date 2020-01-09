@@ -86,6 +86,6 @@ class HorizontalLane {
 
     @Override
     public String toString() {
-        return (String.join(";", busNodes.stream().map(BusNode::getId).collect(Collectors.toList())));
+        return String.join(";", busNodes.stream().map(BusNode::getId).collect(Collectors.toList()));
     }
 }
