@@ -129,7 +129,9 @@ class LBSCluster {
     }
 
     void tetrisHorizontalLanes() {
-        LOGGER.info(horizontalLanes.toString());
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("{}", horizontalLanes);
+        }
         List<HorizontalLane> sortedLanes = horizontalLanes.stream()
                 .sorted(Comparator.comparingInt(HorizontalLane::getIndex)
                         .thenComparing(hl -> hl.getBusNodes().get(0).getId())) // cope with randomness

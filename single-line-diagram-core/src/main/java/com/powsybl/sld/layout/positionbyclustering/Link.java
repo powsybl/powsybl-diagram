@@ -115,7 +115,9 @@ class Link<T extends ClusterConnector> implements Comparable {
     }
 
     void mergeClusters() {
-        LOGGER.info("Merging Link: " + toString());
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Merging Link: {}", this);
+        }
 
         if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
                 || clusterConnector1.getMySideInCluster() == Side.UNDEFINED

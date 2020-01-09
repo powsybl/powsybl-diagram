@@ -190,7 +190,6 @@ public class PositionByClustering implements PositionFinder {
             links.removeClusterConnector(link.getClusterConnector(1));
             links.removeClusterConnector(link.getClusterConnector(0).getOtherSameRoot(links.getClusterConnectors()));
             links.removeClusterConnector(link.getClusterConnector(1).getOtherSameRoot(links.getClusterConnectors()));
-//            link.removeMe();
 
             links.addClusterConnector(new LBSClusterSide(mergedCluster, Side.LEFT));
             links.addClusterConnector(new LBSClusterSide(mergedCluster, Side.RIGHT));
