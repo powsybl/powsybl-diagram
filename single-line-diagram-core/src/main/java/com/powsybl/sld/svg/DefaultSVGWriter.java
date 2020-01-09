@@ -957,7 +957,16 @@ public class DefaultSVGWriter implements SVGWriter {
                     insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
-                insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode2(), metadata, initProvider, styleProvider);
+                List<Double> reversePoints = new ArrayList();
+
+                for (int i = pol.size() - 1; i >= 0; i--) {
+                    if (i % 2 == 0) {
+                        reversePoints.add(pol.get(i));
+                        reversePoints.add(pol.get(i + 1));
+                    }
+                }
+
+                insertArrowsAndLabels(prefixId, wireId, reversePoints, root, edge.getNode2(), metadata, initProvider, styleProvider);
             }
         }
     }
