@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 /**
  * SubSections splits the horizontal organisation of the busBars to cope with the case parallelism is not respected
  * This solves the case of a busbar spanning over many busbars at another vertical structural position.
+ * This assumes that the orders of the ExternCell are consistent with the structural horizontal positions of the busBars.
+ * This must be ensured by the PositionFinder
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -28,13 +31,161 @@ class SubSections {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SubSections.class);
 
-    private Map<SubSectionIndexes, HorizontalSubSection> subsectionMap;
+    private Set<SubSection> subsectionSet;
 
     private static final String STR_SIDE = "\t side ";
 
     SubSections(Graph graph) {
         this.graph = graph;
-        subsectionMap = new TreeMap<>();
+        subsectionSet = new TreeSet<>(new SubSectionComparator());
+    }
+
+    void handleSpanningBusBar() {
+        buildSubSections();
+        checkInternCellOrientation();
+        if (!checkCellOrderConsistencyWithSubsSections()) {
+            LOGGER.warn("*************** Cells order not consistent with Subsections order");
+        }
+    }
+
+    private void checkInternCellOrientation() {
+        Map<InternCell, List<SubSection>> cellToIndex = new HashMap<>();
+
+        subsectionSet.forEach(ss -> ss.getInternCells()
+                .forEach(c -> {
+                    cellToIndex.putIfAbsent(c, new ArrayList<>());
+                    cellToIndex.get(c).add(ss);
+                }));
+
+        cellToIndex.forEach((c, ssList) -> {
+            if (ssList.size() == 2) {
+                SubSection leftSs = ssList.get(0);
+                SubSection rightSs = ssList.get(1);
+                if (leftSs.getSideInternCells(Side.LEFT).contains(c)
+                        && rightSs.getSideInternCells(Side.RIGHT).contains(c)) {
+                    c.reverseCell();
+                    leftSs.setSide(c, Side.RIGHT);
+                    rightSs.setSide(c, Side.LEFT);
+                }
+            }
+        });
+    }
+
+    private boolean verticalInternCell(InternCell cell) {
+        return cell.isUniLeg() || cell.getBusNodes().stream()
+                .map(bus -> bus.getStructuralPosition().getH())
+                .distinct().count() == 1;
+    }
+
+    private void buildSubSections() {
+        graph.getCells().stream().filter(cell -> cell.getType() == Cell.CellType.EXTERN)
+                .map(ExternCell.class::cast)
+                .forEach(cell -> allocateCellToSubsection(cell, cell.getBusNodes(), Side.UNDEFINED));
+
+        Set<InternCell> internCells = graph.getCells().stream()
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
+                .map(InternCell.class::cast)
+                .collect(Collectors.toSet());
+
+        Set<InternCell> verticalInternCells = internCells.stream().filter(this::verticalInternCell)
+                .collect(Collectors.toSet());
+        verticalInternCells.forEach(cell -> allocateCellToSubsection(cell, cell.getBusNodes(), Side.UNDEFINED));
+
+        internCells.removeAll(verticalInternCells);
+
+        internCells.stream()
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
+                .forEach(internCell -> {
+                    allocateCellToSubsection(internCell, internCell.getSideBusNodes(Side.LEFT), Side.LEFT);
+                    allocateCellToSubsection(internCell, internCell.getSideBusNodes(Side.RIGHT), Side.RIGHT);
+                });
+        mergeSimilarSubsections();
+    }
+
+    private void allocateCellToSubsection(BusCell busCell, List<BusNode> busNodes, Side side) {
+        SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
+        busNodes.stream().map(BusNode::getStructuralPosition).collect(Collectors.toList())
+                .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
+
+        SubSection subSection = subsectionSet.stream()
+                .filter(i -> i.getSsIndexes().equals(indexes))
+                .findAny()
+                .orElse(null);
+        if (subSection == null) {
+            subSection = new SubSection(indexes);
+            subsectionSet.add(subSection);
+        }
+        if (side == Side.UNDEFINED) {
+            if (busCell.getType() == Cell.CellType.INTERN) {
+                subSection.add((InternCell) busCell, Side.UNDEFINED);
+            } else {
+                subSection.add(busCell);
+            }
+        } else {
+            List<SubSection> candidateSubsections = subsectionSet.stream()
+                    .filter(ss -> ss.getSsIndexes().asSameNonZeroIndexes(indexes))
+                    .collect(Collectors.toList());
+            SubSection ss;
+            if (candidateSubsections.isEmpty()) {
+                ss = new SubSection(indexes);
+            } else {
+                if (side == Side.LEFT) {
+                    ss = candidateSubsections.get(candidateSubsections.size() - 1);
+                } else {
+                    ss = candidateSubsections.get(0);
+                }
+            }
+            subsectionSet.add(ss);
+        }
+    }
+
+    private void mergeSimilarSubsections() {
+        boolean change = true;
+        while (change) {
+            change = false;
+            List<SubSection> ssList = new ArrayList<>(subsectionSet);
+            for (int i = 0; i < ssList.size() && !change; i++) {
+                SubSection ss1 = ssList.get(i);
+                for (int j = i + 1; j < ssList.size() && !change; j++) {
+                    SubSection ss2 = ssList.get(j);
+                    if (ss1.getSsIndexes().isMergeableWith(ss2.getSsIndexes())) {
+                        change = true;
+                        subsectionSet.remove(ss1);
+                        subsectionSet.remove(ss2);
+                        ss1.merge(ss2);
+                        subsectionSet.add(ss1);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean checkCellOrderConsistencyWithSubsSections() {
+        int previousMax = 0;
+        boolean checkOK = true;
+        for (SubSection subSection : subsectionSet) {
+            Set<ExternCell> externCells = subSection.getExternCells();
+            int minOrder = externCells.stream().mapToInt(ExternCell::getOrder).max().orElse(previousMax);
+            checkOK &= minOrder >= previousMax;
+            previousMax = externCells.stream().mapToInt(ExternCell::getOrder).max().orElse(previousMax);
+        }
+        return checkOK;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stBdr = new StringBuilder();
+        getSubsectionMap().forEach((indexes, subsection) -> {
+            stBdr.append(Arrays.toString(indexes.getIndexes())).append(":\n");
+            stBdr.append(subsection.toString()).append("\n");
+        });
+        return stBdr.toString();
+    }
+
+    Map<SubSectionIndexes, SubSection> getSubsectionMap() {
+        Map<SubSectionIndexes, SubSection> subsectionMap = new TreeMap<>();
+        subsectionSet.forEach(subSection -> subsectionMap.put(subSection.getSsIndexes(), subSection));
+        return subsectionMap;
     }
 
     class ExternCellComparator implements Comparator<ExternCell> {
@@ -49,31 +200,28 @@ class SubSections {
         }
     }
 
-    class HorizontalSubSection {
+    class SubSection {
+        SubSectionIndexes ssIndexes;
         private Set<Cell> cells;
         private Set<ExternCell> externCells;
         private Set<InternCell> internCells;
         private Set<BusNode> busNodes;
         private Map<InternCell, Side> cellToSideMap;
-        private int order;
 
-        HorizontalSubSection() {
+        SubSection(SubSectionIndexes ssIndexes) {
+            this.ssIndexes = ssIndexes;
             cells = new HashSet<>();
             externCells = new TreeSet<>(new ExternCellComparator());
 
             internCells = new HashSet<>();
             busNodes = new HashSet<>();
             cellToSideMap = new HashMap<>();
-            order = -1;
         }
 
         void add(BusCell busCell) {
             cells.add(busCell);
             if (busCell.getType() == Cell.CellType.EXTERN) {
                 externCells.add((ExternCell) busCell);
-                if (order == -1) {
-                    order = ((ExternCell) busCell).getOrder();
-                }
             }
             busNodes.addAll(busCell.getBusNodes());
         }
@@ -90,12 +238,17 @@ class SubSections {
             busNodes.addAll(cell.getBusNodes());
         }
 
-        void merge(HorizontalSubSection hss) {
-            cells.addAll(hss.cells);
-            externCells.addAll(hss.externCells);
-            internCells.addAll(hss.internCells);
-            busNodes.addAll(hss.busNodes);
-            cellToSideMap.putAll(hss.cellToSideMap);
+        void merge(SubSection ss) {
+            ssIndexes.mergeWith(ss.ssIndexes);
+            cells.addAll(ss.cells);
+            externCells.addAll(ss.externCells);
+            internCells.addAll(ss.internCells);
+            busNodes.addAll(ss.busNodes);
+            cellToSideMap.putAll(ss.cellToSideMap);
+        }
+
+        public SubSectionIndexes getSsIndexes() {
+            return ssIndexes;
         }
 
         @Override
@@ -131,10 +284,6 @@ class SubSections {
             return strBd.toString();
         }
 
-        Set<BusNode> getBusNodes() {
-            return new HashSet<>(busNodes);
-        }
-
         Set<ExternCell> getExternCells() {
             TreeSet<ExternCell> externCellsCopy = new TreeSet<>(new ExternCellComparator());
             externCellsCopy.addAll(this.externCells);
@@ -154,33 +303,29 @@ class SubSections {
                     .collect(Collectors.toSet());
         }
 
-        Map<InternCell, Side> getCellToSideMap() {
-            return cellToSideMap;
-        }
-
         void setSide(InternCell c, Side side) {
             cellToSideMap.put(c, side);
         }
 
     }
 
+    class SubSectionComparator implements Comparator<SubSection> {
+        public int compare(SubSection ss1, SubSection ss2) {
+            return ss1.getSsIndexes().compareTo(ss2.getSsIndexes());
+        }
+    }
+
     class SubSectionIndexes implements Comparable<SubSectionIndexes> {
         private int size;
         private int[] indexes;
-        private int order;
 
         SubSectionIndexes(int size) {
             this.size = size;
             indexes = new int[size];
-            order = -1;
         }
 
         void setIndexI(int i, int val) {
             indexes[i] = val;
-        }
-
-        void updateOrder(int order) {
-            this.order = Math.max(this.order, order);
         }
 
         int[] getIndexes() {
@@ -198,9 +343,9 @@ class SubSections {
         }
 
         @Override
-        public boolean equals(Object ss) {
-            if (ss instanceof SubSectionIndexes) {
-                return Arrays.equals(((SubSectionIndexes) ss).getIndexes(), this.indexes);
+        public boolean equals(Object o) {
+            if (o instanceof SubSectionIndexes) {
+                return Arrays.equals(((SubSectionIndexes) o).getIndexes(), this.indexes);
             } else {
                 return false;
             }
@@ -209,11 +354,6 @@ class SubSections {
         @Override
         public int hashCode() {
             return super.hashCode();
-        }
-
-        @Override
-        public String toString() {
-            return Arrays.toString(indexes);
         }
 
         @Override
@@ -249,169 +389,34 @@ class SubSections {
             return 0;
         }
 
-        SubSectionIndexes merge(SubSectionIndexes ssi) {
-            SubSectionIndexes resSsi = new SubSectionIndexes(size);
+        @Override
+        public String toString() {
+            return Arrays.toString(indexes);
+        }
+
+        boolean isMergeableWith(SubSectionIndexes ssi) {
             for (int i = 0; i < size; i++) {
-                if (ssi.indexes[i] != 0 && indexes[i] != 0) {
-                    if (ssi.indexes[i] != indexes[i]) {
-                        return new SubSectionIndexes(0);
-                    } else {
-                        resSsi.indexes[i] = indexes[i];
-                    }
-                } else {
-                    resSsi.indexes[i] = Math.max(ssi.indexes[i], indexes[i]);
+                if (ssi.indexes[i] != 0 && indexes[i] != 0 && ssi.indexes[i] != indexes[i]) {
+                    return false;
                 }
             }
-            resSsi.order = Math.max(ssi.order, order);
-            return resSsi;
+            return true;
         }
 
-    }
-
-    void handleSpanningBusBar() {
-        buildSubSections();
-        checkInternCellOrientation();
-        if (!checkCellOrderConsistencyWithSubsSections()) {
-            LOGGER.warn("*************** Cells order not consistent with Subsections order");
-        }
-    }
-
-    private void checkInternCellOrientation() {
-        Map<InternCell, List<SubSectionIndexes>> cellToIndex = new HashMap<>();
-
-        subsectionMap.forEach((ssI, ssh) -> ssh.getInternCells()
-                .forEach(c -> {
-                    cellToIndex.putIfAbsent(c, new ArrayList<>());
-                    cellToIndex.get(c).add(ssI);
-                }));
-
-        cellToIndex.forEach((c, ssiList) -> {
-            if (ssiList.size() == 2) {
-                HorizontalSubSection leftHss = subsectionMap.get(ssiList.get(0));
-                HorizontalSubSection rightHss = subsectionMap.get(ssiList.get(1));
-                if (leftHss.getSideInternCells(Side.LEFT).contains(c)
-                        && rightHss.getSideInternCells(Side.RIGHT).contains(c)) {
-                    c.reverseCell();
-                    leftHss.setSide(c, Side.RIGHT);
-                    rightHss.setSide(c, Side.LEFT);
-                }
+        /**
+         * Warning: the merge can be achieve only if the isMergeableWith test is successful.
+         *
+         * @param ssi : SubSectionsIndexes to merge with
+         */
+        void mergeWith(SubSectionIndexes ssi) {
+            if (!isMergeableWith(ssi)) {
+                throw new PowsyblException("SubSectionIndexes not mergeable");
             }
-        });
-    }
-
-    private boolean verticalInternCell(InternCell cell) {
-        return cell.isUniLeg() || cell.getBusNodes().stream()
-                .map(bus -> bus.getStructuralPosition().getH())
-                .distinct().count() == 1;
-    }
-
-    private void buildSubSections() {
-        graph.getCells().stream().filter(cell -> cell.getType() == Cell.CellType.EXTERN)
-                .map(ExternCell.class::cast)
-                .forEach(cell -> allocateCellToSubsection(cell, cell.getBusNodes(), Side.UNDEFINED));
-
-        Set<InternCell> internCells = graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
-                .map(InternCell.class::cast)
-                .collect(Collectors.toSet());
-
-        Set<InternCell> verticalInternCells = internCells.stream().filter(this::verticalInternCell)
-                .collect(Collectors.toSet());
-        verticalInternCells.forEach(cell -> allocateCellToSubsection(cell, cell.getBusNodes(), Side.UNDEFINED));
-
-        internCells.removeAll(verticalInternCells);
-
-        internCells.stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
-                .forEach(internCell -> {
-                    allocateCellToSubsection(internCell, internCell.getSideBusNodes(Side.LEFT), Side.LEFT);
-                    allocateCellToSubsection(internCell, internCell.getSideBusNodes(Side.RIGHT), Side.RIGHT);
-                });
-        mergeSimilarSubstations();
-    }
-
-    private void mergeSimilarSubstations() {
-        boolean change = true;
-        while (change) {
-            change = false;
-            List<SubSectionIndexes> ssiList = new ArrayList<>(subsectionMap.keySet());
-            for (int i = 0; i < ssiList.size() && !change; i++) {
-                SubSectionIndexes ssi1 = ssiList.get(i);
-                for (int j = i + 1; j < ssiList.size() && !change; j++) {
-                    SubSectionIndexes ssi2 = ssiList.get(j);
-                    SubSectionIndexes newSSI = ssi1.merge(ssi2);
-                    if (newSSI.size != 0) {
-                        change = true;
-                        HorizontalSubSection hss1 = subsectionMap.get(ssi1);
-                        HorizontalSubSection hss2 = subsectionMap.get(ssi2);
-                        subsectionMap.remove(ssi1);
-                        subsectionMap.remove(ssi2);
-                        hss1.merge(hss2);
-                        if (subsectionMap.containsKey(newSSI)) {
-                            hss1.merge(subsectionMap.get(newSSI));
-                        }
-                        subsectionMap.put(newSSI, hss1);
-                    }
+            for (int i = 0; i < size; i++) {
+                if (indexes[i] == 0) {
+                    indexes[i] = ssi.indexes[i];
                 }
             }
         }
-    }
-
-    private void allocateCellToSubsection(BusCell busCell, List<BusNode> busNodes, Side side) {
-        SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
-        busNodes.stream().map(BusNode::getStructuralPosition)
-                .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
-
-        if (side == Side.UNDEFINED) {
-            subsectionMap.putIfAbsent(indexes, new HorizontalSubSection());
-            if (busCell.getType() == Cell.CellType.INTERN) {
-                subsectionMap.get(indexes).add((InternCell) busCell, side);
-            } else {
-                subsectionMap.get(indexes).add(busCell);
-                indexes.updateOrder(((ExternCell) busCell).getOrder());
-            }
-        } else {
-            Set<SubSectionIndexes> candidateSubsectionIndexes;
-            candidateSubsectionIndexes = subsectionMap.keySet().stream()
-                    .filter(ssi -> ssi.asSameNonZeroIndexes(indexes))
-                    .collect(Collectors.toSet());
-            if (candidateSubsectionIndexes.isEmpty()) {
-                subsectionMap.put(indexes, new HorizontalSubSection());
-                candidateSubsectionIndexes.add(indexes);
-            }
-            SubSectionIndexes ssI;
-            if (side == Side.LEFT) {
-                ssI = Collections.max(candidateSubsectionIndexes);
-            } else {
-                ssI = Collections.min(candidateSubsectionIndexes);
-            }
-            subsectionMap.get(ssI).add((InternCell) busCell, side);
-        }
-    }
-
-    private boolean checkCellOrderConsistencyWithSubsSections() {
-        int previousMax = 0;
-        boolean checkOK = true;
-        for (Map.Entry<SubSectionIndexes, HorizontalSubSection> entry : subsectionMap.entrySet()) {
-            Set<ExternCell> externCells = entry.getValue().getExternCells();
-            int minOrder = externCells.stream().mapToInt(ExternCell::getOrder).max().orElse(previousMax);
-            checkOK &= minOrder >= previousMax;
-            previousMax = externCells.stream().mapToInt(ExternCell::getOrder).max().orElse(previousMax);
-        }
-        return checkOK;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder stBdr = new StringBuilder();
-        getSubsectionMap().forEach((indexes, subsection) -> {
-            stBdr.append(Arrays.toString(indexes.getIndexes())).append(":\n");
-            stBdr.append(subsection.toString()).append("\n");
-        });
-        return stBdr.toString();
-    }
-
-    Map<SubSectionIndexes, HorizontalSubSection> getSubsectionMap() {
-        return new TreeMap<>(subsectionMap);
     }
 }
