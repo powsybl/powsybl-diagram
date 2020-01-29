@@ -996,7 +996,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
             // Get the points of the snakeLine, already calculated during the layout application
             List<Double> pol = edge.getSnakeLine();
-            adaptCoordSnakeLine(anchorPointProvider, edge, pol);
+            if (!pol.isEmpty()) {
+                adaptCoordSnakeLine(anchorPointProvider, edge, pol);
+            }
 
             g.setAttribute(POINTS, pointsListToString(pol));
 

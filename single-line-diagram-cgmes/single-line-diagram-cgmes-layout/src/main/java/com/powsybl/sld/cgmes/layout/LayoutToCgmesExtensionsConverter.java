@@ -158,29 +158,6 @@ public class LayoutToCgmesExtensionsConverter {
                 staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
             });
 
-            substation.getTwoWindingsTransformerStream().forEach(twoWindingsTransformer -> vlGraph.getNodes().stream()
-                    .filter(node -> checkNode(twoWindingsTransformer, node)).findFirst().ifPresent(node -> {
-                        FeederNode transformerNode = (FeederNode) node;
-                        DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(transformerNode.getX(), transformerNode.getY(), transformerNode.getOrder());
-                        CouplingDeviceDiagramData<TwoWindingsTransformer> transformerIidmDiagramData = new CouplingDeviceDiagramData<>(twoWindingsTransformer);
-                        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = transformerIidmDiagramData.new CouplingDeviceDiagramDetails(tDiagramPoint, rotationValue(transformerNode));
-                        transformerIidmDiagramData.addData(diagramName, diagramDetails);
-                        LOG.debug("setting CGMES DL IIDM extensions for TwoWindingTransformer: {}, {}", twoWindingsTransformer.getId(), tDiagramPoint);
-                        twoWindingsTransformer.addExtension(CouplingDeviceDiagramData.class, transformerIidmDiagramData);
-                    })
-            );
-
-            substation.getThreeWindingsTransformerStream().forEach(threeWindingsTransformer -> vlGraph.getNodes().stream()
-                    .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
-                        DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
-                        ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
-                        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = transformerIidmDiagramData.new ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
-                        transformerIidmDiagramData.addData(diagramName, diagramDetails);
-                        LOG.debug("setting CGMES DL IIDM extensions for ThreeWindingTransformer: {}, {}", threeWindingsTransformer.getId(), tDiagramPoint);
-                        threeWindingsTransformer.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);
-                    })
-            );
-
             vlGraph.getNodes().stream().filter(this::isLineNode).forEach(node -> {
                 switch (node.getComponentType()) {
                     case LINE:
@@ -247,6 +224,28 @@ public class LayoutToCgmesExtensionsConverter {
             }
         });
 
+        substation.getTwoWindingsTransformerStream().forEach(twoWindingsTransformer -> sgraph.getMultiTermNodes().stream()
+                .filter(node -> checkNode(twoWindingsTransformer, node)).findFirst().ifPresent(node -> {
+                    DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+                    CouplingDeviceDiagramData<TwoWindingsTransformer> transformerIidmDiagramData = new CouplingDeviceDiagramData<>(twoWindingsTransformer);
+                    CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = transformerIidmDiagramData.new CouplingDeviceDiagramDetails(tDiagramPoint, rotationValue(node));
+                    transformerIidmDiagramData.addData(diagramName, diagramDetails);
+                    LOG.info("setting CGMES DL IIDM extensions for TwoWindingTransformer: {}, {}", twoWindingsTransformer.getId(), tDiagramPoint);
+                    twoWindingsTransformer.addExtension(CouplingDeviceDiagramData.class, transformerIidmDiagramData);
+                })
+        );
+
+        substation.getThreeWindingsTransformerStream().forEach(threeWindingsTransformer -> sgraph.getMultiTermNodes().stream()
+                .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
+                    DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
+                    ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
+                    ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = transformerIidmDiagramData.new ThreeWindingsTransformerDiagramDataDetails(tDiagramPoint, rotationValue(node));
+                    transformerIidmDiagramData.addData(diagramName, diagramDetails);
+                    LOG.debug("setting CGMES DL IIDM extensions for ThreeWindingTransformer: {}, {}", threeWindingsTransformer.getId(), tDiagramPoint);
+                    threeWindingsTransformer.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);
+                })
+        );
+
         return subsBoundary;
     }
 
@@ -255,17 +254,13 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
-        return (node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(LINE)) &&
-            (((node instanceof Fictitious3WTNode) && ((Fictitious3WTNode) node).getTransformerId().equals(threeWindingsTransformer.getId()))
-                || ((node instanceof Feeder3WTNode) && ((Feeder3WTNode) node).getTransformerId().equals(threeWindingsTransformer.getId())));
+        return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
+                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof  Feeder3WTNode) && ((Feeder3WTNode) n).getTransformerId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
-        return (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                || node.getComponentType().equals(LINE))
-                && node.getId().startsWith(twoWindingsTransformer.getId());
+        return node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                && node.getAdjacentNodes().stream().allMatch(n -> n.getId().startsWith(twoWindingsTransformer.getId()));
     }
 
     private double rotationValue(Node node) {
