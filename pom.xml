@@ -86,32 +86,6 @@
         <xmlunit.version>2.3.0</xmlunit.version>
         <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version>
 
-        <maven.antrun.version>1.8</maven.antrun.version>
-        <maven.assembly.version>3.1.0</maven.assembly.version>
-        <maven.build-helper.version>3.0.0</maven.build-helper.version>
-        <maven.buildnumber.version>1.4</maven.buildnumber.version>
-        <maven.checkstyle.version>3.0.0</maven.checkstyle.version>
-        <maven.clean.version>3.1.0</maven.clean.version>
-        <maven.compiler.version>3.8.0</maven.compiler.version>
-        <maven.core.version>3.3.9</maven.core.version>
-        <maven.dependency.version>3.1.1</maven.dependency.version>
-        <maven.deploy.version>2.8.2</maven.deploy.version>
-        <maven.enforcer.version>3.0.0-M2</maven.enforcer.version>
-        <maven.findbugs.version>3.0.5</maven.findbugs.version>
-        <maven.gpg.version>1.6</maven.gpg.version>
-        <maven.install.version>2.5.2</maven.install.version>
-        <maven.jacoco.version>0.8.1</maven.jacoco.version>
-        <maven.jar.version>3.1.0</maven.jar.version>
-        <maven.javadoc.version>3.0.1</maven.javadoc.version>
-        <maven.plugin.version>3.5.2</maven.plugin.version>
-        <maven.resources.version>3.1.0</maven.resources.version>
-        <maven.shade.version>3.1.1</maven.shade.version>
-        <maven.site.version>3.7.1</maven.site.version>
-        <maven.source.version>3.0.1</maven.source.version>
-        <maven.surefire.version>2.22.0</maven.surefire.version>
-        <maven.templating.version>1.0.0</maven.templating.version>
-        <maven.versions.version>2.7</maven.versions.version>
-
         <sonar.coverage.jacoco.xmlReportPaths>
             ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
             ../../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
@@ -123,6 +97,34 @@
 
         <powsyblcore.version>3.0.0</powsyblcore.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.version}</version>
+                        <executions>
+                            <execution>
+                                <id>javadoc-aggregate-jar</id>
+                                <phase>package</phase>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>aggregate-jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
