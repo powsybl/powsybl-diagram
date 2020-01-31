@@ -107,7 +107,7 @@ public class ImplicitCellDetector implements CellDetector {
     /**
      * @param typeStops      is the types of node that stops the exploration
      * @param exclusionTypes is the types when reached considers the exploration unsuccessful
-     * @param isCellIntern   when the exploration is for the identification of internCell enables to instanciate InternCell class instead of Cell
+     * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
      **/
     private void genericDetectCell(Graph graph,
@@ -119,60 +119,21 @@ public class ImplicitCellDetector implements CellDetector {
             List<Node> cellNodes = new ArrayList<>();
             List<Node> visitedNodes = new ArrayList<>(allocatedNodes);
             visitedNodes.add(bus);
-            boolean searchOK = rDelimitedExploration(adj, typeStops, exclusionTypes, cellNodes, visitedNodes);
-            if (searchOK && !cellNodes.isEmpty()) {
+            if (GraphTraversal.rDelimitedExploration(
+                    adj,
+                    node -> typeStops.contains(node.getType()),
+                    node -> exclusionTypes.contains(node.getType()),
+                    cellNodes,
+                    visitedNodes)) {
                 cellNodes.add(adj);
                 cellNodes.add(bus);
                 Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
                 cell.setNodes(cellNodes);
-                allocatedNodes.addAll(cellNodes);
-                // remove the BusNodes from allocatedNode for a BusNode can be part of many cells
-                allocatedNodes.removeAll(
-                        cellNodes.stream()
-                                .filter(node -> node.getType() == Node.NodeType.BUS)
-                                .collect(Collectors.toList()));
+                allocatedNodes.addAll(cellNodes.stream()
+                        .filter(node -> node.getType() != Node.NodeType.BUS)
+                        .collect(Collectors.toList()));
             }
         }));
-    }
-
-    /**
-     * @param node           the starting point for the exploration
-     * @param typeStops      is the types of node that stops the exploration
-     * @param exclusionTypes is the types when reached considers the exploration unsuccessful
-     * @param nodesResult    the resulting list of nodes
-     * @param exploredNodes  nodes already visited
-     * @return true if no exclusionType found
-     **/
-    private boolean rDelimitedExploration(Node node,
-                                          List<Node.NodeType> typeStops,
-                                          List<Node.NodeType> exclusionTypes,
-                                          List<Node> nodesResult,
-                                          List<Node> exploredNodes) {
-
-        if (exploredNodes.contains(node)) {
-            return true;
-        }
-        exploredNodes.add(node);
-        // the node match the pattern if all the branches from its adjacent nodes reaches a typeStop node without reaching an exclusionTypes node
-        List<Node> nodesToVisit = new ArrayList<>(node.getAdjacentNodes());
-        nodesToVisit.removeAll(exploredNodes);
-        if (nodesToVisit.isEmpty()) {
-            return true;
-        }
-        for (Node n : nodesToVisit) {
-            if (exclusionTypes.contains(n.getType())) {
-                return false;
-            } else if (typeStops.contains(n.getType())) {
-                nodesResult.add(n);
-                exploredNodes.add(n);
-            } else if (rDelimitedExploration(n, typeStops, exclusionTypes, nodesResult,
-                    exploredNodes)) {
-                nodesResult.add(n);
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -303,9 +264,9 @@ public class ImplicitCellDetector implements CellDetector {
         for (Node adj : adjList) {
             if (!visitedNodes.contains(adj)) {
                 List<Node> resultNodes = new ArrayList<>();
-                rDelimitedExploration(adj,
-                        kindToFilter,
-                        new ArrayList<>(),
+                GraphTraversal.rDelimitedExploration(adj,
+                        node -> kindToFilter.contains(node.getType()),
+                        node -> false,
                         resultNodes,
                         visitedNodes);
                 resultNodes.add(adj);
