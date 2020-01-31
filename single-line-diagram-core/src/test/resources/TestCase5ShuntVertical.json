@@ -7,201 +7,6 @@
     "number" : 1,
     "direction" : "TOP",
     "direction" : "TOP",
-    "order" : 20,
-    "rootBlock" : {
-      "type" : "SERIAL",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : 1,
-        "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 2,
-        "orientation" : "VERTICAL"
-      },
-      "coord" : {
-        "x" : 75.0,
-        "y" : 105.0,
-        "xSpan" : 50.0,
-        "ySpan" : 250.0
-      },
-      "subBlocks" : [ {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 230.0,
-          "xSpan" : 50.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs",
-          "name" : "bbs",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 80.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 2,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "db",
-          "name" : "db",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 75.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "SHUNT",
-          "id" : "FICT_vl_3",
-          "name" : "3",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 75.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
-      }, {
-        "type" : "PRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 105.0,
-          "xSpan" : 50.0,
-          "ySpan" : 250.0
-        },
-        "nodes" : [ {
-          "type" : "SHUNT",
-          "id" : "FICT_vl_3",
-          "name" : "3",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 75.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "bb",
-          "name" : "bb",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 75.0,
-          "y" : 105.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "lb",
-          "name" : "lb",
-          "componentType" : "LOAD",
-          "fictitious" : false,
-          "x" : 75.0,
-          "y" : -20.0,
-          "open" : false,
-          "label" : "lb",
-          "order" : 20,
-          "direction" : "TOP"
-        } ]
-      } ]
-    }
-  }, {
-    "type" : "SHUNT",
-    "number" : 2,
-    "rootBlock" : {
-      "type" : "PRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ {
-        "type" : "SHUNT",
-        "id" : "FICT_vl_3",
-        "name" : "3",
-        "componentType" : "NODE",
-        "fictitious" : true,
-        "x" : 75.0,
-        "y" : 230.0,
-        "open" : false
-      }, {
-        "type" : "SWITCH",
-        "id" : "bs",
-        "name" : "bs",
-        "componentType" : "BREAKER",
-        "fictitious" : false,
-        "x" : 50.0,
-        "y" : 146.66666666666669,
-        "open" : false,
-        "kind" : "BREAKER"
-      }, {
-        "type" : "SHUNT",
-        "id" : "FICT_vl_laFictif",
-        "name" : "laFictif",
-        "componentType" : "NODE",
-        "fictitious" : true,
-        "x" : 25.0,
-        "y" : 63.33333333333334,
-        "open" : false
-      } ]
-    }
-  }, {
-    "type" : "EXTERN",
-    "number" : 3,
-    "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 10,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -374,6 +179,201 @@
           "open" : false,
           "label" : "la",
           "order" : 10,
+          "direction" : "TOP"
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "SHUNT",
+    "number" : 2,
+    "rootBlock" : {
+      "type" : "PRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 0,
+        "vSpan" : 0,
+        "orientation" : "HORIZONTAL"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ {
+        "type" : "SHUNT",
+        "id" : "FICT_vl_laFictif",
+        "name" : "laFictif",
+        "componentType" : "NODE",
+        "fictitious" : true,
+        "x" : 25.0,
+        "y" : 63.33333333333334,
+        "open" : false
+      }, {
+        "type" : "SWITCH",
+        "id" : "bs",
+        "name" : "bs",
+        "componentType" : "BREAKER",
+        "fictitious" : false,
+        "x" : 50.0,
+        "y" : 146.66666666666669,
+        "open" : false,
+        "kind" : "BREAKER"
+      }, {
+        "type" : "SHUNT",
+        "id" : "FICT_vl_3",
+        "name" : "3",
+        "componentType" : "NODE",
+        "fictitious" : true,
+        "x" : 75.0,
+        "y" : 230.0,
+        "open" : false
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 3,
+    "direction" : "TOP",
+    "direction" : "TOP",
+    "order" : 20,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 1,
+        "v" : 0,
+        "hSpan" : 1,
+        "vSpan" : 2,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : 75.0,
+        "y" : 105.0,
+        "xSpan" : 50.0,
+        "ySpan" : 250.0
+      },
+      "subBlocks" : [ {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 75.0,
+          "y" : 230.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "bbs",
+          "name" : "bbs",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 10.0,
+          "y" : 260.0,
+          "open" : false,
+          "pxWidth" : 80.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 1,
+            "hSpan" : 2,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "db",
+          "name" : "db",
+          "componentType" : "DISCONNECTOR",
+          "fictitious" : false,
+          "x" : 75.0,
+          "y" : 260.0,
+          "open" : false,
+          "kind" : "DISCONNECTOR"
+        }, {
+          "type" : "SHUNT",
+          "id" : "FICT_vl_3",
+          "name" : "3",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 75.0,
+          "y" : 230.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 2,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 75.0,
+          "y" : 105.0,
+          "xSpan" : 50.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "SHUNT",
+          "id" : "FICT_vl_3",
+          "name" : "3",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 75.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "SWITCH",
+          "id" : "bb",
+          "name" : "bb",
+          "componentType" : "BREAKER",
+          "fictitious" : false,
+          "x" : 75.0,
+          "y" : 105.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FEEDER",
+          "id" : "lb",
+          "name" : "lb",
+          "componentType" : "LOAD",
+          "fictitious" : false,
+          "x" : 75.0,
+          "y" : -20.0,
+          "open" : false,
+          "label" : "lb",
+          "order" : 20,
           "direction" : "TOP"
         } ]
       } ]
