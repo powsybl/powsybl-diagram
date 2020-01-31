@@ -2,9 +2,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class GraphTraversal {
 
@@ -16,22 +16,23 @@ public class GraphTraversal {
      * @param extremityCriteria    criteria applied to node returning if we reach an extremity node (the node is included in the result)
      * @param unsuccessfulCriteria criteria applied to node returning if the traversal is to be invalidated
      * @param nodesResult          the resulting list of nodes
-     * @param exploredNodes        nodes already visited
+     * @param outsideNodes         nodes already visited
      * @return true if no unsuccessfulCriteria reached or node outside
      **/
 
-    static boolean rDelimitedExploration(Node node,
-                                         Function<Node, Boolean> extremityCriteria,
-                                         Function<Node, Boolean> unsuccessfulCriteria,
-                                         List<Node> nodesResult,
-                                         List<Node> exploredNodes) {
+    static boolean run(Node node,
+                       Function<Node, Boolean> extremityCriteria,
+                       Function<Node, Boolean> unsuccessfulCriteria,
+                       List<Node> nodesResult,
+                       List<Node> outsideNodes) {
 
-        if (exploredNodes.contains(node)) {
+        if (outsideNodes.contains(node)) {
             return false;
         }
-        exploredNodes.add(node);
-        List<Node> nodesToVisit = new ArrayList<>(node.getAdjacentNodes());
-        nodesToVisit.removeAll(exploredNodes);
+        nodesResult.add(node);
+        List<Node> nodesToVisit = node.getAdjacentNodes().stream()
+                .filter(n -> !outsideNodes.contains(n) && !nodesResult.contains(n))
+                .collect(Collectors.toList());
         if (nodesToVisit.isEmpty()) {
             return true;
         }
@@ -40,10 +41,7 @@ public class GraphTraversal {
                 return false;
             } else if (extremityCriteria.apply(n)) {
                 nodesResult.add(n);
-                exploredNodes.add(n);
-            } else if (rDelimitedExploration(n, extremityCriteria, unsuccessfulCriteria, nodesResult, exploredNodes)) {
-                nodesResult.add(n);
-            } else {
+            } else if (!run(n, extremityCriteria, unsuccessfulCriteria, nodesResult, outsideNodes)) {
                 return false;
             }
         }

@@ -45,7 +45,7 @@ public class ImplicitCellDetector implements CellDetector {
 
     /**
      * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
-     * genericDetectCell is used to detect cells exploring the graph and scanning exclusionTypes and stopTypes
+     * detectCell is used to detect cells exploring the graph and scanning exclusionTypes and stopTypes
      * <p>
      * *************INTERN CELL*******************
      * exclusion types = {FEEDER} : if a FEEDER type is reached it is not an INTERN CELL
@@ -67,11 +67,11 @@ public class ImplicitCellDetector implements CellDetector {
         exclusionTypes.add(Node.NodeType.FEEDER);
         List<Node.NodeType> stopTypes = new ArrayList<>();
         stopTypes.add(Node.NodeType.BUS);
-        genericDetectCell(graph, stopTypes, exclusionTypes, true, allocatedNodes);
+        detectCell(graph, stopTypes, exclusionTypes, true, allocatedNodes);
 
         // ****************EXTERN AND SHUNT CELLS******
         stopTypes.add(Node.NodeType.FEEDER);
-        genericDetectCell(graph, stopTypes, new ArrayList<>(), false, allocatedNodes);
+        detectCell(graph, stopTypes, new ArrayList<>(), false, allocatedNodes);
         for (ExternCell cell : graph.getCells().stream()
 
                 .filter(cell -> cell instanceof ExternCell)
@@ -110,23 +110,21 @@ public class ImplicitCellDetector implements CellDetector {
      * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
      **/
-    private void genericDetectCell(Graph graph,
-                                   List<Node.NodeType> typeStops,
-                                   List<Node.NodeType> exclusionTypes,
-                                   boolean isCellIntern,
-                                   List<Node> allocatedNodes) {
+    private void detectCell(Graph graph,
+                            List<Node.NodeType> typeStops,
+                            List<Node.NodeType> exclusionTypes,
+                            boolean isCellIntern,
+                            List<Node> allocatedNodes) {
         graph.getNodeBuses().forEach(bus -> bus.getAdjacentNodes().forEach(adj -> {
             List<Node> cellNodes = new ArrayList<>();
-            List<Node> visitedNodes = new ArrayList<>(allocatedNodes);
-            visitedNodes.add(bus);
-            if (GraphTraversal.rDelimitedExploration(
+            List<Node> outsideNodes = new ArrayList<>(allocatedNodes);
+            outsideNodes.add(bus);
+            if (GraphTraversal.run(
                     adj,
                     node -> typeStops.contains(node.getType()),
                     node -> exclusionTypes.contains(node.getType()),
-                    cellNodes,
-                    visitedNodes)) {
-                cellNodes.add(adj);
-                cellNodes.add(bus);
+                    cellNodes, outsideNodes)) {
+                cellNodes.add(0, bus);
                 Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
                 cell.setNodes(cellNodes);
                 allocatedNodes.addAll(cellNodes.stream()
@@ -264,7 +262,7 @@ public class ImplicitCellDetector implements CellDetector {
         for (Node adj : adjList) {
             if (!visitedNodes.contains(adj)) {
                 List<Node> resultNodes = new ArrayList<>();
-                GraphTraversal.rDelimitedExploration(adj,
+                GraphTraversal.run(adj,
                         node -> kindToFilter.contains(node.getType()),
                         node -> false,
                         resultNodes,
@@ -286,9 +284,8 @@ public class ImplicitCellDetector implements CellDetector {
                         cellNodesExtern.addAll(resultNodes);
                     }
                 }
-                visitedNodes.removeAll(resultNodes
-                        .stream()
-                        .filter(m -> m.getType().equals(Node.NodeType.BUS))
+                visitedNodes.addAll(resultNodes.stream()
+                        .filter(m -> m.getType() != Node.NodeType.BUS)
                         .collect(Collectors.toList()));
 
             }
