@@ -120,10 +120,10 @@ public class ImplicitCellDetector implements CellDetector {
             List<Node> outsideNodes = new ArrayList<>(allocatedNodes);
             outsideNodes.add(bus);
             if (GraphTraversal.run(
-                    adj,
-                    node -> typeStops.contains(node.getType()),
-                    node -> exclusionTypes.contains(node.getType()),
-                    cellNodes, outsideNodes)) {
+                adj,
+                node -> typeStops.contains(node.getType()),
+                node -> exclusionTypes.contains(node.getType()),
+                cellNodes, outsideNodes)) {
                 cellNodes.add(0, bus);
                 Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
                 cell.setNodes(cellNodes);
@@ -263,10 +263,10 @@ public class ImplicitCellDetector implements CellDetector {
             if (!visitedNodes.contains(adj)) {
                 List<Node> resultNodes = new ArrayList<>();
                 GraphTraversal.run(adj,
-                        node -> kindToFilter.contains(node.getType()),
-                        node -> false,
-                        resultNodes,
-                        visitedNodes);
+                    node -> kindToFilter.contains(node.getType()),
+                    node -> false,
+                    resultNodes,
+                    visitedNodes);
                 resultNodes.add(adj);
 
                 List<Node.NodeType> types = resultNodes.stream() // what are the types of terminal node of the branch
