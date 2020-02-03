@@ -49,40 +49,40 @@
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
+          "id" : "bbs6",
+          "name" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "x" : 10.0,
-          "y" : 260.0,
+          "y" : 285.0,
           "open" : false,
           "pxWidth" : 1100.0,
           "structuralPosition" : {
             "h" : 1,
-            "v" : 1,
+            "v" : 2,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
             "h" : 0,
-            "v" : 1,
+            "v" : 2,
             "hSpan" : 14,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dscpl1",
-          "name" : "dscpl1",
+          "id" : "dscpl2",
+          "name" : "dscpl2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "x" : 40.0,
-          "y" : 260.0,
+          "y" : 285.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl1Fictif",
-          "name" : "dscpl1Fictif",
+          "id" : "FICT_vl2_dscpl2Fictif",
+          "name" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 40.0,
@@ -112,8 +112,8 @@
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl1Fictif",
-          "name" : "dscpl1Fictif",
+          "id" : "FICT_vl2_dscpl2Fictif",
+          "name" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 40.0,
@@ -133,8 +133,8 @@
           "kind" : "BREAKER"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl2Fictif",
-          "name" : "dscpl2Fictif",
+          "id" : "FICT_vl2_dscpl1Fictif",
+          "name" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 120.0,
@@ -164,40 +164,40 @@
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
+          "id" : "bbs5",
+          "name" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "x" : 10.0,
-          "y" : 285.0,
+          "y" : 260.0,
           "open" : false,
           "pxWidth" : 1100.0,
           "structuralPosition" : {
             "h" : 1,
-            "v" : 2,
+            "v" : 1,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
             "h" : 0,
-            "v" : 2,
+            "v" : 1,
             "hSpan" : 14,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dscpl2",
-          "name" : "dscpl2",
+          "id" : "dscpl1",
+          "name" : "dscpl1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "x" : 120.0,
-          "y" : 285.0,
+          "y" : 260.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl2Fictif",
-          "name" : "dscpl2Fictif",
+          "id" : "FICT_vl2_dscpl1Fictif",
+          "name" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 120.0,
