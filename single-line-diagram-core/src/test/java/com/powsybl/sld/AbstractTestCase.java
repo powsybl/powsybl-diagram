@@ -8,7 +8,6 @@ package com.powsybl.sld;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
@@ -283,9 +282,9 @@ public abstract class AbstractTestCase {
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
 
-            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
-            fw.write(writer.toString());
-            fw.close();
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
@@ -330,9 +329,9 @@ public abstract class AbstractTestCase {
                             new DefaultNodeLabelConfiguration(componentLibrary),
                             writer);
 
-            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
-            fw.write(writer.toString());
-            fw.close();
+//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+//            fw.write(writer.toString());
+//            fw.close();
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
