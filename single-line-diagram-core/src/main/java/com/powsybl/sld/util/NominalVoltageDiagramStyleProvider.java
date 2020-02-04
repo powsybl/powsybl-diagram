@@ -12,7 +12,6 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 import java.util.Optional;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
@@ -25,10 +24,6 @@ import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
  */
 public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
     private static final String DEFAULT_COLOR = "rgb(171, 175, 40)";
-
-    public NominalVoltageDiagramStyleProvider(Network network) {
-        super(network);
-    }
 
     @Override
     public Optional<String> getColor(double nominalV, Node node) {
