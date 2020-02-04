@@ -20,13 +20,13 @@ import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.force.layout.gephi.graph.api.GraphModel;
-import com.powsybl.sld.force.layout.gephi.graph.api.UndirectedGraph;
-import com.powsybl.sld.force.layout.gephi.graph.impl.EdgeImpl;
-import com.powsybl.sld.force.layout.gephi.graph.impl.GraphModelImpl;
-import com.powsybl.sld.force.layout.gephi.graph.impl.NodeImpl;
-import com.powsybl.sld.force.layout.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
-import com.powsybl.sld.force.layout.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
+import org.gephi.graph.api.GraphModel;
+import org.gephi.graph.api.UndirectedGraph;
+import org.gephi.graph.impl.EdgeImpl;
+import org.gephi.graph.impl.GraphModelImpl;
+import org.gephi.graph.impl.NodeImpl;
+import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
+import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,7 +135,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
         Map<Graph, Coord> coordsVoltageLevels = new HashMap<>();
         for (Graph voltageLevelGraph : graph.getNodes()) {
-            com.powsybl.sld.force.layout.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelId());
+            org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelId());
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
         }
 

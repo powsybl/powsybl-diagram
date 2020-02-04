@@ -28,12 +28,25 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>it.unimi.dsi</groupId>
-            <artifactId>fastutil</artifactId>
+            <groupId>org.gephi</groupId>
+            <artifactId>layout-plugin</artifactId>
+            <exclusions>
+              <exclusion>
+                <!--
+                    This is available on maven central under a different groupId, reimported below.
+                    We already use stax-utils with the groupId from maven central in powsybl-core.
+                -->
+                <groupId>net.java.dev</groupId>
+                <artifactId>stax-utils</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>colt</groupId>
-            <artifactId>colt</artifactId>
+            <!--
+                Reimport excluded stax-utils with the same groupId as we use in powsybl-core
+            -->
+            <groupId>net.java.dev.stax-utils</groupId>
+            <artifactId>stax-utils</artifactId>
         </dependency>
 
         <!-- test dependencies -->
