@@ -15,6 +15,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Represents a set of nodes for which for any couple of nodes exists at least one path being connected together AND
+ * having no open SwitchNode. The nodeSet holds the connected set of nodes. borderSwitchNodesSet holds the SwitchNode
+ * that are open and for which 1 adjacent node is in the nodeSet, and the other is not.
+
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */

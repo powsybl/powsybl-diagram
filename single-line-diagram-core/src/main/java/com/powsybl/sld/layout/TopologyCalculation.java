@@ -17,12 +17,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ * Visit the graph to identifies the connected sets of nodes
+ *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 
 
 public class TopologyCalculation {
+    /**
+     * Analyses the graph to partition it into TopologicallyConnectedNodeSets.
+     * @param graph the graph to be analysed
+     * @return a list of TopologicallyConnectedNodeSets
+     */
+
     public static List<TopologicallyConnectedNodesSet> run(Graph graph) {
         List<TopologicallyConnectedNodesSet> topologicallyConnectedNodesSets = new ArrayList<>();
         List<Node> nodesToVisit = graph.getNodes();
