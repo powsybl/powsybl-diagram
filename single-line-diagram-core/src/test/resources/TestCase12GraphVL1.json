@@ -976,7 +976,20 @@
           "x" : 480.0,
           "y" : 63.33333333333335,
           "open" : false,
-          "transformerId" : "trf6"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -1027,7 +1040,20 @@
             "x" : 480.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf6"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "self4",
@@ -1070,7 +1096,20 @@
             "x" : 480.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf6"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf6_ONE_TWO",
@@ -1508,7 +1547,20 @@
           "x" : 960.0,
           "y" : 63.33333333333335,
           "open" : false,
-          "transformerId" : "trf8"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -1559,7 +1611,20 @@
             "x" : 960.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf8"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "self4",
@@ -1602,7 +1667,20 @@
             "x" : 960.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf8"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf8_ONE_TWO",
@@ -2040,7 +2118,20 @@
           "x" : 640.0,
           "y" : 481.6666666666666,
           "open" : false,
-          "transformerId" : "trf7"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -2091,7 +2182,20 @@
             "x" : 640.0,
             "y" : 481.6666666666666,
             "open" : false,
-            "transformerId" : "trf7"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "self4",
@@ -2134,7 +2238,20 @@
             "x" : 640.0,
             "y" : 481.6666666666666,
             "open" : false,
-            "transformerId" : "trf7"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf7_ONE_TWO",
