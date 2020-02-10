@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,17 @@ public class TestSVGWriter extends AbstractTestCase {
         g1 = Graph.create("vl1", "vl1", 400, false, true, false);
         g1.setX(0);
         g1.setY(20);
+
+        Map<Feeder3WTNode.Side, String> idsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
+        Map<Feeder3WTNode.Side, Double> vNomsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
+
+        idsLegs.put(Feeder3WTNode.Side.ONE, "vl1");
+        idsLegs.put(Feeder3WTNode.Side.TWO, "vl2");
+        idsLegs.put(Feeder3WTNode.Side.THREE, "vl3");
+
+        vNomsLegs.put(Feeder3WTNode.Side.ONE, 400.);
+        vNomsLegs.put(Feeder3WTNode.Side.TWO, 225.);
+        vNomsLegs.put(Feeder3WTNode.Side.THREE, 63.);
 
         BusNode vl1Bbs1 = BusNode.create(g1, "vl1_bbs1", "vl1_bbs1");
         vl1Bbs1.setX(0);
@@ -158,7 +170,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Fictitious3WTNode vl1Trf2Fict = new Fictitious3WTNode(g1, "vl1_trf2", "vl1_trf2");
+        Fictitious3WTNode vl1Trf2Fict = new Fictitious3WTNode(g1, "vl1_trf2", idsLegs, vNomsLegs);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -237,7 +249,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Fictitious3WTNode vl2Trf2Fict = new Fictitious3WTNode(g2, "vl2_trf2", "vl2_trf2");
+        Fictitious3WTNode vl2Trf2Fict = new Fictitious3WTNode(g2, "vl2_trf2", idsLegs, vNomsLegs);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -297,7 +309,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Fictitious3WTNode vl3Trf2Fict = new Fictitious3WTNode(g3, "vl3_trf2", "vl3_trf2");
+        Fictitious3WTNode vl3Trf2Fict = new Fictitious3WTNode(g3, "vl3_trf2", idsLegs, vNomsLegs);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -700,7 +712,7 @@ public class TestSVGWriter extends AbstractTestCase {
     @Test
     public void test() {
 
-        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider(null);
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
 
         // Layout parameters :
         //
@@ -762,7 +774,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
     @Test
     public void testWriteZone() {
-        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider(null);
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
