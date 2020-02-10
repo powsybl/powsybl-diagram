@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -56,4 +57,13 @@ public final class GraphTraversal {
         }
         return true;
     }
+
+    static List<Node> run(Node node,
+                          Function<Node, Boolean> extremityCriteria,
+                          List<Node> outsideNodes) {
+        List<Node> nodesResult = new ArrayList<>();
+        run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
+        return nodesResult;
+    }
+
 }
