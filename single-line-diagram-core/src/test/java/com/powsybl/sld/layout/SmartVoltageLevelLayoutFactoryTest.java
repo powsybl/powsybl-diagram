@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +39,7 @@ public class SmartVoltageLevelLayoutFactoryTest {
                 .get()
                 .isInstanceOf(PositionByClusterVoltageLevelLayoutFactorySmartSelector.class);
 
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
+        bbs.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(1).withSectionIndex(1).add();
 
         assertThat(VoltageLevelLayoutFactorySmartSelector.findBest(vl))
                 .isPresent()
