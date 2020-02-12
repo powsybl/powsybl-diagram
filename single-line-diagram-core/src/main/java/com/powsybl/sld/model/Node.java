@@ -53,7 +53,7 @@ public class Node implements BaseNode {
     private boolean xPriority = false;
     private boolean yPriority = false;
 
-    private double initY = -1;
+    private double initY = -1;  // y value before shifting the feeders height, if asked
 
     private Cell cell;
 
@@ -282,8 +282,10 @@ public class Node implements BaseNode {
         }
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
-        generator.writeNumberField("x", x);
-        generator.writeNumberField("y", y);
+        if (graph.isGenerateCoordsInJson()) {
+            generator.writeNumberField("x", x);
+            generator.writeNumberField("y", y);
+        }
         if (rotationAngle != null) {
             generator.writeNumberField("rotationAngle", rotationAngle);
         }
@@ -302,5 +304,15 @@ public class Node implements BaseNode {
     @Override
     public String toString() {
         return "Node(id='" + getId() + "' name='" + name + "', type= " + type + ")";
+    }
+
+    public void resetCoords() {
+        x = -1;
+        y = -1;
+        xPriority = false;
+        yPriority = false;
+        initY = -1;
+        xs.clear();
+        ys.clear();
     }
 }

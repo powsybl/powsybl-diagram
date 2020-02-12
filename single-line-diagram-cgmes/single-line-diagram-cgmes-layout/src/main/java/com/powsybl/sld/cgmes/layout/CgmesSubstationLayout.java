@@ -72,28 +72,36 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
         // we split the original edge in two parts, with a new fictitious node between the two new edges
         List<TwtEdge> newEdges = new ArrayList<>();
         for (TwtEdge edge : graph.getEdges()) {
-            if (edge.getNodes().size() == 2) {
-                // Creation of a new fictitious node outside vl graphs
-                String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId();
-                Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
-                nodeFict.setX(edge.getNode1().getX(), false, false);
-                nodeFict.setY(edge.getNode1().getY(), false, false);
-
-                // Creation of a new edge between node1 and the new fictitious node
-                TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
-                newEdges.add(edge1);
-                nodeFict.addAdjacentEdge(edge1);
-
-                // Creation of a new edge between the new fictitious node and node2
-                TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
-                newEdges.add(edge2);
-                nodeFict.addAdjacentEdge(edge2);
-
-                // the new fictitious node is store in the substation graph
-                graph.addMultiTermNode(nodeFict);
+            // Creation of a new fictitious node outside vl graphs
+            String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId();
+            if (edge.getNodes().size() == 3) {
+                idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId() + "_" + edge.getNode3().getId();
             }
+            Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
+            nodeFict.setX(edge.getNode1().getX(), false, false);
+            nodeFict.setY(edge.getNode1().getY(), false, false);
+
+            // Creation of a new edge between node1 and the new fictitious node
+            TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
+            newEdges.add(edge1);
+            nodeFict.addAdjacentEdge(edge1);
+
+            // Creation of a new edge between the new fictitious node and node2
+            TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
+            newEdges.add(edge2);
+            nodeFict.addAdjacentEdge(edge2);
+
+            if (edge.getNodes().size() == 3) {
+                // Creation of a new edge between the new fictitious node and node3
+                TwtEdge edge3 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode3());
+                newEdges.add(edge3);
+                nodeFict.addAdjacentEdge(edge3);
+            }
+
+            // the new fictitious node is stored in the substation graph
+            graph.addMultiTermNode(nodeFict);
         }
-        // replace the old edges by the new edges in the substation graph
+        // replace the old edges with the new edges in the substation graph
         graph.setEdges(newEdges);
     }
 

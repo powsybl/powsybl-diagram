@@ -13,24 +13,24 @@ import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.ExternCell;
 import com.powsybl.sld.model.Feeder2WTNode;
+import com.powsybl.sld.model.Feeder3WTNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.TwtEdge;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -45,12 +45,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING1 = "WINDING1";
     protected static final String WINDING2 = "WINDING2";
     protected static final String WINDING3 = "WINDING3";
-
-    protected final Network network;
-
-    public DefaultDiagramStyleProvider(Network network) {
-        this.network = network;
-    }
 
     @Override
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
@@ -130,7 +124,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                         && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM;
 
                 if (node instanceof Fictitious3WTNode) {
-                    color = network != null ? getColor3WT(((Fictitious3WTNode) node).getTransformerId(), nameSubComponent, rotateSVG, vlId) : Optional.empty();
+                    color = getColor3WT((Fictitious3WTNode) node, nameSubComponent, rotateSVG, vlId);
                 } else {
                     color = getColor(nameSubComponent.equals(WINDING1) ? node.getGraph().getVoltageLevelNominalV() : ((Feeder2WTNode) node).getNominalVOtherSide(), null);
                 }
@@ -151,6 +145,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             }
         } else {  // node outside any voltageLevel graph (multi-terminal node)
             List<Node> adjacentNodes = node.getAdjacentNodes();
+            adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
             boolean rotateSVG = false;
 
             if (adjacentNodes.size() == 2) {
@@ -160,21 +155,29 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 double vNom1 = n1.getGraph().getVoltageLevelNominalV();
                 double vNom2 = n2.getGraph().getVoltageLevelNominalV();
 
-                // We will rotate the SVG, if node 1 cell orientation is different from node 2 cell orientation
-                BusCell.Direction dir1 = n1.getCell() != null ? ((ExternCell) n1.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-                BusCell.Direction dir2 = n2.getCell() != null ? ((ExternCell) n2.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-                rotateSVG = dir1 != dir2;
+                // We will further rotate the SVG, given the adjacent edges part of the multi terminal node
+                // (in case of vertical orientation)
+                List<Edge> edges = node.getAdjacentEdges();
+                if (edges.size() >= 2) {
+                    List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
+                    List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
+                    double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
+                    double x2 = pol2.get(2);  // absciss of the second polyline third point
+                    if (x1 == x2) {
+                        rotateSVG = true;
+                    }
+                }
 
                 double vNom = 0;
                 Node n = null;
                 switch (nameSubComponent) {
                     case WINDING1:
-                        vNom = vNom1;
-                        n = rotateSVG ? n1 : n2;
+                        vNom = rotateSVG ? vNom2 : vNom1;
+                        n = rotateSVG ? n2 : n1;
                         break;
                     case WINDING2:
-                        vNom = vNom2;
-                        n = rotateSVG ? n2 : n1;
+                        vNom = rotateSVG ? vNom1 : vNom2;
+                        n = rotateSVG ? n1 : n2;
                         break;
                     default:
                 }
@@ -221,49 +224,39 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return attributes;
     }
 
-    private Optional<String> getColor3WT(String transformerId, String nameSubComponent, boolean rotateSVG, String vlId) {
-        Optional<String> color = Optional.empty();
+    private Optional<String> getColor3WT(Fictitious3WTNode node, String nameSubComponent, boolean rotateSVG, String vlId) {
+        Map<Feeder3WTNode.Side, String> idsLegs = node.getIdsLegs();
+        Map<Feeder3WTNode.Side, Double> vNomsLegs = node.getvNomsLegs();
 
-        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(transformerId);
-        ThreeWindingsTransformer.Side otherSide = ThreeWindingsTransformer.Side.ONE;
-
-        VoltageLevel leg1Vl = transformer.getLeg1().getTerminal().getVoltageLevel();
-        VoltageLevel leg2Vl = transformer.getLeg2().getTerminal().getVoltageLevel();
-        VoltageLevel leg3Vl = transformer.getLeg3().getTerminal().getVoltageLevel();
-
-        ThreeWindingsTransformer.Side side1 = ThreeWindingsTransformer.Side.ONE;
-        ThreeWindingsTransformer.Side side2 = ThreeWindingsTransformer.Side.TWO;
-        ThreeWindingsTransformer.Side side3 = ThreeWindingsTransformer.Side.THREE;
+        Feeder3WTNode.Side otherSide = Feeder3WTNode.Side.ONE;
 
         if (nameSubComponent.equals(WINDING1)) {
-            if (leg1Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side3 : side2;
-            } else if (leg2Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side3 : side1;
-            } else if (leg3Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side2 : side1;
+            if (idsLegs.get(Feeder3WTNode.Side.ONE).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.THREE : Feeder3WTNode.Side.TWO;
+            } else if (idsLegs.get(Feeder3WTNode.Side.TWO).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.THREE : Feeder3WTNode.Side.ONE;
+            } else if (idsLegs.get(Feeder3WTNode.Side.THREE).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.TWO : Feeder3WTNode.Side.ONE;
             }
-            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV(), null);
         } else if (nameSubComponent.equals(WINDING2)) {
-            if (leg1Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side2 : side3;
-            } else if (leg2Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side1 : side3;
-            } else if (leg3Vl.getId().equals(vlId)) {
-                otherSide = !rotateSVG ? side1 : side2;
+            if (idsLegs.get(Feeder3WTNode.Side.ONE).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.TWO : Feeder3WTNode.Side.THREE;
+            } else if (idsLegs.get(Feeder3WTNode.Side.TWO).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.ONE : Feeder3WTNode.Side.THREE;
+            } else if (idsLegs.get(Feeder3WTNode.Side.THREE).equals(vlId)) {
+                otherSide = !rotateSVG ? Feeder3WTNode.Side.ONE : Feeder3WTNode.Side.TWO;
             }
-            color = getColor(transformer.getTerminal(otherSide).getVoltageLevel().getNominalV(), null);
         } else {
-            if (leg1Vl.getId().equals(vlId)) {
-                color = getColor(leg1Vl.getNominalV(), null);
-            } else if (leg2Vl.getId().equals(vlId)) {
-                color = getColor(leg2Vl.getNominalV(), null);
-            } else if (leg3Vl.getId().equals(vlId)) {
-                color = getColor(leg3Vl.getNominalV(), null);
+            if (idsLegs.get(Feeder3WTNode.Side.ONE).equals(vlId)) {
+                otherSide = Feeder3WTNode.Side.ONE;
+            } else if (idsLegs.get(Feeder3WTNode.Side.TWO).equals(vlId)) {
+                otherSide = Feeder3WTNode.Side.TWO;
+            } else if (idsLegs.get(Feeder3WTNode.Side.THREE).equals(vlId)) {
+                otherSide = Feeder3WTNode.Side.THREE;
             }
         }
 
-        return color;
+        return getColor(vNomsLegs.get(otherSide), null);
     }
 
     @Override

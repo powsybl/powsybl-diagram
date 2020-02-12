@@ -28,7 +28,7 @@ import com.powsybl.iidm.network.*;
 public class TestCase9singularInternCell extends AbstractTestCase {
 
     @Override
-    void setUp() {
+    public void setUp() {
         network = Network.create("testCase1", "AbstractTest");
         substation = createSubstation(network, "s", "s", Country.FR);
         vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);

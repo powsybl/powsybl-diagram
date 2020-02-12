@@ -35,6 +35,8 @@ public final class SubstationGraph {
 
     private List<Node> multiTermNodes = new ArrayList<>();
 
+    private boolean generateCoordsInJson = true;
+
     /**
      * Constructor
      */
@@ -112,6 +114,7 @@ public final class SubstationGraph {
                 .useDefaultPrettyPrinter()) {
             generator.writeStartArray();
             for (Graph graph : nodes) {
+                graph.setGenerateCoordsInJson(generateCoordsInJson);
                 graph.writeJson(generator);
             }
 
@@ -119,5 +122,9 @@ public final class SubstationGraph {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
+        this.generateCoordsInJson = generateCoordsInJson;
     }
 }

@@ -1033,11 +1033,20 @@ public class DefaultSVGWriter implements SVGWriter {
         Graph g1 = n1.getGraph();
         Graph g2 = n2.getGraph();
 
+        // Getting the right polyline point from where we need to compute the best anchor point
         double x;
         double y;
         if (g2 == null) {
-            x = pol.size() <= 6 ? pol.get(2) : pol.get(pol.size() - 4);
-            y = pol.size() <= 6 ? pol.get(3) : pol.get(pol.size() - 3);
+            if (pol.size() <= 4) {
+                x = pol.get(0);
+                y = pol.get(1);
+            } else if (pol.size() <= 6) {
+                x = pol.get(2);
+                y = pol.get(3);
+            } else {
+                x = pol.get(pol.size() - 4);
+                y = pol.get(pol.size() - 3);
+            }
         } else {
             x = pol.get(2);
             y = pol.get(3);
@@ -1048,6 +1057,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         int n = pol.size();
 
+        // Replacing the right points coordinates in the original polyline
         if (g2 == null) {
             double xOld = pol.get(n - 2);
             double yOld = pol.get(n - 1);

@@ -61,6 +61,8 @@ public class FeederNode extends Node {
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
         generator.writeNumberField("order", order);
-        generator.writeStringField("direction", direction.name());
+        if (graph.isGenerateCoordsInJson()) {
+            generator.writeStringField("direction", direction.name());
+        }
     }
 }

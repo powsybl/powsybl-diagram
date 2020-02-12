@@ -127,7 +127,7 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         return dNode;
     }
 
-    private void manageSnakeLines(LayoutParameters layoutParameters) {
+    protected void manageSnakeLines(LayoutParameters layoutParameters) {
         // used only for horizontal layout
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(Graph::getVoltageLevelId, v -> 0));
@@ -159,7 +159,7 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         graph.setEdges(newEdges);
     }
 
-    private void splitEdge2(TwtEdge edge, List<TwtEdge> edges, List<Double> pol) {
+    protected void splitEdge2(TwtEdge edge, List<TwtEdge> edges, List<Double> pol) {
         // Creation of a new fictitious node outside any graph
         String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId();
         Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
@@ -185,7 +185,7 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         graph.addMultiTermNode(nodeFict);
     }
 
-    private void splitEdge3(TwtEdge edge, List<TwtEdge> edges, List<Double> pol1, List<Double> pol2) {
+    protected void splitEdge3(TwtEdge edge, List<TwtEdge> edges, List<Double> pol1, List<Double> pol2) {
         // Creation of a new fictitious node outside any graph
         String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId() + "_" + edge.getNode3().getId();
         Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
@@ -193,17 +193,17 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
 
         // Creation of a new edge between node1 and the new fictitious node
         TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
-        edge1.setSnakeLine(splitPolyline3(pol1, 1, coordNodeFict));
+        edge1.setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
         edges.add(edge1);
 
         // Creation of a new edge between the new fictitious node and node2
         TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
-        edge2.setSnakeLine(splitPolyline3(pol1, 2, null));
+        edge2.setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
         edges.add(edge2);
 
         // Creation of a new edge between the new fictitious node and node3
         TwtEdge edge3 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode3());
-        edge3.setSnakeLine(splitPolyline3(pol2, 3, null));
+        edge3.setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
         edges.add(edge3);
 
         // Setting the coordinates of the new fictitious node
@@ -217,7 +217,7 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         graph.addMultiTermNode(nodeFict);
     }
 
-    private List<Double> splitPolyline2(List<Double> pol, int numPart, Coord coord) {
+    protected List<Double> splitPolyline2(List<Double> pol, int numPart, Coord coord) {
         List<Double> res = new ArrayList<>();
 
         double xSplit = 0;
@@ -252,19 +252,23 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         return res;
     }
 
-    private List<Double> splitPolyline3(List<Double> pol, int numPart, Coord coord) {
+    protected List<Double> splitPolyline3(List<Double> pol1, List<Double> pol2, int numPart, Coord coord) {
         List<Double> res = new ArrayList<>();
 
         if (numPart == 1) {
-            res.addAll(pol.subList(0, pol.size() - 2));
+            // for the first new edge, we keep all the original first polyline points, except the last one
+            res.addAll(pol1.subList(0, pol1.size() - 2));
             if (coord != null) {
-                coord.setX(pol.get(pol.size() - 4));
-                coord.setY(pol.get(pol.size() - 3));
+                // the fictitious node point is the last point of the new edge polyline
+                coord.setX(pol1.get(pol1.size() - 4));
+                coord.setY(pol1.get(pol1.size() - 3));
             }
         } else if (numPart == 2) {
-            res.addAll(pol.subList(pol.size() - 4, pol.size()));
+            // for the second new edge, we keep the last two points of the original first polyline
+            res.addAll(pol1.subList(pol1.size() - 4, pol1.size()));
         } else {
-            res.addAll(pol.subList(2, pol.size()));
+            // the third new edge is made with the original second polyline, except the first point
+            res.addAll(pol2.subList(2, pol2.size()));
         }
 
         return res;

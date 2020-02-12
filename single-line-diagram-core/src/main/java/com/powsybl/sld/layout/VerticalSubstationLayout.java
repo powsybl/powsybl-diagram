@@ -26,22 +26,16 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
      */
     @Override
     protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, Graph vlGraph) {
-        int maxV = vlGraph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan())
-                .max().orElse(0);
-
-        double x = 0;
-        double y = layoutParam.getInitialYBus() + layoutParam.getStackHeight() +
-                layoutParam.getExternCellHeight() + layoutParam.getVerticalSpaceBus() * (maxV + 2);
-
-        return new Coord(x, y);
+        int maxV = vlGraph.getMaxV();
+        return new Coord(0, layoutParam.getInitialYBus() + layoutParam.getStackHeight() + layoutParam.getExternCellHeight() + layoutParam.getVerticalSpaceBus() * (maxV + 2));
     }
 
     /*
      * Calculate polyline points of a snakeLine in the substation graph
      */
     @Override
-    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2, InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
+    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2, InfosNbSnakeLines infosNbSnakeLines,
+                                                      boolean increment) {
         BusCell.Direction dNode1 = getNodeDirection(node1, 1);
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
 
@@ -182,5 +176,4 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     protected double getVerticalSubstationPadding(LayoutParameters layoutParameters) {
         return layoutParameters.getVerticalSubstationPadding();
     }
-
 }

@@ -6,7 +6,6 @@
     "type" : "EXTERN",
     "number" : 0,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 0,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -148,7 +147,6 @@
     "type" : "EXTERN",
     "number" : 1,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -289,7 +287,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 2,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
@@ -433,7 +430,6 @@
     "type" : "EXTERN",
     "number" : 3,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -565,7 +561,20 @@
           "x" : 320.0,
           "y" : 63.33333333333335,
           "open" : false,
-          "transformerId" : "trf6"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -616,7 +625,20 @@
             "x" : 320.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf6"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf6_THREE_TWO",
@@ -659,7 +681,20 @@
             "x" : 320.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf6"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf6_THREE_ONE",
@@ -679,7 +714,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 4,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {
@@ -812,7 +846,20 @@
           "x" : 480.0,
           "y" : 456.6666666666667,
           "open" : false,
-          "transformerId" : "trf7"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -863,7 +910,20 @@
             "x" : 480.0,
             "y" : 456.6666666666667,
             "open" : false,
-            "transformerId" : "trf7"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf7_THREE_TWO",
@@ -906,7 +966,20 @@
             "x" : 480.0,
             "y" : 456.6666666666667,
             "open" : false,
-            "transformerId" : "trf7"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf7_THREE_ONE",
@@ -926,7 +999,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 5,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -1059,7 +1131,20 @@
           "x" : 640.0,
           "y" : 63.33333333333335,
           "open" : false,
-          "transformerId" : "trf8"
+          "idsLegs" : [ {
+            "ONE" : "vl1"
+          }, {
+            "TWO" : "vl2"
+          }, {
+            "THREE" : "vl3"
+          } ],
+          "vNomsLegs" : [ {
+            "ONE" : 400.0
+          }, {
+            "TWO" : 225.0
+          }, {
+            "THREE" : 63.0
+          } ]
         } ]
       }, {
         "type" : "PARALLEL",
@@ -1110,7 +1195,20 @@
             "x" : 640.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf8"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf8_THREE_TWO",
@@ -1153,7 +1251,20 @@
             "x" : 640.0,
             "y" : 63.33333333333335,
             "open" : false,
-            "transformerId" : "trf8"
+            "idsLegs" : [ {
+              "ONE" : "vl1"
+            }, {
+              "TWO" : "vl2"
+            }, {
+              "THREE" : "vl3"
+            } ],
+            "vNomsLegs" : [ {
+              "ONE" : 400.0
+            }, {
+              "TWO" : 225.0
+            }, {
+              "THREE" : 63.0
+            } ]
           }, {
             "type" : "FEEDER",
             "id" : "trf8_THREE_ONE",
@@ -1173,7 +1284,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 6,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {
@@ -1315,7 +1425,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 7,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 3,
     "rootBlock" : {

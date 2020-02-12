@@ -6,7 +6,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "FLAT",
-    "direction" : "FLAT",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -210,7 +209,6 @@
   }, {
     "type" : "INTERN",
     "number" : 1,
-    "direction" : "FLAT",
     "direction" : "FLAT",
     "rootBlock" : {
       "type" : "SERIAL",
@@ -416,7 +414,6 @@
     "type" : "EXTERN",
     "number" : 2,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 0,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -557,7 +554,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 3,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -700,7 +696,6 @@
     "type" : "EXTERN",
     "number" : 4,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -841,7 +836,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 5,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 3,
     "rootBlock" : {

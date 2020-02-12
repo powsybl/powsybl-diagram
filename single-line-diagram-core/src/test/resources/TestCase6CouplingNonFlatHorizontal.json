@@ -6,7 +6,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "TOP",
-    "direction" : "TOP",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -211,7 +210,6 @@
     "type" : "INTERN",
     "number" : 1,
     "direction" : "FLAT",
-    "direction" : "FLAT",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -415,7 +413,6 @@
   }, {
     "type" : "INTERN",
     "number" : 2,
-    "direction" : "FLAT",
     "direction" : "FLAT",
     "rootBlock" : {
       "type" : "SERIAL",

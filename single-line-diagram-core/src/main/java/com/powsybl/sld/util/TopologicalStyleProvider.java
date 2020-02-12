@@ -41,8 +41,10 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     private static final String DISCONNECTED_COLOR = "#808080";
     private String disconnectedColor;
 
+    private Network network;
+
     public TopologicalStyleProvider(Path config, Network network) {
-        super(network);
+        this.network = network;
         try {
             baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
         } catch (IOException e) {
