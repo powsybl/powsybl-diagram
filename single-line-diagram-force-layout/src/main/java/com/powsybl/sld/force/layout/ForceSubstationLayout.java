@@ -6,20 +6,8 @@
  */
 package com.powsybl.sld.force.layout;
 
-import com.powsybl.sld.layout.AbstractSubstationLayout;
-import com.powsybl.sld.layout.InfoCalcPoints;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayout;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.layout.*;
+import com.powsybl.sld.model.*;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.UndirectedGraph;
 import org.gephi.graph.impl.EdgeImpl;
@@ -28,15 +16,7 @@ import org.gephi.graph.impl.NodeImpl;
 import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
 import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -46,7 +26,7 @@ import java.util.stream.Collectors;
 public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     private final Random random = new Random();
-    private SubstationLayoutFactory.CompactionType compactionType;
+    private ForceSubstationLayoutFactory.CompactionType compactionType;
 
     public static class ForceInfoCalcPoints extends InfoCalcPoints {
         private String vId1;
@@ -89,7 +69,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     public ForceSubstationLayout(SubstationGraph substationGraph,
                                  VoltageLevelLayoutFactory voltageLevelLayoutFactory,
-                                 SubstationLayoutFactory.CompactionType compactionType) {
+                                 ForceSubstationLayoutFactory.CompactionType compactionType) {
         super(substationGraph, voltageLevelLayoutFactory);
         this.compactionType = compactionType;
     }
@@ -171,7 +151,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             int maxH = g.getMaxH();
             graphX += layoutParameters.getInitialXBus() + (maxH + 2) * layoutParameters.getCellWidth()
                     + getHorizontalSubstationPadding(layoutParameters);
-            if (compactionType == SubstationLayoutFactory.CompactionType.HORIZONTAL) {
+            if (compactionType == ForceSubstationLayoutFactory.CompactionType.HORIZONTAL) {
                 graphX /= 2;
             }
         }
@@ -187,7 +167,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                     + layoutParameters.getExternCellHeight()
                     + layoutParameters.getVerticalSpaceBus() * (maxV + 2)
                     + getVerticalSubstationPadding(layoutParameters);
-            if (compactionType == SubstationLayoutFactory.CompactionType.VERTICAL) {
+            if (compactionType == ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
                 graphY /= 2;
             }
         }

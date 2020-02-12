@@ -13,11 +13,5 @@ import com.powsybl.sld.model.SubstationGraph;
  */
 public interface SubstationLayoutFactory {
 
-    enum CompactionType {
-        NONE,
-        HORIZONTAL,
-        VERTICAL
-    }
-
     SubstationLayout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory);
 }

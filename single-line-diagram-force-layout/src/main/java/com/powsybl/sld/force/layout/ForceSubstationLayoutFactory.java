@@ -16,6 +16,12 @@ import com.powsybl.sld.model.SubstationGraph;
  */
 public class ForceSubstationLayoutFactory implements SubstationLayoutFactory {
 
+    public enum CompactionType {
+        NONE,
+        HORIZONTAL,
+        VERTICAL
+    }
+
     private CompactionType compactionType;
 
     public ForceSubstationLayoutFactory(CompactionType compactionType) {

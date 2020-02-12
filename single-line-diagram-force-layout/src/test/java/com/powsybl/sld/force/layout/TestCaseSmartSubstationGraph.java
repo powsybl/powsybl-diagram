@@ -9,7 +9,6 @@ package com.powsybl.sld.force.layout;
 import com.powsybl.sld.TestCase11SubstationGraph;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,17 +50,17 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
 
         // write Json and compare to reference (with smart substation layout)
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-        new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.NONE).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.NONE).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toJson(g, "/TestCase11SubstationGraphSmart.json", false), toString("/TestCase11SubstationGraphSmart.json"));
 
         // write Json and compare to reference (with smart substation layout and horizontal compaction)
         g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-        new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.HORIZONTAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.HORIZONTAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toJson(g, "/TestCase11SubstationGraphSmartHorizontal.json", false), toString("/TestCase11SubstationGraphSmartHorizontal.json"));
 
         // write Json and compare to reference (with smart substation layout and vertical compaction)
         g = graphBuilder.buildSubstationGraph(substation.getId(), false);
-        new ForceSubstationLayoutFactory(SubstationLayoutFactory.CompactionType.VERTICAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.VERTICAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toJson(g, "/TestCase11SubstationGraphSmartVertical.json", false), toString("/TestCase11SubstationGraphSmartVertical.json"));
     }
 }
