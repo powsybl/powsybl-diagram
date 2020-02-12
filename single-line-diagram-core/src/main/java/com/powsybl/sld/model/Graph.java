@@ -544,8 +544,6 @@ public final class Graph {
     }
 
     public void resetCoords() {
-        maxBusStructuralPosition = new Position(0, 0);
-        vPosToHPosToNodeBus = null;
         nodes.stream().forEach(Node::resetCoords);
     }
 

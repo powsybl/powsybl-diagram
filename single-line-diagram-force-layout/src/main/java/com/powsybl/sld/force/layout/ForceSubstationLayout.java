@@ -142,8 +142,6 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Creating and applying the voltage levels layout with these coordinates
         Map<Graph, VoltageLevelLayout> graphsLayouts = new HashMap<>();
         coordsVoltageLevels.entrySet().stream().forEach(e -> {
-            e.getKey().setX(e.getValue().getX() * 50);
-            e.getKey().setY(e.getValue().getY() * 50);
             VoltageLevelLayout vlLayout = vLayoutFactory.create(e.getKey());
             graphsLayouts.put(e.getKey(), vlLayout);
             vlLayout.run(layoutParameters);
