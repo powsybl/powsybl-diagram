@@ -210,8 +210,10 @@ public abstract class AbstractBlock implements Block {
         generator.writeEndArray();
         generator.writeFieldName("position");
         position.writeJsonContent(generator);
-        generator.writeFieldName("coord");
-        coord.writeJsonContent(generator);
+        if (getGraph().isGenerateCoordsInJson()) {
+            generator.writeFieldName("coord");
+            coord.writeJsonContent(generator);
+        }
         writeJsonContent(generator);
         generator.writeEndObject();
     }

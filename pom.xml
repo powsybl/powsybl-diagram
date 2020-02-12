@@ -55,6 +55,7 @@
         <module>single-line-diagram-iidm-extensions</module>
         <module>single-line-diagram-view</module>
         <module>single-line-diagram-view-app</module>
+        <module>single-line-diagram-force-layout</module>
     </modules>
 
     <properties>
@@ -85,6 +86,9 @@
         <spatial4j.version>0.7</spatial4j.version>
         <xmlunit.version>2.3.0</xmlunit.version>
         <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version>
+        <gephi.version>0.9.2</gephi.version>
+        <stax-utils.version>20070216</stax-utils.version>
+        <openide.version>RELEASE90</openide.version><!-- gephi uses RELEASE82 but it's not available on central -->
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
@@ -244,6 +248,48 @@
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-triple-store-api</artifactId>
                 <version>${powsyblcore.version}</version>
+            </dependency>
+
+            <!-- gephi and its weird transitive dependencies -->
+            <dependency>
+                <groupId>org.gephi</groupId>
+                <artifactId>layout-plugin</artifactId>
+                <version>${gephi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.netbeans.api</groupId>
+                <artifactId>org-openide-nodes</artifactId>
+                <version>${openide.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.netbeans.api</groupId>
+                <artifactId>org-openide-util</artifactId>
+                <version>${openide.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.netbeans.api</groupId>
+                <artifactId>org-openide-util-lookup</artifactId>
+                <version>${openide.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.netbeans.api</groupId>
+                <artifactId>org-openide-filesystems</artifactId>
+                <version>${openide.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.stax-utils</groupId>
+                <artifactId>stax-utils</artifactId>
+                <version>${stax-utils.version}</version>
+                <!--
+                    same exclusion as powsybl-core. Dependency of gephi in
+                    single-line-diagram-force-layout but doesn't seem to be used
+                -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.bea.xml</groupId>
+                        <artifactId>jsr173-ri</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Runtime dependencies -->

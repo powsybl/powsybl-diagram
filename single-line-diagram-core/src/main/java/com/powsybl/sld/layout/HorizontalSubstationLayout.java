@@ -27,13 +27,8 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
      */
     @Override
     protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, Graph vlGraph) {
-        int maxH = vlGraph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
-                .max().orElse(0);
-
-        double x = layoutParam.getInitialXBus() + (maxH + 2) * layoutParam.getCellWidth();
-        double y = 0;
-        return new Coord(x, y);
+        int maxH = vlGraph.getMaxH();
+        return new Coord(layoutParam.getInitialXBus() + (maxH + 2) * layoutParam.getCellWidth(), 0);
     }
 
     /*
@@ -63,7 +58,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double y2 = node2.getY();
         double initY2 = node2.getInitY() != -1 ? node2.getInitY() : y2;
 
-        InfoCalcPoints info = new InfoCalcPoints();
+        HorizontalInfoCalcPoints info = new HorizontalInfoCalcPoints();
         info.setLayoutParam(layoutParam);
         info.setdNode1(dNode1);
         info.setdNode2(dNode2);
@@ -82,7 +77,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         return calculatePolylinePoints(info);
     }
 
-    public static List<Double> calculatePolylinePoints(InfoCalcPoints info) {
+    public static List<Double> calculatePolylinePoints(HorizontalInfoCalcPoints info) {
         List<Double> pol = new ArrayList<>();
 
         LayoutParameters layoutParam = info.getLayoutParam();
@@ -178,5 +173,4 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     protected double getVerticalSubstationPadding(LayoutParameters layoutParameters) {
         return 0;
     }
-
 }

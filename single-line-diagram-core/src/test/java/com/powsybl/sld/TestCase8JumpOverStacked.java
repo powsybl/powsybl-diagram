@@ -28,7 +28,7 @@ import com.powsybl.iidm.network.*;
 public class TestCase8JumpOverStacked extends AbstractTestCase {
 
     @Override
-    void setUp() {
+    public void setUp() {
         network = Network.create("testCase", "test");
         substation = createSubstation(network, "s", "s", Country.FR);
         vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 15);

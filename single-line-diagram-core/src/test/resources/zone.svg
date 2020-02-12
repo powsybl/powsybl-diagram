@@ -223,12 +223,12 @@
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
         <g class="TWO_WINDINGS_TRANSFORMER idTransformer_95_ONE_95_Transformer_95_TWO" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(63.5,396.0)">
-    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4"/>
+    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" transform="rotate(90.0,6.5,4.0)" cy="4"/>
 
-    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" cy="4"/>
+    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" transform="rotate(90.0,6.5,4.0)" cy="4"/>
 </g>
-        <polyline class="wire wire_VoltageLevel11" points="70.0,350.0,70.0,396.0" id="idVoltageLevel11_95__95_Wire0"/>
-        <polyline class="wire wire_VoltageLevel12" points="70.0,404.0,70.0,450.0" id="id_95_VoltageLevel12_95_Wire1"/>
+        <polyline class="wire wire_VoltageLevel11" points="70.0,350.0,70.0,393.5" id="idVoltageLevel11_95__95_Wire0"/>
+        <polyline class="wire wire_VoltageLevel12" points="70.0,406.5,70.0,450.0" id="id_95_VoltageLevel12_95_Wire1"/>
         <g class="BUSBAR_SECTION idBus21" id="idBus21" transform="translate(150.0,1150.0)">
             <line y2="0" x1="0" x2="40.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus21_NW_LABEL">Bus21</text>

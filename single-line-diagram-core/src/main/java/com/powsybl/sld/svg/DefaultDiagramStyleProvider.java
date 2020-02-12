@@ -13,6 +13,7 @@ import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.TwtEdge;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -143,6 +145,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             }
         } else {  // node outside any voltageLevel graph (multi-terminal node)
             List<Node> adjacentNodes = node.getAdjacentNodes();
+            adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
             boolean rotateSVG = false;
 
             if (adjacentNodes.size() == 2) {
@@ -152,21 +155,29 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 double vNom1 = n1.getGraph().getVoltageLevelNominalV();
                 double vNom2 = n2.getGraph().getVoltageLevelNominalV();
 
-                // We will rotate the SVG, if node 1 cell orientation is different from node 2 cell orientation
-                BusCell.Direction dir1 = n1.getCell() != null ? ((ExternCell) n1.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-                BusCell.Direction dir2 = n2.getCell() != null ? ((ExternCell) n2.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-                rotateSVG = dir1 != dir2;
+                // We will further rotate the SVG, given the adjacent edges part of the multi terminal node
+                // (in case of vertical orientation)
+                List<Edge> edges = node.getAdjacentEdges();
+                if (edges.size() >= 2) {
+                    List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
+                    List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
+                    double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
+                    double x2 = pol2.get(2);  // absciss of the second polyline third point
+                    if (x1 == x2) {
+                        rotateSVG = true;
+                    }
+                }
 
                 double vNom = 0;
                 Node n = null;
                 switch (nameSubComponent) {
                     case WINDING1:
-                        vNom = vNom1;
-                        n = rotateSVG ? n1 : n2;
+                        vNom = rotateSVG ? vNom2 : vNom1;
+                        n = rotateSVG ? n2 : n1;
                         break;
                     case WINDING2:
-                        vNom = vNom2;
-                        n = rotateSVG ? n2 : n1;
+                        vNom = rotateSVG ? vNom1 : vNom2;
+                        n = rotateSVG ? n1 : n2;
                         break;
                     default:
                 }

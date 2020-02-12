@@ -6,7 +6,6 @@
     "type" : "EXTERN",
     "number" : 1,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 10,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -239,7 +238,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 3,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 20,
     "rootBlock" : {
