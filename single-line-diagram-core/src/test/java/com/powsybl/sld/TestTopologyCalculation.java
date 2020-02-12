@@ -76,12 +76,10 @@ public class TestTopologyCalculation extends AbstractTestCase {
                            int exploredIndex,
                            int expectedNbNodes,
                            int expectedNbBorderSwitches) {
-
         assertEquals(expectedNbTcns, tcnss.size());
         TopologicallyConnectedNodesSet tcns = tcnss.get(exploredIndex);
         assertEquals(expectedNbNodes, tcns.getNodesSet().size());
         assertEquals(expectedNbBorderSwitches, tcns.getBorderSwitchNodesSet().size());
-
     }
 
     @Test
@@ -89,30 +87,28 @@ public class TestTopologyCalculation extends AbstractTestCase {
         // build graph
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
         List<TopologicallyConnectedNodesSet> tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,1,0,25,0);
+        assertTopo(tcnss, 1, 0, 25, 0);
         g.getNode("bA1").setOpen(true);
         tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,1,0,25,0);
+        assertTopo(tcnss, 1, 0, 25, 0);
         g.getNode("bA2").setOpen(true);
         tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,2,0,24,2);
-        assertTopo(tcnss,2,1,3,2);
+        assertTopo(tcnss, 2, 0, 24, 2);
+        assertTopo(tcnss, 2, 1, 3, 2);
         g.getNode("d1").setOpen(true);
         tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,2,0,24,2);
-        assertTopo(tcnss,2,1,3,2);
+        assertTopo(tcnss, 2, 0, 24, 2);
+        assertTopo(tcnss, 2, 1, 3, 2);
         g.getNode("b1").setOpen(true);
         tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,3,0,9,4);
-        assertTopo(tcnss,3,1,17,2);
-        assertTopo(tcnss,3,2,3,2);
+        assertTopo(tcnss, 3, 0, 9, 4);
+        assertTopo(tcnss, 3, 1, 17, 2);
+        assertTopo(tcnss, 3, 2, 3, 2);
         g.getNode("dB2").setOpen(true);
         tcnss = TopologyCalculation.run(g);
-        assertTopo(tcnss,4,0,9,4);
-        assertTopo(tcnss,4,1,7,2);
-        assertTopo(tcnss,4,2,11,2);
-        assertTopo(tcnss,4,3,3,2);
-
-
+        assertTopo(tcnss, 4, 0, 9, 4);
+        assertTopo(tcnss, 4, 1, 7, 2);
+        assertTopo(tcnss, 4, 2, 11, 2);
+        assertTopo(tcnss, 4, 3, 3, 2);
     }
 }
