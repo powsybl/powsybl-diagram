@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -211,7 +211,8 @@ public class CgmesZoneLayoutTest {
         generatorDiagramData.addData(DIAGRAM_ID, diagramDetails);
         generator.addExtension(InjectionDiagramData.class, generatorDiagramData);
 
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_ID);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_ID, SUBSTATION_1_ID);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_ID, SUBSTATION_2_ID);
     }
 
     @Test

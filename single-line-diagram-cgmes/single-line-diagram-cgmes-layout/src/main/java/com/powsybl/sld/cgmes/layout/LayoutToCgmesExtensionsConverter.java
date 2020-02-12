@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -273,10 +273,10 @@ public class LayoutToCgmesExtensionsConverter {
 
     private void convertLayoutSingleDiagram(Network network, Stream<Substation> subsStream, String diagramName) {
         //creates a single CGMES-DL diagram (named diagramName), where each substation
-        NetworkDiagramData.addDiagramName(network, diagramName);
         final double[] xoffset = {0.0};
         subsStream.forEach(s -> {
             LOG.debug("Substation {}({} offset: {})", s.getId(), s.getName(), xoffset[0]);
+            NetworkDiagramData.addDiagramName(network, diagramName, s.getId());
             LayoutInfo li = applyLayout(network, s.getId(), xoffset[0], 0.0, diagramName);
             xoffset[0] += OFFSET_MULTIPLIER_X * li.getMaxX();
         });
@@ -286,7 +286,7 @@ public class LayoutToCgmesExtensionsConverter {
         // creates one CGMES-DL diagram for each substation (where each diagram name is the substation's name)
         subsStream.forEach(s -> {
             String subDiagramName = StringUtils.isEmpty(s.getName()) ? s.getId() : s.getName();
-            NetworkDiagramData.addDiagramName(network, subDiagramName);
+            NetworkDiagramData.addDiagramName(network, subDiagramName, s.getId());
             LOG.debug("Substation {}", subDiagramName);
             applyLayout(network, s.getId(), 0.0, 0.0, subDiagramName);
         });
