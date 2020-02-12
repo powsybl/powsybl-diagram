@@ -23,6 +23,7 @@ import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -513,7 +514,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n3WT.getTransformerId());
 
                     // Create a new fictitious node
-                    Fictitious3WTNode nf = new Fictitious3WTNode(graph, n3WT.getLabel() + "_fictif", n3WT.getTransformerId());
+                    Map<Feeder3WTNode.Side, String> idsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
+                    Map<Feeder3WTNode.Side, Double> vNomsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
+
+                    idsLegs.put(Feeder3WTNode.Side.ONE, transformer.getLeg1().getTerminal().getVoltageLevel().getId());
+                    idsLegs.put(Feeder3WTNode.Side.TWO, transformer.getLeg2().getTerminal().getVoltageLevel().getId());
+                    idsLegs.put(Feeder3WTNode.Side.THREE, transformer.getLeg3().getTerminal().getVoltageLevel().getId());
+
+                    vNomsLegs.put(Feeder3WTNode.Side.ONE, transformer.getLeg1().getTerminal().getVoltageLevel().getNominalV());
+                    vNomsLegs.put(Feeder3WTNode.Side.TWO, transformer.getLeg2().getTerminal().getVoltageLevel().getNominalV());
+                    vNomsLegs.put(Feeder3WTNode.Side.THREE, transformer.getLeg3().getTerminal().getVoltageLevel().getNominalV());
+
+                    Fictitious3WTNode nf = new Fictitious3WTNode(graph, n3WT.getLabel() + "_fictif", idsLegs, vNomsLegs);
                     graph.addNode(nf);
 
                     FeederNode nfeeder1 = null;

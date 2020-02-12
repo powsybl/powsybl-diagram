@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.layout;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
 import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
+import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
 import static com.powsybl.sld.library.ComponentTypeName.LINE;
 import static com.powsybl.sld.library.ComponentTypeName.LOAD;
 import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
@@ -25,22 +26,28 @@ import org.junit.Test;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.DanglingLine;
+import com.powsybl.iidm.network.Generator;
 import com.powsybl.iidm.network.Load;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ShuntCompensator;
 import com.powsybl.iidm.network.StaticVarCompensator;
 import com.powsybl.iidm.network.Substation;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData.CouplingDeviceDiagramDetails;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData.InjectionDiagramDetails;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Graph;
@@ -57,10 +64,16 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     private Substation substation;
     private VoltageLevel voltageLevel2;
     Network network;
+    private VoltageLevel voltageLevel21;
+    private VoltageLevel voltageLevel22;
+    private VoltageLevel voltageLevel23;
+    private Substation substation2;
+    Network networkWith3WT;
 
     @Before
     public void setUp() {
         createNetwork();
+        createNetworkWith3WT();
     }
 
     private void createNetwork() {
@@ -72,7 +85,27 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         voltageLevel = createFirstVoltageLevel(substation);
         voltageLevel2 = createSecondVoltageLevel(substation);
         createTransformer(substation);
-        addDiagramData(network);
+        addFirstVoltageLevelDiagramData(network, voltageLevel);
+        addSecondVoltageLevelDiagramData(network, voltageLevel2);
+        addTransformerDiagramData(network);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+    }
+
+    private void createNetworkWith3WT() {
+        networkWith3WT = Network.create("test", "test");
+        substation2 = networkWith3WT.newSubstation()
+                .setId("Substation")
+                .setCountry(Country.FR)
+                .add();
+        voltageLevel21 = createFirstVoltageLevel(substation2);
+        voltageLevel22 = createSecondVoltageLevel(substation2);
+        voltageLevel23 = createThirdVoltageLevel(substation2);
+        create3WTransformer(substation2);
+        addFirstVoltageLevelDiagramData(networkWith3WT, voltageLevel21);
+        addSecondVoltageLevelDiagramData(networkWith3WT, voltageLevel22);
+        addThirdVoltageLevelDiagramData(networkWith3WT, voltageLevel23);
+        add3WTransformerDiagramData(networkWith3WT);
+        NetworkDiagramData.addDiagramName(networkWith3WT, DIAGRAM_NAME);
     }
 
     private VoltageLevel createFirstVoltageLevel(Substation substation) {
@@ -153,7 +186,58 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
                 .add();
     }
 
-    private void addDiagramData(Network network) {
+    private VoltageLevel createThirdVoltageLevel(Substation substation) {
+        VoltageLevel voltageLevel3 = substation.newVoltageLevel()
+                .setId("VoltageLevel3")
+                .setNominalV(400)
+                .setTopologyKind(TopologyKind.BUS_BREAKER)
+                .add();
+        voltageLevel3.getBusBreakerView().newBus()
+                .setId("Bus3")
+                .add();
+        voltageLevel3.newGenerator()
+                .setId("Generator")
+                .setBus("Bus3")
+                .setConnectableBus("Bus3")
+                .setTargetP(100)
+                .setTargetV(380)
+                .setVoltageRegulatorOn(true)
+                .setMaxP(100)
+                .setMinP(0)
+                .add();
+        return voltageLevel3;
+    }
+
+    private void create3WTransformer(Substation substation) {
+        substation.newThreeWindingsTransformer()
+                .setId("Transformer")
+                .newLeg1()
+                    .setR(17.424)
+                    .setX(1.7424)
+                    .setB(0.000573921028466483)
+                    .setG(0.00573921028466483)
+                    .setRatedU(132.0)
+                    .setVoltageLevel("VoltageLevel1")
+                    .setBus("Bus1")
+                    .add()
+                .newLeg2()
+                    .setR(1.089)
+                    .setX(0.1089)
+                    .setRatedU(33.0)
+                    .setVoltageLevel("VoltageLevel2")
+                    .setBus("Bus2")
+                    .add()
+                .newLeg3()
+                    .setR(0.121)
+                    .setX(0.0121)
+                    .setRatedU(11.0)
+                    .setVoltageLevel("VoltageLevel3")
+                    .setBus("Bus3")
+                    .add()
+                .add();
+    }
+
+    private void addFirstVoltageLevelDiagramData(Network network, VoltageLevel voltageLevel) {
         Bus bus = voltageLevel.getBusBreakerView().getBus("Bus1");
         NodeDiagramData<Bus> busDiagramData = new NodeDiagramData<>(bus);
         NodeDiagramData.NodeDiagramDataDetails diagramDetails = busDiagramData.new NodeDiagramDataDetails();
@@ -183,18 +267,10 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(60, 60, 1));
         danglingLineDiagramData.addPoint(DIAGRAM_NAME, new DiagramPoint(120, 60, 2));
         danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+    }
 
-        TwoWindingsTransformer twt = network.getTwoWindingsTransformer("Transformer");
-        CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
-        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = twtDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(100, 15, 0), 90);
-        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(95, 15, 1));
-        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(60, 15, 2));
-        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(105, 15, 1));
-        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(120, 15, 2));
-        twtDiagramData.addData(DIAGRAM_NAME, twtDiagramDetails);
-        twt.addExtension(CouplingDeviceDiagramData.class, twtDiagramData);
-
-        Bus bus2 = voltageLevel2.getBusBreakerView().getBus("Bus2");
+    private void addSecondVoltageLevelDiagramData(Network network, VoltageLevel voltageLevel) {
+        Bus bus2 = voltageLevel.getBusBreakerView().getBus("Bus2");
         NodeDiagramData<Bus> bus2DiagramData = new NodeDiagramData<>(bus2);
         NodeDiagramData.NodeDiagramDataDetails diagramDetails2 = bus2DiagramData.new NodeDiagramDataDetails();
         diagramDetails2.setPoint1(new DiagramPoint(120, 10, 1));
@@ -209,8 +285,50 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         svcDiagramDataDetails.addTerminalPoint(new DiagramPoint(120, 15, 2));
         svcDiagramData.addData(DIAGRAM_NAME, svcDiagramDataDetails);
         svc.addExtension(InjectionDiagramData.class, svcDiagramData);
+    }
 
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+    private void addTransformerDiagramData(Network network) {
+        TwoWindingsTransformer twt = network.getTwoWindingsTransformer("Transformer");
+        CouplingDeviceDiagramData<TwoWindingsTransformer> twtDiagramData = new CouplingDeviceDiagramData<>(twt);
+        CouplingDeviceDiagramData.CouplingDeviceDiagramDetails twtDiagramDetails = twtDiagramData.new CouplingDeviceDiagramDetails(new DiagramPoint(100, 15, 0), 90);
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(95, 15, 1));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(60, 15, 2));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(105, 15, 1));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(120, 15, 2));
+        twtDiagramData.addData(DIAGRAM_NAME, twtDiagramDetails);
+        twt.addExtension(CouplingDeviceDiagramData.class, twtDiagramData);
+    }
+
+    private void addThirdVoltageLevelDiagramData(Network network, VoltageLevel voltageLevel) {
+        Bus bus3 = voltageLevel.getBusBreakerView().getBus("Bus3");
+        NodeDiagramData<Bus> bus3DiagramData = new NodeDiagramData<>(bus3);
+        NodeDiagramData.NodeDiagramDataDetails diagramDetails2 = bus3DiagramData.new NodeDiagramDataDetails();
+        diagramDetails2.setPoint1(new DiagramPoint(80, 40, 1));
+        diagramDetails2.setPoint2(new DiagramPoint(120, 40, 2));
+        bus3DiagramData.addData(DIAGRAM_NAME, diagramDetails2);
+        bus3.addExtension(NodeDiagramData.class, bus3DiagramData);
+
+        Generator generator = network.getGenerator("Generator");
+        InjectionDiagramData<Generator> generatorDiagramData = new InjectionDiagramData<>(generator);
+        InjectionDiagramData.InjectionDiagramDetails genDiagramDataDetails = generatorDiagramData.new InjectionDiagramDetails(new DiagramPoint(100, 60, 0), 90);
+        genDiagramDataDetails.addTerminalPoint(new DiagramPoint(100, 55, 1));
+        genDiagramDataDetails.addTerminalPoint(new DiagramPoint(100, 40, 2));
+        generatorDiagramData.addData(DIAGRAM_NAME, genDiagramDataDetails);
+        generator.addExtension(InjectionDiagramData.class, generatorDiagramData);
+    }
+
+    private void add3WTransformerDiagramData(Network network) {
+        ThreeWindingsTransformer twt = network.getThreeWindingsTransformer("Transformer");
+        ThreeWindingsTransformerDiagramData twtDiagramData = new ThreeWindingsTransformerDiagramData(twt);
+        ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails twtDiagramDetails = twtDiagramData.new ThreeWindingsTransformerDiagramDataDetails(new DiagramPoint(100, 15, 0), 90);
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(95, 15, 1));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL1, new DiagramPoint(60, 15, 2));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(105, 15, 1));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL2, new DiagramPoint(120, 15, 2));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL3, new DiagramPoint(100, 20, 1));
+        twtDiagramDetails.addTerminalPoint(DiagramTerminal.TERMINAL3, new DiagramPoint(10, 40, 2));
+        twtDiagramData.addData(DIAGRAM_NAME, twtDiagramDetails);
+        twt.addExtension(ThreeWindingsTransformerDiagramData.class, twtDiagramData);
     }
 
     @Test
@@ -229,6 +347,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         checkCoordinates(graph.getNode(voltageLevel.getId()));
         checkGraphVl2(graph.getNode(voltageLevel2.getId()));
         checkCoordinatesVl2(graph.getNode(voltageLevel2.getId()));
+        checkSubstationTwt(graph, 2);
     }
 
     @Override
@@ -313,7 +432,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("Bus2", graph.getNodes().get(2).getAdjacentNodes().get(0).getId());
     }
 
-    protected void checkCoordinatesVl2(Graph graph) {
+    private void checkCoordinatesVl2(Graph graph) {
         assertEquals(240, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(30, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
@@ -324,6 +443,65 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(200, graph.getNodes().get(2).getX(), 0);
         assertEquals(20, graph.getNodes().get(2).getY(), 0);
         assertFalse(graph.getNodes().get(2).isRotated());
+    }
+
+    private void checkGraphVl3(Graph graph) {
+        assertEquals(3, graph.getNodes().size());
+
+        assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());
+        assertEquals(Node.NodeType.FEEDER, graph.getNodes().get(1).getType());
+        assertEquals(Node.NodeType.FEEDER, graph.getNodes().get(2).getType());
+
+        assertEquals("Bus3", graph.getNodes().get(0).getId());
+        assertEquals("Generator", graph.getNodes().get(1).getId());
+        assertEquals("Transformer_THREE", graph.getNodes().get(2).getId());
+
+        assertEquals(BUSBAR_SECTION, graph.getNodes().get(0).getComponentType());
+        assertEquals(GENERATOR, graph.getNodes().get(1).getComponentType());
+        assertEquals(LINE, graph.getNodes().get(2).getComponentType());
+
+        assertEquals(2, graph.getNodes().get(0).getAdjacentNodes().size());
+        assertEquals("Generator", graph.getNodes().get(0).getAdjacentNodes().get(0).getId());
+        assertEquals("Transformer_THREE", graph.getNodes().get(0).getAdjacentNodes().get(1).getId());
+        assertEquals(1, graph.getNodes().get(1).getAdjacentNodes().size());
+        assertEquals("Bus3", graph.getNodes().get(1).getAdjacentNodes().get(0).getId());
+        assertEquals(1, graph.getNodes().get(2).getAdjacentNodes().size());
+        assertEquals("Bus3", graph.getNodes().get(2).getAdjacentNodes().get(0).getId());
+    }
+
+    private void checkCoordinatesVl3(Graph graph) {
+        assertEquals(160, graph.getNodes().get(0).getX(), 0);
+        assertEquals(70, graph.getNodes().get(0).getY(), 0);
+        assertEquals(80, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
+        assertFalse(graph.getNodes().get(0).isRotated());
+        assertEquals(200, graph.getNodes().get(1).getX(), 0);
+        assertEquals(110, graph.getNodes().get(1).getY(), 0);
+        assertEquals(200, graph.getNodes().get(2).getX(), 0);
+        assertEquals(20, graph.getNodes().get(2).getY(), 0);
+        assertFalse(graph.getNodes().get(2).isRotated());
+    }
+
+    private void checkSubstationTwt(SubstationGraph graph, int edgesNumber) {
+        assertEquals(edgesNumber, graph.getEdges().size());
+        assertEquals(1, graph.getMultiTermNodes().size());
+        assertEquals(200, graph.getMultiTermNodes().get(0).getX(), 0);
+        assertEquals(20, graph.getMultiTermNodes().get(0).getY(), 0);
+    }
+
+    @Test
+    public void testSubstationLayout3WT() {
+        SubstationGraph graph = new NetworkGraphBuilder(networkWith3WT).buildSubstationGraph(substation2.getId(), false);
+        LayoutParameters layoutParameters = new LayoutParameters();
+        layoutParameters.setScaleFactor(2);
+        layoutParameters.setDiagramName(DIAGRAM_NAME);
+        new CgmesSubstationLayout(graph, networkWith3WT).run(layoutParameters);
+        checkGraph(graph.getNode(voltageLevel21.getId()));
+        checkCoordinates(graph.getNode(voltageLevel21.getId()));
+        checkGraphVl2(graph.getNode(voltageLevel22.getId()));
+        checkCoordinatesVl2(graph.getNode(voltageLevel22.getId()));
+        checkGraphVl3(graph.getNode(voltageLevel23.getId()));
+        checkCoordinatesVl3(graph.getNode(voltageLevel23.getId()));
+        checkSubstationTwt(graph, 3);
     }
 
 }

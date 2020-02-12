@@ -248,6 +248,6 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
 
         compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",
                 new DefaultDiagramInitialValueProvider(network),
-                new DefaultDiagramStyleProvider(network));
+                new DefaultDiagramStyleProvider());
     }
 }

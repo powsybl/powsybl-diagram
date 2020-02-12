@@ -87,7 +87,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true, false);
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true, false);
 
-        DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(network);
+        DiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider();
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
