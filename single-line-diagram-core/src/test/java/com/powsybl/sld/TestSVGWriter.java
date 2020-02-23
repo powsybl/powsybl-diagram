@@ -633,9 +633,9 @@ public class TestSVGWriter extends AbstractTestCase {
         nMulti1.setX(50, false, false);
         nMulti1.setY(350, false, false);
         TwtEdge edge1 = s1Graph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, twtSide1Node, nMulti1);
-        edge1.setSnakeLine(Arrays.asList(50., 300., 50., 350.));
+        edge1.setSnakeLine(Arrays.asList(50., 300., 50., 320., 50., 350.));
         TwtEdge edge2 = s1Graph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, nMulti1, twtSide2Node);
-        edge2.setSnakeLine(Arrays.asList(50., 350., 50., 400.));
+        edge2.setSnakeLine(Arrays.asList(50., 350., 50., 380., 50., 400.));
         nMulti1.addAdjacentEdge(edge1);
         nMulti1.addAdjacentEdge(edge2);
         s1Graph.addMultiTermNode(nMulti1);
