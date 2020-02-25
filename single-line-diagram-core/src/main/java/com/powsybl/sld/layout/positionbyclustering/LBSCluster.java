@@ -23,27 +23,27 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class LBSCluster {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
-    private List<LegBusSet> lbsList;
-    private Map<Side, LegBusSet> sideToLbs;
-    private List<HorizontalLane> horizontalLanes;
-    private List<LBSCluster> lbsClusters;
 
-    private int nb = 0;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
+
+    private final List<LegBusSet> lbsList = new ArrayList<>();
+    private final Map<Side, LegBusSet> sideToLbs = new EnumMap<>(Side.class);
+    private final List<HorizontalLane> horizontalLanes = new ArrayList<>();
+    private final List<LBSCluster> lbsClusters;
+    private final int nb;
 
     LBSCluster(List<LBSCluster> lbsClusters, LegBusSet lbs, int nb) {
-        lbsList = new ArrayList<>();
+        this.lbsClusters = Objects.requireNonNull(lbsClusters);
+        this.lbsClusters.add(this);
+
+        Objects.requireNonNull(lbs);
         lbsList.add(lbs);
-        horizontalLanes = new ArrayList<>();
         lbs.getBusNodeSet().forEach(nodeBus -> horizontalLanes.add(new HorizontalLane(nodeBus)));
         lbs.setLbsCluster(this);
 
-        sideToLbs = new EnumMap<>(Side.class);
         sideToLbs.put(Side.LEFT, lbs);
         sideToLbs.put(Side.RIGHT, lbs);
 
-        this.lbsClusters = lbsClusters;
-        this.lbsClusters.add(this);
         this.nb = nb;
     }
 

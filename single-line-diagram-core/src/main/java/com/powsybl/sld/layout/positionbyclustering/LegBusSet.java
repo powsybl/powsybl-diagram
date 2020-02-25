@@ -24,21 +24,21 @@ import java.util.*;
  */
 class LegBusSet implements ClusterConnector<LegBusSet> {
 
-    private Set<BusNode> busNodeSet;
-    private Set<BusCell> embeddedCells;
-    private Map<InternCell, Side> candidateFlatCells;
-    private Map<InternCell, Side> crossoverInternCells;
+    private final Set<BusNode> busNodeSet;
+    private final Set<BusCell> embeddedCells;
+    private final Map<InternCell, Side> candidateFlatCells;
+    private final Map<InternCell, Side> crossoverInternCells;
     private LBSCluster lbsCluster;
-    private List<Link<LegBusSet>> myLinks;
-    private Map<BusNode, Integer> nodeToNb;
+    private final List<Link<LegBusSet>> myLinks;
+    private final Map<BusNode, Integer> nodeToNb;
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         this.nodeToNb = nodeToNb;
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
-        embeddedCells = new HashSet<>();
-        candidateFlatCells = new HashMap<>();
-        crossoverInternCells = new HashMap<>();
+        embeddedCells = new LinkedHashSet<>();
+        candidateFlatCells = new LinkedHashMap<>();
+        crossoverInternCells = new LinkedHashMap<>();
         myLinks = new ArrayList<>();
     }
 
@@ -82,7 +82,7 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
     }
 
     private void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
-        Set<InternCell> commonCells = new HashSet<>(myMap.keySet());
+        Set<InternCell> commonCells = new LinkedHashSet<>(myMap.keySet());
         Set<InternCell> cellToAbsorb = map.keySet();
         commonCells.retainAll(cellToAbsorb);
         for (InternCell commonCell : commonCells) {
