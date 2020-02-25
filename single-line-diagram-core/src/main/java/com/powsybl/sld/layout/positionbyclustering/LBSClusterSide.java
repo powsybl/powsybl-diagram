@@ -10,10 +10,7 @@ import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
@@ -22,18 +19,17 @@ import java.util.Set;
  */
 class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
 
-    private LBSCluster lbsCluster;
-    private Side side;
-    private List<Link<LBSClusterSide>> myLinks;
+    private final LBSCluster lbsCluster;
+    private final Side side;
+    private final List<Link<LBSClusterSide>> myLinks = new ArrayList<>();
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
-        this.lbsCluster = lbsCluster;
-        this.side = side;
-        myLinks = new ArrayList<>();
+        this.lbsCluster = Objects.requireNonNull(lbsCluster);
+        this.side = Objects.requireNonNull(side);
     }
 
     public Set<BusNode> getBusNodeSet() {
-        return new HashSet<>(lbsCluster.laneSideBuses(side));
+        return new LinkedHashSet<>(lbsCluster.laneSideBuses(side));
     }
 
     public List<InternCell> getCandidateFlatCellList() {

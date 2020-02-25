@@ -6,10 +6,7 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Manages the links between a list of clusterConnectors.
@@ -18,11 +15,11 @@ import java.util.TreeSet;
  */
 class Links<T extends ClusterConnector> {
 
-    private List<T> clusterConnectors;
-    private TreeSet<Link<T>> linkSet = new TreeSet<>();
+    private final List<T> clusterConnectors;
+    private final TreeSet<Link<T>> linkSet = new TreeSet<>();
 
     Links(List<T> clusterConnectors) {
-        this.clusterConnectors = clusterConnectors;
+        this.clusterConnectors = Objects.requireNonNull(clusterConnectors);
         for (int i = 0; i < clusterConnectors.size(); i++) {
             for (int j = i + 1; j < clusterConnectors.size(); j++) {
                 buildNewLink(clusterConnectors.get(i), clusterConnectors.get(j));
