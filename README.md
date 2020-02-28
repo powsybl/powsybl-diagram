@@ -45,12 +45,12 @@ and additionally for this example two other ones for the `Network` test case and
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -69,7 +69,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -88,7 +88,7 @@ VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkG
 voltageLevelDiagram.writeSvg("",
                              new DefaultSVGWriter(componentLibrary, new LayoutParameters()),
                              new DefaultDiagramInitialValueProvider(network),
-                             new NominalVoltageDiagramStyleProvider(network),
+                             new NominalVoltageDiagramStyleProvider(),
                              new DefaultNodeLabelConfiguration(componentLibrary),
                              Paths.get("/tmp/c.svg"),
                              false);
