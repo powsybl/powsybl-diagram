@@ -11,13 +11,16 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractBlock implements Block {
 
@@ -163,8 +166,13 @@ public abstract class AbstractBlock implements Block {
                 dyToBus = layoutParam.getInternCellHeight() * position.getV();
             }
         } else {
-            coord.setYSpan(layoutParam.getExternCellHeight());
-            dyToBus = layoutParam.getExternCellHeight() / 2 + layoutParam.getStackHeight();
+            // when using the adapt cell height to content option, the extern cell height, here,
+            // is the previously calculated maximum height of all the extern cells having the same direction
+            double externCellHeight = !layoutParam.isAdaptCellHeightToContent()
+                    ? layoutParam.getExternCellHeight()
+                    : getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
+            coord.setYSpan(externCellHeight);
+            dyToBus = externCellHeight / 2 + layoutParam.getStackHeight();
         }
 
         coord.setX(layoutParam.getInitialXBus()
@@ -188,6 +196,12 @@ public abstract class AbstractBlock implements Block {
             default:
         }
         calculateCoord(layoutParam);
+    }
+
+    @Override
+    public double calculateRootHeight(LayoutParameters layoutParam) {
+        Set<Node> encounteredNodes = new HashSet<>();
+        return calculateHeight(encounteredNodes, layoutParam);
     }
 
     @Override

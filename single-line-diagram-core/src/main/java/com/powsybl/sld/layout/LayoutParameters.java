@@ -57,6 +57,11 @@ public class LayoutParameters {
     private double scaleShiftFeedersPosition = 1;
     private boolean avoidSVGComponentsDuplication = false;
 
+    private boolean adaptCellHeightToContent = false;
+    private double maxComponentHeight = 12;
+    private double minSpaceBetweenComponents = 15;
+    private double minExternCellHeight = 80;
+
     @JsonCreator
     public LayoutParameters() {
     }
@@ -85,7 +90,11 @@ public class LayoutParameters {
                             @JsonProperty("diagramName") String diagramName,
                             @JsonProperty("shiftFeedersPosition") boolean shiftFeedersPosition,
                             @JsonProperty("scaleShiftFeedersPosition") double scaleShiftFeedersPosition,
-                            @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication) {
+                            @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
+                            @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
+                            @JsonProperty("maxComponentHeight") double maxComponentHeight,
+                            @JsonProperty("minSpaceBetweenComponents") double minSpaceBetweenComponents,
+                            @JsonProperty("minExternCellHeight") double minExternCellHeight) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -110,6 +119,10 @@ public class LayoutParameters {
         this.shiftFeedersPosition = shiftFeedersPosition;
         this.scaleShiftFeedersPosition = scaleShiftFeedersPosition;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
+        this.adaptCellHeightToContent = adaptCellHeightToContent;
+        this.maxComponentHeight = maxComponentHeight;
+        this.minSpaceBetweenComponents = minSpaceBetweenComponents;
+        this.minExternCellHeight = minExternCellHeight;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -138,6 +151,10 @@ public class LayoutParameters {
         shiftFeedersPosition = other.shiftFeedersPosition;
         scaleShiftFeedersPosition = other.scaleShiftFeedersPosition;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
+        adaptCellHeightToContent = other.adaptCellHeightToContent;
+        maxComponentHeight = other.maxComponentHeight;
+        minSpaceBetweenComponents = other.minSpaceBetweenComponents;
+        minExternCellHeight = other.minExternCellHeight;
     }
 
     public double getTranslateX() {
@@ -353,6 +370,42 @@ public class LayoutParameters {
 
     public LayoutParameters setAvoidSVGComponentsDuplication(boolean avoidSVGComponentsDuplication) {
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
+        return this;
+    }
+
+    public boolean isAdaptCellHeightToContent() {
+        return adaptCellHeightToContent;
+    }
+
+    public LayoutParameters setAdaptCellHeightToContent(boolean adaptCellHeightToContent) {
+        this.adaptCellHeightToContent = adaptCellHeightToContent;
+        return this;
+    }
+
+    public double getMaxComponentHeight() {
+        return maxComponentHeight;
+    }
+
+    public LayoutParameters setMaxComponentHeight(double maxComponentHeight) {
+        this.maxComponentHeight = maxComponentHeight;
+        return this;
+    }
+
+    public double getMinSpaceBetweenComponents() {
+        return minSpaceBetweenComponents;
+    }
+
+    public LayoutParameters setMinSpaceBetweenComponents(double minSpaceBetweenComponents) {
+        this.minSpaceBetweenComponents = minSpaceBetweenComponents;
+        return this;
+    }
+
+    public double getMinExternCellHeight() {
+        return minExternCellHeight;
+    }
+
+    public LayoutParameters setMinExternCellHeight(double minExternCellHeight) {
+        this.minExternCellHeight = minExternCellHeight;
         return this;
     }
 }

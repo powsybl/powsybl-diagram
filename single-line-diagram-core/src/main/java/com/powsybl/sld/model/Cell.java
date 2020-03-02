@@ -16,6 +16,7 @@ import java.util.*;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface Cell {
     enum CellType {
@@ -41,6 +42,8 @@ public interface Cell {
     int getNumber();
 
     void calculateCoord(LayoutParameters layoutParam);
+
+    double calculateHeight(LayoutParameters layoutParam);
 
     void writeJson(JsonGenerator generator) throws IOException;
 

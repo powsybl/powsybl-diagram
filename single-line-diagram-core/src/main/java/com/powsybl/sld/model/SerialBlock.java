@@ -14,6 +14,7 @@ import java.util.*;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class SerialBlock extends AbstractComposedBlock {
 
@@ -199,6 +200,17 @@ public class SerialBlock extends AbstractComposedBlock {
             sub.setYSpan(getCoord().getYSpan());
             sub.calculateCoord(layoutParam);
         }
+    }
+
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        double blockHeight = 0.;
+        for (int i = 0; i < subBlocks.size(); i++) {
+            Block sub = subBlocks.get(i);
+            // Here, the subBlocks are positioned serially, so we add the height of all these subBlocks
+            blockHeight += sub.calculateHeight(encounteredNodes, layoutParameters);
+        }
+        return blockHeight;
     }
 
     @Override

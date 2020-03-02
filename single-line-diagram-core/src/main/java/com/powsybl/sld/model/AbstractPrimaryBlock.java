@@ -8,16 +8,19 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractPrimaryBlock extends AbstractBlock implements PrimaryBlock {
 
@@ -101,6 +104,25 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
             node.writeJson(generator);
         }
         generator.writeEndArray();
+    }
+
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        double blockHeight = 0.;
+        int nbNodes = nodes.size();
+        for (int i = 0; i < nbNodes; i++) {
+            Node node = nodes.get(i);
+            if (!encounteredNodes.contains(node) && node.getType() != Node.NodeType.BUS) {
+                // the node is not a bus node and has not been already encountered
+                encounteredNodes.add(node);
+                blockHeight += layoutParameters.getMaxComponentHeight();
+                if (i < nbNodes - 1 || node.getType() != Node.NodeType.FEEDER) {
+                    // not the last node or last node is not a feeder node
+                    blockHeight += layoutParameters.getMinSpaceBetweenComponents();
+                }
+            }
+        }
+        return blockHeight;
     }
 
     @Override

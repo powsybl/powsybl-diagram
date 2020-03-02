@@ -153,13 +153,22 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         private final AtomicReference<Integer> metadataSearchStart = new AtomicReference<>(0);
         private final Button metadataSaveButton = new Button("Save");
 
+        private final VBox jsonArea = new VBox();
+        private final TextField jsonSearchField = new TextField();
+        private final Button jsonSearchButton = new Button("Search");
+        private final TextArea jsonTextArea = new TextArea();
+        private final AtomicReference<Integer> jsonSearchStart = new AtomicReference<>(0);
+        private final Button jsonSaveButton = new Button("Save");
+
         private final Tab tab1 = new Tab("Diagram", flowPane);
 
         private final Tab tab2 = new Tab("SVG", svgArea);
 
         private final Tab tab3 = new Tab("Metadata", metadataArea);
 
-        private final TabPane tabPane = new TabPane(tab1, tab2, tab3);
+        private final Tab tab4 = new Tab("Graph", jsonArea);
+
+        private final TabPane tabPane = new TabPane(tab1, tab2, tab3, tab4);
 
         private final TitledPane titledPane = new TitledPane("Infos", infoArea);
 
@@ -168,6 +177,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         ContainerDiagramPane(Container c) {
             createArea(svgSearchField, svgSearchButton, svgSaveButton, "SVG file", "*.svg", svgTextArea, svgArea, svgSearchStart);
             createArea(metadataSearchField, metadataSearchButton, metadataSaveButton, "JSON file", "*.json", metadataTextArea, metadataArea, metadataSearchStart);
+            createArea(jsonSearchField, jsonSearchButton, jsonSaveButton, "JSON file", "*.json", jsonTextArea, jsonArea, jsonSearchStart);
 
             infoArea.setEditable(false);
             infoArea.setText(String.join(System.lineSeparator(),
@@ -177,6 +187,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             tab1.setClosable(false);
             tab2.setClosable(false);
             tab3.setClosable(false);
+            tab4.setClosable(false);
             setCenter(tabPane);
             setBottom(titledPane);
             listener = (observable, oldValue, newValue) -> loadDiagram(c);
@@ -192,10 +203,13 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
             private final String metadataData;
 
-            ContainerDiagramResult(AbstractContainerDiagramView view, String svgData, String metadataData) {
+            private final String jsonData;
+
+            ContainerDiagramResult(AbstractContainerDiagramView view, String svgData, String metadataData, String jsonData) {
                 this.view = view;
                 this.svgData = svgData;
                 this.metadataData = metadataData;
+                this.jsonData = jsonData;
             }
 
             AbstractContainerDiagramView getView() {
@@ -208,6 +222,10 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
             String getMetadataData() {
                 return metadataData;
+            }
+
+            String getJsonData() {
+                return jsonData;
             }
         }
 
@@ -222,8 +240,10 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         private ContainerDiagramResult createContainerDiagramView(Container c) {
             String svgData;
             String metadataData;
+            String jsonData;
             try (StringWriter svgWriter = new StringWriter();
-                 StringWriter metadataWriter = new StringWriter()) {
+                 StringWriter metadataWriter = new StringWriter();
+                 StringWriter jsonWriter = new StringWriter()) {
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
                 DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
                 NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary());
@@ -241,6 +261,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                             nodeLabelConfiguration,
                             svgWriter,
                             metadataWriter);
+                    diagram.getGraph().writeJson(jsonWriter);
                 } else if (c.getContainerType() == ContainerType.SUBSTATION) {
                     SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, c.getId(), getSubstationLayoutFactory(), getVoltageLevelLayoutFactory(), showNames.isSelected());
                     diagram.writeSvg("",
@@ -250,12 +271,14 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                             nodeLabelConfiguration,
                             svgWriter,
                             metadataWriter);
+                    diagram.getSubGraph().writeJson(jsonWriter);
                 }
 
                 svgWriter.flush();
                 metadataWriter.flush();
                 svgData = svgWriter.toString();
                 metadataData = metadataWriter.toString();
+                jsonData = jsonWriter.toString();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
@@ -273,7 +296,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
-            return new ContainerDiagramResult(diagramView, svgData, metadataData);
+            return new ContainerDiagramResult(diagramView, svgData, metadataData, jsonData);
         }
 
         private void handleSwitchPositionchange(Container c, String switchId) {
@@ -311,6 +334,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 flowPane.setContent(loading);
                 svgTextArea.setText("");
                 metadataTextArea.setText("");
+                jsonTextArea.setText("");
             });
             loader.setOnSucceeded(event -> {
                 ContainerDiagramResult result = (ContainerDiagramResult) event.getSource().getValue();
@@ -319,6 +343,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 }
                 svgTextArea.setText(result.getSvgData());
                 metadataTextArea.setText(result.getMetadataData());
+                jsonTextArea.setText(result.getJsonData());
             });
             loader.setOnFailed(event -> {
                 Throwable e = event.getSource().getException();
@@ -695,9 +720,18 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         rowIndex += 2;
         addSpinner("Scale factor:", 1, 20, 1, rowIndex, LayoutParameters::getScaleFactor, LayoutParameters::setScaleFactor);
         rowIndex += 2;
-        addSpinner("Arrows distance:", 10, 800, 5, rowIndex, LayoutParameters::getArrowDistance, LayoutParameters::setArrowDistance);
+        addSpinner("Arrows distance:", 0, 200, 1, rowIndex, LayoutParameters::getArrowDistance, LayoutParameters::setArrowDistance);
         rowIndex += 2;
         addCheckBox("Avoid SVG components duplication", rowIndex, LayoutParameters::isAvoidSVGComponentsDuplication, LayoutParameters::setAvoidSVGComponentsDuplication);
+
+        rowIndex += 1;
+        addCheckBox("Adapt cell height to content", rowIndex, LayoutParameters::isAdaptCellHeightToContent, LayoutParameters::setAdaptCellHeightToContent);
+        rowIndex += 2;
+        addSpinner("Max component height:", 6, 30, 1, rowIndex, LayoutParameters::getMaxComponentHeight, LayoutParameters::setMaxComponentHeight);
+        rowIndex += 2;
+        addSpinner("Min space between components:", 8, 60, 1, rowIndex, LayoutParameters::getMinSpaceBetweenComponents, LayoutParameters::setMinSpaceBetweenComponents);
+        rowIndex += 2;
+        addSpinner("Minimum extern cell height:", 80, 300, 10, rowIndex, LayoutParameters::getMinExternCellHeight, LayoutParameters::setMinExternCellHeight);
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {

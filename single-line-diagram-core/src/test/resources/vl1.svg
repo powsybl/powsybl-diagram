@@ -349,7 +349,7 @@
     </g>
 </g>
         <g id="LABEL_VL_vl1">
-            <text x="0.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
+            <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>
     </g>
 </svg>

@@ -78,6 +78,10 @@ public final class Graph {
 
     protected static final int VALUE_SHIFT_FEEDER = 8;
 
+    // by direction, max calculated height of the extern cells
+    // (filled and used only when using the adapt cell height to content option)
+    private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
+
     private Graph(String id, String name, double nominalV,
                   boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
         this.voltageLevelId = Objects.requireNonNull(id);
@@ -557,6 +561,14 @@ public final class Graph {
         return getNodeBuses().stream()
                 .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan())
                 .max().orElse(0);
+    }
+
+    public Double getMaxCalculatedCellHeight(BusCell.Direction direction) {
+        return maxCalculatedCellHeight.get(direction);
+    }
+
+    public void setMaxCalculatedCellHeight(Map<BusCell.Direction, Double> maxCalculatedCellHeight) {
+        this.maxCalculatedCellHeight = maxCalculatedCellHeight;
     }
 
     public void setGenerateCoordsInJson(boolean generateCoordsInJson) {

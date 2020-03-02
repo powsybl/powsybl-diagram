@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 
 public abstract class AbstractCell implements Cell {
@@ -105,5 +107,10 @@ public abstract class AbstractCell implements Cell {
 
     public Graph getGraph() {
         return graph;
+    }
+
+    @Override
+    public double calculateHeight(LayoutParameters layoutParam) {
+        return 0.;
     }
 }

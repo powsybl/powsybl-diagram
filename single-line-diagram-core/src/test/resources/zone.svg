@@ -282,13 +282,13 @@
         </g>
         <polyline class="LINE Line" points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0" id="idLine"/>
         <g id="LABEL_VL_VoltageLevel11">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel11</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel11</text>
         </g>
         <g id="LABEL_VL_VoltageLevel12">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel12</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel12</text>
         </g>
         <g id="LABEL_VL_VoltageLevel21">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel21</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel21</text>
         </g>
     </g>
 </svg>
