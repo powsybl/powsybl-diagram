@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.powsybl.sld.model.Fictitious3WTNode;
 import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.commons.lang3.StringUtils;
@@ -638,6 +640,32 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    private void handleNodeRotation(Node node) {
+        if (node.getGraph() != null) { // node in voltage level graph
+            if (node instanceof Fictitious3WTNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+                node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
+            }
+        } else {  // node outside any graph
+            List<Node> adjacentNodes = node.getAdjacentNodes();
+            adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
+            if (adjacentNodes.size() == 2) {  // 2 windings transformer
+                List<Edge> edges = node.getAdjacentEdges();
+                List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
+                List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
+                double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
+                double x2 = pol2.get(2);  // absciss of the second polyline third point
+                if (x1 == x2) {
+                    node.setRotationAngle(90.);  // rotation if points abscisses are the same
+                }
+            } else {  // 3 windings transformer
+                Node n2 = adjacentNodes.get(1);
+                if (n2.getCell() != null && ((ExternCell) n2.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+                    node.setRotationAngle(180.);  // rotation if middle node cell orientation is BOTTOM
+                }
+            }
+        }
+    }
+
     protected void insertComponentSVGIntoDocumentSVG(String prefixId,
                                                      Map<String, SVGOMDocument> subComponents,
                                                      Element g, Node node,
@@ -645,6 +673,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      String componentDefsId,
                                                      boolean forArrow) {
         ComponentSize size = componentLibrary.getSize(node.getComponentType());
+
+        handleNodeRotation(node);
 
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
             // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
@@ -657,6 +687,10 @@ public class DefaultSVGWriter implements SVGWriter {
                     org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
 
                     if (n instanceof SVGElement) {
+                        if (!(node instanceof SwitchNode) && node.isRotated()) {
+                            ((Element) n).setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                        }
+
                         Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent, layoutParameters.isShowInternalNodes());
                         svgStyle.forEach(((Element) n)::setAttribute);
                     }
@@ -686,6 +720,10 @@ public class DefaultSVGWriter implements SVGWriter {
                 subCmpsName.forEach(s -> {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
+
+                    if (!(node instanceof SwitchNode) && node.isRotated()) {
+                        eltUse.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                    }
 
                     Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s, layoutParameters.isShowInternalNodes());
                     svgStyle.forEach(eltUse::setAttribute);
@@ -1033,11 +1071,20 @@ public class DefaultSVGWriter implements SVGWriter {
         Graph g1 = n1.getGraph();
         Graph g2 = n2.getGraph();
 
+        // Getting the right polyline point from where we need to compute the best anchor point
         double x;
         double y;
         if (g2 == null) {
-            x = pol.size() <= 6 ? pol.get(2) : pol.get(pol.size() - 4);
-            y = pol.size() <= 6 ? pol.get(3) : pol.get(pol.size() - 3);
+            if (pol.size() <= 4) {
+                x = pol.get(0);
+                y = pol.get(1);
+            } else if (pol.size() <= 6) {
+                x = pol.get(2);
+                y = pol.get(3);
+            } else {
+                x = pol.get(pol.size() - 4);
+                y = pol.get(pol.size() - 3);
+            }
         } else {
             x = pol.get(2);
             y = pol.get(3);
@@ -1048,6 +1095,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         int n = pol.size();
 
+        // Replacing the right points coordinates in the original polyline
         if (g2 == null) {
             double xOld = pol.get(n - 2);
             double yOld = pol.get(n - 1);

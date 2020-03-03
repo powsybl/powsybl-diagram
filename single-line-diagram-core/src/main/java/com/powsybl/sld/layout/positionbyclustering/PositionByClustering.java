@@ -52,7 +52,7 @@ public class PositionByClustering implements PositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
 
-    private boolean useLBSLinkOnly;
+    private final boolean useLBSLinkOnly;
 
     public PositionByClustering(boolean useLBSLinkOnly) {
         this.useLBSLinkOnly = useLBSLinkOnly;
@@ -82,7 +82,7 @@ public class PositionByClustering implements PositionFinder {
     }
 
     private Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes) {
-        Map<BusNode, Integer> busToNb = new HashMap<>();
+        Map<BusNode, Integer> busToNb = new LinkedHashMap<>();
         int i = 1;
         for (BusNode n : busNodes.stream()
                 .sorted(Comparator.comparing(BusNode::getId))
@@ -203,7 +203,7 @@ public class PositionByClustering implements PositionFinder {
     private void establishBusPositions(Graph graph, LBSCluster lbsCluster) {
         graph.getNodeBuses().forEach(busNode -> busNode.setStructuralPosition(null));
         int v = 1;
-        Set<BusNode> remainingBuses = new HashSet<>(graph.getNodeBuses());
+        Set<BusNode> remainingBuses = new LinkedHashSet<>(graph.getNodeBuses());
         while (!remainingBuses.isEmpty()) {
             buildLane(lbsCluster, remainingBuses, v);
             v++;
@@ -228,7 +228,7 @@ public class PositionByClustering implements PositionFinder {
     }
 
     private void buildLane(LBSCluster lbsCluster, Set<BusNode> remainingBuses, int v) {
-        Set<BusNode> busOnLeftSide = new HashSet<>();
+        Set<BusNode> busOnLeftSide = new LinkedHashSet<>();
         int h = 1;
         List<LegBusSet> lbsList = new ArrayList<>(lbsCluster.getLbsList());
         BusNodeAndLbsIndex busIndex = new BusNodeAndLbsIndex();

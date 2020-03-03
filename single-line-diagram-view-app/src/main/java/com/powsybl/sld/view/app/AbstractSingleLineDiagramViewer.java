@@ -9,22 +9,22 @@ package com.powsybl.sld.view.app;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
-import com.powsybl.sld.GraphBuilder;
-import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.GraphBuilder;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.SubstationDiagram;
 import com.powsybl.sld.VoltageLevelDiagram;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.layout.CgmesSubstationLayoutFactory;
 import com.powsybl.sld.cgmes.layout.CgmesVoltageLevelLayoutFactory;
+import com.powsybl.sld.force.layout.ForceSubstationLayoutFactory;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.sld.view.AbstractContainerDiagramView;
 import com.powsybl.sld.view.DisplayVoltageLevel;
@@ -61,11 +61,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -80,6 +76,7 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractSingleLineDiagramViewer extends Application implements DisplayVoltageLevel {
 
@@ -1038,6 +1035,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     }
 
     protected void setNetwork(Network network) {
+        closeAllTabs();
         updateLayoutsFactory(network);
         updateStylesProvider(network);
         networkProperty.setValue(network);
@@ -1056,6 +1054,9 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         substationsLayouts.put("Horizontal", new HorizontalSubstationLayoutFactory());
         substationsLayouts.put("Vertical", new VerticalSubstationLayoutFactory());
         substationsLayouts.put("Cgmes", null);
+        substationsLayouts.put("Smart", new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.NONE));
+        substationsLayouts.put("Smart with horizontal compaction", new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.HORIZONTAL));
+        substationsLayouts.put("Smart with vertical compaction", new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.VERTICAL));
     }
 
     private void updateLayoutsFactory(Network network) {

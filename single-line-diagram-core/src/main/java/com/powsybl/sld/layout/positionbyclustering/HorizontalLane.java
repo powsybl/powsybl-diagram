@@ -25,15 +25,12 @@ import java.util.stream.Collectors;
  */
 class HorizontalLane {
 
-    private List<BusNode> busNodes;
-    private int index;
-    private int length;
+    private final List<BusNode> busNodes = new ArrayList<>();
+    private int index = 0;
+    private int length = 1;
 
     HorizontalLane(BusNode busNode) {
-        this.busNodes = new ArrayList<>();
-        this.busNodes.add(busNode);
-        index = 0;
-        length = 1;
+        busNodes.add(busNode);
     }
 
     void reverse(int parentSize) {

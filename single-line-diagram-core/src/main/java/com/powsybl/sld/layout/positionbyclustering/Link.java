@@ -12,10 +12,10 @@ import com.powsybl.sld.model.Side;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import java.util.EnumMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A link is define between two clusterConnectors (having the same implementation).
@@ -46,11 +46,12 @@ import java.util.Map;
  */
 
 // TODO implement SHUNT in the link assessment
-class Link<T extends ClusterConnector> implements Comparable {
+class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
     enum LinkCategory {
-        COMMONBUSES, FLATCELLS, CROSSOVER//, SHUNT
+        COMMONBUSES, FLATCELLS, CROSSOVER //, SHUNT
     }
 
     private final T clusterConnector1;
@@ -66,11 +67,11 @@ class Link<T extends ClusterConnector> implements Comparable {
     }
 
     private void assessLink() {
-        HashSet<BusNode> nodeBusesIntersect = new HashSet<>(clusterConnector1.getBusNodeSet());
+        Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(clusterConnector1.getBusNodeSet());
         nodeBusesIntersect.retainAll(clusterConnector2.getBusNodeSet());
         categoryToWeight.put(LinkCategory.COMMONBUSES, nodeBusesIntersect.size());
 
-        HashSet<InternCell> flatCellIntersect = new HashSet<>(clusterConnector1.getCandidateFlatCellList());
+        Set<InternCell> flatCellIntersect = new LinkedHashSet<>(clusterConnector1.getCandidateFlatCellList());
         flatCellIntersect.retainAll(clusterConnector2.getCandidateFlatCellList());
         if (flatCellIntersect.isEmpty()) {
             categoryToWeight.put(LinkCategory.FLATCELLS, 0);
@@ -82,7 +83,7 @@ class Link<T extends ClusterConnector> implements Comparable {
                                     + clusterConnector2.getDistanceToEdge(internCell)).sum());
         }
 
-        HashSet<InternCell> commonInternCells = new HashSet<>(clusterConnector1.getCrossOverCellList());
+        Set<InternCell> commonInternCells = new LinkedHashSet<>(clusterConnector1.getCrossOverCellList());
         commonInternCells.retainAll(clusterConnector2.getCrossOverCellList());
         categoryToWeight.put(LinkCategory.CROSSOVER, (int) (commonInternCells
                 .stream()
@@ -154,16 +155,12 @@ class Link<T extends ClusterConnector> implements Comparable {
     }
 
     @Override
-    public int compareTo(@Nonnull Object o) {
-        if (!(o instanceof Link)) {
-            return 0;
-        }
-        Link link = (Link) o;
+    public int compareTo(Link<T> o) {
         for (LinkCategory category : LinkCategory.values()) {
-            if (link.getLinkCategoryWeight(category) > getLinkCategoryWeight(category)) {
+            if (o.getLinkCategoryWeight(category) > getLinkCategoryWeight(category)) {
                 return -1;
             }
-            if (link.getLinkCategoryWeight(category) < getLinkCategoryWeight(category)) {
+            if (o.getLinkCategoryWeight(category) < getLinkCategoryWeight(category)) {
                 return 1;
             }
         }

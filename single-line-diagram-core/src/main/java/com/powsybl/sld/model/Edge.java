@@ -42,7 +42,7 @@ public class Edge {
     }
 
     public Node getNode3() {
-        return getNode(2);
+        return nodes.size() > 2 ? getNode(2) : null;
     }
 
     public List<Node> getNodes() {

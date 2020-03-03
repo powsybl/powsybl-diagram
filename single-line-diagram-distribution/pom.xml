@@ -15,7 +15,7 @@
     <parent>
         <artifactId>powsybl-single-line-diagram</artifactId>
         <groupId>com.powsybl</groupId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.3.0-SNAPSHOT</version>
     </parent>
 
     <packaging>pom</packaging>
@@ -52,6 +52,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>powsybl-single-line-diagram-force-layout</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

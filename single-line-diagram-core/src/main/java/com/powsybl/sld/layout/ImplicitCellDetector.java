@@ -261,13 +261,9 @@ public class ImplicitCellDetector implements CellDetector {
         adjList.removeAll(visitedNodes);
         for (Node adj : adjList) {
             if (!visitedNodes.contains(adj)) {
-                List<Node> resultNodes = new ArrayList<>();
-                GraphTraversal.run(adj,
+                List<Node> resultNodes = GraphTraversal.run(adj,
                     node -> kindToFilter.contains(node.getType()),
-                    node -> false,
-                    resultNodes,
                     visitedNodes);
-                resultNodes.add(adj);
 
                 List<Node.NodeType> types = resultNodes.stream() // what are the types of terminal node of the branch
                         .map(Node::getType)

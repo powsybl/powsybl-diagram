@@ -6,7 +6,6 @@
     "type" : "EXTERN",
     "number" : 0,
     "direction" : "TOP",
-    "direction" : "TOP",
     "order" : 0,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -147,7 +146,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 1,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
@@ -290,7 +288,6 @@
     "type" : "EXTERN",
     "number" : 2,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 1,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -432,7 +429,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 3,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -719,7 +715,6 @@
     "type" : "EXTERN",
     "number" : 4,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -1004,7 +999,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 5,
-    "direction" : "TOP",
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -1291,7 +1285,6 @@
     "type" : "EXTERN",
     "number" : 6,
     "direction" : "BOTTOM",
-    "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
@@ -1432,7 +1425,6 @@
   }, {
     "type" : "EXTERN",
     "number" : 7,
-    "direction" : "BOTTOM",
     "direction" : "BOTTOM",
     "order" : 3,
     "rootBlock" : {

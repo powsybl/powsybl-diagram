@@ -6,8 +6,7 @@
  */
 package com.powsybl.sld.view;
 
-import com.powsybl.sld.layout.HorizontalSubstationLayout;
-import com.powsybl.sld.layout.InfoCalcPoints;
+import com.powsybl.sld.force.layout.ForceSubstationLayout;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BaseNode;
@@ -16,6 +15,7 @@ import com.powsybl.sld.model.Coord;
 import com.powsybl.sld.svg.GraphMetadata;
 import javafx.scene.Node;
 import javafx.scene.shape.Polyline;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 import java.util.function.Function;
@@ -119,7 +119,8 @@ public class VoltageLevelHandler implements BaseNode {
     private void redrawSnakeLines() {
         // redraw the snakeLines between the voltage levels
         //
-        Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
+        Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = new HashMap<>();
+        nodeHandlers.stream().forEach(n -> nbSnakeLinesTopBottom.put(n.getVId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
         Map<String, Integer> nbSnakeLinesBetween = new HashMap<>();
 
         Map<String, Coord> posVL = new HashMap<>();
@@ -148,18 +149,18 @@ public class VoltageLevelHandler implements BaseNode {
                     wh,
                     posVL,
                     nbSnakeLinesTopBottom,
-                    nbSnakeLinesBetween,
-                    false);
-            ((Polyline) wh.getNode()).getPoints().setAll(pol);
+                    nbSnakeLinesBetween);
+            if (!pol.isEmpty()) {
+                ((Polyline) wh.getNode()).getPoints().setAll(pol);
+            }
         }
     }
 
     private List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam,
                                                     WireHandler wh,
                                                     Map<String, Coord> posVL,
-                                                    Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom,
-                                                    Map<String, Integer> nbSnakeLinesBetween,
-                                                    boolean increment) {
+                                                    Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
+                                                    Map<String, Integer> nbSnakeLinesBetween) {
         NodeHandler nh1 = wh.getNodeHandler1();
         NodeHandler nh2 = wh.getNodeHandler2();
 
@@ -168,6 +169,10 @@ public class VoltageLevelHandler implements BaseNode {
 
         double xMaxGraph;
         String idMaxGraph;
+
+        if (StringUtils.isEmpty(nh1.getVId()) || StringUtils.isEmpty(nh2.getVId()) || posVL.get(nh1.getVId()) == null || posVL.get(nh2.getVId()) == null) {
+            return Collections.emptyList();
+        }
 
         if (posVL.get(nh1.getVId()).getX() > posVL.get(nh2.getVId()).getX()) {
             xMaxGraph = posVL.get(nh1.getVId()).getX();
@@ -182,8 +187,10 @@ public class VoltageLevelHandler implements BaseNode {
         double x2 = nh2.getX();
         double y2 = nh2.getY();
 
-        InfoCalcPoints info = new InfoCalcPoints();
+        ForceSubstationLayout.ForceInfoCalcPoints info = new ForceSubstationLayout.ForceInfoCalcPoints();
         info.setLayoutParam(layoutParam);
+        info.setVId1(nh1.getVId());
+        info.setVId2(nh2.getVId());
         info.setdNode1(dNode1);
         info.setdNode2(dNode2);
         info.setNbSnakeLinesTopBottom(nbSnakeLinesTopBottom);
@@ -191,11 +198,12 @@ public class VoltageLevelHandler implements BaseNode {
         info.setX1(x1);
         info.setX2(x2);
         info.setY1(y1);
+        info.setInitY1(y1);
         info.setY2(y2);
+        info.setInitY2(y2);
         info.setxMaxGraph(xMaxGraph);
         info.setIdMaxGraph(idMaxGraph);
-        info.setIncrement(increment);
 
-        return HorizontalSubstationLayout.calculatePolylinePoints(info);
+        return ForceSubstationLayout.calculatePolylinePoints(info);
     }
 }

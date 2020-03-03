@@ -8,8 +8,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -30,8 +31,8 @@ public final class GraphTraversal {
      **/
 
     static boolean run(Node node,
-                       Function<Node, Boolean> extremityCriteria,
-                       Function<Node, Boolean> unsuccessfulCriteria,
+                       Predicate<Node> extremityCriteria,
+                       Predicate<Node> unsuccessfulCriteria,
                        List<Node> nodesResult,
                        List<Node> outsideNodes) {
 
@@ -46,9 +47,9 @@ public final class GraphTraversal {
             return true;
         }
         for (Node n : nodesToVisit) {
-            if (unsuccessfulCriteria.apply(n)) {
+            if (unsuccessfulCriteria.test(n)) {
                 return false;
-            } else if (extremityCriteria.apply(n)) {
+            } else if (extremityCriteria.test(n)) {
                 nodesResult.add(n);
             } else if (!run(n, extremityCriteria, unsuccessfulCriteria, nodesResult, outsideNodes)) {
                 return false;
@@ -56,4 +57,13 @@ public final class GraphTraversal {
         }
         return true;
     }
+
+    static List<Node> run(Node node,
+                          Predicate<Node> extremityCriteria,
+                          List<Node> outsideNodes) {
+        List<Node> nodesResult = new ArrayList<>();
+        run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
+        return nodesResult;
+    }
+
 }

@@ -6,7 +6,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "TOP",
-    "direction" : "TOP",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
