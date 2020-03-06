@@ -7,8 +7,11 @@
 package com.powsybl.sld.layout;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.sld.library.ComponentSize;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -61,6 +64,9 @@ public class LayoutParameters {
     private double maxComponentHeight = 12;
     private double minSpaceBetweenComponents = 15;
     private double minExternCellHeight = 80;
+
+    @JsonIgnore
+    private Map<String, ComponentSize> componentsSize;
 
     @JsonCreator
     public LayoutParameters() {
@@ -155,6 +161,7 @@ public class LayoutParameters {
         maxComponentHeight = other.maxComponentHeight;
         minSpaceBetweenComponents = other.minSpaceBetweenComponents;
         minExternCellHeight = other.minExternCellHeight;
+        componentsSize = other.componentsSize;
     }
 
     public double getTranslateX() {
@@ -407,5 +414,13 @@ public class LayoutParameters {
     public LayoutParameters setMinExternCellHeight(double minExternCellHeight) {
         this.minExternCellHeight = minExternCellHeight;
         return this;
+    }
+
+    public void setComponentsSize(Map<String, ComponentSize> componentsSize) {
+        this.componentsSize = componentsSize;
+    }
+
+    public Map<String, ComponentSize> getComponentsSize() {
+        return componentsSize;
     }
 }

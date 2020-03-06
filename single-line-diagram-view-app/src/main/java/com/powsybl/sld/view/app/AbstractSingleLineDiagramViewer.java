@@ -251,9 +251,10 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
                 String dName = getSelectedDiagramName();
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
+                diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
                     VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected(),
-                            layoutParameters.get().isShowInductorFor3WT());
+                            diagramLayoutParameters.isShowInductorFor3WT());
                     diagram.writeSvg("",
                             new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
@@ -726,8 +727,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
         rowIndex += 1;
         addCheckBox("Adapt cell height to content", rowIndex, LayoutParameters::isAdaptCellHeightToContent, LayoutParameters::setAdaptCellHeightToContent);
-        rowIndex += 2;
-        addSpinner("Max component height:", 6, 30, 1, rowIndex, LayoutParameters::getMaxComponentHeight, LayoutParameters::setMaxComponentHeight);
         rowIndex += 2;
         addSpinner("Min space between components:", 8, 60, 1, rowIndex, LayoutParameters::getMinSpaceBetweenComponents, LayoutParameters::setMinSpaceBetweenComponents);
         rowIndex += 2;
