@@ -10,11 +10,13 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 abstract class AbstractParallelBlock extends AbstractComposedBlock implements ParallelBlock {
 
@@ -56,4 +58,14 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
         });
     }
 
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        double blockHeight = 0.;
+        for (int i = 0; i < subBlocks.size(); i++) {
+            Block sub = subBlocks.get(i);
+            // Here, the subBlocks are positioned in parallel, so we calculate the max height of all these subBlocks
+            blockHeight = Math.max(blockHeight, sub.calculateHeight(encounteredNodes, layoutParameters));
+        }
+        return blockHeight;
+    }
 }

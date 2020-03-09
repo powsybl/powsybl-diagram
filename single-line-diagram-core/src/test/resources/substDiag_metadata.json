@@ -2630,6 +2630,10 @@
     "diagramName" : null,
     "shiftFeedersPosition" : false,
     "scaleShiftFeedersPosition" : 1.0,
-    "avoidSVGComponentsDuplication" : false
+    "avoidSVGComponentsDuplication" : false,
+    "adaptCellHeightToContent" : false,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0
   }
 }

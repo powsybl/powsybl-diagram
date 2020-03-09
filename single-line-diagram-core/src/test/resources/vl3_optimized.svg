@@ -233,7 +233,7 @@
             <use href="#DISCONNECTOR-closed"/>
         </g>
         <g id="LABEL_VL_vl3">
-            <text x="850.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
+            <text x="850.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
         </g>
     </g>
 </svg>

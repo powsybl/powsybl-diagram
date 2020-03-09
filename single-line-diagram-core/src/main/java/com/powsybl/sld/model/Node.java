@@ -315,4 +315,8 @@ public class Node implements BaseNode {
         xs.clear();
         ys.clear();
     }
+
+    public void shiftY(double yShift) {
+        y += yShift;
+    }
 }

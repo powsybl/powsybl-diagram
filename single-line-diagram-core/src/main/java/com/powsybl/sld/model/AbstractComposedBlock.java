@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractComposedBlock extends AbstractBlock implements ComposedBlock {
 

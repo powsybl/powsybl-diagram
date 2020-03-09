@@ -12,6 +12,7 @@ import org.junit.Test;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class LayoutParametersTest {
 
@@ -41,7 +42,11 @@ public class LayoutParametersTest {
                 .setDiagramName("diag")
                 .setShiftFeedersPosition(false)
                 .setScaleShiftFeedersPosition(2)
-                .setAvoidSVGComponentsDuplication(true);
+                .setAvoidSVGComponentsDuplication(true)
+                .setAdaptCellHeightToContent(true)
+                .setMaxComponentHeight(10)
+                .setMinSpaceBetweenComponents(30)
+                .setMinExternCellHeight(150);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getTranslateX(), layoutParameters2.getTranslateX(), 0);
@@ -68,5 +73,9 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isShowInductorFor3WT(), layoutParameters2.isShowInductorFor3WT());
         assertEquals(layoutParameters.getDiagramName(), layoutParameters2.getDiagramName());
         assertEquals(layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters2.isAvoidSVGComponentsDuplication());
+        assertEquals(layoutParameters.isAdaptCellHeightToContent(), layoutParameters2.isAdaptCellHeightToContent());
+        assertEquals(layoutParameters.getMaxComponentHeight(), layoutParameters2.getMaxComponentHeight(), 0);
+        assertEquals(layoutParameters.getMinSpaceBetweenComponents(), layoutParameters2.getMinSpaceBetweenComponents(), 0);
+        assertEquals(layoutParameters.getMinExternCellHeight(), layoutParameters2.getMinExternCellHeight(), 0);
     }
 }

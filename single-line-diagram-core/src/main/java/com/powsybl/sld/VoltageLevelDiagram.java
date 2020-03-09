@@ -62,6 +62,10 @@ public final class VoltageLevelDiagram {
         return new VoltageLevelDiagram(graph, layout);
     }
 
+    public Graph getGraph() {
+        return graph;
+    }
+
     public void writeSvg(String prefixId,
                          ComponentLibrary componentLibrary,
                          LayoutParameters layoutParameters,

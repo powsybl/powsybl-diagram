@@ -453,13 +453,13 @@
         <polyline class="wire wire_vl2" points="730.0,112.0,730.0,130.0" id="id_95_vl2_95_Wire3"/>
         <polyline class="wire wire_vl3" points="744.0,92.0,1020.0,92.0,1020.0,130.0" id="id_95_vl3_95_Wire4"/>
         <g id="LABEL_VL_vl1">
-            <text x="0.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
+            <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>
         <g id="LABEL_VL_vl2">
-            <text x="550.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl2</text>
+            <text x="550.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl2</text>
         </g>
         <g id="LABEL_VL_vl3">
-            <text x="850.0" font-size="12" y="20.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
+            <text x="850.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
         </g>
     </g>
 </svg>

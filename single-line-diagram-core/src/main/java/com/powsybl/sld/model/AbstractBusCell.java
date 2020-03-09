@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
@@ -65,6 +66,11 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         getRootBlock().calculateRootCoord(layoutParam);
+    }
+
+    @Override
+    public double calculateHeight(LayoutParameters layoutParam) {
+        return getRootBlock().calculateRootHeight(layoutParam);
     }
 
     @Override

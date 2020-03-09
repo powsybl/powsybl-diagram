@@ -562,10 +562,15 @@ public class DefaultSVGWriter implements SVGWriter {
         Element gLabel = root.getOwnerDocument().createElement("g");
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
+        double yPos = graph.getY() + layoutParameters.getInitialYBus()
+                - (!layoutParameters.isAdaptCellHeightToContent()
+                ? layoutParameters.getExternCellHeight()
+                : graph.getMaxCalculatedCellHeight(BusCell.Direction.TOP))
+                - 20.;
         drawLabel(null, graph.isUseName()
                      ? graph.getVoltageLevelName()
                      : graph.getVoltageLevelId(),
-                  false, graph.getX(), graph.getY(), gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE);
+                  false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
