@@ -30,17 +30,17 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
     public CgmesVoltageLevelLayout(Graph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
-        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelId()));
+        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));
     }
 
     @Override
     public void run(LayoutParameters layoutParam) {
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelId());
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
         String diagramName = layoutParam.getDiagramName();
         if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
             return;
         }
-        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelId(), diagramName);
+        LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), diagramName);
         setNodeCoordinates(vl, graph, diagramName);
         graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         if (layoutParam.getScaleFactor() != 1) {

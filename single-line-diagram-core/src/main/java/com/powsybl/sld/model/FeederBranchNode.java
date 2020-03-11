@@ -9,35 +9,29 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class FeederBranchNode extends FeederNode {
 
-    private final String vIdOtherSide;
+    private final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    private final double nominalVOtherSide;
-
-    protected FeederBranchNode(String id, String name, String componentType,
-                               boolean fictitious, Graph graph,
-                               String vIdOtherSide, double nominalVOtherSide) {
+    protected FeederBranchNode(String id, String name, String componentType, boolean fictitious, Graph graph,
+                               VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, componentType, fictitious, graph);
-        this.vIdOtherSide = vIdOtherSide;
-        this.nominalVOtherSide = nominalVOtherSide;
+        this.otherSideVoltageLevelInfos = Objects.requireNonNull(otherSideVoltageLevelInfos);
     }
 
-    public String getVIdOtherSide() {
-        return vIdOtherSide;
-    }
-
-    public double getNominalVOtherSide() {
-        return nominalVOtherSide;
+    public VoltageLevelInfos getOtherSideVoltageLevelInfos() {
+        return otherSideVoltageLevelInfos;
     }
 
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
-        generator.writeStringField("otherSideVlId", vIdOtherSide);
+        generator.writeFieldName("otherSideVoltageLevelInfos");
+        otherSideVoltageLevelInfos.writeJsonContent(generator);
     }
 }

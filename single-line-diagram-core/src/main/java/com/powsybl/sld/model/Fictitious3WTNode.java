@@ -9,7 +9,7 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
@@ -18,43 +18,43 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  */
 public class Fictitious3WTNode extends FictitiousNode {
 
-    private final Map<Feeder3WTNode.Side, String> idsLegs;
-    private final Map<Feeder3WTNode.Side, Double> vNomsLegs;
+    private final VoltageLevelInfos voltageLevelInfosLeg1;
 
-    public Fictitious3WTNode(Graph graph, String id,
-                             Map<Feeder3WTNode.Side, String> idsLegs,
-                             Map<Feeder3WTNode.Side, Double> vNomsLegs) {
+    private final VoltageLevelInfos voltageLevelInfosLeg2;
+
+    private final VoltageLevelInfos voltageLevelInfosLeg3;
+
+    public Fictitious3WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+                             VoltageLevelInfos voltageLevelInfosLeg3) {
         super(graph, id, THREE_WINDINGS_TRANSFORMER);
-        this.idsLegs = idsLegs;
-        this.vNomsLegs = vNomsLegs;
+        this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
+        this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
+        this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
     }
 
-    public Map<Feeder3WTNode.Side, String> getIdsLegs() {
-        return idsLegs;
+    public VoltageLevelInfos getVoltageLevelInfosLeg1() {
+        return voltageLevelInfosLeg1;
     }
 
-    public Map<Feeder3WTNode.Side, Double> getvNomsLegs() {
-        return vNomsLegs;
+    public VoltageLevelInfos getVoltageLevelInfosLeg2() {
+        return voltageLevelInfosLeg2;
+    }
+
+    public VoltageLevelInfos getVoltageLevelInfosLeg3() {
+        return voltageLevelInfosLeg3;
     }
 
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
 
-        generator.writeArrayFieldStart("idsLegs");
-        for (Map.Entry<Feeder3WTNode.Side, String> idL : idsLegs.entrySet()) {
-            generator.writeStartObject();
-            generator.writeObjectField(idL.getKey().name(), idL.getValue());
-            generator.writeEndObject();
-        }
-        generator.writeEndArray();
+        generator.writeFieldName("voltageLevelInfosLeg1");
+        voltageLevelInfosLeg1.writeJsonContent(generator);
 
-        generator.writeArrayFieldStart("vNomsLegs");
-        for (Map.Entry<Feeder3WTNode.Side, Double> vNomL : vNomsLegs.entrySet()) {
-            generator.writeStartObject();
-            generator.writeObjectField(vNomL.getKey().name(), vNomL.getValue());
-            generator.writeEndObject();
-        }
-        generator.writeEndArray();
+        generator.writeFieldName("voltageLevelInfosLeg2");
+        voltageLevelInfosLeg2.writeJsonContent(generator);
+
+        generator.writeFieldName("voltageLevelInfosLeg3");
+        voltageLevelInfosLeg3.writeJsonContent(generator);
     }
 }

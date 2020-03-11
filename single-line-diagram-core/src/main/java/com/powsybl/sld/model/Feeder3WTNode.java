@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -18,19 +19,20 @@ public class Feeder3WTNode extends FeederNode {
     public enum Side {
         ONE,
         TWO,
-        THREE;
+        THREE
     }
 
-    private String transformerId;
-    private Side side;
+    private final String transformerId;
+
+    private final Side side;
 
     public Feeder3WTNode(String id, String name, String componentType,
                          boolean fictitious, Graph graph,
                          String transformerId,
                          Side side) {
         super(id, name, componentType, fictitious, graph);
-        this.transformerId = transformerId;
-        this.side = side;
+        this.transformerId = Objects.requireNonNull(transformerId);
+        this.side = Objects.requireNonNull(side);
     }
 
     public String getId2() {

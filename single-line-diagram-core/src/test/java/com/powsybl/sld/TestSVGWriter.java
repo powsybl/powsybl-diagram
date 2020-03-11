@@ -10,32 +10,17 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.powsybl.sld.model.Feeder3WTNode;
-import com.powsybl.sld.model.FictitiousNode;
-import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.FeederLineNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Position;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -77,20 +62,13 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // First voltage level graph :
         //
-        g1 = Graph.create("vl1", "vl1", 400, false, true, false);
+        g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true, false);
         g1.setX(0);
         g1.setY(20);
 
-        Map<Feeder3WTNode.Side, String> idsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
-        Map<Feeder3WTNode.Side, Double> vNomsLegs = new EnumMap<>(Feeder3WTNode.Side.class);
-
-        idsLegs.put(Feeder3WTNode.Side.ONE, "vl1");
-        idsLegs.put(Feeder3WTNode.Side.TWO, "vl2");
-        idsLegs.put(Feeder3WTNode.Side.THREE, "vl3");
-
-        vNomsLegs.put(Feeder3WTNode.Side.ONE, 400.);
-        vNomsLegs.put(Feeder3WTNode.Side.TWO, 225.);
-        vNomsLegs.put(Feeder3WTNode.Side.THREE, 63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
 
         BusNode vl1Bbs1 = BusNode.create(g1, "vl1_bbs1", "vl1_bbs1");
         vl1Bbs1.setX(0);
@@ -140,7 +118,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1.addEdge(vl1Bload1, vl1Dload1);
         g1.addEdge(vl1Dload1, vl1Bbs1);
 
-        Feeder2WTNode vl1Trf1 = new Feeder2WTNode("vl1_trf1", "vl1_trf1", ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, g1, "vl2", 225);
+        Feeder2WTNode vl1Trf1 = new Feeder2WTNode("vl1_trf1", "vl1_trf1", ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, g1, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf1.setOrder(1);
         vl1Trf1.setDirection(BusCell.Direction.BOTTOM);
         vl1Trf1.setX(80);
@@ -158,19 +136,19 @@ public class TestSVGWriter extends AbstractTestCase {
         g1.addEdge(vl1Btrf1, vl1Dtrf1);
         g1.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder2WTNode vl1Trf2One = new Feeder2WTNode("vl1_trf2_one", "vl1_trf2_one", ComponentTypeName.LINE, false, g1, "vl2", 225);
+        Feeder2WTNode vl1Trf2One = new Feeder2WTNode("vl1_trf2_one", "vl1_trf2_one", ComponentTypeName.LINE, false, g1, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf2One.setOrder(2);
         vl1Trf2One.setDirection(BusCell.Direction.TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
         g1.addNode(vl1Trf2One);
-        Feeder2WTNode vl1Trf2Two = new Feeder2WTNode("vl1_trf2_two", "vl1_trf2_two", ComponentTypeName.LINE, false, g1, "vl3", 63);
+        Feeder2WTNode vl1Trf2Two = new Feeder2WTNode("vl1_trf2_two", "vl1_trf2_two", ComponentTypeName.LINE, false, g1, new VoltageLevelInfos("vl3", "vl3", 63));
         vl1Trf2Two.setOrder(3);
         vl1Trf2Two.setDirection(BusCell.Direction.TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Fictitious3WTNode vl1Trf2Fict = new Fictitious3WTNode(g1, "vl1_trf2", idsLegs, vNomsLegs);
+        Fictitious3WTNode vl1Trf2Fict = new Fictitious3WTNode(g1, "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -190,7 +168,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Second voltage level graph :
         //
-        g2 = Graph.create("vl2", "vl2", 225, false, true, false);
+        g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true, false);
         g2.setX(550);
         g2.setY(20);
 
@@ -219,7 +197,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g2.addEdge(vl2Bgen1, vl2Dgen1);
         g2.addEdge(vl2Dgen1, vl2Bbs1);
 
-        Feeder2WTNode vl2Trf1 = new Feeder2WTNode("vl2_trf1", "vl2_trf1", ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, g2, "vl1", 400);
+        Feeder2WTNode vl2Trf1 = new Feeder2WTNode("vl2_trf1", "vl2_trf1", ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false, g2, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf1.setOrder(1);
         vl2Trf1.setDirection(BusCell.Direction.BOTTOM);
         vl2Trf1.setX(100);
@@ -237,19 +215,19 @@ public class TestSVGWriter extends AbstractTestCase {
         g2.addEdge(vl2Btrf1, vl2Dtrf1);
         g2.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder2WTNode vl2Trf2One = new Feeder2WTNode("vl2_trf2_one", "vl2_trf2_one", ComponentTypeName.LINE, false, g2, "vl1", 400);
+        Feeder2WTNode vl2Trf2One = new Feeder2WTNode("vl2_trf2_one", "vl2_trf2_one", ComponentTypeName.LINE, false, g2, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf2One.setOrder(2);
         vl2Trf2One.setDirection(BusCell.Direction.TOP);
         vl2Trf2One.setX(130);
         vl2Trf2One.setY(80);
         g2.addNode(vl2Trf2One);
-        Feeder2WTNode vl2Trf2Two = new Feeder2WTNode("vl2_trf2_two", "vl2_trf2_two", ComponentTypeName.LINE, false, g2, "vl3", 63);
+        Feeder2WTNode vl2Trf2Two = new Feeder2WTNode("vl2_trf2_two", "vl2_trf2_two", ComponentTypeName.LINE, false, g2, new VoltageLevelInfos("vl3", "vl3", 63));
         vl2Trf2Two.setOrder(3);
         vl2Trf2Two.setDirection(BusCell.Direction.TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Fictitious3WTNode vl2Trf2Fict = new Fictitious3WTNode(g2, "vl2_trf2", idsLegs, vNomsLegs);
+        Fictitious3WTNode vl2Trf2Fict = new Fictitious3WTNode(g2, "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -269,7 +247,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Third voltage level graph :
         //
-        g3 = Graph.create("vl3", "vl3", 63, false, true, false);
+        g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true, false);
         g3.setX(850);
         g3.setY(20);
 
@@ -297,19 +275,19 @@ public class TestSVGWriter extends AbstractTestCase {
         g3.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        Feeder2WTNode vl3Trf2One = new Feeder2WTNode("vl3_trf2_one", "vl3_trf2_one", ComponentTypeName.LINE, false, g3, "vl1", 400);
+        Feeder2WTNode vl3Trf2One = new Feeder2WTNode("vl3_trf2_one", "vl3_trf2_one", ComponentTypeName.LINE, false, g3, new VoltageLevelInfos("vl1", "vl1", 400));
         vl3Trf2One.setOrder(1);
         vl3Trf2One.setDirection(BusCell.Direction.TOP);
         vl3Trf2One.setX(110);
         vl3Trf2One.setY(80);
         g3.addNode(vl3Trf2One);
-        Feeder2WTNode vl3Trf2Two = new Feeder2WTNode("vl3_trf2_two", "vl3_trf2_two", ComponentTypeName.LINE, false, g3, "vl2", 225);
+        Feeder2WTNode vl3Trf2Two = new Feeder2WTNode("vl3_trf2_two", "vl3_trf2_two", ComponentTypeName.LINE, false, g3, new VoltageLevelInfos("vl2", "vl2", 225));
         vl3Trf2Two.setOrder(2);
         vl3Trf2Two.setDirection(BusCell.Direction.TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Fictitious3WTNode vl3Trf2Fict = new Fictitious3WTNode(g3, "vl3_trf2", idsLegs, vNomsLegs);
+        Fictitious3WTNode vl3Trf2Fict = new Fictitious3WTNode(g3, "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -335,7 +313,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // First voltage level graph :
         //
-        Graph g1Graph = Graph.create("vl1", "vl1", 400, false, true, false);
+        Graph g1Graph = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true, false);
         g1Graph.setX(0);
         g1Graph.setY(20);
 
@@ -387,7 +365,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1Graph.addEdge(vl1Bload1, vl1Dload1);
         g1Graph.addEdge(vl1Dload1, vl1Bbs1);
 
-        Feeder2WTNode vl1Trf1 = new Feeder2WTNode("vl1_trf1", "vl1_trf1", ComponentTypeName.LINE, false, g1Graph, "vl2", 225);
+        Feeder2WTNode vl1Trf1 = new Feeder2WTNode("vl1_trf1", "vl1_trf1", ComponentTypeName.LINE, false, g1Graph, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf1.setOrder(1);
         vl1Trf1.setDirection(BusCell.Direction.BOTTOM);
         vl1Trf1.setX(80);
@@ -425,7 +403,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Second voltage level graph :
         //
-        Graph g2Graph = Graph.create("vl2", "vl2", 225, false, true, false);
+        Graph g2Graph = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true, false);
         g2Graph.setX(550);
         g2Graph.setY(20);
 
@@ -454,7 +432,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g2Graph.addEdge(vl2Bgen1, vl2Dgen1);
         g2Graph.addEdge(vl2Dgen1, vl2Bbs1);
 
-        Feeder2WTNode vl2Trf1 = new Feeder2WTNode("vl2_trf1", "vl2_trf1", ComponentTypeName.LINE, false, g2Graph, "vl1", 400);
+        Feeder2WTNode vl2Trf1 = new Feeder2WTNode("vl2_trf1", "vl2_trf1", ComponentTypeName.LINE, false, g2Graph, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf1.setOrder(1);
         vl2Trf1.setDirection(BusCell.Direction.BOTTOM);
         vl2Trf1.setX(100);
@@ -492,7 +470,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Third voltage level graph :
         //
-        Graph g3Graph = Graph.create("vl3", "vl3", 63, false, true, false);
+        Graph g3Graph = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true, false);
         g3Graph.setX(850);
         g3Graph.setY(20);
 
@@ -573,7 +551,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
     private void createZoneGraph() {
       //create first voltage level graph
-        Graph vl11Graph = Graph.create(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V, false, false, false);
+        Graph vl11Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V), false, false, false);
         BusNode bus11Node = BusNode.create(vl11Graph, BUS_11_ID, BUS_11_ID);
         bus11Node.setX(30);
         bus11Node.setY(200);
@@ -583,31 +561,31 @@ public class TestSVGWriter extends AbstractTestCase {
         loadNode.setX(50);
         loadNode.setY(50);
         vl11Graph.addNode(loadNode);
-        Feeder2WTNode twtSide1Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.ONE, ComponentTypeName.LINE, false, vl11Graph, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V);
+        Feeder2WTNode twtSide1Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.ONE, ComponentTypeName.LINE, false, vl11Graph, new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V));
         twtSide1Node.setX(50);
         twtSide1Node.setY(300);
         vl11Graph.addNode(twtSide1Node);
         vl11Graph.addEdge(bus11Node, loadNode);
         vl11Graph.addEdge(bus11Node, twtSide1Node);
         // create second voltage level graph
-        Graph vl12Graph = Graph.create(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V, false, false, false);
+        Graph vl12Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V), false, false, false);
         BusNode bus12Node = BusNode.create(vl12Graph, BUS_12_ID, BUS_12_ID);
         bus12Node.setX(30);
         bus12Node.setY(500);
         bus12Node.setPxWidth(40);
         vl12Graph.addNode(bus12Node);
-        Feeder2WTNode twtSide2Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID + "_" + Side.TWO, ComponentTypeName.LINE, false, vl12Graph, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V);
+        Feeder2WTNode twtSide2Node = new Feeder2WTNode(TRANSFORMER_ID + "_" + Side.TWO, TRANSFORMER_ID + "_" + Side.TWO, ComponentTypeName.LINE, false, vl12Graph, new VoltageLevelInfos(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V));
         twtSide2Node.setX(50);
         twtSide2Node.setY(400);
         vl12Graph.addNode(twtSide2Node);
-        FeederLineNode lineSide1Node = new FeederLineNode(LINE_ID + "_" + Side.ONE, LINE_ID + "_" + Side.ONE, ComponentTypeName.LINE, false, vl12Graph, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V);
+        FeederLineNode lineSide1Node = new FeederLineNode(LINE_ID + "_" + Side.ONE, LINE_ID + "_" + Side.ONE, ComponentTypeName.LINE, false, vl12Graph, new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V));
         lineSide1Node.setX(50);
         lineSide1Node.setY(650);
         vl12Graph.addNode(lineSide1Node);
         vl12Graph.addEdge(bus12Node, twtSide2Node);
         vl12Graph.addEdge(bus12Node, lineSide1Node);
         // create third voltage level graph
-        Graph vl21Graph = Graph.create(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V, false, false, false);
+        Graph vl21Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V), false, false, false);
         BusNode bus21Node = BusNode.create(vl21Graph, BUS_21_ID, BUS_21_ID);
         bus21Node.setX(130);
         bus21Node.setY(1100);
@@ -617,7 +595,7 @@ public class TestSVGWriter extends AbstractTestCase {
         genNode.setX(150);
         genNode.setY(1250);
         vl21Graph.addNode(genNode);
-        FeederLineNode lineSide2Node = new FeederLineNode(LINE_ID + "_" + Side.TWO, LINE_ID + "_" + Side.TWO, ComponentTypeName.LINE, false, vl21Graph, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V);
+        FeederLineNode lineSide2Node = new FeederLineNode(LINE_ID + "_" + Side.TWO, LINE_ID + "_" + Side.TWO, ComponentTypeName.LINE, false, vl21Graph, new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V));
         lineSide2Node.setX(150);
         lineSide2Node.setY(950);
         vl21Graph.addNode(lineSide2Node);

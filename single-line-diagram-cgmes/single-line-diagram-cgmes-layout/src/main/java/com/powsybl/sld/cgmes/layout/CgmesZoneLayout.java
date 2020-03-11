@@ -43,7 +43,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         Objects.requireNonNull(graph);
         vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
         for (Graph vlGraph : vlGraphs) {
-            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelId()));
+            removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
         }
         fixTransformersLabel = true;
         this.graph = graph;
@@ -61,11 +61,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         }
         // assign coordinates
         for (Graph vlGraph : vlGraphs) {
-            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelId());
+            VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
         for (LineEdge edge : graph.getEdges()) {
-            VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getGraph().getVoltageLevelId());
+            VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
             setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates

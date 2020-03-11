@@ -1,5 +1,9 @@
 {
-  "id" : "vl",
+  "voltageLevelInfos" : {
+    "id" : "vl",
+    "name" : "vl",
+    "nominalVoltage" : 400.0
+  },
   "x" : 0.0,
   "y" : 0.0,
   "cells" : [ {
