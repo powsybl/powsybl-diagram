@@ -89,7 +89,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCase {
                 .setShowInternalNodes(true)
                 .setAdaptCellHeightToContent(false);
 
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, true);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
@@ -100,7 +100,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCase {
         LayoutParameters layoutParametersAdaptCellHeightToContent = new LayoutParameters(layoutParameters);
         layoutParametersAdaptCellHeightToContent.setAdaptCellHeightToContent(true);
 
-        g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, true);
+        g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParametersAdaptCellHeightToContent);

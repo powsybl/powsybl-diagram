@@ -38,7 +38,6 @@ public class LayoutParametersTest {
                 .setHorizontalSnakeLinePadding(25)
                 .setVerticalSnakeLinePadding(40)
                 .setArrowDistance(25)
-                .setShowInductorFor3WT(true)
                 .setDiagramName("diag")
                 .setShiftFeedersPosition(false)
                 .setScaleShiftFeedersPosition(2)
@@ -70,7 +69,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getArrowDistance(), layoutParameters2.getArrowDistance(), 0);
         assertEquals(layoutParameters.isShiftFeedersPosition(), layoutParameters2.isShiftFeedersPosition());
         assertEquals(layoutParameters.getScaleShiftFeedersPosition(), layoutParameters2.getScaleShiftFeedersPosition(), 0);
-        assertEquals(layoutParameters.isShowInductorFor3WT(), layoutParameters2.isShowInductorFor3WT());
         assertEquals(layoutParameters.getDiagramName(), layoutParameters2.getDiagramName());
         assertEquals(layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters2.isAvoidSVGComponentsDuplication());
         assertEquals(layoutParameters.isAdaptCellHeightToContent(), layoutParameters2.isAdaptCellHeightToContent());

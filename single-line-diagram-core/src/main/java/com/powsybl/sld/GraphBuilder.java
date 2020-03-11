@@ -19,8 +19,7 @@ public interface GraphBuilder {
 
     Graph buildVoltageLevelGraph(String id,
                                  boolean useName,
-                                 boolean forVoltageLevelDiagram,
-                                 boolean showInductorFor3WT);
+                                 boolean forVoltageLevelDiagram);
 
     SubstationGraph buildSubstationGraph(String id,
                                          boolean useName);

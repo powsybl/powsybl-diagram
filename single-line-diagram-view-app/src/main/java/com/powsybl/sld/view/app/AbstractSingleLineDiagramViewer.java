@@ -253,8 +253,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
-                    VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected(),
-                            diagramLayoutParameters.isShowInductorFor3WT());
+                    VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected());
                     diagram.writeSvg("",
                             new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
@@ -712,8 +711,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addPositionLayoutCheckBox("Remove fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isRemoveUnnecessaryFictitiousNodes, PositionVoltageLevelLayoutFactory::setRemoveUnnecessaryFictitiousNodes);
         rowIndex += 1;
         addPositionLayoutCheckBox("Substitute singular fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isSubstituteSingularFictitiousByFeederNode, PositionVoltageLevelLayoutFactory::setSubstituteSingularFictitiousByFeederNode);
-        rowIndex += 1;
-        addCheckBox("Show inductor for three windings transformers", rowIndex, LayoutParameters::isShowInductorFor3WT, LayoutParameters::setShowInductorFor3WT);
         rowIndex += 1;
         addCheckBox("Shift feeders height", rowIndex, LayoutParameters::isShiftFeedersPosition, LayoutParameters::setShiftFeedersPosition);
         rowIndex += 1;

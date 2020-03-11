@@ -65,8 +65,6 @@ public final class Graph {
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
                                                    // false if substation diagram
 
-    private final boolean showInductorFor3WT;
-
     private boolean generateCoordsInJson = true;
 
     Function<Node, BusCell.Direction> nodeDirection = node ->
@@ -78,25 +76,19 @@ public final class Graph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    private Graph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
+    private Graph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;
-        this.showInductorFor3WT = showInductorFor3WT;
     }
 
     public static Graph create(VoltageLevelInfos voltageLevelInfos,
-                               boolean useName, boolean forVoltageLevelDiagram,
-                               boolean showInductorFor3WT) {
-        return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram, showInductorFor3WT);
+                               boolean useName, boolean forVoltageLevelDiagram) {
+        return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram);
     }
 
     public boolean isUseName() {
         return useName;
-    }
-
-    public boolean isShowInductorFor3WT() {
-        return showInductorFor3WT;
     }
 
     public boolean isForVoltageLevelDiagram() {

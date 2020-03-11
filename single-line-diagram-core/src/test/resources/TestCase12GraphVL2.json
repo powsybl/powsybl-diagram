@@ -860,9 +860,9 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "self4",
-            "name" : "self4",
-            "componentType" : "INDUCTOR",
+            "id" : "trf7_TWO_THREE",
+            "name" : "trf7_TWO_THREE",
+            "componentType" : "LINE",
             "fictitious" : false,
             "x" : 520.0,
             "y" : -19.99999999999998,
@@ -1589,9 +1589,9 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "self4",
-            "name" : "self4",
-            "componentType" : "INDUCTOR",
+            "id" : "trf6_TWO_THREE",
+            "name" : "trf6_TWO_THREE",
+            "componentType" : "LINE",
             "fictitious" : false,
             "x" : 680.0,
             "y" : -19.99999999999998,
@@ -1885,9 +1885,9 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "self4",
-            "name" : "self4",
-            "componentType" : "INDUCTOR",
+            "id" : "trf8_TWO_THREE",
+            "name" : "trf8_TWO_THREE",
+            "componentType" : "LINE",
             "fictitious" : false,
             "x" : 840.0,
             "y" : 564.9999999999999,
@@ -2024,7 +2024,7 @@
     "node2" : "trf6_TWO_ONE"
   }, {
     "node1" : "FICT_vl2_trf62_fictif",
-    "node2" : "self4"
+    "node2" : "trf6_TWO_THREE"
   }, {
     "node1" : "btrf27",
     "node2" : "FICT_vl2_trf72_fictif"
@@ -2033,7 +2033,7 @@
     "node2" : "trf7_TWO_ONE"
   }, {
     "node1" : "FICT_vl2_trf72_fictif",
-    "node2" : "self4"
+    "node2" : "trf7_TWO_THREE"
   }, {
     "node1" : "btrf28",
     "node2" : "FICT_vl2_trf82_fictif"
@@ -2042,7 +2042,7 @@
     "node2" : "trf8_TWO_ONE"
   }, {
     "node1" : "FICT_vl2_trf82_fictif",
-    "node2" : "self4"
+    "node2" : "trf8_TWO_THREE"
   }, {
     "node1" : "ddcpl1",
     "node2" : "FICT_vl2_dscpl1Fictif"

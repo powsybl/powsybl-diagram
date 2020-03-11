@@ -45,8 +45,7 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
                 .setVerticalSubstationPadding(50)
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setShowInductorFor3WT(false);
+                .setVerticalSnakeLinePadding(30);
 
         // write Json and compare to reference (with smart substation layout)
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);

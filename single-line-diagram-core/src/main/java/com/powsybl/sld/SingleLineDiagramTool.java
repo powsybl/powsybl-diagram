@@ -115,7 +115,7 @@ public class SingleLineDiagramTool implements Tool {
         Path svgFile = getSvgFile(outputDir, vl);
         context.getOutputStream().println("Generating '" + svgFile + "' (" + vl.getNominalV() + ")");
         try {
-            VoltageLevelDiagram.build(graphBuilder, vl.getId(), generationConfig.voltageLevelLayoutFactory, true, generationConfig.parameters.isShowInductorFor3WT())
+            VoltageLevelDiagram.build(graphBuilder, vl.getId(), generationConfig.voltageLevelLayoutFactory, true)
                     .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
                             new DefaultDiagramInitialValueProvider(network),
                             new DefaultDiagramStyleProvider(),

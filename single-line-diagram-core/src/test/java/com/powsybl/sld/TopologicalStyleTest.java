@@ -94,9 +94,9 @@ public class TopologicalStyleTest extends AbstractTestCase {
     @Test
     public void test() throws IOException {
         // construction des graphes
-        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true, false);
-        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true, false);
-        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true, false);
+        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         Path config = tmpDir.resolve("base-voltages.yml");
         Files.copy(getClass().getResourceAsStream("/base-voltages.yml"), config);

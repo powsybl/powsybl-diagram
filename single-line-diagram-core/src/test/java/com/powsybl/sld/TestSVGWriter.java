@@ -62,7 +62,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // First voltage level graph :
         //
-        g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true, false);
+        g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
         g1.setX(0);
         g1.setY(20);
 
@@ -168,7 +168,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Second voltage level graph :
         //
-        g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true, false);
+        g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
         g2.setX(550);
         g2.setY(20);
 
@@ -247,7 +247,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Third voltage level graph :
         //
-        g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true, false);
+        g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
         g3.setX(850);
         g3.setY(20);
 
@@ -313,7 +313,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // First voltage level graph :
         //
-        Graph g1Graph = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true, false);
+        Graph g1Graph = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
         g1Graph.setX(0);
         g1Graph.setY(20);
 
@@ -403,7 +403,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Second voltage level graph :
         //
-        Graph g2Graph = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true, false);
+        Graph g2Graph = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
         g2Graph.setX(550);
         g2Graph.setY(20);
 
@@ -470,7 +470,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
         // Third voltage level graph :
         //
-        Graph g3Graph = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true, false);
+        Graph g3Graph = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
         g3Graph.setX(850);
         g3Graph.setY(20);
 
@@ -551,7 +551,7 @@ public class TestSVGWriter extends AbstractTestCase {
 
     private void createZoneGraph() {
       //create first voltage level graph
-        Graph vl11Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V), false, false, false);
+        Graph vl11Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_ID, VOLTAGE_LEVEL_11_V), false, false);
         BusNode bus11Node = BusNode.create(vl11Graph, BUS_11_ID, BUS_11_ID);
         bus11Node.setX(30);
         bus11Node.setY(200);
@@ -568,7 +568,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl11Graph.addEdge(bus11Node, loadNode);
         vl11Graph.addEdge(bus11Node, twtSide1Node);
         // create second voltage level graph
-        Graph vl12Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V), false, false, false);
+        Graph vl12Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V), false, false);
         BusNode bus12Node = BusNode.create(vl12Graph, BUS_12_ID, BUS_12_ID);
         bus12Node.setX(30);
         bus12Node.setY(500);
@@ -585,7 +585,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl12Graph.addEdge(bus12Node, twtSide2Node);
         vl12Graph.addEdge(bus12Node, lineSide1Node);
         // create third voltage level graph
-        Graph vl21Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V), false, false, false);
+        Graph vl21Graph = Graph.create(new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V), false, false);
         BusNode bus21Node = BusNode.create(vl21Graph, BUS_21_ID, BUS_21_ID);
         bus21Node.setX(130);
         bus21Node.setY(1100);
@@ -712,8 +712,7 @@ public class TestSVGWriter extends AbstractTestCase {
                 .setVerticalSubstationPadding(50)
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setShowInductorFor3WT(true);
+                .setVerticalSnakeLinePadding(30);
 
         Map<String, Graph> mapGr = new HashMap<>();
         mapGr.put("/vl1.svg", g1);
@@ -772,8 +771,7 @@ public class TestSVGWriter extends AbstractTestCase {
                 .setVerticalSubstationPadding(50)
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setShowInductorFor3WT(true);
+                .setVerticalSnakeLinePadding(30);
 
         assertEquals(toString("/zone.svg"), toSVG(zGraph, "/zone.svg", layoutParameters, initValueProvider, styleProvider));
     }
