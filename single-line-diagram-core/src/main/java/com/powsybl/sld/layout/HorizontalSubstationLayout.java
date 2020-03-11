@@ -45,10 +45,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
         if (node1.getGraph().getX() > node2.getGraph().getX()) {
             xMaxGraph = node1.getGraph().getX();
-            idMaxGraph = node1.getGraph().getVoltageLevelId();
+            idMaxGraph = node1.getGraph().getVoltageLevelInfos().getId();
         } else {
             xMaxGraph = node2.getGraph().getX();
-            idMaxGraph = node2.getGraph().getVoltageLevelId();
+            idMaxGraph = node2.getGraph().getVoltageLevelInfos().getId();
         }
 
         double x1 = node1.getX();

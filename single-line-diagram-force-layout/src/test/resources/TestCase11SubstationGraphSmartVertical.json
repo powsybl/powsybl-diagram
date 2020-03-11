@@ -1,5 +1,9 @@
 [ {
-  "id" : "vl1",
+  "voltageLevelInfos" : {
+    "id" : "vl1",
+    "name" : "vl1",
+    "nominalVoltage" : 400.0
+  },
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
@@ -537,7 +541,11 @@
           "open" : false,
           "label" : "trf1",
           "order" : 1,
-          "otherSideVlId" : "vl2"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -647,7 +655,11 @@
           "open" : false,
           "label" : "trf5",
           "order" : 2,
-          "otherSideVlId" : "vl3"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -868,7 +880,11 @@
           "open" : false,
           "label" : "line1",
           "order" : 3,
-          "otherSideVlId" : "vlSubst2"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vlSubst2",
+            "name" : "vlSubst2",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1087,7 +1103,11 @@
           "open" : false,
           "label" : "trf2",
           "order" : 3,
-          "otherSideVlId" : "vl2"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1417,7 +1437,11 @@
           "open" : false,
           "label" : "trf3",
           "order" : 1,
-          "otherSideVlId" : "vl2"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1747,7 +1771,11 @@
           "open" : false,
           "label" : "trf4",
           "order" : 2,
-          "otherSideVlId" : "vl2"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1946,7 +1974,11 @@
     "node2" : "FICT_vl1_dtrf14Fictif"
   } ]
 }, {
-  "id" : "vl2",
+  "voltageLevelInfos" : {
+    "id" : "vl2",
+    "name" : "vl2",
+    "nominalVoltage" : 225.0
+  },
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
@@ -2323,7 +2355,11 @@
           "open" : false,
           "label" : "trf1",
           "order" : 1,
-          "otherSideVlId" : "vl1"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2433,7 +2469,11 @@
           "open" : false,
           "label" : "trf4",
           "order" : 2,
-          "otherSideVlId" : "vl1"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2763,7 +2803,11 @@
           "open" : false,
           "label" : "trf2",
           "order" : 3,
-          "otherSideVlId" : "vl1"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2873,7 +2917,11 @@
           "open" : false,
           "label" : "trf3",
           "order" : 4,
-          "otherSideVlId" : "vl1"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -3228,7 +3276,11 @@
     "node2" : "FICT_vl2_dtrf28Fictif"
   } ]
 }, {
-  "id" : "vl3",
+  "voltageLevelInfos" : {
+    "id" : "vl3",
+    "name" : "vl3",
+    "nominalVoltage" : 225.0
+  },
   "cells" : [ {
     "type" : "EXTERN",
     "number" : 0,
@@ -3444,7 +3496,11 @@
           "open" : false,
           "label" : "trf5",
           "order" : 1,
-          "otherSideVlId" : "vl1"
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }

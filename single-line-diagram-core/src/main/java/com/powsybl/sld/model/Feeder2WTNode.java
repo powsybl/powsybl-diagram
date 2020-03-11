@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.Objects;
-
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 
 /**
@@ -17,19 +15,15 @@ public class Feeder2WTNode extends FeederBranchNode {
 
     public enum Side {
         ONE,
-        TWO;
+        TWO
     }
 
     public Feeder2WTNode(String id, String name, String componentType, boolean fictitious,
-                         Graph graph, String vIdOtherSide, double nominalVOtherSide) {
-        super(id, name, componentType, fictitious, graph, vIdOtherSide, nominalVOtherSide);
+                         Graph graph, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, componentType, fictitious, graph, otherSideVoltageLevelInfos);
     }
 
-    public static Feeder2WTNode create(Graph graph, String id, String name,
-                                       String vIdOtherSide, double nominalVOtherSide) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(vIdOtherSide);
-        return new Feeder2WTNode(id, name, TWO_WINDINGS_TRANSFORMER, false, graph,
-                vIdOtherSide, nominalVOtherSide);
+    public static Feeder2WTNode create(Graph graph, String id, String name, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return new Feeder2WTNode(id, name, TWO_WINDINGS_TRANSFORMER, false, graph, otherSideVoltageLevelInfos);
     }
 }

@@ -38,11 +38,7 @@ public final class Graph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
 
-    private String voltageLevelId;
-
-    private String voltageLevelName;
-
-    private double voltageLevelNominalV;
+    private final VoltageLevelInfos voltageLevelInfos;
 
     private final boolean useName;
 
@@ -82,21 +78,17 @@ public final class Graph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    private Graph(String id, String name, double nominalV,
-                  boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
-        this.voltageLevelId = Objects.requireNonNull(id);
-        this.voltageLevelName = name;
-        this.voltageLevelNominalV = nominalV;
+    private Graph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
+        this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;
         this.showInductorFor3WT = showInductorFor3WT;
     }
 
-    public static Graph create(String id, String name, double nominalV,
+    public static Graph create(VoltageLevelInfos voltageLevelInfos,
                                boolean useName, boolean forVoltageLevelDiagram,
                                boolean showInductorFor3WT) {
-        Objects.requireNonNull(id);
-        return new Graph(id, name, nominalV, useName, forVoltageLevelDiagram, showInductorFor3WT);
+        return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram, showInductorFor3WT);
     }
 
     public boolean isUseName() {
@@ -449,16 +441,8 @@ public final class Graph {
         return new TreeSet<>(cells);
     }
 
-    public String getVoltageLevelId() {
-        return voltageLevelId;
-    }
-
-    public String getVoltageLevelName() {
-        return voltageLevelName;
-    }
-
-    public double getVoltageLevelNominalV() {
-        return voltageLevelNominalV;
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return voltageLevelInfos;
     }
 
     public double getX() {
@@ -527,7 +511,9 @@ public final class Graph {
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
 
-        generator.writeStringField("id", voltageLevelId);
+        generator.writeFieldName("voltageLevelInfos");
+        voltageLevelInfos.writeJsonContent(generator);
+
         if (generateCoordsInJson) {
             generator.writeNumberField("x", x);
             generator.writeNumberField("y", y);

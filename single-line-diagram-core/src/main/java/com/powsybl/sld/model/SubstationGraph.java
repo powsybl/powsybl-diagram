@@ -51,7 +51,7 @@ public final class SubstationGraph {
 
     public void addNode(Graph node) {
         nodes.add(node);
-        nodesById.put(node.getVoltageLevelId(), node);
+        nodesById.put(node.getVoltageLevelInfos().getId(), node);
     }
 
     public Graph getNode(String id) {

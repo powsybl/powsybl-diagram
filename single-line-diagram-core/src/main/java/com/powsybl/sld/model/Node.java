@@ -80,8 +80,8 @@ public class Node implements BaseNode {
         String tmpId = Objects.requireNonNull(id);
         if (type == NodeType.FICTITIOUS &&
                 graph != null &&
-                !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelId() + "_")) {
-            this.id = "FICT_" + graph.getVoltageLevelId() + "_" + tmpId;
+                !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelInfos().getId() + "_")) {
+            this.id = "FICT_" + graph.getVoltageLevelInfos().getId() + "_" + tmpId;
         } else {
             this.id = tmpId;
         }

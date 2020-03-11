@@ -11,7 +11,7 @@ package com.powsybl.sld.model;
  */
 public class FeederLineNode extends FeederBranchNode {
     public FeederLineNode(String id, String name, String componentType, boolean fictitious,
-                          Graph graph, String vIdOtherSide, double nominalVOtherSide) {
-        super(id, name, componentType, fictitious, graph, vIdOtherSide, nominalVOtherSide);
+                          Graph graph, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, componentType, fictitious, graph, otherSideVoltageLevelInfos);
     }
 }
