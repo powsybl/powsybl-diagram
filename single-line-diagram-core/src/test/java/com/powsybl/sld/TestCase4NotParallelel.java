@@ -70,7 +70,7 @@ public class TestCase4NotParallelel extends AbstractTestCase {
     @Test
     public void test() {
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

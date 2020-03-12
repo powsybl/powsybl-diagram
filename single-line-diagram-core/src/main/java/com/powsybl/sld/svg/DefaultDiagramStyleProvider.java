@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
@@ -115,9 +114,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                     color = getColor(nameSubComponent.equals(WINDING1) ? node.getGraph().getVoltageLevelInfos().getNominalVoltage() : ((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 }
 
-                color.ifPresent(s -> attributes.put(STROKE, s));
-            } else if (node instanceof Feeder2WTNode && node.getComponentType().equals(INDUCTOR)) {
-                color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 color.ifPresent(s -> attributes.put(STROKE, s));
             } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
                 attributes.put("stroke-opacity", "0");

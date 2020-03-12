@@ -225,8 +225,7 @@ public class TestCase11SubstationGraph extends AbstractTestCase {
                 .setVerticalSubstationPadding(50)
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setShowInductorFor3WT(false);
+                .setVerticalSnakeLinePadding(30);
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);

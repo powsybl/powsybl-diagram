@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import com.powsybl.sld.model.*;
@@ -77,8 +76,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         this.network = Objects.requireNonNull(network);
     }
 
-    public Graph buildVoltageLevelGraph(String id, boolean useName,
-                                        boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
+    public Graph buildVoltageLevelGraph(String id, boolean useName, boolean forVoltageLevelDiagram) {
         // get the voltageLevel from id
         VoltageLevel vl = network.getVoltageLevel(id);
         if (vl == null) {
@@ -86,8 +84,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        Graph graph = Graph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), useName,
-                forVoltageLevelDiagram, showInductorFor3WT);
+        Graph graph = Graph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), useName, forVoltageLevelDiagram);
         buildGraph(graph, vl);
 
         return graph;
@@ -425,55 +422,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private class InfosInductor3WT {
-        private final String id;    // id of the inductor
-        private final String name;  // name of the inductor
-        private final ThreeWindingsTransformer.Side side;  // side of the 3WT where the inductor is found
-
-        InfosInductor3WT(String id, String name, ThreeWindingsTransformer.Side side) {
-            this.id = id;
-            this.name = name;
-            this.side = side;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public ThreeWindingsTransformer.Side getSide() {
-            return side;
-        }
-    }
-
-    /*
-     * Finding the inductor, if present, in the tertiary voltage level of a 3 windings transformer
-     */
-    private InfosInductor3WT findInductorOf3WT(Feeder3WTNode node, ThreeWindingsTransformer transformer) {
-        final AtomicReference<InfosInductor3WT> infos = new AtomicReference<>();
-
-        transformer.getTerminals().stream()
-                .filter(t -> transformer.getSide(t) != ThreeWindingsTransformer.Side.ONE)
-                .forEach(t -> {
-                    VoltageLevel v = t.getVoltageLevel();
-                    if (!v.getId().equals(node.getGraph().getVoltageLevelInfos().getId())) {
-                        v.getShuntCompensatorStream().forEach(s -> {
-                            Bus connectableBusInductor = s.getTerminal().getBusView().getConnectableBus();
-                            Bus connectableBus3WT = t.getBusView().getConnectableBus();
-                            if (connectableBusInductor == connectableBus3WT &&
-                                    s.getbPerSection() < 0 && infos.get() == null) {  // inductor found
-                                infos.set(new InfosInductor3WT(s.getId(), s.getName(), transformer.getSide(t)));
-                            }
-                        });
-                    }
-                });
-
-        return infos.get();
-    }
-
     private VoltageLevel getVL2Side(Feeder3WTNode node, ThreeWindingsTransformer transformer) {
         VoltageLevel vl = null;
         switch (node.getSide()) {
@@ -510,83 +458,30 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     Fictitious3WTNode nf = new Fictitious3WTNode(graph, n3WT.getLabel() + "_fictif", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
                     graph.addNode(nf);
 
-                    FeederNode nfeeder1 = null;
-                    FeederNode nfeeder2 = null;
-
-                    InfosInductor3WT infosInductor = null;
-                    if (graph.isShowInductorFor3WT() && graph.isForVoltageLevelDiagram()) {
-                        // finding the inductor in the tertiary voltage level
-                        infosInductor = findInductorOf3WT(n3WT, transformer);
-                    }
-
                     VoltageLevel vl2Side = getVL2Side(n3WT, transformer);
                     VoltageLevel vl3Side = getVL3Side(n3WT, transformer);
 
-                    if (infosInductor != null) {
-                        // We are in a voltage level diagram AND
-                        // We want to show (if we are not in the tertiary voltage level),
-                        // the inductor present in the tertiary voltage level of the 3 windings transformer,
+                    // We represent the 3 windings transformer like a double feeder cell with :
+                    // . one winding to the first other voltage level
+                    // . one winding to the second other voltage level
 
-                        // We represent the 3 windings transformer like a double feeder cell with :
-                        // . one winding to the secondary voltage level
-                        // . one feeder for the inductor present in the tertiary voltage level
+                    // Create a feeder for the winding to the first other voltage level
+                    String idFeeder1 = n3WT.getId() + "_" + n3WT.getId2();
+                    String nameFeeder1 = n3WT.getName() + "_" + n3WT.getId2();
+                    FeederNode nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, nameFeeder1, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
+                    nfeeder1.setComponentType(LINE);
+                    nfeeder1.setOrder(n3WT.getOrder());
+                    nfeeder1.setDirection(n3WT.getDirection());
+                    graph.addNode(nfeeder1);
 
-                        if (infosInductor.getSide() == ThreeWindingsTransformer.Side.TWO) {
-                            // Create a feeder for the inductor
-                            String idFeeder1 = infosInductor.getId();
-                            String nameFeeder1 = infosInductor.getName();
-                            nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, nameFeeder1, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
-                            nfeeder1.setComponentType(INDUCTOR);
-                        } else {
-                            // Create a feeder for the winding to the secondary voltage level
-                            String idFeeder1 = n3WT.getId() + "_" + n3WT.getId2();
-                            String nameFeeder1 = n3WT.getName() + "_" + n3WT.getId2();
-                            nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, nameFeeder1, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
-                            nfeeder1.setComponentType(LINE);
-                        }
-                        nfeeder1.setOrder(n3WT.getOrder());
-                        nfeeder1.setDirection(n3WT.getDirection());
-                        graph.addNode(nfeeder1);
-
-                        if (infosInductor.getSide() == ThreeWindingsTransformer.Side.THREE) {
-                            // Create a feeder for the inductor
-                            String idFeeder2 = infosInductor.getId();
-                            String nameFeeder2 = infosInductor.getName();
-                            nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, nameFeeder2, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
-                            nfeeder2.setComponentType(INDUCTOR);
-                        } else {
-                            // Create a feeder for the winding to the tertiary voltage level
-                            String idFeeder2 = n3WT.getId() + "_" + n3WT.getId3();
-                            String nameFeeder2 = n3WT.getName() + "_" + n3WT.getId3();
-                            nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, nameFeeder2, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
-                            nfeeder2.setComponentType(LINE);
-                        }
-                        nfeeder2.setOrder(n3WT.getOrder() + 1);
-                        nfeeder2.setDirection(n3WT.getDirection());
-                        graph.addNode(nfeeder2);
-                    } else {
-                        // We represent the 3 windings transformer like a double feeder cell with :
-                        // . one winding to the first other voltage level
-                        // . one winding to the second other voltage level
-
-                        // Create a feeder for the winding to the first other voltage level
-                        String idFeeder1 = n3WT.getId() + "_" + n3WT.getId2();
-                        String nameFeeder1 = n3WT.getName() + "_" + n3WT.getId2();
-                        nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, nameFeeder1, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
-                        nfeeder1.setComponentType(LINE);
-                        nfeeder1.setOrder(n3WT.getOrder());
-                        nfeeder1.setDirection(n3WT.getDirection());
-                        graph.addNode(nfeeder1);
-
-                        // Create a feeder for the winding to the second other voltage level
-                        String idFeeder2 = n3WT.getId() + "_" + n3WT.getId3();
-                        String nameFeeder2 = n3WT.getName() + "_" + n3WT.getId3();
-                        nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, nameFeeder2, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
-                        nfeeder2.setComponentType(LINE);
-                        nfeeder2.setOrder(n3WT.getOrder() + 1);
-                        nfeeder2.setDirection(n3WT.getDirection());
-                        graph.addNode(nfeeder2);
-                    }
+                    // Create a feeder for the winding to the second other voltage level
+                    String idFeeder2 = n3WT.getId() + "_" + n3WT.getId3();
+                    String nameFeeder2 = n3WT.getName() + "_" + n3WT.getId3();
+                    FeederNode nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, nameFeeder2, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
+                    nfeeder2.setComponentType(LINE);
+                    nfeeder2.setOrder(n3WT.getOrder() + 1);
+                    nfeeder2.setDirection(n3WT.getDirection());
+                    graph.addNode(nfeeder2);
 
                     // Replacement of the old 3WT feeder node by the new fictitious node
                     graph.substitueNode(n3WT, nf);
@@ -654,8 +549,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         substation.getVoltageLevelStream()
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed()).forEach(v -> {
-                            Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()),
-                                    useName, false, false);
+                            Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
                             buildGraph(vlGraph, v);
                             graph.addNode(vlGraph);
                         });

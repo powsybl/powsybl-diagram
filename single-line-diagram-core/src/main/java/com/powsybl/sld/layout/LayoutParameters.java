@@ -53,8 +53,6 @@ public class LayoutParameters {
     private double verticalSnakeLinePadding = 25;
     private double arrowDistance = 20;
 
-    private boolean showInductorFor3WT = false;
-
     private boolean shiftFeedersPosition = false;
 
     private double scaleShiftFeedersPosition = 1;
@@ -92,7 +90,6 @@ public class LayoutParameters {
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
                             @JsonProperty("arrowDistance") double arrowDistance,
-                            @JsonProperty("showInductorFor3WT") boolean showInductorFor3WT,
                             @JsonProperty("diagramName") String diagramName,
                             @JsonProperty("shiftFeedersPosition") boolean shiftFeedersPosition,
                             @JsonProperty("scaleShiftFeedersPosition") double scaleShiftFeedersPosition,
@@ -120,7 +117,6 @@ public class LayoutParameters {
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
         this.arrowDistance = arrowDistance;
-        this.showInductorFor3WT = showInductorFor3WT;
         this.diagramName = diagramName;
         this.shiftFeedersPosition = shiftFeedersPosition;
         this.scaleShiftFeedersPosition = scaleShiftFeedersPosition;
@@ -152,7 +148,6 @@ public class LayoutParameters {
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
         arrowDistance = other.arrowDistance;
-        showInductorFor3WT = other.showInductorFor3WT;
         diagramName = other.diagramName;
         shiftFeedersPosition = other.shiftFeedersPosition;
         scaleShiftFeedersPosition = other.scaleShiftFeedersPosition;
@@ -341,15 +336,6 @@ public class LayoutParameters {
 
     public LayoutParameters setArrowDistance(double arrowDistance) {
         this.arrowDistance = arrowDistance;
-        return this;
-    }
-
-    public boolean isShowInductorFor3WT() {
-        return showInductorFor3WT;
-    }
-
-    public LayoutParameters setShowInductorFor3WT(boolean showInductorFor3WT) {
-        this.showInductorFor3WT = showInductorFor3WT;
         return this;
     }
 
