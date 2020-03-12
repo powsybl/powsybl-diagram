@@ -197,8 +197,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return getColor(voltageLevelInfos.getNominalVoltage(), null);
     }
 
-    @Override
-    public Optional<String> getColor(double nominalV, Node node) {
+    protected Optional<String> getColor(double nominalV, Node node) {
         return Optional.empty();
     }
 
