@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -57,18 +58,18 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         String basecolor = getBaseColor(vl.getNominalV(), PROFILE);
 
         AtomicInteger idxColor = new AtomicInteger(0);
-        long buses = vl.getBusView().getBusStream().count();
+        List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
         HashMap<String, RGBColor> colorMap = new HashMap<>();
 
         HSLColor color = HSLColor.parse(basecolor);
 
-        List<RGBColor> colors = color.getColorGradient((int) buses);
+        List<RGBColor> colors = color.getColorGradient(buses.size());
 
-        vl.getBusView().getBuses().forEach(b -> {
+        buses.forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());
 
-            vl.getBusView().getBus(b.getId()).visitConnectedEquipments(new TopologyVisitor() {
+            b.visitConnectedEquipments(new TopologyVisitor() {
                 @Override
                 public void visitBusbarSection(BusbarSection e) {
                     colorMap.put(e.getId(), c);
