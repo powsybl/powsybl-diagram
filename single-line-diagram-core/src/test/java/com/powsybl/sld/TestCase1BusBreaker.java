@@ -37,6 +37,12 @@ public class TestCase1BusBreaker extends AbstractTestCase {
         view.newBus()
                 .setId("b2")
                 .add();
+        view.newSwitch()
+                .setId("sw")
+                .setBus1("b1")
+                .setBus2("b2")
+                .setOpen(false)
+                .add();
         Load l = vl.newLoad()
                 .setId("l")
                 .setConnectableBus("b1")

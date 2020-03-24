@@ -7,8 +7,212 @@
   "x" : 0.0,
   "y" : 0.0,
   "cells" : [ {
-    "type" : "EXTERN",
+    "type" : "INTERN",
     "number" : 0,
+    "direction" : "TOP",
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 0,
+        "vSpan" : 0,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "subBlocks" : [ {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 25.0,
+          "y" : 260.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "b2",
+          "name" : "b2",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 10.0,
+          "y" : 285.0,
+          "open" : false,
+          "pxWidth" : 130.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 2,
+            "hSpan" : 0,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 3,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "swfSwitch",
+          "name" : "swfSwitch",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 25.0,
+          "y" : 285.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_swfNode",
+          "name" : "swfNode",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 25.0,
+          "y" : 220.0,
+          "rotationAngle" : 90.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 1,
+          "hSpan" : 0,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : -1.0,
+          "y" : -1.0,
+          "xSpan" : 0.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_swfNode",
+          "name" : "swfNode",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 25.0,
+          "y" : 220.0,
+          "rotationAngle" : 90.0,
+          "open" : false
+        }, {
+          "type" : "SWITCH",
+          "id" : "sw",
+          "name" : "sw",
+          "componentType" : "BREAKER",
+          "fictitious" : false,
+          "x" : 50.0,
+          "y" : 220.0,
+          "rotationAngle" : 90.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_swfNode",
+          "name" : "swfNode",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 75.0,
+          "y" : 220.0,
+          "rotationAngle" : 90.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "PRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 1,
+          "v" : 2,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 75.0,
+          "y" : 180.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "b1",
+          "name" : "b1",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 10.0,
+          "y" : 260.0,
+          "open" : false,
+          "pxWidth" : 130.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 1,
+            "hSpan" : 0,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 1,
+            "hSpan" : 3,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "swfSwitch",
+          "name" : "swfSwitch",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 75.0,
+          "y" : 260.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_swfNode",
+          "name" : "swfNode",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 75.0,
+          "y" : 220.0,
+          "rotationAngle" : 90.0,
+          "open" : false
+        } ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 1,
     "direction" : "TOP",
     "order" : 1,
     "rootBlock" : {
@@ -19,14 +223,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 0,
+        "h" : 2,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 1,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 25.0,
+        "x" : 125.0,
         "y" : 105.0,
         "xSpan" : 50.0,
         "ySpan" : 250.0
@@ -46,7 +250,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : 230.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -60,7 +264,7 @@
           "x" : 10.0,
           "y" : 260.0,
           "open" : false,
-          "pxWidth" : 30.0,
+          "pxWidth" : 130.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -70,7 +274,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 1,
+            "hSpan" : 3,
             "vSpan" : 0
           }
         }, {
@@ -79,7 +283,7 @@
           "name" : "b1_l",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : 260.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
@@ -89,7 +293,7 @@
           "name" : "b1_lFictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : 230.0,
           "open" : false
         } ]
@@ -108,7 +312,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : 105.0,
           "xSpan" : 50.0,
           "ySpan" : 250.0
@@ -119,7 +323,7 @@
           "name" : "b1_lFictif",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : 230.0,
           "open" : false
         }, {
@@ -128,7 +332,7 @@
           "name" : "l",
           "componentType" : "LOAD",
           "fictitious" : false,
-          "x" : 25.0,
+          "x" : 125.0,
           "y" : -20.0,
           "open" : false,
           "order" : 1,
@@ -146,5 +350,23 @@
   }, {
     "node1" : "b1_l",
     "node2" : "FICT_vl_b1_lFictif"
+  }, {
+    "node1" : "b1",
+    "node2" : "swfSwitch"
+  }, {
+    "node1" : "swfSwitch",
+    "node2" : "FICT_vl_swfNode"
+  }, {
+    "node1" : "FICT_vl_swfNode",
+    "node2" : "sw"
+  }, {
+    "node1" : "b2",
+    "node2" : "swfSwitch"
+  }, {
+    "node1" : "swfSwitch",
+    "node2" : "FICT_vl_swfNode"
+  }, {
+    "node1" : "FICT_vl_swfNode",
+    "node2" : "sw"
   } ]
 }

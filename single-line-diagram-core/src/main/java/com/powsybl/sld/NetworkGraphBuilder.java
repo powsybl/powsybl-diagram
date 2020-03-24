@@ -379,6 +379,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         // visit equipments
         vl.visitEquipments(new BusBreakerGraphBuilder(graph, nodesByBusId));
+
+        // switches
+        for (Switch sw : vl.getBusBreakerView().getSwitches()) {
+            SwitchNode n = createSwitchNodeFromSwitch(graph, sw);
+
+            Bus bus1 = vl.getBusBreakerView().getBus1(sw.getId());
+            Bus bus2 = vl.getBusBreakerView().getBus2(sw.getId());
+
+            graph.addNode(n);
+            graph.addEdge(nodesByBusId.get(bus1.getId()), n);
+            graph.addEdge(n, nodesByBusId.get(bus2.getId()));
+        }
     }
 
     private void buildNodeBreakerGraph(Graph graph, VoltageLevel vl) {
