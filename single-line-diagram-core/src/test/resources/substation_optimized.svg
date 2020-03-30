@@ -223,7 +223,7 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
         </g>
         <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2_one</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
         </g>
         <polyline class="wire wire_vl1" points="220.0,370.0,240.0,370.0" id="idvl1_95_Wire0"/>
         <polyline class="wire wire_vl1" points="240.0,370.0,255.0,370.0" id="idvl1_95_Wire1"/>
@@ -301,7 +301,7 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
         </g>
         <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2_one</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
         </g>
         <polyline class="wire wire_vl2" points="620.0,156.0,620.0,240.0" id="idvl2_95_Wire0"/>
         <g class="ARROW1_vl2_95_gen1_UP" id="idvl2_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,171.0)">
@@ -363,7 +363,7 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
         </g>
         <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2_one</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
         </g>
         <polyline class="wire wire_vl3" points="910.0,156.0,910.0,240.0" id="idvl3_95_Wire0"/>
         <g class="ARROW1_vl3_95_capa1_UP" id="idvl3_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,905.0,171.0)">

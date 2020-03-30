@@ -16,12 +16,19 @@ import java.util.Objects;
  */
 public class FeederBranchNode extends FeederNode {
 
+    private final Side side;
+
     private final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    protected FeederBranchNode(String id, String name, String componentType, boolean fictitious, Graph graph,
-                               VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, componentType, fictitious, graph);
+    protected FeederBranchNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
+                               Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, equipmentId, componentType, fictitious, graph);
+        this.side = side;
         this.otherSideVoltageLevelInfos = Objects.requireNonNull(otherSideVoltageLevelInfos);
+    }
+
+    public Side getSide() {
+        return side;
     }
 
     public VoltageLevelInfos getOtherSideVoltageLevelInfos() {
@@ -31,6 +38,7 @@ public class FeederBranchNode extends FeederNode {
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
+        generator.writeStringField("side", side.name());
         generator.writeFieldName("otherSideVoltageLevelInfos");
         otherSideVoltageLevelInfos.writeJsonContent(generator);
     }
