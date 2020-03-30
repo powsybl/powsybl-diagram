@@ -41,6 +41,8 @@ public class Node implements BaseNode {
 
     private final String name;
 
+    private final String equipmentId;
+
     private String componentType;
 
     private final boolean fictitious;
@@ -68,9 +70,10 @@ public class Node implements BaseNode {
     /**
      * Constructor
      */
-    protected Node(NodeType type, String id, String name, String componentType, boolean fictitious, Graph graph) {
+    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph) {
         this.type = Objects.requireNonNull(type);
         this.name = name;
+        this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
         // graph can be null here : for example, in a substation diagram, a fictitious node is created outside
@@ -130,11 +133,15 @@ public class Node implements BaseNode {
         return name;
     }
 
+    public String getEquipmentId() {
+        return equipmentId;
+    }
+
     public String getLabel() {
         if (label != null) {
             return label;
         } else {
-            return graph.isUseName() ? name : id;
+            return graph.isUseName() ? name : equipmentId;
         }
     }
 
@@ -280,6 +287,7 @@ public class Node implements BaseNode {
         if (name != null) {
             generator.writeStringField("name", name);
         }
+        generator.writeStringField("equipmentId", equipmentId);
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
         if (graph.isGenerateCoordsInJson()) {

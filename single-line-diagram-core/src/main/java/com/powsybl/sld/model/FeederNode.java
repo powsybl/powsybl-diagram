@@ -23,14 +23,20 @@ public class FeederNode extends Node {
 
     private int order = -1;
 
+    public enum Side {
+        ONE,
+        TWO,
+        THREE
+    }
+
     private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
 
-    public FeederNode(String id, String name, String componentType, boolean fictitious, Graph graph) {
-        super(NodeType.FEEDER, id, name, componentType, fictitious, graph);
+    public FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph) {
+        super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
     }
 
     public static FeederNode createFictitious(Graph graph, String id) {
-        return new FeederNode(id, id, NODE, true, graph);
+        return new FeederNode(id, id, id, NODE, true, graph);
     }
 
     @Override

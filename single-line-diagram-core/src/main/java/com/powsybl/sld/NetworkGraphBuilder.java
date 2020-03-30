@@ -150,10 +150,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(line);
 
             String id = line.getId() + "_" + side.name();
-            String name = line.getName() + "_" + side.name();
+            String name = line.getName();
+            String equipmentId = line.getId();
+            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return new FeederLineNode(id, name, LINE, false, graph, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+            return new FeederLineNode(id, name, equipmentId, LINE, false, graph, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
         private FeederNode createFeederNode(Graph graph, Injection injection) {
@@ -182,7 +184,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 default:
                     throw new AssertionError();
             }
-            return new FeederNode(injection.getId(), injection.getName(), componentType, false, graph);
+            return new FeederNode(injection.getId(), injection.getName(), injection.getId(), componentType, false, graph);
         }
 
         private FeederNode createFeeder2WTNode(Graph graph,
@@ -199,12 +201,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
 
             String id = branch.getId() + "_" + side.name();
-            String name = branch.getName() + "_" + side.name();
+            String name = branch.getName();
+            String equipmentId = branch.getId();
+            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE
                     ? Branch.Side.TWO
                     : Branch.Side.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-            return new Feeder2WTNode(id, name, componentType, false, graph,
+            return new Feeder2WTNode(id, name, equipmentId, componentType, false, graph, s,
                     new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
@@ -224,9 +228,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(twt);
             Objects.requireNonNull(side);
             String id = twt.getId() + "_" + side.name();
-            String name = twt.getName() + "_" + side.name();
-            Feeder3WTNode.Side s = Feeder3WTNode.Side.valueOf(side.name());
-            return new Feeder3WTNode(id, name, THREE_WINDINGS_TRANSFORMER, false, graph, twt.getId(), s);
+            String name = twt.getName();
+            String equipmentId = twt.getId();
+            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
+            return new Feeder3WTNode(id, name, equipmentId, THREE_WINDINGS_TRANSFORMER, false, graph, twt.getId(), s);
         }
 
         @Override
@@ -478,18 +483,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     // . one winding to the second other voltage level
 
                     // Create a feeder for the winding to the first other voltage level
-                    String idFeeder1 = n3WT.getId() + "_" + n3WT.getId2();
-                    String nameFeeder1 = n3WT.getName() + "_" + n3WT.getId2();
-                    FeederNode nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, nameFeeder1, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
+                    FeederNode.Side side2 = n3WT.getSide2();
+                    String idFeeder1 = n3WT.getId() + "_" + side2.name();
+                    FeederNode nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, n3WT.getName(), n3WT.getEquipmentId(), side2, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
                     nfeeder1.setComponentType(LINE);
                     nfeeder1.setOrder(n3WT.getOrder());
                     nfeeder1.setDirection(n3WT.getDirection());
                     graph.addNode(nfeeder1);
 
                     // Create a feeder for the winding to the second other voltage level
-                    String idFeeder2 = n3WT.getId() + "_" + n3WT.getId3();
-                    String nameFeeder2 = n3WT.getName() + "_" + n3WT.getId3();
-                    FeederNode nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, nameFeeder2, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
+                    FeederNode.Side side3 = n3WT.getSide3();
+                    String idFeeder2 = n3WT.getId() + "_" + side3.name();
+                    FeederNode nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, n3WT.getName(), n3WT.getEquipmentId(), side3, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
                     nfeeder2.setComponentType(LINE);
                     nfeeder2.setOrder(n3WT.getOrder() + 1);
                     nfeeder2.setDirection(n3WT.getDirection());
