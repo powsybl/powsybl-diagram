@@ -16,37 +16,12 @@ import java.util.Objects;
  */
 public class Feeder3WTNode extends FeederNode {
 
-    private final String transformerId;
-
     private final Side side;
 
     public Feeder3WTNode(String id, String name, String equipmentId, String componentType,
-                         boolean fictitious, Graph graph,
-                         String transformerId,
-                         Side side) {
+                         boolean fictitious, Graph graph, Side side) {
         super(id, name, equipmentId, componentType, fictitious, graph);
-        this.transformerId = Objects.requireNonNull(transformerId);
         this.side = Objects.requireNonNull(side);
-    }
-
-    public Side getSide2() {
-        switch (side) {
-            case ONE: return Side.TWO;
-            case TWO: case THREE: return Side.ONE;
-        }
-        return null;
-    }
-
-    public Side getSide3() {
-        switch (side) {
-            case ONE: case TWO: return Side.THREE;
-            case THREE: return Side.TWO;
-        }
-        return null;
-    }
-
-    public String getTransformerId() {
-        return transformerId;
     }
 
     public Side getSide() {
@@ -56,7 +31,6 @@ public class Feeder3WTNode extends FeederNode {
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
-        generator.writeStringField("transformerId", transformerId);
         generator.writeStringField("transformerSide", side.name());
     }
 }
