@@ -1029,7 +1029,6 @@
           "label" : "trf61",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
           "transformerSide" : "ONE"
         } ]
       } ]
@@ -1631,7 +1630,6 @@
           "label" : "trf81",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
           "transformerSide" : "ONE"
         } ]
       } ]
@@ -2080,7 +2078,6 @@
           "label" : "trf71",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
           "transformerSide" : "ONE"
         } ]
       } ]
@@ -3397,7 +3394,6 @@
           "label" : "trf72",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf7",
           "transformerSide" : "TWO"
         } ]
       } ]
@@ -3999,7 +3995,6 @@
           "label" : "trf62",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
           "transformerSide" : "TWO"
         } ]
       } ]
@@ -4148,7 +4143,6 @@
           "label" : "trf82",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf8",
           "transformerSide" : "TWO"
         } ]
       } ]
@@ -4733,7 +4727,6 @@
           "label" : "trf63",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
           "transformerSide" : "THREE"
         } ]
       } ]
@@ -4882,7 +4875,6 @@
           "label" : "trf73",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
           "transformerSide" : "THREE"
         } ]
       } ]
@@ -5031,7 +5023,6 @@
           "label" : "trf83",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
           "transformerSide" : "THREE"
         } ]
       } ]

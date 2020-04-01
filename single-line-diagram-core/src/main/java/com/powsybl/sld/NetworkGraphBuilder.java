@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld;
 
+import com.google.common.collect.ImmutableMap;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
 import com.powsybl.iidm.network.*;
@@ -81,16 +82,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
 
-        if (graph.isForVoltageLevelDiagram()) {
-            // in a voltageLevel diagram only, we replace the 3WT node with a fictitious node and 2 feeder nodes,
-            // in order to have a more detailed representation of the 3WT
-            constructCellForThreeWindingsTransformer(graph);
-        } else {
-            // in a substation diagram, we set the component type name associated to the 2WT and 3WT feeder node,
-            // to line type, in order to avoid the graphic svg symbol being drawed for those nodes
-            changeFeederComponentTypeName(graph);
-        }
-
         handleGraphPostProcessors(graph);
 
         handleConnectedComponents(graph);
@@ -105,6 +96,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         protected abstract void addFeeder(FeederNode node, Terminal terminal);
+
+        protected abstract void add3wtFeeder(Fictitious3WTNode starNode, Feeder2WTNode firstFeederNode,
+                                             Feeder2WTNode secondFeederNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
             Objects.requireNonNull(graph);
@@ -215,7 +209,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
                                                 Branch.Side side) {
-            addFeeder(createFeeder2WTNode(graph, transformer, side), transformer.getTerminal(side));
+            FeederNode feeder2WTNode = createFeeder2WTNode(graph, transformer, side);
+            if (!graph.isForVoltageLevelDiagram()) {
+                feeder2WTNode.setComponentType(LINE);
+            }
+            addFeeder(feeder2WTNode, transformer.getTerminal(side));
         }
 
         @Override
@@ -223,15 +221,73 @@ public class NetworkGraphBuilder implements GraphBuilder {
             addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
+        private static VoltageLevelInfos createVoltageLevelInfos(ThreeWindingsTransformer.Leg leg) {
+            VoltageLevel vl = leg.getTerminal().getVoltageLevel();
+            return new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV());
+        }
+
         @Override
         public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer,
                                                   ThreeWindingsTransformer.Side side) {
-            String id = transformer.getId() + "_" + side.name();
-            String name = transformer.getName();
-            String equipmentId = transformer.getId();
-            Feeder3WTNode feeder3WTNode = new Feeder3WTNode(id, name, equipmentId, THREE_WINDINGS_TRANSFORMER, false, graph,
-                                                            FeederNode.Side.valueOf(side.name()));
-            addFeeder(feeder3WTNode, transformer.getTerminal(side));
+
+            if (graph.isForVoltageLevelDiagram()) {
+                // in a voltageLevel diagram we represent 3 windings transformers by a double feeder cell:
+                //   - a transformer star node at double feeder fork
+                //   - a feeder for first other leg
+                //   - a feeder for second other leg
+
+                Map<FeederNode.Side, VoltageLevelInfos> voltageLevelInfosBySide = ImmutableMap.of(FeederNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1()),
+                                                                                                  FeederNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2()),
+                                                                                                  FeederNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3()));
+
+                // create star node
+                Fictitious3WTNode starNode = new Fictitious3WTNode(graph, transformer.getId() + "_fictif",
+                                                                   voltageLevelInfosBySide.get(FeederNode.Side.ONE),
+                                                                   voltageLevelInfosBySide.get(FeederNode.Side.TWO),
+                                                                   voltageLevelInfosBySide.get(FeederNode.Side.THREE));
+
+                FeederNode.Side firstOtherFeederSide;
+                FeederNode.Side secondOtherFeederSide;
+                switch (side) {
+                    case ONE:
+                        firstOtherFeederSide = FeederNode.Side.TWO;
+                        secondOtherFeederSide = FeederNode.Side.THREE;
+                        break;
+                    case TWO:
+                        firstOtherFeederSide = FeederNode.Side.ONE;
+                        secondOtherFeederSide = FeederNode.Side.THREE;
+                        break;
+                    case THREE:
+                        firstOtherFeederSide = FeederNode.Side.ONE;
+                        secondOtherFeederSide = FeederNode.Side.TWO;
+                        break;
+                    default:
+                        throw new IllegalStateException();
+                }
+
+                // create first other leg feeder node
+                String firstOtherFeederId = transformer.getId() + "_" + firstOtherFeederSide.name();
+                Feeder2WTNode firstOtherFeeder = Feeder2WTNode.create(graph, firstOtherFeederId, transformer.getName(), transformer.getId(),
+                                                                      firstOtherFeederSide, voltageLevelInfosBySide.get(firstOtherFeederSide));
+                firstOtherFeeder.setComponentType(LINE);
+
+                // create second other leg feeder node
+                String secondOtherFeederId = transformer.getId() + "_" + secondOtherFeederSide.name();
+                Feeder2WTNode secondOtherFeeder = Feeder2WTNode.create(graph, secondOtherFeederId, transformer.getName(), transformer.getId(),
+                                                                       secondOtherFeederSide, voltageLevelInfosBySide.get(secondOtherFeederSide));
+                secondOtherFeeder.setComponentType(LINE);
+
+                add3wtFeeder(starNode, firstOtherFeeder, secondOtherFeeder, transformer.getTerminal(side));
+            } else {
+                // in substation diagram, we only represent the leg node
+
+                String id = transformer.getId() + "_" + side.name();
+                Feeder3WTNode feeder3WTNode = new Feeder3WTNode(id, transformer.getName(), transformer.getId(),
+                                                                THREE_WINDINGS_TRANSFORMER, false, graph, FeederNode.Side.valueOf(side.name()));
+                feeder3WTNode.setComponentType(LINE);
+
+                addFeeder(feeder3WTNode, transformer.getTerminal(side));
+            }
         }
     }
 
@@ -289,6 +345,30 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
+        protected void add3wtFeeder(Fictitious3WTNode starNode, Feeder2WTNode firstOtherFeederNode, Feeder2WTNode secondOtherFeederNode, Terminal terminal) {
+            ConnectablePosition.Feeder feeder = getFeeder(terminal);
+            if (feeder != null) {
+                BusCell.Direction direction = BusCell.Direction.valueOf(feeder.getDirection().toString());
+
+                firstOtherFeederNode.setOrder(feeder.getOrder());
+                firstOtherFeederNode.setLabel(feeder.getName());
+                firstOtherFeederNode.setDirection(direction);
+
+                secondOtherFeederNode.setOrder(feeder.getOrder() + 1);
+                secondOtherFeederNode.setLabel(feeder.getName());
+                secondOtherFeederNode.setDirection(direction);
+            }
+            nodesByNumber.put(terminal.getNodeBreakerView().getNode(), starNode);
+            graph.addNode(starNode);
+            graph.addNode(firstOtherFeederNode);
+            graph.addNode(secondOtherFeederNode);
+
+            // add edges between the star node and other leg nodes
+            graph.addEdge(starNode, firstOtherFeederNode);
+            graph.addEdge(starNode, secondOtherFeederNode);
+        }
+
+        @Override
         public void visitBusbarSection(BusbarSection busbarSection) {
             BusbarSectionPosition extension = busbarSection.getExtension(BusbarSectionPosition.class);
             BusNode node = BusNode.create(graph, busbarSection.getId(), busbarSection.getName());
@@ -312,15 +392,40 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
-        protected void addFeeder(FeederNode node, Terminal terminal) {
-            node.setOrder(order++);
-            node.setDirection(order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
-            graph.addNode(node);
+        private void connectToBus(Node node, Terminal terminal) {
             SwitchNode nodeSwitch = createSwitchNodeFromTerminal(graph, terminal);
             graph.addNode(nodeSwitch);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
             graph.addEdge(nodesByBusId.get(busId), nodeSwitch);
             graph.addEdge(nodeSwitch, node);
+        }
+
+        protected void addFeeder(FeederNode node, Terminal terminal) {
+            node.setOrder(order++);
+            node.setDirection(order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+            graph.addNode(node);
+            connectToBus(node, terminal);
+        }
+
+        @Override
+        protected void add3wtFeeder(Fictitious3WTNode starNode, Feeder2WTNode firstOtherFeederNode, Feeder2WTNode secondOtherFeederNode, Terminal terminal) {
+            BusCell.Direction direction = order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM;
+
+            firstOtherFeederNode.setOrder(order++);
+            firstOtherFeederNode.setDirection(direction);
+
+            secondOtherFeederNode.setOrder(order++);
+            secondOtherFeederNode.setDirection(direction);
+
+            graph.addNode(starNode);
+            graph.addNode(firstOtherFeederNode);
+            graph.addNode(secondOtherFeederNode);
+
+            // add edges between the star node and other leg nodes
+            graph.addEdge(starNode, firstOtherFeederNode);
+            graph.addEdge(starNode, secondOtherFeederNode);
+
+            connectToBus(starNode, terminal);
         }
     }
 
@@ -390,88 +495,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             nodesByNumber.put(n, node);
             graph.addNode(node);
         }
-    }
-
-    private void constructCellForThreeWindingsTransformer(Graph graph) {
-        graph.getNodes().stream()
-                .filter(n -> n instanceof Feeder3WTNode)
-                .forEach(n -> {
-                    Feeder3WTNode n3WT = (Feeder3WTNode) n;
-                    ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n3WT.getEquipmentId());
-
-                    // Create a new fictitious node
-                    VoltageLevel vl1 = transformer.getLeg1().getTerminal().getVoltageLevel();
-                    VoltageLevel vl2 = transformer.getLeg2().getTerminal().getVoltageLevel();
-                    VoltageLevel vl3 = transformer.getLeg3().getTerminal().getVoltageLevel();
-                    VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos(vl1.getId(), vl1.getName(), vl1.getNominalV());
-                    VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos(vl2.getId(), vl2.getName(), vl2.getNominalV());
-                    VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos(vl3.getId(), vl3.getName(), vl3.getNominalV());
-
-                    Fictitious3WTNode nf = new Fictitious3WTNode(graph, n3WT.getLabel() + "_fictif", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
-                    graph.addNode(nf);
-
-                    FeederNode.Side firstOtherFeederSide;
-                    FeederNode.Side secondOtherFeederSide;
-                    VoltageLevelInfos firstOtherFeederVoltageLevelInfos;
-                    VoltageLevelInfos secondOtherFeederVoltageLevelInfos;
-                    switch (n3WT.getSide()) {
-                        case ONE:
-                            firstOtherFeederSide = FeederNode.Side.TWO;
-                            secondOtherFeederSide = FeederNode.Side.THREE;
-                            firstOtherFeederVoltageLevelInfos = voltageLevelInfosLeg2;
-                            secondOtherFeederVoltageLevelInfos = voltageLevelInfosLeg3;
-                            break;
-                        case TWO:
-                            firstOtherFeederSide = FeederNode.Side.ONE;
-                            secondOtherFeederSide = FeederNode.Side.THREE;
-                            firstOtherFeederVoltageLevelInfos = voltageLevelInfosLeg1;
-                            secondOtherFeederVoltageLevelInfos = voltageLevelInfosLeg3;
-                            break;
-                        case THREE:
-                            firstOtherFeederSide = FeederNode.Side.ONE;
-                            secondOtherFeederSide = FeederNode.Side.TWO;
-                            firstOtherFeederVoltageLevelInfos = voltageLevelInfosLeg1;
-                            secondOtherFeederVoltageLevelInfos = voltageLevelInfosLeg2;
-                            break;
-                        default:
-                            throw new IllegalStateException();
-                    }
-
-                    // We represent the 3 windings transformer like a double feeder cell with :
-                    // . one winding to the first other voltage level
-                    // . one winding to the second other voltage level
-
-                    // Create a feeder for the winding to the first other voltage level
-                    String firstOtherFeederId = n3WT.getId() + "_" + firstOtherFeederSide.name();
-                    FeederNode firstOtherFeeder = Feeder2WTNode.create(graph, firstOtherFeederId, n3WT.getName(), n3WT.getEquipmentId(),
-                                                                       firstOtherFeederSide, firstOtherFeederVoltageLevelInfos);
-                    firstOtherFeeder.setComponentType(LINE);
-                    firstOtherFeeder.setOrder(n3WT.getOrder());
-                    firstOtherFeeder.setDirection(n3WT.getDirection());
-                    graph.addNode(firstOtherFeeder);
-
-                    // Create a feeder for the winding to the second other voltage level
-                    String secondOtherFeederId = n3WT.getId() + "_" + secondOtherFeederSide.name();
-                    FeederNode secondOtherFeeder = Feeder2WTNode.create(graph, secondOtherFeederId, n3WT.getName(), n3WT.getEquipmentId(),
-                                                                        secondOtherFeederSide, secondOtherFeederVoltageLevelInfos);
-                    secondOtherFeeder.setComponentType(LINE);
-                    secondOtherFeeder.setOrder(n3WT.getOrder() + 1);
-                    secondOtherFeeder.setDirection(n3WT.getDirection());
-                    graph.addNode(secondOtherFeeder);
-
-                    // Replacement of the old 3WT feeder node by the new fictitious node
-                    graph.substitueNode(n3WT, nf);
-
-                    // Add edges between the new fictitious node and the new feeder nodes
-                    graph.addEdge(nf, firstOtherFeeder);
-                    graph.addEdge(nf, secondOtherFeeder);
-                });
-    }
-
-    private void changeFeederComponentTypeName(Graph graph) {
-        graph.getNodes().stream()
-                .filter(n -> n instanceof Feeder3WTNode || n instanceof Feeder2WTNode)
-                .forEach(n -> n.setComponentType(LINE));
     }
 
     /**
