@@ -359,7 +359,7 @@ class SubSections {
 
     private void allocateCellToSubsection(BusCell busCell, List<BusNode> busNodes, Side side) {
         SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
-        busNodes.stream().map(BusNode::getStructuralPosition).collect(Collectors.toList())
+        busNodes.stream().map(BusNode::getStructuralPosition)
                 .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
 
         if (side == Side.UNDEFINED) {
