@@ -221,7 +221,7 @@ public class LayoutToCgmesExtensionsConverter {
             }
         });
 
-        substation.getTwoWindingsTransformerStream().forEach(twoWindingsTransformer -> sgraph.getMultiTermNodes().stream()
+        substation.getTwoWindingsTransformerStream().forEach(twoWindingsTransformer -> sgraph.getStarNodes().stream()
                 .filter(node -> checkNode(twoWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     CouplingDeviceDiagramData<TwoWindingsTransformer> transformerIidmDiagramData = new CouplingDeviceDiagramData<>(twoWindingsTransformer);
@@ -232,7 +232,7 @@ public class LayoutToCgmesExtensionsConverter {
                 })
         );
 
-        substation.getThreeWindingsTransformerStream().forEach(threeWindingsTransformer -> sgraph.getMultiTermNodes().stream()
+        substation.getThreeWindingsTransformerStream().forEach(threeWindingsTransformer -> sgraph.getStarNodes().stream()
                 .filter(node -> checkNode(threeWindingsTransformer, node)).findFirst().ifPresent(node -> {
                     DiagramPoint tDiagramPoint = offsetPoint.newDiagramPoint(node.getX(), node.getY(), 0);
                     ThreeWindingsTransformerDiagramData transformerIidmDiagramData = new ThreeWindingsTransformerDiagramData(threeWindingsTransformer);
@@ -251,8 +251,9 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
-        return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof  Feeder3WTNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
+        return true;
+//        return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
+//                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof  Feeder3WTNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

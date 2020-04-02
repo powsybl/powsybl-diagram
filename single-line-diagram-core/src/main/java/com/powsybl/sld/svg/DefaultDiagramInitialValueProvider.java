@@ -15,8 +15,7 @@ import com.powsybl.iidm.network.Injection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Feeder3WTNode;
+import com.powsybl.sld.model.Feeder2wtNode;
 import com.powsybl.sld.model.FeederBranchNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
@@ -53,50 +52,53 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         Objects.requireNonNull(node);
         InitialValue initialValue = new InitialValue(null, null, null, null, null, null);
 
-        if (node.getType() == Node.NodeType.BUS) {
-            initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
-        } else {
-            String nodeId = node.getId();
-            switch (node.getComponentType()) {
-                case LINE:
-                case TWO_WINDINGS_TRANSFORMER:
-                case THREE_WINDINGS_TRANSFORMER:
-                    initialValue = getBranchInitialValue(node);
-                    break;
-
-                case LOAD:
-                    initialValue = getInjectionInitialValue(network.getLoad(nodeId));
-                    break;
-
-                case INDUCTOR:
-                case CAPACITOR:
-                    initialValue = getInjectionInitialValue(network.getShuntCompensator(nodeId));
-                    break;
-
-                case GENERATOR:
-                    initialValue = getInjectionInitialValue(network.getGenerator(nodeId));
-                    break;
-
-                case STATIC_VAR_COMPENSATOR:
-                    initialValue = getInjectionInitialValue(network.getStaticVarCompensator(nodeId));
-                    break;
-
-                case VSC_CONVERTER_STATION:
-                    initialValue = getInjectionInitialValue(network.getVscConverterStation(nodeId));
-                    break;
-
-                case DANGLING_LINE:
-                    initialValue = getInjectionInitialValue(network.getDanglingLine(nodeId));
-                    break;
-
-                case BUSBAR_SECTION:
-                case BREAKER:
-                case LOAD_BREAK_SWITCH:
-                case DISCONNECTOR:
-                default:
-                    break;
-            }
-        }
+ //       if (node.getType() == Node.NodeType.BUS) {
+     //       initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+   //     } else {
+//            String nodeId = node.getId();
+//            switch (node.getComponentType()) {
+//                case LINE:
+//                case TWO_WINDINGS_TRANSFORMER:
+//                    initialValue = getBranchInitialValue(node);
+//                    break;
+//
+//                case THREE_WINDINGS_TRANSFORMER:
+//                    // TODO
+//                    break;
+//
+//                case LOAD:
+//                    initialValue = getInjectionInitialValue(network.getLoad(nodeId));
+//                    break;
+//
+//                case INDUCTOR:
+//                case CAPACITOR:
+//                    initialValue = getInjectionInitialValue(network.getShuntCompensator(nodeId));
+//                    break;
+//
+//                case GENERATOR:
+//                    initialValue = getInjectionInitialValue(network.getGenerator(nodeId));
+//                    break;
+//
+//                case STATIC_VAR_COMPENSATOR:
+//                    initialValue = getInjectionInitialValue(network.getStaticVarCompensator(nodeId));
+//                    break;
+//
+//                case VSC_CONVERTER_STATION:
+//                    initialValue = getInjectionInitialValue(network.getVscConverterStation(nodeId));
+//                    break;
+//
+//                case DANGLING_LINE:
+//                    initialValue = getInjectionInitialValue(network.getDanglingLine(nodeId));
+//                    break;
+//
+//                case BUSBAR_SECTION:
+//                case BREAKER:
+//                case LOAD_BREAK_SWITCH:
+//                case DISCONNECTOR:
+//                default:
+//                    break;
+//            }
+//        }
         return initialValue;
     }
 
@@ -109,25 +111,26 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     }
 
     private boolean isNodeTransformer(Node node) {
-        return (node instanceof Feeder2WTNode
-                && node.getComponentType().equals(LINE)
-                && node.getGraph().isForVoltageLevelDiagram())
-                || (node instanceof Feeder3WTNode && !node.getGraph().isForVoltageLevelDiagram());
+        return false;
+//        return (node instanceof Feeder2wtNode
+//                && node.getComponentType().equals(LINE)
+//                && node.getGraph().isForVoltageLevelDiagram())
+//                || (node instanceof Feeder3WTNode && !node.getGraph().isForVoltageLevelDiagram());
     }
 
     private InitialValue getTransformerInitialValue(Node node) {
         // special cases : branch of threeWindingsTransformer in voltageLevel graph
         //               : branch of threeWindingsTransformer in substation graph
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
-        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf((node instanceof Feeder2WTNode ?
-                ((Feeder2WTNode) node).getSide() :
-                ((Feeder3WTNode) node).getSide()).name());
-
-        if (transformer != null) {
-            return buildInitialValue(transformer, side);
-        } else {
+//        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf((node instanceof Feeder2wtNode ?
+//                ((Feeder2wtNode) node).getSide() :
+//                ((Feeder3WTNode) node).getSide()).name());
+//
+//        if (transformer != null) {
+//            return buildInitialValue(transformer, side);
+//        } else {
             return new InitialValue(null, null, null, null, null, null);
-        }
+//        }
     }
 
     private InitialValue getLineInitialValue(Node node) {

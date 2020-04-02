@@ -25,15 +25,15 @@ import com.fasterxml.jackson.core.JsonGenerator;
  */
 public final class SubstationGraph {
 
-    private String substationId;
+    private final String substationId;
 
     private final List<Graph> nodes = new ArrayList<>();
 
-    private List<TwtEdge> edges = new ArrayList<>();
-
     private final Map<String, Graph> nodesById = new HashMap<>();
 
-    private List<Node> multiTermNodes = new ArrayList<>();
+    private List<WindingEdge> windingEdges = new ArrayList<>();
+
+    private List<StarNode> starNodes = new ArrayList<>();
 
     private boolean generateCoordsInJson = true;
 
@@ -59,22 +59,29 @@ public final class SubstationGraph {
         return nodesById.get(id);
     }
 
-    public TwtEdge addEdge(String componentType, Node... nodes) {
-        TwtEdge sl = new TwtEdge(componentType, nodes);
-        edges.add(sl);
-        return sl;
+    public WindingEdge createWindingEdge(Node node1, Node node2) {
+        WindingEdge edge = new WindingEdge(node1, node2);
+        windingEdges.add(edge);
+        if (node1 instanceof StarNode) {
+            node1.addAdjacentEdge(edge);
+        } else if (node2 instanceof StarNode) {
+            node2.addAdjacentEdge(edge);
+        } else {
+            throw new IllegalStateException();
+        }
+        return edge;
     }
 
     public List<Graph> getNodes() {
         return new ArrayList<>(nodes);
     }
 
-    public List<TwtEdge> getEdges() {
-        return new ArrayList<>(edges);
+    public List<WindingEdge> getWindingEdges() {
+        return new ArrayList<>(windingEdges);
     }
 
-    public void setEdges(List<TwtEdge> edges) {
-        this.edges = edges;
+    public void setWindingEdges(List<WindingEdge> windingEdges) {
+        this.windingEdges = windingEdges;
     }
 
     public boolean graphAdjacents(Graph g1, Graph g2) {
@@ -91,12 +98,13 @@ public final class SubstationGraph {
         return substationId;
     }
 
-    public void addMultiTermNode(Node node) {
-        multiTermNodes.add(node);
+    public void addStarNode(StarNode node) {
+        Objects.requireNonNull(node);
+        starNodes.add(node);
     }
 
-    public List<Node> getMultiTermNodes() {
-        return multiTermNodes;
+    public List<StarNode> getStarNodes() {
+        return starNodes;
     }
 
     public void writeJson(Path file) {

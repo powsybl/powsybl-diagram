@@ -11,14 +11,14 @@ import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Feeder2WTNode extends FeederBranchNode {
+public class Feeder2wtNode extends FeederBranchNode {
 
-    public Feeder2WTNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
+    public Feeder2wtNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
                          Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, equipmentId, componentType, fictitious, graph, side, otherSideVoltageLevelInfos);
     }
 
-    public static Feeder2WTNode create(Graph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return new Feeder2WTNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, false, graph, side, otherSideVoltageLevelInfos);
+    public static Feeder2wtNode create(Graph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return new Feeder2wtNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, false, graph, side, otherSideVoltageLevelInfos);
     }
 }

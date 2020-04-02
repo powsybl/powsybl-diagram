@@ -38,9 +38,6 @@ import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData.CouplingDeviceDiagramDetails;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData.InjectionDiagramDetails;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
@@ -482,10 +479,10 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     private void checkSubstationTwt(SubstationGraph graph, int edgesNumber) {
-        assertEquals(edgesNumber, graph.getEdges().size());
-        assertEquals(1, graph.getMultiTermNodes().size());
-        assertEquals(200, graph.getMultiTermNodes().get(0).getX(), 0);
-        assertEquals(20, graph.getMultiTermNodes().get(0).getY(), 0);
+        assertEquals(edgesNumber, graph.getWindingEdges().size());
+        assertEquals(1, graph.getStarNodes().size());
+        assertEquals(200, graph.getStarNodes().get(0).getX(), 0);
+        assertEquals(20, graph.getStarNodes().get(0).getY(), 0);
     }
 
     @Test

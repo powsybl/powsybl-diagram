@@ -10,6 +10,7 @@ package com.powsybl.sld.model;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class FeederLineNode extends FeederBranchNode {
+
     public FeederLineNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
                           Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, equipmentId, componentType, fictitious, graph, side, otherSideVoltageLevelInfos);

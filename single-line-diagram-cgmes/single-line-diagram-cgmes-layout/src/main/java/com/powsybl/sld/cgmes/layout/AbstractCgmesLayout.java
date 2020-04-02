@@ -24,8 +24,7 @@ import java.util.stream.Collectors;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import org.apache.commons.lang3.StringUtils;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Feeder3WTNode;
+import com.powsybl.sld.model.Feeder2wtNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,8 +106,9 @@ public abstract class AbstractCgmesLayout {
     }
 
     protected boolean isLineNode(Node node) {
-        return (!(node instanceof Feeder2WTNode) && !(node instanceof Feeder3WTNode))
-                && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
+        return true;
+//        return (!(node instanceof Feeder2wtNode) && !(node instanceof Feeder3WTNode))
+//                && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
@@ -201,11 +201,12 @@ public abstract class AbstractCgmesLayout {
 
     protected void setFeederNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
         String componentType = node.getComponentType();
-        if (node instanceof Feeder2WTNode) {
+        if (node instanceof Feeder2wtNode) {
             componentType = TWO_WINDINGS_TRANSFORMER;
-        } else if (node instanceof Feeder3WTNode) {
-            componentType = THREE_WINDINGS_TRANSFORMER;
         }
+//        else if (node instanceof Feeder3WTNode) {
+//            componentType = THREE_WINDINGS_TRANSFORMER;
+//        }
         switch (componentType) {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;

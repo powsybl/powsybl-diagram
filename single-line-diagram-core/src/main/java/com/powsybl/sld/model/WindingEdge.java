@@ -14,15 +14,12 @@ import java.util.Objects;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class TwtEdge extends Edge {
-
-    private String componentType;
+public class WindingEdge extends Edge {
 
     private List<Double> snakeLine = new ArrayList<>();
 
-    public TwtEdge(String componentType, Node... nodes) {
-        super(nodes);
-        this.componentType = componentType;
+    public WindingEdge(Node node1, Node node2) {
+        super(node1, node2);
     }
 
     public List<Double> getSnakeLine() {
@@ -31,9 +28,5 @@ public class TwtEdge extends Edge {
 
     public void setSnakeLine(List<Double> snakeLine) {
         this.snakeLine = Objects.requireNonNull(snakeLine);
-    }
-
-    public String getComponentType() {
-        return componentType;
     }
 }

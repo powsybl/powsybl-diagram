@@ -84,14 +84,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
         }
-        for (TwtEdge edge : graph.getEdges()) {
+        for (WindingEdge edge : graph.getWindingEdges()) {
             NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
             NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(edge.getNode2().getGraph().getVoltageLevelInfos().getId());
             undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_1_2", node1, node2, 0, 1, false));
-            if (edge.getNode3() != null) {
-                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(edge.getNode3().getGraph().getVoltageLevelInfos().getId());
-                undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_2_3", node2, node3, 0, 1, false));
-            }
+//            if (edge.getNode3() != null) {
+//                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(edge.getNode3().getGraph().getVoltageLevelInfos().getId());
+//                undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_2_3", node2, node3, 0, 1, false));
+//            }
         }
 
         // Creating the ForceAtlas and run the algorithm
@@ -180,7 +180,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         });
 
         // Sorting the nodes in each edges, by ascending x value, for further snakelines coordinates computation
-        graph.getEdges().stream().forEach(e -> e.getNodes().sort(Comparator.comparingDouble(Node::getX)));
+        graph.getWindingEdges().stream().forEach(e -> e.getNodes().sort(Comparator.comparingDouble(Node::getX)));
 
         // Calculate all the coordinates for the links between the voltageLevel graphs
         // (new fictitious nodes and edges are created here, for the two and three windings transformers)
@@ -193,26 +193,26 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         graph.getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
         Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
-        List<TwtEdge> newEdges = new ArrayList<>();
+        List<WindingEdge> newEdges = new ArrayList<>();
 
-        for (TwtEdge edge : graph.getEdges()) {
+        for (WindingEdge edge : graph.getWindingEdges()) {
             if (edge.getNodes().size() == 2) {
                 List<Double> pol = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(),
                         nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 // we split the original edge in two parts, with a new fictitious node between the two new edges
-                splitEdge2(edge, newEdges, pol);
+              //  splitEdge2(edge, newEdges, pol);
             } else if (edge.getNodes().size() == 3) {
                 List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(),
                         nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, edge.getNode2(), edge.getNode3(),
-                        nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+//                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, edge.getNode2(), edge.getNode3(),
+//                        nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 // we split the original edge in three parts, with a new fictitious node between the three new edges
-                splitEdge3(edge, newEdges, pol1, pol2);
+            //    splitEdge3(edge, newEdges, pol1, pol2);
             }
         }
 
         // replace the old edges by the new edges in the substation graph
-        graph.setEdges(newEdges);
+        graph.setWindingEdges(newEdges);
     }
 
     protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
@@ -400,7 +400,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void changingCellsOrientation(SubstationGraph graph, Map<Graph, Coord> coordsVoltageLevels) {
-        for (TwtEdge edge : graph.getEdges()) {
+        for (WindingEdge edge : graph.getWindingEdges()) {
             FeederNode n1 = (FeederNode) edge.getNode1();
             ExternCell cell1 = (ExternCell) n1.getCell();
             FeederNode n2 = (FeederNode) edge.getNode2();
@@ -425,21 +425,21 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 n2.setDirection(BusCell.Direction.BOTTOM);
             }
 
-            if (edge.getNode3() != null) {
-                FeederNode n3 = (FeederNode) edge.getNode3();
-                ExternCell cell3 = (ExternCell) n3.getCell();
-                Coord c3 = coordsVoltageLevels.get(n3.getGraph());
-
-                if (c3.getY() < c2.getY()) {
-                    // cell for node 3 with bottom orientation
-                    cell3.setDirection(BusCell.Direction.BOTTOM);
-                    n3.setDirection(BusCell.Direction.BOTTOM);
-                } else {
-                    // cell for node 3 with top orientation
-                    cell3.setDirection(BusCell.Direction.TOP);
-                    n3.setDirection(BusCell.Direction.TOP);
-                }
-            }
+//            if (edge.getNode3() != null) {
+//                FeederNode n3 = (FeederNode) edge.getNode3();
+//                ExternCell cell3 = (ExternCell) n3.getCell();
+//                Coord c3 = coordsVoltageLevels.get(n3.getGraph());
+//
+//                if (c3.getY() < c2.getY()) {
+//                    // cell for node 3 with bottom orientation
+//                    cell3.setDirection(BusCell.Direction.BOTTOM);
+//                    n3.setDirection(BusCell.Direction.BOTTOM);
+//                } else {
+//                    // cell for node 3 with top orientation
+//                    cell3.setDirection(BusCell.Direction.TOP);
+//                    n3.setDirection(BusCell.Direction.TOP);
+//                }
+//            }
         }
     }
 }

@@ -6,26 +6,13 @@
  */
 package com.powsybl.sld.layout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell.Direction;
+
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusCell.Direction;
-import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.FictitiousNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Side;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.TwtEdge;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -140,81 +127,42 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         InfosNbSnakeLines infos = new InfosNbSnakeLines(nbSnakeLinesTopBottom, nbSnakeLinesBetween,
                 nbSnakeLinesLeftRight, nbSnakeLinesBottomVL, nbSnakeLinesTopVL);
 
-        List<TwtEdge> newEdges = new ArrayList<>();
+        for (StarNode starNode : graph.getStarNodes()) {
+            Coord starNodeCoord = new Coord(-1, -1);
 
-        for (TwtEdge edge : graph.getEdges()) {
-            if (edge.getNodes().size() == 2) {
-                List<Double> pol = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(), infos, true);
-                // we split the original edge in two parts, with a new fictitious node between the two new edges
-                splitEdge2(edge, newEdges, pol);
-            } else if (edge.getNodes().size() == 3) {
-                List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(), infos, true);
-                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, edge.getNode2(), edge.getNode3(), infos, false);
-                // we split the original edge in three parts, with a new fictitious node between the three new edges
-                splitEdge3(edge, newEdges, pol1, pol2);
+            List<Edge> edges = starNode.getAdjacentEdges();
+            if (edges.size() == 2) {
+                WindingEdge edge1 = (WindingEdge) edges.get(0);
+                WindingEdge edge2 = (WindingEdge) edges.get(1);
+                Node node1 = edge1.getNode1() == starNode ? edge1.getNode2() : edge1.getNode1();
+                Node node2 = edge2.getNode1() == starNode ? edge2.getNode2() : edge2.getNode1();
+
+                // set intermediate coordinates of the snake lines
+                List<Double> pol = calculatePolylineSnakeLine(layoutParameters, node1, node2, infos, true);
+                edge1.setSnakeLine(splitPolyline2(pol, 1, starNodeCoord));
+                edge2.setSnakeLine(splitPolyline2(pol, 2, null));
+            } else if (edges.size() == 3) {
+                WindingEdge edge1 = (WindingEdge) edges.get(0);
+                WindingEdge edge2 = (WindingEdge) edges.get(1);
+                WindingEdge edge3 = (WindingEdge) edges.get(2);
+                Node node1 = edge1.getNode1() == starNode ? edge1.getNode2() : edge1.getNode1();
+                Node node2 = edge2.getNode1() == starNode ? edge2.getNode2() : edge2.getNode1();
+                Node node3 = edge3.getNode1() == starNode ? edge3.getNode2() : edge3.getNode1();
+
+                // set intermediate coordinates of the snake lines
+                List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, node1, node2, infos, true);
+                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, node2, node3, infos, false);
+                edge1.setSnakeLine(splitPolyline3(pol1, pol2, 1, starNodeCoord));
+                edge2.setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
+                edge3.setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
+            } else {
+                throw new IllegalStateException();
             }
+
+            // set coordinates of the star node
+            starNode.setX(starNodeCoord.getX(), false, false);
+            starNode.setY(starNodeCoord.getY(), false, false);
         }
-
-        // replace the old edges by the new edges in the substation graph
-        graph.setEdges(newEdges);
-    }
-
-    protected void splitEdge2(TwtEdge edge, List<TwtEdge> edges, List<Double> pol) {
-        // Creation of a new fictitious node outside any graph
-        String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId();
-        Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
-        Coord coordNodeFict = new Coord(-1, -1);
-
-        // Creation of a new edge between node1 and the new fictitious node
-        TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
-        edge1.setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
-        edges.add(edge1);
-
-        // Creation of a new edge between the new fictitious node and node2
-        TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
-        edge2.setSnakeLine(splitPolyline2(pol, 2, null));
-        edges.add(edge2);
-
-        // Setting the coordinates of the new fictitious node
-        nodeFict.setX(coordNodeFict.getX(), false, false);
-        nodeFict.setY(coordNodeFict.getY(), false, false);
-        nodeFict.addAdjacentEdge(edge1);
-        nodeFict.addAdjacentEdge(edge2);
-
-        // the new fictitious node is store in the substation graph
-        graph.addMultiTermNode(nodeFict);
-    }
-
-    protected void splitEdge3(TwtEdge edge, List<TwtEdge> edges, List<Double> pol1, List<Double> pol2) {
-        // Creation of a new fictitious node outside any graph
-        String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId() + "_" + edge.getNode3().getId();
-        Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
-        Coord coordNodeFict = new Coord(-1, -1);
-
-        // Creation of a new edge between node1 and the new fictitious node
-        TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
-        edge1.setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
-        edges.add(edge1);
-
-        // Creation of a new edge between the new fictitious node and node2
-        TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
-        edge2.setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
-        edges.add(edge2);
-
-        // Creation of a new edge between the new fictitious node and node3
-        TwtEdge edge3 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode3());
-        edge3.setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-        edges.add(edge3);
-
-        // Setting the coordinates of the new fictitious node
-        nodeFict.setX(coordNodeFict.getX(), false, false);
-        nodeFict.setY(coordNodeFict.getY(), false, false);
-        nodeFict.addAdjacentEdge(edge1);
-        nodeFict.addAdjacentEdge(edge2);
-        nodeFict.addAdjacentEdge(edge3);
-
-        // the new fictitious node is store in the substation graph
-        graph.addMultiTermNode(nodeFict);
     }
 
     protected List<Double> splitPolyline2(List<Double> pol, int numPart, Coord coord) {

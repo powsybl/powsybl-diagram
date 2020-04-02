@@ -44,7 +44,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.StarNode;
 import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.commons.lang3.StringUtils;
@@ -77,7 +77,7 @@ import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.model.WindingEdge;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
@@ -321,8 +321,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG, graph.getEdges());
-        graph.getMultiTermNodes().stream().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
+        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG, graph.getWindingEdges());
+        graph.getStarNodes().stream().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
@@ -495,7 +495,10 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, node.getComponentType() + " " + nodeId);
 
             if (node.getType() == Node.NodeType.BUS) {
-                drawBus((BusNode) node, g);
+                Element busElement = drawBus((BusNode) node, g);
+
+                Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, null, null, layoutParameters.isShowInternalNodes());
+                svgStyle.forEach((busElement)::setAttribute);
             } else {
                 incorporateComponents(prefixId, node, g, styleProvider);
             }
@@ -586,7 +589,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar sections
      */
-    protected void drawBus(BusNode node, Element g) {
+    protected Element drawBus(BusNode node, Element g) {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
@@ -602,6 +605,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + (layoutParameters.getTranslateX() + node.getX()) + ","
                 + (layoutParameters.getTranslateY() + node.getY()) + ")");
+
+        return line;
     }
 
     /*
@@ -647,7 +652,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void handleNodeRotation(Node node) {
         if (node.getGraph() != null) { // node in voltage level graph
-            if (node instanceof Fictitious3WTNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+            if (node instanceof StarNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
                 node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
             }
         } else {  // node outside any graph
@@ -655,8 +660,8 @@ public class DefaultSVGWriter implements SVGWriter {
             adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
             if (adjacentNodes.size() == 2) {  // 2 windings transformer
                 List<Edge> edges = node.getAdjacentEdges();
-                List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
-                List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
+                List<Double> pol1 = ((WindingEdge) edges.get(0)).getSnakeLine();
+                List<Double> pol2 = ((WindingEdge) edges.get(1)).getSnakeLine();
                 double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
                 double x2 = pol2.get(2);  // absciss of the second polyline third point
                 if (x1 == x2) {
@@ -1019,7 +1024,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph,
                                   GraphMetadata metadata, AnchorPointProvider anchorPointProvider) {
-        for (TwtEdge edge : graph.getEdges()) {
+        for (WindingEdge edge : graph.getWindingEdges()) {
             Graph g1 = edge.getNode1().getGraph();
             Graph g2 = edge.getNode2().getGraph();
 
@@ -1033,7 +1038,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String tmp = g1 != null ? g1.getVoltageLevelInfos().getId() : "_";
             tmp += g2 != null ? g2.getVoltageLevelInfos().getId() : "_";
 
-            String wireId = escapeId(prefixId + tmp + "_" + "Wire" + graph.getEdges().indexOf(edge));
+            String wireId = escapeId(prefixId + tmp + "_" + "Wire" + graph.getWindingEdges().indexOf(edge));
             Element g = root.getOwnerDocument().createElement(POLYLINE);
             g.setAttribute("id", wireId);
 
@@ -1069,7 +1074,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Adaptation of the previously calculated snakeLine points, in order to use the anchor points
      * of the node outside any graph
      */
-    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, TwtEdge edge, List<Double> pol) {
+    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, WindingEdge edge, List<Double> pol) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
@@ -1285,7 +1290,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                           GraphMetadata metadata,
                                           DiagramStyleProvider styleProvider,
                                           AnchorPointProvider anchorPointProvider) {
-        graph.getMultiTermNodes().stream().forEach(node -> {
+        graph.getStarNodes().stream().forEach(node -> {
 
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement("g");

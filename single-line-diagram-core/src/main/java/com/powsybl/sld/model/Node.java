@@ -327,4 +327,8 @@ public class Node implements BaseNode {
     public void shiftY(double yShift) {
         y += yShift;
     }
+
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return graph != null ? graph.getVoltageLevelInfos() : null;
+    }
 }

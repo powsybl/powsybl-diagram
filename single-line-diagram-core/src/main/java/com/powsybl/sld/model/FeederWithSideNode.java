@@ -12,14 +12,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class Feeder3WTNode extends FeederNode {
+public class FeederWithSideNode extends FeederNode {
 
     private final Side side;
 
-    public Feeder3WTNode(String id, String name, String equipmentId, String componentType,
-                         boolean fictitious, Graph graph, Side side) {
+    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
+                                 Graph graph, Side side) {
         super(id, name, equipmentId, componentType, fictitious, graph);
         this.side = Objects.requireNonNull(side);
     }
@@ -31,6 +31,6 @@ public class Feeder3WTNode extends FeederNode {
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
-        generator.writeStringField("transformerSide", side.name());
+        generator.writeStringField("side", side.name());
     }
 }

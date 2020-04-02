@@ -12,11 +12,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Fictitious3WTNode extends FictitiousNode {
+public class StarNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg1;
 
@@ -24,12 +25,16 @@ public class Fictitious3WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg3;
 
-    public Fictitious3WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
-                             VoltageLevelInfos voltageLevelInfosLeg3) {
-        super(graph, id, THREE_WINDINGS_TRANSFORMER);
+    public StarNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2) {
+        this(graph, id, voltageLevelInfosLeg1, voltageLevelInfosLeg2, null);
+    }
+
+    public StarNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+                    VoltageLevelInfos voltageLevelInfosLeg3) {
+        super(graph, id, voltageLevelInfosLeg3 != null ? THREE_WINDINGS_TRANSFORMER : TWO_WINDINGS_TRANSFORMER);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
-        this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
+        this.voltageLevelInfosLeg3 = voltageLevelInfosLeg3;
     }
 
     public VoltageLevelInfos getVoltageLevelInfosLeg1() {
@@ -54,7 +59,9 @@ public class Fictitious3WTNode extends FictitiousNode {
         generator.writeFieldName("voltageLevelInfosLeg2");
         voltageLevelInfosLeg2.writeJsonContent(generator);
 
-        generator.writeFieldName("voltageLevelInfosLeg3");
-        voltageLevelInfosLeg3.writeJsonContent(generator);
+        if (voltageLevelInfosLeg3 != null) {
+            generator.writeFieldName("voltageLevelInfosLeg3");
+            voltageLevelInfosLeg3.writeJsonContent(generator);
+        }
     }
 }

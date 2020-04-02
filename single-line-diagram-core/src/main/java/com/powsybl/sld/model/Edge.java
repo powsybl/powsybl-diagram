@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -19,41 +20,31 @@ import java.util.List;
  */
 public class Edge {
 
-    private final List<Node> nodes;
+    private final Node node1;
 
-    /**
-     * Constructor
-     * @param nodes list of nodes
-     */
-    public Edge(Node...nodes) {
-        this.nodes = Arrays.asList(nodes);
-    }
+    private final Node node2;
 
-    public Node getNode(int index) {
-        return nodes.get(index);
+    public Edge(Node node1, Node node2) {
+        this.node1 = Objects.requireNonNull(node1);
+        this.node2 = Objects.requireNonNull(node2);
     }
 
     public Node getNode1() {
-        return getNode(0);
+        return node1;
     }
 
     public Node getNode2() {
-        return getNode(1);
-    }
-
-    public Node getNode3() {
-        return nodes.size() > 2 ? getNode(2) : null;
+        return node2;
     }
 
     public List<Node> getNodes() {
-        return nodes;
+        return Arrays.asList(node1, node2);
     }
 
     void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        for (int i = 1; i <= nodes.size(); ++i) {
-            generator.writeStringField("node" + i, nodes.get(i - 1).getId());
-        }
+        generator.writeStringField("node1", node1.getId());
+        generator.writeStringField("node2", node2.getId());
         generator.writeEndObject();
     }
 }

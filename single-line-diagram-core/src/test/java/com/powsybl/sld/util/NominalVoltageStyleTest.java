@@ -125,9 +125,9 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         assertTrue(node2WTStyle.containsKey("stroke"));
         assertEquals("#ff0000", node2WTStyle.get("stroke"));
 
-        Optional<String> color = styleProvider.getColor(400, null);
-        assertTrue(color.isPresent());
-        assertEquals("#ff0000", color.get());
+//        Optional<String> color = styleProvider.getColor(400, null);
+//        assertTrue(color.isPresent());
+//        assertEquals("#ff0000", color.get());
 
         Map<String, String> attributesArrow = styleProvider.getAttributesArrow(1);
         assertEquals(3, attributesArrow.size());
