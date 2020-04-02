@@ -306,8 +306,5 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
-        <g id="LABEL_VL_vl2">
-            <text x="550.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl2</text>
-        </g>
     </g>
 </svg>

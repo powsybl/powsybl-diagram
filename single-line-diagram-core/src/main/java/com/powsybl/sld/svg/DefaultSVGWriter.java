@@ -243,10 +243,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
 
-        // the drawing of the voltageLevel graph label is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        drawGraphLabel(prefixId, root, graph, metadata);
-
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
 
