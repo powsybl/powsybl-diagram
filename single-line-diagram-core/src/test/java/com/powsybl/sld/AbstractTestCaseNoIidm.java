@@ -45,7 +45,6 @@ public abstract class AbstractTestCaseNoIidm {
         return getClass().getSimpleName();
     }
 
-
     public String toSVG(Graph graph,
                         String filename,
                         LayoutParameters layoutParameters,
