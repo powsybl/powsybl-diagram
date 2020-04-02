@@ -213,7 +213,7 @@ public final class Graph {
      */
     private void removeEdge(Node n1, Node n2) {
         for (Edge edge : n1.getAdjacentEdges()) {
-            if ((edge.getNode1().equals(n2) || edge.getNode2().equals(n2))) {
+            if (edge.getNode1().equals(n2) || edge.getNode2().equals(n2)) {
                 removeEdge(edge);
                 return;
             }
