@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -46,7 +46,7 @@ public class LoadDiagramDataImporter extends AbstractInjectionDiagramDataImporte
             addTerminalPoints(loadId, load.getName(), loadDiagramData.get("diagramName"), diagramDetails);
             loadIidmDiagramData.addData(loadDiagramData.get("diagramName"), diagramDetails);
             load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"));
+            NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"), load.getTerminal().getVoltageLevel().getSubstation().getId());
         } else {
             LOG.warn("Cannot find load {}, name {} in network {}: skipping load diagram data", loadId, loadDiagramData.get("name"), network.getId());
         }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -47,7 +47,7 @@ public class SwitchDiagramDataImporter extends AbstractCouplingDeviceDiagramData
             addTerminalPoints(switchId, sw.getName(), switchesDiagramData.get("diagramName"), DiagramTerminal.TERMINAL2, "2", diagramDetails);
             switchIidmDiagramData.addData(switchesDiagramData.get("diagramName"), diagramDetails);
             sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, switchesDiagramData.get("diagramName"));
+            NetworkDiagramData.addDiagramName(network, switchesDiagramData.get("diagramName"), sw.getVoltageLevel().getSubstation().getId());
         } else {
             LOG.warn("Cannot find switch {}, name {} in network {}: skipping switch diagram data", switchId, switchesDiagramData.get("name"), network.getId());
         }

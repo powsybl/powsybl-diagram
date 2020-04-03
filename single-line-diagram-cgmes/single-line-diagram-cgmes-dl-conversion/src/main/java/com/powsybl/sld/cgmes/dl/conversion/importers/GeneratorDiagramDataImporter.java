@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -46,7 +46,7 @@ public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataIm
             addTerminalPoints(generatorId, generator.getName(), generatorDiagramData.get("diagramName"), diagramDetails);
             generatorIidmDiagramData.addData(generatorDiagramData.get("diagramName"), diagramDetails);
             generator.addExtension(InjectionDiagramData.class, generatorIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"));
+            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"), generator.getTerminal().getVoltageLevel().getSubstation().getId());
         } else {
             LOG.warn("Cannot find generator {}, name {} in network {}: skipping generator diagram data", generatorId, generatorDiagramData.get("name"), network.getId());
         }
