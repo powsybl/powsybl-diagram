@@ -19,6 +19,7 @@ import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class BusNode extends Node {
 
@@ -29,7 +30,7 @@ public class BusNode extends Node {
     private Position position = new Position(-1, -1);
 
     protected BusNode(String id, String name, boolean fictitious, Graph graph) {
-        super(NodeType.BUS, id, name, BUSBAR_SECTION, fictitious, graph);
+        super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious, graph);
     }
 
     public static BusNode create(Graph graph, String id, String name) {

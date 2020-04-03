@@ -37,6 +37,12 @@ public class TestCase1BusBreaker extends AbstractTestCase {
         view.newBus()
                 .setId("b2")
                 .add();
+        view.newSwitch()
+                .setId("sw")
+                .setBus1("b1")
+                .setBus2("b2")
+                .setOpen(false)
+                .add();
         Load l = vl.newLoad()
                 .setId("l")
                 .setConnectableBus("b1")
@@ -49,7 +55,7 @@ public class TestCase1BusBreaker extends AbstractTestCase {
     @Test
     public void test() {
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true, false);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

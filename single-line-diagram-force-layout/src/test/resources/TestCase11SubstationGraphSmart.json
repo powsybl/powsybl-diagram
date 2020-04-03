@@ -1,5 +1,9 @@
 [ {
-  "id" : "vl1",
+  "voltageLevelInfos" : {
+    "id" : "vl1",
+    "name" : "vl1",
+    "nominalVoltage" : 400.0
+  },
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
@@ -35,6 +39,7 @@
           "type" : "BUS",
           "id" : "bbs2",
           "name" : "bbs2",
+          "equipmentId" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -55,6 +60,7 @@
           "type" : "SWITCH",
           "id" : "dsect12",
           "name" : "dsect12",
+          "equipmentId" : "dsect12",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -63,6 +69,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect12Fictif",
           "name" : "dsect12Fictif",
+          "equipmentId" : "dsect12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -86,6 +93,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect12Fictif",
           "name" : "dsect12Fictif",
+          "equipmentId" : "dsect12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -94,6 +102,7 @@
           "type" : "SWITCH",
           "id" : "dtrct11",
           "name" : "dtrct11",
+          "equipmentId" : "dtrct11",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "rotationAngle" : 90.0,
@@ -103,6 +112,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect11Fictif",
           "name" : "dsect11Fictif",
+          "equipmentId" : "dsect11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -126,6 +136,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -146,6 +157,7 @@
           "type" : "SWITCH",
           "id" : "dsect11",
           "name" : "dsect11",
+          "equipmentId" : "dsect11",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -154,6 +166,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect11Fictif",
           "name" : "dsect11Fictif",
+          "equipmentId" : "dsect11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -196,6 +209,7 @@
           "type" : "BUS",
           "id" : "bbs4",
           "name" : "bbs4",
+          "equipmentId" : "bbs4",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -216,6 +230,7 @@
           "type" : "SWITCH",
           "id" : "dsect22",
           "name" : "dsect22",
+          "equipmentId" : "dsect22",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -224,6 +239,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect22Fictif",
           "name" : "dsect22Fictif",
+          "equipmentId" : "dsect22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -247,6 +263,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect22Fictif",
           "name" : "dsect22Fictif",
+          "equipmentId" : "dsect22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -255,6 +272,7 @@
           "type" : "SWITCH",
           "id" : "dtrct21",
           "name" : "dtrct21",
+          "equipmentId" : "dtrct21",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "rotationAngle" : 90.0,
@@ -264,6 +282,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect21Fictif",
           "name" : "dsect21Fictif",
+          "equipmentId" : "dsect21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -287,6 +306,7 @@
           "type" : "BUS",
           "id" : "bbs3",
           "name" : "bbs3",
+          "equipmentId" : "bbs3",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -307,6 +327,7 @@
           "type" : "SWITCH",
           "id" : "dsect21",
           "name" : "dsect21",
+          "equipmentId" : "dsect21",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -315,6 +336,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dsect21Fictif",
           "name" : "dsect21Fictif",
+          "equipmentId" : "dsect21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -358,6 +380,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -378,6 +401,7 @@
           "type" : "SWITCH",
           "id" : "dload1",
           "name" : "dload1",
+          "equipmentId" : "dload1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -386,6 +410,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dload1Fictif",
           "name" : "dload1Fictif",
+          "equipmentId" : "dload1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -408,6 +433,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dload1Fictif",
           "name" : "dload1Fictif",
+          "equipmentId" : "dload1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -415,6 +441,7 @@
           "type" : "SWITCH",
           "id" : "bload1",
           "name" : "bload1",
+          "equipmentId" : "bload1",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -423,6 +450,7 @@
           "type" : "FEEDER",
           "id" : "load1",
           "name" : "load1",
+          "equipmentId" : "load1",
           "componentType" : "LOAD",
           "fictitious" : false,
           "open" : false,
@@ -467,6 +495,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -487,6 +516,7 @@
           "type" : "SWITCH",
           "id" : "dtrf11",
           "name" : "dtrf11",
+          "equipmentId" : "dtrf11",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -495,6 +525,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf11Fictif",
           "name" : "dtrf11Fictif",
+          "equipmentId" : "dtrf11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -517,6 +548,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf11Fictif",
           "name" : "dtrf11Fictif",
+          "equipmentId" : "dtrf11Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -524,6 +556,7 @@
           "type" : "SWITCH",
           "id" : "btrf11",
           "name" : "btrf11",
+          "equipmentId" : "btrf11",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -531,13 +564,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf1_ONE",
-          "name" : "trf1_ONE",
+          "name" : "trf1",
+          "equipmentId" : "trf1",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf1",
           "order" : 1,
-          "otherSideVlId" : "vl2"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -577,6 +616,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -597,6 +637,7 @@
           "type" : "SWITCH",
           "id" : "dtrf15",
           "name" : "dtrf15",
+          "equipmentId" : "dtrf15",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -605,6 +646,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf15Fictif",
           "name" : "dtrf15Fictif",
+          "equipmentId" : "dtrf15Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -627,6 +669,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf15Fictif",
           "name" : "dtrf15Fictif",
+          "equipmentId" : "dtrf15Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -634,6 +677,7 @@
           "type" : "SWITCH",
           "id" : "btrf15",
           "name" : "btrf15",
+          "equipmentId" : "btrf15",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -641,13 +685,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf5_ONE",
-          "name" : "trf5_ONE",
+          "name" : "trf5",
+          "equipmentId" : "trf5",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf5",
           "order" : 2,
-          "otherSideVlId" : "vl3"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -687,6 +737,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -707,6 +758,7 @@
           "type" : "SWITCH",
           "id" : "dtrf16",
           "name" : "dtrf16",
+          "equipmentId" : "dtrf16",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -715,6 +767,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf16Fictif",
           "name" : "dtrf16Fictif",
+          "equipmentId" : "dtrf16Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -737,6 +790,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf16Fictif",
           "name" : "dtrf16Fictif",
+          "equipmentId" : "dtrf16Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -744,6 +798,7 @@
           "type" : "SWITCH",
           "id" : "btrf16",
           "name" : "btrf16",
+          "equipmentId" : "btrf16",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -751,7 +806,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf6_ONE",
-          "name" : "trf6_ONE",
+          "name" : "trf6",
+          "equipmentId" : "trf6",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -798,6 +854,7 @@
           "type" : "BUS",
           "id" : "bbs1",
           "name" : "bbs1",
+          "equipmentId" : "bbs1",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -818,6 +875,7 @@
           "type" : "SWITCH",
           "id" : "dline11_2",
           "name" : "dline11_2",
+          "equipmentId" : "dline11_2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -826,6 +884,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dline11_2Fictif",
           "name" : "dline11_2Fictif",
+          "equipmentId" : "dline11_2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -848,6 +907,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dline11_2Fictif",
           "name" : "dline11_2Fictif",
+          "equipmentId" : "dline11_2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -855,6 +915,7 @@
           "type" : "SWITCH",
           "id" : "bline11_2",
           "name" : "bline11_2",
+          "equipmentId" : "bline11_2",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -862,13 +923,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "line1_ONE",
-          "name" : "line1_ONE",
+          "name" : "line1",
+          "equipmentId" : "line1",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "line1",
           "order" : 3,
-          "otherSideVlId" : "vlSubst2"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vlSubst2",
+            "name" : "vlSubst2",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -908,6 +975,7 @@
           "type" : "BUS",
           "id" : "bbs2",
           "name" : "bbs2",
+          "equipmentId" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -928,6 +996,7 @@
           "type" : "SWITCH",
           "id" : "dload2",
           "name" : "dload2",
+          "equipmentId" : "dload2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -936,6 +1005,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dload2Fictif",
           "name" : "dload2Fictif",
+          "equipmentId" : "dload2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -958,6 +1028,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dload2Fictif",
           "name" : "dload2Fictif",
+          "equipmentId" : "dload2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -965,6 +1036,7 @@
           "type" : "SWITCH",
           "id" : "bload2",
           "name" : "bload2",
+          "equipmentId" : "bload2",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -973,6 +1045,7 @@
           "type" : "FEEDER",
           "id" : "load2",
           "name" : "load2",
+          "equipmentId" : "load2",
           "componentType" : "LOAD",
           "fictitious" : false,
           "open" : false,
@@ -1017,6 +1090,7 @@
           "type" : "BUS",
           "id" : "bbs2",
           "name" : "bbs2",
+          "equipmentId" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1037,6 +1111,7 @@
           "type" : "SWITCH",
           "id" : "dtrf12",
           "name" : "dtrf12",
+          "equipmentId" : "dtrf12",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1045,6 +1120,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf12Fictif",
           "name" : "dtrf12Fictif",
+          "equipmentId" : "dtrf12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1067,6 +1143,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf12Fictif",
           "name" : "dtrf12Fictif",
+          "equipmentId" : "dtrf12Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1074,6 +1151,7 @@
           "type" : "SWITCH",
           "id" : "btrf12",
           "name" : "btrf12",
+          "equipmentId" : "btrf12",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1081,13 +1159,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf2_ONE",
-          "name" : "trf2_ONE",
+          "name" : "trf2",
+          "equipmentId" : "trf2",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf2",
           "order" : 3,
-          "otherSideVlId" : "vl2"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1127,6 +1211,7 @@
           "type" : "BUS",
           "id" : "bbs2",
           "name" : "bbs2",
+          "equipmentId" : "bbs2",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1147,6 +1232,7 @@
           "type" : "SWITCH",
           "id" : "dtrf18",
           "name" : "dtrf18",
+          "equipmentId" : "dtrf18",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1155,6 +1241,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf18Fictif",
           "name" : "dtrf18Fictif",
+          "equipmentId" : "dtrf18Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1177,6 +1264,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf18Fictif",
           "name" : "dtrf18Fictif",
+          "equipmentId" : "dtrf18Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1184,6 +1272,7 @@
           "type" : "SWITCH",
           "id" : "btrf18",
           "name" : "btrf18",
+          "equipmentId" : "btrf18",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1191,7 +1280,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf8_ONE",
-          "name" : "trf8_ONE",
+          "name" : "trf8",
+          "equipmentId" : "trf8",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -1238,6 +1328,7 @@
           "type" : "BUS",
           "id" : "bbs3",
           "name" : "bbs3",
+          "equipmentId" : "bbs3",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1258,6 +1349,7 @@
           "type" : "SWITCH",
           "id" : "dgen1",
           "name" : "dgen1",
+          "equipmentId" : "dgen1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1266,6 +1358,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dgen1Fictif",
           "name" : "dgen1Fictif",
+          "equipmentId" : "dgen1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1288,6 +1381,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dgen1Fictif",
           "name" : "dgen1Fictif",
+          "equipmentId" : "dgen1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1295,6 +1389,7 @@
           "type" : "SWITCH",
           "id" : "bgen1",
           "name" : "bgen1",
+          "equipmentId" : "bgen1",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1303,6 +1398,7 @@
           "type" : "FEEDER",
           "id" : "gen1",
           "name" : "gen1",
+          "equipmentId" : "gen1",
           "componentType" : "GENERATOR",
           "fictitious" : false,
           "open" : false,
@@ -1347,6 +1443,7 @@
           "type" : "BUS",
           "id" : "bbs3",
           "name" : "bbs3",
+          "equipmentId" : "bbs3",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1367,6 +1464,7 @@
           "type" : "SWITCH",
           "id" : "dtrf13",
           "name" : "dtrf13",
+          "equipmentId" : "dtrf13",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1375,6 +1473,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf13Fictif",
           "name" : "dtrf13Fictif",
+          "equipmentId" : "dtrf13Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1397,6 +1496,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf13Fictif",
           "name" : "dtrf13Fictif",
+          "equipmentId" : "dtrf13Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1404,6 +1504,7 @@
           "type" : "SWITCH",
           "id" : "btrf13",
           "name" : "btrf13",
+          "equipmentId" : "btrf13",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1411,13 +1512,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf3_ONE",
-          "name" : "trf3_ONE",
+          "name" : "trf3",
+          "equipmentId" : "trf3",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf3",
           "order" : 1,
-          "otherSideVlId" : "vl2"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1457,6 +1564,7 @@
           "type" : "BUS",
           "id" : "bbs3",
           "name" : "bbs3",
+          "equipmentId" : "bbs3",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1477,6 +1585,7 @@
           "type" : "SWITCH",
           "id" : "dtrf17",
           "name" : "dtrf17",
+          "equipmentId" : "dtrf17",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1485,6 +1594,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf17Fictif",
           "name" : "dtrf17Fictif",
+          "equipmentId" : "dtrf17Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1507,6 +1617,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf17Fictif",
           "name" : "dtrf17Fictif",
+          "equipmentId" : "dtrf17Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1514,6 +1625,7 @@
           "type" : "SWITCH",
           "id" : "btrf17",
           "name" : "btrf17",
+          "equipmentId" : "btrf17",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1521,7 +1633,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf7_ONE",
-          "name" : "trf7_ONE",
+          "name" : "trf7",
+          "equipmentId" : "trf7",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -1568,6 +1681,7 @@
           "type" : "BUS",
           "id" : "bbs4",
           "name" : "bbs4",
+          "equipmentId" : "bbs4",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1588,6 +1702,7 @@
           "type" : "SWITCH",
           "id" : "dgen2",
           "name" : "dgen2",
+          "equipmentId" : "dgen2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1596,6 +1711,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dgen2Fictif",
           "name" : "dgen2Fictif",
+          "equipmentId" : "dgen2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1618,6 +1734,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dgen2Fictif",
           "name" : "dgen2Fictif",
+          "equipmentId" : "dgen2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1625,6 +1742,7 @@
           "type" : "SWITCH",
           "id" : "bgen2",
           "name" : "bgen2",
+          "equipmentId" : "bgen2",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1633,6 +1751,7 @@
           "type" : "FEEDER",
           "id" : "gen2",
           "name" : "gen2",
+          "equipmentId" : "gen2",
           "componentType" : "GENERATOR",
           "fictitious" : false,
           "open" : false,
@@ -1677,6 +1796,7 @@
           "type" : "BUS",
           "id" : "bbs4",
           "name" : "bbs4",
+          "equipmentId" : "bbs4",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -1697,6 +1817,7 @@
           "type" : "SWITCH",
           "id" : "dtrf14",
           "name" : "dtrf14",
+          "equipmentId" : "dtrf14",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -1705,6 +1826,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf14Fictif",
           "name" : "dtrf14Fictif",
+          "equipmentId" : "dtrf14Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1727,6 +1849,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl1_dtrf14Fictif",
           "name" : "dtrf14Fictif",
+          "equipmentId" : "dtrf14Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -1734,6 +1857,7 @@
           "type" : "SWITCH",
           "id" : "btrf14",
           "name" : "btrf14",
+          "equipmentId" : "btrf14",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -1741,13 +1865,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf4_ONE",
-          "name" : "trf4_ONE",
+          "name" : "trf4",
+          "equipmentId" : "trf4",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf4",
           "order" : 2,
-          "otherSideVlId" : "vl2"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -1946,7 +2076,11 @@
     "node2" : "FICT_vl1_dtrf14Fictif"
   } ]
 }, {
-  "id" : "vl2",
+  "voltageLevelInfos" : {
+    "id" : "vl2",
+    "name" : "vl2",
+    "nominalVoltage" : 225.0
+  },
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
@@ -1982,6 +2116,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2002,6 +2137,7 @@
           "type" : "SWITCH",
           "id" : "dscpl2",
           "name" : "dscpl2",
+          "equipmentId" : "dscpl2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2010,6 +2146,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dscpl2Fictif",
           "name" : "dscpl2Fictif",
+          "equipmentId" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -2033,6 +2170,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dscpl2Fictif",
           "name" : "dscpl2Fictif",
+          "equipmentId" : "dscpl2Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -2041,6 +2179,7 @@
           "type" : "SWITCH",
           "id" : "ddcpl1",
           "name" : "ddcpl1",
+          "equipmentId" : "ddcpl1",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "rotationAngle" : 90.0,
@@ -2050,6 +2189,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dscpl1Fictif",
           "name" : "dscpl1Fictif",
+          "equipmentId" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -2073,6 +2213,7 @@
           "type" : "BUS",
           "id" : "bbs5",
           "name" : "bbs5",
+          "equipmentId" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2093,6 +2234,7 @@
           "type" : "SWITCH",
           "id" : "dscpl1",
           "name" : "dscpl1",
+          "equipmentId" : "dscpl1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2101,6 +2243,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dscpl1Fictif",
           "name" : "dscpl1Fictif",
+          "equipmentId" : "dscpl1Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "rotationAngle" : 90.0,
@@ -2144,6 +2287,7 @@
           "type" : "BUS",
           "id" : "bbs5",
           "name" : "bbs5",
+          "equipmentId" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2164,6 +2308,7 @@
           "type" : "SWITCH",
           "id" : "dload3",
           "name" : "dload3",
+          "equipmentId" : "dload3",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2172,6 +2317,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dload3Fictif",
           "name" : "dload3Fictif",
+          "equipmentId" : "dload3Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2194,6 +2340,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dload3Fictif",
           "name" : "dload3Fictif",
+          "equipmentId" : "dload3Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2201,6 +2348,7 @@
           "type" : "SWITCH",
           "id" : "bload3",
           "name" : "bload3",
+          "equipmentId" : "bload3",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2209,6 +2357,7 @@
           "type" : "FEEDER",
           "id" : "load3",
           "name" : "load3",
+          "equipmentId" : "load3",
           "componentType" : "LOAD",
           "fictitious" : false,
           "open" : false,
@@ -2253,6 +2402,7 @@
           "type" : "BUS",
           "id" : "bbs5",
           "name" : "bbs5",
+          "equipmentId" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2273,6 +2423,7 @@
           "type" : "SWITCH",
           "id" : "dtrf21",
           "name" : "dtrf21",
+          "equipmentId" : "dtrf21",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2281,6 +2432,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf21Fictif",
           "name" : "dtrf21Fictif",
+          "equipmentId" : "dtrf21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2303,6 +2455,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf21Fictif",
           "name" : "dtrf21Fictif",
+          "equipmentId" : "dtrf21Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2310,6 +2463,7 @@
           "type" : "SWITCH",
           "id" : "btrf21",
           "name" : "btrf21",
+          "equipmentId" : "btrf21",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2317,13 +2471,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf1_TWO",
-          "name" : "trf1_TWO",
+          "name" : "trf1",
+          "equipmentId" : "trf1",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf1",
           "order" : 1,
-          "otherSideVlId" : "vl1"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2363,6 +2523,7 @@
           "type" : "BUS",
           "id" : "bbs5",
           "name" : "bbs5",
+          "equipmentId" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2383,6 +2544,7 @@
           "type" : "SWITCH",
           "id" : "dtrf24",
           "name" : "dtrf24",
+          "equipmentId" : "dtrf24",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2391,6 +2553,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf24Fictif",
           "name" : "dtrf24Fictif",
+          "equipmentId" : "dtrf24Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2413,6 +2576,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf24Fictif",
           "name" : "dtrf24Fictif",
+          "equipmentId" : "dtrf24Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2420,6 +2584,7 @@
           "type" : "SWITCH",
           "id" : "btrf24",
           "name" : "btrf24",
+          "equipmentId" : "btrf24",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2427,13 +2592,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf4_TWO",
-          "name" : "trf4_TWO",
+          "name" : "trf4",
+          "equipmentId" : "trf4",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf4",
           "order" : 2,
-          "otherSideVlId" : "vl1"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2473,6 +2644,7 @@
           "type" : "BUS",
           "id" : "bbs5",
           "name" : "bbs5",
+          "equipmentId" : "bbs5",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2493,6 +2665,7 @@
           "type" : "SWITCH",
           "id" : "dtrf27",
           "name" : "dtrf27",
+          "equipmentId" : "dtrf27",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2501,6 +2674,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf27Fictif",
           "name" : "dtrf27Fictif",
+          "equipmentId" : "dtrf27Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2523,6 +2697,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf27Fictif",
           "name" : "dtrf27Fictif",
+          "equipmentId" : "dtrf27Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2530,6 +2705,7 @@
           "type" : "SWITCH",
           "id" : "btrf27",
           "name" : "btrf27",
+          "equipmentId" : "btrf27",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2537,7 +2713,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf7_TWO",
-          "name" : "trf7_TWO",
+          "name" : "trf7",
+          "equipmentId" : "trf7",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -2584,6 +2761,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2604,6 +2782,7 @@
           "type" : "SWITCH",
           "id" : "dgen4",
           "name" : "dgen4",
+          "equipmentId" : "dgen4",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2612,6 +2791,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dgen4Fictif",
           "name" : "dgen4Fictif",
+          "equipmentId" : "dgen4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2634,6 +2814,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dgen4Fictif",
           "name" : "dgen4Fictif",
+          "equipmentId" : "dgen4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2641,6 +2822,7 @@
           "type" : "SWITCH",
           "id" : "bgen4",
           "name" : "bgen4",
+          "equipmentId" : "bgen4",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2649,6 +2831,7 @@
           "type" : "FEEDER",
           "id" : "gen4",
           "name" : "gen4",
+          "equipmentId" : "gen4",
           "componentType" : "GENERATOR",
           "fictitious" : false,
           "open" : false,
@@ -2693,6 +2876,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2713,6 +2897,7 @@
           "type" : "SWITCH",
           "id" : "dtrf22",
           "name" : "dtrf22",
+          "equipmentId" : "dtrf22",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2721,6 +2906,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf22Fictif",
           "name" : "dtrf22Fictif",
+          "equipmentId" : "dtrf22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2743,6 +2929,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf22Fictif",
           "name" : "dtrf22Fictif",
+          "equipmentId" : "dtrf22Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2750,6 +2937,7 @@
           "type" : "SWITCH",
           "id" : "btrf22",
           "name" : "btrf22",
+          "equipmentId" : "btrf22",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2757,13 +2945,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf2_TWO",
-          "name" : "trf2_TWO",
+          "name" : "trf2",
+          "equipmentId" : "trf2",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf2",
           "order" : 3,
-          "otherSideVlId" : "vl1"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2803,6 +2997,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2823,6 +3018,7 @@
           "type" : "SWITCH",
           "id" : "dtrf23",
           "name" : "dtrf23",
+          "equipmentId" : "dtrf23",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2831,6 +3027,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf23Fictif",
           "name" : "dtrf23Fictif",
+          "equipmentId" : "dtrf23Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2853,6 +3050,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf23Fictif",
           "name" : "dtrf23Fictif",
+          "equipmentId" : "dtrf23Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2860,6 +3058,7 @@
           "type" : "SWITCH",
           "id" : "btrf23",
           "name" : "btrf23",
+          "equipmentId" : "btrf23",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2867,13 +3066,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf3_TWO",
-          "name" : "trf3_TWO",
+          "name" : "trf3",
+          "equipmentId" : "trf3",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf3",
           "order" : 4,
-          "otherSideVlId" : "vl1"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2913,6 +3118,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -2933,6 +3139,7 @@
           "type" : "SWITCH",
           "id" : "dtrf26",
           "name" : "dtrf26",
+          "equipmentId" : "dtrf26",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -2941,6 +3148,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf26Fictif",
           "name" : "dtrf26Fictif",
+          "equipmentId" : "dtrf26Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2963,6 +3171,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf26Fictif",
           "name" : "dtrf26Fictif",
+          "equipmentId" : "dtrf26Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -2970,6 +3179,7 @@
           "type" : "SWITCH",
           "id" : "btrf26",
           "name" : "btrf26",
+          "equipmentId" : "btrf26",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -2977,7 +3187,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf6_TWO",
-          "name" : "trf6_TWO",
+          "name" : "trf6",
+          "equipmentId" : "trf6",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -3024,6 +3235,7 @@
           "type" : "BUS",
           "id" : "bbs6",
           "name" : "bbs6",
+          "equipmentId" : "bbs6",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3044,6 +3256,7 @@
           "type" : "SWITCH",
           "id" : "dtrf28",
           "name" : "dtrf28",
+          "equipmentId" : "dtrf28",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3052,6 +3265,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf28Fictif",
           "name" : "dtrf28Fictif",
+          "equipmentId" : "dtrf28Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3074,6 +3288,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl2_dtrf28Fictif",
           "name" : "dtrf28Fictif",
+          "equipmentId" : "dtrf28Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3081,6 +3296,7 @@
           "type" : "SWITCH",
           "id" : "btrf28",
           "name" : "btrf28",
+          "equipmentId" : "btrf28",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3088,7 +3304,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf8_TWO",
-          "name" : "trf8_TWO",
+          "name" : "trf8",
+          "equipmentId" : "trf8",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -3228,7 +3445,11 @@
     "node2" : "FICT_vl2_dtrf28Fictif"
   } ]
 }, {
-  "id" : "vl3",
+  "voltageLevelInfos" : {
+    "id" : "vl3",
+    "name" : "vl3",
+    "nominalVoltage" : 225.0
+  },
   "cells" : [ {
     "type" : "EXTERN",
     "number" : 0,
@@ -3265,6 +3486,7 @@
           "type" : "BUS",
           "id" : "bbs7",
           "name" : "bbs7",
+          "equipmentId" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3285,6 +3507,7 @@
           "type" : "SWITCH",
           "id" : "dload4",
           "name" : "dload4",
+          "equipmentId" : "dload4",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3293,6 +3516,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dload4Fictif",
           "name" : "dload4Fictif",
+          "equipmentId" : "dload4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3315,6 +3539,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dload4Fictif",
           "name" : "dload4Fictif",
+          "equipmentId" : "dload4Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3322,6 +3547,7 @@
           "type" : "SWITCH",
           "id" : "bload4",
           "name" : "bload4",
+          "equipmentId" : "bload4",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3330,6 +3556,7 @@
           "type" : "FEEDER",
           "id" : "load4",
           "name" : "load4",
+          "equipmentId" : "load4",
           "componentType" : "LOAD",
           "fictitious" : false,
           "open" : false,
@@ -3374,6 +3601,7 @@
           "type" : "BUS",
           "id" : "bbs7",
           "name" : "bbs7",
+          "equipmentId" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3394,6 +3622,7 @@
           "type" : "SWITCH",
           "id" : "dtrf25",
           "name" : "dtrf25",
+          "equipmentId" : "dtrf25",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3402,6 +3631,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf25Fictif",
           "name" : "dtrf25Fictif",
+          "equipmentId" : "dtrf25Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3424,6 +3654,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf25Fictif",
           "name" : "dtrf25Fictif",
+          "equipmentId" : "dtrf25Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3431,6 +3662,7 @@
           "type" : "SWITCH",
           "id" : "btrf25",
           "name" : "btrf25",
+          "equipmentId" : "btrf25",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3438,13 +3670,19 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf5_TWO",
-          "name" : "trf5_TWO",
+          "name" : "trf5",
+          "equipmentId" : "trf5",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
           "label" : "trf5",
           "order" : 1,
-          "otherSideVlId" : "vl1"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -3484,6 +3722,7 @@
           "type" : "BUS",
           "id" : "bbs7",
           "name" : "bbs7",
+          "equipmentId" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3504,6 +3743,7 @@
           "type" : "SWITCH",
           "id" : "dtrf36",
           "name" : "dtrf36",
+          "equipmentId" : "dtrf36",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3512,6 +3752,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf36Fictif",
           "name" : "dtrf36Fictif",
+          "equipmentId" : "dtrf36Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3534,6 +3775,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf36Fictif",
           "name" : "dtrf36Fictif",
+          "equipmentId" : "dtrf36Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3541,6 +3783,7 @@
           "type" : "SWITCH",
           "id" : "btrf36",
           "name" : "btrf36",
+          "equipmentId" : "btrf36",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3548,7 +3791,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf6_THREE",
-          "name" : "trf6_THREE",
+          "name" : "trf6",
+          "equipmentId" : "trf6",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -3595,6 +3839,7 @@
           "type" : "BUS",
           "id" : "bbs7",
           "name" : "bbs7",
+          "equipmentId" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3615,6 +3860,7 @@
           "type" : "SWITCH",
           "id" : "dtrf37",
           "name" : "dtrf37",
+          "equipmentId" : "dtrf37",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3623,6 +3869,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf37Fictif",
           "name" : "dtrf37Fictif",
+          "equipmentId" : "dtrf37Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3645,6 +3892,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf37Fictif",
           "name" : "dtrf37Fictif",
+          "equipmentId" : "dtrf37Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3652,6 +3900,7 @@
           "type" : "SWITCH",
           "id" : "btrf37",
           "name" : "btrf37",
+          "equipmentId" : "btrf37",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3659,7 +3908,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf7_THREE",
-          "name" : "trf7_THREE",
+          "name" : "trf7",
+          "equipmentId" : "trf7",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,
@@ -3706,6 +3956,7 @@
           "type" : "BUS",
           "id" : "bbs7",
           "name" : "bbs7",
+          "equipmentId" : "bbs7",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "open" : false,
@@ -3726,6 +3977,7 @@
           "type" : "SWITCH",
           "id" : "dtrf38",
           "name" : "dtrf38",
+          "equipmentId" : "dtrf38",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "open" : false,
@@ -3734,6 +3986,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf38Fictif",
           "name" : "dtrf38Fictif",
+          "equipmentId" : "dtrf38Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3756,6 +4009,7 @@
           "type" : "FICTITIOUS",
           "id" : "FICT_vl3_dtrf38Fictif",
           "name" : "dtrf38Fictif",
+          "equipmentId" : "dtrf38Fictif",
           "componentType" : "NODE",
           "fictitious" : true,
           "open" : false
@@ -3763,6 +4017,7 @@
           "type" : "SWITCH",
           "id" : "btrf38",
           "name" : "btrf38",
+          "equipmentId" : "btrf38",
           "componentType" : "BREAKER",
           "fictitious" : false,
           "open" : false,
@@ -3770,7 +4025,8 @@
         }, {
           "type" : "FEEDER",
           "id" : "trf8_THREE",
-          "name" : "trf8_THREE",
+          "name" : "trf8",
+          "equipmentId" : "trf8",
           "componentType" : "LINE",
           "fictitious" : false,
           "open" : false,

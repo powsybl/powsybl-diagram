@@ -11,16 +11,15 @@ import java.util.List;
 import java.util.Objects;
 
 import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Injection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Feeder3WTNode;
+import com.powsybl.sld.model.FeederBranchNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
-import org.apache.commons.lang3.StringUtils;
 
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
@@ -117,27 +116,12 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     }
 
     private InitialValue getTransformerInitialValue(Node node) {
-        String nodeId = node.getId();
-
         // special cases : branch of threeWindingsTransformer in voltageLevel graph
         //               : branch of threeWindingsTransformer in substation graph
-        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.ONE;
-        ThreeWindingsTransformer transformer = null;
-
-        String idTransformer = "";
-        int posSide = StringUtils.lastOrdinalIndexOf(nodeId, "_", 1);
-        if (posSide != -1) {
-            side = ThreeWindingsTransformer.Side.valueOf(nodeId.substring(posSide + 1));
-            if (node.getGraph().isForVoltageLevelDiagram()) {
-                posSide = StringUtils.lastOrdinalIndexOf(nodeId, "_", 2);
-                if (posSide != -1) {
-                    idTransformer = nodeId.substring(0, posSide);
-                }
-            } else {
-                idTransformer = nodeId.substring(0, posSide);
-            }
-            transformer = network.getThreeWindingsTransformer(idTransformer);
-        }
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
+        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf((node instanceof Feeder2WTNode ?
+                ((Feeder2WTNode) node).getSide() :
+                ((Feeder3WTNode) node).getSide()).name());
 
         if (transformer != null) {
             return buildInitialValue(transformer, side);
@@ -147,12 +131,10 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     }
 
     private InitialValue getLineInitialValue(Node node) {
-        String nodeId = node.getId();
-
-        // Note : the nodeId is built with branch id, "_", and the side (ONE or TWO)
-        Branch branch = network.getBranch(nodeId.substring(0, nodeId.length() - 4));
+        Branch branch = network.getBranch(node.getEquipmentId());
+        Branch.Side side = Branch.Side.valueOf(((FeederBranchNode) node).getSide().name());
         if (branch != null) {
-            return buildInitialValue(branch, Side.valueOf(nodeId.substring(nodeId.length() - 3)));
+            return buildInitialValue(branch, side);
         } else {
             return new InitialValue(null, null, null, null, null, null);
         }
@@ -202,11 +184,11 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         return new InitialValue(direction1, direction2, label1, label2, null, null);
     }
 
-    private InitialValue buildInitialValue(Branch<?> ln, Side side) {
+    private InitialValue buildInitialValue(Branch<?> ln, Branch.Side side) {
         Objects.requireNonNull(ln);
         Objects.requireNonNull(side);
-        double p = side.equals(Side.ONE) ? ln.getTerminal1().getP() : ln.getTerminal2().getP();
-        double q = side.equals(Side.ONE) ? ln.getTerminal1().getQ() : ln.getTerminal2().getQ();
+        double p = ln.getTerminal(side).getP();
+        double q = ln.getTerminal(side).getQ();
         String label1 = String.valueOf(Math.round(p));
         String label2 = String.valueOf(Math.round(q));
         Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;

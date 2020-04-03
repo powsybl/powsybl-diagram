@@ -182,7 +182,7 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_TWO__LABEL">Transformer</text>
         </g>
         <g class="LINE idLine_95_ONE" id="idLine_95_ONE" transform="translate(70.0,700.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_ONE__LABEL">Line_ONE</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_ONE__LABEL">Line</text>
         </g>
         <polyline class="wire wire_VoltageLevel12" points="50.0,550.0,70.0,550.0,70.0,450.0" id="idVoltageLevel12_95_Wire0"/>
         <g class="ARROW1_Transformer_95_TWO_UP" id="idVoltageLevel12_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,65.0,465.0)">
@@ -240,7 +240,7 @@
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Generator__LABEL">Generator</text>
         </g>
         <g class="LINE idLine_95_TWO" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_TWO__LABEL">Line_TWO</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_TWO__LABEL">Line</text>
         </g>
         <polyline class="wire wire_VoltageLevel21" points="150.0,1150.0,170.0,1150.0,170.0,1294.0" id="idVoltageLevel21_95_Wire0"/>
         <g class="ARROW1_Generator_UP" id="idVoltageLevel21_95_Wire0_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,165.0,1269.0)">
@@ -282,13 +282,13 @@
         </g>
         <polyline class="LINE Line" points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0" id="idLine"/>
         <g id="LABEL_VL_VoltageLevel11">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel11</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel11</text>
         </g>
         <g id="LABEL_VL_VoltageLevel12">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel12</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel12</text>
         </g>
         <g id="LABEL_VL_VoltageLevel21">
-            <text x="0.0" font-size="12" y="0.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel21</text>
+            <text x="0.0" font-size="12" y="-10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">VoltageLevel21</text>
         </g>
     </g>
 </svg>

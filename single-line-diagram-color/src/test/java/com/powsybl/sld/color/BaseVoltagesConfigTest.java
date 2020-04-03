@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -23,22 +22,22 @@ import static org.junit.Assert.assertNotNull;
 public class BaseVoltagesConfigTest {
 
     @Test
-    public void test() throws IOException {
+    public void test() {
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
         InputStream configInputStream = getClass().getResourceAsStream("/base-voltages.yml");
         BaseVoltagesConfig config = yaml.load(configInputStream);
         assertNotNull(config);
         assertNotNull(config.getBaseVoltages());
-        assertEquals(3, config.getBaseVoltages().size());
+        assertEquals(8, config.getBaseVoltages().size());
         assertEquals("400", config.getBaseVoltages().get(1).getName());
         assertEquals(300, config.getBaseVoltages().get(1).getMinValue(), 0);
         assertEquals(500, config.getBaseVoltages().get(1).getMaxValue(), 0);
-        assertEquals("#FF0000", config.getBaseVoltages().get(1).getColor());
+        assertEquals("#ff0000", config.getBaseVoltages().get(1).getColor());
         assertEquals("Default", config.getBaseVoltages().get(1).getProfile());
         assertEquals("225", config.getBaseVoltages().get(2).getName());
         assertEquals(180, config.getBaseVoltages().get(2).getMinValue(), 0);
         assertEquals(300, config.getBaseVoltages().get(2).getMaxValue(), 0);
-        assertEquals("#228B22", config.getBaseVoltages().get(2).getColor());
+        assertEquals("#228b22", config.getBaseVoltages().get(2).getColor());
         assertEquals("Default", config.getBaseVoltages().get(2).getProfile());
         assertEquals("Default", config.getDefaultProfile());
     }

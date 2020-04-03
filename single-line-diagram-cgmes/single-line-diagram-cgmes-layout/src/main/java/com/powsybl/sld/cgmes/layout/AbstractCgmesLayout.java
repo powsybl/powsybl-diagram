@@ -53,6 +53,7 @@ import com.powsybl.sld.model.SwitchNode;
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
 public abstract class AbstractCgmesLayout {
 
@@ -234,7 +235,7 @@ public abstract class AbstractCgmesLayout {
             case TWO_WINDINGS_TRANSFORMER:
             case PHASE_SHIFT_TRANSFORMER:
                 FeederNode transformerNode = (FeederNode) node;
-                TwoWindingsTransformer transformer = vl.getConnectable(getBranchId(transformerNode.getId()), TwoWindingsTransformer.class);
+                TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(), TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
@@ -244,7 +245,7 @@ public abstract class AbstractCgmesLayout {
                 break;
             case THREE_WINDINGS_TRANSFORMER:
                 FeederNode transformer3wNode = (FeederNode) node;
-                ThreeWindingsTransformer transformer3w = vl.getConnectable(getBranchId(transformer3wNode.getId()), ThreeWindingsTransformer.class);
+                ThreeWindingsTransformer transformer3w = vl.getConnectable(transformer3wNode.getEquipmentId(), ThreeWindingsTransformer.class);
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
                 if (transformer3w != null) {
                     transformer3wDiagramData = transformer3w.getExtension(ThreeWindingsTransformerDiagramData.class);
@@ -262,10 +263,6 @@ public abstract class AbstractCgmesLayout {
             String label = useNames ? name : id;
             node.setLabel(label);
         }
-    }
-
-    protected String getBranchId(String branchNodeId) {
-        return branchNodeId.substring(0, branchNodeId.lastIndexOf('_'));
     }
 
     protected void setInjectionNodeCoordinates(FeederNode node, InjectionDiagramData<?> diagramData, boolean rotate, String diagramName) {
@@ -304,7 +301,7 @@ public abstract class AbstractCgmesLayout {
         switch (node.getComponentType()) {
             case LINE:
                 FeederNode lineNode = (FeederNode) node;
-                Line line = vl.getConnectable(getBranchId(lineNode.getId()), Line.class);
+                Line line = vl.getConnectable(lineNode.getEquipmentId(), Line.class);
                 LineDiagramData<Line> lineDiagramData = line != null ? line.getExtension(LineDiagramData.class) : null;
                 setLineNodeCoordinates(lineNode, lineDiagramData, diagramName);
                 break;

@@ -28,4 +28,6 @@ public interface ComponentLibrary {
     boolean isAllowRotation(String type);
 
     String getStyleSheet();
+
+    Map<String, ComponentSize> getComponentsSize();
 }

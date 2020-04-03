@@ -54,6 +54,10 @@ public final class SubstationDiagram {
                      new PositionVoltageLevelLayoutFactory(), false);
     }
 
+    public SubstationGraph getSubGraph() {
+        return subGraph;
+    }
+
     public static SubstationDiagram build(GraphBuilder graphBuilder, String substationId,
                                           SubstationLayoutFactory sLayoutFactory,
                                           VoltageLevelLayoutFactory vLayoutFactory,

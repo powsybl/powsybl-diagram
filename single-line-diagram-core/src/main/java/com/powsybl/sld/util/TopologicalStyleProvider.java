@@ -8,49 +8,35 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
-public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
+public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    private static final String PROFILE = "Default";
+    private final Network network;
 
-    private BaseVoltageColor baseVoltageColor;
-    private HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
-    private static final String DEFAULT_COLOR = "#FF0000";
-    private static final String DISCONNECTED_COLOR = "#808080";
-    private String disconnectedColor;
-
-    private Network network;
+    private final HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
 
     public TopologicalStyleProvider(Path config, Network network) {
+        super(config);
         this.network = network;
-        try {
-            baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        disconnectedColor = getBaseColor(0, PROFILE, DISCONNECTED_COLOR);
     }
 
     @Override
@@ -59,31 +45,26 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
     }
 
     private RGBColor getBusColor(Node node) {
-        String id = node.getId();
-        // il faut enlever le side de l'id du node pour retrouver l'id du composant
-        if (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)) {
-            id = id.substring(0, id.lastIndexOf('_'));
-        }
-        VoltageLevel vl = network.getVoltageLevel(node.getGraph().getVoltageLevelId());
-        return voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl)).get(id);
+        VoltageLevel vl = network.getVoltageLevel(node.getGraph().getVoltageLevelInfos().getId());
+        return voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl)).get(node.getEquipmentId());
     }
 
     private HashMap<String, RGBColor> getColorMap(VoltageLevel vl) {
-        String basecolor = getBaseColor(vl.getNominalV(), PROFILE, DEFAULT_COLOR);
+        String basecolor = getBaseColor(vl.getNominalV(), PROFILE);
 
         AtomicInteger idxColor = new AtomicInteger(0);
-        long buses = vl.getBusView().getBusStream().count();
+        List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
         HashMap<String, RGBColor> colorMap = new HashMap<>();
 
         HSLColor color = HSLColor.parse(basecolor);
 
-        List<RGBColor> colors = color.getColorGradient((int) buses);
+        List<RGBColor> colors = color.getColorGradient(buses.size());
 
-        vl.getBusView().getBuses().forEach(b -> {
+        buses.forEach(b -> {
             RGBColor c = colors.get(idxColor.getAndIncrement());
 
-            vl.getBusView().getBus(b.getId()).visitConnectedEquipments(new TopologyVisitor() {
+            b.visitConnectedEquipments(new TopologyVisitor() {
                 @Override
                 public void visitBusbarSection(BusbarSection e) {
                     colorMap.put(e.getId(), c);
@@ -132,10 +113,6 @@ public class TopologicalStyleProvider extends DefaultDiagramStyleProvider {
             });
         });
         return colorMap;
-    }
-
-    private String getBaseColor(double v, String profile, String defaultColor) {
-        return baseVoltageColor.getColor(v, profile) != null ? baseVoltageColor.getColor(v, profile) : defaultColor;
     }
 
     @Override

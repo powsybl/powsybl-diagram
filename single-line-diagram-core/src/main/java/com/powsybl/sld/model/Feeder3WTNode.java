@@ -9,46 +9,40 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Feeder3WTNode extends FeederNode {
 
-    public enum Side {
-        ONE,
-        TWO,
-        THREE;
-    }
+    private final String transformerId;
 
-    private String transformerId;
-    private Side side;
+    private final Side side;
 
-    public Feeder3WTNode(String id, String name, String componentType,
+    public Feeder3WTNode(String id, String name, String equipmentId, String componentType,
                          boolean fictitious, Graph graph,
                          String transformerId,
                          Side side) {
-        super(id, name, componentType, fictitious, graph);
-        this.transformerId = transformerId;
-        this.side = side;
+        super(id, name, equipmentId, componentType, fictitious, graph);
+        this.transformerId = Objects.requireNonNull(transformerId);
+        this.side = Objects.requireNonNull(side);
     }
 
-    public String getId2() {
-        String ret = null;
+    public Side getSide2() {
         switch (side) {
-            case ONE: ret = Side.TWO.name(); break;
-            case TWO: case THREE: ret = Side.ONE.name(); break;
+            case ONE: return Side.TWO;
+            case TWO: case THREE: return Side.ONE;
         }
-        return ret;
+        return null;
     }
 
-    public String getId3() {
-        String ret = null;
+    public Side getSide3() {
         switch (side) {
-            case ONE: case TWO: ret = Side.THREE.name(); break;
-            case THREE: ret = Side.TWO.name(); break;
+            case ONE: case TWO: return Side.THREE;
+            case THREE: return Side.TWO;
         }
-        return ret;
+        return null;
     }
 
     public String getTransformerId() {

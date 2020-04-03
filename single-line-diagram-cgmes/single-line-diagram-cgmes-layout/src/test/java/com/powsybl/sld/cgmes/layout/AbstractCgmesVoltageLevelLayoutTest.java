@@ -24,10 +24,8 @@ public abstract class AbstractCgmesVoltageLevelLayoutTest {
 
     protected static final String DIAGRAM_NAME = "default";
 
-    protected NetworkGraphBuilder graphBuilder;
-
     protected void test(VoltageLevel vl) {
-        Graph graph = new NetworkGraphBuilder(vl.getNetwork()).buildVoltageLevelGraph(vl.getId(), false, true, false);
+        Graph graph = new NetworkGraphBuilder(vl.getNetwork()).buildVoltageLevelGraph(vl.getId(), false, true);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);

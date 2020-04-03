@@ -10,11 +10,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface Block {
     enum Type {
@@ -77,6 +79,10 @@ public interface Block {
     void calculateCoord(LayoutParameters layoutParam);
 
     void calculateRootCoord(LayoutParameters layoutParam);
+
+    double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParam);
+
+    double calculateRootHeight(LayoutParameters layoutParam);
 
     int getOrder();
 

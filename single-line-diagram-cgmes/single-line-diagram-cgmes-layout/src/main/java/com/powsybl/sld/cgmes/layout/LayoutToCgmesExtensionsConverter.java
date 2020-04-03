@@ -24,6 +24,7 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
 public class LayoutToCgmesExtensionsConverter {
 
@@ -49,10 +50,6 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean isLineNode(Node node) {
         return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
-    }
-
-    private String getBranchId(String branchNodeId) {
-        return branchNodeId.substring(0, branchNodeId.lastIndexOf('_'));
     }
 
     private int getMaxSeq(List<DiagramPoint> diagramPoints) {
@@ -162,7 +159,7 @@ public class LayoutToCgmesExtensionsConverter {
                 switch (node.getComponentType()) {
                     case LINE:
                         FeederNode lineNode = (FeederNode) node;
-                        Line line = voltageLevel.getConnectable(getBranchId(lineNode.getId()), Line.class);
+                        Line line = voltageLevel.getConnectable(lineNode.getEquipmentId(), Line.class);
                         if (line != null) {
                             LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
                             int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;

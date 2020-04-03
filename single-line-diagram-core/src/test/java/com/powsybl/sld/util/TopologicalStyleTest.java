@@ -4,18 +4,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld;
+package com.powsybl.sld.util;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.AbstractTestCase;
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,9 +26,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -94,14 +92,14 @@ public class TopologicalStyleTest extends AbstractTestCase {
     @Test
     public void test() throws IOException {
         // construction des graphes
-        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true, false);
-        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true, false);
-        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true, false);
+        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         Path config = tmpDir.resolve("base-voltages.yml");
         Files.copy(getClass().getResourceAsStream("/base-voltages.yml"), config);
 
-        DiagramStyleProvider styleProvider = new TopologicalStyleProvider(config, network);
+        TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(config, network);
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
@@ -111,12 +109,12 @@ public class TopologicalStyleTest extends AbstractTestCase {
         Node node2 = graph2.getNode("bbs2");
         Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
         assertTrue(nodeStyle2.isPresent());
-        assertEquals(" #idbbs2 {stroke:#FF0000;}", nodeStyle2.get());
+        assertEquals(" #idbbs2 {stroke:#218B21;}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
         Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
         assertTrue(nodeStyle3.isPresent());
-        assertEquals(" #idbbs3 {stroke:#FF0000;}", nodeStyle3.get());
+        assertEquals(" #idbbs3 {stroke:#A020EF;}", nodeStyle3.get());
 
         Edge edge = graph1.getEdges().get(0);
         String idWireStyle = styleProvider.getIdWireStyle(edge);

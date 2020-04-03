@@ -2626,10 +2626,13 @@
     "horizontalSnakeLinePadding" : 20.0,
     "verticalSnakeLinePadding" : 25.0,
     "arrowDistance" : 20.0,
-    "showInductorFor3WT" : false,
     "diagramName" : null,
     "shiftFeedersPosition" : false,
     "scaleShiftFeedersPosition" : 1.0,
-    "avoidSVGComponentsDuplication" : false
+    "avoidSVGComponentsDuplication" : false,
+    "adaptCellHeightToContent" : false,
+    "maxComponentHeight" : 12.0,
+    "minSpaceBetweenComponents" : 15.0,
+    "minExternCellHeight" : 80.0
   }
 }

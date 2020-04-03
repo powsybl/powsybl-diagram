@@ -7,8 +7,11 @@
 package com.powsybl.sld.layout;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.sld.library.ComponentSize;
 
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -50,12 +53,18 @@ public class LayoutParameters {
     private double verticalSnakeLinePadding = 25;
     private double arrowDistance = 20;
 
-    private boolean showInductorFor3WT = false;
-
     private boolean shiftFeedersPosition = false;
 
     private double scaleShiftFeedersPosition = 1;
     private boolean avoidSVGComponentsDuplication = false;
+
+    private boolean adaptCellHeightToContent = false;
+    private double maxComponentHeight = 12;
+    private double minSpaceBetweenComponents = 15;
+    private double minExternCellHeight = 80;
+
+    @JsonIgnore
+    private Map<String, ComponentSize> componentsSize;
 
     @JsonCreator
     public LayoutParameters() {
@@ -81,11 +90,14 @@ public class LayoutParameters {
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
                             @JsonProperty("arrowDistance") double arrowDistance,
-                            @JsonProperty("showInductorFor3WT") boolean showInductorFor3WT,
                             @JsonProperty("diagramName") String diagramName,
                             @JsonProperty("shiftFeedersPosition") boolean shiftFeedersPosition,
                             @JsonProperty("scaleShiftFeedersPosition") double scaleShiftFeedersPosition,
-                            @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication) {
+                            @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
+                            @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
+                            @JsonProperty("maxComponentHeight") double maxComponentHeight,
+                            @JsonProperty("minSpaceBetweenComponents") double minSpaceBetweenComponents,
+                            @JsonProperty("minExternCellHeight") double minExternCellHeight) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -105,11 +117,14 @@ public class LayoutParameters {
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
         this.arrowDistance = arrowDistance;
-        this.showInductorFor3WT = showInductorFor3WT;
         this.diagramName = diagramName;
         this.shiftFeedersPosition = shiftFeedersPosition;
         this.scaleShiftFeedersPosition = scaleShiftFeedersPosition;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
+        this.adaptCellHeightToContent = adaptCellHeightToContent;
+        this.maxComponentHeight = maxComponentHeight;
+        this.minSpaceBetweenComponents = minSpaceBetweenComponents;
+        this.minExternCellHeight = minExternCellHeight;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -133,11 +148,15 @@ public class LayoutParameters {
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
         arrowDistance = other.arrowDistance;
-        showInductorFor3WT = other.showInductorFor3WT;
         diagramName = other.diagramName;
         shiftFeedersPosition = other.shiftFeedersPosition;
         scaleShiftFeedersPosition = other.scaleShiftFeedersPosition;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
+        adaptCellHeightToContent = other.adaptCellHeightToContent;
+        maxComponentHeight = other.maxComponentHeight;
+        minSpaceBetweenComponents = other.minSpaceBetweenComponents;
+        minExternCellHeight = other.minExternCellHeight;
+        componentsSize = other.componentsSize;
     }
 
     public double getTranslateX() {
@@ -320,15 +339,6 @@ public class LayoutParameters {
         return this;
     }
 
-    public boolean isShowInductorFor3WT() {
-        return showInductorFor3WT;
-    }
-
-    public LayoutParameters setShowInductorFor3WT(boolean showInductorFor3WT) {
-        this.showInductorFor3WT = showInductorFor3WT;
-        return this;
-    }
-
     public boolean isShiftFeedersPosition() {
         return shiftFeedersPosition;
     }
@@ -354,5 +364,49 @@ public class LayoutParameters {
     public LayoutParameters setAvoidSVGComponentsDuplication(boolean avoidSVGComponentsDuplication) {
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
         return this;
+    }
+
+    public boolean isAdaptCellHeightToContent() {
+        return adaptCellHeightToContent;
+    }
+
+    public LayoutParameters setAdaptCellHeightToContent(boolean adaptCellHeightToContent) {
+        this.adaptCellHeightToContent = adaptCellHeightToContent;
+        return this;
+    }
+
+    public double getMaxComponentHeight() {
+        return maxComponentHeight;
+    }
+
+    public LayoutParameters setMaxComponentHeight(double maxComponentHeight) {
+        this.maxComponentHeight = maxComponentHeight;
+        return this;
+    }
+
+    public double getMinSpaceBetweenComponents() {
+        return minSpaceBetweenComponents;
+    }
+
+    public LayoutParameters setMinSpaceBetweenComponents(double minSpaceBetweenComponents) {
+        this.minSpaceBetweenComponents = minSpaceBetweenComponents;
+        return this;
+    }
+
+    public double getMinExternCellHeight() {
+        return minExternCellHeight;
+    }
+
+    public LayoutParameters setMinExternCellHeight(double minExternCellHeight) {
+        this.minExternCellHeight = minExternCellHeight;
+        return this;
+    }
+
+    public void setComponentsSize(Map<String, ComponentSize> componentsSize) {
+        this.componentsSize = componentsSize;
+    }
+
+    public Map<String, ComponentSize> getComponentsSize() {
+        return componentsSize;
     }
 }

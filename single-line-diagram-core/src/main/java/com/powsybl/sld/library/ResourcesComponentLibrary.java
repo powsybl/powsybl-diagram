@@ -88,6 +88,13 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
+    public Map<String, ComponentSize> getComponentsSize() {
+        Map<String, ComponentSize> res = new HashMap<>();
+        components.entrySet().forEach(e -> res.put(e.getKey(), e.getValue().getMetadata().getSize()));
+        return res;
+    }
+
+    @Override
     public boolean isAllowRotation(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);

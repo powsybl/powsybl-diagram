@@ -27,8 +27,6 @@ public interface DiagramStyleProvider {
 
     Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes);
 
-    Optional<String> getColor(double nominalV, Node node);
-
     Map<String, String> getAttributesArrow(int num);
 
     void reset();
