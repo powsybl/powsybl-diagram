@@ -63,7 +63,7 @@ public final class Graph {
     private double y = 0;
 
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
-                                                   // false if substation diagram
+    // false if substation diagram
 
     private boolean generateCoordsInJson = true;
 
@@ -212,9 +212,8 @@ public final class Graph {
      * @param n2 second node
      */
     private void removeEdge(Node n1, Node n2) {
-        for (Edge edge : edges) {
-            if ((edge.getNode1().equals(n1) && edge.getNode2().equals(n2))
-                    || (edge.getNode1().equals(n2) && edge.getNode2().equals(n1))) {
+        for (Edge edge : n1.getAdjacentEdges()) {
+            if (edge.getNode1().equals(n2) || edge.getNode2().equals(n2)) {
                 removeEdge(edge);
                 return;
             }
@@ -233,13 +232,10 @@ public final class Graph {
     private void rIdentifyConnexComponent(Node node, List<Node> nodesIn, List<Node> connexComponent) {
         if (!connexComponent.contains(node)) {
             connexComponent.add(node);
-            List<Node> nodesToVisit = node.getAdjacentNodes()
+            node.getAdjacentNodes()
                     .stream()
                     .filter(nodesIn::contains)
-                    .collect(Collectors.toList());
-            for (Node n : nodesToVisit) {
-                rIdentifyConnexComponent(n, nodesIn, connexComponent);
-            }
+                    .forEach(n -> rIdentifyConnexComponent(n, nodesIn, connexComponent));
         }
     }
 
@@ -293,20 +289,18 @@ public final class Graph {
 
     public void extendFeederWithMultipleSwitches() {
         List<Node> nodesToAdd = new ArrayList<>();
-        for (Node n : nodes) {
-            if (n instanceof FeederNode && n.getAdjacentNodes().size() > 1) {
-                // Create a new fictitious node
-                FictitiousNode nf = new FictitiousNode(Graph.this, n.getId() + "Fictif");
-                nodesToAdd.add(nf);
-                // Create all new edges and remove old ones
-                List<Node> oldNeighboor = new ArrayList<>(n.getAdjacentNodes());
-                for (Node neighboor : oldNeighboor) {
-                    addEdge(nf, neighboor);
-                    removeEdge(n, neighboor);
-                }
-                addEdge(n, nf);
-            }
-        }
+        nodes.stream().filter(n -> n instanceof FeederNode && n.getAdjacentNodes().size() > 1)
+                .forEach(node -> {
+                    // Create a new fictitious node
+                    FictitiousNode nf = new FictitiousNode(Graph.this, node.getId() + "Fictif");
+                    nodesToAdd.add(nf);
+                    // Create all new edges and remove old ones
+                    for (Node neighbor : node.getAdjacentNodes()) {
+                        addEdge(nf, neighbor);
+                        removeEdge(node, neighbor);
+                    }
+                    addEdge(node, nf);
+                });
         nodes.addAll(nodesToAdd);
     }
 
