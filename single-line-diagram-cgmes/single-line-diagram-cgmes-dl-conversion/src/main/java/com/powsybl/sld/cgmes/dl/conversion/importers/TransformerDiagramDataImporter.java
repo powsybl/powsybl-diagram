@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -51,7 +51,7 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
             addTerminalPoints(transformerId, transformer.getName(), transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), DiagramTerminal.TERMINAL2, "2", diagramDetails);
             transformerIidmDiagramData.addData(transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), diagramDetails);
             transformer.addExtension(CouplingDeviceDiagramData.class, transformerIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME));
+            NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer.getSubstation().getId());
         } else {
             ThreeWindingsTransformer transformer3w = network.getThreeWindingsTransformer(transformerId);
             if (transformer3w != null) {
@@ -66,7 +66,7 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
                 addTerminalPoints(transformerId, transformer3w.getName(), transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), DiagramTerminal.TERMINAL3, "3", diagramDetails);
                 transformerIidmDiagramData.addData(transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), diagramDetails);
                 transformer3w.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);
-                NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME));
+                NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer3w.getSubstation().getId());
             } else {
                 LOG.warn("Cannot find transformer {}, name {} in network {}: skipping transformer diagram data", transformerId, transformersDiagramData.get("name"), network.getId());
             }
