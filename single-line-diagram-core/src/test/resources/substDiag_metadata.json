@@ -2633,6 +2633,9 @@
     "adaptCellHeightToContent" : false,
     "maxComponentHeight" : 12.0,
     "minSpaceBetweenComponents" : 15.0,
-    "minExternCellHeight" : 80.0
+    "minExternCellHeight" : 80.0,
+    "labelCentered" : false,
+    "labelDiagonal" : false,
+    "angleLabelShift" : 15.0
   }
 }

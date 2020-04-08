@@ -279,7 +279,7 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary),
+                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
 //            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
@@ -301,7 +301,7 @@ public abstract class AbstractTestCase {
             diagram.writeSvg("",
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider, styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary),
+                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
 //            FileWriter fw = new FileWriter(System.getProperty("user.home") + refMetdataName);
@@ -326,7 +326,7 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary),
+                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
 //            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
@@ -349,7 +349,7 @@ public abstract class AbstractTestCase {
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider,
                     styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary),
+                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
 //            FileWriter fw = new FileWriter(System.getProperty("user.home") + refMetdataName);
@@ -411,7 +411,7 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary),
+                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
 //            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
