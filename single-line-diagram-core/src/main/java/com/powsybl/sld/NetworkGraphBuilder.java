@@ -6,60 +6,21 @@
  */
 package com.powsybl.sld;
 
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD_BREAK_SWITCH;
-import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.commons.util.ServiceLoaderCache;
+import com.powsybl.iidm.network.*;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
+import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.jgrapht.alg.ConnectivityInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.commons.util.ServiceLoaderCache;
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.Connectable;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.DefaultTopologyVisitor;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.HvdcConverterStation;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.Switch;
-import com.powsybl.iidm.network.Terminal;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.powsybl.sld.library.ComponentTypeName.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -152,7 +113,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id = line.getId() + "_" + side.name();
             String name = line.getName();
             String equipmentId = line.getId();
-            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
+            FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             return new FeederLineNode(id, name, equipmentId, LINE, false, graph, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
@@ -203,7 +164,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getName();
             String equipmentId = branch.getId();
-            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
+            FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE
                     ? Branch.Side.TWO
                     : Branch.Side.ONE;
@@ -230,8 +191,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id = twt.getId() + "_" + side.name();
             String name = twt.getName();
             String equipmentId = twt.getId();
-            FeederNode.Side s = FeederNode.Side.valueOf(side.name());
-            return new Feeder3WTNode(id, name, equipmentId, THREE_WINDINGS_TRANSFORMER, false, graph, twt.getId(), s);
+            FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
+            return new Feeder3WTNode(id, name, equipmentId, THREE_WINDINGS_TRANSFORMER, false, graph, s);
         }
 
         @Override
@@ -462,7 +423,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .filter(n -> n instanceof Feeder3WTNode)
                 .forEach(n -> {
                     Feeder3WTNode n3WT = (Feeder3WTNode) n;
-                    ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n3WT.getTransformerId());
+                    ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n3WT.getEquipmentId());
 
                     // Create a new fictitious node
                     VoltageLevel vl1 = transformer.getLeg1().getTerminal().getVoltageLevel();
@@ -483,7 +444,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     // . one winding to the second other voltage level
 
                     // Create a feeder for the winding to the first other voltage level
-                    FeederNode.Side side2 = n3WT.getSide2();
+                    FeederWithSideNode.Side side2 = n3WT.getSide2();
                     String idFeeder1 = n3WT.getId() + "_" + side2.name();
                     FeederNode nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, n3WT.getName(), n3WT.getEquipmentId(), side2, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
                     nfeeder1.setComponentType(LINE);
@@ -492,7 +453,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     graph.addNode(nfeeder1);
 
                     // Create a feeder for the winding to the second other voltage level
-                    FeederNode.Side side3 = n3WT.getSide3();
+                    FeederWithSideNode.Side side3 = n3WT.getSide3();
                     String idFeeder2 = n3WT.getId() + "_" + side3.name();
                     FeederNode nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, n3WT.getName(), n3WT.getEquipmentId(), side3, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
                     nfeeder2.setComponentType(LINE);

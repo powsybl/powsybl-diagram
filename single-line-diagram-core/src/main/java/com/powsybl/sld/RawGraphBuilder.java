@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.powsybl.sld.model.FeederNode.Side.*;
+import static com.powsybl.sld.model.FeederWithSideNode.Side.*;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -144,7 +144,7 @@ public class RawGraphBuilder implements GraphBuilder {
             return createFeederNode(id, ComponentTypeName.GENERATOR, false, order, direction);
         }
 
-        public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederNode.Side side, int order, BusCell.Direction direction) {
+        public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
             FeederLineNode fln = new FeederLineNode(name, id, id, ComponentTypeName.LINE, false, graph, side,
                     getVoltageLevelInfosFromId(otherVlId));
@@ -152,7 +152,7 @@ public class RawGraphBuilder implements GraphBuilder {
             return fln;
         }
 
-        public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederNode.Side side,
+        public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederWithSideNode.Side side,
                                                  int order, BusCell.Direction direction) {
             String name = id + "_" + side;
             Feeder2WTNode f2WTe = new Feeder2WTNode(name, id, id, ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false,
@@ -161,11 +161,10 @@ public class RawGraphBuilder implements GraphBuilder {
             return f2WTe;
         }
 
-        public Feeder3WTNode createFeeder3WTNode(String id, String transformerId, FeederNode.Side side,
-                                                 int order, BusCell.Direction direction) {
+        public Feeder3WTNode createFeeder3WTNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
             Feeder3WTNode f3WTe = new Feeder3WTNode(name, id, id,
-                    ComponentTypeName.THREE_WINDINGS_TRANSFORMER, false, graph, transformerId, side);
+                    ComponentTypeName.THREE_WINDINGS_TRANSFORMER, false, graph, side);
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
@@ -228,9 +227,9 @@ public class RawGraphBuilder implements GraphBuilder {
                                                                        int order1, int order2, int order3,
                                                                        BusCell.Direction direction1, BusCell.Direction direction2, BusCell.Direction direction3) {
             Map<VoltageLevelBuilder, Feeder3WTNode> f3WTNodes = new HashMap<>();
-            Feeder3WTNode feeder3WTNode1 = vl1.createFeeder3WTNode(id, id, ONE, order1, direction1);
-            Feeder3WTNode feeder3WTNode2 = vl2.createFeeder3WTNode(id, id, TWO, order2, direction2);
-            Feeder3WTNode feeder3WTNode3 = vl3.createFeeder3WTNode(id, id, THREE, order3, direction3);
+            Feeder3WTNode feeder3WTNode1 = vl1.createFeeder3WTNode(id, ONE, order1, direction1);
+            Feeder3WTNode feeder3WTNode2 = vl2.createFeeder3WTNode(id, TWO, order2, direction2);
+            Feeder3WTNode feeder3WTNode3 = vl3.createFeeder3WTNode(id, THREE, order3, direction3);
             f3WTNodes.put(vl1, feeder3WTNode1);
             f3WTNodes.put(vl2, feeder3WTNode2);
             f3WTNodes.put(vl3, feeder3WTNode3);
