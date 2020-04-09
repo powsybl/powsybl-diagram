@@ -81,5 +81,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getMinExternCellHeight(), layoutParameters2.getMinExternCellHeight(), 0);
         assertEquals(layoutParameters.getAngleLabelShift(), layoutParameters2.getAngleLabelShift(), 0);
         assertEquals(layoutParameters.isLabelCentered(), layoutParameters2.isLabelCentered());
+        assertEquals(layoutParameters.isLabelDiagonal(), layoutParameters2.isLabelDiagonal());
     }
 }
