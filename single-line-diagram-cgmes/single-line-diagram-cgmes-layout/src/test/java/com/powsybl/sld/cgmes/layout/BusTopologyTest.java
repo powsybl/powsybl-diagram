@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -38,9 +38,6 @@ import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData.CouplingDeviceDiagramDetails;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData.InjectionDiagramDetails;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
@@ -88,7 +85,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         addFirstVoltageLevelDiagramData(network, voltageLevel);
         addSecondVoltageLevelDiagramData(network, voltageLevel2);
         addTransformerDiagramData(network);
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation");
     }
 
     private void createNetworkWith3WT() {
@@ -105,7 +102,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         addSecondVoltageLevelDiagramData(networkWith3WT, voltageLevel22);
         addThirdVoltageLevelDiagramData(networkWith3WT, voltageLevel23);
         add3WTransformerDiagramData(networkWith3WT);
-        NetworkDiagramData.addDiagramName(networkWith3WT, DIAGRAM_NAME);
+        NetworkDiagramData.addDiagramName(networkWith3WT, DIAGRAM_NAME, "Substation");
     }
 
     private VoltageLevel createFirstVoltageLevel(Substation substation) {
