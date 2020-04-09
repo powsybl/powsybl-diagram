@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -47,7 +47,8 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
         createSecondVoltageLevel(network);
         createLine(network, 3);
         addDiagramData(network);
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation");
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation2");
     }
 
     protected void createNetworkWithInternalConnections() {
@@ -92,7 +93,8 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
         createSecondVoltageLevel(network);
         createLine(network, 11);
         addDiagramData(network);
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation");
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation2");
     }
 
     protected VoltageLevel createFirstVoltageLevel(Network network, int busbarNode, int generatorNode, int disconnector1Node1, int disconnector1Node2,

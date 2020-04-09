@@ -18,6 +18,7 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
 public class SwitchNode extends Node {
 
@@ -30,7 +31,7 @@ public class SwitchNode extends Node {
     private final SwitchKind kind;
 
     public SwitchNode(String id, String name, String componentType, boolean fictitious, Graph graph, SwitchKind kind, boolean open) {
-        super(NodeType.SWITCH, id, name, componentType, fictitious, graph);
+        super(NodeType.SWITCH, id, name, id, componentType, fictitious, graph);
         this.kind = Objects.requireNonNull(kind);
         setOpen(open);
     }

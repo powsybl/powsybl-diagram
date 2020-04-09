@@ -6,51 +6,40 @@
  */
 package com.powsybl.sld.util;
 
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
-
-import java.util.Optional;
-
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+
+import java.nio.file.Path;
+import java.util.Optional;
+
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
-    private static final String DEFAULT_COLOR = "rgb(171, 175, 40)";
+public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
+
+    public NominalVoltageDiagramStyleProvider() {
+        super(null);
+    }
+
+    public NominalVoltageDiagramStyleProvider(Path config) {
+        super(config);
+    }
 
     @Override
-    public Optional<String> getColor(double nominalV, Node node) {
-        String color;
-        if (nominalV >= 300) {
-            color = "rgb(255, 0, 0)";
-        } else if (nominalV >= 170 && nominalV < 300) {
-            color = "rgb(34, 139, 34)";
-        } else if (nominalV >= 120 && nominalV < 170) {
-            color = "rgb(1, 175, 175)";
-        } else if (nominalV >= 70 && nominalV < 120) {
-            color = "rgb(204, 85, 0)";
-        } else if (nominalV >= 50 && nominalV < 70) {
-            color = "rgb(160, 32, 240)";
-        } else if (nominalV >= 30 && nominalV < 50) {
-            color = "rgb(255, 130, 144)";
-        } else {
-            color = DEFAULT_COLOR;
-        }
-        return Optional.of(color);
+    protected Optional<String> getColor(double nominalV, Node node) {
+        return Optional.of(getBaseColor(nominalV));
     }
 
     @Override
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
 
-        String color = getColor(node.getGraph().getVoltageLevelNominalV(), null).orElse(DEFAULT_COLOR);
+        String color = getBaseColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage());
         if (node.getType() == Node.NodeType.SWITCH) {
             return defaultStyle;
         } else {
@@ -65,11 +54,11 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
         if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
                 (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
             String vlId = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getVIdOtherSide()
-                    : ((Feeder2WTNode) node2).getVIdOtherSide();
+                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getId()
+                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getId();
             return WIRE_STYLE_CLASS + "_" + escapeClassName(vlId);
         } else {
-            return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelId());
+            return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
         }
     }
 
@@ -83,17 +72,17 @@ public class NominalVoltageDiagramStyleProvider extends DefaultDiagramStyleProvi
         if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
                 (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
             vlId = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getVIdOtherSide()
-                    : ((Feeder2WTNode) node2).getVIdOtherSide();
+                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getId()
+                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getId();
             nominalV = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getNominalVOtherSide()
-                    : ((Feeder2WTNode) node2).getNominalVOtherSide();
+                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getNominalVoltage()
+                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getNominalVoltage();
         } else {
-            vlId = node1.getGraph() != null ? node1.getGraph().getVoltageLevelId() : node2.getGraph().getVoltageLevelId();
-            nominalV = node1.getGraph() != null ? node1.getGraph().getVoltageLevelNominalV() : node2.getGraph().getVoltageLevelNominalV();
+            vlId = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos().getId() : node2.getGraph().getVoltageLevelInfos().getId();
+            nominalV = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos().getNominalVoltage() : node2.getGraph().getVoltageLevelInfos().getNominalVoltage();
         }
 
-        String color = getColor(nominalV, null).orElse(DEFAULT_COLOR);
+        String color = getBaseColor(nominalV);
         StringBuilder style = new StringBuilder();
         style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
         return Optional.of(style.toString());

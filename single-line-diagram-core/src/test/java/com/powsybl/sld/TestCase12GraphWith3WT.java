@@ -223,36 +223,35 @@ public class TestCase12GraphWith3WT extends AbstractTestCase {
                 .setVerticalSubstationPadding(50)
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setShowInductorFor3WT(true);
+                .setVerticalSnakeLinePadding(30);
 
         // build voltage level 1 graph
-        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true, true);
+        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(layoutParameters);
 
-        Graph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true, true);
+        Graph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         new ImplicitCellDetector().detectCells(g2);
         new BlockOrganizer().organize(g2);
         new PositionVoltageLevelLayout(g2).run(layoutParameters);
 
-        Graph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true, false);
+        Graph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
         new ImplicitCellDetector().detectCells(g3);
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(layoutParameters);
 
         // write JSON and compare to reference (horizontal layout)
-        assertEquals(toJson(g1, "/TestCase12GraphVL1.json"), toString("/TestCase12GraphVL1.json"));
-        assertEquals(toJson(g2, "/TestCase12GraphVL2.json"), toString("/TestCase12GraphVL2.json"));
-        assertEquals(toJson(g3, "/TestCase12GraphVL3.json"), toString("/TestCase12GraphVL3.json"));
+        assertEquals(toString("/TestCase12GraphVL1.json"), toJson(g1, "/TestCase12GraphVL1.json"));
+        assertEquals(toString("/TestCase12GraphVL2.json"), toJson(g2, "/TestCase12GraphVL2.json"));
+        assertEquals(toString("/TestCase12GraphVL3.json"), toJson(g3, "/TestCase12GraphVL3.json"));
 
         LayoutParameters layoutParametersOptimized = new LayoutParameters(layoutParameters);
         layoutParametersOptimized.setAvoidSVGComponentsDuplication(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
-                new PositionVoltageLevelLayoutFactory(), false, true);
+                new PositionVoltageLevelLayoutFactory(), false);
         compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
                 new DefaultDiagramInitialValueProvider(network),
                 new NominalVoltageDiagramStyleProvider());

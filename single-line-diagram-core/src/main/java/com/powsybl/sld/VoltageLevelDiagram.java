@@ -50,12 +50,12 @@ public final class VoltageLevelDiagram {
 
     public static VoltageLevelDiagram build(GraphBuilder graphBuilder, String voltageLevelId,
                                             VoltageLevelLayoutFactory layoutFactory,
-                                            boolean useName, boolean showInductorFor3WT) {
+                                            boolean useName) {
         Objects.requireNonNull(graphBuilder);
         Objects.requireNonNull(voltageLevelId);
         Objects.requireNonNull(layoutFactory);
 
-        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevelId, useName, true, showInductorFor3WT);
+        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevelId, useName, true);
 
         VoltageLevelLayout layout = layoutFactory.create(graph);
 

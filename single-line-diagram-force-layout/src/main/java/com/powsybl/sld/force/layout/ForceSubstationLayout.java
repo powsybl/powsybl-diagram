@@ -80,16 +80,16 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         GraphModel graphModel = new GraphModelImpl();
         UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
         for (Graph voltageLevelGraph : graph.getNodes()) {
-            NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelId());
+            NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
         }
         for (TwtEdge edge : graph.getEdges()) {
-            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(edge.getNode1().getGraph().getVoltageLevelId());
-            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(edge.getNode2().getGraph().getVoltageLevelId());
+            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
+            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(edge.getNode2().getGraph().getVoltageLevelInfos().getId());
             undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_1_2", node1, node2, 0, 1, false));
             if (edge.getNode3() != null) {
-                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(edge.getNode3().getGraph().getVoltageLevelId());
+                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(edge.getNode3().getGraph().getVoltageLevelInfos().getId());
                 undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_2_3", node2, node3, 0, 1, false));
             }
         }
@@ -115,7 +115,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
         Map<Graph, Coord> coordsVoltageLevels = new HashMap<>();
         for (Graph voltageLevelGraph : graph.getNodes()) {
-            org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelId());
+            org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
         }
 
@@ -190,8 +190,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     @Override
     protected void manageSnakeLines(LayoutParameters layoutParameters) {
         Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = new HashMap<>();
-        graph.getNodes().stream().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
-        Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(Graph::getVoltageLevelId, v -> 0));
+        graph.getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
+        Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         List<TwtEdge> newEdges = new ArrayList<>();
 
@@ -221,8 +221,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                                                       Map<String, Integer> nbSnakeLinesBetween) {
         ForceInfoCalcPoints info = new ForceInfoCalcPoints();
         info.setLayoutParam(layoutParameters);
-        info.setVId1(node1.getGraph().getVoltageLevelId());
-        info.setVId2(node2.getGraph().getVoltageLevelId());
+        info.setVId1(node1.getGraph().getVoltageLevelInfos().getId());
+        info.setVId2(node2.getGraph().getVoltageLevelInfos().getId());
         info.setdNode1(getNodeDirection(node1, 1));
         info.setdNode2(getNodeDirection(node2, 2));
         info.setNbSnakeLinesTopBottom(nbSnakeLinesTopBottom);
@@ -234,7 +234,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         info.setY2(node2.getY());
         info.setInitY2(node2.getInitY() != -1 ? node2.getInitY() : node2.getY());
         info.setxMaxGraph(Math.max(node1.getGraph().getX(), node2.getGraph().getX()));
-        info.setIdMaxGraph(node1.getGraph().getX() > node2.getGraph().getX() ? node1.getGraph().getVoltageLevelId() : node2.getGraph().getVoltageLevelId());
+        info.setIdMaxGraph(node1.getGraph().getX() > node2.getGraph().getX() ? node1.getGraph().getVoltageLevelInfos().getId() : node2.getGraph().getVoltageLevelInfos().getId());
 
         return calculatePolylinePoints(info);
     }

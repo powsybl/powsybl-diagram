@@ -178,10 +178,10 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
         </g>
         <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(980.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2_one</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
         </g>
         <g class="LINE idvl3_95_trf2_95_two" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_two__LABEL">vl3_trf2_two</text>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_two__LABEL">vl3_trf2</text>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_vl3_95_trf2" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1013.0,204.0)">
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
@@ -231,9 +231,6 @@
         </g>
         <g class="DISCONNECTOR idvl3_95_dtrf2" id="idvl3_95_dtrf2" transform="translate(1016.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
-        </g>
-        <g id="LABEL_VL_vl3">
-            <text x="850.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl3</text>
         </g>
     </g>
 </svg>

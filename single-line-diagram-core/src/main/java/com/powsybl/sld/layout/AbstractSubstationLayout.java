@@ -130,12 +130,12 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
     protected void manageSnakeLines(LayoutParameters layoutParameters) {
         // used only for horizontal layout
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(Graph::getVoltageLevelId, v -> 0));
+        Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         // used only for vertical layout
         Map<Side, Integer> nbSnakeLinesLeftRight = EnumSet.allOf(Side.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesBottomVL = graph.getNodes().stream().collect(Collectors.toMap(Graph::getVoltageLevelId, v -> 0));
-        Map<String, Integer> nbSnakeLinesTopVL = graph.getNodes().stream().collect(Collectors.toMap(Graph::getVoltageLevelId, v -> 0));
+        Map<String, Integer> nbSnakeLinesBottomVL = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        Map<String, Integer> nbSnakeLinesTopVL = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         InfosNbSnakeLines infos = new InfosNbSnakeLines(nbSnakeLinesTopBottom, nbSnakeLinesBetween,
                 nbSnakeLinesLeftRight, nbSnakeLinesBottomVL, nbSnakeLinesTopVL);

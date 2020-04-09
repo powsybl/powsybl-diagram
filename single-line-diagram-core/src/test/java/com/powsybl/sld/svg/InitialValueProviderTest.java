@@ -85,7 +85,7 @@ public class InitialValueProviderTest {
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
         DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2);
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false, false);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
         assertFalse(init.getLabel2().isPresent());

@@ -6,16 +6,19 @@
  */
 package com.powsybl.sld.color;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.config.PlatformConfig;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -28,24 +31,26 @@ public class BaseVoltageColor {
 
     private BaseVoltagesConfig config;
 
-    public BaseVoltageColor(Path configFile) throws IOException {
+    public BaseVoltageColor(Path configFile) {
         Objects.requireNonNull(configFile);
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
         if (Files.exists(configFile)) {
             try (InputStream configInputStream = Files.newInputStream(configFile)) {
                 config = yaml.load(configInputStream);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
             }
         } else {
             InputStream configInputStream = BaseVoltageColor.class.getResourceAsStream("/" + CONFIG_FILE);
             if (configInputStream != null) {
                 config = yaml.load(configInputStream);
             } else {
-                throw new IOException("No base voltages configuration found");
+                throw new PowsyblException("No base voltages configuration found");
             }
         }
     }
 
-    public BaseVoltageColor() throws IOException {
+    public BaseVoltageColor() {
         this(PlatformConfig.defaultConfig().getConfigDir().resolve(CONFIG_FILE));
     }
 
@@ -70,40 +75,37 @@ public class BaseVoltageColor {
                      .collect(Collectors.toList());
     }
 
-    public String getBaseVoltageName(double voltage, String profile) {
+    public Optional<String> getBaseVoltageName(double baseVoltage, String profile) {
         Objects.requireNonNull(profile);
         return config.getBaseVoltages()
                      .stream()
-                     .filter(baseVoltage -> baseVoltage.getProfile().equals(profile)
-                                            && baseVoltage.getMinValue() <= voltage
-                                            && baseVoltage.getMaxValue() > voltage)
+                     .filter(v -> v.getProfile().equals(profile)
+                                            && v.getMinValue() <= baseVoltage
+                                            && v.getMaxValue() > baseVoltage)
                      .map(BaseVoltageConfig::getName)
-                     .findFirst()
-                     .orElse(null);
+                     .findFirst();
     }
 
-    public String getColor(String baseVoltageName, String profile) {
+    public Optional<String> getColor(String baseVoltageName, String profile) {
         Objects.requireNonNull(baseVoltageName);
         Objects.requireNonNull(profile);
         return config.getBaseVoltages()
                      .stream()
-                     .filter(baseVoltage -> baseVoltage.getProfile().equals(profile)
-                                            && baseVoltage.getName().equals(baseVoltageName))
+                     .filter(v -> v.getProfile().equals(profile)
+                                            && v.getName().equals(baseVoltageName))
                      .map(BaseVoltageConfig::getColor)
-                     .findFirst()
-                     .orElse(null);
+                     .findFirst();
     }
 
-    public String getColor(double voltage, String profile) {
+    public Optional<String> getColor(double baseVoltage, String profile) {
         Objects.requireNonNull(profile);
         return config.getBaseVoltages()
                      .stream()
-                     .filter(baseVoltage -> baseVoltage.getProfile().equals(profile)
-                                            && baseVoltage.getMinValue() <= voltage
-                                            && baseVoltage.getMaxValue() > voltage)
+                     .filter(v -> v.getProfile().equals(profile)
+                                            && v.getMinValue() <= baseVoltage
+                                            && v.getMaxValue() > baseVoltage)
                      .map(BaseVoltageConfig::getColor)
-                     .findFirst()
-                     .orElse(null);
+                     .findFirst();
     }
 
 }

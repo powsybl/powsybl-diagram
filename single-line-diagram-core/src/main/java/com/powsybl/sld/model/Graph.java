@@ -38,11 +38,7 @@ public final class Graph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
 
-    private String voltageLevelId;
-
-    private String voltageLevelName;
-
-    private double voltageLevelNominalV;
+    private final VoltageLevelInfos voltageLevelInfos;
 
     private final boolean useName;
 
@@ -67,9 +63,7 @@ public final class Graph {
     private double y = 0;
 
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
-                                                   // false if substation diagram
-
-    private final boolean showInductorFor3WT;
+    // false if substation diagram
 
     private boolean generateCoordsInJson = true;
 
@@ -82,29 +76,19 @@ public final class Graph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    private Graph(String id, String name, double nominalV,
-                  boolean useName, boolean forVoltageLevelDiagram, boolean showInductorFor3WT) {
-        this.voltageLevelId = Objects.requireNonNull(id);
-        this.voltageLevelName = name;
-        this.voltageLevelNominalV = nominalV;
+    private Graph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
+        this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;
-        this.showInductorFor3WT = showInductorFor3WT;
     }
 
-    public static Graph create(String id, String name, double nominalV,
-                               boolean useName, boolean forVoltageLevelDiagram,
-                               boolean showInductorFor3WT) {
-        Objects.requireNonNull(id);
-        return new Graph(id, name, nominalV, useName, forVoltageLevelDiagram, showInductorFor3WT);
+    public static Graph create(VoltageLevelInfos voltageLevelInfos,
+                               boolean useName, boolean forVoltageLevelDiagram) {
+        return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram);
     }
 
     public boolean isUseName() {
         return useName;
-    }
-
-    public boolean isShowInductorFor3WT() {
-        return showInductorFor3WT;
     }
 
     public boolean isForVoltageLevelDiagram() {
@@ -228,9 +212,8 @@ public final class Graph {
      * @param n2 second node
      */
     private void removeEdge(Node n1, Node n2) {
-        for (Edge edge : edges) {
-            if ((edge.getNode1().equals(n1) && edge.getNode2().equals(n2))
-                    || (edge.getNode1().equals(n2) && edge.getNode2().equals(n1))) {
+        for (Edge edge : n1.getAdjacentEdges()) {
+            if (edge.getNode1().equals(n2) || edge.getNode2().equals(n2)) {
                 removeEdge(edge);
                 return;
             }
@@ -249,13 +232,10 @@ public final class Graph {
     private void rIdentifyConnexComponent(Node node, List<Node> nodesIn, List<Node> connexComponent) {
         if (!connexComponent.contains(node)) {
             connexComponent.add(node);
-            List<Node> nodesToVisit = node.getAdjacentNodes()
+            node.getAdjacentNodes()
                     .stream()
                     .filter(nodesIn::contains)
-                    .collect(Collectors.toList());
-            for (Node n : nodesToVisit) {
-                rIdentifyConnexComponent(n, nodesIn, connexComponent);
-            }
+                    .forEach(n -> rIdentifyConnexComponent(n, nodesIn, connexComponent));
         }
     }
 
@@ -309,20 +289,18 @@ public final class Graph {
 
     public void extendFeederWithMultipleSwitches() {
         List<Node> nodesToAdd = new ArrayList<>();
-        for (Node n : nodes) {
-            if (n instanceof FeederNode && n.getAdjacentNodes().size() > 1) {
-                // Create a new fictitious node
-                FictitiousNode nf = new FictitiousNode(Graph.this, n.getId() + "Fictif");
-                nodesToAdd.add(nf);
-                // Create all new edges and remove old ones
-                List<Node> oldNeighboor = new ArrayList<>(n.getAdjacentNodes());
-                for (Node neighboor : oldNeighboor) {
-                    addEdge(nf, neighboor);
-                    removeEdge(n, neighboor);
-                }
-                addEdge(n, nf);
-            }
-        }
+        nodes.stream().filter(n -> n instanceof FeederNode && n.getAdjacentNodes().size() > 1)
+                .forEach(node -> {
+                    // Create a new fictitious node
+                    FictitiousNode nf = new FictitiousNode(Graph.this, node.getId() + "Fictif");
+                    nodesToAdd.add(nf);
+                    // Create all new edges and remove old ones
+                    for (Node neighbor : node.getAdjacentNodes()) {
+                        addEdge(nf, neighbor);
+                        removeEdge(node, neighbor);
+                    }
+                    addEdge(node, nf);
+                });
         nodes.addAll(nodesToAdd);
     }
 
@@ -449,16 +427,8 @@ public final class Graph {
         return new TreeSet<>(cells);
     }
 
-    public String getVoltageLevelId() {
-        return voltageLevelId;
-    }
-
-    public String getVoltageLevelName() {
-        return voltageLevelName;
-    }
-
-    public double getVoltageLevelNominalV() {
-        return voltageLevelNominalV;
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return voltageLevelInfos;
     }
 
     public double getX() {
@@ -527,7 +497,9 @@ public final class Graph {
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
 
-        generator.writeStringField("id", voltageLevelId);
+        generator.writeFieldName("voltageLevelInfos");
+        voltageLevelInfos.writeJsonContent(generator);
+
         if (generateCoordsInJson) {
             generator.writeNumberField("x", x);
             generator.writeNumberField("y", y);

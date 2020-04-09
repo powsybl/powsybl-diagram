@@ -180,7 +180,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 listUsedComponentSVG.add(n.getComponentType());
             });
             graph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e, graph.getVoltageLevelId(), graph.getEdges().indexOf(e));
+                Optional<String> wireStyle = styleProvider.getWireStyle(e, graph.getVoltageLevelInfos().getId(), graph.getEdges().indexOf(e));
                 if (wireStyle.isPresent()) {
                     graphStyle.append(wireStyle.get()).append("\n");
                 }
@@ -189,8 +189,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         if (snakeLines != null) {
             snakeLines.forEach(e -> {
-                String idVLS = e.getNode1().getGraph() != null ? e.getNode1().getGraph().getVoltageLevelId() : "_";
-                idVLS += e.getNode2().getGraph() != null ? e.getNode2().getGraph().getVoltageLevelId() : "_";
+                String idVLS = e.getNode1().getGraph() != null ? e.getNode1().getGraph().getVoltageLevelInfos().getId() : "_";
+                idVLS += e.getNode2().getGraph() != null ? e.getNode2().getGraph().getVoltageLevelInfos().getId() : "_";
 
                 Optional<String> wireStyle = styleProvider.getWireStyle(e, idVLS, snakeLines.indexOf(e));
                 if (wireStyle.isPresent()) {
@@ -242,10 +242,6 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
-
-        // the drawing of the voltageLevel graph label is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        drawGraphLabel(prefixId, root, graph, metadata);
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
@@ -413,7 +409,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Element gridRoot = document.createElement("g");
 
-        String gridId = prefixId + "GRID_" + graph.getVoltageLevelId();
+        String gridId = prefixId + "GRID_" + graph.getVoltageLevelInfos().getId();
         gridRoot.setAttribute("id", gridId);
         gridRoot.setAttribute(CLASS, DiagramStyles.GRID_STYLE_CLASS);
         gridRoot.setAttribute(TRANSFORM,
@@ -439,7 +435,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         + layoutParameters.getVerticalSpaceBus() * maxV));
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
-                graph.getVoltageLevelId(),
+                graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
                 null,
@@ -514,11 +510,11 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, Graph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
         String nextVId = null;
         if (node instanceof FeederBranchNode) {
-            nextVId = ((FeederBranchNode) node).getVIdOtherSide();
+            nextVId = ((FeederBranchNode) node).getOtherSideVoltageLevelInfos().getId();
         }
 
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelId() : "", nextVId,
+                new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false));
         if (node.getType() == Node.NodeType.BUS) {
@@ -558,7 +554,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
         // drawing the label of the voltageLevel
-        String idLabelVoltageLevel = prefixId + "LABEL_VL_" + graph.getVoltageLevelId();
+        String idLabelVoltageLevel = prefixId + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
         Element gLabel = root.getOwnerDocument().createElement("g");
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
@@ -568,13 +564,13 @@ public class DefaultSVGWriter implements SVGWriter {
                 : graph.getMaxCalculatedCellHeight(BusCell.Direction.TOP))
                 - 20.;
         drawLabel(null, graph.isUseName()
-                     ? graph.getVoltageLevelName()
-                     : graph.getVoltageLevelId(),
+                     ? graph.getVoltageLevelInfos().getName()
+                     : graph.getVoltageLevelInfos().getId(),
                   false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
-                graph.getVoltageLevelId(),
+                graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
                 null,
@@ -963,7 +959,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel graph edges
      */
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
-        String vId = graph.getVoltageLevelId();
+        String vId = graph.getVoltageLevelInfos().getId();
 
         for (Edge edge : graph.getEdges()) {
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
@@ -1030,8 +1026,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 throw new AssertionError("One node must be outside any graph");
             }
 
-            String tmp = g1 != null ? g1.getVoltageLevelId() : "_";
-            tmp += g2 != null ? g2.getVoltageLevelId() : "_";
+            String tmp = g1 != null ? g1.getVoltageLevelInfos().getId() : "_";
+            tmp += g2 != null ? g2.getVoltageLevelInfos().getId() : "_";
 
             String wireId = escapeId(prefixId + tmp + "_" + "Wire" + graph.getEdges().indexOf(edge));
             Element g = root.getOwnerDocument().createElement(POLYLINE);
@@ -1045,7 +1041,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             g.setAttribute(POINTS, pointsListToString(pol));
 
-            String vId = g1 != null ? g1.getVoltageLevelId() : g2.getVoltageLevelId();
+            String vId = g1 != null ? g1.getVoltageLevelInfos().getId() : g2.getVoltageLevelInfos().getId();
 
             g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
             root.appendChild(g);

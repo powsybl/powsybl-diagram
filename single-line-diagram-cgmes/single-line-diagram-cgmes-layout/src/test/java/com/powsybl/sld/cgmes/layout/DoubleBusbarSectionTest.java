@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2019-2020, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -49,7 +49,7 @@ public class DoubleBusbarSectionTest {
         if (isVoltageLevelDataEnabled) {
             VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, DIAGRAM_NAME, iNode, new DiagramPoint(80, 45, 0));
         }
-        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME);
+        NetworkDiagramData.addDiagramName(network, DIAGRAM_NAME, "Substation1");
     }
 
     private void addBusbarSectionDiagramData(BusbarSection busbarSection, DiagramPoint point1, DiagramPoint point2) {
@@ -130,7 +130,7 @@ public class DoubleBusbarSectionTest {
 
     private Graph processCgmesLayout() {
         NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(voltageLevel.getNetwork());
-        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevel.getId(), false, true, false);
+        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevel.getId(), false, true);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(1);
         layoutParameters.setDiagramName(DIAGRAM_NAME);

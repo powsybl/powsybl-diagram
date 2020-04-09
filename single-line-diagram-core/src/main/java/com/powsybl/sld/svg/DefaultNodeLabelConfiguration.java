@@ -51,11 +51,9 @@ public class DefaultNodeLabelConfiguration implements NodeLabelConfiguration {
                 positionName = direction == BusCell.Direction.TOP ? "N" : "S";
             }
 
-            String nodeLabel = node.getId() + "_" + positionName + "_LABEL";
-            res.add(new LabelPosition(nodeLabel, -LABEL_OFFSET, yShift));
+            res.add(new LabelPosition(node.getId() + "_" + positionName + "_LABEL", -LABEL_OFFSET, yShift));
         } else if (node instanceof BusNode) {
-            String nodeLabel = node.getId() + "_NW_LABEL";
-            res.add(new LabelPosition(nodeLabel, -LABEL_OFFSET, -LABEL_OFFSET));
+            res.add(new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET));
         }
 
         return res;
