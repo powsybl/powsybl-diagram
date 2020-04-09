@@ -77,6 +77,7 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
 public abstract class AbstractSingleLineDiagramViewer extends Application implements DisplayVoltageLevel {
 
@@ -246,11 +247,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                  StringWriter jsonWriter = new StringWriter()) {
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
                 DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
-                NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary());
                 GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
 
                 String dName = getSelectedDiagramName();
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
+                NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary(), diagramLayoutParameters);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
                     VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected());
@@ -728,6 +729,12 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addSpinner("Min space between components:", 8, 60, 1, rowIndex, LayoutParameters::getMinSpaceBetweenComponents, LayoutParameters::setMinSpaceBetweenComponents);
         rowIndex += 2;
         addSpinner("Minimum extern cell height:", 80, 300, 10, rowIndex, LayoutParameters::getMinExternCellHeight, LayoutParameters::setMinExternCellHeight);
+
+        rowIndex += 2;
+        addCheckBox("Center label:", rowIndex, LayoutParameters::isLabelCentered, LayoutParameters::setLabelCentered);
+        rowIndex += 2;
+        addSpinner("Angle Label:", -360, 360, 1, rowIndex, LayoutParameters::getAngleLabelShift, LayoutParameters::setAngleLabelShift);
+
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {

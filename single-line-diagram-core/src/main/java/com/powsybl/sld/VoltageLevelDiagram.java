@@ -76,7 +76,7 @@ public final class VoltageLevelDiagram {
         writeSvg(prefixId, writer,
                 initialValueProvider,
                 styleProvider,
-                new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
+                new DefaultNodeLabelConfiguration(writer.getComponentLibrary(), layoutParameters),
                 svgFile);
     }
 

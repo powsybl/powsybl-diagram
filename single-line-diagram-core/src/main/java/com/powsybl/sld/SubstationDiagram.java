@@ -102,7 +102,7 @@ public final class SubstationDiagram {
         writeSvg(prefixId, writer,
                 initProvider,
                 styleProvider,
-                new DefaultNodeLabelConfiguration(writer.getComponentLibrary()),
+                new DefaultNodeLabelConfiguration(writer.getComponentLibrary(), writer.getLayoutParameters()),
                 svgWriter,
                 metadataWriter);
     }

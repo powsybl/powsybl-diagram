@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.BusNode;
@@ -19,16 +20,19 @@ import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
 public class DefaultNodeLabelConfiguration implements NodeLabelConfiguration {
 
     private final ComponentLibrary componentLibrary;
+    private final LayoutParameters layoutParameters;
 
     private static final double LABEL_OFFSET = 5d;
     private static final int FONT_SIZE = 8;
 
-    public DefaultNodeLabelConfiguration(ComponentLibrary componentLibrary) {
+    public DefaultNodeLabelConfiguration(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = componentLibrary;
+        this.layoutParameters = layoutParameters;
     }
 
     @Override
@@ -44,16 +48,20 @@ public class DefaultNodeLabelConfiguration implements NodeLabelConfiguration {
 
             double yShift = -LABEL_OFFSET;
             String positionName = "";
+            double angle = 0;
             if (node.getCell() != null) {
                 yShift = direction == BusCell.Direction.TOP
                         ? -LABEL_OFFSET
                         : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + FONT_SIZE + LABEL_OFFSET);
                 positionName = direction == BusCell.Direction.TOP ? "N" : "S";
+                if (layoutParameters.isLabelDiagonal()) {
+                    angle = direction == BusCell.Direction.TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();
+                }
             }
 
-            res.add(new LabelPosition(node.getId() + "_" + positionName + "_LABEL", -LABEL_OFFSET, yShift));
+            res.add(new LabelPosition(node.getId() + "_" + positionName + "_LABEL", layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle));
         } else if (node instanceof BusNode) {
-            res.add(new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET));
+            res.add(new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0));
         }
 
         return res;
