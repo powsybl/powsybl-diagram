@@ -21,7 +21,7 @@ jobs:
           java-package: jdk+fx
 
       - name: Build with Maven
-        run: mvn --batch-mode package -Pjacoco,checks,viewer
+        run: mvn --batch-mode -Pjacoco,checks,viewer package
 
       - name: Run SonarCloud analysis
         if: matrix.os == 'ubuntu-latest'
