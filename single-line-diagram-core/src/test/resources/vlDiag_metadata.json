@@ -715,15 +715,6 @@
     "direction" : "TOP",
     "vlabel" : false
   }, {
-    "id" : "LABEL_VL_vl1",
-    "vid" : "vl1",
-    "nextVId" : null,
-    "componentType" : null,
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : true
-  }, {
     "id" : "idload2",
     "vid" : "vl1",
     "nextVId" : null,

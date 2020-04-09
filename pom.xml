@@ -53,15 +53,13 @@
         <module>single-line-diagram-core</module>
         <module>single-line-diagram-distribution</module>
         <module>single-line-diagram-iidm-extensions</module>
-        <module>single-line-diagram-view</module>
-        <module>single-line-diagram-view-app</module>
         <module>single-line-diagram-force-layout</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
 
         <assertj.version>3.11.0</assertj.version>
         <batik.version>1.9</batik.version>
@@ -103,6 +101,16 @@
     </properties>
 
     <profiles>
+        <profile>
+            <id>viewer</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>single-line-diagram-view</module>
+                <module>single-line-diagram-view-app</module>
+            </modules>
+        </profile>
         <profile>
             <id>release</id>
             <activation>
