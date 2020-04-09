@@ -278,8 +278,5 @@
         <g class="DISCONNECTOR idvl1_95_dtrf2" id="idvl1_95_dtrf2" transform="translate(416.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
-        <g id="LABEL_VL_vl1">
-            <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
-        </g>
     </g>
 </svg>
