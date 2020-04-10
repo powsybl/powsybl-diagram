@@ -813,8 +813,7 @@
           "open" : false,
           "label" : "trf61",
           "order" : 2,
-          "transformerId" : "trf6",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1287,8 +1286,7 @@
           "open" : false,
           "label" : "trf81",
           "order" : 2,
-          "transformerId" : "trf8",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1640,8 +1638,7 @@
           "open" : false,
           "label" : "trf71",
           "order" : 2,
-          "transformerId" : "trf7",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2720,8 +2717,7 @@
           "open" : false,
           "label" : "trf72",
           "order" : 2,
-          "transformerId" : "trf7",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3194,8 +3190,7 @@
           "open" : false,
           "label" : "trf62",
           "order" : 2,
-          "transformerId" : "trf6",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3311,8 +3306,7 @@
           "open" : false,
           "label" : "trf82",
           "order" : 2,
-          "transformerId" : "trf8",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3798,8 +3792,7 @@
           "open" : false,
           "label" : "trf63",
           "order" : 2,
-          "transformerId" : "trf6",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -3915,8 +3908,7 @@
           "open" : false,
           "label" : "trf73",
           "order" : 2,
-          "transformerId" : "trf7",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -4032,8 +4024,7 @@
           "open" : false,
           "label" : "trf83",
           "order" : 2,
-          "transformerId" : "trf8",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }

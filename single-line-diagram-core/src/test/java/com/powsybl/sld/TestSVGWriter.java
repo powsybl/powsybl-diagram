@@ -383,7 +383,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1Graph.addEdge(vl1Btrf1, vl1Dtrf1);
         g1Graph.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder3WTNode vl1Trf2 = new Feeder3WTNode("vl1_trf2_one", "vl1_trf2", "vl1_trf2", ComponentTypeName.LINE, false, g1Graph, "trf2", Feeder3WTNode.Side.ONE);
+        Feeder3WTNode vl1Trf2 = new Feeder3WTNode("vl1_trf2_one", "vl1_trf2", "vl1_trf2", ComponentTypeName.LINE, false, g1Graph, Feeder3WTNode.Side.ONE);
         vl1Trf2.setOrder(2);
         vl1Trf2.setDirection(BusCell.Direction.TOP);
         vl1Trf2.setX(400);
@@ -450,7 +450,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g2Graph.addEdge(vl2Btrf1, vl2Dtrf1);
         g2Graph.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder3WTNode vl2Trf2 = new Feeder3WTNode("vl2_trf2_one", "vl2_trf2", "vl2_trf2", ComponentTypeName.LINE, false, g2Graph, "vl1", Feeder3WTNode.Side.TWO);
+        Feeder3WTNode vl2Trf2 = new Feeder3WTNode("vl2_trf2_one", "vl2_trf2", "vl2_trf2", ComponentTypeName.LINE, false, g2Graph, Feeder3WTNode.Side.TWO);
         vl2Trf2.setOrder(2);
         vl2Trf2.setDirection(BusCell.Direction.TOP);
         vl2Trf2.setX(160);
@@ -498,7 +498,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g3Graph.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3Graph.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        Feeder3WTNode vl3Trf2 = new Feeder3WTNode("vl3_trf2_one", "vl3_trf2", "vl3_trf2", ComponentTypeName.LINE, false, g3Graph, "vl1", Feeder3WTNode.Side.THREE);
+        Feeder3WTNode vl3Trf2 = new Feeder3WTNode("vl3_trf2_one", "vl3_trf2", "vl3_trf2", ComponentTypeName.LINE, false, g3Graph, Feeder3WTNode.Side.THREE);
         vl3Trf2.setOrder(1);
         vl3Trf2.setDirection(BusCell.Direction.TOP);
         vl3Trf2.setX(150);

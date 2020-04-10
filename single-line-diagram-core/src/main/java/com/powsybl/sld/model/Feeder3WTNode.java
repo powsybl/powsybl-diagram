@@ -6,27 +6,14 @@
  */
 package com.powsybl.sld.model;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-
-import java.io.IOException;
-import java.util.Objects;
-
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Feeder3WTNode extends FeederNode {
-
-    private final String transformerId;
-
-    private final Side side;
+public class Feeder3WTNode extends FeederWithSideNode {
 
     public Feeder3WTNode(String id, String name, String equipmentId, String componentType,
-                         boolean fictitious, Graph graph,
-                         String transformerId,
-                         Side side) {
-        super(id, name, equipmentId, componentType, fictitious, graph);
-        this.transformerId = Objects.requireNonNull(transformerId);
-        this.side = Objects.requireNonNull(side);
+                         boolean fictitious, Graph graph, Side side) {
+        super(id, name, equipmentId, componentType, fictitious, graph, side);
     }
 
     public Side getSide2() {
@@ -43,20 +30,5 @@ public class Feeder3WTNode extends FeederNode {
             case THREE: return Side.TWO;
         }
         return null;
-    }
-
-    public String getTransformerId() {
-        return transformerId;
-    }
-
-    public Side getSide() {
-        return side;
-    }
-
-    @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
-        generator.writeStringField("transformerId", transformerId);
-        generator.writeStringField("transformerSide", side.name());
     }
 }

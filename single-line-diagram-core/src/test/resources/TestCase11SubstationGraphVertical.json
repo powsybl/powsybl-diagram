@@ -1029,8 +1029,7 @@
           "label" : "trf61",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1631,8 +1630,7 @@
           "label" : "trf81",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2080,8 +2078,7 @@
           "label" : "trf71",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -3397,8 +3394,7 @@
           "label" : "trf72",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf7",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3999,8 +3995,7 @@
           "label" : "trf62",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4148,8 +4143,7 @@
           "label" : "trf82",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf8",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4733,8 +4727,7 @@
           "label" : "trf63",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -4882,8 +4875,7 @@
           "label" : "trf73",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -5031,8 +5023,7 @@
           "label" : "trf83",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
