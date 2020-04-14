@@ -472,8 +472,8 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
 
         SwitchNode dline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline11_2", false, false);
         SwitchNode bline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline11_2", false, false);
-        SwitchNode dline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
-        SwitchNode bline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
+        SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
+        SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
         Map<RawGraphBuilder.VoltageLevelBuilder, FeederLineNode> line1 =
                 ssb2.createLine("line1", vlb1, vlsubst2, 3, 1, BusCell.Direction.TOP, BusCell.Direction.TOP);
         vlb1.connectNode(bbs1, dline112);

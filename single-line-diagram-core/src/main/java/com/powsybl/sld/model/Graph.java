@@ -505,6 +505,12 @@ public final class Graph {
             generator.writeNumberField("y", y);
         }
 
+        generator.writeArrayFieldStart("nodes");
+        for (Node node : nodes.stream().sorted(Comparator.comparing(Node::getId)).collect(Collectors.toList())) {
+            node.writeJson(generator);
+        }
+        generator.writeEndArray();
+
         generator.writeArrayFieldStart("cells");
         for (Cell cell : cells) {
             cell.writeJson(generator);
