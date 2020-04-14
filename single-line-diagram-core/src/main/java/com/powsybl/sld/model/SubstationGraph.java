@@ -112,16 +112,19 @@ public final class SubstationGraph {
         try (JsonGenerator generator = new JsonFactory()
                 .createGenerator(writer)
                 .useDefaultPrettyPrinter()) {
-            generator.writeStartArray();
-            for (Graph graph : nodes) {
-                graph.setGenerateCoordsInJson(generateCoordsInJson);
-                graph.writeJson(generator);
-            }
-
-            generator.writeEndArray();
+            writeJson(generator);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartArray();
+        for (Graph graph : nodes) {
+            graph.setGenerateCoordsInJson(generateCoordsInJson);
+            graph.writeJson(generator);
+        }
+        generator.writeEndArray();
     }
 
     public void setGenerateCoordsInJson(boolean generateCoordsInJson) {

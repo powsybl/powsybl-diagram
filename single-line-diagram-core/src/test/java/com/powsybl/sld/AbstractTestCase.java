@@ -397,6 +397,15 @@ public abstract class AbstractTestCase {
         return toJson(graph, filename);
     }
 
+    public String toJson(ZoneGraph graph, String filename) {
+        try (StringWriter writer = new StringWriter()) {
+            graph.writeJson(writer);
+            return normalizeLineSeparator(writer.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
     public String toString(String resourceName) {
         try {
             return normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(resourceName)), StandardCharsets.UTF_8));

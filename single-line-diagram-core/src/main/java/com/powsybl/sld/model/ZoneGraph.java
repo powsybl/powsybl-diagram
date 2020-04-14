@@ -6,6 +6,15 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +40,8 @@ public final class ZoneGraph {
     public static ZoneGraph create(List<String> zone) {
         return new ZoneGraph(zone);
     }
+
+    private boolean generateCoordsInJson = true;
 
     public void addNode(SubstationGraph sGraph) {
         nodes.add(sGraph);
@@ -63,6 +74,45 @@ public final class ZoneGraph {
     public LineEdge getEdge(String lineId) {
         Objects.requireNonNull(lineId);
         return edgesById.get(lineId);
+    }
+
+    public void writeJson(Path file) {
+        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
+            writeJson(writer);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    public void writeJson(Writer writer) {
+        Objects.requireNonNull(writer);
+        try (JsonGenerator generator = new JsonFactory()
+                .createGenerator(writer)
+                .useDefaultPrettyPrinter()) {
+            writeJson(generator);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    public void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        generator.writeArrayFieldStart("substations");
+        for (SubstationGraph substationGraph : nodes) {
+            substationGraph.setGenerateCoordsInJson(generateCoordsInJson);
+            substationGraph.writeJson(generator);
+        }
+        generator.writeEndArray();
+        generator.writeArrayFieldStart("lineEdges");
+        for (LineEdge edge : edges) {
+            edge.writeJson(generator);
+        }
+        generator.writeEndArray();
+        generator.writeEndObject();
+    }
+
+    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
+        this.generateCoordsInJson = generateCoordsInJson;
     }
 
 }
