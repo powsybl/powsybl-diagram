@@ -105,7 +105,7 @@ public final class ZoneGraph {
         generator.writeEndArray();
         generator.writeArrayFieldStart("lineEdges");
         for (LineEdge edge : edges) {
-            edge.writeJson(generator);
+            edge.writeJson(generator, generateCoordsInJson);
         }
         generator.writeEndArray();
         generator.writeEndObject();

@@ -290,7 +290,7 @@ public class Node implements BaseNode {
         generator.writeStringField("equipmentId", equipmentId);
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
-        if (graph.isGenerateCoordsInJson()) {
+        if (graph == null || graph.isGenerateCoordsInJson()) {
             generator.writeNumberField("x", x);
             generator.writeNumberField("y", y);
         }

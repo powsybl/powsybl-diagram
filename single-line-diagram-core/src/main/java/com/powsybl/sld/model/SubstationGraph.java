@@ -119,12 +119,26 @@ public final class SubstationGraph {
     }
 
     public void writeJson(JsonGenerator generator) throws IOException {
-        generator.writeStartArray();
+        generator.writeStartObject();
+        generator.writeStringField("substationId", substationId);
+        generator.writeArrayFieldStart("voltageLevels");
         for (Graph graph : nodes) {
             graph.setGenerateCoordsInJson(generateCoordsInJson);
             graph.writeJson(generator);
         }
         generator.writeEndArray();
+//        generator.writeArrayFieldStart("twtEdges");
+//        for (TwtEdge edge : edges) {
+//            edge.writeJson(generator, generateCoordsInJson);
+//        }
+//        generator.writeEndArray();
+//        generator.writeArrayFieldStart("multitermNodes");
+//        for (Node multitermNode : multiTermNodes) {
+//            multitermNode.writeJson(generator);
+//        }
+//        generator.writeEndArray();
+        generator.writeEndObject();
+
     }
 
     public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
