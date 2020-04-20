@@ -473,5 +473,7 @@
       "node1" : "bgen2",
       "node2" : "FICT_vl1_11"
     } ]
-  } ]
+  } ],
+  "twtEdges" : [ ],
+  "multitermNodes" : [ ]
 }

@@ -3279,5 +3279,185 @@
       "node1" : "dtrf38",
       "node2" : "FICT_vl3_dtrf38Fictif"
     } ]
+  } ],
+  "twtEdges" : [ {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf1_ONE",
+      "node2" : "trf1_ONE_trf1_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf1_ONE_trf1_TWO",
+      "node2" : "trf1_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf2_ONE",
+      "node2" : "trf2_ONE_trf2_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf2_ONE_trf2_TWO",
+      "node2" : "trf2_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf3_ONE",
+      "node2" : "trf3_ONE_trf3_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf3_ONE_trf3_TWO",
+      "node2" : "trf3_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf4_ONE",
+      "node2" : "trf4_ONE_trf4_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf4_ONE_trf4_TWO",
+      "node2" : "trf4_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf5_ONE",
+      "node2" : "trf5_ONE_trf5_TWO"
+    } ]
+  }, {
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf5_ONE_trf5_TWO",
+      "node2" : "trf5_TWO"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf6_ONE",
+      "node2" : "trf6_ONE_trf6_TWO_trf6_THREE"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
+      "node2" : "trf6_TWO"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
+      "node2" : "trf6_THREE"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf7_ONE",
+      "node2" : "trf7_ONE_trf7_TWO_trf7_THREE"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
+      "node2" : "trf7_TWO"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
+      "node2" : "trf7_THREE"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf8_ONE",
+      "node2" : "trf8_ONE_trf8_TWO_trf8_THREE"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
+      "node2" : "trf8_TWO"
+    } ]
+  }, {
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "nodes" : [ {
+      "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
+      "node2" : "trf8_THREE"
+    } ]
+  } ],
+  "multitermNodes" : [ {
+    "type" : "FICTITIOUS",
+    "id" : "trf1_ONE_trf1_TWO",
+    "name" : "trf1_ONE_trf1_TWO",
+    "equipmentId" : "trf1_ONE_trf1_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf2_ONE_trf2_TWO",
+    "name" : "trf2_ONE_trf2_TWO",
+    "equipmentId" : "trf2_ONE_trf2_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf3_ONE_trf3_TWO",
+    "name" : "trf3_ONE_trf3_TWO",
+    "equipmentId" : "trf3_ONE_trf3_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf4_ONE_trf4_TWO",
+    "name" : "trf4_ONE_trf4_TWO",
+    "equipmentId" : "trf4_ONE_trf4_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf5_ONE_trf5_TWO",
+    "name" : "trf5_ONE_trf5_TWO",
+    "equipmentId" : "trf5_ONE_trf5_TWO",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "name" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "equipmentId" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "name" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "equipmentId" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "name" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "equipmentId" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false
   } ]
 }

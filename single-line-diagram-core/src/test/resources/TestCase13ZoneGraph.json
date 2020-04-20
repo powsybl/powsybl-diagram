@@ -70,7 +70,9 @@
         "node1" : "Bus1_Line",
         "node2" : "Line_ONE"
       } ]
-    } ]
+    } ],
+    "twtEdges" : [ ],
+    "multitermNodes" : [ ]
   }, {
     "substationId" : "Substation2",
     "voltageLevels" : [ {
@@ -142,7 +144,9 @@
         "node1" : "Bus2_Line",
         "node2" : "Line_TWO"
       } ]
-    } ]
+    } ],
+    "twtEdges" : [ ],
+    "multitermNodes" : [ ]
   } ],
   "lineEdges" : [ {
     "lineId" : "Line",
