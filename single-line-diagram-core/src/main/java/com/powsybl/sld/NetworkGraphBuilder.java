@@ -85,10 +85,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             // in a voltageLevel diagram only, we replace the 3WT node with a fictitious node and 2 feeder nodes,
             // in order to have a more detailed representation of the 3WT
             constructCellForThreeWindingsTransformer(graph);
-        } else {
-            // in a substation diagram, we set the component type name associated to the 2WT and 3WT feeder node,
-            // to line type, in order to avoid the graphic svg symbol being drawed for those nodes
-            changeFeederComponentTypeName(graph);
         }
 
         handleGraphPostProcessors(graph);
@@ -116,36 +112,29 @@ public class NetworkGraphBuilder implements GraphBuilder {
             FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return new FeederLineNode(id, name, equipmentId, LINE, false, graph, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+            return new FeederLineNode(id, name, equipmentId, false, graph, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
         private FeederNode createFeederNode(Graph graph, Injection injection) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(injection);
-            String componentType;
             switch (injection.getType()) {
                 case GENERATOR:
-                    componentType = GENERATOR;
-                    break;
+                    return FeederInjectionNode.createGenerator(injection.getId(), injection.getName(), graph);
                 case LOAD:
-                    componentType = LOAD;
-                    break;
+                    return FeederInjectionNode.createLoad(injection.getId(), injection.getName(), graph);
                 case HVDC_CONVERTER_STATION:
-                    componentType = VSC_CONVERTER_STATION;
-                    break;
+                    return FeederInjectionNode.createVscConverterStation(injection.getId(), injection.getName(), graph);
                 case STATIC_VAR_COMPENSATOR:
-                    componentType = STATIC_VAR_COMPENSATOR;
-                    break;
+                    return FeederInjectionNode.createStaticVarCompensator(injection.getId(), injection.getName(), graph);
                 case SHUNT_COMPENSATOR:
-                    componentType = ((ShuntCompensator) injection).getbPerSection() >= 0 ? CAPACITOR : INDUCTOR;
-                    break;
+                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(injection.getId(), injection.getName(), graph)
+                                                                                : FeederInjectionNode.createInductor(injection.getId(), injection.getName(), graph);
                 case DANGLING_LINE:
-                    componentType = DANGLING_LINE;
-                    break;
+                    return FeederInjectionNode.createDanglingLine(injection.getId(), injection.getName(), graph);
                 default:
-                    throw new AssertionError();
+                    throw new IllegalStateException();
             }
-            return new FeederNode(injection.getId(), injection.getName(), injection.getId(), componentType, false, graph);
         }
 
         private FeederNode createFeeder2WTNode(Graph graph,
@@ -192,7 +181,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String name = twt.getName();
             String equipmentId = twt.getId();
             FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
-            return new Feeder3WTNode(id, name, equipmentId, THREE_WINDINGS_TRANSFORMER, false, graph, s);
+            return Feeder3WTNode.create(id, name, equipmentId, graph, s);
         }
 
         @Override
@@ -436,27 +425,39 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     Fictitious3WTNode nf = new Fictitious3WTNode(graph, n3WT.getLabel() + "_fictif", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
                     graph.addNode(nf);
 
-                    VoltageLevel vl2Side = getVL2Side(n3WT, transformer);
-                    VoltageLevel vl3Side = getVL3Side(n3WT, transformer);
-
                     // We represent the 3 windings transformer like a double feeder cell with :
                     // . one winding to the first other voltage level
                     // . one winding to the second other voltage level
 
                     // Create a feeder for the winding to the first other voltage level
-                    FeederWithSideNode.Side side2 = n3WT.getSide2();
+                    FeederWithSideNode.Side side2;
+                    FeederWithSideNode.Side side3;
+                    switch (n3WT.getSide()) {
+                        case ONE:
+                            side2 = FeederWithSideNode.Side.TWO;
+                            side3 = FeederWithSideNode.Side.THREE;
+                            break;
+                        case TWO:
+                            side2 = FeederWithSideNode.Side.ONE;
+                            side3 = FeederWithSideNode.Side.THREE;
+                            break;
+                        case THREE:
+                            side2 = FeederWithSideNode.Side.ONE;
+                            side3 = FeederWithSideNode.Side.TWO;
+                            break;
+                        default:
+                            throw new IllegalStateException();
+                    }
+
                     String idFeeder1 = n3WT.getId() + "_" + side2.name();
-                    FeederNode nfeeder1 = Feeder2WTNode.create(graph, idFeeder1, n3WT.getName(), n3WT.getEquipmentId(), side2, new VoltageLevelInfos(vl2Side.getId(), vl2Side.getName(), vl2Side.getNominalV()));
-                    nfeeder1.setComponentType(LINE);
+                    FeederNode nfeeder1 = Feeder3WTNode.create(idFeeder1, n3WT.getName(), n3WT.getEquipmentId(), graph, side2);
                     nfeeder1.setOrder(n3WT.getOrder());
                     nfeeder1.setDirection(n3WT.getDirection());
                     graph.addNode(nfeeder1);
 
                     // Create a feeder for the winding to the second other voltage level
-                    FeederWithSideNode.Side side3 = n3WT.getSide3();
                     String idFeeder2 = n3WT.getId() + "_" + side3.name();
-                    FeederNode nfeeder2 = Feeder2WTNode.create(graph, idFeeder2, n3WT.getName(), n3WT.getEquipmentId(), side3, new VoltageLevelInfos(vl3Side.getId(), vl3Side.getName(), vl3Side.getNominalV()));
-                    nfeeder2.setComponentType(LINE);
+                    FeederNode nfeeder2 = Feeder3WTNode.create(idFeeder2, n3WT.getName(), n3WT.getEquipmentId(), graph, side3);
                     nfeeder2.setOrder(n3WT.getOrder() + 1);
                     nfeeder2.setDirection(n3WT.getDirection());
                     graph.addNode(nfeeder2);
@@ -468,12 +469,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     graph.addEdge(nf, nfeeder1);
                     graph.addEdge(nf, nfeeder2);
                 });
-    }
-
-    private void changeFeederComponentTypeName(Graph graph) {
-        graph.getNodes().stream()
-                .filter(n -> n instanceof Feeder3WTNode || n instanceof Feeder2WTNode)
-                .forEach(n -> n.setComponentType(LINE));
     }
 
     /**

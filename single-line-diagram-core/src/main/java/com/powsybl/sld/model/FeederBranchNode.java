@@ -20,7 +20,7 @@ public class FeederBranchNode extends FeederWithSideNode {
 
     protected FeederBranchNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
                                Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, componentType, fictitious, graph, side);
+        super(id, name, equipmentId, componentType, fictitious, graph, side, FeederType.BRANCH);
         this.otherSideVoltageLevelInfos = Objects.requireNonNull(otherSideVoltageLevelInfos);
     }
 

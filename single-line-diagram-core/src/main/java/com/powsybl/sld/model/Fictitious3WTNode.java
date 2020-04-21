@@ -44,6 +44,20 @@ public class Fictitious3WTNode extends FictitiousNode {
         return voltageLevelInfosLeg3;
     }
 
+    public VoltageLevelInfos getVoltageLevelInfos(FeederWithSideNode.Side side) {
+        Objects.requireNonNull(side);
+        switch (side) {
+            case ONE:
+                return voltageLevelInfosLeg1;
+            case TWO:
+                return voltageLevelInfosLeg2;
+            case THREE:
+                return voltageLevelInfosLeg3;
+            default:
+                throw new IllegalStateException();
+        }
+    }
+
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);

@@ -35,8 +35,9 @@ public class FeederWithSideNode extends FeederNode {
 
     protected final Side side;
 
-    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph, Side side) {
-        super(id, name, equipmentId, componentType, fictitious, graph);
+    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
+                                 Graph graph, Side side, FeederType feederType) {
+        super(id, name, equipmentId, componentType, fictitious, graph, feederType);
         this.side = Objects.requireNonNull(side);
     }
 

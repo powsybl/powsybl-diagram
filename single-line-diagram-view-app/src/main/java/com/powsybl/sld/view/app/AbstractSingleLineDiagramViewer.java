@@ -115,7 +115,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private final ObjectProperty<Network> networkProperty = new SimpleObjectProperty<>();
 
     private final ObjectProperty<LayoutParameters> layoutParameters = new SimpleObjectProperty<>(new LayoutParameters()
-            .setShowGrid(true));
+            .setShowGrid(true)
+            .setAdaptCellHeightToContent(true));
 
     protected final Preferences preferences = Preferences.userNodeForPackage(VoltageLevelDiagramView.class);
 
@@ -653,7 +654,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         parametersPane.add(svgLibraryComboBox, 0, rowIndex++);
 
         styleComboBox.getItems().addAll(styles.keySet());
-        styleComboBox.getSelectionModel().selectFirst();
+        styleComboBox.getSelectionModel().select(1);
         styleComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> refreshDiagram());
         parametersPane.add(new Label("Style:"), 0, rowIndex++);
         parametersPane.add(styleComboBox, 0, rowIndex++);

@@ -6,29 +6,18 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.library.ComponentTypeName;
+
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Feeder3WTNode extends FeederWithSideNode {
 
-    public Feeder3WTNode(String id, String name, String equipmentId, String componentType,
-                         boolean fictitious, Graph graph, Side side) {
-        super(id, name, equipmentId, componentType, fictitious, graph, side);
+    private Feeder3WTNode(String id, String name, String equipmentId, Graph graph, Side side) {
+        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER);
     }
 
-    public Side getSide2() {
-        switch (side) {
-            case ONE: return Side.TWO;
-            case TWO: case THREE: return Side.ONE;
-        }
-        return null;
-    }
-
-    public Side getSide3() {
-        switch (side) {
-            case ONE: case TWO: return Side.THREE;
-            case THREE: return Side.TWO;
-        }
-        return null;
+    public static Feeder3WTNode create(String id, String name, String equipmentId, Graph graph, Side side) {
+        return new Feeder3WTNode(id, name, equipmentId, graph, side);
     }
 }

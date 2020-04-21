@@ -100,7 +100,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1.addEdge(vl1B1, vl1D2);
         g1.addEdge(vl1D2, vl1Bbs2);
 
-        FeederNode vl1Load1 = new FeederNode("vl1_load1", "vl1_load1", "vl1_load1", ComponentTypeName.LOAD, false, g1);
+        FeederNode vl1Load1 = FeederInjectionNode.createLoad("vl1_load1", "vl1_load1", g1);
         vl1Load1.setOrder(0);
         vl1Load1.setDirection(BusCell.Direction.TOP);
         vl1Load1.setX(40);
@@ -179,7 +179,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
         g2.addNode(vl2Bbs1);
-        FeederNode vl2Gen1 = new FeederNode("vl2_gen1", "vl2_gen1", "vl2_gen1", ComponentTypeName.GENERATOR, false, g2);
+        FeederNode vl2Gen1 = FeederInjectionNode.createGenerator("vl2_gen1", "vl2_gen1", g2);
         vl2Gen1.setOrder(0);
         vl2Gen1.setDirection(BusCell.Direction.TOP);
         vl2Gen1.setX(50);
@@ -257,7 +257,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl3Bbs1.setPxWidth(200);
         vl3Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
         g3.addNode(vl3Bbs1);
-        FeederNode vl3Capa1 = new FeederNode("vl3_capa1", "vl3_capa1", "vl3_capa1", ComponentTypeName.CAPACITOR, false, g3);
+        FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor("vl3_capa1", "vl3_capa1", g3);
         vl3Capa1.setOrder(0);
         vl3Capa1.setDirection(BusCell.Direction.TOP);
         vl3Capa1.setX(40);
@@ -347,7 +347,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1Graph.addEdge(vl1B1, vl1D2);
         g1Graph.addEdge(vl1D2, vl1Bbs2);
 
-        FeederNode vl1Load1 = new FeederNode("vl1_load1", "vl1_load1", "vl1_load1", ComponentTypeName.LOAD, false, g1Graph);
+        FeederNode vl1Load1 = FeederInjectionNode.createLoad("vl1_load1", "vl1_load1", g1Graph);
         vl1Load1.setOrder(0);
         vl1Load1.setDirection(BusCell.Direction.TOP);
         vl1Load1.setX(40);
@@ -383,7 +383,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1Graph.addEdge(vl1Btrf1, vl1Dtrf1);
         g1Graph.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder3WTNode vl1Trf2 = new Feeder3WTNode("vl1_trf2_one", "vl1_trf2", "vl1_trf2", ComponentTypeName.LINE, false, g1Graph, Feeder3WTNode.Side.ONE);
+        Feeder3WTNode vl1Trf2 = Feeder3WTNode.create("vl1_trf2_one", "vl1_trf2", "vl1_trf2", g1Graph, Feeder3WTNode.Side.ONE);
         vl1Trf2.setOrder(2);
         vl1Trf2.setDirection(BusCell.Direction.TOP);
         vl1Trf2.setX(400);
@@ -414,7 +414,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
         g2Graph.addNode(vl2Bbs1);
-        FeederNode vl2Gen1 = new FeederNode("vl2_gen1", "vl2_gen1", "vl2_gen1", ComponentTypeName.GENERATOR, false, g2Graph);
+        FeederNode vl2Gen1 = FeederInjectionNode.createGenerator("vl2_gen1", "vl2_gen1", g2Graph);
         vl2Gen1.setOrder(0);
         vl2Gen1.setDirection(BusCell.Direction.TOP);
         vl2Gen1.setX(50);
@@ -450,7 +450,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g2Graph.addEdge(vl2Btrf1, vl2Dtrf1);
         g2Graph.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder3WTNode vl2Trf2 = new Feeder3WTNode("vl2_trf2_one", "vl2_trf2", "vl2_trf2", ComponentTypeName.LINE, false, g2Graph, Feeder3WTNode.Side.TWO);
+        Feeder3WTNode vl2Trf2 = Feeder3WTNode.create("vl2_trf2_one", "vl2_trf2", "vl2_trf2", g2Graph, Feeder3WTNode.Side.TWO);
         vl2Trf2.setOrder(2);
         vl2Trf2.setDirection(BusCell.Direction.TOP);
         vl2Trf2.setX(160);
@@ -480,7 +480,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl3Bbs1.setPxWidth(200);
         vl3Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
         g3Graph.addNode(vl3Bbs1);
-        FeederNode vl3Capa1 = new FeederNode("vl3_capa1", "vl3_capa1", "vl3_capa1", ComponentTypeName.CAPACITOR, false, g3Graph);
+        FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor("vl3_capa1", "vl3_capa1", g3Graph);
         vl3Capa1.setOrder(0);
         vl3Capa1.setDirection(BusCell.Direction.TOP);
         vl3Capa1.setX(40);
@@ -498,7 +498,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g3Graph.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3Graph.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        Feeder3WTNode vl3Trf2 = new Feeder3WTNode("vl3_trf2_one", "vl3_trf2", "vl3_trf2", ComponentTypeName.LINE, false, g3Graph, Feeder3WTNode.Side.THREE);
+        Feeder3WTNode vl3Trf2 = Feeder3WTNode.create("vl3_trf2_one", "vl3_trf2", "vl3_trf2", g3Graph, Feeder3WTNode.Side.THREE);
         vl3Trf2.setOrder(1);
         vl3Trf2.setDirection(BusCell.Direction.TOP);
         vl3Trf2.setX(150);
@@ -557,7 +557,7 @@ public class TestSVGWriter extends AbstractTestCase {
         bus11Node.setY(200);
         bus11Node.setPxWidth(40);
         vl11Graph.addNode(bus11Node);
-        FeederNode loadNode = new FeederNode(LOAD_ID, LOAD_ID, LOAD_ID, ComponentTypeName.LOAD, false, vl11Graph);
+        FeederNode loadNode = FeederInjectionNode.createLoad(LOAD_ID, LOAD_ID, vl11Graph);
         loadNode.setX(50);
         loadNode.setY(50);
         vl11Graph.addNode(loadNode);
@@ -578,7 +578,7 @@ public class TestSVGWriter extends AbstractTestCase {
         twtSide2Node.setX(50);
         twtSide2Node.setY(400);
         vl12Graph.addNode(twtSide2Node);
-        FeederLineNode lineSide1Node = new FeederLineNode(LINE_ID + "_" + Side.ONE, LINE_ID, LINE_ID, ComponentTypeName.LINE, false, vl12Graph, FeederBranchNode.Side.ONE, new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V));
+        FeederLineNode lineSide1Node = new FeederLineNode(LINE_ID + "_" + Side.ONE, LINE_ID, LINE_ID, false, vl12Graph, FeederBranchNode.Side.ONE, new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V));
         lineSide1Node.setX(50);
         lineSide1Node.setY(650);
         vl12Graph.addNode(lineSide1Node);
@@ -591,11 +591,11 @@ public class TestSVGWriter extends AbstractTestCase {
         bus21Node.setY(1100);
         bus21Node.setPxWidth(40);
         vl21Graph.addNode(bus21Node);
-        FeederNode genNode = new FeederNode(GENERATOR_ID, GENERATOR_ID, GENERATOR_ID, ComponentTypeName.GENERATOR, false, vl21Graph);
+        FeederNode genNode = FeederInjectionNode.createGenerator(GENERATOR_ID, GENERATOR_ID, vl21Graph);
         genNode.setX(150);
         genNode.setY(1250);
         vl21Graph.addNode(genNode);
-        FeederLineNode lineSide2Node = new FeederLineNode(LINE_ID + "_" + Side.TWO, LINE_ID, LINE_ID, ComponentTypeName.LINE, false, vl21Graph, FeederBranchNode.Side.TWO, new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V));
+        FeederLineNode lineSide2Node = new FeederLineNode(LINE_ID + "_" + Side.TWO, LINE_ID, LINE_ID, false, vl21Graph, FeederBranchNode.Side.TWO, new VoltageLevelInfos(VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_ID, VOLTAGE_LEVEL_12_V));
         lineSide2Node.setX(150);
         lineSide2Node.setY(950);
         vl21Graph.addNode(lineSide2Node);

@@ -116,38 +116,29 @@ public class RawGraphBuilder implements GraphBuilder {
             }
         }
 
-        public FeederNode createFeederNode(String id, String componentTypeName, boolean fictitious, int order, BusCell.Direction direction) {
-            FeederNode fn = new FeederNode(id, id, id, componentTypeName, fictitious, graph);
+        public FeederNode createLoad(String id) {
+            return createLoad(id, 0, null);
+        }
+
+        public FeederNode createLoad(String id, int order, BusCell.Direction direction) {
+            FeederInjectionNode fn = FeederInjectionNode.createLoad(id, id, graph);
             commonFeederSetting(fn, id, order, direction);
             return fn;
         }
 
-        public FeederNode createFeederNode(String id, String componentTypeName, boolean fictitious) {
-            FeederNode fn = createFeederNode(id, componentTypeName, fictitious);
-            commonFeederSetting(fn, id, 0, null);
-            return fn;
-        }
-
-        public FeederNode createLoad(String id) {
-            return createFeederNode(id, ComponentTypeName.LOAD, false);
-        }
-
-        public FeederNode createLoad(String id, int order, BusCell.Direction direction) {
-            return createFeederNode(id, ComponentTypeName.LOAD, false, order, direction);
-        }
-
         public FeederNode createGenerator(String id) {
-            return createFeederNode(id, ComponentTypeName.GENERATOR, false);
+            return createGenerator(id, 0, null);
         }
 
         public FeederNode createGenerator(String id, int order, BusCell.Direction direction) {
-            return createFeederNode(id, ComponentTypeName.GENERATOR, false, order, direction);
+            FeederInjectionNode fn = FeederInjectionNode.createGenerator(id, id, graph);
+            commonFeederSetting(fn, id, order, direction);
+            return fn;
         }
 
         public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            FeederLineNode fln = new FeederLineNode(name, id, id, ComponentTypeName.LINE, false, graph, side,
-                    getVoltageLevelInfosFromId(otherVlId));
+            FeederLineNode fln = new FeederLineNode(name, id, id, false, graph, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(fln, id, order, direction);
             return fln;
         }
@@ -163,8 +154,7 @@ public class RawGraphBuilder implements GraphBuilder {
 
         public Feeder3WTNode createFeeder3WTNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            Feeder3WTNode f3WTe = new Feeder3WTNode(name, id, id,
-                    ComponentTypeName.THREE_WINDINGS_TRANSFORMER, false, graph, side);
+            Feeder3WTNode f3WTe = Feeder3WTNode.create(name, id, id, graph, side);
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
