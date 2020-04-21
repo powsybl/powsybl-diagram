@@ -41,7 +41,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
                     case BRANCH:
                         return getBranchInitialValue((FeederBranchNode) node);
                     case THREE_WINDINGS_TRANSFORMER:
-                        return get3wtInitialValue((Feeder3WTNode) node);
+                        return get3wtInitialValue((Feeder3wtLegNode) node);
                     default:
                         break;
                 }
@@ -61,7 +61,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         }
     }
 
-    private InitialValue get3wtInitialValue(Feeder3WTNode node) {
+    private InitialValue get3wtInitialValue(Feeder3wtLegNode node) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());

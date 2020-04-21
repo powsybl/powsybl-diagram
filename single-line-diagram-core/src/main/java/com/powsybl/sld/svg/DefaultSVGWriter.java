@@ -44,7 +44,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.Middle3wtNode;
 import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.commons.lang3.StringUtils;
@@ -649,7 +649,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void handleNodeRotation(Node node) {
         if (node.getGraph() != null) { // node in voltage level graph
-            if (node instanceof Fictitious3WTNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+            if (node instanceof Middle3wtNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
                 node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
             }
         } else {  // node outside any graph

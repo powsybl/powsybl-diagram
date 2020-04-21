@@ -7,7 +7,6 @@
 package com.powsybl.sld;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -340,7 +339,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                                        "trf63", 2, ConnectablePosition.Direction.TOP);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.TOP, BusCell.Direction.TOP);
 
         SwitchNode dtrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf16", false, false);
@@ -378,7 +377,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf73", 2, ConnectablePosition.Direction.BOTTOM);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.BOTTOM, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf17", false, false);
@@ -416,7 +415,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf83", 2, ConnectablePosition.Direction.TOP);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
 
         SwitchNode dtrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf18", false, false);

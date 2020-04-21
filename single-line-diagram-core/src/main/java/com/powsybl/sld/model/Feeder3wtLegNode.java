@@ -11,13 +11,13 @@ import com.powsybl.sld.library.ComponentTypeName;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Feeder3WTNode extends FeederWithSideNode {
+public class Feeder3wtLegNode extends FeederWithSideNode {
 
-    private Feeder3WTNode(String id, String name, String equipmentId, Graph graph, Side side) {
+    private Feeder3wtLegNode(String id, String name, String equipmentId, Graph graph, Side side) {
         super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER);
     }
 
-    public static Feeder3WTNode create(String id, String name, String equipmentId, Graph graph, Side side) {
-        return new Feeder3WTNode(id, name, equipmentId, graph, side);
+    public static Feeder3wtLegNode create(String id, String name, String equipmentId, Graph graph, Side side) {
+        return new Feeder3wtLegNode(id, name, equipmentId, graph, side);
     }
 }

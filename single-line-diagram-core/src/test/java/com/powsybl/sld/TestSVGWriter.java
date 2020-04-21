@@ -148,7 +148,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Fictitious3WTNode vl1Trf2Fict = new Fictitious3WTNode(g1, "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3wtNode vl1Trf2Fict = new Middle3wtNode(g1, "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -227,7 +227,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Fictitious3WTNode vl2Trf2Fict = new Fictitious3WTNode(g2, "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3wtNode vl2Trf2Fict = new Middle3wtNode(g2, "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -287,7 +287,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Fictitious3WTNode vl3Trf2Fict = new Fictitious3WTNode(g3, "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3wtNode vl3Trf2Fict = new Middle3wtNode(g3, "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -383,7 +383,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g1Graph.addEdge(vl1Btrf1, vl1Dtrf1);
         g1Graph.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder3WTNode vl1Trf2 = Feeder3WTNode.create("vl1_trf2_one", "vl1_trf2", "vl1_trf2", g1Graph, Feeder3WTNode.Side.ONE);
+        Feeder3wtLegNode vl1Trf2 = Feeder3wtLegNode.create("vl1_trf2_one", "vl1_trf2", "vl1_trf2", g1Graph, Feeder3wtLegNode.Side.ONE);
         vl1Trf2.setOrder(2);
         vl1Trf2.setDirection(BusCell.Direction.TOP);
         vl1Trf2.setX(400);
@@ -450,7 +450,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g2Graph.addEdge(vl2Btrf1, vl2Dtrf1);
         g2Graph.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder3WTNode vl2Trf2 = Feeder3WTNode.create("vl2_trf2_one", "vl2_trf2", "vl2_trf2", g2Graph, Feeder3WTNode.Side.TWO);
+        Feeder3wtLegNode vl2Trf2 = Feeder3wtLegNode.create("vl2_trf2_one", "vl2_trf2", "vl2_trf2", g2Graph, Feeder3wtLegNode.Side.TWO);
         vl2Trf2.setOrder(2);
         vl2Trf2.setDirection(BusCell.Direction.TOP);
         vl2Trf2.setX(160);
@@ -498,7 +498,7 @@ public class TestSVGWriter extends AbstractTestCase {
         g3Graph.addEdge(vl3Bcapa1, vl3Dcapa1);
         g3Graph.addEdge(vl3Dcapa1, vl3Bbs1);
 
-        Feeder3WTNode vl3Trf2 = Feeder3WTNode.create("vl3_trf2_one", "vl3_trf2", "vl3_trf2", g3Graph, Feeder3WTNode.Side.THREE);
+        Feeder3wtLegNode vl3Trf2 = Feeder3wtLegNode.create("vl3_trf2_one", "vl3_trf2", "vl3_trf2", g3Graph, Feeder3wtLegNode.Side.THREE);
         vl3Trf2.setOrder(1);
         vl3Trf2.setDirection(BusCell.Direction.TOP);
         vl3Trf2.setX(150);
