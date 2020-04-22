@@ -113,6 +113,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 } else if (nameSubComponent.equals(WINDING2)) {
                     color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 } else {
+                    // phase shifter case
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
                 }
             } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {

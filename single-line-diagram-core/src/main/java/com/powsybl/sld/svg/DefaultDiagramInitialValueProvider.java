@@ -6,10 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.model.*;
 
 import java.util.ArrayList;
@@ -31,17 +28,27 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     @Override
     public InitialValue getInitialValue(Node node) {
         Objects.requireNonNull(node);
+
+        InitialValue initialValue = null;
+
         switch (node.getType()) {
             case BUS:
-                return new InitialValue(null, null, node.getLabel(), null, null, null);
+                initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                break;
             case FEEDER:
                 switch (((FeederNode) node).getFeederType()) {
                     case INJECTION:
-                        return getInjectionInitialValue((FeederInjectionNode) node);
+                        initialValue = getInjectionInitialValue((FeederInjectionNode) node);
+                        break;
                     case BRANCH:
-                        return getBranchInitialValue((FeederBranchNode) node);
-                    case THREE_WINDINGS_TRANSFORMER:
-                        return get3wtInitialValue((Feeder3wtLegNode) node);
+                        initialValue = getBranchInitialValue((FeederBranchNode) node);
+                        break;
+                    case TWO_WINDINGS_TRANSFORMER_LEG:
+                        initialValue = get2wtInitialValue((Feeder2wtLegNode) node);
+                        break;
+                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                        initialValue = get3wtInitialValue((Feeder3wtLegNode) node);
+                        break;
                     default:
                         break;
                 }
@@ -49,26 +56,16 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
             default:
                 break;
         }
-        return new InitialValue(null, null, null, null, null, null);
+
+        return initialValue != null ? initialValue : new InitialValue(null, null, null, null, null, null);
     }
 
     private InitialValue getInjectionInitialValue(FeederInjectionNode node) {
         Injection injection = (Injection) network.getIdentifiable(node.getId());
         if (injection != null) {
             return buildInitialValue(injection);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
         }
-    }
-
-    private InitialValue get3wtInitialValue(Feeder3wtLegNode node) {
-        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
-        if (transformer != null) {
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            return buildInitialValue(transformer, side);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
-        }
+        return null;
     }
 
     private InitialValue getBranchInitialValue(FeederBranchNode node) {
@@ -76,9 +73,26 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
             return buildInitialValue(branch, side);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
         }
+        return null;
+    }
+
+    private InitialValue get3wtInitialValue(Feeder3wtLegNode node) {
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
+        if (transformer != null) {
+            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
+            return buildInitialValue(transformer, side);
+        }
+        return null;
+    }
+
+    private InitialValue get2wtInitialValue(Feeder2wtLegNode node) {
+        TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
+        if (transformer != null) {
+            Branch.Side side = Branch.Side.valueOf(node.getSide().name());
+            return buildInitialValue(transformer, side);
+        }
+        return null;
     }
 
     @Override

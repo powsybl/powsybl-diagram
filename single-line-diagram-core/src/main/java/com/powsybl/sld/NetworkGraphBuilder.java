@@ -135,29 +135,33 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        private FeederNode createFeeder2WTNode(Graph graph,
+        private FeederNode createFeeder2wtNode(Graph graph,
                                                TwoWindingsTransformer branch,
                                                Branch.Side side) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(branch);
-            String componentType;
-
-            if (branch.getPhaseTapChanger() == null) {
-                componentType = TWO_WINDINGS_TRANSFORMER;
-            } else {
-                componentType = PHASE_SHIFT_TRANSFORMER;
-            }
 
             String id = branch.getId() + "_" + side.name();
             String name = branch.getName();
             String equipmentId = branch.getId();
             FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
-            Branch.Side otherSide = side == Branch.Side.ONE
-                    ? Branch.Side.TWO
-                    : Branch.Side.ONE;
-            VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-            return new Feeder2WTNode(id, name, equipmentId, componentType, false, graph, s,
-                    new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+
+            if (graph.isForVoltageLevelDiagram()) {
+                String componentType;
+                if (branch.getPhaseTapChanger() == null) {
+                    componentType = TWO_WINDINGS_TRANSFORMER;
+                } else {
+                    componentType = PHASE_SHIFT_TRANSFORMER;
+                }
+                Branch.Side otherSide = side == Branch.Side.ONE
+                        ? Branch.Side.TWO
+                        : Branch.Side.ONE;
+                VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
+                return new Feeder2WTNode(id, name, equipmentId, componentType, false, graph, s,
+                                         new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+            } else {
+                return Feeder2wtLegNode.create(id, name, equipmentId, graph, s);
+            }
         }
 
         protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
@@ -202,7 +206,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
                                                 Branch.Side side) {
-            addFeeder(createFeeder2WTNode(graph, transformer, side), transformer.getTerminal(side));
+            addFeeder(createFeeder2wtNode(graph, transformer, side), transformer.getTerminal(side));
         }
 
         @Override

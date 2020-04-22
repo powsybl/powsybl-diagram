@@ -14,7 +14,7 @@ import com.powsybl.sld.library.ComponentTypeName;
 public class Feeder3wtLegNode extends FeederWithSideNode {
 
     private Feeder3wtLegNode(String id, String name, String equipmentId, Graph graph, Side side) {
-        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER);
+        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
     public static Feeder3wtLegNode create(String id, String name, String equipmentId, Graph graph, Side side) {

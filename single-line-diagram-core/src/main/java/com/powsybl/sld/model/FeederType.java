@@ -12,6 +12,7 @@ package com.powsybl.sld.model;
 public enum FeederType {
     INJECTION,
     BRANCH,
-    THREE_WINDINGS_TRANSFORMER,
+    TWO_WINDINGS_TRANSFORMER_LEG,
+    THREE_WINDINGS_TRANSFORMER_LEG,
     FICTITIOUS
 }
