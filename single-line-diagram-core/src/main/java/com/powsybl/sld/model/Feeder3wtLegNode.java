@@ -17,7 +17,7 @@ public class Feeder3wtLegNode extends FeederWithSideNode {
         super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder3wtLegNode create(String id, String name, String equipmentId, Graph graph, Side side) {
+    public static Feeder3wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side) {
         return new Feeder3wtLegNode(id, name, equipmentId, graph, side);
     }
 }

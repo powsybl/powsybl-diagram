@@ -17,7 +17,7 @@ public class Feeder2wtLegNode extends FeederWithSideNode {
         super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder2wtLegNode create(String id, String name, String equipmentId, Graph graph, Side side) {
+    public static Feeder2wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side) {
         return new Feeder2wtLegNode(id, name, equipmentId, graph, side);
     }
 }

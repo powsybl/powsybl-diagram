@@ -18,9 +18,9 @@ public class FeederBranchNode extends FeederWithSideNode {
 
     private final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    protected FeederBranchNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
+    protected FeederBranchNode(String id, String name, String equipmentId, String componentType, Graph graph,
                                Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, componentType, fictitious, graph, side, FeederType.BRANCH);
+        super(id, name, equipmentId, componentType, false, graph, side, FeederType.BRANCH);
         this.otherSideVoltageLevelInfos = Objects.requireNonNull(otherSideVoltageLevelInfos);
     }
 

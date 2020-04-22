@@ -110,7 +110,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return new FeederLineNode(id, name, equipmentId, false, graph, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+            return FeederLineNode.create(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
         private FeederNode createFeederNode(Graph graph, Injection injection) {
@@ -118,18 +118,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(injection);
             switch (injection.getType()) {
                 case GENERATOR:
-                    return FeederInjectionNode.createGenerator(injection.getId(), injection.getName(), graph);
+                    return FeederInjectionNode.createGenerator(graph, injection.getId(), injection.getName());
                 case LOAD:
-                    return FeederInjectionNode.createLoad(injection.getId(), injection.getName(), graph);
+                    return FeederInjectionNode.createLoad(graph, injection.getId(), injection.getName());
                 case HVDC_CONVERTER_STATION:
-                    return FeederInjectionNode.createVscConverterStation(injection.getId(), injection.getName(), graph);
+                    return FeederInjectionNode.createVscConverterStation(graph, injection.getId(), injection.getName());
                 case STATIC_VAR_COMPENSATOR:
-                    return FeederInjectionNode.createStaticVarCompensator(injection.getId(), injection.getName(), graph);
+                    return FeederInjectionNode.createStaticVarCompensator(graph, injection.getId(), injection.getName());
                 case SHUNT_COMPENSATOR:
-                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(injection.getId(), injection.getName(), graph)
-                                                                                : FeederInjectionNode.createInductor(injection.getId(), injection.getName(), graph);
+                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
+                                                                                : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
                 case DANGLING_LINE:
-                    return FeederInjectionNode.createDanglingLine(injection.getId(), injection.getName(), graph);
+                    return FeederInjectionNode.createDanglingLine(graph, injection.getId(), injection.getName());
                 default:
                     throw new IllegalStateException();
             }
@@ -144,23 +144,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getName();
             String equipmentId = branch.getId();
-            FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
 
             if (graph.isForVoltageLevelDiagram()) {
-                String componentType;
-                if (branch.getPhaseTapChanger() == null) {
-                    componentType = TWO_WINDINGS_TRANSFORMER;
-                } else {
-                    componentType = PHASE_SHIFT_TRANSFORMER;
-                }
-                Branch.Side otherSide = side == Branch.Side.ONE
-                        ? Branch.Side.TWO
-                        : Branch.Side.ONE;
+                Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
                 VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-                return new Feeder2WTNode(id, name, equipmentId, componentType, false, graph, s,
-                                         new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+                VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
+                if (branch.getPhaseTapChanger() == null) {
+                    return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                } else {
+                    return Feeder2WTNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                }
             } else {
-                return Feeder2wtLegNode.create(id, name, equipmentId, graph, s);
+                return Feeder2wtLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
         }
 
@@ -261,18 +256,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create first other leg feeder node
                 String firstOtherLegNodeId = transformer.getId() + "_" + firstOtherLegSide.name();
-                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.create(firstOtherLegNodeId, transformer.getName(), transformer.getId(), graph, firstOtherLegSide);
+                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.create(graph, firstOtherLegNodeId, transformer.getName(), transformer.getId(), firstOtherLegSide);
 
                 // create second other leg feeder node
                 String secondOtherLegNodeId = transformer.getId() + "_" + secondOtherLegSide.name();
-                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.create(secondOtherLegNodeId, transformer.getName(), transformer.getId(), graph, secondOtherLegSide);
+                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.create(graph, secondOtherLegNodeId, transformer.getName(), transformer.getId(), secondOtherLegSide);
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
                 // in substation diagram, we only represent the leg node
 
                 String id = transformer.getId() + "_" + side.name();
-                Feeder3wtLegNode legNode = Feeder3wtLegNode.create(id, transformer.getName(), transformer.getId(), graph, FeederWithSideNode.Side.valueOf(side.name()));
+                Feeder3wtLegNode legNode = Feeder3wtLegNode.create(graph, id, transformer.getName(), transformer.getId(), FeederWithSideNode.Side.valueOf(side.name()));
 
                 addFeeder(legNode, transformer.getTerminal(side));
             }

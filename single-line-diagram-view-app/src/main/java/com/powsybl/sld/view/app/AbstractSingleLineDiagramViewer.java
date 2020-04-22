@@ -828,6 +828,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
         initTreeCellFactory();
 
+        showNames.setSelected(true);
         showNames.selectedProperty().addListener((observable, oldValue, newValue) -> {
             substationsTree.refresh();
             refreshDiagram();

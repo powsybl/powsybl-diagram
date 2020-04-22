@@ -17,31 +17,31 @@ public class FeederInjectionNode extends FeederNode {
         super(id, name, id, componentType, false, graph, FeederType.INJECTION);
     }
 
-    public static FeederInjectionNode createGenerator(String id, String name, Graph graph) {
+    public static FeederInjectionNode createGenerator(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.GENERATOR, graph);
     }
 
-    public static FeederInjectionNode createLoad(String id, String name, Graph graph) {
+    public static FeederInjectionNode createLoad(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.LOAD, graph);
     }
 
-    public static FeederInjectionNode createVscConverterStation(String id, String name, Graph graph) {
+    public static FeederInjectionNode createVscConverterStation(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.VSC_CONVERTER_STATION, graph);
     }
 
-    public static FeederInjectionNode createStaticVarCompensator(String id, String name, Graph graph) {
+    public static FeederInjectionNode createStaticVarCompensator(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.STATIC_VAR_COMPENSATOR, graph);
     }
 
-    public static FeederInjectionNode createInductor(String id, String name, Graph graph) {
+    public static FeederInjectionNode createInductor(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.INDUCTOR, graph);
     }
 
-    public static FeederInjectionNode createCapacitor(String id, String name, Graph graph) {
+    public static FeederInjectionNode createCapacitor(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.CAPACITOR, graph);
     }
 
-    public static FeederInjectionNode createDanglingLine(String id, String name, Graph graph) {
+    public static FeederInjectionNode createDanglingLine(Graph graph, String id, String name) {
         return new FeederInjectionNode(id, name, ComponentTypeName.DANGLING_LINE, graph);
     }
 }

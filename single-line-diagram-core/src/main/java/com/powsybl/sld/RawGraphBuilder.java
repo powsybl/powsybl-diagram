@@ -121,7 +121,7 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FeederNode createLoad(String id, int order, BusCell.Direction direction) {
-            FeederInjectionNode fn = FeederInjectionNode.createLoad(id, id, graph);
+            FeederInjectionNode fn = FeederInjectionNode.createLoad(graph, id, id);
             commonFeederSetting(fn, id, order, direction);
             return fn;
         }
@@ -131,14 +131,14 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FeederNode createGenerator(String id, int order, BusCell.Direction direction) {
-            FeederInjectionNode fn = FeederInjectionNode.createGenerator(id, id, graph);
+            FeederInjectionNode fn = FeederInjectionNode.createGenerator(graph, id, id);
             commonFeederSetting(fn, id, order, direction);
             return fn;
         }
 
         public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            FeederLineNode fln = new FeederLineNode(name, id, id, false, graph, side, getVoltageLevelInfosFromId(otherVlId));
+            FeederLineNode fln = FeederLineNode.create(graph, id, name, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(fln, id, order, direction);
             return fln;
         }
@@ -146,15 +146,14 @@ public class RawGraphBuilder implements GraphBuilder {
         public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederWithSideNode.Side side,
                                                  int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            Feeder2WTNode f2WTe = new Feeder2WTNode(name, id, id, ComponentTypeName.TWO_WINDINGS_TRANSFORMER, false,
-                    graph, side, getVoltageLevelInfosFromId(otherVlId));
+            Feeder2WTNode f2WTe = Feeder2WTNode.create(graph, id, name, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(f2WTe, id, order, direction);
             return f2WTe;
         }
 
         public Feeder3wtLegNode createFeeder3WTNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            Feeder3wtLegNode f3WTe = Feeder3wtLegNode.create(name, id, id, graph, side);
+            Feeder3wtLegNode f3WTe = Feeder3wtLegNode.create(graph, name, id, id, side);
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
