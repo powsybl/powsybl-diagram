@@ -13,11 +13,13 @@ import com.powsybl.sld.library.ComponentTypeName;
  */
 public class Feeder3wtLegNode extends FeederWithSideNode {
 
-    private Feeder3wtLegNode(String id, String name, String equipmentId, Graph graph, Side side) {
-        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
+    private Feeder3wtLegNode(String id, String name, String equipmentId, Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, otherSideVoltageLevelInfos,
+                FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder3wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side) {
-        return new Feeder3wtLegNode(id, name, equipmentId, graph, side);
+    public static Feeder3wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side,
+                                          VoltageLevelInfos otherSideVoltageLevelInfos) {
+        return new Feeder3wtLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
     }
 }

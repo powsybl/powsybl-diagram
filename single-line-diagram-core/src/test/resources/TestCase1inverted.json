@@ -148,6 +148,7 @@
           "y" : -20.0,
           "open" : false,
           "label" : "l",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]

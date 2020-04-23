@@ -49,9 +49,9 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
         Node node2 = edge.getNode2();
         VoltageLevelInfos voltageLevelInfos;
         if (node1 instanceof Middle3wtNode && node2 instanceof Feeder3wtLegNode) {
-            voltageLevelInfos = ((Middle3wtNode) node1).getVoltageLevelInfos(((Feeder3wtLegNode) node2).getSide());
+            voltageLevelInfos = ((Feeder3wtLegNode) node2).getOtherSideVoltageLevelInfos();
         } else if (node1 instanceof Feeder3wtLegNode && node2 instanceof Middle3wtNode) {
-            voltageLevelInfos = ((Middle3wtNode) node2).getVoltageLevelInfos(((Feeder3wtLegNode) node1).getSide());
+            voltageLevelInfos = ((Feeder3wtLegNode) node1).getOtherSideVoltageLevelInfos();
         } else {
             voltageLevelInfos = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos() : node2.getGraph().getVoltageLevelInfos();
         }

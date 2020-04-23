@@ -151,9 +151,9 @@ public class RawGraphBuilder implements GraphBuilder {
             return f2WTe;
         }
 
-        public Feeder3wtLegNode createFeeder3WTNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
+        public Feeder3wtLegNode createFeeder3WTNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
             String name = id + "_" + side;
-            Feeder3wtLegNode f3WTe = Feeder3wtLegNode.create(graph, name, id, id, side);
+            Feeder3wtLegNode f3WTe = Feeder3wtLegNode.create(graph, name, id, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
@@ -216,9 +216,9 @@ public class RawGraphBuilder implements GraphBuilder {
                                                                           int order1, int order2, int order3,
                                                                           BusCell.Direction direction1, BusCell.Direction direction2, BusCell.Direction direction3) {
             Map<VoltageLevelBuilder, Feeder3wtLegNode> f3WTNodes = new HashMap<>();
-            Feeder3wtLegNode feeder3WTNode1 = vl1.createFeeder3WTNode(id, ONE, order1, direction1);
-            Feeder3wtLegNode feeder3WTNode2 = vl2.createFeeder3WTNode(id, TWO, order2, direction2);
-            Feeder3wtLegNode feeder3WTNode3 = vl3.createFeeder3WTNode(id, THREE, order3, direction3);
+            Feeder3wtLegNode feeder3WTNode1 = vl1.createFeeder3WTNode(id, vl2.voltageLevelInfos.getId(), ONE, order1, direction1);
+            Feeder3wtLegNode feeder3WTNode2 = vl2.createFeeder3WTNode(id, vl3.voltageLevelInfos.getId(), TWO, order2, direction2);
+            Feeder3wtLegNode feeder3WTNode3 = vl3.createFeeder3WTNode(id, vl1.voltageLevelInfos.getId(), THREE, order3, direction3);
             f3WTNodes.put(vl1, feeder3WTNode1);
             f3WTNodes.put(vl2, feeder3WTNode2);
             f3WTNodes.put(vl3, feeder3WTNode3);

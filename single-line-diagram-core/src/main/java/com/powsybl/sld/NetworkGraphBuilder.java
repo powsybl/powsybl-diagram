@@ -144,18 +144,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id = branch.getId() + "_" + side.name();
             String name = branch.getName();
             String equipmentId = branch.getId();
+            Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
+            VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
+            VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
 
             if (graph.isForVoltageLevelDiagram()) {
-                Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
-                VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-                VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
                 if (branch.getPhaseTapChanger() == null) {
                     return Feeder2wtNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
                     return Feeder2wtNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
-                return Feeder2wtLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                return Feeder2wtLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
             }
         }
 
@@ -209,8 +209,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
         }
 
-        private static VoltageLevelInfos createVoltageLevelInfos(ThreeWindingsTransformer.Leg leg) {
-            VoltageLevel vl = leg.getTerminal().getVoltageLevel();
+        private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
+            VoltageLevel vl = terminal.getVoltageLevel();
             return new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV());
         }
 
@@ -225,9 +225,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 //   - a feeder for second other leg
 
                 Map<FeederWithSideNode.Side, VoltageLevelInfos> voltageLevelInfosBySide
-                        = ImmutableMap.of(FeederWithSideNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1()),
-                                          FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2()),
-                                          FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3()));
+                        = ImmutableMap.of(FeederWithSideNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1().getTerminal()),
+                                          FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
+                                          FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
                 // create middle node
                 Middle3wtNode middleNode = new Middle3wtNode(graph, transformer.getId() + "_fictif",
@@ -256,18 +256,21 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create first other leg feeder node
                 String firstOtherLegNodeId = transformer.getId() + "_" + firstOtherLegSide.name();
-                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.create(graph, firstOtherLegNodeId, transformer.getName(), transformer.getId(), firstOtherLegSide);
+                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.create(graph, firstOtherLegNodeId, transformer.getName(),
+                        transformer.getId(), firstOtherLegSide, voltageLevelInfosBySide.get(firstOtherLegSide));
 
                 // create second other leg feeder node
                 String secondOtherLegNodeId = transformer.getId() + "_" + secondOtherLegSide.name();
-                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.create(graph, secondOtherLegNodeId, transformer.getName(), transformer.getId(), secondOtherLegSide);
+                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.create(graph, secondOtherLegNodeId, transformer.getName(),
+                        transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
                 // in substation diagram, we only represent the leg node
 
                 String id = transformer.getId() + "_" + side.name();
-                Feeder3wtLegNode legNode = Feeder3wtLegNode.create(graph, id, transformer.getName(), transformer.getId(), FeederWithSideNode.Side.valueOf(side.name()));
+                Feeder3wtLegNode legNode = Feeder3wtLegNode.create(graph, id, transformer.getName(), transformer.getId(),
+                        FeederWithSideNode.Side.valueOf(side.name()), createVoltageLevelInfos(transformer.getTerminal(side)));
 
                 addFeeder(legNode, transformer.getTerminal(side));
             }

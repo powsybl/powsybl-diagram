@@ -189,6 +189,7 @@
           "y" : -19.99999999999998,
           "open" : false,
           "label" : "la",
+          "feederType" : "INJECTION",
           "order" : 10,
           "direction" : "TOP"
         } ]
@@ -392,6 +393,7 @@
           "y" : -20.0,
           "open" : false,
           "label" : "lb",
+          "feederType" : "INJECTION",
           "order" : 20,
           "direction" : "TOP"
         } ]
