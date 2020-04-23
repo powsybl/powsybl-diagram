@@ -150,9 +150,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
                 VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
                 if (branch.getPhaseTapChanger() == null) {
-                    return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return Feeder2wtNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
-                    return Feeder2WTNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return Feeder2wtNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
                 return Feeder2wtLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
