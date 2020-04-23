@@ -143,7 +143,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Middle3wtNode vl1Trf2Fict = new Middle3wtNode(g1, "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode(g1, "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -222,7 +222,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Middle3wtNode vl2Trf2Fict = new Middle3wtNode(g2, "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode(g2, "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -282,7 +282,7 @@ public class TestSVGWriter extends AbstractTestCase {
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Middle3wtNode vl3Trf2Fict = new Middle3wtNode(g3, "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode(g3, "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);

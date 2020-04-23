@@ -105,8 +105,8 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         if (g != null) {  // node inside a voltageLevel graph
             String vlId = g.getVoltageLevelInfos().getId();
 
-            if (node instanceof Middle3wtNode) {
-                color = getColorFictitious3WTNode((Middle3wtNode) node, nameSubComponent, vlId);
+            if (node instanceof Middle3WTNode) {
+                color = getColorFictitious3WTNode((Middle3WTNode) node, nameSubComponent, vlId);
             } else if (node instanceof Feeder2WTNode) {
                 if (nameSubComponent.equals(WINDING1)) {
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
@@ -162,7 +162,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return attributes;
     }
 
-    private Optional<String> getColorFictitious3WTNode(Middle3wtNode node, String nameSubComponent, String vlId) {
+    private Optional<String> getColorFictitious3WTNode(Middle3WTNode node, String nameSubComponent, String vlId) {
         VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
         VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
         VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();

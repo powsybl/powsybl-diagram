@@ -639,7 +639,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void handleNodeRotation(Node node) {
         if (node.getGraph() != null) { // node in voltage level graph
-            if (node instanceof Middle3wtNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+            if (node instanceof Middle3WTNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
                 node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
             }
         } else {  // node outside any graph

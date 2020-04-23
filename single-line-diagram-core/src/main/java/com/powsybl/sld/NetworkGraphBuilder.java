@@ -97,7 +97,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         protected abstract void addFeeder(FeederNode node, Terminal terminal);
 
-        protected abstract void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode,
+        protected abstract void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode,
                                              Feeder3WTLegNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
@@ -230,7 +230,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                           FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
                 // create middle node
-                Middle3wtNode middleNode = new Middle3wtNode(graph, transformer.getId() + "_fictif",
+                Middle3WTNode middleNode = new Middle3WTNode(graph, transformer.getId() + "_fictif",
                                                              voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
                                                              voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
                                                              voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE));
@@ -331,7 +331,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
+        protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
                 BusCell.Direction direction = BusCell.Direction.valueOf(feeder.getDirection().toString());
@@ -395,7 +395,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
+        protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             BusCell.Direction direction = order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM;
 
             firstOtherLegNode.setOrder(order++);
