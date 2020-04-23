@@ -18,8 +18,12 @@ public class Feeder3wtLegNode extends FeederWithSideNode {
                 FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder3wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side,
+    public static Feeder3wtLegNode createForVoltageLevelDiagram(Graph graph, String id, String name, String equipmentId, Side side,
                                           VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new Feeder3wtLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
+    }
+
+    public static Feeder3wtLegNode createForSubstationDiagram(Graph graph, String id, String name, String equipmentId, Side side) {
+        return new Feeder3wtLegNode(id, name, equipmentId, graph, side, null);
     }
 }

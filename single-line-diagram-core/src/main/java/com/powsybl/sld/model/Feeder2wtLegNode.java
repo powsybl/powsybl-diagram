@@ -19,8 +19,12 @@ public class Feeder2wtLegNode extends FeederWithSideNode {
                 FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder2wtLegNode create(Graph graph, String id, String name, String equipmentId, Side side,
+    public static Feeder2wtLegNode createForVoltageLevelDiagram(Graph graph, String id, String name, String equipmentId, Side side,
                                           VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new Feeder2wtLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
+    }
+
+    public static Feeder2wtLegNode createForSubstationDiagram(Graph graph, String id, String name, String equipmentId, Side side) {
+        return new Feeder2wtLegNode(id, name, equipmentId, graph, side, null);
     }
 }

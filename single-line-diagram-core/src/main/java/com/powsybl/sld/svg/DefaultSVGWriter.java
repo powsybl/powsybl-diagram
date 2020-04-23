@@ -499,7 +499,10 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, Graph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
-            nextVId = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos().getId();
+            VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
+            if (otherSideVoltageLevelInfos != null) {
+                nextVId = otherSideVoltageLevelInfos.getId();
+            }
         }
 
         metadata.addNodeMetadata(

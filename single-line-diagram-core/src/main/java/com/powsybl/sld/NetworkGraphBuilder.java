@@ -155,7 +155,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     return Feeder2wtNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
-                return Feeder2wtLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                return Feeder2wtLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
         }
 
@@ -256,12 +256,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create first other leg feeder node
                 String firstOtherLegNodeId = transformer.getId() + "_" + firstOtherLegSide.name();
-                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.create(graph, firstOtherLegNodeId, transformer.getName(),
+                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.createForVoltageLevelDiagram(graph, firstOtherLegNodeId, transformer.getName(),
                         transformer.getId(), firstOtherLegSide, voltageLevelInfosBySide.get(firstOtherLegSide));
 
                 // create second other leg feeder node
                 String secondOtherLegNodeId = transformer.getId() + "_" + secondOtherLegSide.name();
-                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.create(graph, secondOtherLegNodeId, transformer.getName(),
+                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.createForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getName(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
@@ -269,8 +269,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 // in substation diagram, we only represent the leg node
 
                 String id = transformer.getId() + "_" + side.name();
-                Feeder3wtLegNode legNode = Feeder3wtLegNode.create(graph, id, transformer.getName(), transformer.getId(),
-                        FeederWithSideNode.Side.valueOf(side.name()), createVoltageLevelInfos(transformer.getTerminal(side)));
+                Feeder3wtLegNode legNode = Feeder3wtLegNode.createForSubstationDiagram(graph, id, transformer.getName(), transformer.getId(),
+                                                                                       FeederWithSideNode.Side.valueOf(side.name()));
 
                 addFeeder(legNode, transformer.getTerminal(side));
             }

@@ -725,12 +725,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -879,12 +874,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1033,12 +1023,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1489,12 +1474,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1643,12 +1623,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1945,12 +1920,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "BOTTOM",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2099,12 +2069,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2401,12 +2366,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -3118,12 +3078,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3272,12 +3227,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3426,12 +3376,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3728,12 +3673,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3882,12 +3822,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 4,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4036,12 +3971,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4190,12 +4120,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4628,12 +4553,7 @@
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4782,12 +4702,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "THREE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -4936,12 +4851,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "side" : "THREE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -5090,12 +5000,7 @@
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "THREE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "THREE"
         } ]
       } ]
     }

@@ -41,7 +41,7 @@ public class FeederWithSideNode extends FeederNode {
                                  Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         super(id, name, equipmentId, componentType, fictitious, graph, feederType);
         this.side = Objects.requireNonNull(side);
-        this.otherSideVoltageLevelInfos = Objects.requireNonNull(otherSideVoltageLevelInfos);
+        this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;
     }
 
     public Side getSide() {
@@ -56,7 +56,9 @@ public class FeederWithSideNode extends FeederNode {
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
         generator.writeStringField("side", side.name());
-        generator.writeFieldName("otherSideVoltageLevelInfos");
-        otherSideVoltageLevelInfos.writeJsonContent(generator);
+        if (otherSideVoltageLevelInfos != null) {
+            generator.writeFieldName("otherSideVoltageLevelInfos");
+            otherSideVoltageLevelInfos.writeJsonContent(generator);
+        }
     }
 }
