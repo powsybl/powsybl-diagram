@@ -44,10 +44,10 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
                         initialValue = getBranchInitialValue((FeederBranchNode) node);
                         break;
                     case TWO_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get2wtInitialValue((Feeder2wtLegNode) node);
+                        initialValue = get2WTInitialValue((Feeder2WTLegNode) node);
                         break;
                     case THREE_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get3wtInitialValue((Feeder3wtLegNode) node);
+                        initialValue = get3WTInitialValue((Feeder3WTLegNode) node);
                         break;
                     default:
                         break;
@@ -77,7 +77,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         return null;
     }
 
-    private InitialValue get3wtInitialValue(Feeder3wtLegNode node) {
+    private InitialValue get3WTInitialValue(Feeder3WTLegNode node) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
@@ -86,7 +86,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         return null;
     }
 
-    private InitialValue get2wtInitialValue(Feeder2wtLegNode node) {
+    private InitialValue get2WTInitialValue(Feeder2WTLegNode node) {
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());

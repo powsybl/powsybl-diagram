@@ -107,11 +107,11 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
             if (node instanceof Middle3wtNode) {
                 color = getColorFictitious3WTNode((Middle3wtNode) node, nameSubComponent, vlId);
-            } else if (node instanceof Feeder2wtNode) {
+            } else if (node instanceof Feeder2WTNode) {
                 if (nameSubComponent.equals(WINDING1)) {
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
                 } else if (nameSubComponent.equals(WINDING2)) {
-                    color = getColor(((Feeder2wtNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
+                    color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 } else {
                     // phase shifter case
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);

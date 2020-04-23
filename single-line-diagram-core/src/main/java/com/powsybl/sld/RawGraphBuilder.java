@@ -142,15 +142,22 @@ public class RawGraphBuilder implements GraphBuilder {
             return fln;
         }
 
-        public Feeder2wtNode createFeeder2wtNode(String id, String otherVlId, FeederWithSideNode.Side side,
+        public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederWithSideNode.Side side,
                                                  int order, BusCell.Direction direction) {
-            Feeder2wtNode f2WTe = Feeder2wtNode.create(graph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
+            Feeder2WTNode f2WTe = Feeder2WTNode.create(graph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(f2WTe, id, order, direction);
             return f2WTe;
         }
 
-        public Feeder3wtLegNode createFeeder3wtLegNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
-            Feeder3wtLegNode f3WTe = Feeder3wtLegNode.createForVoltageLevelDiagram(graph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
+        public Feeder2WTLegNode createFeeder2wtLegNode(String id, FeederWithSideNode.Side side,
+                                                       int order, BusCell.Direction direction) {
+            Feeder2WTLegNode f2WTe = Feeder2WTLegNode.createForSubstationDiagram(graph, id + "_" + side, id, id, side);
+            commonFeederSetting(f2WTe, id, order, direction);
+            return f2WTe;
+        }
+
+        public Feeder3WTLegNode createFeeder3wtLegNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
+            Feeder3WTLegNode f3WTe = Feeder3WTLegNode.createForSubstationDiagram(graph, id + "_" + side, id, id, side);
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
@@ -194,28 +201,28 @@ public class RawGraphBuilder implements GraphBuilder {
             return createLine(id, vl1, vl2, 0, 0, null, null);
         }
 
-        public Map<VoltageLevelBuilder, Feeder2wtNode> createFeeder2WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, int order1, int order2,
-                                                                       BusCell.Direction direction1, BusCell.Direction direction2) {
-            Map<VoltageLevelBuilder, Feeder2wtNode> f2WTNodes = new HashMap<>();
-            Feeder2wtNode feeder2WtNode1 = vl1.createFeeder2wtNode(id, vl2.voltageLevelInfos.getId(), ONE, order1, direction1);
-            Feeder2wtNode feeder2WTNode2 = vl2.createFeeder2wtNode(id, vl1.voltageLevelInfos.getId(), TWO, order2, direction2);
+        public Map<VoltageLevelBuilder, Feeder2WTLegNode> createFeeder2WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, int order1, int order2,
+                                                                          BusCell.Direction direction1, BusCell.Direction direction2) {
+            Map<VoltageLevelBuilder, Feeder2WTLegNode> f2WTNodes = new HashMap<>();
+            Feeder2WTLegNode feeder2WtNode1 = vl1.createFeeder2wtLegNode(id, ONE, order1, direction1);
+            Feeder2WTLegNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
             f2WTNodes.put(vl1, feeder2WtNode1);
             f2WTNodes.put(vl2, feeder2WTNode2);
             ssGraph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, feeder2WtNode1, feeder2WTNode2);
             return f2WTNodes;
         }
 
-        public Map<VoltageLevelBuilder, Feeder2wtNode> createFeeder2WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2) {
+        public Map<VoltageLevelBuilder, Feeder2WTLegNode> createFeeder2WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2) {
             return createFeeder2WT(id, vl1, vl2, 0, 0, null, null);
         }
 
-        public Map<VoltageLevelBuilder, Feeder3wtLegNode> createFeeder3WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, VoltageLevelBuilder vl3,
+        public Map<VoltageLevelBuilder, Feeder3WTLegNode> createFeeder3WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, VoltageLevelBuilder vl3,
                                                                           int order1, int order2, int order3,
                                                                           BusCell.Direction direction1, BusCell.Direction direction2, BusCell.Direction direction3) {
-            Map<VoltageLevelBuilder, Feeder3wtLegNode> f3WTNodes = new HashMap<>();
-            Feeder3wtLegNode feeder3WTNode1 = vl1.createFeeder3wtLegNode(id, vl2.voltageLevelInfos.getId(), ONE, order1, direction1);
-            Feeder3wtLegNode feeder3WTNode2 = vl2.createFeeder3wtLegNode(id, vl3.voltageLevelInfos.getId(), TWO, order2, direction2);
-            Feeder3wtLegNode feeder3WTNode3 = vl3.createFeeder3wtLegNode(id, vl1.voltageLevelInfos.getId(), THREE, order3, direction3);
+            Map<VoltageLevelBuilder, Feeder3WTLegNode> f3WTNodes = new HashMap<>();
+            Feeder3WTLegNode feeder3WTNode1 = vl1.createFeeder3wtLegNode(id, ONE, order1, direction1);
+            Feeder3WTLegNode feeder3WTNode2 = vl2.createFeeder3wtLegNode(id, TWO, order2, direction2);
+            Feeder3WTLegNode feeder3WTNode3 = vl3.createFeeder3wtLegNode(id, THREE, order3, direction3);
             f3WTNodes.put(vl1, feeder3WTNode1);
             f3WTNodes.put(vl2, feeder3WTNode2);
             f3WTNodes.put(vl3, feeder3WTNode3);
@@ -223,7 +230,7 @@ public class RawGraphBuilder implements GraphBuilder {
             return f3WTNodes;
         }
 
-        public Map<VoltageLevelBuilder, Feeder3wtLegNode> createFeeder3WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, VoltageLevelBuilder vl3) {
+        public Map<VoltageLevelBuilder, Feeder3WTLegNode> createFeeder3WT(String id, VoltageLevelBuilder vl1, VoltageLevelBuilder vl2, VoltageLevelBuilder vl3) {
             return createFeeder3WT(id, vl1, vl2, vl3, 0, 0, 0, null, null, null);
         }
     }

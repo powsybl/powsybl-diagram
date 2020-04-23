@@ -97,8 +97,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         protected abstract void addFeeder(FeederNode node, Terminal terminal);
 
-        protected abstract void add3wtFeeder(Middle3wtNode middleNode, Feeder3wtLegNode firstOtherLegNode,
-                                             Feeder3wtLegNode secondOtherLegNode, Terminal terminal);
+        protected abstract void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode,
+                                             Feeder3WTLegNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
             Objects.requireNonNull(graph);
@@ -150,12 +150,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             if (graph.isForVoltageLevelDiagram()) {
                 if (branch.getPhaseTapChanger() == null) {
-                    return Feeder2wtNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
-                    return Feeder2wtNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
+                    return Feeder2WTNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
-                return Feeder2wtLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
         }
 
@@ -256,12 +256,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create first other leg feeder node
                 String firstOtherLegNodeId = transformer.getId() + "_" + firstOtherLegSide.name();
-                Feeder3wtLegNode firstOtherLegNode = Feeder3wtLegNode.createForVoltageLevelDiagram(graph, firstOtherLegNodeId, transformer.getName(),
+                Feeder3WTLegNode firstOtherLegNode = Feeder3WTLegNode.createForVoltageLevelDiagram(graph, firstOtherLegNodeId, transformer.getName(),
                         transformer.getId(), firstOtherLegSide, voltageLevelInfosBySide.get(firstOtherLegSide));
 
                 // create second other leg feeder node
                 String secondOtherLegNodeId = transformer.getId() + "_" + secondOtherLegSide.name();
-                Feeder3wtLegNode secondOtherLegNode = Feeder3wtLegNode.createForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getName(),
+                Feeder3WTLegNode secondOtherLegNode = Feeder3WTLegNode.createForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getName(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
@@ -269,7 +269,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 // in substation diagram, we only represent the leg node
 
                 String id = transformer.getId() + "_" + side.name();
-                Feeder3wtLegNode legNode = Feeder3wtLegNode.createForSubstationDiagram(graph, id, transformer.getName(), transformer.getId(),
+                Feeder3WTLegNode legNode = Feeder3WTLegNode.createForSubstationDiagram(graph, id, transformer.getName(), transformer.getId(),
                                                                                        FeederWithSideNode.Side.valueOf(side.name()));
 
                 addFeeder(legNode, transformer.getTerminal(side));
@@ -331,7 +331,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3wtLegNode firstOtherLegNode, Feeder3wtLegNode secondOtherLegNode, Terminal terminal) {
+        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
                 BusCell.Direction direction = BusCell.Direction.valueOf(feeder.getDirection().toString());
@@ -395,7 +395,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         @Override
-        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3wtLegNode firstOtherLegNode, Feeder3wtLegNode secondOtherLegNode, Terminal terminal) {
+        protected void add3wtFeeder(Middle3wtNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             BusCell.Direction direction = order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM;
 
             firstOtherLegNode.setOrder(order++);

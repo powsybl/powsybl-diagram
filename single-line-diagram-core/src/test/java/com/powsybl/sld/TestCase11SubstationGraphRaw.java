@@ -205,7 +205,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                                      "trf1", 1, ConnectablePosition.Direction.TOP);
         */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2wtNode> feeder2WTs1 = ssb1.createFeeder2WT("trf1", vlb1, vlb2,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs1 = ssb1.createFeeder2WT("trf1", vlb1, vlb2,
                 1, 1, BusCell.Direction.TOP, BusCell.Direction.TOP);
         SwitchNode dtrf11 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf11", false, false);
         SwitchNode btrf11 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf11", false, false);
@@ -230,7 +230,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf2", 3, ConnectablePosition.Direction.BOTTOM);
         */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2wtNode> feeder2WTs2 = ssb1.createFeeder2WT("trf2", vlb1, vlb2,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs2 = ssb1.createFeeder2WT("trf2", vlb1, vlb2,
                 3, 3, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
         SwitchNode dtrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf12", false, false);
         SwitchNode btrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf12", false, false);
@@ -255,7 +255,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf3", 4, ConnectablePosition.Direction.BOTTOM);
         */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2wtNode> feeder2WTs3 = ssb1.createFeeder2WT("trf3", vlb1, vlb2,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs3 = ssb1.createFeeder2WT("trf3", vlb1, vlb2,
                 1, 4, BusCell.Direction.BOTTOM, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf13 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf13", false, false);
@@ -281,7 +281,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf4", 2, ConnectablePosition.Direction.TOP);
         */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2wtNode> feeder2WTs4 = ssb1.createFeeder2WT("trf4", vlb1, vlb2,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs4 = ssb1.createFeeder2WT("trf4", vlb1, vlb2,
                 2, 2, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
 
         SwitchNode dtrf14 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf14", false, false);
@@ -306,7 +306,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf5", 1, ConnectablePosition.Direction.BOTTOM);
         */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2wtNode> feeder2WTs5 = ssb1.createFeeder2WT("trf5", vlb1, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs5 = ssb1.createFeeder2WT("trf5", vlb1, vlb3,
                 2, 1, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf15 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf15", false, false);
@@ -339,7 +339,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                                        "trf63", 2, ConnectablePosition.Direction.TOP);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.TOP, BusCell.Direction.TOP);
 
         SwitchNode dtrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf16", false, false);
@@ -377,7 +377,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf73", 2, ConnectablePosition.Direction.BOTTOM);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.BOTTOM, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf17", false, false);
@@ -415,7 +415,7 @@ public class TestCase11SubstationGraphRaw extends AbstractTestCaseNoIidm {
                 "trf83", 2, ConnectablePosition.Direction.TOP);
        */
 
-        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3wtLegNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
+        Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
                 2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
 
         SwitchNode dtrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf18", false, false);
