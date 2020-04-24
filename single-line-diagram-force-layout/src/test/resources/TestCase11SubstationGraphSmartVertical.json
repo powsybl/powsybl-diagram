@@ -455,6 +455,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "load1",
+          "feederType" : "INJECTION",
           "order" : 0
         } ]
       } ]
@@ -570,13 +571,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf1",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -691,13 +688,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf5",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -812,6 +805,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf61",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "ONE"
         } ]
@@ -928,6 +922,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "line1",
+          "feederType" : "BRANCH",
           "order" : 3,
           "side" : "ONE",
           "otherSideVoltageLevelInfos" : {
@@ -1049,6 +1044,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "load2",
+          "feederType" : "INJECTION",
           "order" : 2
         } ]
       } ]
@@ -1164,13 +1160,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf2",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1285,6 +1277,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf81",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "ONE"
         } ]
@@ -1401,6 +1394,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "gen1",
+          "feederType" : "INJECTION",
           "order" : 1
         } ]
       } ]
@@ -1516,13 +1510,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf3",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1637,6 +1627,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf71",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "ONE"
         } ]
@@ -1753,6 +1744,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "gen2",
+          "feederType" : "INJECTION",
           "order" : 3
         } ]
       } ]
@@ -1868,13 +1860,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf4",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2359,6 +2347,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "load3",
+          "feederType" : "INJECTION",
           "order" : 0
         } ]
       } ]
@@ -2474,13 +2463,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf1",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -2595,13 +2580,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf4",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -2716,6 +2697,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf72",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "TWO"
         } ]
@@ -2832,6 +2814,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "gen4",
+          "feederType" : "INJECTION",
           "order" : 1
         } ]
       } ]
@@ -2947,13 +2930,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf2",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3068,13 +3047,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf3",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 4,
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3189,6 +3164,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf62",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "TWO"
         } ]
@@ -3305,6 +3281,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf82",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "TWO"
         } ]
@@ -3555,6 +3532,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "load4",
+          "feederType" : "INJECTION",
           "order" : 0
         } ]
       } ]
@@ -3670,13 +3648,9 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf5",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3791,6 +3765,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf63",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "THREE"
         } ]
@@ -3907,6 +3882,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf73",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "THREE"
         } ]
@@ -4023,6 +3999,7 @@
           "fictitious" : false,
           "open" : false,
           "label" : "trf83",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "side" : "THREE"
         } ]

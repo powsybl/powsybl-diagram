@@ -127,7 +127,7 @@ public class TopologicalStyleTest extends AbstractTestCase {
         assertTrue(wireStyle.isPresent());
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 
-        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
+        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertTrue(node3WTStyle.isEmpty());
 

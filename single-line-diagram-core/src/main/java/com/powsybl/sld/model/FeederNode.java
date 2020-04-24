@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
@@ -21,16 +22,24 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  */
 public class FeederNode extends Node {
 
+    private final FeederType feederType;
+
     private int order = -1;
 
     private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
 
-    public FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph) {
+    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
+                         FeederType feederType) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
+        this.feederType = Objects.requireNonNull(feederType);
     }
 
     public static FeederNode createFictitious(Graph graph, String id) {
-        return new FeederNode(id, id, id, NODE, true, graph);
+        return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS);
+    }
+
+    public FeederType getFeederType() {
+        return feederType;
     }
 
     @Override
@@ -60,6 +69,7 @@ public class FeederNode extends Node {
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
+        generator.writeStringField("feederType", feederType.name());
         generator.writeNumberField("order", order);
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", direction.name());

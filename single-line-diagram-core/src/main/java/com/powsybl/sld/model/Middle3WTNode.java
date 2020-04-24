@@ -16,7 +16,7 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Fictitious3WTNode extends FictitiousNode {
+public class Middle3WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg1;
 
@@ -24,8 +24,8 @@ public class Fictitious3WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg3;
 
-    public Fictitious3WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
-                             VoltageLevelInfos voltageLevelInfosLeg3) {
+    public Middle3WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+                         VoltageLevelInfos voltageLevelInfosLeg3) {
         super(graph, id, THREE_WINDINGS_TRANSFORMER);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
@@ -42,6 +42,20 @@ public class Fictitious3WTNode extends FictitiousNode {
 
     public VoltageLevelInfos getVoltageLevelInfosLeg3() {
         return voltageLevelInfosLeg3;
+    }
+
+    public VoltageLevelInfos getVoltageLevelInfos(FeederWithSideNode.Side side) {
+        Objects.requireNonNull(side);
+        switch (side) {
+            case ONE:
+                return voltageLevelInfosLeg1;
+            case TWO:
+                return voltageLevelInfosLeg2;
+            case THREE:
+                return voltageLevelInfosLeg3;
+            default:
+                throw new IllegalStateException();
+        }
     }
 
     @Override

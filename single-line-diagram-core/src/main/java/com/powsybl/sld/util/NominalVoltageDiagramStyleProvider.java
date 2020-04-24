@@ -6,10 +6,7 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Fictitious3WTNode;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -47,44 +44,32 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
         }
     }
 
-    @Override
-    public String getIdWireStyle(Edge edge) {
+    private VoltageLevelInfos getVoltageLevelInfos(Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
-                (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
-            String vlId = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getId()
-                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getId();
-            return WIRE_STYLE_CLASS + "_" + escapeClassName(vlId);
+        VoltageLevelInfos voltageLevelInfos;
+        if (node1 instanceof Middle3WTNode && node2 instanceof Feeder3WTLegNode) {
+            voltageLevelInfos = ((Feeder3WTLegNode) node2).getOtherSideVoltageLevelInfos();
+        } else if (node1 instanceof Feeder3WTLegNode && node2 instanceof Middle3WTNode) {
+            voltageLevelInfos = ((Feeder3WTLegNode) node1).getOtherSideVoltageLevelInfos();
         } else {
-            return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
+            voltageLevelInfos = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos() : node2.getGraph().getVoltageLevelInfos();
         }
+        return voltageLevelInfos;
+    }
+
+    @Override
+    public String getIdWireStyle(Edge edge) {
+        VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
+        return WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId());
     }
 
     @Override
     public Optional<String> getWireStyle(Edge edge, String id, int index) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        String vlId;
-        double nominalV;
-
-        if ((node1 instanceof Fictitious3WTNode && node2 instanceof Feeder2WTNode) ||
-                (node1 instanceof Feeder2WTNode && node2 instanceof Fictitious3WTNode)) {
-            vlId = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getId()
-                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getId();
-            nominalV = node1 instanceof Feeder2WTNode
-                    ? ((Feeder2WTNode) node1).getOtherSideVoltageLevelInfos().getNominalVoltage()
-                    : ((Feeder2WTNode) node2).getOtherSideVoltageLevelInfos().getNominalVoltage();
-        } else {
-            vlId = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos().getId() : node2.getGraph().getVoltageLevelInfos().getId();
-            nominalV = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos().getNominalVoltage() : node2.getGraph().getVoltageLevelInfos().getNominalVoltage();
-        }
-
-        String color = getBaseColor(nominalV);
-        StringBuilder style = new StringBuilder();
-        style.append(".").append(WIRE_STYLE_CLASS).append("_").append(escapeClassName(vlId)).append(" {stroke:").append(color).append(";stroke-width:1;}");
-        return Optional.of(style.toString());
+        VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
+        String color = getBaseColor(voltageLevelInfos.getNominalVoltage());
+        String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) +
+                " {stroke:" + color + ";stroke-width:1;}";
+        return Optional.of(style);
     }
 }
