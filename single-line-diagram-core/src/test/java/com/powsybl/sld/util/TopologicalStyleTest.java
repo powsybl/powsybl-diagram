@@ -134,8 +134,8 @@ public class TopologicalStyleTest extends AbstractTestCase {
         Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertTrue(node2WTStyle.isEmpty());
 
-        Optional<String> color = styleProvider.getColor(400, null);
-        assertFalse(color.isPresent());
+//        Optional<String> color = styleProvider.getColor(400, null);
+//        assertFalse(color.isPresent());
 
         Map<String, String> attributesArrow = styleProvider.getAttributesArrow(1);
         assertEquals(3, attributesArrow.size());

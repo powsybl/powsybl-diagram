@@ -474,7 +474,10 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, node.getComponentType() + " " + nodeId);
 
             if (node.getType() == Node.NodeType.BUS) {
-                drawBus((BusNode) node, g);
+                Element busElement = drawBus((BusNode) node, g);
+
+                Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, null, null, layoutParameters.isShowInternalNodes());
+                svgStyle.forEach((busElement)::setAttribute);
             } else {
                 incorporateComponents(prefixId, node, g, styleProvider);
             }
@@ -568,7 +571,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar sections
      */
-    protected void drawBus(BusNode node, Element g) {
+    protected Element drawBus(BusNode node, Element g) {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
@@ -584,6 +587,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + (layoutParameters.getTranslateX() + node.getX()) + ","
                 + (layoutParameters.getTranslateY() + node.getY()) + ")");
+
+        return line;
     }
 
     /*
