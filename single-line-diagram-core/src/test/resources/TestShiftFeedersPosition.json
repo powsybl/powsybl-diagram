@@ -574,6 +574,7 @@
           "y" : 30.0,
           "open" : false,
           "label" : "load1",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -721,6 +722,7 @@
           "y" : 38.0,
           "open" : false,
           "label" : "load2",
+          "feederType" : "INJECTION",
           "order" : 2,
           "direction" : "TOP"
         } ]
@@ -868,6 +870,7 @@
           "y" : 615.0,
           "open" : false,
           "label" : "gen1",
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "BOTTOM"
         } ]
@@ -1015,6 +1018,7 @@
           "y" : 607.0,
           "open" : false,
           "label" : "gen2",
+          "feederType" : "INJECTION",
           "order" : 3,
           "direction" : "BOTTOM"
         } ]
@@ -1588,6 +1592,7 @@
           "y" : 30.0,
           "open" : false,
           "label" : "load1",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -1735,6 +1740,7 @@
           "y" : 38.0,
           "open" : false,
           "label" : "load2",
+          "feederType" : "INJECTION",
           "order" : 2,
           "direction" : "TOP"
         } ]
@@ -1882,6 +1888,7 @@
           "y" : 615.0,
           "open" : false,
           "label" : "gen1",
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "BOTTOM"
         } ]
@@ -2029,6 +2036,7 @@
           "y" : 607.0,
           "open" : false,
           "label" : "gen2",
+          "feederType" : "INJECTION",
           "order" : 3,
           "direction" : "BOTTOM"
         } ]

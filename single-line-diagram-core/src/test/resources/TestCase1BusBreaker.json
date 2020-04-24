@@ -349,6 +349,7 @@
           "x" : 125.0,
           "y" : -20.0,
           "open" : false,
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "TOP"
         } ]

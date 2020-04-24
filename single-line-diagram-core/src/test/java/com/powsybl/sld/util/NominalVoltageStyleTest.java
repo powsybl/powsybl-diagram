@@ -106,16 +106,16 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
 
         Edge edge = graph1.getEdges().get(0);
         String idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl1", idWireStyle);
+        assertEquals("wire_vl2", idWireStyle);
         edge = graph1.getEdges().get(12);
         idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl2", idWireStyle);
+        assertEquals("wire_vl1", idWireStyle);
 
         Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
         assertTrue(wireStyle.isPresent());
-        assertEquals(".wire_vl2 {stroke:#228b22;stroke-width:1;}", wireStyle.get());
+        assertEquals(".wire_vl1 {stroke:#ff0000;stroke-width:1;}", wireStyle.get());
 
-        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
+        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertFalse(node3WTStyle.isEmpty());
         assertTrue(node3WTStyle.containsKey("stroke"));

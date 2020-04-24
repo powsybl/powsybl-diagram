@@ -619,7 +619,7 @@
   }, {
     "id" : "idtrf2_95_TWO",
     "vid" : "vl2",
-    "nextVId" : "vl1",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -844,7 +844,7 @@
   }, {
     "id" : "idtrf2_95_ONE",
     "vid" : "vl1",
-    "nextVId" : "vl2",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1060,7 +1060,7 @@
   }, {
     "id" : "idtrf3_95_TWO",
     "vid" : "vl2",
-    "nextVId" : "vl1",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1096,7 +1096,7 @@
   }, {
     "id" : "idtrf1_95_TWO",
     "vid" : "vl2",
-    "nextVId" : "vl1",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1105,7 +1105,7 @@
   }, {
     "id" : "idtrf5_95_TWO",
     "vid" : "vl3",
-    "nextVId" : "vl1",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1222,7 +1222,7 @@
   }, {
     "id" : "idtrf1_95_ONE",
     "vid" : "vl1",
-    "nextVId" : "vl2",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1249,7 +1249,7 @@
   }, {
     "id" : "idtrf3_95_ONE",
     "vid" : "vl1",
-    "nextVId" : "vl2",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1258,7 +1258,7 @@
   }, {
     "id" : "idtrf5_95_ONE",
     "vid" : "vl1",
-    "nextVId" : "vl3",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1411,7 +1411,7 @@
   }, {
     "id" : "idtrf4_95_TWO",
     "vid" : "vl2",
-    "nextVId" : "vl1",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1510,7 +1510,7 @@
   }, {
     "id" : "idtrf4_95_ONE",
     "vid" : "vl1",
-    "nextVId" : "vl2",
+    "nextVId" : null,
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
