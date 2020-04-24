@@ -615,6 +615,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 || (node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
                 || node.getComponentType().equals(NODE));
     }
 

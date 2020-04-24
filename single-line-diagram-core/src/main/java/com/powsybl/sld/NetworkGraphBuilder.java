@@ -562,7 +562,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
 
-            graph.addEdge(TWO_WINDINGS_TRANSFORMER, n1, n2);
+            String componentType = transfo.getPhaseTapChanger() != null ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
+            graph.addEdge(componentType, n1, n2);
         }
 
         // Three windings transformer
