@@ -124,12 +124,17 @@
     </component>
     <component>
         <metadata type="PHASE_SHIFT_TRANSFORMER">
-            <size width="14" height="14"/>
-            <subComponent name="PHASE_SHIFT_TRANSFORMER">
-                <fileName>phase-shifter.svg</fileName>
+            <size width="14" height="17"/>
+            <subComponent name="WINDING1">
+                <fileName>phase-shifter-winding1.svg</fileName>
             </subComponent>
-            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
-            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <subComponent name="WINDING2">
+                <fileName>phase-shifter-winding2.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-8" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="8" orientation="VERTICAL"/>
+            <anchorPoint x="-8" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="8" y="0" orientation="HORIZONTAL"/>
             <allowRotation>true</allowRotation>
         </metadata>
     </component>
