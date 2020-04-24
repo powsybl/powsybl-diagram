@@ -166,24 +166,24 @@
     "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -4.0,
+      "y" : -8.0,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 4.0,
+      "y" : 8.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : -6.5,
+      "x" : -8.0,
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     }, {
-      "x" : 6.5,
+      "x" : 8.0,
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     } ],
     "size" : {
-      "width" : 13.0,
-      "height" : 8.0
+      "width" : 10.0,
+      "height" : 15.0
     },
     "allowRotation" : true,
     "subComponents" : null
@@ -191,21 +191,21 @@
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
     "anchorPoints" : [ {
-      "x" : -7.0,
-      "y" : -4.0,
+      "x" : -8.0,
+      "y" : -5.0,
       "orientation" : "HORIZONTAL"
     }, {
-      "x" : 7.0,
-      "y" : -4.0,
+      "x" : 8.0,
+      "y" : -5.0,
       "orientation" : "HORIZONTAL"
     }, {
       "x" : 0.0,
-      "y" : 6.0,
+      "y" : 7.0,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
-      "width" : 14.0,
-      "height" : 12.0
+      "width" : 16.0,
+      "height" : 14.0
     },
     "allowRotation" : true,
     "subComponents" : null
@@ -539,7 +539,7 @@
     "vid" : "vl1",
     "nextVId" : "vl2",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : null,
+    "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "BOTTOM",
     "vlabel" : false
@@ -845,7 +845,7 @@
     "vid" : "vl1",
     "nextVId" : "vl2",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : null,
+    "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "BOTTOM",
     "vlabel" : false

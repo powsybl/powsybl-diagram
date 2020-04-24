@@ -716,14 +716,14 @@ public class TestSVGWriter extends AbstractTestCase {
 
         for (String filename : mapGr.keySet()) {
             // SVG file generation first voltage level and comparison to reference :
-            assertEquals(toSVG(mapGr.get(filename), filename, layoutParameters, initValueProvider, styleProvider), toString(filename));
+            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters, initValueProvider, styleProvider));
         }
 
         // SVG file generation for substation and comparison to reference
-        assertEquals(toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider), toString("/substation.svg"));
+        assertEquals(toString("/substation.svg"), toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider));
 
         // SVG file generation for substation and comparison to reference but with no feeder values
-        assertEquals(toSVG(substG, "/substation_no_feeder_values.svg", layoutParameters, noFeederValueProvider, styleProvider), toString("/substation_no_feeder_values.svg"));
+        assertEquals(toString("/substation_no_feeder_values.svg"), toSVG(substG, "/substation_no_feeder_values.svg", layoutParameters, noFeederValueProvider, styleProvider));
 
         // Same tests than before, with optimized svg :
         //
@@ -737,11 +737,11 @@ public class TestSVGWriter extends AbstractTestCase {
 
         for (String filename : mapGr.keySet()) {
             // SVG file generation first voltage level and comparison to reference :
-            assertEquals(toSVG(mapGr.get(filename), filename, layoutParameters2, initValueProvider, styleProvider), toString(filename));
+            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters2, initValueProvider, styleProvider));
         }
 
         // SVG file generation for substation and comparison to reference
-        assertEquals(toSVG(substG, "/substation_optimized.svg", layoutParameters2, initValueProvider, styleProvider), toString("/substation_optimized.svg"));
+        assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters2, initValueProvider, styleProvider));
     }
 
     @Test
