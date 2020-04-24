@@ -1106,10 +1106,10 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private void initStylesProvider() {
         styles.put("Default", new DefaultDiagramStyleProvider());
         styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider());
-        styles.put("Topology", new TopologicalStyleProvider(null, null));
+        styles.put("Topology", null);
     }
 
     private void updateStylesProvider(Network network) {
-        styles.put("Topology", new TopologicalStyleProvider(null, network));
+        styles.put("Topology", new TopologicalStyleProvider(network));
     }
 }

@@ -9,6 +9,7 @@ package com.powsybl.sld.util;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
@@ -85,7 +86,8 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
-        NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider();
+        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
+        NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor);
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);

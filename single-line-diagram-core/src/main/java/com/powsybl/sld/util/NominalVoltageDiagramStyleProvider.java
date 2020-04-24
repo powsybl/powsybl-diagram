@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.util;
 
+import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Feeder2WTNode;
 import com.powsybl.sld.model.Fictitious3WTNode;
 import com.powsybl.sld.model.Node;
 
-import java.nio.file.Path;
 import java.util.Optional;
 
 import static com.powsybl.sld.svg.DiagramStyles.*;
@@ -23,11 +23,11 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
 public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
     public NominalVoltageDiagramStyleProvider() {
-        super(null);
+        super(BaseVoltageColor.fromPlatformConfig());
     }
 
-    public NominalVoltageDiagramStyleProvider(Path config) {
-        super(config);
+    public NominalVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor) {
+        super(baseVoltageColor);
     }
 
     @Override
