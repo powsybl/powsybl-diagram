@@ -61,7 +61,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     }
 
     private InitialValue getInjectionInitialValue(FeederInjectionNode node) {
-        Injection injection = (Injection) network.getIdentifiable(node.getId());
+        Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
             return buildInitialValue(injection);
         }
