@@ -7,8 +7,8 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.color.BaseVoltageColor;
 
-import java.nio.file.Path;
 import java.util.Optional;
 
 import static com.powsybl.sld.svg.DiagramStyles.*;
@@ -20,11 +20,11 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
 public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
     public NominalVoltageDiagramStyleProvider() {
-        super(null);
+        super(BaseVoltageColor.fromPlatformConfig());
     }
 
-    public NominalVoltageDiagramStyleProvider(Path config) {
-        super(config);
+    public NominalVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor) {
+        super(baseVoltageColor);
     }
 
     @Override

@@ -8,17 +8,14 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.TwtEdge;
 import com.powsybl.sld.svg.DiagramStyles;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -34,9 +31,13 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     private final HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
 
-    public TopologicalStyleProvider(Path config, Network network) {
-        super(config);
-        this.network = network;
+    public TopologicalStyleProvider(Network network) {
+        this(BaseVoltageColor.fromPlatformConfig(), network);
+    }
+
+    public TopologicalStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
+        super(baseVoltageColor);
+        this.network = Objects.requireNonNull(network);
     }
 
     @Override
