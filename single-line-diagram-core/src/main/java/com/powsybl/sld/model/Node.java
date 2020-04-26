@@ -323,4 +323,16 @@ public class Node implements BaseNode {
     public void shiftY(double yShift) {
         y += yShift;
     }
+
+    /**
+     * Get voltage level infos for this node. By default it is the voltage level infos of the graph but it
+     * could be override in case of node that represents an external voltage level.
+     *
+     */
+    public VoltageLevelInfos getVoltageLevelInfos() {
+      if (graph != null) {
+          return graph.getVoltageLevelInfos();
+      }
+      return null;
+    }
 }

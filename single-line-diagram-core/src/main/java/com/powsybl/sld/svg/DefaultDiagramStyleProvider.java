@@ -8,7 +8,6 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
@@ -30,7 +29,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING3 = "WINDING3";
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
+    public Optional<String> getCssNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
         if (node.getComponentType().equals(NODE) && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
@@ -84,41 +83,39 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return null;
     }
 
-    private Pair<Node, VoltageLevelInfos> getVoltageLevelInfos(Edge edge) {
+    protected String getEdgeColor(VoltageLevelInfos voltageLevelInfos1, Node node1,
+                                  VoltageLevelInfos voltageLevelInfos2, Node node2) {
+        return null;
+    }
+
+    @Override
+    public String getIdWireStyle(Edge edge, int index) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if (node1 instanceof Middle3WTNode && node2 instanceof Feeder3WTLegNode) {
-            return Pair.of(node2, ((Feeder3WTLegNode) node2).getOtherSideVoltageLevelInfos());
-        } else if (node1 instanceof Feeder3WTLegNode && node2 instanceof Middle3WTNode) {
-            return Pair.of(node1, ((Feeder3WTLegNode) node1).getOtherSideVoltageLevelInfos());
+        VoltageLevelInfos voltageLevelInfos = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos()
+                                                                       : node2.getGraph().getVoltageLevelInfos();
+        return WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + "_" + index;
+    }
+
+    @Override
+    public Optional<String> getCssWireStyle(Edge edge, String id, int index) {
+        Node node1 = edge.getNode1();
+        Node node2 = edge.getNode2();
+        VoltageLevelInfos voltageLevelInfos1 = node1.getVoltageLevelInfos();
+        VoltageLevelInfos voltageLevelInfos2 = node2.getVoltageLevelInfos();
+        String color = getEdgeColor(voltageLevelInfos1, node1, voltageLevelInfos2, node2);
+        if (color != null) {
+            VoltageLevelInfos voltageLevelInfos = voltageLevelInfos1 != null ? voltageLevelInfos1 : voltageLevelInfos2;
+            String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + "_" + index +
+                    " {stroke:" + color + "; stroke-width:1;}";
+            return Optional.of(style);
         } else {
-            if (node1.getGraph() != null) {
-                return Pair.of(node1, node1.getGraph().getVoltageLevelInfos());
-            } else {
-                return Pair.of(node2, node2.getGraph().getVoltageLevelInfos());
-            }
+            return Optional.empty();
         }
     }
 
     @Override
-    public String getIdWireStyle(Edge edge) {
-        VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge).getRight();
-        return WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId());
-    }
-
-    @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
-        Pair<Node, VoltageLevelInfos> p = getVoltageLevelInfos(edge);
-        Node node = p.getLeft();
-        VoltageLevelInfos voltageLevelInfos = p.getRight();
-        String color = getNodeColor(voltageLevelInfos, node);
-        String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) +
-                " {stroke:" + color + ";stroke-width:1;}";
-        return Optional.of(style);
-    }
-
-    @Override
-    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes) {
+    public Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
         String color = null;
 
@@ -219,7 +216,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return getNodeColor(voltageLevelInfos, node);
     }
 
-    public Map<String, String> getAttributesArrow(int num) {
+    public Map<String, String> getSvgArrowStyleAttributes(int num) {
         Map<String, String> ret = new HashMap<>();
         ret.put(STROKE, num == 1 ? "black" : "blue");
         ret.put("fill", num == 1 ? "black" : "blue");

@@ -28,4 +28,10 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     protected String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
         return getBaseColor(voltageLevelInfos.getNominalVoltage());
     }
+
+    @Override
+    protected String getEdgeColor(VoltageLevelInfos voltageLevelInfos1, Node node1, VoltageLevelInfos voltageLevelInfos2, Node node2) {
+        return voltageLevelInfos1 != null ? getNodeColor(voltageLevelInfos1, node1)
+                                          : getNodeColor(voltageLevelInfos2, node2);
+    }
 }

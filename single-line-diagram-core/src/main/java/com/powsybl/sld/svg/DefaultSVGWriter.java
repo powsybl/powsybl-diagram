@@ -156,18 +156,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (Graph graph : graphs) {
             graph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
-                if (nodeStyle.isPresent()) {
-                    graphStyle.append(nodeStyle.get()).append("\n");
-                }
+                Optional<String> nodeStyle = styleProvider.getCssNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
+                nodeStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
                 listUsedComponentSVG.add(n.getComponentType());
             });
-            graph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e, graph.getVoltageLevelInfos().getId(), graph.getEdges().indexOf(e));
-                if (wireStyle.isPresent()) {
-                    graphStyle.append(wireStyle.get()).append("\n");
-                }
-            });
+            List<Edge> edges = graph.getEdges();
+            for (int i = 0; i < edges.size(); i++) {
+                Edge edge = edges.get(i);
+                Optional<String> wireStyle = styleProvider.getCssWireStyle(edge, graph.getVoltageLevelInfos().getId(), i);
+                wireStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
+            }
         }
 
         if (snakeLines != null) {
@@ -175,7 +173,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 String idVLS = e.getNode1().getGraph() != null ? e.getNode1().getGraph().getVoltageLevelInfos().getId() : "_";
                 idVLS += e.getNode2().getGraph() != null ? e.getNode2().getGraph().getVoltageLevelInfos().getId() : "_";
 
-                Optional<String> wireStyle = styleProvider.getWireStyle(e, idVLS, snakeLines.indexOf(e));
+                Optional<String> wireStyle = styleProvider.getCssWireStyle(e, idVLS, snakeLines.indexOf(e));
                 if (wireStyle.isPresent()) {
                     graphStyle.append(wireStyle.get()).append("\n");
                 }
@@ -476,7 +474,7 @@ public class DefaultSVGWriter implements SVGWriter {
             if (node.getType() == Node.NodeType.BUS) {
                 Element busElement = drawBus((BusNode) node, g);
 
-                Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, null, null, layoutParameters.isShowInternalNodes());
+                Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, null, null, layoutParameters.isShowInternalNodes());
                 svgStyle.forEach((busElement)::setAttribute);
             } else {
                 incorporateComponents(prefixId, node, g, styleProvider);
@@ -692,7 +690,7 @@ public class DefaultSVGWriter implements SVGWriter {
                             ((Element) n).setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
                         }
 
-                        Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, nameSubComponent, layoutParameters.isShowInternalNodes());
+                        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, nameSubComponent, layoutParameters.isShowInternalNodes());
                         svgStyle.forEach(((Element) n)::setAttribute);
                     }
 
@@ -726,7 +724,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         eltUse.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
                     }
 
-                    Map<String, String> svgStyle = styleProvider.getNodeSVGStyle(node, size, s, layoutParameters.isShowInternalNodes());
+                    Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, s, layoutParameters.isShowInternalNodes());
                     svgStyle.forEach(eltUse::setAttribute);
 
                     g.getOwnerDocument().adoptNode(eltUse);
@@ -909,7 +907,7 @@ public class DefaultSVGWriter implements SVGWriter {
             if (dir1.isPresent()) {
                 g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
                 if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(1).forEach(((Element) g1.getFirstChild())::setAttribute);
+                    styleProvider.getSvgArrowStyleAttributes(1).forEach(((Element) g1.getFirstChild())::setAttribute);
                 }
             }
 
@@ -943,7 +941,7 @@ public class DefaultSVGWriter implements SVGWriter {
             if (dir2.isPresent()) {
                 g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
                 if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getAttributesArrow(2).forEach(((Element) g2.getFirstChild())::setAttribute);
+                    styleProvider.getSvgArrowStyleAttributes(2).forEach(((Element) g2.getFirstChild())::setAttribute);
                 }
             }
 
@@ -961,7 +959,10 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
         String vId = graph.getVoltageLevelInfos().getId();
 
-        for (Edge edge : graph.getEdges()) {
+        List<Edge> edges = graph.getEdges();
+        for (int index = 0; index < edges.size(); index++) {
+            Edge edge = edges.get(index);
+
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
             String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
 
@@ -975,7 +976,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     layoutParameters.isDrawStraightWires());
 
             g.setAttribute(POINTS, pointsListToString(pol));
-            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge));
+            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge, index));
             root.appendChild(g);
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
