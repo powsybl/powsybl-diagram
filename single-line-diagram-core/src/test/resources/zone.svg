@@ -18,13 +18,13 @@
 .GENERATOR {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD_BREAK_SWITCH {
@@ -88,7 +88,7 @@
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .wire {
@@ -222,21 +222,21 @@
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <g class="TWO_WINDINGS_TRANSFORMER idTransformer_95_ONE_95_Transformer_95_TWO" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(63.5,396.0)">
-    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="4" transform="rotate(90.0,6.5,4.0)" cy="4"/>
+        <g class="TWO_WINDINGS_TRANSFORMER idTransformer_95_ONE_95_Transformer_95_TWO" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(65.0,392.5)">
+    <circle r="5" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" transform="rotate(180.0,5.0,7.5)" cy="10"/>
 
-    <circle r="4" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="9" transform="rotate(90.0,6.5,4.0)" cy="4"/>
+    <circle r="5" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" transform="rotate(180.0,5.0,7.5)" cy="5"/>
 </g>
-        <polyline class="wire wire_VoltageLevel11" points="70.0,350.0,70.0,370.0,70.0,393.5" id="idVoltageLevel11_95__95_Wire0"/>
-        <polyline class="wire wire_VoltageLevel12" points="70.0,406.5,70.0,430.0,70.0,450.0" id="id_95_VoltageLevel12_95_Wire1"/>
+        <polyline class="wire wire_VoltageLevel11" points="70.0,350.0,70.0,370.0,70.0,392.0" id="idVoltageLevel11_95__95_Wire0"/>
+        <polyline class="wire wire_VoltageLevel12" points="70.0,408.0,70.0,430.0,70.0,450.0" id="id_95_VoltageLevel12_95_Wire1"/>
         <g class="BUSBAR_SECTION idBus21" id="idBus21" transform="translate(150.0,1150.0)">
             <line y2="0" x1="0" x2="40.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus21_NW_LABEL">Bus21</text>
         </g>
         <g class="GENERATOR idGenerator" id="idGenerator" transform="translate(164.0,1294.0)">
     <circle r="6" cx="6" cy="6"/>
-    <path d="M6,6 A 6 20 0 0 0 0,6"/>
-    <path d="M6,6 A 6 20 0 0 0 12,6"/>
+    <path d="M6,6 A 6 40 0 0 0 2,6"/>
+    <path d="M6,6 A 6 40 0 0 0 10,6"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Generator__LABEL">Generator</text>
         </g>
         <g class="LINE idLine_95_TWO" id="idLine_95_TWO" transform="translate(170.0,1000.0)">

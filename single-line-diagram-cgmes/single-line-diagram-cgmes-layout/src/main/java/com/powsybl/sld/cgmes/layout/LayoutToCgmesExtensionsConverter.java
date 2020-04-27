@@ -256,7 +256,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
-        return node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+        return (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER))
                 && node.getAdjacentNodes().stream().allMatch(n -> n.getId().startsWith(twoWindingsTransformer.getId()));
     }
 

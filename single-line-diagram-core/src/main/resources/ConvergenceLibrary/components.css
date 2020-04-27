@@ -17,13 +17,13 @@
 .GENERATOR {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD_BREAK_SWITCH {
@@ -87,7 +87,7 @@
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .wire {
