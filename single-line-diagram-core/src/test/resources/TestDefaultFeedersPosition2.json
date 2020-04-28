@@ -345,6 +345,7 @@
       "y" : -1.0,
       "open" : false,
       "label" : "gen1",
+      "feederType" : "INJECTION",
       "order" : 1,
       "direction" : "BOTTOM"
     }, {
@@ -358,6 +359,7 @@
       "y" : -1.0,
       "open" : false,
       "label" : "gen2",
+      "feederType" : "INJECTION",
       "order" : 3,
       "direction" : "BOTTOM"
     }, {
@@ -371,6 +373,7 @@
       "y" : -1.0,
       "open" : false,
       "label" : "load1",
+      "feederType" : "INJECTION",
       "order" : 0,
       "direction" : "TOP"
     }, {
@@ -384,6 +387,7 @@
       "y" : -1.0,
       "open" : false,
       "label" : "load2",
+      "feederType" : "INJECTION",
       "order" : 2,
       "direction" : "TOP"
     } ],

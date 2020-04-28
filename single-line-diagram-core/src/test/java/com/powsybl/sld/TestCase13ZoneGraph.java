@@ -30,6 +30,6 @@ public class TestCase13ZoneGraph extends AbstractTestCase {
         List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
         ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
         // write Json and compare to reference
-        assertEquals(toJson(g, "/TestCase13ZoneGraph.json"), toString("/TestCase13ZoneGraph.json"));
+        assertEquals(toString("/TestCase13ZoneGraph.json"), toJson(g, "/TestCase13ZoneGraph.json"));
     }
 }

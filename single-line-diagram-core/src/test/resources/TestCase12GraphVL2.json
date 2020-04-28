@@ -6,6 +6,700 @@
   },
   "x" : 0.0,
   "y" : 0.0,
+  "nodes" : [ {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dgen4Fictif",
+    "name" : "dgen4Fictif",
+    "equipmentId" : "dgen4Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 360.0,
+    "y" : 315.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dload3Fictif",
+    "name" : "dload3Fictif",
+    "equipmentId" : "dload3Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dscpl1Fictif",
+    "name" : "dscpl1Fictif",
+    "equipmentId" : "dscpl1Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 120.0,
+    "y" : 220.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dscpl2Fictif",
+    "name" : "dscpl2Fictif",
+    "equipmentId" : "dscpl2Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 40.0,
+    "y" : 220.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf21Fictif",
+    "name" : "dtrf21Fictif",
+    "equipmentId" : "dtrf21Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 280.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf22Fictif",
+    "name" : "dtrf22Fictif",
+    "equipmentId" : "dtrf22Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1000.0,
+    "y" : 315.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf23Fictif",
+    "name" : "dtrf23Fictif",
+    "equipmentId" : "dtrf23Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 1080.0,
+    "y" : 315.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf24Fictif",
+    "name" : "dtrf24Fictif",
+    "equipmentId" : "dtrf24Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 440.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf26Fictif",
+    "name" : "dtrf26Fictif",
+    "equipmentId" : "dtrf26Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf27Fictif",
+    "name" : "dtrf27Fictif",
+    "equipmentId" : "dtrf27Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_dtrf28Fictif",
+    "name" : "dtrf28Fictif",
+    "equipmentId" : "dtrf28Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 315.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_trf6_fictif",
+    "name" : "trf6_fictif",
+    "equipmentId" : "trf6_fictif",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 63.33333333333335,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_trf7_fictif",
+    "name" : "trf7_fictif",
+    "equipmentId" : "trf7_fictif",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 63.33333333333335,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl2_trf8_fictif",
+    "name" : "trf8_fictif",
+    "equipmentId" : "trf8_fictif",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 481.6666666666666,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "BUS",
+    "id" : "bbs5",
+    "name" : "bbs5",
+    "equipmentId" : "bbs5",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 10.0,
+    "y" : 260.0,
+    "open" : false,
+    "pxWidth" : 1100.0,
+    "structuralPosition" : {
+      "h" : 1,
+      "v" : 1,
+      "hSpan" : 1,
+      "vSpan" : 0
+    },
+    "position" : {
+      "h" : 0,
+      "v" : 1,
+      "hSpan" : 14,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "BUS",
+    "id" : "bbs6",
+    "name" : "bbs6",
+    "equipmentId" : "bbs6",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 10.0,
+    "y" : 285.0,
+    "open" : false,
+    "pxWidth" : 1100.0,
+    "structuralPosition" : {
+      "h" : 1,
+      "v" : 2,
+      "hSpan" : 1,
+      "vSpan" : 0
+    },
+    "position" : {
+      "h" : 0,
+      "v" : 2,
+      "hSpan" : 14,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "SWITCH",
+    "id" : "bgen4",
+    "name" : "bgen4",
+    "equipmentId" : "bgen4",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 360.0,
+    "y" : 440.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "bload3",
+    "name" : "bload3",
+    "equipmentId" : "bload3",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 200.0,
+    "y" : 105.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf21",
+    "name" : "btrf21",
+    "equipmentId" : "btrf21",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 280.0,
+    "y" : 105.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf22",
+    "name" : "btrf22",
+    "equipmentId" : "btrf22",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 1000.0,
+    "y" : 440.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf23",
+    "name" : "btrf23",
+    "equipmentId" : "btrf23",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 1080.0,
+    "y" : 440.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf24",
+    "name" : "btrf24",
+    "equipmentId" : "btrf24",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 440.0,
+    "y" : 105.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf26",
+    "name" : "btrf26",
+    "equipmentId" : "btrf26",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 720.0,
+    "y" : 146.66666666666669,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf27",
+    "name" : "btrf27",
+    "equipmentId" : "btrf27",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 560.0,
+    "y" : 146.66666666666669,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "btrf28",
+    "name" : "btrf28",
+    "equipmentId" : "btrf28",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 880.0,
+    "y" : 398.3333333333333,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "ddcpl1",
+    "name" : "ddcpl1",
+    "equipmentId" : "ddcpl1",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 80.0,
+    "y" : 220.0,
+    "rotationAngle" : 90.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dgen4",
+    "name" : "dgen4",
+    "equipmentId" : "dgen4",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 360.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dload3",
+    "name" : "dload3",
+    "equipmentId" : "dload3",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 200.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dscpl1",
+    "name" : "dscpl1",
+    "equipmentId" : "dscpl1",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 120.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dscpl2",
+    "name" : "dscpl2",
+    "equipmentId" : "dscpl2",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 40.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf21",
+    "name" : "dtrf21",
+    "equipmentId" : "dtrf21",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 280.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf22",
+    "name" : "dtrf22",
+    "equipmentId" : "dtrf22",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 1000.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf23",
+    "name" : "dtrf23",
+    "equipmentId" : "dtrf23",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 1080.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf24",
+    "name" : "dtrf24",
+    "equipmentId" : "dtrf24",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 440.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf26",
+    "name" : "dtrf26",
+    "equipmentId" : "dtrf26",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 720.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf27",
+    "name" : "dtrf27",
+    "equipmentId" : "dtrf27",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 560.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "dtrf28",
+    "name" : "dtrf28",
+    "equipmentId" : "dtrf28",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 880.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "FEEDER",
+    "id" : "gen4",
+    "name" : "gen4",
+    "equipmentId" : "gen4",
+    "componentType" : "GENERATOR",
+    "fictitious" : false,
+    "x" : 360.0,
+    "y" : 565.0,
+    "open" : false,
+    "label" : "gen4",
+    "feederType" : "INJECTION",
+    "order" : 1,
+    "direction" : "BOTTOM"
+  }, {
+    "type" : "FEEDER",
+    "id" : "load3",
+    "name" : "load3",
+    "equipmentId" : "load3",
+    "componentType" : "LOAD",
+    "fictitious" : false,
+    "x" : 200.0,
+    "y" : -20.0,
+    "open" : false,
+    "label" : "load3",
+    "feederType" : "INJECTION",
+    "order" : 0,
+    "direction" : "TOP"
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf1_TWO",
+    "name" : "trf1",
+    "equipmentId" : "trf1",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 280.0,
+    "y" : -20.0,
+    "open" : false,
+    "label" : "trf1",
+    "feederType" : "BRANCH",
+    "order" : 1,
+    "direction" : "TOP",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf2_TWO",
+    "name" : "trf2",
+    "equipmentId" : "trf2",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 1000.0,
+    "y" : 565.0,
+    "open" : false,
+    "label" : "trf2",
+    "feederType" : "BRANCH",
+    "order" : 3,
+    "direction" : "BOTTOM",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf3_TWO",
+    "name" : "trf3",
+    "equipmentId" : "trf3",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 1080.0,
+    "y" : 565.0,
+    "open" : false,
+    "label" : "trf3",
+    "feederType" : "BRANCH",
+    "order" : 4,
+    "direction" : "BOTTOM",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf4_TWO",
+    "name" : "trf4",
+    "equipmentId" : "trf4",
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "fictitious" : false,
+    "x" : 440.0,
+    "y" : -20.0,
+    "open" : false,
+    "label" : "trf4",
+    "feederType" : "BRANCH",
+    "order" : 2,
+    "direction" : "TOP",
+    "side" : "TWO",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf6_ONE",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 760.0,
+    "y" : -19.99999999999998,
+    "open" : false,
+    "label" : "trf62",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 2,
+    "direction" : "TOP",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf6_THREE",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 680.0,
+    "y" : -19.99999999999998,
+    "open" : false,
+    "label" : "trf62",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 3,
+    "direction" : "TOP",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf7_ONE",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 600.0,
+    "y" : -19.99999999999998,
+    "open" : false,
+    "label" : "trf72",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 2,
+    "direction" : "TOP",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf7_THREE",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 520.0,
+    "y" : -19.99999999999998,
+    "open" : false,
+    "label" : "trf72",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 3,
+    "direction" : "TOP",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf8_ONE",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 920.0,
+    "y" : 564.9999999999999,
+    "open" : false,
+    "label" : "trf82",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 2,
+    "direction" : "BOTTOM",
+    "side" : "ONE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    }
+  }, {
+    "type" : "FEEDER",
+    "id" : "trf8_THREE",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "componentType" : "LINE",
+    "fictitious" : false,
+    "x" : 840.0,
+    "y" : 564.9999999999999,
+    "open" : false,
+    "label" : "trf82",
+    "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
+    "order" : 3,
+    "direction" : "BOTTOM",
+    "side" : "THREE",
+    "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  } ],
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
@@ -50,52 +744,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dscpl2",
-          "name" : "dscpl2",
-          "equipmentId" : "dscpl2",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 40.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl2Fictif",
-          "name" : "dscpl2Fictif",
-          "equipmentId" : "dscpl2Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 40.0,
-          "y" : 220.0,
-          "rotationAngle" : 90.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dscpl2", "FICT_vl2_dscpl2Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -116,41 +765,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl2Fictif",
-          "name" : "dscpl2Fictif",
-          "equipmentId" : "dscpl2Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 40.0,
-          "y" : 220.0,
-          "rotationAngle" : 90.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "ddcpl1",
-          "name" : "ddcpl1",
-          "equipmentId" : "ddcpl1",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 80.0,
-          "y" : 220.0,
-          "rotationAngle" : 90.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl1Fictif",
-          "name" : "dscpl1Fictif",
-          "equipmentId" : "dscpl1Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 120.0,
-          "y" : 220.0,
-          "rotationAngle" : 90.0,
-          "open" : false
-        } ]
+        "nodes" : [ "FICT_vl2_dscpl2Fictif", "ddcpl1", "FICT_vl2_dscpl1Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -171,52 +786,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
-          "equipmentId" : "bbs5",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dscpl1",
-          "name" : "dscpl1",
-          "equipmentId" : "dscpl1",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 120.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dscpl1Fictif",
-          "name" : "dscpl1Fictif",
-          "equipmentId" : "dscpl1Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 120.0,
-          "y" : 220.0,
-          "rotationAngle" : 90.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs5", "dscpl1", "FICT_vl2_dscpl1Fictif" ]
       } ]
     }
   }, {
@@ -264,51 +834,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
-          "equipmentId" : "bbs5",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dload3",
-          "name" : "dload3",
-          "equipmentId" : "dload3",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 200.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dload3Fictif",
-          "name" : "dload3Fictif",
-          "equipmentId" : "dload3Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 200.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs5", "dload3", "FICT_vl2_dload3Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -329,42 +855,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dload3Fictif",
-          "name" : "dload3Fictif",
-          "equipmentId" : "dload3Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 200.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "bload3",
-          "name" : "bload3",
-          "equipmentId" : "bload3",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 200.0,
-          "y" : 105.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "load3",
-          "name" : "load3",
-          "equipmentId" : "load3",
-          "componentType" : "LOAD",
-          "fictitious" : false,
-          "x" : 200.0,
-          "y" : -20.0,
-          "open" : false,
-          "label" : "load3",
-          "feederType" : "INJECTION",
-          "order" : 0,
-          "direction" : "TOP"
-        } ]
+        "nodes" : [ "FICT_vl2_dload3Fictif", "bload3", "load3" ]
       } ]
     }
   }, {
@@ -412,51 +903,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
-          "equipmentId" : "bbs5",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf21",
-          "name" : "dtrf21",
-          "equipmentId" : "dtrf21",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 280.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf21Fictif",
-          "name" : "dtrf21Fictif",
-          "equipmentId" : "dtrf21Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 280.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs5", "dtrf21", "FICT_vl2_dtrf21Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -477,48 +924,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf21Fictif",
-          "name" : "dtrf21Fictif",
-          "equipmentId" : "dtrf21Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 280.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf21",
-          "name" : "btrf21",
-          "equipmentId" : "btrf21",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 280.0,
-          "y" : 105.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "trf1_TWO",
-          "name" : "trf1",
-          "equipmentId" : "trf1",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
-          "fictitious" : false,
-          "x" : 280.0,
-          "y" : -20.0,
-          "open" : false,
-          "label" : "trf1",
-          "feederType" : "BRANCH",
-          "order" : 1,
-          "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf21Fictif", "btrf21", "trf1_TWO" ]
       } ]
     }
   }, {
@@ -566,51 +972,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
-          "equipmentId" : "bbs5",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf24",
-          "name" : "dtrf24",
-          "equipmentId" : "dtrf24",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 440.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf24Fictif",
-          "name" : "dtrf24Fictif",
-          "equipmentId" : "dtrf24Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 440.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs5", "dtrf24", "FICT_vl2_dtrf24Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -631,48 +993,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf24Fictif",
-          "name" : "dtrf24Fictif",
-          "equipmentId" : "dtrf24Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 440.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf24",
-          "name" : "btrf24",
-          "equipmentId" : "btrf24",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 440.0,
-          "y" : 105.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "trf4_TWO",
-          "name" : "trf4",
-          "equipmentId" : "trf4",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
-          "fictitious" : false,
-          "x" : 440.0,
-          "y" : -20.0,
-          "open" : false,
-          "label" : "trf4",
-          "feederType" : "BRANCH",
-          "order" : 2,
-          "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf24Fictif", "btrf24", "trf4_TWO" ]
       } ]
     }
   }, {
@@ -720,51 +1041,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs5",
-          "name" : "bbs5",
-          "equipmentId" : "bbs5",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 260.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 1,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 1,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf27",
-          "name" : "dtrf27",
-          "equipmentId" : "dtrf27",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 560.0,
-          "y" : 260.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf27Fictif",
-          "name" : "dtrf27Fictif",
-          "equipmentId" : "dtrf27Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 560.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs5", "dtrf27", "FICT_vl2_dtrf27Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -785,53 +1062,7 @@
           "xSpan" : 160.0,
           "ySpan" : 166.66666666666666
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf27Fictif",
-          "name" : "dtrf27Fictif",
-          "equipmentId" : "dtrf27Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 560.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf27",
-          "name" : "btrf27",
-          "equipmentId" : "btrf27",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 560.0,
-          "y" : 146.66666666666669,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf7_fictif",
-          "name" : "trf7_fictif",
-          "equipmentId" : "trf7_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 560.0,
-          "y" : 63.33333333333335,
-          "open" : false,
-          "voltageLevelInfosLeg1" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          },
-          "voltageLevelInfosLeg2" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          },
-          "voltageLevelInfosLeg3" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 63.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "FICT_vl2_trf7_fictif" ]
       }, {
         "type" : "PARALLEL",
         "cardinalities" : [ {
@@ -872,52 +1103,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf7_fictif",
-            "name" : "trf7_fictif",
-            "equipmentId" : "trf7_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 560.0,
-            "y" : 63.33333333333335,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_THREE",
-            "name" : "trf7",
-            "equipmentId" : "trf7",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 520.0,
-            "y" : -19.99999999999998,
-            "open" : false,
-            "label" : "trf72",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
-            "direction" : "TOP",
-            "side" : "THREE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf7_fictif", "trf7_THREE" ]
         }, {
           "type" : "PRIMARY",
           "cardinalities" : [ {
@@ -938,52 +1124,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf7_fictif",
-            "name" : "trf7_fictif",
-            "equipmentId" : "trf7_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 560.0,
-            "y" : 63.33333333333335,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf7_ONE",
-            "name" : "trf7",
-            "equipmentId" : "trf7",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 600.0,
-            "y" : -19.99999999999998,
-            "open" : false,
-            "label" : "trf72",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
-            "direction" : "TOP",
-            "side" : "ONE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf7_fictif", "trf7_ONE" ]
         } ]
       } ]
     }
@@ -1032,51 +1173,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dgen4",
-          "name" : "dgen4",
-          "equipmentId" : "dgen4",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 360.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dgen4Fictif",
-          "name" : "dgen4Fictif",
-          "equipmentId" : "dgen4Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 360.0,
-          "y" : 315.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dgen4", "FICT_vl2_dgen4Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -1097,42 +1194,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dgen4Fictif",
-          "name" : "dgen4Fictif",
-          "equipmentId" : "dgen4Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 360.0,
-          "y" : 315.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "bgen4",
-          "name" : "bgen4",
-          "equipmentId" : "bgen4",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 360.0,
-          "y" : 440.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "gen4",
-          "name" : "gen4",
-          "equipmentId" : "gen4",
-          "componentType" : "GENERATOR",
-          "fictitious" : false,
-          "x" : 360.0,
-          "y" : 565.0,
-          "open" : false,
-          "label" : "gen4",
-          "feederType" : "INJECTION",
-          "order" : 1,
-          "direction" : "BOTTOM"
-        } ]
+        "nodes" : [ "FICT_vl2_dgen4Fictif", "bgen4", "gen4" ]
       } ]
     }
   }, {
@@ -1180,51 +1242,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf22",
-          "name" : "dtrf22",
-          "equipmentId" : "dtrf22",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 1000.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf22Fictif",
-          "name" : "dtrf22Fictif",
-          "equipmentId" : "dtrf22Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 1000.0,
-          "y" : 315.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dtrf22", "FICT_vl2_dtrf22Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -1245,48 +1263,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf22Fictif",
-          "name" : "dtrf22Fictif",
-          "equipmentId" : "dtrf22Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 1000.0,
-          "y" : 315.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf22",
-          "name" : "btrf22",
-          "equipmentId" : "btrf22",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 1000.0,
-          "y" : 440.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "trf2_TWO",
-          "name" : "trf2",
-          "equipmentId" : "trf2",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
-          "fictitious" : false,
-          "x" : 1000.0,
-          "y" : 565.0,
-          "open" : false,
-          "label" : "trf2",
-          "feederType" : "BRANCH",
-          "order" : 3,
-          "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf22Fictif", "btrf22", "trf2_TWO" ]
       } ]
     }
   }, {
@@ -1334,51 +1311,7 @@
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf23",
-          "name" : "dtrf23",
-          "equipmentId" : "dtrf23",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 1080.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf23Fictif",
-          "name" : "dtrf23Fictif",
-          "equipmentId" : "dtrf23Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 1080.0,
-          "y" : 315.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dtrf23", "FICT_vl2_dtrf23Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -1399,48 +1332,7 @@
           "xSpan" : 80.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf23Fictif",
-          "name" : "dtrf23Fictif",
-          "equipmentId" : "dtrf23Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 1080.0,
-          "y" : 315.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf23",
-          "name" : "btrf23",
-          "equipmentId" : "btrf23",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 1080.0,
-          "y" : 440.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "trf3_TWO",
-          "name" : "trf3",
-          "equipmentId" : "trf3",
-          "componentType" : "TWO_WINDINGS_TRANSFORMER",
-          "fictitious" : false,
-          "x" : 1080.0,
-          "y" : 565.0,
-          "open" : false,
-          "label" : "trf3",
-          "feederType" : "BRANCH",
-          "order" : 4,
-          "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf23Fictif", "btrf23", "trf3_TWO" ]
       } ]
     }
   }, {
@@ -1488,51 +1380,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf26",
-          "name" : "dtrf26",
-          "equipmentId" : "dtrf26",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 720.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf26Fictif",
-          "name" : "dtrf26Fictif",
-          "equipmentId" : "dtrf26Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 720.0,
-          "y" : 230.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dtrf26", "FICT_vl2_dtrf26Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -1553,53 +1401,7 @@
           "xSpan" : 160.0,
           "ySpan" : 166.66666666666666
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf26Fictif",
-          "name" : "dtrf26Fictif",
-          "equipmentId" : "dtrf26Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 720.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf26",
-          "name" : "btrf26",
-          "equipmentId" : "btrf26",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 720.0,
-          "y" : 146.66666666666669,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf6_fictif",
-          "name" : "trf6_fictif",
-          "equipmentId" : "trf6_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 720.0,
-          "y" : 63.33333333333335,
-          "open" : false,
-          "voltageLevelInfosLeg1" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          },
-          "voltageLevelInfosLeg2" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          },
-          "voltageLevelInfosLeg3" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 63.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "FICT_vl2_trf6_fictif" ]
       }, {
         "type" : "PARALLEL",
         "cardinalities" : [ {
@@ -1640,52 +1442,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf6_fictif",
-            "name" : "trf6_fictif",
-            "equipmentId" : "trf6_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 720.0,
-            "y" : 63.33333333333335,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_THREE",
-            "name" : "trf6",
-            "equipmentId" : "trf6",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 680.0,
-            "y" : -19.99999999999998,
-            "open" : false,
-            "label" : "trf62",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
-            "direction" : "TOP",
-            "side" : "THREE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf6_fictif", "trf6_THREE" ]
         }, {
           "type" : "PRIMARY",
           "cardinalities" : [ {
@@ -1706,52 +1463,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf6_fictif",
-            "name" : "trf6_fictif",
-            "equipmentId" : "trf6_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 720.0,
-            "y" : 63.33333333333335,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf6_ONE",
-            "name" : "trf6",
-            "equipmentId" : "trf6",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 760.0,
-            "y" : -19.99999999999998,
-            "open" : false,
-            "label" : "trf62",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
-            "direction" : "TOP",
-            "side" : "ONE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf6_fictif", "trf6_ONE" ]
         } ]
       } ]
     }
@@ -1800,51 +1512,7 @@
           "xSpan" : 160.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ {
-          "type" : "BUS",
-          "id" : "bbs6",
-          "name" : "bbs6",
-          "equipmentId" : "bbs6",
-          "componentType" : "BUSBAR_SECTION",
-          "fictitious" : false,
-          "x" : 10.0,
-          "y" : 285.0,
-          "open" : false,
-          "pxWidth" : 1100.0,
-          "structuralPosition" : {
-            "h" : 1,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 0
-          },
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 14,
-            "vSpan" : 0
-          }
-        }, {
-          "type" : "SWITCH",
-          "id" : "dtrf28",
-          "name" : "dtrf28",
-          "equipmentId" : "dtrf28",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
-          "x" : 880.0,
-          "y" : 285.0,
-          "open" : false,
-          "kind" : "DISCONNECTOR"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf28Fictif",
-          "name" : "dtrf28Fictif",
-          "equipmentId" : "dtrf28Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 880.0,
-          "y" : 315.0,
-          "open" : false
-        } ]
+        "nodes" : [ "bbs6", "dtrf28", "FICT_vl2_dtrf28Fictif" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -1865,53 +1533,7 @@
           "xSpan" : 160.0,
           "ySpan" : 166.66666666666666
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_dtrf28Fictif",
-          "name" : "dtrf28Fictif",
-          "equipmentId" : "dtrf28Fictif",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 880.0,
-          "y" : 315.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "btrf28",
-          "name" : "btrf28",
-          "equipmentId" : "btrf28",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 880.0,
-          "y" : 398.3333333333333,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vl2_trf8_fictif",
-          "name" : "trf8_fictif",
-          "equipmentId" : "trf8_fictif",
-          "componentType" : "THREE_WINDINGS_TRANSFORMER",
-          "fictitious" : true,
-          "x" : 880.0,
-          "y" : 481.6666666666666,
-          "open" : false,
-          "voltageLevelInfosLeg1" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          },
-          "voltageLevelInfosLeg2" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          },
-          "voltageLevelInfosLeg3" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 63.0
-          }
-        } ]
+        "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "FICT_vl2_trf8_fictif" ]
       }, {
         "type" : "PARALLEL",
         "cardinalities" : [ {
@@ -1952,52 +1574,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf8_fictif",
-            "name" : "trf8_fictif",
-            "equipmentId" : "trf8_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 880.0,
-            "y" : 481.6666666666666,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_THREE",
-            "name" : "trf8",
-            "equipmentId" : "trf8",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 840.0,
-            "y" : 564.9999999999999,
-            "open" : false,
-            "label" : "trf82",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
-            "direction" : "BOTTOM",
-            "side" : "THREE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf8_fictif", "trf8_THREE" ]
         }, {
           "type" : "PRIMARY",
           "cardinalities" : [ {
@@ -2018,52 +1595,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl2_trf8_fictif",
-            "name" : "trf8_fictif",
-            "equipmentId" : "trf8_fictif",
-            "componentType" : "THREE_WINDINGS_TRANSFORMER",
-            "fictitious" : true,
-            "x" : 880.0,
-            "y" : 481.6666666666666,
-            "open" : false,
-            "voltageLevelInfosLeg1" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            },
-            "voltageLevelInfosLeg2" : {
-              "id" : "vl2",
-              "name" : "vl2",
-              "nominalVoltage" : 225.0
-            },
-            "voltageLevelInfosLeg3" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
-            }
-          }, {
-            "type" : "FEEDER",
-            "id" : "trf8_ONE",
-            "name" : "trf8",
-            "equipmentId" : "trf8",
-            "componentType" : "LINE",
-            "fictitious" : false,
-            "x" : 920.0,
-            "y" : 564.9999999999999,
-            "open" : false,
-            "label" : "trf82",
-            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
-            "direction" : "BOTTOM",
-            "side" : "ONE",
-            "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
-            }
-          } ]
+          "nodes" : [ "FICT_vl2_trf8_fictif", "trf8_ONE" ]
         } ]
       } ]
     }
