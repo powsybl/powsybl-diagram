@@ -7,7 +7,6 @@
 package com.powsybl.sld.svg;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -106,15 +105,17 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         if (g != null) {  // node inside a voltageLevel graph
             String vlId = g.getVoltageLevelInfos().getId();
 
-            if (node instanceof Fictitious3WTNode ||
-                    (node instanceof Feeder2WTNode && node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER))) {
-                if (node instanceof Fictitious3WTNode) {
-                    color = getColorFictitious3WTNode((Fictitious3WTNode) node, nameSubComponent, vlId);
+            if (node instanceof Middle3WTNode) {
+                color = getColorFictitious3WTNode((Middle3WTNode) node, nameSubComponent, vlId);
+            } else if (node instanceof Feeder2WTNode) {
+                if (nameSubComponent.equals(WINDING1)) {
+                    color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
+                } else if (nameSubComponent.equals(WINDING2)) {
+                    color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 } else {
-                    color = getColor(nameSubComponent.equals(WINDING1) ? node.getGraph().getVoltageLevelInfos().getNominalVoltage() : ((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
+                    // phase shifter case
+                    color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
                 }
-
-                color.ifPresent(s -> attributes.put(STROKE, s));
             } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
                 attributes.put("stroke-opacity", "0");
                 attributes.put("fill-opacity", "0");
@@ -154,14 +155,14 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 }
                 color = getColor(n.getGraph().getVoltageLevelInfos().getNominalVoltage(), n);
             }
-
-            color.ifPresent(s -> attributes.put(STROKE, s));
         }
+
+        color.ifPresent(s -> attributes.put(STROKE, s));
 
         return attributes;
     }
 
-    private Optional<String> getColorFictitious3WTNode(Fictitious3WTNode node, String nameSubComponent, String vlId) {
+    private Optional<String> getColorFictitious3WTNode(Middle3WTNode node, String nameSubComponent, String vlId) {
         VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
         VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
         VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();

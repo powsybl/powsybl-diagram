@@ -21,7 +21,7 @@ jobs:
           java-package: jdk+fx
 
       - name: Build with Maven
-        run: mvn --batch-mode package
+        run: mvn --batch-mode -P jacoco,checks,viewer package
 
       - name: Run SonarCloud analysis
         if: matrix.os == 'ubuntu-latest'
@@ -33,3 +33,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Broadcast update event
+        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
+        uses: gridsuite/broadcast-event@master
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: single_line_diagram_updated

@@ -29,29 +29,39 @@ public class BaseVoltageColor {
 
     private static final String CONFIG_FILE = "base-voltages.yml";
 
-    private BaseVoltagesConfig config;
+    private final BaseVoltagesConfig config;
 
-    public BaseVoltageColor(Path configFile) {
-        Objects.requireNonNull(configFile);
+    protected BaseVoltageColor(BaseVoltagesConfig config) {
+        this.config = Objects.requireNonNull(config);
+    }
+
+    public static BaseVoltageColor fromPlatformConfig() {
+        return fromPath(PlatformConfig.defaultConfig().getConfigDir().resolve(CONFIG_FILE));
+    }
+
+    public static BaseVoltageColor fromInputStream(InputStream configInputStream) {
+        Objects.requireNonNull(configInputStream);
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
+        BaseVoltagesConfig config = yaml.load(configInputStream);
+        return new BaseVoltageColor(config);
+    }
+
+    public static BaseVoltageColor fromPath(Path configFile) {
+        Objects.requireNonNull(configFile);
         if (Files.exists(configFile)) {
             try (InputStream configInputStream = Files.newInputStream(configFile)) {
-                config = yaml.load(configInputStream);
+                return fromInputStream(configInputStream);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         } else {
             InputStream configInputStream = BaseVoltageColor.class.getResourceAsStream("/" + CONFIG_FILE);
             if (configInputStream != null) {
-                config = yaml.load(configInputStream);
+                return fromInputStream(configInputStream);
             } else {
                 throw new PowsyblException("No base voltages configuration found");
             }
         }
-    }
-
-    public BaseVoltageColor() {
-        this(PlatformConfig.defaultConfig().getConfigDir().resolve(CONFIG_FILE));
     }
 
     public List<String> getProfiles() {

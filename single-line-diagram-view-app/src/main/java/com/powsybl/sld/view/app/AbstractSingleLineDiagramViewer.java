@@ -77,6 +77,7 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
 public abstract class AbstractSingleLineDiagramViewer extends Application implements DisplayVoltageLevel {
 
@@ -114,7 +115,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private final ObjectProperty<Network> networkProperty = new SimpleObjectProperty<>();
 
     private final ObjectProperty<LayoutParameters> layoutParameters = new SimpleObjectProperty<>(new LayoutParameters()
-            .setShowGrid(true));
+            .setShowGrid(true)
+            .setAdaptCellHeightToContent(true));
 
     protected final Preferences preferences = Preferences.userNodeForPackage(VoltageLevelDiagramView.class);
 
@@ -246,11 +248,11 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                  StringWriter jsonWriter = new StringWriter()) {
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
                 DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
-                NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary());
                 GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
 
                 String dName = getSelectedDiagramName();
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
+                NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary(), diagramLayoutParameters);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
                     VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected());
@@ -652,7 +654,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         parametersPane.add(svgLibraryComboBox, 0, rowIndex++);
 
         styleComboBox.getItems().addAll(styles.keySet());
-        styleComboBox.getSelectionModel().selectFirst();
+        styleComboBox.getSelectionModel().select(1);
         styleComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> refreshDiagram());
         parametersPane.add(new Label("Style:"), 0, rowIndex++);
         parametersPane.add(styleComboBox, 0, rowIndex++);
@@ -728,6 +730,12 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addSpinner("Min space between components:", 8, 60, 1, rowIndex, LayoutParameters::getMinSpaceBetweenComponents, LayoutParameters::setMinSpaceBetweenComponents);
         rowIndex += 2;
         addSpinner("Minimum extern cell height:", 80, 300, 10, rowIndex, LayoutParameters::getMinExternCellHeight, LayoutParameters::setMinExternCellHeight);
+
+        rowIndex += 2;
+        addCheckBox("Center label:", rowIndex, LayoutParameters::isLabelCentered, LayoutParameters::setLabelCentered);
+        rowIndex += 2;
+        addSpinner("Angle Label:", -360, 360, 1, rowIndex, LayoutParameters::getAngleLabelShift, LayoutParameters::setAngleLabelShift);
+
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {
@@ -820,6 +828,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
         initTreeCellFactory();
 
+        showNames.setSelected(true);
         showNames.selectedProperty().addListener((observable, oldValue, newValue) -> {
             substationsTree.refresh();
             refreshDiagram();
@@ -1099,10 +1108,10 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private void initStylesProvider() {
         styles.put("Default", new DefaultDiagramStyleProvider());
         styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider());
-        styles.put("Topology", new TopologicalStyleProvider(null, null));
+        styles.put("Topology", null);
     }
 
     private void updateStylesProvider(Network network) {
-        styles.put("Topology", new TopologicalStyleProvider(null, network));
+        styles.put("Topology", new TopologicalStyleProvider(network));
     }
 }

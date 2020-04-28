@@ -10,7 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 
-import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -22,8 +22,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     protected final BaseVoltageColor baseVoltageColor;
     protected final String disconnectedColor;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(Path config) {
-        baseVoltageColor = config != null ? new BaseVoltageColor(config) : new BaseVoltageColor();
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor) {
+        this.baseVoltageColor = Objects.requireNonNull(baseVoltageColor);
         disconnectedColor = getBaseColor(0, PROFILE);
     }
 

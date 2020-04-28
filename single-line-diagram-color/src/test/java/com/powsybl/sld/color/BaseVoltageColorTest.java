@@ -8,10 +8,6 @@ package com.powsybl.sld.color;
 
 import org.junit.Test;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -25,9 +21,8 @@ import static org.junit.Assert.assertFalse;
 public class BaseVoltageColorTest {
 
     @Test
-    public void test() throws IOException, URISyntaxException {
-        Path configFile = Paths.get(getClass().getResource("/base-voltages.yml").toURI());
-        BaseVoltageColor baseVoltageColor = new BaseVoltageColor(configFile);
+    public void test() {
+        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
         // getProfiles
         assertEquals(Collections.singletonList("Default"), baseVoltageColor.getProfiles());
         // getDefaultProfile

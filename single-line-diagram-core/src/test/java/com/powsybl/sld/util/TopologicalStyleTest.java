@@ -11,6 +11,7 @@ import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
@@ -96,10 +97,8 @@ public class TopologicalStyleTest extends AbstractTestCase {
         Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
-        Path config = tmpDir.resolve("base-voltages.yml");
-        Files.copy(getClass().getResourceAsStream("/base-voltages.yml"), config);
-
-        TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(config, network);
+        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
+        TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(baseVoltageColor, network);
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
@@ -127,7 +126,7 @@ public class TopologicalStyleTest extends AbstractTestCase {
         assertTrue(wireStyle.isPresent());
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 
-        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_1_fictif");
+        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertTrue(node3WTStyle.isEmpty());
 

@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import com.powsybl.iidm.network.*;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import org.apache.commons.lang3.StringUtils;
@@ -252,11 +252,11 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof  Feeder3WTNode) && ((Feeder3WTNode) n).getTransformerId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof Feeder3WTLegNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
-        return node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+        return (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER))
                 && node.getAdjacentNodes().stream().allMatch(n -> n.getId().startsWith(twoWindingsTransformer.getId()));
     }
 

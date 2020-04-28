@@ -574,6 +574,7 @@
           "y" : 30.0,
           "open" : false,
           "label" : "load1",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -721,14 +722,10 @@
           "y" : 30.0,
           "open" : false,
           "label" : "trf1",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -874,14 +871,10 @@
           "y" : 30.0,
           "open" : false,
           "label" : "trf5",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl3",
-            "name" : "vl3",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1027,10 +1020,10 @@
           "y" : 30.0,
           "open" : false,
           "label" : "trf61",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1176,6 +1169,7 @@
           "y" : 30.0,
           "open" : false,
           "label" : "line1",
+          "feederType" : "BRANCH",
           "order" : 3,
           "direction" : "TOP",
           "side" : "ONE",
@@ -1329,6 +1323,7 @@
           "y" : 30.0,
           "open" : false,
           "label" : "load2",
+          "feederType" : "INJECTION",
           "order" : 2,
           "direction" : "TOP"
         } ]
@@ -1476,14 +1471,10 @@
           "y" : 30.0,
           "open" : false,
           "label" : "trf2",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
           "direction" : "TOP",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1629,10 +1620,10 @@
           "y" : 30.0,
           "open" : false,
           "label" : "trf81",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -1778,6 +1769,7 @@
           "y" : 615.0,
           "open" : false,
           "label" : "gen1",
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "BOTTOM"
         } ]
@@ -1925,14 +1917,10 @@
           "y" : 615.0,
           "open" : false,
           "label" : "trf3",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "BOTTOM",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2078,10 +2066,10 @@
           "y" : 615.0,
           "open" : false,
           "label" : "trf71",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
-          "transformerSide" : "ONE"
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2227,6 +2215,7 @@
           "y" : 615.0,
           "open" : false,
           "label" : "gen2",
+          "feederType" : "INJECTION",
           "order" : 3,
           "direction" : "BOTTOM"
         } ]
@@ -2374,14 +2363,10 @@
           "y" : 615.0,
           "open" : false,
           "label" : "trf4",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "side" : "ONE",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl2",
-            "name" : "vl2",
-            "nominalVoltage" : 225.0
-          }
+          "side" : "ONE"
         } ]
       } ]
     }
@@ -2942,6 +2927,7 @@
           "y" : 720.0,
           "open" : false,
           "label" : "load3",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -3089,14 +3075,10 @@
           "y" : 720.0,
           "open" : false,
           "label" : "trf1",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3242,14 +3224,10 @@
           "y" : 720.0,
           "open" : false,
           "label" : "trf4",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3395,10 +3373,10 @@
           "y" : 720.0,
           "open" : false,
           "label" : "trf72",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf7",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3544,6 +3522,7 @@
           "y" : 1305.0,
           "open" : false,
           "label" : "gen4",
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "BOTTOM"
         } ]
@@ -3691,14 +3670,10 @@
           "y" : 1305.0,
           "open" : false,
           "label" : "trf2",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3844,14 +3819,10 @@
           "y" : 1305.0,
           "open" : false,
           "label" : "trf3",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 4,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -3997,10 +3968,10 @@
           "y" : 720.0,
           "open" : false,
           "label" : "trf62",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4146,10 +4117,10 @@
           "y" : 1305.0,
           "open" : false,
           "label" : "trf82",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf8",
-          "transformerSide" : "TWO"
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4431,6 +4402,7 @@
           "y" : 1410.0,
           "open" : false,
           "label" : "load4",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -4578,14 +4550,10 @@
           "y" : 1970.0,
           "open" : false,
           "label" : "trf5",
+          "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
           "direction" : "BOTTOM",
-          "side" : "TWO",
-          "otherSideVoltageLevelInfos" : {
-            "id" : "vl1",
-            "name" : "vl1",
-            "nominalVoltage" : 400.0
-          }
+          "side" : "TWO"
         } ]
       } ]
     }
@@ -4731,10 +4699,10 @@
           "y" : 1410.0,
           "open" : false,
           "label" : "trf63",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf6",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -4880,10 +4848,10 @@
           "y" : 1970.0,
           "open" : false,
           "label" : "trf73",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "BOTTOM",
-          "transformerId" : "trf7",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }
@@ -5029,10 +4997,10 @@
           "y" : 1410.0,
           "open" : false,
           "label" : "trf83",
+          "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
           "direction" : "TOP",
-          "transformerId" : "trf8",
-          "transformerSide" : "THREE"
+          "side" : "THREE"
         } ]
       } ]
     }

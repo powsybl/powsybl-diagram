@@ -19,6 +19,7 @@ import java.util.Objects;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Jacques Borsenberger <jacques.borsenberger at rte-france.com>
  */
 public class LayoutParameters {
 
@@ -63,6 +64,10 @@ public class LayoutParameters {
     private double minSpaceBetweenComponents = 15;
     private double minExternCellHeight = 80;
 
+    private double angleLabelShift = 15.;
+    private boolean labelCentered = false;
+    private boolean labelDiagonal = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -97,7 +102,10 @@ public class LayoutParameters {
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
                             @JsonProperty("maxComponentHeight") double maxComponentHeight,
                             @JsonProperty("minSpaceBetweenComponents") double minSpaceBetweenComponents,
-                            @JsonProperty("minExternCellHeight") double minExternCellHeight) {
+                            @JsonProperty("minExternCellHeight") double minExternCellHeight,
+                            @JsonProperty("labelCentered") boolean labelCentered,
+                            @JsonProperty("labelDiagonal") boolean labelDiagonal,
+                            @JsonProperty("angleLabelShift") double angleLabelShift) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -125,6 +133,9 @@ public class LayoutParameters {
         this.maxComponentHeight = maxComponentHeight;
         this.minSpaceBetweenComponents = minSpaceBetweenComponents;
         this.minExternCellHeight = minExternCellHeight;
+        this.labelCentered = labelCentered;
+        this.labelDiagonal = labelDiagonal;
+        this.angleLabelShift = angleLabelShift;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -157,6 +168,9 @@ public class LayoutParameters {
         minSpaceBetweenComponents = other.minSpaceBetweenComponents;
         minExternCellHeight = other.minExternCellHeight;
         componentsSize = other.componentsSize;
+        angleLabelShift = other.angleLabelShift;
+        labelDiagonal = other.labelDiagonal;
+        labelCentered = other.labelCentered;
     }
 
     public double getTranslateX() {
@@ -408,5 +422,32 @@ public class LayoutParameters {
 
     public Map<String, ComponentSize> getComponentsSize() {
         return componentsSize;
+    }
+
+    public double getAngleLabelShift() {
+        return angleLabelShift;
+    }
+
+    public LayoutParameters setAngleLabelShift(double angleLabelShift) {
+        this.angleLabelShift = angleLabelShift;
+        return this;
+    }
+
+    public boolean isLabelCentered() {
+        return labelCentered;
+    }
+
+    public LayoutParameters setLabelCentered(boolean labelCentered) {
+        this.labelCentered = labelCentered;
+        return this;
+    }
+
+    public boolean isLabelDiagonal() {
+        return labelDiagonal;
+    }
+
+    public LayoutParameters setLabelDiagonal(boolean labelDiagonal) {
+        this.labelDiagonal = labelDiagonal;
+        return this;
     }
 }
