@@ -43,7 +43,7 @@ public class Node implements BaseNode {
 
     private final String equipmentId;
 
-    private String componentType;
+    private final String componentType;
 
     private final boolean fictitious;
 
@@ -105,10 +105,6 @@ public class Node implements BaseNode {
     @Override
     public String getComponentType() {
         return componentType;
-    }
-
-    public void setComponentType(String componentType) {
-        this.componentType = componentType;
     }
 
     @Override

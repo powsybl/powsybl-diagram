@@ -6,13 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW;
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.NODE;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
@@ -44,7 +38,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.powsybl.sld.model.Fictitious3WTNode;
+import com.powsybl.sld.model.*;
 import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.commons.lang3.StringUtils;
@@ -66,19 +60,6 @@ import com.powsybl.sld.library.AnchorPointProvider;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentMetadata;
 import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.FeederBranchNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.LineEdge;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DiagramInitialValueProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 
@@ -511,8 +492,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, Graph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
         String nextVId = null;
-        if (node instanceof FeederBranchNode) {
-            nextVId = ((FeederBranchNode) node).getOtherSideVoltageLevelInfos().getId();
+        if (node instanceof FeederWithSideNode) {
+            VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
+            if (otherSideVoltageLevelInfos != null) {
+                nextVId = otherSideVoltageLevelInfos.getId();
+            }
         }
 
         metadata.addNodeMetadata(
@@ -617,7 +601,7 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute("font-size", Integer.toString(fontSize));
         label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
-        label.setAttribute(TRANSFORM, ROTATE + "(" + ((rotated ? -90 : 0) + shiftAngle) + "," + 0 + "," + 0 + ")");
+        label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         if (centered) {
             label.setAttribute(TEXT_ANCHOR, MIDDLE);
         }
@@ -631,6 +615,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 || (node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
                 || node.getComponentType().equals(NODE));
     }
 
@@ -649,7 +634,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void handleNodeRotation(Node node) {
         if (node.getGraph() != null) { // node in voltage level graph
-            if (node instanceof Fictitious3WTNode && node.getCell() != null && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+            if ((node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                    || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
+                    || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER))
+                    && node.getCell() != null
+                    && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
                 node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
             }
         } else {  // node outside any graph
@@ -662,7 +651,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
                 double x2 = pol2.get(2);  // absciss of the second polyline third point
                 if (x1 == x2) {
-                    node.setRotationAngle(90.);  // rotation if points abscisses are the same
+                    node.setRotationAngle(180.);  // rotation if points abscisses are the same
                 }
             } else {  // 3 windings transformer
                 Node n2 = adjacentNodes.get(1);

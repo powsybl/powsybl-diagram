@@ -6,35 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.iidm.network.*;
+import com.powsybl.sld.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Injection;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Feeder3WTNode;
-import com.powsybl.sld.model.FeederBranchNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Node;
-
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
-import static com.powsybl.sld.library.ComponentTypeName.INDUCTOR;
-import static com.powsybl.sld.library.ComponentTypeName.LINE;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD_BREAK_SWITCH;
-import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.VSC_CONVERTER_STATION;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -51,101 +28,71 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     @Override
     public InitialValue getInitialValue(Node node) {
         Objects.requireNonNull(node);
-        InitialValue initialValue = new InitialValue(null, null, null, null, null, null);
 
-        if (node.getType() == Node.NodeType.BUS) {
-            initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
-        } else {
-            String nodeId = node.getId();
-            switch (node.getComponentType()) {
-                case LINE:
-                case TWO_WINDINGS_TRANSFORMER:
-                case THREE_WINDINGS_TRANSFORMER:
-                    initialValue = getBranchInitialValue(node);
-                    break;
+        InitialValue initialValue = null;
 
-                case LOAD:
-                    initialValue = getInjectionInitialValue(network.getLoad(nodeId));
-                    break;
-
-                case INDUCTOR:
-                case CAPACITOR:
-                    initialValue = getInjectionInitialValue(network.getShuntCompensator(nodeId));
-                    break;
-
-                case GENERATOR:
-                    initialValue = getInjectionInitialValue(network.getGenerator(nodeId));
-                    break;
-
-                case STATIC_VAR_COMPENSATOR:
-                    initialValue = getInjectionInitialValue(network.getStaticVarCompensator(nodeId));
-                    break;
-
-                case VSC_CONVERTER_STATION:
-                    initialValue = getInjectionInitialValue(network.getVscConverterStation(nodeId));
-                    break;
-
-                case DANGLING_LINE:
-                    initialValue = getInjectionInitialValue(network.getDanglingLine(nodeId));
-                    break;
-
-                case BUSBAR_SECTION:
-                case BREAKER:
-                case LOAD_BREAK_SWITCH:
-                case DISCONNECTOR:
-                default:
-                    break;
-            }
+        switch (node.getType()) {
+            case BUS:
+                initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                break;
+            case FEEDER:
+                switch (((FeederNode) node).getFeederType()) {
+                    case INJECTION:
+                        initialValue = getInjectionInitialValue((FeederInjectionNode) node);
+                        break;
+                    case BRANCH:
+                        initialValue = getBranchInitialValue((FeederBranchNode) node);
+                        break;
+                    case TWO_WINDINGS_TRANSFORMER_LEG:
+                        initialValue = get2WTInitialValue((Feeder2WTLegNode) node);
+                        break;
+                    case THREE_WINDINGS_TRANSFORMER_LEG:
+                        initialValue = get3WTInitialValue((Feeder3WTLegNode) node);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
-        return initialValue;
+
+        return initialValue != null ? initialValue : new InitialValue(null, null, null, null, null, null);
     }
 
-    private InitialValue getInjectionInitialValue(Injection<?> injection) {
+    private InitialValue getInjectionInitialValue(FeederInjectionNode node) {
+        Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
             return buildInitialValue(injection);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
         }
+        return null;
     }
 
-    private boolean isNodeTransformer(Node node) {
-        return (node instanceof Feeder2WTNode
-                && node.getComponentType().equals(LINE)
-                && node.getGraph().isForVoltageLevelDiagram())
-                || (node instanceof Feeder3WTNode && !node.getGraph().isForVoltageLevelDiagram());
-    }
-
-    private InitialValue getTransformerInitialValue(Node node) {
-        // special cases : branch of threeWindingsTransformer in voltageLevel graph
-        //               : branch of threeWindingsTransformer in substation graph
-        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
-        ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf((node instanceof Feeder2WTNode ?
-                ((Feeder2WTNode) node).getSide() :
-                ((Feeder3WTNode) node).getSide()).name());
-
-        if (transformer != null) {
-            return buildInitialValue(transformer, side);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
-        }
-    }
-
-    private InitialValue getLineInitialValue(Node node) {
+    private InitialValue getBranchInitialValue(FeederBranchNode node) {
         Branch branch = network.getBranch(node.getEquipmentId());
-        Branch.Side side = Branch.Side.valueOf(((FeederBranchNode) node).getSide().name());
         if (branch != null) {
+            Branch.Side side = Branch.Side.valueOf(node.getSide().name());
             return buildInitialValue(branch, side);
-        } else {
-            return new InitialValue(null, null, null, null, null, null);
         }
+        return null;
     }
 
-    private InitialValue getBranchInitialValue(Node node) {
-        if (isNodeTransformer(node)) {
-            return getTransformerInitialValue(node);
-        } else {
-            return getLineInitialValue(node);
+    private InitialValue get3WTInitialValue(Feeder3WTLegNode node) {
+        ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
+        if (transformer != null) {
+            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
+            return buildInitialValue(transformer, side);
         }
+        return null;
+    }
+
+    private InitialValue get2WTInitialValue(Feeder2WTLegNode node) {
+        TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
+        if (transformer != null) {
+            Branch.Side side = Branch.Side.valueOf(node.getSide().name());
+            return buildInitialValue(transformer, side);
+        }
+        return null;
     }
 
     @Override
@@ -172,7 +119,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         return new InitialValue(direction1, direction2, label1, label2, null, null);
     }
 
-    private InitialValue buildInitialValue(Injection<?> injection) {
+    private InitialValue buildInitialValue(Injection injection) {
         Objects.requireNonNull(injection);
         double p = injection.getTerminal().getP();
         double q = injection.getTerminal().getQ();
@@ -184,11 +131,11 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
         return new InitialValue(direction1, direction2, label1, label2, null, null);
     }
 
-    private InitialValue buildInitialValue(Branch<?> ln, Branch.Side side) {
-        Objects.requireNonNull(ln);
+    private InitialValue buildInitialValue(Branch branch, Branch.Side side) {
+        Objects.requireNonNull(branch);
         Objects.requireNonNull(side);
-        double p = ln.getTerminal(side).getP();
-        double q = ln.getTerminal(side).getQ();
+        double p = branch.getTerminal(side).getP();
+        double q = branch.getTerminal(side).getQ();
         String label1 = String.valueOf(Math.round(p));
         String label2 = String.valueOf(Math.round(q));
         Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;

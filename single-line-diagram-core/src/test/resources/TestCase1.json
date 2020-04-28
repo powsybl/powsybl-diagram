@@ -6,75 +6,6 @@
   },
   "x" : 0.0,
   "y" : 0.0,
-  "nodes" : [ {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl_dFictif",
-    "name" : "dFictif",
-    "equipmentId" : "dFictif",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 25.0,
-    "y" : 230.0,
-    "open" : false
-  }, {
-    "type" : "SWITCH",
-    "id" : "b",
-    "name" : "b",
-    "equipmentId" : "b",
-    "componentType" : "BREAKER",
-    "fictitious" : false,
-    "x" : 25.0,
-    "y" : 105.0,
-    "open" : false,
-    "kind" : "BREAKER"
-  }, {
-    "type" : "BUS",
-    "id" : "bbs",
-    "name" : "bbs",
-    "equipmentId" : "bbs",
-    "componentType" : "BUSBAR_SECTION",
-    "fictitious" : false,
-    "x" : 10.0,
-    "y" : 260.0,
-    "open" : false,
-    "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
-    "position" : {
-      "h" : 0,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    }
-  }, {
-    "type" : "SWITCH",
-    "id" : "d",
-    "name" : "d",
-    "equipmentId" : "d",
-    "componentType" : "DISCONNECTOR",
-    "fictitious" : false,
-    "x" : 25.0,
-    "y" : 260.0,
-    "open" : false,
-    "kind" : "DISCONNECTOR"
-  }, {
-    "type" : "FEEDER",
-    "id" : "l",
-    "name" : "l",
-    "equipmentId" : "l",
-    "componentType" : "LOAD",
-    "fictitious" : false,
-    "x" : 25.0,
-    "y" : -20.0,
-    "open" : false,
-    "label" : "l",
-    "order" : 0,
-    "direction" : "TOP"
-  } ],
   "cells" : [ {
     "type" : "EXTERN",
     "number" : 0,
@@ -120,7 +51,51 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "d", "FICT_vl_dFictif" ]
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "bbs",
+          "name" : "bbs",
+          "equipmentId" : "bbs",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 10.0,
+          "y" : 260.0,
+          "open" : false,
+          "pxWidth" : 30.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "d",
+          "name" : "d",
+          "equipmentId" : "d",
+          "componentType" : "DISCONNECTOR",
+          "fictitious" : false,
+          "x" : 25.0,
+          "y" : 260.0,
+          "open" : false,
+          "kind" : "DISCONNECTOR"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_dFictif",
+          "name" : "dFictif",
+          "equipmentId" : "dFictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 25.0,
+          "y" : 230.0,
+          "open" : false
+        } ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -141,7 +116,42 @@
           "xSpan" : 50.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ "FICT_vl_dFictif", "b", "l" ]
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_dFictif",
+          "name" : "dFictif",
+          "equipmentId" : "dFictif",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 25.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "SWITCH",
+          "id" : "b",
+          "name" : "b",
+          "equipmentId" : "b",
+          "componentType" : "BREAKER",
+          "fictitious" : false,
+          "x" : 25.0,
+          "y" : 105.0,
+          "open" : false,
+          "kind" : "BREAKER"
+        }, {
+          "type" : "FEEDER",
+          "id" : "l",
+          "name" : "l",
+          "equipmentId" : "l",
+          "componentType" : "LOAD",
+          "fictitious" : false,
+          "x" : 25.0,
+          "y" : -20.0,
+          "open" : false,
+          "label" : "l",
+          "feederType" : "INJECTION",
+          "order" : 0,
+          "direction" : "TOP"
+        } ]
       } ]
     }
   } ],

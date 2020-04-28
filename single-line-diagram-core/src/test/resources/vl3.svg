@@ -18,13 +18,13 @@
 .GENERATOR {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .LOAD_BREAK_SWITCH {
@@ -88,7 +88,7 @@
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
 }
 
 .wire {
@@ -151,12 +151,12 @@
         <g class="LINE idvl3_95_trf2_95_two" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_two__LABEL">vl3_trf2</text>
         </g>
-        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_vl3_95_trf2" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1013.0,204.0)">
-    <circle r="4" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="4" cy="4"/>
+        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_vl3_95_trf2" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1012.0,203.0)">
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
 
-    <circle r="4" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="10" cy="4"/>
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
 
-    <circle r="4" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="7" cy="8"/>
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
 </g>
         <polyline class="wire wire_vl3" points="910.0,156.0,910.0,240.0" id="idvl3_95_Wire0"/>
         <g class="ARROW1_vl3_95_capa1_UP" id="idvl3_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,905.0,171.0)">
@@ -179,7 +179,7 @@
         </g>
         <polyline class="wire wire_vl3" points="910.0,260.0,910.0,370.0" id="idvl3_95_Wire1"/>
         <polyline class="wire wire_vl3" points="910.0,370.0,900.0,370.0" id="idvl3_95_Wire2"/>
-        <polyline class="wire wire_vl3" points="980.0,150.0,980.0,206.0,1013.0,206.0" id="idvl3_95_Wire3"/>
+        <polyline class="wire wire_vl3" points="980.0,150.0,980.0,205.0,1012.0,205.0" id="idvl3_95_Wire3"/>
         <g class="ARROW1_vl3_95_trf2_95_one_UP" id="idvl3_95_Wire3_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,975.0,165.0)">
      <g class="arrow-up" id="idvl3_95_Wire3_ARROW1_ARROW-arrow-up">
         <polygon points="5,0 10,10 0,10"/>
@@ -198,7 +198,7 @@
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire_vl3" points="1060.0,150.0,1060.0,206.0,1027.0,206.0" id="idvl3_95_Wire4"/>
+        <polyline class="wire wire_vl3" points="1060.0,150.0,1060.0,205.0,1028.0,205.0" id="idvl3_95_Wire4"/>
         <g class="ARROW1_vl3_95_trf2_95_two_UP" id="idvl3_95_Wire4_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1055.0,165.0)">
      <g class="arrow-up" id="idvl3_95_Wire4_ARROW1_ARROW-arrow-up">
         <polygon points="5,0 10,10 0,10"/>
@@ -217,7 +217,7 @@
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire_vl3" points="1020.0,216.0,1020.0,240.0" id="idvl3_95_Wire5"/>
+        <polyline class="wire wire_vl3" points="1020.0,217.0,1020.0,240.0" id="idvl3_95_Wire5"/>
         <polyline class="wire wire_vl3" points="1020.0,260.0,1020.0,370.0" id="idvl3_95_Wire6"/>
         <polyline class="wire wire_vl3" points="1020.0,370.0,1020.0,370.0" id="idvl3_95_Wire7"/>
         <g class="BREAKER idvl3_95_bcapa1" id="idvl3_95_bcapa1" transform="translate(900.0,240.0)">

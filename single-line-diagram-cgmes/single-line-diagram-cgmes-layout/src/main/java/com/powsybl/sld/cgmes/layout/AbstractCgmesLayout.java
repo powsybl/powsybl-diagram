@@ -23,9 +23,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.model.*;
 import org.apache.commons.lang3.StringUtils;
-import com.powsybl.sld.model.Feeder2WTNode;
-import com.powsybl.sld.model.Feeder3WTNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +42,7 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.model.SwitchNode;
 
 /**
  *
@@ -107,8 +101,9 @@ public abstract class AbstractCgmesLayout {
     }
 
     protected boolean isLineNode(Node node) {
-        return (!(node instanceof Feeder2WTNode) && !(node instanceof Feeder3WTNode))
-                && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
+        return (node instanceof FeederLineNode)
+                || (node instanceof FeederInjectionNode
+                    && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType()));
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
@@ -201,9 +196,9 @@ public abstract class AbstractCgmesLayout {
 
     protected void setFeederNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
         String componentType = node.getComponentType();
-        if (node instanceof Feeder2WTNode) {
+        if (node instanceof Feeder2WTNode || node instanceof Feeder2WTLegNode) {
             componentType = TWO_WINDINGS_TRANSFORMER;
-        } else if (node instanceof Feeder3WTNode) {
+        } else if (node instanceof Feeder3WTLegNode) {
             componentType = THREE_WINDINGS_TRANSFORMER;
         }
         switch (componentType) {
