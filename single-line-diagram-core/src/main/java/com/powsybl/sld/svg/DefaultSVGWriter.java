@@ -443,7 +443,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 null,
                 false,
                 BusCell.Direction.UNDEFINED,
-                false));
+                false,
+                null));
 
         return gridRoot;
     }
@@ -518,7 +519,7 @@ public class DefaultSVGWriter implements SVGWriter {
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
                         node.getComponentType(), node.getRotationAngle(),
-                        node.isOpen(), direction, false));
+                        node.isOpen(), direction, false, node.getEquipmentId()));
         if (node.getType() == Node.NodeType.BUS) {
             metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
                     nodeId,
@@ -578,7 +579,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 null,
                 false,
                 BusCell.Direction.UNDEFINED,
-                true));
+                true,
+                null));
     }
 
     /*
