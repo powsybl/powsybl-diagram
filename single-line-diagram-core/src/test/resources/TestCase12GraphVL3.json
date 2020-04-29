@@ -148,6 +148,7 @@
           "y" : -20.0,
           "open" : false,
           "label" : "load4",
+          "feederType" : "INJECTION",
           "order" : 0,
           "direction" : "TOP"
         } ]
@@ -295,6 +296,7 @@
           "y" : 540.0,
           "open" : false,
           "label" : "self4",
+          "feederType" : "INJECTION",
           "order" : 1,
           "direction" : "BOTTOM"
         } ]
@@ -442,6 +444,7 @@
           "y" : 540.0,
           "open" : false,
           "label" : "trf5",
+          "feederType" : "BRANCH",
           "order" : 1,
           "direction" : "BOTTOM",
           "side" : "TWO",
@@ -586,9 +589,9 @@
           "kind" : "BREAKER"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf63_fictif",
-          "name" : "trf63_fictif",
-          "equipmentId" : "trf63_fictif",
+          "id" : "FICT_vl3_trf6_fictif",
+          "name" : "trf6_fictif",
+          "equipmentId" : "trf6_fictif",
           "componentType" : "THREE_WINDINGS_TRANSFORMER",
           "fictitious" : true,
           "x" : 320.0,
@@ -652,9 +655,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf63_fictif",
-            "name" : "trf63_fictif",
-            "equipmentId" : "trf63_fictif",
+            "id" : "FICT_vl3_trf6_fictif",
+            "name" : "trf6_fictif",
+            "equipmentId" : "trf6_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 320.0,
@@ -677,7 +680,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf6_THREE_TWO",
+            "id" : "trf6_TWO",
             "name" : "trf6",
             "equipmentId" : "trf6",
             "componentType" : "LINE",
@@ -685,6 +688,8 @@
             "x" : 280.0,
             "y" : -19.99999999999998,
             "open" : false,
+            "label" : "trf63",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 3,
             "direction" : "TOP",
             "side" : "TWO",
@@ -716,9 +721,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf63_fictif",
-            "name" : "trf63_fictif",
-            "equipmentId" : "trf63_fictif",
+            "id" : "FICT_vl3_trf6_fictif",
+            "name" : "trf6_fictif",
+            "equipmentId" : "trf6_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 320.0,
@@ -741,7 +746,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf6_THREE_ONE",
+            "id" : "trf6_ONE",
             "name" : "trf6",
             "equipmentId" : "trf6",
             "componentType" : "LINE",
@@ -749,6 +754,8 @@
             "x" : 360.0,
             "y" : -19.99999999999998,
             "open" : false,
+            "label" : "trf63",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 2,
             "direction" : "TOP",
             "side" : "ONE",
@@ -894,9 +901,9 @@
           "kind" : "BREAKER"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf73_fictif",
-          "name" : "trf73_fictif",
-          "equipmentId" : "trf73_fictif",
+          "id" : "FICT_vl3_trf7_fictif",
+          "name" : "trf7_fictif",
+          "equipmentId" : "trf7_fictif",
           "componentType" : "THREE_WINDINGS_TRANSFORMER",
           "fictitious" : true,
           "x" : 480.0,
@@ -960,9 +967,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf73_fictif",
-            "name" : "trf73_fictif",
-            "equipmentId" : "trf73_fictif",
+            "id" : "FICT_vl3_trf7_fictif",
+            "name" : "trf7_fictif",
+            "equipmentId" : "trf7_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 480.0,
@@ -985,7 +992,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf7_THREE_TWO",
+            "id" : "trf7_TWO",
             "name" : "trf7",
             "equipmentId" : "trf7",
             "componentType" : "LINE",
@@ -993,6 +1000,8 @@
             "x" : 440.0,
             "y" : 540.0,
             "open" : false,
+            "label" : "trf73",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 3,
             "direction" : "BOTTOM",
             "side" : "TWO",
@@ -1024,9 +1033,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf73_fictif",
-            "name" : "trf73_fictif",
-            "equipmentId" : "trf73_fictif",
+            "id" : "FICT_vl3_trf7_fictif",
+            "name" : "trf7_fictif",
+            "equipmentId" : "trf7_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 480.0,
@@ -1049,7 +1058,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf7_THREE_ONE",
+            "id" : "trf7_ONE",
             "name" : "trf7",
             "equipmentId" : "trf7",
             "componentType" : "LINE",
@@ -1057,6 +1066,8 @@
             "x" : 520.0,
             "y" : 540.0,
             "open" : false,
+            "label" : "trf73",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 2,
             "direction" : "BOTTOM",
             "side" : "ONE",
@@ -1202,9 +1213,9 @@
           "kind" : "BREAKER"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl3_trf83_fictif",
-          "name" : "trf83_fictif",
-          "equipmentId" : "trf83_fictif",
+          "id" : "FICT_vl3_trf8_fictif",
+          "name" : "trf8_fictif",
+          "equipmentId" : "trf8_fictif",
           "componentType" : "THREE_WINDINGS_TRANSFORMER",
           "fictitious" : true,
           "x" : 640.0,
@@ -1268,9 +1279,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf83_fictif",
-            "name" : "trf83_fictif",
-            "equipmentId" : "trf83_fictif",
+            "id" : "FICT_vl3_trf8_fictif",
+            "name" : "trf8_fictif",
+            "equipmentId" : "trf8_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 640.0,
@@ -1293,7 +1304,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf8_THREE_TWO",
+            "id" : "trf8_TWO",
             "name" : "trf8",
             "equipmentId" : "trf8",
             "componentType" : "LINE",
@@ -1301,6 +1312,8 @@
             "x" : 600.0,
             "y" : -19.99999999999998,
             "open" : false,
+            "label" : "trf83",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 3,
             "direction" : "TOP",
             "side" : "TWO",
@@ -1332,9 +1345,9 @@
           },
           "nodes" : [ {
             "type" : "FICTITIOUS",
-            "id" : "FICT_vl3_trf83_fictif",
-            "name" : "trf83_fictif",
-            "equipmentId" : "trf83_fictif",
+            "id" : "FICT_vl3_trf8_fictif",
+            "name" : "trf8_fictif",
+            "equipmentId" : "trf8_fictif",
             "componentType" : "THREE_WINDINGS_TRANSFORMER",
             "fictitious" : true,
             "x" : 640.0,
@@ -1357,7 +1370,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf8_THREE_ONE",
+            "id" : "trf8_ONE",
             "name" : "trf8",
             "equipmentId" : "trf8",
             "componentType" : "LINE",
@@ -1365,6 +1378,8 @@
             "x" : 680.0,
             "y" : -19.99999999999998,
             "open" : false,
+            "label" : "trf83",
+            "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
             "order" : 2,
             "direction" : "TOP",
             "side" : "ONE",
@@ -1519,6 +1534,7 @@
           "y" : 540.0,
           "open" : false,
           "label" : "self5",
+          "feederType" : "INJECTION",
           "order" : 2,
           "direction" : "BOTTOM"
         } ]
@@ -1666,6 +1682,7 @@
           "y" : 540.0,
           "open" : false,
           "label" : "self6",
+          "feederType" : "INJECTION",
           "order" : 3,
           "direction" : "BOTTOM"
         } ]
@@ -1673,6 +1690,24 @@
     }
   } ],
   "edges" : [ {
+    "node1" : "FICT_vl3_trf6_fictif",
+    "node2" : "trf6_ONE"
+  }, {
+    "node1" : "FICT_vl3_trf6_fictif",
+    "node2" : "trf6_TWO"
+  }, {
+    "node1" : "FICT_vl3_trf7_fictif",
+    "node2" : "trf7_ONE"
+  }, {
+    "node1" : "FICT_vl3_trf7_fictif",
+    "node2" : "trf7_TWO"
+  }, {
+    "node1" : "FICT_vl3_trf8_fictif",
+    "node2" : "trf8_ONE"
+  }, {
+    "node1" : "FICT_vl3_trf8_fictif",
+    "node2" : "trf8_TWO"
+  }, {
     "node1" : "bbs7",
     "node2" : "dload4"
   }, {
@@ -1694,11 +1729,20 @@
     "node1" : "bbs7",
     "node2" : "dtrf36"
   }, {
+    "node1" : "btrf36",
+    "node2" : "FICT_vl3_trf6_fictif"
+  }, {
     "node1" : "bbs7",
     "node2" : "dtrf37"
   }, {
+    "node1" : "btrf37",
+    "node2" : "FICT_vl3_trf7_fictif"
+  }, {
     "node1" : "bbs7",
     "node2" : "dtrf38"
+  }, {
+    "node1" : "btrf38",
+    "node2" : "FICT_vl3_trf8_fictif"
   }, {
     "node1" : "bbs7",
     "node2" : "dself5"
@@ -1711,33 +1755,6 @@
   }, {
     "node1" : "bself6",
     "node2" : "self6"
-  }, {
-    "node1" : "btrf36",
-    "node2" : "FICT_vl3_trf63_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf63_fictif",
-    "node2" : "trf6_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf63_fictif",
-    "node2" : "trf6_THREE_TWO"
-  }, {
-    "node1" : "btrf37",
-    "node2" : "FICT_vl3_trf73_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf73_fictif",
-    "node2" : "trf7_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf73_fictif",
-    "node2" : "trf7_THREE_TWO"
-  }, {
-    "node1" : "btrf38",
-    "node2" : "FICT_vl3_trf83_fictif"
-  }, {
-    "node1" : "FICT_vl3_trf83_fictif",
-    "node2" : "trf8_THREE_ONE"
-  }, {
-    "node1" : "FICT_vl3_trf83_fictif",
-    "node2" : "trf8_THREE_TWO"
   }, {
     "node1" : "bload4",
     "node2" : "FICT_vl3_dload4Fictif"

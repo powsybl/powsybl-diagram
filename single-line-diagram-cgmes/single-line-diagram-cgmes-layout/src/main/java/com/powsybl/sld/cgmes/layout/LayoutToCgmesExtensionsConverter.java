@@ -252,11 +252,11 @@ public class LayoutToCgmesExtensionsConverter {
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof  Feeder3WTNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof Feeder3WTLegNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {
-        return node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+        return (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER) || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER))
                 && node.getAdjacentNodes().stream().allMatch(n -> n.getId().startsWith(twoWindingsTransformer.getId()));
     }
 
