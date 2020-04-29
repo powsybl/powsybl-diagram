@@ -648,7 +648,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 List<Edge> edges = node.getAdjacentEdges();
                 List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
                 List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
-                
                 if (!(pol1.isEmpty() || pol2.isEmpty())) {
                     double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
                     double x2 = pol2.get(2);  // absciss of the second polyline third point
