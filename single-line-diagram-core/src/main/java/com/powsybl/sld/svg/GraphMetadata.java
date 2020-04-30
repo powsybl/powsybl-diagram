@@ -47,7 +47,7 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final boolean vLabel;
 
-        private final String unescapedId;
+        private final String equipmentId;
 
         @JsonCreator
         public NodeMetadata(@JsonProperty("id") String id,
@@ -58,7 +58,7 @@ public class GraphMetadata implements AnchorPointProvider {
                             @JsonProperty("open") boolean open,
                             @JsonProperty("direction") BusCell.Direction direction,
                             @JsonProperty("vlabel") boolean vLabel,
-                            @JsonProperty("unescapedId") String unescapedId) {
+                            @JsonProperty("equipmentId") String equipmentId) {
             this.id = Objects.requireNonNull(id);
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
@@ -67,7 +67,7 @@ public class GraphMetadata implements AnchorPointProvider {
             this.open = Objects.requireNonNull(open);
             this.direction = direction;
             this.vLabel = vLabel;
-            this.unescapedId = unescapedId;
+            this.equipmentId = equipmentId;
         }
 
         public String getId() {
@@ -102,8 +102,8 @@ public class GraphMetadata implements AnchorPointProvider {
             return vLabel;
         }
 
-        public String getUnescapedId() {
-            return unescapedId;
+        public String getEquipmentId() {
+            return equipmentId;
         }
     }
 
