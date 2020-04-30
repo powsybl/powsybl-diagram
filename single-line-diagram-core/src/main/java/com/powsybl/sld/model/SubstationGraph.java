@@ -107,17 +107,6 @@ public final class SubstationGraph {
         }
     }
 
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        try (JsonGenerator generator = new JsonFactory()
-                .createGenerator(writer)
-                .useDefaultPrettyPrinter()) {
-            writeJson(generator);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
@@ -139,6 +128,17 @@ public final class SubstationGraph {
         generator.writeEndArray();
         generator.writeEndObject();
 
+    }
+
+    public void writeJson(Writer writer) {
+        Objects.requireNonNull(writer);
+        try (JsonGenerator generator = new JsonFactory()
+                .createGenerator(writer)
+                .useDefaultPrettyPrinter()) {
+            writeJson(generator);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
