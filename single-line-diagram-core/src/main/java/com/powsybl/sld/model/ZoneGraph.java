@@ -12,9 +12,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,14 +71,6 @@ public final class ZoneGraph {
     public LineEdge getEdge(String lineId) {
         Objects.requireNonNull(lineId);
         return edgesById.get(lineId);
-    }
-
-    public void writeJson(Path file) {
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 
     public void writeJson(Writer writer) {

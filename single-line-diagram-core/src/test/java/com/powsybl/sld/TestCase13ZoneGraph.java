@@ -32,4 +32,13 @@ public class TestCase13ZoneGraph extends AbstractTestCase {
         // write Json and compare to reference
         assertEquals(toString("/TestCase13ZoneGraph.json"), toJson(g, "/TestCase13ZoneGraph.json"));
     }
+
+    @Test
+    public void test2() {
+        List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
+        // write Json and compare to reference
+        assertEquals(toString("/TestCase13ZoneGraphNoCoords.json"), toJson(g, "/TestCase13ZoneGraphNoCoords.json", false));
+    }
+
 }
