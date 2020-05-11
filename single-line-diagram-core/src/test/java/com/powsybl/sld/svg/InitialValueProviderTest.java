@@ -34,7 +34,7 @@ public class InitialValueProviderTest {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
+        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView();
         BusbarSection bbs = view.newBusbarSection().setId("bbs").setNode(0).add();
         bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
         BusbarSection bbs2 = view.newBusbarSection().setId("bbs2").setNode(3).add();

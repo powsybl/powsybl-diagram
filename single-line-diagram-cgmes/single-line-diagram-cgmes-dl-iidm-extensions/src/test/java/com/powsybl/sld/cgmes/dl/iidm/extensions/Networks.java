@@ -30,7 +30,6 @@ public final class Networks {
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        voltageLevel.getNodeBreakerView().setNodeCount(1);
         voltageLevel.getNodeBreakerView().newBusbarSection()
                 .setId("Busbar")
                 .setNode(0)
@@ -433,7 +432,6 @@ public final class Networks {
                 .setNominalV(400.0)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        vl.getNodeBreakerView().setNodeCount(10);
         vl.getNodeBreakerView().newBusbarSection()
                 .setId("BBS1")
                 .setNode(0)
@@ -472,8 +470,6 @@ public final class Networks {
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .setNominalV(400)
                 .add();
-
-        voltageLevel1.getNodeBreakerView().setNodeCount(countNodes);
 
         voltageLevel1.getNodeBreakerView().newBusbarSection()
                 .setId("BusbarSection1")

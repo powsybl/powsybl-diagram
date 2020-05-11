@@ -33,7 +33,6 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        vl.getNodeBreakerView().setNodeCount(3);
         vl.getNodeBreakerView().newBusbarSection()
                 .setId("BBS")
                 .setNode(0)
@@ -63,7 +62,6 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        vl2.getNodeBreakerView().setNodeCount(1);
         network.newLine()
                 .setId("L")
                 .setVoltageLevel1("VL")
