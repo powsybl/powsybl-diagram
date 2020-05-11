@@ -236,7 +236,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf7"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf15Fictif",
     "vid" : "vl1",
@@ -245,7 +246,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf15Fictif"
   }, {
     "id" : "iddtrct21",
     "vid" : "vl1",
@@ -254,7 +256,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrct21"
   }, {
     "id" : "idFICT_95_vl1_95_dgen1Fictif",
     "vid" : "vl1",
@@ -263,7 +266,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dgen1Fictif"
   }, {
     "id" : "idbtrf18",
     "vid" : "vl1",
@@ -272,7 +276,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf18"
   }, {
     "id" : "idFICT_95_vl1_95_trf6_95_fictif",
     "vid" : "vl1",
@@ -281,7 +286,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf6_fictif"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf12Fictif",
     "vid" : "vl1",
@@ -290,7 +296,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf12Fictif"
   }, {
     "id" : "iddload2",
     "vid" : "vl1",
@@ -299,7 +306,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dload2"
   }, {
     "id" : "iddload1",
     "vid" : "vl1",
@@ -308,7 +316,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dload1"
   }, {
     "id" : "idbtrf15",
     "vid" : "vl1",
@@ -317,7 +326,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf15"
   }, {
     "id" : "idbtrf14",
     "vid" : "vl1",
@@ -326,7 +336,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf14"
   }, {
     "id" : "idbtrf17",
     "vid" : "vl1",
@@ -335,7 +346,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf17"
   }, {
     "id" : "idbtrf16",
     "vid" : "vl1",
@@ -344,7 +356,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf16"
   }, {
     "id" : "idbtrf11",
     "vid" : "vl1",
@@ -353,7 +366,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf11"
   }, {
     "id" : "idFICT_95_vl1_95_dload2Fictif",
     "vid" : "vl1",
@@ -362,7 +376,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dload2Fictif"
   }, {
     "id" : "idbtrf13",
     "vid" : "vl1",
@@ -371,7 +386,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf13"
   }, {
     "id" : "idbtrf12",
     "vid" : "vl1",
@@ -380,7 +396,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "btrf12"
   }, {
     "id" : "idbbs4",
     "vid" : "vl1",
@@ -389,7 +406,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bbs4"
   }, {
     "id" : "idbgen1",
     "vid" : "vl1",
@@ -398,7 +416,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bgen1"
   }, {
     "id" : "idbgen2",
     "vid" : "vl1",
@@ -407,7 +426,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bgen2"
   }, {
     "id" : "idgen1",
     "vid" : "vl1",
@@ -416,7 +436,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "gen1"
   }, {
     "id" : "idgen2",
     "vid" : "vl1",
@@ -425,7 +446,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "gen2"
   }, {
     "id" : "idbbs1",
     "vid" : "vl1",
@@ -434,7 +456,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bbs1"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf14Fictif",
     "vid" : "vl1",
@@ -443,7 +466,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf14Fictif"
   }, {
     "id" : "idbbs2",
     "vid" : "vl1",
@@ -452,7 +476,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bbs2"
   }, {
     "id" : "idbbs3",
     "vid" : "vl1",
@@ -461,7 +486,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bbs3"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf11Fictif",
     "vid" : "vl1",
@@ -470,7 +496,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf11Fictif"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf18Fictif",
     "vid" : "vl1",
@@ -479,7 +506,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf18Fictif"
   }, {
     "id" : "idFICT_95_vl1_95_trf8_95_fictif",
     "vid" : "vl1",
@@ -488,7 +516,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf8_fictif"
   }, {
     "id" : "idFICT_95_vl1_95_dsect12Fictif",
     "vid" : "vl1",
@@ -497,7 +526,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect12Fictif"
   }, {
     "id" : "idFICT_95_vl1_95_dload1Fictif",
     "vid" : "vl1",
@@ -506,7 +536,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dload1Fictif"
   }, {
     "id" : "idtrf6_95_THREE",
     "vid" : "vl1",
@@ -515,7 +546,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf6"
   }, {
     "id" : "iddtrf11",
     "vid" : "vl1",
@@ -524,7 +556,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf11"
   }, {
     "id" : "idtrf1_95_ONE",
     "vid" : "vl1",
@@ -533,7 +566,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf1"
   }, {
     "id" : "idtrf3_95_ONE",
     "vid" : "vl1",
@@ -542,7 +576,8 @@
     "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf3"
   }, {
     "id" : "idtrf5_95_ONE",
     "vid" : "vl1",
@@ -551,7 +586,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf5"
   }, {
     "id" : "iddtrf18",
     "vid" : "vl1",
@@ -560,7 +596,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf18"
   }, {
     "id" : "iddtrf17",
     "vid" : "vl1",
@@ -569,7 +606,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf17"
   }, {
     "id" : "iddtrf16",
     "vid" : "vl1",
@@ -578,7 +616,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf16"
   }, {
     "id" : "iddtrf15",
     "vid" : "vl1",
@@ -587,7 +626,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf15"
   }, {
     "id" : "iddtrf14",
     "vid" : "vl1",
@@ -596,7 +636,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf14"
   }, {
     "id" : "iddtrf13",
     "vid" : "vl1",
@@ -605,7 +646,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf13"
   }, {
     "id" : "iddtrf12",
     "vid" : "vl1",
@@ -614,7 +656,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf12"
   }, {
     "id" : "idFICT_95_vl1_95_dgen2Fictif",
     "vid" : "vl1",
@@ -623,7 +666,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dgen2Fictif"
   }, {
     "id" : "iddgen1",
     "vid" : "vl1",
@@ -632,7 +676,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dgen1"
   }, {
     "id" : "iddgen2",
     "vid" : "vl1",
@@ -641,7 +686,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dgen2"
   }, {
     "id" : "idtrf8_95_TWO",
     "vid" : "vl1",
@@ -650,7 +696,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf8"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf17Fictif",
     "vid" : "vl1",
@@ -659,7 +706,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf17Fictif"
   }, {
     "id" : "idtrf7_95_TWO",
     "vid" : "vl1",
@@ -668,7 +716,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf7"
   }, {
     "id" : "idFICT_95_vl1_95_dsect21Fictif",
     "vid" : "vl1",
@@ -677,7 +726,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect21Fictif"
   }, {
     "id" : "idtrf6_95_TWO",
     "vid" : "vl1",
@@ -686,7 +736,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf6"
   }, {
     "id" : "iddsect21",
     "vid" : "vl1",
@@ -695,7 +746,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect21"
   }, {
     "id" : "iddsect22",
     "vid" : "vl1",
@@ -704,7 +756,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect22"
   }, {
     "id" : "idFICT_95_vl1_95_dsect11Fictif",
     "vid" : "vl1",
@@ -713,7 +766,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect11Fictif"
   }, {
     "id" : "iddtrct11",
     "vid" : "vl1",
@@ -722,7 +776,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrct11"
   }, {
     "id" : "idload1",
     "vid" : "vl1",
@@ -731,7 +786,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "load1"
   }, {
     "id" : "idload2",
     "vid" : "vl1",
@@ -740,7 +796,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "load2"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf16Fictif",
     "vid" : "vl1",
@@ -749,7 +806,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf16Fictif"
   }, {
     "id" : "GRID_vl1",
     "vid" : "vl1",
@@ -758,7 +816,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : null
   }, {
     "id" : "idFICT_95_vl1_95_trf7_95_fictif",
     "vid" : "vl1",
@@ -767,7 +826,8 @@
     "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf7_fictif"
   }, {
     "id" : "idbload2",
     "vid" : "vl1",
@@ -776,7 +836,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bload2"
   }, {
     "id" : "idbload1",
     "vid" : "vl1",
@@ -785,7 +846,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "bload1"
   }, {
     "id" : "idtrf8_95_THREE",
     "vid" : "vl1",
@@ -794,7 +856,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf8"
   }, {
     "id" : "idFICT_95_vl1_95_dsect22Fictif",
     "vid" : "vl1",
@@ -803,7 +866,8 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect22Fictif"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf13Fictif",
     "vid" : "vl1",
@@ -812,7 +876,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dtrf13Fictif"
   }, {
     "id" : "iddsect12",
     "vid" : "vl1",
@@ -821,7 +886,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect12"
   }, {
     "id" : "iddsect11",
     "vid" : "vl1",
@@ -830,7 +896,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "UNDEFINED",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "dsect11"
   }, {
     "id" : "idtrf2_95_ONE",
     "vid" : "vl1",
@@ -839,7 +906,8 @@
     "rotationAngle" : null,
     "open" : false,
     "direction" : "TOP",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf2"
   }, {
     "id" : "idtrf4_95_ONE",
     "vid" : "vl1",
@@ -848,7 +916,8 @@
     "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "BOTTOM",
-    "vlabel" : false
+    "vlabel" : false,
+    "equipmentId" : "trf4"
   } ],
   "wires" : [ {
     "id" : "idvl1_95_Wire47",
