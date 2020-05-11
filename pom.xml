@@ -97,7 +97,7 @@
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.1.0</powsyblcore.version>
+        <powsyblcore.version>3.2.0</powsyblcore.version>
     </properties>
 
     <profiles>
