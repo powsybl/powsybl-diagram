@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -268,11 +267,17 @@ public class DefaultSVGWriter implements SVGWriter {
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
         // then we draw all the edges, and finally we draw the switch nodes
 
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
-                cell.getNodes().stream().filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
-        drawEdges(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider);
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+        String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
+        Element g = root.getOwnerDocument().createElement("g");
+        g.setAttribute("id", cellId);
+        g.setAttribute(CLASS, "cell " + cellId);
+
+
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, cell.getNodes().stream().filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
+        drawEdges(prefixId, g, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider);
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
                 cell.getNodes().stream().filter(n -> n instanceof SwitchNode).collect(Collectors.toList()));
+        root.appendChild(g);
     }
 
     /**

@@ -47,6 +47,8 @@ public interface Cell {
 
     void writeJson(JsonGenerator generator) throws IOException;
 
+    String getId();
+
     String getFullId();
 
     Graph getGraph();
