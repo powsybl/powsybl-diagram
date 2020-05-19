@@ -136,48 +136,55 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG, null);
+        addStyle(prefixId, document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG, null, null);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
         transformDocument(document, writer);
 
         return metadata;
     }
 
-    protected void addStyle(Document document, DiagramStyleProvider styleProvider, List<Graph> graphs,
-                            Set<String> listUsedComponentSVG, List<? extends Edge> snakeLines) {
+    private <E extends Edge> void addEdgesStyle(String prefixId, DiagramStyleProvider styleProvider, String containerId, List<E> edges, StringBuilder graphStyle) {
+        for (int index = 0; index < edges.size(); index++) {
+            E edge = edges.get(index);
+            String wireClassName = getWireClassName(prefixId, containerId, index);
+            Map<String, String> wireStyleAttributes = styleProvider.getCssWireStyleAttributes(edge);
+            if (!wireStyleAttributes.isEmpty()) {
+                graphStyle.append(".").append(wireClassName).append(" {").append("\n");
+                for (Map.Entry<String, String> e : wireStyleAttributes.entrySet()) {
+                    graphStyle.append("    ").append(e.getKey()).append(": ").append(e.getValue()).append(";").append("\n");
+                }
+                graphStyle.append("}").append("\n\n");
+            }
+        }
+    }
+
+    protected void addStyle(String prefixId, Document document, DiagramStyleProvider styleProvider, List<Graph> graphs,
+                            Set<String> listUsedComponentSVG, String containerId, List<? extends Edge> snakeLines) {
         Element style = document.createElement("style");
 
-        StringBuilder graphStyle = new StringBuilder();
+        StringBuilder graphStyle = new StringBuilder("\n");
         graphStyle.append(componentLibrary.getStyleSheet());
 
         for (Graph graph : graphs) {
             graph.getNodes().forEach(n -> {
-                Optional<String> nodeStyle = styleProvider.getCssNodeStyle(n, layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters.isShowInternalNodes());
-                nodeStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
+                if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
+                    Optional<String> nodeStyle = styleProvider.getCssNodeStyle(n, layoutParameters.isShowInternalNodes());
+                    nodeStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
+                }
                 listUsedComponentSVG.add(n.getComponentType());
             });
+
+            String voltageLevelId = graph.getVoltageLevelInfos().getId();
             List<Edge> edges = graph.getEdges();
-            for (int i = 0; i < edges.size(); i++) {
-                Edge edge = edges.get(i);
-                Optional<String> wireStyle = styleProvider.getCssWireStyle(edge, graph.getVoltageLevelInfos().getId(), i);
-                wireStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
-            }
+            addEdgesStyle(prefixId, styleProvider, voltageLevelId, edges, graphStyle);
         }
 
         if (snakeLines != null) {
-            snakeLines.forEach(e -> {
-                String idVLS = e.getNode1().getGraph() != null ? e.getNode1().getGraph().getVoltageLevelInfos().getId() : "_";
-                idVLS += e.getNode2().getGraph() != null ? e.getNode2().getGraph().getVoltageLevelInfos().getId() : "_";
-
-                Optional<String> wireStyle = styleProvider.getCssWireStyle(e, idVLS, snakeLines.indexOf(e));
-                if (wireStyle.isPresent()) {
-                    graphStyle.append(wireStyle.get()).append("\n");
-                }
-            });
+            addEdgesStyle(prefixId, styleProvider, containerId, snakeLines, graphStyle);
         }
 
         String cssStr = graphStyle.toString()
@@ -208,7 +215,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the graph
      */
-    protected GraphMetadata writegraph(String prefixId,
+    protected GraphMetadata writeGraph(String prefixId,
                                        Graph graph,
                                        Document document,
                                        DiagramInitialValueProvider initProvider,
@@ -298,12 +305,12 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG, graph.getEdges());
-        graph.getMultiTermNodes().stream().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
+        addStyle(prefixId, document, styleProvider, graph.getNodes(), listUsedComponentSVG, graph.getSubstationId(), graph.getEdges());
+        graph.getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writegraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
 
         transformDocument(document, writer);
 
@@ -323,7 +330,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the substation graph
      */
-    protected GraphMetadata writegraph(String prefixId,
+    protected GraphMetadata writeGraph(String prefixId,
                                        SubstationGraph graph,
                                        Document document,
                                        DiagramInitialValueProvider initProvider,
@@ -957,18 +964,22 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
+    private static String getWireClassName(String prefixId, String containerId, int index) {
+        return WIRE_STYLE_CLASS + "_" + escapeClassName(prefixId + containerId) + "_" + index;
+    }
+
     /*
      * Drawing the voltageLevel graph edges
      */
     protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
-        String vId = graph.getVoltageLevelInfos().getId();
+        String voltageLevelId = graph.getVoltageLevelInfos().getId();
 
         List<Edge> edges = graph.getEdges();
         for (int index = 0; index < edges.size(); index++) {
             Edge edge = edges.get(index);
 
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
-            String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
+            String wireId = escapeId(prefixId + voltageLevelId + "_Wire" + index);
 
             Element g = root.getOwnerDocument().createElement(POLYLINE);
             g.setAttribute("id", wireId);
@@ -980,7 +991,8 @@ public class DefaultSVGWriter implements SVGWriter {
                     layoutParameters.isDrawStraightWires());
 
             g.setAttribute(POINTS, pointsListToString(pol));
-            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + styleProvider.getIdWireStyle(edge, index));
+            String wireClassName = getWireClassName(prefixId, voltageLevelId, index);
+            g.setAttribute(CLASS, WIRE_STYLE_CLASS + " " + wireClassName);
             root.appendChild(g);
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
@@ -1001,7 +1013,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
-                List<Double> reversePoints = new ArrayList();
+                List<Double> reversePoints = new ArrayList<>();
 
                 for (int i = pol.size() - 1; i >= 0; i--) {
                     if (i % 2 == 0) {
@@ -1020,7 +1032,10 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph,
                                   GraphMetadata metadata, AnchorPointProvider anchorPointProvider) {
-        for (TwtEdge edge : graph.getEdges()) {
+        List<TwtEdge> edges = graph.getEdges();
+        for (int index = 0; index < edges.size(); index++) {
+            TwtEdge edge = edges.get(index);
+
             Graph g1 = edge.getNode1().getGraph();
             Graph g2 = edge.getNode2().getGraph();
 
@@ -1031,10 +1046,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 throw new AssertionError("One node must be outside any graph");
             }
 
-            String tmp = g1 != null ? g1.getVoltageLevelInfos().getId() : "_";
-            tmp += g2 != null ? g2.getVoltageLevelInfos().getId() : "_";
-
-            String wireId = escapeId(prefixId + tmp + "_" + "Wire" + graph.getEdges().indexOf(edge));
+            String wireId = escapeId(prefixId + graph.getSubstationId() + "_" + "Wire" + graph.getEdges().indexOf(edge));
             Element g = root.getOwnerDocument().createElement(POLYLINE);
             g.setAttribute("id", wireId);
 
@@ -1046,9 +1058,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
             g.setAttribute(POINTS, pointsListToString(pol));
 
-            String vId = g1 != null ? g1.getVoltageLevelInfos().getId() : g2.getVoltageLevelInfos().getId();
-
-            g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + DiagramStyles.WIRE_STYLE_CLASS + "_" + escapeClassName(vId));
+            String wireClassName = getWireClassName(prefixId, graph.getSubstationId(), index);
+            g.setAttribute(CLASS, DiagramStyles.WIRE_STYLE_CLASS + " " + wireClassName);
             root.appendChild(g);
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
@@ -1198,18 +1209,18 @@ public class DefaultSVGWriter implements SVGWriter {
         List<Graph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, vlGraphs, listUsedComponentSVG, graph.getEdges());
+        addStyle(prefixId, document, styleProvider, vlGraphs, listUsedComponentSVG, "zone", graph.getEdges());
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writegraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider, nodeLabelConfiguration);
 
         transformDocument(document, writer);
 
         return metadata;
     }
 
-    private GraphMetadata writegraph(String prefixId,
+    private GraphMetadata writeGraph(String prefixId,
                                      ZoneGraph graph,
                                      List<Graph> vlGraphs,
                                      Document document,

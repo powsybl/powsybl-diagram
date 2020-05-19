@@ -16,10 +16,6 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  */
 public class FictitiousNode extends Node {
 
-    public FictitiousNode(Graph graph, String id) {
-        super(NodeType.FICTITIOUS, id, id, id, NODE, true, graph);
-    }
-
     public FictitiousNode(Graph graph, String id, String componentType) {
         super(NodeType.FICTITIOUS, id, id, id, componentType, true, graph);
     }

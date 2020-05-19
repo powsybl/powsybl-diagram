@@ -41,12 +41,6 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         voltageLevelColorMap.clear();
     }
 
-    private RGBColor getBusColor(VoltageLevelInfos voltageLevelInfos, Node node) {
-        VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
-        Map<String, RGBColor> colorMap = voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl));
-        return colorMap.get(node.getEquipmentId());
-    }
-
     private Map<String, RGBColor> getColorMap(VoltageLevel vl) {
         String basecolor = getBaseColor(vl.getNominalV(), PROFILE);
 
@@ -115,6 +109,12 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         return colorMap;
     }
 
+    private RGBColor getNodeRgbColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
+        Map<String, RGBColor> colorMap = voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl));
+        return colorMap.get(node.getEquipmentId());
+    }
+
     private Set<Node> findConnectedNodes(Node node) {
         Set<Node> visitedNodes = new HashSet<>();
         findConnectedNodes(node, visitedNodes);
@@ -138,13 +138,13 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (node.getType() == NodeType.SWITCH && node.isOpen()) {
             return null;
         }
-        RGBColor rgbColor = getBusColor(voltageLevelInfos, node);
+        RGBColor rgbColor = getNodeRgbColor(voltageLevelInfos, node);
         if (rgbColor != null) {
             return rgbColor;
         }
         Set<Node> connectedNodes = findConnectedNodes(node);
         for (Node connectedNode : connectedNodes) {
-            rgbColor = getBusColor(voltageLevelInfos, connectedNode);
+            rgbColor = getNodeRgbColor(voltageLevelInfos, connectedNode);
             if (rgbColor != null) {
                 return rgbColor;
             }
@@ -156,32 +156,5 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     public String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
         RGBColor rgbColor = getSmartNodeColor(voltageLevelInfos, node);
         return rgbColor != null ? rgbColor.toString() : disconnectedColor;
-    }
-
-    @Override
-    protected String getEdgeColor(VoltageLevelInfos voltageLevelInfos1, Node node1, VoltageLevelInfos voltageLevelInfos2, Node node2) {
-//        System.out.println("EDGE " + node1 + " " + node2);
-        if (node1.getId().equals(".AVEL 7_.AVEL 7 .IZGE.1_DCS DJ")) {
-            System.out.println("PROUT");
-        }
-        if (voltageLevelInfos1 != null) {
-            RGBColor rgbColor1 = getSmartNodeColor(voltageLevelInfos1, node1);
-            if (rgbColor1 != null) {
-                if (node1.getId().equals(".AVEL 7_.AVEL 7 .IZGE.1_DCS DJ")) {
-                    System.out.println("RGB 1 " + node1);
-                }
-                return rgbColor1.toString();
-            }
-        }
-        if (voltageLevelInfos2 != null) {
-            RGBColor rgbColor2 = getSmartNodeColor(voltageLevelInfos2, node2);
-            if (rgbColor2 != null) {
-                if (node1.getId().equals(".AVEL 7_.AVEL 7 .IZGE.1_DCS DJ")) {
-                    System.out.println("RGB 2 " + node2);
-                }
-                return rgbColor2.toString();
-            }
-        }
-        return disconnectedColor;
     }
 }

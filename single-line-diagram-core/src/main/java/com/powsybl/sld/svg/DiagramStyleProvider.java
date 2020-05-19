@@ -19,13 +19,11 @@ import java.util.Optional;
  */
 public interface DiagramStyleProvider {
 
-    Optional<String> getCssNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes);
+    Optional<String> getCssNodeStyle(Node node, boolean isShowInternalNodes);
 
-    String getIdWireStyle(Edge edge, int index);
+    Map<String, String> getCssWireStyleAttributes(Edge edge);
 
-    Optional<String> getCssWireStyle(Edge edge, String id, int index);
-
-    Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes);
+    Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes);
 
     Map<String, String> getSvgArrowStyleAttributes(int num);
 

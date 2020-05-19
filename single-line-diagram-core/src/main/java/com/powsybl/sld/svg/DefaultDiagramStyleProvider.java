@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.google.common.collect.ImmutableMap;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
 
@@ -19,6 +20,7 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
+
     private static final String ARROW1 = ".ARROW1_";
     private static final String ARROW2 = ".ARROW2_";
     private static final String UP = "_UP";
@@ -29,18 +31,18 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING3 = "WINDING3";
 
     @Override
-    public Optional<String> getCssNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
+    public Optional<String> getCssNodeStyle(Node node, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
-        if (node.getComponentType().equals(NODE) && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+        if (node instanceof InternalNode && !isShowInternalNodes) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
                     .append(" {stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
             return Optional.of(style.toString());
         }
-        if (node.getType() == Node.NodeType.SWITCH && !avoidSVGComponentsDuplication) {
 
+        if (node instanceof SwitchNode) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
@@ -50,9 +52,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                     .append(" .closed { visibility: ").append(node.isOpen() ? "hidden;}" : "visible;}");
 
             return Optional.of(style.toString());
-
         }
-        if (node instanceof FeederNode && !avoidSVGComponentsDuplication) {
+
+        if (node instanceof FeederNode) {
             StringBuilder style = new StringBuilder();
             style.append(ARROW1).append(escapeClassName(node.getId()))
                     .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
@@ -76,6 +78,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
             return Optional.of(style.toString());
         }
+
         return Optional.empty();
     }
 
@@ -83,34 +86,30 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return null;
     }
 
-    protected String getEdgeColor(VoltageLevelInfos voltageLevelInfos1, Node node1,
-                                  VoltageLevelInfos voltageLevelInfos2, Node node2) {
-        return null;
-    }
-
-    @Override
-    public String getIdWireStyle(Edge edge, int index) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        VoltageLevelInfos voltageLevelInfos = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos()
-                                                                       : node2.getGraph().getVoltageLevelInfos();
-        return WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + "_" + index;
-    }
-
-    @Override
-    public Optional<String> getCssWireStyle(Edge edge, String id, int index) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        VoltageLevelInfos voltageLevelInfos1 = node1.getVoltageLevelInfos();
-        VoltageLevelInfos voltageLevelInfos2 = node2.getVoltageLevelInfos();
-        String color = getEdgeColor(voltageLevelInfos1, node1, voltageLevelInfos2, node2);
-        if (color != null) {
-            VoltageLevelInfos voltageLevelInfos = voltageLevelInfos1 != null ? voltageLevelInfos1 : voltageLevelInfos2;
-            String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + "_" + index +
-                    " {stroke:" + color + "; stroke-width:1;}";
-            return Optional.of(style);
+    protected String getEdgeColor(Node node1, Node node2) {
+        if (node1 instanceof Feeder3WTLegNode) {
+            return getNodeColor(node1.getVoltageLevelInfos(), node1);
+        } else if (node2 instanceof Feeder3WTLegNode) {
+            return getNodeColor(node2.getVoltageLevelInfos(), node2);
         } else {
-            return Optional.empty();
+            if (node1.getVoltageLevelInfos() != null) {
+                return getNodeColor(node1.getVoltageLevelInfos(), node1);
+            } else {
+                return getNodeColor(node2.getVoltageLevelInfos(), node2);
+            }
+        }
+    }
+
+    @Override
+    public Map<String, String> getCssWireStyleAttributes(Edge edge) {
+        Node node1 = edge.getNode1();
+        Node node2 = edge.getNode2();
+        String color = getEdgeColor(node1, node2);
+        if (color != null) {
+            return ImmutableMap.of("stroke", color,
+                                   "stroke-width", "1");
+        } else {
+            return Collections.emptyMap();
         }
     }
 
@@ -217,11 +216,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     public Map<String, String> getSvgArrowStyleAttributes(int num) {
-        Map<String, String> ret = new HashMap<>();
-        ret.put(STROKE, num == 1 ? "black" : "blue");
-        ret.put("fill", num == 1 ? "black" : "blue");
-        ret.put("fill-opacity", "1");
-        return ret;
+        return ImmutableMap.of(STROKE, num == 1 ? "black" : "blue",
+                               "fill", num == 1 ? "black" : "blue",
+                               "fill-opacity", "1");
     }
 
     @Override
