@@ -89,9 +89,6 @@ public abstract class AbstractTestCase {
                 .setTopologyKind(topology)
                 .setNominalV(vNom)
                 .add();
-        if (topology == TopologyKind.NODE_BREAKER) {
-            vl.getNodeBreakerView().setNodeCount(nodeCount);
-        }
         return vl;
     }
 

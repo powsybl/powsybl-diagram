@@ -108,7 +108,6 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .setNominalV(400)
                 .add();
-        voltageLevel1.getNodeBreakerView().setNodeCount(20);
         voltageLevel1.getNodeBreakerView().newBusbarSection()
                 .setId("BusbarSection")
                 .setNode(busbarNode)
@@ -150,8 +149,6 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .setNominalV(400)
                 .add();
-        voltageLevel2.getNodeBreakerView()
-                .setNodeCount(10);
     }
 
     protected void createLine(Network network, int lineNode) {

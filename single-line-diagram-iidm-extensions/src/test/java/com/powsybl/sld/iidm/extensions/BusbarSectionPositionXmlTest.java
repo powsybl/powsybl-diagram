@@ -34,7 +34,6 @@ public class BusbarSectionPositionXmlTest extends AbstractConverterTest {
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        vl.getNodeBreakerView().setNodeCount(1);
         vl.getNodeBreakerView().newBusbarSection()
                 .setId("BBS")
                 .setNode(0)
