@@ -215,16 +215,6 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_bbs2_NW_LABEL">vl1_bbs2</text>
         </g>
-        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
-            <use href="#LOAD"/>
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
-        </g>
-        <g class="LINE idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
-        </g>
-        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
-        </g>
         <polyline class="wire wire_vl1" points="220.0,370.0,240.0,370.0" id="idvl1_95_Wire0"/>
         <polyline class="wire wire_vl1" points="240.0,370.0,255.0,370.0" id="idvl1_95_Wire1"/>
         <polyline class="wire wire_vl1" points="275.0,370.0,290.0,370.0" id="idvl1_95_Wire2"/>
@@ -271,17 +261,27 @@
         <g class="DISCONNECTOR idvl1_95_d2" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
+        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
+            <use href="#LOAD"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
+        </g>
         <g class="BREAKER idvl1_95_bload1" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_dload1" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
+        <g class="LINE idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
+        </g>
         <g class="BREAKER idvl1_95_btrf1" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_dtrf1" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
         </g>
         <g class="BREAKER idvl1_95_btrf2" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
             <use href="#BREAKER-closed"/>
@@ -292,16 +292,6 @@
         <g class="BUSBAR_SECTION idvl2_95_bbs1" id="idvl2_95_bbs1" transform="translate(570.0,370.0)">
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_bbs1_NW_LABEL">vl2_bbs1</text>
-        </g>
-        <g class="GENERATOR idvl2_95_gen1" id="idvl2_95_gen1" transform="translate(614.0,144.0)">
-            <use href="#GENERATOR"/>
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
-        </g>
-        <g class="LINE idvl2_95_trf1" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
-        </g>
-        <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
         </g>
         <polyline class="wire wire_vl2" points="620.0,156.0,620.0,240.0" id="idvl2_95_Wire0"/>
         <g class="ARROW1_vl2_95_gen1_UP" id="idvl2_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,171.0)">
@@ -336,17 +326,27 @@
         </g>
         <polyline class="wire wire_vl2" points="730.0,260.0,730.0,370.0" id="idvl2_95_Wire7"/>
         <polyline class="wire wire_vl2" points="730.0,370.0,720.0,370.0" id="idvl2_95_Wire8"/>
+        <g class="GENERATOR idvl2_95_gen1" id="idvl2_95_gen1" transform="translate(614.0,144.0)">
+            <use href="#GENERATOR"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
+        </g>
         <g class="BREAKER idvl2_95_bgen1" id="idvl2_95_bgen1" transform="translate(610.0,240.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl2_95_dgen1" id="idvl2_95_dgen1" transform="translate(616.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
+        <g class="LINE idvl2_95_trf1" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
+        </g>
         <g class="BREAKER idvl2_95_btrf1" id="idvl2_95_btrf1" transform="translate(660.0,460.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl2_95_dtrf1" id="idvl2_95_dtrf1" transform="translate(666.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
         </g>
         <g class="BREAKER idvl2_95_btrf2" id="idvl2_95_btrf2" transform="translate(720.0,240.0)">
             <use href="#BREAKER-closed"/>
@@ -357,13 +357,6 @@
         <g class="BUSBAR_SECTION idvl3_95_bbs1" id="idvl3_95_bbs1" transform="translate(870.0,370.0)">
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_bbs1_NW_LABEL">vl3_bbs1</text>
-        </g>
-        <g class="CAPACITOR idvl3_95_capa1" id="idvl3_95_capa1" transform="translate(904.0,144.0)">
-            <use href="#CAPACITOR"/>
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
-        </g>
-        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
         </g>
         <polyline class="wire wire_vl3" points="910.0,156.0,910.0,240.0" id="idvl3_95_Wire0"/>
         <g class="ARROW1_vl3_95_capa1_UP" id="idvl3_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,905.0,171.0)">
@@ -387,11 +380,18 @@
         </g>
         <polyline class="wire wire_vl3" points="1020.0,260.0,1020.0,370.0" id="idvl3_95_Wire4"/>
         <polyline class="wire wire_vl3" points="1020.0,370.0,1020.0,370.0" id="idvl3_95_Wire5"/>
+        <g class="CAPACITOR idvl3_95_capa1" id="idvl3_95_capa1" transform="translate(904.0,144.0)">
+            <use href="#CAPACITOR"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
+        </g>
         <g class="BREAKER idvl3_95_bcapa1" id="idvl3_95_bcapa1" transform="translate(900.0,240.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl3_95_dcapa1" id="idvl3_95_dcapa1" transform="translate(906.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
         </g>
         <g class="BREAKER idvl3_95_btrf2" id="idvl3_95_btrf2" transform="translate(1010.0,240.0)">
             <use href="#BREAKER-closed"/>

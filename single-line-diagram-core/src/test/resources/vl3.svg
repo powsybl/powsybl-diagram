@@ -138,26 +138,6 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_bbs1_NW_LABEL">vl3_bbs1</text>
         </g>
-        <g class="CAPACITOR idvl3_95_capa1" id="idvl3_95_capa1" transform="translate(904.0,144.0)">
-    <line y2="4.5" x1="6" x2="6" y1="0"/>
-    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
-    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
-    <line y2="12" x1="6" x2="6" y1="7.5"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
-        </g>
-        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(980.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
-        </g>
-        <g class="LINE idvl3_95_trf2_95_two" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_two__LABEL">vl3_trf2</text>
-        </g>
-        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_vl3_95_trf2" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1012.0,203.0)">
-    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
-
-    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
-
-    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
-</g>
         <polyline class="wire wire_vl3" points="910.0,156.0,910.0,240.0" id="idvl3_95_Wire0"/>
         <g class="ARROW1_vl3_95_capa1_UP" id="idvl3_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,905.0,171.0)">
      <g class="arrow-up" id="idvl3_95_Wire0_ARROW1_ARROW-arrow-up">
@@ -220,6 +200,13 @@
         <polyline class="wire wire_vl3" points="1020.0,217.0,1020.0,240.0" id="idvl3_95_Wire5"/>
         <polyline class="wire wire_vl3" points="1020.0,260.0,1020.0,370.0" id="idvl3_95_Wire6"/>
         <polyline class="wire wire_vl3" points="1020.0,370.0,1020.0,370.0" id="idvl3_95_Wire7"/>
+        <g class="CAPACITOR idvl3_95_capa1" id="idvl3_95_capa1" transform="translate(904.0,144.0)">
+    <line y2="4.5" x1="6" x2="6" y1="0"/>
+    <line y2="4.5" x1="0" x2="12" y1="4.5"/>
+    <line y2="7.5" x1="0" x2="12" y1="7.5"/>
+    <line y2="12" x1="6" x2="6" y1="7.5"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
+        </g>
         <g class="BREAKER idvl3_95_bcapa1" id="idvl3_95_bcapa1" transform="translate(900.0,240.0)">
     <g class="closed" id="idvl3_95_bcapa1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -238,6 +225,19 @@
     <g class="open" id="idvl3_95_dcapa1_DISCONNECTOR-open">
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
+</g>
+        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(980.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
+        </g>
+        <g class="LINE idvl3_95_trf2_95_two" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_two__LABEL">vl3_trf2</text>
+        </g>
+        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl3_95_vl3_95_trf2" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1012.0,203.0)">
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
+
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
+
+    <circle r="5" id="idFICT_95_vl3_95_vl3_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
 </g>
         <g class="BREAKER idvl3_95_btrf2" id="idvl3_95_btrf2" transform="translate(1010.0,240.0)">
     <g class="closed" id="idvl3_95_btrf2_BREAKER-closed">

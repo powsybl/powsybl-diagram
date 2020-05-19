@@ -127,15 +127,6 @@
             <line y2="0" x1="0" x2="40.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus11_NW_LABEL">Bus11</text>
         </g>
-        <g class="LOAD idLoad" id="idLoad" transform="translate(62.0,95.5)">
-    <rect height="9" width="16"/>
-    <line y2="9" x1="0" x2="16" y1="0"/>
-    <line y2="9" x1="16" x2="0" y1="0"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Load__LABEL">Load</text>
-        </g>
-        <g class="LINE idTransformer_95_ONE" id="idTransformer_95_ONE" transform="translate(70.0,350.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_ONE__LABEL">Transformer</text>
-        </g>
         <polyline class="wire wire_VoltageLevel11" points="50.0,250.0,70.0,250.0,70.0,104.0" id="idVoltageLevel11_95_Wire0"/>
         <g class="ARROW1_Load_UP" id="idVoltageLevel11_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,65.0,119.0)">
      <g class="arrow-up" id="idVoltageLevel11_95_Wire0_ARROW1_ARROW-arrow-up">
@@ -174,15 +165,18 @@
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
+        <g class="LOAD idLoad" id="idLoad" transform="translate(62.0,95.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Load__LABEL">Load</text>
+        </g>
+        <g class="LINE idTransformer_95_ONE" id="idTransformer_95_ONE" transform="translate(70.0,350.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_ONE__LABEL">Transformer</text>
+        </g>
         <g class="BUSBAR_SECTION idBus12" id="idBus12" transform="translate(50.0,550.0)">
             <line y2="0" x1="0" x2="40.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus12_NW_LABEL">Bus12</text>
-        </g>
-        <g class="LINE idTransformer_95_TWO" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_TWO__LABEL">Transformer</text>
-        </g>
-        <g class="LINE idLine_95_ONE" id="idLine_95_ONE" transform="translate(70.0,700.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_ONE__LABEL">Line</text>
         </g>
         <polyline class="wire wire_VoltageLevel12" points="50.0,550.0,70.0,550.0,70.0,450.0" id="idVoltageLevel12_95_Wire0"/>
         <g class="ARROW1_Transformer_95_TWO_UP" id="idVoltageLevel12_95_Wire0_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,65.0,465.0)">
@@ -222,6 +216,12 @@
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
+        <g class="LINE idTransformer_95_TWO" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_TWO__LABEL">Transformer</text>
+        </g>
+        <g class="LINE idLine_95_ONE" id="idLine_95_ONE" transform="translate(70.0,700.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_ONE__LABEL">Line</text>
+        </g>
         <g class="TWO_WINDINGS_TRANSFORMER idTransformer_95_ONE_95_Transformer_95_TWO" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(65.0,392.5)">
     <circle r="5" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" transform="rotate(180.0,5.0,7.5)" cy="10"/>
 
@@ -232,15 +232,6 @@
         <g class="BUSBAR_SECTION idBus21" id="idBus21" transform="translate(150.0,1150.0)">
             <line y2="0" x1="0" x2="40.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus21_NW_LABEL">Bus21</text>
-        </g>
-        <g class="GENERATOR idGenerator" id="idGenerator" transform="translate(164.0,1294.0)">
-    <circle r="6" cx="6" cy="6"/>
-    <path d="M6,6 A 6 40 0 0 0 2,6"/>
-    <path d="M6,6 A 6 40 0 0 0 10,6"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Generator__LABEL">Generator</text>
-        </g>
-        <g class="LINE idLine_95_TWO" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_TWO__LABEL">Line</text>
         </g>
         <polyline class="wire wire_VoltageLevel21" points="150.0,1150.0,170.0,1150.0,170.0,1294.0" id="idVoltageLevel21_95_Wire0"/>
         <g class="ARROW1_Generator_UP" id="idVoltageLevel21_95_Wire0_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,165.0,1269.0)">
@@ -279,6 +270,15 @@
         <polygon points="0,0 10,0 5,10"/>
      </g>
 <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+        </g>
+        <g class="GENERATOR idGenerator" id="idGenerator" transform="translate(164.0,1294.0)">
+    <circle r="6" cx="6" cy="6"/>
+    <path d="M6,6 A 6 40 0 0 0 2,6"/>
+    <path d="M6,6 A 6 40 0 0 0 10,6"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Generator__LABEL">Generator</text>
+        </g>
+        <g class="LINE idLine_95_TWO" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Line_TWO__LABEL">Line</text>
         </g>
         <polyline class="LINE Line" points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0" id="idLine"/>
         <g id="LABEL_VL_VoltageLevel11">

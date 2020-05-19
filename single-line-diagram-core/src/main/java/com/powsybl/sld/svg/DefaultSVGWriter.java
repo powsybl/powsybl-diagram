@@ -254,15 +254,28 @@ public class DefaultSVGWriter implements SVGWriter {
             return componentLibrary.getAnchorPoints(type);
         };
 
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
-                graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList()));
+        List<Node> remainingNodes = graph.getNodes();
 
-        graph.getCells().forEach(cell -> drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration));
+        List<Node> nodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider,
+                nodeLabelConfiguration, nodesToDraw);
+
+        remainingNodes.removeAll(nodesToDraw);
+
+        List<Edge> remainingEdges = graph.getEdges();
+
+        for (Cell cell : graph.getCells()) {
+            remainingEdges.removeAll(drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider,
+                    styleProvider, nodeLabelConfiguration));
+            remainingNodes.removeAll(cell.getNodes());
+        }
+        drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, remainingNodes);
     }
 
-    private void drawCell(String prefixId, Element root, Graph graph, Cell cell,
-                          GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider,
-                          DiagramStyleProvider styleProvider, NodeLabelConfiguration nodeLabelConfiguration) {
+    private List<Edge> drawCell(String prefixId, Element root, Graph graph, Cell cell,
+                                GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider,
+                                DiagramStyleProvider styleProvider, NodeLabelConfiguration nodeLabelConfiguration) {
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
         // then we draw all the edges, and finally we draw the switch nodes
@@ -272,12 +285,19 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, "cell " + cellId);
 
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+                cell.getNodes().stream()
+                        .filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
 
-        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, cell.getNodes().stream().filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
-        drawEdges(prefixId, g, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider);
+        List<Edge> edgesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode))
+                .flatMap(n -> n.getAdjacentEdges().stream())
+                .distinct().collect(Collectors.toList());
+        drawEdges(prefixId, g, graph, edgesToDraw, metadata, anchorPointProvider, initProvider, styleProvider);
+
         drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
                 cell.getNodes().stream().filter(n -> n instanceof SwitchNode).collect(Collectors.toList()));
         root.appendChild(g);
+        return edgesToDraw;
     }
 
     /**
@@ -975,13 +995,10 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph edges
      */
-    protected void drawEdges(String prefixId, Element root, Graph graph, Cell cell, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void drawEdges(String prefixId, Element root, Graph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
         String vId = graph.getVoltageLevelInfos().getId();
 
-        for (Edge edge : cell.getNodes().stream()
-                .filter(n -> !(n instanceof BusNode))
-                .flatMap(n -> n.getAdjacentEdges().stream())
-                .distinct().collect(Collectors.toList())) {
+        for (Edge edge : edges) {
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
             String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
 

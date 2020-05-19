@@ -184,26 +184,6 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_bbs2_NW_LABEL">vl1_bbs2</text>
         </g>
-        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
-            <use href="#LOAD"/>
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
-        </g>
-        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(95.0,562.5)">
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
-        </g>
-        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(380.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
-        </g>
-        <g class="LINE idvl1_95_trf2_95_two" id="idvl1_95_trf2_95_two" transform="translate(460.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_two__LABEL">vl1_trf2</text>
-        </g>
-        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl1_95_vl1_95_trf2" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(412.0,203.0)">
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
-        </g>
         <polyline class="wire wire_vl1" points="220.0,370.0,240.0,370.0" id="idvl1_95_Wire0"/>
         <polyline class="wire wire_vl1" points="240.0,370.0,255.0,370.0" id="idvl1_95_Wire1"/>
         <polyline class="wire wire_vl1" points="275.0,370.0,290.0,370.0" id="idvl1_95_Wire2"/>
@@ -260,17 +240,37 @@
         <g class="DISCONNECTOR idvl1_95_d2" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
+        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
+            <use href="#LOAD"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
+        </g>
         <g class="BREAKER idvl1_95_bload1" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_dload1" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
         </g>
+        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(95.0,562.5)">
+            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
+            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
+        </g>
         <g class="BREAKER idvl1_95_btrf1" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
             <use href="#BREAKER-closed"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_dtrf1" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
             <use href="#DISCONNECTOR-closed"/>
+        </g>
+        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(380.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
+        </g>
+        <g class="LINE idvl1_95_trf2_95_two" id="idvl1_95_trf2_95_two" transform="translate(460.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_two__LABEL">vl1_trf2</text>
+        </g>
+        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl1_95_vl1_95_trf2" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(412.0,203.0)">
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
         </g>
         <g class="BREAKER idvl1_95_btrf2" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
             <use href="#BREAKER-closed"/>
