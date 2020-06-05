@@ -14,50 +14,57 @@ import java.util.stream.Collectors;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class BlockPositionner {
+public class BlockPositionner {
 
-    void determineBlockPositions(Graph graph, List<Subsection> subsections) {
+    void determineBlockPositions(Graph graph, SubSections subSections) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
         int maxV = graph.getMaxBusStructuralPosition().getV();
         List<InternCell> nonFlatCellsToClose = new ArrayList<>();
 
-        Subsection prevSs = new Subsection(maxV);
+        int[] previousIndexes = new int[maxV];
         graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().setV(nodeBus.getStructuralPosition().getV()));
 
-        for (Subsection ss : subsections) {
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
-
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells().stream()
-                    .sorted(Comparator.comparingInt(ExternCell::getOrder)).collect(Collectors.toList())));
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
+        for (Map.Entry<SubSections.SubSectionIndexes, SubSections.SubSection> entry :
+                subSections.getSubsectionMap().entrySet()) {
+            int[] ssIndexes = entry.getKey().getIndexes();
+            SubSections.SubSection hSs = entry.getValue();
+            for (int vPos = 0; vPos < maxV; vPos++) {
+                if (ssIndexes[vPos] != previousIndexes[vPos]) {
+                    updateNodeBusPos(graph, vPos, hPos, hSpace, previousIndexes, Side.LEFT);
+                    updateNodeBusPos(graph, vPos, hPos, 0, ssIndexes, Side.RIGHT);
+                }
+            }
+            hPos = placeNonFlatInternCells(hPos, hSs, Side.LEFT, nonFlatCellsToClose);
+            hPos = placeVerticalCells(hPos, new ArrayList<>(hSs.getSideInternCells(Side.UNDEFINED)));
+            hPos = placeVerticalCells(hPos, hSs.getExternCells().stream()
+                    .sorted(Comparator.comparingInt(ExternCell::getOrder))
+                    .collect(Collectors.toList()));
+            hPos = placeNonFlatInternCells(hPos, hSs, Side.RIGHT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;
             }
-            hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
+            hSpace = placeFlatInternCells(hPos, hSs.getSideInternCells(Side.RIGHT).stream()
+                    .filter(InternCell::isFlat)
+                    .collect(Collectors.toList())) - hPos;
             hPos += hSpace;
             prevHPos = hPos;
-            prevSs = ss;
+            previousIndexes = ssIndexes;
         }
-        updateNodeBuses(prevSs, new Subsection(maxV), hPos, hSpace, Side.RIGHT); // close nodeBuses
+        for (int vPos = 0; vPos < maxV; vPos++) {
+            updateNodeBusPos(graph, vPos, hPos, hSpace, previousIndexes, Side.LEFT);
+        }
         manageInternCellOverlaps(graph);
     }
 
-    private void updateNodeBuses(Subsection prevSS, Subsection ss, int hPos, int hSpace, Side ssSide) {
-        for (int v = 0; v < prevSS.getSize(); v++) {
-            BusNode prevBusNode = prevSS.getBusNode(v);
-            BusNode actualBusNode = ss.getBusNode(v);
-            if (ssSide == Side.RIGHT && prevBusNode != null
-                    && (actualBusNode == null || prevBusNode != actualBusNode)) {
-                Position p = prevBusNode.getPosition();
+    private void updateNodeBusPos(Graph graph, int vPos, int hPos, int hSpace, int[] indexes, Side side) {
+        if (indexes[vPos] != 0) {
+            Position p = graph.getVHNodeBus(vPos + 1, indexes[vPos]).getPosition();
+            if (side == Side.LEFT) {
                 p.setHSpan(hPos - Math.max(p.getH(), 0) - hSpace);
-            } else if (ssSide == Side.LEFT && actualBusNode != null &&
-                    (prevBusNode == null || prevBusNode != actualBusNode)) {
-                actualBusNode.getPosition().setH(hPos);
+            } else if (side == Side.RIGHT && (p.getH() == -1 || hPos == 0)) {
+                p.setH(hPos);
             }
         }
     }
@@ -78,16 +85,19 @@ class BlockPositionner {
         return hPosRes;
     }
 
-    private int placeCrossOverInternCells(int hPos,
-                                          List<InternCell> cells,
-                                          Side side, List<InternCell> nonFlatCellsToClose) {
-        // side, is the side from the InternCell standpoint. The left side of the internCell shall be on the right of the subsection
+    private int placeNonFlatInternCells(int hPos,
+                                        SubSections.SubSection hSs,
+                                        Side side, List<InternCell> nonFlatCellsToClose) {
         int hPosRes = hPos;
-        cells.sort(Comparator.comparingInt(c -> -nonFlatCellsToClose.indexOf(c)));
+        List<InternCell> cells = hSs.getSideInternCells(side).stream()
+                .filter(internCell -> !internCell.isFlat())
+                .sorted(Comparator.comparingInt(c -> -nonFlatCellsToClose.indexOf(c)))
+                .collect(Collectors.toList());
+        Side legSide = side.getFlip();
         for (InternCell cell : cells) {
-            hPosRes = cell.newHPosition(hPosRes, side);
+            hPosRes = cell.newHPosition(hPosRes, legSide);
         }
-        if (side == Side.LEFT) {
+        if (side == Side.RIGHT) {
             nonFlatCellsToClose.addAll(cells);
         } else {
             nonFlatCellsToClose.removeAll(cells);
@@ -99,7 +109,7 @@ class BlockPositionner {
         List<InternCell> cellsToHandle = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN)
                 .map(InternCell.class::cast)
-                .filter(internCell -> !internCell.checkShape(InternCell.Shape.FLAT)
+                .filter(internCell -> internCell.getDirection() != BusCell.Direction.FLAT
                         && internCell.getBodyBlock() != null)
                 .collect(Collectors.toList());
         Lane lane = new Lane(cellsToHandle);
@@ -112,21 +122,21 @@ class BlockPositionner {
      * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
      */
     private class Lane {
-        Map<InternCell, ArrayList<InternCell>> incompatibilities;
+        HashMap<InternCell, ArrayList<InternCell>> incompatibilities;
         Lane nextLane;
         List<Lane> lanes;
 
         Lane(List<InternCell> cells) {
             lanes = new ArrayList<>();
             lanes.add(this);
-            incompatibilities = new LinkedHashMap<>();
+            incompatibilities = new HashMap<>();
             cells.forEach(this::addCell);
         }
 
         Lane(InternCell cell, List<Lane> lanes) {
             this.lanes = lanes;
             lanes.add(this);
-            incompatibilities = new LinkedHashMap<>();
+            incompatibilities = new HashMap<>();
             addCell(cell);
         }
 
