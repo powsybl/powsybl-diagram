@@ -26,10 +26,10 @@ public class BlockPositionner {
         int[] previousIndexes = new int[maxV];
         graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().setV(nodeBus.getStructuralPosition().getV()));
 
-        for (Map.Entry<SubSections.SubSectionIndexes, SubSections.HorizontalSubSection> entry :
+        for (Map.Entry<SubSections.SubSectionIndexes, SubSections.SubSection> entry :
                 subSections.getSubsectionMap().entrySet()) {
             int[] ssIndexes = entry.getKey().getIndexes();
-            SubSections.HorizontalSubSection hSs = entry.getValue();
+            SubSections.SubSection hSs = entry.getValue();
             for (int vPos = 0; vPos < maxV; vPos++) {
                 if (ssIndexes[vPos] != previousIndexes[vPos]) {
                     updateNodeBusPos(graph, vPos, hPos, hSpace, previousIndexes, Side.LEFT);
@@ -86,7 +86,7 @@ public class BlockPositionner {
     }
 
     private int placeNonFlatInternCells(int hPos,
-                                        SubSections.HorizontalSubSection hSs,
+                                        SubSections.SubSection hSs,
                                         Side side, List<InternCell> nonFlatCellsToClose) {
         int hPosRes = hPos;
         List<InternCell> cells = hSs.getSideInternCells(side).stream()
