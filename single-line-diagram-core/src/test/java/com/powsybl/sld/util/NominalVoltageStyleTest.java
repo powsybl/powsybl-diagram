@@ -7,7 +7,7 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.AbstractTestCase;
+import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class NominalVoltageStyleTest extends AbstractTestCase {
+public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     VoltageLevel vl1;
     VoltageLevel vl2;
