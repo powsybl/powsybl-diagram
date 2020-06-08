@@ -11,13 +11,18 @@ import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
 import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
+import java.awt.Color;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.powsybl.iidm.network.Branch;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
 
@@ -34,6 +39,19 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING1 = "WINDING1";
     protected static final String WINDING2 = "WINDING2";
     protected static final String WINDING3 = "WINDING3";
+    protected static final String BLACK_COLOR = "black";
+    protected static final Color DEFAULT_COLOR = new Color(200, 0, 0);
+    protected static final String STROKE_DASHARRAY = "stroke-dasharray:3,3";
+
+    protected final Network network;
+
+    public DefaultDiagramStyleProvider() {
+        network = null;
+    }
+
+    public DefaultDiagramStyleProvider(Network network) {
+        this.network = network;
+    }
 
     @Override
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
@@ -91,8 +109,73 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
     }
 
+    protected Map<FeederWithSideNode.Side, Boolean> connectionStatus(FeederWithSideNode node) {
+        Map<FeederWithSideNode.Side, Boolean> res = new EnumMap<>(FeederWithSideNode.Side.class);
+        if (node.getFeederType() == FeederType.BRANCH || node.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+            Branch branch = network.getBranch(node.getEquipmentId());
+            if (branch != null) {
+                res.put(FeederWithSideNode.Side.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
+                res.put(FeederWithSideNode.Side.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
+            }
+        } else if (node.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+            ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
+            if (transformer != null) {
+                res.put(FeederWithSideNode.Side.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
+                res.put(FeederWithSideNode.Side.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
+                res.put(FeederWithSideNode.Side.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
+            }
+        }
+        return res;
+    }
+
+    protected Optional<String> buildWireStyle(Edge edge, String id, int index, String color) {
+        Node n1 = edge.getNode1();
+        Node n2 = edge.getNode2();
+
+        if (n1 instanceof FeederWithSideNode || n2 instanceof FeederWithSideNode) {
+            String wireId = DiagramStyles.escapeId(id + "_Wire" + index);
+
+            FeederWithSideNode n = n1 instanceof FeederWithSideNode ? (FeederWithSideNode) n1 : (FeederWithSideNode) n2;
+            Map<FeederWithSideNode.Side, Boolean> connectionStatus = connectionStatus(n);
+            FeederWithSideNode.Side side = null;
+            FeederWithSideNode.Side otherSide = null;
+
+            if (n.getFeederType() == FeederType.BRANCH || n.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+                side = n.getSide();
+                otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+            } else if (n.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+                String idVl = n.getGraph().getVoltageLevelInfos().getId();
+                ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
+                if (transformer != null) {
+                    if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
+                        side = FeederWithSideNode.Side.ONE;
+                    } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
+                        side = FeederWithSideNode.Side.TWO;
+                    } else {
+                        side = FeederWithSideNode.Side.THREE;
+                    }
+                }
+                otherSide = n.getSide();
+            }
+
+            if (side != null && otherSide != null) {
+                if (!connectionStatus.get(side) && !connectionStatus.get(otherSide)) {  // disconnected on both ends
+                    return Optional.of(" #" + wireId + " {stroke:" + BLACK_COLOR + ";stroke-width:1}");
+                } else if (connectionStatus.get(side) && !connectionStatus.get(otherSide)) {  // connected on side and disconnected on other side
+                    return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;" + STROKE_DASHARRAY + "}");
+                } else if (!connectionStatus.get(side) && connectionStatus.get(otherSide)) {  // disconnected on side and connected on other side
+                    return Optional.of(" #" + wireId + " {stroke:" + BLACK_COLOR + ";stroke-width:1;" + STROKE_DASHARRAY + "}");
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isIndicateOpenLines) {
+        if (isIndicateOpenLines && network != null) {
+            return buildWireStyle(edge, id, index, DEFAULT_COLOR.toString());
+        }
         return Optional.empty();
     }
 

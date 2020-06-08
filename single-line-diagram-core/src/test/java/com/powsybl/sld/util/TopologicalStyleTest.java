@@ -122,7 +122,7 @@ public class TopologicalStyleTest extends AbstractTestCase {
         idWireStyle = styleProvider.getIdWireStyle(edge);
         assertEquals("wire_vl1", idWireStyle);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
+        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12, false);
         assertTrue(wireStyle.isPresent());
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 

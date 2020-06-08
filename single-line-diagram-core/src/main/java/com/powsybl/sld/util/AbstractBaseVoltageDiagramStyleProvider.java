@@ -7,6 +7,7 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 
@@ -22,7 +23,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     protected final BaseVoltageColor baseVoltageColor;
     protected final String disconnectedColor;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor) {
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
+        super(network);
         this.baseVoltageColor = Objects.requireNonNull(baseVoltageColor);
         disconnectedColor = getBaseColor(0, PROFILE);
     }

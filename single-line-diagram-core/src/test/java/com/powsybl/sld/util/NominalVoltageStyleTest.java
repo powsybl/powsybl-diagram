@@ -87,7 +87,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
-        NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor);
+        NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor, network);
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
@@ -111,7 +111,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         idWireStyle = styleProvider.getIdWireStyle(edge);
         assertEquals("wire_vl1", idWireStyle);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
+        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12, false);
         assertTrue(wireStyle.isPresent());
         assertEquals(".wire_vl1 {stroke:#ff0000;stroke-width:1;}", wireStyle.get());
 

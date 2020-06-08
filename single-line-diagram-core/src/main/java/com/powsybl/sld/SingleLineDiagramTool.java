@@ -118,7 +118,7 @@ public class SingleLineDiagramTool implements Tool {
             VoltageLevelDiagram.build(graphBuilder, vl.getId(), generationConfig.voltageLevelLayoutFactory, true)
                     .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
                             new DefaultDiagramInitialValueProvider(network),
-                            new DefaultDiagramStyleProvider(),
+                            new DefaultDiagramStyleProvider(network),
                             svgFile);
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
@@ -133,7 +133,7 @@ public class SingleLineDiagramTool implements Tool {
             SubstationDiagram.build(graphBuilder, s.getId(), generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory, true)
                     .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
                             new DefaultDiagramInitialValueProvider(network),
-                            new DefaultDiagramStyleProvider(),
+                            new DefaultDiagramStyleProvider(network),
                             svgFile);
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
