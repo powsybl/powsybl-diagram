@@ -102,11 +102,11 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             }
 
             if (side != null && otherSide != null) {
-                if (!connectionStatus.get(side) && !connectionStatus.get(otherSide)) {  // disconnected on both ends
+                if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
                     return Optional.of(" #" + wireId + " {stroke:" + BLACK_COLOR + ";stroke-width:1}");
-                } else if (connectionStatus.get(side) && !connectionStatus.get(otherSide)) {  // connected on side and disconnected on other side
+                } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
                     return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;" + STROKE_DASHARRAY + "}");
-                } else if (!connectionStatus.get(side) && connectionStatus.get(otherSide)) {  // disconnected on side and connected on other side
+                } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
                     return Optional.of(" #" + wireId + " {stroke:" + BLACK_COLOR + ";stroke-width:1;" + STROKE_DASHARRAY + "}");
                 }
             }
