@@ -11,13 +11,20 @@ import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -148,5 +155,54 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
         assertEquals("blue", attributesArrow.get("stroke"));
         assertTrue(attributesArrow.containsKey("fill-opacity"));
         assertEquals("1", attributesArrow.get("fill-opacity"));
+
+        // Layout parameters :
+        //
+        LayoutParameters layoutParameters = new LayoutParameters()
+                .setTranslateX(20)
+                .setTranslateY(50)
+                .setInitialXBus(0)
+                .setInitialYBus(260)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(80)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(true)
+                .setShowInternalNodes(false)
+                .setScaleFactor(1)
+                .setHorizontalSubstationPadding(50)
+                .setVerticalSubstationPadding(50)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30)
+                .setIndicateOpenLines(true);
+
+        DiagramInitialValueProvider noFeederValueProvider = new DiagramInitialValueProvider() {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, null, null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                }
+                return initialValue;
+            }
+
+            @Override
+            public List<String> getNodeLabelValue(Node node) {
+                List<String> res = new ArrayList<>();
+                if (node instanceof FeederNode || node instanceof BusNode) {
+                    res.add(node.getLabel());
+                }
+                return res;
+            }
+        };
+
+        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
+        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
+        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
     }
 }
