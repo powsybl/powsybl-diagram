@@ -44,6 +44,7 @@ public abstract class AbstractTestCase {
     }
 
     private static void writeToFileInHomeDir(String filename, StringWriter content) {
+/*
         try {
             FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
             fw.write(content.toString());
@@ -51,6 +52,7 @@ public abstract class AbstractTestCase {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+*/
     }
 
     public String toSVG(Graph graph,
