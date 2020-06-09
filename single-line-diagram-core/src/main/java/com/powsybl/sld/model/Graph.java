@@ -536,7 +536,7 @@ public final class Graph {
     }
 
     public Double getMaxCalculatedCellHeight(BusCell.Direction direction) {
-        return maxCalculatedCellHeight.get(direction);
+        return !maxCalculatedCellHeight.isEmpty() ? maxCalculatedCellHeight.get(direction) : -1.;
     }
 
     public void setMaxCalculatedCellHeight(Map<BusCell.Direction, Double> maxCalculatedCellHeight) {

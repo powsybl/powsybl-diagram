@@ -573,7 +573,12 @@
           "label" : "trf1",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -690,7 +695,12 @@
           "label" : "trf5",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -807,7 +817,12 @@
           "label" : "trf61",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1162,7 +1177,12 @@
           "label" : "trf2",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1279,7 +1299,12 @@
           "label" : "trf81",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1512,7 +1537,12 @@
           "label" : "trf3",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1629,7 +1659,12 @@
           "label" : "trf71",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -1862,7 +1897,12 @@
           "label" : "trf4",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "ONE"
+          "side" : "ONE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl1",
+            "name" : "vl1",
+            "nominalVoltage" : 400.0
+          }
         } ]
       } ]
     }
@@ -2465,7 +2505,12 @@
           "label" : "trf1",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -2582,7 +2627,12 @@
           "label" : "trf4",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -2699,7 +2749,12 @@
           "label" : "trf72",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -2932,7 +2987,12 @@
           "label" : "trf2",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 3,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3049,7 +3109,12 @@
           "label" : "trf3",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 4,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3166,7 +3231,12 @@
           "label" : "trf62",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3283,7 +3353,12 @@
           "label" : "trf82",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl2",
+            "name" : "vl2",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3650,7 +3725,12 @@
           "label" : "trf5",
           "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
           "order" : 1,
-          "side" : "TWO"
+          "side" : "TWO",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3767,7 +3847,12 @@
           "label" : "trf63",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "THREE"
+          "side" : "THREE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -3884,7 +3969,12 @@
           "label" : "trf73",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "THREE"
+          "side" : "THREE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
@@ -4001,7 +4091,12 @@
           "label" : "trf83",
           "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
           "order" : 2,
-          "side" : "THREE"
+          "side" : "THREE",
+          "otherSideVoltageLevelInfos" : {
+            "id" : "vl3",
+            "name" : "vl3",
+            "nominalVoltage" : 225.0
+          }
         } ]
       } ]
     }
