@@ -44,13 +44,13 @@ public abstract class AbstractTestCase {
     }
 
     private static void writeToFileInHomeDir(String filename, StringWriter content) {
-//        try {
-//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
-//            fw.write(content.toString());
-//            fw.close();
-//        } catch (IOException e) {
-//            throw new UncheckedIOException(e);
-//        }
+        try {
+            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+            fw.write(content.toString());
+            fw.close();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public String toSVG(Graph graph,
@@ -86,7 +86,7 @@ public abstract class AbstractTestCase {
                     new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
-            writeToFileInHomeDir(refMetdataName, writer);
+            writeToFileInHomeDir(refMetdataName, metadataWriter);
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
@@ -130,7 +130,7 @@ public abstract class AbstractTestCase {
                     new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
-            writeToFileInHomeDir(refMetdataName, writer);
+            writeToFileInHomeDir(refMetdataName, metadataWriter);
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
