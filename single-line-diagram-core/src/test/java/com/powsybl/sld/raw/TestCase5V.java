@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.noIidm;
+package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
@@ -18,31 +18,45 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * <pre>
- *     b
- *    / \
- *   |   |
- * -d1---|---- bbs1
- * -----d2---- bbs2
+ *
+ *       la     lb
+ *       |      |
+ *      nsa- |  bb
+ *       |  bs  |
+ *       ba  |- nsb
+ *       |      |
+ * bbs---da-----db---
  *
  * </pre>
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-
-public class TestCase3 extends AbstractTestCaseNoIidm {
+public class TestCase5V extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
-        BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
-        BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
-        SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        vlBuilder.connectNode(bbs1, d1);
-        vlBuilder.connectNode(d1, b);
-        vlBuilder.connectNode(d2, bbs2);
-        vlBuilder.connectNode(d2, b);
+        BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
+        FeederNode la = vlBuilder.createLoad("la", 10, BusCell.Direction.TOP);
+        SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
+        SwitchNode da = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da", false, false);
+        vlBuilder.connectNode(la, ba);
+        vlBuilder.connectNode(ba, da);
+        vlBuilder.connectNode(da, bbs);
+
+        FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.TOP);
+        SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
+        SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
+        FictitiousNode fn = vlBuilder.createFictitiousNode("3");
+        vlBuilder.connectNode(lb, bb);
+        vlBuilder.connectNode(bb, fn);
+        vlBuilder.connectNode(fn, db);
+        vlBuilder.connectNode(db, bbs);
+
+        SwitchNode bs = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bs", false, false);
+        vlBuilder.connectNode(la, bs);
+        vlBuilder.connectNode(bs, fn);
+
     }
 
     @Test
@@ -72,12 +86,11 @@ public class TestCase3 extends AbstractTestCaseNoIidm {
                 .setShowInternalNodes(true)
                 .setScaleFactor(1)
                 .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setArrowDistance(20);
+                .setVerticalSubstationPadding(50);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3.json"));
+        assertEquals(toString("/TestCase5ShuntVertical.json"), toJson(g, "/TestCase5V.json"));
     }
 }

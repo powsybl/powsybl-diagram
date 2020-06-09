@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.noIidm;
+package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-public class TestCase4 extends AbstractTestCaseNoIidm {
+public class TestCase4 extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {

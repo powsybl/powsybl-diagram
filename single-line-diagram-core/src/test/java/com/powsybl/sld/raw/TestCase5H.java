@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.noIidm;
+package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
  *
  *       la     lb
  *       |      |
- *      nsa- |  bb
- *       |  bs  |
- *       ba  |- nsb
+ *      nsa-bs-nsb
+ *       |      |
+ *       ba     bb
  *       |      |
  * bbs---da-----db---
  *
@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase5V extends AbstractTestCaseNoIidm {
+public class TestCase5H extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
@@ -47,15 +47,13 @@ public class TestCase5V extends AbstractTestCaseNoIidm {
         FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.TOP);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
-        FictitiousNode fn = vlBuilder.createFictitiousNode("3");
         vlBuilder.connectNode(lb, bb);
-        vlBuilder.connectNode(bb, fn);
-        vlBuilder.connectNode(fn, db);
+        vlBuilder.connectNode(bb, db);
         vlBuilder.connectNode(db, bbs);
 
         SwitchNode bs = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bs", false, false);
         vlBuilder.connectNode(la, bs);
-        vlBuilder.connectNode(bs, fn);
+        vlBuilder.connectNode(lb, bs);
 
     }
 
@@ -91,6 +89,6 @@ public class TestCase5V extends AbstractTestCaseNoIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCase5ShuntVertical.json"), toJson(g, "/TestCase5V.json"));
+        assertEquals(toString("/TestCase5ShuntHorizontal.json"), toJson(g, "/TestCase5H.json"));
     }
 }

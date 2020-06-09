@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.noIidm;
+package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
@@ -17,36 +17,29 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * <pre>
- *     l
- *     |
- *     b
- *    / \
- *   |   |
- * -d1---|---- bbs1
- * -----d2---- bbs2
- *
- * </pre>
+ * <PRE>
+ * l
+ * |
+ * b
+ * |
+ * d
+ * |
+ * ------ bbs
+ * </PRE>
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class TestCase2 extends AbstractTestCaseNoIidm {
+public class TestCase1 extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
-        BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
-        BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
-        SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        FictitiousNode f = vlBuilder.createFictitiousNode("2");
-        SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
+        BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
-        vlBuilder.connectNode(bbs1, d1);
-        vlBuilder.connectNode(d1, f);
-        vlBuilder.connectNode(bbs2, d2);
-        vlBuilder.connectNode(d2, f);
-        vlBuilder.connectNode(f, b);
+        SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
+        SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
+        vlBuilder.connectNode(bbs, d);
+        vlBuilder.connectNode(d, b);
         vlBuilder.connectNode(b, load);
     }
 
@@ -83,6 +76,6 @@ public class TestCase2 extends AbstractTestCaseNoIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCase2StackedCell.json"), toJson(g, "/TestCase2.json"));
+        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
     }
 }
