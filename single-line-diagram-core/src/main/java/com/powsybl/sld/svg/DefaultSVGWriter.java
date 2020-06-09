@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -255,11 +254,50 @@ public class DefaultSVGWriter implements SVGWriter {
             return componentLibrary.getAnchorPoints(type);
         };
 
+        List<Node> remainingNodes = graph.getNodes();
+
+        List<Node> nodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider,
+                nodeLabelConfiguration, nodesToDraw);
+
+        remainingNodes.removeAll(nodesToDraw);
+
+        List<Edge> remainingEdges = graph.getEdges();
+
+        for (Cell cell : graph.getCells()) {
+            remainingEdges.removeAll(drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider,
+                    styleProvider, nodeLabelConfiguration));
+            remainingNodes.removeAll(cell.getNodes());
+        }
+        drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, remainingNodes);
+    }
+
+    private List<Edge> drawCell(String prefixId, Element root, Graph graph, Cell cell,
+                                GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider,
+                                DiagramStyleProvider styleProvider, NodeLabelConfiguration nodeLabelConfiguration) {
+
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
         // then we draw all the edges, and finally we draw the switch nodes
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> !(n instanceof SwitchNode));
-        drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider);
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, n -> n instanceof SwitchNode);
+
+        String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
+        Element g = root.getOwnerDocument().createElement("g");
+        g.setAttribute("id", cellId);
+        g.setAttribute(CLASS, "cell " + cellId);
+
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+                cell.getNodes().stream()
+                        .filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
+
+        List<Edge> edgesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode))
+                .flatMap(n -> n.getAdjacentEdges().stream())
+                .distinct().collect(Collectors.toList());
+        drawEdges(prefixId, g, graph, edgesToDraw, metadata, anchorPointProvider, initProvider, styleProvider);
+
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+                cell.getNodes().stream().filter(n -> n instanceof SwitchNode).collect(Collectors.toList()));
+        root.appendChild(g);
+        return edgesToDraw;
     }
 
     /**
@@ -465,8 +503,8 @@ public class DefaultSVGWriter implements SVGWriter {
                              DiagramInitialValueProvider initProvider,
                              DiagramStyleProvider styleProvider,
                              NodeLabelConfiguration nodeLabelConfiguration,
-                             Predicate<Node> predicate) {
-        graph.getNodes().stream().filter(predicate).forEach(node -> {
+                             List<Node> nodes) {
+        nodes.stream().forEach(node -> {
 
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement("g");
@@ -551,9 +589,9 @@ public class DefaultSVGWriter implements SVGWriter {
                 : graph.getMaxCalculatedCellHeight(BusCell.Direction.TOP))
                 - 20.;
         drawLabel(null, graph.isUseName()
-                     ? graph.getVoltageLevelInfos().getName()
-                     : graph.getVoltageLevelInfos().getId(),
-                  false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE, false, 0);
+                        ? graph.getVoltageLevelInfos().getName()
+                        : graph.getVoltageLevelInfos().getId(),
+                false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE, false, 0);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
@@ -957,10 +995,10 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph edges
      */
-    protected void drawEdges(String prefixId, Element root, Graph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void drawEdges(String prefixId, Element root, Graph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider) {
         String vId = graph.getVoltageLevelInfos().getId();
 
-        for (Edge edge : graph.getEdges()) {
+        for (Edge edge : edges) {
             // for unicity purpose (in substation diagram), we prefix the id of the WireMetadata with the voltageLevel id and "_"
             String wireId = escapeId(prefixId + vId + "_Wire" + graph.getEdges().indexOf(edge));
 
@@ -1258,9 +1296,9 @@ public class DefaultSVGWriter implements SVGWriter {
             Element g = root.getOwnerDocument().createElement(POLYLINE);
             g.setAttribute("id", lineId);
             String polyline = edge.getPoints()
-                                  .stream()
-                                  .map(point -> (point.getX() + layoutParameters.getTranslateX()) + "," + (point.getY() + layoutParameters.getTranslateY()))
-                                  .collect(Collectors.joining(","));
+                    .stream()
+                    .map(point -> (point.getX() + layoutParameters.getTranslateX()) + "," + (point.getY() + layoutParameters.getTranslateY()))
+                    .collect(Collectors.joining(","));
             g.setAttribute(POINTS, polyline);
             g.setAttribute(CLASS, DiagramStyles.LINE_STYLE_CLASS + " " + escapeClassName(edge.getLineId()));
             root.appendChild(g);

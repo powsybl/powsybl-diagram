@@ -96,6 +96,10 @@ public abstract class AbstractCell implements Cell {
         generator.writeEndObject();
     }
 
+    public String getId() {
+        return type + " " + number;
+    }
+
     public String getFullId() {
         return type + nodes.stream().map(Node::getId).sorted().collect(Collectors.toList()).toString();
     }
