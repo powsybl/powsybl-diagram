@@ -66,11 +66,11 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isIndicateOpenLines) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
         String color = getBaseColor(voltageLevelInfos.getNominalVoltage());
 
-        if (isIndicateOpenLines && network != null) {
+        if (isHighLightLineState && network != null) {
             Optional<String> style = buildWireStyle(edge, id, index, color);
             if (style.isPresent()) {
                 return style;

@@ -177,7 +177,7 @@ public class NominalVoltageStyleTest extends AbstractTestCase {
                 .setDrawStraightWires(false)
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30)
-                .setIndicateOpenLines(true);
+                .setHighlightLineState(true);
 
         DiagramInitialValueProvider noFeederValueProvider = new DiagramInitialValueProvider() {
             @Override

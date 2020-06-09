@@ -162,7 +162,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 listUsedComponentSVG.add(n.getComponentType());
             });
             graph.getEdges().forEach(e -> {
-                Optional<String> wireStyle = styleProvider.getWireStyle(e, graph.getVoltageLevelInfos().getId(), graph.getEdges().indexOf(e), layoutParameters.isIndicateOpenLines());
+                Optional<String> wireStyle = styleProvider.getWireStyle(e, graph.getVoltageLevelInfos().getId(), graph.getEdges().indexOf(e), layoutParameters.isHighlightLineState());
                 if (wireStyle.isPresent()) {
                     graphStyle.append(wireStyle.get()).append("\n");
                 }
@@ -174,7 +174,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 String idVLS = e.getNode1().getGraph() != null ? e.getNode1().getGraph().getVoltageLevelInfos().getId() : "_";
                 idVLS += e.getNode2().getGraph() != null ? e.getNode2().getGraph().getVoltageLevelInfos().getId() : "_";
 
-                Optional<String> wireStyle = styleProvider.getWireStyle(e, idVLS, snakeLines.indexOf(e), layoutParameters.isIndicateOpenLines());
+                Optional<String> wireStyle = styleProvider.getWireStyle(e, idVLS, snakeLines.indexOf(e), layoutParameters.isHighlightLineState());
                 if (wireStyle.isPresent()) {
                     graphStyle.append(wireStyle.get()).append("\n");
                 }

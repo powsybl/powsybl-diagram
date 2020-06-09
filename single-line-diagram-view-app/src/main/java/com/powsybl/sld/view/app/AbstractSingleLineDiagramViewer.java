@@ -737,7 +737,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addSpinner("Angle Label:", -360, 360, 1, rowIndex, LayoutParameters::getAngleLabelShift, LayoutParameters::setAngleLabelShift);
 
         rowIndex += 2;
-        addCheckBox("Indicate open lines", rowIndex, LayoutParameters::isIndicateOpenLines, LayoutParameters::setIndicateOpenLines);
+        addCheckBox("HighLight line state", rowIndex, LayoutParameters::isHighlightLineState, LayoutParameters::setHighlightLineState);
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {

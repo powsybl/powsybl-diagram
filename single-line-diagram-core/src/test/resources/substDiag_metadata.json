@@ -2781,6 +2781,6 @@
     "labelCentered" : false,
     "labelDiagonal" : false,
     "angleLabelShift" : 15.0,
-    "indicateOpenLines" : true
+    "highlightLineState" : true
   }
 }

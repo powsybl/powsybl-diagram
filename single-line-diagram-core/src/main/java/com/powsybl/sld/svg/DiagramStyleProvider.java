@@ -23,7 +23,7 @@ public interface DiagramStyleProvider {
 
     String getIdWireStyle(Edge edge);
 
-    Optional<String> getWireStyle(Edge edge, String id, int index, boolean isIndicateOpenLines);
+    Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState);
 
     Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes);
 

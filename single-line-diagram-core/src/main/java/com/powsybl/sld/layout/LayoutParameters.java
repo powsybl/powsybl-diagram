@@ -68,7 +68,7 @@ public class LayoutParameters {
     private boolean labelCentered = false;
     private boolean labelDiagonal = false;
 
-    private boolean indicateOpenLines = true;
+    private boolean highlightLineState = true;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -108,7 +108,7 @@ public class LayoutParameters {
                             @JsonProperty("labelCentered") boolean labelCentered,
                             @JsonProperty("labelDiagonal") boolean labelDiagonal,
                             @JsonProperty("angleLabelShift") double angleLabelShift,
-                            @JsonProperty("indicateOpenLines") boolean indicateOpenLines) {
+                            @JsonProperty("highlightLineState") boolean highlightLineState) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -139,7 +139,7 @@ public class LayoutParameters {
         this.labelCentered = labelCentered;
         this.labelDiagonal = labelDiagonal;
         this.angleLabelShift = angleLabelShift;
-        this.indicateOpenLines = indicateOpenLines;
+        this.highlightLineState = highlightLineState;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -175,7 +175,7 @@ public class LayoutParameters {
         angleLabelShift = other.angleLabelShift;
         labelDiagonal = other.labelDiagonal;
         labelCentered = other.labelCentered;
-        indicateOpenLines = other.indicateOpenLines;
+        highlightLineState = other.highlightLineState;
     }
 
     public double getTranslateX() {
@@ -456,12 +456,12 @@ public class LayoutParameters {
         return this;
     }
 
-    public boolean isIndicateOpenLines() {
-        return indicateOpenLines;
+    public boolean isHighlightLineState() {
+        return highlightLineState;
     }
 
-    public LayoutParameters setIndicateOpenLines(boolean indicateOpenLines) {
-        this.indicateOpenLines = indicateOpenLines;
+    public LayoutParameters setHighlightLineState(boolean highlightLineState) {
+        this.highlightLineState = highlightLineState;
         return this;
     }
 }

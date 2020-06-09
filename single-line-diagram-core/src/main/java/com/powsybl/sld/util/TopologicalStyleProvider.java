@@ -130,7 +130,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isIndicateOpenLines) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         String wireId = DiagramStyles.escapeId(id + "_Wire" + index);
         Node bus;
         if (!(edge instanceof TwtEdge)) {
@@ -156,7 +156,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             }
         }
 
-        if (isIndicateOpenLines && network != null) {
+        if (isHighLightLineState && network != null) {
             Optional<String> style = buildWireStyle(edge, id, index, color);
             if (style.isPresent()) {
                 return style;
