@@ -29,7 +29,6 @@ public class SmartVoltageLevelLayoutFactoryTest {
                 .setNominalV(380)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
-        vl.getNodeBreakerView().setNodeCount(1);
         BusbarSection bbs = vl.getNodeBreakerView().newBusbarSection()
                 .setId("bbs")
                 .setNode(0)
