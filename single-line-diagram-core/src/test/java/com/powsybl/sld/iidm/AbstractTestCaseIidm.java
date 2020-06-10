@@ -45,7 +45,6 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .replace("\r", "\n");
     }
 
-
     VoltageLevel getVl() {
         return vl;
     }
