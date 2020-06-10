@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.util;
 
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.color.BaseVoltageColor;
 
@@ -19,12 +20,12 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
  */
 public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    public NominalVoltageDiagramStyleProvider() {
-        super(BaseVoltageColor.fromPlatformConfig());
+    public NominalVoltageDiagramStyleProvider(Network network) {
+        this(BaseVoltageColor.fromPlatformConfig(), network);
     }
 
-    public NominalVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor) {
-        super(baseVoltageColor);
+    public NominalVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
+        super(baseVoltageColor, network);
     }
 
     @Override
@@ -65,11 +66,18 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
         String color = getBaseColor(voltageLevelInfos.getNominalVoltage());
-        String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) +
-                " {stroke:" + color + ";stroke-width:1;}";
+
+        if (isHighLightLineState && network != null) {
+            Optional<String> style = buildWireStyle(edge, id, index, color);
+            if (style.isPresent()) {
+                return style;
+            }
+        }
+
+        String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + " {stroke:" + color + ";stroke-width:1;}";
         return Optional.of(style);
     }
 }

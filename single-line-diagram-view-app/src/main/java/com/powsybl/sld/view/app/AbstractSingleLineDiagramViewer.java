@@ -736,6 +736,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         rowIndex += 2;
         addSpinner("Angle Label:", -360, 360, 1, rowIndex, LayoutParameters::getAngleLabelShift, LayoutParameters::setAngleLabelShift);
 
+        rowIndex += 2;
+        addCheckBox("HighLight line state", rowIndex, LayoutParameters::isHighlightLineState, LayoutParameters::setHighlightLineState);
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {
@@ -1107,11 +1109,12 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
     private void initStylesProvider() {
         styles.put("Default", new DefaultDiagramStyleProvider());
-        styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider());
+        styles.put("Nominal voltage", null);
         styles.put("Topology", null);
     }
 
     private void updateStylesProvider(Network network) {
+        styles.put("Nominal voltage", new NominalVoltageDiagramStyleProvider(network));
         styles.put("Topology", new TopologicalStyleProvider(network));
     }
 }

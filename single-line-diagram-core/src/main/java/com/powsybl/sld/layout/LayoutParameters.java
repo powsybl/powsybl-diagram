@@ -68,6 +68,8 @@ public class LayoutParameters {
     private boolean labelCentered = false;
     private boolean labelDiagonal = false;
 
+    private boolean highlightLineState = true;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -105,7 +107,8 @@ public class LayoutParameters {
                             @JsonProperty("minExternCellHeight") double minExternCellHeight,
                             @JsonProperty("labelCentered") boolean labelCentered,
                             @JsonProperty("labelDiagonal") boolean labelDiagonal,
-                            @JsonProperty("angleLabelShift") double angleLabelShift) {
+                            @JsonProperty("angleLabelShift") double angleLabelShift,
+                            @JsonProperty("highlightLineState") boolean highlightLineState) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -136,6 +139,7 @@ public class LayoutParameters {
         this.labelCentered = labelCentered;
         this.labelDiagonal = labelDiagonal;
         this.angleLabelShift = angleLabelShift;
+        this.highlightLineState = highlightLineState;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -171,6 +175,7 @@ public class LayoutParameters {
         angleLabelShift = other.angleLabelShift;
         labelDiagonal = other.labelDiagonal;
         labelCentered = other.labelCentered;
+        highlightLineState = other.highlightLineState;
     }
 
     public double getTranslateX() {
@@ -448,6 +453,15 @@ public class LayoutParameters {
 
     public LayoutParameters setLabelDiagonal(boolean labelDiagonal) {
         this.labelDiagonal = labelDiagonal;
+        return this;
+    }
+
+    public boolean isHighlightLineState() {
+        return highlightLineState;
+    }
+
+    public LayoutParameters setHighlightLineState(boolean highlightLineState) {
+        this.highlightLineState = highlightLineState;
         return this;
     }
 }

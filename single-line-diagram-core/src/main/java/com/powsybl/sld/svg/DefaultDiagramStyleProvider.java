@@ -92,7 +92,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         return Optional.empty();
     }
 

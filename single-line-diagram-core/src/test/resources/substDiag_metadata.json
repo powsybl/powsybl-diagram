@@ -2780,6 +2780,7 @@
     "minExternCellHeight" : 80.0,
     "labelCentered" : false,
     "labelDiagonal" : false,
-    "angleLabelShift" : 15.0
+    "angleLabelShift" : 15.0,
+    "highlightLineState" : true
   }
 }
