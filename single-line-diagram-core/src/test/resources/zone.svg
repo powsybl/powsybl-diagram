@@ -135,7 +135,7 @@
      <g class="arrow-down" id="idVoltageLevel11_95_Wire0_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Load_DOWN" id="idVoltageLevel11_95_Wire0_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,65.0,139.0)">
      <g class="arrow-up" id="idVoltageLevel11_95_Wire0_ARROW2_ARROW-arrow-up">
@@ -144,7 +144,7 @@
      <g class="arrow-down" id="idVoltageLevel11_95_Wire0_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_VoltageLevel11" points="50.0,250.0,70.0,250.0,70.0,350.0" id="idVoltageLevel11_95_Wire1"/>
         <g class="ARROW1_Transformer_95_ONE_UP" id="idVoltageLevel11_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,65.0,325.0)">
@@ -154,7 +154,7 @@
      <g class="arrow-down" id="idVoltageLevel11_95_Wire1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Transformer_95_ONE_DOWN" id="idVoltageLevel11_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,65.0,305.0)">
      <g class="arrow-up" id="idVoltageLevel11_95_Wire1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
@@ -163,7 +163,7 @@
      <g class="arrow-down" id="idVoltageLevel11_95_Wire1_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="LOAD idLoad" id="idLoad" transform="translate(62.0,95.5)">
     <rect height="9" width="16"/>
@@ -186,7 +186,7 @@
      <g class="arrow-down" id="idVoltageLevel12_95_Wire0_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Transformer_95_TWO_DOWN" id="idVoltageLevel12_95_Wire0_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,65.0,485.0)">
      <g class="arrow-up" id="idVoltageLevel12_95_Wire0_ARROW2_ARROW-arrow-up">
@@ -195,7 +195,7 @@
      <g class="arrow-down" id="idVoltageLevel12_95_Wire0_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_VoltageLevel12" points="50.0,550.0,70.0,550.0,70.0,700.0" id="idVoltageLevel12_95_Wire1"/>
         <g class="ARROW1_Line_95_ONE_UP" id="idVoltageLevel12_95_Wire1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,65.0,675.0)">
@@ -205,7 +205,7 @@
      <g class="arrow-down" id="idVoltageLevel12_95_Wire1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Line_95_ONE_DOWN" id="idVoltageLevel12_95_Wire1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,65.0,655.0)">
      <g class="arrow-up" id="idVoltageLevel12_95_Wire1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
@@ -214,7 +214,7 @@
      <g class="arrow-down" id="idVoltageLevel12_95_Wire1_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="LINE idTransformer_95_TWO" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Transformer_TWO__LABEL">Transformer</text>
@@ -241,7 +241,7 @@
      <g class="arrow-down" id="idVoltageLevel21_95_Wire0_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Generator_DOWN" id="idVoltageLevel21_95_Wire0_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,165.0,1249.0)">
      <g class="arrow-up" id="idVoltageLevel21_95_Wire0_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
@@ -250,7 +250,7 @@
      <g class="arrow-down" id="idVoltageLevel21_95_Wire0_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_VoltageLevel21" points="150.0,1150.0,170.0,1150.0,170.0,1000.0" id="idVoltageLevel21_95_Wire1"/>
         <g class="ARROW1_Line_95_TWO_UP" id="idVoltageLevel21_95_Wire1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,165.0,1015.0)">
@@ -260,7 +260,7 @@
      <g class="arrow-down" id="idVoltageLevel21_95_Wire1_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_Line_95_TWO_DOWN" id="idVoltageLevel21_95_Wire1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,165.0,1035.0)">
      <g class="arrow-up" id="idVoltageLevel21_95_Wire1_ARROW2_ARROW-arrow-up">
@@ -269,7 +269,7 @@
      <g class="arrow-down" id="idVoltageLevel21_95_Wire1_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="GENERATOR idGenerator" id="idGenerator" transform="translate(164.0,1294.0)">
     <circle r="6" cx="6" cy="6"/>

@@ -163,7 +163,7 @@
      <g class="arrow-down" id="idvl1_95_Wire4_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl1_95_load1_DOWN" id="idvl1_95_Wire4_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,189.0)">
      <g class="arrow-up" id="idvl1_95_Wire4_ARROW2_ARROW-arrow-up">
@@ -172,7 +172,7 @@
      <g class="arrow-down" id="idvl1_95_Wire4_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_vl1" points="60.0,260.0,60.0,370.0" id="idvl1_95_Wire5"/>
         <polyline class="wire wire_vl1" points="60.0,370.0,50.0,370.0" id="idvl1_95_Wire6"/>
@@ -184,7 +184,7 @@
      <g class="arrow-down" id="idvl1_95_Wire7_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl1_95_trf1_DOWN" id="idvl1_95_Wire7_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,95.0,517.0)">
      <g class="arrow-up" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
@@ -193,7 +193,7 @@
      <g class="arrow-down" id="idvl1_95_Wire7_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_vl1" points="100.0,460.0,100.0,370.0" id="idvl1_95_Wire8"/>
         <polyline class="wire wire_vl1" points="100.0,370.0,90.0,370.0" id="idvl1_95_Wire9"/>
@@ -205,7 +205,7 @@
      <g class="arrow-down" id="idvl1_95_Wire10_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl1_95_trf2_95_one_DOWN" id="idvl1_95_Wire10_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,185.0)">
      <g class="arrow-up" id="idvl1_95_Wire10_ARROW2_ARROW-arrow-up">
@@ -214,7 +214,7 @@
      <g class="arrow-down" id="idvl1_95_Wire10_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_vl1" points="460.0,150.0,460.0,205.0,428.0,205.0" id="idvl1_95_Wire11"/>
         <g class="ARROW1_vl1_95_trf2_95_two_UP" id="idvl1_95_Wire11_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,165.0)">
@@ -224,7 +224,7 @@
      <g class="arrow-down" id="idvl1_95_Wire11_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl1_95_trf2_95_two_DOWN" id="idvl1_95_Wire11_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,185.0)">
      <g class="arrow-up" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-up">
@@ -233,7 +233,7 @@
      <g class="arrow-down" id="idvl1_95_Wire11_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <polyline class="wire wire_vl1" points="420.0,217.0,420.0,240.0" id="idvl1_95_Wire12"/>
         <polyline class="wire wire_vl1" points="420.0,260.0,420.0,370.0" id="idvl1_95_Wire13"/>

@@ -87,6 +87,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String POINTS = "points";
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
+    protected static final int VALUE_MAX_NB_CHARS = 5;
 
     protected final ComponentLibrary componentLibrary;
 
@@ -570,7 +571,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (int i = 0; i < labelsNode.size(); ++i) {
             drawLabel(prefixId + labelsPosition.get(i).getPositionName(), labelsNode.get(i), node.isRotated(),
                     labelsPosition.get(i).getdX(), labelsPosition.get(i).getdY(),
-                    g, FONT_SIZE, labelsPosition.get(i).isCentered(), labelsPosition.get(i).getShiftAngle());
+                    g, FONT_SIZE, labelsPosition.get(i).isCentered(), labelsPosition.get(i).getShiftAngle(), false);
         }
     }
 
@@ -595,7 +596,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawLabel(null, graph.isUseName()
                         ? graph.getVoltageLevelInfos().getName()
                         : graph.getVoltageLevelInfos().getId(),
-                false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE, false, 0);
+                false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE, false, 0, false);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
@@ -634,7 +635,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel graph busbar section names and feeder names
      */
     protected void drawLabel(String idLabel, String str, boolean rotated, double xShift, double yShift, Element g,
-                             int fontSize, boolean centered, int shiftAngle) {
+                             int fontSize, boolean centered, int shiftAngle, boolean adjustLength) {
         Element label = g.getOwnerDocument().createElement("text");
         if (!StringUtils.isEmpty(idLabel)) {
             label.setAttribute("id", idLabel);
@@ -643,6 +644,10 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute("y", String.valueOf(yShift));
         label.setAttribute("font-family", FONT_FAMILY);
         label.setAttribute("font-size", Integer.toString(fontSize));
+        if (adjustLength) {
+            label.setAttribute("xml:space", "preserve");
+            label.setAttribute("textLength", Integer.toString(str.length() * (FONT_SIZE - 3)));
+        }
         label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
@@ -945,7 +950,7 @@ public class DefaultSVGWriter implements SVGWriter {
             } else {
                 insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, defsId, true);
             }
-            drawLabel(null, label1.get(), false, shX, shY, g1, FONT_SIZE, false, 0);
+            drawLabel(null, StringUtils.rightPad(label1.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g1, FONT_SIZE, false, 0, true);
 
             if (dir1.isPresent()) {
                 g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
@@ -955,7 +960,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             Optional<String> label3 = init.getLabel3();
-            label3.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE, false, 0));
+            label3.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE, false, 0, true));
 
             root.appendChild(g1);
             metadata.addArrowMetadata(new ArrowMetadata(arrow1WireId, wireId, layoutParameters.getArrowDistance()));
@@ -979,7 +984,7 @@ public class DefaultSVGWriter implements SVGWriter {
             } else {
                 insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, defsId, true);
             }
-            drawLabel(null, label2.get(), false, shX, shY, g2, FONT_SIZE, false, 0);
+            drawLabel(null, StringUtils.rightPad(label2.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g2, FONT_SIZE, false, 0, true);
 
             if (dir2.isPresent()) {
                 g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
@@ -989,7 +994,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             Optional<String> label4 = init.getLabel4();
-            label4.ifPresent(s -> drawLabel(null, s, false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE, false, 0));
+            label4.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE, false, 0, true));
 
             root.appendChild(g2);
             metadata.addArrowMetadata(new ArrowMetadata(arrow2WireId, wireId, layoutParameters.getArrowDistance()));
