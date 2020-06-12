@@ -569,8 +569,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
             String idMiddleNode = n1.getId() + "_" + n2.getId();
-            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getName(), vl1.getNominalV());
-            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getName(), vl2.getNominalV());
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
             Middle2WTNode middleNode = new Middle2WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2);
 
@@ -608,9 +608,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
             String idMiddleNode = n1.getId() + "_" + n2.getId() + "_" + n3.getId();
-            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getName(), vl1.getNominalV());
-            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getName(), vl2.getNominalV());
-            VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getName(), vl3.getNominalV());
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
+            VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
 
             Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3);
 
