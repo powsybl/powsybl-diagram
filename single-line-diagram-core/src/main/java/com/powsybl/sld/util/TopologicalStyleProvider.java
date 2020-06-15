@@ -27,8 +27,6 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
  */
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    private final Network network;
-
     private final HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
@@ -36,8 +34,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     public TopologicalStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
-        super(baseVoltageColor);
-        this.network = Objects.requireNonNull(network);
+        super(baseVoltageColor, network);
     }
 
     @Override
@@ -133,7 +130,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
+    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         String wireId = DiagramStyles.escapeId(id + "_Wire" + index);
         Node bus;
         if (!(edge instanceof TwtEdge)) {
@@ -158,6 +155,14 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
                 color = c.toString();
             }
         }
+
+        if (isHighLightLineState && network != null) {
+            Optional<String> style = buildWireStyle(edge, id, index, color);
+            if (style.isPresent()) {
+                return style;
+            }
+        }
+
         return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;fill-opacity:0;}");
     }
 

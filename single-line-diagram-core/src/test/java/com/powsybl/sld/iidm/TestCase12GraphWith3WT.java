@@ -256,6 +256,6 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
                 new PositionVoltageLevelLayoutFactory(), false);
         compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
                 new DefaultDiagramInitialValueProvider(network),
-                new NominalVoltageDiagramStyleProvider());
+                new NominalVoltageDiagramStyleProvider(network));
     }
 }

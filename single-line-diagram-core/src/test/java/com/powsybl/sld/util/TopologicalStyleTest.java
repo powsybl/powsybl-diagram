@@ -70,7 +70,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl1, "d2WT_1", "d2WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
         createSwitch(vl1, "b2WT_1", "b2WT_1", SwitchKind.BREAKER, true, false, true, 3, 4);
         createSwitch(vl2, "d2WT_2", "d2WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
-        createSwitch(vl2, "b2WT_2", "b2WT_2", SwitchKind.BREAKER, true, false, true, 1, 2);
+        createSwitch(vl2, "b2WT_2", "b2WT_2", SwitchKind.BREAKER, true, true, true, 1, 2);
 
         // 3WT between the 3 voltage levels
         createThreeWindingsTransformer(substation, "3WT", "3WT", vl1.getId(), vl2.getId(), vl3.getId(),
@@ -82,7 +82,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl1, "d3WT_1", "d3WT_1", SwitchKind.DISCONNECTOR, false, false, true, 0, 6);
         createSwitch(vl1, "b3WT_1", "b3WT_1", SwitchKind.BREAKER, true, false, true, 5, 6);
         createSwitch(vl2, "d3WT_2", "d3WT_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 4);
-        createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, false, true, 3, 4);
+        createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, true, true, 3, 4);
         createSwitch(vl3, "d3WT_3", "d3WT_3", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, false, true, 1, 2);
 
@@ -108,7 +108,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         Node node2 = graph2.getNode("bbs2");
         Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
         assertTrue(nodeStyle2.isPresent());
-        assertEquals(" #idbbs2 {stroke:#218B21;}", nodeStyle2.get());
+        assertEquals(" #idbbs2 {stroke:#808080;}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
         Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
@@ -122,7 +122,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         idWireStyle = styleProvider.getIdWireStyle(edge);
         assertEquals("wire_vl1", idWireStyle);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12);
+        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12, false);
         assertTrue(wireStyle.isPresent());
         assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
 

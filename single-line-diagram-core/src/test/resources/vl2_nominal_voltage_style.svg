@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg">
+    <style><![CDATA[.BUSBAR_SECTION {
+    stroke: rgb(0,0,0);
+    stroke-width: 3;
+}
+
+.BREAKER {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 2;
+    fill: rgb(255, 255, 255);
+}
+
+.DISCONNECTOR {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 3
+}
+
+.GENERATOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.LOAD {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.LOAD_BREAK_SWITCH {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill: rgb(255, 255, 255);
+}
+
+.NODE {
+    stroke: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
+    fill-opacity: 1;
+}
+
+.CAPACITOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.INDUCTOR {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.STATIC_VAR_COMPENSATOR {
+    stroke: rgb(0, 0, 255);
+}
+
+.TWO_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.THREE_WINDINGS_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.VSC_CONVERTER_STATION {
+    stroke: rgb(0, 0, 255);
+    font-size: 7.4314661px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    writing-mode: lr-tb;
+    text-anchor: start;
+    stroke-miterlimit: 4;
+}
+
+.PHASE_SHIFT_TRANSFORMER {
+    stroke: rgb(0, 0, 255);
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.wire {
+    stroke: rgb(200,0,0);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.grid {
+    stroke: rgb(0,55,0);
+    stroke-width: 1;
+    stroke-dasharray: 1,10;
+}
+
+.component-label {
+    fill: black;
+    color: black;
+    stroke: none;
+    fill-opacity: 1;
+}
+
+.LINE {
+    stroke: rgb(0, 0, 255);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+ .idbbs2 {stroke:#228b22;}
+.ARROW1_2WT_95_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_2WT_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_2WT_95_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_2WT_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_2WT_95_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_2WT_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_2WT_95_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_2WT_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;} .id2WT_95_TWO {stroke:#228b22;}
+ .idFICT_95_vl2_95_3WT_95_fictif {stroke:#228b22;}
+.ARROW1_3WT_95_ONE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_3WT_95_ONE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_3WT_95_ONE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_3WT_95_ONE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_3WT_95_ONE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_3WT_95_ONE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_3WT_95_ONE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_3WT_95_ONE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;} .id3WT_95_ONE {stroke:#228b22;}
+.ARROW1_3WT_95_THREE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_3WT_95_THREE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_3WT_95_THREE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_3WT_95_THREE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_3WT_95_THREE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_3WT_95_THREE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_3WT_95_THREE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_3WT_95_THREE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;} .id3WT_95_THREE {stroke:#228b22;}
+.idFICT_95_vl2_95_2 {stroke-opacity:0; fill-opacity:0; visibility: hidden;} .idFICT_95_vl2_95_2 {stroke:#228b22;}
+.idd2WT_95_2 .open { visibility: hidden;}.idd2WT_95_2 .closed { visibility: visible;}
+.idb2WT_95_2 .open { visibility: visible;}.idb2WT_95_2 .closed { visibility: hidden;}
+.idFICT_95_vl2_95_4 {stroke-opacity:0; fill-opacity:0; visibility: hidden;} .idFICT_95_vl2_95_4 {stroke:#228b22;}
+.idd3WT_95_2 .open { visibility: hidden;}.idd3WT_95_2 .closed { visibility: visible;}
+.idb3WT_95_2 .open { visibility: hidden;}.idb3WT_95_2 .closed { visibility: visible;}
+ #idvl2_95_Wire0 {stroke:#ff0000;stroke-width:1;stroke-dasharray:3,3}
+ #idvl2_95_Wire1 {stroke:#a020f0;stroke-width:1;stroke-dasharray:3,3}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+ #idvl2_95_Wire4 {stroke:black;stroke-width:1;stroke-dasharray:3,3}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire_vl2 {stroke:#228b22;stroke-width:1;}
+]]></style>
+    <g>
+        <g class="BUSBAR_SECTION idbbs2" id="idbbs2" transform="translate(19.0,49.0)">
+            <line y2="0" x1="0" x2="1.0" y1="0"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs2_NW_LABEL">bbs2</text>
+        </g>
+        <polyline class="wire wire_vl1" points="19.0,56.0,19.0,49.0" id="idvl2_95_Wire0"/>
+        <polyline class="wire wire_vl3" points="19.0,56.0,19.0,49.0" id="idvl2_95_Wire1"/>
+        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire2"/>
+        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire3"/>
+        <polyline class="wire wire_vl2" points="19.0,41.0,19.0,39.0" id="idvl2_95_Wire4"/>
+        <polyline class="wire wire_vl2" points="19.0,39.0,19.0,49.0" id="idvl2_95_Wire5"/>
+        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire6"/>
+        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire7"/>
+        <polyline class="wire wire_vl2" points="19.0,56.0,19.0,59.0" id="idvl2_95_Wire8"/>
+        <polyline class="wire wire_vl2" points="19.0,39.0,19.0,49.0" id="idvl2_95_Wire9"/>
+        <g class="TWO_WINDINGS_TRANSFORMER id2WT_95_TWO" id="id2WT_95_TWO" transform="translate(14.0,41.5)">
+    <circle r="5" id="id2WT_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10" stroke="#228b22"/>
+
+    <circle r="5" id="id2WT_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5" stroke="#ff0000"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="2WT_TWO__LABEL">2WT_2</text>
+        </g>
+        <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl2_95_3WT_95_fictif" id="idFICT_95_vl2_95_3WT_95_fictif" transform="translate(11.0,42.0)">
+    <circle r="5" id="idFICT_95_vl2_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5" stroke="#a020f0"/>
+
+    <circle r="5" id="idFICT_95_vl2_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5" stroke="#ff0000"/>
+
+    <circle r="5" id="idFICT_95_vl2_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9" stroke="#228b22"/>
+</g>
+        <g class="LINE id3WT_95_ONE" id="id3WT_95_ONE" transform="translate(19.0,49.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="3WT_ONE__LABEL">3WT_2</text>
+        </g>
+        <g class="LINE id3WT_95_THREE" id="id3WT_95_THREE" transform="translate(19.0,49.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="3WT_THREE__LABEL">3WT_2</text>
+        </g>
+        <g class="NODE idFICT_95_vl2_95_2" id="idFICT_95_vl2_95_2" transform="translate(15.0,45.0)">
+    <circle fill-opacity="0" r="4" cx="4" stroke-opacity="0" cy="4"/>
+</g>
+        <g class="DISCONNECTOR idd2WT_95_2" id="idd2WT_95_2" transform="translate(15.0,45.0)">
+    <g class="closed" id="idd2WT_95_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="idd2WT_95_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idb2WT_95_2" id="idb2WT_95_2" transform="translate(9.0,39.0)">
+    <g class="closed" id="idb2WT_95_2_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idb2WT_95_2_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+        <g class="NODE idFICT_95_vl2_95_4" id="idFICT_95_vl2_95_4" transform="translate(15.0,45.0)">
+    <circle fill-opacity="0" r="4" cx="4" stroke-opacity="0" cy="4"/>
+</g>
+        <g class="DISCONNECTOR idd3WT_95_2" id="idd3WT_95_2" transform="translate(15.0,45.0)">
+    <g class="closed" id="idd3WT_95_2_DISCONNECTOR-closed">
+        <line y2="8" x1="0" x2="8" y1="0"/>
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+    <g class="open" id="idd3WT_95_2_DISCONNECTOR-open">
+        <line y2="8" x1="8" x2="0" y1="0"/>
+    </g>
+</g>
+        <g class="BREAKER idb3WT_95_2" id="idb3WT_95_2" transform="translate(9.0,39.0)">
+    <g class="closed" id="idb3WT_95_2_BREAKER-closed">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="15" x1="10" x2="10" y1="5"/>
+    </g>
+    <g class="open" id="idb3WT_95_2_BREAKER-open">
+        <rect x="1" width="18" y="1" height="18"/>
+        <line y2="10" x1="5" x2="15" y1="10"/>
+    </g>
+</g>
+    </g>
+</svg>
