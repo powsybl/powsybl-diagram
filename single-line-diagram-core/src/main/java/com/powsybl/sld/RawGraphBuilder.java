@@ -50,7 +50,7 @@ public class RawGraphBuilder implements GraphBuilder {
         return new VoltageLevelInfos("OTHER", "OTHER", 0);
     }
 
-    class VoltageLevelBuilder {
+    public class VoltageLevelBuilder {
 
         private VoltageLevelInfos voltageLevelInfos;
         private final Graph graph;
