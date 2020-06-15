@@ -478,7 +478,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void ensureNodeExists(Graph graph, int n, Map<Integer, Node> nodesByNumber) {
         if (!nodesByNumber.containsKey(n)) {
-            FictitiousNode node = new FictitiousNode(graph, "" + n);
+            InternalNode node = new InternalNode(graph, "" + n);
             nodesByNumber.put(n, node);
             graph.addNode(node);
         }
