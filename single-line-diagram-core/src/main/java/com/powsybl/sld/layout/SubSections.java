@@ -17,8 +17,14 @@ import java.util.stream.Collectors;
 
 /**
  * SubSections splits the horizontal organisation of the busBars to cope with the case parallelism is not respected
- * This solves the case of a busbar spanning over many busbars at another vertical structural position.
- * This assumes that the orders of the ExternCell are consistent with the structural horizontal positions of the busBars.
+ * This solves the case of a busbar spanning over many busbars at another vertical structural position. e.g.:
+ * 1.1 ---*--- / ---*--- 1.2
+ * 2   ---*---------*--- 2
+ * One SubSection is define for each horizontal part having the same vertical busbar organization.
+ * In the example, 2 subsections will be defined: (1.1, 2) and (1.2, 2).
+ * A SubSections contains a Set of ordered (left to right) Subsection.
+ * This assumes that the orders of the ExternCell in the given graph are coherent with the structural horizontal
+ * positions of the busBars.
  * This must be ensured by the PositionFinder
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -28,27 +34,20 @@ import java.util.stream.Collectors;
 class SubSections {
 
     private Graph graph;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SubSections.class);
-
-    private Set<SubSection> subsectionSet;
-
+    private Set<SubSection> subsectionSet = new TreeSet<>();
     private static final String STR_SIDE = "\t side ";
 
     SubSections(Graph graph) {
         this.graph = graph;
-        subsectionSet = new TreeSet<>(new SubSectionComparator());
-    }
-
-    void handleSpanningBusBar() {
         buildSubSections();
-        checkInternCellOrientation();
+        checkInternCellLaterality();
         if (!checkCellOrderConsistencyWithSubsSections()) {
-            LOGGER.warn("*************** Cells order not consistent with Subsections order");
+            LOGGER.warn("Cells order not coherent with Subsections order");
         }
     }
 
-    private void checkInternCellOrientation() {
+    private void checkInternCellLaterality() {
         Map<InternCell, List<SubSection>> cellToIndex = new HashMap<>();
 
         subsectionSet.forEach(ss -> ss.getInternCells()
@@ -71,6 +70,7 @@ class SubSections {
         });
     }
 
+    //TODO: inappropriate criteria
     private boolean verticalInternCell(InternCell cell) {
         return cell.isUniLeg() || cell.getBusNodes().stream()
                 .map(bus -> bus.getStructuralPosition().getH())
@@ -123,7 +123,7 @@ class SubSections {
             }
         } else {
             List<SubSection> candidateSubsections = subsectionSet.stream()
-                    .filter(ss -> ss.getSsIndexes().asSameNonZeroIndexes(indexes))
+                    .filter(ss -> ss.getSsIndexes().hasSameNonZeroIndexes(indexes))
                     .collect(Collectors.toList());
             SubSection ss;
             if (candidateSubsections.isEmpty()) {
@@ -200,7 +200,7 @@ class SubSections {
         }
     }
 
-    class SubSection {
+    class SubSection implements Comparable<SubSection> {
         SubSectionIndexes ssIndexes;
         private Set<Cell> cells;
         private Set<ExternCell> externCells;
@@ -249,6 +249,20 @@ class SubSections {
 
         public SubSectionIndexes getSsIndexes() {
             return ssIndexes;
+        }
+
+        public int compareTo(@Nonnull SubSection ss) {
+            return getSsIndexes().compareTo(ss.getSsIndexes());
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return super.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
         }
 
         @Override
@@ -309,12 +323,6 @@ class SubSections {
 
     }
 
-    class SubSectionComparator implements Comparator<SubSection> {
-        public int compare(SubSection ss1, SubSection ss2) {
-            return ss1.getSsIndexes().compareTo(ss2.getSsIndexes());
-        }
-    }
-
     class SubSectionIndexes implements Comparable<SubSectionIndexes> {
         private int size;
         private int[] indexes;
@@ -332,7 +340,8 @@ class SubSections {
             return indexes.clone();
         }
 
-        boolean asSameNonZeroIndexes(SubSectionIndexes ssI) {
+        //TODO: verify the case indexes[i] == 0 shouldn't be considered
+        boolean hasSameNonZeroIndexes(SubSectionIndexes ssI) {
             for (int i = 0; i < size; i++) {
                 int index = ssI.getIndexes()[i];
                 if (index != 0 && index != indexes[i]) {
