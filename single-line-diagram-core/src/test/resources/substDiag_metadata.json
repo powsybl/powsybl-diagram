@@ -223,7 +223,7 @@
   "nodes" : [ {
     "id" : "idtrf7_95_THREE",
     "vid" : "vl3",
-    "nextVId" : null,
+    "nextVId" : "vl3",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -433,7 +433,7 @@
   }, {
     "id" : "idtrf6_95_THREE",
     "vid" : "vl3",
-    "nextVId" : null,
+    "nextVId" : "vl3",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -613,7 +613,7 @@
   }, {
     "id" : "idtrf6_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -663,7 +663,7 @@
   }, {
     "id" : "idtrf2_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -883,7 +883,7 @@
   }, {
     "id" : "idtrf8_95_THREE",
     "vid" : "vl3",
-    "nextVId" : null,
+    "nextVId" : "vl3",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -913,7 +913,7 @@
   }, {
     "id" : "idtrf6_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -923,7 +923,7 @@
   }, {
     "id" : "idtrf2_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1153,7 +1153,7 @@
   }, {
     "id" : "idtrf3_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1193,7 +1193,7 @@
   }, {
     "id" : "idtrf1_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1203,7 +1203,7 @@
   }, {
     "id" : "idtrf5_95_TWO",
     "vid" : "vl3",
-    "nextVId" : null,
+    "nextVId" : "vl3",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1333,7 +1333,7 @@
   }, {
     "id" : "idtrf1_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1363,7 +1363,7 @@
   }, {
     "id" : "idtrf5_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1373,7 +1373,7 @@
   }, {
     "id" : "idtrf3_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1383,7 +1383,7 @@
   }, {
     "id" : "idtrf7_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1453,7 +1453,7 @@
   }, {
     "id" : "idtrf8_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1463,7 +1463,7 @@
   }, {
     "id" : "idtrf7_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1543,7 +1543,7 @@
   }, {
     "id" : "idtrf4_95_TWO",
     "vid" : "vl2",
-    "nextVId" : null,
+    "nextVId" : "vl2",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1643,7 +1643,7 @@
   }, {
     "id" : "idtrf8_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,
@@ -1653,7 +1653,7 @@
   }, {
     "id" : "idtrf4_95_ONE",
     "vid" : "vl1",
-    "nextVId" : null,
+    "nextVId" : "vl1",
     "componentType" : "LINE",
     "rotationAngle" : null,
     "open" : false,

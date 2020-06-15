@@ -25,6 +25,6 @@ public class Feeder2WTLegNode extends FeederWithSideNode {
     }
 
     public static Feeder2WTLegNode createForSubstationDiagram(Graph graph, String id, String name, String equipmentId, Side side) {
-        return new Feeder2WTLegNode(id, name, equipmentId, graph, side, null);
+        return new Feeder2WTLegNode(id, name, equipmentId, graph, side, graph.getVoltageLevelInfos());
     }
 }

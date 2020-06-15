@@ -59,8 +59,8 @@ public final class SubstationGraph {
         return nodesById.get(id);
     }
 
-    public TwtEdge addEdge(String componentType, Node... nodes) {
-        TwtEdge sl = new TwtEdge(componentType, nodes);
+    public TwtEdge addEdge(Node node1, Node node2) {
+        TwtEdge sl = new TwtEdge(node1, node2);
         edges.add(sl);
         return sl;
     }

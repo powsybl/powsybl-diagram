@@ -556,14 +556,29 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
             String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
 
-            Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
-            Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
+            VoltageLevel vl1 = t1.getVoltageLevel();
+            VoltageLevel vl2 = t2.getVoltageLevel();
+
+            Graph g1 = graph.getNode(vl1.getId());
+            Graph g2 = graph.getNode(vl2.getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
 
-            String componentType = transfo.getPhaseTapChanger() != null ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-            graph.addEdge(componentType, n1, n2);
+            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
+            String idMiddleNode = n1.getId() + "_" + n2.getId();
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
+
+            Middle2WTNode middleNode = new Middle2WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2);
+
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
+
+            middleNode.addAdjacentEdge(edge1);
+            middleNode.addAdjacentEdge(edge2);
+
+            graph.addMultiTermNode(middleNode);
         }
 
         // Three windings transformer
@@ -577,6 +592,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
             String id3 = transfo.getId() + "_" + transfo.getSide(t3).name();
 
+            VoltageLevel vl1 = t1.getVoltageLevel();
+            VoltageLevel vl2 = t2.getVoltageLevel();
+            VoltageLevel vl3 = t3.getVoltageLevel();
+
             Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
             Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
             Graph g3 = graph.getNode(t3.getVoltageLevel().getId());
@@ -585,7 +604,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n2 = g2.getNode(id2);
             Node n3 = g3.getNode(id3);
 
-            graph.addEdge(THREE_WINDINGS_TRANSFORMER, n1, n2, n3);
+            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
+            String idMiddleNode = n1.getId() + "_" + n2.getId() + "_" + n3.getId();
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
+            VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
+
+            Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3);
+
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
+            TwtEdge edge3 = graph.addEdge(middleNode, n3);
+
+            middleNode.addAdjacentEdge(edge1);
+            middleNode.addAdjacentEdge(edge2);
+            middleNode.addAdjacentEdge(edge3);
+
+            graph.addMultiTermNode(middleNode);
         }
     }
 

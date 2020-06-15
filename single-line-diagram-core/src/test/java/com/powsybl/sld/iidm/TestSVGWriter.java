@@ -520,9 +520,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         Node nMulti1 = new FictitiousNode(null, vl1Trf1.getId() + "_" + vl2Trf1.getId(), ComponentTypeName.TWO_WINDINGS_TRANSFORMER);
         nMulti1.setX(365., false, false);
         nMulti1.setY(550., false, false);
-        TwtEdge edge1 = substG.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, vl1Trf1, nMulti1);
+        TwtEdge edge1 = substG.addEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Arrays.asList(80., 500., 80., 550., 365., 550.));
-        TwtEdge edge2 = substG.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, nMulti1, vl2Trf1);
+        TwtEdge edge2 = substG.addEdge(nMulti1, vl2Trf1);
         edge2.setSnakeLine(Arrays.asList(365., 550., 650., 550., 650., 500.));
         nMulti1.addAdjacentEdge(edge1);
         nMulti1.addAdjacentEdge(edge2);
@@ -531,11 +531,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         Node nMulti3 = new FictitiousNode(null, vl1Trf2.getId() + "_" + vl2Trf2.getId() + "_" + vl3Trf2.getId(), ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
         nMulti3.setX(710., false, false);
         nMulti3.setY(50., false, false);
-        TwtEdge edge21 = substG.addEdge(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, vl1Trf2, nMulti3);
+        TwtEdge edge21 = substG.addEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Arrays.asList(400., 80., 400., 50., 710., 50.));
-        TwtEdge edge22 = substG.addEdge(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, nMulti3, vl2Trf2);
+        TwtEdge edge22 = substG.addEdge(nMulti3, vl2Trf2);
         edge22.setSnakeLine(Arrays.asList(710., 50., 710., 80.));
-        TwtEdge edge23 = substG.addEdge(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, nMulti3, vl3Trf2);
+        TwtEdge edge23 = substG.addEdge(nMulti3, vl3Trf2);
         edge23.setSnakeLine(Arrays.asList(710., 50., 1000., 50., 1000., 80.));
 
         nMulti3.addAdjacentEdge(edge21);
@@ -605,9 +605,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         Node nMulti1 = new FictitiousNode(null, twtSide1Node.getId() + "_" + twtSide2Node.getId(), ComponentTypeName.TWO_WINDINGS_TRANSFORMER);
         nMulti1.setX(50, false, false);
         nMulti1.setY(350, false, false);
-        TwtEdge edge1 = s1Graph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, twtSide1Node, nMulti1);
+        TwtEdge edge1 = s1Graph.addEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Arrays.asList(50., 300., 50., 320., 50., 350.));
-        TwtEdge edge2 = s1Graph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, nMulti1, twtSide2Node);
+        TwtEdge edge2 = s1Graph.addEdge(nMulti1, twtSide2Node);
         edge2.setSnakeLine(Arrays.asList(50., 350., 50., 380., 50., 400.));
         nMulti1.addAdjacentEdge(edge1);
         nMulti1.addAdjacentEdge(edge2);

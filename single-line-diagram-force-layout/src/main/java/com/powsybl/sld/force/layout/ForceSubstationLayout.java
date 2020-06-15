@@ -84,13 +84,17 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
         }
-        for (TwtEdge edge : graph.getEdges()) {
-            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
-            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(edge.getNode2().getGraph().getVoltageLevelInfos().getId());
-            undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_1_2", node1, node2, 0, 1, false));
-            if (edge.getNode3() != null) {
-                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(edge.getNode3().getGraph().getVoltageLevelInfos().getId());
-                undirectedGraph.addEdge(new EdgeImpl(edge.toString() + "_2_3", node2, node3, 0, 1, false));
+
+        for (Node multiNode : graph.getMultiTermNodes()) {
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+            List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
+            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(0).getGraph().getVoltageLevelInfos().getId());
+            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(1).getGraph().getVoltageLevelInfos().getId());
+            undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(0).toString() + "_" + adjacentEdges.get(1).toString(), node1, node2, 0, 1, false));
+
+            if (adjacentNodes.size() == 3) {
+                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(2).getGraph().getVoltageLevelInfos().getId());
+                undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(1).toString() + "_" + adjacentEdges.get(2).toString(), node2, node3, 0, 1, false));
             }
         }
 
@@ -179,11 +183,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             graphsLayouts.get(g).run(layoutParameters);
         });
 
-        // Sorting the nodes in each edges, by ascending x value, for further snakelines coordinates computation
-        graph.getEdges().stream().forEach(e -> e.getNodes().sort(Comparator.comparingDouble(Node::getX)));
-
-        // Calculate all the coordinates for the links between the voltageLevel graphs
-        // (new fictitious nodes and edges are created here, for the two and three windings transformers)
+        // Calculate all the coordinates for the middle nodes and the links between the voltageLevel graphs
         manageSnakeLines(layoutParameters);
     }
 
@@ -193,26 +193,27 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         graph.getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
         Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
-        List<TwtEdge> newEdges = new ArrayList<>();
-
-        for (TwtEdge edge : graph.getEdges()) {
-            if (edge.getNodes().size() == 2) {
-                List<Double> pol = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(),
-                        nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                // we split the original edge in two parts, with a new fictitious node between the two new edges
-                splitEdge2(edge, newEdges, pol);
-            } else if (edge.getNodes().size() == 3) {
-                List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, edge.getNode1(), edge.getNode2(),
-                        nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, edge.getNode2(), edge.getNode3(),
-                        nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                // we split the original edge in three parts, with a new fictitious node between the three new edges
-                splitEdge3(edge, newEdges, pol1, pol2);
+        for (Node multiNode : graph.getMultiTermNodes()) {
+            List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+            if (adjacentNodes.size() == 2) {
+                List<Double> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                Coord coordNodeFict = new Coord(-1, -1);
+                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
+                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
+                multiNode.setX(coordNodeFict.getX(), false, false);
+                multiNode.setY(coordNodeFict.getY(), false, false);
+            } else if (adjacentNodes.size() == 3) {
+                List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                Coord coordNodeFict = new Coord(-1, -1);
+                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
+                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
+                ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
+                multiNode.setX(coordNodeFict.getX(), false, false);
+                multiNode.setY(coordNodeFict.getY(), false, false);
             }
         }
-
-        // replace the old edges by the new edges in the substation graph
-        graph.setEdges(newEdges);
     }
 
     protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
@@ -400,10 +401,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void changingCellsOrientation(SubstationGraph graph, Map<Graph, Coord> coordsVoltageLevels) {
-        for (TwtEdge edge : graph.getEdges()) {
-            FeederNode n1 = (FeederNode) edge.getNode1();
+        for (Node multiNode : graph.getMultiTermNodes()) {
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+
+            FeederNode n1 = (FeederNode) adjacentNodes.get(0);
             ExternCell cell1 = (ExternCell) n1.getCell();
-            FeederNode n2 = (FeederNode) edge.getNode2();
+            FeederNode n2 = (FeederNode) adjacentNodes.get(1);
             ExternCell cell2 = (ExternCell) n2.getCell();
 
             Coord c1 = coordsVoltageLevels.get(n1.getGraph());
@@ -425,8 +428,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 n2.setDirection(BusCell.Direction.BOTTOM);
             }
 
-            if (edge.getNode3() != null) {
-                FeederNode n3 = (FeederNode) edge.getNode3();
+            if (adjacentNodes.size() == 3) {
+                FeederNode n3 = (FeederNode) adjacentNodes.get(2);
                 ExternCell cell3 = (ExternCell) n3.getCell();
                 Coord c3 = coordsVoltageLevels.get(n3.getGraph());
 
