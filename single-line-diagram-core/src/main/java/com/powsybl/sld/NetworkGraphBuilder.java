@@ -565,8 +565,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
 
-            String componentType = transfo.getPhaseTapChanger() != null ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
             String idMiddleNode = n1.getId() + "_" + n2.getId();
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
