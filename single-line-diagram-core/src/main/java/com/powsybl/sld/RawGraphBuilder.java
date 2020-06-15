@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld;
 
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
 import java.util.HashMap;
@@ -193,7 +192,7 @@ public class RawGraphBuilder implements GraphBuilder {
             FeederLineNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.voltageLevelInfos.getId(), TWO, order2, direction2);
             feederLineNodes.put(vl1, feederLineNode1);
             feederLineNodes.put(vl2, feederLineNode2);
-            ssGraph.addEdge(ComponentTypeName.LINE, feederLineNode1, feederLineNode2);
+            ssGraph.addEdge(feederLineNode1, feederLineNode2);
             return feederLineNodes;
         }
 
@@ -208,7 +207,7 @@ public class RawGraphBuilder implements GraphBuilder {
             Feeder2WTLegNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
             f2WTNodes.put(vl1, feeder2WtNode1);
             f2WTNodes.put(vl2, feeder2WTNode2);
-            ssGraph.addEdge(ComponentTypeName.TWO_WINDINGS_TRANSFORMER, feeder2WtNode1, feeder2WTNode2);
+            ssGraph.addEdge(feeder2WtNode1, feeder2WTNode2);
             return f2WTNodes;
         }
 
@@ -226,7 +225,22 @@ public class RawGraphBuilder implements GraphBuilder {
             f3WTNodes.put(vl1, feeder3WTNode1);
             f3WTNodes.put(vl2, feeder3WTNode2);
             f3WTNodes.put(vl3, feeder3WTNode3);
-            ssGraph.addEdge(ComponentTypeName.THREE_WINDINGS_TRANSFORMER, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3);
+
+            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
+            String idMiddleNode = feeder3WTNode1.getId() + "_" + feeder3WTNode2.getId() + "_" + feeder3WTNode3.getId();
+
+            Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, feeder3WTNode1.getGraph().getVoltageLevelInfos(), feeder3WTNode2.getGraph().getVoltageLevelInfos(), feeder3WTNode3.getGraph().getVoltageLevelInfos());
+
+            TwtEdge edge1 = ssGraph.addEdge(feeder3WTNode1, middleNode);
+            TwtEdge edge2 = ssGraph.addEdge(middleNode, feeder3WTNode2);
+            TwtEdge edge3 = ssGraph.addEdge(middleNode, feeder3WTNode3);
+
+            middleNode.addAdjacentEdge(edge1);
+            middleNode.addAdjacentEdge(edge2);
+            middleNode.addAdjacentEdge(edge3);
+
+            ssGraph.addMultiTermNode(middleNode);
+
             return f3WTNodes;
         }
 

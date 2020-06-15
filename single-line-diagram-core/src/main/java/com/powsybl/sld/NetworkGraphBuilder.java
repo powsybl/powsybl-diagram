@@ -574,8 +574,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             Middle2WTNode middleNode = new Middle2WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2);
 
-            TwtEdge edge1 = graph.addEdge(componentType, n1, middleNode);
-            TwtEdge edge2 = graph.addEdge(componentType, middleNode, n2);
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
 
             middleNode.addAdjacentEdge(edge1);
             middleNode.addAdjacentEdge(edge2);
@@ -614,9 +614,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3);
 
-            TwtEdge edge1 = graph.addEdge(THREE_WINDINGS_TRANSFORMER, n1, middleNode);
-            TwtEdge edge2 = graph.addEdge(THREE_WINDINGS_TRANSFORMER, middleNode, n2);
-            TwtEdge edge3 = graph.addEdge(THREE_WINDINGS_TRANSFORMER, middleNode, n3);
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
+            TwtEdge edge3 = graph.addEdge(middleNode, n3);
 
             middleNode.addAdjacentEdge(edge1);
             middleNode.addAdjacentEdge(edge2);
