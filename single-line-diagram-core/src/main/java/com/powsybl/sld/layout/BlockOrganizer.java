@@ -70,7 +70,6 @@ public class BlockOrganizer {
                 .forEach(c -> ((InternCell) c).postPositioningSettings());
 
         SubSections subSections = new SubSections(graph);
-        subSections.handleSpanningBusBar();
         LOGGER.debug("Subsections {}", subSections);
 
         graph.getCells().stream()
