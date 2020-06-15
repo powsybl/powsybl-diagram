@@ -6,18 +6,15 @@
  */
 package com.powsybl.sld.util;
 
+import com.google.common.collect.ImmutableMap;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
@@ -97,39 +94,32 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor, network);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
+        Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
         assertTrue(nodeStyle1.isPresent());
         assertEquals(" .idbbs1 {stroke:#ff0000;}", nodeStyle1.get());
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
+        Optional<String> nodeStyle2 = styleProvider.getCssNodeStyleAttributes(node2, false);
         assertTrue(nodeStyle2.isPresent());
         assertEquals(" .idbbs2 {stroke:#228b22;}", nodeStyle2.get());
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
+        Optional<String> nodeStyle3 = styleProvider.getCssNodeStyleAttributes(node3, false);
         assertTrue(nodeStyle3.isPresent());
         assertEquals(" .idbbs3 {stroke:#a020f0;}", nodeStyle3.get());
 
-        Edge edge = graph1.getEdges().get(0);
-        String idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl2", idWireStyle);
-        edge = graph1.getEdges().get(12);
-        idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl1", idWireStyle);
-
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12, false);
-        assertTrue(wireStyle.isPresent());
-        assertEquals(".wire_vl1 {stroke:#ff0000;stroke-width:1;}", wireStyle.get());
+        Edge edge = graph1.getEdges().get(12);
+        Map<String, String> wireStyle = styleProvider.getCssWireStyleAttributes(edge, false);
+        assertEquals(ImmutableMap.of("stroke", "#ff0000", "stroke-width", "1"), wireStyle);
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
+        Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertFalse(node3WTStyle.isEmpty());
         assertTrue(node3WTStyle.containsKey("stroke"));
         assertEquals("#a020f0", node3WTStyle.get("stroke"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
+        Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertFalse(node2WTStyle.isEmpty());
         assertTrue(node2WTStyle.containsKey("stroke"));
         assertEquals("#ff0000", node2WTStyle.get("stroke"));
@@ -138,7 +128,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(color.isPresent());
         assertEquals("#ff0000", color.get());
 
-        Map<String, String> attributesArrow = styleProvider.getAttributesArrow(1);
+        Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
         assertEquals(3, attributesArrow.size());
         assertTrue(attributesArrow.containsKey("fill"));
         assertEquals("black", attributesArrow.get("fill"));
@@ -147,7 +137,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(attributesArrow.containsKey("fill-opacity"));
         assertEquals("1", attributesArrow.get("fill-opacity"));
 
-        attributesArrow = styleProvider.getAttributesArrow(2);
+        attributesArrow = styleProvider.getSvgArrowStyleAttributes(2);
         assertEquals(3, attributesArrow.size());
         assertTrue(attributesArrow.containsKey("fill"));
         assertEquals("blue", attributesArrow.get("fill"));
