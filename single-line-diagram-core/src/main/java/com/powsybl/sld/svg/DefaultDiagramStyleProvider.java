@@ -6,20 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
-import static com.powsybl.sld.library.ComponentTypeName.NODE;
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
-
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
+
+import java.util.*;
+
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -39,7 +31,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
-        if (node.getComponentType().equals(NODE) && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+        if (node instanceof InternalNode && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
@@ -116,7 +108,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                     // phase shifter case
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
                 }
-            } else if (!isShowInternalNodes && node.getComponentType().equals(NODE)) {
+            } else if (!isShowInternalNodes && node instanceof InternalNode) {
                 attributes.put("stroke-opacity", "0");
                 attributes.put("fill-opacity", "0");
             }

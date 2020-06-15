@@ -292,7 +292,7 @@ public final class Graph {
         nodes.stream().filter(n -> n instanceof FeederNode && n.getAdjacentNodes().size() > 1)
                 .forEach(node -> {
                     // Create a new fictitious node
-                    FictitiousNode nf = new FictitiousNode(Graph.this, node.getId() + "Fictif");
+                    InternalNode nf = new InternalNode(Graph.this, node.getId() + "Fictif");
                     nodesToAdd.add(nf);
                     // Create all new edges and remove old ones
                     for (Node neighbor : node.getAdjacentNodes()) {
@@ -316,7 +316,7 @@ public final class Graph {
                                         node.getType() == Node.NodeType.FEEDER)
                                 .forEach(node -> {
                                     removeEdge(node, nodeSwitch);
-                                    FictitiousNode newNode = new FictitiousNode(Graph.this, nodeSwitch.getId() + "Fictif");
+                                    InternalNode newNode = new InternalNode(Graph.this, nodeSwitch.getId() + "Fictif");
                                     addNode(newNode);
                                     addEdge(node, newNode);
                                     addEdge(nodeSwitch, newNode);
@@ -348,7 +348,7 @@ public final class Graph {
         removeEdge(busNode, node);
         SwitchNode fNodeToBus = SwitchNode.createFictitious(Graph.this, node.getId() + "fSwitch" + suffix, node.isOpen());
         addNode(fNodeToBus);
-        FictitiousNode fNodeToSw = new FictitiousNode(Graph.this, node.getId() + "fNode" + suffix);
+        InternalNode fNodeToSw = new InternalNode(Graph.this, node.getId() + "fNode" + suffix);
         addNode(fNodeToSw);
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw);
