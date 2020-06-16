@@ -28,17 +28,17 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING3 = "WINDING3";
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
+    public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
-        if (node instanceof InternalNode && !isShowInternalNodes && !avoidSVGComponentsDuplication) {
+        if (node instanceof InternalNode && !isShowInternalNodes) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
                     .append(" {stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
             return Optional.of(style.toString());
         }
-        if (node.getType() == Node.NodeType.SWITCH && !avoidSVGComponentsDuplication) {
+        if (node.getType() == Node.NodeType.SWITCH) {
 
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
@@ -51,7 +51,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             return Optional.of(style.toString());
 
         }
-        if (node instanceof FeederNode && !avoidSVGComponentsDuplication) {
+        if (node instanceof FeederNode) {
             StringBuilder style = new StringBuilder();
             style.append(ARROW1).append(escapeClassName(node.getId()))
                     .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
@@ -79,17 +79,12 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public String getIdWireStyle(Edge edge) {
-        return WIRE_STYLE_CLASS + "_" + escapeClassName(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
+    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState) {
+        return Collections.emptyMap();
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Map<String, String> getNodeSVGStyle(Node node, ComponentSize size, String nameSubComponent, boolean isShowInternalNodes) {
+    public Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
         Optional<String> color = Optional.empty();
         Graph g = node.getGraph();
@@ -98,11 +93,11 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             String vlId = g.getVoltageLevelInfos().getId();
 
             if (node instanceof Middle3WTNode) {
-                color = getColorFictitious3WTNode((Middle3WTNode) node, nameSubComponent, vlId);
+                color = getColorFictitious3WTNode((Middle3WTNode) node, subComponentName, vlId);
             } else if (node instanceof Feeder2WTNode) {
-                if (nameSubComponent.equals(WINDING1)) {
+                if (subComponentName.equals(WINDING1)) {
                     color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
-                } else if (nameSubComponent.equals(WINDING2)) {
+                } else if (subComponentName.equals(WINDING2)) {
                     color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
                 } else {
                     // phase shifter case
@@ -124,8 +119,8 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 double vNom1 = n1.getGraph().getVoltageLevelInfos().getNominalVoltage();
                 double vNom2 = n2.getGraph().getVoltageLevelInfos().getNominalVoltage();
 
-                color = getColor(nameSubComponent.equals(WINDING1) ? vNom1 : vNom2,
-                                 nameSubComponent.equals(WINDING1) ? n1 : n2);
+                color = getColor(subComponentName.equals(WINDING1) ? vNom1 : vNom2,
+                                 subComponentName.equals(WINDING1) ? n1 : n2);
             } else if (adjacentNodes.size() == 3) {  // 3 windings transformer
                 adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
                 Node n1 = adjacentNodes.get(0);
@@ -133,7 +128,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 Node n3 = adjacentNodes.get(2);
 
                 Node n = n1;
-                switch (nameSubComponent) {
+                switch (subComponentName) {
                     case WINDING1:
                         n = !node.isRotated() ? n1 : n3;
                         break;
@@ -154,14 +149,14 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return attributes;
     }
 
-    private Optional<String> getColorFictitious3WTNode(Middle3WTNode node, String nameSubComponent, String vlId) {
+    private Optional<String> getColorFictitious3WTNode(Middle3WTNode node, String subComponentName, String vlId) {
         VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
         VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
         VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
 
         VoltageLevelInfos voltageLevelInfos = voltageLevelInfosLeg1;
 
-        if (nameSubComponent.equals(WINDING1)) {
+        if (subComponentName.equals(WINDING1)) {
             if (voltageLevelInfosLeg1.getId().equals(vlId)) {
                 voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg3 : voltageLevelInfosLeg2;
             } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
@@ -169,7 +164,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
                 voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg1;
             }
-        } else if (nameSubComponent.equals(WINDING2)) {
+        } else if (subComponentName.equals(WINDING2)) {
             if (voltageLevelInfosLeg1.getId().equals(vlId)) {
                 voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg3;
             } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
@@ -195,7 +190,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Map<String, String> getAttributesArrow(int num) {
+    public Map<String, String> getSvgArrowStyleAttributes(int num) {
         Map<String, String> ret = new HashMap<>();
         ret.put(STROKE, num == 1 ? "black" : "blue");
         ret.put("fill", num == 1 ? "black" : "blue");

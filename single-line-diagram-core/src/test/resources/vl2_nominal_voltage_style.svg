@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[.BUSBAR_SECTION {
+    <style><![CDATA[
+.BUSBAR_SECTION {
     stroke: rgb(0,0,0);
     stroke-width: 3;
 }
@@ -126,32 +127,75 @@
 .idFICT_95_vl2_95_4 {stroke-opacity:0; fill-opacity:0; visibility: hidden;} .idFICT_95_vl2_95_4 {stroke:#228b22;}
 .idd3WT_95_2 .open { visibility: hidden;}.idd3WT_95_2 .closed { visibility: visible;}
 .idb3WT_95_2 .open { visibility: hidden;}.idb3WT_95_2 .closed { visibility: visible;}
- #idvl2_95_Wire0 {stroke:#ff0000;stroke-width:1;stroke-dasharray:3,3}
- #idvl2_95_Wire1 {stroke:#a020f0;stroke-width:1;stroke-dasharray:3,3}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
- #idvl2_95_Wire4 {stroke:black;stroke-width:1;stroke-dasharray:3,3}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
-.wire_vl2 {stroke:#228b22;stroke-width:1;}
+.wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_ONE {
+    stroke-dasharray: 3,3;
+    stroke-width: 1;
+    stroke: #ff0000;
+}
+
+.wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_THREE {
+    stroke-dasharray: 3,3;
+    stroke-width: 1;
+    stroke: #a020f0;
+}
+
+.wire__95_vl2_95_bbs2_95_d2WT_95_2 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_d2WT_95_2_95_FICT_95_vl2_95_2 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_2WT_95_TWO_95_b2WT_95_2 {
+    stroke-dasharray: 3,3;
+    stroke-width: 1;
+    stroke: black;
+}
+
+.wire__95_vl2_95_b2WT_95_2_95_FICT_95_vl2_95_2 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_bbs2_95_d3WT_95_2 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_d3WT_95_2_95_FICT_95_vl2_95_4 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_b3WT_95_2 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
+.wire__95_vl2_95_b3WT_95_2_95_FICT_95_vl2_95_4 {
+    stroke-width: 1;
+    stroke: #228b22;
+}
+
 ]]></style>
     <g>
         <g class="BUSBAR_SECTION idbbs2" id="idbbs2" transform="translate(19.0,49.0)">
             <line y2="0" x1="0" x2="1.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="bbs2_NW_LABEL">bbs2</text>
         </g>
-        <polyline class="wire wire_vl1" points="19.0,56.0,19.0,49.0" id="idvl2_95_Wire0"/>
-        <polyline class="wire wire_vl3" points="19.0,56.0,19.0,49.0" id="idvl2_95_Wire1"/>
-        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire2"/>
-        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire3"/>
-        <polyline class="wire wire_vl2" points="19.0,41.0,19.0,39.0" id="idvl2_95_Wire4"/>
-        <polyline class="wire wire_vl2" points="19.0,39.0,19.0,49.0" id="idvl2_95_Wire5"/>
-        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire6"/>
-        <polyline class="wire wire_vl2" points="19.0,49.0,19.0,49.0" id="idvl2_95_Wire7"/>
-        <polyline class="wire wire_vl2" points="19.0,56.0,19.0,59.0" id="idvl2_95_Wire8"/>
-        <polyline class="wire wire_vl2" points="19.0,39.0,19.0,49.0" id="idvl2_95_Wire9"/>
+        <polyline class="wire wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_ONE" points="19.0,56.0,19.0,49.0" id="_95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_ONE"/>
+        <polyline class="wire wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_THREE" points="19.0,56.0,19.0,49.0" id="_95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_3WT_95_THREE"/>
+        <polyline class="wire wire__95_vl2_95_bbs2_95_d2WT_95_2" points="19.0,49.0,19.0,49.0" id="_95_vl2_95_bbs2_95_d2WT_95_2"/>
+        <polyline class="wire wire__95_vl2_95_d2WT_95_2_95_FICT_95_vl2_95_2" points="19.0,49.0,19.0,49.0" id="_95_vl2_95_d2WT_95_2_95_FICT_95_vl2_95_2"/>
+        <polyline class="wire wire__95_vl2_95_2WT_95_TWO_95_b2WT_95_2" points="19.0,41.0,19.0,39.0" id="_95_vl2_95_2WT_95_TWO_95_b2WT_95_2"/>
+        <polyline class="wire wire__95_vl2_95_b2WT_95_2_95_FICT_95_vl2_95_2" points="19.0,39.0,19.0,49.0" id="_95_vl2_95_b2WT_95_2_95_FICT_95_vl2_95_2"/>
+        <polyline class="wire wire__95_vl2_95_bbs2_95_d3WT_95_2" points="19.0,49.0,19.0,49.0" id="_95_vl2_95_bbs2_95_d3WT_95_2"/>
+        <polyline class="wire wire__95_vl2_95_d3WT_95_2_95_FICT_95_vl2_95_4" points="19.0,49.0,19.0,49.0" id="_95_vl2_95_d3WT_95_2_95_FICT_95_vl2_95_4"/>
+        <polyline class="wire wire__95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_b3WT_95_2" points="19.0,56.0,19.0,59.0" id="_95_vl2_95_FICT_95_vl2_95_3WT_95_fictif_95_b3WT_95_2"/>
+        <polyline class="wire wire__95_vl2_95_b3WT_95_2_95_FICT_95_vl2_95_4" points="19.0,39.0,19.0,49.0" id="_95_vl2_95_b3WT_95_2_95_FICT_95_vl2_95_4"/>
         <g class="TWO_WINDINGS_TRANSFORMER id2WT_95_TWO" id="id2WT_95_TWO" transform="translate(14.0,41.5)">
     <circle r="5" id="id2WT_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10" stroke="#228b22"/>
 
