@@ -7,12 +7,14 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.model.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -34,8 +36,8 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     }
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
-        Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
+    public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
+        Optional<String> defaultStyle = super.getCssNodeStyleAttributes(node, isShowInternalNodes);
 
         String color = getBaseColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage());
         if (node.getType() == Node.NodeType.SWITCH) {
@@ -60,24 +62,19 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     }
 
     @Override
-    public String getIdWireStyle(Edge edge) {
-        VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
-        return WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId());
-    }
+    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState) {
+        Map<String, String> style = new HashMap<>();
 
-    @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
         VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
         String color = getBaseColor(voltageLevelInfos.getNominalVoltage());
 
+        style.put("stroke", color);
+        style.put("stroke-width", "1");
+
         if (isHighLightLineState && network != null) {
-            Optional<String> style = buildWireStyle(edge, id, index, color);
-            if (style.isPresent()) {
-                return style;
-            }
+            buildWireStyle(edge, style, color);
         }
 
-        String style = "." + WIRE_STYLE_CLASS + "_" + escapeClassName(voltageLevelInfos.getId()) + " {stroke:" + color + ";stroke-width:1;}";
-        return Optional.of(style);
+        return style;
     }
 }

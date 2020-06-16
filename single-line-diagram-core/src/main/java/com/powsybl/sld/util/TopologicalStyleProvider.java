@@ -13,7 +13,6 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -114,8 +113,8 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
-        Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
+    public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
+        Optional<String> defaultStyle = super.getCssNodeStyleAttributes(node, isShowInternalNodes);
         if (node.getType() == NodeType.SWITCH) {
             return defaultStyle;
         }
@@ -130,8 +129,9 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index, boolean isHighLightLineState) {
-        String wireId = DiagramStyles.escapeId(id + "_Wire" + index);
+    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState) {
+        Map<String, String> style = new HashMap<>();
+
         Node bus;
         if (!(edge instanceof TwtEdge)) {
             bus = edge.getNode1().getType() == NodeType.BUS ? edge.getNode1() : findConnectedBus(edge.getNode1(), new ArrayList<>());
@@ -156,14 +156,14 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             }
         }
 
+        style.put("stroke", color);
+        style.put("stroke-width", "1");
+
         if (isHighLightLineState && network != null) {
-            Optional<String> style = buildWireStyle(edge, id, index, color);
-            if (style.isPresent()) {
-                return style;
-            }
+            buildWireStyle(edge, style, color);
         }
 
-        return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;fill-opacity:0;}");
+        return style;
     }
 
     private Node findConnectedBus(Node node, List<Node> visitedNodes) {
