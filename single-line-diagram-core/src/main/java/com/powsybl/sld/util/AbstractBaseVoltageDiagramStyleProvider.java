@@ -11,16 +11,10 @@ import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.FeederType;
-import com.powsybl.sld.model.FeederWithSideNode;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -70,7 +64,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return res;
     }
 
-    protected Optional<String> buildWireStyle(Edge edge, Map<String, String> style, String color) {
+    @Override
+    protected void addHighlightStateStyle(Edge edge, Map<String, String> style, String color) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
@@ -110,6 +105,5 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 }
             }
         }
-        return Optional.empty();
     }
 }

@@ -18,6 +18,16 @@ public class Feeder3WTLegNode extends FeederWithSideNode {
                 FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
+    @Override
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        // we consider this node represent the other side of the transformer so voltage level infos is the other
+        // side one
+        if (otherSideVoltageLevelInfos != null) {
+            return otherSideVoltageLevelInfos;
+        }
+        return super.getVoltageLevelInfos();
+    }
+
     public static Feeder3WTLegNode createForVoltageLevelDiagram(Graph graph, String id, String name, String equipmentId, Side side,
                                                                 VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new Feeder3WTLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);

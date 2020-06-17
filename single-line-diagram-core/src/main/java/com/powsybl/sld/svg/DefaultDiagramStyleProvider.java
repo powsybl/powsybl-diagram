@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.google.common.collect.ImmutableMap;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
 
@@ -78,34 +79,61 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return Optional.empty();
     }
 
+    protected String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        return null;
+    }
+
+    protected String getEdgeColor(Node node1, Node node2) {
+        if (node1.getVoltageLevelInfos() != null) {
+            return getNodeColor(node1.getVoltageLevelInfos(), node1);
+        } else {
+            return getNodeColor(node2.getVoltageLevelInfos(), node2);
+        }
+    }
+
+    protected void addHighlightStateStyle(Edge edge, Map<String, String> style, String color) {
+        // no highlight by default
+    }
+
     @Override
-    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState) {
-        return Collections.emptyMap();
+    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean highlightLineState) {
+        Node node1 = edge.getNode1();
+        Node node2 = edge.getNode2();
+        String color = getEdgeColor(node1, node2);
+        Map<String, String> style = new HashMap<>();
+        if (color != null) {
+            style.put("stroke", color);
+            style.put("stroke-width", "1");
+            if (highlightLineState) {
+                addHighlightStateStyle(edge, style, color);
+            }
+        }
+        return style;
     }
 
     @Override
     public Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes) {
         Map<String, String> attributes = new HashMap<>();
-        Optional<String> color = Optional.empty();
+        String color = null;
+
         Graph g = node.getGraph();
-
         if (g != null) {  // node inside a voltageLevel graph
-            String vlId = g.getVoltageLevelInfos().getId();
-
-            if (node instanceof Middle3WTNode) {
-                color = getColorFictitious3WTNode((Middle3WTNode) node, subComponentName, vlId);
-            } else if (node instanceof Feeder2WTNode) {
-                if (subComponentName.equals(WINDING1)) {
-                    color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
-                } else if (subComponentName.equals(WINDING2)) {
-                    color = getColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos().getNominalVoltage(), null);
-                } else {
-                    // phase shifter case
-                    color = getColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage(), null);
+            if (node.getType() != Node.NodeType.SWITCH) { // we don't color switches
+                if (node instanceof Middle3WTNode) {
+                    String vlId = g.getVoltageLevelInfos().getId();
+                    color = get3WTColor((Middle3WTNode) node, subComponentName, vlId);
+                } else if (node instanceof Feeder2WTNode) {
+                    if (subComponentName.equals(WINDING2)) {
+                        color = getNodeColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos(), node);
+                    }
+                } else if (!isShowInternalNodes && node instanceof InternalNode) {
+                    attributes.put("stroke-opacity", "0");
+                    attributes.put("fill-opacity", "0");
                 }
-            } else if (!isShowInternalNodes && node instanceof InternalNode) {
-                attributes.put("stroke-opacity", "0");
-                attributes.put("fill-opacity", "0");
+
+                if (color == null) {
+                    color = getNodeColor(node.getGraph().getVoltageLevelInfos(), node);
+                }
             }
         } else {  // node outside any voltageLevel graph (multi-terminal node)
             List<Node> adjacentNodes = node.getAdjacentNodes();
@@ -116,10 +144,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 Node n1 = adjacentNodes.get(0);
                 Node n2 = adjacentNodes.get(1);
 
-                double vNom1 = n1.getGraph().getVoltageLevelInfos().getNominalVoltage();
-                double vNom2 = n2.getGraph().getVoltageLevelInfos().getNominalVoltage();
-
-                color = getColor(subComponentName.equals(WINDING1) ? vNom1 : vNom2,
+                color = getNodeColor(subComponentName.equals(WINDING1) ? n1.getGraph().getVoltageLevelInfos() : n2.getGraph().getVoltageLevelInfos(),
                                  subComponentName.equals(WINDING1) ? n1 : n2);
             } else if (adjacentNodes.size() == 3) {  // 3 windings transformer
                 adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
@@ -140,16 +165,19 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                         break;
                     default:
                 }
-                color = getColor(n.getGraph().getVoltageLevelInfos().getNominalVoltage(), n);
+                color = getNodeColor(n.getGraph().getVoltageLevelInfos(), n);
             }
         }
 
-        color.ifPresent(s -> attributes.put(STROKE, s));
+        if (color != null) {
+            attributes.put("fill", color);
+            attributes.put(STROKE, color);
+        }
 
         return attributes;
     }
 
-    private Optional<String> getColorFictitious3WTNode(Middle3WTNode node, String subComponentName, String vlId) {
+    private String get3WTColor(Middle3WTNode node, String subComponentName, String vlId) {
         VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
         VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
         VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
@@ -182,20 +210,14 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             }
         }
 
-        return getColor(voltageLevelInfos.getNominalVoltage(), null);
-    }
-
-    protected Optional<String> getColor(double nominalV, Node node) {
-        return Optional.empty();
+        return getNodeColor(voltageLevelInfos, node);
     }
 
     @Override
     public Map<String, String> getSvgArrowStyleAttributes(int num) {
-        Map<String, String> ret = new HashMap<>();
-        ret.put(STROKE, num == 1 ? "black" : "blue");
-        ret.put("fill", num == 1 ? "black" : "blue");
-        ret.put("fill-opacity", "1");
-        return ret;
+        return ImmutableMap.of(STROKE, num == 1 ? "black" : "blue",
+                               "fill", num == 1 ? "black" : "blue",
+                               "fill-opacity", "1");
     }
 
     @Override

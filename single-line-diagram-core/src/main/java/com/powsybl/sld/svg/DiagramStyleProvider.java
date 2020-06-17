@@ -21,7 +21,7 @@ public interface DiagramStyleProvider {
 
     Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes);
 
-    Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState);
+    Map<String, String> getCssWireStyleAttributes(Edge edge, boolean highlightLineState);
 
     Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes);
 

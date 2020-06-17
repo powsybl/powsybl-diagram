@@ -28,7 +28,8 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -128,9 +129,6 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         Node f2WTNode = graph1.getNode("2WT_ONE");
         Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
         assertTrue(node2WTStyle.isEmpty());
-
-        Optional<String> color = styleProvider.getColor(400, null);
-        assertFalse(color.isPresent());
 
         Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
         assertEquals(3, attributesArrow.size());
