@@ -178,7 +178,9 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_bbs1_NW_LABEL">vl2_bbs1</text>
         </g>
-        <polyline class="wire wire__95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1" points="620.0,156.0,620.0,240.0" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1"/>
+        <g class="wire" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
+            <polyline points="620.0,156.0,620.0,240.0"/>
+        </g>
         <g class="ARROW1_vl2_95_gen1_UP" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,171.0)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
@@ -187,9 +189,15 @@
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire__95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1" points="620.0,260.0,620.0,370.0" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1" points="620.0,370.0,600.0,370.0" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1" points="670.0,562.0,670.0,480.0" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1"/>
+        <g class="wire" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
+            <polyline points="620.0,260.0,620.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
+            <polyline points="620.0,370.0,600.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
+            <polyline points="670.0,562.0,670.0,480.0"/>
+        </g>
         <g class="ARROW1_vl2_95_trf1_UP" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,665.0,537.0)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)" stroke="black"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
@@ -198,9 +206,15 @@
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)" stroke="blue"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire__95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1" points="670.0,460.0,670.0,370.0" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1" points="670.0,370.0,680.0,370.0" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2" points="700.0,150.0,700.0,205.0,722.0,205.0" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2"/>
+        <g class="wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
+            <polyline points="670.0,460.0,670.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
+            <polyline points="670.0,370.0,680.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2">
+            <polyline points="700.0,150.0,700.0,205.0,722.0,205.0"/>
+        </g>
         <g class="ARROW1_vl2_95_trf2_95_one_UP" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,695.0,165.0)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
@@ -209,7 +223,9 @@
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire__95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2" points="760.0,150.0,760.0,205.0,738.0,205.0" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2"/>
+        <g class="wire" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2">
+            <polyline points="760.0,150.0,760.0,205.0,738.0,205.0"/>
+        </g>
         <g class="ARROW1_vl2_95_trf2_95_two_UP" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,755.0,165.0)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
@@ -218,9 +234,15 @@
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
             <text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
         </g>
-        <polyline class="wire wire__95_vl2_95_FICT_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2" points="730.0,217.0,730.0,240.0" id="_95_vl2_95_FICT_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2" points="730.0,260.0,730.0,370.0" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2"/>
-        <polyline class="wire wire__95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1" points="730.0,370.0,720.0,370.0" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1"/>
+        <g class="wire" id="_95_vl2_95_FICT_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2">
+            <polyline points="730.0,217.0,730.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
+            <polyline points="730.0,260.0,730.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
+            <polyline points="730.0,370.0,720.0,370.0"/>
+        </g>
         <g class="GENERATOR idvl2_95_gen1" id="idvl2_95_gen1" transform="translate(614.0,144.0)">
             <use href="#GENERATOR"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
