@@ -149,7 +149,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl3_95_capa1_DOWN" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,905.0,191.0)">
      <g class="arrow-up" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW2_ARROW-arrow-up">
@@ -158,7 +158,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
             <polyline points="910.0,260.0,910.0,370.0"/>
@@ -176,7 +176,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_trf2_95_one_95_FICT_95_vl3_95_vl3_95_trf2_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl3_95_trf2_95_one_DOWN" id="_95_vl3_95_vl3_95_trf2_95_one_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,975.0,185.0)">
      <g class="arrow-up" id="_95_vl3_95_vl3_95_trf2_95_one_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2_ARROW-arrow-up">
@@ -185,7 +185,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_trf2_95_one_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl3_95_vl3_95_trf2_95_two_95_FICT_95_vl3_95_vl3_95_trf2">
             <polyline points="1060.0,150.0,1060.0,205.0,1028.0,205.0"/>
@@ -197,7 +197,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_trf2_95_two_95_FICT_95_vl3_95_vl3_95_trf2_ARROW1_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">10</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl3_95_trf2_95_two_DOWN" id="_95_vl3_95_vl3_95_trf2_95_two_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1055.0,185.0)">
      <g class="arrow-up" id="_95_vl3_95_vl3_95_trf2_95_two_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2_ARROW-arrow-up">
@@ -206,7 +206,7 @@
      <g class="arrow-down" id="_95_vl3_95_vl3_95_trf2_95_two_95_FICT_95_vl3_95_vl3_95_trf2_ARROW2_ARROW-arrow-down">
         <polygon points="0,0 10,0 5,10"/>
      </g>
-<text x="15.0" font-size="8" y="9.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">20</text>
+<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl3_95_FICT_95_vl3_95_vl3_95_trf2_95_vl3_95_btrf2">
             <polyline points="1020.0,217.0,1020.0,240.0"/>
