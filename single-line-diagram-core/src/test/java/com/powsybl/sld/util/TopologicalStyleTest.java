@@ -119,7 +119,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Edge edge = graph1.getEdges().get(12);
 
-        Map<String, String> wireStyle = styleProvider.getCssWireStyleAttributes(edge, false);
+        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
         assertEquals(ImmutableMap.of("stroke-width", "1", "stroke", "#FF0000"), wireStyle);
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");

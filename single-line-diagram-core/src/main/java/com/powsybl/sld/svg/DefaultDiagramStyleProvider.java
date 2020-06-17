@@ -96,7 +96,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean highlightLineState) {
+    public Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         String color = getEdgeColor(node1, node2);

@@ -106,7 +106,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertFalse(nodeStyle3.isPresent());
 
         Edge edge = graph1.getEdges().get(12);
-        Map<String, String> wireStyle = styleProvider.getCssWireStyleAttributes(edge, false);
+        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
         assertEquals(ImmutableMap.of("stroke", "#ff0000", "stroke-width", "1"), wireStyle);
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
