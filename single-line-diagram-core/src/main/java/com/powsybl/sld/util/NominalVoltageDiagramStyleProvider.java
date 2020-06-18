@@ -8,13 +8,8 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.VoltageLevelInfos;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -31,50 +26,7 @@ public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagr
     }
 
     @Override
-    protected Optional<String> getColor(double nominalV, Node node) {
-        return Optional.of(getBaseColor(nominalV));
-    }
-
-    @Override
-    public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
-        Optional<String> defaultStyle = super.getCssNodeStyleAttributes(node, isShowInternalNodes);
-
-        String color = getBaseColor(node.getGraph().getVoltageLevelInfos().getNominalVoltage());
-        if (node.getType() == Node.NodeType.SWITCH) {
-            return defaultStyle;
-        } else {
-            return Optional.of(defaultStyle.orElse("") + " ." + escapeId(node.getId()) + " {stroke:" + color + ";}");
-        }
-    }
-
-    private VoltageLevelInfos getVoltageLevelInfos(Edge edge) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        VoltageLevelInfos voltageLevelInfos;
-        if (node1 instanceof Middle3WTNode && node2 instanceof Feeder3WTLegNode) {
-            voltageLevelInfos = ((Feeder3WTLegNode) node2).getOtherSideVoltageLevelInfos();
-        } else if (node1 instanceof Feeder3WTLegNode && node2 instanceof Middle3WTNode) {
-            voltageLevelInfos = ((Feeder3WTLegNode) node1).getOtherSideVoltageLevelInfos();
-        } else {
-            voltageLevelInfos = node1.getGraph() != null ? node1.getGraph().getVoltageLevelInfos() : node2.getGraph().getVoltageLevelInfos();
-        }
-        return voltageLevelInfos;
-    }
-
-    @Override
-    public Map<String, String> getCssWireStyleAttributes(Edge edge, boolean isHighLightLineState) {
-        Map<String, String> style = new HashMap<>();
-
-        VoltageLevelInfos voltageLevelInfos = getVoltageLevelInfos(edge);
-        String color = getBaseColor(voltageLevelInfos.getNominalVoltage());
-
-        style.put("stroke", color);
-        style.put("stroke-width", "1");
-
-        if (isHighLightLineState && network != null) {
-            buildWireStyle(edge, style, color);
-        }
-
-        return style;
+    protected String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        return getBaseColor(voltageLevelInfos.getNominalVoltage());
     }
 }

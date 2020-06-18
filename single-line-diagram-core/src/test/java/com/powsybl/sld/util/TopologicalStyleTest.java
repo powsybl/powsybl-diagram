@@ -103,34 +103,28 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
-        assertTrue(nodeStyle1.isPresent());
-        assertEquals(" #idbbs1 {stroke:#FF0000;}", nodeStyle1.get());
+        assertFalse(nodeStyle1.isPresent());
 
         Node node2 = graph2.getNode("bbs2");
         Optional<String> nodeStyle2 = styleProvider.getCssNodeStyleAttributes(node2, false);
-        assertTrue(nodeStyle2.isPresent());
-        assertEquals(" #idbbs2 {stroke:#808080;}", nodeStyle2.get());
+        assertFalse(nodeStyle2.isPresent());
 
         Node node3 = graph3.getNode("bbs3");
         Optional<String> nodeStyle3 = styleProvider.getCssNodeStyleAttributes(node3, false);
-        assertTrue(nodeStyle3.isPresent());
-        assertEquals(" #idbbs3 {stroke:#A020EF;}", nodeStyle3.get());
+        assertFalse(nodeStyle3.isPresent());
 
         Edge edge = graph1.getEdges().get(12);
 
-        Map<String, String> wireStyle = styleProvider.getCssWireStyleAttributes(edge, false);
+        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
         assertEquals(ImmutableMap.of("stroke-width", "1", "stroke", "#FF0000"), wireStyle);
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
-        assertTrue(node3WTStyle.isEmpty());
+        assertEquals(ImmutableMap.of("fill", "#A020EF", "stroke", "#A020EF"), node3WTStyle);
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
-        assertTrue(node2WTStyle.isEmpty());
-
-        Optional<String> color = styleProvider.getColor(400, null);
-        assertFalse(color.isPresent());
+        assertEquals(ImmutableMap.of("fill", "#FF0000", "stroke", "#FF0000"), node2WTStyle);
 
         Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
         assertEquals(3, attributesArrow.size());

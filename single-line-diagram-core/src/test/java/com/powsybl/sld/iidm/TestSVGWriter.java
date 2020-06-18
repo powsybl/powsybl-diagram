@@ -716,7 +716,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30);
 
-        Map<String, Graph> mapGr = new HashMap<>();
+        Map<String, Graph> mapGr = new LinkedHashMap<>();
         mapGr.put("/vl1.svg", g1);
         mapGr.put("/vl2.svg", g2);
         mapGr.put("/vl3.svg", g3);
