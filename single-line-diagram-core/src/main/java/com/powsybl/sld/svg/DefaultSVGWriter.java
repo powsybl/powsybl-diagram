@@ -88,10 +88,9 @@ public class DefaultSVGWriter implements SVGWriter {
                                Graph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Path svgFile) {
         try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, nodeLabelConfiguration, writer);
+            return write(prefixId, graph, initProvider, styleProvider, writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -108,7 +107,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                Graph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
@@ -119,7 +117,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider);
 
         transformDocument(document, writer);
 
@@ -175,8 +173,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        Graph graph,
                                        Document document,
                                        DiagramInitialValueProvider initProvider,
-                                       DiagramStyleProvider styleProvider,
-                                       NodeLabelConfiguration nodeLabelConfiguration) {
+                                       DiagramStyleProvider styleProvider) {
         GraphMetadata metadata = new GraphMetadata();
 
         Element root = document.createElement("g");
@@ -185,7 +182,7 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
-        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider);
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
@@ -198,8 +195,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     Element root,
                                     GraphMetadata metadata,
                                     DiagramInitialValueProvider initProvider,
-                                    DiagramStyleProvider styleProvider,
-                                    NodeLabelConfiguration nodeLabelConfiguration) {
+                                    DiagramStyleProvider styleProvider) {
         AnchorPointProvider anchorPointProvider = (type, id) -> {
             if (type.equals(BUSBAR_SECTION)) {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
@@ -219,8 +215,7 @@ public class DefaultSVGWriter implements SVGWriter {
         List<Node> remainingNodes = graph.getNodes();
 
         List<Node> nodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider,
-                nodeLabelConfiguration, nodesToDraw);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDraw);
 
         remainingNodes.removeAll(nodesToDraw);
 
@@ -228,16 +223,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
         for (Cell cell : graph.getCells()) {
             remainingEdges.removeAll(drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider,
-                    styleProvider, nodeLabelConfiguration));
+                    styleProvider));
             remainingNodes.removeAll(cell.getNodes());
         }
         drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration, remainingNodes);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodes);
     }
 
     private List<Edge> drawCell(String prefixId, Element root, Graph graph, Cell cell,
                                 GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramInitialValueProvider initProvider,
-                                DiagramStyleProvider styleProvider, NodeLabelConfiguration nodeLabelConfiguration) {
+                                DiagramStyleProvider styleProvider) {
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
         // then we draw all the edges, and finally we draw the switch nodes
@@ -247,7 +242,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, "cell " + cellId);
 
-        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider,
                 cell.getNodes().stream()
                         .filter(n -> !(n instanceof BusNode || n instanceof SwitchNode)).collect(Collectors.toList()));
 
@@ -256,7 +251,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 .distinct().collect(Collectors.toList());
         drawEdges(prefixId, g, graph, edgesToDraw, metadata, anchorPointProvider, initProvider, styleProvider);
 
-        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodeLabelConfiguration,
+        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider,
                 cell.getNodes().stream().filter(n -> n instanceof SwitchNode).collect(Collectors.toList()));
         root.appendChild(g);
         return edgesToDraw;
@@ -273,10 +268,9 @@ public class DefaultSVGWriter implements SVGWriter {
                                SubstationGraph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Path svgFile) {
         try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, nodeLabelConfiguration, writer);
+            return write(prefixId, graph, initProvider, styleProvider, writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -293,7 +287,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                SubstationGraph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
@@ -305,7 +298,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider);
 
         transformDocument(document, writer);
 
@@ -329,8 +322,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        SubstationGraph graph,
                                        Document document,
                                        DiagramInitialValueProvider initProvider,
-                                       DiagramStyleProvider styleProvider,
-                                       NodeLabelConfiguration nodeLabelConfiguration) {
+                                       DiagramStyleProvider styleProvider) {
         GraphMetadata metadata = new GraphMetadata();
 
         Element root = document.createElement("g");
@@ -344,7 +336,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        drawSubstation(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        drawSubstation(prefixId, graph, root, metadata, initProvider, styleProvider);
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
@@ -363,11 +355,10 @@ public class DefaultSVGWriter implements SVGWriter {
                                   Element root,
                                   GraphMetadata metadata,
                                   DiagramInitialValueProvider initProvider,
-                                  DiagramStyleProvider styleProvider,
-                                  NodeLabelConfiguration nodeLabelConfiguration) {
+                                  DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
         for (Graph vlGraph : graph.getNodes()) {
-            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
 
         AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
@@ -464,7 +455,6 @@ public class DefaultSVGWriter implements SVGWriter {
                              AnchorPointProvider anchorPointProvider,
                              DiagramInitialValueProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             NodeLabelConfiguration nodeLabelConfiguration,
                              List<Node> nodes) {
         nodes.stream().forEach(node -> {
 
@@ -486,7 +476,7 @@ public class DefaultSVGWriter implements SVGWriter {
             BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
 
             if (!node.isFictitious()) {
-                drawNodeLabel(prefixId, g, node, initProvider, nodeLabelConfiguration);
+                drawNodeLabel(prefixId, g, node, initProvider);
             }
             root.appendChild(g);
 
@@ -522,24 +512,16 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void drawNodeLabel(String prefixId, Element g, Node node,
-                                 DiagramInitialValueProvider initProvider,
-                                 NodeLabelConfiguration nodeLabelConfiguration) {
-        List<String> labelsNode = initProvider.getNodeLabelValue(node);
-        List<LabelPosition> labelsPosition = nodeLabelConfiguration.getLabelsPosition(node);
-
-        if (labelsPosition.size() != labelsNode.size()) {
-            throw new AssertionError("Number of node labels <> Number of labels positions");
-        }
-
-        for (int i = 0; i < labelsNode.size(); ++i) {
-            drawLabel(prefixId + labelsPosition.get(i).getPositionName(), labelsNode.get(i), node.isRotated(),
-                    labelsPosition.get(i).getdX(), labelsPosition.get(i).getdY(),
-                    g, FONT_SIZE, labelsPosition.get(i).isCentered(), labelsPosition.get(i).getShiftAngle(), false);
+    protected void drawNodeLabel(String prefixId, Element g, Node node, DiagramInitialValueProvider initProvider) {
+        for (DiagramInitialValueProvider.NodeLabel nodeLabel : initProvider.getNodeLabels(node)) {
+            LabelPosition labelPosition = nodeLabel.getPosition();
+            drawLabel(prefixId + labelPosition.getPositionName(), nodeLabel.getLabel(), node.isRotated(),
+                    labelPosition.getdX(), labelPosition.getdY(), g, FONT_SIZE, labelPosition.isCentered(),
+                    labelPosition.getShiftAngle(), false);
         }
     }
 
-    /*
+     /*
      * Drawing the graph label
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
@@ -1199,10 +1181,9 @@ public class DefaultSVGWriter implements SVGWriter {
                                ZoneGraph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Path svgFile) {
         try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, nodeLabelConfiguration, writer);
+            return write(prefixId, graph, initProvider, styleProvider, writer);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -1213,7 +1194,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                ZoneGraph graph,
                                DiagramInitialValueProvider initProvider,
                                DiagramStyleProvider styleProvider,
-                               NodeLabelConfiguration nodeLabelConfiguration,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
@@ -1226,7 +1206,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider, nodeLabelConfiguration);
+        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider);
 
         transformDocument(document, writer);
 
@@ -1238,8 +1218,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                      List<Graph> vlGraphs,
                                      Document document,
                                      DiagramInitialValueProvider initProvider,
-                                     DiagramStyleProvider styleProvider,
-                                     NodeLabelConfiguration nodeLabelConfiguration) {
+                                     DiagramStyleProvider styleProvider) {
         GraphMetadata metadata = new GraphMetadata();
 
         Element root = document.createElement("g");
@@ -1253,7 +1232,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        drawZone(prefixId, graph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+        drawZone(prefixId, graph, root, metadata, initProvider, styleProvider);
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
@@ -1272,10 +1251,9 @@ public class DefaultSVGWriter implements SVGWriter {
                           Element root,
                           GraphMetadata metadata,
                           DiagramInitialValueProvider initProvider,
-                          DiagramStyleProvider styleProvider,
-                          NodeLabelConfiguration nodeLabelConfiguration) {
+                          DiagramStyleProvider styleProvider) {
         for (SubstationGraph sGraph : graph.getNodes()) {
-            drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider, nodeLabelConfiguration);
+            drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider);
         }
 
         drawLines(prefixId, root, graph, metadata);

@@ -7,9 +7,11 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,10 +21,17 @@ import java.util.Objects;
  */
 public class DefaultDiagramInitialValueProvider implements DiagramInitialValueProvider {
 
-    private final Network network;
+    private static final double LABEL_OFFSET = 5d;
+    private static final int FONT_SIZE = 8;
 
-    public DefaultDiagramInitialValueProvider(Network net) {
-        network = Objects.requireNonNull(net);
+    private final Network network;
+    private final ComponentLibrary componentLibrary;
+    private final LayoutParameters layoutParameters;
+
+    public DefaultDiagramInitialValueProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+        this.network = Objects.requireNonNull(net);
+        this.componentLibrary = Objects.requireNonNull(componentLibrary);
+        this.layoutParameters = Objects.requireNonNull(layoutParameters);
     }
 
     @Override
@@ -96,14 +105,37 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     }
 
     @Override
-    public List<String> getNodeLabelValue(Node node) {
+    public List<NodeLabel> getNodeLabels(Node node) {
         Objects.requireNonNull(node);
 
-        List<String> res = new ArrayList<>();
-        if (node instanceof FeederNode || node instanceof BusNode) {
-            res.add(node.getLabel());
+        List<NodeLabel> nodeLabels = new LinkedList<>();
+        if (node instanceof FeederNode) {
+            BusCell.Direction direction = node.getCell() != null
+                    ? ((ExternCell) node.getCell()).getDirection()
+                    : BusCell.Direction.UNDEFINED;
+
+            double yShift = -LABEL_OFFSET;
+            String positionName = "";
+            double angle = 0;
+            if (node.getCell() != null) {
+                yShift = direction == BusCell.Direction.TOP
+                        ? -LABEL_OFFSET
+                        : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + FONT_SIZE + LABEL_OFFSET);
+                positionName = direction == BusCell.Direction.TOP ? "N" : "S";
+                if (layoutParameters.isLabelDiagonal()) {
+                    angle = direction == BusCell.Direction.TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();
+                }
+            }
+
+            LabelPosition labelPosition = new LabelPosition(node.getId() + "_" + positionName + "_LABEL",
+                    layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle);
+            nodeLabels.add(new NodeLabel(node.getLabel(), labelPosition));
+        } else if (node instanceof BusNode) {
+            LabelPosition labelPosition = new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
+            nodeLabels.add(new NodeLabel(node.getLabel(), labelPosition));
         }
-        return res;
+
+        return nodeLabels;
     }
 
     private InitialValue buildInitialValue(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {

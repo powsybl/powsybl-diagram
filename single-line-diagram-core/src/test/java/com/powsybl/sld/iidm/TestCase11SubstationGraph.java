@@ -248,7 +248,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
 
         compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",
-                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramInitialValueProvider(network, componentLibrary, layoutParameters),
                 new DefaultDiagramStyleProvider());
     }
 }

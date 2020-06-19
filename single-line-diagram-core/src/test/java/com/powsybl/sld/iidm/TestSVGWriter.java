@@ -7,13 +7,11 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.svg.InitialValue;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,6 +46,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private SubstationGraph substG;
     private DiagramInitialValueProvider initValueProvider;
     private DiagramInitialValueProvider noFeederValueProvider;
+    private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -640,63 +639,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         createSubstationGraph();
         createZoneGraph();
 
-        // initValueProvider example for the test :
-        //
-        initValueProvider = new DiagramInitialValueProvider() {
-            @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
-                }
-                return initialValue;
-            }
-
-            @Override
-            public List<String> getNodeLabelValue(Node node) {
-                List<String> res = new ArrayList<>();
-                if (node instanceof FeederNode || node instanceof BusNode) {
-                    res.add(node.getLabel());
-                }
-                return res;
-            }
-        };
-
-        // no feeder value provider example for the test :
-        //
-        noFeederValueProvider = new DiagramInitialValueProvider() {
-            @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, null, null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
-                }
-                return initialValue;
-            }
-
-            @Override
-            public List<String> getNodeLabelValue(Node node) {
-                List<String> res = new ArrayList<>();
-                if (node instanceof FeederNode || node instanceof BusNode) {
-                    res.add(node.getLabel());
-                }
-                return res;
-            }
-        };
-    }
-
-    @Test
-    public void test() {
-
-        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
-
         // Layout parameters :
         //
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)
@@ -716,6 +661,43 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30);
 
+        // initValueProvider example for the test :
+        //
+        initValueProvider = new DefaultDiagramInitialValueProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
+                }
+                return initialValue;
+            }
+        };
+
+        // no feeder value provider example for the test :
+        //
+        noFeederValueProvider = new DefaultDiagramInitialValueProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, null, null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                }
+                return initialValue;
+            }
+
+        };
+    }
+
+    @Test
+    public void test() {
+
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
+
         Map<String, Graph> mapGr = new LinkedHashMap<>();
         mapGr.put("/vl1.svg", g1);
         mapGr.put("/vl2.svg", g2);
@@ -734,8 +716,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // Same tests than before, with optimized svg :
         //
-        LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
-        layoutParameters2.setAvoidSVGComponentsDuplication(true);
+        layoutParameters.setAvoidSVGComponentsDuplication(true);
 
         mapGr.clear();
         mapGr.put("/vl1_optimized.svg", g1);
@@ -744,37 +725,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         for (String filename : mapGr.keySet()) {
             // SVG file generation first voltage level and comparison to reference :
-            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters2, initValueProvider, styleProvider));
+            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters, initValueProvider, styleProvider));
         }
 
         // SVG file generation for substation and comparison to reference
-        assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters2, initValueProvider, styleProvider));
+        assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
     @Test
     public void testWriteZone() {
         DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
-
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(80)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(false)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setDrawStraightWires(false)
-                .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30);
-
+        layoutParameters.setShowGrid(false);
         assertEquals(toString("/zone.svg"), toSVG(zGraph, "/zone.svg", layoutParameters, initValueProvider, styleProvider));
     }
 

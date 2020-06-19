@@ -255,7 +255,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
                 new PositionVoltageLevelLayoutFactory(), false);
         compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
-                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramInitialValueProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }
 }

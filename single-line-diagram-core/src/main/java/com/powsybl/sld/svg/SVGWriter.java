@@ -25,42 +25,36 @@ public interface SVGWriter {
                         Graph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         Graph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     GraphMetadata write(String prefixId,
                         ZoneGraph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         ZoneGraph graph,
                         DiagramInitialValueProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     LayoutParameters getLayoutParameters();

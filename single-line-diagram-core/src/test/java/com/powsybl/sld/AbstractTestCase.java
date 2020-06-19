@@ -12,7 +12,6 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
-import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramInitialValueProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -66,7 +65,6 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);
@@ -86,7 +84,6 @@ public abstract class AbstractTestCase {
             diagram.writeSvg("",
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider, styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
             writeToFileInHomeDir(refMetdataName, metadataWriter);
@@ -109,7 +106,6 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);
@@ -130,7 +126,6 @@ public abstract class AbstractTestCase {
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider,
                     styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
             writeToFileInHomeDir(refMetdataName, metadataWriter);
@@ -186,7 +181,6 @@ public abstract class AbstractTestCase {
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);

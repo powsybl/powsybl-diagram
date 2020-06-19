@@ -7,8 +7,10 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.Node;
+import org.apache.batik.anim.dom.SVGOMDocument;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -16,11 +18,29 @@ import java.util.List;
  */
 public interface DiagramInitialValueProvider {
 
+    class NodeLabel {
+        private final String label;
+        private final LabelPosition position;
+
+        public NodeLabel(String label, LabelPosition labelPosition){
+            this.label = label;
+            this.position = labelPosition;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public LabelPosition getPosition() {
+            return position;
+        }
+    }
+
     public enum Direction {
         UP, DOWN;
     }
 
     InitialValue getInitialValue(Node node);
 
-    List<String> getNodeLabelValue(Node node);
+    List<NodeLabel> getNodeLabels(Node node);
 }
