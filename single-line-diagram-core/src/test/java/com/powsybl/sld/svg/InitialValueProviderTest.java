@@ -89,7 +89,7 @@ public class InitialValueProviderTest {
         Network network2 = Network.create("testCase2", "test2");
         ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
         LayoutParameters layoutParameters = new LayoutParameters();
-        DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2, componentLibrary, layoutParameters);
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
@@ -98,7 +98,7 @@ public class InitialValueProviderTest {
         assertFalse(init.getLabel4().isPresent());
         assertFalse(init.getArrowDirection1().isPresent());
         assertFalse(init.getArrowDirection2().isPresent());
-        DefaultDiagramInitialValueProvider initProvider1 = new DefaultDiagramInitialValueProvider(network, componentLibrary, layoutParameters);
+        DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
         InitialValue init1 = initProvider1.getInitialValue(g.getNode("svc"));
         assertTrue(init1.getLabel1().isPresent());
         assertTrue(init1.getLabel2().isPresent());

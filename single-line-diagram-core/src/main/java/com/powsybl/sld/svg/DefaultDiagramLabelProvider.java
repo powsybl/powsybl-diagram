@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at franck.lecuyer@rte-france.com>
  */
-public class DefaultDiagramInitialValueProvider implements DiagramInitialValueProvider {
+public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
     private static final int FONT_SIZE = 8;
@@ -28,7 +28,7 @@ public class DefaultDiagramInitialValueProvider implements DiagramInitialValuePr
     private final ComponentLibrary componentLibrary;
     private final LayoutParameters layoutParameters;
 
-    public DefaultDiagramInitialValueProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
+    public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.network = Objects.requireNonNull(net);
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);

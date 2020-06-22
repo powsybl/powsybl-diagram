@@ -64,12 +64,12 @@ public final class SubstationDiagram {
     }
 
     public void writeSvg(String prefixId, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
-                         DiagramInitialValueProvider initProvider, DiagramStyleProvider styleProvider, Path svgFile) {
+                         DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Path svgFile) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
         writeSvg(prefixId, writer, svgFile, initProvider, styleProvider);
     }
 
-    public void writeSvg(String prefixId, SVGWriter writer, Path svgFile, DiagramInitialValueProvider initProvider,
+    public void writeSvg(String prefixId, SVGWriter writer, Path svgFile, DiagramLabelProvider initProvider,
                          DiagramStyleProvider styleProvider) {
         Path dir = svgFile.toAbsolutePath().getParent();
         String svgFileName = svgFile.getFileName().toString();
@@ -86,7 +86,7 @@ public final class SubstationDiagram {
     }
 
     public void writeSvg(String prefixId, SVGWriter writer, Writer svgWriter, Writer metadataWriter,
-                         DiagramInitialValueProvider initProvider,
+                         DiagramLabelProvider initProvider,
                          DiagramStyleProvider styleProvider) {
         writeSvg(prefixId, writer,
                 initProvider,
@@ -97,7 +97,7 @@ public final class SubstationDiagram {
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         DiagramInitialValueProvider initProvider,
+                         DiagramLabelProvider initProvider,
                          DiagramStyleProvider styleProvider,
                          Writer svgWriter, Writer metadataWriter) {
         Objects.requireNonNull(writer);

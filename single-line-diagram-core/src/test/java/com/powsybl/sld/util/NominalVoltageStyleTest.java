@@ -11,19 +11,16 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.iidm.TestSVGWriter;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -164,7 +161,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
                 .setVerticalSnakeLinePadding(30)
                 .setHighlightLineState(true);
 
-        DiagramInitialValueProvider noFeederValueProvider = new DefaultDiagramInitialValueProvider(
+        DiagramLabelProvider noFeederValueProvider = new DefaultDiagramLabelProvider(
                 Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public InitialValue getInitialValue(Node node) {

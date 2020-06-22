@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public interface DiagramInitialValueProvider {
+public interface DiagramLabelProvider {
 
     class NodeLabel {
         private final String label;

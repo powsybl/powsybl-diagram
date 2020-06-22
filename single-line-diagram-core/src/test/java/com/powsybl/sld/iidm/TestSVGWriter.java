@@ -44,8 +44,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private Graph g2;
     private Graph g3;
     private SubstationGraph substG;
-    private DiagramInitialValueProvider initValueProvider;
-    private DiagramInitialValueProvider noFeederValueProvider;
+    private DiagramLabelProvider initValueProvider;
+    private DiagramLabelProvider noFeederValueProvider;
     private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
@@ -663,7 +663,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // initValueProvider example for the test :
         //
-        initValueProvider = new DefaultDiagramInitialValueProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public InitialValue getInitialValue(Node node) {
                 InitialValue initialValue;
@@ -678,7 +678,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // no feeder value provider example for the test :
         //
-        noFeederValueProvider = new DefaultDiagramInitialValueProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public InitialValue getInitialValue(Node node) {
                 InitialValue initialValue;

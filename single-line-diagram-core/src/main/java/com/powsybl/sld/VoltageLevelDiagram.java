@@ -63,7 +63,7 @@ public final class VoltageLevelDiagram {
     public void writeSvg(String prefixId,
                          ComponentLibrary componentLibrary,
                          LayoutParameters layoutParameters,
-                         DiagramInitialValueProvider initialValueProvider,
+                         DiagramLabelProvider initialValueProvider,
                          DiagramStyleProvider styleProvider,
                          Path svgFile) {
         SVGWriter writer = new DefaultSVGWriter(componentLibrary, layoutParameters);
@@ -75,7 +75,7 @@ public final class VoltageLevelDiagram {
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         DiagramInitialValueProvider initProvider,
+                         DiagramLabelProvider initProvider,
                          DiagramStyleProvider styleProvider,
                          Path svgFile) {
         Path dir = svgFile.toAbsolutePath().getParent();
@@ -93,7 +93,7 @@ public final class VoltageLevelDiagram {
 
     public void writeSvg(String prefixId,
                          SVGWriter writer,
-                         DiagramInitialValueProvider initProvider,
+                         DiagramLabelProvider initProvider,
                          DiagramStyleProvider styleProvider,
                          Writer svgWriter,
                          Writer metadataWriter) {

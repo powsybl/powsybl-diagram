@@ -252,7 +252,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
 
-                DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get(), getComponentLibrary(), diagramLayoutParameters);
+                DiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(networkProperty.get(), getComponentLibrary(), diagramLayoutParameters);
                 GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
 
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
