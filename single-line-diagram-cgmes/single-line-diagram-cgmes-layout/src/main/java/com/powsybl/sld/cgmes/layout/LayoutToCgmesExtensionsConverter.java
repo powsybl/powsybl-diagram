@@ -79,7 +79,7 @@ public class LayoutToCgmesExtensionsConverter {
         return diagramData;
     }
 
-    private boolean isNodeSurroundedbySwitches(Node node) {
+    private boolean isNodeSurroundedbySwitchesOrFeeders(Node node) {
         return node.getAdjacentNodes().stream().allMatch(n -> Node.NodeType.SWITCH.equals(n.getType()) || Node.NodeType.FEEDER.equals(n.getType()));
     }
 
@@ -101,13 +101,13 @@ public class LayoutToCgmesExtensionsConverter {
             vlGraph.removeUnnecessaryFictitiousNodes();
             AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
 
-            //retrieve fictitious nodes surrounded by switches, to be exported to DL
-            List<Node> nodesSurroundedBySwitches = vlGraph.getNodes()
+            //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL
+            List<Node> fictitiousNodes = vlGraph.getNodes()
                     .stream()
                     .filter(Node::isFictitious)
-                    .filter(this::isNodeSurroundedbySwitches)
+                    .filter(this::isNodeSurroundedbySwitchesOrFeeders)
                     .collect(Collectors.toList());
-            nodesSurroundedBySwitches.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode ->
+            fictitiousNodes.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode ->
                 VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName, Integer.parseInt(fNode.getName()), new DiagramPoint(fNode.getX(), fNode.getY(), 0))
             );
 
