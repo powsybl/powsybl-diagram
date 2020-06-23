@@ -206,6 +206,6 @@ public class LayoutToCgmesExtensionsTest {
         VoltageLevel vl3 = network.getVoltageLevel("V3");
         assertFalse(VoltageLevelDiagramData.checkDiagramData(vl3));
 
-        assertTrue(VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl1, vl1.getSubstation().getId()).length == 2);
+        assertEquals(2, VoltageLevelDiagramData.getInternalNodeDiagramPoints(vl1, vl1.getSubstation().getId()).length);
     }
 }
