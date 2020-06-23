@@ -521,7 +521,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-     /*
+    /*
      * Drawing the graph label
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
@@ -617,15 +617,15 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
-        Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(node.getComponentType());
+        String componentType = node.getComponentType();
         transformComponent(node, g);
-        if (subComponents != null && canInsertComponentSVG(node)) {
+        if (componentLibrary.getSvgDocument(componentType) != null && canInsertComponentSVG(node)) {
             String componentDefsId = node.getComponentType();
             if (node.getComponentType().equals(BREAKER)
                     || node.getComponentType().equals(DISCONNECTOR)) {
                 componentDefsId += node.isOpen() ? "-open" : "-closed";
             }
-            insertComponentSVGIntoDocumentSVG(prefixId, subComponents, g, node, styleProvider, componentDefsId, false);
+            insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, node, styleProvider, componentDefsId);
         }
     }
 
@@ -662,12 +662,13 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertComponentSVGIntoDocumentSVG(String prefixId,
-                                                     Map<String, SVGOMDocument> subComponents,
+                                                     String componentType,
                                                      Element g, Node node,
                                                      DiagramStyleProvider styleProvider,
-                                                     String componentDefsId,
-                                                     boolean forArrow) {
+                                                     String componentDefsId) {
+
         ComponentSize size = componentLibrary.getSize(node.getComponentType());
+        Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
 
         handleNodeRotation(node);
 
@@ -707,11 +708,8 @@ public class DefaultSVGWriter implements SVGWriter {
         } else {
             // Adding <use> markup to reuse the svg defined in the <defs> part
             String prefixHref = "#" + componentDefsId;
-            String componentType = !forArrow ? node.getComponentType() : ARROW;
-
-            Map<String, SVGOMDocument> subCmps = componentLibrary.getSvgDocument(componentType);
-            if (subCmps != null) {
-                Set<String> subCmpsName = subCmps.keySet();
+            if (subComponents != null) {
+                Set<String> subCmpsName = subComponents.keySet();
                 subCmpsName.forEach(s -> {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
@@ -731,13 +729,14 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertRotatedComponentSVGIntoDocumentSVG(String prefixId,
-                                                            Map<String, SVGOMDocument> subComponents,
+                                                            String componentType,
                                                             Element g, double angle,
                                                             double cx, double cy,
                                                             String componentDefsId) {
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
             // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
             // If SVG are written otherwise, it will not work correctly.
+            Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
             if (subComponents != null) {
                 for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
                     SVGOMDocument svgSubComponent = subComponent.getValue();
@@ -871,7 +870,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                          DiagramStyleProvider styleProvider) {
         InitialValue init = initProvider.getInitialValue(n);
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
-        Map<String, SVGOMDocument> arr = componentLibrary.getSvgDocument(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
         double shY = cd.getSize().getHeight() - LABEL_OFFSET + (double) FONT_SIZE / 2;
@@ -894,9 +892,9 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
             } else {
-                insertComponentSVGIntoDocumentSVG(prefixId, arr, g1, n, styleProvider, defsId, true);
+                insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, n, styleProvider, defsId);
             }
             drawLabel(null, StringUtils.rightPad(label1.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g1, FONT_SIZE, false, 0, true);
 
@@ -928,9 +926,9 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, arr, g2, 180, 5, 5, defsId);
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, 180, 5, 5, defsId);
             } else {
-                insertComponentSVGIntoDocumentSVG(prefixId, arr, g2, n, styleProvider, defsId, true);
+                insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, n, styleProvider, defsId);
             }
             drawLabel(null, StringUtils.rightPad(label2.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g2, FONT_SIZE, false, 0, true);
 
