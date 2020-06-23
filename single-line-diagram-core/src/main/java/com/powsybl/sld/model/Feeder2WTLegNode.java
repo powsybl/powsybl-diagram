@@ -19,6 +19,16 @@ public class Feeder2WTLegNode extends FeederWithSideNode {
                 FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
+    @Override
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        // we consider this node represent the other side of the transformer so voltage level infos is the other
+        // side one
+        if (otherSideVoltageLevelInfos != null) {
+            return otherSideVoltageLevelInfos;
+        }
+        return super.getVoltageLevelInfos();
+    }
+
     public static Feeder2WTLegNode createForVoltageLevelDiagram(Graph graph, String id, String name, String equipmentId, Side side,
                                                                 VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new Feeder2WTLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);

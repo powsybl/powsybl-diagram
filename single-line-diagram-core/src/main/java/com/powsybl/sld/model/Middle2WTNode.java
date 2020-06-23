@@ -28,6 +28,11 @@ public class Middle2WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
     }
 
+    @Override
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
+    }
+
     public VoltageLevelInfos getVoltageLevelInfosLeg1() {
         return voltageLevelInfosLeg1;
     }

@@ -6,12 +6,13 @@
  */
 package com.powsybl.sld.util;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
@@ -101,43 +102,31 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(baseVoltageColor, network);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getNodeStyle(node1, false, false);
-        assertTrue(nodeStyle1.isPresent());
-        assertEquals(" #idbbs1 {stroke:#FF0000;}", nodeStyle1.get());
+        Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
+        assertFalse(nodeStyle1.isPresent());
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getNodeStyle(node2, false, false);
-        assertTrue(nodeStyle2.isPresent());
-        assertEquals(" #idbbs2 {stroke:#808080;}", nodeStyle2.get());
+        Optional<String> nodeStyle2 = styleProvider.getCssNodeStyleAttributes(node2, false);
+        assertFalse(nodeStyle2.isPresent());
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getNodeStyle(node3, false, false);
-        assertTrue(nodeStyle3.isPresent());
-        assertEquals(" #idbbs3 {stroke:#A020EF;}", nodeStyle3.get());
+        Optional<String> nodeStyle3 = styleProvider.getCssNodeStyleAttributes(node3, false);
+        assertFalse(nodeStyle3.isPresent());
 
-        Edge edge = graph1.getEdges().get(0);
-        String idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl1", idWireStyle);
-        edge = graph1.getEdges().get(12);
-        idWireStyle = styleProvider.getIdWireStyle(edge);
-        assertEquals("wire_vl1", idWireStyle);
+        Edge edge = graph1.getEdges().get(12);
 
-        Optional<String> wireStyle = styleProvider.getWireStyle(edge, vl1.getId(), 12, false);
-        assertTrue(wireStyle.isPresent());
-        assertEquals(" #idvl1_95_Wire12 {stroke:#FF0000;stroke-width:1;fill-opacity:0;}", wireStyle.get());
+        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
+        assertEquals(ImmutableMap.of("stroke-width", "1", "stroke", "#FF0000"), wireStyle);
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getNodeSVGStyle(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
-        assertTrue(node3WTStyle.isEmpty());
+        Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
+        assertEquals(ImmutableMap.of("fill", "#A020EF", "stroke", "#A020EF"), node3WTStyle);
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getNodeSVGStyle(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
-        assertTrue(node2WTStyle.isEmpty());
+        Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
+        assertEquals(ImmutableMap.of("fill", "#FF0000", "stroke", "#FF0000"), node2WTStyle);
 
-        Optional<String> color = styleProvider.getColor(400, null);
-        assertFalse(color.isPresent());
-
-        Map<String, String> attributesArrow = styleProvider.getAttributesArrow(1);
+        Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
         assertEquals(3, attributesArrow.size());
         assertTrue(attributesArrow.containsKey("fill"));
         assertEquals("black", attributesArrow.get("fill"));
@@ -146,7 +135,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertTrue(attributesArrow.containsKey("fill-opacity"));
         assertEquals("1", attributesArrow.get("fill-opacity"));
 
-        attributesArrow = styleProvider.getAttributesArrow(2);
+        attributesArrow = styleProvider.getSvgArrowStyleAttributes(2);
         assertEquals(3, attributesArrow.size());
         assertTrue(attributesArrow.containsKey("fill"));
         assertEquals("blue", attributesArrow.get("fill"));
