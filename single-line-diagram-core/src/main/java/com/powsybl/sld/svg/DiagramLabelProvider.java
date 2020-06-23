@@ -34,13 +34,35 @@ public interface DiagramLabelProvider {
         public LabelPosition getPosition() {
             return position;
         }
+
+    }
+
+    class NodeDecorator {
+        private final String type;
+        private final LabelPosition position;
+
+        public NodeDecorator(String type, LabelPosition labelPosition){
+            this.type = type;
+            this.position = labelPosition;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public LabelPosition getPosition() {
+            return position;
+        }
     }
 
     public enum Direction {
         UP, DOWN;
+
     }
 
     InitialValue getInitialValue(Node node);
 
     List<NodeLabel> getNodeLabels(Node node);
+
+    List<NodeDecorator> getNodeDecorators(Node node);
 }

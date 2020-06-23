@@ -22,6 +22,7 @@ import java.util.Objects;
 public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
+    private static final double DECORATOR_OFFSET = 1d;
     private static final int FONT_SIZE = 8;
 
     private final Network network;
@@ -110,32 +111,44 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
         List<NodeLabel> nodeLabels = new LinkedList<>();
         if (node instanceof FeederNode) {
-            BusCell.Direction direction = node.getCell() != null
-                    ? ((ExternCell) node.getCell()).getDirection()
-                    : BusCell.Direction.UNDEFINED;
-
-            double yShift = -LABEL_OFFSET;
-            String positionName = "";
-            double angle = 0;
-            if (node.getCell() != null) {
-                yShift = direction == BusCell.Direction.TOP
-                        ? -LABEL_OFFSET
-                        : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + FONT_SIZE + LABEL_OFFSET);
-                positionName = direction == BusCell.Direction.TOP ? "N" : "S";
-                if (layoutParameters.isLabelDiagonal()) {
-                    angle = direction == BusCell.Direction.TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();
-                }
-            }
-
-            LabelPosition labelPosition = new LabelPosition(node.getId() + "_" + positionName + "_LABEL",
-                    layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle);
-            nodeLabels.add(new NodeLabel(node.getLabel(), labelPosition));
+            nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node)));
         } else if (node instanceof BusNode) {
-            LabelPosition labelPosition = new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
-            nodeLabels.add(new NodeLabel(node.getLabel(), labelPosition));
+            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node)));
         }
 
         return nodeLabels;
+    }
+
+    @Override
+    public List<NodeDecorator> getNodeDecorators(Node node) {
+        Objects.requireNonNull(node);
+        return new LinkedList<>();
+    }
+
+    private LabelPosition getFeederLabelPosition(Node node) {
+        BusCell.Direction direction = node.getCell() != null
+                ? ((BusCell) node.getCell()).getDirection()
+                : BusCell.Direction.UNDEFINED;
+
+        double yShift = -LABEL_OFFSET;
+        String positionName = "";
+        double angle = 0;
+        if (node.getCell() != null) {
+            yShift = direction == BusCell.Direction.TOP
+                    ? -LABEL_OFFSET
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + FONT_SIZE + LABEL_OFFSET);
+            positionName = direction == BusCell.Direction.TOP ? "N" : "S";
+            if (layoutParameters.isLabelDiagonal()) {
+                angle = direction == BusCell.Direction.TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();
+            }
+        }
+
+        return new LabelPosition(node.getId() + "_" + positionName + "_LABEL",
+                layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle);
+    }
+
+    private LabelPosition getBusLabelPosition(Node node) {
+        return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
     private InitialValue buildInitialValue(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {

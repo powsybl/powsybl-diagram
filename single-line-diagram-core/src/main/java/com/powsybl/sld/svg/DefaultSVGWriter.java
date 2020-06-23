@@ -105,7 +105,7 @@ public class DefaultSVGWriter implements SVGWriter {
     @Override
     public GraphMetadata write(String prefixId,
                                Graph graph,
-                               DiagramLabelProvider initProvider,
+                               DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
@@ -113,19 +113,19 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, Collections.singletonList(graph), listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, Collections.singletonList(graph), listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
         transformDocument(document, writer);
 
         return metadata;
     }
 
-    protected void addStyle(Document document, DiagramStyleProvider styleProvider, List<Graph> graphs,
-                            Set<String> listUsedComponentSVG) {
+    protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
+                            List<Graph> graphs, Set<String> listUsedComponentSVG) {
         Element style = document.createElement("style");
 
         StringBuilder graphStyle = new StringBuilder("\n");
@@ -138,6 +138,10 @@ public class DefaultSVGWriter implements SVGWriter {
                     nodeStyle.ifPresent(s -> graphStyle.append(s).append("\n"));
                 }
                 listUsedComponentSVG.add(n.getComponentType());
+                List<DiagramLabelProvider.NodeDecorator> nodeDecorators = labelProvider.getNodeDecorators(n);
+                if (nodeDecorators!=null) {
+                    nodeDecorators.forEach(nodeDecorator -> listUsedComponentSVG.add(nodeDecorator.getType()));
+                }
             });
         }
 
@@ -285,7 +289,7 @@ public class DefaultSVGWriter implements SVGWriter {
     @Override
     public GraphMetadata write(String prefixId,
                                SubstationGraph graph,
-                               DiagramLabelProvider initProvider,
+                               DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
@@ -293,12 +297,12 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, graph.getNodes(), listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, graph.getNodes(), listUsedComponentSVG);
         graph.getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, document, initProvider, styleProvider);
+        GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
         transformDocument(document, writer);
 
@@ -477,6 +481,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (!node.isFictitious()) {
                 drawNodeLabel(prefixId, g, node, initProvider);
+                drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
             }
             root.appendChild(g);
 
@@ -521,7 +526,15 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    /*
+    protected void drawNodeDecorators(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider,
+                                      DiagramStyleProvider styleProvider) {
+        for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node)) {
+            String decoratorType = nodeDecorator.getType();
+            insertComponentSVGIntoDocumentSVG(prefixId, decoratorType, g, node, styleProvider, decoratorType);
+        }
+    }
+
+     /*
      * Drawing the graph label
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
@@ -1190,7 +1203,7 @@ public class DefaultSVGWriter implements SVGWriter {
     @Override
     public GraphMetadata write(String prefixId,
                                ZoneGraph graph,
-                               DiagramLabelProvider initProvider,
+                               DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
@@ -1200,11 +1213,11 @@ public class DefaultSVGWriter implements SVGWriter {
         List<Graph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, vlGraphs, listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, vlGraphs, listUsedComponentSVG);
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
-        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, initProvider, styleProvider);
+        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, labelProvider, styleProvider);
 
         transformDocument(document, writer);
 
