@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -139,7 +140,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 }
                 listUsedComponentSVG.add(n.getComponentType());
                 List<DiagramLabelProvider.NodeDecorator> nodeDecorators = labelProvider.getNodeDecorators(n);
-                if (nodeDecorators!=null) {
+                if (nodeDecorators != null) {
                     nodeDecorators.forEach(nodeDecorator -> listUsedComponentSVG.add(nodeDecorator.getType()));
                 }
             });
@@ -517,8 +518,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void drawNodeLabel(String prefixId, Element g, Node node, DiagramLabelProvider initProvider) {
-        for (DiagramLabelProvider.NodeLabel nodeLabel : initProvider.getNodeLabels(node)) {
+    protected void drawNodeLabel(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider) {
+        for (DiagramLabelProvider.NodeLabel nodeLabel : labelProvider.getNodeLabels(node)) {
             LabelPosition labelPosition = nodeLabel.getPosition();
             drawLabel(prefixId + labelPosition.getPositionName(), nodeLabel.getLabel(), node.isRotated(),
                     labelPosition.getdX(), labelPosition.getdY(), g, FONT_SIZE, labelPosition.isCentered(),
@@ -529,12 +530,11 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawNodeDecorators(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider,
                                       DiagramStyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node)) {
-            String decoratorType = nodeDecorator.getType();
-            insertComponentSVGIntoDocumentSVG(prefixId, decoratorType, g, node, styleProvider, decoratorType);
+            insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, node, styleProvider);
         }
     }
 
-     /*
+    /*
      * Drawing the graph label
      */
     protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
@@ -679,11 +679,36 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      Element g, Node node,
                                                      DiagramStyleProvider styleProvider,
                                                      String componentDefsId) {
+        handleNodeRotation(node);
+        Consumer<Element> transformer = (Element elt) -> {
+            if (!(node instanceof SwitchNode) && node.isRotated()) {
+                ComponentSize size = componentLibrary.getSize(node.getComponentType());
+                elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+            }
+        };
+        insertSVGIntoDocumentSVG(prefixId, componentType, g, node, styleProvider, componentDefsId, transformer);
+    }
+
+    protected void insertDecoratorSVGIntoDocumentSVG(String prefixId,
+                                                     DiagramLabelProvider.NodeDecorator nodeDecorator,
+                                                     Element g, Node node,
+                                                     DiagramStyleProvider styleProvider) {
+        Consumer<Element> transformer = (Element elt) -> {
+            LabelPosition decoratorPosition = nodeDecorator.getPosition();
+            elt.setAttribute(TRANSFORM, TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")");
+        };
+        insertSVGIntoDocumentSVG(prefixId, nodeDecorator.getType(), g, node, styleProvider, nodeDecorator.getType(), transformer);
+    }
+
+    protected void insertSVGIntoDocumentSVG(String prefixId,
+                                            String componentType,
+                                            Element g, Node node,
+                                            DiagramStyleProvider styleProvider,
+                                            String componentDefsId,
+                                            Consumer<Element> applyTransformation) {
 
         ComponentSize size = componentLibrary.getSize(node.getComponentType());
         Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
-
-        handleNodeRotation(node);
 
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
             // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
@@ -696,10 +721,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
 
                     if (n instanceof SVGElement) {
-                        if (!(node instanceof SwitchNode) && node.isRotated()) {
-                            ((Element) n).setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-                        }
-
+                        applyTransformation.accept((Element) n);
                         Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponentName, layoutParameters.isShowInternalNodes());
                         svgStyle.forEach(((Element) n)::setAttribute);
                     }
@@ -727,10 +749,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
 
-                    if (!(node instanceof SwitchNode) && node.isRotated()) {
-                        eltUse.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-                    }
-
+                    applyTransformation.accept(eltUse);
                     Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, s, layoutParameters.isShowInternalNodes());
                     svgStyle.forEach(eltUse::setAttribute);
 
@@ -1148,7 +1167,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
     }
-
 
     /**
      * Creation of the defs area for the SVG components

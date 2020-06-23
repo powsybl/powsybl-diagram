@@ -7,10 +7,8 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.Node;
-import org.apache.batik.anim.dom.SVGOMDocument;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -22,7 +20,7 @@ public interface DiagramLabelProvider {
         private final String label;
         private final LabelPosition position;
 
-        public NodeLabel(String label, LabelPosition labelPosition){
+        public NodeLabel(String label, LabelPosition labelPosition) {
             this.label = label;
             this.position = labelPosition;
         }
@@ -41,7 +39,7 @@ public interface DiagramLabelProvider {
         private final String type;
         private final LabelPosition position;
 
-        public NodeDecorator(String type, LabelPosition labelPosition){
+        public NodeDecorator(String type, LabelPosition labelPosition) {
             this.type = type;
             this.position = labelPosition;
         }
