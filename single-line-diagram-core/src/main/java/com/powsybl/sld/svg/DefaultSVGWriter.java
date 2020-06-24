@@ -20,7 +20,6 @@ import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
-import org.w3c.dom.svg.SVGElement;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
@@ -35,7 +34,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -680,62 +679,55 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramStyleProvider styleProvider,
                                                      String componentDefsId) {
         handleNodeRotation(node);
-        Consumer<Element> transformer = (Element elt) -> {
-            if (!(node instanceof SwitchNode) && node.isRotated()) {
-                ComponentSize size = componentLibrary.getSize(node.getComponentType());
-                elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
-            }
-        };
-        insertSVGIntoDocumentSVG(prefixId, componentType, g, node, styleProvider, componentDefsId, transformer);
+        BiConsumer<Element, String> elementAttributesSetter
+                = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, subComponent);
+        insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
+    }
+
+    protected void insertRotatedComponentSVGIntoDocumentSVG(String prefixId,
+                                                            String componentType,
+                                                            Element g, double angle,
+                                                            ComponentSize componentSize,
+                                                            String componentDefsId) {
+        BiConsumer<Element, String> elementAttributesSetter
+                = (e, subComponent) -> setRotatedComponentAttributes(prefixId, g, e, angle, componentSize);
+        insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
+    }
+
+    private void setRotatedComponentAttributes(String prefixId, Element g, Element e,
+                                               double angle, ComponentSize componentSize) {
+        replaceId(g, e, prefixId);
+        double cx = componentSize.getWidth() / 2;
+        double cy = componentSize.getHeight() / 2;
+        e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
     }
 
     protected void insertDecoratorSVGIntoDocumentSVG(String prefixId,
                                                      DiagramLabelProvider.NodeDecorator nodeDecorator,
                                                      Element g, Node node,
                                                      DiagramStyleProvider styleProvider) {
-        Consumer<Element> transformer = (Element elt) -> {
-            LabelPosition decoratorPosition = nodeDecorator.getPosition();
-            elt.setAttribute(TRANSFORM, TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")");
-        };
-        insertSVGIntoDocumentSVG(prefixId, nodeDecorator.getType(), g, node, styleProvider, nodeDecorator.getType(), transformer);
+        BiConsumer<Element, String> elementAttributesSetter
+                = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, node, nodeDecorator, styleProvider, elt, subComponent);
+        insertSVGIntoDocumentSVG(nodeDecorator.getType(), g, nodeDecorator.getType(), elementAttributesSetter);
     }
 
-    protected void insertSVGIntoDocumentSVG(String prefixId,
-                                            String componentType,
-                                            Element g, Node node,
-                                            DiagramStyleProvider styleProvider,
-                                            String componentDefsId,
-                                            Consumer<Element> applyTransformation) {
+    protected void insertSVGIntoDocumentSVG(String componentType, Element g, String componentDefsId,
+                                            BiConsumer<Element, String> elementAttributesSetter) {
 
-        ComponentSize size = componentLibrary.getSize(node.getComponentType());
         Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
 
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
             // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
-            // If SVG are written otherwise, it will not work correctly.
+            // If SVG are written differently, it will not work correctly.
             for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
                 String subComponentName = subComponent.getKey();
                 SVGOMDocument svgSubComponent = subComponent.getValue();
 
                 for (int i = 0; i < svgSubComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
                     org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-
-                    if (n instanceof SVGElement) {
-                        applyTransformation.accept((Element) n);
-                        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponentName, layoutParameters.isShowInternalNodes());
-                        svgStyle.forEach(((Element) n)::setAttribute);
+                    if (n instanceof Element) {
+                        elementAttributesSetter.accept((Element) n, subComponentName);
                     }
-
-                    // Adding prefixId and node id before id of n : to ensure unicity of ids
-                    if (n.getAttributes() != null) {
-                        org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
-                        if (nodeId != null) {
-                            String nodeIdValue = nodeId.getTextContent();
-                            String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
-                            nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
-                        }
-                    }
-
                     g.getOwnerDocument().adoptNode(n);
                     g.appendChild(n);
                 }
@@ -748,11 +740,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 subCmpsName.forEach(s -> {
                     Element eltUse = g.getOwnerDocument().createElement("use");
                     eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
-
-                    applyTransformation.accept(eltUse);
-                    Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, s, layoutParameters.isShowInternalNodes());
-                    svgStyle.forEach(eltUse::setAttribute);
-
+                    elementAttributesSetter.accept(eltUse, s);
                     g.getOwnerDocument().adoptNode(eltUse);
                     g.appendChild(eltUse);
                 });
@@ -760,53 +748,40 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertRotatedComponentSVGIntoDocumentSVG(String prefixId,
-                                                            String componentType,
-                                                            Element g, double angle,
-                                                            double cx, double cy,
-                                                            String componentDefsId) {
-        if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
-            // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
-            // If SVG are written otherwise, it will not work correctly.
-            Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
-            if (subComponents != null) {
-                for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
-                    SVGOMDocument svgSubComponent = subComponent.getValue();
+    private void setComponentAttributes(String prefixId, Element g, Node node, DiagramStyleProvider styleProvider,
+                                        Element elt, String subComponent) {
+        replaceId(g, elt, prefixId);
+        ComponentSize size = componentLibrary.getSize(node.getComponentType());
+        if (!(node instanceof SwitchNode) && node.isRotated()) {
+            elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+        }
+        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponent, layoutParameters.isShowInternalNodes());
+        svgStyle.forEach(elt::setAttribute);
+    }
 
-                    for (int i = 0; i < svgSubComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                        org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                        if (n.getNodeName().equals("g") && n.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                            Element e = (Element) n;
-                            e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
-                        }
+    private void setDecoratorAttributes(String prefixId, Element g, Node node, DiagramLabelProvider.NodeDecorator nodeDecorator,
+                                        DiagramStyleProvider styleProvider, Element elt, String subComponentName) {
+        replaceId(g, elt, prefixId);
+        ComponentSize size = componentLibrary.getSize(node.getComponentType());
+        LabelPosition decoratorPosition = nodeDecorator.getPosition();
+        elt.setAttribute(TRANSFORM, TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")");
+        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponentName, layoutParameters.isShowInternalNodes());
+        svgStyle.forEach(elt::setAttribute);
+    }
 
-                        // Adding prefixId and g id before id of n : to ensure unicity of ids
-                        if (n.getAttributes() != null) {
-                            org.w3c.dom.Node nodeId = n.getAttributes().getNamedItem("id");
-                            if (nodeId != null) {
-                                String nodeIdValue = nodeId.getTextContent();
-                                String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
-                                if (StringUtils.isEmpty(prefixId)) {
-                                    nodeId.setTextContent(gIdValue + "_" + nodeIdValue);
-                                } else {
-                                    nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
-                                }
-                            }
-                        }
-
-                        g.getOwnerDocument().adoptNode(n);
-                        g.appendChild(n);
-                    }
-                }
-            }
-        } else {
-            // Adding <use> markup to reuse the svg defined in the <defs> part
-            Element eltUse = g.getOwnerDocument().createElement("use");
-            eltUse.setAttribute("href", "#" + componentDefsId);
-            eltUse.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
-
-            g.getOwnerDocument().adoptNode(eltUse);
-            g.appendChild(eltUse);
+    /**
+     * Ensures uniqueness of ids by adding prefixId and node id before id of elt (if existing)
+     * @param g XML element for the node
+     * @param elt XML element being duplicated
+     * @param prefixId prefix string
+     */
+    private void replaceId(Element g, Element elt, String prefixId) {
+        org.w3c.dom.Node nodeId = elt.getAttributes().getNamedItem("id");
+        // the id is set only if elt had already an id
+        if (nodeId != null) {
+            String nodeIdValue = nodeId.getTextContent();
+            String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
+            nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
         }
     }
 
@@ -924,7 +899,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, 180, cd.getSize().getWidth() / 2, cd.getSize().getHeight() / 2, defsId);
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, 180, cd.getSize(), defsId);
             } else {
                 insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, n, styleProvider, defsId);
             }
@@ -958,7 +933,7 @@ public class DefaultSVGWriter implements SVGWriter {
             }
 
             if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, 180, 5, 5, defsId);
+                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, 180, cd.getSize(), defsId);
             } else {
                 insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, n, styleProvider, defsId);
             }
