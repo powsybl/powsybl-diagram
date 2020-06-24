@@ -368,7 +368,7 @@ SELECT DISTINCT ?connectivityNode
     ?switch
         a ?type ;
         cim:IdentifiedObject.name ?name .
-        FILTER ( ?type not in ( cim:Breaker, cim:Disconnector, cim:LoadBreakSwitch, cim:ProtectedSwitch ) ) .
+        FILTER ( ?type not in ( cim:Breaker, cim:Disconnector, cim:LoadBreakSwitch, cim:ProtectedSwitch, cim:ACLineSegment ) ) .
     ?diagram
         a cim:Diagram ;
         cim:IdentifiedObject.name ?diagramName .
