@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<components>
+    <component>
+        <metadata type="FLASH">
+            <size width="10" height="15"/>
+            <subComponent name="FLASH">
+                <fileName>flash.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="LOCK">
+            <size width="12" height="12"/>
+            <subComponent name="LOCK">
+                <fileName>lock.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
+</components>

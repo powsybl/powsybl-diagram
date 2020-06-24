@@ -1,0 +1,12 @@
+.FLASH {
+    stroke: black;
+    stroke-width: 1;
+    fill: #efcb09;
+    fill-opacity: 1;
+}
+
+.LOCK {
+    stroke: none;
+    fill: #ef9409;
+    fill-opacity: 1;
+}

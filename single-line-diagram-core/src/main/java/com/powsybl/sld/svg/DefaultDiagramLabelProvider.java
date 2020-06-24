@@ -22,7 +22,6 @@ import java.util.Objects;
 public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
-    private static final double DECORATOR_OFFSET = 1d;
     private static final int FONT_SIZE = 8;
 
     private final Network network;

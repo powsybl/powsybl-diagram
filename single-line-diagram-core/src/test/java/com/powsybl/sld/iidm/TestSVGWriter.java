@@ -53,10 +53,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // Creation "by hand" (without any network) of 3 voltage level graphs
         // and then generation of a SVG with DefaultDiagramStyleProvider (no network necessary)
         //
+        g1 = createVoltageLevelGraph1();
+        g2 = createVoltageLevelGraph2();
+        g3 = createVoltageLevelGraph3();
+    }
 
-        // First voltage level graph :
-        //
-        g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
+    protected static Graph createVoltageLevelGraph1() {
+        Graph g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
         g1.setX(0);
         g1.setY(20);
 
@@ -160,11 +163,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Btrf2, vl1Dtrf2);
         g1.addEdge(vl1Dtrf2, vl1Bbs2);
 
-        // Second voltage level graph :
-        //
-        g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
+        return g1;
+    }
+
+    private static Graph createVoltageLevelGraph2() {
+        Graph g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
         g2.setX(550);
         g2.setY(20);
+
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
 
         BusNode vl2Bbs1 = BusNode.create(g2, "vl2_bbs1", "vl2_bbs1");
         vl2Bbs1.setX(0);
@@ -239,11 +248,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Btrf2, vl2Dtrf2);
         g2.addEdge(vl2Dtrf2, vl2Bbs1);
 
-        // Third voltage level graph :
-        //
-        g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
+        return g2;
+    }
+
+    private static Graph createVoltageLevelGraph3() {
+        Graph g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
         g3.setX(850);
         g3.setY(20);
+
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
 
         BusNode vl3Bbs1 = BusNode.create(g3, "vl3_bbs1", "vl3_bbs1");
         vl3Bbs1.setX(0);
@@ -298,6 +313,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g3.addEdge(vl3Trf2Fict, vl3Btrf2);
         g3.addEdge(vl3Btrf2, vl3Dtrf2);
         g3.addEdge(vl3Dtrf2, vl3Bbs1);
+
+        return g3;
     }
 
     private void createSubstationGraph() {
