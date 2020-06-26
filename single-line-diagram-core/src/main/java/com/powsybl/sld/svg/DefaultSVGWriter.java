@@ -764,7 +764,7 @@ public class DefaultSVGWriter implements SVGWriter {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(node.getComponentType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
-        elt.setAttribute(TRANSFORM, TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")");
+        elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition));
         Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponentName, layoutParameters.isShowInternalNodes());
         svgStyle.forEach(elt::setAttribute);
     }
@@ -783,6 +783,17 @@ public class DefaultSVGWriter implements SVGWriter {
             String gIdValue = StringUtils.removeStart(g.getAttribute("id"), prefixId);
             nodeId.setTextContent(prefixId + gIdValue + "_" + nodeIdValue);
         }
+    }
+
+    private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition) {
+        String transform;
+        if (node.isRotated()) {
+            double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition);
+            transform = transformMatrixToString(matrix, 4);
+        } else {
+            transform = TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")";
+        }
+        return transform;
     }
 
     protected void transformComponent(Node node, Element g) {
@@ -811,6 +822,18 @@ public class DefaultSVGWriter implements SVGWriter {
         double translateX = layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2;
         double translateY = layoutParameters.getTranslateY() + node.getY() - componentSize.getHeight() / 2;
         return new double[] {translateX, translateY};
+    }
+
+    private double[] getDecoratorTransformMatrix(Node node, LabelPosition decoratorPosition) {
+        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
+        double[] translateNode = getNodeTranslate(node);
+        double[] matrixNode = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), node.getRotationAngle() * Math.PI / 180,
+            layoutParameters.getTranslateX() + node.getX(), layoutParameters.getTranslateY() + node.getY());
+        double translateDecoratorX = translateNode[0] + decoratorPosition.getdX();
+        double translateDecoratorY = translateNode[1] + decoratorPosition.getdY();
+        double t1 = +matrixNode[3] * (translateDecoratorX - matrixNode[4]) - matrixNode[2] * (translateDecoratorY - matrixNode[5]);
+        double t2 = -matrixNode[1] * (translateDecoratorX - matrixNode[4]) + matrixNode[0] * (translateDecoratorY - matrixNode[5]);
+        return new double[] {matrixNode[3], -matrixNode[1], -matrixNode[2], matrixNode[0], t1, t2};
     }
 
     protected void transformArrow(List<Double> points, ComponentSize componentSize, double shift, Element g) {
