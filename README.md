@@ -81,15 +81,16 @@ ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceL
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
-//  create diagram for the voltage level "C"
+// create diagram for the voltage level "C"
 VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "C", voltageLevelLayoutFactory, false, false);
+
+// create default parameters for the SVG layout
+LayoutParameters layoutParameters = new LayoutParameters();
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
-                             new DefaultSVGWriter(componentLibrary, new LayoutParameters()),
-                             new DefaultDiagramInitialValueProvider(network),
+                             new DefaultSVGWriter(componentLibrary, layoutParameters),
+                             new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                              new NominalVoltageDiagramStyleProvider(),
-                             new DefaultNodeLabelConfiguration(componentLibrary),
-                             Paths.get("/tmp/c.svg"),
-                             false);
+                             Paths.get("/tmp/c.svg"));
 ```
