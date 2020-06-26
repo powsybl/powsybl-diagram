@@ -794,33 +794,23 @@ public class DefaultSVGWriter implements SVGWriter {
             node.setRotationAngle(null);
         }
 
+        String trans;
         if (!node.isRotated()) {
-            g.setAttribute(TRANSFORM,
-                    TRANSLATE + "(" + (layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2) + ","
-                            + (layoutParameters.getTranslateY() + node.getY() - componentSize.getHeight() / 2) + ")");
-            return;
+            double[] translate = getNodeTranslate(node);
+            trans = TRANSLATE + "(" + translate[0] + "," + translate[1] + ")";
+        } else {
+            // afester javafx library does not handle more than one transformation, yet, so
+            // combine the couple of transformations, translation+rotation, in a single matrix transformation
+            trans = getTransformMatrixString(node.getX(), node.getY(), Math.toRadians(node.getRotationAngle()), componentSize);
         }
+        g.setAttribute(TRANSFORM, trans);
+    }
 
-/*
-        afester javafx library does not handle more than one transformation, yet, so
-        combine the couple of transformations, translation+rotation, in a single matrix transformation
-*/
-        int precision = 4;
-
-        double angle = Math.toRadians(90);
-        double cosRo = Math.cos(angle);
-        double sinRo = Math.sin(angle);
-        double cdx = componentSize.getWidth() / 2;
-        double cdy = componentSize.getHeight() / 2;
-
-        double e1 = layoutParameters.getTranslateX() - cdx * cosRo + cdy * sinRo + node.getX();
-        double f1 = layoutParameters.getTranslateY() - cdx * sinRo - cdy * cosRo + node.getY();
-
-        g.setAttribute(TRANSFORM,
-                "matrix(" + Precision.round(cosRo, precision) + "," + Precision.round(sinRo, precision)
-                        + "," + Precision.round(-sinRo, precision) + "," + Precision.round(cosRo,
-                        precision) + ","
-                        + Precision.round(e1, precision) + "," + Precision.round(f1, precision) + ")");
+    private double[] getNodeTranslate(Node node) {
+        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
+        double translateX = layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2;
+        double translateY = layoutParameters.getTranslateY() + node.getY() - componentSize.getHeight() / 2;
+        return new double[] {translateX, translateY};
     }
 
     protected void transformArrow(List<Double> points, ComponentSize componentSize, double shift, Element g) {
@@ -830,41 +820,70 @@ public class DefaultSVGWriter implements SVGWriter {
         double x2 = points.get(2);
         double y2 = points.get(3);
 
-        if (points.size() > 4 && Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) < 3 * componentSize.getHeight()) {
-            double x3 = points.get(4);
-            double y3 = points.get(5);
-            if (Math.sqrt((x3 - x2) * (x3 - x2) + (y3 - y2) * (y3 - y2)) > 3 * componentSize.getHeight()) {
-                x1 = x2;
-                y1 = y2;
-                x2 = x3;
-                y2 = y3;
-            }
-        }
         double dx = x2 - x1;
         double dy = y2 - y1;
+        double distancePoints = Math.sqrt(dx * dx + dy * dy);
 
-        double angle = Math.atan(dx / dy);
-        if (!Double.isNaN(angle)) {
-            double cosRo = Math.cos(angle);
-            double sinRo = Math.sin(angle);
-            double cdx = componentSize.getWidth() / 2;
-            double cdy = componentSize.getHeight() / 2;
+        // Case of wires with non-direct straight lines: if wire distance between first 2 points is too small to display
+        // the arrow, checks if the distance between the 2nd and the 3rd points is big enough
+        if (points.size() > 4 && distancePoints < 3 * componentSize.getHeight()) {
+            double x3 = points.get(4);
+            double y3 = points.get(5);
+            double dx23 = x3 - x2;
+            double dy23 = y3 - y2;
+            double distancePoints23 = Math.sqrt(dx23 * dx23 + dy23 * dy23);
+            if (distancePoints23 > 3 * componentSize.getHeight()) {
+                distancePoints = distancePoints23;
+                x1 = x2;
+                y1 = y2;
+                dx = dx23;
+                dy = dy23;
+            }
+        }
+
+        if (distancePoints > 0) {
+            double cosAngle = dy / distancePoints;
+            double sinAngle = dx / distancePoints;
 
             double dist = this.layoutParameters.getArrowDistance();
+            double x = x1 + sinAngle * (dist + shift);
+            double y = y1 + cosAngle * (dist + shift);
 
-            double x = x1 + sinRo * (dist + shift);
-            double y = y1 + cosRo * (y1 > y2 ? -(dist + shift) : (dist + shift));
-
-            double e1 = layoutParameters.getTranslateX() - cdx * cosRo + cdy * sinRo + x;
-            double f1 = layoutParameters.getTranslateY() - cdx * sinRo - cdy * cosRo + y;
-
-            int precision = 4;
-            g.setAttribute(TRANSFORM,
-                    "matrix(" + Precision.round(cosRo, precision) + "," + Precision.round(sinRo, precision)
-                            + "," + Precision.round(-sinRo, precision) + "," + Precision.round(cosRo,
-                            precision) + ","
-                            + Precision.round(e1, precision) + "," + Precision.round(f1, precision) + ")");
+            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, Math.atan(dx / dy), componentSize));
         }
+    }
+
+    private String getTransformMatrixString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
+        double centerPosTransX = layoutParameters.getTranslateX() + centerPosX;
+        double centerPosTransY = layoutParameters.getTranslateY() + centerPosY;
+        double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
+            centerPosTransX, centerPosTransY);
+        return transformMatrixToString(matrix, 4);
+    }
+
+    private double[] getTransformMatrix(double width, double height, double angle,
+                                        double centerPosX, double centerPosY) {
+
+        double cosRo = Math.cos(angle);
+        double sinRo = Math.sin(angle);
+        double cdx = width / 2;
+        double cdy = height / 2;
+
+        double e1 = centerPosX - cdx * cosRo + cdy * sinRo;
+        double f1 = centerPosY - cdx * sinRo - cdy * cosRo;
+
+        return new double[] {+cosRo, sinRo, -sinRo, cosRo, e1, f1};
+    }
+
+    private static String transformMatrixToString(double[] matrix, int precision) {
+        double[] matrix2 = new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            matrix2[i] = Precision.round(matrix[i], precision);
+        }
+        return "matrix("
+            + matrix2[0] + "," + matrix2[1] + ","
+            + matrix2[2] + "," + matrix2[3] + ","
+            + matrix2[4] + "," + matrix2[5] + ")";
     }
 
     protected void insertArrowsAndLabels(String prefixId,
