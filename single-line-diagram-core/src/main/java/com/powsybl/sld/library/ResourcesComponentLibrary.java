@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.library;
 
-import com.google.common.io.ByteStreams;
 import com.powsybl.sld.svg.SVGLoaderToDocument;
 import org.apache.batik.anim.dom.SVGOMDocument;
 import org.slf4j.Logger;
@@ -14,9 +13,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -30,37 +33,48 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private final Map<String, Map<String, SVGOMDocument>> svgDocuments = new HashMap<>();
 
-    private final Map<String, Component> components;
+    private final Map<String, Component> components = new HashMap<>();
 
     private final String styleSheet;
 
-    public ResourcesComponentLibrary(String directory) {
+    public ResourcesComponentLibrary(String directory, String... additionalDirectories) {
         Objects.requireNonNull(directory);
-        LOGGER.info("Loading component library from {}...", directory);
+        StringBuilder styleSheetBuilder = new StringBuilder();
+        loadLibrary(directory, styleSheetBuilder);
+        for (String addDir : additionalDirectories) {
+            loadLibrary(addDir, styleSheetBuilder);
+        }
+        styleSheet = styleSheetBuilder.toString();
+    }
 
-        components = Components.load(directory).getComponents()
-                .stream()
-                .collect(Collectors.toMap(c -> c.getMetadata().getType(), c -> c));
+    private void loadLibrary(String directory, StringBuilder styleSheetBuilder) {
+        LOGGER.info("Loading component library from {}...", directory);
 
         // preload SVG documents
         SVGLoaderToDocument svgLoadDoc = new SVGLoaderToDocument();
-        components.values().stream().forEach(c ->
-            c.getMetadata().getSubComponents().stream().forEach(s -> {
+        Components.load(directory).getComponents().forEach(c -> {
+            ComponentMetadata componentMetaData = c.getMetadata();
+            String componentType = componentMetaData.getType();
+            componentMetaData.getSubComponents().forEach(s -> {
                 String resourceName = directory + "/" + s.getFileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 SVGOMDocument doc = svgLoadDoc.read(resourceName);
                 Map<String, SVGOMDocument> mapSubDoc;
-                if (!svgDocuments.containsKey(c.getMetadata().getType())) {
+                if (!svgDocuments.containsKey(componentType)) {
                     mapSubDoc = new TreeMap<>();
-                    svgDocuments.put(c.getMetadata().getType(), mapSubDoc);
+                    svgDocuments.put(componentType, mapSubDoc);
                 } else {
-                    mapSubDoc = svgDocuments.get(c.getMetadata().getType());
+                    mapSubDoc = svgDocuments.get(componentType);
                 }
                 mapSubDoc.put(s.getName(), doc);
-            }));
+            });
+            components.put(componentType, c);
+        });
 
         try {
-            styleSheet = new String(ByteStreams.toByteArray(getClass().getResourceAsStream(directory + "/" + "components.css")), StandardCharsets.UTF_8);
+            URL cssUrl = getClass().getResource(directory + "/" + "components.css");
+            Path cssPath = Paths.get(URI.create(cssUrl.toString()));
+            styleSheetBuilder.append(new String(Files.readAllBytes(cssPath), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException("Can't read css file from the SVG library!", e);
         }
@@ -90,7 +104,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     @Override
     public Map<String, ComponentSize> getComponentsSize() {
         Map<String, ComponentSize> res = new HashMap<>();
-        components.entrySet().forEach(e -> res.put(e.getKey(), e.getValue().getMetadata().getSize()));
+        components.forEach((key, value) -> res.put(key, value.getMetadata().getSize()));
         return res;
     }
 

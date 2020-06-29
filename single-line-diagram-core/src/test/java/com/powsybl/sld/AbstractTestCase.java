@@ -29,7 +29,11 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class AbstractTestCase {
 
-    protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+    protected final ResourcesComponentLibrary componentLibrary = getMainResourcesComponentLibrary();
+
+    protected ResourcesComponentLibrary getMainResourcesComponentLibrary() {
+        return new ResourcesComponentLibrary("/ConvergenceLibrary");
+    }
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")

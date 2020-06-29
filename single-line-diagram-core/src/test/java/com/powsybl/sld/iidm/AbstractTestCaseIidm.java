@@ -38,8 +38,6 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     protected Substation substation;
     protected GraphBuilder graphBuilder;
 
-    protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
-
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
                 .replace("\r", "\n");
