@@ -6,25 +6,12 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.BusbarSection;
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -38,8 +25,6 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     protected VoltageLevel vl;
     protected Substation substation;
     protected GraphBuilder graphBuilder;
-
-    protected final ResourcesComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
 
     protected static String normalizeLineSeparator(String str) {
         return str.replace("\r\n", "\n")
