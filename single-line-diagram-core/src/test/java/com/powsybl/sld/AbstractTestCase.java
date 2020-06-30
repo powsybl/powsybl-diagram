@@ -29,9 +29,9 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class AbstractTestCase {
 
-    protected final ResourcesComponentLibrary componentLibrary = getMainResourcesComponentLibrary();
+    protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
-    protected ResourcesComponentLibrary getMainResourcesComponentLibrary() {
+    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("/ConvergenceLibrary");
     }
 

@@ -8,20 +8,19 @@ package com.powsybl.sld.library;
 
 import com.powsybl.sld.svg.SVGLoaderToDocument;
 import org.apache.batik.anim.dom.SVGOMDocument;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
+ * Library of resources components, that is, the SVG image files representing the components, together with the styles
+ * associated to each component
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -37,6 +36,14 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private final String styleSheet;
 
+    /**
+     * Constructs a new library containing the components in the given directories
+     * @param directory main directory containing the resources components: SVG files, with associated components.xml
+     *                 (containing the list of SVG files) and components.css (containing the style applied to each
+     *                  component)
+     * @param additionalDirectories directories for additional components (each directory containing SVG files,
+     *                              associated components.xml and components.css).
+     */
     public ResourcesComponentLibrary(String directory, String... additionalDirectories) {
         Objects.requireNonNull(directory);
         StringBuilder styleSheetBuilder = new StringBuilder();
@@ -73,8 +80,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
         try {
             URL cssUrl = getClass().getResource(directory + "/" + "components.css");
-            Path cssPath = Paths.get(URI.create(cssUrl.toString()));
-            styleSheetBuilder.append(new String(Files.readAllBytes(cssPath), StandardCharsets.UTF_8));
+            styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException("Can't read css file from the SVG library!", e);
         }
