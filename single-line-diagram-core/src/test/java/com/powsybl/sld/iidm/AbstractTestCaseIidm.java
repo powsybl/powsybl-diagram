@@ -12,7 +12,6 @@ import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
