@@ -21,8 +21,9 @@ import com.powsybl.iidm.network.TwoWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.GraphBuilder;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 
 /**
@@ -91,7 +92,10 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setName(name)
                 .setNode(node)
                 .add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, busbarIndex, sectionIndex));
+        bbs.newExtension(BusbarSectionPositionAdder.class)
+                .withBusbarIndex(busbarIndex)
+                .withSectionIndex(sectionIndex)
+                .add();
     }
 
     protected static void createLoad(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
@@ -103,8 +107,13 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setP0(p0)
                 .setQ0(q0)
                 .add();
-        load.addExtension(ConnectablePosition.class, new ConnectablePosition<>(load, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
+        load.newExtension(ConnectablePositionAdder.class)
+                .newFeeder()
+                        .withDirection(direction)
+                        .withName(feederName)
+                        .withOrder(feederOrder)
+                        .add()
+                .add();
     }
 
     protected static void createGenerator(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
@@ -121,8 +130,13 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setTargetP(targetP)
                 .setTargetQ(targetQ)
                 .add();
-        gen.addExtension(ConnectablePosition.class, new ConnectablePosition<>(gen, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
+        gen.newExtension(ConnectablePositionAdder.class)
+                .newFeeder()
+                        .withName(feederName)
+                        .withOrder(feederOrder)
+                        .withDirection(direction)
+                        .add()
+                .add();
     }
 
     protected static void createShunt(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
@@ -136,8 +150,13 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setMaximumSectionCount(maximumSectionCount)
                 .setCurrentSectionCount(currentSectionCount)
                 .add();
-        shunt.addExtension(ConnectablePosition.class, new ConnectablePosition<>(shunt, new ConnectablePosition
-                .Feeder(feederName, feederOrder, direction), null, null, null));
+        shunt.newExtension(ConnectablePositionAdder.class)
+                .newFeeder()
+                        .withName(feederName)
+                        .withOrder(feederOrder)
+                        .withDirection(direction)
+                        .add()
+                .add();
     }
 
     protected static void createTwoWindingsTransformer(Substation s, String id, String name,
@@ -161,12 +180,16 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setNode2(node2)
                 .setVoltageLevel2(idVoltageLevel2)
                 .add();
-        t.addExtension(ConnectablePosition.class,
-                new ConnectablePosition<>(t,
-                        null,
-                        new ConnectablePosition.Feeder(feederName1, feederOrder1, direction1),
-                        new ConnectablePosition.Feeder(feederName2, feederOrder2, direction2),
-                        null));
+        t.newExtension(ConnectablePositionAdder.class)
+                .newFeeder1()
+                        .withName(feederName1)
+                        .withOrder(feederOrder1)
+                        .withDirection(direction1).add()
+                .newFeeder2()
+                        .withName(feederName2)
+                        .withOrder(feederOrder2)
+                        .withDirection(direction2).add()
+                .add();
     }
 
     protected static void createThreeWindingsTransformer(Substation s, String id, String name,
@@ -207,12 +230,20 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .add()
                 .add();
 
-        t.addExtension(ConnectablePosition.class,
-                new ConnectablePosition<>(t,
-                        null,
-                        new ConnectablePosition.Feeder(feederName1, feederOrder1, direction1),
-                        new ConnectablePosition.Feeder(feederName2, feederOrder2, direction2),
-                        new ConnectablePosition.Feeder(feederName3, feederOrder3, direction3)));
+        t.newExtension(ConnectablePositionAdder.class)
+                .newFeeder1()
+                        .withName(feederName1)
+                        .withOrder(feederOrder1)
+                        .withDirection(direction1).add()
+                .newFeeder2()
+                        .withName(feederName2)
+                        .withOrder(feederOrder2)
+                        .withDirection(direction2).add()
+                .newFeeder3()
+                        .withName(feederName3)
+                        .withOrder(feederOrder3)
+                        .withDirection(direction3).add()
+                .add();
     }
 
     protected static void createLine(Network network,
@@ -238,12 +269,18 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setNode2(node2)
                 .setVoltageLevel2(idVoltageLevel2)
                 .add();
-        line.addExtension(ConnectablePosition.class,
-                new ConnectablePosition<>(line,
-                        null,
-                        new ConnectablePosition.Feeder(feederName1, feederOrder1, direction1),
-                        new ConnectablePosition.Feeder(feederName2, feederOrder2, direction2),
-                        null));
+        line.newExtension(ConnectablePositionAdder.class)
+                .newFeeder1()
+                        .withName(feederName1)
+                        .withOrder(feederOrder1)
+                        .withDirection(direction1)
+                        .add()
+                .newFeeder2()
+                        .withName(feederName2)
+                        .withOrder(feederOrder2)
+                        .withDirection(direction2)
+                        .add()
+                .add();
     }
 
 }

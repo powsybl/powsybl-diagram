@@ -85,8 +85,8 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
         // extend generator
         Generator generator = network.getGenerator("G");
         assertNotNull(generator);
-        ConnectablePosition<Generator> generationPosition = new ConnectablePosition<>(generator,
-                new ConnectablePosition.Feeder("G", 10, ConnectablePosition.Direction.TOP),
+        ConnectablePosition<Generator> generationPosition = new ConnectablePositionImpl<>(generator,
+                new ConnectablePositionImpl.FeederImpl("G", 10, ConnectablePosition.Direction.TOP),
                 null,
                 null,
                 null);
@@ -95,10 +95,10 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
         // extend line
         Line line = network.getLine("L");
         assertNotNull(line);
-        ConnectablePosition<Line> linePosition = new ConnectablePosition<>(line,
+        ConnectablePosition<Line> linePosition = new ConnectablePositionImpl<>(line,
                 null,
-                new ConnectablePosition.Feeder("L", 10, ConnectablePosition.Direction.TOP),
-                new ConnectablePosition.Feeder("L", 20, ConnectablePosition.Direction.BOTTOM),
+                new ConnectablePositionImpl.FeederImpl("L", 10, ConnectablePosition.Direction.TOP),
+                new ConnectablePositionImpl.FeederImpl("L", 20, ConnectablePosition.Direction.BOTTOM),
                 null);
         line.addExtension(ConnectablePosition.class, linePosition);
 
