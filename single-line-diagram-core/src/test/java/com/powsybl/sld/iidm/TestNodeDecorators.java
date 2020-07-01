@@ -8,6 +8,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
@@ -106,15 +107,16 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
                     case LOAD_BREAK_SWITCH:
                         componentType = "LOCK"; break;
                 }
-                nodeDecorators.add(new NodeDecorator(componentType, getSwitchDecoratorPosition((SwitchNode) node)));
+                nodeDecorators.add(new NodeDecorator(componentType, getSwitchDecoratorPosition((SwitchNode) node, componentType)));
             }
 
             return nodeDecorators;
         }
 
-        private LabelPosition getSwitchDecoratorPosition(SwitchNode node) {
-            double yShift = 0;
-            double xShift = componentLibrary.getSize(node.getComponentType()).getHeight() + DECORATOR_OFFSET;
+        private LabelPosition getSwitchDecoratorPosition(SwitchNode node, String decoratorType) {
+            ComponentSize size = componentLibrary.getSize(node.getComponentType());
+            double yShift = -size.getHeight() / 2;
+            double xShift = size.getWidth() / 2 + DECORATOR_OFFSET;
             return new LabelPosition(node.getId() + "_DECORATOR", xShift, yShift, false, 0);
         }
     }

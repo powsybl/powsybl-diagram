@@ -39,6 +39,11 @@ public interface DiagramLabelProvider {
         private final String type;
         private final LabelPosition position;
 
+        /**
+         * Creates a node decorator, with given type and position
+         * @param type decorator type; corresponds to the type defined in components.xml file
+         * @param labelPosition position of the decorator relatively to the center of the decorated node
+         */
         public NodeDecorator(String type, LabelPosition labelPosition) {
             this.type = type;
             this.position = labelPosition;

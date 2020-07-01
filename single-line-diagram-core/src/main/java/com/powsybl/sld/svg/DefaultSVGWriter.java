@@ -762,10 +762,10 @@ public class DefaultSVGWriter implements SVGWriter {
     private void setDecoratorAttributes(String prefixId, Element g, Node node, DiagramLabelProvider.NodeDecorator nodeDecorator,
                                         DiagramStyleProvider styleProvider, Element elt, String subComponentName) {
         replaceId(g, elt, prefixId);
-        ComponentSize size = componentLibrary.getSize(node.getComponentType());
+        ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
-        elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition));
-        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, size, subComponentName, layoutParameters.isShowInternalNodes());
+        elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
+        Map<String, String> svgStyle = styleProvider.getSvgNodeStyleAttributes(node, decoratorSize, subComponentName, layoutParameters.isShowInternalNodes());
         svgStyle.forEach(elt::setAttribute);
     }
 
@@ -785,13 +785,20 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition) {
+    private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
         String transform;
         if (node.isRotated()) {
-            double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition);
+            double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition, decoratorSize);
             transform = transformMatrixToString(matrix, 4);
         } else {
-            transform = TRANSLATE + "(" + decoratorPosition.getdX() + "," + decoratorPosition.getdY() + ")";
+            ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
+            double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
+            double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
+            if (decoratorPosition.isCentered()) {
+                dX -= decoratorSize.getWidth() / 2;
+                dY -= decoratorSize.getHeight() / 2;
+            }
+            transform = TRANSLATE + "(" + dX + "," + dY + ")";
         }
         return transform;
     }
@@ -824,13 +831,17 @@ public class DefaultSVGWriter implements SVGWriter {
         return new double[] {translateX, translateY};
     }
 
-    private double[] getDecoratorTransformMatrix(Node node, LabelPosition decoratorPosition) {
+    private double[] getDecoratorTransformMatrix(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
         double[] translateNode = getNodeTranslate(node);
         double[] matrixNode = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), node.getRotationAngle() * Math.PI / 180,
             layoutParameters.getTranslateX() + node.getX(), layoutParameters.getTranslateY() + node.getY());
-        double translateDecoratorX = translateNode[0] + decoratorPosition.getdX();
-        double translateDecoratorY = translateNode[1] + decoratorPosition.getdY();
+        double translateDecoratorX = translateNode[0] + componentSize.getWidth() / 2 + decoratorPosition.getdX();
+        double translateDecoratorY = translateNode[1] + componentSize.getHeight() / 2 + decoratorPosition.getdY();
+        if (decoratorPosition.isCentered()) {
+            translateDecoratorX -= decoratorSize.getWidth() / 2;
+            translateDecoratorY -= decoratorSize.getHeight() / 2;
+        }
         double t1 = +matrixNode[3] * (translateDecoratorX - matrixNode[4]) - matrixNode[2] * (translateDecoratorY - matrixNode[5]);
         double t2 = -matrixNode[1] * (translateDecoratorX - matrixNode[4]) + matrixNode[0] * (translateDecoratorY - matrixNode[5]);
         return new double[] {matrixNode[3], -matrixNode[1], -matrixNode[2], matrixNode[0], t1, t2};
