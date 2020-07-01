@@ -877,15 +877,21 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         if (distancePoints > 0) {
-            double cosAngle = dy / distancePoints;
-            double sinAngle = dx / distancePoints;
+            // Calculate cos and sin of the angle between the wire line and the abscisse
+            double cosAngle = dx / distancePoints;
+            double sinAngle = dy / distancePoints;
 
             double dist = this.layoutParameters.getArrowDistance();
-            double x = x1 + sinAngle * (dist + shift);
-            double y = y1 + cosAngle * (dist + shift);
+            double x = x1 + cosAngle * (dist + shift);
+            double y = y1 + sinAngle * (dist + shift);
 
-            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, Math.atan(dx / dy), componentSize));
+            double arrowRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
+            if (arrowRotationAngle < -Math.PI / 2) {
+                arrowRotationAngle += Math.PI;
+            }
+            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, arrowRotationAngle, componentSize));
         }
+
     }
 
     private String getTransformMatrixString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
