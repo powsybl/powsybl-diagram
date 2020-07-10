@@ -14,6 +14,8 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -98,6 +100,8 @@ public class TestCase4NotParallelel extends AbstractTestCaseIidm {
                 .setVerticalSubstationPadding(50);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+
+        toSVG(g,"/testCase4.svg",layoutParameters,new DefaultDiagramInitialValueProvider(network),new DefaultDiagramStyleProvider());
 
         // write Json and compare to reference
         assertEquals(toJson(g, "/TestCase4NotParallelel.json"), toString("/TestCase4NotParallelel.json"));

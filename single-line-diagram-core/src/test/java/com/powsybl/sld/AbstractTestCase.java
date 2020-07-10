@@ -16,6 +16,7 @@ import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
@@ -46,13 +47,13 @@ public abstract class AbstractTestCase {
     }
 
     private static void writeToFileInHomeDir(String filename, StringWriter content) {
-//        try {
-//            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
-//            fw.write(content.toString());
-//            fw.close();
-//        } catch (IOException e) {
-//            throw new UncheckedIOException(e);
-//        }
+        try {
+            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+            fw.write(content.toString());
+            fw.close();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public String toSVG(Graph graph,

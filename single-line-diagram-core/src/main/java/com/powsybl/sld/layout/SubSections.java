@@ -104,7 +104,7 @@ class SubSections {
 
     private void allocateCellToSubsection(BusCell busCell, List<BusNode> busNodes, Side side) {
         SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
-        busNodes.stream().map(BusNode::getStructuralPosition).collect(Collectors.toList())
+        busNodes.stream().map(BusNode::getStructuralPosition)
                 .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
 
         SubSection subSection = subsectionSet.stream()
@@ -115,6 +115,7 @@ class SubSections {
             subSection = new SubSection(indexes);
             subsectionSet.add(subSection);
         }
+
         if (side == Side.UNDEFINED) {
             if (busCell.getType() == Cell.CellType.INTERN) {
                 subSection.add((InternCell) busCell, Side.UNDEFINED);
