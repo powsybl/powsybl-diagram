@@ -72,7 +72,11 @@ class SubSections {
 
     //TODO: inappropriate criteria
     private boolean verticalInternCell(InternCell cell) {
-        return cell.isUniLeg() || cell.getBusNodes().stream()
+        if (cell.isUniLeg()) {
+            return true;
+        }
+        SubSectionIndexes ssi = busNodesToSubSectionIndexes(cell.getBusNodes());
+        return cell.getBusNodes().stream()
                 .map(bus -> bus.getStructuralPosition().getH())
                 .distinct().count() == 1;
     }
@@ -103,9 +107,7 @@ class SubSections {
     }
 
     private void allocateCellToSubsection(BusCell busCell, List<BusNode> busNodes, Side side) {
-        SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
-        busNodes.stream().map(BusNode::getStructuralPosition)
-                .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
+        SubSectionIndexes indexes = busNodesToSubSectionIndexes(busNodes);
 
         SubSection subSection = subsectionSet.stream()
                 .filter(i -> i.getSsIndexes().equals(indexes))
@@ -138,6 +140,13 @@ class SubSections {
             }
             subsectionSet.add(ss);
         }
+    }
+
+    private SubSectionIndexes busNodesToSubSectionIndexes(List<BusNode> busNodes) {
+        SubSectionIndexes indexes = new SubSectionIndexes(graph.getMaxBusStructuralPosition().getV());
+        busNodes.stream().map(BusNode::getStructuralPosition)
+                .forEach(position -> indexes.setIndexI(position.getV() - 1, position.getH()));
+        return indexes;
     }
 
     private void mergeSimilarSubsections() {
@@ -368,18 +377,18 @@ class SubSections {
 
         @Override
         public int compareTo(@Nonnull SubSectionIndexes o) {
-            boolean hasBoth0 = false;
+            boolean noNotNullIntersection = false;
             for (int i = 0; i < size; i++) {
-                if (indexes[i] != 0 && o.getIndexes()[i] != 0) {
-                    int index = o.getIndexes()[i];
+                int index = o.getIndexes()[i];
+                if (indexes[i] != 0 && index != 0) {
                     if (indexes[i] != index) {
                         return indexes[i] - index;
                     }
                 } else {
-                    hasBoth0 = true;
+                    noNotNullIntersection = true;
                 }
             }
-            if (hasBoth0) {
+            if (noNotNullIntersection) {
                 return notObviousComp(o.getIndexes());
             }
             return 0;
