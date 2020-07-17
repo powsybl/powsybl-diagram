@@ -30,10 +30,8 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
     private final Map<InternCell, Side> crossoverInternCells;
     private LBSCluster lbsCluster;
     private final List<Link<LegBusSet>> myLinks;
-    private final Map<BusNode, Integer> nodeToNb;
 
-    LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
-        this.nodeToNb = nodeToNb;
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
         embeddedCells = new LinkedHashSet<>();
@@ -188,6 +186,9 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
         return null;
     }
 
+
+
+/*
     @Override
     public boolean equals(Object o) {
         if (o instanceof LegBusSet) {
@@ -207,5 +208,6 @@ class LegBusSet implements ClusterConnector<LegBusSet> {
         }
         return hash;
     }
+*/
 
 }
