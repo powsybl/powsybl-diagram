@@ -214,7 +214,7 @@ public class PositionByClustering implements PositionFinder {
         List<LBSCluster> lbsClusters = new ArrayList<>();
         int nb = 0;
         for (LegBusSet lbs : legBusSets) {
-            new LBSCluster(lbsClusters, lbs, nb++);
+            new LBSCluster(lbs, nb++);
         }
         return lbsClusters;
     }

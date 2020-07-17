@@ -32,11 +32,12 @@ interface ClusterConnector<T extends ClusterConnector> {
 
     boolean hasSameRoot(Object other);
 
+    T getOtherSameRoot(List<T> clusterConnectors);
+
     void addLink(Link<T> link);
 
     void removeLink(Link<T> link);
 
     List<Link<T>> getLinks();
 
-    T getOtherSameRoot(List<T> clusterConnectors);
 }
