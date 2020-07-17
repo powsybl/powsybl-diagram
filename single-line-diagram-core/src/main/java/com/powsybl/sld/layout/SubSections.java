@@ -350,7 +350,7 @@ class SubSections {
             return indexes.clone();
         }
 
-        //TODO: verify the case indexes[i] == 0 shouldn't be considered
+        //TODO: suspicious check!!!
         boolean hasSameNonZeroIndexes(SubSectionIndexes ssI) {
             for (int i = 0; i < size; i++) {
                 int index = ssI.getIndexes()[i];

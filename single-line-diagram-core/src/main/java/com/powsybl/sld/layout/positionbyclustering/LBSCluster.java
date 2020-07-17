@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * LBSCluster contains a list of LegBusSets (LBS) that is orderly build by successively merging LBSCluster initially
  * containing a single LBS.
- * LBSCluster handles the building of the horizontalLanes.
+ * LBSCluster handles the building of the horizontalLanes that are an horizontal strings of busNodes.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -29,13 +29,9 @@ class LBSCluster {
     private final List<LegBusSet> lbsList = new ArrayList<>();
     private final Map<Side, LegBusSet> sideToLbs = new EnumMap<>(Side.class);
     private final List<HorizontalLane> horizontalLanes = new ArrayList<>();
-    private final List<LBSCluster> lbsClusters;
     private final int nb;
 
-    LBSCluster(List<LBSCluster> lbsClusters, LegBusSet lbs, int nb) {
-        this.lbsClusters = Objects.requireNonNull(lbsClusters);
-        this.lbsClusters.add(this);
-
+    LBSCluster(LegBusSet lbs, int nb) {
         Objects.requireNonNull(lbs);
         lbsList.add(lbs);
         lbs.getBusNodeSet().forEach(nodeBus -> horizontalLanes.add(new HorizontalLane(nodeBus)));
@@ -58,7 +54,6 @@ class LBSCluster {
         mergeHorizontalLanes(otherLbsCluster, lbsList.size());
         lbsList.addAll(otherLbsCluster.lbsList);
         sideToLbs.put(Side.RIGHT, otherLbsCluster.sideToLbs.get(Side.RIGHT));
-        lbsClusters.remove(otherLbsCluster);
     }
 
     List<BusNode> laneSideBuses(Side side) {
@@ -194,7 +189,7 @@ class LBSCluster {
     List<InternCell> getSideFlatCell(Side side) {
         return laneSideBuses(side).stream()
                 .map(busNode -> getLbsSideFromBusNode(busNode, side))
-                .distinct()
+                .distinct().filter(Objects::nonNull)
                 .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream())
                 .collect(Collectors.toList());
     }
