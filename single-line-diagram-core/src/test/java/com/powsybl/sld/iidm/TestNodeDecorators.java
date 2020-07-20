@@ -17,7 +17,7 @@ import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -97,7 +97,7 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
         public List<NodeDecorator> getNodeDecorators(Node node) {
             Objects.requireNonNull(node);
 
-            List<NodeDecorator> nodeDecorators = new LinkedList<>();
+            List<NodeDecorator> nodeDecorators = new ArrayList<>();
             if (node instanceof SwitchNode) {
                 String componentType = "";
                 switch (((SwitchNode) node).getKind()) {

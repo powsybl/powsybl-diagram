@@ -11,7 +11,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -108,7 +109,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     public List<NodeLabel> getNodeLabels(Node node) {
         Objects.requireNonNull(node);
 
-        List<NodeLabel> nodeLabels = new LinkedList<>();
+        List<NodeLabel> nodeLabels = new ArrayList<>();
         if (node instanceof FeederNode) {
             nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node)));
         } else if (node instanceof BusNode) {
@@ -121,7 +122,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     @Override
     public List<NodeDecorator> getNodeDecorators(Node node) {
         Objects.requireNonNull(node);
-        return new LinkedList<>();
+        return Collections.emptyList();
     }
 
     private LabelPosition getFeederLabelPosition(Node node) {
