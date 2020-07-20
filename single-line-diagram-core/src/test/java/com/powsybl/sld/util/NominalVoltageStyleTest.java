@@ -15,13 +15,12 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -162,7 +161,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
                 .setVerticalSnakeLinePadding(30)
                 .setHighlightLineState(true);
 
-        DiagramInitialValueProvider noFeederValueProvider = new DiagramInitialValueProvider() {
+        DiagramLabelProvider noFeederValueProvider = new DefaultDiagramLabelProvider(
+                Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public InitialValue getInitialValue(Node node) {
                 InitialValue initialValue;
@@ -172,15 +172,6 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
                     initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
                 }
                 return initialValue;
-            }
-
-            @Override
-            public List<String> getNodeLabelValue(Node node) {
-                List<String> res = new ArrayList<>();
-                if (node instanceof FeederNode || node instanceof BusNode) {
-                    res.add(node.getLabel());
-                }
-                return res;
             }
         };
 

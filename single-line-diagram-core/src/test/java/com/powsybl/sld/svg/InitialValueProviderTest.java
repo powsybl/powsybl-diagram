@@ -11,6 +11,9 @@ import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +87,9 @@ public class InitialValueProviderTest {
     @Test
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
-        DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2);
+        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        LayoutParameters layoutParameters = new LayoutParameters();
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
@@ -93,7 +98,7 @@ public class InitialValueProviderTest {
         assertFalse(init.getLabel4().isPresent());
         assertFalse(init.getArrowDirection1().isPresent());
         assertFalse(init.getArrowDirection2().isPresent());
-        DefaultDiagramInitialValueProvider initProvider1 = new DefaultDiagramInitialValueProvider(network);
+        DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
         InitialValue init1 = initProvider1.getInitialValue(g.getNode("svc"));
         assertTrue(init1.getLabel1().isPresent());
         assertTrue(init1.getLabel2().isPresent());

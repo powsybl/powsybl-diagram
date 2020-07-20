@@ -12,9 +12,8 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
-import com.powsybl.sld.svg.DefaultNodeLabelConfiguration;
 import com.powsybl.sld.svg.DefaultSVGWriter;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.IOException;
@@ -59,14 +58,13 @@ public abstract class AbstractTestCase {
     public String toSVG(Graph graph,
                         String filename,
                         LayoutParameters layoutParameters,
-                        DiagramInitialValueProvider initValueProvider,
+                        DiagramLabelProvider initValueProvider,
                         DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);
@@ -79,14 +77,13 @@ public abstract class AbstractTestCase {
 
     public void compareMetadata(VoltageLevelDiagram diagram, LayoutParameters layoutParameters,
                                 String refMetdataName,
-                                DiagramInitialValueProvider initValueProvider,
+                                DiagramLabelProvider initValueProvider,
                                 DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
             diagram.writeSvg("",
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider, styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
             writeToFileInHomeDir(refMetdataName, metadataWriter);
@@ -102,14 +99,13 @@ public abstract class AbstractTestCase {
     public String toSVG(SubstationGraph graph,
                         String filename,
                         LayoutParameters layoutParameters,
-                        DiagramInitialValueProvider initValueProvider,
+                        DiagramLabelProvider initValueProvider,
                         DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);
@@ -122,7 +118,7 @@ public abstract class AbstractTestCase {
 
     public void compareMetadata(SubstationDiagram diagram, LayoutParameters layoutParameters,
                                 String refMetdataName,
-                                DiagramInitialValueProvider initValueProvider,
+                                DiagramLabelProvider initValueProvider,
                                 DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
@@ -130,7 +126,6 @@ public abstract class AbstractTestCase {
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
                     initValueProvider,
                     styleProvider,
-                    new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                     writer, metadataWriter);
 
             writeToFileInHomeDir(refMetdataName, metadataWriter);
@@ -180,13 +175,12 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toSVG(ZoneGraph graph, String filename, LayoutParameters layoutParameters, DiagramInitialValueProvider initValueProvider, DiagramStyleProvider styleProvider) {
+    public String toSVG(ZoneGraph graph, String filename, LayoutParameters layoutParameters, DiagramLabelProvider initValueProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
                     .write("", graph,
                             initValueProvider,
                             styleProvider,
-                            new DefaultNodeLabelConfiguration(componentLibrary, layoutParameters),
                             writer);
 
             writeToFileInHomeDir(filename, writer);

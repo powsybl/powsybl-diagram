@@ -12,7 +12,7 @@ import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -255,7 +255,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
                 new PositionVoltageLevelLayoutFactory(), false);
         compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
-                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }
 }

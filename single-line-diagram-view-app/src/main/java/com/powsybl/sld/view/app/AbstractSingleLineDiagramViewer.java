@@ -247,20 +247,20 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                  StringWriter metadataWriter = new StringWriter();
                  StringWriter jsonWriter = new StringWriter()) {
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
-                DiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(networkProperty.get());
-                GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
 
                 String dName = getSelectedDiagramName();
                 LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
-                NodeLabelConfiguration nodeLabelConfiguration = new DefaultNodeLabelConfiguration(getComponentLibrary(), diagramLayoutParameters);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
+
+                DiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(networkProperty.get(), getComponentLibrary(), diagramLayoutParameters);
+                GraphBuilder graphBuilder = new NetworkGraphBuilder(networkProperty.get());
+
                 if (c.getContainerType() == ContainerType.VOLTAGE_LEVEL) {
                     VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, c.getId(), getVoltageLevelLayoutFactory(), showNames.isSelected());
                     diagram.writeSvg("",
                             new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
                             styleProvider,
-                            nodeLabelConfiguration,
                             svgWriter,
                             metadataWriter);
                     diagram.getGraph().writeJson(jsonWriter);
@@ -270,7 +270,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                             new DefaultSVGWriter(getComponentLibrary(), diagramLayoutParameters),
                             initProvider,
                             styleProvider,
-                            nodeLabelConfiguration,
                             svgWriter,
                             metadataWriter);
                     diagram.getSubGraph().writeJson(jsonWriter);

@@ -7,13 +7,11 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import com.powsybl.sld.svg.DiagramInitialValueProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.svg.InitialValue;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,18 +44,22 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private Graph g2;
     private Graph g3;
     private SubstationGraph substG;
-    private DiagramInitialValueProvider initValueProvider;
-    private DiagramInitialValueProvider noFeederValueProvider;
+    private DiagramLabelProvider initValueProvider;
+    private DiagramLabelProvider noFeederValueProvider;
+    private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
         // Creation "by hand" (without any network) of 3 voltage level graphs
         // and then generation of a SVG with DefaultDiagramStyleProvider (no network necessary)
         //
+        g1 = createVoltageLevelGraph1();
+        g2 = createVoltageLevelGraph2();
+        g3 = createVoltageLevelGraph3();
+    }
 
-        // First voltage level graph :
-        //
-        g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
+    protected static Graph createVoltageLevelGraph1() {
+        Graph g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
         g1.setX(0);
         g1.setY(20);
 
@@ -161,11 +163,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Btrf2, vl1Dtrf2);
         g1.addEdge(vl1Dtrf2, vl1Bbs2);
 
-        // Second voltage level graph :
-        //
-        g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
+        return g1;
+    }
+
+    private static Graph createVoltageLevelGraph2() {
+        Graph g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
         g2.setX(550);
         g2.setY(20);
+
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
 
         BusNode vl2Bbs1 = BusNode.create(g2, "vl2_bbs1", "vl2_bbs1");
         vl2Bbs1.setX(0);
@@ -240,11 +248,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Btrf2, vl2Dtrf2);
         g2.addEdge(vl2Dtrf2, vl2Bbs1);
 
-        // Third voltage level graph :
-        //
-        g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
+        return g2;
+    }
+
+    private static Graph createVoltageLevelGraph3() {
+        Graph g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
         g3.setX(850);
         g3.setY(20);
+
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
 
         BusNode vl3Bbs1 = BusNode.create(g3, "vl3_bbs1", "vl3_bbs1");
         vl3Bbs1.setX(0);
@@ -299,6 +313,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g3.addEdge(vl3Trf2Fict, vl3Btrf2);
         g3.addEdge(vl3Btrf2, vl3Dtrf2);
         g3.addEdge(vl3Dtrf2, vl3Bbs1);
+
+        return g3;
     }
 
     private void createSubstationGraph() {
@@ -640,63 +656,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         createSubstationGraph();
         createZoneGraph();
 
-        // initValueProvider example for the test :
-        //
-        initValueProvider = new DiagramInitialValueProvider() {
-            @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
-                }
-                return initialValue;
-            }
-
-            @Override
-            public List<String> getNodeLabelValue(Node node) {
-                List<String> res = new ArrayList<>();
-                if (node instanceof FeederNode || node instanceof BusNode) {
-                    res.add(node.getLabel());
-                }
-                return res;
-            }
-        };
-
-        // no feeder value provider example for the test :
-        //
-        noFeederValueProvider = new DiagramInitialValueProvider() {
-            @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, null, null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
-                }
-                return initialValue;
-            }
-
-            @Override
-            public List<String> getNodeLabelValue(Node node) {
-                List<String> res = new ArrayList<>();
-                if (node instanceof FeederNode || node instanceof BusNode) {
-                    res.add(node.getLabel());
-                }
-                return res;
-            }
-        };
-    }
-
-    @Test
-    public void test() {
-
-        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
-
         // Layout parameters :
         //
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)
@@ -716,6 +678,43 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 .setHorizontalSnakeLinePadding(30)
                 .setVerticalSnakeLinePadding(30);
 
+        // initValueProvider example for the test :
+        //
+        initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
+                }
+                return initialValue;
+            }
+        };
+
+        // no feeder value provider example for the test :
+        //
+        noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                InitialValue initialValue;
+                if (node.getType() == Node.NodeType.BUS) {
+                    initialValue = new InitialValue(null, null, null, null, null, null);
+                } else {
+                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                }
+                return initialValue;
+            }
+
+        };
+    }
+
+    @Test
+    public void test() {
+
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
+
         Map<String, Graph> mapGr = new LinkedHashMap<>();
         mapGr.put("/vl1.svg", g1);
         mapGr.put("/vl2.svg", g2);
@@ -734,8 +733,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // Same tests than before, with optimized svg :
         //
-        LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
-        layoutParameters2.setAvoidSVGComponentsDuplication(true);
+        layoutParameters.setAvoidSVGComponentsDuplication(true);
 
         mapGr.clear();
         mapGr.put("/vl1_optimized.svg", g1);
@@ -744,37 +742,17 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         for (String filename : mapGr.keySet()) {
             // SVG file generation first voltage level and comparison to reference :
-            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters2, initValueProvider, styleProvider));
+            assertEquals(toString(filename), toSVG(mapGr.get(filename), filename, layoutParameters, initValueProvider, styleProvider));
         }
 
         // SVG file generation for substation and comparison to reference
-        assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters2, initValueProvider, styleProvider));
+        assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
     @Test
     public void testWriteZone() {
         DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
-
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(80)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(false)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setDrawStraightWires(false)
-                .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30);
-
+        layoutParameters.setShowGrid(false);
         assertEquals(toString("/zone.svg"), toSVG(zGraph, "/zone.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
