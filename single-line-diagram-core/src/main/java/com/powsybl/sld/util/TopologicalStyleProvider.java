@@ -150,6 +150,21 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
+    protected String getEdgeColor(Node node1, Node node2) {
+        if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
+            return node2.getVoltageLevelInfos() != null ? getNodeColor(node2.getVoltageLevelInfos(), node2) : null;
+        }
+        if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
+            return node1.getVoltageLevelInfos() != null ? getNodeColor(node1.getVoltageLevelInfos(), node1) : null;
+        }
+        if (node1.getVoltageLevelInfos() != null) {
+            return getNodeColor(node1.getVoltageLevelInfos(), node1);
+        } else {
+            return getNodeColor(node2.getVoltageLevelInfos(), node2);
+        }
+    }
+
+    @Override
     public String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
         RGBColor rgbColor = getSmartNodeColor(voltageLevelInfos, node);
         return rgbColor != null ? rgbColor.toString() : disconnectedColor;
