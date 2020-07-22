@@ -126,8 +126,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 case STATIC_VAR_COMPENSATOR:
                     return FeederInjectionNode.createStaticVarCompensator(graph, injection.getId(), injection.getName());
                 case SHUNT_COMPENSATOR:
-                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
-                                                                                : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
+                    // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
+                    return ((ShuntCompensator) injection).getB() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
+                                                                      : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
                 case DANGLING_LINE:
                     return FeederInjectionNode.createDanglingLine(graph, injection.getId(), injection.getName());
                 default:
