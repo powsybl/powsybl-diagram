@@ -366,6 +366,11 @@ public final class Graph {
         removeNode(nodeOrigin);
     }
 
+    public void replaceNode(Node nodeOrigin, Node newNode) {
+        addNode(newNode);
+        substitueNode(nodeOrigin, newNode);
+    }
+
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
