@@ -515,7 +515,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .orElseThrow(() -> new PowsyblException("Empty node set"));
         BusNode bn = BusNode.createFictitious(graph, biggestFn.getId() + "FictitiousBus");
         graph.addNode(bn);
-        graph.substitueNode(biggestFn, bn);
+        graph.substituteNode(biggestFn, bn);
     }
 
     /**
