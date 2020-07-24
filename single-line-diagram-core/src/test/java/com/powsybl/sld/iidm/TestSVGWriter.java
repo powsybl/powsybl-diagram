@@ -756,4 +756,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         assertEquals(toString("/zone.svg"), toSVG(zGraph, "/zone.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
+    @Test
+    public void testStraightWires() {
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
+        layoutParameters.setDrawStraightWires(true);
+        assertEquals(toString("/vl1_straightWires.svg"), toSVG(g1, "/vl1_straightWires.svg", layoutParameters, initValueProvider, styleProvider));
+    }
+
 }
