@@ -66,13 +66,13 @@ public class BlockOrganizer {
             determineStackableBlocks(graph);
         }
 
-        LBSCluster lbsCluster = positionFinder.buildLayout(graph);
+        List<Subsection> subsections = positionFinder.buildLayout(graph);
 
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)
                 .forEach(cell -> ((BusCell) cell).blockSizing());
 
-        new BlockPositionner().determineBlockPositions(graph, lbsCluster.createSubsections());
+        new BlockPositionner().determineBlockPositions(graph, subsections);
     }
 
     /**

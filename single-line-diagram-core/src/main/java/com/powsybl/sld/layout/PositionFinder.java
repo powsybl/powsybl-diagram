@@ -28,14 +28,14 @@ public interface PositionFinder {
 
     LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets);
 
-    default LBSCluster buildLayout(Graph graph) {
+    default List<Subsection> buildLayout(Graph graph) {
         Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
         List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb);
         LBSCluster lbsCluster = organizeLegBusSets(legBusSets);
         graph.setMaxBusPosition();
         forceSameOrientationForShuntedCell(graph);
-        lbsCluster.ensureInternCellCoherence();
-        return lbsCluster;
+        lbsCluster.identifyFlatCells();
+        return lbsCluster.createSubsections();
     }
 
     default void forceSameOrientationForShuntedCell(Graph graph) {

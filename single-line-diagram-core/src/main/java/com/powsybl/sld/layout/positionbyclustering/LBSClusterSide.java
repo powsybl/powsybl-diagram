@@ -30,40 +30,40 @@ class LBSClusterSide {
         this.side = Objects.requireNonNull(side);
     }
 
-    public Set<BusNode> getBusNodeSet() {
+    Set<BusNode> getBusNodeSet() {
         return new LinkedHashSet<>(lbsCluster.laneSideBuses(side));
     }
 
-    public List<InternCell> getCandidateFlatCellList() {
+    List<InternCell> getCandidateFlatCellList() {
         return lbsCluster.getSideFlatCell(side);
     }
 
-    public List<InternCell> getCrossOverCellList() {
+    List<InternCell> getCrossOverCellList() {
         return lbsCluster.getCrossoverCells();
     }
 
-    public LBSCluster getCluster() {
+    LBSCluster getCluster() {
         return lbsCluster;
     }
 
-    public Side getMySideInCluster() {
+    Side getMySideInCluster() {
         return side;
     }
 
-    public boolean hasSameRoot(Object other) {
+    boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
         return this.lbsCluster == ((LBSClusterSide) other).getCluster();
     }
 
-    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
+    LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
         return clusterConnectors.stream().filter(clusterConnector ->
                 clusterConnector.getCluster() == lbsCluster
                         && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
-    public int getDistanceToEdge(InternCell internCell) {
+    int getDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
@@ -86,15 +86,15 @@ class LBSClusterSide {
         }
     }
 
-    public void addLink(Link link) {
+    void addLink(Link link) {
         myLinks.add(link);
     }
 
-    public void removeLink(Link link) {
+    void removeLink(Link link) {
         myLinks.remove(link);
     }
 
-    public List<Link> getLinks() {
+    List<Link> getLinks() {
         return myLinks;
     }
 
