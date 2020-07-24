@@ -173,6 +173,9 @@ public final class Graph {
     }
 
     public void addNode(Node node) {
+        if (nodes.contains(node)) {
+            throw new AssertionError("The node cannot be added, it is already in the graph");
+        }
         nodes.add(node);
         nodesByType.computeIfAbsent(node.getType(), nodeType -> new ArrayList<>()).add(node);
         nodesById.put(node.getId(), node);

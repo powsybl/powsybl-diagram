@@ -69,11 +69,17 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         // Replacing the node
         String originNodeId = "S1VL2_BBS2_LD4_DISCONNECTOR";
         String replacingNodeId = "S1VL2_TWT_BREAKER";
-        graph.replaceNode(graph.getNode(originNodeId), graph.getNode(replacingNodeId));
+        Node originNode = graph.getNode(originNodeId);
+        Node replacingNode = graph.getNode(replacingNodeId);
+        try {
+            graph.replaceNode(originNode, replacingNode);
+            fail();
+        } catch (AssertionError e) {
+            assertEquals("The node cannot be added, it is already in the graph", e.getMessage());
+        }
 
-        assertNull(graph.getNode(originNodeId));
-        assertNotNull(graph.getNode(replacingNodeId));
-        assertEquals(originNbNodes - 1, graph.getNodes().size());
+        assertNotNull(graph.getNode(originNodeId));
+        assertEquals(originNbNodes, graph.getNodes().size());
         assertEquals(originNbEdges, graph.getEdges().size());
 
     }
