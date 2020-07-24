@@ -209,4 +209,10 @@ public class LegBusSet {
         pushNewLBS(legBusSets, nodeToNb, internCell, Side.LEFT);
         pushNewLBS(legBusSets, nodeToNb, internCell, Side.RIGHT);
     }
+
+    public void moveInternCellFromFlatToCrossOver(InternCell cell) {
+        Side side = candidateFlatCells.get(cell);
+        candidateFlatCells.remove(cell);
+        crossoverInternCells.put(cell, side);
+    }
 }

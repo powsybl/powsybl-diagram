@@ -79,8 +79,6 @@ public class TestCase3 extends AbstractTestCaseRaw {
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        toSVG(g, "/testCase3.svg", layoutParameters, initialValueProvider, new DefaultDiagramStyleProvider());
-
         // write Json and compare to reference
         assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3.json"));
     }
