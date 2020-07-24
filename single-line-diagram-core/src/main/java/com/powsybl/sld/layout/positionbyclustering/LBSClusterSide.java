@@ -24,80 +24,77 @@ class LBSClusterSide {
     private final LBSCluster lbsCluster;
     private final Side side;
     private final List<Link> myLinks = new ArrayList<>();
-    private LBSClusterSide otherSameRoot;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = Objects.requireNonNull(lbsCluster);
         this.side = Objects.requireNonNull(side);
     }
 
-    void setOtherSameRoot(LBSClusterSide otherSameRoot) {
-        this.otherSameRoot = otherSameRoot;
-    }
-
-    Set<BusNode> getBusNodeSet() {
+    public Set<BusNode> getBusNodeSet() {
         return new LinkedHashSet<>(lbsCluster.laneSideBuses(side));
     }
 
-    List<InternCell> getCandidateFlatCellList() {
-        return lbsCluster.getSideCandidateFlatCell(side);
+    public List<InternCell> getCandidateFlatCellList() {
+        return lbsCluster.getSideFlatCell(side);
     }
 
-    List<InternCell> getCrossOverCellList() {
+    public List<InternCell> getCrossOverCellList() {
         return lbsCluster.getCrossoverCells();
     }
 
-    LBSCluster getCluster() {
+    public LBSCluster getCluster() {
         return lbsCluster;
     }
 
-    Side getMySideInCluster() {
+    public Side getMySideInCluster() {
         return side;
     }
 
-    boolean hasSameRoot(Object other) {
+    public boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
         return this.lbsCluster == ((LBSClusterSide) other).getCluster();
     }
 
-    LBSClusterSide getOtherSameRoot() {
-        return otherSameRoot;
+    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
+        return clusterConnectors.stream().filter(clusterConnector ->
+                clusterConnector.getCluster() == lbsCluster
+                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
-    int getCandidateFlatCellDistanceToEdge(InternCell internCell) {
+    public int getDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
-            return 100;
+            return 0;
         }
-        BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
-        Optional<HorizontalBusLane> horizontalBusLane = lbsCluster.getHorizontalBusLanes()
+        BusNode busNode = buses.get(0);
+        HorizontalBusLane horizontalBusLane = lbsCluster.getHorizontalBusLanes()
                 .stream()
                 .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
                         || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
-                .findFirst();
-        if (!horizontalBusLane.isPresent()) {
-            return 100;
+                .findFirst().orElse(null);
+        if (horizontalBusLane == null) {
+            return 0;
         } else {
             if (side == Side.LEFT) {
-                return horizontalBusLane.get().getStartingIndex();
+                return horizontalBusLane.getStartingIndex();
             } else {
-                return lbsCluster.getLbsList().size() - horizontalBusLane.get().getEndingIndex();
+                return lbsCluster.getLbsList().size() - horizontalBusLane.getEndingIndex();
             }
         }
     }
 
-    void addLink(Link link) {
+    public void addLink(Link link) {
         myLinks.add(link);
     }
 
-    void removeLink(Link link) {
+    public void removeLink(Link link) {
         myLinks.remove(link);
     }
 
-    List<Link> getLinks() {
+    public List<Link> getLinks() {
         return myLinks;
     }
 

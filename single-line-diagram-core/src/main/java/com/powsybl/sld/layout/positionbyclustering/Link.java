@@ -56,14 +56,12 @@ class Link implements Comparable<Link> {
     private final LBSClusterSide lbsClusterSide1;
     private final LBSClusterSide lbsClusterSide2;
     private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
-    private int nb;
 
-    Link(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2, int nb) {
+    Link(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2) {
         this.lbsClusterSide1 = lbsClusterSide1;
         this.lbsClusterSide2 = lbsClusterSide2;
         lbsClusterSide1.addLink(this);
         lbsClusterSide2.addLink(this);
-        this.nb = nb;
         assessLink();
     }
 
@@ -80,7 +78,8 @@ class Link implements Comparable<Link> {
             categoryToWeight.put(LinkCategory.FLATCELLS,
                     flatCellIntersect.size() * 100
                             - flatCellIntersect.stream()
-                            .mapToInt(internCell -> flatCellDistanceToEdges(internCell, lbsClusterSide1, lbsClusterSide2)).sum());
+                            .mapToInt(internCell -> lbsClusterSide1.getDistanceToEdge(internCell)
+                                    + lbsClusterSide2.getDistanceToEdge(internCell)).sum());
         }
 
         Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCrossOverCellList());
@@ -90,10 +89,6 @@ class Link implements Comparable<Link> {
                 .flatMap(internCell -> internCell.getBusNodes().stream())
                 .distinct()
                 .count()));
-    }
-
-    static int flatCellDistanceToEdges(InternCell cell, LBSClusterSide lbsCS1, LBSClusterSide lbsCS2) {
-        return lbsCS1.getCandidateFlatCellDistanceToEdge(cell) + lbsCS2.getCandidateFlatCellDistanceToEdge(cell);
     }
 
     private int getLinkCategoryWeight(LinkCategory cat) {
@@ -164,7 +159,7 @@ class Link implements Comparable<Link> {
                 return 1;
             }
         }
-        return this.nb - oLink.nb;
+        return this.hashCode() - oLink.hashCode();
     }
 
     @Override

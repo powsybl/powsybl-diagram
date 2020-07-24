@@ -25,6 +25,7 @@ public class LBSCluster {
     private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
 
     private final List<LegBusSet> lbsList = new ArrayList<>();
+    private final Map<Side, LegBusSet> sideToLbs = new EnumMap<>(Side.class);
     private final List<HorizontalBusLane> horizontalBusLanes = new ArrayList<>();
     private final int nb;
 
@@ -32,6 +33,9 @@ public class LBSCluster {
         Objects.requireNonNull(lbs);
         lbsList.add(lbs);
         lbs.getBusNodeSet().forEach(nodeBus -> horizontalBusLanes.add(new HorizontalBusLane(nodeBus, this)));
+
+        sideToLbs.put(Side.LEFT, lbs);
+        sideToLbs.put(Side.RIGHT, lbs);
 
         this.nb = nb;
     }
@@ -54,13 +58,14 @@ public class LBSCluster {
         }
         hblManager.mergeHorizontalBusLanes(this, otherLbsCluster);
         lbsList.addAll(otherLbsCluster.lbsList);
+        sideToLbs.put(Side.RIGHT, otherLbsCluster.sideToLbs.get(Side.RIGHT));
     }
 
     public List<BusNode> laneSideBuses(Side side) {
         return laneSideBuses(side, horizontalBusLanes);
     }
 
-    public static List<BusNode> laneSideBuses(Side side, List<HorizontalBusLane> horizontalBusLaneList) {
+    public List<BusNode> laneSideBuses(Side side, List<HorizontalBusLane> horizontalBusLaneList) {
         return horizontalBusLaneList.stream()
                 .map(hl -> hl.getSideNode(side)).collect(Collectors.toList());
     }
@@ -89,10 +94,6 @@ public class LBSCluster {
                 .orElse(null);
     }
 
-    List<BusNode> getVerticalBuseNodes(int i) {
-        return horizontalBusLanes.stream().map(hbl -> hbl.getBusNode(i)).collect(Collectors.toList());
-    }
-
     public int getLength() {
         return lbsList.size();
     }
@@ -110,7 +111,7 @@ public class LBSCluster {
         return null;
     }
 
-    public List<InternCell> getSideCandidateFlatCell(Side side) {
+    public List<InternCell> getSideFlatCell(Side side) {
         return laneSideBuses(side).stream()
                 .map(busNode -> getLbsSideFromBusNode(busNode, side))
                 .distinct().filter(Objects::nonNull)
@@ -120,16 +121,44 @@ public class LBSCluster {
 
     private void reverse() {
         Collections.reverse(lbsList);
+        LegBusSet lbs = sideToLbs.get(Side.LEFT);
+        sideToLbs.put(Side.LEFT, sideToLbs.get(Side.RIGHT));
+        sideToLbs.put(Side.RIGHT, lbs);
         horizontalBusLanes.forEach(lane -> lane.reverse(lbsList.size()));
+    }
+
+    void ensureInternCellCoherence() {
+        Map<InternCell, List<Side>> cellToSide = new HashMap<>();
+        lbsList.forEach(lbs -> lbs.getNonEmbeddedInternCells().forEach((cell, side) -> {
+            cellToSide.putIfAbsent(cell, new ArrayList<>());
+            cellToSide.get(cell).add(side);
+        }));
+        cellToSide.forEach((cell, sides) -> {
+            if (sides.size() == 2 && sides.get(0) != Side.LEFT) {
+                cell.reverseCell();
+            }
+        });
+        getCandidateFlatCells().forEach(InternCell::identifyIfFlat);
+    }
+    //TODO : slip legs of interneCell to be to the closest LBS to the edge.
+
+    Side getLbsSide(LegBusSet lbs) {
+        if (sideToLbs.get(Side.RIGHT) == lbs) {
+            return Side.RIGHT;
+        }
+        if (sideToLbs.get(Side.LEFT) == lbs) {
+            return Side.LEFT;
+        }
+        return Side.UNDEFINED;
+    }
+
+    Set<InternCell> getCandidateFlatCells() {
+        return lbsList.stream().flatMap(legBusSet -> legBusSet.getCandidateFlatCells().keySet().stream()).collect(Collectors.toSet());
     }
 
     public List<InternCell> getCrossoverCells() {
         return lbsList.stream().flatMap(legBusSet -> legBusSet.getCrossoverInternCell().keySet()
                 .stream()).collect(Collectors.toList());
-    }
-
-    public void sortHorizontalBusLanesByVPos() {
-        horizontalBusLanes.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getStructuralPosition().getV()));
     }
 
     public List<HorizontalBusLane> getHorizontalBusLanes() {
@@ -140,12 +169,22 @@ public class LBSCluster {
         return lbsList;
     }
 
-    @Override
-    public String toString() {
-        return lbsList.toString() + "\n" + horizontalBusLanes.toString();
-    }
-
     int getNb() {
         return nb;
+    }
+
+    public List<Subsection> createSubsections() {
+        int size = getGraph().getMaxBusStructuralPosition().getV();
+        List<Subsection> subsections = new ArrayList<>();
+        Subsection currentSubsection = new Subsection(size);
+        subsections.add(currentSubsection);
+        for (LegBusSet lbs : lbsList) {
+            if (!currentSubsection.checkAbsorbability(lbs)) {
+                currentSubsection = new Subsection(size);
+                subsections.add(currentSubsection);
+            }
+            currentSubsection.addLegBusSet(lbs);
+        }
+        return subsections;
     }
 }

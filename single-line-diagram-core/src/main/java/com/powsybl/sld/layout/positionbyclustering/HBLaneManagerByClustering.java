@@ -13,7 +13,8 @@ import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class HBLaneManagerByClustering implements HorizontalBusLaneManager {
@@ -21,51 +22,35 @@ public class HBLaneManagerByClustering implements HorizontalBusLaneManager {
     @Override
     public void mergeHorizontalBusLanes(LBSCluster leftCluster, LBSCluster rightCluster) {
         List<HorizontalBusLane> availableLanesToMerge = new ArrayList<>(leftCluster.getHorizontalBusLanes());
-        mergeLanesWithCommonBusNode(leftCluster, rightCluster, availableLanesToMerge);
-        mergeLanesWithFlatCell(leftCluster, rightCluster, availableLanesToMerge);
-        mergeLanesWithNoLink(leftCluster, rightCluster);
+        mergeLaneWithCommonBusNode(leftCluster, rightCluster, availableLanesToMerge);
+        mergeLaneWithFlatCell(leftCluster, rightCluster, availableLanesToMerge);
+        mergeLaneWithNoLink(leftCluster, rightCluster);
     }
 
-    private void mergeLanesWithCommonBusNode(LBSCluster leftCluster, LBSCluster rightCluster, List<HorizontalBusLane> availableLanesToMerge) {
+    private void mergeLaneWithCommonBusNode(LBSCluster leftCluster, LBSCluster rightCluster, List<HorizontalBusLane> availableLanesToMerge) {
         List<BusNode> commonNodes = new ArrayList<>(leftCluster.laneSideBuses(Side.RIGHT));
         commonNodes.retainAll(rightCluster.laneSideBuses(Side.LEFT));
         commonNodes.forEach(busNode ->
                 finalizeLaneBuilding(leftCluster, rightCluster, busNode, busNode, availableLanesToMerge));
     }
 
-    private void mergeLanesWithFlatCell(LBSCluster leftCluster, LBSCluster rightCluster,
-                                        List<HorizontalBusLane> availableLanesToMerge) {
-        List<BusNode> myAvailableRightBuses = LBSCluster.laneSideBuses(Side.RIGHT, availableLanesToMerge);
-        List<InternCell> myConcernedFlatCells = leftCluster.getSideCandidateFlatCell(Side.RIGHT)
+    private void mergeLaneWithFlatCell(LBSCluster leftCluster, LBSCluster rightCluster,
+                                       List<HorizontalBusLane> availableLanesToMerge) {
+        List<BusNode> myAvailableRightBuses = leftCluster.laneSideBuses(Side.RIGHT, availableLanesToMerge);
+        List<InternCell> myConcernedFlatCells = leftCluster.getSideFlatCell(Side.RIGHT)
                 .stream().filter(internCell -> {
                     List<BusNode> nodes = internCell.getBusNodes();
                     nodes.retainAll(myAvailableRightBuses);
                     return !myAvailableRightBuses.isEmpty();
-                }).sorted(Comparator.comparing(InternCell::getFullId)) //avoid randomness
-                .collect(Collectors.toList());
-        List<InternCell> otherConcernedFlatCells = rightCluster.getSideCandidateFlatCell(Side.LEFT);
+                }).collect(Collectors.toList());
+        List<InternCell> otherConcernedFlatCells = rightCluster.getSideFlatCell(Side.LEFT);
         myConcernedFlatCells.retainAll(otherConcernedFlatCells);
-
-        myConcernedFlatCells.stream()
-                .sorted(Comparator
-                        .<InternCell>comparingInt(cell -> Link.flatCellDistanceToEdges(cell,
-                                new LBSClusterSide(leftCluster, Side.RIGHT),
-                                new LBSClusterSide(rightCluster, Side.LEFT)))
-                        .thenComparing(InternCell::getFullId))
-                .forEachOrdered(internCell -> {
-                    BusNode myNode = internCellNodeInLaneSide(leftCluster, Side.RIGHT, internCell);
-                    BusNode otherNode = internCellNodeInLaneSide(rightCluster, Side.LEFT, internCell);
-                    if (myNode != null && otherNode != null) {
-                        internCell.setShape(InternCell.Shape.FLAT);
-                        finalizeLaneBuilding(leftCluster, rightCluster, myNode, otherNode, availableLanesToMerge);
-                    }
-                });
-    }
-
-    private BusNode internCellNodeInLaneSide(LBSCluster lbsCluster, Side side, InternCell cell) {
-        List<BusNode> laneBuses = lbsCluster.laneSideBuses(side);
-        laneBuses.retainAll(cell.getBusNodes());
-        return laneBuses.isEmpty() ? null : laneBuses.get(0);
+        myConcernedFlatCells.forEach(internCell -> {
+            List<BusNode> busNodes = internCell.getBusNodes();
+            BusNode myNode = leftCluster.laneSideBuses(Side.RIGHT).contains(busNodes.get(0)) ? busNodes.get(0) : busNodes.get(1);
+            BusNode otherNode = rightCluster.laneSideBuses(Side.LEFT).contains(busNodes.get(0)) ? busNodes.get(0) : busNodes.get(1);
+            finalizeLaneBuilding(leftCluster, rightCluster, myNode, otherNode, availableLanesToMerge);
+        });
     }
 
     private void finalizeLaneBuilding(LBSCluster leftCluster, LBSCluster rightCluster,
