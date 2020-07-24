@@ -20,6 +20,7 @@ import com.powsybl.sld.cgmes.layout.CgmesSubstationLayoutFactory;
 import com.powsybl.sld.cgmes.layout.CgmesVoltageLevelLayoutFactory;
 import com.powsybl.sld.force.layout.ForceSubstationLayoutFactory;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;

@@ -11,6 +11,8 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -76,6 +78,8 @@ public class TestCase3 extends AbstractTestCaseRaw {
                 .setArrowDistance(20);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+
+        toSVG(g, "/testCase3.svg", layoutParameters, initialValueProvider, new DefaultDiagramStyleProvider());
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3.json"));

@@ -16,13 +16,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * SubSections splits the horizontal organisation of the busBars to cope with the case parallelism is not respected
+ * OldSubSections splits the horizontal organisation of the busBars to cope with the case parallelism is not respected
  * This solves the case of a busbar spanning over many busbars at another vertical structural position. e.g.:
  * 1.1 ---*--- / ---*--- 1.2
  * 2   ---*---------*--- 2
  * One SubSection is define for each horizontal part having the same vertical busbar organization.
  * In the example, 2 subsections will be defined: (1.1, 2) and (1.2, 2).
- * A SubSections contains a Set of ordered (left to right) Subsection.
+ * A OldSubSections contains a Set of ordered (left to right) Subsection.
  * This assumes that the orders of the ExternCell in the given graph are coherent with the structural horizontal
  * positions of the busBars.
  * This must be ensured by the PositionFinder
@@ -31,14 +31,14 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-class SubSections {
+class OldSubSections {
 
     private Graph graph;
-    private static final Logger LOGGER = LoggerFactory.getLogger(SubSections.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OldSubSections.class);
     private Set<SubSection> subsectionSet = new TreeSet<>();
     private static final String STR_SIDE = "\t side ";
 
-    SubSections(Graph graph) {
+    OldSubSections(Graph graph) {
         this.graph = graph;
         buildSubSections();
         checkInternCellLaterality();

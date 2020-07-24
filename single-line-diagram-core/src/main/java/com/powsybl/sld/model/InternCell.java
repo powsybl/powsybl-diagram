@@ -85,11 +85,7 @@ public class InternCell extends AbstractBusCell {
         return candidateLegs;
     }
 
-    public void postPositioningSettings() {
-        identifyIfFlat();
-    }
-
-    private void identifyIfFlat() {
+    public void identifyIfFlat() {
         List<BusNode> buses = getBusNodes();
         if (buses.size() != 2) {
             return;
