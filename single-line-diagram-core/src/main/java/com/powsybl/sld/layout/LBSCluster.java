@@ -129,16 +129,28 @@ public class LBSCluster {
 
     void ensureInternCellCoherence() {
         Map<InternCell, List<Side>> cellToSide = new HashMap<>();
-        lbsList.forEach(lbs -> lbs.getNonEmbeddedInternCells().forEach((cell, side) -> {
-            cellToSide.putIfAbsent(cell, new ArrayList<>());
-            cellToSide.get(cell).add(side);
-        }));
+        for (LegBusSet legBusSet : lbsList) {
+            legBusSet.getNonEmbeddedInternCells().forEach((cell, side) -> {
+                cellToSide.putIfAbsent(cell, new ArrayList<>());
+                cellToSide.get(cell).add(side);
+            });
+        }
         cellToSide.forEach((cell, sides) -> {
             if (sides.size() == 2 && sides.get(0) != Side.LEFT) {
                 cell.reverseCell();
             }
         });
-        getCandidateFlatCells().forEach(InternCell::identifyIfFlat);
+
+        lbsList.forEach(lbs -> {
+            List<InternCell> candidateFlatCells = new ArrayList<>(lbs.getCandidateFlatCells().keySet());
+            candidateFlatCells.forEach(iCell -> {
+                iCell.identifyIfFlat();
+                if (!iCell.isFlat()) {
+                    lbs.moveInternCellFromFlatToCrossOver(iCell);
+                }
+            });
+        });
+
     }
     //TODO : slip legs of interneCell to be to the closest LBS to the edge.
 
@@ -185,6 +197,7 @@ public class LBSCluster {
             }
             currentSubsection.addLegBusSet(lbs);
         }
+        subsections.forEach(Subsection::internCellCoherence);
         return subsections;
     }
 }
