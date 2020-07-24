@@ -13,6 +13,8 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,6 +85,8 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
                 .setVerticalSubstationPadding(50);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+
+        toSVG(g, "/TestCase1BusBreaker.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase1BusBreaker.json"), toJson(g, "/TestCase1BusBreaker.json"));

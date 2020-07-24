@@ -64,6 +64,14 @@ class Subsection {
         });
     }
 
+    public void internCellCoherence() {
+        List<InternCell> hiddenVerticalCells = new ArrayList<>(crossOverCells.get(Side.RIGHT));
+        hiddenVerticalCells.retainAll(crossOverCells.get(Side.LEFT));
+        verticalCells.addAll(hiddenVerticalCells);
+        crossOverCells.get(Side.RIGHT).removeAll(hiddenVerticalCells);
+        crossOverCells.get(Side.LEFT).removeAll(hiddenVerticalCells);
+    }
+
     public int getSize() {
         return size;
     }

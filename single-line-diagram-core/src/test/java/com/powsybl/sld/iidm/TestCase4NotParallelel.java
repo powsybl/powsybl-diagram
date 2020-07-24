@@ -101,8 +101,6 @@ public class TestCase4NotParallelel extends AbstractTestCaseIidm {
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        toSVG(g,"/testCase4.svg",layoutParameters,new DefaultDiagramInitialValueProvider(network),new DefaultDiagramStyleProvider());
-
         // write Json and compare to reference
         assertEquals(toJson(g, "/TestCase4NotParallelel.json"), toString("/TestCase4NotParallelel.json"));
     }
