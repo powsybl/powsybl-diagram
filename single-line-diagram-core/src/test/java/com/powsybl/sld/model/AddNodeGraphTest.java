@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
@@ -81,6 +82,32 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         assertNotNull(graph.getNode(originNodeId));
         assertEquals(originNbNodes, graph.getNodes().size());
         assertEquals(originNbEdges, graph.getEdges().size());
+
+    }
+
+    @Test
+    public void testSubstitute() {
+
+        // Creates new node non-connected to any equipments (connected to fictitious nodes)
+        String replacingNodeId = "s1vl2_replacingBreaker";
+        createSwitch(vl, replacingNodeId, "replacingNode", SwitchKind.BREAKER, false, false, false, 100, 101);
+
+        // graph construction
+        Graph graph = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        Node replacingNode = graph.getNode(replacingNodeId);
+        assertNotNull(replacingNode);
+
+        // substitute with substitue deprecated method
+        String originNodeId = "S1VL2_LD4_BREAKER";
+        Node originNode = graph.getNode(originNodeId);
+        graph.substitueNode(originNode, replacingNode);
+        assertNull(graph.getNode(originNodeId));
+
+        // substitute fictitious node
+        String fictitiousNodeId = "FICT_S1VL2_101";
+        assertNotNull(graph.getNode(fictitiousNodeId));
+        graph.substituteSingularFictitiousByFeederNode();
+        assertNull(graph.getNode(fictitiousNodeId));
 
     }
 }
