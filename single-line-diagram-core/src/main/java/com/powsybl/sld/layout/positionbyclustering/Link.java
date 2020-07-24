@@ -6,27 +6,26 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
+import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.EnumMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
- * A link is define between two clusterConnectors (having the same implementation).
- * It implements Comparable that compares the strength of the link between two clusterConnectors.
+ * A link is define between two lbsClusterSides (having the same implementation).
+ * It implements Comparable that compares the strength of the link between two lbsClusterSides.
  * From the strongest to the weakest kind of link :
  * <ul>
  * <li>
  * having buses in common (the more there are the stronger is the link),
  * </li>
  * <li>
- * having flatcells in common (ie a cell with only two buses, one in each clusterConnector), the more there are,
+ * having flatcells in common (ie a cell with only two buses, one in each lbsClusterSide), the more there are,
  * the stronger is the link (for flatcell, the notion of distance to the edge is added
  * (in case of clustering by LBSClusterSide) to foster flatcell that are on the edge of the cluster)
  * </li>
@@ -46,7 +45,7 @@ import java.util.Set;
  */
 
 // TODO implement SHUNT in the link assessment
-class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
+class Link implements Comparable<Link> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
@@ -54,37 +53,37 @@ class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
         COMMONBUSES, FLATCELLS, CROSSOVER //, SHUNT
     }
 
-    private final T clusterConnector1;
-    private final T clusterConnector2;
+    private final LBSClusterSide lbsClusterSide1;
+    private final LBSClusterSide lbsClusterSide2;
     private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
 
-    Link(T clusterConnector1, T clusterConnector2) {
-        this.clusterConnector1 = clusterConnector1;
-        this.clusterConnector2 = clusterConnector2;
-        clusterConnector1.addLink(this);
-        clusterConnector2.addLink(this);
+    Link(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2) {
+        this.lbsClusterSide1 = lbsClusterSide1;
+        this.lbsClusterSide2 = lbsClusterSide2;
+        lbsClusterSide1.addLink(this);
+        lbsClusterSide2.addLink(this);
         assessLink();
     }
 
     private void assessLink() {
-        Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(clusterConnector1.getBusNodeSet());
-        nodeBusesIntersect.retainAll(clusterConnector2.getBusNodeSet());
+        Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(lbsClusterSide1.getBusNodeSet());
+        nodeBusesIntersect.retainAll(lbsClusterSide2.getBusNodeSet());
         categoryToWeight.put(LinkCategory.COMMONBUSES, nodeBusesIntersect.size());
 
-        Set<InternCell> flatCellIntersect = new LinkedHashSet<>(clusterConnector1.getCandidateFlatCellList());
-        flatCellIntersect.retainAll(clusterConnector2.getCandidateFlatCellList());
+        Set<InternCell> flatCellIntersect = new LinkedHashSet<>(lbsClusterSide1.getCandidateFlatCellList());
+        flatCellIntersect.retainAll(lbsClusterSide2.getCandidateFlatCellList());
         if (flatCellIntersect.isEmpty()) {
             categoryToWeight.put(LinkCategory.FLATCELLS, 0);
         } else {
             categoryToWeight.put(LinkCategory.FLATCELLS,
                     flatCellIntersect.size() * 100
                             - flatCellIntersect.stream()
-                            .mapToInt(internCell -> clusterConnector1.getDistanceToEdge(internCell)
-                                    + clusterConnector2.getDistanceToEdge(internCell)).sum());
+                            .mapToInt(internCell -> lbsClusterSide1.getDistanceToEdge(internCell)
+                                    + lbsClusterSide2.getDistanceToEdge(internCell)).sum());
         }
 
-        Set<InternCell> commonInternCells = new LinkedHashSet<>(clusterConnector1.getCrossOverCellList());
-        commonInternCells.retainAll(clusterConnector2.getCrossOverCellList());
+        Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCrossOverCellList());
+        commonInternCells.retainAll(lbsClusterSide2.getCrossOverCellList());
         categoryToWeight.put(LinkCategory.CROSSOVER, (int) (commonInternCells
                 .stream()
                 .flatMap(internCell -> internCell.getBusNodes().stream())
@@ -96,48 +95,44 @@ class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
         return categoryToWeight.get(cat);
     }
 
-    T getOtherClusterConnector(T clusterConnector) {
-        if (clusterConnector == clusterConnector1) {
-            return clusterConnector2;
+    LBSClusterSide getOtherlbsClusterSide(LBSClusterSide lbsClusterSide) {
+        if (lbsClusterSide == lbsClusterSide1) {
+            return lbsClusterSide2;
         }
-        if (clusterConnector == clusterConnector2) {
-            return clusterConnector1;
+        if (lbsClusterSide == lbsClusterSide2) {
+            return lbsClusterSide1;
         }
         return null;
     }
 
-    T getClusterConnector(int i) {
+    LBSClusterSide getlbsClusterSide(int i) {
         if (i == 0) {
-            return clusterConnector1;
+            return lbsClusterSide1;
         } else if (i == 1) {
-            return clusterConnector2;
+            return lbsClusterSide2;
         }
         return null;
     }
 
-    void mergeClusters() {
+    void mergeClusters(HorizontalBusLaneManager hblManager) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Merging Link: {}", this);
         }
 
-        if (clusterConnector1.getCluster() == clusterConnector2.getCluster()
-                || clusterConnector1.getMySideInCluster() == Side.UNDEFINED
-                || clusterConnector2.getMySideInCluster() == Side.UNDEFINED) {
+        if (lbsClusterSide1.getCluster() == lbsClusterSide2.getCluster()
+                || lbsClusterSide1.getMySideInCluster() == Side.UNDEFINED
+                || lbsClusterSide2.getMySideInCluster() == Side.UNDEFINED) {
             return;
         }
-        clusterConnector1.getCluster().merge(
-                clusterConnector1.getMySideInCluster(),
-                clusterConnector2.getCluster(),
-                clusterConnector2.getMySideInCluster());
-    }
-
-    boolean hasLink() {
-        return categoryToWeight.values().stream().mapToInt(Integer::intValue).sum() != 0;
+        lbsClusterSide1.getCluster().merge(
+                lbsClusterSide1.getMySideInCluster(),
+                lbsClusterSide2.getCluster(),
+                lbsClusterSide2.getMySideInCluster(), hblManager);
     }
 
     void removeMe() {
-        clusterConnector1.removeLink(this);
-        clusterConnector2.removeLink(this);
+        lbsClusterSide1.removeLink(this);
+        lbsClusterSide2.removeLink(this);
     }
 
     @Override
@@ -145,26 +140,26 @@ class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
         if (!(obj instanceof Link)) {
             return false;
         }
-        return clusterConnector1.equals(((Link<T>) obj).clusterConnector1)
-                && clusterConnector2.equals(((Link<T>) obj).clusterConnector2);
+        return lbsClusterSide1.equals(((Link) obj).lbsClusterSide1)
+                && lbsClusterSide2.equals(((Link) obj).lbsClusterSide2);
     }
 
     @Override
     public int hashCode() {
-        return clusterConnector1.hashCode() + 41 * clusterConnector2.hashCode();
+        return super.hashCode();
     }
 
     @Override
-    public int compareTo(Link<T> o) {
+    public int compareTo(@Nonnull Link oLink) {
         for (LinkCategory category : LinkCategory.values()) {
-            if (o.getLinkCategoryWeight(category) > getLinkCategoryWeight(category)) {
+            if (oLink.getLinkCategoryWeight(category) > getLinkCategoryWeight(category)) {
                 return -1;
             }
-            if (o.getLinkCategoryWeight(category) < getLinkCategoryWeight(category)) {
+            if (oLink.getLinkCategoryWeight(category) < getLinkCategoryWeight(category)) {
                 return 1;
             }
         }
-        return this.hashCode() - o.hashCode();
+        return this.hashCode() - oLink.hashCode();
     }
 
     @Override
@@ -172,7 +167,7 @@ class Link<T extends ClusterConnector> implements Comparable<Link<T>> {
         return "CommonBus: " + categoryToWeight.get(LinkCategory.COMMONBUSES)
                 + " FlatCell: " + categoryToWeight.get(LinkCategory.FLATCELLS)
                 + " CrossOver: " + categoryToWeight.get(LinkCategory.CROSSOVER)
-                + "\n\tConnector1: " + clusterConnector1.toString()
-                + "\n\tConnector2: " + clusterConnector2.toString();
+                + "\n\tlbsClusterSide1: " + lbsClusterSide1.toString()
+                + "\n\tlbsClusterSide2: " + lbsClusterSide2.toString();
     }
 }
