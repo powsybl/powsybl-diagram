@@ -14,6 +14,8 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -82,6 +84,6 @@ public class TestCase1 extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g, "/TestCase1.json"), toString("/TestCase1.json"));
+        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
     }
 }

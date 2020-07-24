@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.Graph;
 
 import java.util.Objects;

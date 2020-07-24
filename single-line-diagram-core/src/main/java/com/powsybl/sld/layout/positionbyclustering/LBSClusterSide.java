@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
+import com.powsybl.sld.layout.HorizontalBusLane;
+import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
@@ -17,11 +19,11 @@ import java.util.*;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
+class LBSClusterSide {
 
     private final LBSCluster lbsCluster;
     private final Side side;
-    private final List<Link<LBSClusterSide>> myLinks = new ArrayList<>();
+    private final List<Link> myLinks = new ArrayList<>();
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = Objects.requireNonNull(lbsCluster);
@@ -55,14 +57,12 @@ class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
         return this.lbsCluster == ((LBSClusterSide) other).getCluster();
     }
 
-    @Override
     public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
         return clusterConnectors.stream().filter(clusterConnector ->
                 clusterConnector.getCluster() == lbsCluster
                         && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
-    @Override
     public int getDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
@@ -70,48 +70,32 @@ class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
             return 0;
         }
         BusNode busNode = buses.get(0);
-        HorizontalLane horizontalLane = lbsCluster.getHorizontalLanes()
+        HorizontalBusLane horizontalBusLane = lbsCluster.getHorizontalBusLanes()
                 .stream()
                 .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
                         || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
                 .findFirst().orElse(null);
-        if (horizontalLane == null) {
+        if (horizontalBusLane == null) {
             return 0;
         } else {
             if (side == Side.LEFT) {
-                return horizontalLane.getIndex();
+                return horizontalBusLane.getStartingIndex();
             } else {
-                return lbsCluster.getLbsList().size() - horizontalLane.getIndex() - horizontalLane.getLength();
+                return lbsCluster.getLbsList().size() - horizontalBusLane.getEndingIndex();
             }
         }
     }
 
-    public void addLink(Link<LBSClusterSide> link) {
+    public void addLink(Link link) {
         myLinks.add(link);
     }
 
-    public void removeLink(Link<LBSClusterSide> link) {
+    public void removeLink(Link link) {
         myLinks.remove(link);
     }
 
-    public List<Link<LBSClusterSide>> getLinks() {
+    public List<Link> getLinks() {
         return myLinks;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof LBSClusterSide)) {
-            return false;
-        }
-        LBSClusterSide other = (LBSClusterSide) o;
-        return myLinks == other.myLinks
-                && lbsCluster == other.lbsCluster
-                && side == other.side;
-    }
-
-    @Override
-    public int hashCode() {
-        return (side == Side.LEFT ? 0 : 43) + 47 * lbsCluster.getNb();
     }
 
     @Override
