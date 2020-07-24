@@ -7,6 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,21 +55,21 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb1.connectNode(dload1, bload1);
         vlb1.connectNode(load1, bload1);
 
-        FeederNode gen1 = vlb1.createGenerator("gen1", 2, BusCell.Direction.BOTTOM);
+        FeederNode gen1 = vlb1.createGenerator("gen1", 1, BusCell.Direction.BOTTOM);
         SwitchNode dgen1 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dgen1", false, false);
         SwitchNode bgen1 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bgen1", false, false);
         vlb1.connectNode(bbs3, dgen1);
         vlb1.connectNode(dgen1, bgen1);
         vlb1.connectNode(gen1, bgen1);
 
-        FeederNode load2 = vlb1.createLoad("load2", 8, BusCell.Direction.TOP);
+        FeederNode load2 = vlb1.createLoad("load2", 2, BusCell.Direction.TOP);
         SwitchNode dload2 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dload2", false, false);
         SwitchNode bload2 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bload2", false, false);
         vlb1.connectNode(bbs2, dload2);
         vlb1.connectNode(dload2, bload2);
         vlb1.connectNode(load2, bload2);
 
-        FeederNode gen2 = vlb1.createGenerator("gen2", 12, BusCell.Direction.BOTTOM);
+        FeederNode gen2 = vlb1.createGenerator("gen2", 3, BusCell.Direction.BOTTOM);
         SwitchNode dgen2 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dgen2", false, false);
         SwitchNode bgen2 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bgen2", false, false);
         vlb1.connectNode(bbs4, dgen2);
@@ -96,7 +97,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(load3, bload3);
         vlb2.connectNode(bload3, dload3);
 
-        FeederNode gen4 = vlb2.createGenerator("gen4", 2, BusCell.Direction.BOTTOM);
+        FeederNode gen4 = vlb2.createGenerator("gen4", 1, BusCell.Direction.BOTTOM);
         SwitchNode dgen4 = vlb2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dgen4", false, false);
         SwitchNode bgen4 = vlb2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bgen4", false, false);
         vlb2.connectNode(bbs6, dgen4);
@@ -136,7 +137,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf21, feeder2WTs1.get(vlb2));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs2 = ssb1.createFeeder2WT("trf2", vlb1, vlb2,
-                11, 7, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
+                3, 3, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
         SwitchNode dtrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf12", false, false);
         SwitchNode btrf12 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf12", false, false);
         vlb1.connectNode(bbs2, dtrf12);
@@ -150,7 +151,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf22, feeder2WTs2.get(vlb2));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs3 = ssb1.createFeeder2WT("trf3", vlb1, vlb2,
-                3, 8, BusCell.Direction.BOTTOM, BusCell.Direction.BOTTOM);
+                1, 4, BusCell.Direction.BOTTOM, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf13 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf13", false, false);
         SwitchNode btrf13 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf13", false, false);
@@ -165,7 +166,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf23, feeder2WTs3.get(vlb2));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs4 = ssb1.createFeeder2WT("trf4", vlb1, vlb2,
-                10, 3, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
+                2, 2, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
 
         SwitchNode dtrf14 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf14", false, false);
         SwitchNode btrf14 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf14", false, false);
@@ -180,7 +181,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(btrf24, feeder2WTs4.get(vlb2));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder2WTLegNode> feeder2WTs5 = ssb1.createFeeder2WT("trf5", vlb1, vlb3,
-                4, 1, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
+                2, 1, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf15 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf15", false, false);
         SwitchNode btrf15 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf15", false, false);
@@ -199,7 +200,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
        */
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs6 = ssb1.createFeeder3WT("trf6", vlb1, vlb2, vlb3,
-                5, 5, 2, BusCell.Direction.TOP, BusCell.Direction.TOP, BusCell.Direction.TOP);
+                2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.TOP, BusCell.Direction.TOP);
 
         SwitchNode dtrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf16", false, false);
         SwitchNode btrf16 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf16", false, false);
@@ -220,7 +221,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb3.connectNode(btrf36, feeder3WTs6.get(vlb3));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs7 = ssb1.createFeeder3WT("trf7", vlb1, vlb2, vlb3,
-                6, 4, 3, BusCell.Direction.BOTTOM, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
+                2, 2, 2, BusCell.Direction.BOTTOM, BusCell.Direction.TOP, BusCell.Direction.BOTTOM);
 
         SwitchNode dtrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf17", false, false);
         SwitchNode btrf17 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf17", false, false);
@@ -241,7 +242,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb3.connectNode(btrf37, feeder3WTs7.get(vlb3));
 
         Map<RawGraphBuilder.VoltageLevelBuilder, Feeder3WTLegNode> feeder3WTs8 = ssb1.createFeeder3WT("trf8", vlb1, vlb2, vlb3,
-                9, 6, 4, BusCell.Direction.TOP, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
+                2, 2, 2, BusCell.Direction.TOP, BusCell.Direction.BOTTOM, BusCell.Direction.TOP);
 
         SwitchNode dtrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dtrf18", false, false);
         SwitchNode btrf18 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "btrf18", false, false);
@@ -276,12 +277,61 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         SwitchNode dline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
         SwitchNode bline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
         Map<RawGraphBuilder.VoltageLevelBuilder, FeederLineNode> line1 =
-                ssb2.createLine("line1", vlb1, vlsubst2, 7, 1, BusCell.Direction.TOP, BusCell.Direction.TOP);
+                ssb2.createLine("line1", vlb1, vlsubst2, 3, 1, BusCell.Direction.TOP, BusCell.Direction.TOP);
         vlb1.connectNode(bbs1, dline112);
         vlb1.connectNode(dline112, bline112);
         vlb1.connectNode(bline112, line1.get(vlb1));
         vlsubst2.connectNode(bbs12, dline212);
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
+    }
+
+    @Test
+    public void test() {
+        LayoutParameters layoutParameters = new LayoutParameters()
+                .setTranslateX(20)
+                .setTranslateY(50)
+                .setInitialXBus(0)
+                .setInitialYBus(260)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(50)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(true)
+                .setShowInternalNodes(false)
+                .setScaleFactor(1)
+                .setHorizontalSubstationPadding(50)
+                .setVerticalSubstationPadding(50)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30);
+
+        // build substation graph
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
+
+        // write Json and compare to reference (with horizontal substation layout)
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
+
+/*
+        // rebuild substation graph
+        g = rawGraphBuilder.buildSubstationGraph("s", false);
+
+        // write Json and compare to reference (with vertical substation layout)
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toJson(g, "/TestCase11SubstationGraphVertical.json"), toString("/TestCase11SubstationGraphVertical.json"));
+*/
+
+/*
+        // compare metadata of substation diagram with reference
+        // (with horizontal substation layout)
+        SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
+
+        compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",
+                new DefaultDiagramInitialValueProvider(network),
+                new DefaultDiagramStyleProvider());
+*/
     }
 }

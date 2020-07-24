@@ -64,12 +64,26 @@ class Subsection {
         });
     }
 
-    public void internCellCoherence() {
+    void internCellCoherence() {
         List<InternCell> hiddenVerticalCells = new ArrayList<>(crossOverCells.get(Side.RIGHT));
         hiddenVerticalCells.retainAll(crossOverCells.get(Side.LEFT));
         verticalCells.addAll(hiddenVerticalCells);
         crossOverCells.get(Side.RIGHT).removeAll(hiddenVerticalCells);
         crossOverCells.get(Side.LEFT).removeAll(hiddenVerticalCells);
+    }
+
+    private Map<InternCell, Side> cellsToSideMap(Map<Side, List<InternCell>> cells) {
+        Map<InternCell, Side> result = new HashMap<>();
+        cells.get(Side.LEFT).stream().forEach(cell -> result.put(cell, Side.LEFT));
+        cells.get(Side.RIGHT).stream().forEach(cell -> result.put(cell, Side.RIGHT));
+        return result;
+    }
+
+    public Map<InternCell, Side> getNonEmbeddedCells() {
+        Map<InternCell, Side> nonEmbeddedCells = new HashMap<>();
+        nonEmbeddedCells.putAll(cellsToSideMap(flatCells));
+        nonEmbeddedCells.putAll(cellsToSideMap(crossOverCells));
+        return nonEmbeddedCells;
     }
 
     public int getSize() {
@@ -80,23 +94,23 @@ class Subsection {
         return busNodes;
     }
 
-    public BusNode getBusNode(int index) {
+    BusNode getBusNode(int index) {
         return busNodes[index];
     }
 
-    public Map<Side, List<InternCell>> getFlatCells() {
+    Map<Side, List<InternCell>> getFlatCells() {
         return flatCells;
     }
 
-    public Map<Side, List<InternCell>> getCrossOverCells() {
+    Map<Side, List<InternCell>> getCrossOverCells() {
         return crossOverCells;
     }
 
-    public List<InternCell> getVerticalInternCells() {
+    List<InternCell> getVerticalInternCells() {
         return verticalCells;
     }
 
-    public Set<ExternCell> getExternCells() {
+    Set<ExternCell> getExternCells() {
         return externCells;
     }
 }
