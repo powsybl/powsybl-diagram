@@ -108,11 +108,11 @@ public class PositionFromExtension implements PositionFinder {
         }
 
         private int externCellOrderNb(LegBusSet lbs) {
-            List<ExternCell> cells = lbs.getExternCells();
+            Set<ExternCell> cells = lbs.getExternCells();
             if (cells.isEmpty()) {
                 return -1;
             } else {
-                return cells.get(0).getOrder();
+                return cells.iterator().next().getOrder();
             }
         }
     };

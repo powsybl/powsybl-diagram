@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
@@ -22,36 +21,31 @@ import java.util.stream.Collectors;
 public class LegBusSet {
 
     private final Set<BusNode> busNodeSet;
-    private final Set<BusCell> embeddedCells;
-    private final Map<InternCell, Side> candidateFlatCells;
-    private final Map<InternCell, Side> crossoverInternCells;
+    private final Set<ExternCell> externCells = new LinkedHashSet<>();
+
+    private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
-        embeddedCells = new LinkedHashSet<>();
-        candidateFlatCells = new LinkedHashMap<>();
-        crossoverInternCells = new LinkedHashMap<>();
     }
 
-    LegBusSet(Map<BusNode, Integer> nodeToNb, BusCell cell) {
+    LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
         this(nodeToNb, cell.getBusNodes());
-        embeddedCells.add(cell);
+        externCells.add(cell);
     }
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
         this(nodeToNb, internCell.getSideBusNodes(side));
-        if (internCell.getBusNodes().size() == 1) {
-            embeddedCells.add(internCell);
-        } else if (internCell.getBusNodes().size() == 2) {
-            candidateFlatCells.put(internCell, side);
-        } else {
-            crossoverInternCells.put(internCell, side);
-        }
+        addInternCell(internCell, side);
     }
 
     LegBusSet(Map<BusNode, Integer> nodeToNb, BusNode busNode) {
         this(nodeToNb, Collections.singletonList(busNode));
+    }
+
+    void addInternCell(InternCell internCell, Side side) {
+        internCellSides.add(new InternCellSide(internCell, side));
     }
 
     private boolean contains(Collection<BusNode> busNodeCollection) {
@@ -62,86 +56,37 @@ public class LegBusSet {
         return contains(lbs.getBusNodeSet());
     }
 
-    private void addEmbededCell(BusCell busCell) {
-        embeddedCells.add(busCell);
-    }
-
     private void absorbs(LegBusSet lbsToAbsorb) {
-        busNodeSet.addAll(lbsToAbsorb.getBusNodeSet());
-        embeddedCells.addAll(lbsToAbsorb.getEmbeddedCells());
-        absorbMap(candidateFlatCells, lbsToAbsorb.getCandidateFlatCells());
-        absorbMap(crossoverInternCells, lbsToAbsorb.getCrossoverInternCell());
+        busNodeSet.addAll(lbsToAbsorb.busNodeSet);
+        externCells.addAll(lbsToAbsorb.externCells);
+        internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    private void absorbMap(Map<InternCell, Side> myMap, Map<InternCell, Side> map) {
-        Set<InternCell> commonCells = new LinkedHashSet<>(myMap.keySet());
-        Set<InternCell> cellToAbsorb = map.keySet();
-        commonCells.retainAll(cellToAbsorb);
-        for (InternCell commonCell : commonCells) {
-            if (myMap.get(commonCell) == Side.RIGHT && map.get(commonCell) == Side.LEFT
-                    || myMap.get(commonCell) == Side.LEFT && map.get(commonCell) == Side.RIGHT) {
-                embeddedCells.add(commonCell);
-                myMap.remove(commonCell);
-            } else {
-                throw new PowsyblException("Absorption of InternCell in a LegBusSet should concern both side of the InternCell");
-            }
-        }
-        cellToAbsorb.removeAll(commonCells);
-        cellToAbsorb.forEach(internCell -> myMap.put(internCell, map.get(internCell)));
-    }
-
-    private void identifyEmbeddedCells() {
-        identifyEmbeddedCells(candidateFlatCells);
-        identifyEmbeddedCells(crossoverInternCells);
-    }
-
-    private void identifyEmbeddedCells(Map<InternCell, Side> cells) {
-        List<InternCell> cellActuallyEmbeded = new ArrayList<>();
-        cells.forEach((internCell, side) -> {
-            List<BusNode> otherLegBusNodes = internCell
-                    .getSideBusNodes(side.getFlip());
-            if (busNodeSet.containsAll(otherLegBusNodes)) {
-                cellActuallyEmbeded.add(internCell);
-            }
-        });
-        cellActuallyEmbeded.forEach(cells::remove);
-        embeddedCells.addAll(cellActuallyEmbeded);
+    public Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
+        return internCellSides.stream().filter(ics -> ics.getCell().checkShape(shape))
+                .collect(Collectors.toMap(ics -> ics.getCell(), ics -> ics.getSide()));
     }
 
     public Map<InternCell, Side> getCandidateFlatCells() {
-        return candidateFlatCells;
-    }
-
-    public List<InternCell> getCandidateFlatCellList() {
-        return new ArrayList<>(candidateFlatCells.keySet());
+        return getCellSideMapFromShape(InternCell.Shape.MAYBEFLAT);
     }
 
     public Map<InternCell, Side> getCrossoverInternCell() {
-        return crossoverInternCells;
-    }
-
-    public List<InternCell> getCrossOverCellList() {
-        return new ArrayList<>(crossoverInternCells.keySet());
+        return getCellSideMapFromShape(InternCell.Shape.CROSSOVER);
     }
 
     public Set<BusNode> getBusNodeSet() {
         return busNodeSet;
     }
 
-    public Set<BusCell> getEmbeddedCells() {
-        return embeddedCells;
+    public Set<ExternCell> getExternCells() {
+        return externCells;
     }
 
-    public Map<InternCell, Side> getNonEmbeddedInternCells() {
-        HashMap<InternCell, Side> nonEmbeddedInternCells = new HashMap<>(candidateFlatCells);
-        nonEmbeddedInternCells.putAll(crossoverInternCells);
-        return nonEmbeddedInternCells;
+    public Set<InternCellSide> getInternCellSides() {
+        return internCellSides;
     }
 
-    public List<ExternCell> getExternCells() {
-        return embeddedCells.stream().filter(c -> c.getType() == Cell.CellType.EXTERN)
-                .map(ExternCell.class::cast).collect(Collectors.toList());
-    }
 
     // TODO : to be clarified / strengthened
     static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
@@ -154,17 +99,19 @@ public class LegBusSet {
                 .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).isUniLeg())
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).isUniLeg())
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEach(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+
+        legBusSets.forEach(lbs -> InternCellSide.identifyVerticalInternCells(lbs.getInternCellSides()));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());
@@ -173,13 +120,12 @@ public class LegBusSet {
         allBusNodes.stream()
                 .sorted(Comparator.comparing(Node::getId))              //avoid randomness
                 .forEach(busNode -> legBusSets.add(new LegBusSet(nodeToNb, busNode)));
-        legBusSets.forEach(LegBusSet::identifyEmbeddedCells);
         return legBusSets;
     }
 
     private static void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, BusCell busCell, Side side) {
-        LegBusSet legBusSet = side == Side.UNDEFINED ?
-                new LegBusSet(nodeToNb, busCell) :
+        LegBusSet legBusSet = busCell instanceof ExternCell ?
+                new LegBusSet(nodeToNb, (ExternCell) busCell) :
                 new LegBusSet(nodeToNb, (InternCell) busCell, side);
 
         for (LegBusSet lbs : legBusSets) {
@@ -202,17 +148,12 @@ public class LegBusSet {
     private static void pushNonUnilegInternCell(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, InternCell internCell) {
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(internCell.getBusNodes())) {
-                lbs.addEmbededCell(internCell);
+                lbs.addInternCell(internCell, Side.UNDEFINED);
+                internCell.setShape(InternCell.Shape.VERTICAL);
                 return;
             }
         }
         pushNewLBS(legBusSets, nodeToNb, internCell, Side.LEFT);
         pushNewLBS(legBusSets, nodeToNb, internCell, Side.RIGHT);
-    }
-
-    public void moveInternCellFromFlatToCrossOver(InternCell cell) {
-        Side side = candidateFlatCells.get(cell);
-        candidateFlatCells.remove(cell);
-        crossoverInternCells.put(cell, side);
     }
 }
