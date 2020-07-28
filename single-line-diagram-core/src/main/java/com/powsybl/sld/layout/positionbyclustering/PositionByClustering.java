@@ -86,9 +86,7 @@ public class PositionByClustering implements PositionFinder {
         int cellPos = 0;
         int feederPosition = 1;
         for (LegBusSet lbs : lbsCluster.getLbsList()) {
-            for (ExternCell busCell : lbs.getEmbeddedCells().stream()
-                    .filter(busCell -> busCell.getType() == Cell.CellType.EXTERN)
-                    .map(ExternCell.class::cast)
+            for (ExternCell busCell : lbs.getExternCells().stream()
                     .sorted(Comparator.comparingInt(ExternCell::getNumber))
                     .collect(Collectors.toList())) {
                 busCell.setDirection(cellPos % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);

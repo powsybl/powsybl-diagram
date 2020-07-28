@@ -30,14 +30,14 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
-            hPos = placeNonFlatInternCells(hPos, ss, Side.LEFT, nonFlatCellsToClose);
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
             hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
             hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells()));
-            hPos = placeNonFlatInternCells(hPos, ss, Side.RIGHT, nonFlatCellsToClose);
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;
             }
-            hSpace = placeFlatInternCells(hPos, ss.getFlatCells().get(Side.LEFT)) - hPos;
+            hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
             prevHPos = hPos;
             prevSs = ss;
@@ -77,19 +77,16 @@ class BlockPositionner {
         return hPosRes;
     }
 
-    private int placeNonFlatInternCells(int hPos,
-                                        Subsection ss,
-                                        Side side, List<InternCell> nonFlatCellsToClose) {
+    private int placeCrossOverInternCells(int hPos,
+                                          List<InternCell> cells,
+                                          Side side, List<InternCell> nonFlatCellsToClose) {
+        // side, is the side from the InternCell standpoint. The left side of the internCell shall be on the right of the subsection
         int hPosRes = hPos;
-        List<InternCell> cells = ss.getCrossOverCells().get(side).stream()
-                .filter(internCell -> !internCell.isFlat())
-                .sorted(Comparator.comparingInt(c -> -nonFlatCellsToClose.indexOf(c)))
-                .collect(Collectors.toList());
-        Side legSide = side.getFlip();
+        cells.sort(Comparator.comparingInt(c -> -nonFlatCellsToClose.indexOf(c)));
         for (InternCell cell : cells) {
-            hPosRes = cell.newHPosition(hPosRes, legSide);
+            hPosRes = cell.newHPosition(hPosRes, side);
         }
-        if (side == Side.RIGHT) {
+        if (side == Side.LEFT) {
             nonFlatCellsToClose.addAll(cells);
         } else {
             nonFlatCellsToClose.removeAll(cells);
@@ -101,7 +98,7 @@ class BlockPositionner {
         List<InternCell> cellsToHandle = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN)
                 .map(InternCell.class::cast)
-                .filter(internCell -> internCell.getDirection() != BusCell.Direction.FLAT
+                .filter(internCell -> !internCell.checkShape(InternCell.Shape.FLAT)
                         && internCell.getBodyBlock() != null)
                 .collect(Collectors.toList());
         Lane lane = new Lane(cellsToHandle);
