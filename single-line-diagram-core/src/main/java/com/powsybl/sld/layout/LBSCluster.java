@@ -128,15 +128,9 @@ public class LBSCluster {
     }
 
     void identifyFlatCells() {
-        lbsList.forEach(lbs -> {
-            List<InternCell> candidateFlatCells = new ArrayList<>(lbs.getCandidateFlatCells().keySet());
-            candidateFlatCells.forEach(iCell -> {
-                iCell.identifyIfFlat();
-                if (!iCell.isFlat()) {
-                    lbs.moveInternCellFromFlatToCrossOver(iCell);
-                }
-            });
-        });
+        lbsList.stream()
+                .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream())
+                .forEach(InternCell::identifyIfFlat);
     }
     //TODO : slip legs of interneCell to be to the closest LBS to the edge.
 
@@ -169,37 +163,5 @@ public class LBSCluster {
 
     int getNb() {
         return nb;
-    }
-
-    public List<Subsection> createSubsections() {
-        int size = getGraph().getMaxBusStructuralPosition().getV();
-        List<Subsection> subsections = new ArrayList<>();
-        Subsection currentSubsection = new Subsection(size);
-        subsections.add(currentSubsection);
-        for (LegBusSet lbs : lbsList) {
-            if (!currentSubsection.checkAbsorbability(lbs)) {
-                currentSubsection = new Subsection(size);
-                subsections.add(currentSubsection);
-            }
-            currentSubsection.addLegBusSet(lbs);
-        }
-        subsections.forEach(Subsection::internCellCoherence);
-        ensureInternCellOrientation(subsections);
-        return subsections;
-    }
-
-    private void ensureInternCellOrientation(List<Subsection> subsections) {
-        Map<InternCell, List<Side>> cellToSides = new HashMap<>();
-        for (Subsection ss : subsections) {
-            ss.getNonEmbeddedCells().forEach((cell, side) -> {
-                cellToSides.putIfAbsent(cell, new ArrayList<>());
-                cellToSides.get(cell).add(side);
-            });
-        }
-        cellToSides.forEach((cell, sides) -> {
-            if (sides.size() == 2 && sides.get(0) == Side.RIGHT) {
-                cell.reverseCell();
-            }
-        });
     }
 }
