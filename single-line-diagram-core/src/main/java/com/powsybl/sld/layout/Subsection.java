@@ -10,29 +10,22 @@ import com.powsybl.sld.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
 class Subsection {
+
     private int size;
     private BusNode[] busNodes;
-    private Map<Side, List<InternCell>> flatCells = new EnumMap<>(Side.class);
-    private Map<Side, List<InternCell>> crossOverCells = new EnumMap<>(Side.class);
-    private List<InternCell> verticalCells = new ArrayList<>();
+    private Set<InternCellSide> internCellSides = new HashSet<>();
     private Set<ExternCell> externCells = new TreeSet<>(Comparator.comparingInt(ExternCell::getOrder));
 
     Subsection(int size) {
         this.size = size;
-        initSideListMap(flatCells);
-        initSideListMap(crossOverCells);
         busNodes = new BusNode[size];
-    }
-
-    private void initSideListMap(Map<Side, List<InternCell>> sideListMap) {
-        sideListMap.put(Side.LEFT, new ArrayList<>());
-        sideListMap.put(Side.RIGHT, new ArrayList<>());
     }
 
     boolean checkAbsorbability(LegBusSet lbs) {
@@ -44,46 +37,17 @@ class Subsection {
 
     void addLegBusSet(LegBusSet lbs) {
         lbs.getBusNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
-        addReverseInternToSide(lbs.getCandidateFlatCells(), flatCells);
-        addReverseInternToSide(lbs.getCrossoverInternCell(), crossOverCells);
-        verticalCells.addAll(lbs.getEmbeddedCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
-                .map(InternCell.class::cast)
-                .collect(Collectors.toList()));
-        externCells.addAll(lbs.getEmbeddedCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
-                .map(ExternCell.class::cast)
-                .collect(Collectors.toList()));
-    }
-
-    private void addReverseInternToSide(Map<InternCell, Side> intern2side, Map<Side, List<InternCell>> sideToInterns) {
-        // the right leg of an internCell is on the right side of the subsection and vice versa.
-        intern2side.forEach((cell, side) -> {
-            Side otherSide = side.getFlip();
-            sideToInterns.get(otherSide).add(cell);
-        });
+        externCells.addAll(lbs.getExternCells());
+        internCellSides.addAll(lbs.getInternCellSides());
     }
 
     void internCellCoherence() {
-        List<InternCell> hiddenVerticalCells = new ArrayList<>(crossOverCells.get(Side.RIGHT));
-        hiddenVerticalCells.retainAll(crossOverCells.get(Side.LEFT));
-        verticalCells.addAll(hiddenVerticalCells);
-        crossOverCells.get(Side.RIGHT).removeAll(hiddenVerticalCells);
-        crossOverCells.get(Side.LEFT).removeAll(hiddenVerticalCells);
+        InternCellSide.identifyVerticalInternCells(internCellSides);
     }
 
-    private Map<InternCell, Side> cellsToSideMap(Map<Side, List<InternCell>> cells) {
-        Map<InternCell, Side> result = new HashMap<>();
-        cells.get(Side.LEFT).stream().forEach(cell -> result.put(cell, Side.LEFT));
-        cells.get(Side.RIGHT).stream().forEach(cell -> result.put(cell, Side.RIGHT));
-        return result;
-    }
-
-    public Map<InternCell, Side> getNonEmbeddedCells() {
-        Map<InternCell, Side> nonEmbeddedCells = new HashMap<>();
-        nonEmbeddedCells.putAll(cellsToSideMap(flatCells));
-        nonEmbeddedCells.putAll(cellsToSideMap(crossOverCells));
-        return nonEmbeddedCells;
+    public Stream<InternCellSide> getNonEmbeddedCells() {
+        return internCellSides.stream().filter(cellSide -> cellSide.getCell().getShape() == InternCell.Shape.FLAT
+                || cellSide.getCell().getShape() == InternCell.Shape.CROSSOVER);
     }
 
     public int getSize() {
@@ -98,19 +62,65 @@ class Subsection {
         return busNodes[index];
     }
 
-    Map<Side, List<InternCell>> getFlatCells() {
-        return flatCells;
-    }
-
-    Map<Side, List<InternCell>> getCrossOverCells() {
-        return crossOverCells;
+    public List<InternCell> getInternCells(InternCell.Shape shape, Side side) {
+        return internCellSides.stream()
+                .filter(ics -> ics.getCell().checkShape(shape) && ics.getSide() == side)
+                .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
     List<InternCell> getVerticalInternCells() {
-        return verticalCells;
+        return internCellSides.stream()
+                .filter(ics -> ics.getCell().checkShape(InternCell.Shape.VERTICAL))
+                .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
     Set<ExternCell> getExternCells() {
         return externCells;
     }
+
+    public static List<Subsection> createSubsections(List<LegBusSet> lbsList) {
+        int vSize = lbsList.get(0).getBusNodeSet().iterator().next().getGraph().getMaxBusStructuralPosition().getV();
+        List<Subsection> subsections = new ArrayList<>();
+        Subsection currentSubsection = new Subsection(vSize);
+        subsections.add(currentSubsection);
+        for (LegBusSet lbs : lbsList) {
+            if (!currentSubsection.checkAbsorbability(lbs)) {
+                currentSubsection = new Subsection(vSize);
+                subsections.add(currentSubsection);
+            }
+            currentSubsection.addLegBusSet(lbs);
+        }
+        subsections.forEach(Subsection::internCellCoherence);
+        ensureInternCellOrientation(subsections);
+        return subsections;
+    }
+
+    private static void ensureInternCellOrientation(List<Subsection> subsections) {
+        final class SideSs {
+            private Side side;
+            private Subsection ss;
+
+            private SideSs(Side side, Subsection ss) {
+                this.side = side;
+                this.ss = ss;
+            }
+        }
+
+        Map<InternCell, List<SideSs>> cellToSideSs = new HashMap<>();
+        for (Subsection ss : subsections) {
+            ss.getNonEmbeddedCells().forEach(ics -> {
+                cellToSideSs.putIfAbsent(ics.getCell(), new ArrayList<>());
+                cellToSideSs.get(ics.getCell()).add(new SideSs(ics.getSide(), ss));
+            });
+        }
+        cellToSideSs.forEach((cell, sideSses) -> {
+            if (sideSses.size() == 2 && sideSses.get(0).side == Side.RIGHT) {
+                cell.reverseCell();
+                sideSses.stream().flatMap(sss -> sss.ss.internCellSides.stream())
+                        .filter(ics -> ics.getCell() == cell)
+                        .forEach(InternCellSide::flipSide);
+            }
+        });
+    }
+
 }
