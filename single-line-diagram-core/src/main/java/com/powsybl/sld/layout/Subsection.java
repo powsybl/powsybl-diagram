@@ -10,7 +10,6 @@ import com.powsybl.sld.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -39,15 +38,6 @@ class Subsection {
         lbs.getBusNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
         internCellSides.addAll(lbs.getInternCellSides());
-    }
-
-    void internCellCoherence() {
-        InternCellSide.identifyVerticalInternCells(internCellSides);
-    }
-
-    public Stream<InternCellSide> getNonEmbeddedCells() {
-        return internCellSides.stream().filter(cellSide -> cellSide.getCell().getShape() == InternCell.Shape.FLAT
-                || cellSide.getCell().getShape() == InternCell.Shape.CROSSOVER);
     }
 
     public int getSize() {
@@ -90,12 +80,21 @@ class Subsection {
             }
             currentSubsection.addLegBusSet(lbs);
         }
-        subsections.forEach(Subsection::internCellCoherence);
-        ensureInternCellOrientation(subsections);
+
+        internCellCoherence(lbsList, subsections);
         return subsections;
     }
 
-    private static void ensureInternCellOrientation(List<Subsection> subsections) {
+    private static void internCellCoherence(List<LegBusSet> lbsList, List<Subsection> subsections) {
+        subsections.forEach(ss -> InternCellSide.identifyVerticalInternCells(ss.internCellSides));
+        lbsList.stream()
+                .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream()).distinct()
+                .forEach(InternCell::identifyIfFlat);
+        identifyCrossOverAndCheckOrientation(subsections);
+        slipInternCellSideToEdge(subsections);
+    }
+
+    private static void identifyCrossOverAndCheckOrientation(List<Subsection> subsections) {
         final class SideSs {
             private Side side;
             private Subsection ss;
@@ -108,19 +107,52 @@ class Subsection {
 
         Map<InternCell, List<SideSs>> cellToSideSs = new HashMap<>();
         for (Subsection ss : subsections) {
-            ss.getNonEmbeddedCells().forEach(ics -> {
-                cellToSideSs.putIfAbsent(ics.getCell(), new ArrayList<>());
-                cellToSideSs.get(ics.getCell()).add(new SideSs(ics.getSide(), ss));
-            });
+            ss.internCellSides.stream()
+                    .filter(ics -> {
+                        InternCell.Shape shape = ics.getCell().getShape();
+                        return shape == InternCell.Shape.UNDEFINED
+                                || shape == InternCell.Shape.FLAT
+                                || shape == InternCell.Shape.CROSSOVER;
+                    })
+                    .forEach(ics -> {
+                        cellToSideSs.putIfAbsent(ics.getCell(), new ArrayList<>());
+                        cellToSideSs.get(ics.getCell()).add(new SideSs(ics.getSide(), ss));
+                    });
         }
         cellToSideSs.forEach((cell, sideSses) -> {
-            if (sideSses.size() == 2 && sideSses.get(0).side == Side.RIGHT) {
-                cell.reverseCell();
-                sideSses.stream().flatMap(sss -> sss.ss.internCellSides.stream())
-                        .filter(ics -> ics.getCell() == cell)
-                        .forEach(InternCellSide::flipSide);
+            if (sideSses.size() == 2) {
+                if (!cell.checkShape(InternCell.Shape.FLAT)) {
+                    cell.setShape(InternCell.Shape.CROSSOVER);
+                }
+                if (sideSses.get(0).side == Side.RIGHT) {
+                    cell.reverseCell();
+                    sideSses.stream().flatMap(sss -> sss.ss.internCellSides.stream())
+                            .filter(ics -> ics.getCell() == cell)
+                            .forEach(InternCellSide::flipSide);
+                }
             }
         });
     }
 
+    private static void slipInternCellSideToEdge(List<Subsection> subsections) {
+        Map<InternCellSide, Subsection> cellSideToMove = new HashMap<>();
+        new ArrayList<>(subsections).stream().forEach(ss -> {
+            List<InternCellSide> cellToRemove = new ArrayList<>();
+            ss.internCellSides.stream().filter(ics -> ics.getCell().checkShape(InternCell.Shape.FLAT)
+                    || ics.getCell().checkShape(InternCell.Shape.CROSSOVER))
+                    .forEach(ics -> {
+                        List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
+                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> Arrays.asList(ss2.busNodes).containsAll(nodes)).collect(Collectors.toList());
+                        if (!candidateSss.isEmpty()) {
+                            Subsection candidateSs = ics.getSide() == Side.LEFT ? candidateSss.get(candidateSss.size() - 1) : candidateSss.get(0);
+                            if (ss != candidateSs) {
+                                cellToRemove.add(ics);
+                                cellSideToMove.put(ics, candidateSs);
+                            }
+                        }
+                    });
+            ss.internCellSides.removeAll(cellToRemove);
+        });
+        cellSideToMove.forEach((cellSide, ss) -> ss.internCellSides.add(cellSide));
+    }
 }

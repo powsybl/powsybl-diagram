@@ -6,15 +6,18 @@
  */
 package com.powsybl.sld.layout.positionfromextension;
 
+import com.google.common.collect.Comparators;
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.layout.LegBusSet;
 import com.powsybl.sld.layout.PositionFinder;
 import com.powsybl.sld.model.*;
+import org.checkerframework.checker.nullness.Opt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -54,6 +57,13 @@ public class PositionFromExtension implements PositionFinder {
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
                 legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
 
+        lbsClusters.forEach(lbsCluster -> {
+            LegBusSet lbs = lbsCluster.getLbsList().get(0);
+            BusNode node = lbs.getBusNodeSet().iterator().next();
+            int order = lbs.getExternCells().stream().findAny().map(ExternCell::getOrder).orElse(0);
+            LOGGER.info("MERGING LBS - Cluster ordered : {} {} {}", node.getId(), node.getStructuralPosition(), order);
+        });
+
         while (lbsClusters.size() != 1) {
             lbsClusters.get(0).merge(Side.RIGHT, lbsClusters.get(1), Side.LEFT, HBLMANAGER);
             lbsClusters.remove(1);
@@ -91,11 +101,12 @@ public class PositionFromExtension implements PositionFinder {
     private Comparator<LegBusSet> sortLBS = new Comparator<LegBusSet>() {
         @Override
         public int compare(LegBusSet lbs1, LegBusSet lbs2) {
-            int order1 = externCellOrderNb(lbs1);
-            int order2 = externCellOrderNb(lbs2);
-            if (order1 != -1 && order2 != -1) {
-                return order1 - order2;
+            Optional<Integer> order1 = externCellOrderNb(lbs1);
+            Optional<Integer> order2 = externCellOrderNb(lbs2);
+            if (order1.isPresent() && order2.isPresent()) {
+                return order1.get() - order2.get();
             }
+
             for (BusNode busNode : lbs1.getBusNodeSet()) {
                 final Position pos1 = busNode.getStructuralPosition();
                 Optional<Position> pos2 = lbs2.getBusNodeSet().stream().map(BusNode::getStructuralPosition)
@@ -104,16 +115,30 @@ public class PositionFromExtension implements PositionFinder {
                     return pos1.getH() - pos2.get().getH();
                 }
             }
+
+            int h1max = getMaxPos(lbs1.getBusNodeSet(), Position::getH);
+            int h2max = getMaxPos(lbs2.getBusNodeSet(), Position::getH);
+            if (h1max != h2max) {
+                return h1max - h2max;
+            }
+
+            int v1max = getMaxPos(lbs1.getBusNodeSet(), Position::getV);
+            int v2max = getMaxPos(lbs2.getBusNodeSet(), Position::getV);
+            if (v1max != v2max) {
+                return v1max - v2max;
+            }
             return lbs1.getBusNodeSet().size() - lbs2.getBusNodeSet().size();
         }
 
-        private int externCellOrderNb(LegBusSet lbs) {
-            Set<ExternCell> cells = lbs.getExternCells();
-            if (cells.isEmpty()) {
-                return -1;
-            } else {
-                return cells.iterator().next().getOrder();
-            }
+        private int getMaxPos(Set<BusNode> busNodes, Function<Position, Integer> fun) {
+            return busNodes.stream()
+                    .map(BusNode::getStructuralPosition).map(fun).max(Integer::compareTo).orElse(0);
         }
+
+
+        private Optional<Integer> externCellOrderNb(LegBusSet lbs) {
+            return lbs.getExternCells().stream().findAny().map(ExternCell::getOrder);
+        }
+
     };
 }
