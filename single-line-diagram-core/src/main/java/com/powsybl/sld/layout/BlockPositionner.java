@@ -54,9 +54,9 @@ class BlockPositionner {
                     && (actualBusNode == null || prevBusNode != actualBusNode)) {
                 Position p = prevBusNode.getPosition();
                 p.setHSpan(hPos - Math.max(p.getH(), 0) - hSpace);
-            } else if (ssSide == Side.LEFT && (prevBusNode == null && actualBusNode != null)
-                    || (prevBusNode != null && prevBusNode != actualBusNode)) {
-                ss.getBusNode(v).getPosition().setH(hPos);
+            } else if (ssSide == Side.LEFT && actualBusNode != null &&
+                    (prevBusNode == null || prevBusNode != actualBusNode)) {
+                actualBusNode.getPosition().setH(hPos);
             }
         }
     }

@@ -127,13 +127,6 @@ public class LBSCluster {
         horizontalBusLanes.forEach(lane -> lane.reverse(lbsList.size()));
     }
 
-    void identifyFlatCells() {
-        lbsList.stream()
-                .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream())
-                .forEach(InternCell::identifyIfFlat);
-    }
-    //TODO : slip legs of interneCell to be to the closest LBS to the edge.
-
     Side getLbsSide(LegBusSet lbs) {
         if (sideToLbs.get(Side.RIGHT) == lbs) {
             return Side.RIGHT;
