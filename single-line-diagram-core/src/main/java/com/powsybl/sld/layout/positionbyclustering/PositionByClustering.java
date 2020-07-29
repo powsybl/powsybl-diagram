@@ -74,12 +74,12 @@ public class PositionByClustering implements PositionFinder {
         while (!links.isEmpty()) {
             links.mergeLink(links.getStrongestLink());
         }
-        LBSCluster lbsCluster = lbsClusters.get(0);
+        LBSCluster lbsCluster = links.getFinalLBSCluster();
         tetrisHorizontalLanes(lbsCluster);
         lbsCluster.establishBusNodePosition();
         establishFeederPositions(lbsCluster);
 
-        return lbsClusters.get(0);
+        return lbsCluster;
     }
 
     private void establishFeederPositions(LBSCluster lbsCluster) {

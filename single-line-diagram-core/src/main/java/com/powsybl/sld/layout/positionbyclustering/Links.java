@@ -19,7 +19,7 @@ import java.util.*;
  */
 class Links {
 
-    private final List<LBSClusterSide> lbsClusterSides = new ArrayList<>();
+    private final List<LBSClusterSide> lbsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
     private HorizontalBusLaneManager hblManager;
 
@@ -74,5 +74,9 @@ class Links {
 
     boolean isEmpty() {
         return linkSet.isEmpty();
+    }
+
+    LBSCluster getFinalLBSCluster() {
+        return lbsClusterSides.get(0).getCluster();
     }
 }
