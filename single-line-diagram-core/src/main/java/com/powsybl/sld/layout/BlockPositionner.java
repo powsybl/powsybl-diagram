@@ -111,21 +111,21 @@ class BlockPositionner {
      * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
      */
     private class Lane {
-        HashMap<InternCell, ArrayList<InternCell>> incompatibilities;
+        Map<InternCell, ArrayList<InternCell>> incompatibilities;
         Lane nextLane;
         List<Lane> lanes;
 
         Lane(List<InternCell> cells) {
             lanes = new ArrayList<>();
             lanes.add(this);
-            incompatibilities = new HashMap<>();
+            incompatibilities = new LinkedHashMap<>();
             cells.forEach(this::addCell);
         }
 
         Lane(InternCell cell, List<Lane> lanes) {
             this.lanes = lanes;
             lanes.add(this);
-            incompatibilities = new HashMap<>();
+            incompatibilities = new LinkedHashMap<>();
             addCell(cell);
         }
 
