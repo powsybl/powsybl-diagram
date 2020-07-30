@@ -19,7 +19,7 @@ class Subsection {
 
     private int size;
     private BusNode[] busNodes;
-    private Set<InternCellSide> internCellSides = new HashSet<>();
+    private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
     private Set<ExternCell> externCells = new TreeSet<>(Comparator.comparingInt(ExternCell::getOrder));
 
     Subsection(int size) {
@@ -105,7 +105,7 @@ class Subsection {
             }
         }
 
-        Map<InternCell, List<SideSs>> cellToSideSs = new HashMap<>();
+        Map<InternCell, List<SideSs>> cellToSideSs = new LinkedHashMap<>();
         for (Subsection ss : subsections) {
             ss.internCellSides.stream()
                     .filter(ics -> {
@@ -135,8 +135,8 @@ class Subsection {
     }
 
     private static void slipInternCellSideToEdge(List<Subsection> subsections) {
-        Map<InternCellSide, Subsection> cellSideToMove = new HashMap<>();
-        new ArrayList<>(subsections).stream().forEach(ss -> {
+        Map<InternCellSide, Subsection> cellSideToMove = new LinkedHashMap<>();
+        new ArrayList<>(subsections).forEach(ss -> {
             List<InternCellSide> cellToRemove = new ArrayList<>();
             ss.internCellSides.stream().filter(ics -> ics.getCell().checkShape(InternCell.Shape.FLAT)
                     || ics.getCell().checkShape(InternCell.Shape.CROSSOVER))
