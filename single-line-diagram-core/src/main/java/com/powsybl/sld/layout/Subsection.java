@@ -142,7 +142,8 @@ class Subsection {
                     || ics.getCell().checkShape(InternCell.Shape.CROSSOVER))
                     .forEach(ics -> {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
-                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> Arrays.asList(ss2.busNodes).containsAll(nodes)).collect(Collectors.toList());
+                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> Arrays.asList(ss2.busNodes)
+                                .containsAll(nodes)).collect(Collectors.toList());
                         if (!candidateSss.isEmpty()) {
                             Subsection candidateSs = ics.getSide() == Side.LEFT ? candidateSss.get(candidateSss.size() - 1) : candidateSss.get(0);
                             if (ss != candidateSs) {
