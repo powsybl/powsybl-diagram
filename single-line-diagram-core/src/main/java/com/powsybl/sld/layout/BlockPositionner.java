@@ -32,7 +32,8 @@ class BlockPositionner {
 
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
             hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells()));
+            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells().stream()
+                    .sorted(Comparator.comparingInt(ExternCell::getOrder)).collect(Collectors.toList())));
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;

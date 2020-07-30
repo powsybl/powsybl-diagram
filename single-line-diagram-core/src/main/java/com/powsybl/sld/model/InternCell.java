@@ -203,5 +203,8 @@ public class InternCell extends AbstractBusCell {
 
     public void setShape(Shape shape) {
         this.shape = shape;
+        if (shape == Shape.FLAT) {
+            setDirection(Direction.FLAT);
+        }
     }
 }
