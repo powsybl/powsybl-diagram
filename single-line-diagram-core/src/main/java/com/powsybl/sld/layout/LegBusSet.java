@@ -64,7 +64,7 @@ public class LegBusSet {
 
     public Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
         return internCellSides.stream().filter(ics -> ics.getCell().checkShape(shape))
-                .collect(Collectors.toMap(ics -> ics.getCell(), ics -> ics.getSide()));
+                .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
     public Map<InternCell, Side> getCandidateFlatCells() {
