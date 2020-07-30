@@ -25,7 +25,6 @@ public class LBSCluster {
     private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
 
     private final List<LegBusSet> lbsList = new ArrayList<>();
-    private final Map<Side, LegBusSet> sideToLbs = new EnumMap<>(Side.class);
     private final List<HorizontalBusLane> horizontalBusLanes = new ArrayList<>();
     private final int nb;
 
@@ -33,9 +32,6 @@ public class LBSCluster {
         Objects.requireNonNull(lbs);
         lbsList.add(lbs);
         lbs.getBusNodeSet().forEach(nodeBus -> horizontalBusLanes.add(new HorizontalBusLane(nodeBus, this)));
-
-        sideToLbs.put(Side.LEFT, lbs);
-        sideToLbs.put(Side.RIGHT, lbs);
 
         this.nb = nb;
     }
@@ -58,14 +54,13 @@ public class LBSCluster {
         }
         hblManager.mergeHorizontalBusLanes(this, otherLbsCluster);
         lbsList.addAll(otherLbsCluster.lbsList);
-        sideToLbs.put(Side.RIGHT, otherLbsCluster.sideToLbs.get(Side.RIGHT));
     }
 
     public List<BusNode> laneSideBuses(Side side) {
         return laneSideBuses(side, horizontalBusLanes);
     }
 
-    public List<BusNode> laneSideBuses(Side side, List<HorizontalBusLane> horizontalBusLaneList) {
+    public static List<BusNode> laneSideBuses(Side side, List<HorizontalBusLane> horizontalBusLaneList) {
         return horizontalBusLaneList.stream()
                 .map(hl -> hl.getSideNode(side)).collect(Collectors.toList());
     }
@@ -111,7 +106,7 @@ public class LBSCluster {
         return null;
     }
 
-    public List<InternCell> getSideFlatCell(Side side) {
+    public List<InternCell> getSideCandidateFlatCell(Side side) {
         return laneSideBuses(side).stream()
                 .map(busNode -> getLbsSideFromBusNode(busNode, side))
                 .distinct().filter(Objects::nonNull)
@@ -121,24 +116,7 @@ public class LBSCluster {
 
     private void reverse() {
         Collections.reverse(lbsList);
-        LegBusSet lbs = sideToLbs.get(Side.LEFT);
-        sideToLbs.put(Side.LEFT, sideToLbs.get(Side.RIGHT));
-        sideToLbs.put(Side.RIGHT, lbs);
         horizontalBusLanes.forEach(lane -> lane.reverse(lbsList.size()));
-    }
-
-    Side getLbsSide(LegBusSet lbs) {
-        if (sideToLbs.get(Side.RIGHT) == lbs) {
-            return Side.RIGHT;
-        }
-        if (sideToLbs.get(Side.LEFT) == lbs) {
-            return Side.LEFT;
-        }
-        return Side.UNDEFINED;
-    }
-
-    Set<InternCell> getCandidateFlatCells() {
-        return lbsList.stream().flatMap(legBusSet -> legBusSet.getCandidateFlatCells().keySet().stream()).collect(Collectors.toSet());
     }
 
     public List<InternCell> getCrossoverCells() {
@@ -152,6 +130,11 @@ public class LBSCluster {
 
     public List<LegBusSet> getLbsList() {
         return lbsList;
+    }
+
+    @Override
+    public String toString() {
+        return lbsList.toString() + "\n" + horizontalBusLanes.toString();
     }
 
     int getNb() {

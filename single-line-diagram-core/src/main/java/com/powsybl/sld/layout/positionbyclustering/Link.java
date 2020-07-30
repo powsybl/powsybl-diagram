@@ -78,8 +78,7 @@ class Link implements Comparable<Link> {
             categoryToWeight.put(LinkCategory.FLATCELLS,
                     flatCellIntersect.size() * 100
                             - flatCellIntersect.stream()
-                            .mapToInt(internCell -> lbsClusterSide1.getDistanceToEdge(internCell)
-                                    + lbsClusterSide2.getDistanceToEdge(internCell)).sum());
+                            .mapToInt(internCell -> flatCellDistanceToEdges(internCell, lbsClusterSide1, lbsClusterSide2)).sum());
         }
 
         Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCrossOverCellList());
@@ -89,6 +88,10 @@ class Link implements Comparable<Link> {
                 .flatMap(internCell -> internCell.getBusNodes().stream())
                 .distinct()
                 .count()));
+    }
+
+    static int flatCellDistanceToEdges(InternCell cell, LBSClusterSide lbsCS1, LBSClusterSide lbsCS2) {
+        return lbsCS1.getCandidateFlatCellDistanceToEdge(cell) + lbsCS2.getCandidateFlatCellDistanceToEdge(cell);
     }
 
     private int getLinkCategoryWeight(LinkCategory cat) {
@@ -159,7 +162,7 @@ class Link implements Comparable<Link> {
                 return 1;
             }
         }
-        return this.hashCode() - oLink.hashCode();
+        return this.toString().compareTo(oLink.toString());
     }
 
     @Override

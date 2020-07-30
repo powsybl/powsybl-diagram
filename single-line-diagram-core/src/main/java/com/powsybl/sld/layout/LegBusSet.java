@@ -30,17 +30,17 @@ public class LegBusSet {
         busNodeSet.addAll(busNodes);
     }
 
-    LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, ExternCell cell) {
         this(nodeToNb, cell.getBusNodes());
         externCells.add(cell);
     }
 
-    LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
         this(nodeToNb, internCell.getSideBusNodes(side));
         addInternCell(internCell, side);
     }
 
-    LegBusSet(Map<BusNode, Integer> nodeToNb, BusNode busNode) {
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, BusNode busNode) {
         this(nodeToNb, Collections.singletonList(busNode));
     }
 
@@ -62,16 +62,16 @@ public class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    public Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
+    Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
         return internCellSides.stream().filter(ics -> ics.getCell().checkShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
-    public Map<InternCell, Side> getCandidateFlatCells() {
+    Map<InternCell, Side> getCandidateFlatCells() {
         return getCellSideMapFromShape(InternCell.Shape.MAYBEFLAT);
     }
 
-    public Map<InternCell, Side> getCrossoverInternCell() {
+    Map<InternCell, Side> getCrossoverInternCell() {
         return getCellSideMapFromShape(InternCell.Shape.CROSSOVER);
     }
 
@@ -83,33 +83,31 @@ public class LegBusSet {
         return externCells;
     }
 
-    public Set<InternCellSide> getInternCellSides() {
+    Set<InternCellSide> getInternCellSides() {
         return internCellSides;
     }
 
 
-    // TODO : to be clarified / strengthened
     static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
         List<LegBusSet> legBusSets = new ArrayList<>();
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
                 .map(ExternCell.class::cast)
-                .sorted(Comparator.comparing(ExternCell::getOrder)
-                        .thenComparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+                .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
+                .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+                .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEach(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
 
         legBusSets.forEach(lbs -> InternCellSide.identifyVerticalInternCells(lbs.getInternCellSides()));
 
