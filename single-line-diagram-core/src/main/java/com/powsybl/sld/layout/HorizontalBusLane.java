@@ -40,7 +40,9 @@ public class HorizontalBusLane {
 
     void reverse(int parentSize) {
         Collections.reverse(busNodes);
-        startingIndex = parentSize - getEndingIndex();
+        int previousStartingIndex = startingIndex;
+        startingIndex = parentSize - endingIndex;
+        endingIndex = parentSize - previousStartingIndex;
     }
 
     public void shift(int i) {

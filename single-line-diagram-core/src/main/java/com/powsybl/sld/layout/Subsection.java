@@ -27,14 +27,14 @@ class Subsection {
         busNodes = new BusNode[size];
     }
 
-    boolean checkAbsorbability(LegBusSet lbs) {
+    private boolean checkAbsorbability(LegBusSet lbs) {
         return lbs.getBusNodeSet().stream().noneMatch(busNode -> {
             int vIndex = busNode.getStructuralPosition().getV() - 1;
             return busNodes[vIndex] != null && busNodes[vIndex] != busNode;
         });
     }
 
-    void addLegBusSet(LegBusSet lbs) {
+    private void addLegBusSet(LegBusSet lbs) {
         lbs.getBusNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
         internCellSides.addAll(lbs.getInternCellSides());
@@ -52,7 +52,7 @@ class Subsection {
         return busNodes[index];
     }
 
-    public List<InternCell> getInternCells(InternCell.Shape shape, Side side) {
+    List<InternCell> getInternCells(InternCell.Shape shape, Side side) {
         return internCellSides.stream()
                 .filter(ics -> ics.getCell().checkShape(shape) && ics.getSide() == side)
                 .map(InternCellSide::getCell).collect(Collectors.toList());
@@ -68,7 +68,7 @@ class Subsection {
         return externCells;
     }
 
-    public static List<Subsection> createSubsections(List<LegBusSet> lbsList) {
+    static List<Subsection> createSubsections(List<LegBusSet> lbsList) {
         int vSize = lbsList.get(0).getBusNodeSet().iterator().next().getGraph().getMaxBusStructuralPosition().getV();
         List<Subsection> subsections = new ArrayList<>();
         Subsection currentSubsection = new Subsection(vSize);
