@@ -35,7 +35,7 @@ class LBSClusterSide {
     }
 
     List<InternCell> getCandidateFlatCellList() {
-        return lbsCluster.getSideFlatCell(side);
+        return lbsCluster.getSideCandidateFlatCell(side);
     }
 
     List<InternCell> getCrossOverCellList() {
@@ -63,25 +63,25 @@ class LBSClusterSide {
                         && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
     }
 
-    int getDistanceToEdge(InternCell internCell) {
+    int getCandidateFlatCellDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
-            return 0;
+            return 100;
         }
-        BusNode busNode = buses.get(0);
-        HorizontalBusLane horizontalBusLane = lbsCluster.getHorizontalBusLanes()
+        BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
+        Optional<HorizontalBusLane> horizontalBusLane = lbsCluster.getHorizontalBusLanes()
                 .stream()
                 .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
                         || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
-                .findFirst().orElse(null);
-        if (horizontalBusLane == null) {
-            return 0;
+                .findFirst();
+        if (!horizontalBusLane.isPresent()) {
+            return 100;
         } else {
             if (side == Side.LEFT) {
-                return horizontalBusLane.getStartingIndex();
+                return horizontalBusLane.get().getStartingIndex();
             } else {
-                return lbsCluster.getLbsList().size() - horizontalBusLane.getEndingIndex();
+                return lbsCluster.getLbsList().size() - horizontalBusLane.get().getEndingIndex();
             }
         }
     }

@@ -47,7 +47,7 @@ public class InternCellSide {
     }
 
     public static void identifyVerticalInternCells(Collection<InternCellSide> internCellSides) {
-        Map<InternCell, List<InternCellSide>> cellToCellSides = new HashMap<>();
+        Map<InternCell, List<InternCellSide>> cellToCellSides = new LinkedHashMap<>();
         internCellSides.forEach(internCellSide -> {
             cellToCellSides.putIfAbsent(internCellSide.getCell(), new ArrayList<>());
             cellToCellSides.get(internCellSide.getCell()).add(internCellSide);

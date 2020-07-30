@@ -46,8 +46,4 @@ public interface PositionFinder {
                     ((ExternCell) shNodes.get(0).getCell()).getDirection());
         }
     }
-
-    default void slipInternCellToEdge(InternCell celll, LBSCluster lbs) {
-
-    }
 }

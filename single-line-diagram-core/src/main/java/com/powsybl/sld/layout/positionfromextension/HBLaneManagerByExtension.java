@@ -24,13 +24,13 @@ public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
         // we must ensure that structuralPosition vPos when merging left and right HorizontalPosition,
         // and structuralPosition hPos are ordered
         leftCluster.getHorizontalBusLanes().forEach(hbl -> {
-            Position rightPos = hbl.getSideNode(Side.RIGHT).getStructuralPosition();
-            int vPos = rightPos.getV();
+            Position rightPosOfLeftHbl = hbl.getSideNode(Side.RIGHT).getStructuralPosition();
+            int vPos = rightPosOfLeftHbl.getV();
             Optional<HorizontalBusLane> rightHBL = rightCluster.getHorizontalBusLanes().stream()
                     .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getStructuralPosition().getV() == vPos)
                     .findFirst();
             if (rightHBL.isPresent()
-                    && rightPos.getH()
+                    && rightPosOfLeftHbl.getH()
                     < rightHBL.get().getSideNode(Side.LEFT).getStructuralPosition().getH()) {
                 hbl.merge(rightHBL.get());
                 rightCluster.removeHorizontalBusLane(rightHBL.get());
@@ -38,6 +38,6 @@ public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
                 LOGGER.warn("incoherent structural horizontal positions in mergeHorizontalBusLanes");
             }
         });
-        mergeLaneWithNoLink(leftCluster, rightCluster);
+        mergeLanesWithNoLink(leftCluster, rightCluster);
     }
 }
