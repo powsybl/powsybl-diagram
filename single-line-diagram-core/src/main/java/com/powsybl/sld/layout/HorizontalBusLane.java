@@ -28,46 +28,41 @@ public class HorizontalBusLane {
 
     private final List<BusNode> busNodes = new ArrayList<>();
     private int startingIndex;
-    private int endingIndex;
+
     private LBSCluster lbsCluster;
 
     HorizontalBusLane(BusNode busNode, LBSCluster lbsCluster) {
         busNodes.add(busNode);
         this.lbsCluster = lbsCluster;
         startingIndex = 0;
-        endingIndex = 1;
     }
 
     void reverse(int parentSize) {
         Collections.reverse(busNodes);
-        int previousStartingIndex = startingIndex;
-        startingIndex = parentSize - endingIndex;
-        endingIndex = parentSize - previousStartingIndex;
+        startingIndex = parentSize - getEndingIndex();
     }
 
     public void shift(int i) {
         startingIndex += i;
-        endingIndex += i;
     }
 
     public void merge(HorizontalBusLane otherLane) {
-        List<BusNode> otherBuses = new ArrayList<>(otherLane.getBusNodes());
-        if (busNodes.get(busNodes.size() - 1).equals(otherBuses.get(0))) {
-            otherBuses.remove(0);
+        BusNode myRightBus = getSideNode(Side.RIGHT);
+        for (int i = getEndingIndex(); i < otherLane.getStartingIndex()
+                + (lbsCluster == otherLane.lbsCluster ? 0 : lbsCluster.getLength()); i++) {
+            busNodes.add(myRightBus == otherLane.getSideNode(Side.LEFT) ? myRightBus : null);
         }
-        busNodes.addAll(otherBuses);
-        if (lbsCluster == otherLane.getLbsCluster()) {
-            endingIndex = otherLane.getEndingIndex();
-        } else {
-            endingIndex = lbsCluster.getLength() + otherLane.getEndingIndex();
-        }
+        busNodes.addAll(otherLane.getBusNodes());
     }
 
     void establishBusPosition(int v) {
         int h = 1;
+        BusNode prevBus = null;
         for (BusNode busNode : busNodes) {
-            busNode.setStructuralPosition(new Position(h, v));
-            h++;
+            if (busNode != prevBus) {
+                busNode.setStructuralPosition(new Position(h, v));
+                h++;
+            }
         }
     }
 
@@ -90,15 +85,22 @@ public class HorizontalBusLane {
     }
 
     public int getEndingIndex() {
-        return endingIndex;
+        return startingIndex + busNodes.size();
     }
 
-    LBSCluster getLbsCluster() {
-        return lbsCluster;
+    public BusNode getBusNode(int index) {
+        if (index < startingIndex || index >= getEndingIndex()) {
+            return null;
+        }
+        return busNodes.get(index - startingIndex);
+    }
+
+    public void setLbsCluster(LBSCluster lbsCluster) {
+        this.lbsCluster = lbsCluster;
     }
 
     @Override
     public String toString() {
-        return String.join(";", busNodes.stream().map(BusNode::getId).collect(Collectors.toList()));
+        return String.join(";", busNodes.stream().map(node -> node == null ? "null" : node.getId()).collect(Collectors.toList()));
     }
 }
