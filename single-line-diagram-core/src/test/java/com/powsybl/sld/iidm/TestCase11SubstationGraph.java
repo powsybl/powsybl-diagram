@@ -10,10 +10,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.SubstationDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
+import com.powsybl.sld.layout.*;
+import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
@@ -103,9 +101,9 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createSwitch(vl2, "dtrf21", "dtrf21", SwitchKind.DISCONNECTOR, false, false, true, 0, 8);
         createSwitch(vl2, "btrf21", "btrf21", SwitchKind.BREAKER, true, false, true, 8, 9);
         createTwoWindingsTransformer(substation, "trf1", "trf1", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
-                                     19, 9, vl1.getId(), vl2.getId(),
-                                     "trf1", 1, ConnectablePosition.Direction.TOP,
-                                     "trf1", 1, ConnectablePosition.Direction.TOP);
+                19, 9, vl1.getId(), vl2.getId(),
+                "trf1", 1, ConnectablePosition.Direction.TOP,
+                "trf1", 1, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf12", "dtrf12", SwitchKind.DISCONNECTOR, false, false, true, 1, 20);
         createSwitch(vl1, "btrf12", "btrf12", SwitchKind.BREAKER, true, false, true, 20, 21);
@@ -153,12 +151,12 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createSwitch(vl3, "btrf36", "btrf36", SwitchKind.BREAKER, true, false, true, 5, 6);
 
         createThreeWindingsTransformer(substation, "trf6", "trf6", vl1.getId(), vl2.getId(), vl3.getId(),
-                                       0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
-                                       400., 225., 225.,
-                                       29, 17, 6,
-                                       "trf61", 2, ConnectablePosition.Direction.TOP,
-                                       "trf62", 2, ConnectablePosition.Direction.TOP,
-                                       "trf63", 2, ConnectablePosition.Direction.TOP);
+                0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
+                400., 225., 225.,
+                29, 17, 6,
+                "trf61", 2, ConnectablePosition.Direction.TOP,
+                "trf62", 2, ConnectablePosition.Direction.TOP,
+                "trf63", 2, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf17", "dtrf17", SwitchKind.DISCONNECTOR, false, false, true, 2, 30);
         createSwitch(vl1, "btrf17", "btrf17", SwitchKind.BREAKER, true, false, true, 30, 31);
@@ -202,9 +200,9 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createSwitch(vlSubst2, "dline21_2", "dline21_2", SwitchKind.DISCONNECTOR, false, false, true, 0, 1);
         createSwitch(vlSubst2, "bline21_2", "bline21_2", SwitchKind.BREAKER, true, false, true, 1, 2);
         createLine(network, "line1", "line1", 2.0, 14.745, 1.0, 1.0, 1.0, 1.0,
-                   35, 2, vl1.getId(), vlSubst2.getId(),
-                   "line1", 3, ConnectablePosition.Direction.TOP,
-                   "line1", 1, ConnectablePosition.Direction.TOP);
+                35, 2, vl1.getId(), vlSubst2.getId(),
+                "line1", 3, ConnectablePosition.Direction.TOP,
+                "line1", 1, ConnectablePosition.Direction.TOP);
     }
 
     @Test
@@ -230,10 +228,17 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 .setVerticalSnakeLinePadding(30);
 
         // build substation graph
+
+        Graph gvl = graphBuilder.buildVoltageLevelGraph("vl1", true, true);
+        new PositionVoltageLevelLayoutFactory().create(gvl).run(layoutParameters);
+
+        toSVG(gvl, "/testVl.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
+
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        toSVG(g, "/testSs.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
         assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
 
         // rebuild substation graph
