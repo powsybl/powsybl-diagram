@@ -6,7 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,13 +23,18 @@ import java.util.stream.Collectors;
  */
 public class LegBusSet {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LegBusSet.class);
+
+
     private final Set<BusNode> busNodeSet;
+    private final Set<BusNode> extendedNodeSet;
     private final Set<ExternCell> externCells = new LinkedHashSet<>();
 
     private final Set<InternCellSide> internCellSides = new LinkedHashSet<>();
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, List<BusNode> busNodes) {
         busNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
+        extendedNodeSet = new TreeSet<>(Comparator.comparingInt(nodeToNb::get));
         busNodeSet.addAll(busNodes);
     }
 
@@ -87,6 +95,17 @@ public class LegBusSet {
         return internCellSides;
     }
 
+    void setExtendedNodeSet(Collection<BusNode> busNodes) {
+        if (busNodes.containsAll(busNodeSet)) {
+            extendedNodeSet.addAll(busNodes.stream().filter(Objects::nonNull).collect(Collectors.toList()));
+        } else {
+            LOGGER.error("ExtendedNodeSet inconsistent with NodeBusSet");
+        }
+    }
+
+    Set<BusNode> getExtendedNodeSet() {
+        return extendedNodeSet;
+    }
 
     static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
         List<LegBusSet> legBusSets = new ArrayList<>();
@@ -108,8 +127,6 @@ public class LegBusSet {
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
-
-        legBusSets.forEach(lbs -> InternCellSide.identifyVerticalInternCells(lbs.getInternCellSides()));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());

@@ -89,6 +89,10 @@ public class LBSCluster {
                 .orElse(null);
     }
 
+    List<BusNode> getVerticalBuseNodes(int i) {
+        return horizontalBusLanes.stream().map(hbl -> hbl.getBusNode(i)).collect(Collectors.toList());
+    }
+
     public int getLength() {
         return lbsList.size();
     }
@@ -122,6 +126,10 @@ public class LBSCluster {
     public List<InternCell> getCrossoverCells() {
         return lbsList.stream().flatMap(legBusSet -> legBusSet.getCrossoverInternCell().keySet()
                 .stream()).collect(Collectors.toList());
+    }
+
+    public void sortHorizontalBusLanesByVPos() {
+        horizontalBusLanes.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getStructuralPosition().getV()));
     }
 
     public List<HorizontalBusLane> getHorizontalBusLanes() {

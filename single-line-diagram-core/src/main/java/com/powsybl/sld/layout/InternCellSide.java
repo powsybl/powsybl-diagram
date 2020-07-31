@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
 
@@ -44,20 +45,5 @@ public class InternCellSide {
 
     public void flipSide() {
         side = side.getFlip();
-    }
-
-    public static void identifyVerticalInternCells(Collection<InternCellSide> internCellSides) {
-        Map<InternCell, List<InternCellSide>> cellToCellSides = new LinkedHashMap<>();
-        internCellSides.forEach(internCellSide -> {
-            cellToCellSides.putIfAbsent(internCellSide.getCell(), new ArrayList<>());
-            cellToCellSides.get(internCellSide.getCell()).add(internCellSide);
-        });
-        cellToCellSides.entrySet().stream().filter(entry -> entry.getValue().size() == 2) // both LEFT and RIGHT side of the interncell
-                .forEach(entry -> {
-                    InternCellSide ics = entry.getValue().get(0);
-                    ics.getCell().setShape(InternCell.Shape.VERTICAL);
-                    ics.setSide(Side.UNDEFINED);
-                    internCellSides.remove(entry.getValue().get(1));
-                });
     }
 }

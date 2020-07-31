@@ -34,7 +34,7 @@ public interface PositionFinder {
         LBSCluster lbsCluster = organizeLegBusSets(legBusSets);
         graph.setMaxBusPosition();
         forceSameOrientationForShuntedCell(graph);
-        return Subsection.createSubsections(lbsCluster.getLbsList());
+        return Subsection.createSubsections(lbsCluster);
     }
 
     default void forceSameOrientationForShuntedCell(Graph graph) {

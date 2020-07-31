@@ -75,6 +75,7 @@ public class PositionByClustering implements PositionFinder {
             links.mergeLink(links.getStrongestLink());
         }
         LBSCluster lbsCluster = links.getFinalLBSCluster();
+
         tetrisHorizontalLanes(lbsCluster);
         lbsCluster.getHorizontalBusLanes().forEach(hl -> LOGGER.info(hl.toString()));
         lbsCluster.establishBusNodePosition();

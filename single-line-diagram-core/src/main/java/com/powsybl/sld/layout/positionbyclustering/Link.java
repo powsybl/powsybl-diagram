@@ -56,12 +56,14 @@ class Link implements Comparable<Link> {
     private final LBSClusterSide lbsClusterSide1;
     private final LBSClusterSide lbsClusterSide2;
     private final Map<LinkCategory, Integer> categoryToWeight = new EnumMap<>(LinkCategory.class);
+    private int nb;
 
-    Link(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2) {
+    Link(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2, int nb) {
         this.lbsClusterSide1 = lbsClusterSide1;
         this.lbsClusterSide2 = lbsClusterSide2;
         lbsClusterSide1.addLink(this);
         lbsClusterSide2.addLink(this);
+        this.nb = nb;
         assessLink();
     }
 
@@ -162,7 +164,7 @@ class Link implements Comparable<Link> {
                 return 1;
             }
         }
-        return this.toString().compareTo(oLink.toString());
+        return this.nb - oLink.nb;
     }
 
     @Override
