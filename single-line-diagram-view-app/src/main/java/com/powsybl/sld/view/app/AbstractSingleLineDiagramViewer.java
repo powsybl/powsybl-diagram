@@ -1087,7 +1087,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private void initLayoutsFactory() {
         voltageLevelsLayouts.put("Smart", null);
         voltageLevelsLayouts.put("Auto extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()));
-        voltageLevelsLayouts.put("Auto without extensions", new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
         voltageLevelsLayouts.put("Auto without extensions Clustering", new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
         voltageLevelsLayouts.put("Random", new RandomVoltageLevelLayoutFactory(500, 500));
         voltageLevelsLayouts.put("Cgmes", null);
