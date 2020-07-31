@@ -9,6 +9,8 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -313,6 +315,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        toSVG(g,"/test.svg",layoutParameters,initialValueProvider,new DefaultDiagramStyleProvider());
         assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
 
 /*
