@@ -22,6 +22,7 @@ class Links {
     private final List<LBSClusterSide> lbsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();
     private HorizontalBusLaneManager hblManager;
+    private int linkCounter = 0;
 
     private Links(HorizontalBusLaneManager hblManager) {
         this.hblManager = hblManager;
@@ -30,10 +31,18 @@ class Links {
     public static Links create(List<LBSCluster> lbsClusters, HorizontalBusLaneManager hblManager) {
         Links links = new Links(hblManager);
         lbsClusters.forEach(lbsCluster -> {
-            links.addLBSClusterSide(new LBSClusterSide(lbsCluster, Side.LEFT));
-            links.addLBSClusterSide(new LBSClusterSide(lbsCluster, Side.RIGHT));
+            addClusterSidesTwins(links, lbsCluster);
         });
         return links;
+    }
+
+    private static void addClusterSidesTwins(Links links, LBSCluster lbsCluster) {
+        LBSClusterSide lbsSLeft = new LBSClusterSide(lbsCluster, Side.LEFT);
+        LBSClusterSide lbsSRight = new LBSClusterSide(lbsCluster, Side.RIGHT);
+        lbsSLeft.setOtherSameRoot(lbsSRight);
+        lbsSRight.setOtherSameRoot(lbsSLeft);
+        links.addLBSClusterSide(lbsSLeft);
+        links.addLBSClusterSide(lbsSRight);
     }
 
     private void addLBSClusterSide(LBSClusterSide lbsClusterSide) {
@@ -43,7 +52,7 @@ class Links {
 
     private void buildNewLink(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2) {
         if (!lbsClusterSide1.hasSameRoot(lbsClusterSide2)) {
-            Link linkToAdd = new Link(lbsClusterSide1, lbsClusterSide2);
+            Link linkToAdd = new Link(lbsClusterSide1, lbsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
         }
     }
@@ -57,10 +66,9 @@ class Links {
         LBSCluster mergedCluster = link.getlbsClusterSide(0).getCluster();
         removeLBSClusterSide(link.getlbsClusterSide(0));
         removeLBSClusterSide(link.getlbsClusterSide(1));
-        removeLBSClusterSide(link.getlbsClusterSide(0).getOtherSameRoot(lbsClusterSides));
-        removeLBSClusterSide(link.getlbsClusterSide(1).getOtherSameRoot(lbsClusterSides));
-        addLBSClusterSide(new LBSClusterSide(mergedCluster, Side.LEFT));
-        addLBSClusterSide(new LBSClusterSide(mergedCluster, Side.RIGHT));
+        removeLBSClusterSide(link.getlbsClusterSide(0).getOtherSameRoot());
+        removeLBSClusterSide(link.getlbsClusterSide(1).getOtherSameRoot());
+        addClusterSidesTwins(this, mergedCluster);
     }
 
     private void removeLBSClusterSide(LBSClusterSide lbsClusterSide) {

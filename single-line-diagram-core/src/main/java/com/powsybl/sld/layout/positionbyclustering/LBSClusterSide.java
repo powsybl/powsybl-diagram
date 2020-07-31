@@ -24,10 +24,15 @@ class LBSClusterSide {
     private final LBSCluster lbsCluster;
     private final Side side;
     private final List<Link> myLinks = new ArrayList<>();
+    private LBSClusterSide otherSameRoot;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = Objects.requireNonNull(lbsCluster);
         this.side = Objects.requireNonNull(side);
+    }
+
+    void setOtherSameRoot(LBSClusterSide otherSameRoot) {
+        this.otherSameRoot = otherSameRoot;
     }
 
     Set<BusNode> getBusNodeSet() {
@@ -57,10 +62,8 @@ class LBSClusterSide {
         return this.lbsCluster == ((LBSClusterSide) other).getCluster();
     }
 
-    LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
-        return clusterConnectors.stream().filter(clusterConnector ->
-                clusterConnector.getCluster() == lbsCluster
-                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
+    LBSClusterSide getOtherSameRoot() {
+        return otherSameRoot;
     }
 
     int getCandidateFlatCellDistanceToEdge(InternCell internCell) {

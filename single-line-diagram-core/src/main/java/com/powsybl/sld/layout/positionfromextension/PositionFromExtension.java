@@ -7,10 +7,7 @@
 package com.powsybl.sld.layout.positionfromextension;
 
 import com.google.common.collect.Comparators;
-import com.powsybl.sld.layout.HorizontalBusLaneManager;
-import com.powsybl.sld.layout.LBSCluster;
-import com.powsybl.sld.layout.LegBusSet;
-import com.powsybl.sld.layout.PositionFinder;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import org.checkerframework.checker.nullness.Opt;
 import org.slf4j.Logger;
@@ -64,11 +61,14 @@ public class PositionFromExtension implements PositionFinder {
             LOGGER.info("MERGING LBS - Cluster ordered : {} {} {}", node.getId(), node.getStructuralPosition(), order);
         });
 
+        LBSCluster lbsCluster = lbsClusters.get(0);
+
         while (lbsClusters.size() != 1) {
-            lbsClusters.get(0).merge(Side.RIGHT, lbsClusters.get(1), Side.LEFT, HBLMANAGER);
+            lbsCluster.merge(Side.RIGHT, lbsClusters.get(1), Side.LEFT, HBLMANAGER);
             lbsClusters.remove(1);
         }
-        return lbsClusters.get(0);
+        lbsCluster.sortHorizontalBusLanesByVPos();
+        return lbsCluster;
     }
 
     private void gatherLayoutExtensionInformation(Graph graph) {
