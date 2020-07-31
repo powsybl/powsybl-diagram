@@ -28,14 +28,14 @@ class Subsection {
     }
 
     private boolean checkAbsorbability(LegBusSet lbs) {
-        return lbs.getBusNodeSet().stream().noneMatch(busNode -> {
+        return lbs.getExtendedNodeSet().stream().noneMatch(busNode -> {
             int vIndex = busNode.getStructuralPosition().getV() - 1;
             return busNodes[vIndex] != null && busNodes[vIndex] != busNode;
         });
     }
 
     private void addLegBusSet(LegBusSet lbs) {
-        lbs.getBusNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
+        lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
         internCellSides.addAll(lbs.getInternCellSides());
     }
@@ -68,30 +68,61 @@ class Subsection {
         return externCells;
     }
 
-    static List<Subsection> createSubsections(List<LegBusSet> lbsList) {
-        int vSize = lbsList.get(0).getBusNodeSet().iterator().next().getGraph().getMaxBusStructuralPosition().getV();
+    static List<Subsection> createSubsections(LBSCluster lbsCluster) {
+        int vSize = lbsCluster.getLbsList().get(0).getBusNodeSet().iterator().next().getGraph().getMaxBusStructuralPosition().getV();
         List<Subsection> subsections = new ArrayList<>();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
-        for (LegBusSet lbs : lbsList) {
+        int i = 0;
+        for (LegBusSet lbs : lbsCluster.getLbsList()) {
+            lbs.setExtendedNodeSet(lbsCluster.getVerticalBuseNodes(i));
             if (!currentSubsection.checkAbsorbability(lbs)) {
                 currentSubsection = new Subsection(vSize);
                 subsections.add(currentSubsection);
             }
             currentSubsection.addLegBusSet(lbs);
+            i++;
         }
 
-        internCellCoherence(lbsList, subsections);
+        internCellCoherence(lbsCluster.getLbsList(), subsections);
         return subsections;
     }
 
     private static void internCellCoherence(List<LegBusSet> lbsList, List<Subsection> subsections) {
-        subsections.forEach(ss -> InternCellSide.identifyVerticalInternCells(ss.internCellSides));
+        identifyVerticalInternCells(subsections);
         lbsList.stream()
                 .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream()).distinct()
                 .forEach(InternCell::identifyIfFlat);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
+    }
+
+    private static void identifyVerticalInternCells(List<Subsection> subsections) {
+        Optional<BusNode> oneNode = Arrays.stream(subsections.get(0).busNodes).filter(Objects::nonNull).findAny();
+        if (!oneNode.isPresent()) {
+            return;
+        }
+        Map<InternCell, Subsection> verticalCells = new HashMap<>();
+
+        oneNode.get().getGraph().getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.INTERN && !((InternCell) c).checkShape(InternCell.Shape.UNILEG))
+                .map(InternCell.class::cast)
+                .forEach(c ->
+                        subsections.stream()
+                                .filter(subsection -> Arrays.asList(subsection.busNodes).containsAll(c.getBusNodes()))
+                                .findAny().ifPresent(subsection -> verticalCells.putIfAbsent(c, subsection)));
+
+        subsections.forEach(ss -> {
+            List<InternCellSide> icsToRemove = ss.internCellSides.stream()
+                    .filter(ics -> verticalCells.keySet().contains(ics.getCell())).collect(Collectors.toList());
+            ss.internCellSides.removeAll(icsToRemove);
+        });
+
+        verticalCells.forEach((cell, sub) -> {
+            cell.setShape(InternCell.Shape.VERTICAL);
+            sub.internCellSides.add(new InternCellSide(cell, Side.UNDEFINED));
+        });
+
     }
 
     private static void identifyCrossOverAndCheckOrientation(List<Subsection> subsections) {

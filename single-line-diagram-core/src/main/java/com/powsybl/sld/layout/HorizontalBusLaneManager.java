@@ -11,7 +11,10 @@ public interface HorizontalBusLaneManager {
     void mergeHorizontalBusLanes(LBSCluster leftCluster, LBSCluster rightCluster);
 
     default void mergeLanesWithNoLink(LBSCluster leftCluster, LBSCluster rightCluster) {
-        rightCluster.getHorizontalBusLanes().forEach(lane -> lane.shift(leftCluster.getLength()));
+        rightCluster.getHorizontalBusLanes().forEach(lane -> {
+            lane.shift(leftCluster.getLength());
+            lane.setLbsCluster(leftCluster);
+        });
         leftCluster.getHorizontalBusLanes().addAll(rightCluster.getHorizontalBusLanes());
         rightCluster.getHorizontalBusLanes().removeAll(rightCluster.getHorizontalBusLanes());
     }
