@@ -54,12 +54,12 @@ public class PositionFromExtension implements PositionFinder {
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
                 legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
 
-        lbsClusters.forEach(lbsCluster -> {
-            LegBusSet lbs = lbsCluster.getLbsList().get(0);
+        for (LBSCluster cluster : lbsClusters) {
+            LegBusSet lbs = cluster.getLbsList().get(0);
             BusNode node = lbs.getBusNodeSet().iterator().next();
             int order = lbs.getExternCells().stream().findAny().map(ExternCell::getOrder).orElse(0);
             LOGGER.info("MERGING LBS - Cluster ordered : {} {} {}", node.getId(), node.getStructuralPosition(), order);
-        });
+        }
 
         LBSCluster lbsCluster = lbsClusters.get(0);
 
@@ -134,7 +134,6 @@ public class PositionFromExtension implements PositionFinder {
             return busNodes.stream()
                     .map(BusNode::getStructuralPosition).map(fun).max(Integer::compareTo).orElse(0);
         }
-
 
         private Optional<Integer> externCellOrderNb(LegBusSet lbs) {
             return lbs.getExternCells().stream().findAny().map(ExternCell::getOrder);
