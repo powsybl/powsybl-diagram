@@ -8,6 +8,7 @@ package com.powsybl.sld.svg;
 
 import com.google.common.collect.ImmutableMap;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
@@ -32,7 +33,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
         Objects.requireNonNull(node);
 
-        if (node instanceof InternalNode && !isShowInternalNodes) {
+        if (node.getComponentType().equals(ComponentTypeName.NODE) && !isShowInternalNodes) {
             StringBuilder style = new StringBuilder();
             String className = escapeId(node.getId());
             style.append(".").append(className)
@@ -126,7 +127,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                     if (subComponentName.equals(WINDING2)) {
                         color = getNodeColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos(), node);
                     }
-                } else if (!isShowInternalNodes && node instanceof InternalNode) {
+                } else if (!isShowInternalNodes && node.getComponentType().equals(ComponentTypeName.NODE)) {
                     attributes.put("stroke-opacity", "0");
                     attributes.put("fill-opacity", "0");
                 }

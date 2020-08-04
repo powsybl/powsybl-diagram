@@ -173,6 +173,9 @@ public final class Graph {
     }
 
     public void addNode(Node node) {
+        if (nodes.contains(node)) {
+            throw new AssertionError("The node cannot be added, it is already in the graph");
+        }
         nodes.add(node);
         nodesByType.computeIfAbsent(node.getType(), nodeType -> new ArrayList<>()).add(node);
         nodesById.put(node.getId(), node);
@@ -355,7 +358,23 @@ public final class Graph {
         addEdge(fNodeToSw, node);
     }
 
+    /**
+     * @deprecated Use {@link #substituteNode} instead
+     * @param nodeOrigin: node which will be substituted
+     * @param newNode: node which will substitute the first one
+     */
+    @Deprecated
     public void substitueNode(Node nodeOrigin, Node newNode) {
+        substituteNode(nodeOrigin, newNode);
+    }
+
+    /**
+     * Substitute a node with another node already in the graph.
+     * Use {@link #replaceNode} instead if the node newNode is not already in the graph.
+     * @param nodeOrigin: node which will be substituted
+     * @param newNode: node which will substitute the first one
+     */
+    public void substituteNode(Node nodeOrigin, Node newNode) {
         while (!nodeOrigin.getAdjacentEdges().isEmpty()) {
             Edge edge = nodeOrigin.getAdjacentEdges().get(0);
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
@@ -366,13 +385,24 @@ public final class Graph {
         removeNode(nodeOrigin);
     }
 
+    /**
+     * Replace a node with another node which is not yet in the graph.
+     * Use {@link #substituteNode} instead if the node newNode is already in the graph.
+     * @param nodeOrigin: node which will be replaced
+     * @param newNode: node which will replace the first one
+     */
+    public void replaceNode(Node nodeOrigin, Node newNode) {
+        addNode(newNode);
+        substituteNode(nodeOrigin, newNode);
+    }
+
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
             if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
-                substitueNode(adj, busNode);
+                substituteNode(adj, busNode);
             }
         });
     }
@@ -380,11 +410,7 @@ public final class Graph {
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
-                .forEach(n -> {
-                    FeederNode feederNode = FeederNode.createFictitious(this, n.getId());
-                    addNode(feederNode);
-                    substitueNode(n, feederNode);
-                });
+                .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId())));
     }
 
     public BusNode getVHNodeBus(int v, int h) {
