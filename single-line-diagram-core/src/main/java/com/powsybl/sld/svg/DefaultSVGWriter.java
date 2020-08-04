@@ -684,22 +684,23 @@ public class DefaultSVGWriter implements SVGWriter {
         insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
     }
 
-    protected void insertRotatedComponentSVGIntoDocumentSVG(String prefixId,
-                                                            String componentType,
-                                                            Element g, double angle,
-                                                            ComponentSize componentSize,
-                                                            String componentDefsId) {
+    protected void insertArrowSVGIntoDocumentSVG(String prefixId,
+                                                 Element g, double angle,
+                                                 ComponentSize componentSize,
+                                                 String componentDefsId) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setRotatedComponentAttributes(prefixId, g, e, angle, componentSize);
-        insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
+                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, angle, componentSize);
+        insertSVGIntoDocumentSVG(ARROW, g, componentDefsId, elementAttributesSetter);
     }
 
-    private void setRotatedComponentAttributes(String prefixId, Element g, Element e,
-                                               double angle, ComponentSize componentSize) {
+    private void setArrowAttributes(String prefixId, Element g, Element e,
+                                    double angle, ComponentSize componentSize) {
         replaceId(g, e, prefixId);
-        double cx = componentSize.getWidth() / 2;
-        double cy = componentSize.getHeight() / 2;
-        e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
+        if (Math.abs(angle) > 0) {
+            double cx = componentSize.getWidth() / 2;
+            double cy = componentSize.getHeight() / 2;
+            e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
+        }
     }
 
     protected void insertDecoratorSVGIntoDocumentSVG(String prefixId,
@@ -876,15 +877,21 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         if (distancePoints > 0) {
-            double cosAngle = dy / distancePoints;
-            double sinAngle = dx / distancePoints;
+            // Calculate cos and sin of the angle between the wire line and the abscisse
+            double cosAngle = dx / distancePoints;
+            double sinAngle = dy / distancePoints;
 
             double dist = this.layoutParameters.getArrowDistance();
-            double x = x1 + sinAngle * (dist + shift);
-            double y = y1 + cosAngle * (dist + shift);
+            double x = x1 + cosAngle * (dist + shift);
+            double y = y1 + sinAngle * (dist + shift);
 
-            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, Math.atan(dx / dy), componentSize));
+            double arrowRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
+            if (arrowRotationAngle < -Math.PI / 2) {
+                arrowRotationAngle += Math.PI;
+            }
+            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, arrowRotationAngle, componentSize));
         }
+
     }
 
     private String getTransformMatrixString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
@@ -929,82 +936,55 @@ public class DefaultSVGWriter implements SVGWriter {
                                          DiagramLabelProvider initProvider,
                                          DiagramStyleProvider styleProvider) {
         InitialValue init = initProvider.getInitialValue(n);
+
+        // we draw the arrow only if value 1 is present
+        init.getLabel1().ifPresent(
+            lb -> drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), init.getArrowDirection1(),
+                0, 1, metadata, styleProvider)
+        );
+
+        // we draw the arrow only if value 2 is present
+        init.getLabel2().ifPresent(
+            lb -> {
+                double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
+                drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(), init.getArrowDirection2(),
+                    shiftArrow2, 2, metadata, styleProvider);
+            }
+        );
+    }
+
+    private void drawArrowAndLabel(String prefixId, String wireId, List<Double> points, Element root, Node n,
+                                   String labelR, Optional<String> labelL, Optional<Direction> dir, double shift, int iArrow,
+                                   GraphMetadata metadata, DiagramStyleProvider styleProvider) {
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
         double shY = cd.getSize().getHeight() - LABEL_OFFSET + (double) FONT_SIZE / 2;
 
-        String defsId = ARROW;
         double y1 = points.get(1);
         double y2 = points.get(3);
 
-        Optional<String> label1 = init.getLabel1();
+        Element g = root.getOwnerDocument().createElement("g");
+        String arrowWireId = wireId + "_ARROW" + iArrow;
+        g.setAttribute("id", arrowWireId);
+        transformArrow(points, cd.getSize(), shift, g);
 
-        if (label1.isPresent()) {  // we draw the arrow only if value 1 is present
-            Element g1 = root.getOwnerDocument().createElement("g");
-            String arrow1WireId = wireId + "_ARROW1";
-            g1.setAttribute("id", arrow1WireId);
-            transformArrow(points, cd.getSize(), 0, g1);
+        String defsId = dir.map(direction -> ARROW + "-arrow-" + direction.name().toLowerCase()).orElse(ARROW);
+        insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize(), defsId);
+        drawLabel(null, StringUtils.rightPad(labelR, VALUE_MAX_NB_CHARS), false, shX, shY, g, FONT_SIZE, false, 0, true);
 
-            Optional<Direction> dir1 = init.getArrowDirection1();
-            if (dir1.isPresent()) {
-                defsId += dir1.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
+        if (dir.isPresent()) {
+            g.setAttribute(CLASS, "ARROW" + iArrow + "_" + escapeClassName(n.getId()) + "_" + dir.get());
+            if (layoutParameters.isAvoidSVGComponentsDuplication()) {
+                styleProvider.getSvgArrowStyleAttributes(iArrow).forEach(((Element) g.getFirstChild())::setAttribute);
             }
-
-            if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, 180, cd.getSize(), defsId);
-            } else {
-                insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g1, n, styleProvider, defsId);
-            }
-            drawLabel(null, StringUtils.rightPad(label1.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g1, FONT_SIZE, false, 0, true);
-
-            if (dir1.isPresent()) {
-                g1.setAttribute(CLASS, "ARROW1_" + escapeClassName(n.getId()) + "_" + dir1.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getSvgArrowStyleAttributes(1).forEach(((Element) g1.getFirstChild())::setAttribute);
-                }
-            }
-
-            Optional<String> label3 = init.getLabel3();
-            label3.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g1, FONT_SIZE, false, 0, true));
-
-            root.appendChild(g1);
-            metadata.addArrowMetadata(new ArrowMetadata(arrow1WireId, wireId, layoutParameters.getArrowDistance()));
         }
 
-        Optional<String> label2 = init.getLabel2();
-        if (label2.isPresent()) {  // we draw the arrow only if value 2 is present
-            Element g2 = root.getOwnerDocument().createElement("g");
-            String arrow2WireId = wireId + "_ARROW2";
-            g2.setAttribute("id", arrow2WireId);
-            transformArrow(points, cd.getSize(), 2 * cd.getSize().getHeight(), g2);
+        labelL.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g, FONT_SIZE, false, 0, true));
 
-            defsId = ARROW;
-            Optional<Direction> dir2 = init.getArrowDirection2();
-            if (dir2.isPresent()) {
-                defsId += dir2.get() == Direction.UP ? "-arrow-up" : "-arrow-down";
-            }
+        root.appendChild(g);
+        metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
 
-            if (y1 > y2) {
-                insertRotatedComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, 180, cd.getSize(), defsId);
-            } else {
-                insertComponentSVGIntoDocumentSVG(prefixId, ARROW, g2, n, styleProvider, defsId);
-            }
-            drawLabel(null, StringUtils.rightPad(label2.get(), VALUE_MAX_NB_CHARS), false, shX, shY, g2, FONT_SIZE, false, 0, true);
-
-            if (dir2.isPresent()) {
-                g2.setAttribute(CLASS, "ARROW2_" + escapeClassName(n.getId()) + "_" + dir2.get());
-                if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-                    styleProvider.getSvgArrowStyleAttributes(2).forEach(((Element) g2.getFirstChild())::setAttribute);
-                }
-            }
-
-            Optional<String> label4 = init.getLabel4();
-            label4.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g2, FONT_SIZE, false, 0, true));
-
-            root.appendChild(g2);
-            metadata.addArrowMetadata(new ArrowMetadata(arrow2WireId, wireId, layoutParameters.getArrowDistance()));
-        }
     }
 
     /**

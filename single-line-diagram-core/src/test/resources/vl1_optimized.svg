@@ -217,11 +217,11 @@
         <g class="wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="100.0,562.0,100.0,480.0"/>
         </g>
-        <g class="ARROW1_vl1_95_trf1_UP" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,-0.0,0.0,1.0,95.0,537.0)">
+        <g class="ARROW1_vl1_95_trf1_UP" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,95.0,537.0)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)" stroke="black"/>
             <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
-        <g class="ARROW2_vl1_95_trf1_DOWN" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,-0.0,0.0,1.0,95.0,517.0)">
+        <g class="ARROW2_vl1_95_trf1_DOWN" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,95.0,517.0)">
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)" stroke="blue"/>
             <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
