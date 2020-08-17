@@ -18,6 +18,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -94,6 +96,8 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+
+//        toSVG(g,"/test.svg", layoutParameters,new DefaultDiagramInitialValueProvider(network),new DefaultDiagramStyleProvider());
 
         assertEquals(toJson(g, "/TestCaseGraphExternCellHeightFixed.json"), toString("/TestCaseGraphExternCellHeightFixed.json"));
 

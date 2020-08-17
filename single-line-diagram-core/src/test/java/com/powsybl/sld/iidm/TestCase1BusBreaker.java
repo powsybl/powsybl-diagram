@@ -86,8 +86,6 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        toSVG(g, "/TestCase1BusBreaker.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
-
         // write Json and compare to reference
         assertEquals(toString("/TestCase1BusBreaker.json"), toJson(g, "/TestCase1BusBreaker.json"));
     }
