@@ -80,7 +80,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createSwitch(vl2, "dload3", "dload3", SwitchKind.DISCONNECTOR, false, false, true, 0, 3);
         createSwitch(vl2, "bload3", "bload3", SwitchKind.BREAKER, true, false, true, 2, 3);
 
-        createGenerator(vl2, "gen4", "gen4", "gen4", 1, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, false, 10, 10);
+        createGenerator(vl2, "gen4", "gen4", "gen4", 2, ConnectablePosition.Direction.BOTTOM, 4, 0, 20, false, 10, 10);
         createSwitch(vl2, "dgen4", "dgen4", SwitchKind.DISCONNECTOR, false, false, true, 1, 5);
         createSwitch(vl2, "bgen4", "bgen4", SwitchKind.BREAKER, true, false, true, 4, 5);
 
@@ -112,7 +112,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createTwoWindingsTransformer(substation, "trf2", "trf2", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
                 21, 11, vl1.getId(), vl2.getId(),
                 "trf2", 11, ConnectablePosition.Direction.TOP,
-                "trf2", 3, ConnectablePosition.Direction.BOTTOM);
+                "trf2", 7, ConnectablePosition.Direction.BOTTOM);
 
         createSwitch(vl1, "dtrf13", "dtrf13", SwitchKind.DISCONNECTOR, false, false, true, 2, 22);
         createSwitch(vl1, "btrf13", "btrf13", SwitchKind.BREAKER, true, false, true, 22, 23);
@@ -121,7 +121,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createTwoWindingsTransformer(substation, "trf3", "trf3", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
                 23, 13, vl1.getId(), vl2.getId(),
                 "trf3", 3, ConnectablePosition.Direction.BOTTOM,
-                "trf3", 4, ConnectablePosition.Direction.BOTTOM);
+                "trf3", 8, ConnectablePosition.Direction.BOTTOM);
 
         createSwitch(vl1, "dtrf14", "dtrf14", SwitchKind.DISCONNECTOR, false, false, true, 3, 24);
         createSwitch(vl1, "btrf14", "btrf14", SwitchKind.BREAKER, true, false, true, 24, 25);
@@ -130,7 +130,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         createTwoWindingsTransformer(substation, "trf4", "trf4", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
                 25, 15, vl1.getId(), vl2.getId(),
                 "trf4", 10, ConnectablePosition.Direction.BOTTOM,
-                "trf4", 2, ConnectablePosition.Direction.TOP);
+                "trf4", 3, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf15", "dtrf15", SwitchKind.DISCONNECTOR, false, false, true, 0, 26);
         createSwitch(vl1, "btrf15", "btrf15", SwitchKind.BREAKER, true, false, true, 26, 27);
@@ -155,7 +155,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 400., 225., 225.,
                 29, 17, 6,
                 "trf61", 5, ConnectablePosition.Direction.TOP,
-                "trf62", 2, ConnectablePosition.Direction.TOP,
+                "trf62", 5, ConnectablePosition.Direction.TOP,
                 "trf63", 2, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf17", "dtrf17", SwitchKind.DISCONNECTOR, false, false, true, 2, 30);
@@ -170,8 +170,8 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 400., 225., 225.,
                 31, 19, 8,
                 "trf71", 6, ConnectablePosition.Direction.BOTTOM,
-                "trf72", 2, ConnectablePosition.Direction.TOP,
-                "trf73", 2, ConnectablePosition.Direction.BOTTOM);
+                "trf72", 4, ConnectablePosition.Direction.TOP,
+                "trf73", 3, ConnectablePosition.Direction.BOTTOM);
 
         createSwitch(vl1, "dtrf18", "dtrf18", SwitchKind.DISCONNECTOR, false, false, true, 1, 32);
         createSwitch(vl1, "btrf18", "btrf18", SwitchKind.BREAKER, true, false, true, 32, 33);
@@ -185,8 +185,8 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 400., 225., 225.,
                 33, 21, 10,
                 "trf81", 9, ConnectablePosition.Direction.TOP,
-                "trf82", 2, ConnectablePosition.Direction.BOTTOM,
-                "trf83", 2, ConnectablePosition.Direction.TOP);
+                "trf82", 6, ConnectablePosition.Direction.BOTTOM,
+                "trf83", 4, ConnectablePosition.Direction.TOP);
 
         // Creation of another substation, another voltageLevel and a line between the two substations
         //
@@ -232,13 +232,10 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         Graph gvl = graphBuilder.buildVoltageLevelGraph("vl1", true, true);
         new PositionVoltageLevelLayoutFactory().create(gvl).run(layoutParameters);
 
-        toSVG(gvl, "/testVl.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
-
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        toSVG(g, "/testSs.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
         assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
 
         // rebuild substation graph
@@ -246,6 +243,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // write Json and compare to reference (with vertical substation layout)
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        toSVG(g, "/testSs.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
         assertEquals(toString("/TestCase11SubstationGraphVertical.json"), toJson(g, "/TestCase11SubstationGraphVertical.json"));
 
         // compare metadata of substation diagram with reference
