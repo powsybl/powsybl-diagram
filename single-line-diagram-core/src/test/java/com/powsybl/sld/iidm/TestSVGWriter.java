@@ -63,9 +63,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g1.setX(0);
         g1.setY(20);
 
-        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
-        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
-        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3", 63.);
 
         BusNode vl1Bbs1 = BusNode.create(g1, "vl1_bbs1", "vl1_bbs1");
         vl1Bbs1.setX(0);
