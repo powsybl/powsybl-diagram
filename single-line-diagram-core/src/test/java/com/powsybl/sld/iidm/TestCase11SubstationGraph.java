@@ -236,7 +236,6 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        toSVG(g, "/test.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
         assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
 
         // rebuild substation graph
