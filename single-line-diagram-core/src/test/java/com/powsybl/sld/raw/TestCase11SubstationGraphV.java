@@ -37,6 +37,7 @@ public class TestCase11SubstationGraphV extends TestCase11SubstationGraph {
 
         // write Json and compare to reference (with vertical substation layout)
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        toSVG(g,"/ssG2",layoutParameters, initialValueProvider,new DefaultDiagramStyleProvider());
         assertEquals(toJson(g, "/TestCase11SubstationGraphVertical.json"), toString("/TestCase11SubstationGraphVertical.json"));
     }
 }

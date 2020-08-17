@@ -126,9 +126,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 case STATIC_VAR_COMPENSATOR:
                     return FeederInjectionNode.createStaticVarCompensator(graph, injection.getId(), injection.getName());
                 case SHUNT_COMPENSATOR:
-                    // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
-                    return ((ShuntCompensator) injection).getB() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
-                                                                      : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
+                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
+                            : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
                 case DANGLING_LINE:
                     return FeederInjectionNode.createDanglingLine(graph, injection.getId(), injection.getName());
                 default:
@@ -158,6 +157,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
             } else {
                 return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
+        }
+
+        protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(terminal);
+            Bus bus = terminal.getBusBreakerView().getConnectableBus();
+            String id = bus.getId() + "_" + terminal.getConnectable().getId();
+            String name = bus.getName() + "_" + terminal.getConnectable().getName();
+            return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
         }
 
         @Override
@@ -372,8 +380,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private void connectToBus(Node node, Terminal terminal) {
+            SwitchNode nodeSwitch = createSwitchNodeFromTerminal(graph, terminal);
+            graph.addNode(nodeSwitch);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
-            graph.addEdge(nodesByBusId.get(busId), node);
+            graph.addEdge(nodesByBusId.get(busId), nodeSwitch);
+            graph.addEdge(nodeSwitch, node);
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
@@ -520,13 +531,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
         // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
         substation.getVoltageLevelStream()
-                .sorted(Comparator.comparing(VoltageLevel::getNominalV).reversed())
-                .forEach(v -> {
-                    Graph vlGraph = Graph.create(
-                            new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
-                    buildGraph(vlGraph, v);
-                    graph.addNode(vlGraph);
-                });
+                .sorted(Comparator.comparing(VoltageLevel::getNominalV)
+                        .reversed()).forEach(v -> {
+            Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
+            buildGraph(vlGraph, v);
+            graph.addNode(vlGraph);
+        });
 
         LOGGER.info("Number of node : {} ", graph.getNodes().size());
 
