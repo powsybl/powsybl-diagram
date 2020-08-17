@@ -738,7 +738,7 @@
     "type" : "EXTERN",
     "number" : 4,
     "direction" : "TOP",
-    "order" : 2,
+    "order" : 4,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -877,7 +877,7 @@
           "open" : false,
           "label" : "trf5",
           "feederType" : "BRANCH",
-          "order" : 2,
+          "order" : 4,
           "direction" : "TOP",
           "side" : "ONE",
           "otherSideVoltageLevelInfos" : {
@@ -892,7 +892,7 @@
     "type" : "EXTERN",
     "number" : 5,
     "direction" : "TOP",
-    "order" : 2,
+    "order" : 5,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1122,7 +1122,7 @@
             "open" : false,
             "label" : "trf61",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
+            "order" : 6,
             "direction" : "TOP",
             "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
@@ -1188,7 +1188,7 @@
             "open" : false,
             "label" : "trf61",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
+            "order" : 5,
             "direction" : "TOP",
             "side" : "TWO",
             "otherSideVoltageLevelInfos" : {
@@ -1204,7 +1204,7 @@
     "type" : "EXTERN",
     "number" : 6,
     "direction" : "TOP",
-    "order" : 2,
+    "order" : 7,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1343,7 +1343,7 @@
           "open" : false,
           "label" : "load2",
           "feederType" : "INJECTION",
-          "order" : 2,
+          "order" : 7,
           "direction" : "TOP"
         } ]
       } ]
@@ -1352,7 +1352,7 @@
     "type" : "EXTERN",
     "number" : 7,
     "direction" : "TOP",
-    "order" : 3,
+    "order" : 10,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1491,7 +1491,7 @@
           "open" : false,
           "label" : "trf2",
           "feederType" : "BRANCH",
-          "order" : 3,
+          "order" : 10,
           "direction" : "TOP",
           "side" : "ONE",
           "otherSideVoltageLevelInfos" : {
@@ -1506,7 +1506,7 @@
     "type" : "EXTERN",
     "number" : 8,
     "direction" : "TOP",
-    "order" : 2,
+    "order" : 8,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1736,7 +1736,7 @@
             "open" : false,
             "label" : "trf81",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
+            "order" : 9,
             "direction" : "TOP",
             "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
@@ -1802,7 +1802,7 @@
             "open" : false,
             "label" : "trf81",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
+            "order" : 8,
             "direction" : "TOP",
             "side" : "TWO",
             "otherSideVoltageLevelInfos" : {
@@ -1818,7 +1818,7 @@
     "type" : "EXTERN",
     "number" : 9,
     "direction" : "BOTTOM",
-    "order" : 1,
+    "order" : 2,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1957,7 +1957,7 @@
           "open" : false,
           "label" : "gen1",
           "feederType" : "INJECTION",
-          "order" : 1,
+          "order" : 2,
           "direction" : "BOTTOM"
         } ]
       } ]
@@ -1966,7 +1966,7 @@
     "type" : "EXTERN",
     "number" : 10,
     "direction" : "BOTTOM",
-    "order" : 1,
+    "order" : 3,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -2105,7 +2105,7 @@
           "open" : false,
           "label" : "trf3",
           "feederType" : "BRANCH",
-          "order" : 1,
+          "order" : 3,
           "direction" : "BOTTOM",
           "side" : "ONE",
           "otherSideVoltageLevelInfos" : {
@@ -2120,7 +2120,7 @@
     "type" : "EXTERN",
     "number" : 11,
     "direction" : "BOTTOM",
-    "order" : 2,
+    "order" : 6,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -2350,7 +2350,7 @@
             "open" : false,
             "label" : "trf71",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 3,
+            "order" : 7,
             "direction" : "BOTTOM",
             "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
@@ -2416,7 +2416,7 @@
             "open" : false,
             "label" : "trf71",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 2,
+            "order" : 6,
             "direction" : "BOTTOM",
             "side" : "TWO",
             "otherSideVoltageLevelInfos" : {
@@ -2432,7 +2432,7 @@
     "type" : "EXTERN",
     "number" : 12,
     "direction" : "BOTTOM",
-    "order" : 3,
+    "order" : 11,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -2571,7 +2571,7 @@
           "open" : false,
           "label" : "gen2",
           "feederType" : "INJECTION",
-          "order" : 3,
+          "order" : 11,
           "direction" : "BOTTOM"
         } ]
       } ]
@@ -2580,7 +2580,7 @@
     "type" : "EXTERN",
     "number" : 13,
     "direction" : "BOTTOM",
-    "order" : 2,
+    "order" : 9,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -2719,7 +2719,7 @@
           "open" : false,
           "label" : "trf4",
           "feederType" : "BRANCH",
-          "order" : 2,
+          "order" : 9,
           "direction" : "BOTTOM",
           "side" : "ONE",
           "otherSideVoltageLevelInfos" : {
