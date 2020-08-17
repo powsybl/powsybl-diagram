@@ -13,6 +13,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,9 +108,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         createSwitch(vl2, "dtrf21", "dtrf21", SwitchKind.DISCONNECTOR, false, false, true, 0, 8);
         createSwitch(vl2, "btrf21", "btrf21", SwitchKind.BREAKER, true, false, true, 8, 9);
         createTwoWindingsTransformer(substation, "trf1", "trf1", 2.0, 14.745, 0.0, 3.2E-5, 400.0, 225.0,
-                                     19, 9, vl1.getId(), vl2.getId(),
-                                     "trf1", 1, ConnectablePosition.Direction.TOP,
-                                     "trf1", 1, ConnectablePosition.Direction.TOP);
+                19, 9, vl1.getId(), vl2.getId(),
+                "trf1", 1, ConnectablePosition.Direction.TOP,
+                "trf1", 1, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf12", "dtrf12", SwitchKind.DISCONNECTOR, false, false, true, 1, 20);
         createSwitch(vl1, "btrf12", "btrf12", SwitchKind.BREAKER, true, false, true, 20, 21);
@@ -157,12 +158,12 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         createSwitch(vl3, "btrf36", "btrf36", SwitchKind.BREAKER, true, false, true, 7, 8);
 
         createThreeWindingsTransformer(substation, "trf6", "trf6", vl1.getId(), vl2.getId(), vl3.getId(),
-                                       0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
-                                       400., 225., 225.,
-                                       29, 17, 8,
-                                       "trf61", 2, ConnectablePosition.Direction.TOP,
-                                       "trf62", 2, ConnectablePosition.Direction.TOP,
-                                       "trf63", 2, ConnectablePosition.Direction.TOP);
+                0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
+                400., 225., 225.,
+                29, 17, 8,
+                "trf61", 2, ConnectablePosition.Direction.TOP,
+                "trf62", 2, ConnectablePosition.Direction.TOP,
+                "trf63", 2, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "dtrf17", "dtrf17", SwitchKind.DISCONNECTOR, false, false, true, 2, 30);
         createSwitch(vl1, "btrf17", "btrf17", SwitchKind.BREAKER, true, false, true, 30, 31);
@@ -242,6 +243,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         new ImplicitCellDetector().detectCells(g3);
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(layoutParameters);
+        toSVG(g1, "/testG1.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
+        toSVG(g2, "/testG2.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
+        toSVG(g3, "/testG3.svg", layoutParameters, new DefaultDiagramInitialValueProvider(network), new DefaultDiagramStyleProvider());
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL1.json"), toJson(g1, "/TestCase12GraphVL1.json"));

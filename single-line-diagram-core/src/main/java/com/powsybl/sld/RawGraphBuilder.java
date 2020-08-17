@@ -8,10 +8,7 @@ package com.powsybl.sld;
 
 import com.powsybl.sld.model.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static com.powsybl.sld.model.FeederWithSideNode.Side.*;
 
@@ -207,7 +204,7 @@ public class RawGraphBuilder implements GraphBuilder {
             Feeder2WTLegNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
             f2WTNodes.put(vl1, feeder2WtNode1);
             f2WTNodes.put(vl2, feeder2WTNode2);
-            ssGraph.addEdge(feeder2WtNode1, feeder2WTNode2);
+            ssGraph.addMultiTermNode(Middle2WTNode.create(ssGraph, feeder2WtNode1, feeder2WTNode2, vl1.voltageLevelInfos, vl2.voltageLevelInfos));
             return f2WTNodes;
         }
 
@@ -227,19 +224,8 @@ public class RawGraphBuilder implements GraphBuilder {
             f3WTNodes.put(vl3, feeder3WTNode3);
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            String idMiddleNode = feeder3WTNode1.getId() + "_" + feeder3WTNode2.getId() + "_" + feeder3WTNode3.getId();
-
-            Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, feeder3WTNode1.getGraph().getVoltageLevelInfos(), feeder3WTNode2.getGraph().getVoltageLevelInfos(), feeder3WTNode3.getGraph().getVoltageLevelInfos());
-
-            TwtEdge edge1 = ssGraph.addEdge(feeder3WTNode1, middleNode);
-            TwtEdge edge2 = ssGraph.addEdge(middleNode, feeder3WTNode2);
-            TwtEdge edge3 = ssGraph.addEdge(middleNode, feeder3WTNode3);
-
-            middleNode.addAdjacentEdge(edge1);
-            middleNode.addAdjacentEdge(edge2);
-            middleNode.addAdjacentEdge(edge3);
-
-            ssGraph.addMultiTermNode(middleNode);
+            ssGraph.addMultiTermNode(Middle3WTNode.create(ssGraph, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
+                    vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos));
 
             return f3WTNodes;
         }
@@ -257,7 +243,9 @@ public class RawGraphBuilder implements GraphBuilder {
 
     public SubstationGraph buildSubstationGraph(String id,
                                                 boolean useName) {
-        return ssBuilders.get(id).getSsGraph();
+        SubstationGraph ssGraph = ssBuilders.get(id).getSsGraph();
+        ssGraph.getNodes().sort(Comparator.comparingDouble(g -> -g.getVoltageLevelInfos().getNominalVoltage()));
+        return ssGraph;
     }
 
     //TODO: buildZoneGraph

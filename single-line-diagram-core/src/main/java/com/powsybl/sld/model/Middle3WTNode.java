@@ -32,6 +32,21 @@ public class Middle3WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
     }
 
+    public static Middle3WTNode create(SubstationGraph ssGraph, Node node1, Node node2, Node node3,
+                                       VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3) {
+        Middle3WTNode middleNode = new Middle3WTNode(null, node1.getId() + "_" + node2.getId() + "_" + node3.getId(),
+                vlInfos1, vlInfos2, vlInfos3);
+
+        TwtEdge edge1 = ssGraph.addEdge(node1, middleNode);
+        TwtEdge edge2 = ssGraph.addEdge(middleNode, node2);
+        TwtEdge edge3 = ssGraph.addEdge(middleNode, node3);
+
+        middleNode.addAdjacentEdge(edge1);
+        middleNode.addAdjacentEdge(edge2);
+        middleNode.addAdjacentEdge(edge3);
+        return middleNode;
+    }
+
     @Override
     public VoltageLevelInfos getVoltageLevelInfos() {
         return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
