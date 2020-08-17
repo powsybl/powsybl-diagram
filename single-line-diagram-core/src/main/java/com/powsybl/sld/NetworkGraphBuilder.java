@@ -160,15 +160,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(terminal);
-            Bus bus = terminal.getBusBreakerView().getConnectableBus();
-            String id = bus.getId() + "_" + terminal.getConnectable().getId();
-            String name = bus.getName() + "_" + terminal.getConnectable().getName();
-            return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
-        }
-
         @Override
         public void visitLoad(Load load) {
             addFeeder(createFeederNode(graph, load), load.getTerminal());
@@ -381,11 +372,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private void connectToBus(Node node, Terminal terminal) {
-            SwitchNode nodeSwitch = createSwitchNodeFromTerminal(graph, terminal);
-            graph.addNode(nodeSwitch);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
-            graph.addEdge(nodesByBusId.get(busId), nodeSwitch);
-            graph.addEdge(nodeSwitch, node);
+            graph.addEdge(nodesByBusId.get(busId), node);
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
