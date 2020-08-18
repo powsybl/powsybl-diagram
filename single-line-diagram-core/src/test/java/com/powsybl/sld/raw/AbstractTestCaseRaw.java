@@ -8,6 +8,13 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.svg.InitialValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
