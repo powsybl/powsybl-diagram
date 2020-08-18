@@ -13,7 +13,6 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;

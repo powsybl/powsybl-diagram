@@ -6,10 +6,8 @@
  */
 package com.powsybl.sld.layout.positionfromextension;
 
-import com.google.common.collect.Comparators;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
-import org.checkerframework.checker.nullness.Opt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -15,7 +15,6 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.VoltageLevelInfos;
 import org.junit.Before;
 import org.junit.Test;
 
