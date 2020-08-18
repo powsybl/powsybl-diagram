@@ -17,7 +17,7 @@ import java.util.*;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Links {
+final class Links {
 
     private final List<LBSClusterSide> lbsClusterSides = new LinkedList<>();
     private final TreeSet<Link> linkSet = new TreeSet<>();

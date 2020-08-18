@@ -7,11 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.SubstationDiagram;
-import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramInitialValueProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 

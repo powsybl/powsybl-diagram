@@ -520,12 +520,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
         // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
         substation.getVoltageLevelStream()
-                .sorted(Comparator.comparing(VoltageLevel::getNominalV)
-                        .reversed()).forEach(v -> {
-            Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
-            buildGraph(vlGraph, v);
-            graph.addNode(vlGraph);
-        });
+                .sorted(Comparator.comparing(VoltageLevel::getNominalV).reversed())
+                .forEach(v -> {
+                    Graph vlGraph = Graph.create(
+                            new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
+                    buildGraph(vlGraph, v);
+                    graph.addNode(vlGraph);
+                });
 
         LOGGER.info("Number of node : {} ", graph.getNodes().size());
 
