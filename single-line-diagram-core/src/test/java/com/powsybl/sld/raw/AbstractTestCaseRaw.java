@@ -20,8 +20,5 @@ import java.util.List;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
-
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
-
-
 }
