@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +20,9 @@ import java.util.stream.Collectors;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class LegBusSet {
+public final class LegBusSet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LegBusSet.class);
-
 
     private final Set<BusNode> busNodeSet;
     private final Set<BusNode> extendedNodeSet;
