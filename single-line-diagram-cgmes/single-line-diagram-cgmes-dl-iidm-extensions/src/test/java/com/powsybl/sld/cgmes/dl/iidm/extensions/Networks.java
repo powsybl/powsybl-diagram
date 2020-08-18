@@ -172,9 +172,11 @@ public final class Networks {
                 .setId("Shunt")
                 .setBus("Bus")
                 .setConnectableBus("Bus")
-                .setbPerSection(1e-5)
-                .setCurrentSectionCount(1)
-                .setMaximumSectionCount(1)
+                .setSectionCount(1)
+                .newLinearModel()
+                    .setBPerSection(1e-5)
+                    .setMaximumSectionCount(1)
+                .add()
                 .add();
         return network;
     }
