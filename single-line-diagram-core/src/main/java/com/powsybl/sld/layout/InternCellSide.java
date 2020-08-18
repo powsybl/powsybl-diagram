@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
 
