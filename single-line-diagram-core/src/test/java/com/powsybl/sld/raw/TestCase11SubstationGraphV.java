@@ -4,7 +4,6 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

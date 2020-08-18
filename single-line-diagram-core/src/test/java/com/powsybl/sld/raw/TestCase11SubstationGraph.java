@@ -9,11 +9,8 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
 
 /*
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
