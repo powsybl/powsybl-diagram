@@ -8,6 +8,8 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -22,6 +24,8 @@ public class InternCell extends AbstractBusCell {
     public enum Shape {
         UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER
     }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InternCell.class);
 
     private static final Side BODY_SIDE = Side.LEFT;
 
@@ -47,14 +51,18 @@ public class InternCell extends AbstractBusCell {
             body = serialRootBlock.extractBody(new ArrayList<>(legs.values()));
             body.setOrientation(Orientation.HORIZONTAL);
         } else {
-            if (candidateLegs.size() == 1 || !exceptionIfPatternNotHandled) {
-                legs.put(Side.UNDEFINED, candidateLegs.get(0));
-            } else {
-                throw new PowsyblException("InternCell pattern not recognized");
+            if (candidateLegs.size() != 1) {
+                if (exceptionIfPatternNotHandled) {
+                    throw new PowsyblException("InternCell pattern not recognized");
+                } else {
+                    LOGGER.error("InternCell pattern not handled");
+                    legs.put(Side.UNDEFINED, candidateLegs.get(0));
+                }
             }
         }
         if (candidateLegs.size() == 1) {
             shape = Shape.UNILEG;
+            legs.put(Side.UNDEFINED, candidateLegs.get(0));
         } else if (getBusNodes().size() == 2) {
             shape = Shape.MAYBEFLAT;
         }
@@ -132,7 +140,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape != Shape.UNILEG) {
+        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
             body.sizing();
         }
     }
@@ -180,7 +188,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
-        if (shape != Shape.UNILEG) {
+        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
             body.calculateRootCoord(layoutParam);
         }
     }

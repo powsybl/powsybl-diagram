@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public interface PositionFinder {
     LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets);
 
     default List<Subsection> buildLayout(Graph graph) {
+        if (graph.getNodes().isEmpty()) {
+            return new ArrayList<>();
+        }
         Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
         List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb);
         LBSCluster lbsCluster = organizeLegBusSets(legBusSets);

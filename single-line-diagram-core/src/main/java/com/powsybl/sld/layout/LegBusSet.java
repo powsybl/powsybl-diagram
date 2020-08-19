@@ -120,11 +120,13 @@ public final class LegBusSet {
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && !((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
-                .map(InternCell.class::cast)
-                .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
-                        .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
-                .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN
+                        && !((InternCell) cell).checkShape(InternCell.Shape.UNILEG)
+                        && !((InternCell) cell).checkShape(InternCell.Shape.UNDEFINED))
+                        .map(InternCell.class::cast)
+                        .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
+                                .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
+                        .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
 
         // find orphan busNodes and build their LBS
         List<BusNode> allBusNodes = new ArrayList<>(graph.getNodeBuses());

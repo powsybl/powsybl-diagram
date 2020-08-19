@@ -107,7 +107,9 @@ class Subsection {
         Map<InternCell, Subsection> verticalCells = new HashMap<>();
 
         oneNode.get().getGraph().getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.INTERN && !((InternCell) c).checkShape(InternCell.Shape.UNILEG))
+                .filter(c -> c.getType() == Cell.CellType.INTERN
+                        && !((InternCell) c).checkShape(InternCell.Shape.UNILEG)
+                        && !((InternCell) c).checkShape(InternCell.Shape.UNDEFINED))
                 .map(InternCell.class::cast)
                 .forEach(c ->
                         subsections.stream()

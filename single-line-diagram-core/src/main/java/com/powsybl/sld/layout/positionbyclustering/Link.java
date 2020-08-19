@@ -10,8 +10,6 @@ import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -46,8 +44,6 @@ import java.util.*;
 
 // TODO implement SHUNT in the link assessment
 class Link implements Comparable<Link> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Link.class);
 
     enum LinkCategory {
         COMMONBUSES, FLATCELLS, CROSSOVER //, SHUNT
@@ -120,10 +116,6 @@ class Link implements Comparable<Link> {
     }
 
     void mergeClusters(HorizontalBusLaneManager hblManager) {
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("Merging Link: {}", this);
-        }
-
         if (lbsClusterSide1.getCluster() == lbsClusterSide2.getCluster()
                 || lbsClusterSide1.getMySideInCluster() == Side.UNDEFINED
                 || lbsClusterSide2.getMySideInCluster() == Side.UNDEFINED) {
