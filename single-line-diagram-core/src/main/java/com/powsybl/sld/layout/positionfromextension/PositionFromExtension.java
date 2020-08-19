@@ -52,13 +52,6 @@ public class PositionFromExtension implements PositionFinder {
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
                 legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
 
-        for (LBSCluster cluster : lbsClusters) {
-            LegBusSet lbs = cluster.getLbsList().get(0);
-            BusNode node = lbs.getBusNodeSet().iterator().next();
-            int order = lbs.getExternCells().stream().findAny().map(ExternCell::getOrder).orElse(0);
-            LOGGER.info("MERGING LBS - Cluster ordered : {} {} {}", node.getId(), node.getStructuralPosition(), order);
-        }
-
         LBSCluster lbsCluster = lbsClusters.get(0);
 
         while (lbsClusters.size() != 1) {
@@ -99,12 +92,6 @@ public class PositionFromExtension implements PositionFinder {
     private Comparator<LegBusSet> sortLBS = new Comparator<LegBusSet>() {
         @Override
         public int compare(LegBusSet lbs1, LegBusSet lbs2) {
-            Optional<Integer> order1 = externCellOrderNb(lbs1);
-            Optional<Integer> order2 = externCellOrderNb(lbs2);
-            if (order1.isPresent() && order2.isPresent()) {
-                return order1.get() - order2.get();
-            }
-
             for (BusNode busNode : lbs1.getBusNodeSet()) {
                 final Position pos1 = busNode.getStructuralPosition();
                 Optional<Position> pos2 = lbs2.getBusNodeSet().stream().map(BusNode::getStructuralPosition)
@@ -112,6 +99,12 @@ public class PositionFromExtension implements PositionFinder {
                 if (pos2.isPresent() && pos2.get().getH() != pos1.getH()) {
                     return pos1.getH() - pos2.get().getH();
                 }
+            }
+
+            Optional<Integer> order1 = externCellOrderNb(lbs1);
+            Optional<Integer> order2 = externCellOrderNb(lbs2);
+            if (order1.isPresent() && order2.isPresent()) {
+                return order1.get() - order2.get();
             }
 
             int h1max = getMaxPos(lbs1.getBusNodeSet(), Position::getH);

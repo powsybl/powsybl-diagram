@@ -16,6 +16,7 @@ import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
@@ -27,6 +28,8 @@ import static org.junit.Assert.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public abstract class AbstractTestCase {
+
+    protected boolean writeFile = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
@@ -45,16 +48,16 @@ public abstract class AbstractTestCase {
         return getClass().getSimpleName();
     }
 
-    private static void writeToFileInHomeDir(String filename, StringWriter content) {
-/*
-        try {
-            FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
-            fw.write(content.toString());
-            fw.close();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    private void writeToFileInHomeDir(String filename, StringWriter content) {
+        if (writeFile) {
+            try {
+                FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+                fw.write(content.toString());
+                fw.close();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
         }
-*/
     }
 
     public String toSVG(Graph graph,

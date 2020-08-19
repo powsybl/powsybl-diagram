@@ -20,7 +20,7 @@ class Subsection {
     private int size;
     private BusNode[] busNodes;
     private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
-    private Set<ExternCell> externCells = new TreeSet<>(Comparator.comparingInt(ExternCell::getOrder));
+    private List<ExternCell> externCells = new LinkedList<>();
 
     Subsection(int size) {
         this.size = size;
@@ -37,6 +37,7 @@ class Subsection {
     private void addLegBusSet(LegBusSet lbs) {
         lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
+        externCells.sort(Comparator.comparingInt(ExternCell::getOrder));
         internCellSides.addAll(lbs.getInternCellSides());
     }
 
@@ -60,11 +61,12 @@ class Subsection {
 
     List<InternCell> getVerticalInternCells() {
         return internCellSides.stream()
-                .filter(ics -> ics.getCell().checkShape(InternCell.Shape.VERTICAL))
+                .filter(ics -> ics.getCell().checkShape(InternCell.Shape.VERTICAL)
+                        || ics.getCell().checkShape(InternCell.Shape.UNILEG))
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
-    Set<ExternCell> getExternCells() {
+    List<ExternCell> getExternCells() {
         return externCells;
     }
 
