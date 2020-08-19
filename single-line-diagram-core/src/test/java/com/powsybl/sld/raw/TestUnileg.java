@@ -11,10 +11,6 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import javafx.embed.swt.SWTFXUtils;
-import org.apache.commons.compress.archivers.zip.ScatterZipOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
