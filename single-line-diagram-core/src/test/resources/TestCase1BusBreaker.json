@@ -289,20 +289,20 @@
           }
         }, {
           "type" : "SWITCH",
-          "id" : "b1_l",
-          "name" : "b1_l",
-          "equipmentId" : "b1_l",
-          "componentType" : "DISCONNECTOR",
-          "fictitious" : false,
+          "id" : "lfSwitch",
+          "name" : "lfSwitch",
+          "equipmentId" : "lfSwitch",
+          "componentType" : "NODE",
+          "fictitious" : true,
           "x" : 125.0,
           "y" : 260.0,
           "open" : false,
-          "kind" : "DISCONNECTOR"
+          "kind" : "BREAKER"
         }, {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl_b1_lFictif",
-          "name" : "b1_lFictif",
-          "equipmentId" : "b1_lFictif",
+          "id" : "FICT_vl_lfNode",
+          "name" : "lfNode",
+          "equipmentId" : "lfNode",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
@@ -331,9 +331,9 @@
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
-          "id" : "FICT_vl_b1_lFictif",
-          "name" : "b1_lFictif",
-          "equipmentId" : "b1_lFictif",
+          "id" : "FICT_vl_lfNode",
+          "name" : "lfNode",
+          "equipmentId" : "lfNode",
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
@@ -358,15 +358,6 @@
   } ],
   "edges" : [ {
     "node1" : "b1",
-    "node2" : "b1_l"
-  }, {
-    "node1" : "l",
-    "node2" : "FICT_vl_b1_lFictif"
-  }, {
-    "node1" : "b1_l",
-    "node2" : "FICT_vl_b1_lFictif"
-  }, {
-    "node1" : "b1",
     "node2" : "swfSwitch"
   }, {
     "node1" : "swfSwitch",
@@ -383,5 +374,14 @@
   }, {
     "node1" : "FICT_vl_swfNode",
     "node2" : "sw"
+  }, {
+    "node1" : "b1",
+    "node2" : "lfSwitch"
+  }, {
+    "node1" : "lfSwitch",
+    "node2" : "FICT_vl_lfNode"
+  }, {
+    "node1" : "FICT_vl_lfNode",
+    "node2" : "l"
   } ]
 }
