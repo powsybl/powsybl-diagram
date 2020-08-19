@@ -126,8 +126,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 case STATIC_VAR_COMPENSATOR:
                     return FeederInjectionNode.createStaticVarCompensator(graph, injection.getId(), injection.getName());
                 case SHUNT_COMPENSATOR:
-                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
-                            : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
+                    // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
+                    return ((ShuntCompensator) injection).getB() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
+                                                                      : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
                 case DANGLING_LINE:
                     return FeederInjectionNode.createDanglingLine(graph, injection.getId(), injection.getName());
                 default:
@@ -157,15 +158,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             } else {
                 return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
-        }
-
-        protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(terminal);
-            Bus bus = terminal.getBusBreakerView().getConnectableBus();
-            String id = bus.getId() + "_" + terminal.getConnectable().getId();
-            String name = bus.getName() + "_" + terminal.getConnectable().getName();
-            return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
         }
 
         @Override
@@ -270,7 +262,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 String id = transformer.getId() + "_" + side.name();
                 Feeder3WTLegNode legNode = Feeder3WTLegNode.createForSubstationDiagram(graph, id, transformer.getName(), transformer.getId(),
-                        FeederWithSideNode.Side.valueOf(side.name()));
+                                                                                       FeederWithSideNode.Side.valueOf(side.name()));
 
                 addFeeder(legNode, transformer.getTerminal(side));
             }
@@ -380,11 +372,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private void connectToBus(Node node, Terminal terminal) {
-            SwitchNode nodeSwitch = createSwitchNodeFromTerminal(graph, terminal);
-            graph.addNode(nodeSwitch);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
-            graph.addEdge(nodesByBusId.get(busId), nodeSwitch);
-            graph.addEdge(nodeSwitch, node);
+            graph.addEdge(nodesByBusId.get(busId), node);
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
@@ -531,13 +520,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
         // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
         substation.getVoltageLevelStream()
-                .sorted(Comparator.comparing(VoltageLevel::getNominalV).reversed())
-                .forEach(v -> {
-                    Graph vlGraph = Graph.create(
-                            new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
-                    buildGraph(vlGraph, v);
-                    graph.addNode(vlGraph);
-                });
+                .sorted(Comparator.comparing(VoltageLevel::getNominalV)
+                        .reversed()).forEach(v -> {
+                            Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
+                            buildGraph(vlGraph, v);
+                            graph.addNode(vlGraph);
+                        });
 
         LOGGER.info("Number of node : {} ", graph.getNodes().size());
 
@@ -657,29 +645,29 @@ public class NetworkGraphBuilder implements GraphBuilder {
         // add edges -> lines
         List<String> lines = new ArrayList<>();
         zone.forEach(substation ->
-                substation.getVoltageLevelStream().forEach(voltageLevel ->
-                        voltageLevel.getConnectableStream(Line.class).forEach(line -> {
-                            if (!lines.contains(line.getId())) {
-                                String nodeId1 = line.getId() + "_" + Branch.Side.ONE;
-                                String nodeId2 = line.getId() + "_" + Branch.Side.TWO;
-                                String voltageLevelId1 = line.getTerminal1().getVoltageLevel().getId();
-                                String voltageLevelId2 = line.getTerminal2().getVoltageLevel().getId();
-                                String substationId1 = line.getTerminal1().getVoltageLevel().getSubstation().getId();
-                                String substationId2 = line.getTerminal2().getVoltageLevel().getSubstation().getId();
-                                SubstationGraph sGraph1 = graph.getNode(substationId1);
-                                SubstationGraph sGraph2 = graph.getNode(substationId2);
-                                if (sGraph1 != null && sGraph2 != null) {
-                                    Graph vlGraph1 = sGraph1.getNode(voltageLevelId1);
-                                    Graph vlGraph2 = sGraph2.getNode(voltageLevelId2);
-                                    Node node1 = vlGraph1.getNode(nodeId1);
-                                    Node node2 = vlGraph2.getNode(nodeId2);
-                                    LOGGER.info("Adding line {} to zone graph", line.getId());
-                                    graph.addEdge(line.getId(), node1, node2);
-                                    lines.add(line.getId());
-                                }
-                            }
-                        })
-                )
+            substation.getVoltageLevelStream().forEach(voltageLevel ->
+                voltageLevel.getConnectableStream(Line.class).forEach(line -> {
+                    if (!lines.contains(line.getId())) {
+                        String nodeId1 = line.getId() + "_" + Branch.Side.ONE;
+                        String nodeId2 = line.getId() + "_" + Branch.Side.TWO;
+                        String voltageLevelId1 = line.getTerminal1().getVoltageLevel().getId();
+                        String voltageLevelId2 = line.getTerminal2().getVoltageLevel().getId();
+                        String substationId1 = line.getTerminal1().getVoltageLevel().getSubstation().getId();
+                        String substationId2 = line.getTerminal2().getVoltageLevel().getSubstation().getId();
+                        SubstationGraph sGraph1 = graph.getNode(substationId1);
+                        SubstationGraph sGraph2 = graph.getNode(substationId2);
+                        if (sGraph1 != null && sGraph2 != null) {
+                            Graph vlGraph1 = sGraph1.getNode(voltageLevelId1);
+                            Graph vlGraph2 = sGraph2.getNode(voltageLevelId2);
+                            Node node1 = vlGraph1.getNode(nodeId1);
+                            Node node2 = vlGraph2.getNode(nodeId2);
+                            LOGGER.info("Adding line {} to zone graph", line.getId());
+                            graph.addEdge(line.getId(), node1, node2);
+                            lines.add(line.getId());
+                        }
+                    }
+                })
+            )
         );
     }
 
