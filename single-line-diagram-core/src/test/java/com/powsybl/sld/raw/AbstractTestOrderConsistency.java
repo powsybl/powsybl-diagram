@@ -6,26 +6,39 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestOrderConsistency extends AbstractTestCaseRaw {
+public class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        createCommons("vl1", true);
+        createCommons("vl2", false);
+
+    }
+
+    private void createCommons(String vlId, boolean middleLeft) {
+        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder(vlId, 400);
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs21", 2, 1);
         BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);
+        SwitchNode ss1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR,"ss1",false,false);
+        SwitchNode ss2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR,"ss2",false,false);
+        vlBuilder.connectNode(bbs11,ss1);
+        vlBuilder.connectNode(bbs12,ss1);
+        vlBuilder.connectNode(bbs21,ss2);
+        vlBuilder.connectNode(bbs22,ss2);
 
         FeederNode load1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
         SwitchNode d11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d11", false, false);
@@ -44,9 +57,14 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         SwitchNode dMiddle2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         FictitiousNode fMiddle = vlBuilder.createFictitiousNode("f");
         SwitchNode bMiddle = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        vlBuilder.connectNode(bbs12, dMiddle1);
+        if (middleLeft) {
+            vlBuilder.connectNode(bbs11, dMiddle1);
+            vlBuilder.connectNode(bbs22, dMiddle2);
+        } else {
+            vlBuilder.connectNode(bbs12, dMiddle1);
+            vlBuilder.connectNode(bbs21, dMiddle2);
+        }
         vlBuilder.connectNode(dMiddle1, fMiddle);
-        vlBuilder.connectNode(bbs21, dMiddle2);
         vlBuilder.connectNode(dMiddle2, fMiddle);
         vlBuilder.connectNode(fMiddle, bMiddle);
         vlBuilder.connectNode(bMiddle, loadMiddle);
@@ -64,43 +82,5 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(b2, load2);
 
 
-    }
-
-    @Test
-    public void test() {
-        // build graph
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
-
-        // detect cells
-        new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
-        new BlockOrganizer().organize(g);
-
-        // calculate coordinates
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setArrowDistance(20);
-
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
-        writeFile = true;
-        toSVG(g, "/test.svg", layoutParameters, getDiagramLabelProvider(g), new DefaultDiagramStyleProvider());
-
-        // write Json and compare to reference
-//        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
     }
 }

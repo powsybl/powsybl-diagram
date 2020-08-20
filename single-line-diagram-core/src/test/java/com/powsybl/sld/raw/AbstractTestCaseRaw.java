@@ -8,9 +8,10 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
 import com.powsybl.sld.svg.LabelPosition;
@@ -25,6 +26,23 @@ import java.util.Map;
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
+    protected LayoutParameters layoutParameters = new LayoutParameters()
+            .setTranslateX(20)
+            .setTranslateY(50)
+            .setInitialXBus(0)
+            .setInitialYBus(260)
+            .setVerticalSpaceBus(25)
+            .setHorizontalBusPadding(20)
+            .setCellWidth(50)
+            .setExternCellHeight(250)
+            .setInternCellHeight(40)
+            .setStackHeight(30)
+            .setShowGrid(true)
+            .setShowInternalNodes(true)
+            .setScaleFactor(1)
+            .setHorizontalSubstationPadding(50)
+            .setVerticalSubstationPadding(50)
+            .setArrowDistance(20);
 
 
     DiagramLabelProvider getDiagramLabelProvider(Graph graph) {
@@ -51,5 +69,9 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
                 return new ArrayList<>();
             }
         };
+    }
+
+    public void toSVG(Graph g, String filename) {
+        toSVG(g, filename, layoutParameters, getDiagramLabelProvider(g), new DefaultDiagramStyleProvider());
     }
 }
