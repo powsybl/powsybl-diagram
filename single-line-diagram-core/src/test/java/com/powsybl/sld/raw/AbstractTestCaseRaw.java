@@ -44,7 +44,6 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             .setVerticalSubstationPadding(50)
             .setArrowDistance(20);
 
-
     DiagramLabelProvider getDiagramLabelProvider(Graph graph) {
         Map<Node, List<DiagramLabelProvider.NodeLabel>> busLabels = new HashMap<>();
         LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);

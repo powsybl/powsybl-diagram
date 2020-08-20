@@ -7,24 +7,15 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-public class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
+public abstract class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         createCommons("vl1", true);
         createCommons("vl2", false);
-
     }
 
     private void createCommons(String vlId, boolean middleLeft) {
@@ -33,12 +24,12 @@ public class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs21", 2, 1);
         BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);
-        SwitchNode ss1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR,"ss1",false,false);
-        SwitchNode ss2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR,"ss2",false,false);
-        vlBuilder.connectNode(bbs11,ss1);
-        vlBuilder.connectNode(bbs12,ss1);
-        vlBuilder.connectNode(bbs21,ss2);
-        vlBuilder.connectNode(bbs22,ss2);
+        SwitchNode ss1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ss1", false, false);
+        SwitchNode ss2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ss2", false, false);
+        vlBuilder.connectNode(bbs11, ss1);
+        vlBuilder.connectNode(bbs12, ss1);
+        vlBuilder.connectNode(bbs21, ss2);
+        vlBuilder.connectNode(bbs22, ss2);
 
         FeederNode load1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
         SwitchNode d11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d11", false, false);
@@ -80,7 +71,5 @@ public class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(d22, f2);
         vlBuilder.connectNode(f2, b2);
         vlBuilder.connectNode(b2, load2);
-
-
     }
 }
