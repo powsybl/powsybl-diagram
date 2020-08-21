@@ -126,8 +126,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 case STATIC_VAR_COMPENSATOR:
                     return FeederInjectionNode.createStaticVarCompensator(graph, injection.getId(), injection.getName());
                 case SHUNT_COMPENSATOR:
-                    return ((ShuntCompensator) injection).getbPerSection() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
-                                                                                : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
+                    // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
+                    return ((ShuntCompensator) injection).getB() >= 0 ? FeederInjectionNode.createCapacitor(graph, injection.getId(), injection.getName())
+                                                                      : FeederInjectionNode.createInductor(graph, injection.getId(), injection.getName());
                 case DANGLING_LINE:
                     return FeederInjectionNode.createDanglingLine(graph, injection.getId(), injection.getName());
                 default:
@@ -157,15 +158,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             } else {
                 return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
             }
-        }
-
-        protected SwitchNode createSwitchNodeFromTerminal(Graph graph, Terminal terminal) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(terminal);
-            Bus bus = terminal.getBusBreakerView().getConnectableBus();
-            String id = bus.getId() + "_" + terminal.getConnectable().getId();
-            String name = bus.getName() + "_" + terminal.getConnectable().getName();
-            return new SwitchNode(id, name, DISCONNECTOR, false, graph, SwitchNode.SwitchKind.DISCONNECTOR, !terminal.isConnected());
         }
 
         @Override
@@ -380,11 +372,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         private void connectToBus(Node node, Terminal terminal) {
-            SwitchNode nodeSwitch = createSwitchNodeFromTerminal(graph, terminal);
-            graph.addNode(nodeSwitch);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
-            graph.addEdge(nodesByBusId.get(busId), nodeSwitch);
-            graph.addEdge(nodeSwitch, node);
+            graph.addEdge(nodesByBusId.get(busId), node);
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
@@ -478,7 +467,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void ensureNodeExists(Graph graph, int n, Map<Integer, Node> nodesByNumber) {
         if (!nodesByNumber.containsKey(n)) {
-            FictitiousNode node = new FictitiousNode(graph, "" + n);
+            InternalNode node = new InternalNode(graph, "" + n);
             nodesByNumber.put(n, node);
             graph.addNode(node);
         }
@@ -513,9 +502,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .map(FictitiousNode.class::cast)
                 .findFirst()
                 .orElseThrow(() -> new PowsyblException("Empty node set"));
-        BusNode bn = BusNode.createFictitious(graph, biggestFn.getId() + "FictitiousBus");
-        graph.addNode(bn);
-        graph.substitueNode(biggestFn, bn);
+        graph.replaceNode(biggestFn, BusNode.createFictitious(graph, biggestFn.getId() + "FictitiousBus"));
     }
 
     /**
@@ -556,14 +543,29 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
             String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
 
-            Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
-            Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
+            VoltageLevel vl1 = t1.getVoltageLevel();
+            VoltageLevel vl2 = t2.getVoltageLevel();
+
+            Graph g1 = graph.getNode(vl1.getId());
+            Graph g2 = graph.getNode(vl2.getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
 
-            String componentType = transfo.getPhaseTapChanger() != null ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-            graph.addEdge(componentType, n1, n2);
+            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
+            String idMiddleNode = n1.getId() + "_" + n2.getId();
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
+
+            Middle2WTNode middleNode = new Middle2WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2);
+
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
+
+            middleNode.addAdjacentEdge(edge1);
+            middleNode.addAdjacentEdge(edge2);
+
+            graph.addMultiTermNode(middleNode);
         }
 
         // Three windings transformer
@@ -577,6 +579,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
             String id3 = transfo.getId() + "_" + transfo.getSide(t3).name();
 
+            VoltageLevel vl1 = t1.getVoltageLevel();
+            VoltageLevel vl2 = t2.getVoltageLevel();
+            VoltageLevel vl3 = t3.getVoltageLevel();
+
             Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
             Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
             Graph g3 = graph.getNode(t3.getVoltageLevel().getId());
@@ -585,7 +591,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n2 = g2.getNode(id2);
             Node n3 = g3.getNode(id3);
 
-            graph.addEdge(THREE_WINDINGS_TRANSFORMER, n1, n2, n3);
+            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
+            String idMiddleNode = n1.getId() + "_" + n2.getId() + "_" + n3.getId();
+            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
+            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
+            VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
+
+            Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3);
+
+            TwtEdge edge1 = graph.addEdge(n1, middleNode);
+            TwtEdge edge2 = graph.addEdge(middleNode, n2);
+            TwtEdge edge3 = graph.addEdge(middleNode, n3);
+
+            middleNode.addAdjacentEdge(edge1);
+            middleNode.addAdjacentEdge(edge2);
+            middleNode.addAdjacentEdge(edge3);
+
+            graph.addMultiTermNode(middleNode);
         }
     }
 

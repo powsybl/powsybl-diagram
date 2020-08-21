@@ -23,44 +23,38 @@ public interface SVGWriter {
 
     GraphMetadata write(String prefixId,
                         Graph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         Graph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         SubstationGraph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     GraphMetadata write(String prefixId,
                         ZoneGraph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
                         ZoneGraph graph,
-                        DiagramInitialValueProvider initProvider,
+                        DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
-                        NodeLabelConfiguration nodeLabelConfiguration,
                         Writer writer);
 
     LayoutParameters getLayoutParameters();

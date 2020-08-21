@@ -388,7 +388,7 @@ public abstract class AbstractCgmesLayout {
         for (Node n : fictitiousSwithcNodesToRemove) {
             Node node1 = n.getAdjacentNodes().get(0);
             Node node2 = n.getAdjacentNodes().get(1);
-            LOG.info("Remove fictitious switch node between {} and {}", node1.getId(), node2.getId());
+            LOG.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());
             graph.removeNode(n);
             graph.addEdge(node1, node2);
         }

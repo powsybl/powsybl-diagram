@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.force.layout;
 
-import com.powsybl.sld.TestCase11SubstationGraph;
+import com.powsybl.sld.iidm.TestCase11SubstationGraph;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;

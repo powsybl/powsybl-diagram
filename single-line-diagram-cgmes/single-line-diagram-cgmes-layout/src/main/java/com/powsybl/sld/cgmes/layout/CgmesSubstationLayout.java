@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,15 +16,14 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayout;
-import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.TwtEdge;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class CgmesSubstationLayout extends AbstractCgmesLayout implements SubstationLayout {
 
@@ -65,44 +63,15 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
         for (Graph vlGraph : graph.getNodes()) {
             setVoltageLevelCoord(vlGraph);
         }
-        splitTwtEdges();
+
+        setMultiNodesCoord();
     }
 
-    private void splitTwtEdges() {
-        // we split the original edge in two parts, with a new fictitious node between the two new edges
-        List<TwtEdge> newEdges = new ArrayList<>();
-        for (TwtEdge edge : graph.getEdges()) {
-            // Creation of a new fictitious node outside vl graphs
-            String idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId();
-            if (edge.getNodes().size() == 3) {
-                idNodeFict = edge.getNode1().getId() + "_" + edge.getNode2().getId() + "_" + edge.getNode3().getId();
-            }
-            Node nodeFict = new FictitiousNode(null, idNodeFict, edge.getComponentType());
-            nodeFict.setX(edge.getNode1().getX(), false, false);
-            nodeFict.setY(edge.getNode1().getY(), false, false);
-
-            // Creation of a new edge between node1 and the new fictitious node
-            TwtEdge edge1 = new TwtEdge(edge.getComponentType(), edge.getNode1(), nodeFict);
-            newEdges.add(edge1);
-            nodeFict.addAdjacentEdge(edge1);
-
-            // Creation of a new edge between the new fictitious node and node2
-            TwtEdge edge2 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode2());
-            newEdges.add(edge2);
-            nodeFict.addAdjacentEdge(edge2);
-
-            if (edge.getNodes().size() == 3) {
-                // Creation of a new edge between the new fictitious node and node3
-                TwtEdge edge3 = new TwtEdge(edge.getComponentType(), nodeFict, edge.getNode3());
-                newEdges.add(edge3);
-                nodeFict.addAdjacentEdge(edge3);
-            }
-
-            // the new fictitious node is stored in the substation graph
-            graph.addMultiTermNode(nodeFict);
+    private void setMultiNodesCoord() {
+        for (Node multiNode : graph.getMultiTermNodes()) {
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+            multiNode.setX(adjacentNodes.get(0).getX(), false, false);
+            multiNode.setY(adjacentNodes.get(0).getY(), false, false);
         }
-        // replace the old edges with the new edges in the substation graph
-        graph.setEdges(newEdges);
     }
-
 }

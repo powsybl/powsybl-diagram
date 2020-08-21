@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[.BUSBAR_SECTION {
+    <style><![CDATA[
+.BUSBAR_SECTION {
     stroke: rgb(0,0,0);
     stroke-width: 3;
 }
@@ -185,31 +186,45 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_bbs2_NW_LABEL">vl1_bbs2</text>
         </g>
-        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
-    <rect height="9" width="16"/>
-    <line y2="9" x1="0" x2="16" y1="0"/>
-    <line y2="9" x1="16" x2="0" y1="0"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
+        <g class="wire" id="_95_vl1_95_vl1_95_bbs1_95_vl1_95_d1">
+            <polyline points="220.0,370.0,240.0,370.0"/>
         </g>
-        <g class="LINE idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
+        <g class="wire" id="_95_vl1_95_vl1_95_d1_95_vl1_95_b1">
+            <polyline points="240.0,370.0,255.0,370.0"/>
         </g>
-        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
+        <g class="wire" id="_95_vl1_95_vl1_95_b1_95_vl1_95_d2">
+            <polyline points="275.0,370.0,290.0,370.0"/>
         </g>
-        <polyline class="wire wire_vl1" points="220.0,370.0,240.0,370.0" id="idvl1_95_Wire0"/>
-        <polyline class="wire wire_vl1" points="240.0,370.0,255.0,370.0" id="idvl1_95_Wire1"/>
-        <polyline class="wire wire_vl1" points="275.0,370.0,290.0,370.0" id="idvl1_95_Wire2"/>
-        <polyline class="wire wire_vl1" points="290.0,370.0,300.0,370.0" id="idvl1_95_Wire3"/>
-        <polyline class="wire wire_vl1" points="60.0,154.0,60.0,240.0" id="idvl1_95_Wire4"/>
-        <polyline class="wire wire_vl1" points="60.0,260.0,60.0,370.0" id="idvl1_95_Wire5"/>
-        <polyline class="wire wire_vl1" points="60.0,370.0,50.0,370.0" id="idvl1_95_Wire6"/>
-        <polyline class="wire wire_vl1" points="100.0,570.0,100.0,480.0" id="idvl1_95_Wire7"/>
-        <polyline class="wire wire_vl1" points="100.0,460.0,100.0,370.0" id="idvl1_95_Wire8"/>
-        <polyline class="wire wire_vl1" points="100.0,370.0,90.0,370.0" id="idvl1_95_Wire9"/>
-        <polyline class="wire wire_vl1" points="420.0,150.0,420.0,240.0" id="idvl1_95_Wire10"/>
-        <polyline class="wire wire_vl1" points="420.0,260.0,420.0,370.0" id="idvl1_95_Wire11"/>
-        <polyline class="wire wire_vl1" points="420.0,370.0,410.0,370.0" id="idvl1_95_Wire12"/>
+        <g class="wire" id="_95_vl1_95_vl1_95_d2_95_vl1_95_bbs2">
+            <polyline points="290.0,370.0,300.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
+            <polyline points="60.0,154.0,60.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
+            <polyline points="60.0,260.0,60.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
+            <polyline points="60.0,370.0,50.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
+            <polyline points="100.0,570.0,100.0,480.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
+            <polyline points="100.0,460.0,100.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
+            <polyline points="100.0,370.0,90.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2">
+            <polyline points="420.0,150.0,420.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
+            <polyline points="420.0,260.0,420.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
+            <polyline points="420.0,370.0,410.0,370.0"/>
+        </g>
         <g class="DISCONNECTOR idvl1_95_d1" id="idvl1_95_d1" transform="translate(236.0,366.0)">
     <g class="closed" id="idvl1_95_d1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
@@ -238,6 +253,12 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
+    <rect height="9" width="16"/>
+    <line y2="9" x1="0" x2="16" y1="0"/>
+    <line y2="9" x1="16" x2="0" y1="0"/>
+<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
+        </g>
         <g class="BREAKER idvl1_95_bload1" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
     <g class="closed" id="idvl1_95_bload1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -257,6 +278,9 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LINE idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
+        </g>
         <g class="BREAKER idvl1_95_btrf1" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
     <g class="closed" id="idvl1_95_btrf1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -276,6 +300,9 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_one__LABEL">vl1_trf2</text>
+        </g>
         <g class="BREAKER idvl1_95_btrf2" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
     <g class="closed" id="idvl1_95_btrf2_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -299,27 +326,39 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_bbs1_NW_LABEL">vl2_bbs1</text>
         </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
+            <polyline points="620.0,156.0,620.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
+            <polyline points="620.0,260.0,620.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
+            <polyline points="620.0,370.0,600.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
+            <polyline points="670.0,570.0,670.0,480.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
+            <polyline points="670.0,460.0,670.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
+            <polyline points="670.0,370.0,680.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2">
+            <polyline points="730.0,150.0,730.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
+            <polyline points="730.0,260.0,730.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
+            <polyline points="730.0,370.0,720.0,370.0"/>
+        </g>
         <g class="GENERATOR idvl2_95_gen1" id="idvl2_95_gen1" transform="translate(614.0,144.0)">
     <circle r="6" cx="6" cy="6"/>
     <path d="M6,6 A 6 40 0 0 0 2,6"/>
     <path d="M6,6 A 6 40 0 0 0 10,6"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
         </g>
-        <g class="LINE idvl2_95_trf1" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
-        </g>
-        <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
-        </g>
-        <polyline class="wire wire_vl2" points="620.0,156.0,620.0,240.0" id="idvl2_95_Wire0"/>
-        <polyline class="wire wire_vl2" points="620.0,260.0,620.0,370.0" id="idvl2_95_Wire1"/>
-        <polyline class="wire wire_vl2" points="620.0,370.0,600.0,370.0" id="idvl2_95_Wire2"/>
-        <polyline class="wire wire_vl2" points="670.0,570.0,670.0,480.0" id="idvl2_95_Wire3"/>
-        <polyline class="wire wire_vl2" points="670.0,460.0,670.0,370.0" id="idvl2_95_Wire4"/>
-        <polyline class="wire wire_vl2" points="670.0,370.0,680.0,370.0" id="idvl2_95_Wire5"/>
-        <polyline class="wire wire_vl2" points="730.0,150.0,730.0,240.0" id="idvl2_95_Wire6"/>
-        <polyline class="wire wire_vl2" points="730.0,260.0,730.0,370.0" id="idvl2_95_Wire7"/>
-        <polyline class="wire wire_vl2" points="730.0,370.0,720.0,370.0" id="idvl2_95_Wire8"/>
         <g class="BREAKER idvl2_95_bgen1" id="idvl2_95_bgen1" transform="translate(610.0,240.0)">
     <g class="closed" id="idvl2_95_bgen1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -339,6 +378,9 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LINE idvl2_95_trf1" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
+        </g>
         <g class="BREAKER idvl2_95_btrf1" id="idvl2_95_btrf1" transform="translate(660.0,460.0)">
     <g class="closed" id="idvl2_95_btrf1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -358,6 +400,9 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
+        </g>
         <g class="BREAKER idvl2_95_btrf2" id="idvl2_95_btrf2" transform="translate(720.0,240.0)">
     <g class="closed" id="idvl2_95_btrf2_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -381,6 +426,24 @@
             <line y2="0" x1="0" x2="200.0" y1="0"/>
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_bbs1_NW_LABEL">vl3_bbs1</text>
         </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
+            <polyline points="910.0,156.0,910.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
+            <polyline points="910.0,260.0,910.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_dcapa1_95_vl3_95_bbs1">
+            <polyline points="910.0,370.0,900.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2">
+            <polyline points="1020.0,150.0,1020.0,240.0"/>
+        </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
+            <polyline points="1020.0,260.0,1020.0,370.0"/>
+        </g>
+        <g class="wire" id="_95_vl3_95_vl3_95_dtrf2_95_vl3_95_bbs1">
+            <polyline points="1020.0,370.0,1020.0,370.0"/>
+        </g>
         <g class="CAPACITOR idvl3_95_capa1" id="idvl3_95_capa1" transform="translate(904.0,144.0)">
     <line y2="4.5" x1="6" x2="6" y1="0"/>
     <line y2="4.5" x1="0" x2="12" y1="4.5"/>
@@ -388,15 +451,6 @@
     <line y2="12" x1="6" x2="6" y1="7.5"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_capa1__LABEL">vl3_capa1</text>
         </g>
-        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
-            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
-        </g>
-        <polyline class="wire wire_vl3" points="910.0,156.0,910.0,240.0" id="idvl3_95_Wire0"/>
-        <polyline class="wire wire_vl3" points="910.0,260.0,910.0,370.0" id="idvl3_95_Wire1"/>
-        <polyline class="wire wire_vl3" points="910.0,370.0,900.0,370.0" id="idvl3_95_Wire2"/>
-        <polyline class="wire wire_vl3" points="1020.0,150.0,1020.0,240.0" id="idvl3_95_Wire3"/>
-        <polyline class="wire wire_vl3" points="1020.0,260.0,1020.0,370.0" id="idvl3_95_Wire4"/>
-        <polyline class="wire wire_vl3" points="1020.0,370.0,1020.0,370.0" id="idvl3_95_Wire5"/>
         <g class="BREAKER idvl3_95_bcapa1" id="idvl3_95_bcapa1" transform="translate(900.0,240.0)">
     <g class="closed" id="idvl3_95_bcapa1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -416,6 +470,9 @@
         <line y2="8" x1="8" x2="0" y1="0"/>
     </g>
 </g>
+        <g class="LINE idvl3_95_trf2_95_one" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl3_trf2_one__LABEL">vl3_trf2</text>
+        </g>
         <g class="BREAKER idvl3_95_btrf2" id="idvl3_95_btrf2" transform="translate(1010.0,240.0)">
     <g class="closed" id="idvl3_95_btrf2_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
@@ -447,11 +504,21 @@
 
     <circle r="5" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
 </g>
-        <polyline class="wire wire_vl1" points="100.0,550.0,100.0,600.0,369.0,600.0" id="idvl1_95__95_Wire0"/>
-        <polyline class="wire wire_vl2" points="401.0,600.0,670.0,600.0,670.0,550.0" id="id_95_vl2_95_Wire1"/>
-        <polyline class="wire wire_vl1" points="420.0,130.0,420.0,90.0,714.0,90.0" id="idvl1_95__95_Wire2"/>
-        <polyline class="wire wire_vl2" points="730.0,114.0,730.0,130.0" id="id_95_vl2_95_Wire3"/>
-        <polyline class="wire wire_vl3" points="746.0,90.0,1020.0,90.0,1020.0,130.0" id="id_95_vl3_95_Wire4"/>
+        <g class="wire" id="_95_subst_95_vl1_95_trf1_95_vl1_95_trf1_95_vl2_95_trf1">
+            <polyline points="100.0,550.0,100.0,600.0,369.0,600.0"/>
+        </g>
+        <g class="wire" id="_95_subst_95_vl1_95_trf1_95_vl2_95_trf1_95_vl2_95_trf1">
+            <polyline points="401.0,600.0,670.0,600.0,670.0,550.0"/>
+        </g>
+        <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one">
+            <polyline points="420.0,130.0,420.0,90.0,714.0,90.0"/>
+        </g>
+        <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl2_95_trf2_95_one">
+            <polyline points="730.0,114.0,730.0,130.0"/>
+        </g>
+        <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl3_95_trf2_95_one">
+            <polyline points="746.0,90.0,1020.0,90.0,1020.0,130.0"/>
+        </g>
         <g id="LABEL_VL_vl1">
             <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
         </g>

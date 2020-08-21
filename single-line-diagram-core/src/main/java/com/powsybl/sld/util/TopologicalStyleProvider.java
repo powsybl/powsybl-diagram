@@ -9,17 +9,13 @@ package com.powsybl.sld.util;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.svg.DiagramStyles;
+import com.powsybl.sld.model.VoltageLevelInfos;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -27,17 +23,14 @@ import static com.powsybl.sld.svg.DiagramStyles.escapeId;
  */
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    private final Network network;
-
-    private final HashMap<String, HashMap<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
+    private final Map<String, Map<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltageColor.fromPlatformConfig(), network);
     }
 
     public TopologicalStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
-        super(baseVoltageColor);
-        this.network = Objects.requireNonNull(network);
+        super(baseVoltageColor, network);
     }
 
     @Override
@@ -45,18 +38,14 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         voltageLevelColorMap.clear();
     }
 
-    private RGBColor getBusColor(Node node) {
-        VoltageLevel vl = network.getVoltageLevel(node.getGraph().getVoltageLevelInfos().getId());
-        return voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl)).get(node.getEquipmentId());
-    }
-
-    private HashMap<String, RGBColor> getColorMap(VoltageLevel vl) {
+    private Map<String, RGBColor> getColorMap(VoltageLevel vl) {
         String basecolor = getBaseColor(vl.getNominalV(), PROFILE);
 
         AtomicInteger idxColor = new AtomicInteger(0);
+
         List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
-        HashMap<String, RGBColor> colorMap = new HashMap<>();
+        Map<String, RGBColor> colorMap = new HashMap<>();
 
         HSLColor color = HSLColor.parse(basecolor);
 
@@ -113,90 +102,56 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
                 }
             });
         });
+
         return colorMap;
     }
 
-    @Override
-    public Optional<String> getNodeStyle(Node node, boolean avoidSVGComponentsDuplication, boolean isShowInternalNodes) {
-        Optional<String> defaultStyle = super.getNodeStyle(node, avoidSVGComponentsDuplication, isShowInternalNodes);
-        if (node.getType() == NodeType.SWITCH) {
-            return defaultStyle;
-        }
-
-        RGBColor c = getBusColor(node);
-
-        String color = c != null ? c.toString() : disconnectedColor;
-
-        return Optional.of(defaultStyle.orElse("") + " #"
-                + escapeId(node.getId()) + " {stroke:"
-                + color + ";}");
+    private RGBColor getNodeRgbColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
+        Map<String, RGBColor> colorMap = voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl));
+        return colorMap.get(node.getEquipmentId());
     }
 
-    @Override
-    public Optional<String> getWireStyle(Edge edge, String id, int index) {
-        String wireId = DiagramStyles.escapeId(id + "_Wire" + index);
-        Node bus;
-        if (!(edge instanceof TwtEdge)) {
-            bus = edge.getNode1().getType() == NodeType.BUS ? edge.getNode1() : findConnectedBus(edge.getNode1(), new ArrayList<>());
-            if (bus == null) {
-                bus = edge.getNode2().getType() == NodeType.BUS ? edge.getNode2() : findConnectedBus(edge.getNode2(), new ArrayList<>());
-            }
-        } else {
-            Node node1 = edge.getNode1();
-            Node node2 = edge.getNode2();
-            if (node1.getGraph() != null) {
-                bus = node1.getType() == NodeType.BUS ? node1 : findConnectedBus(node1, new ArrayList<>());
-            } else {
-                bus = node2.getType() == NodeType.BUS ? node2 : findConnectedBus(node2, new ArrayList<>());
-            }
-        }
-
-        String color = disconnectedColor;
-        if (bus != null) {
-            RGBColor c = getBusColor(bus);
-            if (c != null) {
-                color = c.toString();
-            }
-        }
-        return Optional.of(" #" + wireId + " {stroke:" + color + ";stroke-width:1;fill-opacity:0;}");
+    private Set<Node> findConnectedNodes(Node node) {
+        Set<Node> visitedNodes = new HashSet<>();
+        findConnectedNodes(node, visitedNodes);
+        return visitedNodes;
     }
 
-    private Node findConnectedBus(Node node, List<Node> visitedNodes) {
-        List<Node> nodesToVisit = new ArrayList<>(node.getAdjacentNodes());
-        if (!visitedNodes.contains(node)) {
-            visitedNodes.add(node);
-            if (node.getType().equals(NodeType.SWITCH) && node.isOpen()) {
-                return null;
-            }
-            for (Node n : nodesToVisit) {
-                if (n.getType().equals(NodeType.BUS)) {
-                    return n;
-                } else {
-                    Node n1 = findConnectedBus(n, visitedNodes);
-                    if (n1 != null) {
-                        return n1;
-                    }
-                }
+    private void findConnectedNodes(Node node, Set<Node> visitedNodes) {
+        if (visitedNodes.contains(node)) {
+            return;
+        }
+        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+            return;
+        }
+        visitedNodes.add(node);
+        for (Node adjNode : node.getAdjacentNodes()) {
+            findConnectedNodes(adjNode, visitedNodes);
+        }
+    }
+
+    private RGBColor getSmartNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+            return null;
+        }
+        RGBColor rgbColor = getNodeRgbColor(voltageLevelInfos, node);
+        if (rgbColor != null) {
+            return rgbColor;
+        }
+        Set<Node> connectedNodes = findConnectedNodes(node);
+        for (Node connectedNode : connectedNodes) {
+            rgbColor = getNodeRgbColor(voltageLevelInfos, connectedNode);
+            if (rgbColor != null) {
+                return rgbColor;
             }
         }
         return null;
     }
 
     @Override
-    public Optional<String> getColor(double nominalV, Node node) {
-        Optional<String> res = Optional.empty();
-        if (node != null) {
-            Node bus = findConnectedBus(node, new ArrayList<>());
-            String color = disconnectedColor;
-            if (bus != null) {
-                RGBColor c = getBusColor(bus);
-                if (c != null) {
-                    color = c.toString();
-                }
-            }
-            res = Optional.of(color);
-        }
-
-        return res;
+    public String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+        RGBColor rgbColor = getSmartNodeColor(voltageLevelInfos, node);
+        return rgbColor != null ? rgbColor.toString() : disconnectedColor;
     }
 }

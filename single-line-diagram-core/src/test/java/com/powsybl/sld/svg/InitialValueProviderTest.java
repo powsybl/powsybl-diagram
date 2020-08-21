@@ -10,7 +10,10 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +37,11 @@ public class InitialValueProviderTest {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
         vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(400).add();
-        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView().setNodeCount(10);
+        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView();
         BusbarSection bbs = view.newBusbarSection().setId("bbs").setNode(0).add();
-        bbs.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs, 1, 1));
+        bbs.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(1).withSectionIndex(1);
         BusbarSection bbs2 = view.newBusbarSection().setId("bbs2").setNode(3).add();
-        bbs2.addExtension(BusbarSectionPosition.class, new BusbarSectionPosition(bbs2, 2, 2));
+        bbs2.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(2).withSectionIndex(2);
         vl.newStaticVarCompensator()
             .setId("svc")
             .setName("svc")
@@ -60,9 +63,11 @@ public class InitialValueProviderTest {
             .setId("C1")
             .setName("Filter 1")
             .setNode(4)
-            .setbPerSection(1e-5)
-            .setCurrentSectionCount(1)
-            .setMaximumSectionCount(1)
+            .setSectionCount(1)
+            .newLinearModel()
+                .setBPerSection(1e-5)
+                .setMaximumSectionCount(1)
+            .add()
             .add();
         vl.newDanglingLine()
                 .setId("dl1")
@@ -84,7 +89,9 @@ public class InitialValueProviderTest {
     @Test
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
-        DefaultDiagramInitialValueProvider initProvider = new DefaultDiagramInitialValueProvider(network2);
+        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        LayoutParameters layoutParameters = new LayoutParameters();
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
@@ -93,7 +100,7 @@ public class InitialValueProviderTest {
         assertFalse(init.getLabel4().isPresent());
         assertFalse(init.getArrowDirection1().isPresent());
         assertFalse(init.getArrowDirection2().isPresent());
-        DefaultDiagramInitialValueProvider initProvider1 = new DefaultDiagramInitialValueProvider(network);
+        DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
         InitialValue init1 = initProvider1.getInitialValue(g.getNode("svc"));
         assertTrue(init1.getLabel1().isPresent());
         assertTrue(init1.getLabel2().isPresent());
