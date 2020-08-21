@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) 2020, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package com.powsybl.sld.raw;
+
+import com.powsybl.sld.layout.BlockOrganizer;
+import com.powsybl.sld.layout.ImplicitCellDetector;
+import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.FictitiousNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.SwitchNode;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class TestLanesWithUnileg extends AbstractTestCaseRaw {
+    @Before
+    public void setUp() {
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
+        BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
+        BusNode bbs13 = vlBuilder.createBusBarSection("bbs13", 1, 3);
+        BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);
+
+        FictitiousNode fNode = vlBuilder.createFictitiousNode("Fictitious_unileg");
+        SwitchNode unilegDc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dF1", false, false);
+        SwitchNode unilegDc2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dF2", false, false);
+        vlBuilder.connectNode(bbs12, unilegDc1);
+        vlBuilder.connectNode(bbs22, unilegDc2);
+        vlBuilder.connectNode(unilegDc1, fNode);
+        vlBuilder.connectNode(unilegDc2, fNode);
+
+        SwitchNode db1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db1", false, false);
+        SwitchNode b13 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b13", false, false);
+        SwitchNode db3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db3", false, false);
+        vlBuilder.connectNode(bbs11, db1);
+        vlBuilder.connectNode(db1, b13);
+        vlBuilder.connectNode(b13, db3);
+        vlBuilder.connectNode(db3, bbs13);
+    }
+
+    @Test
+    public void test() {
+        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        new ImplicitCellDetector().detectCells(g);
+        new BlockOrganizer().organize(g);
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
+
+        writeFile = true;
+        toSVG(g, "/test.svg");
+
+        // write Json and compare to reference
+//        assertEquals(toString("/testUnileg.json"), toJson(g, "/testUnileg.json"));
+    }
+}
