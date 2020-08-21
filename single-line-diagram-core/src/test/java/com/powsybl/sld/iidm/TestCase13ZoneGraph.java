@@ -4,8 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld;
+package com.powsybl.sld.iidm;
 
+import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;
 import org.junit.Before;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
-public class TestCase13ZoneGraph extends AbstractTestCase {
+public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     @Before
     public void setUp() {
         network = ZoneGraphTest.createNetwork();

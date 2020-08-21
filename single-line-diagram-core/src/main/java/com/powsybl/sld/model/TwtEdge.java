@@ -33,10 +33,6 @@ public class TwtEdge extends Edge {
         this.snakeLine = Objects.requireNonNull(snakeLine);
     }
 
-    public String getComponentType() {
-        return componentType;
-    }
-
     @Override
     void writeJson(JsonGenerator generator) throws IOException {
         writeJson(generator, false);
@@ -44,7 +40,6 @@ public class TwtEdge extends Edge {
 
     void writeJson(JsonGenerator generator, boolean generateCoordsInJson) throws IOException {
         generator.writeStartObject();
-        generator.writeStringField("componentType", componentType);
         generator.writeArrayFieldStart("nodes");
         super.writeJson(generator);
         generator.writeEndArray();

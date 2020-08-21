@@ -505,7 +505,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
+        assertEquals(toString("/TestCase11SubstationGraphHorizontalRaw.json"), toJson(g, "/TestCase11SubstationGraphHorizontalRaw.json"));
 
 /*
         // rebuild substation graph

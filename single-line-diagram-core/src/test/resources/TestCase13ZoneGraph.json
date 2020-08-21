@@ -33,17 +33,6 @@
           "vSpan" : 0
         }
       }, {
-        "type" : "SWITCH",
-        "id" : "Bus1_Line",
-        "name" : "Bus1_Line",
-        "equipmentId" : "Bus1_Line",
-        "componentType" : "DISCONNECTOR",
-        "fictitious" : false,
-        "x" : -1.0,
-        "y" : -1.0,
-        "open" : false,
-        "kind" : "DISCONNECTOR"
-      }, {
         "type" : "FEEDER",
         "id" : "Line_ONE",
         "name" : "Line",
@@ -66,9 +55,6 @@
       "cells" : [ ],
       "edges" : [ {
         "node1" : "Bus1",
-        "node2" : "Bus1_Line"
-      }, {
-        "node1" : "Bus1_Line",
         "node2" : "Line_ONE"
       } ]
     } ],
@@ -108,17 +94,6 @@
           "vSpan" : 0
         }
       }, {
-        "type" : "SWITCH",
-        "id" : "Bus2_Line",
-        "name" : "Bus2_Line",
-        "equipmentId" : "Bus2_Line",
-        "componentType" : "DISCONNECTOR",
-        "fictitious" : false,
-        "x" : -1.0,
-        "y" : -1.0,
-        "open" : false,
-        "kind" : "DISCONNECTOR"
-      }, {
         "type" : "FEEDER",
         "id" : "Line_TWO",
         "name" : "Line",
@@ -141,9 +116,6 @@
       "cells" : [ ],
       "edges" : [ {
         "node1" : "Bus2",
-        "node2" : "Bus2_Line"
-      }, {
-        "node1" : "Bus2_Line",
         "node2" : "Line_TWO"
       } ]
     } ],
