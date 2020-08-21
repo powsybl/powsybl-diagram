@@ -99,10 +99,9 @@ class BlockPositionner {
         List<InternCell> cellsToHandle = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN)
                 .map(InternCell.class::cast)
-                .filter(internCell -> !internCell.checkShape(InternCell.Shape.FLAT)
-                        && internCell.getBodyBlock() != null)
+                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED))
                 .collect(Collectors.toList());
-        Lane lane = new Lane(cellsToHandle);
+        InternCellsLane lane = new InternCellsLane(cellsToHandle);
         lane.run();
     }
 
@@ -111,19 +110,19 @@ class BlockPositionner {
      * After bundleToCompatibleLanes each lane contents non overlapping cells
      * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
      */
-    private class Lane {
+    private class InternCellsLane {
         Map<InternCell, ArrayList<InternCell>> incompatibilities;
-        Lane nextLane;
-        List<Lane> lanes;
+        InternCellsLane nextLane;
+        List<InternCellsLane> lanes;
 
-        Lane(List<InternCell> cells) {
+        InternCellsLane(List<InternCell> cells) {
             lanes = new ArrayList<>();
             lanes.add(this);
             incompatibilities = new LinkedHashMap<>();
             cells.forEach(this::addCell);
         }
 
-        Lane(InternCell cell, List<Lane> lanes) {
+        InternCellsLane(InternCell cell, List<InternCellsLane> lanes) {
             this.lanes = lanes;
             lanes.add(this);
             incompatibilities = new LinkedHashMap<>();
@@ -150,14 +149,14 @@ class BlockPositionner {
             for (Map.Entry<InternCell, ArrayList<InternCell>> entry : incompatibilities.entrySet()) {
                 InternCell internCellA = entry.getKey();
                 entry.getValue().clear();
-                int hAmin = internCellA.getSideHPos(Side.LEFT);
-                int hAmax = internCellA.getSideHPos(Side.RIGHT);
+                int hAmin = getHfromSide(internCellA, Side.LEFT);
+                int hAmax = getHfromSide(internCellA, Side.RIGHT);
 
                 for (InternCell internCellB : incompatibilities.keySet()) {
                     if (!internCellA.equals(internCellB)) {
-                        int hBmin = internCellB.getSideHPos(Side.LEFT);
-                        int hBmax = internCellB.getSideHPos(Side.RIGHT);
-                        if (hAmax > hBmin && hBmax > hAmin) {
+                        int hBmin = getHfromSide(internCellB, Side.LEFT);
+                        int hBmax = getHfromSide(internCellB, Side.RIGHT);
+                        if (hAmin < hBmax && hBmin < hAmax) {
                             entry.getValue().add(internCellB);
                             hasIncompatibility = true;
                         }
@@ -165,6 +164,13 @@ class BlockPositionner {
                 }
             }
             return hasIncompatibility;
+        }
+
+        private int getHfromSide(InternCell cell, Side side) {
+            if (cell.checkShape(InternCell.Shape.UNILEG)) {
+                return cell.getSideHPos(Side.UNDEFINED);
+            }
+            return cell.getSideHPos(side);
         }
 
         private void shiftIncompatibilities() {
@@ -176,7 +182,7 @@ class BlockPositionner {
                 InternCell cell = entry.getKey();
                 incompatibilities.remove(cell);
                 if (nextLane == null) {
-                    nextLane = new Lane(cell, lanes);
+                    nextLane = new InternCellsLane(cell, lanes);
                 } else {
                     nextLane.addCell(cell);
                     nextLane.bundleToCompatibleLanes();
@@ -186,13 +192,15 @@ class BlockPositionner {
 
         private void arrangeLanes() {
             int i = 0;
-            for (Lane lane : lanes) {
+            for (InternCellsLane lane : lanes) {
                 final int j = i % 2;
                 final int newV = 1 + i / 2;
                 lane.incompatibilities.keySet()
                         .forEach(c -> {
                             c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
-                            c.getBodyBlock().getPosition().setV(newV);
+                            if (!c.checkShape(InternCell.Shape.UNILEG)) {
+                                c.getBodyBlock().getPosition().setV(newV);
+                            }
                         });
                 i++;
             }

@@ -124,6 +124,15 @@ public class InternCell extends AbstractBusCell {
         return this.shape == shape;
     }
 
+    public boolean checkIsNotShape(Shape... shapes) {
+        for (Shape s : shapes) {
+            if (this.shape == s) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void reverseCell() {
         body.reverseBlock();
         if (legs.get(Side.LEFT) != null) {

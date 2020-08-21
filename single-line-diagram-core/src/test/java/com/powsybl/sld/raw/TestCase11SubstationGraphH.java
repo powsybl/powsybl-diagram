@@ -1,7 +1,6 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
 import org.junit.Test;

@@ -35,13 +35,21 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
         vlBuilder.connectNode(unilegDc1, fNode);
         vlBuilder.connectNode(unilegDc2, fNode);
 
-        SwitchNode db1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db1", false, false);
-        SwitchNode b13 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b13", false, false);
-        SwitchNode db3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db3", false, false);
-        vlBuilder.connectNode(bbs11, db1);
-        vlBuilder.connectNode(db1, b13);
-        vlBuilder.connectNode(b13, db3);
-        vlBuilder.connectNode(db3, bbs13);
+        SwitchNode db11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db11", false, false);
+        SwitchNode b1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b1", false, false);
+        SwitchNode db31 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db31", false, false);
+        vlBuilder.connectNode(bbs11, db11);
+        vlBuilder.connectNode(db11, b1);
+        vlBuilder.connectNode(b1, db31);
+        vlBuilder.connectNode(db31, bbs13);
+
+        SwitchNode db12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db12", false, false);
+        SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
+        SwitchNode db32 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db32", false, false);
+        vlBuilder.connectNode(bbs11, db12);
+        vlBuilder.connectNode(db12, b2);
+        vlBuilder.connectNode(b2, db32);
+        vlBuilder.connectNode(db32, bbs13);
     }
 
     @Test
@@ -51,10 +59,6 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        writeFile = true;
-        toSVG(g, "/test.svg");
-
-        // write Json and compare to reference
-//        assertEquals(toString("/testUnileg.json"), toJson(g, "/testUnileg.json"));
+        assertEquals(toString("/testLanesWithUnileg.json"), toJson(g, "/testLanesWithUnileg.json"));
     }
 }
