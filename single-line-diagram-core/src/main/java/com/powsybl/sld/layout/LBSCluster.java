@@ -7,8 +7,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,8 +19,6 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public class LBSCluster {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LBSCluster.class);
 
     private final List<LegBusSet> lbsList = new ArrayList<>();
     private final List<HorizontalBusLane> horizontalBusLanes = new ArrayList<>();

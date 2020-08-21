@@ -30,9 +30,7 @@ final class Links {
 
     public static Links create(List<LBSCluster> lbsClusters, HorizontalBusLaneManager hblManager) {
         Links links = new Links(hblManager);
-        lbsClusters.forEach(lbsCluster -> {
-            addClusterSidesTwins(links, lbsCluster);
-        });
+        lbsClusters.forEach(lbsCluster -> addClusterSidesTwins(links, lbsCluster));
         return links;
     }
 
