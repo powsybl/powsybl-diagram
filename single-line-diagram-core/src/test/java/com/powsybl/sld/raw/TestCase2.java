@@ -61,25 +61,6 @@ public class TestCase2 extends AbstractTestCaseRaw {
         // build blocks
         new BlockOrganizer().organize(g);
 
-        // calculate coordinates
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setArrowDistance(20);
-
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference

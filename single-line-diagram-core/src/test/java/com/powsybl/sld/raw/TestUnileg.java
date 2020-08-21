@@ -8,7 +8,6 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
@@ -45,25 +44,6 @@ public class TestUnileg extends AbstractTestCaseRaw {
 
         // build blocks
         new BlockOrganizer().organize(g);
-
-        // calculate coordinates
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setArrowDistance(20);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
