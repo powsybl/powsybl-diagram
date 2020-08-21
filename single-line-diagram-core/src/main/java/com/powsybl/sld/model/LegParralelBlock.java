@@ -38,13 +38,14 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
             while (!subBlocksCopy.isEmpty()) {
                 Block b = subBlocksCopy.get(0);
                 b.getPosition().setHV(h, 0);
-                if (!((LegPrimaryBlock) b).getStackableBlocks().isEmpty()) {
+                if (((LegPrimaryBlock) b).getStackableBlocks().isEmpty()) {
+                    b.getPosition().setHV(h, 0);
+                    h += b.getPosition().getHSpan();
+                } else {
                     final int finalH = h;
                     ((LegPrimaryBlock) b).getStackableBlocks().forEach(sb -> sb.getPosition().setHV(finalH, 0));
                     h++;
                     subBlocksCopy.removeAll(((LegPrimaryBlock) b).getStackableBlocks());
-                } else {
-                    h += b.getPosition().getHSpan();
                 }
                 subBlocksCopy.remove(b);
             }
@@ -56,7 +57,7 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     @Override
     public double initX0() {
         return getCoord().getX()
-                + (getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / 2);
+                - (getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / 2);
     }
 
     @Override

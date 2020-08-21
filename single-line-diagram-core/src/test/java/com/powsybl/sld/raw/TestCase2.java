@@ -9,6 +9,7 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,12 @@ public class TestCase2 extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        buildVl("vl");
+        buildVl("vlUnstack");
+    }
+
+    private void buildVl(String id) {
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder(id, 400);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
@@ -51,18 +57,16 @@ public class TestCase2 extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        // build graph
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
-
-        // detect cells
         new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
         new BlockOrganizer().organize(g);
-
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+        assertEquals(toString("/TestCase2.json"), toJson(g, "/TestCase2.json"));
 
-        // write Json and compare to reference
-        assertEquals(toString("/TestCase2StackedCell.json"), toJson(g, "/TestCase2.json"));
+        Graph gus = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack", false, true);
+        new ImplicitCellDetector().detectCells(gus);
+        new BlockOrganizer(new PositionFromExtension(), false).organize(gus);
+        new PositionVoltageLevelLayout(gus).run(layoutParameters);
+        assertEquals(toString("/TestCase2UnStackedCell.json"), toJson(gus, "/TestCase2UnStackedCell.json"));
     }
 }
