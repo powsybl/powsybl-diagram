@@ -116,18 +116,17 @@ public final class SubstationGraph {
             graph.writeJson(generator);
         }
         generator.writeEndArray();
-        generator.writeArrayFieldStart("twtEdges");
-        for (TwtEdge edge : edges) {
-            edge.writeJson(generator, generateCoordsInJson);
-        }
-        generator.writeEndArray();
         generator.writeArrayFieldStart("multitermNodes");
         for (Node multitermNode : multiTermNodes) {
             multitermNode.writeJson(generator);
         }
         generator.writeEndArray();
+        generator.writeArrayFieldStart("twtEdges");
+        for (TwtEdge edge : edges) {
+            edge.writeJson(generator, generateCoordsInJson);
+        }
+        generator.writeEndArray();
         generator.writeEndObject();
-
     }
 
     public void writeJson(Writer writer) {

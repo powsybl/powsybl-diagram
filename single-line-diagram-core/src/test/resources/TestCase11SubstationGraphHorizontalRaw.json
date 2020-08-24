@@ -4233,6 +4233,76 @@
       "node2" : "FICT_vl3_dtrf38Fictif"
     } ]
   } ],
+  "multitermNodes" : [ {
+    "type" : "FICTITIOUS",
+    "id" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "name" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "equipmentId" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 225.0
+    }
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "name" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "equipmentId" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 225.0
+    }
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "name" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "equipmentId" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 400.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 225.0
+    }
+  } ],
   "twtEdges" : [ {
     "nodes" : [ {
       "node1" : "trf1_ONE",
@@ -4317,75 +4387,5 @@
       "node2" : "trf8_THREE"
     } ],
     "snakeLine" : [ 1325.0, 675.0, 1540.0, 675.0, 1540.0, -60.0, 1825.0, -60.0, 1825.0, 30.0 ]
-  } ],
-  "multitermNodes" : [ {
-    "type" : "FICTITIOUS",
-    "id" : "trf6_ONE_trf6_TWO_trf6_THREE",
-    "name" : "trf6_ONE_trf6_TWO_trf6_THREE",
-    "equipmentId" : "trf6_ONE_trf6_TWO_trf6_THREE",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 400.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 225.0
-    }
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "trf7_ONE_trf7_TWO_trf7_THREE",
-    "name" : "trf7_ONE_trf7_TWO_trf7_THREE",
-    "equipmentId" : "trf7_ONE_trf7_TWO_trf7_THREE",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 400.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 225.0
-    }
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "trf8_ONE_trf8_TWO_trf8_THREE",
-    "name" : "trf8_ONE_trf8_TWO_trf8_THREE",
-    "equipmentId" : "trf8_ONE_trf8_TWO_trf8_THREE",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 400.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 225.0
-    }
   } ]
 }

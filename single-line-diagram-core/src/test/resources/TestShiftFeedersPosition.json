@@ -1392,6 +1392,6 @@
       "node2" : "FICT_vl1_dgen2Fictif"
     } ]
   } ],
-  "twtEdges" : [ ],
-  "multitermNodes" : [ ]
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ]
 }
