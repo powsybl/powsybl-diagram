@@ -16,32 +16,26 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * <pre>
- *     b
- *    / \
- *   |   |
- * -d1---|---- bbs1
- * -----d2---- bbs2
- *
- * </pre>
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-
-public class TestCase3 extends AbstractTestCaseRaw {
+public class TestParallelFeedersOrders extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
-        BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
-        BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
-        SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
+        BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        vlBuilder.connectNode(bbs1, d1);
-        vlBuilder.connectNode(d1, b);
-        vlBuilder.connectNode(d2, bbs2);
-        vlBuilder.connectNode(d2, b);
+        SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
+        FictitiousNode f = vlBuilder.createFictitiousNode("f");
+        FeederNode load1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
+        SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
+        FeederNode load2 = vlBuilder.createLoad("l2", 1, BusCell.Direction.TOP);
+        vlBuilder.connectNode(bbs, d);
+        vlBuilder.connectNode(d, b);
+        vlBuilder.connectNode(b, f);
+        vlBuilder.connectNode(f, load1);
+        vlBuilder.connectNode(f, b2);
+        vlBuilder.connectNode(b2, load2);
     }
 
     @Test
@@ -50,8 +44,6 @@ public class TestCase3 extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-//        writeFile=true;
-//        toSVG(g,"/test.svg");
-        assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3.json"));
+        assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
     }
 }

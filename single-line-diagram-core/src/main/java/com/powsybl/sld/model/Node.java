@@ -265,7 +265,7 @@ public class Node implements BaseNode {
 
     @Override
     public String toString() {
-        return "Node(id='" + getId() + "' name='" + name + "', type= " + type + ")";
+        return type + " " + name + " " + id;
     }
 
     public void resetCoords() {

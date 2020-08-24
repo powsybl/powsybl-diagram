@@ -70,9 +70,4 @@ public class UndefinedBlock extends AbstractComposedBlock {
         }
         return blockHeight;
     }
-
-    @Override
-    public String toString() {
-        return "UndefinedBlock(subBlocks=" + subBlocks + ")";
-    }
 }

@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.*;
@@ -36,20 +37,15 @@ public class SerialBlock extends AbstractComposedBlock {
         this(Collections.singletonList(block), cell);
     }
 
-    public SerialBlock(Block block1,
-                       Block block2,
-                       Cell cell) {
-        this(Arrays.asList(block1, block2), cell);
-    }
-
-    public SerialBlock(Block block1,
-                       Block block2) {
-        this(Arrays.asList(block1, block2), null);
+    @Override
+    public int getOrder() {
+        return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
+                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
     }
 
     private void postConstruct() {
         for (int i = 0; i < subBlocks.size() - 1; i++) {
-            consistentChaining(subBlocks.get(i), subBlocks.get(i + 1));
+            alignChaining(subBlocks.get(i), subBlocks.get(i + 1));
         }
 
         if (getLowerBlock().isEmbedingNodeType(Node.NodeType.FEEDER)
@@ -57,7 +53,7 @@ public class SerialBlock extends AbstractComposedBlock {
             reverseBlock();
         }
 
-// TODO shouldn't it be this way only in the Vertical case ???
+ //TODO shouldn't it be this way only in the Vertical case ???
         for (int i = 0; i < subBlocks.size(); i++) {
             subBlocks.get(i).getPosition().setHV(0, i);
         }
@@ -66,7 +62,7 @@ public class SerialBlock extends AbstractComposedBlock {
         setCardinality(Extremity.END, getUpperBlock().getCardinality(Extremity.END));
     }
 
-    private void consistentChaining(Block block1, Block block2) {
+    private void alignChaining(Block block1, Block block2) {
         if (block1.getExtremityNode(Extremity.END) == block2.getExtremityNode(Extremity.START)) {
             return;
         }
@@ -81,7 +77,9 @@ public class SerialBlock extends AbstractComposedBlock {
         }
         if (block1.getExtremityNode(Extremity.START) == block2.getExtremityNode(Extremity.START)) {
             block1.reverseBlock();
+            return;
         }
+        throw new PowsyblException("unconsistent chaining in SerialBlock");
     }
 
     public boolean addSubBlock(Block block) {
@@ -222,8 +220,4 @@ public class SerialBlock extends AbstractComposedBlock {
         return blockHeight;
     }
 
-    @Override
-    public String toString() {
-        return "SerialBlock(subBlocks=" + subBlocks + ")";
-    }
 }

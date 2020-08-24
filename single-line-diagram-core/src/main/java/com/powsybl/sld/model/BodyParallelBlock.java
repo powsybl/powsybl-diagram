@@ -65,9 +65,4 @@ public class BodyParallelBlock extends AbstractParallelBlock {
             sub.calculateCoord(layoutParam);
         });
     }
-
-    @Override
-    public String toString() {
-        return "BodyParallelBlock(subBlocks=" + subBlocks + ")";
-    }
 }

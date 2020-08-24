@@ -231,4 +231,5 @@ public abstract class AbstractBlock implements Block {
         writeJsonContent(generator);
         generator.writeEndObject();
     }
+
 }

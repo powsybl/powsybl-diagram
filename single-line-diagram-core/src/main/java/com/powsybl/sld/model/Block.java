@@ -84,7 +84,9 @@ public interface Block {
 
     double calculateRootHeight(LayoutParameters layoutParam);
 
-    int getOrder();
+    default int getOrder() {
+        return 0;
+    }
 
     void coordVerticalCase(LayoutParameters layoutParam);
 
@@ -105,4 +107,5 @@ public interface Block {
     Type getType();
 
     void writeJson(JsonGenerator generator) throws IOException;
+
 }

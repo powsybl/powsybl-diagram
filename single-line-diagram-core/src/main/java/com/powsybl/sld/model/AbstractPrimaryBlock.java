@@ -81,12 +81,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    public int getOrder() {
-        return getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Extremity.START)).getOrder() : 0;
-    }
-
-    @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeFieldName("nodes");
         generator.writeStartArray();
@@ -125,6 +119,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
 
     @Override
     public String toString() {
-        return "PrimaryBlock(nodes=" + nodes + ")";
+        return getClass().getSimpleName() + " " + nodes;
     }
 }

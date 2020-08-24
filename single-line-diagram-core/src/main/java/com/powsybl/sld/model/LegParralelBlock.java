@@ -8,7 +8,6 @@ package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,8 +70,4 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
         // case HORIZONTAL cannot happen
     }
 
-    @Override
-    public String toString() {
-        return "BodyParallelBlock(subBlocks=" + subBlocks + ")";
-    }
 }
