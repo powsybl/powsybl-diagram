@@ -39,14 +39,14 @@
         } ],
         "position" : {
           "h" : 2,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 100.0,
-          "y" : 235.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -104,8 +104,8 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -160,14 +160,14 @@
         } ],
         "position" : {
           "h" : 1,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 50.0,
-          "y" : 285.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -252,14 +252,14 @@
         } ],
         "position" : {
           "h" : 4,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 235.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -317,8 +317,8 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -373,14 +373,14 @@
         } ],
         "position" : {
           "h" : 3,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 150.0,
-          "y" : 285.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },

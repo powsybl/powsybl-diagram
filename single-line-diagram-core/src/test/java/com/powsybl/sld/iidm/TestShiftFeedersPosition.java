@@ -96,6 +96,7 @@ public class TestShiftFeedersPosition extends AbstractTestCaseIidm {
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
         layoutParameters2.setShiftFeedersPosition(true);
         new HorizontalSubstationLayoutFactory().create(g2, new PositionVoltageLevelLayoutFactory()).run(layoutParameters2);
+        writeFile=true;
         assertEquals(toString("/TestShiftFeedersPosition.json"), toJson(g2, "/TestShiftFeedersPosition.json"));
     }
 

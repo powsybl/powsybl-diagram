@@ -53,11 +53,6 @@ public class SerialBlock extends AbstractComposedBlock {
             reverseBlock();
         }
 
- //TODO shouldn't it be this way only in the Vertical case ???
-        for (int i = 0; i < subBlocks.size(); i++) {
-            subBlocks.get(i).getPosition().setHV(0, i);
-        }
-
         setCardinality(Extremity.START, getLowerBlock().getCardinality(Extremity.START));
         setCardinality(Extremity.END, getUpperBlock().getCardinality(Extremity.END));
     }
