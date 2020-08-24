@@ -18,6 +18,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ */
+
 public class TestInternCellShapes extends AbstractTestCaseRaw {
     @Before
     public void setUp() {

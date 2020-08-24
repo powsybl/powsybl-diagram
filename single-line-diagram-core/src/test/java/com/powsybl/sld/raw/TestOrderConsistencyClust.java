@@ -15,6 +15,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ */
+
 public class TestOrderConsistencyClust extends AbstractTestOrderConsistency {
 
     @Test

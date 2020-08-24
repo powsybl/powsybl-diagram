@@ -10,6 +10,10 @@ import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 
+/**
+ * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
+ */
+
 public abstract class AbstractTestOrderConsistency extends AbstractTestCaseRaw {
 
     @Before
