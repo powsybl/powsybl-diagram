@@ -196,10 +196,10 @@ public class InternCell extends AbstractBusCell {
 
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
-        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
         if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
             body.calculateRootCoord(layoutParam);
         }
+        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
     }
 
     public LegBlock getSideToLeg(Side side) {

@@ -358,7 +358,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : 172.45454545454544,
+          "y" : 172.45454545454547,
           "open" : false
         } ]
       }, {
@@ -389,7 +389,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : 172.45454545454544,
+          "y" : 172.45454545454547,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -462,7 +462,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : 57.36363636363636,
+          "y" : 57.36363636363637,
           "open" : false
         } ]
       }, {
@@ -493,7 +493,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : 57.36363636363636,
+          "y" : 57.36363636363637,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -514,7 +514,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -0.18181818181817277,
+          "y" : -0.18181818181816567,
           "open" : false
         } ]
       }, {
@@ -545,7 +545,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -0.18181818181817277,
+          "y" : -0.18181818181816567,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -566,7 +566,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -57.72727272727272,
+          "y" : -57.72727272727273,
           "open" : false
         } ]
       }, {
@@ -597,7 +597,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -57.72727272727272,
+          "y" : -57.72727272727273,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -670,7 +670,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -172.8181818181818,
+          "y" : -172.81818181818184,
           "open" : false
         } ]
       }, {
@@ -701,7 +701,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -172.8181818181818,
+          "y" : -172.81818181818184,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -722,7 +722,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -230.36363636363637,
+          "y" : -230.36363636363635,
           "open" : false
         } ]
       }, {
@@ -753,7 +753,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -230.36363636363637,
+          "y" : -230.36363636363635,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -774,7 +774,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -287.90909090909093,
+          "y" : -287.909090909091,
           "open" : false
         } ]
       }, {
@@ -805,7 +805,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 125.0,
-          "y" : -287.90909090909093,
+          "y" : -287.909090909091,
           "open" : false
         }, {
           "type" : "SWITCH",

@@ -10,6 +10,7 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import java.util.List;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
+
+    private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
     public LegPrimaryBlock(List<Node> nodes, Cell cell) {
         super(nodes, cell);
@@ -51,10 +54,17 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return (SwitchNode) nodes.get(1);
     }
 
-    // TODO : is it a clean manner ?!
+    public void addStackableBlock(LegPrimaryBlock block) {
+        stackableBlocks.add(block);
+    }
+
+    public List<LegPrimaryBlock> getStackableBlocks() {
+        return new ArrayList<>(stackableBlocks);
+    }
+
     @Override
     public void reverseBlock() {
-        // nothing to do
+        // Will never happen.
     }
 
     @Override
@@ -71,20 +81,18 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        InternCell cell = (InternCell) getCell();
-        // TODO : set X according to the side of the block in the intern cell !
         getSwNode().setX(getCoord().getX() + getCoord().getXSpan() / 2);
-        getSwNode().setY(getBusNode().getY(), false, false);
-        getLegNode().setY(getBusNode().getY(), true, false);
+        getSwNode().setY(getBusNode().getY(), false);
+        getLegNode().setY(getBusNode().getY(), false);
     }
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
         getSwNode().setX(getCoord().getX());
-        getSwNode().setY(getBusNode().getY(), false, false);
+        getSwNode().setY(getBusNode().getY(), false);
 
-        getLegNode().setX(getCoord().getX(), true);
-        if (getCell().getType() == Cell.CellType.INTERN && ((InternCell) getCell()).getBodyBlock() == null) {
+        getLegNode().setX(getCoord().getX());
+        if (getCell().getType() == Cell.CellType.INTERN && ((InternCell) getCell()).checkShape(InternCell.Shape.UNILEG)) {
             getLegNode().setY(layoutParam.getInitialYBus() - layoutParam.getInternCellHeight());
         }
     }

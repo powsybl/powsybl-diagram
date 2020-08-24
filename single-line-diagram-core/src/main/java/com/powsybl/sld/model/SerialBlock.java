@@ -139,6 +139,14 @@ public class SerialBlock extends AbstractComposedBlock {
         return subBlocks.get(0);
     }
 
+    private List<Node> getChainingNodes() {
+        List<Node> result = new ArrayList<>();
+        for (int i = 0; i < subBlocks.size() - 1; i++) {
+            result.add(subBlocks.get(i).getEndingNode());
+        }
+        return result;
+    }
+
     @Override
     public void sizing() {
         subBlocks.forEach(Block::sizing);
@@ -183,6 +191,7 @@ public class SerialBlock extends AbstractComposedBlock {
 
             sub.calculateCoord(layoutParam);
         }
+        getChainingNodes().forEach(n -> n.setX(getCoord().getX()));
     }
 
     @Override

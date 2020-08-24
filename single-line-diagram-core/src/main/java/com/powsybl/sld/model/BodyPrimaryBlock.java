@@ -88,8 +88,8 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double dy = (y1 - y0) / (nodes.size() - 1);
         for (int i = 1; i < nodes.size() - 1; i++) {
             Node node = nodes.get(i);
-            node.setX(x0 + i * dx, false, false);
-            node.setY(y0 + i * dy, false, false);
+            node.setX(x0 + i * dx, false);
+            node.setY(y0 + i * dy,  false);
             if (dy == 0) {
                 node.setRotationAngle(90.);
             }

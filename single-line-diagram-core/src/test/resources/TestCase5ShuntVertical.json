@@ -145,7 +145,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 25.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         } ]
       }, {
@@ -176,7 +176,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 25.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         }, {
           "type" : "FEEDER",
@@ -226,7 +226,7 @@
         "componentType" : "NODE",
         "fictitious" : true,
         "x" : 25.0,
-        "y" : 63.33333333333334,
+        "y" : 63.33333333333335,
         "open" : false
       }, {
         "type" : "SWITCH",
