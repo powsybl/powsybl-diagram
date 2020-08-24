@@ -20,7 +20,11 @@ import java.util.Set;
  */
 public interface Block {
     enum Type {
-        PRIMARY, PARALLEL, SERIAL, UNDEFINED
+        LEGPRIMARY, BODYPRIMARY, LEGPARALLEL, BODYPARALLEL, SERIAL, UNDEFINED;
+
+        public boolean isPrimary(Type type) {
+            return type == LEGPRIMARY || type == BODYPRIMARY;
+        }
     }
 
     enum Extremity {

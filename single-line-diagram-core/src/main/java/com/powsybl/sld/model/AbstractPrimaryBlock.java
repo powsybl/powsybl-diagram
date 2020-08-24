@@ -39,8 +39,8 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
      * @param nodes nodes
      */
 
-    AbstractPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(Type.PRIMARY);
+    AbstractPrimaryBlock(Type type, List<Node> nodes, Cell cell) {
+        super(type);
         if (nodes.isEmpty()) {
             throw new PowsyblException("Empty node list");
         }

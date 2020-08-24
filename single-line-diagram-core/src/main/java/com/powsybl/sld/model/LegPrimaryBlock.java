@@ -24,7 +24,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
     public LegPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(nodes, cell);
+        super(Type.LEGPRIMARY, nodes, cell);
         if (getExtremityNode(Extremity.END).getType() == Node.NodeType.BUS) {
             super.reverseBlock();
         }

@@ -18,7 +18,7 @@ import java.util.List;
 public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(nodes, cell);
+        super(Type.BODYPRIMARY, nodes, cell);
         if (getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER) {
             reverseBlock();
         }
