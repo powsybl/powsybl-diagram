@@ -96,7 +96,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
         layoutParameters.setShowGrid(true);
 
-        assertEquals(toJson(g, "/TestCaseGraphExternCellHeightFixed.json"), toString("/TestCaseGraphExternCellHeightFixed.json"));
+        assertEquals(toString("/TestCaseGraphExternCellHeightFixed.json"), toJson(g, "/TestCaseGraphExternCellHeightFixed.json"));
 
         // layout parameters with adapt cell height to content
         LayoutParameters layoutParametersAdaptCellHeightToContent = new LayoutParameters(layoutParameters);
@@ -107,6 +107,6 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         new BlockOrganizer(new PositionFromExtension(), true).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParametersAdaptCellHeightToContent);
 
-        assertEquals(toJson(g, "/TestCaseGraphAdaptCellHeightToContent.json"), toString("/TestCaseGraphAdaptCellHeightToContent.json"));
+        assertEquals(toString("/TestCaseGraphAdaptCellHeightToContent.json"), toJson(g, "/TestCaseGraphAdaptCellHeightToContent.json"));
     }
 }

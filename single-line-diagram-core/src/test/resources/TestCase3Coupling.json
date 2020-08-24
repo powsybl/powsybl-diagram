@@ -31,7 +31,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -97,7 +97,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -152,7 +152,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {

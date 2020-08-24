@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class LegParralelBlock extends AbstractParallelBlock implements LegBlock {
 
     public LegParralelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(subBlocks, cell, allowMerge);
+        super(Type.LEGPARALLEL, subBlocks, cell, allowMerge);
     }
 
     @Override

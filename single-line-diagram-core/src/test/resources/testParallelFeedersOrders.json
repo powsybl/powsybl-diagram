@@ -32,7 +32,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -97,7 +97,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -149,7 +149,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -169,7 +169,7 @@
           "ySpan" : 125.0
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -214,7 +214,7 @@
             "direction" : "TOP"
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {

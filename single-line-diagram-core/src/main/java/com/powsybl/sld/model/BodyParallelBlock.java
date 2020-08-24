@@ -19,7 +19,7 @@ import java.util.List;
 public class BodyParallelBlock extends AbstractParallelBlock {
 
     public BodyParallelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(subBlocks, cell, allowMerge);
+        super(Type.BODYPARALLEL, subBlocks, cell, allowMerge);
     }
 
     @Override

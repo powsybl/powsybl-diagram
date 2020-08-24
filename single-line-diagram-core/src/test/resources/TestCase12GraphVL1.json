@@ -31,7 +31,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -97,7 +97,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -152,7 +152,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -244,7 +244,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -310,7 +310,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -365,7 +365,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -458,7 +458,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -523,7 +523,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -606,7 +606,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -671,7 +671,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -760,7 +760,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -825,7 +825,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -914,7 +914,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -979,7 +979,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1046,7 +1046,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1066,7 +1066,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1132,7 +1132,7 @@
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1226,7 +1226,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1291,7 +1291,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1374,7 +1374,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1439,7 +1439,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1528,7 +1528,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1593,7 +1593,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1660,7 +1660,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1680,7 +1680,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1746,7 +1746,7 @@
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1840,7 +1840,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1905,7 +1905,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1988,7 +1988,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2053,7 +2053,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2142,7 +2142,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2207,7 +2207,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2274,7 +2274,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -2294,7 +2294,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -2360,7 +2360,7 @@
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -2454,7 +2454,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2519,7 +2519,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2602,7 +2602,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -2667,7 +2667,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {

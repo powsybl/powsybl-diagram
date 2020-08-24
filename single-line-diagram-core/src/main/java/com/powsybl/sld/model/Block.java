@@ -22,8 +22,12 @@ public interface Block {
     enum Type {
         LEGPRIMARY, BODYPRIMARY, LEGPARALLEL, BODYPARALLEL, SERIAL, UNDEFINED;
 
-        public boolean isPrimary(Type type) {
-            return type == LEGPRIMARY || type == BODYPRIMARY;
+        public boolean isPrimary() {
+            return this == LEGPRIMARY || this == BODYPRIMARY;
+        }
+
+        public boolean isParallel() {
+            return this == LEGPARALLEL || this == BODYPARALLEL;
         }
     }
 

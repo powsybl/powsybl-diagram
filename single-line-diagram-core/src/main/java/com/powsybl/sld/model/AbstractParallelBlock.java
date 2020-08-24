@@ -20,11 +20,11 @@ import java.util.Set;
  */
 abstract class AbstractParallelBlock extends AbstractComposedBlock implements ParallelBlock {
 
-    AbstractParallelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(Type.PARALLEL, subBlocks);
+    AbstractParallelBlock(Type type, List<Block> subBlocks, Cell cell, boolean allowMerge) {
+        super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
         subBlocks.forEach(child -> {
-            if (child.getType() == Type.PARALLEL && allowMerge) {
+            if (child.getType().isParallel() && allowMerge) {
                 this.subBlocks.addAll(((ParallelBlock) child).getSubBlocks());
             } else {
                 this.subBlocks.add(child);
