@@ -20,6 +20,7 @@ import com.powsybl.sld.cgmes.layout.CgmesSubstationLayoutFactory;
 import com.powsybl.sld.cgmes.layout.CgmesVoltageLevelLayoutFactory;
 import com.powsybl.sld.force.layout.ForceSubstationLayoutFactory;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
@@ -395,7 +396,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 }
             });
             searchField.textProperty().addListener((observable, oldValue, newValue) ->
-                searchStart.set(0)
+                    searchStart.set(0)
             );
 
             saveButton.setOnAction(evh -> {
@@ -841,7 +842,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         });
 
         filterInput.textProperty().addListener(obs ->
-            initSubstationsTree()
+                initSubstationsTree()
         );
 
         // handling the change of the network
@@ -983,7 +984,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 }
                 rootItem.getChildren().add(sItem);
                 sItem.selectedProperty().addListener((obs, oldVal, newVal) ->
-                    checkSubstation(s, newVal)
+                        checkSubstation(s, newVal)
                 );
             }
 
@@ -1086,7 +1087,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
     private void initLayoutsFactory() {
         voltageLevelsLayouts.put("Smart", null);
         voltageLevelsLayouts.put("Auto extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()));
-        voltageLevelsLayouts.put("Auto without extensions", new PositionVoltageLevelLayoutFactory(new PositionFree()));
         voltageLevelsLayouts.put("Auto without extensions Clustering", new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
         voltageLevelsLayouts.put("Random", new RandomVoltageLevelLayoutFactory(500, 500));
         voltageLevelsLayouts.put("Cgmes", null);

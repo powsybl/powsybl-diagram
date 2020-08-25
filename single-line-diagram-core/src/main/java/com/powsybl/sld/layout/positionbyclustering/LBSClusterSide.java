@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
+import com.powsybl.sld.layout.HorizontalBusLane;
+import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.Side;
@@ -17,101 +19,86 @@ import java.util.*;
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class LBSClusterSide implements ClusterConnector<LBSClusterSide> {
+class LBSClusterSide {
 
     private final LBSCluster lbsCluster;
     private final Side side;
-    private final List<Link<LBSClusterSide>> myLinks = new ArrayList<>();
+    private final List<Link> myLinks = new ArrayList<>();
+    private LBSClusterSide otherSameRoot;
 
     LBSClusterSide(LBSCluster lbsCluster, Side side) {
         this.lbsCluster = Objects.requireNonNull(lbsCluster);
         this.side = Objects.requireNonNull(side);
     }
 
-    public Set<BusNode> getBusNodeSet() {
+    void setOtherSameRoot(LBSClusterSide otherSameRoot) {
+        this.otherSameRoot = otherSameRoot;
+    }
+
+    Set<BusNode> getBusNodeSet() {
         return new LinkedHashSet<>(lbsCluster.laneSideBuses(side));
     }
 
-    public List<InternCell> getCandidateFlatCellList() {
-        return lbsCluster.getSideFlatCell(side);
+    List<InternCell> getCandidateFlatCellList() {
+        return lbsCluster.getSideCandidateFlatCell(side);
     }
 
-    public List<InternCell> getCrossOverCellList() {
+    List<InternCell> getCrossOverCellList() {
         return lbsCluster.getCrossoverCells();
     }
 
-    public LBSCluster getCluster() {
+    LBSCluster getCluster() {
         return lbsCluster;
     }
 
-    public Side getMySideInCluster() {
+    Side getMySideInCluster() {
         return side;
     }
 
-    public boolean hasSameRoot(Object other) {
+    boolean hasSameRoot(Object other) {
         if (other.getClass() != LBSClusterSide.class) {
             return false;
         }
         return this.lbsCluster == ((LBSClusterSide) other).getCluster();
     }
 
-    @Override
-    public LBSClusterSide getOtherSameRoot(List<LBSClusterSide> clusterConnectors) {
-        return clusterConnectors.stream().filter(clusterConnector ->
-                clusterConnector.getCluster() == lbsCluster
-                        && side.getFlip() == clusterConnector.getMySideInCluster()).findAny().orElse(null);
+    LBSClusterSide getOtherSameRoot() {
+        return otherSameRoot;
     }
 
-    @Override
-    public int getDistanceToEdge(InternCell internCell) {
+    int getCandidateFlatCellDistanceToEdge(InternCell internCell) {
         List<BusNode> buses = internCell.getBusNodes();
         buses.retainAll(getBusNodeSet());
         if (buses.isEmpty()) {
-            return 0;
+            return 100;
         }
-        BusNode busNode = buses.get(0);
-        HorizontalLane horizontalLane = lbsCluster.getHorizontalLanes()
+        BusNode busNode = buses.get(0); //shall have only one as used for a flatCell
+        Optional<HorizontalBusLane> horizontalBusLane = lbsCluster.getHorizontalBusLanes()
                 .stream()
                 .filter(lane -> side == Side.LEFT && lane.getBusNodes().get(0) == busNode
                         || side == Side.RIGHT && lane.getBusNodes().get(lane.getBusNodes().size() - 1) == busNode)
-                .findFirst().orElse(null);
-        if (horizontalLane == null) {
-            return 0;
+                .findFirst();
+        if (!horizontalBusLane.isPresent()) {
+            return 100;
         } else {
             if (side == Side.LEFT) {
-                return horizontalLane.getIndex();
+                return horizontalBusLane.get().getStartingIndex();
             } else {
-                return lbsCluster.getLbsList().size() - horizontalLane.getIndex() - horizontalLane.getLength();
+                return lbsCluster.getLbsList().size() - horizontalBusLane.get().getEndingIndex();
             }
         }
     }
 
-    public void addLink(Link<LBSClusterSide> link) {
+    void addLink(Link link) {
         myLinks.add(link);
     }
 
-    public void removeLink(Link<LBSClusterSide> link) {
+    void removeLink(Link link) {
         myLinks.remove(link);
     }
 
-    public List<Link<LBSClusterSide>> getLinks() {
+    List<Link> getLinks() {
         return myLinks;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof LBSClusterSide)) {
-            return false;
-        }
-        LBSClusterSide other = (LBSClusterSide) o;
-        return myLinks == other.myLinks
-                && lbsCluster == other.lbsCluster
-                && side == other.side;
-    }
-
-    @Override
-    public int hashCode() {
-        return (side == Side.LEFT ? 0 : 43) + 47 * lbsCluster.getNb();
     }
 
     @Override

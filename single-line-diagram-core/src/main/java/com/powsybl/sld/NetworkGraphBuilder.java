@@ -218,14 +218,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 Map<FeederWithSideNode.Side, VoltageLevelInfos> voltageLevelInfosBySide
                         = ImmutableMap.of(FeederWithSideNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1().getTerminal()),
-                                          FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
-                                          FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
+                        FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
+                        FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
                 // create middle node
                 Middle3WTNode middleNode = new Middle3WTNode(graph, transformer.getId() + "_fictif",
-                                                             voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
-                                                             voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
-                                                             voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE));
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE));
 
                 FeederWithSideNode.Side firstOtherLegSide;
                 FeederWithSideNode.Side secondOtherLegSide;
@@ -553,19 +553,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n2 = g2.getNode(id2);
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            String idMiddleNode = n1.getId() + "_" + n2.getId();
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
-            Middle2WTNode middleNode = new Middle2WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2);
-
-            TwtEdge edge1 = graph.addEdge(n1, middleNode);
-            TwtEdge edge2 = graph.addEdge(middleNode, n2);
-
-            middleNode.addAdjacentEdge(edge1);
-            middleNode.addAdjacentEdge(edge2);
-
-            graph.addMultiTermNode(middleNode);
+            graph.addMultiTermNode(Middle2WTNode.create(graph, n1, n2, voltageLevelInfos1, voltageLevelInfos2));
         }
 
         // Three windings transformer
@@ -592,22 +583,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Node n3 = g3.getNode(id3);
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            String idMiddleNode = n1.getId() + "_" + n2.getId() + "_" + n3.getId();
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
             VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
 
-            Middle3WTNode middleNode = new Middle3WTNode(null, idMiddleNode, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3);
-
-            TwtEdge edge1 = graph.addEdge(n1, middleNode);
-            TwtEdge edge2 = graph.addEdge(middleNode, n2);
-            TwtEdge edge3 = graph.addEdge(middleNode, n3);
-
-            middleNode.addAdjacentEdge(edge1);
-            middleNode.addAdjacentEdge(edge2);
-            middleNode.addAdjacentEdge(edge3);
-
-            graph.addMultiTermNode(middleNode);
+            graph.addMultiTermNode(Middle3WTNode.create(graph, n1, n2, n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3));
         }
     }
 

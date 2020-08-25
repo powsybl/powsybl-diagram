@@ -28,6 +28,17 @@ public class Middle2WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
     }
 
+    public static Middle2WTNode create(SubstationGraph graph, Node node1, Node node2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
+        Middle2WTNode middleNode = new Middle2WTNode(null, node1.getId() + "_" + node2.getId(), vlInfos1, vlInfos2);
+
+        TwtEdge edge1 = graph.addEdge(node1, middleNode);
+        TwtEdge edge2 = graph.addEdge(middleNode, node2);
+
+        middleNode.addAdjacentEdge(edge1);
+        middleNode.addAdjacentEdge(edge2);
+        return middleNode;
+    }
+
     @Override
     public VoltageLevelInfos getVoltageLevelInfos() {
         return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
