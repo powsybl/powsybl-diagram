@@ -223,7 +223,7 @@
     "type" : "EXTERN",
     "number" : 1,
     "direction" : "TOP",
-    "order" : 1,
+    "order" : 0,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -882,7 +882,7 @@
           "open" : false,
           "label" : "load1",
           "feederType" : "INJECTION",
-          "order" : 1,
+          "order" : 0,
           "direction" : "TOP"
         } ]
       } ]
@@ -1617,7 +1617,7 @@
     "type" : "EXTERN",
     "number" : 4,
     "direction" : "BOTTOM",
-    "order" : 2,
+    "order" : 3,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -1756,7 +1756,7 @@
           "open" : false,
           "label" : "gen1",
           "feederType" : "INJECTION",
-          "order" : 2,
+          "order" : 3,
           "direction" : "BOTTOM"
         } ]
       } ]

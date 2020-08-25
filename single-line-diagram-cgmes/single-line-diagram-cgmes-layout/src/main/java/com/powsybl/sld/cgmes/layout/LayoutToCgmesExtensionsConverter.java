@@ -11,6 +11,7 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.model.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     public LayoutToCgmesExtensionsConverter() {
-        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionFree()), new LayoutParameters(), true);
+        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters(), true);
     }
 
     private boolean isLineNode(Node node) {

@@ -6,69 +6,83 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
+import com.powsybl.sld.layout.HorizontalBusLaneManager;
+import com.powsybl.sld.layout.LBSCluster;
+import com.powsybl.sld.model.Side;
+
 import java.util.*;
 
 /**
- * Manages the links between a list of clusterConnectors.
+ * Manages the links between a list of lbsClusterSides.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-class Links<T extends ClusterConnector> {
+final class Links {
 
-    private final List<T> clusterConnectors;
-    private final TreeSet<Link<T>> linkSet = new TreeSet<>();
+    private final List<LBSClusterSide> lbsClusterSides = new LinkedList<>();
+    private final TreeSet<Link> linkSet = new TreeSet<>();
+    private HorizontalBusLaneManager hblManager;
+    private int linkCounter = 0;
 
-    Links(List<T> clusterConnectors) {
-        this.clusterConnectors = Objects.requireNonNull(clusterConnectors);
-        for (int i = 0; i < clusterConnectors.size(); i++) {
-            for (int j = i + 1; j < clusterConnectors.size(); j++) {
-                buildNewLink(clusterConnectors.get(i), clusterConnectors.get(j));
-            }
-        }
+    private Links(HorizontalBusLaneManager hblManager) {
+        this.hblManager = hblManager;
     }
 
-    Links() {
-        this.clusterConnectors = new ArrayList<>();
+    public static Links create(List<LBSCluster> lbsClusters, HorizontalBusLaneManager hblManager) {
+        Links links = new Links(hblManager);
+        lbsClusters.forEach(lbsCluster -> addClusterSidesTwins(links, lbsCluster));
+        return links;
     }
 
-    void addClusterConnector(T clusterConnector) {
-        clusterConnectors.add(clusterConnector);
-        clusterConnectors.forEach(cc -> buildNewLink(cc, clusterConnector));
+    private static void addClusterSidesTwins(Links links, LBSCluster lbsCluster) {
+        LBSClusterSide lbsSLeft = new LBSClusterSide(lbsCluster, Side.LEFT);
+        LBSClusterSide lbsSRight = new LBSClusterSide(lbsCluster, Side.RIGHT);
+        lbsSLeft.setOtherSameRoot(lbsSRight);
+        lbsSRight.setOtherSameRoot(lbsSLeft);
+        links.addLBSClusterSide(lbsSLeft);
+        links.addLBSClusterSide(lbsSRight);
     }
 
-    private void buildNewLink(T clusterConnector1, T clusterConnector2) {
-        if (!clusterConnector1.hasSameRoot(clusterConnector2)) {
-            Link<T> linkToAdd = new Link<>(clusterConnector1, clusterConnector2);
+    private void addLBSClusterSide(LBSClusterSide lbsClusterSide) {
+        lbsClusterSides.forEach(cc -> buildNewLink(cc, lbsClusterSide));
+        lbsClusterSides.add(lbsClusterSide);
+    }
+
+    private void buildNewLink(LBSClusterSide lbsClusterSide1, LBSClusterSide lbsClusterSide2) {
+        if (!lbsClusterSide1.hasSameRoot(lbsClusterSide2)) {
+            Link linkToAdd = new Link(lbsClusterSide1, lbsClusterSide2, linkCounter++);
             linkSet.add(linkToAdd);
         }
     }
 
-    Link<T> getStrongestLink() {
+    Link getStrongestLink() {
         return linkSet.last();
     }
 
-    void removeClusterConnector(T clusterConnector) {
-        clusterConnectors.remove(clusterConnector);
-        removeLinksToClusterConnector(clusterConnector);
+    void mergeLink(Link link) {
+        link.mergeClusters(hblManager);
+        LBSCluster mergedCluster = link.getlbsClusterSide(0).getCluster();
+        removeLBSClusterSide(link.getlbsClusterSide(0));
+        removeLBSClusterSide(link.getlbsClusterSide(1));
+        removeLBSClusterSide(link.getlbsClusterSide(0).getOtherSameRoot());
+        removeLBSClusterSide(link.getlbsClusterSide(1).getOtherSameRoot());
+        addClusterSidesTwins(this, mergedCluster);
     }
 
-    private void removeLinksToClusterConnector(T clusterConnector) {
-        List<Link<T>> linksCopy = new ArrayList<>(clusterConnector.getLinks());
+    private void removeLBSClusterSide(LBSClusterSide lbsClusterSide) {
+        lbsClusterSides.remove(lbsClusterSide);
+        List<Link> linksCopy = new ArrayList<>(lbsClusterSide.getLinks());
         linksCopy.forEach(link -> {
             link.removeMe();
             linkSet.remove(link);
         });
     }
 
-    Set<Link<T>> getLinkSet() {
-        return linkSet;
-    }
-
     boolean isEmpty() {
         return linkSet.isEmpty();
     }
 
-    List<T> getClusterConnectors() {
-        return clusterConnectors;
+    LBSCluster getFinalLBSCluster() {
+        return lbsClusterSides.get(0).getCluster();
     }
 }

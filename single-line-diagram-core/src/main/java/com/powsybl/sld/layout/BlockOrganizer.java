@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,7 @@ public class BlockOrganizer {
     }
 
     public BlockOrganizer(boolean stack) {
-        this(new PositionFree(), stack);
+        this(new PositionByClustering(), stack);
     }
 
     public BlockOrganizer(PositionFinder positionFinder) {
@@ -63,20 +65,14 @@ public class BlockOrganizer {
         if (stack) {
             determineStackableBlocks(graph);
         }
-        positionFinder.buildLayout(graph);
 
-        graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.INTERN)
-                .forEach(c -> ((InternCell) c).postPositioningSettings());
-
-        SubSections subSections = new SubSections(graph);
-        subSections.handleSpanningBusBar();
-        LOGGER.debug("Subsections {}", subSections);
+        List<Subsection> subsections = positionFinder.buildLayout(graph);
 
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)
                 .forEach(cell -> ((BusCell) cell).blockSizing());
-        new BlockPositionner().determineBlockPositions(graph, subSections);
+
+        new BlockPositionner().determineBlockPositions(graph, subsections);
     }
 
     /**

@@ -85,6 +85,6 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g, "/TestCase1BusBreaker.json"), toString("/TestCase1BusBreaker.json"));
+        assertEquals(toString("/TestCase1BusBreaker.json"), toJson(g, "/TestCase1BusBreaker.json"));
     }
 }

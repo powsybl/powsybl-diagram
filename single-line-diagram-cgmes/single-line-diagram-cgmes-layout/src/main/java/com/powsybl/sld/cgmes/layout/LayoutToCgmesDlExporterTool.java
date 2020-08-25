@@ -16,6 +16,8 @@ import com.powsybl.sld.AbstractSingleLineDiagramCommand;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLExporter;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolOptions;
@@ -46,7 +48,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
 
     private final Map<String, VoltageLevelLayoutFactory> voltageLevelsLayouts
             = ImmutableMap.of("auto-extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()),
-            DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionFree()));
+            DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
 
     private final Map<String, SubstationLayoutFactory> substationsLayouts
             = ImmutableMap.of(DEFAULT_SUBSTATION_LAYOUT, new HorizontalSubstationLayoutFactory(),

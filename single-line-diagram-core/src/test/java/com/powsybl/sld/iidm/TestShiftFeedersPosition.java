@@ -85,17 +85,18 @@ public class TestShiftFeedersPosition extends AbstractTestCaseIidm {
                 .setVerticalSnakeLinePadding(30);
 
         // build substation graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
+        SubstationGraph g1 = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with no shift feeder height and horizontal substation layout)
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toJson(g, "/TestDefaultFeedersPosition.json"), toString("/TestDefaultFeedersPosition.json"));
+        new HorizontalSubstationLayoutFactory().create(g1, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestDefaultFeedersPosition.json"), toJson(g1, "/TestDefaultFeedersPosition.json"));
 
         // write Json and compare to reference (with shift feeder height and horizontal substation layout)
+        SubstationGraph g2 = graphBuilder.buildSubstationGraph(substation.getId(), false);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
         layoutParameters2.setShiftFeedersPosition(true);
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters2);
-        assertEquals(toJson(g, "/TestShiftFeedersPosition.json"), toString("/TestShiftFeedersPosition.json"));
+        new HorizontalSubstationLayoutFactory().create(g2, new PositionVoltageLevelLayoutFactory()).run(layoutParameters2);
+        assertEquals(toString("/TestShiftFeedersPosition.json"), toJson(g2, "/TestShiftFeedersPosition.json"));
     }
 
     @Test

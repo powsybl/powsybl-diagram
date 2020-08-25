@@ -15,7 +15,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionFromExtension;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.Graph;
 import org.junit.Before;
@@ -58,12 +58,12 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         createSwitch(vl, "b10", "b10", SwitchKind.BREAKER, false, false, false, 12, 13);
         createSwitch(vl, "b11", "b11", SwitchKind.BREAKER, false, false, false, 13, 14);
         createSwitch(vl, "b12", "b12", SwitchKind.BREAKER, false, false, false, 14, 15);
-        createLoad(vl, "load1", "load1", "load1", 1, ConnectablePosition.Direction.TOP, 15, 10, 10);
+        createLoad(vl, "load1", "load1", "load1", 0, ConnectablePosition.Direction.TOP, 15, 10, 10);
 
         // generator (small feeder cell with serial blocks)
         createSwitch(vl, "d4", "d4", SwitchKind.DISCONNECTOR, false, true, false, 1, 16);
         createSwitch(vl, "b13", "b13", SwitchKind.BREAKER, true, false, false, 16, 17);
-        createGenerator(vl, "gen1", "gen1", "gen1", 2, ConnectablePosition.Direction.BOTTOM, 17, 0, 20, false, 10, 10);
+        createGenerator(vl, "gen1", "gen1", "gen1", 3, ConnectablePosition.Direction.BOTTOM, 17, 0, 20, false, 10, 10);
 
         // load (small feeder cell with parallel blocks)
         createSwitch(vl, "d5", "d5", SwitchKind.DISCONNECTOR, false, true, false, 0, 18);
@@ -94,6 +94,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+        layoutParameters.setShowGrid(true);
 
         assertEquals(toJson(g, "/TestCaseGraphExternCellHeightFixed.json"), toString("/TestCaseGraphExternCellHeightFixed.json"));
 
