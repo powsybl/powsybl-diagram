@@ -23,6 +23,6 @@ public class TestCase11SubstationGraphH extends TestCase11SubstationGraph {
     public void test() {
         SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
+        assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }
 }

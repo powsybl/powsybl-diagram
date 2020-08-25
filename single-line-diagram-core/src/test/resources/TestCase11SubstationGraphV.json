@@ -309,6 +309,17 @@
       "kind" : "BREAKER"
     }, {
       "type" : "SWITCH",
+      "id" : "bline21_2",
+      "name" : "bline21_2",
+      "equipmentId" : "bline21_2",
+      "componentType" : "BREAKER",
+      "fictitious" : false,
+      "x" : 0.0,
+      "y" : 0.0,
+      "open" : false,
+      "kind" : "BREAKER"
+    }, {
+      "type" : "SWITCH",
       "id" : "bload1",
       "name" : "bload1",
       "equipmentId" : "bload1",
@@ -448,6 +459,17 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 310.0,
+      "open" : false,
+      "kind" : "DISCONNECTOR"
+    }, {
+      "type" : "SWITCH",
+      "id" : "dline21_2",
+      "name" : "dline21_2",
+      "equipmentId" : "dline21_2",
+      "componentType" : "DISCONNECTOR",
+      "fictitious" : false,
+      "x" : 0.0,
+      "y" : 0.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -4398,109 +4420,109 @@
       "node1" : "trf1_ONE",
       "node2" : "trf1_ONE_trf1_TWO"
     } ],
-    "snakeLine" : [ 125.0, 30.0, 125.0, 0.0, 20.0, 0.0, 20.0, 345.0 ]
+    "snakeLine" : [ 125.0, 30.0, 125.0, 5.0, 30.0, 5.0, 30.0, 350.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf1_ONE_trf1_TWO",
       "node2" : "trf1_TWO"
     } ],
-    "snakeLine" : [ 20.0, 345.0, 20.0, 690.0, 225.0, 690.0, 225.0, 720.0 ]
+    "snakeLine" : [ 30.0, 350.0, 30.0, 695.0, 225.0, 695.0, 225.0, 720.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf2_ONE",
       "node2" : "trf2_ONE_trf2_TWO"
     } ],
-    "snakeLine" : [ 675.0, 30.0, 675.0, -30.0, -10.0, -30.0, -10.0, 652.5 ]
+    "snakeLine" : [ 675.0, 30.0, 675.0, -20.0, 10.0, -20.0, 10.0, 655.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf2_ONE_trf2_TWO",
       "node2" : "trf2_TWO"
     } ],
-    "snakeLine" : [ -10.0, 652.5, -10.0, 1335.0, 525.0, 1335.0, 525.0, 1305.0 ]
+    "snakeLine" : [ 10.0, 655.0, 10.0, 1330.0, 525.0, 1330.0, 525.0, 1305.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf3_ONE",
       "node2" : "trf3_ONE_trf3_TWO"
     } ],
-    "snakeLine" : [ 225.0, 615.0, 225.0, 645.0, 810.0, 645.0, 810.0, 1005.0 ]
+    "snakeLine" : [ 225.0, 615.0, 225.0, 640.0, 780.0, 640.0, 780.0, 997.5 ]
   }, {
     "nodes" : [ {
       "node1" : "trf3_ONE_trf3_TWO",
       "node2" : "trf3_TWO"
     } ],
-    "snakeLine" : [ 810.0, 1005.0, 810.0, 1365.0, 575.0, 1365.0, 575.0, 1305.0 ]
+    "snakeLine" : [ 780.0, 997.5, 780.0, 1355.0, 575.0, 1355.0, 575.0, 1305.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf4_ONE",
       "node2" : "trf4_ONE_trf4_TWO"
     } ],
-    "snakeLine" : [ 625.0, 615.0, 625.0, 675.0, 475.0, 675.0 ]
+    "snakeLine" : [ 625.0, 615.0, 625.0, 670.0, 475.0, 670.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf4_ONE_trf4_TWO",
       "node2" : "trf4_TWO"
     } ],
-    "snakeLine" : [ 475.0, 675.0, 325.0, 675.0, 325.0, 720.0 ]
+    "snakeLine" : [ 475.0, 670.0, 325.0, 670.0, 325.0, 720.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf5_ONE",
       "node2" : "trf5_ONE_trf5_TWO"
     } ],
-    "snakeLine" : [ 275.0, 30.0, 275.0, -60.0, -40.0, -60.0, -40.0, 970.0 ]
+    "snakeLine" : [ 275.0, 30.0, 275.0, -45.0, -10.0, -45.0, -10.0, 975.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf5_ONE_trf5_TWO",
       "node2" : "trf5_TWO"
     } ],
-    "snakeLine" : [ -40.0, 970.0, -40.0, 2000.0, 125.0, 2000.0, 125.0, 1970.0 ]
+    "snakeLine" : [ -10.0, 975.0, -10.0, 1995.0, 125.0, 1995.0, 125.0, 1970.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE",
       "node2" : "trf6_ONE_trf6_TWO_trf6_THREE"
     } ],
-    "snakeLine" : [ 325.0, 30.0, 325.0, -90.0, -70.0, -90.0, -70.0, 630.0, 425.0, 630.0 ]
+    "snakeLine" : [ 325.0, 30.0, 325.0, -70.0, -30.0, -70.0, -30.0, 645.0, 425.0, 645.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
       "node2" : "trf6_TWO"
     } ],
-    "snakeLine" : [ 425.0, 630.0, 425.0, 720.0 ]
+    "snakeLine" : [ 425.0, 645.0, 425.0, 720.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
       "node2" : "trf6_THREE"
     } ],
-    "snakeLine" : [ 425.0, 630.0, -100.0, 630.0, -100.0, 1410.0, 175.0, 1410.0, 175.0, 1410.0 ]
+    "snakeLine" : [ 425.0, 645.0, -50.0, 645.0, -50.0, 1410.0, 175.0, 1410.0, 175.0, 1410.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE",
       "node2" : "trf7_ONE_trf7_TWO_trf7_THREE"
     } ],
-    "snakeLine" : [ 375.0, 615.0, 375.0, 705.0, 375.0, 705.0 ]
+    "snakeLine" : [ 375.0, 615.0, 375.0, 690.0, 375.0, 690.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
       "node2" : "trf7_TWO"
     } ],
-    "snakeLine" : [ 375.0, 705.0, 375.0, 720.0 ]
+    "snakeLine" : [ 375.0, 690.0, 375.0, 720.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
       "node2" : "trf7_THREE"
     } ],
-    "snakeLine" : [ 375.0, 600.0, -130.0, 600.0, -130.0, 2000.0, 225.0, 2000.0, 225.0, 1970.0 ]
+    "snakeLine" : [ 375.0, 620.0, -70.0, 620.0, -70.0, 1995.0, 225.0, 1995.0, 225.0, 1970.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE",
       "node2" : "trf8_ONE_trf8_TWO_trf8_THREE"
     } ],
-    "snakeLine" : [ 575.0, 30.0, 575.0, -120.0, -160.0, -120.0, -160.0, 1395.0, 475.0, 1395.0 ]
+    "snakeLine" : [ 575.0, 30.0, 575.0, -95.0, -90.0, -95.0, -90.0, 1380.0, 475.0, 1380.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
       "node2" : "trf8_TWO"
     } ],
-    "snakeLine" : [ 475.0, 1395.0, 475.0, 1305.0 ]
+    "snakeLine" : [ 475.0, 1380.0, 475.0, 1305.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
