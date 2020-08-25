@@ -38,7 +38,7 @@ public class UndefinedBlock extends AbstractComposedBlock {
             block.sizing();
         }
         if (getPosition().getOrientation() == Orientation.VERTICAL) {
-            // TODO
+            // better do nothing
         } else {
             throw new UnsupportedOperationException("Horizontal layout of undefined  block not supported");
         }
