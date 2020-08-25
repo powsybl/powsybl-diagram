@@ -31,7 +31,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -39,14 +39,14 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 40.0,
-          "y" : 260.0,
+          "y" : 300.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -97,15 +97,15 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -152,7 +152,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -160,14 +160,14 @@
         } ],
         "position" : {
           "h" : 1,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 120.0,
-          "y" : 180.0,
+          "y" : 300.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -245,7 +245,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -310,7 +310,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -393,7 +393,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -458,7 +458,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -547,7 +547,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -612,7 +612,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -701,7 +701,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -766,7 +766,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -833,7 +833,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -853,7 +853,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -899,7 +899,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf7_THREE",
+            "id" : "trf7_ONE",
             "name" : "trf7",
             "equipmentId" : "trf7",
             "componentType" : "LINE",
@@ -909,17 +909,17 @@
             "open" : false,
             "label" : "trf72",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 5,
+            "order" : 4,
             "direction" : "TOP",
-            "side" : "THREE",
+            "side" : "ONE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
+              "id" : "vl1",
+              "name" : "vl1",
+              "nominalVoltage" : 400.0
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -965,7 +965,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf7_ONE",
+            "id" : "trf7_THREE",
             "name" : "trf7",
             "equipmentId" : "trf7",
             "componentType" : "LINE",
@@ -975,13 +975,13 @@
             "open" : false,
             "label" : "trf72",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 4,
+            "order" : 5,
             "direction" : "TOP",
-            "side" : "ONE",
+            "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
+              "id" : "vl3",
+              "name" : "vl3",
+              "nominalVoltage" : 63.0
             }
           } ]
         } ]
@@ -1013,7 +1013,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1078,7 +1078,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1161,7 +1161,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1226,7 +1226,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1315,7 +1315,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1380,7 +1380,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1469,7 +1469,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1534,7 +1534,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1601,7 +1601,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1621,7 +1621,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1667,7 +1667,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf6_THREE",
+            "id" : "trf6_ONE",
             "name" : "trf6",
             "equipmentId" : "trf6",
             "componentType" : "LINE",
@@ -1677,17 +1677,17 @@
             "open" : false,
             "label" : "trf62",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 6,
+            "order" : 5,
             "direction" : "TOP",
-            "side" : "THREE",
+            "side" : "ONE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
+              "id" : "vl1",
+              "name" : "vl1",
+              "nominalVoltage" : 400.0
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1733,7 +1733,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf6_ONE",
+            "id" : "trf6_THREE",
             "name" : "trf6",
             "equipmentId" : "trf6",
             "componentType" : "LINE",
@@ -1743,13 +1743,13 @@
             "open" : false,
             "label" : "trf62",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 5,
+            "order" : 6,
             "direction" : "TOP",
-            "side" : "ONE",
+            "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
+              "id" : "vl3",
+              "name" : "vl3",
+              "nominalVoltage" : 63.0
             }
           } ]
         } ]
@@ -1781,7 +1781,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1846,7 +1846,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1913,7 +1913,7 @@
           }
         } ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1933,7 +1933,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1979,7 +1979,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf8_THREE",
+            "id" : "trf8_ONE",
             "name" : "trf8",
             "equipmentId" : "trf8",
             "componentType" : "LINE",
@@ -1989,17 +1989,17 @@
             "open" : false,
             "label" : "trf82",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 7,
+            "order" : 6,
             "direction" : "BOTTOM",
-            "side" : "THREE",
+            "side" : "ONE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl3",
-              "name" : "vl3",
-              "nominalVoltage" : 63.0
+              "id" : "vl1",
+              "name" : "vl1",
+              "nominalVoltage" : 400.0
             }
           } ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -2045,7 +2045,7 @@
             }
           }, {
             "type" : "FEEDER",
-            "id" : "trf8_ONE",
+            "id" : "trf8_THREE",
             "name" : "trf8",
             "equipmentId" : "trf8",
             "componentType" : "LINE",
@@ -2055,13 +2055,13 @@
             "open" : false,
             "label" : "trf82",
             "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-            "order" : 6,
+            "order" : 7,
             "direction" : "BOTTOM",
-            "side" : "ONE",
+            "side" : "THREE",
             "otherSideVoltageLevelInfos" : {
-              "id" : "vl1",
-              "name" : "vl1",
-              "nominalVoltage" : 400.0
+              "id" : "vl3",
+              "name" : "vl3",
+              "nominalVoltage" : 63.0
             }
           } ]
         } ]

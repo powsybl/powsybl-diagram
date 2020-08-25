@@ -49,11 +49,6 @@ public class Node implements BaseNode {
 
     private double x = -1;
     private double y = -1;
-    private List<Double> xs = new ArrayList<>();
-    private List<Double> ys = new ArrayList<>();
-
-    private boolean xPriority = false;
-    private boolean yPriority = false;
 
     private double initY = -1;  // y value before shifting the feeders height, if asked
 
@@ -173,27 +168,11 @@ public class Node implements BaseNode {
     }
 
     public void setX(double x) {
-        setX(x, false, true);
+        setX(x, true);
     }
 
-    public void setX(double x, boolean xPriority) {
-        setX(x, xPriority, true);
-    }
-
-    public void setX(double x, boolean xPriority, boolean addXGraph) {
-        double xNode = x;
-        if (addXGraph) {
-            xNode += graph.getX();
-        }
-
-        if (!this.xPriority && xPriority) {
-            xs.clear();
-            this.xPriority = true;
-        }
-        if (this.xPriority == xPriority) {
-            this.x = xNode;
-            xs.add(xNode);
-        }
+    public void setX(double x, boolean addXGraph) {
+        this.x = x + (addXGraph ? graph.getX() : 0);
     }
 
     @Override
@@ -202,27 +181,11 @@ public class Node implements BaseNode {
     }
 
     public void setY(double y) {
-        setY(y, false, true);
+        setY(y, true);
     }
 
-    public void setY(double y, boolean yPriority) {
-        setY(y, yPriority, true);
-    }
-
-    public void setY(double y, boolean yPriority, boolean addYGraph) {
-        double yNode = y;
-        if (addYGraph) {
-            yNode += graph.getY();
-        }
-
-        if (!this.yPriority && yPriority) {
-            ys.clear();
-            this.yPriority = true;
-        }
-        if (this.yPriority == yPriority) {
-            this.y = yNode;
-            ys.add(yNode);
-        }
+    public void setY(double y, boolean addYGraph) {
+        this.y = y + (addYGraph ? graph.getY() : 0);
     }
 
     public double getInitY() {
@@ -272,11 +235,6 @@ public class Node implements BaseNode {
                 || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
     }
 
-    public void finalizeCoord() {
-        x = xs.stream().mapToDouble(d -> d).average().orElse(0);
-        y = ys.stream().mapToDouble(d -> d).average().orElse(0);
-    }
-
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeStringField("id", id);
@@ -307,17 +265,13 @@ public class Node implements BaseNode {
 
     @Override
     public String toString() {
-        return "Node(id='" + getId() + "' name='" + name + "', type= " + type + ")";
+        return type + " " + name + " " + id;
     }
 
     public void resetCoords() {
         x = -1;
         y = -1;
-        xPriority = false;
-        yPriority = false;
         initY = -1;
-        xs.clear();
-        ys.clear();
     }
 
     public void shiftY(double yShift) {

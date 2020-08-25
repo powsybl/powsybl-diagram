@@ -31,7 +31,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -39,14 +39,14 @@
         } ],
         "position" : {
           "h" : 4,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 225.0,
-          "y" : 260.0,
+          "y" : 300.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -97,15 +97,15 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -152,7 +152,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -160,14 +160,14 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 180.0,
+          "y" : 300.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -244,7 +244,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -252,14 +252,14 @@
         } ],
         "position" : {
           "h" : 3,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 175.0,
-          "y" : 285.0,
+          "y" : 245.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -310,15 +310,15 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -365,7 +365,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -373,14 +373,14 @@
         } ],
         "position" : {
           "h" : 1,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 365.0,
+          "y" : 245.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -437,7 +437,7 @@
     "number" : 2,
     "direction" : "TOP",
     "rootBlock" : {
-      "type" : "PARALLEL",
+      "type" : "LEGPARALLEL",
       "cardinalities" : [ {
         "START" : 2
       }, {
@@ -445,19 +445,19 @@
       } ],
       "position" : {
         "h" : 2,
-        "v" : 0,
+        "v" : -1,
         "hSpan" : 1,
         "vSpan" : 0,
         "orientation" : "VERTICAL"
       },
       "coord" : {
         "x" : 125.0,
-        "y" : 260.0,
+        "y" : 300.0,
         "xSpan" : 50.0,
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -472,7 +472,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 260.0,
+          "y" : 300.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -522,7 +522,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -537,7 +537,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 260.0,
+          "y" : 300.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },

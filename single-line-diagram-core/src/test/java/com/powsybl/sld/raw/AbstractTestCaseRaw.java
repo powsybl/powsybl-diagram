@@ -11,6 +11,7 @@ import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
@@ -70,7 +71,37 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         };
     }
 
+    DiagramLabelProvider getDiagramLabelProvider(SubstationGraph graph) {
+        Map<Node, List<DiagramLabelProvider.NodeLabel>> busLabels = new HashMap<>();
+        LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
+        graph.getNodes().stream().flatMap(g -> g.getNodes().stream()).forEach(n -> {
+            List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
+            labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
+            busLabels.put(n, labels);
+        });
+        return new DiagramLabelProvider() {
+            @Override
+            public InitialValue getInitialValue(Node node) {
+                return new InitialValue(Direction.UP, Direction.DOWN, "tata", "tutu", "", "");
+            }
+
+            @Override
+            public List<NodeLabel> getNodeLabels(Node node) {
+                return busLabels.get(node);
+            }
+
+            @Override
+            public List<NodeDecorator> getNodeDecorators(Node node) {
+                return new ArrayList<>();
+            }
+        };
+    }
+
     public void toSVG(Graph g, String filename) {
+        toSVG(g, filename, layoutParameters, getDiagramLabelProvider(g), new DefaultDiagramStyleProvider());
+    }
+
+    public void toSVG(SubstationGraph g, String filename) {
         toSVG(g, filename, layoutParameters, getDiagramLabelProvider(g), new DefaultDiagramStyleProvider());
     }
 }

@@ -171,9 +171,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.setX(550);
         g2.setY(20);
 
-        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
-        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
-        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3", 63.);
 
         BusNode vl2Bbs1 = BusNode.create(g2, "vl2_bbs1", "vl2_bbs1");
         vl2Bbs1.setX(0);
@@ -256,9 +256,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g3.setX(850);
         g3.setY(20);
 
-        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
-        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
-        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3", 63.);
 
         BusNode vl3Bbs1 = BusNode.create(g3, "vl3_bbs1", "vl3_bbs1");
         vl3Bbs1.setX(0);
@@ -537,8 +537,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addNode(g2Graph);
         substG.addNode(g3Graph);
         Node nMulti1 = new Middle2WTNode(null, vl1Trf1.getId() + "_" + vl2Trf1.getId(), vl1Infos, vl2Infos);
-        nMulti1.setX(365., false, false);
-        nMulti1.setY(550., false, false);
+        nMulti1.setX(365., false);
+        nMulti1.setY(550., false);
         TwtEdge edge1 = substG.addEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Arrays.asList(80., 500., 80., 550., 365., 550.));
         TwtEdge edge2 = substG.addEdge(nMulti1, vl2Trf1);
@@ -548,8 +548,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addMultiTermNode(nMulti1);
 
         Node nMulti3 = new Middle3WTNode(null, vl1Trf2.getId() + "_" + vl2Trf2.getId() + "_" + vl3Trf2.getId(), vl1Infos, vl2Infos, vl3Infos);
-        nMulti3.setX(710., false, false);
-        nMulti3.setY(50., false, false);
+        nMulti3.setX(710., false);
+        nMulti3.setY(50., false);
         TwtEdge edge21 = substG.addEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Arrays.asList(400., 80., 400., 50., 710., 50.));
         TwtEdge edge22 = substG.addEdge(nMulti3, vl2Trf2);
@@ -626,8 +626,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
         Node nMulti1 = new Middle2WTNode(null, twtSide1Node.getId() + "_" + twtSide2Node.getId(), vl12Infos, vl11Infos);
-        nMulti1.setX(50, false, false);
-        nMulti1.setY(350, false, false);
+        nMulti1.setX(50, false);
+        nMulti1.setY(350, false);
         TwtEdge edge1 = s1Graph.addEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Arrays.asList(50., 300., 50., 320., 50., 350.));
         TwtEdge edge2 = s1Graph.addEdge(nMulti1, twtSide2Node);

@@ -115,7 +115,7 @@ public class Position {
     @Override
     public String toString() {
         return "Position(h=" + h + ", v=" + v + ", hSpan=" + hSpan + ", vSpan=" + vSpan + ", absolute="
-                + absolute + ", orientation=" + orientation + ")";
+                + absolute + ", " + orientation + ")";
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {

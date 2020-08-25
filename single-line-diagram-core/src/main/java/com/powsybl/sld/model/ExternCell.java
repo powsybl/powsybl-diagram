@@ -58,7 +58,7 @@ public class ExternCell extends AbstractBusCell {
 
     @Override
     public String toString() {
-        return "ExternCell(order=" + order + ", direction=" + getDirection() + ", nodes=" + nodes + ")";
+        return getType() + " " + order + " " + getDirection() + " " + nodes;
     }
 
     @Override

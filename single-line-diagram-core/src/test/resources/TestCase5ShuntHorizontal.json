@@ -32,7 +32,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -97,7 +97,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -145,11 +145,11 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 25.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -176,7 +176,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 25.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         }, {
           "type" : "FEEDER",
@@ -199,7 +199,7 @@
     "type" : "SHUNT",
     "number" : 2,
     "rootBlock" : {
-      "type" : "PRIMARY",
+      "type" : "BODYPRIMARY",
       "cardinalities" : [ {
         "START" : 1
       }, {
@@ -226,7 +226,7 @@
         "componentType" : "NODE",
         "fictitious" : true,
         "x" : 25.0,
-        "y" : 63.33333333333334,
+        "y" : 63.33333333333335,
         "open" : false
       }, {
         "type" : "SWITCH",
@@ -248,7 +248,7 @@
         "componentType" : "NODE",
         "fictitious" : true,
         "x" : 75.0,
-        "y" : 63.33333333333334,
+        "y" : 63.33333333333335,
         "open" : false
       } ]
     }
@@ -278,7 +278,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -343,7 +343,7 @@
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -391,11 +391,11 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 75.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -422,7 +422,7 @@
           "componentType" : "NODE",
           "fictitious" : true,
           "x" : 75.0,
-          "y" : 63.33333333333334,
+          "y" : 63.33333333333335,
           "open" : false
         }, {
           "type" : "FEEDER",

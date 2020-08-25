@@ -20,7 +20,15 @@ import java.util.Set;
  */
 public interface Block {
     enum Type {
-        PRIMARY, PARALLEL, SERIAL, UNDEFINED
+        LEGPRIMARY, BODYPRIMARY, LEGPARALLEL, BODYPARALLEL, SERIAL, UNDEFINED;
+
+        public boolean isPrimary() {
+            return this == LEGPRIMARY || this == BODYPRIMARY;
+        }
+
+        public boolean isParallel() {
+            return this == LEGPARALLEL || this == BODYPARALLEL;
+        }
     }
 
     enum Extremity {
@@ -84,7 +92,9 @@ public interface Block {
 
     double calculateRootHeight(LayoutParameters layoutParam);
 
-    int getOrder();
+    default int getOrder() {
+        return 0;
+    }
 
     void coordVerticalCase(LayoutParameters layoutParam);
 
@@ -105,4 +115,5 @@ public interface Block {
     Type getType();
 
     void writeJson(JsonGenerator generator) throws IOException;
+
 }

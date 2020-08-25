@@ -83,6 +83,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public String toString() {
-        return "Cell(type=" + getType() + ", direction=" + direction + ", nodes=" + nodes + ")";
+        return getType() + " " + direction + " " + nodes;
     }
 }
