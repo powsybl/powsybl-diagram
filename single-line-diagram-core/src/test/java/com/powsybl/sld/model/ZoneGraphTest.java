@@ -29,15 +29,15 @@ import com.powsybl.sld.NetworkGraphBuilder;
  */
 public class ZoneGraphTest {
 
-    private static final String SUBSTATION_ID_1 = "Substation1";
-    private static final String SUBSTATION_ID_2 = "Substation2";
+    public static final String SUBSTATION_ID_1 = "Substation1";
+    public static final String SUBSTATION_ID_2 = "Substation2";
     private static final String VOLTAGELEVEL_ID_1 = "VoltageLevel1";
     private static final String VOLTAGELEVEL_ID_2 = "VoltageLevel2";
     private static final String BUS_ID_1 = "Bus1";
     private static final String BUS_ID_2 = "Bus2";
     private static final String LINE_ID = "Line";
 
-    private Network createNetwork() {
+    public static Network createNetwork() {
         Network network = Network.create("Network", "test");
         network.setCaseDate(DateTime.parse("2018-01-01T00:30:00.000+01:00"));
         Substation substation1 = network.newSubstation()

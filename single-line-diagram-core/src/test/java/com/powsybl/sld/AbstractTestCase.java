@@ -167,9 +167,23 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toJson(SubstationGraph graph, String filename, boolean generateCoordsInJson) {
+    public String toJson(SubstationGraph graph, String filename, boolean genCoords) {
+        graph.setGenerateCoordsInJson(genCoords);
+        return toJson(graph, filename);
+    }
+
+    public String toJson(ZoneGraph graph, String filename, boolean generateCoordsInJson) {
         graph.setGenerateCoordsInJson(generateCoordsInJson);
         return toJson(graph, filename);
+    }
+
+    public String toJson(ZoneGraph graph, String filename) {
+        try (StringWriter writer = new StringWriter()) {
+            graph.writeJson(writer);
+            return normalizeLineSeparator(writer.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public String toString(String resourceName) {

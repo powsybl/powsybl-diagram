@@ -100,6 +100,6 @@ public class TestCase4NotParallelel extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g, "/TestCase4NotParallelel.json"), toString("/TestCase4NotParallelel.json"));
+        assertEquals(toString("/TestCase4NotParallelel.json"), toJson(g, "/TestCase4NotParallelel.json"));
     }
 }

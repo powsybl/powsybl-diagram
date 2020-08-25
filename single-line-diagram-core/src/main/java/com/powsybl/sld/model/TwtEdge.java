@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,5 +31,25 @@ public class TwtEdge extends Edge {
 
     public void setSnakeLine(List<Double> snakeLine) {
         this.snakeLine = Objects.requireNonNull(snakeLine);
+    }
+
+    @Override
+    void writeJson(JsonGenerator generator) throws IOException {
+        writeJson(generator, false);
+    }
+
+    void writeJson(JsonGenerator generator, boolean generateCoordsInJson) throws IOException {
+        generator.writeStartObject();
+        generator.writeArrayFieldStart("nodes");
+        super.writeJson(generator);
+        generator.writeEndArray();
+        if (generateCoordsInJson) {
+            generator.writeArrayFieldStart("snakeLine");
+            for (Double point : snakeLine) {
+                generator.writeNumber(point);
+            }
+            generator.writeEndArray();
+        }
+        generator.writeEndObject();
     }
 }
