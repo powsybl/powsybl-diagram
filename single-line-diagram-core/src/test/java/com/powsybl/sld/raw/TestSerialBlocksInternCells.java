@@ -62,6 +62,6 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
+        assertEquals(toString("/testSerialBlocksInternCells.json"), toJson(g, "/testSerialBlocksInternCells.json"));
     }
 }

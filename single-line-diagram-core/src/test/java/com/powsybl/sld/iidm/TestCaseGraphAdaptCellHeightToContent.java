@@ -95,7 +95,6 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
         layoutParameters.setShowGrid(true);
-        writeFile = true;
 
         assertEquals(toString("/TestCaseGraphExternCellHeightFixed.json"), toJson(g, "/TestCaseGraphExternCellHeightFixed.json"));
 
