@@ -62,6 +62,7 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
+        writeFile = true;
         assertEquals(toString("/testLanesWithUnileg.json"), toJson(g, "/testLanesWithUnileg.json"));
     }
 }

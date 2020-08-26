@@ -904,36 +904,36 @@
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs12",
-          "name" : "bbs12",
-          "equipmentId" : "bbs12",
+          "id" : "bbs22",
+          "name" : "bbs22",
+          "equipmentId" : "bbs22",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "x" : 210.0,
-          "y" : 260.0,
+          "y" : 285.0,
           "open" : false,
           "pxWidth" : 80.0,
           "structuralPosition" : {
             "h" : 2,
-            "v" : 1,
+            "v" : 2,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
             "h" : 4,
-            "v" : 1,
+            "v" : 2,
             "hSpan" : 2,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dF1",
-          "name" : "dF1",
-          "equipmentId" : "dF1",
+          "id" : "dF2",
+          "name" : "dF2",
+          "equipmentId" : "dF2",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "x" : 275.0,
-          "y" : 260.0,
+          "y" : 285.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
         }, {
@@ -969,36 +969,36 @@
         },
         "nodes" : [ {
           "type" : "BUS",
-          "id" : "bbs22",
-          "name" : "bbs22",
-          "equipmentId" : "bbs22",
+          "id" : "bbs12",
+          "name" : "bbs12",
+          "equipmentId" : "bbs12",
           "componentType" : "BUSBAR_SECTION",
           "fictitious" : false,
           "x" : 210.0,
-          "y" : 285.0,
+          "y" : 260.0,
           "open" : false,
           "pxWidth" : 80.0,
           "structuralPosition" : {
             "h" : 2,
-            "v" : 2,
+            "v" : 1,
             "hSpan" : 1,
             "vSpan" : 0
           },
           "position" : {
             "h" : 4,
-            "v" : 2,
+            "v" : 1,
             "hSpan" : 2,
             "vSpan" : 0
           }
         }, {
           "type" : "SWITCH",
-          "id" : "dF2",
-          "name" : "dF2",
-          "equipmentId" : "dF2",
+          "id" : "dF1",
+          "name" : "dF1",
+          "equipmentId" : "dF1",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
           "x" : 275.0,
-          "y" : 285.0,
+          "y" : 260.0,
           "open" : false,
           "kind" : "DISCONNECTOR"
         }, {
