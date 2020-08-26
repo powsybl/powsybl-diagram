@@ -46,11 +46,9 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     public Node getExtremityNode(Extremity extremity) {
         if (extremity == Extremity.START) {
             return subBlocks.get(0).getExtremityNode(Extremity.START);
-        }
-        if (extremity == Extremity.END) {
+        } else {
             return subBlocks.get(subBlocks.size() - 1).getExtremityNode(Extremity.END);
         }
-        return null;
     }
 
     @Override

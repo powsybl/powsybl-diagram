@@ -60,7 +60,7 @@
           "x" : 10.0,
           "y" : 285.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -70,7 +70,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 6,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -181,7 +181,7 @@
           "x" : 10.0,
           "y" : 260.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -191,7 +191,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 6,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -274,7 +274,7 @@
           "x" : 10.0,
           "y" : 260.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 1,
@@ -284,7 +284,7 @@
           "position" : {
             "h" : 0,
             "v" : 1,
-            "hSpan" : 6,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -982,7 +982,7 @@
               "x" : 10.0,
               "y" : 285.0,
               "open" : false,
-              "pxWidth" : 280.0,
+              "pxWidth" : 380.0,
               "structuralPosition" : {
                 "h" : 1,
                 "v" : 2,
@@ -992,7 +992,7 @@
               "position" : {
                 "h" : 0,
                 "v" : 2,
-                "hSpan" : 6,
+                "hSpan" : 8,
                 "vSpan" : 0
               }
             }, {
@@ -1120,7 +1120,7 @@
               "x" : 10.0,
               "y" : 260.0,
               "open" : false,
-              "pxWidth" : 280.0,
+              "pxWidth" : 380.0,
               "structuralPosition" : {
                 "h" : 1,
                 "v" : 1,
@@ -1130,7 +1130,7 @@
               "position" : {
                 "h" : 0,
                 "v" : 1,
-                "hSpan" : 6,
+                "hSpan" : 8,
                 "vSpan" : 0
               }
             }, {
@@ -1273,23 +1273,23 @@
     "direction" : "BOTTOM",
     "order" : 2,
     "rootBlock" : {
-      "type" : "UNDEFINED",
+      "type" : "SERIAL",
       "cardinalities" : [ {
-        "START" : 0
+        "START" : 1
       }, {
-        "END" : 0
+        "END" : 1
       } ],
       "position" : {
         "h" : 5,
         "v" : 0,
-        "hSpan" : 0,
-        "vSpan" : 0,
+        "hSpan" : 2,
+        "vSpan" : 6,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 250.0,
+        "x" : 300.0,
         "y" : 415.0,
-        "xSpan" : 0.0,
+        "xSpan" : 100.0,
         "ySpan" : 200.0
       },
       "subBlocks" : [ {
@@ -1300,19 +1300,136 @@
           "END" : 2
         } ],
         "position" : {
-          "h" : -1,
-          "v" : -1,
+          "h" : 0,
+          "v" : 0,
           "hSpan" : 2,
           "vSpan" : 4,
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 250.0,
-          "y" : 415.0,
-          "xSpan" : 0.0,
-          "ySpan" : 200.0
+          "x" : 300.0,
+          "y" : 381.6666666666667,
+          "xSpan" : 100.0,
+          "ySpan" : 133.33333333333331
         },
         "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 1,
+            "vSpan" : 0,
+            "orientation" : "VERTICAL"
+          },
+          "coord" : {
+            "x" : 300.0,
+            "y" : 315.0,
+            "xSpan" : 100.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ {
+            "type" : "BUS",
+            "id" : "bbs1",
+            "name" : "bbs1",
+            "equipmentId" : "bbs1",
+            "componentType" : "BUSBAR_SECTION",
+            "fictitious" : false,
+            "x" : 10.0,
+            "y" : 260.0,
+            "open" : false,
+            "pxWidth" : 380.0,
+            "structuralPosition" : {
+              "h" : 1,
+              "v" : 1,
+              "hSpan" : 1,
+              "vSpan" : 0
+            },
+            "position" : {
+              "h" : 0,
+              "v" : 1,
+              "hSpan" : 8,
+              "vSpan" : 0
+            }
+          }, {
+            "type" : "SWITCH",
+            "id" : "d7",
+            "name" : "d7",
+            "equipmentId" : "d7",
+            "componentType" : "DISCONNECTOR",
+            "fictitious" : false,
+            "x" : 300.0,
+            "y" : 260.0,
+            "open" : true,
+            "kind" : "DISCONNECTOR"
+          }, {
+            "type" : "FICTITIOUS",
+            "id" : "FICT_vl_22",
+            "name" : "22",
+            "equipmentId" : "22",
+            "componentType" : "NODE",
+            "fictitious" : true,
+            "x" : 300.0,
+            "y" : 315.0,
+            "open" : false
+          } ]
+        }, {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 1,
+            "vSpan" : 2,
+            "orientation" : "VERTICAL"
+          },
+          "coord" : {
+            "x" : 300.0,
+            "y" : 348.3333333333333,
+            "xSpan" : 100.0,
+            "ySpan" : 66.66666666666666
+          },
+          "nodes" : [ {
+            "type" : "FICTITIOUS",
+            "id" : "FICT_vl_22",
+            "name" : "22",
+            "equipmentId" : "22",
+            "componentType" : "NODE",
+            "fictitious" : true,
+            "x" : 300.0,
+            "y" : 315.0,
+            "open" : false
+          }, {
+            "type" : "SWITCH",
+            "id" : "b17",
+            "name" : "b17",
+            "equipmentId" : "b17",
+            "componentType" : "BREAKER",
+            "fictitious" : false,
+            "x" : 300.0,
+            "y" : 348.3333333333333,
+            "open" : false,
+            "kind" : "BREAKER"
+          }, {
+            "type" : "FICTITIOUS",
+            "id" : "FICT_vl_23",
+            "name" : "23",
+            "equipmentId" : "23",
+            "componentType" : "NODE",
+            "fictitious" : true,
+            "x" : 300.0,
+            "y" : 381.6666666666667,
+            "open" : false
+          } ]
+        }, {
           "type" : "BODYPARALLEL",
           "cardinalities" : [ {
             "START" : 2
@@ -1321,16 +1438,16 @@
           } ],
           "position" : {
             "h" : 0,
-            "v" : 0,
+            "v" : 2,
             "hSpan" : 2,
             "vSpan" : 2,
             "orientation" : "VERTICAL"
           },
           "coord" : {
-            "x" : 250.0,
-            "y" : 365.0,
-            "xSpan" : 0.0,
-            "ySpan" : 100.0
+            "x" : 300.0,
+            "y" : 415.0,
+            "xSpan" : 100.0,
+            "ySpan" : 66.66666666666666
           },
           "subBlocks" : [ {
             "type" : "BODYPRIMARY",
@@ -1347,41 +1464,41 @@
               "orientation" : "VERTICAL"
             },
             "coord" : {
-              "x" : 250.0,
-              "y" : 365.0,
-              "xSpan" : 0.0,
-              "ySpan" : 100.0
+              "x" : 275.0,
+              "y" : 415.0,
+              "xSpan" : 50.0,
+              "ySpan" : 66.66666666666666
             },
             "nodes" : [ {
-              "type" : "FICTITIOUS",
-              "id" : "FICT_vl_24",
-              "name" : "24",
-              "equipmentId" : "24",
-              "componentType" : "NODE",
-              "fictitious" : true,
-              "x" : 250.0,
-              "y" : 315.0,
-              "open" : false
-            }, {
-              "type" : "SWITCH",
-              "id" : "b19",
-              "name" : "b19",
-              "equipmentId" : "b19",
-              "componentType" : "BREAKER",
-              "fictitious" : false,
-              "x" : 250.0,
-              "y" : 365.0,
-              "open" : false,
-              "kind" : "BREAKER"
-            }, {
               "type" : "FICTITIOUS",
               "id" : "FICT_vl_23",
               "name" : "23",
               "equipmentId" : "23",
               "componentType" : "NODE",
               "fictitious" : true,
-              "x" : 250.0,
+              "x" : 300.0,
+              "y" : 381.6666666666667,
+              "open" : false
+            }, {
+              "type" : "SWITCH",
+              "id" : "b18",
+              "name" : "b18",
+              "equipmentId" : "b18",
+              "componentType" : "BREAKER",
+              "fictitious" : false,
+              "x" : 275.0,
               "y" : 415.0,
+              "open" : false,
+              "kind" : "BREAKER"
+            }, {
+              "type" : "FICTITIOUS",
+              "id" : "FICT_vl_24",
+              "name" : "24",
+              "equipmentId" : "24",
+              "componentType" : "NODE",
+              "fictitious" : true,
+              "x" : 300.0,
+              "y" : 448.33333333333337,
               "open" : false
             } ]
           }, {
@@ -1399,160 +1516,43 @@
               "orientation" : "VERTICAL"
             },
             "coord" : {
-              "x" : 250.0,
-              "y" : 365.0,
-              "xSpan" : 0.0,
-              "ySpan" : 100.0
+              "x" : 325.0,
+              "y" : 415.0,
+              "xSpan" : 50.0,
+              "ySpan" : 66.66666666666666
             },
             "nodes" : [ {
-              "type" : "FICTITIOUS",
-              "id" : "FICT_vl_24",
-              "name" : "24",
-              "equipmentId" : "24",
-              "componentType" : "NODE",
-              "fictitious" : true,
-              "x" : 250.0,
-              "y" : 315.0,
-              "open" : false
-            }, {
-              "type" : "SWITCH",
-              "id" : "b18",
-              "name" : "b18",
-              "equipmentId" : "b18",
-              "componentType" : "BREAKER",
-              "fictitious" : false,
-              "x" : 250.0,
-              "y" : 365.0,
-              "open" : false,
-              "kind" : "BREAKER"
-            }, {
               "type" : "FICTITIOUS",
               "id" : "FICT_vl_23",
               "name" : "23",
               "equipmentId" : "23",
               "componentType" : "NODE",
               "fictitious" : true,
-              "x" : 250.0,
+              "x" : 300.0,
+              "y" : 381.6666666666667,
+              "open" : false
+            }, {
+              "type" : "SWITCH",
+              "id" : "b19",
+              "name" : "b19",
+              "equipmentId" : "b19",
+              "componentType" : "BREAKER",
+              "fictitious" : false,
+              "x" : 325.0,
               "y" : 415.0,
+              "open" : false,
+              "kind" : "BREAKER"
+            }, {
+              "type" : "FICTITIOUS",
+              "id" : "FICT_vl_24",
+              "name" : "24",
+              "equipmentId" : "24",
+              "componentType" : "NODE",
+              "fictitious" : true,
+              "x" : 300.0,
+              "y" : 448.33333333333337,
               "open" : false
             } ]
-          } ]
-        }, {
-          "type" : "BODYPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 2,
-            "hSpan" : 1,
-            "vSpan" : 2,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 250.0,
-            "y" : 465.0,
-            "xSpan" : 0.0,
-            "ySpan" : 100.0
-          },
-          "nodes" : [ {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl_23",
-            "name" : "23",
-            "equipmentId" : "23",
-            "componentType" : "NODE",
-            "fictitious" : true,
-            "x" : 250.0,
-            "y" : 415.0,
-            "open" : false
-          }, {
-            "type" : "SWITCH",
-            "id" : "b17",
-            "name" : "b17",
-            "equipmentId" : "b17",
-            "componentType" : "BREAKER",
-            "fictitious" : false,
-            "x" : 250.0,
-            "y" : 465.0,
-            "open" : false,
-            "kind" : "BREAKER"
-          }, {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl_22",
-            "name" : "22",
-            "equipmentId" : "22",
-            "componentType" : "NODE",
-            "fictitious" : true,
-            "x" : 250.0,
-            "y" : 515.0,
-            "open" : false
-          } ]
-        }, {
-          "type" : "LEGPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 4,
-            "hSpan" : 1,
-            "vSpan" : 0,
-            "orientation" : "VERTICAL"
-          },
-          "coord" : {
-            "x" : 250.0,
-            "y" : 515.0,
-            "xSpan" : 0.0,
-            "ySpan" : 0.0
-          },
-          "nodes" : [ {
-            "type" : "BUS",
-            "id" : "bbs1",
-            "name" : "bbs1",
-            "equipmentId" : "bbs1",
-            "componentType" : "BUSBAR_SECTION",
-            "fictitious" : false,
-            "x" : 10.0,
-            "y" : 260.0,
-            "open" : false,
-            "pxWidth" : 280.0,
-            "structuralPosition" : {
-              "h" : 1,
-              "v" : 1,
-              "hSpan" : 1,
-              "vSpan" : 0
-            },
-            "position" : {
-              "h" : 0,
-              "v" : 1,
-              "hSpan" : 6,
-              "vSpan" : 0
-            }
-          }, {
-            "type" : "SWITCH",
-            "id" : "d7",
-            "name" : "d7",
-            "equipmentId" : "d7",
-            "componentType" : "DISCONNECTOR",
-            "fictitious" : false,
-            "x" : 250.0,
-            "y" : 260.0,
-            "open" : true,
-            "kind" : "DISCONNECTOR"
-          }, {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vl_22",
-            "name" : "22",
-            "equipmentId" : "22",
-            "componentType" : "NODE",
-            "fictitious" : true,
-            "x" : 250.0,
-            "y" : 515.0,
-            "open" : false
           } ]
         } ]
       }, {
@@ -1563,17 +1563,17 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : -1,
-          "v" : -1,
+          "h" : 0,
+          "v" : 4,
           "hSpan" : 1,
           "vSpan" : 2,
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 250.0,
-          "y" : 415.0,
-          "xSpan" : 0.0,
-          "ySpan" : 200.0
+          "x" : 300.0,
+          "y" : 481.6666666666667,
+          "xSpan" : 100.0,
+          "ySpan" : 66.66666666666666
         },
         "nodes" : [ {
           "type" : "FICTITIOUS",
@@ -1582,8 +1582,8 @@
           "equipmentId" : "24",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 250.0,
-          "y" : 315.0,
+          "x" : 300.0,
+          "y" : 448.33333333333337,
           "open" : false
         }, {
           "type" : "SWITCH",
@@ -1592,8 +1592,8 @@
           "equipmentId" : "b20",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 250.0,
-          "y" : 415.0,
+          "x" : 300.0,
+          "y" : 481.6666666666667,
           "open" : false,
           "kind" : "BREAKER"
         }, {
@@ -1603,7 +1603,7 @@
           "equipmentId" : "gen2",
           "componentType" : "GENERATOR",
           "fictitious" : false,
-          "x" : 250.0,
+          "x" : 300.0,
           "y" : 515.0,
           "open" : false,
           "label" : "gen2",
@@ -1626,14 +1626,14 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 5,
+        "h" : 7,
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
-        "x" : 275.0,
+        "x" : 375.0,
         "y" : 415.0,
         "xSpan" : 50.0,
         "ySpan" : 200.0
@@ -1653,7 +1653,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 315.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
@@ -1668,7 +1668,7 @@
           "x" : 10.0,
           "y" : 285.0,
           "open" : false,
-          "pxWidth" : 280.0,
+          "pxWidth" : 380.0,
           "structuralPosition" : {
             "h" : 1,
             "v" : 2,
@@ -1678,7 +1678,7 @@
           "position" : {
             "h" : 0,
             "v" : 2,
-            "hSpan" : 6,
+            "hSpan" : 8,
             "vSpan" : 0
           }
         }, {
@@ -1688,7 +1688,7 @@
           "equipmentId" : "d4",
           "componentType" : "DISCONNECTOR",
           "fictitious" : false,
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 285.0,
           "open" : true,
           "kind" : "DISCONNECTOR"
@@ -1699,7 +1699,7 @@
           "equipmentId" : "16",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 315.0,
           "open" : false
         } ]
@@ -1718,7 +1718,7 @@
           "orientation" : "VERTICAL"
         },
         "coord" : {
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 415.0,
           "xSpan" : 50.0,
           "ySpan" : 200.0
@@ -1730,7 +1730,7 @@
           "equipmentId" : "16",
           "componentType" : "NODE",
           "fictitious" : true,
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 315.0,
           "open" : false
         }, {
@@ -1740,7 +1740,7 @@
           "equipmentId" : "b13",
           "componentType" : "BREAKER",
           "fictitious" : false,
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 415.0,
           "open" : false,
           "kind" : "BREAKER"
@@ -1751,7 +1751,7 @@
           "equipmentId" : "gen1",
           "componentType" : "GENERATOR",
           "fictitious" : false,
-          "x" : 275.0,
+          "x" : 375.0,
           "y" : 515.0,
           "open" : false,
           "label" : "gen1",

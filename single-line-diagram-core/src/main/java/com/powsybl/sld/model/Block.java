@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -32,24 +33,14 @@ public interface Block {
     }
 
     enum Extremity {
-        START, END, NONE;
-
-        public Extremity flip() {
-            if (this.equals(START)) {
-                return END;
-            }
-            if (this.equals(END)) {
-                return START;
-            }
-            return NONE;
-        }
+        START, END;
     }
 
     Graph getGraph();
 
     Node getExtremityNode(Extremity extremity);
 
-    Extremity getExtremity(Node node);
+    Optional<Extremity> getExtremity(Node node);
 
     Node getStartingNode();
 

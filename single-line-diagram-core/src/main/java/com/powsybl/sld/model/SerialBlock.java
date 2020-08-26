@@ -44,13 +44,15 @@ public class SerialBlock extends AbstractComposedBlock {
     }
 
     private void postConstruct() {
-        for (int i = 0; i < subBlocks.size() - 1; i++) {
-            alignChaining(subBlocks.get(i), subBlocks.get(i + 1));
-        }
+        if (subBlocks.size() != 1) {
+            for (int i = 0; i < subBlocks.size() - 1; i++) {
+                alignChaining(subBlocks.get(i), subBlocks.get(i + 1));
+            }
 
-        if (getLowerBlock().isEmbedingNodeType(Node.NodeType.FEEDER)
-                || getUpperBlock().isEmbedingNodeType(Node.NodeType.BUS)) {
-            reverseBlock();
+            if (getLowerBlock().isEmbedingNodeType(Node.NodeType.FEEDER)
+                    || getUpperBlock().isEmbedingNodeType(Node.NodeType.BUS)) {
+                reverseBlock();
+            }
         }
 
         setCardinality(Extremity.START, getLowerBlock().getCardinality(Extremity.START));
@@ -94,14 +96,14 @@ public class SerialBlock extends AbstractComposedBlock {
         return false;
     }
 
-    Extremity whichExtremity(Block block) {
+    Optional<Extremity> whichExtremity(Block block) {
         if (block.equals(subBlocks.get(0))) {
-            return Extremity.START;
+            return Optional.of(Extremity.START);
         }
         if (block.equals(subBlocks.get(subBlocks.size() - 1))) {
-            return Extremity.END;
+            return Optional.of(Extremity.END);
         }
-        return Extremity.NONE;
+        return Optional.empty();
     }
 
     Block extractBody(Collection<Block> blocks) {

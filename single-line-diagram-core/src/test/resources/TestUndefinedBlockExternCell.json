@@ -1,0 +1,296 @@
+{
+  "voltageLevelInfos" : {
+    "id" : "vl",
+    "name" : "vl",
+    "nominalVoltage" : 400.0
+  },
+  "x" : 0.0,
+  "y" : 0.0,
+  "cells" : [ {
+    "type" : "EXTERN",
+    "number" : 0,
+    "direction" : "TOP",
+    "order" : 0,
+    "rootBlock" : {
+      "type" : "UNDEFINED",
+      "cardinalities" : [ {
+        "START" : 0
+      }, {
+        "END" : 0
+      } ],
+      "position" : {
+        "h" : 0,
+        "v" : 0,
+        "hSpan" : 0,
+        "vSpan" : 0,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : 0.0,
+        "y" : 105.0,
+        "xSpan" : 0.0,
+        "ySpan" : 250.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 105.0,
+          "xSpan" : 0.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "BUS",
+          "id" : "bbs",
+          "name" : "bbs",
+          "equipmentId" : "bbs",
+          "componentType" : "BUSBAR_SECTION",
+          "fictitious" : false,
+          "x" : 10.0,
+          "y" : 260.0,
+          "open" : false,
+          "pxWidth" : 30.0,
+          "structuralPosition" : {
+            "h" : 1,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          },
+          "position" : {
+            "h" : 0,
+            "v" : 1,
+            "hSpan" : 1,
+            "vSpan" : 0
+          }
+        }, {
+          "type" : "SWITCH",
+          "id" : "d",
+          "name" : "d",
+          "equipmentId" : "d",
+          "componentType" : "DISCONNECTOR",
+          "fictitious" : false,
+          "x" : 0.0,
+          "y" : 260.0,
+          "open" : false,
+          "kind" : "DISCONNECTOR"
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f0",
+          "name" : "f0",
+          "equipmentId" : "f0",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 1,
+          "vSpan" : 1,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 105.0,
+          "xSpan" : 0.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f0",
+          "name" : "f0",
+          "equipmentId" : "f0",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f1",
+          "name" : "f1",
+          "equipmentId" : "f1",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 1,
+          "vSpan" : 1,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 105.0,
+          "xSpan" : 0.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f1",
+          "name" : "f1",
+          "equipmentId" : "f1",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "FEEDER",
+          "id" : "l1",
+          "name" : "l1",
+          "equipmentId" : "l1",
+          "componentType" : "LOAD",
+          "fictitious" : false,
+          "x" : 0.0,
+          "y" : -20.0,
+          "open" : false,
+          "label" : "l1",
+          "feederType" : "INJECTION",
+          "order" : 0,
+          "direction" : "TOP"
+        } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 1,
+          "vSpan" : 1,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 105.0,
+          "xSpan" : 0.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f1",
+          "name" : "f1",
+          "equipmentId" : "f1",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f2",
+          "name" : "f2",
+          "equipmentId" : "f2",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 1,
+          "vSpan" : 1,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 105.0,
+          "xSpan" : 0.0,
+          "ySpan" : 250.0
+        },
+        "nodes" : [ {
+          "type" : "FICTITIOUS",
+          "id" : "FICT_vl_f2",
+          "name" : "f2",
+          "equipmentId" : "f2",
+          "componentType" : "NODE",
+          "fictitious" : true,
+          "x" : 0.0,
+          "y" : 230.0,
+          "open" : false
+        }, {
+          "type" : "FEEDER",
+          "id" : "l2",
+          "name" : "l2",
+          "equipmentId" : "l2",
+          "componentType" : "LOAD",
+          "fictitious" : false,
+          "x" : 0.0,
+          "y" : -20.0,
+          "open" : false,
+          "label" : "l2",
+          "feederType" : "INJECTION",
+          "order" : 1,
+          "direction" : "TOP"
+        } ]
+      } ]
+    }
+  } ],
+  "edges" : [ {
+    "node1" : "bbs",
+    "node2" : "d"
+  }, {
+    "node1" : "d",
+    "node2" : "FICT_vl_f0"
+  }, {
+    "node1" : "FICT_vl_f0",
+    "node2" : "FICT_vl_f1"
+  }, {
+    "node1" : "FICT_vl_f1",
+    "node2" : "l1"
+  }, {
+    "node1" : "FICT_vl_f1",
+    "node2" : "FICT_vl_f2"
+  }, {
+    "node1" : "FICT_vl_f2",
+    "node2" : "l2"
+  }, {
+    "node1" : "FICT_vl_f2",
+    "node2" : "FICT_vl_f0"
+  } ]
+}

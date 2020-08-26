@@ -13,6 +13,8 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -60,8 +62,6 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        writeFile = true;
-        toSVG(g, "/TestSerialBlocksInternCells.svg");
-//        assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
+        assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
     }
 }

@@ -69,9 +69,9 @@ public class InternCell extends AbstractBusCell {
     }
 
     private void assignLeg(SerialBlock sb, LegBlock candidateLeg) {
-        Block.Extremity extremity = sb.whichExtremity(candidateLeg);
-        if (extremity != Block.Extremity.NONE) {
-            legs.put(extremityToSide(extremity), candidateLeg);
+        Optional<Block.Extremity> extremity = sb.whichExtremity(candidateLeg);
+        if (extremity.isPresent()) {
+            legs.put(extremityToSide(extremity.get()), candidateLeg);
         } else {
             throw new PowsyblException("Unable to identify legs of internCell");
         }
