@@ -43,7 +43,10 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             .setScaleFactor(1)
             .setHorizontalSubstationPadding(50)
             .setVerticalSubstationPadding(50)
-            .setArrowDistance(20);
+            .setArrowDistance(20)
+            .setDrawStraightWires(false)
+            .setHorizontalSnakeLinePadding(30)
+            .setVerticalSnakeLinePadding(30);
 
     DiagramLabelProvider getDiagramLabelProvider(Graph graph) {
         Map<Node, List<DiagramLabelProvider.NodeLabel>> busLabels = new HashMap<>();

@@ -87,6 +87,6 @@ public class TestCase5ShuntHorizontal extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCase5ShuntHorizontal.json"), toJson(g, "/TestCase5ShuntHorizontal.json"));
+        assertEquals(toString("/TestCase5H.json"), toJson(g, "/TestCase5H.json"));
     }
 }
