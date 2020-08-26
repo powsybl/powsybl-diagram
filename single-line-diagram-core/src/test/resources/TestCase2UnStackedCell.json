@@ -6,6 +6,110 @@
   },
   "x" : 0.0,
   "y" : 0.0,
+  "nodes" : [ {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vlUnstack_2",
+    "name" : "2",
+    "equipmentId" : "2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "SWITCH",
+    "id" : "b",
+    "name" : "b",
+    "equipmentId" : "b",
+    "componentType" : "BREAKER",
+    "fictitious" : false,
+    "x" : 50.0,
+    "y" : 105.0,
+    "open" : false,
+    "kind" : "BREAKER"
+  }, {
+    "type" : "BUS",
+    "id" : "bbs1",
+    "name" : "bbs1",
+    "equipmentId" : "bbs1",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 10.0,
+    "y" : 260.0,
+    "open" : false,
+    "pxWidth" : 80.0,
+    "structuralPosition" : {
+      "h" : 1,
+      "v" : 1,
+      "hSpan" : 1,
+      "vSpan" : 0
+    },
+    "position" : {
+      "h" : 0,
+      "v" : 1,
+      "hSpan" : 2,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "BUS",
+    "id" : "bbs2",
+    "name" : "bbs2",
+    "equipmentId" : "bbs2",
+    "componentType" : "BUSBAR_SECTION",
+    "fictitious" : false,
+    "x" : 10.0,
+    "y" : 285.0,
+    "open" : false,
+    "pxWidth" : 80.0,
+    "structuralPosition" : {
+      "h" : 1,
+      "v" : 2,
+      "hSpan" : 1,
+      "vSpan" : 0
+    },
+    "position" : {
+      "h" : 0,
+      "v" : 2,
+      "hSpan" : 2,
+      "vSpan" : 0
+    }
+  }, {
+    "type" : "SWITCH",
+    "id" : "d1",
+    "name" : "d1",
+    "equipmentId" : "d1",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 75.0,
+    "y" : 260.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "SWITCH",
+    "id" : "d2",
+    "name" : "d2",
+    "equipmentId" : "d2",
+    "componentType" : "DISCONNECTOR",
+    "fictitious" : false,
+    "x" : 25.0,
+    "y" : 285.0,
+    "open" : false,
+    "kind" : "DISCONNECTOR"
+  }, {
+    "type" : "FEEDER",
+    "id" : "l",
+    "name" : "l",
+    "equipmentId" : "l",
+    "componentType" : "LOAD",
+    "fictitious" : false,
+    "x" : 50.0,
+    "y" : -20.0,
+    "open" : false,
+    "label" : "l",
+    "feederType" : "INJECTION",
+    "order" : 0,
+    "direction" : "TOP"
+  } ],
   "cells" : [ {
     "type" : "EXTERN",
     "number" : 0,
@@ -71,51 +175,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ {
-            "type" : "BUS",
-            "id" : "bbs2",
-            "name" : "bbs2",
-            "equipmentId" : "bbs2",
-            "componentType" : "BUSBAR_SECTION",
-            "fictitious" : false,
-            "x" : 10.0,
-            "y" : 285.0,
-            "open" : false,
-            "pxWidth" : 80.0,
-            "structuralPosition" : {
-              "h" : 1,
-              "v" : 2,
-              "hSpan" : 1,
-              "vSpan" : 0
-            },
-            "position" : {
-              "h" : 0,
-              "v" : 2,
-              "hSpan" : 2,
-              "vSpan" : 0
-            }
-          }, {
-            "type" : "SWITCH",
-            "id" : "d2",
-            "name" : "d2",
-            "equipmentId" : "d2",
-            "componentType" : "DISCONNECTOR",
-            "fictitious" : false,
-            "x" : 25.0,
-            "y" : 285.0,
-            "open" : false,
-            "kind" : "DISCONNECTOR"
-          }, {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vlUnstack_2",
-            "name" : "2",
-            "equipmentId" : "2",
-            "componentType" : "NODE",
-            "fictitious" : true,
-            "x" : 50.0,
-            "y" : 230.0,
-            "open" : false
-          } ]
+          "nodes" : [ "bbs2", "d2", "FICT_vlUnstack_2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -136,51 +196,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ {
-            "type" : "BUS",
-            "id" : "bbs1",
-            "name" : "bbs1",
-            "equipmentId" : "bbs1",
-            "componentType" : "BUSBAR_SECTION",
-            "fictitious" : false,
-            "x" : 10.0,
-            "y" : 260.0,
-            "open" : false,
-            "pxWidth" : 80.0,
-            "structuralPosition" : {
-              "h" : 1,
-              "v" : 1,
-              "hSpan" : 1,
-              "vSpan" : 0
-            },
-            "position" : {
-              "h" : 0,
-              "v" : 1,
-              "hSpan" : 2,
-              "vSpan" : 0
-            }
-          }, {
-            "type" : "SWITCH",
-            "id" : "d1",
-            "name" : "d1",
-            "equipmentId" : "d1",
-            "componentType" : "DISCONNECTOR",
-            "fictitious" : false,
-            "x" : 75.0,
-            "y" : 260.0,
-            "open" : false,
-            "kind" : "DISCONNECTOR"
-          }, {
-            "type" : "FICTITIOUS",
-            "id" : "FICT_vlUnstack_2",
-            "name" : "2",
-            "equipmentId" : "2",
-            "componentType" : "NODE",
-            "fictitious" : true,
-            "x" : 50.0,
-            "y" : 230.0,
-            "open" : false
-          } ]
+          "nodes" : [ "bbs1", "d1", "FICT_vlUnstack_2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -202,42 +218,7 @@
           "xSpan" : 100.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ {
-          "type" : "FICTITIOUS",
-          "id" : "FICT_vlUnstack_2",
-          "name" : "2",
-          "equipmentId" : "2",
-          "componentType" : "NODE",
-          "fictitious" : true,
-          "x" : 50.0,
-          "y" : 230.0,
-          "open" : false
-        }, {
-          "type" : "SWITCH",
-          "id" : "b",
-          "name" : "b",
-          "equipmentId" : "b",
-          "componentType" : "BREAKER",
-          "fictitious" : false,
-          "x" : 50.0,
-          "y" : 105.0,
-          "open" : false,
-          "kind" : "BREAKER"
-        }, {
-          "type" : "FEEDER",
-          "id" : "l",
-          "name" : "l",
-          "equipmentId" : "l",
-          "componentType" : "LOAD",
-          "fictitious" : false,
-          "x" : 50.0,
-          "y" : -20.0,
-          "open" : false,
-          "label" : "l",
-          "feederType" : "INJECTION",
-          "order" : 0,
-          "direction" : "TOP"
-        } ]
+        "nodes" : [ "FICT_vlUnstack_2", "b", "l" ]
       } ]
     }
   } ],

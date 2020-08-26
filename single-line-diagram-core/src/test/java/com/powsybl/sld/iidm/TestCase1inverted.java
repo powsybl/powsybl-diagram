@@ -81,6 +81,6 @@ public class TestCase1inverted extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toJson(g, "/TestCase1inverted.json"), toString("/TestCase1inverted.json"));
+        assertEquals(toString("/TestCase1inverted.json"), toJson(g, "/TestCase1inverted.json"));
     }
 }

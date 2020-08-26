@@ -84,8 +84,8 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeFieldName("nodes");
         generator.writeStartArray();
-        for (Node node : nodes) {
-            node.writeJson(generator);
+        for (int i = 1; i <= nodes.size(); ++i) {
+            generator.writeString(nodes.get(i - 1).getId());
         }
         generator.writeEndArray();
     }

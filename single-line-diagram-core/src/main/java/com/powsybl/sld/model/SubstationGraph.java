@@ -107,18 +107,34 @@ public final class SubstationGraph {
         }
     }
 
+    public void writeJson(JsonGenerator generator) throws IOException {
+        generator.writeStartObject();
+        generator.writeStringField("substationId", substationId);
+        generator.writeArrayFieldStart("voltageLevels");
+        for (Graph graph : nodes) {
+            graph.setGenerateCoordsInJson(generateCoordsInJson);
+            graph.writeJson(generator);
+        }
+        generator.writeEndArray();
+        generator.writeArrayFieldStart("multitermNodes");
+        for (Node multitermNode : multiTermNodes) {
+            multitermNode.writeJson(generator);
+        }
+        generator.writeEndArray();
+        generator.writeArrayFieldStart("twtEdges");
+        for (TwtEdge edge : edges) {
+            edge.writeJson(generator, generateCoordsInJson);
+        }
+        generator.writeEndArray();
+        generator.writeEndObject();
+    }
+
     public void writeJson(Writer writer) {
         Objects.requireNonNull(writer);
         try (JsonGenerator generator = new JsonFactory()
                 .createGenerator(writer)
                 .useDefaultPrettyPrinter()) {
-            generator.writeStartArray();
-            for (Graph graph : nodes) {
-                graph.setGenerateCoordsInJson(generateCoordsInJson);
-                graph.writeJson(generator);
-            }
-
-            generator.writeEndArray();
+            writeJson(generator);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +69,32 @@ public class LineEdge extends Edge {
             this.y = y;
         }
 
+        void writeJson(JsonGenerator generator) throws IOException {
+            generator.writeStartObject();
+            generator.writeNumberField("x", x);
+            generator.writeNumberField("y", y);
+            generator.writeEndObject();
+        }
     }
 
+    @Override
+    void writeJson(JsonGenerator generator) throws IOException {
+        writeJson(generator, false);
+    }
+
+    void writeJson(JsonGenerator generator, boolean generateCoordsInJson) throws IOException {
+        generator.writeStartObject();
+        generator.writeStringField("lineId", lineId);
+        generator.writeArrayFieldStart("nodes");
+        super.writeJson(generator);
+        generator.writeEndArray();
+        if (generateCoordsInJson) {
+            generator.writeArrayFieldStart("points");
+            for (Point point : points) {
+                point.writeJson(generator);
+            }
+            generator.writeEndArray();
+        }
+        generator.writeEndObject();
+    }
 }
