@@ -22,7 +22,20 @@ import java.util.*;
 public class InternCell extends AbstractBusCell {
 
     public enum Shape {
-        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER
+        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER;
+
+        public boolean checkShape(Shape shape) {
+            return this == shape;
+        }
+
+        public boolean checkIsNotShape(Shape... shapes) {
+            for (Shape s : shapes) {
+                if (this == s) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InternCell.class);
@@ -63,7 +76,9 @@ public class InternCell extends AbstractBusCell {
         if (candidateLegs.size() == 1) {
             shape = Shape.UNILEG;
             legs.put(Side.UNDEFINED, candidateLegs.get(0));
-        } else if (getBusNodes().size() == 2) {
+        } else if (candidateLegs.size() == 2
+                && candidateLegs.get(0).getType() == Block.Type.LEGPRIMARY
+                && candidateLegs.get(1).getType() == Block.Type.LEGPRIMARY) {
             shape = Shape.MAYBEFLAT;
         }
     }
@@ -121,16 +136,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     public boolean checkShape(Shape shape) {
-        return this.shape == shape;
+        return this.shape.checkShape(shape);
     }
 
     public boolean checkIsNotShape(Shape... shapes) {
-        for (Shape s : shapes) {
-            if (this.shape == s) {
-                return false;
-            }
-        }
-        return true;
+        return shape.checkIsNotShape(shapes);
     }
 
     public void reverseCell() {
@@ -149,7 +159,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
+        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED)) {
             body.sizing();
         }
     }
