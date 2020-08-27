@@ -101,7 +101,7 @@ class BlockPositionner {
                 .map(InternCell.class::cast)
                 .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .collect(Collectors.toList());
-        InternCellsLane lane = new InternCellsLane(cellsToHandle);
+        InternCellsLanes lane = new InternCellsLanes(cellsToHandle);
         lane.run();
     }
 
@@ -110,23 +110,26 @@ class BlockPositionner {
      * After bundleToCompatibleLanes each lane contents non overlapping cells
      * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
      */
-    private class InternCellsLane {
-        Map<InternCell, ArrayList<InternCell>> incompatibilities;
-        InternCellsLane nextLane;
-        List<InternCellsLane> lanes;
+    private class InternCellsLanes {
+        InternCellsLanes nextLane;
+        List<InternCellsLanes> lanes;
+        List<InternCell> cells;
 
-        InternCellsLane(List<InternCell> cells) {
+        InternCellsLanes(List<InternCell> cells) {
+            this.cells = new ArrayList<>(cells);
             lanes = new ArrayList<>();
             lanes.add(this);
-            incompatibilities = new LinkedHashMap<>();
-            cells.forEach(this::addCell);
         }
 
-        InternCellsLane(InternCell cell, List<InternCellsLane> lanes) {
+        InternCellsLanes(InternCell cell, List<InternCellsLanes> lanes) {
             this.lanes = lanes;
             lanes.add(this);
-            incompatibilities = new LinkedHashMap<>();
+            cells = new ArrayList<>();
             addCell(cell);
+        }
+
+        void addCell(InternCell cell) {
+            cells.add(cell);
         }
 
         void run() {
@@ -134,36 +137,37 @@ class BlockPositionner {
             arrangeLanes();
         }
 
-        private void addCell(InternCell cell) {
-            incompatibilities.put(cell, new ArrayList<>());
-        }
-
         private void bundleToCompatibleLanes() {
-            while (identifyIncompatibilities()) {
-                shiftIncompatibilities();
+            Map<InternCell, List<InternCell>> incompatibilities = identifyIncompatibilities();
+            while (!incompatibilities.isEmpty()) {
+                shiftIncompatibilities(incompatibilities);
+                incompatibilities = identifyIncompatibilities();
+            }
+            if (nextLane != null) {
+                nextLane.bundleToCompatibleLanes();
             }
         }
 
-        private boolean identifyIncompatibilities() {
-            boolean hasIncompatibility = false;
-            for (Map.Entry<InternCell, ArrayList<InternCell>> entry : incompatibilities.entrySet()) {
-                InternCell internCellA = entry.getKey();
-                entry.getValue().clear();
+        private Map<InternCell, List<InternCell>> identifyIncompatibilities() {
+            Map<InternCell, List<InternCell>> incompatibilities = new LinkedHashMap<>();
+            for (int i = 0; i < cells.size(); i++) {
+                InternCell internCellA = cells.get(i);
                 int hAmin = getHfromSide(internCellA, Side.LEFT);
                 int hAmax = getHfromSide(internCellA, Side.RIGHT);
 
-                for (InternCell internCellB : incompatibilities.keySet()) {
-                    if (!internCellA.equals(internCellB)) {
-                        int hBmin = getHfromSide(internCellB, Side.LEFT);
-                        int hBmax = getHfromSide(internCellB, Side.RIGHT);
-                        if (hAmin < hBmax && hBmin < hAmax) {
-                            entry.getValue().add(internCellB);
-                            hasIncompatibility = true;
-                        }
+                for (int j = i + 1; j < cells.size(); j++) {
+                    InternCell internCellB = cells.get(j);
+                    int hBmin = getHfromSide(internCellB, Side.LEFT);
+                    int hBmax = getHfromSide(internCellB, Side.RIGHT);
+                    if (hAmin < hBmax && hBmin < hAmax) {
+                        incompatibilities.putIfAbsent(internCellA, new ArrayList<>());
+                        incompatibilities.get(internCellA).add(internCellB);
+                        incompatibilities.putIfAbsent(internCellB, new ArrayList<>());
+                        incompatibilities.get(internCellB).add(internCellA);
                     }
                 }
             }
-            return hasIncompatibility;
+            return incompatibilities;
         }
 
         private int getHfromSide(InternCell cell, Side side) {
@@ -173,49 +177,38 @@ class BlockPositionner {
             return cell.getSideHPos(side);
         }
 
-        private void shiftIncompatibilities() {
-            Map.Entry<InternCell, ArrayList<InternCell>> entry = incompatibilities.entrySet().stream()
+        private void shiftIncompatibilities(Map<InternCell, List<InternCell>> incompatibilities) {
+            incompatibilities.entrySet().stream()
                     .filter(e -> !e.getValue().isEmpty())
-                    .max(Comparator.comparingInt(e -> e.getValue().size())).orElse(null);
-
-            if (entry != null) {
-                InternCell cell = entry.getKey();
-                incompatibilities.remove(cell);
-                if (nextLane == null) {
-                    nextLane = new InternCellsLane(cell, lanes);
-                } else {
-                    nextLane.addCell(cell);
-                    nextLane.bundleToCompatibleLanes();
-                }
-            }
+                    .max(Comparator.comparingInt(e -> e.getValue().size()))
+                    .map(Map.Entry::getKey)
+                    .ifPresent(cell -> {
+                        cells.remove(cell);
+                        if (nextLane == null) {
+                            nextLane = new InternCellsLanes(cell, lanes);
+                        } else {
+                            nextLane.addCell(cell);
+                        }
+                    });
         }
 
         private void arrangeLanes() {
             int i = 0;
-            for (InternCellsLane lane : lanes) {
+            for (InternCellsLanes lane : lanes) {
                 final int j = i % 2;
                 final int newV = 1 + i / 2;
-                lane.incompatibilities.keySet()
-                        .forEach(c -> {
-                            c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
-                            if (!c.checkShape(InternCell.Shape.UNILEG)) {
-                                c.getBodyBlock().getPosition().setV(newV);
-                            }
-                        });
+                lane.cells.forEach(c -> {
+                    c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    if (!c.checkShape(InternCell.Shape.UNILEG)) {
+                        c.getBodyBlock().getPosition().setV(newV);
+                    }
+                });
                 i++;
             }
         }
 
         public String toString() {
-            StringBuilder str = new StringBuilder(incompatibilities.toString() + "\n\n");
-            if (nextLane != null) {
-                str.append(nextLane.toString());
-            }
-            return new String(str);
-        }
-
-        public int size() {
-            return incompatibilities.size();
+            return (lanes.indexOf(this) + 1) + "/" + lanes.size() + " " + cells.toString();
         }
     }
 }
