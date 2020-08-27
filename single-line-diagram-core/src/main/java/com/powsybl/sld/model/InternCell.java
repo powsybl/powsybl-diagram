@@ -76,9 +76,7 @@ public class InternCell extends AbstractBusCell {
         if (candidateLegs.size() == 1) {
             shape = Shape.UNILEG;
             legs.put(Side.UNDEFINED, candidateLegs.get(0));
-        } else if (candidateLegs.size() == 2
-                && candidateLegs.get(0).getType() == Block.Type.LEGPRIMARY
-                && candidateLegs.get(1).getType() == Block.Type.LEGPRIMARY) {
+        } else if (candidateLegs.size() == 2 && getBusNodes().size() == 2) {
             shape = Shape.MAYBEFLAT;
         }
     }
