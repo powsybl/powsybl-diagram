@@ -22,7 +22,7 @@ import java.util.*;
 public class InternCell extends AbstractBusCell {
 
     public enum Shape {
-        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER;
+        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER, UNHANDLEDPATTERN;
 
         public boolean checkShape(Shape shape) {
             return this == shape;
@@ -68,6 +68,7 @@ public class InternCell extends AbstractBusCell {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
+                    shape = Shape.UNHANDLEDPATTERN;
                     LOGGER.error("InternCell pattern not handled");
                     legs.put(Side.UNDEFINED, candidateLegs.get(0));
                 }
@@ -157,7 +158,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED)) {
+        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
             body.sizing();
         }
     }
@@ -204,7 +205,7 @@ public class InternCell extends AbstractBusCell {
 
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
-        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
+        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
             body.calculateRootCoord(layoutParam);
         }
         legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));

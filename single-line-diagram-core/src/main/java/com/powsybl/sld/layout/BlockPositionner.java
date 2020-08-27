@@ -99,7 +99,7 @@ class BlockPositionner {
         List<InternCell> cellsToHandle = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN)
                 .map(InternCell.class::cast)
-                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED))
+                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .collect(Collectors.toList());
         InternCellsLane lane = new InternCellsLane(cellsToHandle);
         lane.run();

@@ -108,7 +108,7 @@ class Subsection {
 
         oneNode.get().getGraph().getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.INTERN
-                        && ((InternCell) c).checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED))
+                        && ((InternCell) c).checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .map(InternCell.class::cast)
                 .forEach(c ->
                         subsections.stream()
