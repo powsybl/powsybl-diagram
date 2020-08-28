@@ -58,7 +58,6 @@ public class ShuntCell extends AbstractCell {
         return getCells().stream().flatMap(c -> c.getBusNodes().stream()).collect(Collectors.toList());
     }
 
-
     @Override
     public String toString() {
         return "ShuntCell(" + nodes + " )";

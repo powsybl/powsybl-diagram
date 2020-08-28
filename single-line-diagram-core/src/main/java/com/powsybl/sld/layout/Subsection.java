@@ -226,7 +226,7 @@ class Subsection {
 
     private static void identifySameSubsectionShuntCells(List<Subsection> subsections, Map<ShuntCell, List<BusNode>> shuntCells2Buses) {
         subsections.forEach(ss -> shuntCells2Buses.keySet().stream()
-                .filter(sc -> ss.containsAllBusNodes(shuntCells2Buses.get(sc)) && !ss.externCells.containsAll(sc.getCells()))
+                .filter(sc -> ss.containsAllBusNodes(shuntCells2Buses.get(sc)))
                 .forEach(sc -> {
                     sc.getCells().forEach(c -> moveExternCellToSubsection(c, ss, subsections));
                     int i1 = ss.externCells.indexOf(sc.getCell1());
