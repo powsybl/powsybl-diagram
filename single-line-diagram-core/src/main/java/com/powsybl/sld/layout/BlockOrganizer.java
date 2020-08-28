@@ -27,6 +27,8 @@ public class BlockOrganizer {
 
     private final boolean stack;
 
+    private final boolean handleShunt;
+
     private final boolean exceptionIfPatternNotHandled;
 
     public BlockOrganizer() {
@@ -46,9 +48,14 @@ public class BlockOrganizer {
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
+        this(positionFinder, stack, exceptionIfPatternNotHandled, false);
+    }
+
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
+        this.handleShunt = handleShunt;
     }
 
     /**
@@ -73,7 +80,7 @@ public class BlockOrganizer {
             determineStackableBlocks(graph);
         }
 
-        List<Subsection> subsections = positionFinder.buildLayout(graph);
+        List<Subsection> subsections = positionFinder.buildLayout(graph, handleShunt);
 
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)

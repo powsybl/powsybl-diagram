@@ -29,7 +29,7 @@ public interface PositionFinder {
 
     LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets);
 
-    default List<Subsection> buildLayout(Graph graph) {
+    default List<Subsection> buildLayout(Graph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
         }
@@ -38,7 +38,7 @@ public interface PositionFinder {
         LBSCluster lbsCluster = organizeLegBusSets(legBusSets);
         graph.setMaxBusPosition();
         forceSameOrientationForShuntedCell(graph);
-        return Subsection.createSubsections(lbsCluster);
+        return Subsection.createSubsections(lbsCluster, handleShunt);
     }
 
     default void forceSameOrientationForShuntedCell(Graph graph) {

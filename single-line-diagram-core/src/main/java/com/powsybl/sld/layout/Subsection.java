@@ -9,6 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -21,6 +22,7 @@ class Subsection {
     private BusNode[] busNodes;
     private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
     private List<ExternCell> externCells = new LinkedList<>();
+    private static Comparator<ExternCell> compareOrder = Comparator.comparingInt(ExternCell::getOrder);
 
     Subsection(int size) {
         this.size = size;
@@ -37,7 +39,7 @@ class Subsection {
     private void addLegBusSet(LegBusSet lbs) {
         lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
-        externCells.sort(Comparator.comparingInt(ExternCell::getOrder));
+        externCells.sort(compareOrder);
         internCellSides.addAll(lbs.getInternCellSides());
     }
 
@@ -70,9 +72,18 @@ class Subsection {
         return externCells;
     }
 
-    static List<Subsection> createSubsections(LBSCluster lbsCluster) {
-        int vSize = lbsCluster.getLbsList().get(0).getBusNodeSet().iterator().next().getGraph().getMaxBusStructuralPosition().getV();
+    private boolean containsAllBusNodes(List<BusNode> nodes) {
+        return Arrays.asList(busNodes).containsAll(nodes);
+    }
+
+    static List<Subsection> createSubsections(LBSCluster lbsCluster, boolean slipShuntedCells) {
         List<Subsection> subsections = new ArrayList<>();
+        Optional<Graph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getGraph);
+        if (!oVLGraph.isPresent()) {
+            return subsections;
+        }
+
+        int vSize = oVLGraph.get().getMaxBusStructuralPosition().getV();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
@@ -86,12 +97,21 @@ class Subsection {
             i++;
         }
 
-        internCellCoherence(lbsCluster.getLbsList(), subsections);
+        internCellCoherence(oVLGraph.get(), lbsCluster.getLbsList(), subsections);
+
+        if (slipShuntedCells) {
+            shuntCellCoherence(oVLGraph.get(), subsections);
+        }
+
         return subsections;
     }
 
-    private static void internCellCoherence(List<LegBusSet> lbsList, List<Subsection> subsections) {
-        identifyVerticalInternCells(subsections);
+    static List<Subsection> createSubsections(LBSCluster lbsCluster) {
+        return createSubsections(lbsCluster, false);
+    }
+
+    private static void internCellCoherence(Graph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+        identifyVerticalInternCells(vlGraph, subsections);
         lbsList.stream()
                 .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream()).distinct()
                 .forEach(InternCell::identifyIfFlat);
@@ -99,20 +119,16 @@ class Subsection {
         slipInternCellSideToEdge(subsections);
     }
 
-    private static void identifyVerticalInternCells(List<Subsection> subsections) {
-        Optional<BusNode> oneNode = Arrays.stream(subsections.get(0).busNodes).filter(Objects::nonNull).findAny();
-        if (!oneNode.isPresent()) {
-            return;
-        }
+    private static void identifyVerticalInternCells(Graph graph, List<Subsection> subsections) {
         Map<InternCell, Subsection> verticalCells = new HashMap<>();
 
-        oneNode.get().getGraph().getCells().stream()
+        graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.INTERN
                         && ((InternCell) c).checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .map(InternCell.class::cast)
                 .forEach(c ->
                         subsections.stream()
-                                .filter(subsection -> Arrays.asList(subsection.busNodes).containsAll(c.getBusNodes()))
+                                .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))
                                 .findAny().ifPresent(subsection -> verticalCells.putIfAbsent(c, subsection)));
 
         subsections.forEach(ss -> {
@@ -176,8 +192,7 @@ class Subsection {
                     || ics.getCell().checkisShape(InternCell.Shape.CROSSOVER))
                     .forEach(ics -> {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
-                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> Arrays.asList(ss2.busNodes)
-                                .containsAll(nodes)).collect(Collectors.toList());
+                        List<Subsection> candidateSss = subsections.stream().filter(ss2 -> ss2.containsAllBusNodes(nodes)).collect(Collectors.toList());
                         if (!candidateSss.isEmpty()) {
                             Subsection candidateSs = ics.getSide() == Side.LEFT ? candidateSss.get(candidateSss.size() - 1) : candidateSss.get(0);
                             if (ss != candidateSs) {
@@ -189,5 +204,61 @@ class Subsection {
             ss.internCellSides.removeAll(cellToRemove);
         });
         cellSideToMove.forEach((cellSide, ss) -> ss.internCellSides.add(cellSide));
+    }
+
+    private static void shuntCellCoherence(Graph vlGraph, List<Subsection> subsections) {
+        Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
+                .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes));
+        if (shuntCells2Buses.isEmpty()) {
+            return;
+        }
+
+        List<ExternCell> externCells = vlGraph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.EXTERN)
+                .map(ExternCell.class::cast)
+                .sorted(compareOrder)
+                .collect(Collectors.toList());
+
+        identifySameSubsectionShuntCells(subsections, shuntCells2Buses);
+        arrangeExternCellsOrders(externCells, subsections);
+    }
+
+    private static void identifySameSubsectionShuntCells(List<Subsection> subsections, Map<ShuntCell, List<BusNode>> shuntCells2Buses) {
+        subsections.forEach(ss -> shuntCells2Buses.keySet().stream()
+                .filter(sc -> ss.containsAllBusNodes(shuntCells2Buses.get(sc)) && !ss.externCells.containsAll(sc.getCells()))
+                .forEach(sc -> {
+                    sc.getCells().forEach(c -> moveExternCellToSubsection(c, ss, subsections));
+                    int i1 = ss.externCells.indexOf(sc.getCell1());
+                    int i2 = ss.externCells.indexOf(sc.getCell2());
+                    if (Math.abs(i1 - 12) != 1) {
+                        ss.externCells.remove(sc.getCell1());
+                        ss.externCells.add(i2, sc.getCell1());
+                    }
+                })
+        );
+    }
+
+    private static void moveExternCellToSubsection(ExternCell c, Subsection ss, List<Subsection> subsections) {
+        if (ss.externCells.contains(c)) {
+            return;
+        }
+        for (Subsection sub : subsections) {
+            if (sub.externCells.contains(c)) {
+                sub.externCells.remove(c);
+                break;
+            }
+        }
+        ss.externCells.add(c);
+    }
+
+    private static void arrangeExternCellsOrders(List<ExternCell> externCells, List<Subsection> subsections) {
+        for (int i = 1; i < externCells.size() - 1; i++) {
+            int prevIndex = externCells.get(i - 1).getOrder();
+            if (externCells.get(i).getOrder() <= prevIndex) {
+                externCells.get(i).setOrder(prevIndex + 1);
+            }
+        }
+        subsections.stream().map(Subsection::getExternCells).forEach(cells -> cells.sort(compareOrder));
     }
 }

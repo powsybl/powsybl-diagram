@@ -245,33 +245,8 @@
       } ]
     }
   }, {
-    "type" : "SHUNT",
-    "number" : 2,
-    "rootBlock" : {
-      "type" : "BODYPRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ "FICT_vl_laFictif", "bs", "FICT_vl_lbFictif" ]
-    }
-  }, {
     "type" : "EXTERN",
-    "number" : 3,
+    "number" : 2,
     "direction" : "TOP",
     "order" : 20,
     "rootBlock" : {
@@ -358,6 +333,31 @@
         },
         "nodes" : [ "FICT_vl_lbFictif", "lb" ]
       } ]
+    }
+  }, {
+    "type" : "SHUNT",
+    "number" : 3,
+    "rootBlock" : {
+      "type" : "BODYPRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 0,
+        "vSpan" : 0,
+        "orientation" : "HORIZONTAL"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ "FICT_vl_laFictif", "bs", "FICT_vl_lbFictif" ]
     }
   } ],
   "edges" : [ {

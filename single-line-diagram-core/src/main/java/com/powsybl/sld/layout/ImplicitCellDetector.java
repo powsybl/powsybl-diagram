@@ -210,12 +210,12 @@ public class ImplicitCellDetector implements CellDetector {
 
                 //create the shunt cell
 
-                ShuntCell shuntCell = createShuntCell(graph, n, cellNodesExtern1);
+                List<Node> shuntNodes = createShuntCellNodes(n, newExternCell);
 
                 // create the 2nd external cell
                 List<Node> cellNodesExtern2 = cell.getNodes().stream()
                         .filter(node -> (!cellNodesExtern1.contains(node) || node.getType() == Node.NodeType.BUS)
-                                && (!shuntCell.getNodes().contains(node) || node.getType() == Node.NodeType.SHUNT))
+                                && (!shuntNodes.contains(node) || node.getType() == Node.NodeType.SHUNT))
                         .collect(Collectors.toList());
 
                 cellNodesExtern2.removeAll(cellNodesExtern2.stream()
@@ -226,6 +226,8 @@ public class ImplicitCellDetector implements CellDetector {
 
                 ExternCell newExternCell2 = new ExternCell(graph);
                 newExternCell2.setNodes(cellNodesExtern2);
+
+                ShuntCell.create(newExternCell, newExternCell2, shuntNodes);
 
                 graph.removeCell(cell);
                 break;
@@ -284,11 +286,11 @@ public class ImplicitCellDetector implements CellDetector {
         return (hasBusBranch && hasFeederBranch && hasMixBranch) ? cellNodesExtern : null;
     }
 
-    private ShuntCell createShuntCell(Graph graph, Node n, List<Node> cellNodesExtern1) {
+    private List<Node> createShuntCellNodes(Node n, ExternCell cellExtern1) {
         List<Node> shuntCellNodes = new ArrayList<>();
         shuntCellNodes.add(n);
         Node currentNode = n.getAdjacentNodes().stream()
-                .filter(node -> !cellNodesExtern1.contains(node))
+                .filter(node -> !cellExtern1.getNodes().contains(node))
                 .findAny().orElse(null);
         if (currentNode != null) {
             while (currentNode.getAdjacentNodes().size() == 2) {
@@ -299,9 +301,7 @@ public class ImplicitCellDetector implements CellDetector {
             shuntCellNodes.add(currentNode);
             currentNode.setType(Node.NodeType.SHUNT);
         }
-        ShuntCell shuntCell = new ShuntCell(graph); // the shunt branch is made of the remaining cells + the actual node n
-        shuntCell.setNodes(shuntCellNodes);
-        return shuntCell;
+        return shuntCellNodes;
     }
 }
 
