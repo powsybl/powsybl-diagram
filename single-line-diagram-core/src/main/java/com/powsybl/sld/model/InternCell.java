@@ -24,8 +24,13 @@ public class InternCell extends AbstractBusCell {
     public enum Shape {
         UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER, UNHANDLEDPATTERN;
 
-        public boolean checkShape(Shape shape) {
-            return this == shape;
+        public boolean checkIsShape(Shape... shapes) {
+            for (Shape s : shapes) {
+                if (this == s) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public boolean checkIsNotShape(Shape... shapes) {
@@ -134,8 +139,8 @@ public class InternCell extends AbstractBusCell {
         }
     }
 
-    public boolean checkShape(Shape shape) {
-        return this.shape.checkShape(shape);
+    public boolean checkisShape(Shape... shape) {
+        return this.shape.checkIsShape(shape);
     }
 
     public boolean checkIsNotShape(Shape... shapes) {

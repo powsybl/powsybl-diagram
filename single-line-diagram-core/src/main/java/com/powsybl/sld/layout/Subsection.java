@@ -55,14 +55,14 @@ class Subsection {
 
     List<InternCell> getInternCells(InternCell.Shape shape, Side side) {
         return internCellSides.stream()
-                .filter(ics -> ics.getCell().checkShape(shape) && ics.getSide() == side)
+                .filter(ics -> ics.getCell().checkisShape(shape) && ics.getSide() == side)
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
     List<InternCell> getVerticalInternCells() {
         return internCellSides.stream()
-                .filter(ics -> ics.getCell().checkShape(InternCell.Shape.VERTICAL)
-                        || ics.getCell().checkShape(InternCell.Shape.UNILEG))
+                .filter(ics -> ics.getCell().checkisShape(InternCell.Shape.VERTICAL)
+                        || ics.getCell().checkisShape(InternCell.Shape.UNILEG))
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
@@ -155,7 +155,7 @@ class Subsection {
         }
         cellToSideSs.forEach((cell, sideSses) -> {
             if (sideSses.size() == 2) {
-                if (!cell.checkShape(InternCell.Shape.FLAT)) {
+                if (!cell.checkisShape(InternCell.Shape.FLAT)) {
                     cell.setShape(InternCell.Shape.CROSSOVER);
                 }
                 if (sideSses.get(0).side == Side.RIGHT) {
@@ -172,8 +172,8 @@ class Subsection {
         Map<InternCellSide, Subsection> cellSideToMove = new LinkedHashMap<>();
         new ArrayList<>(subsections).forEach(ss -> {
             List<InternCellSide> cellToRemove = new ArrayList<>();
-            ss.internCellSides.stream().filter(ics -> ics.getCell().checkShape(InternCell.Shape.FLAT)
-                    || ics.getCell().checkShape(InternCell.Shape.CROSSOVER))
+            ss.internCellSides.stream().filter(ics -> ics.getCell().checkisShape(InternCell.Shape.FLAT)
+                    || ics.getCell().checkisShape(InternCell.Shape.CROSSOVER))
                     .forEach(ics -> {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
                         List<Subsection> candidateSss = subsections.stream().filter(ss2 -> Arrays.asList(ss2.busNodes)

@@ -69,7 +69,7 @@ public final class LegBusSet {
     }
 
     Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkShape(shape))
+        return internCellSides.stream().filter(ics -> ics.getCell().checkisShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
@@ -114,7 +114,7 @@ public final class LegBusSet {
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkisShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
