@@ -27,6 +27,8 @@ public class BlockOrganizer {
 
     private final boolean stack;
 
+    private final boolean exceptionIfPatternNotHandled;
+
     public BlockOrganizer() {
         this(new PositionFromExtension(), true);
     }
@@ -40,8 +42,13 @@ public class BlockOrganizer {
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack) {
+        this(positionFinder, stack, false);
+    }
+
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
+        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     /**
@@ -53,14 +60,14 @@ public class BlockOrganizer {
                 .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN)
                         || cell.getType().equals(Cell.CellType.INTERN))
                 .forEach(cell -> {
-                    new CellBlockDecomposer().determineBlocks(cell);
+                    CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
                     if (cell.getType() == Cell.CellType.INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
-                .forEach(cell -> new CellBlockDecomposer().determineBlocks(cell));
+                .forEach(cell -> CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled));
 
         if (stack) {
             determineStackableBlocks(graph);

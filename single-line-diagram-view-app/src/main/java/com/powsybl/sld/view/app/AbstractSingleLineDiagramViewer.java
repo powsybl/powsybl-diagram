@@ -710,6 +710,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         rowIndex += 1;
         addPositionLayoutCheckBox("Stack feeders", rowIndex, PositionVoltageLevelLayoutFactory::isFeederStacked, PositionVoltageLevelLayoutFactory::setFeederStacked);
         rowIndex += 1;
+        addPositionLayoutCheckBox("Exception when pattern unhandled", rowIndex, PositionVoltageLevelLayoutFactory::isExceptionIfPatternNotHandled, PositionVoltageLevelLayoutFactory::setExceptionIfPatternNotHandled);
+        rowIndex += 1;
         addPositionLayoutCheckBox("Remove fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isRemoveUnnecessaryFictitiousNodes, PositionVoltageLevelLayoutFactory::setRemoveUnnecessaryFictitiousNodes);
         rowIndex += 1;
         addPositionLayoutCheckBox("Substitute singular fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isSubstituteSingularFictitiousByFeederNode, PositionVoltageLevelLayoutFactory::setSubstituteSingularFictitiousByFeederNode);
