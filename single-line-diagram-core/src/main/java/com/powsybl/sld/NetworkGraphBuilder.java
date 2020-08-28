@@ -14,7 +14,7 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
-import org.jgrapht.alg.ConnectivityInspector;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

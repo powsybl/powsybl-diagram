@@ -8,7 +8,6 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,8 +160,8 @@ public final class Graph {
         }
     }
 
-    public UndirectedGraph<Node, Edge> toJgrapht() {
-        UndirectedGraph<Node, Edge> graph = new Pseudograph<>(Edge.class);
+    public org.jgrapht.Graph<Node, Edge> toJgrapht() {
+        org.jgrapht.Graph<Node, Edge> graph = new Pseudograph<>(Edge.class);
         for (Node node : nodes) {
             graph.addVertex(node);
         }
