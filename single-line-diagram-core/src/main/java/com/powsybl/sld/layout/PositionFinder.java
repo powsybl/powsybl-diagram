@@ -41,6 +41,7 @@ public interface PositionFinder {
         return Subsection.createSubsections(lbsCluster, handleShunt);
     }
 
+    // TODO: could be move into ShuntCell class
     default void forceSameOrientationForShuntedCell(Graph graph) {
         for (Cell cell : graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT).collect(Collectors.toList())) {

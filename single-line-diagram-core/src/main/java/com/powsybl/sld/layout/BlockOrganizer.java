@@ -81,6 +81,7 @@ public class BlockOrganizer {
         }
 
         List<Subsection> subsections = positionFinder.buildLayout(graph, handleShunt);
+        //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
 
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)

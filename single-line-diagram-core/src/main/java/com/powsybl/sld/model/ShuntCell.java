@@ -9,8 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -19,8 +18,7 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class ShuntCell extends AbstractCell {
-    private ExternCell cell1;
-    private ExternCell cell2;
+    private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
 
     public ShuntCell(Graph graph) {
         super(graph, CellType.SHUNT);
@@ -28,9 +26,17 @@ public class ShuntCell extends AbstractCell {
 
     public static ShuntCell create(ExternCell cell1, ExternCell cell2, List<Node> nodes) {
         ShuntCell shuntCell = new ShuntCell(cell1.getGraph());
-        shuntCell.cell1 = cell1;
-        shuntCell.cell2 = cell2;
-        shuntCell.addNodes(nodes);
+        if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
+            shuntCell.cells.put(Side.LEFT, cell1);
+            shuntCell.cells.put(Side.RIGHT, cell2);
+        } else if (cell2.getNodes().contains(nodes.get(0)) && cell1.getNodes().contains(nodes.get(nodes.size() - 1))) {
+            shuntCell.cells.put(Side.LEFT, cell2);
+            shuntCell.cells.put(Side.RIGHT, cell1);
+        } else {
+            throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
+        }
+        shuntCell.addNodes(new ArrayList<>(nodes));
+        shuntCell.alignExternCells();
         return shuntCell;
     }
 
@@ -42,16 +48,32 @@ public class ShuntCell extends AbstractCell {
         }
     }
 
-    public ExternCell getCell1() {
-        return cell1;
+    public void alignExternCells() {
+        if (cells.get(Side.LEFT).getOrder() > cells.get(Side.RIGHT).getOrder()) {
+            reverse();
+        }
     }
 
-    public ExternCell getCell2() {
-        return cell2;
+    public void reverse() {
+        ExternCell cell = cells.get(Side.LEFT);
+        cells.put(Side.LEFT, cells.get(Side.RIGHT));
+        cells.put(Side.RIGHT, cell);
+        Collections.reverse(nodes);
+    }
+
+    public ExternCell getSideCell(Side side) {
+        return cells.get(side);
+    }
+
+    public FictitiousNode getSideShuntNode(Side side) {
+        if (side == Side.UNDEFINED) {
+            return null;
+        }
+        return (FictitiousNode) (side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1));
     }
 
     public List<ExternCell> getCells() {
-        return Arrays.asList(cell1, cell2);
+        return new ArrayList<>(cells.values());
     }
 
     public List<BusNode> getParentBusNodes() {
