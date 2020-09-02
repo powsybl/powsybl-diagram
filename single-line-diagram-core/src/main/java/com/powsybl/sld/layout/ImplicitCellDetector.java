@@ -6,12 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.InternCell;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.ShuntCell;
+import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,8 +95,11 @@ public class ImplicitCellDetector implements CellDetector {
             graph.substituteSingularFictitiousByFeederNode();
         }
         graph.extendFirstOutsideNode();
-        graph.extendBreakerConnectedToBus();
-        graph.extendFeederConnectedToBus();
+        graph.conditionalExtensionOfNodeConnectedToBus(node ->
+                node.getType() == Node.NodeType.SWITCH && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR
+                        || node.getType() == Node.NodeType.FEEDER
+                        || node instanceof Middle2WTNode || node instanceof Middle3WTNode
+        );
     }
 
     /**

@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -326,19 +327,10 @@ public final class Graph {
                                 }));
     }
 
-    //the first element shouldn't be a Breaker
-    public void extendBreakerConnectedToBus() {
+    public void conditionalExtensionOfNodeConnectedToBus(Predicate<Node> condition) {
         getNodeBuses().forEach(nodeBus -> nodeBus.getAdjacentNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.SWITCH
-                        && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR)
+                .filter(condition)
                 .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
-    }
-
-    //the first element shouldn't be a Feeder
-    public void extendFeederConnectedToBus() {
-        getNodeBuses().forEach(nodeBus -> nodeBus.getAdjacentNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.FEEDER)
-                .forEach(feeder -> addDoubleNode(nodeBus, feeder, "")));
     }
 
     public void extendSwitchBetweenBus(SwitchNode nodeSwitch) {
@@ -359,9 +351,9 @@ public final class Graph {
     }
 
     /**
-     * @deprecated Use {@link #substituteNode} instead
      * @param nodeOrigin: node which will be substituted
-     * @param newNode: node which will substitute the first one
+     * @param newNode:    node which will substitute the first one
+     * @deprecated Use {@link #substituteNode} instead
      */
     @Deprecated
     public void substitueNode(Node nodeOrigin, Node newNode) {
@@ -371,8 +363,9 @@ public final class Graph {
     /**
      * Substitute a node with another node already in the graph.
      * Use {@link #replaceNode} instead if the node newNode is not already in the graph.
+     *
      * @param nodeOrigin: node which will be substituted
-     * @param newNode: node which will substitute the first one
+     * @param newNode:    node which will substitute the first one
      */
     public void substituteNode(Node nodeOrigin, Node newNode) {
         while (!nodeOrigin.getAdjacentEdges().isEmpty()) {
@@ -388,8 +381,9 @@ public final class Graph {
     /**
      * Replace a node with another node which is not yet in the graph.
      * Use {@link #substituteNode} instead if the node newNode is already in the graph.
+     *
      * @param nodeOrigin: node which will be replaced
-     * @param newNode: node which will replace the first one
+     * @param newNode:    node which will replace the first one
      */
     public void replaceNode(Node nodeOrigin, Node newNode) {
         addNode(newNode);
