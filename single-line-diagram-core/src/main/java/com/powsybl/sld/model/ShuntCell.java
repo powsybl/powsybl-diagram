@@ -54,6 +54,10 @@ public class ShuntCell extends AbstractCell {
         }
     }
 
+    public void alignDirections(Side side) {
+        cells.get(side.getFlip()).setDirection(cells.get(side).getDirection());
+    }
+
     public void reverse() {
         ExternCell cell = cells.get(Side.LEFT);
         cells.put(Side.LEFT, cells.get(Side.RIGHT));

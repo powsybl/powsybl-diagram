@@ -11,7 +11,6 @@ import com.powsybl.sld.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * a PositionFinder determines:
@@ -41,14 +40,9 @@ public interface PositionFinder {
         return Subsection.createSubsections(lbsCluster, handleShunt);
     }
 
-    // TODO: could be move into ShuntCell class
     default void forceSameOrientationForShuntedCell(Graph graph) {
-        for (Cell cell : graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).collect(Collectors.toList())) {
-            List<Node> shNodes = cell.getNodes().stream()
-                    .filter(node -> node.getType() == Node.NodeType.SHUNT).collect(Collectors.toList());
-            ((ExternCell) shNodes.get(1).getCell()).setDirection(
-                    ((ExternCell) shNodes.get(0).getCell()).getDirection());
-        }
+        graph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
+                .forEach(sc -> sc.alignDirections(Side.LEFT));
     }
 }
