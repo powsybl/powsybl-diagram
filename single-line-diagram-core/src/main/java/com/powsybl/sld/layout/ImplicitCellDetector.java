@@ -100,6 +100,7 @@ public class ImplicitCellDetector implements CellDetector {
                         || node.getType() == Node.NodeType.FEEDER
                         || node instanceof Middle2WTNode || node instanceof Middle3WTNode
         );
+        graph.extendBusConnectedToBus();
     }
 
     /**

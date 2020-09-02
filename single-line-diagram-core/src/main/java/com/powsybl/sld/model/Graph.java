@@ -333,6 +333,23 @@ public final class Graph {
                 .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
     }
 
+    public void extendBusConnectedToBus() {
+        for (BusNode n1 : getNodeBuses()) {
+            n1.getAdjacentNodes().stream()
+                    .filter(n2 -> n2.getType() == Node.NodeType.BUS)
+                    .forEach(n2 -> {
+                        removeEdge(n1, n2);
+                        SwitchNode fSwToBus1 = SwitchNode.createFictitious(this, n1.getId() + "fSwitch1", false);
+                        InternalNode internalNode = new InternalNode(this, "internal" + n1.getId() + n2.getId());
+                        SwitchNode fSwToBus2 = SwitchNode.createFictitious(this, n2.getId() + "fSwitch2", false);
+                        addEdge(n1, fSwToBus1);
+                        addEdge(internalNode, fSwToBus1);
+                        addEdge(internalNode, fSwToBus2);
+                        addEdge(n2, fSwToBus2);
+                    });
+        }
+    }
+
     public void extendSwitchBetweenBus(SwitchNode nodeSwitch) {
         List<Node> copyAdj = new ArrayList<>(nodeSwitch.getAdjacentNodes());
         addDoubleNode((BusNode) copyAdj.get(0), nodeSwitch, "0");
