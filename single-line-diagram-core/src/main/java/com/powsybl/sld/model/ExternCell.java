@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  */
 public class ExternCell extends AbstractBusCell {
     private int order = -1;
+    private ShuntCell shuntCell = null;
 
     public ExternCell(Graph graph) {
         super(graph, CellType.EXTERN);
@@ -46,6 +47,18 @@ public class ExternCell extends AbstractBusCell {
     public int newHPosition(int hPosition) {
         getRootBlock().getPosition().setHV(hPosition, 0);
         return hPosition + getRootBlock().getPosition().getHSpan();
+    }
+
+    public boolean isShunted() {
+        return shuntCell != null;
+    }
+
+    public ShuntCell getShuntCell() {
+        return shuntCell;
+    }
+
+    public void setShuntCell(ShuntCell shuntCell) {
+        this.shuntCell = shuntCell;
     }
 
     public int getOrder() {

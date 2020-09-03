@@ -35,6 +35,8 @@ public class ShuntCell extends AbstractCell {
         } else {
             throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
         }
+        cell1.setShuntCell(shuntCell);
+        cell2.setShuntCell(shuntCell);
         shuntCell.addNodes(new ArrayList<>(nodes));
         shuntCell.alignExternCells();
         return shuntCell;
@@ -67,6 +69,15 @@ public class ShuntCell extends AbstractCell {
 
     public ExternCell getSideCell(Side side) {
         return cells.get(side);
+    }
+
+    public ExternCell getOtherSideCell(ExternCell cell) {
+        if (cell == cells.get(Side.LEFT)) {
+            return cells.get(Side.RIGHT);
+        } else if (cell == cells.get(Side.RIGHT)) {
+            return cells.get(Side.LEFT);
+        }
+        return null;
     }
 
     public FictitiousNode getSideShuntNode(Side side) {
