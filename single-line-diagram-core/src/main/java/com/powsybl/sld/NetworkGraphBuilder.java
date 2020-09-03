@@ -160,14 +160,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        protected Node createBusBreakerConnexionNodeFromTerminal(Graph graph, Terminal terminal) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(terminal);
-            Bus bus = terminal.getBusBreakerView().getConnectableBus();
-            String id = bus.getId() + "_" + terminal.getConnectable().getId();
-            return new BusBreakerConnection(graph, id);
-        }
-
         @Override
         public void visitLoad(Load load) {
             addFeeder(createFeederNode(graph, load), load.getTerminal());
@@ -377,6 +369,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
         BusBreakerGraphBuilder(Graph graph, Map<String, Node> nodesByBusId) {
             super(graph);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
+        }
+
+        private Node createBusBreakerConnexionNodeFromTerminal(Graph graph, Terminal terminal) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(terminal);
+            Bus bus = terminal.getBusBreakerView().getConnectableBus();
+            String id = bus.getId() + "_" + terminal.getConnectable().getId();
+            return new BusBreakerConnection(graph, id);
         }
 
         private void connectToBus(Node node, Terminal terminal) {
