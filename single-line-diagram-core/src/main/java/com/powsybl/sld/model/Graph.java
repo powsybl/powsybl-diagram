@@ -101,7 +101,7 @@ public final class Graph {
 
     public void removeUnnecessaryFictitiousNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node.getType() == Node.NodeType.FICTITIOUS)
+                .filter(node -> node.getType() == Node.NodeType.FICTITIOUS && !(node instanceof BusBreakerConnection))
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {

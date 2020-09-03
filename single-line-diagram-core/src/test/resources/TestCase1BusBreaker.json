@@ -8,13 +8,13 @@
   "y" : 0.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_lfNode",
-    "name" : "lfNode",
-    "equipmentId" : "lfNode",
-    "componentType" : "NODE",
+    "id" : "FICT_vl_b1_l",
+    "name" : "b1_l",
+    "equipmentId" : "b1_l",
+    "componentType" : "BUSBREAKER_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 230.0,
+    "y" : 260.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -97,17 +97,6 @@
     "feederType" : "INJECTION",
     "order" : 1,
     "direction" : "TOP"
-  }, {
-    "type" : "SWITCH",
-    "id" : "lfSwitch",
-    "name" : "lfSwitch",
-    "equipmentId" : "lfSwitch",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 125.0,
-    "y" : 260.0,
-    "open" : false,
-    "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "sw",
@@ -277,7 +266,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "lfSwitch", "FICT_vl_lfNode" ]
+        "nodes" : [ "b1", "FICT_vl_b1_l" ]
       }, {
         "type" : "PRIMARY",
         "cardinalities" : [ {
@@ -298,11 +287,17 @@
           "xSpan" : 50.0,
           "ySpan" : 250.0
         },
-        "nodes" : [ "FICT_vl_lfNode", "l" ]
+        "nodes" : [ "FICT_vl_b1_l", "l" ]
       } ]
     }
   } ],
   "edges" : [ {
+    "node1" : "b1",
+    "node2" : "FICT_vl_b1_l"
+  }, {
+    "node1" : "FICT_vl_b1_l",
+    "node2" : "l"
+  }, {
     "node1" : "b1",
     "node2" : "swfSwitch"
   }, {
@@ -320,14 +315,5 @@
   }, {
     "node1" : "FICT_vl_swfNode",
     "node2" : "sw"
-  }, {
-    "node1" : "b1",
-    "node2" : "lfSwitch"
-  }, {
-    "node1" : "lfSwitch",
-    "node2" : "FICT_vl_lfNode"
-  }, {
-    "node1" : "FICT_vl_lfNode",
-    "node2" : "l"
   } ]
 }

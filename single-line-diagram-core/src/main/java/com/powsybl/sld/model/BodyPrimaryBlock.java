@@ -56,7 +56,9 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int v = 0;
         for (Node node : nodes) {
             node.setX(getCoord().getX());
-            node.setY(y0 - yPxStep * v);
+            if (!(node instanceof BusBreakerConnection)) {
+                node.setY(y0 - yPxStep * v);
+            }
             node.setRotationAngle(null);
             v++;
         }

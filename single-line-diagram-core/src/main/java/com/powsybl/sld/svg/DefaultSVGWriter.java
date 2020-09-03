@@ -625,7 +625,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                || node.getComponentType().equals(NODE));
+                || node.getComponentType().equals(NODE)
+                || node.getComponentType().equals(BUSBREAKER_CONNECTION));
     }
 
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
