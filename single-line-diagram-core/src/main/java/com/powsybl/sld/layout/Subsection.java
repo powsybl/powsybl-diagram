@@ -19,7 +19,7 @@ import static com.powsybl.sld.model.Side.RIGHT;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-class Subsection {
+public class Subsection {
 
     private int size;
     private BusNode[] busNodes;
@@ -71,7 +71,7 @@ class Subsection {
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
-    List<ExternCell> getExternCells() {
+    public List<ExternCell> getExternCells() {
         return externCells;
     }
 
@@ -212,7 +212,7 @@ class Subsection {
     private static void shuntCellCoherence(Graph vlGraph, List<Subsection> subsections) {
         Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT)
-                .map(ShuntCell.class::cast)
+                    .map(ShuntCell.class::cast)
                 .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes, (u, v) -> {
                     throw new IllegalStateException(String.format("Duplicate key %s", u));
                 }, LinkedHashMap::new));

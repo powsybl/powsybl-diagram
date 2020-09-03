@@ -6,15 +6,13 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
-import com.powsybl.sld.layout.HorizontalBusLane;
-import com.powsybl.sld.layout.LBSCluster;
-import com.powsybl.sld.layout.LegBusSet;
-import com.powsybl.sld.layout.PositionFinder;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -68,7 +66,7 @@ public class PositionByClustering implements PositionFinder {
         return busToNb;
     }
 
-    public LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets) {
+    public LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets) {
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(legBusSets);
         Links links = Links.create(lbsClusters, HBLMANAGER);
         while (!links.isEmpty()) {
@@ -82,26 +80,6 @@ public class PositionByClustering implements PositionFinder {
         establishFeederPositions(lbsCluster);
 
         return lbsCluster;
-    }
-
-    private void establishFeederPositions(LBSCluster lbsCluster) {
-        int cellPos = 0;
-        int feederPosition = 1;
-        for (LegBusSet lbs : lbsCluster.getLbsList()) {
-            for (ExternCell busCell : lbs.getExternCells().stream()
-                    .sorted(Comparator.comparingInt(ExternCell::getNumber))
-                    .collect(Collectors.toList())) {
-                busCell.setDirection(cellPos % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
-                busCell.setOrder(cellPos);
-                cellPos++;
-                for (FeederNode feederNode : busCell.getNodes().stream()
-                        .filter(n -> n.getType() == Node.NodeType.FEEDER)
-                        .map(FeederNode.class::cast).collect(Collectors.toList())) {
-                    feederNode.setOrder(feederPosition);
-                    feederPosition++;
-                }
-            }
-        }
     }
 
     private void tetrisHorizontalLanes(LBSCluster lbsCluster) {
@@ -138,4 +116,38 @@ public class PositionByClustering implements PositionFinder {
             i++;
         }
     }
+
+    private void establishFeederPositions(LBSCluster lbsCluster) {
+        int cellOrder = 0;
+        for (LegBusSet lbs : lbsCluster.getLbsList()) {
+            for (ExternCell cell : lbs.getExternCells()) {
+                cell.setOrder(cellOrder++);
+            }
+        }
+    }
+
+    public void organizeDirections(Graph graph, List<Subsection> subsections) {
+        List<ShuntCell> shuntCells = graph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
+                .collect(Collectors.toList());
+        List<ExternCell> shuntRightCells = shuntCells.stream()
+                .map(sc -> sc.getSideCell(Side.RIGHT)).map(ExternCell.class::cast)
+                .collect(Collectors.toList());
+
+        int cellPos = 0;
+        int cellShuntShift = 0;
+
+        for (Subsection ss : subsections) {
+            for (ExternCell busCell : ss.getExternCells()) {
+                if (shuntRightCells.contains(busCell)) {
+                    cellShuntShift++; // an ExternCell on the right of a Shunt does not take its turn for flipping direction
+                } else {
+                    busCell.setDirection((cellPos + cellShuntShift) % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                }
+                cellPos++;
+            }
+        }
+        shuntCells.forEach(sc -> sc.alignDirections(Side.LEFT));
+    }
+
 }

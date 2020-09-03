@@ -26,23 +26,28 @@ public interface PositionFinder {
 
     Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes);
 
-    LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets);
+    LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets);
 
     default List<Subsection> buildLayout(Graph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
         }
         Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
-        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb);
-        LBSCluster lbsCluster = organizeLegBusSets(legBusSets);
+        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
+        LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
         graph.setMaxBusPosition();
-        forceSameOrientationForShuntedCell(graph);
-        return Subsection.createSubsections(lbsCluster, handleShunt);
+        List<Subsection> subsections = Subsection.createSubsections(lbsCluster, handleShunt);
+        organizeDirections(graph, subsections);
+        return subsections;
     }
 
     default void forceSameOrientationForShuntedCell(Graph graph) {
         graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
                 .forEach(sc -> sc.alignDirections(Side.LEFT));
+    }
+
+    default void organizeDirections(Graph graph, List<Subsection> subsections) {
+        forceSameOrientationForShuntedCell(graph);
     }
 }
