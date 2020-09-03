@@ -211,14 +211,16 @@ class Subsection {
 
     private static void shuntCellCoherence(Graph vlGraph, List<Subsection> subsections) {
         Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
-                .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes));
+                .filter(c -> c.getType() == Cell.CellType.SHUNT)
+                .map(ShuntCell.class::cast)
+                .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes, (u, v) -> {
+                    throw new IllegalStateException(String.format("Duplicate key %s", u));
+                }, LinkedHashMap::new));
         if (shuntCells2Buses.isEmpty()) {
             return;
         }
 
         shuntCells2Buses.keySet().forEach(ShuntCell::alignExternCells);
-
         List<ShuntCell> sameSubsectionShunts = identifySameSubsectionShuntCells(subsections, shuntCells2Buses);
         slipInternShuntedCellsToEdge(subsections, shuntCells2Buses.keySet(), sameSubsectionShunts);
         alignMultiFeederShunt(shuntCells2Buses.keySet());
