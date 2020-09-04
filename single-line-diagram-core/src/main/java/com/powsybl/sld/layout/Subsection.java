@@ -240,7 +240,7 @@ public class Subsection {
                     if (iRight != iLeft + 1) {
                         ExternCell leftCell = sc.getSideCell(LEFT);
                         ss.externCells.remove(leftCell);
-                        ss.externCells.add(iRight, leftCell);
+                        ss.externCells.add(ss.externCells.indexOf(sc.getSideCell(RIGHT)), leftCell);
                     }
                     modifiedShunts.add(sc);
                 })

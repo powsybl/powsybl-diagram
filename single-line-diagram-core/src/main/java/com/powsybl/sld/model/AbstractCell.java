@@ -11,7 +11,6 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public abstract class AbstractCell implements Cell {
 
     private Block rootBlock;
 
-    protected AbstractCell(Graph graph, CellType type) {
+    AbstractCell(Graph graph, CellType type) {
         this.graph = Objects.requireNonNull(graph);
         this.type = Objects.requireNonNull(type);
         number = graph.getNextCellIndex();

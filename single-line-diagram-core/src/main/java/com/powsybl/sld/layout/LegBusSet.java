@@ -165,15 +165,8 @@ public final class LegBusSet {
             i++;
         }
 
-        sameBusNodesShuntCells.stream().
-
-                filter(scs -> scs.size() > 2).
-
-                flatMap(List::stream).
-
-                forEach(sc ->
-
-                {
+        sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
+                .forEach(sc -> {
                     pushNewLBS(legBusSets, nodeToNb, sc, Side.UNDEFINED);
                     externCells.removeAll(sc.getCells());
                 });

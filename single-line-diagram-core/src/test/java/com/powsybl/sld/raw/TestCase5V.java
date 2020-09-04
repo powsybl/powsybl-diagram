@@ -64,8 +64,6 @@ public class TestCase5V extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        writeFile=true;
-        toSVG(g,"/test.svg");
-//        assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));
+        assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));
     }
 }

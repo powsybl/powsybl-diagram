@@ -302,6 +302,4 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }
-
-
 }

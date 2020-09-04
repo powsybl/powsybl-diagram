@@ -94,7 +94,6 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         assertEquals(toString("/orderConsistencyClust1.json"), toJson(g, "/orderConsistencyClust1.json"));
     }
 
-
     @Test
     public void testClustNoMiddleLeft() {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", false, true);
@@ -122,5 +121,4 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
 
         assertEquals(toString("/orderConsistencyExt2.json"), toJson(g, "/orderConsistencyExt2.json"));
     }
-
 }

@@ -243,8 +243,9 @@
     "equipmentId" : "bSwitchCG",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 350.0,
+    "x" : 325.0,
     "y" : 130.0,
+    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -1302,7 +1303,7 @@
         "xSpan" : 0.0,
         "ySpan" : 0.0
       },
-      "nodes" : [ "FICT_vl_fShuntA", "bShunt", "FICT_vl_fShuntB" ]
+      "nodes" : [ "FICT_vl_fShuntA", "FICT_vl_Shunt 8.1", "bShunt", "FICT_vl_Shunt 8.2", "FICT_vl_fShuntB" ]
     }
   }, {
     "type" : "EXTERN",
@@ -1549,7 +1550,7 @@
         "xSpan" : 0.0,
         "ySpan" : 0.0
       },
-      "nodes" : [ "FICT_vl_fg1", "shuntGen", "FICT_vl_fg2" ]
+      "nodes" : [ "FICT_vl_fg1", "FICT_vl_Shunt 11.1", "shuntGen", "FICT_vl_Shunt 11.2", "FICT_vl_fg2" ]
     }
   }, {
     "type" : "EXTERN",
@@ -1922,7 +1923,7 @@
         "xSpan" : 0.0,
         "ySpan" : 0.0
       },
-      "nodes" : [ "FICT_vl_fC", "bSwitchCG", "FICT_vl_fLoadG" ]
+      "nodes" : [ "FICT_vl_fC", "FICT_vl_Shunt 14.1", "bSwitchCG", "FICT_vl_Shunt 14.2", "FICT_vl_fLoadG" ]
     }
   } ],
   "edges" : [ {
@@ -1973,12 +1974,6 @@
   }, {
     "node1" : "FICT_vl_fShuntB",
     "node2" : "loadB"
-  }, {
-    "node1" : "FICT_vl_fShuntA",
-    "node2" : "bShunt"
-  }, {
-    "node1" : "FICT_vl_fShuntB",
-    "node2" : "bShunt"
   }, {
     "node1" : "gen1",
     "node2" : "bg1"
@@ -2052,12 +2047,6 @@
     "node1" : "dg22",
     "node2" : "bbs22"
   }, {
-    "node1" : "FICT_vl_fg1",
-    "node2" : "shuntGen"
-  }, {
-    "node1" : "FICT_vl_fg2",
-    "node2" : "shuntGen"
-  }, {
     "node1" : "loadE",
     "node2" : "bE"
   }, {
@@ -2106,16 +2095,46 @@
     "node1" : "bFeederG",
     "node2" : "FICT_vl_commonFG"
   }, {
-    "node1" : "FICT_vl_fC",
-    "node2" : "bSwitchCG"
-  }, {
-    "node1" : "FICT_vl_fLoadG",
-    "node2" : "bSwitchCG"
-  }, {
     "node1" : "bA",
     "node2" : "FICT_vl_dAFictif"
   }, {
     "node1" : "dA",
     "node2" : "FICT_vl_dAFictif"
+  }, {
+    "node1" : "FICT_vl_fShuntA",
+    "node2" : "FICT_vl_Shunt 8.1"
+  }, {
+    "node1" : "bShunt",
+    "node2" : "FICT_vl_Shunt 8.1"
+  }, {
+    "node1" : "FICT_vl_fShuntB",
+    "node2" : "FICT_vl_Shunt 8.2"
+  }, {
+    "node1" : "bShunt",
+    "node2" : "FICT_vl_Shunt 8.2"
+  }, {
+    "node1" : "FICT_vl_fg1",
+    "node2" : "FICT_vl_Shunt 11.1"
+  }, {
+    "node1" : "shuntGen",
+    "node2" : "FICT_vl_Shunt 11.1"
+  }, {
+    "node1" : "FICT_vl_fg2",
+    "node2" : "FICT_vl_Shunt 11.2"
+  }, {
+    "node1" : "shuntGen",
+    "node2" : "FICT_vl_Shunt 11.2"
+  }, {
+    "node1" : "FICT_vl_fC",
+    "node2" : "FICT_vl_Shunt 14.1"
+  }, {
+    "node1" : "bSwitchCG",
+    "node2" : "FICT_vl_Shunt 14.1"
+  }, {
+    "node1" : "FICT_vl_fLoadG",
+    "node2" : "FICT_vl_Shunt 14.2"
+  }, {
+    "node1" : "bSwitchCG",
+    "node2" : "FICT_vl_Shunt 14.2"
   } ]
 }
