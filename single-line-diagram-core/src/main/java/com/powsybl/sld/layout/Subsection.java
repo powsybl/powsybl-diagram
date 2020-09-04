@@ -116,7 +116,7 @@ public class Subsection {
     private static void internCellCoherence(Graph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
         lbsList.stream()
-                .flatMap(lbs -> lbs.getCandidateFlatCells().keySet().stream()).distinct()
+                .flatMap(lbs -> lbs.getCellsSideMapFromShape(InternCell.Shape.MAYBEFLAT).keySet().stream()).distinct()
                 .forEach(InternCell::identifyIfFlat);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);

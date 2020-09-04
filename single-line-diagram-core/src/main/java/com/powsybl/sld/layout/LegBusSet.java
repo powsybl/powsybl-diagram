@@ -73,17 +73,9 @@ public final class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
+    Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
         return internCellSides.stream().filter(ics -> ics.getCell().checkisShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
-    }
-
-    Map<InternCell, Side> getCandidateFlatCells() {
-        return getCellSideMapFromShape(InternCell.Shape.MAYBEFLAT);
-    }
-
-    Map<InternCell, Side> getCrossoverInternCell() {
-        return getCellSideMapFromShape(InternCell.Shape.CROSSOVER);
     }
 
     public Set<BusNode> getBusNodeSet() {

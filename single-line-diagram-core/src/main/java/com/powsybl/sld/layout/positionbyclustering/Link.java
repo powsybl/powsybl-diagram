@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
-import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.*;
 
 import javax.annotation.Nonnull;
@@ -42,7 +41,6 @@ import java.util.stream.Collectors;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 
-// TODO implement SHUNT in the link assessment
 class Link implements Comparable<Link> {
 
     enum LinkCategory {
@@ -64,29 +62,39 @@ class Link implements Comparable<Link> {
     }
 
     private void assessLink() {
+        categoryToWeight.put(LinkCategory.COMMONBUSES, assessCommonBusNodes());
+        categoryToWeight.put(LinkCategory.FLATCELLS, assessFlatCell());
+        categoryToWeight.put(LinkCategory.CROSSOVER, assessCrossOver());
+        categoryToWeight.put(LinkCategory.SHUNT, assessShunt());
+    }
+
+    private int assessCommonBusNodes() {
         Set<BusNode> nodeBusesIntersect = new LinkedHashSet<>(lbsClusterSide1.getBusNodeSet());
         nodeBusesIntersect.retainAll(lbsClusterSide2.getBusNodeSet());
-        categoryToWeight.put(LinkCategory.COMMONBUSES, nodeBusesIntersect.size());
+        return nodeBusesIntersect.size();
+    }
 
+    private int assessFlatCell() {
         Set<InternCell> flatCellIntersect = new LinkedHashSet<>(lbsClusterSide1.getCandidateFlatCellList());
         flatCellIntersect.retainAll(lbsClusterSide2.getCandidateFlatCellList());
-        if (flatCellIntersect.isEmpty()) {
-            categoryToWeight.put(LinkCategory.FLATCELLS, 0);
-        } else {
-            categoryToWeight.put(LinkCategory.FLATCELLS,
-                    flatCellIntersect.size() * 100
-                            - flatCellIntersect.stream()
-                            .mapToInt(internCell -> flatCellDistanceToEdges(internCell, lbsClusterSide1, lbsClusterSide2)).sum());
-        }
+        return flatCellIntersect.size() * 100
+                - flatCellIntersect.stream()
+                .mapToInt(internCell -> flatCellDistanceToEdges(internCell, lbsClusterSide1, lbsClusterSide2)).sum();
+    }
 
-        Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCrossOverCellList());
-        commonInternCells.retainAll(lbsClusterSide2.getCrossOverCellList());
-        categoryToWeight.put(LinkCategory.CROSSOVER, (int) (commonInternCells
-                .stream()
-                .flatMap(internCell -> internCell.getBusNodes().stream())
-                .distinct()
-                .count()));
+    static int flatCellDistanceToEdges(InternCell cell, LBSClusterSide lbsCS1, LBSClusterSide lbsCS2) {
+        return lbsCS1.getCandidateFlatCellDistanceToEdge(cell) + lbsCS2.getCandidateFlatCellDistanceToEdge(cell);
+    }
 
+    private int assessCrossOver() {
+        Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCellsSideMapFromShape(InternCell.Shape.UNDEFINED));
+        commonInternCells.retainAll(lbsClusterSide2.getCellsSideMapFromShape(InternCell.Shape.UNDEFINED));
+        return (int) (commonInternCells.stream()
+                .flatMap(internCell -> internCell.getBusNodes().stream()).distinct()
+                .count());
+    }
+
+    private int assessShunt() {
         List<ExternCell> externCells1 = extractExternShuntedCells(lbsClusterSide1);
         List<ExternCell> externCells2 = extractExternShuntedCells(lbsClusterSide2);
         List<ShuntCell> shuntCells = extractShuntCells(externCells1);
@@ -95,23 +103,19 @@ class Link implements Comparable<Link> {
                 .flatMap(sc -> sc.getCells().stream()).collect(Collectors.toList());
         externCells1.retainAll(myShuntedExternCells);
         externCells2.retainAll(myShuntedExternCells);
-        categoryToWeight.put(LinkCategory.SHUNT, shuntAttractivity(externCells1, lbsClusterSide1) + shuntAttractivity(externCells2, lbsClusterSide2));
+        return shuntAttractivity(externCells1, lbsClusterSide1) + shuntAttractivity(externCells2, lbsClusterSide2);
     }
 
-    List<ExternCell> extractExternShuntedCells(LBSClusterSide lbsClusterSide) {
+    private List<ExternCell> extractExternShuntedCells(LBSClusterSide lbsClusterSide) {
         return lbsClusterSide.getExternCells().stream().filter(ExternCell::isShunted).collect(Collectors.toList());
     }
 
-    List<ShuntCell> extractShuntCells(List<ExternCell> externCells) {
+    private List<ShuntCell> extractShuntCells(List<ExternCell> externCells) {
         return externCells.stream().map(ExternCell::getShuntCell).map(ShuntCell.class::cast).collect(Collectors.toList());
     }
 
-    int shuntAttractivity(List<ExternCell> cells, LBSClusterSide lbsClusterSide) {
+    private int shuntAttractivity(List<ExternCell> cells, LBSClusterSide lbsClusterSide) {
         return cells.stream().mapToInt(lbsClusterSide::getExternCellAttractionToEdge).sum();
-    }
-
-    static int flatCellDistanceToEdges(InternCell cell, LBSClusterSide lbsCS1, LBSClusterSide lbsCS2) {
-        return lbsCS1.getCandidateFlatCellDistanceToEdge(cell) + lbsCS2.getCandidateFlatCellDistanceToEdge(cell);
     }
 
     private int getLinkCategoryWeight(LinkCategory cat) {

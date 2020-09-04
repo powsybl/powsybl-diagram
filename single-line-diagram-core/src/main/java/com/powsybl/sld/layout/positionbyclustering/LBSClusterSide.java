@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.layout.LegBusSet;
@@ -48,11 +47,6 @@ class LBSClusterSide {
         return lbsCluster.getLbsList().stream().flatMap(lbs -> lbs.getExternCells().stream()).collect(Collectors.toList());
     }
 
-    List<ShuntCell> getShuntCells() {
-        return getExternCells().stream()
-                .filter(ExternCell::isShunted).map(ExternCell::getShuntCell).collect(Collectors.toList());
-    }
-
     int getExternCellAttractionToEdge(ExternCell cell) {
         List<LegBusSet> lbsList = lbsCluster.getLbsList();
         return lbsList.stream().filter(lbs -> lbs.getExternCells().contains(cell)).findFirst()
@@ -60,9 +54,8 @@ class LBSClusterSide {
                         : (lbsList.indexOf(lbs) + 1)).orElse(0);
     }
 
-
-    List<InternCell> getCrossOverCellList() {
-        return lbsCluster.getCrossoverCells();
+    List<InternCell> getCellsSideMapFromShape(InternCell.Shape shape) {
+        return lbsCluster.getCellsSideMapFromShape(shape);
     }
 
     LBSCluster getCluster() {
