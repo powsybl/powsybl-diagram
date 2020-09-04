@@ -153,6 +153,10 @@ public abstract class AbstractBlock implements Block {
         }
     }
 
+    double hToX(LayoutParameters layoutParameters, int h) {
+        return layoutParameters.getInitialXBus() + layoutParameters.getCellWidth() * h;
+    }
+
     @Override
     public void calculateRootCoord(LayoutParameters layoutParam) {
         double dyToBus = 0;
@@ -172,9 +176,7 @@ public abstract class AbstractBlock implements Block {
             dyToBus = externCellHeight / 2 + layoutParam.getStackHeight();
         }
 
-        coord.setX(layoutParam.getInitialXBus()
-                + layoutParam.getCellWidth() * position.getH()
-                + coord.getXSpan() / 2);
+        coord.setX(hToX(layoutParam, position.getH()) + coord.getXSpan() / 2);
 
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:

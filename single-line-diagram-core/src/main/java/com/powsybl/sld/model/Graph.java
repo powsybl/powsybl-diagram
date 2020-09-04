@@ -356,6 +356,14 @@ public final class Graph {
         addDoubleNode((BusNode) copyAdj.get(1), nodeSwitch, "1");
     }
 
+    public InternalNode insertInternalNode(Node node1, Node node2, String id) {
+        removeEdge(node1, node2);
+        InternalNode iNode = new InternalNode(this, id);
+        addEdge(node1, iNode);
+        addEdge(node2, iNode);
+        return iNode;
+    }
+
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
         removeEdge(busNode, node);
         SwitchNode fNodeToBus = SwitchNode.createFictitious(Graph.this, node.getId() + "fSwitch" + suffix, node.isOpen());

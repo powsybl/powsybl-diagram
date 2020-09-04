@@ -45,8 +45,15 @@ public class ExternCell extends AbstractBusCell {
 
     @Override
     public int newHPosition(int hPosition) {
-        getRootBlock().getPosition().setHV(hPosition, 0);
-        return hPosition + getRootBlock().getPosition().getHSpan();
+        int minHv;
+        if (isShunted() && shuntCell.getSideCell(Side.RIGHT) == this) {
+            Position leftPos = shuntCell.getSidePosition(Side.LEFT);
+            minHv = Math.max(hPosition, leftPos.getH() + leftPos.getHSpan() + shuntCell.getLength());
+        } else {
+            minHv = hPosition;
+        }
+        getRootBlock().getPosition().setHV(minHv, 0);
+        return minHv + getRootBlock().getPosition().getHSpan();
     }
 
     public boolean isShunted() {

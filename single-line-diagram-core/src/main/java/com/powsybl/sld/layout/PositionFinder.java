@@ -36,7 +36,7 @@ public interface PositionFinder {
         List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
         LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
         graph.setMaxBusPosition();
-        List<Subsection> subsections = Subsection.createSubsections(lbsCluster, handleShunt);
+        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, handleShunt);
         organizeDirections(graph, subsections);
         return subsections;
     }

@@ -38,7 +38,7 @@ public abstract class AbstractCell implements Cell {
         graph.addCell(this);
     }
 
-    public void addNodes(Collection<Node> nodesToAdd) {
+    public void addNodes(List<Node> nodesToAdd) {
         nodes.addAll(nodesToAdd);
     }
 

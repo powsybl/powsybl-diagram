@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class ShuntCell extends AbstractCell {
+public final class ShuntCell extends AbstractCell {
     private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
 
-    public ShuntCell(Graph graph) {
+    private ShuntCell(Graph graph) {
         super(graph, CellType.SHUNT);
     }
 
@@ -37,14 +37,24 @@ public class ShuntCell extends AbstractCell {
         }
         cell1.setShuntCell(shuntCell);
         cell2.setShuntCell(shuntCell);
-        shuntCell.addNodes(new ArrayList<>(nodes));
-        shuntCell.alignExternCells();
+        shuntCell.addNodes(nodes);
         return shuntCell;
+    }
+
+    @Override
+    public void addNodes(List<Node> nodesToAdd) {
+        InternalNode iNode1 = graph.insertInternalNode(nodesToAdd.get(0), nodesToAdd.get(1), "Shunt " + getNumber() + ".1");
+        InternalNode iNode2 = graph.insertInternalNode(nodesToAdd.get(nodesToAdd.size() - 1), nodesToAdd.get(nodesToAdd.size() - 2), "Shunt " + getNumber() + ".2");
+        nodesToAdd.add(1, iNode1);
+        nodesToAdd.add(nodesToAdd.size() - 1, iNode2);
+        super.addNodes(nodesToAdd);
     }
 
     public void calculateCoord(LayoutParameters layoutParam) {
         if (getRootBlock() instanceof BodyPrimaryBlock) {
-            ((BodyPrimaryBlock) getRootBlock()).coordShuntCase();
+            Position lPos = getSidePosition(Side.LEFT);
+            ((BodyPrimaryBlock) getRootBlock())
+                    .coordShuntCase(layoutParam, lPos.getH() + lPos.getHSpan(), getSidePosition(Side.RIGHT).getH());
         } else {
             throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
         }
@@ -65,6 +75,7 @@ public class ShuntCell extends AbstractCell {
         cells.put(Side.LEFT, cells.get(Side.RIGHT));
         cells.put(Side.RIGHT, cell);
         Collections.reverse(nodes);
+        getRootBlock().reverseBlock();
     }
 
     public ExternCell getSideCell(Side side) {
@@ -87,8 +98,16 @@ public class ShuntCell extends AbstractCell {
         return (FictitiousNode) (side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1));
     }
 
+    Position getSidePosition(Side side) {
+        return cells.get(side).getRootBlock().getPosition();
+    }
+
     public List<ExternCell> getCells() {
         return new ArrayList<>(cells.values());
+    }
+
+    public int getLength() {
+        return nodes.size() - 4;
     }
 
     public List<BusNode> getParentBusNodes() {

@@ -79,7 +79,7 @@ public class Subsection {
         return Arrays.asList(busNodes).containsAll(nodes);
     }
 
-    static List<Subsection> createSubsections(LBSCluster lbsCluster, boolean slipShuntedCells) {
+    static List<Subsection> createSubsections(Graph graph, LBSCluster lbsCluster, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
         Optional<Graph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getGraph);
         if (!oVLGraph.isPresent()) {
@@ -102,15 +102,18 @@ public class Subsection {
 
         internCellCoherence(oVLGraph.get(), lbsCluster.getLbsList(), subsections);
 
-        if (slipShuntedCells) {
+        graph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.SHUNT)
+                .map(ShuntCell.class::cast).forEach(ShuntCell::alignExternCells);
+        if (handleShunts) {
             shuntCellCoherence(oVLGraph.get(), subsections);
         }
 
         return subsections;
     }
 
-    static List<Subsection> createSubsections(LBSCluster lbsCluster) {
-        return createSubsections(lbsCluster, false);
+    static List<Subsection> createSubsections(Graph graph, LBSCluster lbsCluster) {
+        return createSubsections(graph, lbsCluster, false);
     }
 
     private static void internCellCoherence(Graph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
@@ -212,7 +215,7 @@ public class Subsection {
     private static void shuntCellCoherence(Graph vlGraph, List<Subsection> subsections) {
         Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT)
-                    .map(ShuntCell.class::cast)
+                .map(ShuntCell.class::cast)
                 .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes, (u, v) -> {
                     throw new IllegalStateException(String.format("Duplicate key %s", u));
                 }, LinkedHashMap::new));
@@ -220,7 +223,6 @@ public class Subsection {
             return;
         }
 
-        shuntCells2Buses.keySet().forEach(ShuntCell::alignExternCells);
         List<ShuntCell> sameSubsectionShunts = identifySameSubsectionShuntCells(subsections, shuntCells2Buses);
         slipInternShuntedCellsToEdge(subsections, shuntCells2Buses.keySet(), sameSubsectionShunts);
         alignMultiFeederShunt(shuntCells2Buses.keySet());
