@@ -283,7 +283,7 @@
     "open" : false,
     "label" : "l",
     "feederType" : "INJECTION",
-    "order" : 2,
+    "order" : 1,
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
@@ -297,7 +297,7 @@
     "open" : false,
     "label" : "l1",
     "feederType" : "INJECTION",
-    "order" : 1,
+    "order" : 0,
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
@@ -311,7 +311,7 @@
     "open" : false,
     "label" : "l2",
     "feederType" : "INJECTION",
-    "order" : 3,
+    "order" : 2,
     "direction" : "TOP"
   }, {
     "type" : "SWITCH",

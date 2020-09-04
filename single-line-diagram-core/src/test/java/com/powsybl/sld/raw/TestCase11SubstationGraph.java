@@ -7,10 +7,16 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 /*
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -282,4 +288,20 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
     }
+
+    @Test
+    public void testH() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
+    }
+
+    @Test
+    public void testV() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
+    }
+
+
 }
