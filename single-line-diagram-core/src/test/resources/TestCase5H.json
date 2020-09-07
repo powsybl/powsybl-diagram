@@ -8,6 +8,26 @@
   "y" : 0.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 3.1",
+    "name" : "Shunt 3.1",
+    "equipmentId" : "Shunt 3.1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 63.33333333333335,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 3.2",
+    "name" : "Shunt 3.2",
+    "equipmentId" : "Shunt 3.2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 63.33333333333335,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
     "id" : "FICT_vl_daFictif",
     "name" : "daFictif",
     "equipmentId" : "daFictif",

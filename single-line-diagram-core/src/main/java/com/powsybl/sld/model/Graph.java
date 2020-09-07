@@ -359,6 +359,7 @@ public final class Graph {
     public InternalNode insertInternalNode(Node node1, Node node2, String id) {
         removeEdge(node1, node2);
         InternalNode iNode = new InternalNode(this, id);
+        addNode(iNode);
         addEdge(node1, iNode);
         addEdge(node2, iNode);
         return iNode;

@@ -8,6 +8,66 @@
   "y" : 0.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 11.1",
+    "name" : "Shunt 11.1",
+    "equipmentId" : "Shunt 11.1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 300.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 11.2",
+    "name" : "Shunt 11.2",
+    "equipmentId" : "Shunt 11.2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 350.0,
+    "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 14.1",
+    "name" : "Shunt 14.1",
+    "equipmentId" : "Shunt 14.1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 450.0,
+    "y" : 130.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 14.2",
+    "name" : "Shunt 14.2",
+    "equipmentId" : "Shunt 14.2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 500.0,
+    "y" : 130.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 8.1",
+    "name" : "Shunt 8.1",
+    "equipmentId" : "Shunt 8.1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 63.33333333333335,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 8.2",
+    "name" : "Shunt 8.2",
+    "equipmentId" : "Shunt 8.2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 150.0,
+    "y" : 63.33333333333335,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
     "id" : "FICT_vl_commonFG",
     "name" : "commonFG",
     "equipmentId" : "commonFG",
