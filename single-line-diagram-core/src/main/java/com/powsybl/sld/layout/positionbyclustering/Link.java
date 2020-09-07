@@ -87,8 +87,8 @@ class Link implements Comparable<Link> {
     }
 
     private int assessCrossOver() {
-        Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getCellsSideMapFromShape(InternCell.Shape.UNDEFINED));
-        commonInternCells.retainAll(lbsClusterSide2.getCellsSideMapFromShape(InternCell.Shape.UNDEFINED));
+        Set<InternCell> commonInternCells = new LinkedHashSet<>(lbsClusterSide1.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
+        commonInternCells.retainAll(lbsClusterSide2.getInternCellsFromShape(InternCell.Shape.UNDEFINED));
         return (int) (commonInternCells.stream()
                 .flatMap(internCell -> internCell.getBusNodes().stream()).distinct()
                 .count());

@@ -54,8 +54,8 @@ class LBSClusterSide {
                         : (lbsList.indexOf(lbs) + 1)).orElse(0);
     }
 
-    List<InternCell> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return lbsCluster.getCellsSideMapFromShape(shape);
+    List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
+        return lbsCluster.getInternCellsFromShape(shape);
     }
 
     LBSCluster getCluster() {

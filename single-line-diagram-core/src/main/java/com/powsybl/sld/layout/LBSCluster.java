@@ -115,8 +115,8 @@ public class LBSCluster {
                 .collect(Collectors.toList());
     }
 
-    public List<InternCell> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return lbsList.stream().flatMap(legBusSet -> legBusSet.getCellsSideMapFromShape(shape).keySet()
+    public List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
+        return lbsList.stream().flatMap(legBusSet -> legBusSet.getInternCellsFromShape(shape)
                 .stream()).collect(Collectors.toList());
     }
 

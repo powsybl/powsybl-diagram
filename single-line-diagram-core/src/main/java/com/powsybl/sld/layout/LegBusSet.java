@@ -78,6 +78,10 @@ public final class LegBusSet {
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
+    List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
+        return internCellSides.stream().map(InternCellSide::getCell).distinct().collect(Collectors.toList());
+    }
+
     public Set<BusNode> getBusNodeSet() {
         return busNodeSet;
     }
