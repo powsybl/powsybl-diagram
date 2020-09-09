@@ -22,7 +22,20 @@ import java.util.*;
 public class InternCell extends AbstractBusCell {
 
     public enum Shape {
-        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER
+        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER, UNHANDLEDPATTERN;
+
+        public boolean checkShape(Shape shape) {
+            return this == shape;
+        }
+
+        public boolean checkIsNotShape(Shape... shapes) {
+            for (Shape s : shapes) {
+                if (this == s) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InternCell.class);
@@ -55,6 +68,7 @@ public class InternCell extends AbstractBusCell {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
+                    shape = Shape.UNHANDLEDPATTERN;
                     LOGGER.error("InternCell pattern not handled");
                     legs.put(Side.UNDEFINED, candidateLegs.get(0));
                 }
@@ -63,15 +77,15 @@ public class InternCell extends AbstractBusCell {
         if (candidateLegs.size() == 1) {
             shape = Shape.UNILEG;
             legs.put(Side.UNDEFINED, candidateLegs.get(0));
-        } else if (getBusNodes().size() == 2) {
+        } else if (candidateLegs.size() == 2 && getBusNodes().size() == 2) {
             shape = Shape.MAYBEFLAT;
         }
     }
 
     private void assignLeg(SerialBlock sb, LegBlock candidateLeg) {
-        Block.Extremity extremity = sb.whichExtremity(candidateLeg);
-        if (extremity != Block.Extremity.NONE) {
-            legs.put(extremityToSide(extremity), candidateLeg);
+        Optional<Block.Extremity> extremity = sb.whichExtremity(candidateLeg);
+        if (extremity.isPresent()) {
+            legs.put(extremityToSide(extremity.get()), candidateLeg);
         } else {
             throw new PowsyblException("Unable to identify legs of internCell");
         }
@@ -121,16 +135,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     public boolean checkShape(Shape shape) {
-        return this.shape == shape;
+        return this.shape.checkShape(shape);
     }
 
     public boolean checkIsNotShape(Shape... shapes) {
-        for (Shape s : shapes) {
-            if (this.shape == s) {
-                return false;
-            }
-        }
-        return true;
+        return shape.checkIsNotShape(shapes);
     }
 
     public void reverseCell() {
@@ -149,7 +158,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
+        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
             body.sizing();
         }
     }
@@ -196,10 +205,10 @@ public class InternCell extends AbstractBusCell {
 
     @Override
     public void calculateCoord(LayoutParameters layoutParam) {
-        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
-        if (shape != Shape.UNILEG && shape != Shape.UNDEFINED) {
+        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
             body.calculateRootCoord(layoutParam);
         }
+        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
     }
 
     public LegBlock getSideToLeg(Side side) {

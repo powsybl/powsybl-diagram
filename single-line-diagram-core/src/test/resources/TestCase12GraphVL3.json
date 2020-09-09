@@ -119,7 +119,7 @@
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 480.0,
-    "y" : 456.6666666666667,
+    "y" : 456.66666666666663,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -466,7 +466,7 @@
     "equipmentId" : "trf6",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 360.0,
+    "x" : 280.0,
     "y" : -19.99999999999998,
     "open" : false,
     "label" : "trf63",
@@ -486,7 +486,7 @@
     "equipmentId" : "trf6",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 280.0,
+    "x" : 360.0,
     "y" : -19.99999999999998,
     "open" : false,
     "label" : "trf63",
@@ -506,7 +506,7 @@
     "equipmentId" : "trf7",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 520.0,
+    "x" : 440.0,
     "y" : 540.0,
     "open" : false,
     "label" : "trf73",
@@ -526,7 +526,7 @@
     "equipmentId" : "trf7",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 440.0,
+    "x" : 520.0,
     "y" : 540.0,
     "open" : false,
     "label" : "trf73",
@@ -546,7 +546,7 @@
     "equipmentId" : "trf8",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 680.0,
+    "x" : 600.0,
     "y" : -19.99999999999998,
     "open" : false,
     "label" : "trf83",
@@ -566,7 +566,7 @@
     "equipmentId" : "trf8",
     "componentType" : "LINE",
     "fictitious" : false,
-    "x" : 600.0,
+    "x" : 680.0,
     "y" : -19.99999999999998,
     "open" : false,
     "label" : "trf83",
@@ -606,7 +606,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -627,7 +627,7 @@
         },
         "nodes" : [ "bbs7", "dload4", "FICT_vl3_dload4Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -675,7 +675,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -696,7 +696,7 @@
         },
         "nodes" : [ "bbs7", "dself4", "FICT_vl3_dself4Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -744,7 +744,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -765,7 +765,7 @@
         },
         "nodes" : [ "bbs7", "dtrf25", "FICT_vl3_dtrf25Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -813,7 +813,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -834,7 +834,7 @@
         },
         "nodes" : [ "bbs7", "dtrf36", "FICT_vl3_dtrf36Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -855,7 +855,7 @@
         },
         "nodes" : [ "FICT_vl3_dtrf36Fictif", "btrf36", "FICT_vl3_trf6_fictif" ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -875,7 +875,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -894,9 +894,9 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf6_fictif", "trf6_TWO" ]
+          "nodes" : [ "FICT_vl3_trf6_fictif", "trf6_ONE" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -915,7 +915,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf6_fictif", "trf6_ONE" ]
+          "nodes" : [ "FICT_vl3_trf6_fictif", "trf6_TWO" ]
         } ]
       } ]
     }
@@ -945,7 +945,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -966,7 +966,7 @@
         },
         "nodes" : [ "bbs7", "dtrf37", "FICT_vl3_dtrf37Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -987,7 +987,7 @@
         },
         "nodes" : [ "FICT_vl3_dtrf37Fictif", "btrf37", "FICT_vl3_trf7_fictif" ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1007,7 +1007,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1026,9 +1026,9 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf7_fictif", "trf7_TWO" ]
+          "nodes" : [ "FICT_vl3_trf7_fictif", "trf7_ONE" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1047,7 +1047,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf7_fictif", "trf7_ONE" ]
+          "nodes" : [ "FICT_vl3_trf7_fictif", "trf7_TWO" ]
         } ]
       } ]
     }
@@ -1077,7 +1077,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1098,7 +1098,7 @@
         },
         "nodes" : [ "bbs7", "dtrf38", "FICT_vl3_dtrf38Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1119,7 +1119,7 @@
         },
         "nodes" : [ "FICT_vl3_dtrf38Fictif", "btrf38", "FICT_vl3_trf8_fictif" ]
       }, {
-        "type" : "PARALLEL",
+        "type" : "BODYPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -1139,7 +1139,7 @@
           "ySpan" : 83.33333333333333
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1158,9 +1158,9 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf8_fictif", "trf8_TWO" ]
+          "nodes" : [ "FICT_vl3_trf8_fictif", "trf8_ONE" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "BODYPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -1179,7 +1179,7 @@
             "xSpan" : 80.0,
             "ySpan" : 83.33333333333333
           },
-          "nodes" : [ "FICT_vl3_trf8_fictif", "trf8_ONE" ]
+          "nodes" : [ "FICT_vl3_trf8_fictif", "trf8_TWO" ]
         } ]
       } ]
     }
@@ -1209,7 +1209,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1230,7 +1230,7 @@
         },
         "nodes" : [ "bbs7", "dself5", "FICT_vl3_dself5Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1278,7 +1278,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -1299,7 +1299,7 @@
         },
         "nodes" : [ "bbs8", "dself6", "FICT_vl3_dself6Fictif" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {

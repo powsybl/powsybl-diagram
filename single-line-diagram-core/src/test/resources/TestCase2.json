@@ -136,7 +136,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PARALLEL",
+        "type" : "LEGPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -156,7 +156,7 @@
           "ySpan" : 0.0
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -177,7 +177,7 @@
           },
           "nodes" : [ "bbs2", "d2", "FICT_vl_2" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -199,7 +199,7 @@
           "nodes" : [ "bbs1", "d1", "FICT_vl_2" ]
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {

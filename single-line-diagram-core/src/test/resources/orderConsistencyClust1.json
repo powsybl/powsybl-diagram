@@ -407,7 +407,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -415,28 +415,28 @@
         } ],
         "position" : {
           "h" : 4,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 235.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
         "nodes" : [ "bbs12", "ss1fSwitch1", "FICT_vl1_ss1fNode1" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -449,7 +449,7 @@
         },
         "nodes" : [ "FICT_vl1_ss1fNode1", "ss1", "FICT_vl1_ss1fNode0" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -457,14 +457,14 @@
         } ],
         "position" : {
           "h" : 3,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 150.0,
-          "y" : 285.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -496,7 +496,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -504,28 +504,28 @@
         } ],
         "position" : {
           "h" : 2,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 100.0,
-          "y" : 235.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
         "nodes" : [ "bbs22", "ss2fSwitch1", "FICT_vl1_ss2fNode1" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -538,7 +538,7 @@
         },
         "nodes" : [ "FICT_vl1_ss2fNode1", "ss2", "FICT_vl1_ss2fNode0" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -546,14 +546,14 @@
         } ],
         "position" : {
           "h" : 1,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 50.0,
-          "y" : 285.0,
+          "y" : 210.0,
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
@@ -586,7 +586,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PARALLEL",
+        "type" : "LEGPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -606,7 +606,7 @@
           "ySpan" : 0.0
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -627,7 +627,7 @@
           },
           "nodes" : [ "bbs21", "d12", "FICT_vl1_f1" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -649,7 +649,7 @@
           "nodes" : [ "bbs11", "d11", "FICT_vl1_f1" ]
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -697,7 +697,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PARALLEL",
+        "type" : "LEGPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -717,7 +717,7 @@
           "ySpan" : 0.0
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -738,7 +738,7 @@
           },
           "nodes" : [ "bbs22", "d2", "FICT_vl1_f" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -760,7 +760,7 @@
           "nodes" : [ "bbs11", "d1", "FICT_vl1_f" ]
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -808,7 +808,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PARALLEL",
+        "type" : "LEGPARALLEL",
         "cardinalities" : [ {
           "START" : 2
         }, {
@@ -828,7 +828,7 @@
           "ySpan" : 0.0
         },
         "subBlocks" : [ {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -849,7 +849,7 @@
           },
           "nodes" : [ "bbs22", "d22", "FICT_vl1_f2" ]
         }, {
-          "type" : "PRIMARY",
+          "type" : "LEGPRIMARY",
           "cardinalities" : [ {
             "START" : 1
           }, {
@@ -871,7 +871,7 @@
           "nodes" : [ "bbs12", "d21", "FICT_vl1_f2" ]
         } ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {

@@ -44,9 +44,6 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         LOGGER.info("Running voltage level layout");
         calculateBusNodeCoord(graph, layoutParam);
         calculateCellCoord(graph, layoutParam);
-        graph.getNodes().stream()
-                .filter(node -> node.getType() != Node.NodeType.BUS)
-                .forEach(Node::finalizeCoord);
 
         // when adapting cell height to content, we need to leave enough space around feeder nodes for the arrow nodes
         graph.getNodes().stream()

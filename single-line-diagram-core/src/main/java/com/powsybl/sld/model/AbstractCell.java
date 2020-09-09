@@ -106,7 +106,7 @@ public abstract class AbstractCell implements Cell {
 
     @Override
     public String toString() {
-        return "Cell(type=" + type + ", nodes=" + nodes + ")";
+        return type + " " + nodes;
     }
 
     public Graph getGraph() {

@@ -62,6 +62,6 @@ public class TestCase5H extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase5ShuntHorizontal.json"), toJson(g, "/TestCase5H.json"));
+        assertEquals(toString("/TestCase5H.json"), toJson(g, "/TestCase5H.json"));
     }
 }

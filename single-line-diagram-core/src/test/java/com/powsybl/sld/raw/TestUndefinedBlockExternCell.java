@@ -16,32 +16,40 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * <pre>
- *     b
- *    / \
- *   |   |
- * -d1---|---- bbs1
- * -----d2---- bbs2
- *
- * </pre>
+ * <PRE>
+ * l
+ * |
+ * b
+ * |
+ * d
+ * |
+ * ------ bbs
+ * </PRE>
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-
-public class TestCase3 extends AbstractTestCaseRaw {
+public class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
-        BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
-        BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
-        SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        vlBuilder.connectNode(bbs1, d1);
-        vlBuilder.connectNode(d1, b);
-        vlBuilder.connectNode(d2, bbs2);
-        vlBuilder.connectNode(d2, b);
+        BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
+        SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
+        FictitiousNode f0 = vlBuilder.createFictitiousNode("f0");
+        vlBuilder.connectNode(bbs, d);
+        vlBuilder.connectNode(d, f0);
+
+        FictitiousNode f1 = vlBuilder.createFictitiousNode("f1");
+        FeederNode l1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
+        vlBuilder.connectNode(f0, f1);
+        vlBuilder.connectNode(f1, l1);
+
+        FictitiousNode f2 = vlBuilder.createFictitiousNode("f2");
+        FeederNode l2 = vlBuilder.createLoad("l2", 1, BusCell.Direction.TOP);
+        vlBuilder.connectNode(f1, f2);
+        vlBuilder.connectNode(f2, l2);
+
+        vlBuilder.connectNode(f2, f0);
     }
 
     @Test
@@ -50,6 +58,6 @@ public class TestCase3 extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3Coupling.json"));
+        assertEquals(toString("/TestUndefinedBlockExternCell.json"), toJson(g, "/TestUndefinedBlockExternCell.json"));
     }
 }

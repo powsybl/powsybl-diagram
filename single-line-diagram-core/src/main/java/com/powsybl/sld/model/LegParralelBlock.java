@@ -8,7 +8,6 @@ package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class LegParralelBlock extends AbstractParallelBlock implements LegBlock {
 
     public LegParralelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(subBlocks, cell, allowMerge);
+        super(Type.LEGPARALLEL, subBlocks, cell, allowMerge);
     }
 
     @Override
@@ -33,19 +32,20 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
         subBlocks.forEach(Block::sizing);
         if (getPosition().getOrientation() == Orientation.VERTICAL) {
             getPosition().setVSpan(0);
-            List<Block> subBlocksCopy = new ArrayList<>(subBlocks);
+            List<LegPrimaryBlock> subBlocksCopy = subBlocks.stream()
+                    .map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
             int h = 0;
             while (!subBlocksCopy.isEmpty()) {
-                Block b = subBlocksCopy.get(0);
+                LegPrimaryBlock b = subBlocksCopy.get(0);
                 b.getPosition().setHV(h, 0);
-                if (((LegPrimaryBlock) b).getStackableBlocks().isEmpty()) {
+                if (b.getStackableBlocks().isEmpty()) {
                     b.getPosition().setHV(h, 0);
                     h += b.getPosition().getHSpan();
                 } else {
                     final int finalH = h;
-                    ((LegPrimaryBlock) b).getStackableBlocks().forEach(sb -> sb.getPosition().setHV(finalH, 0));
+                    b.getStackableBlocks().forEach(sb -> sb.getPosition().setHV(finalH, 0));
                     h++;
-                    subBlocksCopy.removeAll(((LegPrimaryBlock) b).getStackableBlocks());
+                    subBlocksCopy.removeAll(b.getStackableBlocks());
                 }
                 subBlocksCopy.remove(b);
             }
@@ -70,8 +70,4 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
         // case HORIZONTAL cannot happen
     }
 
-    @Override
-    public String toString() {
-        return "BodyParallelBlock(subBlocks=" + subBlocks + ")";
-    }
 }

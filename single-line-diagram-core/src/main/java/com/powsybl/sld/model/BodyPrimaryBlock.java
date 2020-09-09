@@ -18,7 +18,7 @@ import java.util.List;
 public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(nodes, cell);
+        super(Type.BODYPRIMARY, nodes, cell);
         if (getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER) {
             reverseBlock();
         }
@@ -28,11 +28,10 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         this(bodyPrimaryBlock.getNodes(), bodyPrimaryBlock.getCell());
     }
 
-    // TODO : START or END ?
     @Override
     public int getOrder() {
-        return getExtremityNode(Block.Extremity.START).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.START)).getOrder() : 0;
+        return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
+                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
     }
 
     @Override
@@ -88,8 +87,8 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double dy = (y1 - y0) / (nodes.size() - 1);
         for (int i = 1; i < nodes.size() - 1; i++) {
             Node node = nodes.get(i);
-            node.setX(x0 + i * dx, false, false);
-            node.setY(y0 + i * dy, false, false);
+            node.setX(x0 + i * dx, false);
+            node.setY(y0 + i * dy, false);
             if (dy == 0) {
                 node.setRotationAngle(90.);
             }

@@ -10,11 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -60,19 +56,20 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public Extremity getExtremity(Node node) {
+    public Optional<Extremity> getExtremity(Node node) {
         if (node.equals(getExtremityNode(Extremity.START))) {
-            return Extremity.START;
+            return Optional.of(Extremity.START);
         }
         if (node.equals(getExtremityNode(Extremity.END))) {
-            return Extremity.END;
+            return Optional.of(Extremity.END);
         }
-        return Extremity.NONE;
+        return Optional.empty();
     }
 
     @Override
     public int getCardinality(Node node) {
-        return getCardinality(getExtremity(node));
+        Optional<Extremity> extremity = getExtremity(node);
+        return extremity.map(this::getCardinality).orElse(0);
     }
 
     @Override
@@ -231,4 +228,5 @@ public abstract class AbstractBlock implements Block {
         writeJsonContent(generator);
         generator.writeEndObject();
     }
+
 }
