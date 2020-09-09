@@ -681,7 +681,7 @@ public class DefaultSVGWriter implements SVGWriter {
         handleNodeRotation(node);
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, subComponent);
-        insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
+        insertSVGIntoDocumentSVG(node.getName(), componentType, g, componentDefsId, elementAttributesSetter);
     }
 
     protected void insertArrowSVGIntoDocumentSVG(String prefixId,
@@ -690,7 +690,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                                  String componentDefsId) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (e, subComponent) -> setArrowAttributes(prefixId, g, e, angle, componentSize);
-        insertSVGIntoDocumentSVG(ARROW, g, componentDefsId, elementAttributesSetter);
+        insertSVGIntoDocumentSVG("", ARROW, g, componentDefsId, elementAttributesSetter);
     }
 
     private void setArrowAttributes(String prefixId, Element g, Element e,
@@ -709,13 +709,18 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, node, nodeDecorator, styleProvider, elt, subComponent);
-        insertSVGIntoDocumentSVG(nodeDecorator.getType(), g, nodeDecorator.getType(), elementAttributesSetter);
+        String nodeDecoratorType = nodeDecorator.getType();
+        insertSVGIntoDocumentSVG(nodeDecoratorType, nodeDecoratorType, g, nodeDecoratorType, elementAttributesSetter);
     }
 
-    protected void insertSVGIntoDocumentSVG(String componentType, Element g, String componentDefsId,
+    protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g, String componentDefsId,
                                             BiConsumer<Element, String> elementAttributesSetter) {
 
         Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
+
+        if (layoutParameters.isTooltipEnabled() && !name.isEmpty()) {
+            addToolTip(name, g);
+        }
 
         if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
             // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
@@ -747,6 +752,14 @@ public class DefaultSVGWriter implements SVGWriter {
                 });
             }
         }
+    }
+
+    private void addToolTip(String tooltip, Element g) {
+        Document doc = g.getOwnerDocument();
+        Element title = doc.createElement("title");
+        title.appendChild(doc.createTextNode(tooltip));
+        doc.adoptNode(title);
+        g.appendChild(title);
     }
 
     private void setComponentAttributes(String prefixId, Element g, Node node, DiagramStyleProvider styleProvider,
