@@ -21,7 +21,6 @@ import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 
 /**
- *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -70,8 +69,8 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     private void setMultiNodesCoord() {
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            multiNode.setX(adjacentNodes.get(0).getX(), false, false);
-            multiNode.setY(adjacentNodes.get(0).getY(), false, false);
+            multiNode.setX(adjacentNodes.get(0).getX(), false);
+            multiNode.setY(adjacentNodes.get(0).getY(), false);
         }
     }
 }

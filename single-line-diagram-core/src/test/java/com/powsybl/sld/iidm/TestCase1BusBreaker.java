@@ -83,7 +83,6 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
                 .setVerticalSubstationPadding(50);
 
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-
         // write Json and compare to reference
         assertEquals(toString("/TestCase1BusBreaker.json"), toJson(g, "/TestCase1BusBreaker.json"));
     }

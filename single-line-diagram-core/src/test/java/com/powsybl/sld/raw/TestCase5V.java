@@ -36,14 +36,14 @@ public class TestCase5V extends AbstractTestCaseRaw {
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode la = vlBuilder.createLoad("la", 10, BusCell.Direction.TOP);
+        FeederNode la = vlBuilder.createLoad("la", 20, BusCell.Direction.TOP);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
         SwitchNode da = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da", false, false);
         vlBuilder.connectNode(la, ba);
         vlBuilder.connectNode(ba, da);
         vlBuilder.connectNode(da, bbs);
 
-        FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.TOP);
+        FeederNode lb = vlBuilder.createLoad("lb", 10, BusCell.Direction.TOP);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
         FictitiousNode fn = vlBuilder.createFictitiousNode("3");
@@ -64,6 +64,6 @@ public class TestCase5V extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase5ShuntVertical.json"), toJson(g, "/TestCase5V.json"));
+        assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));
     }
 }

@@ -168,7 +168,7 @@
         "ySpan" : 0.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -176,28 +176,28 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 0,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 260.0,
+          "y" : 300.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
         "nodes" : [ "b2", "swfSwitch", "FICT_vl_swfNode" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
           "END" : 1
         } ],
         "position" : {
-          "h" : 0,
-          "v" : 1,
+          "h" : -1,
+          "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
@@ -210,7 +210,7 @@
         },
         "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_swfNode" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -218,14 +218,14 @@
         } ],
         "position" : {
           "h" : 1,
-          "v" : 2,
+          "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
           "orientation" : "VERTICAL"
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 180.0,
+          "y" : 300.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -258,7 +258,7 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "PRIMARY",
+        "type" : "LEGPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -279,7 +279,7 @@
         },
         "nodes" : [ "b1", "lfSwitch", "FICT_vl_lfNode" ]
       }, {
-        "type" : "PRIMARY",
+        "type" : "BODYPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -304,6 +304,15 @@
   } ],
   "edges" : [ {
     "node1" : "b1",
+    "node2" : "lfSwitch"
+  }, {
+    "node1" : "lfSwitch",
+    "node2" : "FICT_vl_lfNode"
+  }, {
+    "node1" : "FICT_vl_lfNode",
+    "node2" : "l"
+  }, {
+    "node1" : "b1",
     "node2" : "swfSwitch"
   }, {
     "node1" : "swfSwitch",
@@ -320,14 +329,5 @@
   }, {
     "node1" : "FICT_vl_swfNode",
     "node2" : "sw"
-  }, {
-    "node1" : "b1",
-    "node2" : "lfSwitch"
-  }, {
-    "node1" : "lfSwitch",
-    "node2" : "FICT_vl_lfNode"
-  }, {
-    "node1" : "FICT_vl_lfNode",
-    "node2" : "l"
   } ]
 }

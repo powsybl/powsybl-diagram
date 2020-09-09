@@ -46,10 +46,10 @@ public class TestCase5ShuntVertical extends AbstractTestCaseIidm {
         substation = createSubstation(network, "s", "s", Country.FR);
         vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
         createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
-        createLoad(vl, "la", "la", "la", 10, ConnectablePosition.Direction.TOP, 2, 10, 10);
+        createLoad(vl, "la", "la", "la", 20, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 2, 1);
         createSwitch(vl, "da", "da", SwitchKind.DISCONNECTOR, false, false, false, 1, 0);
-        createLoad(vl, "lb", "lb", "lb", 20, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createLoad(vl, "lb", "lb", "lb", 10, ConnectablePosition.Direction.TOP, 4, 10, 10);
         createSwitch(vl, "bb", "bb", SwitchKind.BREAKER, false, false, false, 4, 3);
         createSwitch(vl, "db", "db", SwitchKind.DISCONNECTOR, false, false, false, 3, 0);
         createSwitch(vl, "bs", "bs", SwitchKind.BREAKER, false, false, false, 2, 3);
@@ -87,6 +87,6 @@ public class TestCase5ShuntVertical extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
-        assertEquals(toString("/TestCase5ShuntVertical.json"), toJson(g, "/TestCase5ShuntVertical.json"));
+        assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));
     }
 }

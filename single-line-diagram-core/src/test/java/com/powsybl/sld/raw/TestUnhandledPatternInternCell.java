@@ -16,44 +16,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * <pre>
- *              b
- *           /     \
- *          |       |
- * bbs1.1 -d1- ds1 -|-- bbs1.2
- * bbs2.1 ---- ds2 -d2- bbs2.2
- *
- * </pre>
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-
-public class TestCase6 extends AbstractTestCaseRaw {
+public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
-
-        BusNode bbs11 = vlBuilder.createBusBarSection("bbs1.1", 1, 1);
-        BusNode bbs12 = vlBuilder.createBusBarSection("bbs1.2", 1, 2);
-        BusNode bbs21 = vlBuilder.createBusBarSection("bbs2.1", 2, 1);
-        BusNode bbs22 = vlBuilder.createBusBarSection("bbs2.2", 2, 2);
-
+        BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
+        BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 1, 2);
+        BusNode bbs3 = vlBuilder.createBusBarSection("bbs3", 1, 3);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
+        SwitchNode b1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b1", false, false);
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        vlBuilder.connectNode(bbs11, d1);
-        vlBuilder.connectNode(d1, b);
-        vlBuilder.connectNode(d2, b);
-        vlBuilder.connectNode(d2, bbs22);
-
-        SwitchNode ds1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ds1", false, false);
-        vlBuilder.connectNode(bbs11, ds1);
-        vlBuilder.connectNode(bbs12, ds1);
-        SwitchNode ds2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ds2", false, false);
-        vlBuilder.connectNode(bbs21, ds2);
-        vlBuilder.connectNode(bbs22, ds2);
-
+        SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
+        SwitchNode d3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d3", false, false);
+        SwitchNode b3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
+        FictitiousNode f = vlBuilder.createFictitiousNode("F");
+        vlBuilder.connectNode(bbs1, d1);
+        vlBuilder.connectNode(b1, d1);
+        vlBuilder.connectNode(b1, f);
+        vlBuilder.connectNode(bbs2, d2);
+        vlBuilder.connectNode(b2, d2);
+        vlBuilder.connectNode(b2, f);
+        vlBuilder.connectNode(bbs3, d3);
+        vlBuilder.connectNode(b3, d3);
+        vlBuilder.connectNode(b3, f);
     }
 
     @Test
@@ -62,6 +50,6 @@ public class TestCase6 extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase6CouplingNonFlatHorizontal.json"), toJson(g, "/TestCase6CouplingNonFlatHorizontaljson"));
+        assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) g.getCells().iterator().next()).getShape());
     }
 }

@@ -43,7 +43,7 @@ public class TestCase5H extends AbstractTestCaseRaw {
         vlBuilder.connectNode(ba, da);
         vlBuilder.connectNode(da, bbs);
 
-        FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.TOP);
+        FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.BOTTOM);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
         vlBuilder.connectNode(lb, bb);
@@ -62,6 +62,6 @@ public class TestCase5H extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase5ShuntHorizontal.json"), toJson(g, "/TestCase5H.json"));
+        assertEquals(toString("/TestCase5H.json"), toJson(g, "/TestCase5H.json"));
     }
 }

@@ -71,13 +71,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs1.setX(0);
         vl1Bbs1.setY(300);
         vl1Bbs1.setPxWidth(200);
-        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, false, null));
+        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, null));
         g1.addNode(vl1Bbs1);
         BusNode vl1Bbs2 = BusNode.create(g1, "vl1_bbs2", "vl1_bbs2");
         vl1Bbs2.setX(280);
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
-        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, false, null));
+        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, null));
         g1.addNode(vl1Bbs2);
         SwitchNode vl1D1 = new SwitchNode("vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, g1, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
@@ -171,16 +171,16 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.setX(550);
         g2.setY(20);
 
-        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
-        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
-        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3", 63.);
 
         BusNode vl2Bbs1 = BusNode.create(g2, "vl2_bbs1", "vl2_bbs1");
         vl2Bbs1.setX(0);
         vl2Bbs1.setY(300);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
-        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
+        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, null));
         g2.addNode(vl2Bbs1);
         FeederNode vl2Gen1 = FeederInjectionNode.createGenerator(g2, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
@@ -256,15 +256,15 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g3.setX(850);
         g3.setY(20);
 
-        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1",  400.);
-        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2",  225);
-        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3",  63.);
+        VoltageLevelInfos voltageLevelInfosLeg1 = new VoltageLevelInfos("vl1", "vl1", 400.);
+        VoltageLevelInfos voltageLevelInfosLeg2 = new VoltageLevelInfos("vl2", "vl2", 225);
+        VoltageLevelInfos voltageLevelInfosLeg3 = new VoltageLevelInfos("vl3", "vl3", 63.);
 
         BusNode vl3Bbs1 = BusNode.create(g3, "vl3_bbs1", "vl3_bbs1");
         vl3Bbs1.setX(0);
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
-        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
+        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, null));
         g3.addNode(vl3Bbs1);
         FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor(g3, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);
@@ -333,13 +333,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs1.setX(0);
         vl1Bbs1.setY(300);
         vl1Bbs1.setPxWidth(200);
-        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, false, null));
+        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, null));
         g1Graph.addNode(vl1Bbs1);
         BusNode vl1Bbs2 = BusNode.create(g1Graph, "vl1_bbs2", "vl1_bbs2");
         vl1Bbs2.setX(280);
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
-        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, false, null));
+        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, null));
         g1Graph.addNode(vl1Bbs2);
         SwitchNode vl1D1 = new SwitchNode("vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, g1Graph, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
@@ -425,7 +425,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setY(300);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
-        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
+        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, null));
         g2Graph.addNode(vl2Bbs1);
         FeederNode vl2Gen1 = FeederInjectionNode.createGenerator(g2Graph, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
@@ -492,7 +492,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setX(0);
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
-        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, false, null));
+        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, null));
         g3Graph.addNode(vl3Bbs1);
         FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor(g3Graph, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);
@@ -537,8 +537,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addNode(g2Graph);
         substG.addNode(g3Graph);
         Node nMulti1 = new Middle2WTNode(null, vl1Trf1.getId() + "_" + vl2Trf1.getId(), vl1Infos, vl2Infos);
-        nMulti1.setX(365., false, false);
-        nMulti1.setY(550., false, false);
+        nMulti1.setX(365., false);
+        nMulti1.setY(550., false);
         TwtEdge edge1 = substG.addEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Arrays.asList(80., 500., 80., 550., 365., 550.));
         TwtEdge edge2 = substG.addEdge(nMulti1, vl2Trf1);
@@ -548,8 +548,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addMultiTermNode(nMulti1);
 
         Node nMulti3 = new Middle3WTNode(null, vl1Trf2.getId() + "_" + vl2Trf2.getId() + "_" + vl3Trf2.getId(), vl1Infos, vl2Infos, vl3Infos);
-        nMulti3.setX(710., false, false);
-        nMulti3.setY(50., false, false);
+        nMulti3.setX(710., false);
+        nMulti3.setY(50., false);
         TwtEdge edge21 = substG.addEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Arrays.asList(400., 80., 400., 50., 710., 50.));
         TwtEdge edge22 = substG.addEdge(nMulti3, vl2Trf2);
@@ -626,8 +626,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
         Node nMulti1 = new Middle2WTNode(null, twtSide1Node.getId() + "_" + twtSide2Node.getId(), vl12Infos, vl11Infos);
-        nMulti1.setX(50, false, false);
-        nMulti1.setY(350, false, false);
+        nMulti1.setX(50, false);
+        nMulti1.setY(350, false);
         TwtEdge edge1 = s1Graph.addEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Arrays.asList(50., 300., 50., 320., 50., 350.));
         TwtEdge edge2 = s1Graph.addEdge(nMulti1, twtSide2Node);
