@@ -171,7 +171,7 @@ class BlockPositionner {
         }
 
         private int getHfromSide(InternCell cell, Side side) {
-            if (cell.checkShape(InternCell.Shape.UNILEG)) {
+            if (cell.checkisShape(InternCell.Shape.UNILEG)) {
                 return cell.getSideHPos(Side.UNDEFINED);
             }
             return cell.getSideHPos(side);
@@ -199,7 +199,7 @@ class BlockPositionner {
                 final int newV = 1 + i / 2;
                 lane.cells.forEach(c -> {
                     c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
-                    if (!c.checkShape(InternCell.Shape.UNILEG)) {
+                    if (!c.checkisShape(InternCell.Shape.UNILEG)) {
                         c.getBodyBlock().getPosition().setV(newV);
                     }
                 });

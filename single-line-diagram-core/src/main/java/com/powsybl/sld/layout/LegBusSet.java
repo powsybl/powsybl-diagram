@@ -41,6 +41,11 @@ public final class LegBusSet {
         externCells.add(cell);
     }
 
+    private LegBusSet(Map<BusNode, Integer> nodeToNb, ShuntCell cell) {
+        this(nodeToNb, cell.getParentBusNodes());
+        externCells.addAll(cell.getCells());
+    }
+
     private LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
         this(nodeToNb, internCell.getSideBusNodes(side));
         addInternCell(internCell, side);
@@ -68,17 +73,13 @@ public final class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    Map<InternCell, Side> getCellSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkShape(shape))
+    Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
+        return internCellSides.stream().filter(ics -> ics.getCell().checkisShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
-    Map<InternCell, Side> getCandidateFlatCells() {
-        return getCellSideMapFromShape(InternCell.Shape.MAYBEFLAT);
-    }
-
-    Map<InternCell, Side> getCrossoverInternCell() {
-        return getCellSideMapFromShape(InternCell.Shape.CROSSOVER);
+    List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
+        return internCellSides.stream().map(InternCellSide::getCell).distinct().collect(Collectors.toList());
     }
 
     public Set<BusNode> getBusNodeSet() {
@@ -105,16 +106,23 @@ public final class LegBusSet {
         return extendedNodeSet;
     }
 
-    static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb) {
+    static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
         List<LegBusSet> legBusSets = new ArrayList<>();
-        graph.getCells().stream()
+
+        List<ExternCell> externCells = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
                 .map(ExternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+                .collect(Collectors.toList());
+
+        if (handleShunts) {
+            manageShunts(graph, externCells, legBusSets, nodeToNb);
+        }
+
+        externCells.forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkShape(InternCell.Shape.UNILEG))
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkisShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
@@ -137,10 +145,50 @@ public final class LegBusSet {
         return legBusSets;
     }
 
-    private static void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, BusCell busCell, Side side) {
-        LegBusSet legBusSet = busCell instanceof ExternCell ?
-                new LegBusSet(nodeToNb, (ExternCell) busCell) :
-                new LegBusSet(nodeToNb, (InternCell) busCell, side);
+    private static void manageShunts(Graph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
+        List<ShuntCell> shuntCells = graph.getCells().stream()
+                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast).collect(Collectors.toList());
+        List<List<ShuntCell>> sameBusNodesShuntCells = shuntCells.stream()
+                .map(sc -> {
+                    List<ShuntCell> list = new ArrayList<>();
+                    list.add(sc);
+                    return list;
+                }).collect(Collectors.toList());
+        int i = 0;
+        while (i < sameBusNodesShuntCells.size()) {
+            int j = i + 1;
+            while (j < sameBusNodesShuntCells.size()) {
+                if (crossContains(sameBusNodesShuntCells.get(i).get(0).getParentBusNodes(),
+                        sameBusNodesShuntCells.get(j).get(0).getParentBusNodes())) {
+                    sameBusNodesShuntCells.get(i).addAll(sameBusNodesShuntCells.get(j));
+                    sameBusNodesShuntCells.remove(j);
+                } else {
+                    j++;
+                }
+            }
+            i++;
+        }
+
+        sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
+                .forEach(sc -> {
+                    pushNewLBS(legBusSets, nodeToNb, sc, Side.UNDEFINED);
+                    externCells.removeAll(sc.getCells());
+                });
+    }
+
+    private static boolean crossContains(List<BusNode> busNodes1, List<BusNode> busNodes2) {
+        return busNodes1.containsAll(busNodes2) && busNodes2.containsAll(busNodes1);
+    }
+
+    private static void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, Cell cell, Side side) {
+        LegBusSet legBusSet;
+        if (cell.getType() == Cell.CellType.EXTERN) {
+            legBusSet = new LegBusSet(nodeToNb, (ExternCell) cell);
+        } else if (cell.getType() == Cell.CellType.SHUNT) {
+            legBusSet = new LegBusSet(nodeToNb, (ShuntCell) cell);
+        } else {
+            legBusSet = new LegBusSet(nodeToNb, (InternCell) cell, side);
+        }
 
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(legBusSet)) {

@@ -13,8 +13,28 @@
     "equipmentId" : "3",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 75.0,
+    "x" : 25.0,
     "y" : 230.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 3.1",
+    "name" : "Shunt 3.1",
+    "equipmentId" : "Shunt 3.1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 146.66666666666669,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_Shunt 3.2",
+    "name" : "Shunt 3.2",
+    "equipmentId" : "Shunt 3.2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 146.66666666666669,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -23,7 +43,7 @@
     "equipmentId" : "daFictif",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 25.0,
+    "x" : 125.0,
     "y" : 230.0,
     "open" : false
   }, {
@@ -33,7 +53,7 @@
     "equipmentId" : "laFictif",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 25.0,
+    "x" : 125.0,
     "y" : 63.33333333333335,
     "open" : false
   }, {
@@ -43,7 +63,7 @@
     "equipmentId" : "ba",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 25.0,
+    "x" : 125.0,
     "y" : 146.66666666666669,
     "open" : false,
     "kind" : "BREAKER"
@@ -54,7 +74,7 @@
     "equipmentId" : "bb",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 75.0,
+    "x" : 25.0,
     "y" : 105.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -68,7 +88,7 @@
     "x" : 10.0,
     "y" : 260.0,
     "open" : false,
-    "pxWidth" : 80.0,
+    "pxWidth" : 130.0,
     "structuralPosition" : {
       "h" : 1,
       "v" : 1,
@@ -78,7 +98,7 @@
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 2,
+      "hSpan" : 3,
       "vSpan" : 0
     }
   }, {
@@ -88,8 +108,9 @@
     "equipmentId" : "bs",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 50.0,
+    "x" : 75.0,
     "y" : 146.66666666666669,
+    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -99,7 +120,7 @@
     "equipmentId" : "da",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 25.0,
+    "x" : 125.0,
     "y" : 260.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
@@ -110,7 +131,7 @@
     "equipmentId" : "db",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 75.0,
+    "x" : 25.0,
     "y" : 260.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
@@ -121,12 +142,12 @@
     "equipmentId" : "la",
     "componentType" : "LOAD",
     "fictitious" : false,
-    "x" : 25.0,
+    "x" : 125.0,
     "y" : -19.99999999999998,
     "open" : false,
     "label" : "la",
     "feederType" : "INJECTION",
-    "order" : 10,
+    "order" : 20,
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
@@ -135,17 +156,107 @@
     "equipmentId" : "lb",
     "componentType" : "LOAD",
     "fictitious" : false,
-    "x" : 75.0,
+    "x" : 25.0,
     "y" : -20.0,
     "open" : false,
     "label" : "lb",
     "feederType" : "INJECTION",
-    "order" : 20,
+    "order" : 10,
     "direction" : "TOP"
   } ],
   "cells" : [ {
     "type" : "EXTERN",
     "number" : 1,
+    "direction" : "TOP",
+    "order" : 20,
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : 2,
+        "v" : 0,
+        "hSpan" : 1,
+        "vSpan" : 3,
+        "orientation" : "VERTICAL"
+      },
+      "coord" : {
+        "x" : 125.0,
+        "y" : 105.0,
+        "xSpan" : 50.0,
+        "ySpan" : 250.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 0,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 125.0,
+          "y" : 230.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs", "da", "FICT_vl_daFictif" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 1,
+          "vSpan" : 2,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 125.0,
+          "y" : 146.66666666666669,
+          "xSpan" : 50.0,
+          "ySpan" : 166.66666666666666
+        },
+        "nodes" : [ "FICT_vl_daFictif", "ba", "FICT_vl_laFictif" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 2,
+          "hSpan" : 1,
+          "vSpan" : 1,
+          "orientation" : "VERTICAL"
+        },
+        "coord" : {
+          "x" : 125.0,
+          "y" : 21.666666666666686,
+          "xSpan" : 50.0,
+          "ySpan" : 83.33333333333333
+        },
+        "nodes" : [ "FICT_vl_laFictif", "la" ]
+      } ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 2,
     "direction" : "TOP",
     "order" : 10,
     "rootBlock" : {
@@ -159,7 +270,7 @@
         "h" : 0,
         "v" : 0,
         "hSpan" : 1,
-        "vSpan" : 3,
+        "vSpan" : 2,
         "orientation" : "VERTICAL"
       },
       "coord" : {
@@ -188,7 +299,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "da", "FICT_vl_daFictif" ]
+        "nodes" : [ "bbs", "db", "FICT_vl_3" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -205,37 +316,16 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 146.66666666666669,
+          "y" : 105.0,
           "xSpan" : 50.0,
-          "ySpan" : 166.66666666666666
+          "ySpan" : 250.0
         },
-        "nodes" : [ "FICT_vl_daFictif", "ba", "FICT_vl_laFictif" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 2,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 25.0,
-          "y" : 21.666666666666686,
-          "xSpan" : 50.0,
-          "ySpan" : 83.33333333333333
-        },
-        "nodes" : [ "FICT_vl_laFictif", "la" ]
+        "nodes" : [ "FICT_vl_3", "bb", "lb" ]
       } ]
     }
   }, {
     "type" : "SHUNT",
-    "number" : 2,
+    "number" : 3,
     "rootBlock" : {
       "type" : "BODYPRIMARY",
       "cardinalities" : [ {
@@ -256,76 +346,7 @@
         "xSpan" : 0.0,
         "ySpan" : 0.0
       },
-      "nodes" : [ "FICT_vl_laFictif", "bs", "FICT_vl_3" ]
-    }
-  }, {
-    "type" : "EXTERN",
-    "number" : 3,
-    "direction" : "TOP",
-    "order" : 20,
-    "rootBlock" : {
-      "type" : "SERIAL",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : 1,
-        "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 2,
-        "orientation" : "VERTICAL"
-      },
-      "coord" : {
-        "x" : 75.0,
-        "y" : 105.0,
-        "xSpan" : 50.0,
-        "ySpan" : 250.0
-      },
-      "subBlocks" : [ {
-        "type" : "LEGPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 230.0,
-          "xSpan" : 50.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ "bbs", "db", "FICT_vl_3" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 105.0,
-          "xSpan" : 50.0,
-          "ySpan" : 250.0
-        },
-        "nodes" : [ "FICT_vl_3", "bb", "lb" ]
-      } ]
+      "nodes" : [ "FICT_vl_3", "FICT_vl_Shunt 3.2", "bs", "FICT_vl_Shunt 3.1", "FICT_vl_laFictif" ]
     }
   } ],
   "edges" : [ {
@@ -344,14 +365,8 @@
     "node1" : "db",
     "node2" : "bbs"
   }, {
-    "node1" : "bs",
-    "node2" : "FICT_vl_3"
-  }, {
     "node1" : "FICT_vl_laFictif",
     "node2" : "ba"
-  }, {
-    "node1" : "FICT_vl_laFictif",
-    "node2" : "bs"
   }, {
     "node1" : "la",
     "node2" : "FICT_vl_laFictif"
@@ -361,5 +376,17 @@
   }, {
     "node1" : "da",
     "node2" : "FICT_vl_daFictif"
+  }, {
+    "node1" : "FICT_vl_laFictif",
+    "node2" : "FICT_vl_Shunt 3.1"
+  }, {
+    "node1" : "bs",
+    "node2" : "FICT_vl_Shunt 3.1"
+  }, {
+    "node1" : "FICT_vl_3",
+    "node2" : "FICT_vl_Shunt 3.2"
+  }, {
+    "node1" : "bs",
+    "node2" : "FICT_vl_Shunt 3.2"
   } ]
 }

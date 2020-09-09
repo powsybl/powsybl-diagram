@@ -28,6 +28,8 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private boolean exceptionIfPatternNotHandled = false;
 
+    private boolean handleShunts = false;
+
     public PositionVoltageLevelLayoutFactory() {
         this(new PositionFromExtension());
     }
@@ -42,6 +44,15 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     public PositionVoltageLevelLayoutFactory setFeederStacked(boolean feederStacked) {
         this.feederStacked = feederStacked;
+        return this;
+    }
+
+    public boolean isExceptionIfPatternNotHandled() {
+        return exceptionIfPatternNotHandled;
+    }
+
+    public PositionVoltageLevelLayoutFactory setExceptionIfPatternNotHandled(boolean exceptionIfPatternNotHandled) {
+        this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
         return this;
     }
 
@@ -63,6 +74,15 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         return this;
     }
 
+    public boolean isHandleShunts() {
+        return handleShunts;
+    }
+
+    public PositionVoltageLevelLayoutFactory setHandleShunts(boolean handleShunts) {
+        this.handleShunts = handleShunts;
+        return this;
+    }
+
     @Override
     public VoltageLevelLayout create(Graph graph) {
         // detect cells
@@ -70,7 +90,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
                 .detectCells(graph);
 
         // build blocks from cells
-        new BlockOrganizer(positionFinder, feederStacked).organize(graph);
+        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts).organize(graph);
 
         return new PositionVoltageLevelLayout(graph);
     }

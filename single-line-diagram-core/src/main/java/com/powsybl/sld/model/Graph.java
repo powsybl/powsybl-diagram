@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -326,25 +327,42 @@ public final class Graph {
                                 }));
     }
 
-    //the first element shouldn't be a Breaker
-    public void extendBreakerConnectedToBus() {
+    public void conditionalExtensionOfNodeConnectedToBus(Predicate<Node> condition) {
         getNodeBuses().forEach(nodeBus -> nodeBus.getAdjacentNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.SWITCH
-                        && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR)
+                .filter(condition)
                 .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
     }
 
-    //the first element shouldn't be a Feeder
-    public void extendFeederConnectedToBus() {
-        getNodeBuses().forEach(nodeBus -> nodeBus.getAdjacentNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.FEEDER)
-                .forEach(feeder -> addDoubleNode(nodeBus, feeder, "")));
+    public void extendBusConnectedToBus() {
+        for (BusNode n1 : getNodeBuses()) {
+            n1.getAdjacentNodes().stream()
+                    .filter(n2 -> n2.getType() == Node.NodeType.BUS)
+                    .forEach(n2 -> {
+                        removeEdge(n1, n2);
+                        SwitchNode fSwToBus1 = SwitchNode.createFictitious(this, n1.getId() + "fSwitch1", false);
+                        InternalNode internalNode = new InternalNode(this, "internal" + n1.getId() + n2.getId());
+                        SwitchNode fSwToBus2 = SwitchNode.createFictitious(this, n2.getId() + "fSwitch2", false);
+                        addEdge(n1, fSwToBus1);
+                        addEdge(internalNode, fSwToBus1);
+                        addEdge(internalNode, fSwToBus2);
+                        addEdge(n2, fSwToBus2);
+                    });
+        }
     }
 
     public void extendSwitchBetweenBus(SwitchNode nodeSwitch) {
         List<Node> copyAdj = new ArrayList<>(nodeSwitch.getAdjacentNodes());
         addDoubleNode((BusNode) copyAdj.get(0), nodeSwitch, "0");
         addDoubleNode((BusNode) copyAdj.get(1), nodeSwitch, "1");
+    }
+
+    public InternalNode insertInternalNode(Node node1, Node node2, String id) {
+        removeEdge(node1, node2);
+        InternalNode iNode = new InternalNode(this, id);
+        addNode(iNode);
+        addEdge(node1, iNode);
+        addEdge(node2, iNode);
+        return iNode;
     }
 
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
@@ -359,9 +377,9 @@ public final class Graph {
     }
 
     /**
-     * @deprecated Use {@link #substituteNode} instead
      * @param nodeOrigin: node which will be substituted
-     * @param newNode: node which will substitute the first one
+     * @param newNode:    node which will substitute the first one
+     * @deprecated Use {@link #substituteNode} instead
      */
     @Deprecated
     public void substitueNode(Node nodeOrigin, Node newNode) {
@@ -371,8 +389,9 @@ public final class Graph {
     /**
      * Substitute a node with another node already in the graph.
      * Use {@link #replaceNode} instead if the node newNode is not already in the graph.
+     *
      * @param nodeOrigin: node which will be substituted
-     * @param newNode: node which will substitute the first one
+     * @param newNode:    node which will substitute the first one
      */
     public void substituteNode(Node nodeOrigin, Node newNode) {
         while (!nodeOrigin.getAdjacentEdges().isEmpty()) {
@@ -388,8 +407,9 @@ public final class Graph {
     /**
      * Replace a node with another node which is not yet in the graph.
      * Use {@link #substituteNode} instead if the node newNode is already in the graph.
+     *
      * @param nodeOrigin: node which will be replaced
-     * @param newNode: node which will replace the first one
+     * @param newNode:    node which will replace the first one
      */
     public void replaceNode(Node nodeOrigin, Node newNode) {
         addNode(newNode);

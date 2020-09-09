@@ -304,6 +304,15 @@
   } ],
   "edges" : [ {
     "node1" : "b1",
+    "node2" : "lfSwitch"
+  }, {
+    "node1" : "lfSwitch",
+    "node2" : "FICT_vl_lfNode"
+  }, {
+    "node1" : "FICT_vl_lfNode",
+    "node2" : "l"
+  }, {
+    "node1" : "b1",
     "node2" : "swfSwitch"
   }, {
     "node1" : "swfSwitch",
@@ -320,14 +329,5 @@
   }, {
     "node1" : "FICT_vl_swfNode",
     "node2" : "sw"
-  }, {
-    "node1" : "b1",
-    "node2" : "lfSwitch"
-  }, {
-    "node1" : "lfSwitch",
-    "node2" : "FICT_vl_lfNode"
-  }, {
-    "node1" : "FICT_vl_lfNode",
-    "node2" : "l"
   } ]
 }

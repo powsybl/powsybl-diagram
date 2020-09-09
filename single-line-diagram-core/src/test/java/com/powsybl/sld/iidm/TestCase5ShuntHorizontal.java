@@ -49,7 +49,7 @@ public class TestCase5ShuntHorizontal extends AbstractTestCaseIidm {
         createLoad(vl, "la", "la", "la", 10, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 2, 1);
         createSwitch(vl, "da", "da", SwitchKind.DISCONNECTOR, false, false, false, 1, 0);
-        createLoad(vl, "lb", "lb", "lb", 20, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createLoad(vl, "lb", "lb", "lb", 20, ConnectablePosition.Direction.BOTTOM, 4, 10, 10);
         createSwitch(vl, "bb", "bb", SwitchKind.BREAKER, false, false, false, 4, 3);
         createSwitch(vl, "db", "db", SwitchKind.DISCONNECTOR, false, false, false, 3, 0);
         createSwitch(vl, "bs", "bs", SwitchKind.BREAKER, false, false, false, 2, 4);
