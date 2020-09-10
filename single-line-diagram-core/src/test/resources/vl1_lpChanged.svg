@@ -270,6 +270,7 @@
             <polyline points="420.0,370.0,410.0,370.0"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_d1" id="idvl1_95_d1" transform="translate(236.0,366.0)">
+            <title>vl1_d1</title>
     <g class="closed" id="idvl1_95_d1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -279,6 +280,7 @@
     </g>
 </g>
         <g class="BREAKER idvl1_95_b1" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
+            <title>vl1_b1</title>
     <g class="closed" id="idvl1_95_b1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
         <line y2="15" x1="10" x2="10" y1="5"/>
@@ -289,6 +291,7 @@
     </g>
 </g>
         <g class="DISCONNECTOR idvl1_95_d2" id="idvl1_95_d2" transform="translate(286.0,366.0)">
+            <title>vl1_d2</title>
     <g class="closed" id="idvl1_95_d2_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -298,12 +301,14 @@
     </g>
 </g>
         <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
+            <title>vl1_load1</title>
     <rect height="9" width="16"/>
     <line y2="9" x1="0" x2="16" y1="0"/>
     <line y2="9" x1="16" x2="0" y1="0"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_load1__LABEL">vl1_load1</text>
         </g>
         <g class="BREAKER idvl1_95_bload1" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
+            <title>vl1_bload1</title>
     <g class="closed" id="idvl1_95_bload1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
         <line y2="15" x1="10" x2="10" y1="5"/>
@@ -314,6 +319,7 @@
     </g>
 </g>
         <g class="DISCONNECTOR idvl1_95_dload1" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
+            <title>vl1_dload1</title>
     <g class="closed" id="idvl1_95_dload1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -323,12 +329,14 @@
     </g>
 </g>
         <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(95.0,562.5)">
+            <title>vl1_trf1</title>
     <circle r="5" id="idvl1_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
 
     <circle r="5" id="idvl1_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
 <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf1__LABEL">vl1_trf1</text>
         </g>
         <g class="BREAKER idvl1_95_btrf1" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
+            <title>vl1_btrf1</title>
     <g class="closed" id="idvl1_95_btrf1_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
         <line y2="15" x1="10" x2="10" y1="5"/>
@@ -339,6 +347,7 @@
     </g>
 </g>
         <g class="DISCONNECTOR idvl1_95_dtrf1" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
+            <title>vl1_dtrf1</title>
     <g class="closed" id="idvl1_95_dtrf1_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
@@ -354,6 +363,7 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl1_trf2_two__LABEL">vl1_trf2</text>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl1_95_vl1_95_trf2" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(412.0,203.0)">
+            <title>vl1_trf2</title>
     <circle r="5" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
 
     <circle r="5" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
@@ -361,6 +371,7 @@
     <circle r="5" id="idFICT_95_vl1_95_vl1_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
 </g>
         <g class="BREAKER idvl1_95_btrf2" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
+            <title>vl1_btrf2</title>
     <g class="closed" id="idvl1_95_btrf2_BREAKER-closed">
         <rect x="1" width="18" y="1" height="18"/>
         <line y2="15" x1="10" x2="10" y1="5"/>
@@ -371,6 +382,7 @@
     </g>
 </g>
         <g class="DISCONNECTOR idvl1_95_dtrf2" id="idvl1_95_dtrf2" transform="translate(416.0,366.0)">
+            <title>vl1_dtrf2</title>
     <g class="closed" id="idvl1_95_dtrf2_DISCONNECTOR-closed">
         <line y2="8" x1="0" x2="8" y1="0"/>
         <line y2="8" x1="8" x2="0" y1="0"/>
