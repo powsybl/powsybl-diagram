@@ -12,6 +12,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.Graph;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +48,7 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
         createBusBarSection(vl, "bbs", "bbs", 1, 1, 1);
     }
 
-//    @Test
+    @Test
     public void test() {
         // build graph
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);

@@ -44,8 +44,7 @@ public class PositionFromExtension implements PositionFinder {
     }
 
     @Override
-    public LBSCluster organizeLegBusSets(List<LegBusSet> legBusSets) {
-        Graph graph = legBusSets.get(0).getBusNodeSet().iterator().next().getGraph();
+    public LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets) {
         gatherLayoutExtensionInformation(graph);
 
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(

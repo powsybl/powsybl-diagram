@@ -23,7 +23,7 @@ public interface Cell {
         INTERN, EXTERN, SHUNT
     }
 
-    void addNodes(Collection<Node> nodesToAdd);
+    void addNodes(List<Node> nodesToAdd);
 
     List<Node> getNodes();
 

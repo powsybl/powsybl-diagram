@@ -60,9 +60,9 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         assertTrue(sb.getSubBlocks().get(0).isEmbedingNodeType(Node.NodeType.BUS));
         assertTrue(sb.getSubBlocks().get(1).isEmbedingNodeType(Node.NodeType.SWITCH));
 
-        assertSame(Block.Type.PRIMARY, sb.getLowerBlock().getType());
+        assertSame(Block.Type.LEGPRIMARY, sb.getLowerBlock().getType());
         LegPrimaryBlock subSB = (LegPrimaryBlock) sb.getLowerBlock();
-        assertSame(Block.Type.PARALLEL, sb.getUpperBlock().getType());
+        assertSame(Block.Type.BODYPARALLEL, sb.getUpperBlock().getType());
         BodyParallelBlock subPB = (BodyParallelBlock) sb.getUpperBlock();
 
         assertEquals("bbs", sb.getStartingNode().getId());

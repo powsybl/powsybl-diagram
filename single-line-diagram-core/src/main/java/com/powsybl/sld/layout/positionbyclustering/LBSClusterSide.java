@@ -8,11 +8,11 @@ package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.LBSCluster;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.InternCell;
-import com.powsybl.sld.model.Side;
+import com.powsybl.sld.layout.LegBusSet;
+import com.powsybl.sld.model.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * LBSClusterSide is a ClusterConnector defined by one Side (LEFT/RIGHT) of a LBSCluster.
@@ -43,8 +43,19 @@ class LBSClusterSide {
         return lbsCluster.getSideCandidateFlatCell(side);
     }
 
-    List<InternCell> getCrossOverCellList() {
-        return lbsCluster.getCrossoverCells();
+    List<ExternCell> getExternCells() {
+        return lbsCluster.getLbsList().stream().flatMap(lbs -> lbs.getExternCells().stream()).collect(Collectors.toList());
+    }
+
+    int getExternCellAttractionToEdge(ExternCell cell) {
+        List<LegBusSet> lbsList = lbsCluster.getLbsList();
+        return lbsList.stream().filter(lbs -> lbs.getExternCells().contains(cell)).findFirst()
+                .map(lbs -> side == Side.LEFT ? (lbsList.size() - lbsList.indexOf(lbs))
+                        : (lbsList.indexOf(lbs) + 1)).orElse(0);
+    }
+
+    List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
+        return lbsCluster.getInternCellsFromShape(shape);
     }
 
     LBSCluster getCluster() {

@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,12 @@ import java.util.stream.Collectors;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class CellBlockDecomposer {
+final class CellBlockDecomposer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CellBlockDecomposer.class);
+
+    private CellBlockDecomposer() {
+    }
 
     /**
      * Search BlockPrimary and build Block hierarchy by merging blocks together; also
@@ -31,15 +35,16 @@ public class CellBlockDecomposer {
      *
      * @param cell Cell we are working on
      */
-    public void determineBlocks(Cell cell) {
+
+    static void determineBlocks(Cell cell, boolean exceptionIfPatternNotHandled) {
         if (cell.getType() == Cell.CellType.SHUNT) {
             determineShuntCellBlocks((ShuntCell) cell);
         } else {
-            determineBusCellBlocks((BusCell) cell);
+            determineBusCellBlocks((BusCell) cell, exceptionIfPatternNotHandled);
         }
     }
 
-    private void determineBusCellBlocks(BusCell busCell) {
+    private static void determineBusCellBlocks(BusCell busCell, boolean exceptionIfPatternNotHandled) {
         if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
             SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
             busCell.getGraph().extendSwitchBetweenBus(switchNode);
@@ -50,20 +55,20 @@ public class CellBlockDecomposer {
                     .filter(node -> node != switchNode)
                     .collect(Collectors.toList()));
         }
-        determineComplexCell(busCell);
+        determineComplexCell(busCell, exceptionIfPatternNotHandled);
     }
 
-    private void determineShuntCellBlocks(ShuntCell shuntCell) {
+    private static void determineShuntCellBlocks(ShuntCell shuntCell) {
         BodyPrimaryBlock bpy = new BodyPrimaryBlock(shuntCell.getNodes(), shuntCell);
         shuntCell.setRootBlock(bpy);
     }
 
-    private void determineComplexCell(BusCell busCell) {
+    private static void determineComplexCell(BusCell busCell, boolean exceptionIfPatternNotHandled) {
         List<Block> blocks = createPrimaryBlock(busCell);
-        mergeBlocks(busCell, blocks);
+        mergeBlocks(busCell, blocks, exceptionIfPatternNotHandled);
     }
 
-    private List<Block> createPrimaryBlock(BusCell busCell) {
+    private static List<Block> createPrimaryBlock(BusCell busCell) {
         List<Node> alreadyTreated = new ArrayList<>();
         List<Block> blocks = new ArrayList<>();
         Node currentNode = busCell.getBusNodes().get(0);
@@ -79,7 +84,7 @@ public class CellBlockDecomposer {
         return blocks;
     }
 
-    private void mergeBlocks(BusCell busCell, List<Block> blocks) {
+    private static void mergeBlocks(BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
         // Search all blocks connected to a busbar inside the primary blocks list
         List<LegPrimaryBlock> primaryLegBlocks = blocks.stream()
                 .filter(b -> b instanceof LegPrimaryBlock)
@@ -91,11 +96,15 @@ public class CellBlockDecomposer {
             boolean merged = searchParallelMerge(blocks, busCell);
             merged |= searchSerialMerge(blocks, busCell);
             if (!merged) {
-                LOGGER.warn("{} busCell, cannot merge any additional blocks, {} blocks remains", busCell.getType(), blocks.size());
-                Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks), busCell);
-                blocks.clear();
-                blocks.add(undefinedBlock);
-                break;
+                if (exceptionIfPatternNotHandled) {
+                    throw new PowsyblException("Blocks detection impossible for cell " + busCell);
+                } else {
+                    LOGGER.error("{} busCell, cannot merge any additional blocks, {} blocks remains", busCell.getType(), blocks.size());
+                    Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks), busCell);
+                    blocks.clear();
+                    blocks.add(undefinedBlock);
+                    break;
+                }
             }
         }
         busCell.blocksSetting(blocks.get(0), primaryLegBlocks);
@@ -107,7 +116,7 @@ public class CellBlockDecomposer {
      * @param blocks list of blocks we can merge
      * @param cell   current cell
      */
-    private boolean searchSerialMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchSerialMerge(List<Block> blocks, Cell cell) {
         int i = 0;
         boolean identifiedMerge = false;
 
@@ -141,7 +150,7 @@ public class CellBlockDecomposer {
      * @param blocks list of blocks we can merge
      * @param cell   current cell
      */
-    private boolean searchParallelMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchParallelMerge(List<Block> blocks, Cell cell) {
         List<List<Block>> blocksBundlesToMerge = new ArrayList<>();
         Node commonNode;
         int i = 0;
@@ -180,7 +189,7 @@ public class CellBlockDecomposer {
      * @param block2 layout.block
      * @return true if the two blocks are similar : same start and end
      */
-    private Node checkParallelCriteria(Block block1, Block block2) {
+    private static Node checkParallelCriteria(Block block1, Block block2) {
         Node s1 = block1.getExtremityNode(Block.Extremity.START);
         Node e1 = block1.getExtremityNode(Block.Extremity.END);
         Node s2 = block2.getExtremityNode(Block.Extremity.START);
@@ -212,10 +221,10 @@ public class CellBlockDecomposer {
      * @param blockNodes     blockNodes
      * @param blocks         blocks
      */
-    private void rElaboratePrimaryBlocks(Cell cell, Node currentNode, Node parentNode,
-                                         List<Node> alreadyTreated,
-                                         List<Node> blockNodes,
-                                         List<Block> blocks) {
+    private static void rElaboratePrimaryBlocks(Cell cell, Node currentNode, Node parentNode,
+                                                List<Node> alreadyTreated,
+                                                List<Node> blockNodes,
+                                                List<Block> blocks) {
         Node currentNode2 = currentNode;
         Node parentNode2 = parentNode;
 

@@ -43,20 +43,12 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    public int getOrder() {
-        return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
-    }
-
-    @Override
     public Node getExtremityNode(Extremity extremity) {
         if (extremity == Extremity.START) {
             return subBlocks.get(0).getExtremityNode(Extremity.START);
-        }
-        if (extremity == Extremity.END) {
+        } else {
             return subBlocks.get(subBlocks.size() - 1).getExtremityNode(Extremity.END);
         }
-        return null;
     }
 
     @Override
@@ -83,6 +75,6 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
 
     @Override
     public String toString() {
-        return "BodyParallelBlock(subBlocks=" + subBlocks + ")";
+        return getClass().getSimpleName() + " " + subBlocks;
     }
 }

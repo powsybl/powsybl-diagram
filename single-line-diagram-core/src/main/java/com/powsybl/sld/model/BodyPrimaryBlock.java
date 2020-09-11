@@ -18,7 +18,7 @@ import java.util.List;
 public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(nodes, cell);
+        super(Type.BODYPRIMARY, nodes, cell);
         if (getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER) {
             reverseBlock();
         }
@@ -28,11 +28,10 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         this(bodyPrimaryBlock.getNodes(), bodyPrimaryBlock.getCell());
     }
 
-    // TODO : START or END ?
     @Override
     public int getOrder() {
-        return getExtremityNode(Block.Extremity.START).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.START)).getOrder() : 0;
+        return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
+                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
     }
 
     @Override
@@ -81,20 +80,24 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         }
     }
 
-    void coordShuntCase() {
-        double x0 = getExtremityNode(Block.Extremity.START).getX();
-        double x1 = getExtremityNode(Block.Extremity.END).getX();
+    void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
+        double x0 = hToX(layoutParameters, hLeft);
         double y0 = getExtremityNode(Block.Extremity.START).getY();
+        double x1 = hToX(layoutParameters, hRight);
         double y1 = getExtremityNode(Block.Extremity.END).getY();
-        double dx = (x1 - x0) / (nodes.size() - 1);
-        double dy = (y1 - y0) / (nodes.size() - 1);
-        for (int i = 1; i < nodes.size() - 1; i++) {
+        double y = (y0 + y1) / 2;
+
+        nodes.get(1).setX(x0);
+        nodes.get(1).setY(y);
+        nodes.get(nodes.size() - 2).setX(x1);
+        nodes.get(nodes.size() - 2).setY(y);
+
+        double dx = (x1 - x0) / (nodes.size() - 3);
+        for (int i = 2; i < nodes.size() - 2; i++) {
             Node node = nodes.get(i);
-            node.setX(x0 + i * dx, false, false);
-            node.setY(y0 + i * dy, false, false);
-            if (dy == 0) {
-                node.setRotationAngle(90.);
-            }
+            node.setX(x0 + (i - 1) * dx, false);
+            node.setY(y, false);
+            node.setRotationAngle(90.);
         }
     }
 

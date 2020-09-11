@@ -147,8 +147,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
                 Coord coordNodeFict = new Coord(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.getX(), false, false);
-                multiNode.setY(coordNodeFict.getY(), false, false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             } else if (adjacentNodes.size() == 3) {
                 List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), infos, true);
                 List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), infos, false);
@@ -156,8 +156,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.getX(), false, false);
-                multiNode.setY(coordNodeFict.getY(), false, false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             }
         }
     }

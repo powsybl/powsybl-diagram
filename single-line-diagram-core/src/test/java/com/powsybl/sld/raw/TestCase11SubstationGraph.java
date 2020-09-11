@@ -7,10 +7,16 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 /*
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -270,8 +276,9 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
         SwitchNode dline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline11_2", false, false);
         SwitchNode bline112 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline11_2", false, false);
-        SwitchNode dline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
-        SwitchNode bline212 = vlb1.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
+
+        SwitchNode dline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dline21_2", false, false);
+        SwitchNode bline212 = vlsubst2.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bline21_2", false, false);
         Map<RawGraphBuilder.VoltageLevelBuilder, FeederLineNode> line1 =
                 ssb2.createLine("line1", vlb1, vlsubst2, 7, 1, BusCell.Direction.TOP, BusCell.Direction.TOP);
         vlb1.connectNode(bbs1, dline112);
@@ -280,5 +287,19 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlsubst2.connectNode(bbs12, dline212);
         vlsubst2.connectNode(dline212, bline212);
         vlsubst2.connectNode(bline212, line1.get(vlsubst2));
+    }
+
+    @Test
+    public void testH() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
+    }
+
+    @Test
+    public void testV() {
+        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }
 }

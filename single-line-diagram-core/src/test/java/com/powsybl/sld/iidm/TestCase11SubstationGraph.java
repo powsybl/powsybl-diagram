@@ -236,14 +236,14 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toString("/TestCase11SubstationGraphHorizontal.json"), toJson(g, "/TestCase11SubstationGraphHorizontal.json"));
+        assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
 
         // rebuild substation graph
         g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with vertical substation layout)
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
-        assertEquals(toString("/TestCase11SubstationGraphVertical.json"), toJson(g, "/TestCase11SubstationGraphVertical.json"));
+        assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
 
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)

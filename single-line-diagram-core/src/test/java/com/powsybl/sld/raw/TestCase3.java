@@ -50,6 +50,6 @@ public class TestCase3 extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3.json"));
+        assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3Coupling.json"));
     }
 }

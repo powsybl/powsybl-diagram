@@ -28,8 +28,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
 
     protected final List<Node> nodes;
 
-    protected final List<PrimaryBlock> stackableBlocks;
-
     /**
      * Constructor.
      * A layout.block primary is oriented in order to have :
@@ -41,12 +39,11 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
      * @param nodes nodes
      */
 
-    AbstractPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(Type.PRIMARY);
+    AbstractPrimaryBlock(Type type, List<Node> nodes, Cell cell) {
+        super(type);
         if (nodes.isEmpty()) {
             throw new PowsyblException("Empty node list");
         }
-        this.stackableBlocks = new ArrayList<>();
         this.nodes = new ArrayList<>(nodes);
         setCardinality(Extremity.START, 1);
         setCardinality(Extremity.END, 1);
@@ -81,21 +78,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
             return nodes.get(nodes.size() - 1);
         }
         return null;
-    }
-
-    @Override
-    public int getOrder() {
-        return getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Extremity.START)).getOrder() : 0;
-    }
-
-    // TODO : this should be LegPrimaryBlock
-    public void addStackableBlock(PrimaryBlock block) {
-        stackableBlocks.add(block);
-    }
-
-    public List<PrimaryBlock> getStackableBlocks() {
-        return new ArrayList<>(stackableBlocks);
     }
 
     @Override
@@ -137,6 +119,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
 
     @Override
     public String toString() {
-        return "PrimaryBlock(nodes=" + nodes + ")";
+        return getClass().getSimpleName() + " " + nodes;
     }
 }

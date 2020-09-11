@@ -19,7 +19,7 @@ import java.util.List;
 public class BodyParallelBlock extends AbstractParallelBlock {
 
     public BodyParallelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(subBlocks, cell, allowMerge);
+        super(Type.BODYPARALLEL, subBlocks, cell, allowMerge);
     }
 
     @Override
@@ -64,10 +64,5 @@ public class BodyParallelBlock extends AbstractParallelBlock {
             sub.setYSpan(getCoord().getYSpan());
             sub.calculateCoord(layoutParam);
         });
-    }
-
-    @Override
-    public String toString() {
-        return "BodyParallelBlock(subBlocks=" + subBlocks + ")";
     }
 }

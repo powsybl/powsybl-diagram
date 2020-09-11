@@ -25,22 +25,18 @@ public class Position {
     private int hSpan;
     private int vSpan;
 
-    //TODO remove absolute
-    private boolean absolute;
-
     private Orientation orientation;
 
-    public Position(int h, int v, int hSpan, int vSpan, boolean absolute, Orientation orientation) {
+    public Position(int h, int v, int hSpan, int vSpan, Orientation orientation) {
         this.h = h;
         this.v = v;
         this.hSpan = hSpan;
         this.vSpan = vSpan;
-        this.absolute = absolute;
         this.orientation = orientation;
     }
 
     public Position(int h, int v) {
-        this(h, v, 0, 0, false, null);
+        this(h, v, 0, 0, null);
     }
 
     public Orientation getOrientation() {
@@ -95,7 +91,7 @@ public class Position {
 
     @Override
     public int hashCode() {
-        return Objects.hash(h, v, hSpan, vSpan, absolute, orientation);
+        return Objects.hash(h, v, hSpan, vSpan, orientation);
     }
 
     @Override
@@ -106,7 +102,6 @@ public class Position {
                     && other.v == v
                     && other.hSpan == hSpan
                     && other.vSpan == vSpan
-                    && other.absolute == absolute
                     && other.orientation == orientation;
         }
         return false;
@@ -114,8 +109,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position(h=" + h + ", v=" + v + ", hSpan=" + hSpan + ", vSpan=" + vSpan + ", absolute="
-                + absolute + ", orientation=" + orientation + ")";
+        return "h=" + h + " v=" + v + " hSpan=" + hSpan + " vSpan=" + vSpan + ", " + orientation;
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {
