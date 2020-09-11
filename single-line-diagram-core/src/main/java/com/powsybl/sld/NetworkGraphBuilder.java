@@ -371,9 +371,20 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
+        private Node createBusBreakerConnexionNodeFromTerminal(Graph graph, Terminal terminal) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(terminal);
+            Bus bus = terminal.getBusBreakerView().getConnectableBus();
+            String id = bus.getId() + "_" + terminal.getConnectable().getId();
+            return new BusBreakerConnection(graph, id);
+        }
+
         private void connectToBus(Node node, Terminal terminal) {
+            Node nodeBusBreakerConnexion = createBusBreakerConnexionNodeFromTerminal(graph, terminal);
+            graph.addNode(nodeBusBreakerConnexion);
             String busId = terminal.getBusBreakerView().getConnectableBus().getId();
-            graph.addEdge(nodesByBusId.get(busId), node);
+            graph.addEdge(nodesByBusId.get(busId), nodeBusBreakerConnexion);
+            graph.addEdge(nodeBusBreakerConnexion, node);
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
