@@ -731,10 +731,8 @@ public class DefaultSVGWriter implements SVGWriter {
         for (int i = 0; i < subComponentChildren.getLength(); i++) {
             org.w3c.dom.Node n = subComponentChildren.item(i).cloneNode(true);
             if (n instanceof Element) {
-                elementAttributesSetter.accept((Element) n, subComponentName);
+                setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, (Element) n);
             }
-            g.getOwnerDocument().adoptNode(n);
-            g.appendChild(n);
         }
     }
 
