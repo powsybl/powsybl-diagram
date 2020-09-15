@@ -20,7 +20,6 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
 
     public LegParralelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
         super(Type.LEGPARALLEL, subBlocks, cell, allowMerge);
-        setOrientation(Orientation.VERTICAL, true);
     }
 
     @Override
@@ -31,7 +30,7 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     @Override
     public void sizing() {
         subBlocks.forEach(Block::sizing);
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             getPosition().setVSpan(0);
             List<LegPrimaryBlock> subBlocksCopy = subBlocks.stream()
                     .map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
@@ -64,10 +63,6 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     @Override
     public double intitXStep() {
         return getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / getPosition().getHSpan();
-    }
-
-    public void setOrientation(Orientation orientation, boolean recursively) {
-        // do nothing, orientation shall be VERTICAL
     }
 
     @Override

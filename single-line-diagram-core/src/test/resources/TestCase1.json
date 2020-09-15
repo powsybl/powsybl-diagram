@@ -93,7 +93,7 @@
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 25.0,
@@ -113,7 +113,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -134,7 +134,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,

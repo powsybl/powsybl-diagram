@@ -8,13 +8,11 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
-import sun.invoke.util.VerifyType;
 
 import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
-import static com.powsybl.sld.model.Side.RIGHT;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -32,27 +30,20 @@ public class FeederNode extends Node {
 
     private Orientation orientation;
 
-    private Side side; // in case of HORIZONTAL feeder
-
     protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
                          FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
         this.orientation = orientation;
-        this.side = RIGHT;
     }
 
     protected FeederNode(String id, String name, String equipmentId, String componentType, Graph graph,
                          FeederType feederType) {
-        this(id, name, equipmentId, componentType, false, graph, feederType, Orientation.VERTICAL);
+        this(id, name, equipmentId, componentType, false, graph, feederType, null);
     }
 
     static FeederNode createFictitious(Graph graph, String id, Orientation orientation) {
         return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS, orientation);
-    }
-
-    static FeederNode createFictitious(Graph graph, String id) {
-        return createFictitious(graph, id, Orientation.VERTICAL);
     }
 
     public FeederType getFeederType() {
@@ -81,6 +72,9 @@ public class FeederNode extends Node {
 
     public void setDirection(BusCell.Direction direction) {
         this.direction = direction;
+        if (orientation == null || orientation.isHorizontal()) {
+            this.orientation = direction.toOrientation();
+        }
     }
 
     public Orientation getOrientation() {
@@ -89,14 +83,6 @@ public class FeederNode extends Node {
 
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
-    }
-
-    public Side getSide() {
-        return side;
-    }
-
-    public void setSide(Side side) {
-        this.side = side;
     }
 
     @Override

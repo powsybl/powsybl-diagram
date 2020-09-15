@@ -43,8 +43,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
                 .collect(Collectors.toList());
     }
 
-    public abstract void organizeBlocks();
-
     @Override
     public List<LegPrimaryBlock> getLegPrimaryBlocks() {
         return new ArrayList<>(legPrimaryBlocks);

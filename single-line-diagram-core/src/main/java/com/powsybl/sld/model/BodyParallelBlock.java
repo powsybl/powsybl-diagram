@@ -11,6 +11,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.powsybl.sld.model.Block.Type.BODYPARALLEL;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -19,13 +21,13 @@ import java.util.List;
 public class BodyParallelBlock extends AbstractParallelBlock {
 
     public BodyParallelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(Type.BODYPARALLEL, subBlocks, cell, allowMerge);
+        super(BODYPARALLEL, subBlocks, cell, allowMerge);
     }
 
     @Override
     public void sizing() {
         subBlocks.forEach(Block::sizing);
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             getPosition().setVSpan(subBlocks.stream().mapToInt(b -> b.getPosition().getVSpan()).max().orElse(0));
             subBlocks.sort(Comparator.comparingInt(Block::getOrder));
             getPosition().setHSpan(subBlocks.stream().mapToInt(b -> b.getPosition().getHSpan()).sum());

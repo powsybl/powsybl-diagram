@@ -429,7 +429,7 @@ public final class Graph {
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
-                .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId())));
+                .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId(), Orientation.UP)));
     }
 
     public BusNode getVHNodeBus(int v, int h) {

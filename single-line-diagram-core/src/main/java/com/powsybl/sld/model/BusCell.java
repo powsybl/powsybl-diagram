@@ -16,14 +16,25 @@ import java.util.*;
 public interface BusCell extends Cell {
 
     enum Direction {
-        TOP, BOTTOM, FLAT, UNDEFINED
+        TOP, BOTTOM, MIDDLE, UNDEFINED;
+
+        Orientation toOrientation() {
+            switch (this) {
+                case TOP:
+                    return Orientation.UP;
+                case BOTTOM:
+                    return Orientation.DOWN;
+                case MIDDLE:
+                    return Orientation.MIDDLE;
+                default:
+                    return null;
+            }
+        }
     }
 
     List<BusNode> getBusNodes();
 
     void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus);
-
-    void organizeBlocks();
 
     List<LegPrimaryBlock> getLegPrimaryBlocks();
 

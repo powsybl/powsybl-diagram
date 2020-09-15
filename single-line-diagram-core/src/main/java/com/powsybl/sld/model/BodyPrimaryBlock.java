@@ -10,6 +10,13 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.List;
 
+import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
+import static com.powsybl.sld.model.Cell.CellType.INTERN;
+import static com.powsybl.sld.model.InternCell.Shape.FLAT;
+import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Orientation.UP;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -18,8 +25,8 @@ import java.util.List;
 public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(Type.BODYPRIMARY, nodes, cell);
-        if (getExtremityNode(Extremity.START).getType() == Node.NodeType.FEEDER) {
+        super(BODYPRIMARY, nodes, cell);
+        if (getExtremityNode(START).getType() == FEEDER) {
             reverseBlock();
         }
     }
@@ -30,13 +37,13 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public int getOrder() {
-        return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
+        return getExtremityNode(END).getType() == FEEDER ?
+                ((FeederNode) getExtremityNode(END)).getOrder() : 0;
     }
 
     @Override
     public void sizing() {
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             getPosition().setHSpan(1);
             // in the case of vertical Blocks the x Spanning is a ratio of the nb of edges of the blocks/overall edges
             getPosition().setVSpan(nodes.size() - 1);
@@ -49,7 +56,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        int sign = ((BusCell) getCell()).getDirection() == BusCell.Direction.TOP ? 1 : -1;
+        int sign = getOrientation() == UP ? 1 : -1;
         double y0 = getCoord().getY() + sign * getCoord().getYSpan() / 2;
         double yPxStep = calcYPxStep(sign);
         int v = 0;
@@ -66,8 +73,8 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
         double x0 = getCoord().getX() - getCoord().getXSpan() / 2;
-        if (getCell().getType() == Cell.CellType.INTERN
-                && ((BusCell) getCell()).getDirection() != BusCell.Direction.FLAT) {
+        if (getCell().getType() == INTERN
+                && ((InternCell) getCell()).getShape().checkIsNotShape(FLAT)) {
             x0 += layoutParam.getCellWidth() / 2;
         }
         double xPxStep = getCoord().getXSpan() / (nodes.size() - 1);
@@ -82,9 +89,9 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
         double x0 = hToX(layoutParameters, hLeft);
-        double y0 = getExtremityNode(Block.Extremity.START).getY();
+        double y0 = getExtremityNode(START).getY();
         double x1 = hToX(layoutParameters, hRight);
-        double y1 = getExtremityNode(Block.Extremity.END).getY();
+        double y1 = getExtremityNode(END).getY();
         double y = (y0 + y1) / 2;
 
         nodes.get(1).setX(x0);

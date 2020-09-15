@@ -11,6 +11,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import static com.powsybl.sld.model.Block.Extremity.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -32,17 +33,17 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
         });
         setCell(cell);
 
-        Node node0s = subBlocks.get(0).getExtremityNode(Block.Extremity.START);
-        Node node0e = subBlocks.get(0).getExtremityNode(Block.Extremity.END);
+        Node node0s = subBlocks.get(0).getExtremityNode(START);
+        Node node0e = subBlocks.get(0).getExtremityNode(END);
         subBlocks.forEach(b -> {
             b.setParentBlock(this);
-            if (b.getExtremityNode(Block.Extremity.START) != node0s && b.getExtremityNode(Block.Extremity.END) != node0e) {
+            if (b.getExtremityNode(START) != node0s && b.getExtremityNode(END) != node0e) {
                 b.reverseBlock();
             }
         });
 
-        setCardinality(Extremity.START, this.subBlocks.size());
-        setCardinality(Extremity.END, this.subBlocks.size());
+        setCardinality(START, this.subBlocks.size());
+        setCardinality(END, this.subBlocks.size());
     }
 
     @Override

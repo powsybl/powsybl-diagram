@@ -14,6 +14,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Block.Type.*;
+import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.InternCell.Shape.*;
+import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Node.NodeType.SHUNT;
+import static com.powsybl.sld.model.Orientation.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -24,8 +32,8 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
     public LegPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(Type.LEGPRIMARY, nodes, cell);
-        if (getExtremityNode(Extremity.END).getType() == Node.NodeType.BUS) {
+        super(LEGPRIMARY, nodes, cell);
+        if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
         }
         if (!checkConsistency()) {
@@ -35,18 +43,17 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private boolean checkConsistency() {
         if (nodes.size() == 2) {
-            return nodes.get(0).getType() == Node.NodeType.BUS
-                && nodes.get(1).getType() == Node.NodeType.FICTITIOUS;
+            return nodes.get(0).getType() == BUS && nodes.get(1).getType() == FICTITIOUS;
         }
         return nodes.size() == 3
-                && nodes.get(0).getType() == Node.NodeType.BUS
-                && nodes.get(1).getType() == Node.NodeType.SWITCH
-                && (nodes.get(2).getType() == Node.NodeType.FICTITIOUS
-                || nodes.get(2).getType() == Node.NodeType.SHUNT);
+                && nodes.get(0).getType() == BUS
+                && nodes.get(1).getType() == SWITCH
+                && (nodes.get(2).getType() == FICTITIOUS
+                || nodes.get(2).getType() == SHUNT);
     }
 
     public BusNode getBusNode() {
-        return (BusNode) getExtremityNode(Extremity.START);
+        return (BusNode) getExtremityNode(START);
     }
 
     @Override
@@ -73,7 +80,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void sizing() {
-        if (((BusCell) getCell()).getDirection() == BusCell.Direction.FLAT
+        if ((getCell()).getType() == INTERN && ((InternCell) getCell()).getShape().checkIsShape(FLAT)
                 || !getStackableBlocks().isEmpty()) {
             getPosition().setHSpan(0);
             getPosition().setVSpan(0);
@@ -96,9 +103,9 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         getSwNode().setY(getBusNode().getY(), false);
 
         getLegNode().setX(getCoord().getX());
-        if (getCell().getType() == Cell.CellType.INTERN && ((InternCell) getCell()).checkisShape(InternCell.Shape.UNILEG)) {
+        if (getCell().getType() == INTERN && ((InternCell) getCell()).checkisShape(UNILEG)) {
             InternCell cell = (InternCell) getCell();
-            if (cell.getDirection() == BusCell.Direction.TOP) {
+            if (getOrientation() == UP) {
                 getLegNode().setY(layoutParam.getInitialYBus() - layoutParam.getInternCellHeight());
             } else {
                 getLegNode().setY(layoutParam.getInitialYBus() + layoutParam.getInternCellHeight()

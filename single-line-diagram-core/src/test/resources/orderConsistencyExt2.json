@@ -322,7 +322,6 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 260.0,
-    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -356,7 +355,6 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 285.0,
-    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -385,7 +383,7 @@
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
-    "direction" : "FLAT",
+    "direction" : "MIDDLE",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -398,7 +396,7 @@
         "v" : -1,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
+        "orientation" : "RIGHT"
       },
       "coord" : {
         "x" : -1.0,
@@ -418,7 +416,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 100.0,
@@ -439,7 +437,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : -1.0,
@@ -460,7 +458,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 50.0,
@@ -474,7 +472,7 @@
   }, {
     "type" : "INTERN",
     "number" : 1,
-    "direction" : "FLAT",
+    "direction" : "MIDDLE",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -487,7 +485,7 @@
         "v" : -1,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
+        "orientation" : "RIGHT"
       },
       "coord" : {
         "x" : -1.0,
@@ -507,7 +505,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 200.0,
@@ -528,7 +526,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : -1.0,
@@ -549,7 +547,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 150.0,
@@ -577,7 +575,7 @@
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 25.0,
@@ -597,7 +595,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -617,7 +615,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 25.0,
@@ -638,7 +636,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 25.0,
@@ -660,7 +658,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -688,7 +686,7 @@
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 125.0,
@@ -708,7 +706,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
@@ -728,7 +726,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 125.0,
@@ -749,7 +747,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 125.0,
@@ -771,7 +769,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
@@ -799,7 +797,7 @@
         "v" : 0,
         "hSpan" : 1,
         "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 225.0,
@@ -819,7 +817,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 225.0,
@@ -839,7 +837,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 225.0,
@@ -860,7 +858,7 @@
             "v" : 0,
             "hSpan" : 0,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 225.0,
@@ -882,7 +880,7 @@
           "v" : 0,
           "hSpan" : 1,
           "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 225.0,

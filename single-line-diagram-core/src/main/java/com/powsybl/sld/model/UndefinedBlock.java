@@ -37,7 +37,7 @@ public class UndefinedBlock extends AbstractComposedBlock {
         for (Block block : subBlocks) {
             block.sizing();
         }
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             // better do nothing
         } else {
             throw new UnsupportedOperationException("Horizontal layout of undefined  block not supported");
@@ -57,7 +57,7 @@ public class UndefinedBlock extends AbstractComposedBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        throw new UnsupportedOperationException("Horizontal layout of undefined  block not supported");
+        coordVerticalCase(layoutParam);
     }
 
     @Override

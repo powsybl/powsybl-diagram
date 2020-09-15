@@ -11,6 +11,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.*;
 
+import static com.powsybl.sld.model.Orientation.UP;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -145,7 +147,7 @@ public class SerialBlock extends AbstractComposedBlock {
     @Override
     public void sizing() {
         subBlocks.forEach(Block::sizing);
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             getPosition().setHSpan(subBlocks.stream().mapToInt(block -> block.getPosition().getHSpan()).max().orElse(0));
             getPosition().setVSpan(subBlocks.stream().mapToInt(block -> block.getPosition().getVSpan()).sum());
 
@@ -172,7 +174,7 @@ public class SerialBlock extends AbstractComposedBlock {
     public void coordVerticalCase(LayoutParameters layoutParam) {
         double y0;
         double yPxStep;
-        int sign = ((BusCell) getCell()).getDirection() == BusCell.Direction.TOP ? 1 : -1;
+        int sign = getOrientation() == UP ? 1 : -1;
         y0 = getCoord().getY() + sign * getCoord().getYSpan() / 2;
         yPxStep = -sign * getCoord().getYSpan() / getPosition().getVSpan();
 

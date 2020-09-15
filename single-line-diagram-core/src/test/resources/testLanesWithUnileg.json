@@ -258,8 +258,7 @@
         "h" : -1,
         "v" : -1,
         "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "vSpan" : 0
       },
       "coord" : {
         "x" : -1.0,
@@ -279,7 +278,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 225.0,
@@ -299,8 +298,7 @@
           "h" : -1,
           "v" : -1,
           "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "vSpan" : 0
         },
         "coord" : {
           "x" : -1.0,
@@ -321,7 +319,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -347,8 +345,7 @@
         "h" : -1,
         "v" : -1,
         "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "vSpan" : 0
       },
       "coord" : {
         "x" : -1.0,
@@ -368,7 +365,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "DOWN"
         },
         "coord" : {
           "x" : 175.0,
@@ -388,8 +385,7 @@
           "h" : -1,
           "v" : -1,
           "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "vSpan" : 0
         },
         "coord" : {
           "x" : -1.0,
@@ -410,7 +406,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "DOWN"
         },
         "coord" : {
           "x" : 75.0,
@@ -437,7 +433,7 @@
         "v" : -1,
         "hSpan" : 1,
         "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 125.0,
@@ -457,7 +453,7 @@
           "v" : 0,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
@@ -478,7 +474,7 @@
           "v" : 0,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,

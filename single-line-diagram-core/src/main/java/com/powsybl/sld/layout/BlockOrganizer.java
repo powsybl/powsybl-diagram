@@ -64,12 +64,12 @@ public class BlockOrganizer {
     public void organize(Graph graph) {
         LOGGER.info("Organizing graph cells into blocks");
         graph.getCells().stream()
-                .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN)
-                        || cell.getType().equals(Cell.CellType.INTERN))
+                .filter(cell -> cell.getType().isBusCell())
+                .map(BusCell.class::cast)
                 .forEach(cell -> {
                     CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
-                    if (cell.getType().isBusCell()) {
-                        ((BusCell) cell).organizeBlocks();
+                    if (cell.getType() == Cell.CellType.INTERN) {
+                        ((InternCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
@@ -82,6 +82,10 @@ public class BlockOrganizer {
 
         List<Subsection> subsections = positionFinder.buildLayout(graph, handleShunt);
         //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
+
+        graph.getCells().stream()
+                .filter(cell -> cell.getType() == Cell.CellType.EXTERN).map(ExternCell.class::cast)
+                .forEach(ExternCell::organizeBlockDirections);
 
         graph.getCells().stream()
                 .filter(cell -> cell instanceof BusCell)

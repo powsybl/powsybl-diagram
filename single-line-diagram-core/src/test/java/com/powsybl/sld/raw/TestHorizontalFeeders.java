@@ -35,7 +35,7 @@ public class TestHorizontalFeeders extends AbstractTestCaseRaw {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
-        load.setOrientation(Orientation.HORIZONTAL);
+        load.setOrientation(Orientation.RIGHT);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);
@@ -49,8 +49,7 @@ public class TestHorizontalFeeders extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        writeFile = true;
-        toSVG(g,"/test.svg");
+        toSVG(g, "/test.svg");
 //        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
     }
 }

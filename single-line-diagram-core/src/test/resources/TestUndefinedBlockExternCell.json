@@ -116,7 +116,7 @@
         "v" : 0,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 0.0,
@@ -136,7 +136,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 0.0,
@@ -157,7 +157,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 1,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 0.0,
@@ -178,7 +178,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 1,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 0.0,
@@ -199,7 +199,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 1,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 0.0,
@@ -220,7 +220,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 1,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 0.0,

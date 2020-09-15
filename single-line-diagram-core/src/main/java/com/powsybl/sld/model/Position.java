@@ -9,7 +9,7 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.List;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -19,19 +19,62 @@ import java.util.Objects;
  */
 public class Position {
 
-    private int h;
-    private int v;
+    public class Segment {
+        private int value;
+        private int span;
+        private int shift;
 
-    private int hSpan;
-    private int vSpan;
+        Segment(int value, int span, int shift) {
+            this.value = value;
+            this.span = span;
+            this.shift = shift;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public int getSpan() {
+            return span;
+        }
+
+        public void setSpan(int span) {
+            this.span = span;
+        }
+
+        public int getShift() {
+            return shift;
+        }
+
+        public void setShift(int shift) {
+            this.shift = shift;
+        }
+
+        void alignAndMerge(List<Segment> segments) {
+            segments.forEach(seg -> seg.setValue(this.getValue()));
+            int resShift = segments.stream().mapToInt(Segment::getShift).min().orElse(0);
+            this.setShift(resShift);
+            this.setSpan(segments.stream()
+                    .mapToInt(seg -> seg.getSpan() + getShift()).max().orElse(0) - resShift);
+        }
+
+        void putAsideAndMerge(List<Segment> segments) {
+            
+        }
+    }
+
+    private Segment h;
+    private Segment v;
 
     private Orientation orientation;
 
     public Position(int h, int v, int hSpan, int vSpan, Orientation orientation) {
-        this.h = h;
-        this.v = v;
-        this.hSpan = hSpan;
-        this.vSpan = vSpan;
+        this.h = new Segment(h, hSpan, 0);
+        this.v = new Segment(v, vSpan, 0);
         this.orientation = orientation;
     }
 
@@ -48,76 +91,58 @@ public class Position {
     }
 
     public int getH() {
-        return h;
+        return h.getValue();
     }
 
     public Position setH(int h) {
-        this.h = h;
+        this.h.setValue(h);
         return this;
     }
 
     public int getV() {
-        return v;
+        return v.getValue();
     }
 
     public Position setV(int v) {
-        this.v = v;
+        this.v.setValue(v);
         return this;
     }
 
     public Position setHV(int h, int v) {
-        setH(h);
-        setV(v);
+        this.h.setValue(h);
+        this.v.setValue(v);
         return this;
     }
 
     public int getHSpan() {
-        return hSpan;
+        return h.getSpan();
     }
 
     public Position setHSpan(int hSpan) {
-        this.hSpan = hSpan;
+        this.h.setSpan(hSpan);
         return this;
     }
 
     public int getVSpan() {
-        return vSpan;
+        return this.v.getSpan();
     }
 
     public Position setVSpan(int vSpan) {
-        this.vSpan = vSpan;
+        this.v.setSpan(vSpan);
         return this;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(h, v, hSpan, vSpan, orientation);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Position) {
-            Position other = (Position) o;
-            return other.h == h
-                    && other.v == v
-                    && other.hSpan == hSpan
-                    && other.vSpan == vSpan
-                    && other.orientation == orientation;
-        }
-        return false;
-    }
-
-    @Override
     public String toString() {
-        return "h=" + h + " v=" + v + " hSpan=" + hSpan + " vSpan=" + vSpan + ", " + orientation;
+        return "h=" + h.getValue() + " v=" + v.getValue() + " hSpan=" + h.getSpan() + " vSpan=" + v.getSpan() + ", " + orientation;
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        generator.writeNumberField("h", h);
-        generator.writeNumberField("v", v);
-        generator.writeNumberField("hSpan", hSpan);
-        generator.writeNumberField("vSpan", vSpan);
+        generator.writeNumberField("h", h.getValue());
+        generator.writeNumberField("v", v.getValue());
+        generator.writeNumberField("hSpan", h.getSpan());
+        generator.writeNumberField("vSpan", v.getSpan());
         if (orientation != null) {
             generator.writeStringField("orientation", orientation.name());
         }

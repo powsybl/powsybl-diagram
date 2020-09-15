@@ -54,20 +54,20 @@ public class InternCell extends AbstractBusCell {
 
     public InternCell(Graph graph, boolean exceptionIfPatternNotHandled) {
         super(graph, CellType.INTERN);
+        legs = new EnumMap<>(Side.class);
         setDirection(Direction.TOP);
         shape = Shape.UNDEFINED;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     public void organizeBlocks() {
-        legs = new EnumMap<>(Side.class);
         List<LegBlock> candidateLegs = searchLegs();
         if (getRootBlock().getType() == Block.Type.SERIAL && candidateLegs.size() == 2) {
             SerialBlock serialRootBlock = (SerialBlock) getRootBlock();
             assignLeg(serialRootBlock, candidateLegs.get(0));
             assignLeg(serialRootBlock, candidateLegs.get(1));
             body = serialRootBlock.extractBody(new ArrayList<>(legs.values()));
-            body.setOrientation(Orientation.HORIZONTAL);
+            body.setOrientation(Orientation.RIGHT);
         } else {
             if (candidateLegs.size() != 1) {
                 if (exceptionIfPatternNotHandled) {
@@ -75,23 +75,32 @@ public class InternCell extends AbstractBusCell {
                 } else {
                     shape = Shape.UNHANDLEDPATTERN;
                     LOGGER.error("InternCell pattern not handled");
+                    LegBlock leg = candidateLegs.get(0);
                     legs.put(Side.UNDEFINED, candidateLegs.get(0));
+                    leg.setOrientation(Orientation.UP);
                 }
             }
         }
         if (candidateLegs.size() == 1) {
             shape = Shape.UNILEG;
-            legs.put(Side.UNDEFINED, candidateLegs.get(0));
+            LegBlock leg = candidateLegs.get(0);
+            legs.put(Side.UNDEFINED, leg);
+            leg.setOrientation(Orientation.UP);
         } else if (candidateLegs.size() == 2 && getBusNodes().size() == 2) {
             shape = Shape.MAYBEFLAT;
         }
+    }
+
+    public void setFlat() {
+        shape = Shape.FLAT;
+        setDirection(Direction.MIDDLE);
     }
 
     private void assignLeg(SerialBlock sb, LegBlock candidateLeg) {
         Optional<Block.Extremity> extremity = sb.whichExtremity(candidateLeg);
         if (extremity.isPresent()) {
             legs.put(extremityToSide(extremity.get()), candidateLeg);
-            candidateLeg.setOrientation(Orientation.VERTICAL);
+            candidateLeg.setOrientation(Orientation.UP);
         } else {
             throw new PowsyblException("Unable to identify legs of internCell");
         }
@@ -132,9 +141,8 @@ public class InternCell extends AbstractBusCell {
         Position pos1 = buses.get(0).getStructuralPosition();
         Position pos2 = buses.get(1).getStructuralPosition();
         if (Math.abs(pos2.getH() - pos1.getH()) == 1 && pos2.getV() == pos1.getV()) {
-            setDirection(Direction.FLAT);
-            shape = Shape.FLAT;
-            getRootBlock().setOrientation(Orientation.HORIZONTAL);
+            setFlat();
+            getRootBlock().setOrientation(Orientation.RIGHT);
         } else {
             shape = Shape.CROSSOVER;
         }
@@ -210,6 +218,14 @@ public class InternCell extends AbstractBusCell {
     }
 
     @Override
+    public void setDirection(Direction direction) {
+        super.setDirection(direction);
+        for (LegBlock leg : legs.values()) {
+            leg.setOrientation(direction.toOrientation());
+        }
+    }
+
+    @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
             body.calculateRootCoord(layoutParam);
@@ -235,8 +251,5 @@ public class InternCell extends AbstractBusCell {
 
     public void setShape(Shape shape) {
         this.shape = shape;
-        if (shape == Shape.FLAT) {
-            setDirection(Direction.FLAT);
-        }
     }
 }

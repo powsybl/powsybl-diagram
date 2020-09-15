@@ -43,25 +43,26 @@ public class ExternCell extends AbstractBusCell {
         }
     }
 
-    @Override
-    public void organizeBlocks() {
+    public void organizeBlockDirections() {
         List<FeederNode> feederNodes = getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FEEDER)
                 .map(FeederNode.class::cast).collect(Collectors.toList());
-        getRootBlock().setOrientation(Orientation.VERTICAL);
-        if (feederNodes.stream().anyMatch(n -> n.getOrientation().equals(Orientation.HORIZONTAL))) {
+        if (feederNodes.stream().anyMatch(n -> n.getOrientation().isHorizontal())) {
             identifyHorizontalBlocks(feederNodes);
+        } else {
+            getRootBlock().setOrientation(getDirection().toOrientation());
         }
     }
 
     private void identifyHorizontalBlocks(List<FeederNode> fn) {
-        List<Block> blocksEmbeddingOnlyHFeederNodes = fn.stream().filter(n -> n.getOrientation().equals(Orientation.HORIZONTAL))
-                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream()).collect(Collectors.toList());
-        List<Block> blocksEmbeddingVNodes = fn.stream().filter(n -> n.getOrientation().equals(Orientation.VERTICAL))
+        List<Block> blocksEmbeddingOnlyHFeederNodes = fn.stream().filter(n -> n.getOrientation().isHorizontal())
+                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream())
+                .filter(n -> !n.getType().isLeg())      //legBlocks remain always VERTICAL
+                .collect(Collectors.toList());
+        List<Block> blocksEmbeddingVNodes = fn.stream().filter(n -> n.getOrientation().isVertical())
                 .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream()).collect(Collectors.toList());
         blocksEmbeddingOnlyHFeederNodes.removeAll(blocksEmbeddingVNodes);
-        blocksEmbeddingOnlyHFeederNodes.forEach(b -> b.setOrientation(Orientation.HORIZONTAL));
-        getLegPrimaryBlocks().forEach(b -> b.setOrientation(Orientation.VERTICAL)); // case of only Horizontal feeders
+        blocksEmbeddingOnlyHFeederNodes.forEach(b -> b.setOrientation(Orientation.RIGHT));
     }
 
     @Override

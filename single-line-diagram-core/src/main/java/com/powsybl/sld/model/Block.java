@@ -112,6 +112,8 @@ public interface Block {
 
     void setOrientation(Orientation orientation, boolean recursively);
 
+    Orientation getOrientation();
+
     Type getType();
 
     void writeJson(JsonGenerator generator) throws IOException;

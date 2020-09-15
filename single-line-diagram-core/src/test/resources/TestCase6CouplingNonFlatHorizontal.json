@@ -282,8 +282,7 @@
         "h" : -1,
         "v" : -1,
         "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "vSpan" : 0
       },
       "coord" : {
         "x" : -1.0,
@@ -303,7 +302,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
@@ -323,8 +322,7 @@
           "h" : -1,
           "v" : -1,
           "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "vSpan" : 0
         },
         "coord" : {
           "x" : -1.0,
@@ -345,7 +343,7 @@
           "v" : -1,
           "hSpan" : 1,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -359,7 +357,7 @@
   }, {
     "type" : "INTERN",
     "number" : 1,
-    "direction" : "FLAT",
+    "direction" : "MIDDLE",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -372,7 +370,7 @@
         "v" : -1,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
+        "orientation" : "RIGHT"
       },
       "coord" : {
         "x" : -1.0,
@@ -392,7 +390,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 100.0,
@@ -413,7 +411,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : -1.0,
@@ -434,7 +432,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 50.0,
@@ -448,7 +446,7 @@
   }, {
     "type" : "INTERN",
     "number" : 2,
-    "direction" : "FLAT",
+    "direction" : "MIDDLE",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -461,7 +459,7 @@
         "v" : -1,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
+        "orientation" : "RIGHT"
       },
       "coord" : {
         "x" : -1.0,
@@ -481,7 +479,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 100.0,
@@ -502,7 +500,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : -1.0,
@@ -523,7 +521,7 @@
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 50.0,
