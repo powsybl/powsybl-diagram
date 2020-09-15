@@ -53,12 +53,12 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         Cell cell = g.getCells().iterator().next();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(1).isEmbedingNodeType(Node.NodeType.SWITCH));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(Node.NodeType.SWITCH));
 
         assertSame(Block.Type.LEGPRIMARY, sb.getLowerBlock().getType());
         LegPrimaryBlock subSB = (LegPrimaryBlock) sb.getLowerBlock();

@@ -275,7 +275,7 @@ public final class Graph {
 
     public Stream<BusCell> getBusCells() {
         return cells.stream()
-                .filter(cell -> cell instanceof BusCell && !((BusCell) cell).getPrimaryLegBlocks().isEmpty())
+                .filter(cell -> cell instanceof BusCell && !((BusCell) cell).getLegPrimaryBlocks().isEmpty())
                 .map(BusCell.class::cast);
     }
 

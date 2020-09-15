@@ -91,6 +91,7 @@ public class InternCell extends AbstractBusCell {
         Optional<Block.Extremity> extremity = sb.whichExtremity(candidateLeg);
         if (extremity.isPresent()) {
             legs.put(extremityToSide(extremity.get()), candidateLeg);
+            candidateLeg.setOrientation(Orientation.VERTICAL);
         } else {
             throw new PowsyblException("Unable to identify legs of internCell");
         }
@@ -108,7 +109,7 @@ public class InternCell extends AbstractBusCell {
 
     private List<LegBlock> searchLegs() {
         List<LegBlock> candidateLegs = new ArrayList<>();
-        List<LegPrimaryBlock> plbCopy = new ArrayList<>(getPrimaryLegBlocks());
+        List<LegPrimaryBlock> plbCopy = new ArrayList<>(getLegPrimaryBlocks());
         while (!plbCopy.isEmpty()) {
             LegPrimaryBlock lpb = plbCopy.get(0);
             Block parentBlock = lpb.getParentBlock();

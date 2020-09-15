@@ -56,8 +56,17 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    public boolean isEmbedingNodeType(Node.NodeType type) {
+    public boolean isEmbeddingNodeType(Node.NodeType type) {
         return nodes.stream().anyMatch(n -> n.getType() == type);
+    }
+
+    @Override
+    public List<Block> findBlockEmbeddingNode(Node node) {
+        List<Block> result = new ArrayList<>();
+        if (nodes.contains(node)) {
+            result.add(this);
+        }
+        return result;
     }
 
     public List<Node> getNodes() {

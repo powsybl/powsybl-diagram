@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,6 +31,10 @@ public interface Block {
         public boolean isParallel() {
             return this == LEGPARALLEL || this == BODYPARALLEL;
         }
+
+        public boolean isLeg() {
+            return this == LEGPRIMARY || this == LEGPARALLEL;
+        }
     }
 
     enum Extremity {
@@ -48,7 +53,9 @@ public interface Block {
 
     void reverseBlock();
 
-    boolean isEmbedingNodeType(Node.NodeType type);
+    boolean isEmbeddingNodeType(Node.NodeType type);
+
+    List<Block> findBlockEmbeddingNode(Node node);
 
     void setParentBlock(Block parentBlock);
 
@@ -102,6 +109,8 @@ public interface Block {
     Cell getCell();
 
     void setOrientation(Orientation orientation);
+
+    void setOrientation(Orientation orientation, boolean recursively);
 
     Type getType();
 

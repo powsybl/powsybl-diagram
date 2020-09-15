@@ -49,8 +49,8 @@ public class SerialBlock extends AbstractComposedBlock {
                 alignChaining(subBlocks.get(i), subBlocks.get(i + 1));
             }
 
-            if (getLowerBlock().isEmbedingNodeType(Node.NodeType.FEEDER)
-                    || getUpperBlock().isEmbedingNodeType(Node.NodeType.BUS)) {
+            if (getLowerBlock().isEmbeddingNodeType(Node.NodeType.FEEDER)
+                    || getUpperBlock().isEmbeddingNodeType(Node.NodeType.BUS)) {
                 reverseBlock();
             }
         }

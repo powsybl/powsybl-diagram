@@ -7,8 +7,11 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class ExternCell extends AbstractBusCell {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExternCell.class);
+
     private int order = -1;
     private ShuntCell shuntCell = null;
 
@@ -36,6 +41,27 @@ public class ExternCell extends AbstractBusCell {
         if (nbFeeder != 0) {
             setOrder(sumOrder / nbFeeder);
         }
+    }
+
+    @Override
+    public void organizeBlocks() {
+        List<FeederNode> feederNodes = getNodes().stream()
+                .filter(n -> n.getType() == Node.NodeType.FEEDER)
+                .map(FeederNode.class::cast).collect(Collectors.toList());
+        getRootBlock().setOrientation(Orientation.VERTICAL);
+        if (feederNodes.stream().anyMatch(n -> n.getOrientation().equals(Orientation.HORIZONTAL))) {
+            identifyHorizontalBlocks(feederNodes);
+        }
+    }
+
+    private void identifyHorizontalBlocks(List<FeederNode> fn) {
+        List<Block> blocksEmbeddingOnlyHFeederNodes = fn.stream().filter(n -> n.getOrientation().equals(Orientation.HORIZONTAL))
+                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream()).collect(Collectors.toList());
+        List<Block> blocksEmbeddingVNodes = fn.stream().filter(n -> n.getOrientation().equals(Orientation.VERTICAL))
+                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream()).collect(Collectors.toList());
+        blocksEmbeddingOnlyHFeederNodes.removeAll(blocksEmbeddingVNodes);
+        blocksEmbeddingOnlyHFeederNodes.forEach(b -> b.setOrientation(Orientation.HORIZONTAL));
+        getLegPrimaryBlocks().forEach(b -> b.setOrientation(Orientation.VERTICAL)); // case of only Horizontal feeders
     }
 
     @Override

@@ -23,7 +23,9 @@ public interface BusCell extends Cell {
 
     void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus);
 
-    List<LegPrimaryBlock> getPrimaryLegBlocks();
+    void organizeBlocks();
+
+    List<LegPrimaryBlock> getLegPrimaryBlocks();
 
     void blockSizing();
 

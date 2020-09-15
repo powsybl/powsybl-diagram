@@ -53,12 +53,12 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         Cell cell = g.getCells().iterator().next();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(1).isEmbedingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(Node.NodeType.FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
         assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(0).getEndingNode().getId());

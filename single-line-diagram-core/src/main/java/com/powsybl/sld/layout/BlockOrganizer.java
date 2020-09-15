@@ -68,8 +68,8 @@ public class BlockOrganizer {
                         || cell.getType().equals(Cell.CellType.INTERN))
                 .forEach(cell -> {
                     CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
-                    if (cell.getType() == Cell.CellType.INTERN) {
-                        ((InternCell) cell).organizeBlocks();
+                    if (cell.getType().isBusCell()) {
+                        ((BusCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
@@ -96,7 +96,7 @@ public class BlockOrganizer {
     private void determineStackableBlocks(Graph graph) {
         LOGGER.info("Determining stackable Blocks");
         graph.getBusCells().forEach(cell -> {
-            List<LegPrimaryBlock> blocks = cell.getPrimaryLegBlocks();
+            List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
             for (int i = 0; i < blocks.size(); i++) {
                 LegPrimaryBlock block1 = blocks.get(i);
                 if (block1.getNodes().size() == 3) {

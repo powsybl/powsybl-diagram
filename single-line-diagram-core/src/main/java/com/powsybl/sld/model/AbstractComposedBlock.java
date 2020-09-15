@@ -9,8 +9,10 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -38,8 +40,13 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    public boolean isEmbedingNodeType(Node.NodeType type) {
-        return subBlocks.stream().anyMatch(b -> b.isEmbedingNodeType(type));
+    public boolean isEmbeddingNodeType(Node.NodeType type) {
+        return subBlocks.stream().anyMatch(b -> b.isEmbeddingNodeType(type));
+    }
+
+    @Override
+    public List<Block> findBlockEmbeddingNode(Node node) {
+        return subBlocks.stream().flatMap(b -> b.findBlockEmbeddingNode(node).stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -60,7 +67,14 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     @Override
     public void setOrientation(Orientation orientation) {
         super.setOrientation(orientation);
-        subBlocks.forEach(sub -> sub.setOrientation(orientation));
+        setOrientation(orientation, true);
+    }
+
+    public void setOrientation(Orientation orientation, boolean recursively) {
+        super.setOrientation(orientation);
+        if (recursively) {
+            subBlocks.forEach(sub -> sub.setOrientation(orientation));
+        }
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Feeder2WTLegNode extends FeederWithSideNode {
 
     protected Feeder2WTLegNode(String id, String name, String equipmentId, Graph graph, Side side,
                                VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, otherSideVoltageLevelInfos,
+        super(id, name, equipmentId, ComponentTypeName.LINE, graph, side, otherSideVoltageLevelInfos,
                 FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 

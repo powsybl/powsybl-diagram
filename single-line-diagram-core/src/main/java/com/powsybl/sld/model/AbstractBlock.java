@@ -120,6 +120,11 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
+    public void setOrientation(Orientation orientation, boolean recursively) {
+        setOrientation(orientation);
+    }
+
+    @Override
     public Coord getCoord() {
         return coord;
     }

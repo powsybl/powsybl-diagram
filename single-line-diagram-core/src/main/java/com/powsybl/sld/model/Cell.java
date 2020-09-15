@@ -20,7 +20,11 @@ import java.util.*;
  */
 public interface Cell {
     enum CellType {
-        INTERN, EXTERN, SHUNT
+        INTERN, EXTERN, SHUNT;
+
+        public boolean isBusCell() {
+            return this == INTERN || this == EXTERN;
+        }
     }
 
     void addNodes(List<Node> nodesToAdd);
