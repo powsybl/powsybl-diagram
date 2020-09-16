@@ -46,6 +46,4 @@ public interface BusCell extends Cell {
 
     void setDirection(Direction direction);
 
-    Position getMaxBusPosition();
-
 }

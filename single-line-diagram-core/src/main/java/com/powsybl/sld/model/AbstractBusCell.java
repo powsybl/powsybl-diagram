@@ -59,11 +59,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public Position getMaxBusPosition() {
-        return graph.getMaxBusStructuralPosition();
-    }
-
-    @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         getRootBlock().calculateRootCoord(layoutParam);
     }

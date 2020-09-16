@@ -20,7 +20,7 @@ class BlockPositionner {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
-        int maxV = graph.getMaxBusStructuralPosition().getV();
+        int maxV = graph.getMaxVerticalBusPosition();
         List<InternCell> nonFlatCellsToClose = new ArrayList<>();
 
         Subsection prevSs = new Subsection(maxV);

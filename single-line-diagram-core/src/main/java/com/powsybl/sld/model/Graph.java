@@ -53,7 +53,8 @@ public final class Graph {
 
     private final Map<String, Node> nodesById = new HashMap<>();
 
-    private Position maxBusStructuralPosition = new Position(0, 0);
+    private int maxHorizontalBusPosition = 0;
+    private int maxVerticalBusPosition = 0;
 
     private Map<Integer, Map<Integer, BusNode>> vPosToHPosToNodeBus;
 
@@ -255,10 +256,6 @@ public final class Graph {
         return result;
     }
 
-    public Position getMaxBusStructuralPosition() {
-        return maxBusStructuralPosition;
-    }
-
     public void setMaxBusPosition() {
         List<Integer> h = new ArrayList<>();
         List<Integer> v = new ArrayList<>();
@@ -269,8 +266,8 @@ public final class Graph {
         if (h.isEmpty() || v.isEmpty()) {
             return;
         }
-        maxBusStructuralPosition.setH(Collections.max(h));
-        maxBusStructuralPosition.setV(Collections.max(v));
+        setMaxHorizontalBusPosition(Collections.max(h));
+        setMaxVerticalBusPosition(Collections.max(v));
     }
 
     public Stream<BusCell> getBusCells() {
@@ -600,5 +597,21 @@ public final class Graph {
 
     public boolean isGenerateCoordsInJson() {
         return generateCoordsInJson;
+    }
+
+    public int getMaxHorizontalBusPosition() {
+        return maxHorizontalBusPosition;
+    }
+
+    public void setMaxHorizontalBusPosition(int maxHorizontalBusPosition) {
+        this.maxHorizontalBusPosition = maxHorizontalBusPosition;
+    }
+
+    public int getMaxVerticalBusPosition() {
+        return maxVerticalBusPosition;
+    }
+
+    public void setMaxVerticalBusPosition(int maxVerticalBusPosition) {
+        this.maxVerticalBusPosition = maxVerticalBusPosition;
     }
 }

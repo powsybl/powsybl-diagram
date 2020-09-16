@@ -193,7 +193,7 @@ public abstract class AbstractBlock implements Block {
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
                 coord.setY(layoutParam.getInitialYBus()
-                        + (((BusCell) cell).getMaxBusPosition().getV() - 1) * layoutParam.getVerticalSpaceBus()
+                        + (cell.getGraph().getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus()
                         + dyToBus);
                 break;
             case TOP:

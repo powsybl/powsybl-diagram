@@ -86,7 +86,7 @@ public class Subsection {
             return subsections;
         }
 
-        int vSize = oVLGraph.get().getMaxBusStructuralPosition().getV();
+        int vSize = oVLGraph.get().getMaxVerticalBusPosition();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
