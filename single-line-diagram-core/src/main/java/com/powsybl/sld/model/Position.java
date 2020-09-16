@@ -54,8 +54,7 @@ public class Position {
             this.shift = shift;
         }
 
-        void alignAndMerge(List<Segment> segments) {
-            segments.forEach(seg -> seg.setValue(this.getValue()));
+        void mergeShiftSpan(List<Segment> segments) {
             int resShift = segments.stream().mapToInt(Segment::getShift).min().orElse(0);
             this.setShift(resShift);
             this.setSpan(segments.stream()
@@ -63,7 +62,7 @@ public class Position {
         }
 
         void putAsideAndMerge(List<Segment> segments) {
-            
+
         }
     }
 
