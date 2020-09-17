@@ -9,6 +9,8 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 import java.util.*;
 
 import static com.powsybl.sld.model.Orientation.UP;
@@ -148,25 +150,11 @@ public class SerialBlock extends AbstractComposedBlock {
     public void sizing() {
         subBlocks.forEach(Block::sizing);
         if (getPosition().getOrientation().isVertical()) {
-            getPosition().setHSpan(subBlocks.stream().mapToInt(block -> block.getPosition().getHSpan()).max().orElse(0));
-            getPosition().setVSpan(subBlocks.stream().mapToInt(block -> block.getPosition().getVSpan()).sum());
-
-            int cumulVSpan = 0;
-            for (Block subBlock : subBlocks) {
-                Position pos = subBlock.getPosition();
-                pos.setHV(0, cumulVSpan);
-                cumulVSpan += pos.getVSpan();
-            }
+            getPosition().getHSeg().mergeEnvelop(getSegments(H));
+            getPosition().getVSeg().glue(getSegments(V));
         } else {
-            getPosition().setVSpan(subBlocks.stream().mapToInt(block -> block.getPosition().getVSpan()).max().orElse(0));
-            getLowerBlock().getPosition().setHV(0, 0);
-
-            int cumulHSpan = getLowerBlock().getPosition().getHSpan();
-            for (int i = 1; i < subBlocks.size(); i++) {
-                subBlocks.get(i).getPosition().setHV(cumulHSpan, 0);
-                cumulHSpan += subBlocks.get(i).getPosition().getHSpan();
-            }
-            getPosition().setHSpan(cumulHSpan);
+            getPosition().getVSeg().mergeEnvelop(getSegments(V));
+            getPosition().getHSeg().glue(getSegments(H));
         }
     }
 

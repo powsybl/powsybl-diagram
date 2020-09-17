@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -74,6 +75,10 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         if (recursively) {
             subBlocks.forEach(sub -> sub.setOrientation(orientation));
         }
+    }
+
+    public Stream<Position.Segment> getSegments(Position.Dimension dimension) {
+        return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
     }
 
     @Override

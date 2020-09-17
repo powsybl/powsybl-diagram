@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2019, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * License, vSeg. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package com.powsybl.sld.model;
@@ -9,7 +9,11 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -18,6 +22,10 @@ import java.util.List;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Position {
+
+    enum Dimension {
+        H, V
+    }
 
     public class Segment {
         private int value;
@@ -54,26 +62,36 @@ public class Position {
             this.shift = shift;
         }
 
-        void mergeShiftSpan(List<Segment> segments) {
+        public void mergeEnvelop(Stream<Segment> segStream) {
+/*
             int resShift = segments.stream().mapToInt(Segment::getShift).min().orElse(0);
             this.setShift(resShift);
             this.setSpan(segments.stream()
                     .mapToInt(seg -> seg.getSpan() + getShift()).max().orElse(0) - resShift);
+*/
+            List<Segment> segments = segStream.collect(Collectors.toList());
+            setSpan(segments.stream().mapToInt(Segment::getSpan).max().orElse(0));
+            segments.forEach(seg -> seg.setValue(0));
         }
 
-        void putAsideAndMerge(List<Segment> segments) {
-
+        void glue(Stream<Segment> segStream) {
+            List<Segment> segments = segStream.collect(Collectors.toList());
+            setSpan(segments.stream().mapToInt(Segment::getSpan).sum());
+            int cumulSpan = 0;
+            for (Segment seg : segments) {
+                seg.setValue(cumulSpan);
+                cumulSpan += seg.getSpan();
+            }
         }
     }
 
-    private Segment h;
-    private Segment v;
+    private Map<Dimension, Segment> dim2Seg = new EnumMap<>(Dimension.class);
 
     private Orientation orientation;
 
     public Position(int h, int v, int hSpan, int vSpan, Orientation orientation) {
-        this.h = new Segment(h, hSpan, 0);
-        this.v = new Segment(v, vSpan, 0);
+        dim2Seg.put(Dimension.H, new Segment(h, hSpan, 0));
+        dim2Seg.put(Dimension.V, new Segment(v, vSpan, 0));
         this.orientation = orientation;
     }
 
@@ -90,58 +108,78 @@ public class Position {
     }
 
     public int getH() {
-        return h.getValue();
+        return dim2Seg.get(Dimension.H).getValue();
     }
 
     public Position setH(int h) {
-        this.h.setValue(h);
+        dim2Seg.get(Dimension.H).setValue(h);
         return this;
     }
 
     public int getV() {
-        return v.getValue();
+        return dim2Seg.get(Dimension.V).getValue();
     }
 
     public Position setV(int v) {
-        this.v.setValue(v);
+        dim2Seg.get(Dimension.V).setValue(v);
         return this;
     }
 
     public Position setHV(int h, int v) {
-        this.h.setValue(h);
-        this.v.setValue(v);
+        setH(h);
+        setV(v);
         return this;
     }
 
+    public Segment getSegment(Dimension dimension) {
+        return dim2Seg.get(dimension);
+    }
+
     public int getHSpan() {
-        return h.getSpan();
+        return dim2Seg.get(Dimension.H).getSpan();
     }
 
     public Position setHSpan(int hSpan) {
-        this.h.setSpan(hSpan);
+        dim2Seg.get(Dimension.H).setSpan(hSpan);
         return this;
     }
 
     public int getVSpan() {
-        return this.v.getSpan();
+        return dim2Seg.get(Dimension.V).getSpan();
     }
 
     public Position setVSpan(int vSpan) {
-        this.v.setSpan(vSpan);
+        dim2Seg.get(Dimension.V).setSpan(vSpan);
         return this;
+    }
+
+    public Segment getHSeg() {
+        return dim2Seg.get(Dimension.H);
+    }
+
+    public void setHSeg(Segment hSeg) {
+        dim2Seg.put(Dimension.H, hSeg);
+    }
+
+    public Segment getVSeg() {
+        return dim2Seg.get(Dimension.V);
+    }
+
+    public void setVSeg(Segment vSeg) {
+        dim2Seg.put(Dimension.V, vSeg);
     }
 
     @Override
     public String toString() {
-        return "h=" + h.getValue() + " v=" + v.getValue() + " hSpan=" + h.getSpan() + " vSpan=" + v.getSpan() + ", " + orientation;
+        return "h=" + getH() + " v=" + getV() + " hSpan=" + getHSpan() + " vSpan=" + getVSpan() + ", " + orientation;
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
-        generator.writeNumberField("h", h.getValue());
-        generator.writeNumberField("v", v.getValue());
-        generator.writeNumberField("hSpan", h.getSpan());
-        generator.writeNumberField("vSpan", v.getSpan());
+        generator.writeNumberField("h", getH());
+        generator.writeNumberField("v", getV());
+        generator.writeNumberField("hSpan", getHSpan());
+        generator.writeNumberField("vSpan", getVSpan());
         if (orientation != null) {
             generator.writeStringField("orientation", orientation.name());
         }
