@@ -41,6 +41,10 @@ public interface Cell {
 
     Block getRootBlock();
 
+    default void blockSizing() {
+        getRootBlock().sizing();
+    }
+
     void setRootBlock(Block rootBlock);
 
     int getNumber();

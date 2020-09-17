@@ -80,12 +80,11 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void sizing() {
-        if ((getCell()).getType() == INTERN && ((InternCell) getCell()).getShape().checkIsShape(FLAT)
-                || !getStackableBlocks().isEmpty()) {
+        if (getOrientation().isHorizontal()) {
             getPosition().setHSpan(0);
             getPosition().setVSpan(0);
         } else {
-            getPosition().setHSpan(1);
+            getPosition().setHSpan(2);
             getPosition().setVSpan(0);
         }
     }

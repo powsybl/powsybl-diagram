@@ -166,13 +166,13 @@ public abstract class AbstractBlock implements Block {
     }
 
     double hToX(LayoutParameters layoutParameters, int h) {
-        return layoutParameters.getInitialXBus() + layoutParameters.getCellWidth() * h;
+        return layoutParameters.getInitialXBus() + layoutParameters.getCellWidth() * h / 2;
     }
 
     @Override
     public void calculateRootCoord(LayoutParameters layoutParam) {
         double dyToBus = 0;
-        coord.setXSpan((double) position.getHSpan() * layoutParam.getCellWidth());
+        coord.setXSpan((double) position.getHSpan() / 2 * layoutParam.getCellWidth());
         if (cell.getType() == INTERN) {
             coord.setYSpan(0);
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {

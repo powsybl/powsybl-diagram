@@ -12,15 +12,11 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
 import com.powsybl.sld.svg.LabelPosition;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -70,7 +70,7 @@ public final class ShuntCell extends AbstractCell {
         cells.get(side.getFlip()).setDirection(cells.get(side).getDirection());
     }
 
-    public void reverse() {
+    private void reverse() {
         ExternCell cell = cells.get(Side.LEFT);
         cells.put(Side.LEFT, cells.get(Side.RIGHT));
         cells.put(Side.RIGHT, cell);
@@ -107,7 +107,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public int getLength() {
-        return nodes.size() - 4;
+        return getRootBlock().getPosition().getHSpan() / 2 - 1;
     }
 
     public List<BusNode> getParentBusNodes() {

@@ -11,6 +11,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import static com.powsybl.sld.model.Block.Extremity.*;
 
 /**
@@ -44,6 +45,16 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
 
         setCardinality(START, this.subBlocks.size());
         setCardinality(END, this.subBlocks.size());
+    }
+
+    @Override
+    public double initX0() {
+        return getCoord().getX() - getCoord().getXSpan() / 2;
+    }
+
+    @Override
+    public double intitXStep() {
+        return getCoord().getXSpan() / getPosition().getHSpan();
     }
 
     @Override

@@ -94,6 +94,7 @@ public class InternCell extends AbstractBusCell {
     public void setFlat() {
         shape = Shape.FLAT;
         setDirection(Direction.MIDDLE);
+        legs.values().forEach(l -> l.setOrientation(Orientation.RIGHT));
     }
 
     private void assignLeg(SerialBlock sb, LegBlock candidateLeg) {
@@ -138,9 +139,7 @@ public class InternCell extends AbstractBusCell {
         if (shape != Shape.MAYBEFLAT) {
             return;
         }
-        Position pos1 = buses.get(0).getStructuralPosition();
-        Position pos2 = buses.get(1).getStructuralPosition();
-        if (Math.abs(pos2.getH() - pos1.getH()) == 1 && pos2.getV() == pos1.getV()) {
+        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
             setFlat();
             getRootBlock().setOrientation(Orientation.RIGHT);
         } else {
@@ -187,9 +186,9 @@ public class InternCell extends AbstractBusCell {
             legs.get(Side.LEFT).getPosition().setH(h);
             h += legs.get(Side.LEFT).getPosition().getHSpan();
             if (shape == Shape.FLAT) {
-                body.getPosition().setHV(h, legs.get(Side.LEFT).getBusNodes().get(0).getStructuralPosition().getV());
+                body.getPosition().setHV(h, legs.get(Side.LEFT).getBusNodes().get(0).getBusbarIndex());
             } else {
-                h -= 1;
+                h -= 2;
                 body.getPosition().setHV(h, 1);
             }
             h += body.getPosition().getHSpan();
@@ -206,7 +205,7 @@ public class InternCell extends AbstractBusCell {
             h += legs.get(Side.LEFT).getPosition().getHSpan();
         }
         if (side == BODY_SIDE) {
-            h -= 1;
+            h -= 2;
             body.getPosition().setHV(h, 1);
             h += body.getPosition().getHSpan();
         }

@@ -71,13 +71,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs1.setX(0);
         vl1Bbs1.setY(300);
         vl1Bbs1.setPxWidth(200);
-        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, null));
+        vl1Bbs1.setPosition(new Position(0, 1, 4, 0, null));
         g1.addNode(vl1Bbs1);
         BusNode vl1Bbs2 = BusNode.create(g1, "vl1_bbs2", "vl1_bbs2");
         vl1Bbs2.setX(280);
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
-        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, null));
+        vl1Bbs2.setPosition(new Position(6, 1, 6, 0, null));
         g1.addNode(vl1Bbs2);
         SwitchNode vl1D1 = new SwitchNode("vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, g1, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
@@ -180,7 +180,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setY(300);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
-        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, null));
+        vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         g2.addNode(vl2Bbs1);
         FeederNode vl2Gen1 = FeederInjectionNode.createGenerator(g2, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
@@ -264,7 +264,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setX(0);
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
-        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, null));
+        vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         g3.addNode(vl3Bbs1);
         FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor(g3, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);
@@ -333,13 +333,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Bbs1.setX(0);
         vl1Bbs1.setY(300);
         vl1Bbs1.setPxWidth(200);
-        vl1Bbs1.setPosition(new Position(0, 1, 2, 0, null));
+        vl1Bbs1.setPosition(new Position(0, 1, 4, 0, null));
         g1Graph.addNode(vl1Bbs1);
         BusNode vl1Bbs2 = BusNode.create(g1Graph, "vl1_bbs2", "vl1_bbs2");
         vl1Bbs2.setX(280);
         vl1Bbs2.setY(300);
         vl1Bbs2.setPxWidth(200);
-        vl1Bbs2.setPosition(new Position(3, 1, 3, 0, null));
+        vl1Bbs2.setPosition(new Position(6, 1, 6, 0, null));
         g1Graph.addNode(vl1Bbs2);
         SwitchNode vl1D1 = new SwitchNode("vl1_d1", "vl1_d1", ComponentTypeName.DISCONNECTOR, false, g1Graph, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D1.setX(220);
@@ -425,7 +425,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setY(300);
         vl2Bbs1.setPxWidth(200);
         vl2Bbs1.setPxWidth(200);
-        vl2Bbs1.setPosition(new Position(0, 1, 3, 0, null));
+        vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         g2Graph.addNode(vl2Bbs1);
         FeederNode vl2Gen1 = FeederInjectionNode.createGenerator(g2Graph, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
@@ -492,7 +492,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setX(0);
         vl3Bbs1.setY(300);
         vl3Bbs1.setPxWidth(200);
-        vl3Bbs1.setPosition(new Position(0, 1, 3, 0, null));
+        vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         g3Graph.addNode(vl3Bbs1);
         FeederNode vl3Capa1 = FeederInjectionNode.createCapacitor(g3Graph, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);

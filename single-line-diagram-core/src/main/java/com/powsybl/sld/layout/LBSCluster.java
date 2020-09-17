@@ -121,7 +121,7 @@ public class LBSCluster {
     }
 
     public void sortHorizontalBusLanesByVPos() {
-        horizontalBusLanes.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getStructuralPosition().getV()));
+        horizontalBusLanes.sort(Comparator.comparingInt(hbl -> hbl.getBusNodes().get(0).getBusbarIndex()));
     }
 
     public int getLength() {

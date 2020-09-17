@@ -44,7 +44,7 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
                 } else {
                     final int finalH = h;
                     b.getStackableBlocks().forEach(sb -> sb.getPosition().setHV(finalH, 0));
-                    h++;
+                    h += b.getPosition().getHSpan();
                     subBlocksCopy.removeAll(b.getStackableBlocks());
                 }
                 subBlocksCopy.remove(b);
@@ -52,17 +52,6 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
             getPosition().setHSpan(h);
         }
         // case HORIZONTAL cannot happen
-    }
-
-    @Override
-    public double initX0() {
-        return getCoord().getX()
-                - (getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / 2);
-    }
-
-    @Override
-    public double intitXStep() {
-        return getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / getPosition().getHSpan();
     }
 
     @Override

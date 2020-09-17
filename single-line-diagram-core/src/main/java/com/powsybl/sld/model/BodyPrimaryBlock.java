@@ -44,13 +44,13 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     @Override
     public void sizing() {
         if (getPosition().getOrientation().isVertical()) {
-            getPosition().setHSpan(1);
+            getPosition().setHSpan(2);
             // in the case of vertical Blocks the x Spanning is a ratio of the nb of edges of the blocks/overall edges
-            getPosition().setVSpan(nodes.size() - 1);
+            getPosition().setVSpan(2 * (nodes.size() - 1));
         } else {
             // in the case of horizontal Blocks having 1 switch/1 position => 1 hPos / 2 edges rounded to the superior int
-            getPosition().setHSpan(nodes.size() - 2);
-            getPosition().setVSpan(1);
+            getPosition().setHSpan(2 * (nodes.size() - 2));
+            getPosition().setVSpan(2);
         }
     }
 

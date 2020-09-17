@@ -72,23 +72,23 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.sizing();
         assertEquals(0, sb.getPosition().getH());
         assertEquals(0, sb.getPosition().getV());
-        assertEquals(2, sb.getPosition().getHSpan());
-        assertEquals(4, sb.getPosition().getVSpan());
+        assertEquals(4, sb.getPosition().getHSpan());
+        assertEquals(8, sb.getPosition().getVSpan());
 
         assertEquals(0, subSB.getPosition().getH());
         assertEquals(0, subSB.getPosition().getV());
-        assertEquals(1, subSB.getPosition().getHSpan());
+        assertEquals(2, subSB.getPosition().getHSpan());
         assertEquals(0, subSB.getPosition().getVSpan());
 
         assertEquals(0, subPB.getSubBlocks().get(0).getPosition().getH());
         assertEquals(0, subPB.getSubBlocks().get(0).getPosition().getV());
-        assertEquals(1, subPB.getSubBlocks().get(0).getPosition().getHSpan());
-        assertEquals(2, subPB.getSubBlocks().get(0).getPosition().getVSpan());
+        assertEquals(2, subPB.getSubBlocks().get(0).getPosition().getHSpan());
+        assertEquals(4, subPB.getSubBlocks().get(0).getPosition().getVSpan());
 
-        assertEquals(1, subPB.getSubBlocks().get(1).getPosition().getH());
+        assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getH());
         assertEquals(0, subPB.getSubBlocks().get(1).getPosition().getV());
-        assertEquals(1, subPB.getSubBlocks().get(1).getPosition().getHSpan());
-        assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getVSpan());
+        assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getHSpan());
+        assertEquals(4, subPB.getSubBlocks().get(1).getPosition().getVSpan());
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)

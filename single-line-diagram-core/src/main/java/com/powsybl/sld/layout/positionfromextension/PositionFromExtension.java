@@ -32,11 +32,11 @@ public class PositionFromExtension implements PositionFinder {
         Map<BusNode, Integer> busToNb = new HashMap<>();
         int i = 1;
         for (BusNode busNode : busNodes.stream()
-                .sorted((bn1, bn2) -> {
-                    Position p1 = bn1.getStructuralPosition();
-                    Position p2 = bn2.getStructuralPosition();
-                    return p1.getV() == p2.getV() ? p1.getH() - p2.getH() : p1.getV() - p2.getV();
-                })
+                .sorted((bn1, bn2) ->
+                        bn1.getBusbarIndex() == bn2.getBusbarIndex() ?
+                                bn1.getSectionIndex() - bn2.getSectionIndex() :
+                                bn1.getBusbarIndex() - bn2.getBusbarIndex()
+                )
                 .collect(Collectors.toList())) {
             busToNb.put(busNode, i++);
         }
@@ -91,11 +91,11 @@ public class PositionFromExtension implements PositionFinder {
         @Override
         public int compare(LegBusSet lbs1, LegBusSet lbs2) {
             for (BusNode busNode : lbs1.getBusNodeSet()) {
-                final Position pos1 = busNode.getStructuralPosition();
-                Optional<Position> pos2 = lbs2.getBusNodeSet().stream().map(BusNode::getStructuralPosition)
-                        .filter(p -> p.getV() == pos1.getV()).findFirst();
-                if (pos2.isPresent() && pos2.get().getH() != pos1.getH()) {
-                    return pos1.getH() - pos2.get().getH();
+                Optional<Integer> optionalSectionIndex2 = lbs2.getBusNodeSet().stream()
+                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
+                        .findFirst().map(BusNode::getSectionIndex);
+                if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
+                    return busNode.getSectionIndex() - optionalSectionIndex2.get();
                 }
             }
 
@@ -105,23 +105,23 @@ public class PositionFromExtension implements PositionFinder {
                 return order1.get() - order2.get();
             }
 
-            int h1max = getMaxPos(lbs1.getBusNodeSet(), Position::getH);
-            int h2max = getMaxPos(lbs2.getBusNodeSet(), Position::getH);
+            int h1max = getMaxPos(lbs1.getBusNodeSet(), BusNode::getSectionIndex);
+            int h2max = getMaxPos(lbs2.getBusNodeSet(), BusNode::getSectionIndex);
             if (h1max != h2max) {
                 return h1max - h2max;
             }
 
-            int v1max = getMaxPos(lbs1.getBusNodeSet(), Position::getV);
-            int v2max = getMaxPos(lbs2.getBusNodeSet(), Position::getV);
+            int v1max = getMaxPos(lbs1.getBusNodeSet(), BusNode::getBusbarIndex);
+            int v2max = getMaxPos(lbs2.getBusNodeSet(), BusNode::getBusbarIndex);
             if (v1max != v2max) {
                 return v1max - v2max;
             }
             return lbs1.getBusNodeSet().size() - lbs2.getBusNodeSet().size();
         }
 
-        private int getMaxPos(Set<BusNode> busNodes, Function<Position, Integer> fun) {
+        private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
             return busNodes.stream()
-                    .map(BusNode::getStructuralPosition).map(fun).max(Integer::compareTo).orElse(0);
+                    .map(fun).max(Integer::compareTo).orElse(0);
         }
 
         private Optional<Integer> externCellOrderNb(LegBusSet lbs) {

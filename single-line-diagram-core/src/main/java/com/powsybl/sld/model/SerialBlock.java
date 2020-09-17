@@ -112,7 +112,7 @@ public class SerialBlock extends AbstractComposedBlock {
         List<Block> subBlocksCopy = new ArrayList<>(subBlocks);
         subBlocksCopy.removeAll(blocks);
         if (subBlocksCopy.size() == 1) {
-            return new BodyPrimaryBlock((BodyPrimaryBlock) subBlocksCopy.get(0));
+            return subBlocksCopy.get(0);
         } else {
             return new SerialBlock(subBlocksCopy, getCell());
         }
@@ -195,12 +195,10 @@ public class SerialBlock extends AbstractComposedBlock {
     public void coordHorizontalCase(LayoutParameters layoutParam) {
         double x0 = getCoord().getX() - getCoord().getXSpan() / 2;
         double xPxStep = getCoord().getXSpan() / getPosition().getHSpan();
-        double xTranslateInternalNonFlatCell = 0;
 
         for (int i = 0; i < subBlocks.size(); i++) {
             Block sub = subBlocks.get(i);
-            sub.setX(x0 + (sub.getPosition().getH() + (double) sub.getPosition().getHSpan() / 2) * xPxStep
-                    + xTranslateInternalNonFlatCell);
+            sub.setX(x0 + (sub.getPosition().getH() + (double) sub.getPosition().getHSpan() / 2) * xPxStep);
             sub.setXSpan(sub.getPosition().getHSpan() * xPxStep);
             sub.setY(getCoord().getY());
             sub.setYSpan(getCoord().getYSpan());

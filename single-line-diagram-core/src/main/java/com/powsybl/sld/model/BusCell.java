@@ -18,7 +18,7 @@ public interface BusCell extends Cell {
     enum Direction {
         TOP, BOTTOM, MIDDLE, UNDEFINED;
 
-        Orientation toOrientation() {
+        public Orientation toOrientation() {
             switch (this) {
                 case TOP:
                     return Orientation.UP;
@@ -37,8 +37,6 @@ public interface BusCell extends Cell {
     void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus);
 
     List<LegPrimaryBlock> getLegPrimaryBlocks();
-
-    void blockSizing();
 
     int newHPosition(int hPosition);
 

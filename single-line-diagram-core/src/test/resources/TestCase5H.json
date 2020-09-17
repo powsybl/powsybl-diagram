@@ -99,16 +99,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 130.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 3,
+      "hSpan" : 6,
       "vSpan" : 0
     }
   }, {
@@ -172,7 +168,7 @@
     "label" : "lb",
     "feederType" : "INJECTION",
     "order" : 20,
-    "direction" : "BOTTOM"
+    "direction" : "TOP"
   } ],
   "cells" : [ {
     "type" : "EXTERN",
@@ -189,8 +185,8 @@
       "position" : {
         "h" : 0,
         "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 3,
+        "hSpan" : 2,
+        "vSpan" : 6,
         "orientation" : "UP"
       },
       "coord" : {
@@ -209,7 +205,7 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
           "orientation" : "UP"
         },
@@ -230,8 +226,8 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
+          "hSpan" : 2,
+          "vSpan" : 4,
           "orientation" : "UP"
         },
         "coord" : {
@@ -250,9 +246,9 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 2,
-          "hSpan" : 1,
-          "vSpan" : 1,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 2,
           "orientation" : "UP"
         },
         "coord" : {
@@ -277,10 +273,10 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 2,
+        "h" : 4,
         "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 3,
+        "hSpan" : 2,
+        "vSpan" : 6,
         "orientation" : "UP"
       },
       "coord" : {
@@ -299,7 +295,7 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
           "orientation" : "UP"
         },
@@ -320,8 +316,8 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
+          "hSpan" : 2,
+          "vSpan" : 4,
           "orientation" : "UP"
         },
         "coord" : {
@@ -340,9 +336,9 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 2,
-          "hSpan" : 1,
-          "vSpan" : 1,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 2,
           "orientation" : "UP"
         },
         "coord" : {
@@ -367,8 +363,8 @@
       "position" : {
         "h" : -1,
         "v" : -1,
-        "hSpan" : 0,
-        "vSpan" : 0,
+        "hSpan" : 6,
+        "vSpan" : 2,
         "orientation" : "RIGHT"
       },
       "coord" : {

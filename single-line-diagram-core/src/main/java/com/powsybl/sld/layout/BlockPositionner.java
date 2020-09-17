@@ -24,7 +24,7 @@ class BlockPositionner {
         List<InternCell> nonFlatCellsToClose = new ArrayList<>();
 
         Subsection prevSs = new Subsection(maxV);
-        graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().setV(nodeBus.getStructuralPosition().getV()));
+        graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().setV(nodeBus.getBusbarIndex()));
 
         for (Subsection ss : subsections) {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses

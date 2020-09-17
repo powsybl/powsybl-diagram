@@ -38,16 +38,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 80.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 2,
+      "hSpan" : 4,
       "vSpan" : 0
     }
   }, {
@@ -61,16 +57,12 @@
     "y" : 285.0,
     "open" : false,
     "pxWidth" : 80.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 2,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 2,
-      "hSpan" : 2,
+      "hSpan" : 4,
       "vSpan" : 0
     }
   }, {
@@ -125,8 +117,8 @@
       "position" : {
         "h" : 0,
         "v" : 0,
-        "hSpan" : 2,
-        "vSpan" : 2,
+        "hSpan" : 4,
+        "vSpan" : 4,
         "orientation" : "UP"
       },
       "coord" : {
@@ -145,7 +137,7 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 2,
+          "hSpan" : 4,
           "vSpan" : 0,
           "orientation" : "UP"
         },
@@ -165,7 +157,7 @@
           "position" : {
             "h" : 0,
             "v" : 0,
-            "hSpan" : 1,
+            "hSpan" : 2,
             "vSpan" : 0,
             "orientation" : "UP"
           },
@@ -184,9 +176,9 @@
             "END" : 1
           } ],
           "position" : {
-            "h" : 1,
+            "h" : 2,
             "v" : 0,
-            "hSpan" : 1,
+            "hSpan" : 2,
             "vSpan" : 0,
             "orientation" : "UP"
           },
@@ -208,8 +200,8 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
+          "hSpan" : 2,
+          "vSpan" : 4,
           "orientation" : "UP"
         },
         "coord" : {

@@ -19,11 +19,11 @@ public enum Orientation {
     MIDDLE,
     UNDEFINED;
 
-    boolean isVertical() {
+    public boolean isVertical() {
         return this == UP || this == DOWN;
     }
 
-    boolean isHorizontal() {
+    public boolean isHorizontal() {
         return this == LEFT || this == RIGHT;
     }
 }

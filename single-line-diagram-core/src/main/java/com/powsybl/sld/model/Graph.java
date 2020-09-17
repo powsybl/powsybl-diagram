@@ -260,8 +260,8 @@ public final class Graph {
         List<Integer> h = new ArrayList<>();
         List<Integer> v = new ArrayList<>();
         getNodeBuses().forEach(nodeBus -> {
-            v.add(nodeBus.getStructuralPosition().getV());
-            h.add(nodeBus.getStructuralPosition().getH());
+            v.add(nodeBus.getBusbarIndex());
+            h.add(nodeBus.getSectionIndex());
         });
         if (h.isEmpty() || v.isEmpty()) {
             return;
@@ -280,8 +280,8 @@ public final class Graph {
         vPosToHPosToNodeBus = new HashMap<>();
         getNodeBuses()
                 .forEach(nodeBus -> {
-                    int vPos = nodeBus.getStructuralPosition().getV();
-                    int hPos = nodeBus.getStructuralPosition().getH();
+                    int vPos = nodeBus.getBusbarIndex();
+                    int hPos = nodeBus.getSectionIndex();
                     vPosToHPosToNodeBus.putIfAbsent(vPos, new HashMap<>());
                     vPosToHPosToNodeBus.get(vPos).put(hPos, nodeBus);
                 });

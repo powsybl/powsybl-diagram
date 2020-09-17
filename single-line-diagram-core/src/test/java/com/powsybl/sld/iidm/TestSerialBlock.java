@@ -68,18 +68,18 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         sb.sizing();
         assertEquals(0, sb.getPosition().getH());
         assertEquals(0, sb.getPosition().getV());
-        assertEquals(1, sb.getPosition().getHSpan());
-        assertEquals(2, sb.getPosition().getVSpan());
+        assertEquals(2, sb.getPosition().getHSpan());
+        assertEquals(4, sb.getPosition().getVSpan());
 
         assertEquals(0, sb.getLowerBlock().getPosition().getH());
         assertEquals(0, sb.getLowerBlock().getPosition().getV());
-        assertEquals(1, sb.getLowerBlock().getPosition().getHSpan());
+        assertEquals(2, sb.getLowerBlock().getPosition().getHSpan());
         assertEquals(0, sb.getLowerBlock().getPosition().getVSpan());
 
         assertEquals(0, sb.getUpperBlock().getPosition().getH());
         assertEquals(0, sb.getUpperBlock().getPosition().getV());
-        assertEquals(1, sb.getUpperBlock().getPosition().getHSpan());
-        assertEquals(2, sb.getUpperBlock().getPosition().getVSpan());
+        assertEquals(2, sb.getUpperBlock().getPosition().getHSpan());
+        assertEquals(4, sb.getUpperBlock().getPosition().getVSpan());
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)

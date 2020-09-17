@@ -48,16 +48,6 @@ public class BodyParallelBlock extends AbstractParallelBlock {
     }
 
     @Override
-    public double initX0() {
-        return getCoord().getX() - getCoord().getXSpan() / 2;
-    }
-
-    @Override
-    public double intitXStep() {
-        return getCoord().getXSpan() / getPosition().getHSpan();
-    }
-
-    @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
         subBlocks.forEach(sub -> {
             sub.setX(getCoord().getX());

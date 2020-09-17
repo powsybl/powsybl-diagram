@@ -205,7 +205,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
                 List<AnchorPoint> result = new ArrayList<>();
                 result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                for (int i = 1; i < 2 * busbarSectionNode.getPosition().getHSpan(); i++) {
+                for (int i = 1; i < busbarSectionNode.getPosition().getHSpan(); i++) {
                     result.add(new AnchorPoint(
                             ((double) i / 2) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding() / 2,
                             0, AnchorOrientation.VERTICAL));
@@ -379,7 +379,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected Element drawGrid(String prefixId, Graph graph, Document document, GraphMetadata metadata) {
         int maxH = graph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .mapToInt(nodeBus -> (nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan()) / 2)
                 .max().orElse(0);
         int maxV = graph.getNodeBuses().stream()
                 .mapToInt(nodeBus -> nodeBus.getPosition().getV())
@@ -773,8 +773,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
     /**
      * Ensures uniqueness of ids by adding prefixId and node id before id of elt (if existing)
-     * @param g XML element for the node
-     * @param elt XML element being duplicated
+     *
+     * @param g        XML element for the node
+     * @param elt      XML element being duplicated
      * @param prefixId prefix string
      */
     private void replaceId(Element g, Element elt, String prefixId) {
@@ -830,14 +831,14 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
         double translateX = layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2;
         double translateY = layoutParameters.getTranslateY() + node.getY() - componentSize.getHeight() / 2;
-        return new double[] {translateX, translateY};
+        return new double[]{translateX, translateY};
     }
 
     private double[] getDecoratorTransformMatrix(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
         double[] translateNode = getNodeTranslate(node);
         double[] matrixNode = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), node.getRotationAngle() * Math.PI / 180,
-            layoutParameters.getTranslateX() + node.getX(), layoutParameters.getTranslateY() + node.getY());
+                layoutParameters.getTranslateX() + node.getX(), layoutParameters.getTranslateY() + node.getY());
         double translateDecoratorX = translateNode[0] + componentSize.getWidth() / 2 + decoratorPosition.getdX();
         double translateDecoratorY = translateNode[1] + componentSize.getHeight() / 2 + decoratorPosition.getdY();
         if (decoratorPosition.isCentered()) {
@@ -846,7 +847,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         double t1 = +matrixNode[3] * (translateDecoratorX - matrixNode[4]) - matrixNode[2] * (translateDecoratorY - matrixNode[5]);
         double t2 = -matrixNode[1] * (translateDecoratorX - matrixNode[4]) + matrixNode[0] * (translateDecoratorY - matrixNode[5]);
-        return new double[] {matrixNode[3], -matrixNode[1], -matrixNode[2], matrixNode[0], t1, t2};
+        return new double[]{matrixNode[3], -matrixNode[1], -matrixNode[2], matrixNode[0], t1, t2};
     }
 
     protected void transformArrow(List<Double> points, ComponentSize componentSize, double shift, Element g) {
@@ -899,7 +900,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double centerPosTransX = layoutParameters.getTranslateX() + centerPosX;
         double centerPosTransY = layoutParameters.getTranslateY() + centerPosY;
         double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
-            centerPosTransX, centerPosTransY);
+                centerPosTransX, centerPosTransY);
         return transformMatrixToString(matrix, 4);
     }
 
@@ -914,7 +915,7 @@ public class DefaultSVGWriter implements SVGWriter {
         double e1 = centerPosX - cdx * cosRo + cdy * sinRo;
         double f1 = centerPosY - cdx * sinRo - cdy * cosRo;
 
-        return new double[] {+cosRo, sinRo, -sinRo, cosRo, e1, f1};
+        return new double[]{+cosRo, sinRo, -sinRo, cosRo, e1, f1};
     }
 
     private static String transformMatrixToString(double[] matrix, int precision) {
@@ -923,9 +924,9 @@ public class DefaultSVGWriter implements SVGWriter {
             matrix2[i] = Precision.round(matrix[i], precision);
         }
         return "matrix("
-            + matrix2[0] + "," + matrix2[1] + ","
-            + matrix2[2] + "," + matrix2[3] + ","
-            + matrix2[4] + "," + matrix2[5] + ")";
+                + matrix2[0] + "," + matrix2[1] + ","
+                + matrix2[2] + "," + matrix2[3] + ","
+                + matrix2[4] + "," + matrix2[5] + ")";
     }
 
     protected void insertArrowsAndLabels(String prefixId,
@@ -939,19 +940,17 @@ public class DefaultSVGWriter implements SVGWriter {
         InitialValue init = initProvider.getInitialValue(n);
 
         // we draw the arrow only if value 1 is present
-        init.getLabel1().ifPresent(
-            lb -> drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), init.getArrowDirection1(),
-                0, 1, metadata, styleProvider)
-        );
+        init.getLabel1()
+                .ifPresent(lb ->
+                        drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), init.getArrowDirection1(), 0, 1, metadata, styleProvider));
 
         // we draw the arrow only if value 2 is present
-        init.getLabel2().ifPresent(
-            lb -> {
-                double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
-                drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(), init.getArrowDirection2(),
-                    shiftArrow2, 2, metadata, styleProvider);
-            }
-        );
+        init.getLabel2()
+                .ifPresent(lb -> {
+                    double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
+                    drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(),
+                            init.getArrowDirection2(), shiftArrow2, 2, metadata, styleProvider);
+                });
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Double> points, Element root, Node n,

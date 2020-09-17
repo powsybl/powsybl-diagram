@@ -73,7 +73,7 @@ public class RawGraphBuilder implements GraphBuilder {
         public BusNode createBusBarSection(String id, int busbarIndex, int sectionIndex) {
             BusNode busNode = BusNode.create(graph, id, id);
             graph.addNode(busNode);
-            busNode.setStructuralPosition(new Position(sectionIndex, busbarIndex, 1, 0, null));
+            busNode.setBusBarIndexSectionIndex(busbarIndex, sectionIndex);
             return busNode;
         }
 
