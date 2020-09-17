@@ -34,6 +34,10 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     private boolean checkConsistency() {
+        if (nodes.size() == 2) {
+            return nodes.get(0).getType() == Node.NodeType.BUS
+                && nodes.get(1).getType() == Node.NodeType.FICTITIOUS;
+        }
         return nodes.size() == 3
                 && nodes.get(0).getType() == Node.NodeType.BUS
                 && nodes.get(1).getType() == Node.NodeType.SWITCH
@@ -50,8 +54,8 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return Collections.singletonList(getBusNode());
     }
 
-    private SwitchNode getSwNode() {
-        return (SwitchNode) nodes.get(1);
+    private Node getSwNode() {
+        return nodes.get(1);
     }
 
     public void addStackableBlock(LegPrimaryBlock block) {
