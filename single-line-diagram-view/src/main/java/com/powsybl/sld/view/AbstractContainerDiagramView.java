@@ -131,11 +131,12 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
                                             SwitchPositionChangeListener listener,
                                             DisplayVoltageLevel displayVL) {
         if (!nodeMetadata.isVLabel()) {
-            NodeHandler nodeHandler = new NodeHandler(node, nodeMetadata.getComponentType(),
-                                                      nodeMetadata.getRotationAngle(),
-                                                      metadata,
-                                                      nodeMetadata.getVId(), nodeMetadata.getNextVId(),
-                                                      nodeMetadata.getDirection());
+            NodeHandler nodeHandler = new NodeHandler(node,
+                nodeMetadata.getEquipmentId(), nodeMetadata.getComponentType(),
+                nodeMetadata.getRotationAngle(),
+                metadata,
+                nodeMetadata.getVId(), nodeMetadata.getNextVId(),
+                nodeMetadata.getDirection());
             nodeHandler.setDisplayVL(displayVL);
             if (nodeMetadata.getComponentType() != null
                     && (nodeMetadata.getComponentType().equals(BREAKER)
