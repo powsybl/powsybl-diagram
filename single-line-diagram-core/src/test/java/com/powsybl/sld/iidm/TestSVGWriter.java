@@ -15,7 +15,9 @@ import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -757,10 +759,16 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testStraightWires() {
+    public void testLayoutParameters() {
         DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
         layoutParameters.setDrawStraightWires(true);
-        assertEquals(toString("/vl1_straightWires.svg"), toSVG(g1, "/vl1_straightWires.svg", layoutParameters, initValueProvider, styleProvider));
+        layoutParameters.setTooltipEnabled(true);
+        assertEquals(toString("/vl1_lpChanged.svg"),
+            toSVG(g1, "/vl1_lpChanged.svg", layoutParameters, initValueProvider, styleProvider));
+
+        layoutParameters.setAvoidSVGComponentsDuplication(true);
+        assertEquals(toString("/vl1_lpChanged_opt.svg"),
+            toSVG(g1, "/vl1_lpChanged_opt.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
 }

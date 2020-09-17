@@ -682,7 +682,7 @@ public class DefaultSVGWriter implements SVGWriter {
         handleNodeRotation(node);
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, subComponent);
-        insertSVGIntoDocumentSVG(componentType, g, componentDefsId, elementAttributesSetter);
+        insertSVGIntoDocumentSVG(node.getName(), componentType, g, componentDefsId, elementAttributesSetter);
     }
 
     protected void insertArrowSVGIntoDocumentSVG(String prefixId,
@@ -691,7 +691,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                                  String componentDefsId) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (e, subComponent) -> setArrowAttributes(prefixId, g, e, angle, componentSize);
-        insertSVGIntoDocumentSVG(ARROW, g, componentDefsId, elementAttributesSetter);
+        insertSVGIntoDocumentSVG("", ARROW, g, componentDefsId, elementAttributesSetter);
     }
 
     private void setArrowAttributes(String prefixId, Element g, Element e,
@@ -710,43 +710,55 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, node, nodeDecorator, styleProvider, elt, subComponent);
-        insertSVGIntoDocumentSVG(nodeDecorator.getType(), g, nodeDecorator.getType(), elementAttributesSetter);
+        String nodeDecoratorType = nodeDecorator.getType();
+        insertSVGIntoDocumentSVG(nodeDecoratorType, nodeDecoratorType, g, nodeDecoratorType, elementAttributesSetter);
     }
 
-    protected void insertSVGIntoDocumentSVG(String componentType, Element g, String componentDefsId,
+    protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g, String componentDefsId,
                                             BiConsumer<Element, String> elementAttributesSetter) {
-
+        addToolTip(name, g);
         Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
+        subComponents.forEach(!layoutParameters.isAvoidSVGComponentsDuplication() ?
+            (subComponentName, svgSubComponent) -> insertClonedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent) :
+            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, componentDefsId, elementAttributesSetter, subComponentName, subComponents.size())
+        );
+    }
 
-        if (!layoutParameters.isAvoidSVGComponentsDuplication()) {
-            // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
-            // If SVG are written differently, it will not work correctly.
-            for (Map.Entry<String, SVGOMDocument> subComponent : subComponents.entrySet()) {
-                String subComponentName = subComponent.getKey();
-                SVGOMDocument svgSubComponent = subComponent.getValue();
+    private void insertClonedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, SVGOMDocument svgSubComponent) {
+        // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
+        // If SVG are written differently, it will not work correctly.
+        NodeList subComponentChildren = svgSubComponent.getChildNodes().item(0).getChildNodes();
+        for (int i = 0; i < subComponentChildren.getLength(); i++) {
+            org.w3c.dom.Node n = subComponentChildren.item(i).cloneNode(true);
+            if (n instanceof Element) {
+                elementAttributesSetter.accept((Element) n, subComponentName);
+            }
+            g.getOwnerDocument().adoptNode(n);
+            g.appendChild(n);
+        }
+    }
 
-                for (int i = 0; i < svgSubComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                    org.w3c.dom.Node n = svgSubComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                    if (n instanceof Element) {
-                        elementAttributesSetter.accept((Element) n, subComponentName);
-                    }
-                    g.getOwnerDocument().adoptNode(n);
-                    g.appendChild(n);
-                }
-            }
-        } else {
-            // Adding <use> markup to reuse the svg defined in the <defs> part
-            String prefixHref = "#" + componentDefsId;
-            if (subComponents != null) {
-                Set<String> subCmpsName = subComponents.keySet();
-                subCmpsName.forEach(s -> {
-                    Element eltUse = g.getOwnerDocument().createElement("use");
-                    eltUse.setAttribute("href", subCmpsName.size() > 1 ? prefixHref + "-" + s : prefixHref);
-                    elementAttributesSetter.accept(eltUse, s);
-                    g.getOwnerDocument().adoptNode(eltUse);
-                    g.appendChild(eltUse);
-                });
-            }
+    private void insertSubcomponentReference(Element g, String componentDefsId, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, int nbSubComponents) {
+        // Adding <use> markup to reuse the svg defined in the <defs> part
+        Element eltUse = g.getOwnerDocument().createElement("use");
+        String hRefValue = nbSubComponents > 1 ? componentDefsId + "-" + subComponentName : componentDefsId;
+        eltUse.setAttribute("href", "#" + hRefValue);
+        setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, eltUse);
+    }
+
+    private void setAttributesAndInsertElement(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Element element) {
+        elementAttributesSetter.accept(element, subComponentName);
+        g.getOwnerDocument().adoptNode(element);
+        g.appendChild(element);
+    }
+
+    private void addToolTip(String tooltip, Element g) {
+        if (layoutParameters.isTooltipEnabled() && !tooltip.isEmpty()) {
+            Document doc = g.getOwnerDocument();
+            Element title = doc.createElement("title");
+            title.appendChild(doc.createTextNode(tooltip));
+            doc.adoptNode(title);
+            g.appendChild(title);
         }
     }
 

@@ -12,7 +12,9 @@ import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.svg.GraphMetadata;
 
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +33,11 @@ public class NodeHandler implements BaseNode {
 
     private final Node node;
 
-    private String componentType;
+    private final String equipmentId;
 
-    private Double rotationAngle;
+    private final String componentType;
+
+    private final Double rotationAngle;
 
     private final List<WireHandler> wireHandlers = new ArrayList<>();
 
@@ -54,7 +58,7 @@ public class NodeHandler implements BaseNode {
 
     private SwitchPositionChangeListener switchListener;
 
-    public NodeHandler(Node node, String componentType, Double rotationAngle,
+    public NodeHandler(Node node, String equipmentId, String componentType, Double rotationAngle,
                        GraphMetadata metadata,
                        String vId, String nextVId, BusCell.Direction direction) {
         this.node = Objects.requireNonNull(node);
@@ -64,18 +68,11 @@ public class NodeHandler implements BaseNode {
         this.vId = Objects.requireNonNull(vId);
         this.nextVId = nextVId;
         this.direction = direction;
+        this.equipmentId = equipmentId;
 
         setDragAndDrop();
-
-        if (componentType != null && (componentType.equals(BREAKER) || componentType.equals(DISCONNECTOR)
-                || componentType.equals(LOAD_BREAK_SWITCH))) {
-            MouseClickNotDragDetector.clickNotDragDetectingOn(node).withPressedDurationTreshold(150)
-                    .setOnMouseClickedNotDragged(e -> {
-                        if (switchListener != null && e.getButton().equals(MouseButton.PRIMARY)) {
-                            switchListener.onPositionChange(unescapeId(node.getId()));
-                        }
-                    });
-        }
+        setOnClick();
+        setOnMouseOver();
     }
 
     public Node getNode() {
@@ -166,6 +163,25 @@ public class NodeHandler implements BaseNode {
                 displayNextVoltageLevel();
             }
         });
+    }
+
+    private void setOnMouseOver() {
+        if (!StringUtils.isEmpty(componentType)) {
+            String toolTipStr = equipmentId + '(' + componentType + ')';
+            Tooltip.install(node, new Tooltip(toolTipStr));
+        }
+    }
+
+    private void setOnClick() {
+        if (componentType != null && (componentType.equals(BREAKER) || componentType.equals(DISCONNECTOR)
+            || componentType.equals(LOAD_BREAK_SWITCH))) {
+            MouseClickNotDragDetector.clickNotDragDetectingOn(node).withPressedDurationTreshold(150)
+                .setOnMouseClickedNotDragged(e -> {
+                    if (switchListener != null && e.getButton().equals(MouseButton.PRIMARY)) {
+                        switchListener.onPositionChange(unescapeId(node.getId()));
+                    }
+                });
+        }
     }
 
     public void translate(double translateX, double translateY) {
