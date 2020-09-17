@@ -306,6 +306,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 260.0,
+    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -339,6 +340,7 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 285.0,
+    "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
