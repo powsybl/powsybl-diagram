@@ -146,22 +146,22 @@
             <polyline points="620.0,156.0,620.0,240.0"/>
         </g>
         <g class="ARROW1_vl2_95_gen1_UP" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,171.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl2_95_gen1_DOWN" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,615.0,191.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
             <polyline points="620.0,260.0,620.0,370.0"/>
@@ -173,22 +173,22 @@
             <polyline points="670.0,562.0,670.0,480.0"/>
         </g>
         <g class="ARROW1_vl2_95_trf1_UP" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,665.0,537.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl2_95_trf1_DOWN" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,665.0,517.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
             <polyline points="670.0,460.0,670.0,370.0"/>
@@ -200,43 +200,43 @@
             <polyline points="700.0,150.0,700.0,205.0,722.0,205.0"/>
         </g>
         <g class="ARROW1_vl2_95_trf2_95_one_UP" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,695.0,165.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl2_95_trf2_95_one_DOWN" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,695.0,185.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2">
             <polyline points="760.0,150.0,760.0,205.0,738.0,205.0"/>
         </g>
         <g class="ARROW1_vl2_95_trf2_95_two_UP" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,755.0,165.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW1_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="ARROW2_vl2_95_trf2_95_two_DOWN" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,755.0,185.0)">
-     <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-<text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf2_95_two_95_FICT_95_vl2_95_vl2_95_trf2_ARROW2_ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
         </g>
         <g class="wire" id="_95_vl2_95_FICT_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2">
             <polyline points="730.0,217.0,730.0,240.0"/>
@@ -248,55 +248,54 @@
             <polyline points="730.0,370.0,720.0,370.0"/>
         </g>
         <g class="GENERATOR idvl2_95_gen1" id="idvl2_95_gen1" transform="translate(614.0,144.0)">
-    <circle r="6" cx="6" cy="6"/>
-    <path d="M6,6 A 6 40 0 0 0 2,6"/>
-    <path d="M6,6 A 6 40 0 0 0 10,6"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
+            <circle r="6" cx="6" cy="6"/>
+            <path d="M6,6 A 6 40 0 0 0 2,6"/>
+            <path d="M6,6 A 6 40 0 0 0 10,6"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_gen1__LABEL">vl2_gen1</text>
         </g>
         <g class="BREAKER idvl2_95_bgen1" id="idvl2_95_bgen1" transform="translate(610.0,240.0)">
-    <g class="closed" id="idvl2_95_bgen1_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idvl2_95_bgen1_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_bgen1_BREAKER-closed">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="15" x1="10" x2="10" y1="5"/>
+            </g>
+            <g class="open" id="idvl2_95_bgen1_BREAKER-open">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="10" x1="5" x2="15" y1="10"/>
+            </g>
+        </g>
         <g class="DISCONNECTOR idvl2_95_dgen1" id="idvl2_95_dgen1" transform="translate(616.0,366.0)">
-    <g class="closed" id="idvl2_95_dgen1_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="idvl2_95_dgen1_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_dgen1_DISCONNECTOR-closed">
+                <line y2="8" x1="0" x2="8" y1="0"/>
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+            <g class="open" id="idvl2_95_dgen1_DISCONNECTOR-open">
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+        </g>
         <g class="TWO_WINDINGS_TRANSFORMER idvl2_95_trf1" id="idvl2_95_trf1" transform="translate(665.0,562.5)">
-    <circle r="5" id="idvl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
-
-    <circle r="5" id="idvl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
-<text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
+            <circle r="5" id="idvl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
+            <circle r="5" id="idvl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
+            <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf1__LABEL">vl2_trf1</text>
         </g>
         <g class="BREAKER idvl2_95_btrf1" id="idvl2_95_btrf1" transform="translate(660.0,460.0)">
-    <g class="closed" id="idvl2_95_btrf1_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idvl2_95_btrf1_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_btrf1_BREAKER-closed">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="15" x1="10" x2="10" y1="5"/>
+            </g>
+            <g class="open" id="idvl2_95_btrf1_BREAKER-open">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="10" x1="5" x2="15" y1="10"/>
+            </g>
+        </g>
         <g class="DISCONNECTOR idvl2_95_dtrf1" id="idvl2_95_dtrf1" transform="translate(666.0,366.0)">
-    <g class="closed" id="idvl2_95_dtrf1_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="idvl2_95_dtrf1_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_dtrf1_DISCONNECTOR-closed">
+                <line y2="8" x1="0" x2="8" y1="0"/>
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+            <g class="open" id="idvl2_95_dtrf1_DISCONNECTOR-open">
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+        </g>
         <g class="LINE idvl2_95_trf2_95_one" id="idvl2_95_trf2_95_one" transform="translate(700.0,150.0)">
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_one__LABEL">vl2_trf2</text>
         </g>
@@ -304,30 +303,28 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="vl2_trf2_two__LABEL">vl2_trf2</text>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl2_95_vl2_95_trf2" id="idFICT_95_vl2_95_vl2_95_trf2" transform="translate(722.0,203.0)">
-    <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
-
-    <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
-
-    <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
-</g>
+            <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
+            <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
+            <circle r="5" id="idFICT_95_vl2_95_vl2_95_trf2_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
+        </g>
         <g class="BREAKER idvl2_95_btrf2" id="idvl2_95_btrf2" transform="translate(720.0,240.0)">
-    <g class="closed" id="idvl2_95_btrf2_BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="idvl2_95_btrf2_BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_btrf2_BREAKER-closed">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="15" x1="10" x2="10" y1="5"/>
+            </g>
+            <g class="open" id="idvl2_95_btrf2_BREAKER-open">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="10" x1="5" x2="15" y1="10"/>
+            </g>
+        </g>
         <g class="DISCONNECTOR idvl2_95_dtrf2" id="idvl2_95_dtrf2" transform="translate(726.0,366.0)">
-    <g class="closed" id="idvl2_95_dtrf2_DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="idvl2_95_dtrf2_DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
+            <g class="closed" id="idvl2_95_dtrf2_DISCONNECTOR-closed">
+                <line y2="8" x1="0" x2="8" y1="0"/>
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+            <g class="open" id="idvl2_95_dtrf2_DISCONNECTOR-open">
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+        </g>
     </g>
 </svg>

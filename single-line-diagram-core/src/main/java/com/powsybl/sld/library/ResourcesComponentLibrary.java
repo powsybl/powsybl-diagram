@@ -11,7 +11,12 @@ import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
@@ -66,14 +71,8 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
                 String resourceName = directory + "/" + s.getFileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 SVGOMDocument doc = svgLoadDoc.read(resourceName);
-                Map<String, SVGOMDocument> mapSubDoc;
-                if (!svgDocuments.containsKey(componentType)) {
-                    mapSubDoc = new TreeMap<>();
-                    svgDocuments.put(componentType, mapSubDoc);
-                } else {
-                    mapSubDoc = svgDocuments.get(componentType);
-                }
-                mapSubDoc.put(s.getName(), doc);
+                cleanEmptyTextNodes(doc, resourceName);
+                svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), doc);
             });
             components.put(componentType, c);
         });
@@ -83,6 +82,22 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
             styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException("Can't read css file from the SVG library!", e);
+        }
+    }
+
+    private static void cleanEmptyTextNodes(Node parentNode, String resourceName) {
+        try {
+            // Find empty text nodes
+            NodeList nl = (NodeList) XPathFactory.newInstance().newXPath()
+                .evaluate("//text()[normalize-space(.)='']", parentNode, XPathConstants.NODESET);
+
+            // Remove the found nodes
+            for (int i = 0; i < nl.getLength(); ++i) {
+                Node node = nl.item(i);
+                node.getParentNode().removeChild(node);
+            }
+        } catch (XPathExpressionException e) {
+            LOGGER.warn("Exception occurred while cleaning the subcomponent {} from empty text nodes", resourceName);
         }
     }
 

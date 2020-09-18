@@ -119,49 +119,46 @@
 ]]></style>
     <defs>
         <g id="GENERATOR">
-    <circle r="6" cx="6" cy="6"/>
-    <path d="M6,6 A 6 40 0 0 0 2,6"/>
-    <path d="M6,6 A 6 40 0 0 0 10,6"/>
-</g>
+            <circle r="6" cx="6" cy="6"/>
+            <path d="M6,6 A 6 40 0 0 0 2,6"/>
+            <path d="M6,6 A 6 40 0 0 0 10,6"/>
+        </g>
         <g id="ARROW">
-     <g class="arrow-up" id="ARROW-arrow-up">
-        <polygon points="5,0 10,10 0,10"/>
-     </g>
-     <g class="arrow-down" id="ARROW-arrow-down">
-        <polygon points="0,0 10,0 5,10"/>
-     </g>
-</g>
+            <g class="arrow-up" id="ARROW-arrow-up">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="ARROW-arrow-down">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+        </g>
         <g id="DISCONNECTOR">
-    <g class="closed" id="DISCONNECTOR-closed">
-        <line y2="8" x1="0" x2="8" y1="0"/>
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-    <g class="open" id="DISCONNECTOR-open">
-        <line y2="8" x1="8" x2="0" y1="0"/>
-    </g>
-</g>
+            <g class="closed" id="DISCONNECTOR-closed">
+                <line y2="8" x1="0" x2="8" y1="0"/>
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+            <g class="open" id="DISCONNECTOR-open">
+                <line y2="8" x1="8" x2="0" y1="0"/>
+            </g>
+        </g>
         <g id="TWO_WINDINGS_TRANSFORMER">
-    <circle r="5" id="TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
-
-    <circle r="5" id="TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
-</g>
+            <circle r="5" id="TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
+            <circle r="5" id="TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
+        </g>
         <g id="THREE_WINDINGS_TRANSFORMER">
-    <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
-
-    <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
-
-    <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
-</g>
+            <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>
+            <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING2" cx="11" cy="5"/>
+            <circle r="5" id="THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
+        </g>
         <g id="BREAKER">
-    <g class="closed" id="BREAKER-closed">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="15" x1="10" x2="10" y1="5"/>
-    </g>
-    <g class="open" id="BREAKER-open">
-        <rect x="1" width="18" y="1" height="18"/>
-        <line y2="10" x1="5" x2="15" y1="10"/>
-    </g>
-</g>
+            <g class="closed" id="BREAKER-closed">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="15" x1="10" x2="10" y1="5"/>
+            </g>
+            <g class="open" id="BREAKER-open">
+                <rect x="1" width="18" y="1" height="18"/>
+                <line y2="10" x1="5" x2="15" y1="10"/>
+            </g>
+        </g>
     </defs>
     <g>
         <g class="grid" id="GRID_vl2" transform="translate(20.0,50.0)">
