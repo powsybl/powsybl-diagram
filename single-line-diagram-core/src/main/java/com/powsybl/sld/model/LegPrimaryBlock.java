@@ -21,6 +21,7 @@ import static com.powsybl.sld.model.InternCell.Shape.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
 import static com.powsybl.sld.model.Node.NodeType.SHUNT;
 import static com.powsybl.sld.model.Orientation.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -81,11 +82,11 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     @Override
     public void sizing() {
         if (getOrientation().isHorizontal()) {
-            getPosition().setHSpan(0);
-            getPosition().setVSpan(0);
+            getPosition().setSpan(H, 0);
+            getPosition().setSpan(V, 0);
         } else {
-            getPosition().setHSpan(2);
-            getPosition().setVSpan(0);
+            getPosition().setSpan(H, 2);
+            getPosition().setSpan(V, 0);
         }
     }
 

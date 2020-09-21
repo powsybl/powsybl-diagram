@@ -150,11 +150,11 @@ public class SerialBlock extends AbstractComposedBlock {
     public void sizing() {
         subBlocks.forEach(Block::sizing);
         if (getPosition().getOrientation().isVertical()) {
-            getPosition().getHSeg().mergeEnvelop(getSegments(H));
-            getPosition().getVSeg().glue(getSegments(V));
+            getPosition().getSegment(H).mergeEnvelop(getSegments(H));
+            getPosition().getSegment(V).glue(getSegments(V));
         } else {
-            getPosition().getVSeg().mergeEnvelop(getSegments(V));
-            getPosition().getHSeg().glue(getSegments(H));
+            getPosition().getSegment(V).mergeEnvelop(getSegments(V));
+            getPosition().getSegment(H).glue(getSegments(H));
         }
     }
 
@@ -164,16 +164,13 @@ public class SerialBlock extends AbstractComposedBlock {
         double yPxStep;
         int sign = getOrientation() == UP ? 1 : -1;
         y0 = getCoord().getY() + sign * getCoord().getYSpan() / 2;
-        yPxStep = -sign * getCoord().getYSpan() / getPosition().getVSpan();
+        yPxStep = -sign * getCoord().getYSpan() / getPosition().getSpan(V);
 
         for (Block sub : subBlocks) {
             sub.setX(getCoord().getX());
             sub.setXSpan(getCoord().getXSpan());
-
-            sub.setYSpan(
-                    getCoord().getYSpan() * ((double) sub.getPosition().getVSpan() / getPosition().getVSpan()));
-            sub.setY(y0 + yPxStep * (sub.getPosition().getV() + (double) sub.getPosition().getVSpan() / 2));
-
+            sub.setY(y0 + yPxStep * (sub.getPosition().get(V) + (double) sub.getPosition().getSpan(V) / 2));
+            sub.setYSpan(getCoord().getYSpan() * ((double) sub.getPosition().getSpan(V) / getPosition().getSpan(V)));
             sub.calculateCoord(layoutParam);
         }
         getChainingNodes().forEach(n -> n.setX(getCoord().getX()));
@@ -182,14 +179,13 @@ public class SerialBlock extends AbstractComposedBlock {
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
         double x0 = getCoord().getX() - getCoord().getXSpan() / 2;
-        double xPxStep = getCoord().getXSpan() / getPosition().getHSpan();
+        double xPxStep = getCoord().getXSpan() / getPosition().getSpan(H);
 
-        for (int i = 0; i < subBlocks.size(); i++) {
-            Block sub = subBlocks.get(i);
-            sub.setX(x0 + (sub.getPosition().getH() + (double) sub.getPosition().getHSpan() / 2) * xPxStep);
-            sub.setXSpan(sub.getPosition().getHSpan() * xPxStep);
+        for (Block sub : subBlocks) {
             sub.setY(getCoord().getY());
             sub.setYSpan(getCoord().getYSpan());
+            sub.setX(x0 + xPxStep * (sub.getPosition().get(H) + (double) sub.getPosition().getSpan(H) / 2));
+            sub.setXSpan(sub.getPosition().getSpan(H) * xPxStep);
             sub.calculateCoord(layoutParam);
         }
     }

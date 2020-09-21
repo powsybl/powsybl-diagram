@@ -77,7 +77,7 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         }
     }
 
-    public Stream<Position.Segment> getSegments(Position.Dimension dimension) {
+    public Stream<Segment> getSegments(Position.Dimension dimension) {
         return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
     }
 

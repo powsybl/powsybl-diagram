@@ -29,12 +29,12 @@ public class BodyParallelBlock extends AbstractParallelBlock {
     public void sizing() {
         subBlocks.forEach(Block::sizing);
         if (getPosition().getOrientation().isVertical()) {
-            getPosition().getVSeg().mergeEnvelop(getSegments(V));
+            getPosition().getSegment(V).mergeEnvelop(getSegments(V));
             subBlocks.sort(Comparator.comparingInt(Block::getOrder));
-            getPosition().getHSeg().glue(getSegments(H));
+            getPosition().getSegment(H).glue(getSegments(H));
         } else {
-            getPosition().getHSeg().mergeEnvelop(getSegments(H));
-            getPosition().getVSeg().glue(getSegments(V));
+            getPosition().getSegment(H).mergeEnvelop(getSegments(H));
+            getPosition().getSegment(V).glue(getSegments(V));
         }
     }
 

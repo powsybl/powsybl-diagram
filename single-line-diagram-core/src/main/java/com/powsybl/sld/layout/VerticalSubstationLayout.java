@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -49,10 +51,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         double initY2 = node2.getInitY() != -1 ? node2.getInitY() : y2;
 
         int maxH1 = node1.getGraph().getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H))
                 .max().orElse(0);
         int maxH2 = node2.getGraph().getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H))
                 .max().orElse(0);
         double maxH = layoutParam.getTranslateX() +
                 infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT) * layoutParam.getHorizontalSnakeLinePadding() +

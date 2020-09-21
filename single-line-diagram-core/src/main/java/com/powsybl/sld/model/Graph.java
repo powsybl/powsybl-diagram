@@ -24,6 +24,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * This class builds the connectivity among the elements of a voltageLevel
  * buildGraphAndDetectCell establishes the List of nodes, edges and nodeBuses
@@ -490,7 +492,7 @@ public final class Graph {
     }
 
     public boolean isPositionNodeBusesCalculated() {
-        return getNodeBuses().stream().allMatch(n -> n.getPosition().getH() != -1 && n.getPosition().getV() != -1);
+        return getNodeBuses().stream().allMatch(n -> n.getPosition().get(H) != -1 && n.getPosition().get(V) != -1);
     }
 
     /**
@@ -573,13 +575,13 @@ public final class Graph {
 
     public int getMaxH() {
         return getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H))
                 .max().orElse(0);
     }
 
     public int getMaxV() {
         return getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(V) + nodeBus.getPosition().getSpan(V))
                 .max().orElse(0);
     }
 

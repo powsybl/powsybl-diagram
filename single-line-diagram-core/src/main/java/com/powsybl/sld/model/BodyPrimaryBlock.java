@@ -16,6 +16,7 @@ import static com.powsybl.sld.model.Cell.CellType.INTERN;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.Node.NodeType.*;
 import static com.powsybl.sld.model.Orientation.UP;
+import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -44,13 +45,13 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     @Override
     public void sizing() {
         if (getPosition().getOrientation().isVertical()) {
-            getPosition().setHSpan(2);
+            getPosition().setSpan(H, 2);
             // in the case of vertical Blocks the x Spanning is a ratio of the nb of edges of the blocks/overall edges
-            getPosition().setVSpan(2 * (nodes.size() - 1));
+            getPosition().setSpan(V, 2 * (nodes.size() - 1));
         } else {
             // in the case of horizontal Blocks having 1 switch/1 position => 1 hPos / 2 edges rounded to the superior int
-            getPosition().setHSpan(2 * (nodes.size() - 2));
-            getPosition().setVSpan(2);
+            getPosition().setSpan(H, 2 * (nodes.size() - 2));
+            getPosition().setSpan(V, 2);
         }
     }
 
@@ -109,7 +110,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     private double calcYPxStep(int sign) {
-        if (getPosition().getVSpan() == 0) {
+        if (getPosition().getSpan(V) == 0) {
             return 0;
         }
         return sign * getCoord().getYSpan() / (nodes.size() - 1);

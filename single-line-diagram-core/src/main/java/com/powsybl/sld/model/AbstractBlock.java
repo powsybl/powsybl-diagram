@@ -15,6 +15,7 @@ import java.util.*;
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
+import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -172,11 +173,11 @@ public abstract class AbstractBlock implements Block {
     @Override
     public void calculateRootCoord(LayoutParameters layoutParam) {
         double dyToBus = 0;
-        coord.setXSpan((double) position.getHSpan() / 2 * layoutParam.getCellWidth());
+        coord.setXSpan((double) position.getSpan(H) / 2 * layoutParam.getCellWidth());
         if (cell.getType() == INTERN) {
             coord.setYSpan(0);
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
-                dyToBus = layoutParam.getInternCellHeight() * position.getV();
+                dyToBus = layoutParam.getInternCellHeight() * position.get(V);
             }
         } else {
             // when using the adapt cell height to content option, the extern cell height, here,
@@ -188,7 +189,7 @@ public abstract class AbstractBlock implements Block {
             dyToBus = externCellHeight / 2 + layoutParam.getStackHeight();
         }
 
-        coord.setX(hToX(layoutParam, position.getH()) + coord.getXSpan() / 2);
+        coord.setX(hToX(layoutParam, position.get(H)) + coord.getXSpan() / 2);
 
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
@@ -202,7 +203,7 @@ public abstract class AbstractBlock implements Block {
                 break;
             case MIDDLE:
                 coord.setY(layoutParam.getInitialYBus()
-                        + (getPosition().getV() - 1) * layoutParam.getVerticalSpaceBus());
+                        + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus());
                 break;
             default:
         }

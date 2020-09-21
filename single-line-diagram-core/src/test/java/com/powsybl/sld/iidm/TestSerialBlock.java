@@ -16,11 +16,11 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -66,20 +66,20 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertEquals("la", sb.getSubBlocks().get(1).getEndingNode().getId());
 
         sb.sizing();
-        assertEquals(0, sb.getPosition().getH());
-        assertEquals(0, sb.getPosition().getV());
-        assertEquals(2, sb.getPosition().getHSpan());
-        assertEquals(4, sb.getPosition().getVSpan());
+        assertEquals(0, sb.getPosition().get(H));
+        assertEquals(0, sb.getPosition().get(V));
+        assertEquals(2, sb.getPosition().getSpan(H));
+        assertEquals(4, sb.getPosition().getSpan(V));
 
-        assertEquals(0, sb.getLowerBlock().getPosition().getH());
-        assertEquals(0, sb.getLowerBlock().getPosition().getV());
-        assertEquals(2, sb.getLowerBlock().getPosition().getHSpan());
-        assertEquals(0, sb.getLowerBlock().getPosition().getVSpan());
+        assertEquals(0, sb.getLowerBlock().getPosition().get(H));
+        assertEquals(0, sb.getLowerBlock().getPosition().get(V));
+        assertEquals(2, sb.getLowerBlock().getPosition().getSpan(H));
+        assertEquals(0, sb.getLowerBlock().getPosition().getSpan(V));
 
-        assertEquals(0, sb.getUpperBlock().getPosition().getH());
-        assertEquals(0, sb.getUpperBlock().getPosition().getV());
-        assertEquals(2, sb.getUpperBlock().getPosition().getHSpan());
-        assertEquals(4, sb.getUpperBlock().getPosition().getVSpan());
+        assertEquals(0, sb.getUpperBlock().getPosition().get(H));
+        assertEquals(0, sb.getUpperBlock().getPosition().get(V));
+        assertEquals(2, sb.getUpperBlock().getPosition().getSpan(H));
+        assertEquals(4, sb.getUpperBlock().getPosition().getSpan(V));
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)

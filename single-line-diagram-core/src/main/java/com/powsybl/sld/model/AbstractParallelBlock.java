@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -54,7 +55,7 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
 
     @Override
     public double intitXStep() {
-        return getCoord().getXSpan() / getPosition().getHSpan();
+        return getCoord().getXSpan() / getPosition().getSpan(H);
     }
 
     @Override
@@ -62,8 +63,8 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
         final double x0Final = initX0();
         final double xPxStepFinal = intitXStep();
         subBlocks.forEach(sub -> {
-            sub.setX(x0Final + (sub.getPosition().getH() + (double) sub.getPosition().getHSpan() / 2) * xPxStepFinal);
-            sub.setXSpan(xPxStepFinal * sub.getPosition().getHSpan());
+            sub.setX(x0Final + (sub.getPosition().get(H) + (double) sub.getPosition().getSpan(H) / 2) * xPxStepFinal);
+            sub.setXSpan(xPxStepFinal * sub.getPosition().getSpan(H));
             sub.setY(getCoord().getY());
             sub.setYSpan(getCoord().getYSpan());
             sub.calculateCoord(layoutParam);

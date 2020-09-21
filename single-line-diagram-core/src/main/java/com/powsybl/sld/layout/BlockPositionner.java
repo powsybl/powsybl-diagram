@@ -11,6 +11,8 @@ import com.powsybl.sld.model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
@@ -24,7 +26,7 @@ class BlockPositionner {
         List<InternCell> nonFlatCellsToClose = new ArrayList<>();
 
         Subsection prevSs = new Subsection(maxV);
-        graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().setV(nodeBus.getBusbarIndex()));
+        graph.getNodeBuses().forEach(nodeBus -> nodeBus.getPosition().set(V, nodeBus.getBusbarIndex()));
 
         for (Subsection ss : subsections) {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
@@ -54,10 +56,10 @@ class BlockPositionner {
             if (ssSide == Side.RIGHT && prevBusNode != null
                     && (actualBusNode == null || prevBusNode != actualBusNode)) {
                 Position p = prevBusNode.getPosition();
-                p.setHSpan(hPos - Math.max(p.getH(), 0) - hSpace);
+                p.setSpan(H, hPos - Math.max(p.get(H), 0) - hSpace);
             } else if (ssSide == Side.LEFT && actualBusNode != null &&
                     (prevBusNode == null || prevBusNode != actualBusNode)) {
-                actualBusNode.getPosition().setH(hPos);
+                actualBusNode.getPosition().set(H, hPos);
             }
         }
     }
@@ -200,7 +202,7 @@ class BlockPositionner {
                 lane.cells.forEach(c -> {
                     c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
                     if (!c.checkisShape(InternCell.Shape.UNILEG)) {
-                        c.getBodyBlock().getPosition().setV(newV);
+                        c.getBodyBlock().getPosition().set(V, newV);
                     }
                 });
                 i++;

@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
 import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
@@ -205,7 +206,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
                 List<AnchorPoint> result = new ArrayList<>();
                 result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                for (int i = 1; i < busbarSectionNode.getPosition().getHSpan(); i++) {
+                for (int i = 1; i < busbarSectionNode.getPosition().getSpan(H); i++) {
                     result.add(new AnchorPoint(
                             ((double) i / 2) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding() / 2,
                             0, AnchorOrientation.VERTICAL));
@@ -379,10 +380,10 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected Element drawGrid(String prefixId, Graph graph, Document document, GraphMetadata metadata) {
         int maxH = graph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> (nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan()) / 2)
+                .mapToInt(nodeBus -> (nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H)) / 2)
                 .max().orElse(0);
         int maxV = graph.getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getV())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(V))
                 .max().orElse(1) - 1;
 
         Element gridRoot = document.createElement("g");

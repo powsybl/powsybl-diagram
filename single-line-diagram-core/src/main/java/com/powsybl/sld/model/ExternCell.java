@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
 import static com.powsybl.sld.model.Side.*;
 
 /**
@@ -74,12 +75,14 @@ public class ExternCell extends AbstractBusCell {
         int minHv;
         if (isShunted() && shuntCell.getSideCell(RIGHT) == this) {
             Position leftPos = shuntCell.getSidePosition(LEFT);
-            minHv = Math.max(hPosition, leftPos.getH() + leftPos.getHSpan() + shuntCell.getLength());
+            minHv = Math.max(hPosition, leftPos.get(H) + leftPos.getSpan(H) + shuntCell.getLength());
         } else {
             minHv = hPosition;
         }
-        getRootBlock().getPosition().setHV(minHv, 0);
-        return minHv + getRootBlock().getPosition().getHSpan();
+        Position pos = getRootBlock().getPosition();
+        pos.set(H, minHv);
+        pos.set(V, 0);
+        return minHv + pos.getSpan(H);
     }
 
     public boolean isShunted() {

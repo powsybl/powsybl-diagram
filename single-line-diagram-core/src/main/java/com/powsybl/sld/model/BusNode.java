@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -45,11 +46,11 @@ public class BusNode extends Node {
 
     public void calculateCoord(LayoutParameters layoutParameters) {
         setY(layoutParameters.getInitialYBus() +
-                (position.getV() - 1) * layoutParameters.getVerticalSpaceBus());
+                (position.get(V) - 1) * layoutParameters.getVerticalSpaceBus());
         setX(layoutParameters.getInitialXBus()
-                + (double) position.getH() / 2 * layoutParameters.getCellWidth()
+                + (double) position.get(H) / 2 * layoutParameters.getCellWidth()
                 + layoutParameters.getHorizontalBusPadding() / 2);
-        setPxWidth(position.getHSpan() * layoutParameters.getCellWidth() / 2 - layoutParameters.getHorizontalBusPadding());
+        setPxWidth(position.getSpan(H) * layoutParameters.getCellWidth() / 2 - layoutParameters.getHorizontalBusPadding());
     }
 
     @Override

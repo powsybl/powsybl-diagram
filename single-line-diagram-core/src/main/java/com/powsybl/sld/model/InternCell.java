@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -165,7 +167,7 @@ public class InternCell extends AbstractBusCell {
     }
 
     public int getSideHPos(Side side) {
-        return getSideToLeg(side).getPosition().getH();
+        return getSideToLeg(side).getPosition().get(H);
     }
 
     @Override
@@ -180,20 +182,23 @@ public class InternCell extends AbstractBusCell {
     public int newHPosition(int hPosition) {
         int h = hPosition;
         if (shape == Shape.UNILEG) {
-            legs.get(Side.UNDEFINED).getPosition().setH(h);
-            h += legs.get(Side.UNDEFINED).getPosition().getHSpan();
+            legs.get(Side.UNDEFINED).getPosition().set(H, h);
+            h += legs.get(Side.UNDEFINED).getPosition().getSpan(H);
         } else {
-            legs.get(Side.LEFT).getPosition().setH(h);
-            h += legs.get(Side.LEFT).getPosition().getHSpan();
+            legs.get(Side.LEFT).getPosition().set(H, h);
+            h += legs.get(Side.LEFT).getPosition().getSpan(H);
+            Position pos = body.getPosition();
             if (shape == Shape.FLAT) {
-                body.getPosition().setHV(h, legs.get(Side.LEFT).getBusNodes().get(0).getBusbarIndex());
+                pos.set(H, h);
+                pos.set(V, legs.get(Side.LEFT).getBusNodes().get(0).getBusbarIndex());
             } else {
                 h -= 2;
-                body.getPosition().setHV(h, 1);
+                pos.set(H, h);
+                pos.set(V, 1);
             }
-            h += body.getPosition().getHSpan();
-            legs.get(Side.RIGHT).getPosition().setH(h);
-            h += legs.get(Side.RIGHT).getPosition().getHSpan();
+            h += pos.getSpan(H);
+            legs.get(Side.RIGHT).getPosition().set(H, h);
+            h += legs.get(Side.RIGHT).getPosition().getSpan(H);
         }
         return h;
     }
@@ -201,17 +206,19 @@ public class InternCell extends AbstractBusCell {
     public int newHPosition(int hPosition, Side side) {
         int h = hPosition;
         if (side == Side.LEFT) {
-            legs.get(Side.LEFT).getPosition().setH(h);
-            h += legs.get(Side.LEFT).getPosition().getHSpan();
+            legs.get(Side.LEFT).getPosition().set(H, h);
+            h += legs.get(Side.LEFT).getPosition().getSpan(H);
         }
         if (side == BODY_SIDE) {
             h -= 2;
-            body.getPosition().setHV(h, 1);
-            h += body.getPosition().getHSpan();
+            Position pos = body.getPosition();
+            pos.set(H, h);
+            pos.set(V, 1);
+            h += body.getPosition().getSpan(H);
         }
         if (side == Side.RIGHT) {
-            legs.get(Side.RIGHT).getPosition().setH(h);
-            h += legs.get(Side.RIGHT).getPosition().getHSpan();
+            legs.get(Side.RIGHT).getPosition().set(H, h);
+            h += legs.get(Side.RIGHT).getPosition().getSpan(H);
         }
         return h;
     }
