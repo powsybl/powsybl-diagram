@@ -346,9 +346,9 @@
                 <polyline points="60.0,230.0,60.0,280.0" stroke-width="1" stroke="#7F6C00"/>
             </g>
             <g class="wire" id="_95_vl1_95_load1_95_bload1">
-                <polyline points="60.0,144.0,60.0,210.0" stroke-width="1" stroke="#7F6C00"/>
+                <polyline points="60.0,144.5,60.0,210.0" stroke-width="1" stroke="#7F6C00"/>
             </g>
-            <g class="ARROW1_load1_DOWN" id="_95_vl1_95_load1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,159.0)">
+            <g class="ARROW1_load1_DOWN" id="_95_vl1_95_load1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,159.5)">
                 <g class="arrow-up" id="_95_vl1_95_load1_95_bload1_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
@@ -357,7 +357,7 @@
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_load1_DOWN" id="_95_vl1_95_load1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,179.0)">
+            <g class="ARROW2_load1_DOWN" id="_95_vl1_95_load1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,179.5)">
                 <g class="arrow-up" id="_95_vl1_95_load1_95_bload1_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
@@ -613,9 +613,9 @@
                 <polyline points="860.0,230.0,860.0,280.0" stroke-width="1" stroke="#7F6C00"/>
             </g>
             <g class="wire" id="_95_vl1_95_load2_95_bload2">
-                <polyline points="860.0,144.0,860.0,210.0" stroke-width="1" stroke="#7F6C00"/>
+                <polyline points="860.0,144.5,860.0,210.0" stroke-width="1" stroke="#7F6C00"/>
             </g>
-            <g class="ARROW1_load2_DOWN" id="_95_vl1_95_load2_95_bload2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,855.0,159.0)">
+            <g class="ARROW1_load2_DOWN" id="_95_vl1_95_load2_95_bload2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,855.0,159.5)">
                 <g class="arrow-up" id="_95_vl1_95_load2_95_bload2_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
@@ -624,7 +624,7 @@
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_load2_DOWN" id="_95_vl1_95_load2_95_bload2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,855.0,179.0)">
+            <g class="ARROW2_load2_DOWN" id="_95_vl1_95_load2_95_bload2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,855.0,179.5)">
                 <g class="arrow-up" id="_95_vl1_95_load2_95_bload2_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>

@@ -199,7 +199,7 @@
             <polyline points="290.0,370.0,300.0,370.0"/>
         </g>
         <g class="wire" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
-            <polyline points="60.0,154.0,60.0,240.0"/>
+            <polyline points="60.0,154.5,60.0,240.0"/>
         </g>
         <g class="wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
             <polyline points="60.0,260.0,60.0,370.0"/>
