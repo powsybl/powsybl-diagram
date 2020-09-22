@@ -14,6 +14,7 @@ import java.util.*;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.Position.Dimension.*;
 
@@ -139,22 +140,22 @@ public abstract class AbstractBlock implements Block {
 
     @Override
     public void setXSpan(double xSpan) {
-        getCoord().setXSpan(xSpan);
+        getCoord().setSpan(X, xSpan);
     }
 
     @Override
     public void setYSpan(double ySpan) {
-        getCoord().setYSpan(ySpan);
+        getCoord().setSpan(Y, ySpan);
     }
 
     @Override
     public void setX(double x) {
-        getCoord().setX(x);
+        getCoord().set(X, x);
     }
 
     @Override
     public void setY(double y) {
-        getCoord().setY(y);
+        getCoord().set(Y, y);
     }
 
     @Override
@@ -173,9 +174,9 @@ public abstract class AbstractBlock implements Block {
     @Override
     public void calculateRootCoord(LayoutParameters layoutParam) {
         double dyToBus = 0;
-        coord.setXSpan((double) position.getSpan(H) / 2 * layoutParam.getCellWidth());
+        coord.setSpan(X, (double) position.getSpan(H) / 2 * layoutParam.getCellWidth());
         if (cell.getType() == INTERN) {
-            coord.setYSpan(0);
+            coord.setSpan(Y, 0);
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
                 dyToBus = layoutParam.getInternCellHeight() * position.get(V);
             }
@@ -185,24 +186,24 @@ public abstract class AbstractBlock implements Block {
             double externCellHeight = !layoutParam.isAdaptCellHeightToContent()
                     ? layoutParam.getExternCellHeight()
                     : getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
-            coord.setYSpan(externCellHeight);
+            coord.setSpan(Y, externCellHeight);
             dyToBus = externCellHeight / 2 + layoutParam.getStackHeight();
         }
 
-        coord.setX(hToX(layoutParam, position.get(H)) + coord.getXSpan() / 2);
+        coord.set(X, hToX(layoutParam, position.get(H)) + coord.getSpan(X) / 2);
 
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                coord.setY(layoutParam.getInitialYBus()
+                coord.set(Y, layoutParam.getInitialYBus()
                         + (cell.getGraph().getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus()
                         + dyToBus);
                 break;
             case TOP:
-                coord.setY(layoutParam.getInitialYBus()
+                coord.set(Y, layoutParam.getInitialYBus()
                         - dyToBus);
                 break;
             case MIDDLE:
-                coord.setY(layoutParam.getInitialYBus()
+                coord.set(Y, layoutParam.getInitialYBus()
                         + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus());
                 break;
             default:

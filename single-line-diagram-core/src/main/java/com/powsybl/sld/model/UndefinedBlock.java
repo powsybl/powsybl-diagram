@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
+
 /**
  * A block group that cannot be correctly decomposed anymore.
  * All subBlocks are superposed.
@@ -47,10 +49,10 @@ public class UndefinedBlock extends AbstractComposedBlock {
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
         for (Block block : subBlocks) {
-            block.setX(getCoord().getX());
-            block.setY(getCoord().getY());
-            block.setXSpan(getCoord().getXSpan());
-            block.setYSpan(getCoord().getYSpan());
+            block.setX(getCoord().get(X));
+            block.setY(getCoord().get(Y));
+            block.setXSpan(getCoord().getSpan(X));
+            block.setYSpan(getCoord().getSpan(Y));
             block.coordVerticalCase(layoutParam);
         }
     }

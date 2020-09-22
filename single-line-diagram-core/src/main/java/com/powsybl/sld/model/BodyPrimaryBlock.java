@@ -13,9 +13,10 @@ import java.util.List;
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.Node.NodeType.*;
-import static com.powsybl.sld.model.Orientation.UP;
+import static com.powsybl.sld.model.Orientation.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
@@ -58,11 +59,11 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
         int sign = getOrientation() == UP ? 1 : -1;
-        double y0 = getCoord().getY() + sign * getCoord().getYSpan() / 2;
+        double y0 = getCoord().get(Y) + sign * getCoord().getSpan(Y) / 2;
         double yPxStep = calcYPxStep(sign);
         int v = 0;
         for (Node node : nodes) {
-            node.setX(getCoord().getX());
+            node.setX(getCoord().get(X));
             if (!(node instanceof BusBreakerConnection)) {
                 node.setY(y0 - yPxStep * v);
             }
@@ -73,15 +74,15 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        double x0 = getCoord().getX() - getCoord().getXSpan() / 2;
+        double x0 = getCoord().get(X) - getCoord().getSpan(X) / 2;
         if (getCell().getType() == INTERN
                 && ((InternCell) getCell()).getShape().checkIsNotShape(FLAT)) {
             x0 += layoutParam.getCellWidth() / 2;
         }
-        double xPxStep = getCoord().getXSpan() / (nodes.size() - 1);
+        double xPxStep = getCoord().getSpan(X) / (nodes.size() - 1);
         int h = 0;
         for (Node node : nodes) {
-            node.setY(getCoord().getY());
+            node.setY(getCoord().get(Y));
             node.setX(x0 + xPxStep * h);
             node.setRotationAngle(90.);
             h++;
@@ -113,6 +114,6 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         if (getPosition().getSpan(V) == 0) {
             return 0;
         }
-        return sign * getCoord().getYSpan() / (nodes.size() - 1);
+        return sign * getCoord().getSpan(Y) / (nodes.size() - 1);
     }
 }

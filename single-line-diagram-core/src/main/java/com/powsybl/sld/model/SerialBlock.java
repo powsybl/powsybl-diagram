@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 
 import java.util.*;
@@ -163,27 +164,27 @@ public class SerialBlock extends AbstractComposedBlock {
         double y0;
         double yPxStep;
         int sign = getOrientation() == UP ? 1 : -1;
-        y0 = getCoord().getY() + sign * getCoord().getYSpan() / 2;
-        yPxStep = -sign * getCoord().getYSpan() / getPosition().getSpan(V);
+        y0 = getCoord().get(Y) + sign * getCoord().getSpan(Y) / 2;
+        yPxStep = -sign * getCoord().getSpan(Y) / getPosition().getSpan(V);
 
         for (Block sub : subBlocks) {
-            sub.setX(getCoord().getX());
-            sub.setXSpan(getCoord().getXSpan());
+            sub.setX(getCoord().get(X));
+            sub.setXSpan(getCoord().getSpan(X));
             sub.setY(y0 + yPxStep * (sub.getPosition().get(V) + (double) sub.getPosition().getSpan(V) / 2));
-            sub.setYSpan(getCoord().getYSpan() * ((double) sub.getPosition().getSpan(V) / getPosition().getSpan(V)));
+            sub.setYSpan(getCoord().getSpan(Y) * ((double) sub.getPosition().getSpan(V) / getPosition().getSpan(V)));
             sub.calculateCoord(layoutParam);
         }
-        getChainingNodes().forEach(n -> n.setX(getCoord().getX()));
+        getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        double x0 = getCoord().getX() - getCoord().getXSpan() / 2;
-        double xPxStep = getCoord().getXSpan() / getPosition().getSpan(H);
+        double x0 = getCoord().get(X) - getCoord().getSpan(X) / 2;
+        double xPxStep = getCoord().getSpan(X) / getPosition().getSpan(H);
 
         for (Block sub : subBlocks) {
-            sub.setY(getCoord().getY());
-            sub.setYSpan(getCoord().getYSpan());
+            sub.setY(getCoord().get(Y));
+            sub.setYSpan(getCoord().getSpan(Y));
             sub.setX(x0 + xPxStep * (sub.getPosition().get(H) + (double) sub.getPosition().getSpan(H) / 2));
             sub.setXSpan(sub.getPosition().getSpan(H) * xPxStep);
             sub.calculateCoord(layoutParam);

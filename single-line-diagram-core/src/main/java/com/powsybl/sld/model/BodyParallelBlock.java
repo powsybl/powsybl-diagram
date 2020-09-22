@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.powsybl.sld.model.Block.Type.BODYPARALLEL;
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
@@ -41,10 +42,10 @@ public class BodyParallelBlock extends AbstractParallelBlock {
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
         subBlocks.forEach(sub -> {
-            sub.setX(getCoord().getX());
-            sub.setXSpan(getCoord().getXSpan());
-            sub.setY(getCoord().getY());
-            sub.setYSpan(getCoord().getYSpan());
+            sub.setX(getCoord().get(X));
+            sub.setXSpan(getCoord().getSpan(X));
+            sub.setY(getCoord().get(Y));
+            sub.setYSpan(getCoord().getSpan(Y));
             sub.calculateCoord(layoutParam);
         });
     }

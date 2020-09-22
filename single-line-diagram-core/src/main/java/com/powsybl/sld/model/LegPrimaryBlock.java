@@ -17,6 +17,7 @@ import java.util.List;
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.InternCell.Shape.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
 import static com.powsybl.sld.model.Node.NodeType.SHUNT;
@@ -92,17 +93,17 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        getSwNode().setX(getCoord().getX() + getCoord().getXSpan() / 2);
+        getSwNode().setX(getCoord().get(X) + getCoord().getSpan(X) / 2);
         getSwNode().setY(getBusNode().getY(), false);
         getLegNode().setY(getBusNode().getY(), false);
     }
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        getSwNode().setX(getCoord().getX());
+        getSwNode().setX(getCoord().get(X));
         getSwNode().setY(getBusNode().getY(), false);
 
-        getLegNode().setX(getCoord().getX());
+        getLegNode().setX(getCoord().get(X));
         if (getCell().getType() == INTERN && ((InternCell) getCell()).checkisShape(UNILEG)) {
             InternCell cell = (InternCell) getCell();
             if (getOrientation() == UP) {

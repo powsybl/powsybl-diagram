@@ -16,6 +16,7 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -104,15 +105,15 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         sb.setYSpan(200);
         sb.coordHorizontalCase(layoutParameters);
 
-        assertEquals(10, sb.getLowerBlock().getCoord().getX(), 0);
-        assertEquals(20, sb.getLowerBlock().getCoord().getY(), 0);
-        assertEquals(100, sb.getLowerBlock().getCoord().getXSpan(), 0);
-        assertEquals(200, sb.getLowerBlock().getCoord().getYSpan(), 0);
+        assertEquals(10, sb.getLowerBlock().getCoord().get(X), 0);
+        assertEquals(20, sb.getLowerBlock().getCoord().get(Y), 0);
+        assertEquals(100, sb.getLowerBlock().getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getLowerBlock().getCoord().getSpan(Y), 0);
 
-        assertEquals(10, sb.getUpperBlock().getCoord().getX(), 0);
-        assertEquals(20, sb.getUpperBlock().getCoord().getY(), 0);
-        assertEquals(100, sb.getUpperBlock().getCoord().getXSpan(), 0);
-        assertEquals(200, sb.getUpperBlock().getCoord().getYSpan(), 0);
+        assertEquals(10, sb.getUpperBlock().getCoord().get(X), 0);
+        assertEquals(20, sb.getUpperBlock().getCoord().get(Y), 0);
+        assertEquals(100, sb.getUpperBlock().getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getUpperBlock().getCoord().getSpan(Y), 0);
 
         sb.reverseBlock();
 

@@ -16,6 +16,7 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 import static org.junit.Assert.*;
 
@@ -113,25 +114,25 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.setYSpan(200);
         sb.coordHorizontalCase(layoutParameters);
 
-        assertEquals(10, sb.getCoord().getX(), 0);
-        assertEquals(20, sb.getCoord().getY(), 0);
-        assertEquals(100, sb.getCoord().getXSpan(), 0);
-        assertEquals(200, sb.getCoord().getYSpan(), 0);
+        assertEquals(10, sb.getCoord().get(X), 0);
+        assertEquals(20, sb.getCoord().get(Y), 0);
+        assertEquals(100, sb.getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getCoord().getSpan(Y), 0);
 
-        assertEquals(-15, subSB.getCoord().getX(), 0);
-        assertEquals(20, subSB.getCoord().getY(), 0);
-        assertEquals(50, subSB.getCoord().getXSpan(), 0);
-        assertEquals(200, subSB.getCoord().getYSpan(), 0);
+        assertEquals(-15, subSB.getCoord().get(X), 0);
+        assertEquals(20, subSB.getCoord().get(Y), 0);
+        assertEquals(50, subSB.getCoord().getSpan(X), 0);
+        assertEquals(200, subSB.getCoord().getSpan(Y), 0);
 
-        assertEquals(-15, subPB.getSubBlocks().get(0).getCoord().getX(), 0);
-        assertEquals(20, subPB.getSubBlocks().get(0).getCoord().getY(), 0);
-        assertEquals(50, subPB.getSubBlocks().get(0).getCoord().getXSpan(), 0);
-        assertEquals(200, subPB.getSubBlocks().get(0).getCoord().getYSpan(), 0);
+        assertEquals(-15, subPB.getSubBlocks().get(0).getCoord().get(X), 0);
+        assertEquals(20, subPB.getSubBlocks().get(0).getCoord().get(Y), 0);
+        assertEquals(50, subPB.getSubBlocks().get(0).getCoord().getSpan(X), 0);
+        assertEquals(200, subPB.getSubBlocks().get(0).getCoord().getSpan(Y), 0);
 
-        assertEquals(35, subPB.getSubBlocks().get(1).getCoord().getX(), 0);
-        assertEquals(20, subPB.getSubBlocks().get(1).getCoord().getY(), 0);
-        assertEquals(50, subPB.getSubBlocks().get(1).getCoord().getXSpan(), 0);
-        assertEquals(200, subPB.getSubBlocks().get(1).getCoord().getYSpan(), 0);
+        assertEquals(35, subPB.getSubBlocks().get(1).getCoord().get(X), 0);
+        assertEquals(20, subPB.getSubBlocks().get(1).getCoord().get(Y), 0);
+        assertEquals(50, subPB.getSubBlocks().get(1).getCoord().getSpan(X), 0);
+        assertEquals(200, subPB.getSubBlocks().get(1).getCoord().getSpan(Y), 0);
 
         sb.reverseBlock();
 
