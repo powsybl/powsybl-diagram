@@ -99,10 +99,10 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
                 .setHorizontalSubstationPadding(50)
                 .setVerticalSubstationPadding(50);
 
-        sb.setX(10);
-        sb.setY(20);
-        sb.setXSpan(100);
-        sb.setYSpan(200);
+        sb.getCoord().set(X, 10);
+        sb.getCoord().set(Y, 20);
+        sb.getCoord().setSpan(X, 100);
+        sb.getCoord().setSpan(Y, 200);
         sb.coordHorizontalCase(layoutParameters);
 
         assertEquals(10, sb.getLowerBlock().getCoord().get(X), 0);

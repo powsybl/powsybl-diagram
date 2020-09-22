@@ -22,14 +22,14 @@ import static com.powsybl.sld.model.Position.Dimension.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-abstract class AbstractParallelBlock extends AbstractComposedBlock implements ParallelBlock {
+abstract class AbstractParallelBlock extends AbstractComposedBlock {
 
     AbstractParallelBlock(Type type, List<Block> subBlocks, Cell cell, boolean allowMerge) {
         super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
         subBlocks.forEach(child -> {
             if (child.getType().isParallel() && allowMerge) {
-                this.subBlocks.addAll(((ParallelBlock) child).getSubBlocks());
+                this.subBlocks.addAll(((ComposedBlock) child).getSubBlocks());
             } else {
                 this.subBlocks.add(child);
             }
@@ -50,26 +50,10 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock implements Pa
     }
 
     @Override
-    public double initX0() {
-        return getCoord().get(X) - getCoord().getSpan(X) / 2;
-    }
-
-    @Override
-    public double intitXStep() {
-        return getCoord().getSpan(X) / getPosition().getSpan(H);
-    }
-
-    @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        final double x0Final = initX0();
-        final double xPxStepFinal = intitXStep();
-        subBlocks.forEach(sub -> {
-            sub.setX(x0Final + (sub.getPosition().get(H) + (double) sub.getPosition().getSpan(H) / 2) * xPxStepFinal);
-            sub.setXSpan(xPxStepFinal * sub.getPosition().getSpan(H));
-            sub.setY(getCoord().get(Y));
-            sub.setYSpan(getCoord().getSpan(Y));
-            sub.calculateCoord(layoutParam);
-        });
+        replicateCoordInSubblocks(Y);
+        distributeCoordInSubblocs(H, X, 1);
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
     }
 
     @Override

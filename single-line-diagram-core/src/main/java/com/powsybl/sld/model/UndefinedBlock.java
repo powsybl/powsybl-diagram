@@ -48,13 +48,9 @@ public class UndefinedBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        for (Block block : subBlocks) {
-            block.setX(getCoord().get(X));
-            block.setY(getCoord().get(Y));
-            block.setXSpan(getCoord().getSpan(X));
-            block.setYSpan(getCoord().getSpan(Y));
-            block.coordVerticalCase(layoutParam);
-        }
+        replicateCoordInSubblocks(X);
+        replicateCoordInSubblocks(Y);
+        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam));
     }
 
     @Override

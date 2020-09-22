@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.powsybl.sld.model.Coord.Dimension.X;
+import static com.powsybl.sld.model.Coord.Dimension.Y;
+import static com.powsybl.sld.model.Position.Dimension.V;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -79,6 +83,21 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
 
     public Stream<Position.Segment> getSegments(Position.Dimension dimension) {
         return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
+    }
+
+    public void replicateCoordInSubblocks(Coord.Dimension dim) {
+        getCoord().getSegment(dim).replicateMe(subBlocks.stream().map(b -> b.getCoord().getSegment(dim)));
+    }
+
+    public void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
+        double init = getCoord().get(cDim) - sign * getCoord().getSpan(cDim) / 2;
+        double step = getCoord().getSpan(cDim) / getPosition().getSpan(pDim);
+
+        subBlocks.forEach(sub -> {
+            sub.getCoord().set(cDim, init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
+            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
+        });
+
     }
 
     @Override

@@ -63,15 +63,6 @@ public interface Block {
 
     Coord getCoord();
 
-    void setXSpan(double xSpan);
-
-    void setYSpan(double ySpan);
-
-    void setX(double x);
-
-    void setY(double y);
-
-
     /**
      * Calculate maximal pxWidth that layout.block can use in a cell without modifying
      * root pxWidth

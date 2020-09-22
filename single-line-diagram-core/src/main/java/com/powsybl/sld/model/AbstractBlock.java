@@ -139,26 +139,6 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void setXSpan(double xSpan) {
-        getCoord().setSpan(X, xSpan);
-    }
-
-    @Override
-    public void setYSpan(double ySpan) {
-        getCoord().setSpan(Y, ySpan);
-    }
-
-    @Override
-    public void setX(double x) {
-        getCoord().set(X, x);
-    }
-
-    @Override
-    public void setY(double y) {
-        getCoord().set(Y, y);
-    }
-
-    @Override
     public void calculateCoord(LayoutParameters layoutParam) {
         if (getPosition().getOrientation().isVertical()) {
             coordVerticalCase(layoutParam);

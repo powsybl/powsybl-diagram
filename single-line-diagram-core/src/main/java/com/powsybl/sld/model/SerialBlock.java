@@ -161,34 +161,18 @@ public class SerialBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        double y0;
-        double yPxStep;
-        int sign = getOrientation() == UP ? 1 : -1;
-        y0 = getCoord().get(Y) + sign * getCoord().getSpan(Y) / 2;
-        yPxStep = -sign * getCoord().getSpan(Y) / getPosition().getSpan(V);
-
-        for (Block sub : subBlocks) {
-            sub.setX(getCoord().get(X));
-            sub.setXSpan(getCoord().getSpan(X));
-            sub.setY(y0 + yPxStep * (sub.getPosition().get(V) + (double) sub.getPosition().getSpan(V) / 2));
-            sub.setYSpan(getCoord().getSpan(Y) * ((double) sub.getPosition().getSpan(V) / getPosition().getSpan(V)));
-            sub.calculateCoord(layoutParam);
-        }
+        replicateCoordInSubblocks(X);
+        distributeCoordInSubblocs(V, Y, getOrientation() == UP ? -1 : 1);
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
         getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        double x0 = getCoord().get(X) - getCoord().getSpan(X) / 2;
-        double xPxStep = getCoord().getSpan(X) / getPosition().getSpan(H);
-
-        for (Block sub : subBlocks) {
-            sub.setY(getCoord().get(Y));
-            sub.setYSpan(getCoord().getSpan(Y));
-            sub.setX(x0 + xPxStep * (sub.getPosition().get(H) + (double) sub.getPosition().getSpan(H) / 2));
-            sub.setXSpan(sub.getPosition().getSpan(H) * xPxStep);
-            sub.calculateCoord(layoutParam);
-        }
+        replicateCoordInSubblocks(Y);
+        distributeCoordInSubblocs(H, X, 1);
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
+        getChainingNodes().forEach(n -> n.setY(getCoord().get(Y)));
     }
 
     @Override

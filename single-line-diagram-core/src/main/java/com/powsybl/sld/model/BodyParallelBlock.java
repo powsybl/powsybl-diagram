@@ -41,12 +41,8 @@ public class BodyParallelBlock extends AbstractParallelBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        subBlocks.forEach(sub -> {
-            sub.setX(getCoord().get(X));
-            sub.setXSpan(getCoord().getSpan(X));
-            sub.setY(getCoord().get(Y));
-            sub.setYSpan(getCoord().getSpan(Y));
-            sub.calculateCoord(layoutParam);
-        });
+        replicateCoordInSubblocks(X);
+        replicateCoordInSubblocks(Y);
+        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam));
     }
 }

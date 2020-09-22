@@ -43,6 +43,10 @@ public class Coord {
             this.shift = segment.shift;
         }
 
+        public void replicateMe(Stream<Segment> segments) {
+            segments.forEach(seg -> seg.copy(this));
+        }
+
         public double getValue() {
             return value;
         }

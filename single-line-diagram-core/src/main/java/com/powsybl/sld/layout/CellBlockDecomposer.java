@@ -171,13 +171,13 @@ final class CellBlockDecomposer {
             }
         }
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
-            ParallelBlock bPar;
+            Block parallelBlock;
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                bPar = new BodyParallelBlock(blocksBundle, cell, true);
+                parallelBlock = new BodyParallelBlock(blocksBundle, cell, true);
             } else {
-                bPar = new LegParralelBlock(blocksBundle, cell, true);
+                parallelBlock = new LegParralelBlock(blocksBundle, cell, true);
             }
-            blocks.add(bPar);
+            blocks.add(parallelBlock);
         }
         return !blocksBundlesToMerge.isEmpty();
     }
