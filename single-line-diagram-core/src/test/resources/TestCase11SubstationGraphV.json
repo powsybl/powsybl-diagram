@@ -912,7 +912,7 @@
             "x" : 425.0,
             "y" : 260.0,
             "xSpan" : 50.0,
-            "ySpan" : 0.0
+            "ySpan" : 40.0
           },
           "nodes" : [ "FICT_vl1_dsect11Fictif", "dtrct11", "FICT_vl1_dsect12Fictif" ]
         }, {
@@ -1001,7 +1001,7 @@
             "x" : 425.0,
             "y" : 285.0,
             "xSpan" : 50.0,
-            "ySpan" : 0.0
+            "ySpan" : 40.0
           },
           "nodes" : [ "FICT_vl1_dsect21Fictif", "dtrct21", "FICT_vl1_dsect22Fictif" ]
         }, {
@@ -2716,7 +2716,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 300.0,
+            "y" : 260.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -2730,7 +2730,7 @@
           } ],
           "position" : {
             "h" : 0,
-            "v" : 1,
+            "v" : 0,
             "hSpan" : 2,
             "vSpan" : 2,
             "orientation" : "RIGHT"
@@ -2739,7 +2739,7 @@
             "x" : 25.0,
             "y" : 220.0,
             "xSpan" : 50.0,
-            "ySpan" : 0.0
+            "ySpan" : 40.0
           },
           "nodes" : [ "FICT_vl2_dscpl2Fictif", "ddcpl1", "FICT_vl2_dscpl1Fictif" ]
         }, {
@@ -2758,7 +2758,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 300.0,
+            "y" : 260.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },

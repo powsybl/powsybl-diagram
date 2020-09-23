@@ -343,7 +343,7 @@
           "x" : 75.0,
           "y" : 260.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_ss1fNode1", "ss1", "FICT_vl_ss1fNode0" ]
       }, {
