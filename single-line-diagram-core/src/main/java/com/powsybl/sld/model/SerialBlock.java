@@ -166,13 +166,13 @@ public class SerialBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        translatePosInCoord(layoutParam, X, Y, V, getOrientation() == UP ? -1 : 1);
+        translatePosInCoord(layoutParam, X, Y, V, getOrientation().progressionSign());
         getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        translatePosInCoord(layoutParam, Y, X, H, 1);
+        translatePosInCoord(layoutParam, Y, X, H, getOrientation().progressionSign());
         getChainingNodes().forEach(n -> n.setY(getCoord().get(Y)));
     }
 

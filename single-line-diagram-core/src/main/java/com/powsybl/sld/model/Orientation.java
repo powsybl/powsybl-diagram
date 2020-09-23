@@ -26,4 +26,18 @@ public enum Orientation {
     public boolean isHorizontal() {
         return this == LEFT || this == RIGHT;
     }
+
+    public int progressionSign() {
+        switch (this) {
+            case UP:
+            case LEFT:
+                return -1;
+            case DOWN:
+            case RIGHT:
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
 }

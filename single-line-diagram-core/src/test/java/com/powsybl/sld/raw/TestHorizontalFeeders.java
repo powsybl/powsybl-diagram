@@ -6,7 +6,9 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
+import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,9 +45,9 @@ public class TestHorizontalFeeders extends AbstractTestCaseRaw {
     public void test() {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
-/*        new BlockOrganizer().organize(g);
+        new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-        toSVG(g, "/test.svg");*/
+        toSVG(g, "/test.svg");
 //        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
     }
 }
