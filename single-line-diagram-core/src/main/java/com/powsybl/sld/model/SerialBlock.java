@@ -15,8 +15,6 @@ import static com.powsybl.sld.model.Position.Dimension.*;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.Orientation.UP;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene

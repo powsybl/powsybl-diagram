@@ -2176,7 +2176,7 @@
           } ],
           "position" : {
             "h" : 0,
-            "v" : 1,
+            "v" : 0,
             "hSpan" : 2,
             "vSpan" : 2,
             "orientation" : "RIGHT"

@@ -119,7 +119,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         assertEquals(100, sb.getCoord().getSpan(X), 0);
         assertEquals(200, sb.getCoord().getSpan(Y), 0);
 
-        assertEquals(-15, subSB.getCoord().get(X), 0);
+        assertEquals(35, subSB.getCoord().get(X), 0);
         assertEquals(20, subSB.getCoord().get(Y), 0);
         assertEquals(50, subSB.getCoord().getSpan(X), 0);
         assertEquals(200, subSB.getCoord().getSpan(Y), 0);

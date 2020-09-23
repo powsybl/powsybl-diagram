@@ -163,7 +163,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -177,7 +177,7 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 1,
+          "v" : 0,
           "hSpan" : 2,
           "vSpan" : 2,
           "orientation" : "RIGHT"
@@ -186,7 +186,7 @@
           "x" : 25.0,
           "y" : 220.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_swfNode" ]
       }, {
@@ -205,7 +205,7 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

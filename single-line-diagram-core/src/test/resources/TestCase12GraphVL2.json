@@ -731,7 +731,7 @@
         },
         "coord" : {
           "x" : 40.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },
@@ -745,7 +745,7 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 1,
+          "v" : 0,
           "hSpan" : 2,
           "vSpan" : 2,
           "orientation" : "RIGHT"
@@ -754,7 +754,7 @@
           "x" : 40.0,
           "y" : 220.0,
           "xSpan" : 80.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl2_dscpl2Fictif", "ddcpl1", "FICT_vl2_dscpl1Fictif" ]
       }, {
@@ -773,7 +773,7 @@
         },
         "coord" : {
           "x" : 120.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 80.0,
           "ySpan" : 0.0
         },

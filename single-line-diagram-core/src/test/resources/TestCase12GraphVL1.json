@@ -993,7 +993,7 @@
           "x" : 760.0,
           "y" : 260.0,
           "xSpan" : 80.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl1_dsect11Fictif", "dtrct11", "FICT_vl1_dsect12Fictif" ]
       }, {
@@ -1082,7 +1082,7 @@
           "x" : 760.0,
           "y" : 285.0,
           "xSpan" : 80.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl1_dsect21Fictif", "dtrct21", "FICT_vl1_dsect22Fictif" ]
       }, {

@@ -15,10 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.Coord.Dimension.X;
-import static com.powsybl.sld.model.Coord.Dimension.Y;
-import static com.powsybl.sld.model.Position.Dimension.V;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>

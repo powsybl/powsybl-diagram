@@ -46,7 +46,7 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         vlBuilder.connectNode(f1, bC);
         vlBuilder.connectNode(f2, bC);
         vlBuilder.connectNode(f2, bD);
-        vlBuilder.connectNode(d2,bD);
+        vlBuilder.connectNode(d2, bD);
         vlBuilder.connectNode(d2, bbs2);
     }
 
