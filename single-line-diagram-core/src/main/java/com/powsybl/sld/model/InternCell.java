@@ -194,7 +194,7 @@ public class InternCell extends AbstractBusCell {
             } else {
                 h -= 2;
                 pos.set(H, h);
-                pos.set(V, 1);
+                pos.set(V, 0);
             }
             h += pos.getSpan(H);
             legs.get(Side.RIGHT).getPosition().set(H, h);

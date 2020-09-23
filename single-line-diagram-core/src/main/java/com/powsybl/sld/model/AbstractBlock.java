@@ -156,9 +156,9 @@ public abstract class AbstractBlock implements Block {
         double dyToBus = 0;
         coord.setSpan(X, (double) position.getSpan(H) / 2 * layoutParam.getCellWidth());
         if (cell.getType() == INTERN) {
-            coord.setSpan(Y, 0);
+            coord.setSpan(Y, (double) position.getSpan(V) / 2 * layoutParam.getInternCellHeight());
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
-                dyToBus = layoutParam.getInternCellHeight() * position.get(V);
+                dyToBus = layoutParam.getInternCellHeight() * (double) (1 + position.get(V)) / 2 + coord.getSpan(Y) / 2;
             }
         } else {
             // when using the adapt cell height to content option, the extern cell height, here,

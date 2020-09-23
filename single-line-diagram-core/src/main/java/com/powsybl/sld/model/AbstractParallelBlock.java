@@ -51,9 +51,7 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        replicateCoordInSubblocks(Y);
-        distributeCoordInSubblocs(H, X, 1);
-        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
+        translatePosInCoord(layoutParam, Y, X, H, 1);
     }
 
     @Override

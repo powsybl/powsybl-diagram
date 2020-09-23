@@ -1729,9 +1729,72 @@
         "ySpan" : 250.0
       },
       "subBlocks" : [ {
-        "type" : "SERIAL",
+        "type" : "LEGPARALLEL",
         "cardinalities" : [ {
           "START" : 2
+        }, {
+          "END" : 2
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 550.0,
+          "y" : 230.0,
+          "xSpan" : 100.0,
+          "ySpan" : 0.0
+        },
+        "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 550.0,
+            "y" : 230.0,
+            "xSpan" : 100.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "bbs23", "dF2", "FICT_vl_fF" ]
+        }, {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 550.0,
+            "y" : 230.0,
+            "xSpan" : 100.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "bbs13", "dF1", "FICT_vl_fF" ]
+        } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
         }, {
           "END" : 1
         } ],
@@ -1748,91 +1811,7 @@
           "xSpan" : 100.0,
           "ySpan" : 100.0
         },
-        "subBlocks" : [ {
-          "type" : "LEGPARALLEL",
-          "cardinalities" : [ {
-            "START" : 2
-          }, {
-            "END" : 2
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
-          },
-          "coord" : {
-            "x" : 550.0,
-            "y" : 230.0,
-            "xSpan" : 100.0,
-            "ySpan" : 0.0
-          },
-          "subBlocks" : [ {
-            "type" : "LEGPRIMARY",
-            "cardinalities" : [ {
-              "START" : 1
-            }, {
-              "END" : 1
-            } ],
-            "position" : {
-              "h" : 0,
-              "v" : 0,
-              "hSpan" : 2,
-              "vSpan" : 0,
-              "orientation" : "UP"
-            },
-            "coord" : {
-              "x" : 550.0,
-              "y" : 230.0,
-              "xSpan" : 100.0,
-              "ySpan" : 0.0
-            },
-            "nodes" : [ "bbs23", "dF2", "FICT_vl_fF" ]
-          }, {
-            "type" : "LEGPRIMARY",
-            "cardinalities" : [ {
-              "START" : 1
-            }, {
-              "END" : 1
-            } ],
-            "position" : {
-              "h" : 0,
-              "v" : 0,
-              "hSpan" : 2,
-              "vSpan" : 0,
-              "orientation" : "UP"
-            },
-            "coord" : {
-              "x" : 550.0,
-              "y" : 230.0,
-              "xSpan" : 100.0,
-              "ySpan" : 0.0
-            },
-            "nodes" : [ "bbs13", "dF1", "FICT_vl_fF" ]
-          } ]
-        }, {
-          "type" : "BODYPRIMARY",
-          "cardinalities" : [ {
-            "START" : 1
-          }, {
-            "END" : 1
-          } ],
-          "position" : {
-            "h" : 0,
-            "v" : 0,
-            "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
-          },
-          "coord" : {
-            "x" : 550.0,
-            "y" : 180.0,
-            "xSpan" : 100.0,
-            "ySpan" : 100.0
-          },
-          "nodes" : [ "FICT_vl_fF", "bF", "FICT_vl_commonFG" ]
-        } ]
+        "nodes" : [ "FICT_vl_fF", "bF", "FICT_vl_commonFG" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {

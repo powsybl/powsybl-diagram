@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -85,11 +86,11 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
     }
 
-    public void replicateCoordInSubblocks(Coord.Dimension dim) {
+    void replicateCoordInSubblocks(Coord.Dimension dim) {
         getCoord().getSegment(dim).replicateMe(subBlocks.stream().map(b -> b.getCoord().getSegment(dim)));
     }
 
-    public void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
+    void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
         double init = getCoord().get(cDim) - sign * getCoord().getSpan(cDim) / 2;
         double step = getCoord().getSpan(cDim) / getPosition().getSpan(pDim);
 
@@ -97,7 +98,13 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
             sub.getCoord().set(cDim, init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
             sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
         });
+    }
 
+    void translatePosInCoord(LayoutParameters layoutParameters, Coord.Dimension cDimSteady,
+                             Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
+        replicateCoordInSubblocks(cDimSteady);
+        distributeCoordInSubblocs(pDim, cDimVariable, sign);
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParameters));
     }
 
     @Override

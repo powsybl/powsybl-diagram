@@ -198,7 +198,7 @@ class BlockPositionner {
             int i = 0;
             for (InternCellsLanes lane : lanes) {
                 final int j = i % 2;
-                final int newV = 1 + i / 2;
+                final int newV = i / 2;
                 lane.cells.forEach(c -> {
                     c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
                     if (!c.checkisShape(InternCell.Shape.UNILEG)) {

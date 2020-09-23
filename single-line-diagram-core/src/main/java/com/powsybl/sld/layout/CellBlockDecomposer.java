@@ -120,7 +120,7 @@ final class CellBlockDecomposer {
         int i = 0;
         boolean identifiedMerge = false;
 
-        while (i < blocks.size()) {
+        while (i < blocks.size() - 1) {
             List<Block> blockToRemove = new ArrayList<>();
             boolean chainIdentified = false;
             Block b1 = blocks.get(i);
@@ -137,6 +137,7 @@ final class CellBlockDecomposer {
                 identifiedMerge = true;
                 blocks.removeAll(blockToRemove);
                 blocks.add(i, serialBlock);
+                i = -1; // start again from the beginning
             }
             i++;
         }

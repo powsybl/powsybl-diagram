@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
+import static com.powsybl.sld.model.Block.Type.SERIAL;
 import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.Position.Dimension.*;
 
@@ -32,8 +33,12 @@ public class SerialBlock extends AbstractComposedBlock {
      */
 
     public SerialBlock(List<Block> blocks, Cell cell) {
-        super(Type.SERIAL, blocks);
-        subBlocks = new ArrayList<>(blocks);
+        super(SERIAL, blocks);
+        if (blocks.size() == 1 && blocks.get(0).getType() == SERIAL) {
+            subBlocks = ((SerialBlock) blocks.get(0)).getSubBlocks();
+        } else {
+            subBlocks = new ArrayList<>(blocks);
+        }
         setCell(cell);
         postConstruct();
     }
@@ -161,17 +166,13 @@ public class SerialBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        replicateCoordInSubblocks(X);
-        distributeCoordInSubblocs(V, Y, getOrientation() == UP ? -1 : 1);
-        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
+        translatePosInCoord(layoutParam, X, Y, V, getOrientation() == UP ? -1 : 1);
         getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        replicateCoordInSubblocks(Y);
-        distributeCoordInSubblocs(H, X, 1);
-        subBlocks.forEach(sub -> sub.calculateCoord(layoutParam));
+        translatePosInCoord(layoutParam, Y, X, H, 1);
         getChainingNodes().forEach(n -> n.setY(getCoord().get(Y)));
     }
 
