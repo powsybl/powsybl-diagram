@@ -417,6 +417,16 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
+    protected Node connectToBus(Graph graph, SwitchNode sw, Bus bus) {
+        Objects.requireNonNull(graph);
+        Objects.requireNonNull(sw);
+        String id = bus.getId() + "_" + sw.getId();
+        Node newNode = new BusBreakerConnection(graph, id);
+        graph.addNode(newNode);
+        graph.addEdge(newNode, sw);
+        return newNode;
+    }
+
     private void buildBusBreakerGraph(Graph graph, VoltageLevel vl) {
         Map<String, Node> nodesByBusId = new HashMap<>();
 
@@ -436,11 +446,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
             SwitchNode n = createSwitchNodeFromSwitch(graph, sw);
 
             Bus bus1 = vl.getBusBreakerView().getBus1(sw.getId());
+            Node cnode1 = connectToBus(graph, n, bus1);
             Bus bus2 = vl.getBusBreakerView().getBus2(sw.getId());
-
+            Node cnode2 = connectToBus(graph, n, bus2);
             graph.addNode(n);
-            graph.addEdge(nodesByBusId.get(bus1.getId()), n);
-            graph.addEdge(n, nodesByBusId.get(bus2.getId()));
+            graph.addEdge(nodesByBusId.get(bus1.getId()), cnode2);
+            graph.addEdge(cnode1, nodesByBusId.get(bus2.getId()));
         }
     }
 
