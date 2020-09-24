@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.Cell.CellType.*;
@@ -49,25 +48,7 @@ public class ExternCell extends AbstractBusCell {
     }
 
     public void organizeBlockDirections() {
-        List<FeederNode> feederNodes = getNodes().stream()
-                .filter(n -> n.getType() == FEEDER)
-                .map(FeederNode.class::cast).collect(Collectors.toList());
-        if (feederNodes.stream().anyMatch(n -> n.getOrientation().isHorizontal())) {
-            identifyHorizontalBlocks(feederNodes);
-        } else {
-            getRootBlock().setOrientation(getDirection().toOrientation());
-        }
-    }
-
-    private void identifyHorizontalBlocks(List<FeederNode> fn) {
-        List<Block> blocksEmbeddingOnlyHFeederNodes = fn.stream().filter(n -> n.getOrientation().isHorizontal())
-                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream())
-                .filter(n -> !n.getType().isLeg())      //legBlocks remain always VERTICAL
-                .collect(Collectors.toList());
-        List<Block> blocksEmbeddingVNodes = fn.stream().filter(n -> n.getOrientation().isVertical())
-                .flatMap(n -> getRootBlock().findBlockEmbeddingNode(n).stream()).collect(Collectors.toList());
-        blocksEmbeddingOnlyHFeederNodes.removeAll(blocksEmbeddingVNodes);
-        blocksEmbeddingOnlyHFeederNodes.forEach(b -> b.setOrientation(Orientation.RIGHT));
+        getRootBlock().setOrientation(getDirection().toOrientation());
     }
 
     @Override
