@@ -18,13 +18,13 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_swfNode",
-    "name" : "swfNode",
-    "equipmentId" : "swfNode",
-    "componentType" : "NODE",
+    "id" : "FICT_vl_b2_sw",
+    "name" : "b2_sw",
+    "equipmentId" : "b2_sw",
+    "componentType" : "BUSBREAKER_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 220.0,
+    "y" : 260.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -116,17 +116,6 @@
     "equipmentId" : "swfSwitch",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 75.0,
-    "y" : 260.0,
-    "open" : false,
-    "kind" : "BREAKER"
-  }, {
-    "type" : "SWITCH",
-    "id" : "swfSwitch",
-    "name" : "swfSwitch",
-    "equipmentId" : "swfSwitch",
-    "componentType" : "NODE",
-    "fictitious" : true,
     "x" : 25.0,
     "y" : 285.0,
     "open" : false,
@@ -197,7 +186,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_swfNode" ]
+        "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_b2_sw" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -218,7 +207,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "swfSwitch", "FICT_vl_swfNode" ]
+        "nodes" : [ "b1", "FICT_vl_b2_sw" ]
       } ]
     }
   }, {
@@ -298,14 +287,11 @@
     "node1" : "FICT_vl_b1_l",
     "node2" : "l"
   }, {
-    "node1" : "b1",
-    "node2" : "swfSwitch"
-  }, {
-    "node1" : "swfSwitch",
-    "node2" : "FICT_vl_swfNode"
-  }, {
-    "node1" : "FICT_vl_swfNode",
+    "node1" : "FICT_vl_b2_sw",
     "node2" : "sw"
+  }, {
+    "node1" : "b1",
+    "node2" : "FICT_vl_b2_sw"
   }, {
     "node1" : "b2",
     "node2" : "swfSwitch"
