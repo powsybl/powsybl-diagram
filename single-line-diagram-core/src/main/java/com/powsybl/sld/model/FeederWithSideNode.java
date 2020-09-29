@@ -37,9 +37,9 @@ public class FeederWithSideNode extends FeederNode {
 
     protected final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
+    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType,
                                  Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        super(id, name, equipmentId, componentType, fictitious, graph, feederType);
+        super(id, name, equipmentId, componentType, graph, feederType);
         this.side = Objects.requireNonNull(side);
         this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;
     }

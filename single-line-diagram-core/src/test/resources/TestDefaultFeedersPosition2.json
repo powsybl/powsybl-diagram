@@ -99,12 +99,8 @@
       "y" : -1.0,
       "open" : false,
       "pxWidth" : 1.0,
-      "structuralPosition" : {
-        "h" : 1,
-        "v" : 1,
-        "hSpan" : 1,
-        "vSpan" : 0
-      },
+      "busbarIndex" : 1,
+      "sectionIndex" : 1,
       "position" : {
         "h" : -1,
         "v" : -1,
@@ -122,12 +118,8 @@
       "y" : -1.0,
       "open" : false,
       "pxWidth" : 1.0,
-      "structuralPosition" : {
-        "h" : 2,
-        "v" : 1,
-        "hSpan" : 1,
-        "vSpan" : 0
-      },
+      "busbarIndex" : 1,
+      "sectionIndex" : 2,
       "position" : {
         "h" : -1,
         "v" : -1,
@@ -145,12 +137,8 @@
       "y" : -1.0,
       "open" : false,
       "pxWidth" : 1.0,
-      "structuralPosition" : {
-        "h" : 1,
-        "v" : 2,
-        "hSpan" : 1,
-        "vSpan" : 0
-      },
+      "busbarIndex" : 2,
+      "sectionIndex" : 1,
       "position" : {
         "h" : -1,
         "v" : -1,
@@ -168,12 +156,8 @@
       "y" : -1.0,
       "open" : false,
       "pxWidth" : 1.0,
-      "structuralPosition" : {
-        "h" : 2,
-        "v" : 2,
-        "hSpan" : 1,
-        "vSpan" : 0
-      },
+      "busbarIndex" : 2,
+      "sectionIndex" : 2,
       "position" : {
         "h" : -1,
         "v" : -1,

@@ -28,14 +28,22 @@ public class FeederNode extends Node {
 
     private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
 
+    private Orientation orientation;
+
     protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
-                         FeederType feederType) {
+                         FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
+        this.orientation = orientation;
     }
 
-    public static FeederNode createFictitious(Graph graph, String id) {
-        return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS);
+    protected FeederNode(String id, String name, String equipmentId, String componentType, Graph graph,
+                         FeederType feederType) {
+        this(id, name, equipmentId, componentType, false, graph, feederType, null);
+    }
+
+    static FeederNode createFictitious(Graph graph, String id, Orientation orientation) {
+        return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS, orientation);
     }
 
     public FeederType getFeederType() {
@@ -64,6 +72,17 @@ public class FeederNode extends Node {
 
     public void setDirection(BusCell.Direction direction) {
         this.direction = direction;
+        if (orientation == null || orientation.isHorizontal()) {
+            this.orientation = direction.toOrientation();
+        }
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
     }
 
     @Override

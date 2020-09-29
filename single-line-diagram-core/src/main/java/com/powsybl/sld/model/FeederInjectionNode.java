@@ -14,7 +14,7 @@ import com.powsybl.sld.library.ComponentTypeName;
 public class FeederInjectionNode extends FeederNode {
 
     protected FeederInjectionNode(String id, String name, String componentType, Graph graph) {
-        super(id, name, id, componentType, false, graph, FeederType.INJECTION);
+        super(id, name, id, componentType, graph, FeederType.INJECTION);
     }
 
     public static FeederInjectionNode createGenerator(Graph graph, String id, String name) {

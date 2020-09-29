@@ -34,13 +34,13 @@ public class Subsection {
 
     private boolean checkAbsorbability(LegBusSet lbs) {
         return lbs.getExtendedNodeSet().stream().noneMatch(busNode -> {
-            int vIndex = busNode.getStructuralPosition().getV() - 1;
+            int vIndex = busNode.getBusbarIndex() - 1;
             return busNodes[vIndex] != null && busNodes[vIndex] != busNode;
         });
     }
 
     private void addLegBusSet(LegBusSet lbs) {
-        lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getStructuralPosition().getV() - 1] = bus);
+        lbs.getExtendedNodeSet().forEach(bus -> busNodes[bus.getBusbarIndex() - 1] = bus);
         externCells.addAll(lbs.getExternCells());
         externCells.sort(compareOrder);
         internCellSides.addAll(lbs.getInternCellSides());
@@ -86,7 +86,7 @@ public class Subsection {
             return subsections;
         }
 
-        int vSize = oVLGraph.get().getMaxBusStructuralPosition().getV();
+        int vSize = oVLGraph.get().getMaxVerticalBusPosition();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;

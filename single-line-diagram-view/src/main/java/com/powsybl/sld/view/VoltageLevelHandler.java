@@ -22,6 +22,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.model.Coord.Dimension.X;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -132,7 +133,7 @@ public class VoltageLevelHandler implements BaseNode {
                 if (!posVL.containsKey(nh.getVId())) {
                     posVL.put(nh.getVId(), new Coord(Double.MAX_VALUE, 0));
                 }
-                double x = Math.min(posVL.get(nh.getVId()).getX(), nh.getX());
+                double x = Math.min(posVL.get(nh.getVId()).get(X), nh.getX());
                 posVL.put(nh.getVId(), new Coord(x, 0));
             }
 
@@ -174,11 +175,11 @@ public class VoltageLevelHandler implements BaseNode {
             return Collections.emptyList();
         }
 
-        if (posVL.get(nh1.getVId()).getX() > posVL.get(nh2.getVId()).getX()) {
-            xMaxGraph = posVL.get(nh1.getVId()).getX();
+        if (posVL.get(nh1.getVId()).get(X) > posVL.get(nh2.getVId()).get(X)) {
+            xMaxGraph = posVL.get(nh1.getVId()).get(X);
             idMaxGraph = nh1.getVId();
         } else {
-            xMaxGraph = posVL.get(nh2.getVId()).getX();
+            xMaxGraph = posVL.get(nh2.getVId()).get(X);
             idMaxGraph = nh2.getVId();
         }
 

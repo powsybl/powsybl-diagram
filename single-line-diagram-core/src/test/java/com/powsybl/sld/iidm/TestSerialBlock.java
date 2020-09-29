@@ -16,11 +16,12 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -53,12 +54,12 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         Cell cell = g.getCells().iterator().next();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbedingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbedingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(1).isEmbedingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
+        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(Node.NodeType.FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
         assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(0).getEndingNode().getId());
@@ -66,20 +67,20 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertEquals("la", sb.getSubBlocks().get(1).getEndingNode().getId());
 
         sb.sizing();
-        assertEquals(0, sb.getPosition().getH());
-        assertEquals(0, sb.getPosition().getV());
-        assertEquals(1, sb.getPosition().getHSpan());
-        assertEquals(2, sb.getPosition().getVSpan());
+        assertEquals(0, sb.getPosition().get(H));
+        assertEquals(0, sb.getPosition().get(V));
+        assertEquals(2, sb.getPosition().getSpan(H));
+        assertEquals(4, sb.getPosition().getSpan(V));
 
-        assertEquals(0, sb.getLowerBlock().getPosition().getH());
-        assertEquals(0, sb.getLowerBlock().getPosition().getV());
-        assertEquals(1, sb.getLowerBlock().getPosition().getHSpan());
-        assertEquals(0, sb.getLowerBlock().getPosition().getVSpan());
+        assertEquals(0, sb.getLowerBlock().getPosition().get(H));
+        assertEquals(0, sb.getLowerBlock().getPosition().get(V));
+        assertEquals(2, sb.getLowerBlock().getPosition().getSpan(H));
+        assertEquals(0, sb.getLowerBlock().getPosition().getSpan(V));
 
-        assertEquals(0, sb.getUpperBlock().getPosition().getH());
-        assertEquals(0, sb.getUpperBlock().getPosition().getV());
-        assertEquals(1, sb.getUpperBlock().getPosition().getHSpan());
-        assertEquals(2, sb.getUpperBlock().getPosition().getVSpan());
+        assertEquals(0, sb.getUpperBlock().getPosition().get(H));
+        assertEquals(0, sb.getUpperBlock().getPosition().get(V));
+        assertEquals(2, sb.getUpperBlock().getPosition().getSpan(H));
+        assertEquals(4, sb.getUpperBlock().getPosition().getSpan(V));
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
@@ -98,21 +99,21 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
                 .setHorizontalSubstationPadding(50)
                 .setVerticalSubstationPadding(50);
 
-        sb.setX(10);
-        sb.setY(20);
-        sb.setXSpan(100);
-        sb.setYSpan(200);
+        sb.getCoord().set(X, 10);
+        sb.getCoord().set(Y, 20);
+        sb.getCoord().setSpan(X, 100);
+        sb.getCoord().setSpan(Y, 200);
         sb.coordHorizontalCase(layoutParameters);
 
-        assertEquals(10, sb.getLowerBlock().getCoord().getX(), 0);
-        assertEquals(20, sb.getLowerBlock().getCoord().getY(), 0);
-        assertEquals(100, sb.getLowerBlock().getCoord().getXSpan(), 0);
-        assertEquals(200, sb.getLowerBlock().getCoord().getYSpan(), 0);
+        assertEquals(10, sb.getLowerBlock().getCoord().get(X), 0);
+        assertEquals(20, sb.getLowerBlock().getCoord().get(Y), 0);
+        assertEquals(100, sb.getLowerBlock().getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getLowerBlock().getCoord().getSpan(Y), 0);
 
-        assertEquals(10, sb.getUpperBlock().getCoord().getX(), 0);
-        assertEquals(20, sb.getUpperBlock().getCoord().getY(), 0);
-        assertEquals(100, sb.getUpperBlock().getCoord().getXSpan(), 0);
-        assertEquals(200, sb.getUpperBlock().getCoord().getYSpan(), 0);
+        assertEquals(10, sb.getUpperBlock().getCoord().get(X), 0);
+        assertEquals(20, sb.getUpperBlock().getCoord().get(Y), 0);
+        assertEquals(100, sb.getUpperBlock().getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getUpperBlock().getCoord().getSpan(Y), 0);
 
         sb.reverseBlock();
 

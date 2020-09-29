@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
-    private List<LegPrimaryBlock> primaryLegBlocks = new ArrayList<>();
+    private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
     private Direction direction = Direction.UNDEFINED;
 
     protected AbstractBusCell(Graph graph, CellType type) {
@@ -32,7 +32,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     @Override
     public void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus) {
         setRootBlock(rootBlock);
-        this.primaryLegBlocks = new ArrayList<>(primaryBlocksConnectedToBus);
+        this.legPrimaryBlocks = new ArrayList<>(primaryBlocksConnectedToBus);
     }
 
     @Override
@@ -44,8 +44,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public List<LegPrimaryBlock> getPrimaryLegBlocks() {
-        return new ArrayList<>(primaryLegBlocks);
+    public List<LegPrimaryBlock> getLegPrimaryBlocks() {
+        return new ArrayList<>(legPrimaryBlocks);
     }
 
     @Override
@@ -56,11 +56,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     @Override
     public void setDirection(Direction direction) {
         this.direction = direction;
-    }
-
-    @Override
-    public Position getMaxBusPosition() {
-        return graph.getMaxBusStructuralPosition();
     }
 
     @Override

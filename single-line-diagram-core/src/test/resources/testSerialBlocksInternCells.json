@@ -131,16 +131,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 80.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 2,
+      "hSpan" : 4,
       "vSpan" : 0
     }
   }, {
@@ -154,16 +150,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 2,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 2,
     "position" : {
-      "h" : 4,
+      "h" : 8,
       "v" : 1,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {
@@ -177,16 +169,12 @@
     "y" : 285.0,
     "open" : false,
     "pxWidth" : 80.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 2,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 2,
-      "hSpan" : 2,
+      "hSpan" : 4,
       "vSpan" : 0
     }
   }, {
@@ -200,16 +188,12 @@
     "y" : 285.0,
     "open" : false,
     "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 2,
-      "v" : 2,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 2,
+    "sectionIndex" : 2,
     "position" : {
-      "h" : 4,
+      "h" : 8,
       "v" : 2,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {
@@ -260,7 +244,7 @@
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
-    "direction" : "FLAT",
+    "direction" : "MIDDLE",
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -273,7 +257,7 @@
         "v" : -1,
         "hSpan" : 0,
         "vSpan" : 0,
-        "orientation" : "HORIZONTAL"
+        "orientation" : "RIGHT"
       },
       "coord" : {
         "x" : -1.0,
@@ -289,11 +273,11 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 4,
+          "h" : 8,
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 200.0,
@@ -310,17 +294,17 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 1,
+          "h" : 2,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "HORIZONTAL"
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 175.0,
           "y" : 260.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_f1", "b12", "FICT_vl_sd12Fictif" ]
       }, {
@@ -333,15 +317,15 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "HORIZONTAL"
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 125.0,
           "y" : 260.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_sd11Fictif", "b11", "FICT_vl_f1" ]
       }, {
@@ -352,11 +336,11 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 2,
+          "h" : 4,
           "v" : -1,
           "hSpan" : 0,
           "vSpan" : 0,
-          "orientation" : "HORIZONTAL"
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 100.0,
@@ -382,8 +366,7 @@
         "h" : -1,
         "v" : -1,
         "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "vSpan" : 0
       },
       "coord" : {
         "x" : -1.0,
@@ -399,15 +382,15 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 4,
+          "h" : 8,
           "v" : -1,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 225.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -420,17 +403,17 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 1,
+          "h" : 2,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "HORIZONTAL"
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 75.0,
           "y" : 220.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_f2", "b22", "FICT_vl_sd22Fictif" ]
       }, {
@@ -443,15 +426,15 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "HORIZONTAL"
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
         },
         "coord" : {
           "x" : 25.0,
           "y" : 220.0,
           "xSpan" : 50.0,
-          "ySpan" : 0.0
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_sd21Fictif", "b21", "FICT_vl_f2" ]
       }, {
@@ -464,13 +447,13 @@
         "position" : {
           "h" : 0,
           "v" : -1,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

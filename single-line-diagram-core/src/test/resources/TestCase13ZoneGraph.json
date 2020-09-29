@@ -20,12 +20,8 @@
         "y" : -1.0,
         "open" : false,
         "pxWidth" : 1.0,
-        "structuralPosition" : {
-          "h" : 1,
-          "v" : 1,
-          "hSpan" : 0,
-          "vSpan" : 0
-        },
+        "busbarIndex" : 1,
+        "sectionIndex" : 1,
         "position" : {
           "h" : -1,
           "v" : -1,
@@ -94,12 +90,8 @@
         "y" : -1.0,
         "open" : false,
         "pxWidth" : 1.0,
-        "structuralPosition" : {
-          "h" : 1,
-          "v" : 1,
-          "hSpan" : 0,
-          "vSpan" : 0
-        },
+        "busbarIndex" : 1,
+        "sectionIndex" : 1,
         "position" : {
           "h" : -1,
           "v" : -1,

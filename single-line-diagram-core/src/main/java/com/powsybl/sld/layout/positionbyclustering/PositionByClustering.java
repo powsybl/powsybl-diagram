@@ -14,6 +14,12 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.powsybl.sld.model.BusCell.Direction;
+
+import static com.powsybl.sld.model.BusCell.Direction.*;
+import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.Side.*;
+
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:
  * All the connections to the BusBar of the leg of an ExternCell, or each leg of an InternCell shall be stackable
@@ -127,26 +133,27 @@ public class PositionByClustering implements PositionFinder {
 
     public void organizeDirections(Graph graph, List<Subsection> subsections) {
         List<ShuntCell> shuntCells = graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
+                .filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast)
                 .collect(Collectors.toList());
         List<ExternCell> shuntRightCells = shuntCells.stream()
-                .map(sc -> sc.getSideCell(Side.RIGHT)).map(ExternCell.class::cast)
+                .map(sc -> sc.getSideCell(RIGHT)).map(ExternCell.class::cast)
                 .collect(Collectors.toList());
 
         int cellPos = 0;
         int cellShuntShift = 0;
 
         for (Subsection ss : subsections) {
-            for (ExternCell busCell : ss.getExternCells()) {
-                if (shuntRightCells.contains(busCell)) {
+            for (ExternCell externCell : ss.getExternCells()) {
+                if (shuntRightCells.contains(externCell)) {
                     cellShuntShift++; // an ExternCell on the right of a Shunt does not take its turn for flipping direction
                 } else {
-                    busCell.setDirection((cellPos + cellShuntShift) % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    Direction direction = (cellPos + cellShuntShift) % 2 == 0 ? TOP : BOTTOM;
+                    externCell.setDirection(direction);
                 }
                 cellPos++;
             }
         }
-        shuntCells.forEach(sc -> sc.alignDirections(Side.LEFT));
+        shuntCells.forEach(sc -> sc.alignDirections(LEFT));
     }
 
 }

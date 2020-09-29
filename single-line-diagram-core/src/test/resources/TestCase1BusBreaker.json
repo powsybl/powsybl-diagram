@@ -49,16 +49,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 130.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 0,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 3,
+      "hSpan" : 6,
       "vSpan" : 0
     }
   }, {
@@ -72,16 +68,12 @@
     "y" : 285.0,
     "open" : false,
     "pxWidth" : 130.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 2,
-      "hSpan" : 0,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 2,
-      "hSpan" : 3,
+      "hSpan" : 6,
       "vSpan" : 0
     }
   }, {
@@ -136,8 +128,7 @@
         "h" : -1,
         "v" : -1,
         "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "VERTICAL"
+        "vSpan" : 0
       },
       "coord" : {
         "x" : -1.0,
@@ -155,13 +146,13 @@
         "position" : {
           "h" : 0,
           "v" : -1,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -174,17 +165,17 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : -1,
-          "v" : -1,
-          "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "h" : 0,
+          "v" : 0,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : -1.0,
-          "y" : -1.0,
-          "xSpan" : 0.0,
-          "ySpan" : 0.0
+          "x" : 25.0,
+          "y" : 220.0,
+          "xSpan" : 50.0,
+          "ySpan" : 40.0
         },
         "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_b2_sw" ]
       }, {
@@ -195,15 +186,15 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 1,
+          "h" : 2,
           "v" : -1,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 300.0,
+          "y" : 260.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -223,11 +214,11 @@
         "END" : 1
       } ],
       "position" : {
-        "h" : 2,
+        "h" : 4,
         "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 1,
-        "orientation" : "VERTICAL"
+        "hSpan" : 2,
+        "vSpan" : 2,
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 125.0,
@@ -245,9 +236,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
@@ -266,9 +257,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 1,
-          "orientation" : "VERTICAL"
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,

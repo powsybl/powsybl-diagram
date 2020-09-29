@@ -180,6 +180,7 @@ public abstract class AbstractTestCase {
     public String toJson(ZoneGraph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
+            writeToFileInHomeDir(filename, writer);
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);

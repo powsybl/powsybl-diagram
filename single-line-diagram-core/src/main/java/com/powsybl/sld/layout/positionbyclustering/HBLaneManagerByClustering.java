@@ -60,7 +60,7 @@ public class HBLaneManagerByClustering implements HorizontalBusLaneManager {
                     BusNode myNode = internCellNodeInLaneSide(leftCluster, Side.RIGHT, internCell);
                     BusNode otherNode = internCellNodeInLaneSide(rightCluster, Side.LEFT, internCell);
                     if (myNode != null && otherNode != null) {
-                        internCell.setShape(InternCell.Shape.FLAT);
+                        internCell.setFlat();
                         finalizeLaneBuilding(leftCluster, rightCluster, myNode, otherNode, availableLanesToMerge);
                     }
                 });

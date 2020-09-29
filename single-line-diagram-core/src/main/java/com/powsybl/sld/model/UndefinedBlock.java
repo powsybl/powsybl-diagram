@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
+
 /**
  * A block group that cannot be correctly decomposed anymore.
  * All subBlocks are superposed.
@@ -37,7 +39,7 @@ public class UndefinedBlock extends AbstractComposedBlock {
         for (Block block : subBlocks) {
             block.sizing();
         }
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
+        if (getPosition().getOrientation().isVertical()) {
             // better do nothing
         } else {
             throw new UnsupportedOperationException("Horizontal layout of undefined  block not supported");
@@ -46,18 +48,14 @@ public class UndefinedBlock extends AbstractComposedBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        for (Block block : subBlocks) {
-            block.setX(getCoord().getX());
-            block.setY(getCoord().getY());
-            block.setXSpan(getCoord().getXSpan());
-            block.setYSpan(getCoord().getYSpan());
-            block.coordVerticalCase(layoutParam);
-        }
+        replicateCoordInSubblocks(X);
+        replicateCoordInSubblocks(Y);
+        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam));
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        throw new UnsupportedOperationException("Horizontal layout of undefined  block not supported");
+        coordVerticalCase(layoutParam);
     }
 
     @Override

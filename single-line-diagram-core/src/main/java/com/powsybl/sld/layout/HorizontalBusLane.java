@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Position;
 import com.powsybl.sld.model.Side;
 
 import java.util.*;
@@ -60,7 +59,7 @@ public class HorizontalBusLane {
         BusNode prevBus = null;
         for (BusNode busNode : busNodes) {
             if (busNode != prevBus) {
-                busNode.setStructuralPosition(new Position(h, v));
+                busNode.setBusBarIndexSectionIndex(v, h);
                 h++;
             }
         }

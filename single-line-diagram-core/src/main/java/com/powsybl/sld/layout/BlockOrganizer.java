@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Cell.CellType.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -64,16 +67,16 @@ public class BlockOrganizer {
     public void organize(Graph graph) {
         LOGGER.info("Organizing graph cells into blocks");
         graph.getCells().stream()
-                .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN)
-                        || cell.getType().equals(Cell.CellType.INTERN))
+                .filter(cell -> cell.getType().isBusCell())
+                .map(BusCell.class::cast)
                 .forEach(cell -> {
                     CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
-                    if (cell.getType() == Cell.CellType.INTERN) {
+                    if (cell.getType() == INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
+                .filter(cell -> cell.getType() == SHUNT)
                 .forEach(cell -> CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled));
 
         if (stack) {
@@ -84,8 +87,10 @@ public class BlockOrganizer {
         //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
 
         graph.getCells().stream()
-                .filter(cell -> cell instanceof BusCell)
-                .forEach(cell -> ((BusCell) cell).blockSizing());
+                .filter(cell -> cell.getType() == EXTERN).map(ExternCell.class::cast)
+                .forEach(ExternCell::organizeBlockDirections);
+
+        graph.getCells().forEach(Cell::blockSizing);
 
         new BlockPositionner().determineBlockPositions(graph, subsections);
     }
@@ -96,15 +101,15 @@ public class BlockOrganizer {
     private void determineStackableBlocks(Graph graph) {
         LOGGER.info("Determining stackable Blocks");
         graph.getBusCells().forEach(cell -> {
-            List<LegPrimaryBlock> blocks = cell.getPrimaryLegBlocks();
+            List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
             for (int i = 0; i < blocks.size(); i++) {
                 LegPrimaryBlock block1 = blocks.get(i);
                 if (block1.getNodes().size() == 3) {
                     for (int j = i + 1; j < blocks.size(); j++) {
                         LegPrimaryBlock block2 = blocks.get(j);
                         if (block2.getNodes().size() == 3
-                                && block1.getExtremityNode(Block.Extremity.END).equals(block2.getExtremityNode(Block.Extremity.END))
-                                && !block1.getExtremityNode(Block.Extremity.START).equals(block2.getExtremityNode(Block.Extremity.START))) {
+                                && block1.getExtremityNode(END).equals(block2.getExtremityNode(END))
+                                && !block1.getExtremityNode(START).equals(block2.getExtremityNode(START))) {
                             block1.addStackableBlock(block2);
                             block2.addStackableBlock(block1);
                         }

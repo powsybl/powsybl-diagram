@@ -27,6 +27,8 @@ import com.powsybl.sld.model.Side;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.TwtEdge;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
+
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
@@ -98,8 +100,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
             // Calculate the global coordinate of the voltageLevel graph
             Coord posVLGraph = calculateCoordVoltageLevel(layoutParameters, vlGraph);
 
-            graphX += posVLGraph.getX() + getHorizontalSubstationPadding(layoutParameters);
-            graphY += posVLGraph.getY() + getVerticalSubstationPadding(layoutParameters);
+            graphX += posVLGraph.get(X) + getHorizontalSubstationPadding(layoutParameters);
+            graphY += posVLGraph.get(Y) + getVerticalSubstationPadding(layoutParameters);
         }
 
         // Calculate all the coordinates for the middle nodes and the snake lines between the voltageLevel graphs
@@ -147,8 +149,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
                 Coord coordNodeFict = new Coord(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                multiNode.setX(coordNodeFict.get(X), false);
+                multiNode.setY(coordNodeFict.get(Y), false);
             } else if (adjacentNodes.size() == 3) {
                 List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), infos, true);
                 List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), infos, false);
@@ -156,8 +158,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                multiNode.setX(coordNodeFict.get(X), false);
+                multiNode.setY(coordNodeFict.get(Y), false);
             }
         }
     }
@@ -190,8 +192,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
         }
 
         if (coord != null) {
-            coord.setX(xSplit);
-            coord.setY(ySplit);
+            coord.set(X, xSplit);
+            coord.set(Y, ySplit);
         }
 
         return res;
@@ -205,8 +207,8 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
             res.addAll(pol1.subList(0, pol1.size() - 2));
             if (coord != null) {
                 // the fictitious node point is the last point of the new edge polyline
-                coord.setX(pol1.get(pol1.size() - 4));
-                coord.setY(pol1.get(pol1.size() - 3));
+                coord.set(X, pol1.get(pol1.size() - 4));
+                coord.set(Y, pol1.get(pol1.size() - 3));
             }
         } else if (numPart == 2) {
             // for the second new edge, we keep the last two points of the original first polyline
