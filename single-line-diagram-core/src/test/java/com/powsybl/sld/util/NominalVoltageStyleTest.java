@@ -112,7 +112,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
         assertFalse(node3WTStyle.isEmpty());
         assertTrue(node3WTStyle.containsKey("stroke"));
-        assertEquals("#a020f0", node3WTStyle.get("stroke"));
+        assertEquals("#228b22", node3WTStyle.get("stroke"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);

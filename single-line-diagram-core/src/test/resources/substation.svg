@@ -652,13 +652,13 @@
             <polyline points="393.0,600.0,670.0,600.0,670.0,550.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one">
-            <polyline points="420.0,130.0,420.0,95.0,722.0,95.0"/>
+            <polyline points="420.0,130.0,420.0,95.0,723.0,95.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl2_95_trf2_95_one">
             <polyline points="730.0,107.0,730.0,130.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl3_95_trf2_95_one">
-            <polyline points="738.0,95.0,1020.0,95.0,1020.0,130.0"/>
+            <polyline points="737.0,95.0,1020.0,95.0,1020.0,130.0"/>
         </g>
         <g id="LABEL_VL_vl1">
             <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>

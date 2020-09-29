@@ -74,8 +74,8 @@
             <subComponent name="WINDING3">
                 <fileName>3-windings-transformer-winding3.svg</fileName>
             </subComponent>
-            <anchorPoint x="-8" y="-5" orientation="HORIZONTAL"/>
-            <anchorPoint x="8" y="-5" orientation="HORIZONTAL"/>
+            <anchorPoint x="-7" y="-5" orientation="HORIZONTAL"/>
+            <anchorPoint x="7" y="-5" orientation="HORIZONTAL"/>
             <anchorPoint x="0" y="7" orientation="VERTICAL"/>
             <allowRotation>true</allowRotation>
         </metadata>

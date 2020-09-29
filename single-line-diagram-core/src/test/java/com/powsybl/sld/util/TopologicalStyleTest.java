@@ -120,7 +120,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
-        assertEquals(ImmutableMap.of("fill", "#A020EF", "stroke", "#A020EF"), node3WTStyle);
+        assertEquals(ImmutableMap.of("fill", "#808080", "stroke", "#808080"), node3WTStyle);
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
