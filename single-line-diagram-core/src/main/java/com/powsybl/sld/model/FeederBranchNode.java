@@ -13,6 +13,6 @@ public class FeederBranchNode extends FeederWithSideNode {
 
     protected FeederBranchNode(String id, String name, String equipmentId, String componentType, Graph graph,
                                Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, componentType, false, graph, side, otherSideVoltageLevelInfos, FeederType.BRANCH);
+        super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, FeederType.BRANCH);
     }
 }

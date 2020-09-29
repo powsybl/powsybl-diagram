@@ -10,7 +10,6 @@ import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Position;
 import com.powsybl.sld.model.Side;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +29,12 @@ public class HBLaneManagerByExtension implements HorizontalBusLaneManager {
         // and structuralPosition hPos are ordered
         leftCluster.getHorizontalBusLanes().forEach(hbl -> {
             BusNode rightNodeOfLeftHbl = hbl.getSideNode(Side.RIGHT);
-            Position rightPosOfLeftHbl = rightNodeOfLeftHbl.getStructuralPosition();
             Optional<HorizontalBusLane> rightHBL = rightCluster.getHorizontalBusLanes().stream()
-                    .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getStructuralPosition().getV() == rightPosOfLeftHbl.getV())
+                    .filter(hbl2 -> hbl2.getSideNode(Side.LEFT).getBusbarIndex() == rightNodeOfLeftHbl.getBusbarIndex())
                     .findFirst();
             if (rightHBL.isPresent()
                     && (rightHBL.get().getSideNode(Side.LEFT) == rightNodeOfLeftHbl
-                    || rightPosOfLeftHbl.getH() < rightHBL.get().getSideNode(Side.LEFT).getStructuralPosition().getH())) {
+                    || rightNodeOfLeftHbl.getSectionIndex() < rightHBL.get().getSideNode(Side.LEFT).getSectionIndex())) {
                 hbl.merge(rightHBL.get());
                 rightCluster.removeHorizontalBusLane(rightHBL.get());
             } else {

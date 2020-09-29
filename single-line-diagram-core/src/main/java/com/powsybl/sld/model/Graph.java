@@ -24,6 +24,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * This class builds the connectivity among the elements of a voltageLevel
  * buildGraphAndDetectCell establishes the List of nodes, edges and nodeBuses
@@ -53,7 +55,8 @@ public final class Graph {
 
     private final Map<String, Node> nodesById = new HashMap<>();
 
-    private Position maxBusStructuralPosition = new Position(0, 0);
+    private int maxHorizontalBusPosition = 0;
+    private int maxVerticalBusPosition = 0;
 
     private Map<Integer, Map<Integer, BusNode>> vPosToHPosToNodeBus;
 
@@ -255,27 +258,23 @@ public final class Graph {
         return result;
     }
 
-    public Position getMaxBusStructuralPosition() {
-        return maxBusStructuralPosition;
-    }
-
     public void setMaxBusPosition() {
         List<Integer> h = new ArrayList<>();
         List<Integer> v = new ArrayList<>();
         getNodeBuses().forEach(nodeBus -> {
-            v.add(nodeBus.getStructuralPosition().getV());
-            h.add(nodeBus.getStructuralPosition().getH());
+            v.add(nodeBus.getBusbarIndex());
+            h.add(nodeBus.getSectionIndex());
         });
         if (h.isEmpty() || v.isEmpty()) {
             return;
         }
-        maxBusStructuralPosition.setH(Collections.max(h));
-        maxBusStructuralPosition.setV(Collections.max(v));
+        setMaxHorizontalBusPosition(Collections.max(h));
+        setMaxVerticalBusPosition(Collections.max(v));
     }
 
     public Stream<BusCell> getBusCells() {
         return cells.stream()
-                .filter(cell -> cell instanceof BusCell && !((BusCell) cell).getPrimaryLegBlocks().isEmpty())
+                .filter(cell -> cell instanceof BusCell && !((BusCell) cell).getLegPrimaryBlocks().isEmpty())
                 .map(BusCell.class::cast);
     }
 
@@ -283,8 +282,8 @@ public final class Graph {
         vPosToHPosToNodeBus = new HashMap<>();
         getNodeBuses()
                 .forEach(nodeBus -> {
-                    int vPos = nodeBus.getStructuralPosition().getV();
-                    int hPos = nodeBus.getStructuralPosition().getH();
+                    int vPos = nodeBus.getBusbarIndex();
+                    int hPos = nodeBus.getSectionIndex();
                     vPosToHPosToNodeBus.putIfAbsent(vPos, new HashMap<>());
                     vPosToHPosToNodeBus.get(vPos).put(hPos, nodeBus);
                 });
@@ -429,7 +428,7 @@ public final class Graph {
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
-                .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId())));
+                .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId(), Orientation.UP)));
     }
 
     public BusNode getVHNodeBus(int v, int h) {
@@ -493,7 +492,7 @@ public final class Graph {
     }
 
     public boolean isPositionNodeBusesCalculated() {
-        return getNodeBuses().stream().allMatch(n -> n.getPosition().getH() != -1 && n.getPosition().getV() != -1);
+        return getNodeBuses().stream().allMatch(n -> n.getPosition().get(H) != -1 && n.getPosition().get(V) != -1);
     }
 
     /**
@@ -576,13 +575,13 @@ public final class Graph {
 
     public int getMaxH() {
         return getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getH() + nodeBus.getPosition().getHSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H))
                 .max().orElse(0);
     }
 
     public int getMaxV() {
         return getNodeBuses().stream()
-                .mapToInt(nodeBus -> nodeBus.getPosition().getV() + nodeBus.getPosition().getVSpan())
+                .mapToInt(nodeBus -> nodeBus.getPosition().get(V) + nodeBus.getPosition().getSpan(V))
                 .max().orElse(0);
     }
 
@@ -600,5 +599,21 @@ public final class Graph {
 
     public boolean isGenerateCoordsInJson() {
         return generateCoordsInJson;
+    }
+
+    public int getMaxHorizontalBusPosition() {
+        return maxHorizontalBusPosition;
+    }
+
+    public void setMaxHorizontalBusPosition(int maxHorizontalBusPosition) {
+        this.maxHorizontalBusPosition = maxHorizontalBusPosition;
+    }
+
+    public int getMaxVerticalBusPosition() {
+        return maxVerticalBusPosition;
+    }
+
+    public void setMaxVerticalBusPosition(int maxVerticalBusPosition) {
+        this.maxVerticalBusPosition = maxVerticalBusPosition;
     }
 }

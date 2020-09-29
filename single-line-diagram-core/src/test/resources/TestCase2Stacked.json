@@ -38,16 +38,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {
@@ -61,16 +57,12 @@
     "y" : 285.0,
     "open" : false,
     "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 2,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 2,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 2,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {
@@ -125,9 +117,9 @@
       "position" : {
         "h" : 0,
         "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 25.0,
@@ -145,9 +137,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -165,14 +157,14 @@
           "position" : {
             "h" : 0,
             "v" : 0,
-            "hSpan" : 0,
+            "hSpan" : 2,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 25.0,
             "y" : 230.0,
-            "xSpan" : 0.0,
+            "xSpan" : 50.0,
             "ySpan" : 0.0
           },
           "nodes" : [ "bbs2", "d2", "FICT_vl_2" ]
@@ -186,14 +178,14 @@
           "position" : {
             "h" : 0,
             "v" : 0,
-            "hSpan" : 0,
+            "hSpan" : 2,
             "vSpan" : 0,
-            "orientation" : "VERTICAL"
+            "orientation" : "UP"
           },
           "coord" : {
             "x" : 25.0,
             "y" : 230.0,
-            "xSpan" : 0.0,
+            "xSpan" : 50.0,
             "ySpan" : 0.0
           },
           "nodes" : [ "bbs1", "d1", "FICT_vl_2" ]
@@ -208,9 +200,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,

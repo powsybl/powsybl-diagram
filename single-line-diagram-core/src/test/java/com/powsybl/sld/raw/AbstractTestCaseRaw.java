@@ -107,4 +107,28 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     public void toSVG(SubstationGraph g, String filename) {
         toSVG(g, filename, layoutParameters, getDiagramLabelProvider(g), new DefaultDiagramStyleProvider());
     }
+
+    public String toJson(Graph graph, String filename) {
+        String result = super.toJson(graph, filename);
+        if (writeFile) {
+            toSVG(graph, filename + ".svg");
+        }
+        return result;
+    }
+
+    public String toJson(SubstationGraph graph, String filename) {
+        String result = super.toJson(graph, filename);
+        if (writeFile) {
+            toSVG(graph, filename + ".svg");
+        }
+        return result;
+    }
+
+    public String toJson(SubstationGraph graph, String filename, boolean genCoords) {
+        String result = super.toJson(graph, filename, genCoords);
+        if (writeFile) {
+            toSVG(graph, filename + ".svg");
+        }
+        return result;
+    }
 }

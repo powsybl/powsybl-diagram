@@ -14,7 +14,7 @@ import com.powsybl.sld.library.ComponentTypeName;
 public class Feeder3WTLegNode extends FeederWithSideNode {
 
     protected Feeder3WTLegNode(String id, String name, String equipmentId, Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, ComponentTypeName.LINE, false, graph, side, otherSideVoltageLevelInfos,
+        super(id, name, equipmentId, ComponentTypeName.LINE, graph, side, otherSideVoltageLevelInfos,
                 FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 

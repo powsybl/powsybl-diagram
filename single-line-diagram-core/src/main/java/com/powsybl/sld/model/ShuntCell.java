@@ -12,6 +12,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -54,7 +56,7 @@ public final class ShuntCell extends AbstractCell {
         if (getRootBlock() instanceof BodyPrimaryBlock) {
             Position lPos = getSidePosition(Side.LEFT);
             ((BodyPrimaryBlock) getRootBlock())
-                    .coordShuntCase(layoutParam, lPos.getH() + lPos.getHSpan(), getSidePosition(Side.RIGHT).getH());
+                    .coordShuntCase(layoutParam, lPos.get(H) + lPos.getSpan(H), getSidePosition(Side.RIGHT).get(H));
         } else {
             throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
         }
@@ -70,7 +72,7 @@ public final class ShuntCell extends AbstractCell {
         cells.get(side.getFlip()).setDirection(cells.get(side).getDirection());
     }
 
-    public void reverse() {
+    private void reverse() {
         ExternCell cell = cells.get(Side.LEFT);
         cells.put(Side.LEFT, cells.get(Side.RIGHT));
         cells.put(Side.RIGHT, cell);
@@ -107,7 +109,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public int getLength() {
-        return nodes.size() - 4;
+        return getRootBlock().getPosition().getSpan(H) / 2 - 1;
     }
 
     public List<BusNode> getParentBusNodes() {

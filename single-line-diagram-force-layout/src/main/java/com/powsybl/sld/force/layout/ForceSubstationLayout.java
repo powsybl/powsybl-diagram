@@ -20,6 +20,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.powsybl.sld.model.Coord.Dimension.*;
+
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
@@ -136,13 +138,13 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
         // List of voltage levels sorted by ascending x value
         List<Graph> graphsX = coordsVoltageLevels.entrySet().stream()
-                .sorted((e1, e2) -> Double.compare(e1.getValue().getX(), e2.getValue().getX()))
+                .sorted(Comparator.comparingDouble(e -> e.getValue().get(X)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         // List of voltage levels sorted by ascending y value
         List<Graph> graphsY = coordsVoltageLevels.entrySet().stream()
-                .sorted((e1, e2) -> Double.compare(e1.getValue().getY(), e2.getValue().getY()))
+                .sorted(Comparator.comparingDouble(e -> e.getValue().get(Y)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
@@ -201,8 +203,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 Coord coordNodeFict = new Coord(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                multiNode.setX(coordNodeFict.get(X), false);
+                multiNode.setY(coordNodeFict.get(Y), false);
             } else if (adjacentNodes.size() == 3) {
                 List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
@@ -210,8 +212,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                multiNode.setX(coordNodeFict.get(X), false);
+                multiNode.setY(coordNodeFict.get(Y), false);
             }
         }
     }
@@ -412,7 +414,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             Coord c1 = coordsVoltageLevels.get(n1.getGraph());
             Coord c2 = coordsVoltageLevels.get(n2.getGraph());
 
-            if (c1.getY() < c2.getY()) {
+            if (c1.get(Y) < c2.get(Y)) {
                 // cell for node 1 with bottom orientation
                 // cell for node 2 with top orientation
                 cell1.setDirection(BusCell.Direction.BOTTOM);
@@ -433,7 +435,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 ExternCell cell3 = (ExternCell) n3.getCell();
                 Coord c3 = coordsVoltageLevels.get(n3.getGraph());
 
-                if (c3.getY() < c2.getY()) {
+                if (c3.get(Y) < c2.get(Y)) {
                     // cell for node 3 with bottom orientation
                     cell3.setDirection(BusCell.Direction.BOTTOM);
                     n3.setDirection(BusCell.Direction.BOTTOM);

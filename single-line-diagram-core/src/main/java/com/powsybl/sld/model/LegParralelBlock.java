@@ -11,6 +11,8 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -30,39 +32,33 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     @Override
     public void sizing() {
         subBlocks.forEach(Block::sizing);
-        if (getPosition().getOrientation() == Orientation.VERTICAL) {
-            getPosition().setVSpan(0);
+        if (getPosition().getOrientation().isVertical()) {
+            getPosition().setSpan(V, 0);
             List<LegPrimaryBlock> subBlocksCopy = subBlocks.stream()
                     .map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
             int h = 0;
             while (!subBlocksCopy.isEmpty()) {
                 LegPrimaryBlock b = subBlocksCopy.get(0);
-                b.getPosition().setHV(h, 0);
+                Position pos = b.getPosition();
+                pos.set(H, h);
+                pos.set(V, 0);
                 if (b.getStackableBlocks().isEmpty()) {
-                    b.getPosition().setHV(h, 0);
-                    h += b.getPosition().getHSpan();
+                    h += b.getPosition().getSpan(H);
                 } else {
                     final int finalH = h;
-                    b.getStackableBlocks().forEach(sb -> sb.getPosition().setHV(finalH, 0));
-                    h++;
+                    b.getStackableBlocks().forEach(sb -> {
+                        Position position = sb.getPosition();
+                        position.set(H, finalH);
+                        position.set(V, 0);
+                    });
+                    h += b.getPosition().getSpan(H);
                     subBlocksCopy.removeAll(b.getStackableBlocks());
                 }
                 subBlocksCopy.remove(b);
             }
-            getPosition().setHSpan(h);
+            getPosition().setSpan(H, h);
         }
         // case HORIZONTAL cannot happen
-    }
-
-    @Override
-    public double initX0() {
-        return getCoord().getX()
-                - (getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / 2);
-    }
-
-    @Override
-    public double intitXStep() {
-        return getPosition().getHSpan() == 1 ? 0 : getCoord().getXSpan() / getPosition().getHSpan();
     }
 
     @Override

@@ -7,9 +7,16 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
+
+import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
+import static com.powsybl.sld.model.Side.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -17,18 +24,20 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class ExternCell extends AbstractBusCell {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExternCell.class);
+
     private int order = -1;
     private ShuntCell shuntCell = null;
 
     public ExternCell(Graph graph) {
-        super(graph, CellType.EXTERN);
+        super(graph, EXTERN);
     }
 
     public void orderFromFeederOrders() {
         int sumOrder = 0;
         int nbFeeder = 0;
         for (FeederNode node : getNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.FEEDER)
+                .filter(node -> node.getType() == FEEDER)
                 .map(node -> (FeederNode) node).collect(Collectors.toList())) {
             sumOrder += node.getOrder();
             nbFeeder++;
@@ -38,22 +47,23 @@ public class ExternCell extends AbstractBusCell {
         }
     }
 
-    @Override
-    public void blockSizing() {
-        getRootBlock().sizing();
+    public void organizeBlockDirections() {
+        getRootBlock().setOrientation(getDirection().toOrientation());
     }
 
     @Override
     public int newHPosition(int hPosition) {
         int minHv;
-        if (isShunted() && shuntCell.getSideCell(Side.RIGHT) == this) {
-            Position leftPos = shuntCell.getSidePosition(Side.LEFT);
-            minHv = Math.max(hPosition, leftPos.getH() + leftPos.getHSpan() + shuntCell.getLength());
+        if (isShunted() && shuntCell.getSideCell(RIGHT) == this) {
+            Position leftPos = shuntCell.getSidePosition(LEFT);
+            minHv = Math.max(hPosition, leftPos.get(H) + leftPos.getSpan(H) + shuntCell.getLength());
         } else {
             minHv = hPosition;
         }
-        getRootBlock().getPosition().setHV(minHv, 0);
-        return minHv + getRootBlock().getPosition().getHSpan();
+        Position pos = getRootBlock().getPosition();
+        pos.set(H, minHv);
+        pos.set(V, 0);
+        return minHv + pos.getSpan(H);
     }
 
     public boolean isShunted() {
@@ -79,6 +89,19 @@ public class ExternCell extends AbstractBusCell {
     @Override
     public String toString() {
         return getType() + " " + order + " " + getDirection() + " " + nodes;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+        super.setDirection(direction);
+        getNodes().stream().filter(f -> f.getType() == FEEDER)
+                .map(FeederNode.class::cast)
+                .forEach(fn -> {
+                    if (fn.getOrientation() == null || !fn.getOrientation().isHorizontal()) {
+                        fn.setOrientation(direction.toOrientation());
+                        fn.setDirection(direction);
+                    }
+                });
     }
 
     @Override

@@ -38,16 +38,12 @@
     "y" : 260.0,
     "open" : false,
     "pxWidth" : 30.0,
-    "structuralPosition" : {
-      "h" : 1,
-      "v" : 1,
-      "hSpan" : 1,
-      "vSpan" : 0
-    },
+    "busbarIndex" : 1,
+    "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 1,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {
@@ -91,9 +87,9 @@
       "position" : {
         "h" : 0,
         "v" : 0,
-        "hSpan" : 1,
-        "vSpan" : 2,
-        "orientation" : "VERTICAL"
+        "hSpan" : 2,
+        "vSpan" : 4,
+        "orientation" : "UP"
       },
       "coord" : {
         "x" : 25.0,
@@ -111,9 +107,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
+          "hSpan" : 2,
           "vSpan" : 0,
-          "orientation" : "VERTICAL"
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
@@ -132,9 +128,9 @@
         "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 1,
-          "vSpan" : 2,
-          "orientation" : "VERTICAL"
+          "hSpan" : 2,
+          "vSpan" : 4,
+          "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,

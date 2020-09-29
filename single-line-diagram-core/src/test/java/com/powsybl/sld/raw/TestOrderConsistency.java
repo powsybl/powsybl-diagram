@@ -118,7 +118,6 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension()).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
-
         assertEquals(toString("/orderConsistencyExt2.json"), toJson(g, "/orderConsistencyExt2.json"));
     }
 }

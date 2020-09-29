@@ -14,6 +14,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Block.Type.*;
+import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.InternCell.Shape.*;
+import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Node.NodeType.SHUNT;
+import static com.powsybl.sld.model.Orientation.*;
+import static com.powsybl.sld.model.Position.Dimension.*;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -24,8 +34,8 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
     public LegPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(Type.LEGPRIMARY, nodes, cell);
-        if (getExtremityNode(Extremity.END).getType() == Node.NodeType.BUS) {
+        super(LEGPRIMARY, nodes, cell);
+        if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
         }
         if (!checkConsistency()) {
@@ -35,18 +45,17 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private boolean checkConsistency() {
         if (nodes.size() == 2) {
-            return nodes.get(0).getType() == Node.NodeType.BUS
-                && nodes.get(1).getType() == Node.NodeType.FICTITIOUS;
+            return nodes.get(0).getType() == BUS && nodes.get(1).getType() == FICTITIOUS;
         }
         return nodes.size() == 3
-                && nodes.get(0).getType() == Node.NodeType.BUS
-                && nodes.get(1).getType() == Node.NodeType.SWITCH
-                && (nodes.get(2).getType() == Node.NodeType.FICTITIOUS
-                || nodes.get(2).getType() == Node.NodeType.SHUNT);
+                && nodes.get(0).getType() == BUS
+                && nodes.get(1).getType() == SWITCH
+                && (nodes.get(2).getType() == FICTITIOUS
+                || nodes.get(2).getType() == SHUNT);
     }
 
     public BusNode getBusNode() {
-        return (BusNode) getExtremityNode(Extremity.START);
+        return (BusNode) getExtremityNode(START);
     }
 
     @Override
@@ -73,36 +82,35 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void sizing() {
-        if (((BusCell) getCell()).getDirection() == BusCell.Direction.FLAT
-                || !getStackableBlocks().isEmpty()) {
-            getPosition().setHSpan(0);
-            getPosition().setVSpan(0);
+        if (getOrientation().isHorizontal()) {
+            getPosition().setSpan(H, 0);
+            getPosition().setSpan(V, 0);
         } else {
-            getPosition().setHSpan(1);
-            getPosition().setVSpan(0);
+            getPosition().setSpan(H, 2);
+            getPosition().setSpan(V, 0);
         }
     }
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        getSwNode().setX(getCoord().getX() + getCoord().getXSpan() / 2);
+        getSwNode().setX(getCoord().get(X) + getCoord().getSpan(X) / 2);
         getSwNode().setY(getBusNode().getY(), false);
         getLegNode().setY(getBusNode().getY(), false);
     }
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        getSwNode().setX(getCoord().getX());
+        getSwNode().setX(getCoord().get(X));
         getSwNode().setY(getBusNode().getY(), false);
 
-        getLegNode().setX(getCoord().getX());
-        if (getCell().getType() == Cell.CellType.INTERN && ((InternCell) getCell()).checkisShape(InternCell.Shape.UNILEG)) {
+        getLegNode().setX(getCoord().get(X));
+        if (getCell().getType() == INTERN && ((InternCell) getCell()).checkisShape(UNILEG)) {
             InternCell cell = (InternCell) getCell();
-            if (cell.getDirection() == BusCell.Direction.TOP) {
+            if (getOrientation() == UP) {
                 getLegNode().setY(layoutParam.getInitialYBus() - layoutParam.getInternCellHeight());
             } else {
                 getLegNode().setY(layoutParam.getInitialYBus() + layoutParam.getInternCellHeight()
-                        + (cell.getMaxBusPosition().getV() - 1) * layoutParam.getVerticalSpaceBus());
+                        + (cell.getGraph().getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus());
             }
         }
     }

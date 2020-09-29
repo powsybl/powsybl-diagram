@@ -7,10 +7,13 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -38,8 +41,13 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    public boolean isEmbedingNodeType(Node.NodeType type) {
-        return subBlocks.stream().anyMatch(b -> b.isEmbedingNodeType(type));
+    public boolean isEmbeddingNodeType(Node.NodeType type) {
+        return subBlocks.stream().anyMatch(b -> b.isEmbeddingNodeType(type));
+    }
+
+    @Override
+    public List<Block> findBlockEmbeddingNode(Node node) {
+        return subBlocks.stream().flatMap(b -> b.findBlockEmbeddingNode(node).stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -60,7 +68,39 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     @Override
     public void setOrientation(Orientation orientation) {
         super.setOrientation(orientation);
-        subBlocks.forEach(sub -> sub.setOrientation(orientation));
+        setOrientation(orientation, true);
+    }
+
+    public void setOrientation(Orientation orientation, boolean recursively) {
+        super.setOrientation(orientation);
+        if (recursively) {
+            subBlocks.forEach(sub -> sub.setOrientation(orientation));
+        }
+    }
+
+    public Stream<Position.Segment> getSegments(Position.Dimension dimension) {
+        return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
+    }
+
+    void replicateCoordInSubblocks(Coord.Dimension dim) {
+        getCoord().getSegment(dim).replicateMe(subBlocks.stream().map(b -> b.getCoord().getSegment(dim)));
+    }
+
+    void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
+        double init = getCoord().get(cDim) - sign * getCoord().getSpan(cDim) / 2;
+        double step = getCoord().getSpan(cDim) / getPosition().getSpan(pDim);
+
+        subBlocks.forEach(sub -> {
+            sub.getCoord().set(cDim, init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
+            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
+        });
+    }
+
+    void translatePosInCoord(LayoutParameters layoutParameters, Coord.Dimension cDimSteady,
+                             Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
+        replicateCoordInSubblocks(cDimSteady);
+        distributeCoordInSubblocs(pDim, cDimVariable, sign);
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParameters));
     }
 
     @Override
