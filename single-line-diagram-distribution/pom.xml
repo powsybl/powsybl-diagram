@@ -15,7 +15,7 @@
     <parent>
         <artifactId>powsybl-single-line-diagram</artifactId>
         <groupId>com.powsybl</groupId>
-        <version>1.7.0</version>
+        <version>1.7.0-RC1</version>
     </parent>
 
     <packaging>pom</packaging>
