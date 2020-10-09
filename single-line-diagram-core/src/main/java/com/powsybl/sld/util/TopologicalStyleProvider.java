@@ -157,11 +157,8 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
             return node1.getVoltageLevelInfos() != null ? getNodeColor(node1.getVoltageLevelInfos(), node1) : null;
         }
-        if (node1.getVoltageLevelInfos() != null) {
-            return getNodeColor(node1.getVoltageLevelInfos(), node1);
-        } else {
-            return getNodeColor(node2.getVoltageLevelInfos(), node2);
-        }
+
+        return super.getEdgeColor(node1, node2);
     }
 
     @Override
