@@ -8,8 +8,11 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,4 +31,8 @@ public interface DiagramStyleProvider {
     Map<String, String> getSvgArrowStyleAttributes(int num);
 
     void reset();
+
+    default List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
+        return Collections.emptyList();
+    }
 }

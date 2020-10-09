@@ -10,14 +10,27 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.FeederType;
+import com.powsybl.sld.model.FeederWithSideNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.ElectricalNodeInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
 
@@ -105,5 +118,34 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 }
             }
         }
+    }
+
+    @Override
+    public List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
+        List<ElectricalNodeInfo> nodesInfos = new ArrayList<>();
+        List<Node> feederNodes = graph.getNodes().stream()
+                .filter(n -> n.getType() == Node.NodeType.FEEDER)
+                .collect(Collectors.toList());
+
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
+        vl.getBusView().getBuses().forEach(b -> {
+            final AtomicReference<String> color = new AtomicReference<>();
+            b.getConnectedTerminals().forEach(t -> {
+                if (color.get() == null) {
+                    feederNodes.forEach(n -> {
+                        if (color.get() == null) {
+                            if (n.getEquipmentId().equals(t.getConnectable().getId())) {
+                                String colorValue = getNodeColor(graph.getVoltageLevelInfos(), n);
+                                color.set(colorValue);
+                            }
+                        }
+                    });
+                }
+            });
+
+            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), color.get()));
+        });
+
+        return nodesInfos;
     }
 }

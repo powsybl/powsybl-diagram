@@ -13,7 +13,8 @@ import com.powsybl.sld.model.*;
 
 import java.util.*;
 
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>

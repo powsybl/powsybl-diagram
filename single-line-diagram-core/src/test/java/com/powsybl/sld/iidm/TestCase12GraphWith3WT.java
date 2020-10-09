@@ -6,17 +6,32 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Country;
+import com.powsybl.iidm.network.Generator;
+import com.powsybl.iidm.network.Load;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.SwitchKind;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.BlockOrganizer;
+import com.powsybl.sld.layout.ImplicitCellDetector;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -257,5 +272,57 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         compareMetadata(diagram, layoutParameters, "/vlDiag_metadata.json",
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
+    }
+
+    @Test
+    public void testNodesInfos() {
+        Load load = network.getLoad("load1");
+        load.getTerminal().getBusView().getBus().setV(392);
+        load.getTerminal().getBusView().getBus().setAngle(-2.3);
+
+        Generator generator = network.getGenerator("gen1");
+        generator.getTerminal().getBusView().getBus().setV(403);
+        generator.getTerminal().getBusView().getBus().setAngle(-1.7);
+
+        LayoutParameters layoutParameters = new LayoutParameters()
+                .setTranslateX(20)
+                .setTranslateY(50)
+                .setInitialXBus(0)
+                .setInitialYBus(260)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(80)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(true)
+                .setShowInternalNodes(false)
+                .setScaleFactor(1)
+                .setHorizontalSubstationPadding(50)
+                .setVerticalSubstationPadding(50)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30)
+                .setAdaptCellHeightToContent(true)
+                .setAddNodesInfos(true);
+
+        // build voltage level 1 graph
+        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        new ImplicitCellDetector().detectCells(g1);
+        new BlockOrganizer().organize(g1);
+        new PositionVoltageLevelLayout(g1).run(layoutParameters);
+
+        DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
+        DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
+
+        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+
+        // write SVGs and compare to reference
+        assertArrayEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg").getBytes(),
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", layoutParameters, initProvider, vNomStyleProvider).getBytes());
+
+        assertArrayEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg").getBytes(),
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", layoutParameters, initProvider, topoStyleProvider).getBytes());
     }
 }
