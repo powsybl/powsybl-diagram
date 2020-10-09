@@ -31,7 +31,6 @@ import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -319,10 +318,10 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
 
         // write SVGs and compare to reference
-        assertArrayEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg").getBytes(),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", layoutParameters, initProvider, vNomStyleProvider).getBytes());
+        assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
+                toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", layoutParameters, initProvider, vNomStyleProvider));
 
-        assertArrayEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg").getBytes(),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", layoutParameters, initProvider, topoStyleProvider).getBytes());
+        assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", layoutParameters, initProvider, topoStyleProvider));
     }
 }
