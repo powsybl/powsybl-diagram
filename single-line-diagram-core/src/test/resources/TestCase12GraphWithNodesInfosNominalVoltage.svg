@@ -1131,12 +1131,12 @@
         <g id="NODE_0_vl1">
             <circle fill="#ff0000" r="10.0" id="NODE_0_vl1_circle" cx="40.0" cy="595.0"/>
             <text x="30.0" font-size="8" id="NODE_0_vl1_v" y="620.0" class="component-label" font-family="Verdana">392.0 kV</text>
-            <text x="30.0" font-size="8" id="NODE_0_vl1_angle" y="635.0" class="component-label" font-family="Verdana">-2.3 ?</text>
+            <text x="30.0" font-size="8" id="NODE_0_vl1_angle" y="635.0" class="component-label" font-family="Verdana">-2.3 °</text>
         </g>
         <g id="NODE_1_vl1">
             <circle fill="#ff0000" r="10.0" id="NODE_1_vl1_circle" cx="110.0" cy="595.0"/>
             <text x="100.0" font-size="8" id="NODE_1_vl1_v" y="620.0" class="component-label" font-family="Verdana">403.0 kV</text>
-            <text x="100.0" font-size="8" id="NODE_1_vl1_angle" y="635.0" class="component-label" font-family="Verdana">-1.7 ?</text>
+            <text x="100.0" font-size="8" id="NODE_1_vl1_angle" y="635.0" class="component-label" font-family="Verdana">-1.7 °</text>
         </g>
     </g>
 </svg>

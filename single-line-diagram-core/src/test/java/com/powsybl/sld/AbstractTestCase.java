@@ -16,8 +16,9 @@ import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
@@ -51,7 +52,7 @@ public abstract class AbstractTestCase {
     private void writeToFileInHomeDir(String filename, StringWriter content) {
         if (writeFile) {
             try {
-                FileWriter fw = new FileWriter(System.getProperty("user.home") + filename);
+                OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + filename), StandardCharsets.UTF_8);
                 fw.write(content.toString());
                 fw.close();
             } catch (IOException e) {
