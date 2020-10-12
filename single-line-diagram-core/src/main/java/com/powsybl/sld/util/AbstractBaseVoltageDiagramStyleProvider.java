@@ -133,11 +133,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             b.getConnectedTerminals().forEach(t -> {
                 if (color.get() == null) {
                     feederNodes.forEach(n -> {
-                        if (color.get() == null) {
-                            if (n.getEquipmentId().equals(t.getConnectable().getId())) {
-                                String colorValue = getNodeColor(graph.getVoltageLevelInfos(), n);
-                                color.set(colorValue);
-                            }
+                        if (color.get() == null && n.getEquipmentId().equals(t.getConnectable().getId())) {
+                            String colorValue = getNodeColor(graph.getVoltageLevelInfos(), n);
+                            color.set(colorValue);
                         }
                     });
                 }

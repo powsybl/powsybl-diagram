@@ -112,6 +112,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String MIDDLE = "middle";
     protected static final int VALUE_MAX_NB_CHARS = 5;
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
+    protected static final String FONT_FAMILY_ATTRIBUTE = "font-family";
+    protected static final String FONT_SIZE_ATTRIBUTE = "font-size";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -652,8 +654,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute("font-family", FONT_FAMILY);
-        label.setAttribute("font-size", Integer.toString(fontSize));
+        label.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        label.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         if (adjustLength) {
             label.setAttribute("xml:space", "preserve");
             label.setAttribute("textLength", Integer.toString(str.length() * (FONT_SIZE - 3)));
@@ -1430,8 +1432,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelV.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * circleRadiusSize));
-        labelV.setAttribute("font-family", FONT_FAMILY);
-        labelV.setAttribute("font-size", Integer.toString(fontSize));
+        labelV.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        labelV.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         labelV.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
@@ -1447,8 +1449,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelAngle.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * circleRadiusSize));
-        labelAngle.setAttribute("font-family", FONT_FAMILY);
-        labelAngle.setAttribute("font-size", Integer.toString(fontSize));
+        labelAngle.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        labelAngle.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         labelAngle.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
