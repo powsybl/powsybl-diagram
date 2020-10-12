@@ -1470,6 +1470,7 @@
     "labelCentered" : false,
     "labelDiagonal" : false,
     "angleLabelShift" : 15.0,
-    "highlightLineState" : true
+    "highlightLineState" : true,
+    "addNodesInfos" : false
   }
 }

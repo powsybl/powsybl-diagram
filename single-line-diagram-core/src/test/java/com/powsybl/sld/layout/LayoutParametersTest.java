@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -50,7 +50,9 @@ public class LayoutParametersTest {
                 .setAngleLabelShift(42)
                 .setLabelCentered(true)
                 .setLabelDiagonal(true)
-                .setHighlightLineState(false);
+                .setHighlightLineState(false)
+                .setTooltipEnabled(true)
+                .setAddNodesInfos(true);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getTranslateX(), layoutParameters2.getTranslateX(), 0);
@@ -84,5 +86,7 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isLabelCentered(), layoutParameters2.isLabelCentered());
         assertEquals(layoutParameters.isLabelDiagonal(), layoutParameters2.isLabelDiagonal());
         assertEquals(layoutParameters.isHighlightLineState(), layoutParameters2.isHighlightLineState());
+        assertEquals(layoutParameters.isTooltipEnabled(), layoutParameters2.isTooltipEnabled());
+        assertEquals(layoutParameters.isAddNodesInfos(), layoutParameters2.isAddNodesInfos());
     }
 }

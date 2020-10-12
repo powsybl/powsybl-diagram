@@ -71,6 +71,8 @@ public class LayoutParameters {
     private boolean highlightLineState = true;
     private boolean tooltipEnabled = false;
 
+    private boolean addNodesInfos = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -110,7 +112,8 @@ public class LayoutParameters {
                             @JsonProperty("labelCentered") boolean labelCentered,
                             @JsonProperty("labelDiagonal") boolean labelDiagonal,
                             @JsonProperty("angleLabelShift") double angleLabelShift,
-                            @JsonProperty("highlightLineState") boolean highlightLineState) {
+                            @JsonProperty("highlightLineState") boolean highlightLineState,
+                            @JsonProperty("addNodesInfos") boolean addNodesInfos) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -143,6 +146,7 @@ public class LayoutParameters {
         this.labelDiagonal = labelDiagonal;
         this.angleLabelShift = angleLabelShift;
         this.highlightLineState = highlightLineState;
+        this.addNodesInfos = addNodesInfos;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -180,6 +184,7 @@ public class LayoutParameters {
         labelDiagonal = other.labelDiagonal;
         labelCentered = other.labelCentered;
         highlightLineState = other.highlightLineState;
+        addNodesInfos = other.addNodesInfos;
     }
 
     public double getTranslateX() {
@@ -475,6 +480,15 @@ public class LayoutParameters {
 
     public LayoutParameters setTooltipEnabled(boolean tooltipEnabled) {
         this.tooltipEnabled = tooltipEnabled;
+        return this;
+    }
+
+    public boolean isAddNodesInfos() {
+        return addNodesInfos;
+    }
+
+    public LayoutParameters setAddNodesInfos(boolean addNodesInfos) {
+        this.addNodesInfos = addNodesInfos;
         return this;
     }
 }

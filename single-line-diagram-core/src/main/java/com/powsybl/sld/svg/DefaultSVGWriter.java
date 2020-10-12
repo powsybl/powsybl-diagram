@@ -8,9 +8,27 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.commons.exceptions.UncheckedTransformerException;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
+import com.powsybl.sld.library.AnchorOrientation;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.AnchorPointProvider;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentMetadata;
+import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.ExternCell;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.FeederWithSideNode;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.TwtEdge;
+import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 import org.apache.batik.anim.dom.SVGOMDocument;
@@ -19,7 +37,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.*;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
@@ -33,14 +56,34 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
-import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW;
+import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
+import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
+import static com.powsybl.sld.library.ComponentTypeName.BUSBREAKER_CONNECTION;
+import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import static com.powsybl.sld.library.ComponentTypeName.NODE;
+import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.model.Position.Dimension.H;
+import static com.powsybl.sld.model.Position.Dimension.V;
+import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
+import static com.powsybl.sld.svg.DiagramStyles.escapeId;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -68,6 +111,9 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
     protected static final int VALUE_MAX_NB_CHARS = 5;
+    protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
+    protected static final String FONT_FAMILY_ATTRIBUTE = "font-family";
+    protected static final String FONT_SIZE_ATTRIBUTE = "font-size";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -187,7 +233,7 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
-        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider);
+        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, true);
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
@@ -200,7 +246,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                     Element root,
                                     GraphMetadata metadata,
                                     DiagramLabelProvider initProvider,
-                                    DiagramStyleProvider styleProvider) {
+                                    DiagramStyleProvider styleProvider,
+                                    boolean useNodesInfosParam) {
         AnchorPointProvider anchorPointProvider = (type, id) -> {
             if (type.equals(BUSBAR_SECTION)) {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
@@ -233,6 +280,10 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodes);
+
+        if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
+            drawNodesInfos(prefixId, root, graph, styleProvider);
+        }
     }
 
     private List<Edge> drawCell(String prefixId, Element root, Graph graph, Cell cell,
@@ -363,7 +414,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
         for (Graph vlGraph : graph.getNodes()) {
-            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
+            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, false);
         }
 
         AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
@@ -603,8 +654,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute("font-family", FONT_FAMILY);
-        label.setAttribute("font-size", Integer.toString(fontSize));
+        label.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        label.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         if (adjustLength) {
             label.setAttribute("xml:space", "preserve");
             label.setAttribute("textLength", Integer.toString(str.length() * (FONT_SIZE - 3)));
@@ -1349,6 +1400,83 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(g);
 
             setMetadata(metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, anchorPointProvider);
+        });
+    }
+
+   /*
+     * Drawing the voltageLevel nodes infos
+     */
+    private void drawNodeInfos(ElectricalNodeInfo nodeInfo,
+                               double xShift,
+                               double yShift,
+                               Element g,
+                               String idNode,
+                               int fontSize,
+                               double circleRadiusSize) {
+        Element circle = g.getOwnerDocument().createElement("circle");
+
+        circle.setAttribute("id", idNode + "_circle");
+        circle.setAttribute("cx", String.valueOf(xShift));
+        circle.setAttribute("cy", String.valueOf(yShift));
+        circle.setAttribute("r", String.valueOf(circleRadiusSize));
+        circle.setAttribute("fill", nodeInfo.getColor());
+        g.appendChild(circle);
+
+        // v
+        Element labelV = g.getOwnerDocument().createElement("text");
+        labelV.setAttribute("id", idNode + "_v");
+        String valueV = !Double.isNaN(nodeInfo.getV())
+                ? String.valueOf(Precision.round(nodeInfo.getV(), 1))
+                : "\u2014";  // em dash unicode for undefined value
+        valueV += " kV";
+
+        labelV.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
+        labelV.setAttribute("y", String.valueOf(yShift + 2.5 * circleRadiusSize));
+        labelV.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        labelV.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
+        labelV.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
+        Text textV = g.getOwnerDocument().createTextNode(valueV);
+        labelV.appendChild(textV);
+        g.appendChild(labelV);
+
+        // angle
+        Element labelAngle = g.getOwnerDocument().createElement("text");
+        labelAngle.setAttribute("id", idNode + "_angle");
+        String valueAngle = !Double.isNaN(nodeInfo.getAngle())
+                ? String.valueOf(Precision.round(nodeInfo.getAngle(), 1))
+                : "\u2014";  // em dash unicode for undefined value
+        valueAngle += " \u00b0";  // degree sign unicode for degree symbol
+
+        labelAngle.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
+        labelAngle.setAttribute("y", String.valueOf(yShift + 4 * circleRadiusSize));
+        labelAngle.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
+        labelAngle.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
+        labelAngle.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
+        Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
+        labelAngle.appendChild(textAngle);
+        g.appendChild(labelAngle);
+    }
+
+    private void drawNodesInfos(String prefixId,
+                                Element root,
+                                Graph graph,
+                                DiagramStyleProvider styleProvider) {
+        double xInitPos = graph.getNodes().stream()
+                .filter(n -> n.getType() == Node.NodeType.BUS)
+                .mapToDouble(Node::getX).min().getAsDouble() + layoutParameters.getTranslateX() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+
+        double maxY = graph.getNodes().stream().mapToDouble(Node::getY).max().getAsDouble();
+        double yPos = graph.getY() + layoutParameters.getInitialYBus() + maxY - 120;
+
+        List<ElectricalNodeInfo> nodes = styleProvider.getElectricalNodesInfos(graph);
+
+        IntStream.range(0, nodes.size()).forEach(i -> {
+            String idNode = prefixId + "NODE_" + i + "_" + graph.getVoltageLevelInfos().getId();
+            Element gNode = root.getOwnerDocument().createElement("g");
+            gNode.setAttribute("id", idNode);
+
+            drawNodeInfos(nodes.get(i), graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50)), yPos, gNode, idNode, FONT_SIZE, CIRCLE_RADIUS_NODE_INFOS_SIZE);
+            root.appendChild(gNode);
         });
     }
 }
