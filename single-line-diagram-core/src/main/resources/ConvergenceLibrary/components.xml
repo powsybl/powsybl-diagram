@@ -28,8 +28,8 @@
             <subComponent name="LOAD">
                 <fileName>load.svg</fileName>
             </subComponent>
-            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
-            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="-4.5" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4.5" orientation="VERTICAL"/>
             <allowRotation>true</allowRotation>
         </metadata>
     </component>

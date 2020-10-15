@@ -106,11 +106,11 @@
     "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -4.0,
+      "y" : -4.5,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 4.0,
+      "y" : 4.5,
       "orientation" : "VERTICAL"
     } ],
     "size" : {

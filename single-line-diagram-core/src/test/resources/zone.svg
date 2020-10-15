@@ -129,9 +129,9 @@
             <text x="-5.0" font-size="8" y="-5.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="Bus11_NW_LABEL">Bus11</text>
         </g>
         <g class="wire" id="_95_VoltageLevel11_95_Bus11_95_Load">
-            <polyline points="50.0,250.0,70.0,250.0,70.0,104.0"/>
+            <polyline points="50.0,250.0,70.0,250.0,70.0,104.5"/>
         </g>
-        <g class="ARROW1_Load_UP" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,65.0,119.0)">
+        <g class="ARROW1_Load_UP" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,65.0,119.5)">
             <g class="arrow-up" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW1_ARROW-arrow-up">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
@@ -140,7 +140,7 @@
             </g>
             <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
-        <g class="ARROW2_Load_DOWN" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,65.0,139.0)">
+        <g class="ARROW2_Load_DOWN" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,65.0,139.5)">
             <g class="arrow-up" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW2_ARROW-arrow-up">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
