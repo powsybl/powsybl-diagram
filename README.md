@@ -69,7 +69,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
 </dependency>
 ```
 
