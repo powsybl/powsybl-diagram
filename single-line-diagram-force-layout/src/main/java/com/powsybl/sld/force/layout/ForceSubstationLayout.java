@@ -414,35 +414,41 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             Coord c1 = coordsVoltageLevels.get(n1.getGraph());
             Coord c2 = coordsVoltageLevels.get(n2.getGraph());
 
-            if (c1.get(Y) < c2.get(Y)) {
-                // cell for node 1 with bottom orientation
-                // cell for node 2 with top orientation
-                cell1.setDirection(BusCell.Direction.BOTTOM);
-                n1.setDirection(BusCell.Direction.BOTTOM);
-                cell2.setDirection(BusCell.Direction.TOP);
-                n2.setDirection(BusCell.Direction.TOP);
-            } else {
-                // cell for node 1 with top orientation
-                // cell for node 2 with bottom orientation
-                cell1.setDirection(BusCell.Direction.TOP);
-                n1.setDirection(BusCell.Direction.TOP);
-                cell2.setDirection(BusCell.Direction.BOTTOM);
-                n2.setDirection(BusCell.Direction.BOTTOM);
+            // no change if cells are part of a shunt : they must keep the same orientation
+            if (!cell1.isShunted() && !cell2.isShunted()) {
+                if (c1.get(Y) < c2.get(Y)) {
+                    // cell for node 1 with bottom orientation
+                    // cell for node 2 with top orientation
+                    cell1.setDirection(BusCell.Direction.BOTTOM);
+                    n1.setDirection(BusCell.Direction.BOTTOM);
+                    cell2.setDirection(BusCell.Direction.TOP);
+                    n2.setDirection(BusCell.Direction.TOP);
+                } else {
+                    // cell for node 1 with top orientation
+                    // cell for node 2 with bottom orientation
+                    cell1.setDirection(BusCell.Direction.TOP);
+                    n1.setDirection(BusCell.Direction.TOP);
+                    cell2.setDirection(BusCell.Direction.BOTTOM);
+                    n2.setDirection(BusCell.Direction.BOTTOM);
+                }
             }
 
             if (adjacentNodes.size() == 3) {
                 FeederNode n3 = (FeederNode) adjacentNodes.get(2);
                 ExternCell cell3 = (ExternCell) n3.getCell();
-                Coord c3 = coordsVoltageLevels.get(n3.getGraph());
 
-                if (c3.get(Y) < c2.get(Y)) {
-                    // cell for node 3 with bottom orientation
-                    cell3.setDirection(BusCell.Direction.BOTTOM);
-                    n3.setDirection(BusCell.Direction.BOTTOM);
-                } else {
-                    // cell for node 3 with top orientation
-                    cell3.setDirection(BusCell.Direction.TOP);
-                    n3.setDirection(BusCell.Direction.TOP);
+                if (!cell3.isShunted()) {
+                    Coord c3 = coordsVoltageLevels.get(n3.getGraph());
+
+                    if (c3.get(Y) < c2.get(Y)) {
+                        // cell for node 3 with bottom orientation
+                        cell3.setDirection(BusCell.Direction.BOTTOM);
+                        n3.setDirection(BusCell.Direction.BOTTOM);
+                    } else {
+                        // cell for node 3 with top orientation
+                        cell3.setDirection(BusCell.Direction.TOP);
+                        n3.setDirection(BusCell.Direction.TOP);
+                    }
                 }
             }
         }

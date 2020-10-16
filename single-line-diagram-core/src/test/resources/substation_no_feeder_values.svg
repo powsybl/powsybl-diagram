@@ -492,9 +492,9 @@
                 <line y2="8" x1="8" x2="0" y1="0"/>
             </g>
         </g>
-        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1_95_vl2_95_trf1" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
-            <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="10"/>
-            <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" cy="5"/>
+        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1_95_vl2_95_trf1" id="idvl1_95_trf1_95_vl2_95_trf1" transform="matrix(0.0,1.0,-1.0,0.0,392.5,595.0)">
+            <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" transform="rotate(90.0,5.0,7.5)" cy="10"/>
+            <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" transform="rotate(90.0,5.0,7.5)" cy="5"/>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,93.0)">
             <circle r="5" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING1" cx="5" cy="5"/>

@@ -701,20 +701,42 @@ public class DefaultSVGWriter implements SVGWriter {
                     || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER))
                     && node.getCell() != null
                     && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
-                node.setRotationAngle(180.);  // rotation if 3WT cell direction is BOTTOM
+                // permutation if cell direction is BOTTOM,
+                // because in the svg component library, circle for winding1 is below circle for winding2
+                node.setRotationAngle(180.);
             }
         } else {  // node outside any graph
             List<Node> adjacentNodes = node.getAdjacentNodes();
             adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
             if (adjacentNodes.size() == 2) {  // 2 windings transformer
+                FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
+                FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
                 List<Edge> edges = node.getAdjacentEdges();
                 List<Double> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
                 List<Double> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
                 if (!(pol1.isEmpty() || pol2.isEmpty())) {
+                    // get points for the line supporting the svg component
                     double x1 = pol1.get(pol1.size() - 4); // absciss of the first polyline second last point
                     double x2 = pol2.get(2);  // absciss of the second polyline third point
+
                     if (x1 == x2) {
-                        node.setRotationAngle(180.);  // rotation if points abscisses are the same
+                        // vertical line supporting the svg component
+                        FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
+                        FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
+                        if (nodeWinding2.getY() > nodeWinding1.getY()) {
+                            // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
+                            node.setRotationAngle(180.);
+                        }
+                    } else if (x1 != x2) {
+                        // horizontal line supporting the svg component,
+                        // so we rotate the component by 90 or 270 (the component is vertical in the library)
+                        if (node1.getSide() == FeederWithSideNode.Side.ONE) {
+                            // rotation by 90 to get circle for winding1 at the left side
+                            node.setRotationAngle(90.);
+                        } else {
+                            // rotation by 90 to get circle for winding1 at the right side
+                            node.setRotationAngle(270.);
+                        }
                     }
                 }
             } else {  // 3 windings transformer
