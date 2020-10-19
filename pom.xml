@@ -19,7 +19,7 @@
         <relativePath/>
     </parent>
     <artifactId>powsybl-single-line-diagram</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <packaging>pom</packaging>
 
     <name>Single line diagram</name>
@@ -97,7 +97,7 @@
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.7.0</powsyblcore.version>
+        <powsyblcore.version>3.7.1</powsyblcore.version>
     </properties>
 
     <profiles>
