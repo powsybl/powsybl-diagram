@@ -421,15 +421,21 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                     // cell for node 2 with top orientation
                     cell1.setDirection(BusCell.Direction.BOTTOM);
                     n1.setDirection(BusCell.Direction.BOTTOM);
+                    cell1.getRootBlock().setOrientation(Orientation.DOWN);
+
                     cell2.setDirection(BusCell.Direction.TOP);
                     n2.setDirection(BusCell.Direction.TOP);
+                    cell2.getRootBlock().setOrientation(Orientation.UP);
                 } else {
                     // cell for node 1 with top orientation
                     // cell for node 2 with bottom orientation
                     cell1.setDirection(BusCell.Direction.TOP);
                     n1.setDirection(BusCell.Direction.TOP);
+                    cell1.getRootBlock().setOrientation(Orientation.UP);
+
                     cell2.setDirection(BusCell.Direction.BOTTOM);
                     n2.setDirection(BusCell.Direction.BOTTOM);
+                    cell2.getRootBlock().setOrientation(Orientation.DOWN);
                 }
             }
 
@@ -444,10 +450,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                         // cell for node 3 with bottom orientation
                         cell3.setDirection(BusCell.Direction.BOTTOM);
                         n3.setDirection(BusCell.Direction.BOTTOM);
+                        cell3.getRootBlock().setOrientation(Orientation.DOWN);
                     } else {
                         // cell for node 3 with top orientation
                         cell3.setDirection(BusCell.Direction.TOP);
                         n3.setDirection(BusCell.Direction.TOP);
+                        cell3.getRootBlock().setOrientation(Orientation.UP);
                     }
                 }
             }

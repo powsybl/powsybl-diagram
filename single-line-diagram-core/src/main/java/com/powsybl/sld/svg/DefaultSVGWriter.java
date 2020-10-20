@@ -727,7 +727,7 @@ public class DefaultSVGWriter implements SVGWriter {
                             // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
                             node.setRotationAngle(180.);
                         }
-                    } else if (x1 != x2) {
+                    } else {
                         // horizontal line supporting the svg component,
                         // so we rotate the component by 90 or 270 (the component is vertical in the library)
                         if (node1.getSide() == FeederWithSideNode.Side.ONE) {
