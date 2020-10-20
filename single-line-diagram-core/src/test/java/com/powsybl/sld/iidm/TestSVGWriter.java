@@ -731,6 +731,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         assertEquals(toString("/substation.svg"), toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider));
 
         // SVG file generation for substation and comparison to reference but with no feeder values
+        createSubstationGraph();
         assertEquals(toString("/substation_no_feeder_values.svg"), toSVG(substG, "/substation_no_feeder_values.svg", layoutParameters, noFeederValueProvider, styleProvider));
 
         // Same tests than before, with optimized svg :
@@ -748,6 +749,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         }
 
         // SVG file generation for substation and comparison to reference
+        createSubstationGraph();
         assertEquals(toString("/substation_optimized.svg"), toSVG(substG, "/substation_optimized.svg", layoutParameters, initValueProvider, styleProvider));
     }
 
