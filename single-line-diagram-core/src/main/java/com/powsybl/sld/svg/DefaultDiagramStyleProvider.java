@@ -147,35 +147,28 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
                 FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
                 FeederWithSideNode nodeWinding = nodeWinding1;
 
-                if (!node.isRotated() || Math.abs(node.getRotationAngle()) == 180.) {
-                    if (subComponentName.equals(WINDING1)) {
-                        if (!node.isRotated()) {
-                            nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
-                        } else {
-                            nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
-                        }
-                    } else if (subComponentName.equals(WINDING2)) {
-                        if (!node.isRotated()) {
-                            nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
-                        } else {
-                            nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
-                        }
+                if (subComponentName.equals(WINDING1)) {
+                    if (!node.isRotated()) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 90.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 180.) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 270.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
                     }
-                } else if (node.getRotationAngle() == 90. || node.getRotationAngle() == 270.) {
-                    if (subComponentName.equals(WINDING1)) {
-                        if (node.getRotationAngle() == 270.) {
-                            nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
-                        } else {
-                            nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
-                        }
-                    } else if (subComponentName.equals(WINDING2)) {
-                        if (node.getRotationAngle() == 270.) {
-                            nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
-                        } else {
-                            nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
-                        }
+                } else if (subComponentName.equals(WINDING2)) {
+                    if (!node.isRotated()) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 90.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 180.) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 270.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
                     }
                 }
+
                 color = getNodeColor(nodeWinding.getGraph().getVoltageLevelInfos(), nodeWinding);
 
             } else if (adjacentNodes.size() == 3) {  // 3 windings transformer
