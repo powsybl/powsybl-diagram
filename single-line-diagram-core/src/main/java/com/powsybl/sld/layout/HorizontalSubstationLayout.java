@@ -28,7 +28,8 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     @Override
     protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, Graph vlGraph) {
         int maxH = vlGraph.getMaxH();
-        return new Coord(layoutParam.getInitialXBus() + (maxH + 2) * layoutParam.getCellWidth(), 0);
+        double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
+        return new Coord(layoutParam.getInitialXBus() + (maxH + 2) * elementaryWidth, 0);
     }
 
     /*
