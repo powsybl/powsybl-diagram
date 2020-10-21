@@ -2124,7 +2124,7 @@
       "name" : "vl2",
       "nominalVoltage" : 225.0
     },
-    "x" : 1600.0,
+    "x" : 850.0,
     "y" : 50.0,
     "nodes" : [ {
       "type" : "FICTITIOUS",
@@ -2133,7 +2133,7 @@
       "equipmentId" : "dgen4Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1825.0,
+      "x" : 1075.0,
       "y" : 365.0,
       "open" : false
     }, {
@@ -2143,7 +2143,7 @@
       "equipmentId" : "dload3Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1725.0,
+      "x" : 975.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -2153,7 +2153,7 @@
       "equipmentId" : "dscpl1Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1675.0,
+      "x" : 925.0,
       "y" : 270.0,
       "rotationAngle" : 90.0,
       "open" : false
@@ -2164,7 +2164,7 @@
       "equipmentId" : "dscpl2Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1625.0,
+      "x" : 875.0,
       "y" : 270.0,
       "rotationAngle" : 90.0,
       "open" : false
@@ -2175,7 +2175,7 @@
       "equipmentId" : "dtrf21Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1775.0,
+      "x" : 1025.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -2185,7 +2185,7 @@
       "equipmentId" : "dtrf22Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2075.0,
+      "x" : 1325.0,
       "y" : 365.0,
       "open" : false
     }, {
@@ -2195,7 +2195,7 @@
       "equipmentId" : "dtrf23Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2125.0,
+      "x" : 1375.0,
       "y" : 365.0,
       "open" : false
     }, {
@@ -2205,7 +2205,7 @@
       "equipmentId" : "dtrf24Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1875.0,
+      "x" : 1125.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -2215,7 +2215,7 @@
       "equipmentId" : "dtrf26Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1975.0,
+      "x" : 1225.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -2225,7 +2225,7 @@
       "equipmentId" : "dtrf27Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 1925.0,
+      "x" : 1175.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -2235,7 +2235,7 @@
       "equipmentId" : "dtrf28Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2025.0,
+      "x" : 1275.0,
       "y" : 365.0,
       "open" : false
     }, {
@@ -2245,7 +2245,7 @@
       "equipmentId" : "bbs5",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
-      "x" : 1610.0,
+      "x" : 860.0,
       "y" : 310.0,
       "open" : false,
       "pxWidth" : 530.0,
@@ -2264,7 +2264,7 @@
       "equipmentId" : "bbs6",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
-      "x" : 1610.0,
+      "x" : 860.0,
       "y" : 335.0,
       "open" : false,
       "pxWidth" : 530.0,
@@ -2283,7 +2283,7 @@
       "equipmentId" : "bgen4",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1825.0,
+      "x" : 1075.0,
       "y" : 490.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2294,7 +2294,7 @@
       "equipmentId" : "bload3",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1725.0,
+      "x" : 975.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2305,7 +2305,7 @@
       "equipmentId" : "btrf21",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1775.0,
+      "x" : 1025.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2316,7 +2316,7 @@
       "equipmentId" : "btrf22",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2075.0,
+      "x" : 1325.0,
       "y" : 490.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2327,7 +2327,7 @@
       "equipmentId" : "btrf23",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2125.0,
+      "x" : 1375.0,
       "y" : 490.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2338,7 +2338,7 @@
       "equipmentId" : "btrf24",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1875.0,
+      "x" : 1125.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2349,7 +2349,7 @@
       "equipmentId" : "btrf26",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1975.0,
+      "x" : 1225.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2360,7 +2360,7 @@
       "equipmentId" : "btrf27",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1925.0,
+      "x" : 1175.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2371,7 +2371,7 @@
       "equipmentId" : "btrf28",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2025.0,
+      "x" : 1275.0,
       "y" : 490.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -2382,7 +2382,7 @@
       "equipmentId" : "ddcpl1",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 1650.0,
+      "x" : 900.0,
       "y" : 270.0,
       "rotationAngle" : 90.0,
       "open" : false,
@@ -2394,7 +2394,7 @@
       "equipmentId" : "dgen4",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1825.0,
+      "x" : 1075.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2405,7 +2405,7 @@
       "equipmentId" : "dload3",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1725.0,
+      "x" : 975.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2416,7 +2416,7 @@
       "equipmentId" : "dscpl1",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1675.0,
+      "x" : 925.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2427,7 +2427,7 @@
       "equipmentId" : "dscpl2",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1625.0,
+      "x" : 875.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2438,7 +2438,7 @@
       "equipmentId" : "dtrf21",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1775.0,
+      "x" : 1025.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2449,7 +2449,7 @@
       "equipmentId" : "dtrf22",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2075.0,
+      "x" : 1325.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2460,7 +2460,7 @@
       "equipmentId" : "dtrf23",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2125.0,
+      "x" : 1375.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2471,7 +2471,7 @@
       "equipmentId" : "dtrf24",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1875.0,
+      "x" : 1125.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2482,7 +2482,7 @@
       "equipmentId" : "dtrf26",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1975.0,
+      "x" : 1225.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2493,7 +2493,7 @@
       "equipmentId" : "dtrf27",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 1925.0,
+      "x" : 1175.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2504,7 +2504,7 @@
       "equipmentId" : "dtrf28",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2025.0,
+      "x" : 1275.0,
       "y" : 335.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -2515,7 +2515,7 @@
       "equipmentId" : "gen4",
       "componentType" : "GENERATOR",
       "fictitious" : false,
-      "x" : 1825.0,
+      "x" : 1075.0,
       "y" : 615.0,
       "open" : false,
       "label" : "gen4",
@@ -2529,7 +2529,7 @@
       "equipmentId" : "load3",
       "componentType" : "LOAD",
       "fictitious" : false,
-      "x" : 1725.0,
+      "x" : 975.0,
       "y" : 30.0,
       "open" : false,
       "label" : "load3",
@@ -2543,7 +2543,7 @@
       "equipmentId" : "trf1",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 1775.0,
+      "x" : 1025.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf1",
@@ -2563,7 +2563,7 @@
       "equipmentId" : "trf2",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 2075.0,
+      "x" : 1325.0,
       "y" : 615.0,
       "open" : false,
       "label" : "trf2",
@@ -2583,7 +2583,7 @@
       "equipmentId" : "trf3",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 2125.0,
+      "x" : 1375.0,
       "y" : 615.0,
       "open" : false,
       "label" : "trf3",
@@ -2603,7 +2603,7 @@
       "equipmentId" : "trf4",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 1875.0,
+      "x" : 1125.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf4",
@@ -2623,7 +2623,7 @@
       "equipmentId" : "trf6",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 1975.0,
+      "x" : 1225.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf62",
@@ -2643,7 +2643,7 @@
       "equipmentId" : "trf7",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 1925.0,
+      "x" : 1175.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf72",
@@ -2663,7 +2663,7 @@
       "equipmentId" : "trf8",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 2025.0,
+      "x" : 1275.0,
       "y" : 615.0,
       "open" : false,
       "label" : "trf82",
@@ -3520,7 +3520,7 @@
       "name" : "vl3",
       "nominalVoltage" : 225.0
     },
-    "x" : 2850.0,
+    "x" : 1500.0,
     "y" : 50.0,
     "nodes" : [ {
       "type" : "FICTITIOUS",
@@ -3529,7 +3529,7 @@
       "equipmentId" : "dload4Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2875.0,
+      "x" : 1525.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -3539,7 +3539,7 @@
       "equipmentId" : "dtrf25Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2925.0,
+      "x" : 1575.0,
       "y" : 340.0,
       "open" : false
     }, {
@@ -3549,7 +3549,7 @@
       "equipmentId" : "dtrf36Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 2975.0,
+      "x" : 1625.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -3559,7 +3559,7 @@
       "equipmentId" : "dtrf37Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 3025.0,
+      "x" : 1675.0,
       "y" : 340.0,
       "open" : false
     }, {
@@ -3569,7 +3569,7 @@
       "equipmentId" : "dtrf38Fictif",
       "componentType" : "NODE",
       "fictitious" : true,
-      "x" : 3075.0,
+      "x" : 1725.0,
       "y" : 280.0,
       "open" : false
     }, {
@@ -3579,7 +3579,7 @@
       "equipmentId" : "bbs7",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
-      "x" : 2860.0,
+      "x" : 1510.0,
       "y" : 310.0,
       "open" : false,
       "pxWidth" : 230.0,
@@ -3598,7 +3598,7 @@
       "equipmentId" : "bload4",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2875.0,
+      "x" : 1525.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -3609,7 +3609,7 @@
       "equipmentId" : "btrf25",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2925.0,
+      "x" : 1575.0,
       "y" : 465.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -3620,7 +3620,7 @@
       "equipmentId" : "btrf36",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 2975.0,
+      "x" : 1625.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -3631,7 +3631,7 @@
       "equipmentId" : "btrf37",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 3025.0,
+      "x" : 1675.0,
       "y" : 465.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -3642,7 +3642,7 @@
       "equipmentId" : "btrf38",
       "componentType" : "BREAKER",
       "fictitious" : false,
-      "x" : 3075.0,
+      "x" : 1725.0,
       "y" : 155.0,
       "open" : false,
       "kind" : "BREAKER"
@@ -3653,7 +3653,7 @@
       "equipmentId" : "dload4",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2875.0,
+      "x" : 1525.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -3664,7 +3664,7 @@
       "equipmentId" : "dtrf25",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2925.0,
+      "x" : 1575.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -3675,7 +3675,7 @@
       "equipmentId" : "dtrf36",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 2975.0,
+      "x" : 1625.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -3686,7 +3686,7 @@
       "equipmentId" : "dtrf37",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 3025.0,
+      "x" : 1675.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -3697,7 +3697,7 @@
       "equipmentId" : "dtrf38",
       "componentType" : "DISCONNECTOR",
       "fictitious" : false,
-      "x" : 3075.0,
+      "x" : 1725.0,
       "y" : 310.0,
       "open" : false,
       "kind" : "DISCONNECTOR"
@@ -3708,7 +3708,7 @@
       "equipmentId" : "load4",
       "componentType" : "LOAD",
       "fictitious" : false,
-      "x" : 2875.0,
+      "x" : 1525.0,
       "y" : 30.0,
       "open" : false,
       "label" : "load4",
@@ -3722,7 +3722,7 @@
       "equipmentId" : "trf5",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 2925.0,
+      "x" : 1575.0,
       "y" : 590.0,
       "open" : false,
       "label" : "trf5",
@@ -3742,7 +3742,7 @@
       "equipmentId" : "trf6",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 2975.0,
+      "x" : 1625.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf63",
@@ -3762,7 +3762,7 @@
       "equipmentId" : "trf7",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 3025.0,
+      "x" : 1675.0,
       "y" : 590.0,
       "open" : false,
       "label" : "trf73",
@@ -3782,7 +3782,7 @@
       "equipmentId" : "trf8",
       "componentType" : "LINE",
       "fictitious" : false,
-      "x" : 3075.0,
+      "x" : 1725.0,
       "y" : 30.0,
       "open" : false,
       "label" : "trf83",
@@ -4369,114 +4369,114 @@
       "node1" : "trf1_ONE",
       "node2" : "trf1_ONE_trf1_TWO"
     } ],
-    "snakeLine" : [ 125.0, 30.0, 125.0, 0.0, 950.0, 0.0 ]
+    "snakeLine" : [ 125.0, 30.0, 125.0, 0.0, 575.0, 0.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf1_ONE_trf1_TWO",
       "node2" : "trf1_TWO"
     } ],
-    "snakeLine" : [ 950.0, 0.0, 1775.0, 0.0, 1775.0, 30.0 ]
+    "snakeLine" : [ 575.0, 0.0, 1025.0, 0.0, 1025.0, 30.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf2_ONE",
       "node2" : "trf2_ONE_trf2_TWO"
     } ],
-    "snakeLine" : [ 675.0, 30.0, 675.0, -30.0, 1570.0, -30.0, 1570.0, 307.5 ]
+    "snakeLine" : [ 675.0, 30.0, 675.0, -30.0, 820.0, -30.0, 820.0, 307.5 ]
   }, {
     "nodes" : [ {
       "node1" : "trf2_ONE_trf2_TWO",
       "node2" : "trf2_TWO"
     } ],
-    "snakeLine" : [ 1570.0, 307.5, 1570.0, 645.0, 2075.0, 645.0, 2075.0, 615.0 ]
+    "snakeLine" : [ 820.0, 307.5, 820.0, 645.0, 1325.0, 645.0, 1325.0, 615.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf3_ONE",
       "node2" : "trf3_ONE_trf3_TWO"
     } ],
-    "snakeLine" : [ 225.0, 615.0, 225.0, 675.0, 1175.0, 675.0 ]
+    "snakeLine" : [ 225.0, 615.0, 225.0, 675.0, 800.0, 675.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf3_ONE_trf3_TWO",
       "node2" : "trf3_TWO"
     } ],
-    "snakeLine" : [ 1175.0, 675.0, 2125.0, 675.0, 2125.0, 615.0 ]
+    "snakeLine" : [ 800.0, 675.0, 1375.0, 675.0, 1375.0, 615.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf4_ONE",
       "node2" : "trf4_ONE_trf4_TWO"
     } ],
-    "snakeLine" : [ 625.0, 615.0, 625.0, 705.0, 1540.0, 705.0, 1540.0, 322.5 ]
+    "snakeLine" : [ 625.0, 615.0, 625.0, 705.0, 790.0, 705.0, 790.0, 322.5 ]
   }, {
     "nodes" : [ {
       "node1" : "trf4_ONE_trf4_TWO",
       "node2" : "trf4_TWO"
     } ],
-    "snakeLine" : [ 1540.0, 322.5, 1540.0, -60.0, 1875.0, -60.0, 1875.0, 30.0 ]
+    "snakeLine" : [ 790.0, 322.5, 790.0, -60.0, 1125.0, -60.0, 1125.0, 30.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf5_ONE",
       "node2" : "trf5_ONE_trf5_TWO"
     } ],
-    "snakeLine" : [ 275.0, 30.0, 275.0, -90.0, 2820.0, -90.0, 2820.0, 310.0 ]
+    "snakeLine" : [ 275.0, 30.0, 275.0, -90.0, 1470.0, -90.0, 1470.0, 310.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf5_ONE_trf5_TWO",
       "node2" : "trf5_TWO"
     } ],
-    "snakeLine" : [ 2820.0, 310.0, 2820.0, 710.0, 2925.0, 710.0, 2925.0, 590.0 ]
+    "snakeLine" : [ 1470.0, 310.0, 1470.0, 710.0, 1575.0, 710.0, 1575.0, 590.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE",
       "node2" : "trf6_ONE_trf6_TWO_trf6_THREE"
     } ],
-    "snakeLine" : [ 325.0, 30.0, 325.0, -120.0, 1975.0, -120.0 ]
+    "snakeLine" : [ 325.0, 30.0, 325.0, -120.0, 1225.0, -120.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
       "node2" : "trf6_TWO"
     } ],
-    "snakeLine" : [ 1975.0, -120.0, 1975.0, 30.0 ]
+    "snakeLine" : [ 1225.0, -120.0, 1225.0, 30.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
       "node2" : "trf6_THREE"
     } ],
-    "snakeLine" : [ 1975.0, -120.0, 2975.0, -120.0, 2975.0, 30.0 ]
+    "snakeLine" : [ 1225.0, -120.0, 1625.0, -120.0, 1625.0, 30.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE",
       "node2" : "trf7_ONE_trf7_TWO_trf7_THREE"
     } ],
-    "snakeLine" : [ 375.0, 615.0, 375.0, 765.0, 1510.0, 765.0, 1510.0, -150.0, 1925.0, -150.0 ]
+    "snakeLine" : [ 375.0, 615.0, 375.0, 765.0, 760.0, 765.0, 760.0, -150.0, 1175.0, -150.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
       "node2" : "trf7_TWO"
     } ],
-    "snakeLine" : [ 1925.0, -150.0, 1925.0, 30.0 ]
+    "snakeLine" : [ 1175.0, -150.0, 1175.0, 30.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
       "node2" : "trf7_THREE"
     } ],
-    "snakeLine" : [ 1925.0, -150.0, 2790.0, -150.0, 2790.0, 740.0, 3025.0, 740.0, 3025.0, 590.0 ]
+    "snakeLine" : [ 1175.0, -150.0, 1440.0, -150.0, 1440.0, 740.0, 1675.0, 740.0, 1675.0, 590.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE",
       "node2" : "trf8_ONE_trf8_TWO_trf8_THREE"
     } ],
-    "snakeLine" : [ 575.0, 30.0, 575.0, -180.0, 1480.0, -180.0, 1480.0, 795.0, 2025.0, 795.0 ]
+    "snakeLine" : [ 575.0, 30.0, 575.0, -180.0, 730.0, -180.0, 730.0, 795.0, 1275.0, 795.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
       "node2" : "trf8_TWO"
     } ],
-    "snakeLine" : [ 2025.0, 795.0, 2025.0, 615.0 ]
+    "snakeLine" : [ 1275.0, 795.0, 1275.0, 615.0 ]
   }, {
     "nodes" : [ {
       "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
       "node2" : "trf8_THREE"
     } ],
-    "snakeLine" : [ 2025.0, 795.0, 2760.0, 795.0, 2760.0, -180.0, 3075.0, -180.0, 3075.0, 30.0 ]
+    "snakeLine" : [ 1275.0, 795.0, 1410.0, 795.0, 1410.0, -180.0, 1725.0, -180.0, 1725.0, 30.0 ]
   } ]
 }
