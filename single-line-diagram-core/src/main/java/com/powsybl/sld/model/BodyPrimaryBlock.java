@@ -48,7 +48,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         if (getPosition().getOrientation().isVertical()) {
             getPosition().setSpan(H, 2);
             // in the case of vertical Blocks the x Spanning is a ratio of the nb of edges of the blocks/overall edges
-            getPosition().setSpan(V, 2 * (nodes.size() - 1));
+            getPosition().setSpan(V, 2 * (nodes.size() - (getExtremityNode(END).getType() == FEEDER ? 2 : 1)));
         } else {
             // in the case of horizontal Blocks having 1 switch/1 position => 1 hPos / 2 edges rounded to the superior int
             getPosition().setSpan(H, 2 * (nodes.size() - 2));
@@ -64,7 +64,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int v = 0;
         for (Node node : nodes) {
             node.setX(getCoord().get(X));
-            if (!(node instanceof BusBreakerConnection)) {
+            if (node.getType() != FEEDER && !(node instanceof BusBreakerConnection)) {
                 node.setY(y0 - yPxStep * v);
             }
             node.setRotationAngle(null);
@@ -116,6 +116,6 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         if (getPosition().getSpan(V) == 0) {
             return 0;
         }
-        return sign * getCoord().getSpan(Y) / (nodes.size() - 1);
+        return sign * getCoord().getSpan(Y) / (nodes.size() - (getExtremityNode(END).getType() == FEEDER ? 2 : 1));
     }
 }

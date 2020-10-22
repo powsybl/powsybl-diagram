@@ -85,6 +85,8 @@ public interface Block {
         return 0;
     }
 
+    void setFeederCoord(double yFeeder);
+
     void coordVerticalCase(LayoutParameters layoutParam);
 
     void coordHorizontalCase(LayoutParameters layoutParam);

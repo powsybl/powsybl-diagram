@@ -8,9 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.ExternCell;
 import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,16 +43,6 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         calculateBusNodeCoord(graph, layoutParam);
         calculateCellCoord(graph, layoutParam);
 
-        // when adapting cell height to content, we need to leave enough space around feeder nodes for the arrow nodes
-        graph.getNodes().stream()
-                .forEach(n -> {
-                    double shiftY = 0.;
-                    if (n.getType() == Node.NodeType.FEEDER && layoutParam.isAdaptCellHeightToContent()) {
-                        shiftY += (((ExternCell) n.getCell()).getDirection() == BusCell.Direction.TOP ? -1 : 1) * 20;
-                    }
-                    n.shiftY(shiftY);
-                });
-
         if (layoutParam.isShiftFeedersPosition()) {
             graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
         }
@@ -79,8 +67,10 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
                 .forEach(cell -> cell.calculateCoord(layoutParam));
     }
 
-    /*
-     * Calculating the maximum height of all the extern cells in each direction (top and bottom)
+    /**
+     * Calculating the maximum height of all the extern cells in each direction (top and bottom). This height does not
+     * include the constant stack height.
+     * @param layoutParam the layout parameters
      */
     private void calculateMaxCellHeight(LayoutParameters layoutParam) {
         Map<BusCell.Direction, Double> maxCalculatedCellHeight = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0.));

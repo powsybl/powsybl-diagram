@@ -103,27 +103,31 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
         double blockHeight = 0.;
         int nbNodes = nodes.size();
-        Map<String, ComponentSize> componentsSize = layoutParameters.getComponentsSize();
 
         for (int i = 0; i < nbNodes; i++) {
             Node node = nodes.get(i);
             if (!encounteredNodes.contains(node) && node.getType() != Node.NodeType.BUS) {
                 // the node is not a bus node and has not been already encountered
                 encounteredNodes.add(node);
-                double nodeHeight = layoutParameters.getMaxComponentHeight();
-                if (componentsSize != null) {
-                    nodeHeight = componentsSize.containsKey(node.getComponentType())
-                            ? componentsSize.get(node.getComponentType()).getHeight()
-                            : 0;
-                }
-                blockHeight += nodeHeight;
                 if (i < nbNodes - 1 || node.getType() != Node.NodeType.FEEDER) {
                     // not the last node or last node is not a feeder node
-                    blockHeight += layoutParameters.getMinSpaceBetweenComponents();
+                    // Note that we do not add the exact height of the component as the maximum height will later be split up equally between nodes
+                    blockHeight += layoutParameters.getMaxComponentHeight() + layoutParameters.getMinSpaceBetweenComponents();
+                } else {
+                    // the end feeder node needs special care to leave space for feeder arrows
+                    blockHeight += layoutParameters.getMinSpaceForFeederArrows()
+                        - layoutParameters.getMinSpaceBetweenComponents(); // we don't need the space added by previous node
                 }
             }
         }
         return blockHeight;
+    }
+
+    @Override
+    public void setFeederCoord(double yFeeder) {
+        if (getEndingNode().getType() == Node.NodeType.FEEDER) {
+            getEndingNode().setY(yFeeder);
+        }
     }
 
     @Override
