@@ -39,23 +39,28 @@ The main features are:
 ## Getting started
 
 To generate a SVG single line diagram from a voltage level, we first need to add a Maven dependency for the `Network` model 
-and additionally for this example two other ones for the `Network` test case and simple logging capabilities:
+and additionally for this example three other ones: two for the `Network` test case, one for simple logging capabilities:
 
 ```xml
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>3.7.0</version>
+    <version>3.7.1</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>3.7.0</version>
+    <version>3.7.1</version>
+</dependency>
+<dependency>
+    <groupId>com.powsybl</groupId>
+    <artifactId>powsybl-config-test</artifactId>
+    <version>3.7.1</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
     <artifactId>slf4j-simple</artifactId>
-    <version>1.7.30</version>
+    <version>1.7.22</version>
 </dependency>
 ```
 
@@ -82,15 +87,15 @@ ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceL
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
 // create diagram for the voltage level "C"
-VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "C", voltageLevelLayoutFactory, false, false);
+VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "C", voltageLevelLayoutFactory, false);
 
 // create default parameters for the SVG layout
 LayoutParameters layoutParameters = new LayoutParameters();
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
-                             new DefaultSVGWriter(componentLibrary, layoutParameters),
-                             new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                             new NominalVoltageDiagramStyleProvider(),
-                             Paths.get("/tmp/c.svg"));
+    new DefaultSVGWriter(componentLibrary, layoutParameters),
+    new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+    new NominalVoltageDiagramStyleProvider(network),
+    Paths.get("/tmp/c.svg"));
 ```
