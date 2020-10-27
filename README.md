@@ -78,7 +78,7 @@ After adding the single line diagram core module dependency:
 </dependency>
 ```
 
-We can generate a SVG for the voltage level "C":
+We can generate a SVG for the voltage level "N":
 ```java
 // "Convergence" style component library
 ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
@@ -86,8 +86,8 @@ ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceL
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
-// create diagram for the voltage level "C"
-VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "C", voltageLevelLayoutFactory, false);
+// create diagram for the voltage level "N"
+VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
 
 // create default parameters for the SVG layout
 LayoutParameters layoutParameters = new LayoutParameters();
@@ -97,5 +97,9 @@ voltageLevelDiagram.writeSvg("",
     new DefaultSVGWriter(componentLibrary, layoutParameters),
     new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
     new NominalVoltageDiagramStyleProvider(network),
-    Paths.get("/tmp/c.svg"));
+    Paths.get("/tmp/n.svg"));
 ```
+
+We obtain the following SVG:
+
+![Diagram demo](.github/example_n.svg)
