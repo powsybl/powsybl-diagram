@@ -30,7 +30,7 @@ for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_di
 The main features are:
  - Node/Breaker and bus/breaker topology.
  - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
- - Voltage level and substation diagram (and zone diagram soon).
+ - Voltage level, substation and zone diagrams.
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
