@@ -22,10 +22,10 @@ import java.util.Set;
  */
 public interface Block {
     enum Type {
-        LEGPRIMARY, BODYPRIMARY, LEGPARALLEL, BODYPARALLEL, SERIAL, UNDEFINED;
+        LEGPRIMARY, BODYPRIMARY, FEEDERPRIMARY, LEGPARALLEL, BODYPARALLEL, SERIAL, UNDEFINED;
 
         public boolean isPrimary() {
-            return this == LEGPRIMARY || this == BODYPRIMARY;
+            return this == LEGPRIMARY || this == BODYPRIMARY || this == FEEDERPRIMARY;
         }
 
         public boolean isParallel() {
@@ -84,8 +84,6 @@ public interface Block {
     default int getOrder() {
         return 0;
     }
-
-    void setFeederCoord(double yFeeder);
 
     void coordVerticalCase(LayoutParameters layoutParam);
 

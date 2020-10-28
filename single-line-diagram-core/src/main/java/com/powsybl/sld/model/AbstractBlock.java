@@ -165,7 +165,6 @@ public abstract class AbstractBlock implements Block {
         coord.setSpan(Y, spanY);
         coord.set(Y, getRootYCoord(spanY, layoutParam));
 
-        setFeederCoord(getFeederCoord(layoutParam));
         calculateCoord(layoutParam);
     }
 
@@ -174,18 +173,22 @@ public abstract class AbstractBlock implements Block {
         if (cell.getType() == INTERN) {
             ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
         } else {
-            // The Y span of root block does not consider the space needed for the feeder!
-            // Hence it corresponds to the extern cell height, minus the space needed for feeder
-            double externCellHeight;
+            // The Y span of root block does not consider the space needed for the FeederPrimaryBlock
+            // nor the one needed for the LegPrimaryBlock.
             if (layoutParam.isAdaptCellHeightToContent()) {
                 // In this case, corresponds to the previously calculated maximum height of all extern cells having the same direction
-                externCellHeight = getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
+                ySpan = getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
             } else {
-                externCellHeight = layoutParam.getExternCellHeight();
+                ySpan = layoutParam.getExternCellHeight() - getFeederSpan(layoutParam);
             }
-            ySpan = externCellHeight - getFeederSpan(layoutParam);
         }
         return ySpan;
+    }
+
+    private double getFeederSpan(LayoutParameters layoutParam) {
+        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
+        // + half the height of the feeder component + half the height of that node component
+        return layoutParam.getMinSpaceForFeederArrows() + layoutParam.getMaxComponentHeight();
     }
 
     private double getRootYCoord(double spanY, LayoutParameters layoutParam) {
@@ -210,20 +213,6 @@ public abstract class AbstractBlock implements Block {
             default:
                 return 0;
         }
-    }
-
-    private double getFeederCoord(LayoutParameters layoutParam) {
-        // The feeder position corresponds to the top position of current block +- the space needed for for feeder
-        // Indeed, current block span does not consider feeder!
-        int sign = getOrientation().progressionSign();
-        double yNodeBefore = getCoord().get(Y) + sign * getCoord().getSpan(Y) / 2;
-        return yNodeBefore + sign * getFeederSpan(layoutParam);
-    }
-
-    private double getFeederSpan(LayoutParameters layoutParam) {
-        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
-        // + half the height of the feeder component + half the height of that node component
-        return layoutParam.getMinSpaceForFeederArrows() + layoutParam.getMaxComponentHeight();
     }
 
     @Override

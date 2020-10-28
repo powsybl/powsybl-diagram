@@ -107,11 +107,6 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    public void setFeederCoord(double yFeeder) {
-        subBlocks.forEach(sub -> sub.setFeederCoord(yFeeder));
-    }
-
-    @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeFieldName("subBlocks");
         generator.writeStartArray();

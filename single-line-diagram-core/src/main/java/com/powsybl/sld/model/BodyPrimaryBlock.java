@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
@@ -28,9 +29,6 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
         super(BODYPRIMARY, nodes, cell);
-        if (getExtremityNode(START).getType() == FEEDER) {
-            reverseBlock();
-        }
     }
 
     public BodyPrimaryBlock(BodyPrimaryBlock bodyPrimaryBlock) {
@@ -38,22 +36,27 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     @Override
-    public int getOrder() {
-        return getExtremityNode(END).getType() == FEEDER ?
-                ((FeederNode) getExtremityNode(END)).getOrder() : 0;
-    }
-
-    @Override
     public void sizing() {
         if (getPosition().getOrientation().isVertical()) {
             getPosition().setSpan(H, 2);
             // in the case of vertical Blocks the x Spanning is a ratio of the nb of edges of the blocks/overall edges
-            getPosition().setSpan(V, 2 * (nodes.size() - (getExtremityNode(END).getType() == FEEDER ? 2 : 1)));
+            getPosition().setSpan(V, 2 * (nodes.size() - 1));
         } else {
             // in the case of horizontal Blocks having 1 switch/1 position => 1 hPos / 2 edges rounded to the superior int
             getPosition().setSpan(H, 2 * (nodes.size() - 2));
             getPosition().setSpan(V, 2);
         }
+    }
+
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        // we do not consider the exact height of components as the maximum height will later be split up equally between nodes
+        double componentHeight = layoutParameters.getMaxComponentHeight() + layoutParameters.getMinSpaceBetweenComponents();
+
+        // we increment the height only if the node is not a bus node and has not been already encountered
+        long nbNodes = nodes.stream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS).count();
+
+        return (nbNodes - 1) * componentHeight;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int v = 0;
         for (Node node : nodes) {
             node.setX(getCoord().get(X));
-            if (node.getType() != FEEDER && !(node instanceof BusBreakerConnection)) {
+            if (!(node instanceof BusBreakerConnection)) {
                 node.setY(y0 - yPxStep * v);
             }
             node.setRotationAngle(null);
@@ -116,6 +119,6 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         if (getPosition().getSpan(V) == 0) {
             return 0;
         }
-        return sign * getCoord().getSpan(Y) / (nodes.size() - (getExtremityNode(END).getType() == FEEDER ? 2 : 1));
+        return sign * getCoord().getSpan(Y) / (nodes.size() - 1);
     }
 }
