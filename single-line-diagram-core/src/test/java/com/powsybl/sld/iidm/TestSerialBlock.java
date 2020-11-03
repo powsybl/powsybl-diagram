@@ -59,12 +59,14 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
         assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
         assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(Node.NodeType.FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
         assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(0).getEndingNode().getId());
         assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(1).getStartingNode().getId());
-        assertEquals("la", sb.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("FICT_vl_laFictif", sb.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("FICT_vl_laFictif", sb.getSubBlocks().get(2).getStartingNode().getId());
+        assertEquals("la", sb.getSubBlocks().get(2).getEndingNode().getId());
 
         sb.sizing();
         assertEquals(0, sb.getPosition().get(H));
@@ -77,10 +79,15 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertEquals(2, sb.getLowerBlock().getPosition().getSpan(H));
         assertEquals(0, sb.getLowerBlock().getPosition().getSpan(V));
 
+        assertEquals(0, sb.getSubBlocks().get(1).getPosition().get(H));
+        assertEquals(0, sb.getSubBlocks().get(1).getPosition().get(V));
+        assertEquals(2, sb.getSubBlocks().get(1).getPosition().getSpan(H));
+        assertEquals(4, sb.getSubBlocks().get(1).getPosition().getSpan(V));
+
         assertEquals(0, sb.getUpperBlock().getPosition().get(H));
-        assertEquals(0, sb.getUpperBlock().getPosition().get(V));
+        assertEquals(4, sb.getUpperBlock().getPosition().get(V));
         assertEquals(2, sb.getUpperBlock().getPosition().getSpan(H));
-        assertEquals(4, sb.getUpperBlock().getPosition().getSpan(V));
+        assertEquals(0, sb.getUpperBlock().getPosition().getSpan(V));
 
         LayoutParameters layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
@@ -110,6 +117,11 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertEquals(100, sb.getLowerBlock().getCoord().getSpan(X), 0);
         assertEquals(200, sb.getLowerBlock().getCoord().getSpan(Y), 0);
 
+        assertEquals(10, sb.getSubBlocks().get(1).getCoord().get(X), 0);
+        assertEquals(20, sb.getSubBlocks().get(1).getCoord().get(Y), 0);
+        assertEquals(100, sb.getSubBlocks().get(1).getCoord().getSpan(X), 0);
+        assertEquals(200, sb.getSubBlocks().get(1).getCoord().getSpan(Y), 0);
+
         assertEquals(10, sb.getUpperBlock().getCoord().get(X), 0);
         assertEquals(20, sb.getUpperBlock().getCoord().get(Y), 0);
         assertEquals(100, sb.getUpperBlock().getCoord().getSpan(X), 0);
@@ -117,9 +129,16 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
 
         sb.reverseBlock();
 
+        // LegPrimaryBlock is NOT reversed (bus is always the starting node)
         assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(1).getEndingNode().getId());
-        assertEquals("bbs", sb.getSubBlocks().get(1).getStartingNode().getId());
-        assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(0).getEndingNode().getId());
-        assertEquals("la", sb.getSubBlocks().get(0).getStartingNode().getId());
+        assertEquals("bbs", sb.getSubBlocks().get(2).getStartingNode().getId());
+
+        // BodyPrimaryBlock is reversed
+        assertEquals("FICT_vl_daFictif", sb.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("FICT_vl_laFictif", sb.getSubBlocks().get(1).getStartingNode().getId());
+
+        // FeederPrimaryBlock is NOT reversed (feeder is always the ending node)
+        assertEquals("la", sb.getSubBlocks().get(0).getEndingNode().getId());
+        assertEquals("FICT_vl_laFictif", sb.getSubBlocks().get(0).getStartingNode().getId());
     }
 }

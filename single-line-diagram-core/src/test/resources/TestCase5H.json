@@ -14,7 +14,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 63.33333333333335,
+    "y" : 42.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -24,7 +24,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
-    "y" : 63.33333333333335,
+    "y" : 42.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -54,7 +54,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 63.33333333333335,
+    "y" : 42.0,
     "open" : false
   }, {
     "type" : "SHUNT",
@@ -64,7 +64,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 63.33333333333335,
+    "y" : 42.0,
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -74,7 +74,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 146.66666666666669,
+    "y" : 136.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -85,7 +85,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 146.66666666666669,
+    "y" : 136.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -115,7 +115,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 63.33333333333335,
+    "y" : 42.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -149,7 +149,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : -19.99999999999998,
+    "y" : -20.0,
     "open" : false,
     "label" : "la",
     "feederType" : "INJECTION",
@@ -163,7 +163,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : -19.99999999999998,
+    "y" : -20.0,
     "open" : false,
     "label" : "lb",
     "feederType" : "INJECTION",
@@ -186,14 +186,14 @@
         "h" : 0,
         "v" : 0,
         "hSpan" : 2,
-        "vSpan" : 6,
+        "vSpan" : 4,
         "orientation" : "UP"
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 105.0,
+        "y" : 136.0,
         "xSpan" : 50.0,
-        "ySpan" : 250.0
+        "ySpan" : 188.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -232,13 +232,13 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 146.66666666666669,
+          "y" : 136.0,
           "xSpan" : 50.0,
-          "ySpan" : 166.66666666666666
+          "ySpan" : 188.0
         },
         "nodes" : [ "FICT_vl_daFictif", "ba", "FICT_vl_laFictif" ]
       }, {
-        "type" : "BODYPRIMARY",
+        "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -248,14 +248,14 @@
           "h" : 0,
           "v" : 4,
           "hSpan" : 2,
-          "vSpan" : 2,
+          "vSpan" : 0,
           "orientation" : "UP"
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 21.666666666666686,
+          "y" : 42.0,
           "xSpan" : 50.0,
-          "ySpan" : 83.33333333333333
+          "ySpan" : 0.0
         },
         "nodes" : [ "FICT_vl_laFictif", "la" ]
       } ]
@@ -276,14 +276,14 @@
         "h" : 4,
         "v" : 0,
         "hSpan" : 2,
-        "vSpan" : 6,
+        "vSpan" : 4,
         "orientation" : "UP"
       },
       "coord" : {
         "x" : 125.0,
-        "y" : 105.0,
+        "y" : 136.0,
         "xSpan" : 50.0,
-        "ySpan" : 250.0
+        "ySpan" : 188.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -322,13 +322,13 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 146.66666666666669,
+          "y" : 136.0,
           "xSpan" : 50.0,
-          "ySpan" : 166.66666666666666
+          "ySpan" : 188.0
         },
         "nodes" : [ "FICT_vl_dbFictif", "bb", "FICT_vl_lbFictif" ]
       }, {
-        "type" : "BODYPRIMARY",
+        "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -338,14 +338,14 @@
           "h" : 0,
           "v" : 4,
           "hSpan" : 2,
-          "vSpan" : 2,
+          "vSpan" : 0,
           "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 21.666666666666686,
+          "y" : 42.0,
           "xSpan" : 50.0,
-          "ySpan" : 83.33333333333333
+          "ySpan" : 0.0
         },
         "nodes" : [ "FICT_vl_lbFictif", "lb" ]
       } ]

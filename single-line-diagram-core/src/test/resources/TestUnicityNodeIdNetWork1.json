@@ -17,6 +17,16 @@
     "y" : 230.0,
     "open" : false
   }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_lFictif",
+    "name" : "lFictif",
+    "equipmentId" : "lFictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 25.0,
+    "y" : 42.0,
+    "open" : false
+  }, {
     "type" : "SWITCH",
     "id" : "b",
     "name" : "b",
@@ -24,7 +34,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 105.0,
+    "y" : 136.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -93,9 +103,9 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 105.0,
+        "y" : 136.0,
         "xSpan" : 50.0,
-        "ySpan" : 250.0
+        "ySpan" : 188.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -134,11 +144,32 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 105.0,
+          "y" : 136.0,
           "xSpan" : 50.0,
-          "ySpan" : 250.0
+          "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_dFictif", "b", "l" ]
+        "nodes" : [ "FICT_vl_dFictif", "b", "FICT_vl_lFictif" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 25.0,
+          "y" : 42.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "FICT_vl_lFictif", "l" ]
       } ]
     }
   } ],
@@ -146,8 +177,11 @@
     "node1" : "bbs",
     "node2" : "d"
   }, {
-    "node1" : "b",
-    "node2" : "l"
+    "node1" : "FICT_vl_lFictif",
+    "node2" : "b"
+  }, {
+    "node1" : "l",
+    "node2" : "FICT_vl_lFictif"
   }, {
     "node1" : "b",
     "node2" : "FICT_vl_dFictif"

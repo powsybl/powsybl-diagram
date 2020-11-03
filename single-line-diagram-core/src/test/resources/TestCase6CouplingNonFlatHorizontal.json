@@ -204,7 +204,7 @@
     "x" : 50.0,
     "y" : 260.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "ds1fSwitch1",
@@ -215,7 +215,7 @@
     "x" : 100.0,
     "y" : 260.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "ds2",
@@ -238,7 +238,7 @@
     "x" : 50.0,
     "y" : 285.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "ds2fSwitch1",
@@ -249,7 +249,7 @@
     "x" : 100.0,
     "y" : 285.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   } ],
   "cells" : [ {
     "type" : "INTERN",
