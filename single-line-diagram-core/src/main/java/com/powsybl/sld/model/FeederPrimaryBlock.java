@@ -79,8 +79,7 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        double feederSpace = layoutParam.getMinSpaceForFeederArrows() + layoutParam.getMinSpaceBetweenComponents();
-        double yFeeder = getConnectedNode().getY() + getOrientation().progressionSign() * feederSpace;
+        double yFeeder = getConnectedNode().getY() + getOrientation().progressionSign() * getFeederSpan(layoutParam);
         getFeederNode().setX(getCoord().get(X));
         getFeederNode().setY(yFeeder, false);
     }
