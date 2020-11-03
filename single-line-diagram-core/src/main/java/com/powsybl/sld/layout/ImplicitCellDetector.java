@@ -268,7 +268,7 @@ public class ImplicitCellDetector implements CellDetector {
 
                 if (types.size() > 1) {
                     hasMixBranch = true;
-                } else {
+                } else if (types.size() == 1) {
                     hasBusBranch |= types.get(0).equals(Node.NodeType.BUS);
                     hasFeederBranch |= types.get(0).equals(Node.NodeType.FEEDER);
 

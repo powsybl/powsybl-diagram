@@ -716,8 +716,7 @@
           "h" : -1,
           "v" : -1,
           "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "RIGHT"
+          "vSpan" : 0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -730,8 +729,7 @@
             "h" : 18,
             "v" : -1,
             "hSpan" : 0,
-            "vSpan" : 0,
-            "orientation" : "RIGHT"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs2", "dsect12", "FICT_vl1_dsect12Fictif" ]
         }, {
@@ -745,8 +743,7 @@
             "h" : 16,
             "v" : 1,
             "hSpan" : 2,
-            "vSpan" : 2,
-            "orientation" : "RIGHT"
+            "vSpan" : 2
           },
           "nodes" : [ "FICT_vl1_dsect11Fictif", "dtrct11", "FICT_vl1_dsect12Fictif" ]
         }, {
@@ -760,8 +757,7 @@
             "h" : 16,
             "v" : -1,
             "hSpan" : 0,
-            "vSpan" : 0,
-            "orientation" : "RIGHT"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dsect11", "FICT_vl1_dsect11Fictif" ]
         } ]
@@ -780,8 +776,7 @@
           "h" : -1,
           "v" : -1,
           "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "RIGHT"
+          "vSpan" : 0
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -794,8 +789,7 @@
             "h" : 18,
             "v" : -1,
             "hSpan" : 0,
-            "vSpan" : 0,
-            "orientation" : "RIGHT"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs4", "dsect22", "FICT_vl1_dsect22Fictif" ]
         }, {
@@ -809,8 +803,7 @@
             "h" : 16,
             "v" : 2,
             "hSpan" : 2,
-            "vSpan" : 2,
-            "orientation" : "RIGHT"
+            "vSpan" : 2
           },
           "nodes" : [ "FICT_vl1_dsect21Fictif", "dtrct21", "FICT_vl1_dsect22Fictif" ]
         }, {
@@ -824,8 +817,7 @@
             "h" : 16,
             "v" : -1,
             "hSpan" : 0,
-            "vSpan" : 0,
-            "orientation" : "RIGHT"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs3", "dsect21", "FICT_vl1_dsect21Fictif" ]
         } ]
@@ -845,8 +837,7 @@
           "h" : 0,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -859,8 +850,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dload1", "FICT_vl1_dload1Fictif" ]
         }, {
@@ -874,8 +864,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dload1Fictif", "bload1", "load1" ]
         } ]
@@ -895,8 +884,7 @@
           "h" : 2,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -909,8 +897,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dtrf11", "FICT_vl1_dtrf11Fictif" ]
         }, {
@@ -924,8 +911,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf11Fictif", "btrf11", "trf1_ONE" ]
         } ]
@@ -945,8 +931,7 @@
           "h" : 8,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -959,8 +944,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dtrf15", "FICT_vl1_dtrf15Fictif" ]
         }, {
@@ -974,8 +958,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf15Fictif", "btrf15", "trf5_ONE" ]
         } ]
@@ -995,8 +978,7 @@
           "h" : 10,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1009,8 +991,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dtrf16", "FICT_vl1_dtrf16Fictif" ]
         }, {
@@ -1024,8 +1005,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf16Fictif", "btrf16", "trf6_ONE" ]
         } ]
@@ -1045,8 +1025,7 @@
           "h" : 14,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1059,8 +1038,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs1", "dline11_2", "FICT_vl1_dline11_2Fictif" ]
         }, {
@@ -1074,8 +1052,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dline11_2Fictif", "bline11_2", "line1_ONE" ]
         } ]
@@ -1095,8 +1072,7 @@
           "h" : 18,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1109,8 +1085,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs2", "dload2", "FICT_vl1_dload2Fictif" ]
         }, {
@@ -1124,8 +1099,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dload2Fictif", "bload2", "load2" ]
         } ]
@@ -1145,8 +1119,7 @@
           "h" : 24,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1159,8 +1132,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs2", "dtrf12", "FICT_vl1_dtrf12Fictif" ]
         }, {
@@ -1174,8 +1146,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf12Fictif", "btrf12", "trf2_ONE" ]
         } ]
@@ -1195,8 +1166,7 @@
           "h" : 20,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1209,8 +1179,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs2", "dtrf18", "FICT_vl1_dtrf18Fictif" ]
         }, {
@@ -1224,8 +1193,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf18Fictif", "btrf18", "trf8_ONE" ]
         } ]
@@ -1245,8 +1213,7 @@
           "h" : 4,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1259,8 +1226,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs3", "dgen1", "FICT_vl1_dgen1Fictif" ]
         }, {
@@ -1274,8 +1240,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dgen1Fictif", "bgen1", "gen1" ]
         } ]
@@ -1295,8 +1260,7 @@
           "h" : 6,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1309,8 +1273,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs3", "dtrf13", "FICT_vl1_dtrf13Fictif" ]
         }, {
@@ -1324,8 +1287,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf13Fictif", "btrf13", "trf3_ONE" ]
         } ]
@@ -1345,8 +1307,7 @@
           "h" : 12,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1359,8 +1320,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs3", "dtrf17", "FICT_vl1_dtrf17Fictif" ]
         }, {
@@ -1374,8 +1334,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf17Fictif", "btrf17", "trf7_ONE" ]
         } ]
@@ -1395,8 +1354,7 @@
           "h" : 26,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1409,8 +1367,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs4", "dgen2", "FICT_vl1_dgen2Fictif" ]
         }, {
@@ -1424,8 +1381,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dgen2Fictif", "bgen2", "gen2" ]
         } ]
@@ -1445,8 +1401,7 @@
           "h" : 22,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -1459,8 +1414,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs4", "dtrf14", "FICT_vl1_dtrf14Fictif" ]
         }, {
@@ -1474,8 +1428,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl1_dtrf14Fictif", "btrf14", "trf4_ONE" ]
         } ]
@@ -2163,8 +2116,7 @@
             "h" : 0,
             "v" : -1,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dscpl2", "FICT_vl2_dscpl2Fictif" ]
         }, {
@@ -2178,8 +2130,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 2,
-            "orientation" : "RIGHT"
+            "vSpan" : 2
           },
           "nodes" : [ "FICT_vl2_dscpl2Fictif", "ddcpl1", "FICT_vl2_dscpl1Fictif" ]
         }, {
@@ -2193,8 +2144,7 @@
             "h" : 2,
             "v" : -1,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs5", "dscpl1", "FICT_vl2_dscpl1Fictif" ]
         } ]
@@ -2214,8 +2164,7 @@
           "h" : 4,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2228,8 +2177,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs5", "dload3", "FICT_vl2_dload3Fictif" ]
         }, {
@@ -2243,8 +2191,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dload3Fictif", "bload3", "load3" ]
         } ]
@@ -2264,8 +2211,7 @@
           "h" : 6,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2278,8 +2224,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs5", "dtrf21", "FICT_vl2_dtrf21Fictif" ]
         }, {
@@ -2293,8 +2238,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf21Fictif", "btrf21", "trf1_TWO" ]
         } ]
@@ -2314,8 +2258,7 @@
           "h" : 10,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2328,8 +2271,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs5", "dtrf24", "FICT_vl2_dtrf24Fictif" ]
         }, {
@@ -2343,8 +2285,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf24Fictif", "btrf24", "trf4_TWO" ]
         } ]
@@ -2364,8 +2305,7 @@
           "h" : 12,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2378,8 +2318,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs5", "dtrf27", "FICT_vl2_dtrf27Fictif" ]
         }, {
@@ -2393,8 +2332,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "trf7_TWO" ]
         } ]
@@ -2414,8 +2352,7 @@
           "h" : 8,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2428,8 +2365,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dgen4", "FICT_vl2_dgen4Fictif" ]
         }, {
@@ -2443,8 +2379,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dgen4Fictif", "bgen4", "gen4" ]
         } ]
@@ -2464,8 +2399,7 @@
           "h" : 18,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2478,8 +2412,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dtrf22", "FICT_vl2_dtrf22Fictif" ]
         }, {
@@ -2493,8 +2426,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf22Fictif", "btrf22", "trf2_TWO" ]
         } ]
@@ -2514,8 +2446,7 @@
           "h" : 20,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2528,8 +2459,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dtrf23", "FICT_vl2_dtrf23Fictif" ]
         }, {
@@ -2543,8 +2473,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf23Fictif", "btrf23", "trf3_TWO" ]
         } ]
@@ -2564,8 +2493,7 @@
           "h" : 14,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2578,8 +2506,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dtrf26", "FICT_vl2_dtrf26Fictif" ]
         }, {
@@ -2593,8 +2520,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "trf6_TWO" ]
         } ]
@@ -2614,8 +2540,7 @@
           "h" : 16,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -2628,8 +2553,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs6", "dtrf28", "FICT_vl2_dtrf28Fictif" ]
         }, {
@@ -2643,8 +2567,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "trf8_TWO" ]
         } ]
@@ -3025,8 +2948,7 @@
           "h" : 0,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -3039,8 +2961,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs7", "dload4", "FICT_vl3_dload4Fictif" ]
         }, {
@@ -3054,8 +2975,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl3_dload4Fictif", "bload4", "load4" ]
         } ]
@@ -3075,8 +2995,7 @@
           "h" : 2,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -3089,8 +3008,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs7", "dtrf25", "FICT_vl3_dtrf25Fictif" ]
         }, {
@@ -3104,8 +3022,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl3_dtrf25Fictif", "btrf25", "trf5_TWO" ]
         } ]
@@ -3125,8 +3042,7 @@
           "h" : 4,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -3139,8 +3055,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs7", "dtrf36", "FICT_vl3_dtrf36Fictif" ]
         }, {
@@ -3154,8 +3069,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl3_dtrf36Fictif", "btrf36", "trf6_THREE" ]
         } ]
@@ -3175,8 +3089,7 @@
           "h" : 6,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "DOWN"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -3189,8 +3102,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "DOWN"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs7", "dtrf37", "FICT_vl3_dtrf37Fictif" ]
         }, {
@@ -3204,8 +3116,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "DOWN"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl3_dtrf37Fictif", "btrf37", "trf7_THREE" ]
         } ]
@@ -3225,8 +3136,7 @@
           "h" : 8,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
+          "vSpan" : 4
         },
         "subBlocks" : [ {
           "type" : "LEGPRIMARY",
@@ -3239,8 +3149,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 0,
-            "orientation" : "UP"
+            "vSpan" : 0
           },
           "nodes" : [ "bbs7", "dtrf38", "FICT_vl3_dtrf38Fictif" ]
         }, {
@@ -3254,8 +3163,7 @@
             "h" : 0,
             "v" : 0,
             "hSpan" : 2,
-            "vSpan" : 4,
-            "orientation" : "UP"
+            "vSpan" : 4
           },
           "nodes" : [ "FICT_vl3_dtrf38Fictif", "btrf38", "trf8_THREE" ]
         } ]
