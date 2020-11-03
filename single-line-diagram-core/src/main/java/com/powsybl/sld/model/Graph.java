@@ -319,7 +319,8 @@ public final class Graph {
             }
             addEdge(node, nf);
         }
-        nodes.addAll(nodesToAdd);
+
+        nodesToAdd.forEach(this::addNode);
     }
 
     private void addTripleNode(Node busNode, Node feederNode, List<Node> nodesToAdd) {

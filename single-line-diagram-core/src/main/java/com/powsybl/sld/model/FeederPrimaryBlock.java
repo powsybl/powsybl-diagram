@@ -16,8 +16,7 @@ import java.util.Set;
 import static com.powsybl.sld.model.Block.Extremity.START;
 import static com.powsybl.sld.model.Block.Type.FEEDERPRIMARY;
 import static com.powsybl.sld.model.Coord.Dimension.X;
-import static com.powsybl.sld.model.Node.NodeType.FEEDER;
-import static com.powsybl.sld.model.Node.NodeType.FICTITIOUS;
+import static com.powsybl.sld.model.Node.NodeType.*;
 import static com.powsybl.sld.model.Position.Dimension.H;
 import static com.powsybl.sld.model.Position.Dimension.V;
 
@@ -37,7 +36,8 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     private boolean checkConsistency() {
-        return nodes.size() == 2 && nodes.get(1).getType() == FEEDER && nodes.get(0).getType() == FICTITIOUS;
+        return nodes.size() == 2 && nodes.get(1).getType() == FEEDER
+            && (nodes.get(0).getType() == FICTITIOUS || nodes.get(0).getType() == SHUNT);
     }
 
     private FeederNode getFeederNode() {
