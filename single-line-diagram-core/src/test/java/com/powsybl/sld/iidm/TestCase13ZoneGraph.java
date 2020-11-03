@@ -7,6 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;
 import org.junit.Before;
@@ -24,6 +25,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     @Before
     public void setUp() {
         network = ZoneGraphTest.createNetwork();
+        layoutParameters = new LayoutParameters();
     }
 
     @Test

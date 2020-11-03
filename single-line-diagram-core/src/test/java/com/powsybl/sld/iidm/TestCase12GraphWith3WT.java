@@ -221,7 +221,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)
@@ -262,8 +262,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         assertEquals(toString("/TestCase12GraphVL2.json"), toJson(g2, "/TestCase12GraphVL2.json"));
         assertEquals(toString("/TestCase12GraphVL3.json"), toJson(g3, "/TestCase12GraphVL3.json"));
 
-        LayoutParameters layoutParametersOptimized = new LayoutParameters(layoutParameters);
-        layoutParametersOptimized.setAvoidSVGComponentsDuplication(true);
+        // Optimize SVG by avoiding duplication
+        layoutParameters = new LayoutParameters(layoutParameters);
+        layoutParameters.setAvoidSVGComponentsDuplication(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
@@ -283,7 +284,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         generator.getTerminal().getBusView().getBus().setV(403);
         generator.getTerminal().getBusView().getBus().setAngle(-1.7);
 
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)

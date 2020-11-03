@@ -207,7 +207,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)

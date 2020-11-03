@@ -27,7 +27,7 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
 
     @Test
     public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)

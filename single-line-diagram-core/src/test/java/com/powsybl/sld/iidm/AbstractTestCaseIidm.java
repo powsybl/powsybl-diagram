@@ -12,6 +12,13 @@ import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -37,6 +44,29 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     Substation getSubstation() {
         return substation;
+    }
+
+    @Override
+    public void toSVG(Graph g, String filename) {
+        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+    }
+
+    @Override
+    public void toSVG(SubstationGraph g, String filename) {
+        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+    }
+
+    @Override
+    public void toSVG(ZoneGraph g, String filename) {
+        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+    }
+
+    private DiagramLabelProvider getDefaultDiagramLabelProvider() {
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+    }
+
+    private DiagramStyleProvider getDefaultDiagramStyleProvider() {
+        return new DefaultDiagramStyleProvider();
     }
 
     protected static Substation createSubstation(Network n, String id, String name, Country country) {

@@ -55,7 +55,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters();
+        layoutParameters = new LayoutParameters();
 
         // Generating json for voltage level in first network
         Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
@@ -72,6 +72,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(graph2);
         new PositionVoltageLevelLayout(graph2).run(layoutParameters);
 
+        network = network2; // overwrite network with network2 for debug purposes (svg generated for debug in toJson if writeFile=true takes network as reference)
         String refJson2 = toString("/TestUnicityNodeIdNetWork2.json");
         assertEquals(refJson2, toJson(graph2, "/TestUnicityNodeIdNetWork2.json"));
 

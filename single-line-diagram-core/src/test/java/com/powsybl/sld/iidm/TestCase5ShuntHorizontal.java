@@ -67,7 +67,7 @@ public class TestCase5ShuntHorizontal extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        LayoutParameters layoutParameters = new LayoutParameters()
+        layoutParameters = new LayoutParameters()
                 .setTranslateX(20)
                 .setTranslateY(50)
                 .setInitialXBus(0)
