@@ -8,7 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.SubstationDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.SubstationGraph;
@@ -239,9 +238,11 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
-        SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
+        SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
-        compareMetadata(diagram, getLayoutParameters(), "/substDiag_metadata.json",
+        compareMetadata(substationGraph, "/substDiag_metadata.json",
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
                 new DefaultDiagramStyleProvider());
     }
@@ -250,9 +251,11 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontalNominalStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
-        SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
-        compareMetadata(diagram, getLayoutParameters(), "/substDiag_metadata.json",
+        compareMetadata(graph, "/substDiag_metadata.json",
+                new HorizontalSubstationLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
                 new NominalVoltageDiagramStyleProvider(network));
     }

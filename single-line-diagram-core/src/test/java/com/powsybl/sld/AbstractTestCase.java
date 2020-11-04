@@ -8,6 +8,8 @@ package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.SubstationLayoutFactory;
+import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
@@ -33,7 +35,7 @@ public abstract class AbstractTestCase {
     private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = false;
+    protected boolean debugSvgFiles = true;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
@@ -113,11 +115,11 @@ public abstract class AbstractTestCase {
     public String toSVG(Graph graph,
                         String filename,
                         LayoutParameters layoutParameters,
-                        DiagramLabelProvider initValueProvider,
+                        DiagramLabelProvider labelProvider,
                         DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters);
-            writeGraph(svgWriter, graph, initValueProvider, styleProvider, writer);
+            writeGraph(svgWriter, graph, labelProvider, styleProvider, writer);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -145,28 +147,30 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareMetadata(VoltageLevelDiagram diagram, LayoutParameters layoutParameters,
-                                String refMetdataName,
-                                DiagramLabelProvider initValueProvider,
-                                DiagramStyleProvider styleProvider) {
+    public void compareMetadata(VoltageLevelGraph graph, String refMetadataName,
+                                VoltageLevelLayoutFactory voltageLevelLayoutFactory,
+                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+
+        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetadataName));
+
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
-            diagram.writeSvg("",
-                    new DefaultSVGWriter(componentLibrary, layoutParameters),
-                    initValueProvider, styleProvider,
-                    writer, metadataWriter);
+
+            voltageLevelLayoutFactory.create(graph).run(getLayoutParameters());
+            SingleLineDiagram.draw(graph, new DefaultSVGWriter(componentLibrary, getLayoutParameters()),
+                    labelProvider, styleProvider, writer, metadataWriter, "");
 
             if (debugJsonFiles) {
-                writeToFileInDebugDir(refMetdataName, metadataWriter);
+                writeToFileInDebugDir(refMetadataName, metadataWriter);
             }
             if (overrideTestReferences) {
-                overrideTestReference(refMetdataName, metadataWriter);
+                overrideTestReference(refMetadataName, metadataWriter);
             }
             if (debugSvgFiles) {
-                writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
+                writeToFileInDebugDir(refMetadataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
+            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
             assertEquals(refMetadata, metadata);
         } catch (IOException e) {
@@ -174,17 +178,15 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareMetadata(SubstationDiagram diagram, LayoutParameters layoutParameters,
-                                String refMetdataName,
-                                DiagramLabelProvider initValueProvider,
-                                DiagramStyleProvider styleProvider) {
+    public void compareMetadata(SubstationGraph graph, String refMetdataName,
+                                SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
+                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
-            diagram.writeSvg("",
-                    new DefaultSVGWriter(componentLibrary, layoutParameters),
-                    initValueProvider,
-                    styleProvider,
-                    writer, metadataWriter);
+
+            sLayoutFactory.create(graph, vlLayoutFactory).run(getLayoutParameters());
+            SingleLineDiagram.draw(graph, new DefaultSVGWriter(componentLibrary, getLayoutParameters()),
+                    labelProvider, styleProvider, writer, metadataWriter, "");
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);

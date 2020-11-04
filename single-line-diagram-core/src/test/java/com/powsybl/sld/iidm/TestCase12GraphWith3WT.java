@@ -8,7 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -273,9 +272,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         getLayoutParameters().setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
-        VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
-                new PositionVoltageLevelLayoutFactory(), false);
-        compareMetadata(diagram, getLayoutParameters(), "/vlDiag_metadata.json",
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        compareMetadata(graph, "/vlDiag_metadata.json",
+                new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
                 new NominalVoltageDiagramStyleProvider(network));
     }

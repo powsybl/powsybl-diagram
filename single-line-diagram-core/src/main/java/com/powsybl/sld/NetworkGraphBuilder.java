@@ -150,7 +150,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         // Add snake edges between different voltageLevels in the same substation
         addSnakeEdges(graph, substation);
 
-        LOGGER.info("Number of node : {} ", graph.getNodes().size());
+        LOGGER.info("Number of voltage levels: {} ", graph.getNodes().size());
     }
 
     private void addSnakeEdges(SubstationGraph graph, Substation substation) {
