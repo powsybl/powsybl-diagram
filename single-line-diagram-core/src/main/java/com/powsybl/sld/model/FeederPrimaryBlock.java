@@ -55,7 +55,8 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public void sizing() {
-        // Orientation is always vertical; the span is equal to 0 as the height is constant
+        // Orientation is always vertical (no horizontal feeder so far)
+        // The span is equal to 0 as the height is constant
         getPosition().setSpan(H, 2);
         getPosition().setSpan(V, 0);
     }

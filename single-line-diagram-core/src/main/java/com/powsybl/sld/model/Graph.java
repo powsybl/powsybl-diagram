@@ -296,28 +296,28 @@ public final class Graph {
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         for (Node feederNode : feederNodes) {
             List<Node> adjacentNodes = feederNode.getAdjacentNodes();
-            if (adjacentNodes.size() == 1) {
-                // Three-winding transformers do not need internal node as the Middle3WTNode is such a node in a way
-                if (adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)) {
-                    continue;
+            boolean feeder3WT = adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
+            boolean feederConnectedToBus = adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
+            if (!feeder3WT && !feederConnectedToBus) {
+                // Create a new fictitious node
+                InternalNode nf = new InternalNode(feederNode.graph, feederNode.getId() + "Fictif");
+                nodesToAdd.add(nf);
+                // Create all new edges and remove old ones
+                for (Node neighbor : adjacentNodes) {
+                    addEdge(neighbor, nf);
+                    removeEdge(neighbor, feederNode);
                 }
-                // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
-                //  - 1 fictitious disconnector on the bus
-                //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                if (adjacentNodes.get(0).getType() == Node.NodeType.BUS) {
+                addEdge(nf, feederNode);
+            } else {
+                // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an
+                // internal node, while Feeders directly connected to bus need special care
+                if (feederConnectedToBus) {
+                    // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
+                    //  - 1 fictitious disconnector on the bus
+                    //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
                     addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
-                    continue;
                 }
             }
-            // Create a new fictitious node
-            InternalNode nf = new InternalNode(feederNode.graph, feederNode.getId() + "Fictif");
-            nodesToAdd.add(nf);
-            // Create all new edges and remove old ones
-            for (Node neighbor : adjacentNodes) {
-                addEdge(neighbor, nf);
-                removeEdge(neighbor, feederNode);
-            }
-            addEdge(nf, feederNode);
         }
 
         nodesToAdd.forEach(this::addNode);
