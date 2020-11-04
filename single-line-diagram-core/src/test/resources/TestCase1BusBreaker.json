@@ -312,11 +312,11 @@
     "node1" : "b1",
     "node2" : "FICT_vl_b2_sw"
   }, {
-    "node1" : "FICT_vl_lFictif",
-    "node2" : "FICT_vl_b1_l"
-  }, {
-    "node1" : "l",
+    "node1" : "FICT_vl_b1_l",
     "node2" : "FICT_vl_lFictif"
+  }, {
+    "node1" : "FICT_vl_lFictif",
+    "node2" : "l"
   }, {
     "node1" : "b2",
     "node2" : "swfSwitch"

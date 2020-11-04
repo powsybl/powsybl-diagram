@@ -383,17 +383,17 @@
     "node1" : "db",
     "node2" : "bbs"
   }, {
-    "node1" : "FICT_vl_laFictif",
-    "node2" : "ba"
-  }, {
-    "node1" : "la",
+    "node1" : "ba",
     "node2" : "FICT_vl_laFictif"
   }, {
-    "node1" : "FICT_vl_lbFictif",
-    "node2" : "bb"
+    "node1" : "FICT_vl_laFictif",
+    "node2" : "la"
   }, {
-    "node1" : "lb",
+    "node1" : "bb",
     "node2" : "FICT_vl_lbFictif"
+  }, {
+    "node1" : "FICT_vl_lbFictif",
+    "node2" : "lb"
   }, {
     "node1" : "ba",
     "node2" : "FICT_vl_daFictif"

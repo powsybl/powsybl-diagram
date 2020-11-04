@@ -1521,35 +1521,35 @@
     "node1" : "bbs8",
     "node2" : "dself6"
   }, {
-    "node1" : "FICT_vl3_load4Fictif",
-    "node2" : "bload4"
-  }, {
-    "node1" : "load4",
+    "node1" : "bload4",
     "node2" : "FICT_vl3_load4Fictif"
   }, {
-    "node1" : "FICT_vl3_self4Fictif",
-    "node2" : "bself4"
+    "node1" : "FICT_vl3_load4Fictif",
+    "node2" : "load4"
   }, {
-    "node1" : "self4",
+    "node1" : "bself4",
     "node2" : "FICT_vl3_self4Fictif"
   }, {
-    "node1" : "FICT_vl3_trf5_TWOFictif",
-    "node2" : "btrf25"
+    "node1" : "FICT_vl3_self4Fictif",
+    "node2" : "self4"
   }, {
-    "node1" : "trf5_TWO",
+    "node1" : "btrf25",
     "node2" : "FICT_vl3_trf5_TWOFictif"
   }, {
-    "node1" : "FICT_vl3_self5Fictif",
-    "node2" : "bself5"
+    "node1" : "FICT_vl3_trf5_TWOFictif",
+    "node2" : "trf5_TWO"
   }, {
-    "node1" : "self5",
+    "node1" : "bself5",
     "node2" : "FICT_vl3_self5Fictif"
   }, {
-    "node1" : "FICT_vl3_self6Fictif",
-    "node2" : "bself6"
+    "node1" : "FICT_vl3_self5Fictif",
+    "node2" : "self5"
   }, {
-    "node1" : "self6",
+    "node1" : "bself6",
     "node2" : "FICT_vl3_self6Fictif"
+  }, {
+    "node1" : "FICT_vl3_self6Fictif",
+    "node2" : "self6"
   }, {
     "node1" : "bload4",
     "node2" : "FICT_vl3_dload4Fictif"

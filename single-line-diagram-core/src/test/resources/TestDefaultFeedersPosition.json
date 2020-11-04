@@ -985,29 +985,29 @@
       "node1" : "bbs4",
       "node2" : "dgen2"
     }, {
-      "node1" : "FICT_vl1_load1Fictif",
-      "node2" : "bload1"
-    }, {
-      "node1" : "load1",
+      "node1" : "bload1",
       "node2" : "FICT_vl1_load1Fictif"
     }, {
-      "node1" : "FICT_vl1_gen1Fictif",
-      "node2" : "bgen1"
+      "node1" : "FICT_vl1_load1Fictif",
+      "node2" : "load1"
     }, {
-      "node1" : "gen1",
+      "node1" : "bgen1",
       "node2" : "FICT_vl1_gen1Fictif"
     }, {
-      "node1" : "FICT_vl1_load2Fictif",
-      "node2" : "bload2"
+      "node1" : "FICT_vl1_gen1Fictif",
+      "node2" : "gen1"
     }, {
-      "node1" : "load2",
+      "node1" : "bload2",
       "node2" : "FICT_vl1_load2Fictif"
     }, {
-      "node1" : "FICT_vl1_gen2Fictif",
-      "node2" : "bgen2"
+      "node1" : "FICT_vl1_load2Fictif",
+      "node2" : "load2"
     }, {
-      "node1" : "gen2",
+      "node1" : "bgen2",
       "node2" : "FICT_vl1_gen2Fictif"
+    }, {
+      "node1" : "FICT_vl1_gen2Fictif",
+      "node2" : "gen2"
     }, {
       "node1" : "dtrct11",
       "node2" : "FICT_vl1_dsect11Fictif"

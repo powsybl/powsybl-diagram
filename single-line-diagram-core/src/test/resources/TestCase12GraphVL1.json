@@ -2481,59 +2481,59 @@
     "node1" : "btrf18",
     "node2" : "FICT_vl1_trf8_fictif"
   }, {
-    "node1" : "FICT_vl1_load1Fictif",
-    "node2" : "bload1"
-  }, {
-    "node1" : "load1",
+    "node1" : "bload1",
     "node2" : "FICT_vl1_load1Fictif"
   }, {
-    "node1" : "FICT_vl1_gen1Fictif",
-    "node2" : "bgen1"
+    "node1" : "FICT_vl1_load1Fictif",
+    "node2" : "load1"
   }, {
-    "node1" : "gen1",
+    "node1" : "bgen1",
     "node2" : "FICT_vl1_gen1Fictif"
   }, {
-    "node1" : "FICT_vl1_load2Fictif",
-    "node2" : "bload2"
+    "node1" : "FICT_vl1_gen1Fictif",
+    "node2" : "gen1"
   }, {
-    "node1" : "load2",
+    "node1" : "bload2",
     "node2" : "FICT_vl1_load2Fictif"
   }, {
-    "node1" : "FICT_vl1_gen2Fictif",
-    "node2" : "bgen2"
+    "node1" : "FICT_vl1_load2Fictif",
+    "node2" : "load2"
   }, {
-    "node1" : "gen2",
+    "node1" : "bgen2",
     "node2" : "FICT_vl1_gen2Fictif"
   }, {
-    "node1" : "FICT_vl1_trf1_ONEFictif",
-    "node2" : "btrf11"
+    "node1" : "FICT_vl1_gen2Fictif",
+    "node2" : "gen2"
   }, {
-    "node1" : "trf1_ONE",
+    "node1" : "btrf11",
     "node2" : "FICT_vl1_trf1_ONEFictif"
   }, {
-    "node1" : "FICT_vl1_trf2_ONEFictif",
-    "node2" : "btrf12"
+    "node1" : "FICT_vl1_trf1_ONEFictif",
+    "node2" : "trf1_ONE"
   }, {
-    "node1" : "trf2_ONE",
+    "node1" : "btrf12",
     "node2" : "FICT_vl1_trf2_ONEFictif"
   }, {
-    "node1" : "FICT_vl1_trf3_ONEFictif",
-    "node2" : "btrf13"
+    "node1" : "FICT_vl1_trf2_ONEFictif",
+    "node2" : "trf2_ONE"
   }, {
-    "node1" : "trf3_ONE",
+    "node1" : "btrf13",
     "node2" : "FICT_vl1_trf3_ONEFictif"
   }, {
-    "node1" : "FICT_vl1_trf4_ONEFictif",
-    "node2" : "btrf14"
+    "node1" : "FICT_vl1_trf3_ONEFictif",
+    "node2" : "trf3_ONE"
   }, {
-    "node1" : "trf4_ONE",
+    "node1" : "btrf14",
     "node2" : "FICT_vl1_trf4_ONEFictif"
   }, {
-    "node1" : "FICT_vl1_trf5_ONEFictif",
-    "node2" : "btrf15"
+    "node1" : "FICT_vl1_trf4_ONEFictif",
+    "node2" : "trf4_ONE"
   }, {
-    "node1" : "trf5_ONE",
+    "node1" : "btrf15",
     "node2" : "FICT_vl1_trf5_ONEFictif"
+  }, {
+    "node1" : "FICT_vl1_trf5_ONEFictif",
+    "node2" : "trf5_ONE"
   }, {
     "node1" : "dtrct11",
     "node2" : "FICT_vl1_dsect11Fictif"

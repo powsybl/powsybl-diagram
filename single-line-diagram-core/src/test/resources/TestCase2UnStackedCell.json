@@ -261,10 +261,10 @@
     "node1" : "FICT_vlUnstack_2",
     "node2" : "b"
   }, {
-    "node1" : "FICT_vlUnstack_lFictif",
-    "node2" : "b"
-  }, {
-    "node1" : "l",
+    "node1" : "b",
     "node2" : "FICT_vlUnstack_lFictif"
+  }, {
+    "node1" : "FICT_vlUnstack_lFictif",
+    "node2" : "l"
   } ]
 }

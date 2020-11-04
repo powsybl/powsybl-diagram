@@ -348,16 +348,16 @@
     "node1" : "FICT_vl_f2",
     "node2" : "FICT_vl_f0"
   }, {
-    "node1" : "FICT_vl_l1Fictif",
-    "node2" : "FICT_vl_f1"
-  }, {
-    "node1" : "l1",
+    "node1" : "FICT_vl_f1",
     "node2" : "FICT_vl_l1Fictif"
   }, {
-    "node1" : "FICT_vl_l2Fictif",
-    "node2" : "FICT_vl_f2"
+    "node1" : "FICT_vl_l1Fictif",
+    "node2" : "l1"
   }, {
-    "node1" : "l2",
+    "node1" : "FICT_vl_f2",
     "node2" : "FICT_vl_l2Fictif"
+  }, {
+    "node1" : "FICT_vl_l2Fictif",
+    "node2" : "l2"
   } ]
 }

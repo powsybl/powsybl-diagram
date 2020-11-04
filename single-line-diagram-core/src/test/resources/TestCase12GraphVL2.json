@@ -1838,41 +1838,41 @@
     "node1" : "btrf28",
     "node2" : "FICT_vl2_trf8_fictif"
   }, {
-    "node1" : "FICT_vl2_load3Fictif",
-    "node2" : "bload3"
-  }, {
-    "node1" : "load3",
+    "node1" : "bload3",
     "node2" : "FICT_vl2_load3Fictif"
   }, {
-    "node1" : "FICT_vl2_gen4Fictif",
-    "node2" : "bgen4"
+    "node1" : "FICT_vl2_load3Fictif",
+    "node2" : "load3"
   }, {
-    "node1" : "gen4",
+    "node1" : "bgen4",
     "node2" : "FICT_vl2_gen4Fictif"
   }, {
-    "node1" : "FICT_vl2_trf1_TWOFictif",
-    "node2" : "btrf21"
+    "node1" : "FICT_vl2_gen4Fictif",
+    "node2" : "gen4"
   }, {
-    "node1" : "trf1_TWO",
+    "node1" : "btrf21",
     "node2" : "FICT_vl2_trf1_TWOFictif"
   }, {
-    "node1" : "FICT_vl2_trf2_TWOFictif",
-    "node2" : "btrf22"
+    "node1" : "FICT_vl2_trf1_TWOFictif",
+    "node2" : "trf1_TWO"
   }, {
-    "node1" : "trf2_TWO",
+    "node1" : "btrf22",
     "node2" : "FICT_vl2_trf2_TWOFictif"
   }, {
-    "node1" : "FICT_vl2_trf3_TWOFictif",
-    "node2" : "btrf23"
+    "node1" : "FICT_vl2_trf2_TWOFictif",
+    "node2" : "trf2_TWO"
   }, {
-    "node1" : "trf3_TWO",
+    "node1" : "btrf23",
     "node2" : "FICT_vl2_trf3_TWOFictif"
   }, {
-    "node1" : "FICT_vl2_trf4_TWOFictif",
-    "node2" : "btrf24"
+    "node1" : "FICT_vl2_trf3_TWOFictif",
+    "node2" : "trf3_TWO"
   }, {
-    "node1" : "trf4_TWO",
+    "node1" : "btrf24",
     "node2" : "FICT_vl2_trf4_TWOFictif"
+  }, {
+    "node1" : "FICT_vl2_trf4_TWOFictif",
+    "node2" : "trf4_TWO"
   }, {
     "node1" : "ddcpl1",
     "node2" : "FICT_vl2_dscpl1Fictif"

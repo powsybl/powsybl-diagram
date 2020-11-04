@@ -294,8 +294,8 @@ public final class Graph {
     public void extendFeeders() {
         List<Node> nodesToAdd = new ArrayList<>();
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
-        for (Node node : feederNodes) {
-            List<Node> adjacentNodes = node.getAdjacentNodes();
+        for (Node feederNode : feederNodes) {
+            List<Node> adjacentNodes = feederNode.getAdjacentNodes();
             if (adjacentNodes.size() == 1) {
                 // Three-winding transformers do not need internal node as the Middle3WTNode is such a node in a way
                 if (adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER)) {
@@ -305,19 +305,19 @@ public final class Graph {
                 //  - 1 fictitious disconnector on the bus
                 //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
                 if (adjacentNodes.get(0).getType() == Node.NodeType.BUS) {
-                    addTripleNode(adjacentNodes.get(0), node, nodesToAdd);
+                    addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
                     continue;
                 }
             }
             // Create a new fictitious node
-            InternalNode nf = new InternalNode(node.graph, node.getId() + "Fictif");
+            InternalNode nf = new InternalNode(feederNode.graph, feederNode.getId() + "Fictif");
             nodesToAdd.add(nf);
             // Create all new edges and remove old ones
             for (Node neighbor : adjacentNodes) {
-                addEdge(nf, neighbor);
-                removeEdge(node, neighbor);
+                addEdge(neighbor, nf);
+                removeEdge(neighbor, feederNode);
             }
-            addEdge(node, nf);
+            addEdge(nf, feederNode);
         }
 
         nodesToAdd.forEach(this::addNode);

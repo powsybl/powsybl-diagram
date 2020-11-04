@@ -177,11 +177,11 @@
     "node1" : "bbs",
     "node2" : "d"
   }, {
-    "node1" : "FICT_vl_lFictif",
-    "node2" : "b"
-  }, {
-    "node1" : "l",
+    "node1" : "b",
     "node2" : "FICT_vl_lFictif"
+  }, {
+    "node1" : "FICT_vl_lFictif",
+    "node2" : "l"
   }, {
     "node1" : "b",
     "node2" : "FICT_vl_dFictif"

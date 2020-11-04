@@ -788,23 +788,23 @@
     "node1" : "dc1",
     "node2" : "bbs1.2"
   }, {
-    "node1" : "FICT_vl_laFictif",
-    "node2" : "ba"
-  }, {
-    "node1" : "la",
+    "node1" : "ba",
     "node2" : "FICT_vl_laFictif"
   }, {
-    "node1" : "FICT_vl_lbFictif",
-    "node2" : "bb"
+    "node1" : "FICT_vl_laFictif",
+    "node2" : "la"
   }, {
-    "node1" : "lb",
+    "node1" : "bb",
     "node2" : "FICT_vl_lbFictif"
   }, {
-    "node1" : "FICT_vl_gcFictif",
-    "node2" : "bc"
+    "node1" : "FICT_vl_lbFictif",
+    "node2" : "lb"
   }, {
-    "node1" : "gc",
+    "node1" : "bc",
     "node2" : "FICT_vl_gcFictif"
+  }, {
+    "node1" : "FICT_vl_gcFictif",
+    "node2" : "gc"
   }, {
     "node1" : "bc",
     "node2" : "FICT_vl_dc1Fictif"

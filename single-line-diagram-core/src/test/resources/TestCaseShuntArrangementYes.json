@@ -2415,65 +2415,65 @@
     "node1" : "bFeederG",
     "node2" : "FICT_vl_commonFG"
   }, {
-    "node1" : "FICT_vl_loadAFictif",
-    "node2" : "FICT_vl_fShuntA"
-  }, {
-    "node1" : "loadA",
+    "node1" : "FICT_vl_fShuntA",
     "node2" : "FICT_vl_loadAFictif"
   }, {
-    "node1" : "FICT_vl_lFictif",
-    "node2" : "b"
+    "node1" : "FICT_vl_loadAFictif",
+    "node2" : "loadA"
   }, {
-    "node1" : "l",
+    "node1" : "b",
     "node2" : "FICT_vl_lFictif"
   }, {
-    "node1" : "FICT_vl_loadBFictif",
-    "node2" : "FICT_vl_fShuntB"
+    "node1" : "FICT_vl_lFictif",
+    "node2" : "l"
   }, {
-    "node1" : "loadB",
+    "node1" : "FICT_vl_fShuntB",
     "node2" : "FICT_vl_loadBFictif"
   }, {
-    "node1" : "FICT_vl_gen1Fictif",
-    "node2" : "bg1"
+    "node1" : "FICT_vl_loadBFictif",
+    "node2" : "loadB"
   }, {
-    "node1" : "gen1",
+    "node1" : "bg1",
     "node2" : "FICT_vl_gen1Fictif"
   }, {
-    "node1" : "FICT_vl_loadCFictif",
-    "node2" : "bC"
+    "node1" : "FICT_vl_gen1Fictif",
+    "node2" : "gen1"
   }, {
-    "node1" : "loadC",
+    "node1" : "bC",
     "node2" : "FICT_vl_loadCFictif"
   }, {
-    "node1" : "FICT_vl_loadDFictif",
-    "node2" : "bD"
+    "node1" : "FICT_vl_loadCFictif",
+    "node2" : "loadC"
   }, {
-    "node1" : "loadD",
+    "node1" : "bD",
     "node2" : "FICT_vl_loadDFictif"
   }, {
-    "node1" : "FICT_vl_gen2Fictif",
-    "node2" : "bg2"
+    "node1" : "FICT_vl_loadDFictif",
+    "node2" : "loadD"
   }, {
-    "node1" : "gen2",
+    "node1" : "bg2",
     "node2" : "FICT_vl_gen2Fictif"
   }, {
-    "node1" : "FICT_vl_loadEFictif",
-    "node2" : "bE"
+    "node1" : "FICT_vl_gen2Fictif",
+    "node2" : "gen2"
   }, {
-    "node1" : "loadE",
+    "node1" : "bE",
     "node2" : "FICT_vl_loadEFictif"
   }, {
-    "node1" : "FICT_vl_loadFFictif",
-    "node2" : "FICT_vl_commonFG"
+    "node1" : "FICT_vl_loadEFictif",
+    "node2" : "loadE"
   }, {
-    "node1" : "loadF",
+    "node1" : "FICT_vl_commonFG",
     "node2" : "FICT_vl_loadFFictif"
   }, {
-    "node1" : "FICT_vl_loadGFictif",
-    "node2" : "FICT_vl_fLoadG"
+    "node1" : "FICT_vl_loadFFictif",
+    "node2" : "loadF"
   }, {
-    "node1" : "loadG",
+    "node1" : "FICT_vl_fLoadG",
     "node2" : "FICT_vl_loadGFictif"
+  }, {
+    "node1" : "FICT_vl_loadGFictif",
+    "node2" : "loadG"
   }, {
     "node1" : "bA",
     "node2" : "FICT_vl_dAFictif"

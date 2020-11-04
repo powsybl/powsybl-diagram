@@ -1017,23 +1017,23 @@
     "node1" : "FICT_vl2_f2",
     "node2" : "b2"
   }, {
-    "node1" : "FICT_vl2_l1Fictif",
-    "node2" : "b1"
-  }, {
-    "node1" : "l1",
+    "node1" : "b1",
     "node2" : "FICT_vl2_l1Fictif"
   }, {
-    "node1" : "FICT_vl2_lFictif",
-    "node2" : "b"
+    "node1" : "FICT_vl2_l1Fictif",
+    "node2" : "l1"
   }, {
-    "node1" : "l",
+    "node1" : "b",
     "node2" : "FICT_vl2_lFictif"
   }, {
-    "node1" : "FICT_vl2_l2Fictif",
-    "node2" : "b2"
+    "node1" : "FICT_vl2_lFictif",
+    "node2" : "l"
   }, {
-    "node1" : "l2",
+    "node1" : "b2",
     "node2" : "FICT_vl2_l2Fictif"
+  }, {
+    "node1" : "FICT_vl2_l2Fictif",
+    "node2" : "l2"
   }, {
     "node1" : "bbs11",
     "node2" : "ss1fSwitch0"
