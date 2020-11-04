@@ -7,14 +7,14 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
-import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.svg.DefaultSVGWriter;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +50,7 @@ public abstract class AbstractTestCase {
         if (writeFile) {
             File homeFolder = new File(System.getProperty("user.home"));
             File file = new File(homeFolder, filename);
-            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)){
+            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
                 fw.write(content.toString());
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
@@ -59,7 +59,9 @@ public abstract class AbstractTestCase {
     }
 
     public abstract void toSVG(Graph g, String filename);
+
     public abstract void toSVG(SubstationGraph g, String filename);
+
     public abstract void toSVG(ZoneGraph g, String filename);
 
     public String toSVG(Graph graph,
