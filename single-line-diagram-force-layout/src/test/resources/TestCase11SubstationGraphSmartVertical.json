@@ -147,6 +147,110 @@
       "fictitious" : true,
       "open" : false
     }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_gen1Fictif",
+      "name" : "gen1Fictif",
+      "equipmentId" : "gen1Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_gen2Fictif",
+      "name" : "gen2Fictif",
+      "equipmentId" : "gen2Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_line1_ONEFictif",
+      "name" : "line1_ONEFictif",
+      "equipmentId" : "line1_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_load1Fictif",
+      "name" : "load1Fictif",
+      "equipmentId" : "load1Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_load2Fictif",
+      "name" : "load2Fictif",
+      "equipmentId" : "load2Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf1_ONEFictif",
+      "name" : "trf1_ONEFictif",
+      "equipmentId" : "trf1_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf2_ONEFictif",
+      "name" : "trf2_ONEFictif",
+      "equipmentId" : "trf2_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf3_ONEFictif",
+      "name" : "trf3_ONEFictif",
+      "equipmentId" : "trf3_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf4_ONEFictif",
+      "name" : "trf4_ONEFictif",
+      "equipmentId" : "trf4_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf5_ONEFictif",
+      "name" : "trf5_ONEFictif",
+      "equipmentId" : "trf5_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf6_ONEFictif",
+      "name" : "trf6_ONEFictif",
+      "equipmentId" : "trf6_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf7_ONEFictif",
+      "name" : "trf7_ONEFictif",
+      "equipmentId" : "trf7_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl1_trf8_ONEFictif",
+      "name" : "trf8_ONEFictif",
+      "equipmentId" : "trf8_ONEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
       "type" : "BUS",
       "id" : "bbs1",
       "name" : "bbs1",
@@ -866,7 +970,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dload1Fictif", "bload1", "load1" ]
+          "nodes" : [ "FICT_vl1_dload1Fictif", "bload1", "FICT_vl1_load1Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_load1Fictif", "load1" ]
         } ]
       }
     }, {
@@ -913,7 +1031,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf11Fictif", "btrf11", "trf1_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf11Fictif", "btrf11", "FICT_vl1_trf1_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf1_ONEFictif", "trf1_ONE" ]
         } ]
       }
     }, {
@@ -960,7 +1092,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf15Fictif", "btrf15", "trf5_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf15Fictif", "btrf15", "FICT_vl1_trf5_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf5_ONEFictif", "trf5_ONE" ]
         } ]
       }
     }, {
@@ -1007,7 +1153,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf16Fictif", "btrf16", "trf6_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf16Fictif", "btrf16", "FICT_vl1_trf6_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf6_ONEFictif", "trf6_ONE" ]
         } ]
       }
     }, {
@@ -1054,7 +1214,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dline11_2Fictif", "bline11_2", "line1_ONE" ]
+          "nodes" : [ "FICT_vl1_dline11_2Fictif", "bline11_2", "FICT_vl1_line1_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_line1_ONEFictif", "line1_ONE" ]
         } ]
       }
     }, {
@@ -1101,7 +1275,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dload2Fictif", "bload2", "load2" ]
+          "nodes" : [ "FICT_vl1_dload2Fictif", "bload2", "FICT_vl1_load2Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_load2Fictif", "load2" ]
         } ]
       }
     }, {
@@ -1148,7 +1336,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf12Fictif", "btrf12", "trf2_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf12Fictif", "btrf12", "FICT_vl1_trf2_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf2_ONEFictif", "trf2_ONE" ]
         } ]
       }
     }, {
@@ -1195,7 +1397,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf18Fictif", "btrf18", "trf8_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf18Fictif", "btrf18", "FICT_vl1_trf8_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf8_ONEFictif", "trf8_ONE" ]
         } ]
       }
     }, {
@@ -1242,7 +1458,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dgen1Fictif", "bgen1", "gen1" ]
+          "nodes" : [ "FICT_vl1_dgen1Fictif", "bgen1", "FICT_vl1_gen1Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_gen1Fictif", "gen1" ]
         } ]
       }
     }, {
@@ -1289,7 +1519,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf13Fictif", "btrf13", "trf3_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf13Fictif", "btrf13", "FICT_vl1_trf3_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf3_ONEFictif", "trf3_ONE" ]
         } ]
       }
     }, {
@@ -1336,7 +1580,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf17Fictif", "btrf17", "trf7_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf17Fictif", "btrf17", "FICT_vl1_trf7_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf7_ONEFictif", "trf7_ONE" ]
         } ]
       }
     }, {
@@ -1383,7 +1641,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dgen2Fictif", "bgen2", "gen2" ]
+          "nodes" : [ "FICT_vl1_dgen2Fictif", "bgen2", "FICT_vl1_gen2Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_gen2Fictif", "gen2" ]
         } ]
       }
     }, {
@@ -1430,7 +1702,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl1_dtrf14Fictif", "btrf14", "trf4_ONE" ]
+          "nodes" : [ "FICT_vl1_dtrf14Fictif", "btrf14", "FICT_vl1_trf4_ONEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl1_trf4_ONEFictif", "trf4_ONE" ]
         } ]
       }
     } ],
@@ -1450,79 +1736,118 @@
       "node1" : "bbs1",
       "node2" : "dload1"
     }, {
-      "node1" : "load1",
-      "node2" : "bload1"
-    }, {
       "node1" : "bbs3",
       "node2" : "dgen1"
-    }, {
-      "node1" : "gen1",
-      "node2" : "bgen1"
     }, {
       "node1" : "bbs2",
       "node2" : "dload2"
     }, {
-      "node1" : "load2",
-      "node2" : "bload2"
-    }, {
       "node1" : "bbs4",
       "node2" : "dgen2"
-    }, {
-      "node1" : "gen2",
-      "node2" : "bgen2"
     }, {
       "node1" : "bbs1",
       "node2" : "dtrf11"
     }, {
-      "node1" : "btrf11",
-      "node2" : "trf1_ONE"
-    }, {
       "node1" : "bbs2",
       "node2" : "dtrf12"
-    }, {
-      "node1" : "btrf12",
-      "node2" : "trf2_ONE"
     }, {
       "node1" : "bbs3",
       "node2" : "dtrf13"
     }, {
-      "node1" : "btrf13",
-      "node2" : "trf3_ONE"
-    }, {
       "node1" : "bbs4",
       "node2" : "dtrf14"
-    }, {
-      "node1" : "btrf14",
-      "node2" : "trf4_ONE"
     }, {
       "node1" : "bbs1",
       "node2" : "dtrf15"
     }, {
-      "node1" : "btrf15",
-      "node2" : "trf5_ONE"
-    }, {
       "node1" : "bbs1",
       "node2" : "dtrf16"
-    }, {
-      "node1" : "btrf16",
-      "node2" : "trf6_ONE"
     }, {
       "node1" : "bbs3",
       "node2" : "dtrf17"
     }, {
-      "node1" : "btrf17",
-      "node2" : "trf7_ONE"
-    }, {
       "node1" : "bbs2",
       "node2" : "dtrf18"
-    }, {
-      "node1" : "btrf18",
-      "node2" : "trf8_ONE"
     }, {
       "node1" : "bbs1",
       "node2" : "dline11_2"
     }, {
+      "node1" : "bload1",
+      "node2" : "FICT_vl1_load1Fictif"
+    }, {
+      "node1" : "FICT_vl1_load1Fictif",
+      "node2" : "load1"
+    }, {
+      "node1" : "bgen1",
+      "node2" : "FICT_vl1_gen1Fictif"
+    }, {
+      "node1" : "FICT_vl1_gen1Fictif",
+      "node2" : "gen1"
+    }, {
+      "node1" : "bload2",
+      "node2" : "FICT_vl1_load2Fictif"
+    }, {
+      "node1" : "FICT_vl1_load2Fictif",
+      "node2" : "load2"
+    }, {
+      "node1" : "bgen2",
+      "node2" : "FICT_vl1_gen2Fictif"
+    }, {
+      "node1" : "FICT_vl1_gen2Fictif",
+      "node2" : "gen2"
+    }, {
+      "node1" : "btrf11",
+      "node2" : "FICT_vl1_trf1_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf1_ONEFictif",
+      "node2" : "trf1_ONE"
+    }, {
+      "node1" : "btrf12",
+      "node2" : "FICT_vl1_trf2_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf2_ONEFictif",
+      "node2" : "trf2_ONE"
+    }, {
+      "node1" : "btrf13",
+      "node2" : "FICT_vl1_trf3_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf3_ONEFictif",
+      "node2" : "trf3_ONE"
+    }, {
+      "node1" : "btrf14",
+      "node2" : "FICT_vl1_trf4_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf4_ONEFictif",
+      "node2" : "trf4_ONE"
+    }, {
+      "node1" : "btrf15",
+      "node2" : "FICT_vl1_trf5_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf5_ONEFictif",
+      "node2" : "trf5_ONE"
+    }, {
+      "node1" : "btrf16",
+      "node2" : "FICT_vl1_trf6_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf6_ONEFictif",
+      "node2" : "trf6_ONE"
+    }, {
+      "node1" : "btrf17",
+      "node2" : "FICT_vl1_trf7_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf7_ONEFictif",
+      "node2" : "trf7_ONE"
+    }, {
+      "node1" : "btrf18",
+      "node2" : "FICT_vl1_trf8_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_trf8_ONEFictif",
+      "node2" : "trf8_ONE"
+    }, {
       "node1" : "bline11_2",
+      "node2" : "FICT_vl1_line1_ONEFictif"
+    }, {
+      "node1" : "FICT_vl1_line1_ONEFictif",
       "node2" : "line1_ONE"
     }, {
       "node1" : "dtrct11",
@@ -1720,6 +2045,78 @@
       "id" : "FICT_vl2_dtrf28Fictif",
       "name" : "dtrf28Fictif",
       "equipmentId" : "dtrf28Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_gen4Fictif",
+      "name" : "gen4Fictif",
+      "equipmentId" : "gen4Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_load3Fictif",
+      "name" : "load3Fictif",
+      "equipmentId" : "load3Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf1_TWOFictif",
+      "name" : "trf1_TWOFictif",
+      "equipmentId" : "trf1_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf2_TWOFictif",
+      "name" : "trf2_TWOFictif",
+      "equipmentId" : "trf2_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf3_TWOFictif",
+      "name" : "trf3_TWOFictif",
+      "equipmentId" : "trf3_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf4_TWOFictif",
+      "name" : "trf4_TWOFictif",
+      "equipmentId" : "trf4_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf6_TWOFictif",
+      "name" : "trf6_TWOFictif",
+      "equipmentId" : "trf6_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf7_TWOFictif",
+      "name" : "trf7_TWOFictif",
+      "equipmentId" : "trf7_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl2_trf8_TWOFictif",
+      "name" : "trf8_TWOFictif",
+      "equipmentId" : "trf8_TWOFictif",
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
@@ -2193,7 +2590,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dload3Fictif", "bload3", "load3" ]
+          "nodes" : [ "FICT_vl2_dload3Fictif", "bload3", "FICT_vl2_load3Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_load3Fictif", "load3" ]
         } ]
       }
     }, {
@@ -2240,7 +2651,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf21Fictif", "btrf21", "trf1_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf21Fictif", "btrf21", "FICT_vl2_trf1_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf1_TWOFictif", "trf1_TWO" ]
         } ]
       }
     }, {
@@ -2287,7 +2712,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf24Fictif", "btrf24", "trf4_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf24Fictif", "btrf24", "FICT_vl2_trf4_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf4_TWOFictif", "trf4_TWO" ]
         } ]
       }
     }, {
@@ -2334,7 +2773,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "trf7_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "FICT_vl2_trf7_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf7_TWOFictif", "trf7_TWO" ]
         } ]
       }
     }, {
@@ -2381,7 +2834,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dgen4Fictif", "bgen4", "gen4" ]
+          "nodes" : [ "FICT_vl2_dgen4Fictif", "bgen4", "FICT_vl2_gen4Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_gen4Fictif", "gen4" ]
         } ]
       }
     }, {
@@ -2428,7 +2895,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf22Fictif", "btrf22", "trf2_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf22Fictif", "btrf22", "FICT_vl2_trf2_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf2_TWOFictif", "trf2_TWO" ]
         } ]
       }
     }, {
@@ -2475,7 +2956,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf23Fictif", "btrf23", "trf3_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf23Fictif", "btrf23", "FICT_vl2_trf3_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf3_TWOFictif", "trf3_TWO" ]
         } ]
       }
     }, {
@@ -2522,7 +3017,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "trf6_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "FICT_vl2_trf6_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf6_TWOFictif", "trf6_TWO" ]
         } ]
       }
     }, {
@@ -2569,7 +3078,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "trf8_TWO" ]
+          "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "FICT_vl2_trf8_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl2_trf8_TWOFictif", "trf8_TWO" ]
         } ]
       }
     } ],
@@ -2583,55 +3106,82 @@
       "node1" : "bbs5",
       "node2" : "dload3"
     }, {
-      "node1" : "load3",
-      "node2" : "bload3"
-    }, {
       "node1" : "bbs6",
       "node2" : "dgen4"
-    }, {
-      "node1" : "gen4",
-      "node2" : "bgen4"
     }, {
       "node1" : "bbs5",
       "node2" : "dtrf21"
     }, {
-      "node1" : "btrf21",
-      "node2" : "trf1_TWO"
-    }, {
       "node1" : "bbs6",
       "node2" : "dtrf22"
-    }, {
-      "node1" : "btrf22",
-      "node2" : "trf2_TWO"
     }, {
       "node1" : "bbs6",
       "node2" : "dtrf23"
     }, {
-      "node1" : "btrf23",
-      "node2" : "trf3_TWO"
-    }, {
       "node1" : "bbs5",
       "node2" : "dtrf24"
-    }, {
-      "node1" : "btrf24",
-      "node2" : "trf4_TWO"
     }, {
       "node1" : "bbs6",
       "node2" : "dtrf26"
     }, {
-      "node1" : "btrf26",
-      "node2" : "trf6_TWO"
-    }, {
       "node1" : "bbs5",
       "node2" : "dtrf27"
-    }, {
-      "node1" : "btrf27",
-      "node2" : "trf7_TWO"
     }, {
       "node1" : "bbs6",
       "node2" : "dtrf28"
     }, {
+      "node1" : "bload3",
+      "node2" : "FICT_vl2_load3Fictif"
+    }, {
+      "node1" : "FICT_vl2_load3Fictif",
+      "node2" : "load3"
+    }, {
+      "node1" : "bgen4",
+      "node2" : "FICT_vl2_gen4Fictif"
+    }, {
+      "node1" : "FICT_vl2_gen4Fictif",
+      "node2" : "gen4"
+    }, {
+      "node1" : "btrf21",
+      "node2" : "FICT_vl2_trf1_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf1_TWOFictif",
+      "node2" : "trf1_TWO"
+    }, {
+      "node1" : "btrf22",
+      "node2" : "FICT_vl2_trf2_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf2_TWOFictif",
+      "node2" : "trf2_TWO"
+    }, {
+      "node1" : "btrf23",
+      "node2" : "FICT_vl2_trf3_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf3_TWOFictif",
+      "node2" : "trf3_TWO"
+    }, {
+      "node1" : "btrf24",
+      "node2" : "FICT_vl2_trf4_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf4_TWOFictif",
+      "node2" : "trf4_TWO"
+    }, {
+      "node1" : "btrf26",
+      "node2" : "FICT_vl2_trf6_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf6_TWOFictif",
+      "node2" : "trf6_TWO"
+    }, {
+      "node1" : "btrf27",
+      "node2" : "FICT_vl2_trf7_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf7_TWOFictif",
+      "node2" : "trf7_TWO"
+    }, {
       "node1" : "btrf28",
+      "node2" : "FICT_vl2_trf8_TWOFictif"
+    }, {
+      "node1" : "FICT_vl2_trf8_TWOFictif",
       "node2" : "trf8_TWO"
     }, {
       "node1" : "ddcpl1",
@@ -2743,6 +3293,46 @@
       "id" : "FICT_vl3_dtrf38Fictif",
       "name" : "dtrf38Fictif",
       "equipmentId" : "dtrf38Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl3_load4Fictif",
+      "name" : "load4Fictif",
+      "equipmentId" : "load4Fictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl3_trf5_TWOFictif",
+      "name" : "trf5_TWOFictif",
+      "equipmentId" : "trf5_TWOFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl3_trf6_THREEFictif",
+      "name" : "trf6_THREEFictif",
+      "equipmentId" : "trf6_THREEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl3_trf7_THREEFictif",
+      "name" : "trf7_THREEFictif",
+      "equipmentId" : "trf7_THREEFictif",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "FICT_vl3_trf8_THREEFictif",
+      "name" : "trf8_THREEFictif",
+      "equipmentId" : "trf8_THREEFictif",
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
@@ -2977,7 +3567,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl3_dload4Fictif", "bload4", "load4" ]
+          "nodes" : [ "FICT_vl3_dload4Fictif", "bload4", "FICT_vl3_load4Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl3_load4Fictif", "load4" ]
         } ]
       }
     }, {
@@ -3024,7 +3628,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl3_dtrf25Fictif", "btrf25", "trf5_TWO" ]
+          "nodes" : [ "FICT_vl3_dtrf25Fictif", "btrf25", "FICT_vl3_trf5_TWOFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl3_trf5_TWOFictif", "trf5_TWO" ]
         } ]
       }
     }, {
@@ -3071,7 +3689,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl3_dtrf36Fictif", "btrf36", "trf6_THREE" ]
+          "nodes" : [ "FICT_vl3_dtrf36Fictif", "btrf36", "FICT_vl3_trf6_THREEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl3_trf6_THREEFictif", "trf6_THREE" ]
         } ]
       }
     }, {
@@ -3118,7 +3750,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl3_dtrf37Fictif", "btrf37", "trf7_THREE" ]
+          "nodes" : [ "FICT_vl3_dtrf37Fictif", "btrf37", "FICT_vl3_trf7_THREEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl3_trf7_THREEFictif", "trf7_THREE" ]
         } ]
       }
     }, {
@@ -3165,7 +3811,21 @@
             "hSpan" : 2,
             "vSpan" : 4
           },
-          "nodes" : [ "FICT_vl3_dtrf38Fictif", "btrf38", "trf8_THREE" ]
+          "nodes" : [ "FICT_vl3_dtrf38Fictif", "btrf38", "FICT_vl3_trf8_THREEFictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 4,
+            "hSpan" : 2,
+            "vSpan" : 0
+          },
+          "nodes" : [ "FICT_vl3_trf8_THREEFictif", "trf8_THREE" ]
         } ]
       }
     } ],
@@ -3173,31 +3833,46 @@
       "node1" : "bbs7",
       "node2" : "dload4"
     }, {
-      "node1" : "bload4",
-      "node2" : "load4"
-    }, {
       "node1" : "bbs7",
       "node2" : "dtrf25"
-    }, {
-      "node1" : "btrf25",
-      "node2" : "trf5_TWO"
     }, {
       "node1" : "bbs7",
       "node2" : "dtrf36"
     }, {
-      "node1" : "btrf36",
-      "node2" : "trf6_THREE"
-    }, {
       "node1" : "bbs7",
       "node2" : "dtrf37"
-    }, {
-      "node1" : "btrf37",
-      "node2" : "trf7_THREE"
     }, {
       "node1" : "bbs7",
       "node2" : "dtrf38"
     }, {
+      "node1" : "bload4",
+      "node2" : "FICT_vl3_load4Fictif"
+    }, {
+      "node1" : "FICT_vl3_load4Fictif",
+      "node2" : "load4"
+    }, {
+      "node1" : "btrf25",
+      "node2" : "FICT_vl3_trf5_TWOFictif"
+    }, {
+      "node1" : "FICT_vl3_trf5_TWOFictif",
+      "node2" : "trf5_TWO"
+    }, {
+      "node1" : "btrf36",
+      "node2" : "FICT_vl3_trf6_THREEFictif"
+    }, {
+      "node1" : "FICT_vl3_trf6_THREEFictif",
+      "node2" : "trf6_THREE"
+    }, {
+      "node1" : "btrf37",
+      "node2" : "FICT_vl3_trf7_THREEFictif"
+    }, {
+      "node1" : "FICT_vl3_trf7_THREEFictif",
+      "node2" : "trf7_THREE"
+    }, {
       "node1" : "btrf38",
+      "node2" : "FICT_vl3_trf8_THREEFictif"
+    }, {
+      "node1" : "FICT_vl3_trf8_THREEFictif",
       "node2" : "trf8_THREE"
     }, {
       "node1" : "bload4",
