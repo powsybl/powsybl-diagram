@@ -40,8 +40,6 @@ public class LayoutParametersTest {
                 .setVerticalSnakeLinePadding(40)
                 .setArrowDistance(25)
                 .setDiagramName("diag")
-                .setShiftFeedersPosition(false)
-                .setScaleShiftFeedersPosition(2)
                 .setAvoidSVGComponentsDuplication(true)
                 .setAdaptCellHeightToContent(true)
                 .setMaxComponentHeight(10)
@@ -74,8 +72,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getHorizontalSnakeLinePadding(), layoutParameters2.getHorizontalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getVerticalSnakeLinePadding(), layoutParameters2.getVerticalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getArrowDistance(), layoutParameters2.getArrowDistance(), 0);
-        assertEquals(layoutParameters.isShiftFeedersPosition(), layoutParameters2.isShiftFeedersPosition());
-        assertEquals(layoutParameters.getScaleShiftFeedersPosition(), layoutParameters2.getScaleShiftFeedersPosition(), 0);
         assertEquals(layoutParameters.getDiagramName(), layoutParameters2.getDiagramName());
         assertEquals(layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters2.isAvoidSVGComponentsDuplication());
         assertEquals(layoutParameters.isAdaptCellHeightToContent(), layoutParameters2.isAdaptCellHeightToContent());

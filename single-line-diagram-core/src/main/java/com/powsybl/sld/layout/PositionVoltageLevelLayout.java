@@ -54,10 +54,6 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
                     }
                     n.shiftY(shiftY);
                 });
-
-        if (layoutParam.isShiftFeedersPosition()) {
-            graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
-        }
     }
 
     private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {
