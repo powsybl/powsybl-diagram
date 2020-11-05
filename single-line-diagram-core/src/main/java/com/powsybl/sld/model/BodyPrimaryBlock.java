@@ -99,14 +99,14 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double y = (y0 + y1) / 2;
 
         nodes.get(1).setX(x0);
-        nodes.get(1).setY(y);
+        nodes.get(1).setY(y, false);
         nodes.get(nodes.size() - 2).setX(x1);
-        nodes.get(nodes.size() - 2).setY(y);
+        nodes.get(nodes.size() - 2).setY(y, false);
 
         double dx = (x1 - x0) / (nodes.size() - 3);
         for (int i = 2; i < nodes.size() - 2; i++) {
             Node node = nodes.get(i);
-            node.setX(x0 + (i - 1) * dx, false);
+            node.setX(x0 + (i - 1) * dx);
             node.setY(y, false);
             node.setRotationAngle(90.);
         }

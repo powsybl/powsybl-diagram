@@ -321,6 +321,11 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
                 toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", layoutParameters, initProvider, vNomStyleProvider));
 
+        g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        new ImplicitCellDetector().detectCells(g1);
+        new BlockOrganizer().organize(g1);
+        new PositionVoltageLevelLayout(g1).run(layoutParameters);
+
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
                 toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", layoutParameters, initProvider, topoStyleProvider));
     }

@@ -136,13 +136,13 @@ public class Position {
         return "h=" + get(H) + " v=" + get(V) + " hSpan=" + getSpan(H) + " vSpan=" + getSpan(V) + ", " + orientation;
     }
 
-    public void writeJsonContent(JsonGenerator generator) throws IOException {
+    public void writeJsonContent(JsonGenerator generator, boolean writeOrientation) throws IOException {
         generator.writeStartObject();
         generator.writeNumberField("h", get(H));
         generator.writeNumberField("v", get(V));
         generator.writeNumberField("hSpan", getSpan(H));
         generator.writeNumberField("vSpan", getSpan(V));
-        if (orientation != null) {
+        if (orientation != null && writeOrientation) {
             generator.writeStringField("orientation", orientation.name());
         }
         generator.writeEndObject();

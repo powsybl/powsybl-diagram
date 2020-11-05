@@ -140,14 +140,37 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         } else {  // node outside any voltageLevel graph (multi-terminal node)
             List<Node> adjacentNodes = node.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {  // 2 windings transformer
-                // if node is not rotated, subComponent WINDING1 is linked to the adjacent node with min x value
-                // if node is rotated, subComponent WINDING1 is linked to the adjacent node with min y value
-                adjacentNodes.sort(Comparator.comparingDouble(!node.isRotated() ? Node::getX : Node::getY));
-                Node n1 = adjacentNodes.get(0);
-                Node n2 = adjacentNodes.get(1);
+                adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
+                FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
+                FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
+                FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
+                FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
+                FeederWithSideNode nodeWinding = nodeWinding1;
 
-                color = getNodeColor(subComponentName.equals(WINDING1) ? n1.getGraph().getVoltageLevelInfos() : n2.getGraph().getVoltageLevelInfos(),
-                                 subComponentName.equals(WINDING1) ? n1 : n2);
+                if (subComponentName.equals(WINDING1)) {
+                    if (!node.isRotated()) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 90.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 180.) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 270.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                    }
+                } else if (subComponentName.equals(WINDING2)) {
+                    if (!node.isRotated()) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                    } else if (node.getRotationAngle() == 90.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 180.) {
+                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                    } else if (node.getRotationAngle() == 270.) {
+                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                    }
+                }
+
+                color = getNodeColor(nodeWinding.getGraph().getVoltageLevelInfos(), nodeWinding);
+
             } else if (adjacentNodes.size() == 3) {  // 3 windings transformer
                 adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
                 Node n1 = adjacentNodes.get(0);

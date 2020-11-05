@@ -106,7 +106,7 @@ public class BusNode extends Node {
         generator.writeNumberField("sectionIndex", sectionIndex);
         if (position != null) {
             generator.writeFieldName("position");
-            position.writeJsonContent(generator);
+            position.writeJsonContent(generator, true);
         }
     }
 }
