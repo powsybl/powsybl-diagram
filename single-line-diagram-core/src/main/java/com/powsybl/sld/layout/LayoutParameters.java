@@ -99,8 +99,6 @@ public class LayoutParameters {
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
                             @JsonProperty("arrowDistance") double arrowDistance,
                             @JsonProperty("diagramName") String diagramName,
-                            @JsonProperty("shiftFeedersPosition") boolean shiftFeedersPosition,
-                            @JsonProperty("scaleShiftFeedersPosition") double scaleShiftFeedersPosition,
                             @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
                             @JsonProperty("maxComponentHeight") double maxComponentHeight,
