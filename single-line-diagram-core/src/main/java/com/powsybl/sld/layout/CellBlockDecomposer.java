@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -69,13 +71,12 @@ final class CellBlockDecomposer {
     }
 
     private static List<Block> createPrimaryBlock(BusCell busCell) {
-        List<Node> alreadyTreated = new ArrayList<>();
+        Set<Node> alreadyTreated = new HashSet<>();
         List<Block> blocks = new ArrayList<>();
         Node currentNode = busCell.getBusNodes().get(0);
 
         // Search all primary blocks
-        currentNode.getListNodeAdjInCell(busCell).forEach(
-            n -> rElaboratePrimaryBlocks(busCell, currentNode, n, alreadyTreated, blocks));
+        rElaboratePrimaryBlocks(busCell, currentNode, alreadyTreated, blocks);
 
         return blocks;
     }
@@ -212,51 +213,51 @@ final class CellBlockDecomposer {
      * feeder): FICTITIOUS - FEEDER.
      * Otherwise it is instantiated as BodyPrimaryBlock.
      * @param busCell         the busCell on which we elaborate primary blocks
-     * @param node1           first node for the primary block (non-switch node)
-     * @param node2           second node for the primary block, which is adjacent to node1
-     * @param alreadyTreated  alreadyTreated
-     * @param blocks          blocks
+     * @param firstNode       first node for the primary block (non-switch node)
+     * @param alreadyTreated  set of already treated nodes (we always check the second element of the primary pattern)
+     * @param blocks          the list of elaborated primary blocks
      */
-    private static void rElaboratePrimaryBlocks(BusCell busCell, Node node1, Node node2,
-                                                List<Node> alreadyTreated, List<Block> blocks) {
+    private static void rElaboratePrimaryBlocks(BusCell busCell, Node firstNode,
+                                                Set<Node> alreadyTreated, List<Block> blocks) {
 
-        if (alreadyTreated.contains(node2)) {
-            return;
-        }
+        firstNode.getListNodeAdjInCell(busCell).forEach(node2 -> {
 
-        // Piling up switches starting from node2
-        List<SwitchNode> switches = new ArrayList<>();
-        Node currentNode = node2;
-        Node parentCurrentNode = node1;
-        while (currentNode instanceof SwitchNode) {
-            switches.add((SwitchNode) currentNode);
-            List<Node> adjacentNodes = currentNode.getAdjacentNodes();
-            Node nextNode = adjacentNodes.get(adjacentNodes.get(0).equals(parentCurrentNode) ? 1 : 0);
-            parentCurrentNode = currentNode;
-            currentNode = nextNode;
-        }
-        Node lastNode = currentNode; // first non-switch node (corresponds to node2 if node2 is not a switch)
+            if (!alreadyTreated.contains(node2)) {
 
-        // The nodes pattern for a PrimaryBlock
-        List<Node> primaryPattern = new ArrayList<>();
-        primaryPattern.add(node1);       // BUS|FICTITIOUS|FEEDER|SHUNT
-        primaryPattern.addAll(switches); // n * SWITCH (with n >= 0)
-        primaryPattern.add(lastNode);    // BUS|FICTITIOUS|FEEDER|SHUNT
+                // Piling up switches starting from node2
+                List<SwitchNode> switches = new ArrayList<>();
+                Node currentNode = node2;
+                Node parentCurrentNode = firstNode;
+                while (currentNode instanceof SwitchNode) {
+                    switches.add((SwitchNode) currentNode);
+                    List<Node> adjacentNodes = currentNode.getAdjacentNodes();
+                    Node nextNode = adjacentNodes.get(adjacentNodes.get(0).equals(parentCurrentNode) ? 1 : 0);
+                    parentCurrentNode = currentNode;
+                    currentNode = nextNode;
+                }
+                Node lastNode = currentNode; // first non-switch node (corresponds to node2 if node2 is not a switch)
 
-        // Creating a PrimaryBlock from that pattern
-        PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern, busCell);
-        blocks.add(primaryBlock);
+                // The nodes pattern for a PrimaryBlock
+                List<Node> primaryPattern = new ArrayList<>();
+                primaryPattern.add(firstNode);   // BUS|FICTITIOUS|FEEDER|SHUNT
+                primaryPattern.addAll(switches); // n * SWITCH (with n >= 0)
+                primaryPattern.add(lastNode);    // BUS|FICTITIOUS|FEEDER|SHUNT
 
-        // Updating already treated nodes
-        alreadyTreated.addAll(switches);
-        if (lastNode == node2 || lastNode.getType() != Node.NodeType.BUS) {
-            alreadyTreated.add(lastNode);
-        }
+                // Create a PrimaryBlock from that pattern
+                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern, busCell);
+                blocks.add(primaryBlock);
 
-        // Continue to search for other blocks (if we reached a busbar, no need to continue as the search started from all busbars)
-        if (lastNode.getType() != Node.NodeType.BUS) {
-            lastNode.getListNodeAdjInCell(busCell).filter(n -> n != node1) // filtering out node1 as we do not want to come back
-                .forEach(n -> rElaboratePrimaryBlocks(busCell, lastNode, n, alreadyTreated, blocks));
-        }
+                // Update already treated nodes
+                // We also consider firstNode as alreadyTreated: we do not want to come back to it as the search started from it
+                alreadyTreated.addAll(primaryPattern);
+
+                // Continue to search for other blocks
+                if (lastNode.getType() != Node.NodeType.BUS) {
+                    // If we reach a busbar, we know we do not need to go further:
+                    // we're either in another BusCell or back to the busbar we started the search with
+                    rElaboratePrimaryBlocks(busCell, lastNode, alreadyTreated, blocks);
+                }
+            }
+        });
     }
 }
