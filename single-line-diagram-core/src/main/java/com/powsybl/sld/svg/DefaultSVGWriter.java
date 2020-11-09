@@ -1026,20 +1026,32 @@ public class DefaultSVGWriter implements SVGWriter {
                                          GraphMetadata metadata,
                                          DiagramLabelProvider initProvider,
                                          DiagramStyleProvider styleProvider) {
+        if (!(n instanceof FeederNode)) {
+            throw new AssertionError("Node n must be a feeder node");
+        }
+
+        FeederNode feederNode = (FeederNode) n;
         InitialValue init = initProvider.getInitialValue(n);
 
+        Optional<String> label1 = feederNode.getDirection() == BusCell.Direction.TOP ? init.getLabel1() : init.getLabel2();
+        Optional<Direction> direction1 = feederNode.getDirection() == BusCell.Direction.TOP ? init.getArrowDirection1() : init.getArrowDirection2();
+
+        Optional<String> label2 = feederNode.getDirection() == BusCell.Direction.TOP ? init.getLabel2() : init.getLabel1();
+        Optional<Direction> direction2 = feederNode.getDirection() == BusCell.Direction.TOP ? init.getArrowDirection2() : init.getArrowDirection1();
+
+        int iArrow1 = feederNode.getDirection() == BusCell.Direction.TOP ? 1 : 2;
+        int iArrow2 = feederNode.getDirection() == BusCell.Direction.TOP ? 2 : 1;
+
         // we draw the arrow only if value 1 is present
-        init.getLabel1()
-                .ifPresent(lb ->
-                        drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), init.getArrowDirection1(), 0, 1, metadata, styleProvider));
+        label1.ifPresent(lb ->
+                        drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), direction1, 0, iArrow1, metadata, styleProvider));
 
         // we draw the arrow only if value 2 is present
-        init.getLabel2()
-                .ifPresent(lb -> {
-                    double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
-                    drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(),
-                            init.getArrowDirection2(), shiftArrow2, 2, metadata, styleProvider);
-                });
+        label2.ifPresent(lb -> {
+            double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
+            drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(),
+                    direction2, shiftArrow2, iArrow2, metadata, styleProvider);
+        });
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Double> points, Element root, Node n,

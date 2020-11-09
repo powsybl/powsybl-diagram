@@ -172,16 +172,7 @@
         <g class="wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="670.0,562.0,670.0,480.0"/>
         </g>
-        <g class="ARROW1_vl2_95_trf1_UP" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,665.0,537.0)">
-            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                <polygon points="5,0 10,10 0,10"/>
-            </g>
-            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                <polygon points="0,0 10,0 5,10"/>
-            </g>
-            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
-        </g>
-        <g class="ARROW2_vl2_95_trf1_DOWN" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,665.0,517.0)">
+        <g class="ARROW2_vl2_95_trf1_DOWN" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,665.0,537.0)">
             <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
@@ -189,6 +180,15 @@
                 <polygon points="0,0 10,0 5,10"/>
             </g>
             <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">20   </text>
+        </g>
+        <g class="ARROW1_vl2_95_trf1_UP" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,665.0,517.0)">
+            <g class="arrow-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+            <g class="arrow-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">10   </text>
         </g>
         <g class="wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
             <polyline points="670.0,460.0,670.0,370.0"/>
