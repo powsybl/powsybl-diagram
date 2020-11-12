@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1000 605">>
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 100 650 505">>
     <style><![CDATA[
 .BUSBAR_SECTION {
     stroke: rgb(0,0,0);
@@ -166,6 +166,15 @@
 .idBV .open { visibility: hidden;}.idBV .closed { visibility: visible;}
 .idBX .open { visibility: hidden;}.idBX .closed { visibility: visible;}
 .idBZ .open { visibility: hidden;}.idBZ .closed { visibility: visible;}
+.idFICT_95_N_95_CEFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CJ_95_TWOFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CI_95_TWOFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CBFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CCFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CDFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CFFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CGFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
+.idFICT_95_N_95_CHFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
 .idFICT_95_N_95_AHFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
 .idFICT_95_N_95_AJFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
 .idFICT_95_N_95_Shunt_32_10_46_1 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
@@ -238,7 +247,10 @@
             <g class="NODE idFICT_95_N_95_19" id="idFICT_95_N_95_19" transform="translate(391.0,276.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="LOAD idCG" id="idCG" transform="translate(387.0,25.5)">
+            <g class="NODE idFICT_95_N_95_CGFictif" id="idFICT_95_N_95_CGFictif" transform="translate(391.0,196.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="LOAD idCG" id="idCG" transform="translate(387.0,133.5)">
                 <rect fill="#228b22" width="16" height="9" stroke="#228b22"/>
                 <line y2="9" fill="#228b22" x1="0" x2="16" stroke="#228b22" y1="0"/>
                 <line y2="9" fill="#228b22" x1="16" x2="0" stroke="#228b22" y1="0"/>
@@ -254,28 +266,31 @@
                 <polyline points="395.0,335.0,395.0,280.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_19_95_BX">
-                <polyline points="395.0,280.0,395.0,165.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="395.0,280.0,395.0,250.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AL">
                 <polyline points="395.0,335.0,395.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BX_95_CG">
-                <polyline points="395.0,145.0,395.0,34.5" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BX_95_FICT_95_N_95_CGFictif">
+                <polyline points="395.0,230.0,395.0,200.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CG_UP" id="_95_N_95_BX_95_CG_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,390.0,49.5)">
-                <g class="arrow-up" id="_95_N_95_BX_95_CG_ARROW1_ARROW-arrow-up">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG">
+                <polyline points="395.0,200.0,395.0,142.5" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CG_UP" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,390.0,156.25)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BX_95_CG_ARROW1_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">90   </text>
             </g>
-            <g class="ARROW2_CG_DOWN" id="_95_N_95_BX_95_CG_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,390.0,69.5)">
-                <g class="arrow-up" id="_95_N_95_BX_95_CG_ARROW2_ARROW-arrow-up">
+            <g class="ARROW2_CG_DOWN" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,390.0,176.25)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BX_95_CG_ARROW2_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">-52  </text>
@@ -298,7 +313,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBX" id="idBX" transform="translate(385.0,145.0)">
+            <g class="BREAKER idBX" id="idBX" transform="translate(385.0,230.0)">
                 <g class="closed" id="idBX_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -313,7 +328,10 @@
             <g class="NODE idFICT_95_N_95_17" id="idFICT_95_N_95_17" transform="translate(441.0,361.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="LOAD idCF" id="idCF" transform="translate(437.0,610.5)">
+            <g class="NODE idFICT_95_N_95_CFFictif" id="idFICT_95_N_95_CFFictif" transform="translate(441.0,469.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="LOAD idCF" id="idCF" transform="translate(437.0,530.5)">
                 <rect fill="#228b22" width="16" height="9" stroke="#228b22"/>
                 <line y2="9" fill="#228b22" x1="0" x2="16" stroke="#228b22" y1="0"/>
                 <line y2="9" fill="#228b22" x1="16" x2="0" stroke="#228b22" y1="0"/>
@@ -329,28 +347,31 @@
                 <polyline points="445.0,335.0,445.0,365.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_17_95_BV">
-                <polyline points="445.0,365.0,445.0,480.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="445.0,365.0,445.0,409.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AN">
                 <polyline points="445.0,335.0,445.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BV_95_CF">
-                <polyline points="445.0,500.0,445.0,610.5" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BV_95_FICT_95_N_95_CFFictif">
+                <polyline points="445.0,429.0,445.0,473.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CF_UP" id="_95_N_95_BV_95_CF_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,440.0,585.5)">
-                <g class="arrow-up" id="_95_N_95_BV_95_CF_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF">
+                <polyline points="445.0,473.0,445.0,530.5" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CF_UP" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,440.0,506.75)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BV_95_CF_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">8    </text>
             </g>
-            <g class="ARROW2_CF_DOWN" id="_95_N_95_BV_95_CF_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,440.0,565.5)">
-                <g class="arrow-up" id="_95_N_95_BV_95_CF_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="ARROW2_CF_DOWN" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,440.0,486.75)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BV_95_CF_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">-24  </text>
@@ -373,7 +394,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBV" id="idBV" transform="translate(435.0,480.0)">
+            <g class="BREAKER idBV" id="idBV" transform="translate(435.0,409.0)">
                 <g class="closed" id="idBV_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -388,7 +409,10 @@
             <g class="NODE idFICT_95_N_95_21" id="idFICT_95_N_95_21" transform="translate(491.0,276.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="LOAD idCH" id="idCH" transform="translate(487.0,25.5)">
+            <g class="NODE idFICT_95_N_95_CHFictif" id="idFICT_95_N_95_CHFictif" transform="translate(491.0,196.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="LOAD idCH" id="idCH" transform="translate(487.0,133.5)">
                 <rect fill="#228b22" width="16" height="9" stroke="#228b22"/>
                 <line y2="9" fill="#228b22" x1="0" x2="16" stroke="#228b22" y1="0"/>
                 <line y2="9" fill="#228b22" x1="16" x2="0" stroke="#228b22" y1="0"/>
@@ -404,28 +428,31 @@
                 <polyline points="495.0,335.0,495.0,280.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_21_95_BZ">
-                <polyline points="495.0,280.0,495.0,165.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="495.0,280.0,495.0,250.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AP">
                 <polyline points="495.0,335.0,495.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BZ_95_CH">
-                <polyline points="495.0,145.0,495.0,34.5" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BZ_95_FICT_95_N_95_CHFictif">
+                <polyline points="495.0,230.0,495.0,200.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CH_DOWN" id="_95_N_95_BZ_95_CH_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,490.0,49.5)">
-                <g class="arrow-up" id="_95_N_95_BZ_95_CH_ARROW1_ARROW-arrow-up">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH">
+                <polyline points="495.0,200.0,495.0,142.5" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CH_DOWN" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,490.0,156.25)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BZ_95_CH_ARROW1_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">-5   </text>
             </g>
-            <g class="ARROW2_CH_UP" id="_95_N_95_BZ_95_CH_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,490.0,69.5)">
-                <g class="arrow-up" id="_95_N_95_BZ_95_CH_ARROW2_ARROW-arrow-up">
+            <g class="ARROW2_CH_UP" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,490.0,176.25)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BZ_95_CH_ARROW2_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">5    </text>
@@ -448,7 +475,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBZ" id="idBZ" transform="translate(485.0,145.0)">
+            <g class="BREAKER idBZ" id="idBZ" transform="translate(485.0,230.0)">
                 <g class="closed" id="idBZ_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -463,7 +490,10 @@
             <g class="NODE idFICT_95_N_95_11" id="idFICT_95_N_95_11" transform="translate(541.0,361.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="GENERATOR idCB" id="idCB" transform="translate(539.0,609.0)">
+            <g class="NODE idFICT_95_N_95_CBFictif" id="idFICT_95_N_95_CBFictif" transform="translate(541.0,469.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="GENERATOR idCB" id="idCB" transform="translate(539.0,529.0)">
                 <circle fill="#228b22" r="6" cx="6" cy="6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 2,6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 10,6" stroke="#228b22"/>
@@ -479,28 +509,31 @@
                 <polyline points="545.0,335.0,545.0,365.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_11_95_BP">
-                <polyline points="545.0,365.0,545.0,480.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="545.0,365.0,545.0,409.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AR">
                 <polyline points="545.0,335.0,545.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BP_95_CB">
-                <polyline points="545.0,500.0,545.0,609.0" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BP_95_FICT_95_N_95_CBFictif">
+                <polyline points="545.0,429.0,545.0,473.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CB_DOWN" id="_95_N_95_BP_95_CB_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,584.0)">
-                <g class="arrow-up" id="_95_N_95_BP_95_CB_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB">
+                <polyline points="545.0,473.0,545.0,529.0" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CB_DOWN" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,506.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BP_95_CB_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_CB_DOWN" id="_95_N_95_BP_95_CB_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,564.0)">
-                <g class="arrow-up" id="_95_N_95_BP_95_CB_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="ARROW2_CB_DOWN" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,486.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BP_95_CB_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
@@ -523,7 +556,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBP" id="idBP" transform="translate(535.0,480.0)">
+            <g class="BREAKER idBP" id="idBP" transform="translate(535.0,409.0)">
                 <g class="closed" id="idBP_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -538,7 +571,10 @@
             <g class="NODE idFICT_95_N_95_13" id="idFICT_95_N_95_13" transform="translate(591.0,276.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="GENERATOR idCC" id="idCC" transform="translate(589.0,24.0)">
+            <g class="NODE idFICT_95_N_95_CCFictif" id="idFICT_95_N_95_CCFictif" transform="translate(591.0,196.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="GENERATOR idCC" id="idCC" transform="translate(589.0,132.0)">
                 <circle fill="#228b22" r="6" cx="6" cy="6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 2,6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 10,6" stroke="#228b22"/>
@@ -554,28 +590,31 @@
                 <polyline points="595.0,335.0,595.0,280.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_13_95_BR">
-                <polyline points="595.0,280.0,595.0,165.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="595.0,280.0,595.0,250.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AT">
                 <polyline points="595.0,335.0,595.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BR_95_CC">
-                <polyline points="595.0,145.0,595.0,36.0" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BR_95_FICT_95_N_95_CCFictif">
+                <polyline points="595.0,230.0,595.0,200.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CC_DOWN" id="_95_N_95_BR_95_CC_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,51.0)">
-                <g class="arrow-up" id="_95_N_95_BR_95_CC_ARROW1_ARROW-arrow-up">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC">
+                <polyline points="595.0,200.0,595.0,144.0" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CC_DOWN" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,157.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BR_95_CC_ARROW1_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_CC_DOWN" id="_95_N_95_BR_95_CC_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,71.0)">
-                <g class="arrow-up" id="_95_N_95_BR_95_CC_ARROW2_ARROW-arrow-up">
+            <g class="ARROW2_CC_DOWN" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,177.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BR_95_CC_ARROW2_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
@@ -598,7 +637,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBR" id="idBR" transform="translate(585.0,145.0)">
+            <g class="BREAKER idBR" id="idBR" transform="translate(585.0,230.0)">
                 <g class="closed" id="idBR_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -613,7 +652,10 @@
             <g class="NODE idFICT_95_N_95_15" id="idFICT_95_N_95_15" transform="translate(141.0,276.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="GENERATOR idCD" id="idCD" transform="translate(139.0,24.0)">
+            <g class="NODE idFICT_95_N_95_CDFictif" id="idFICT_95_N_95_CDFictif" transform="translate(141.0,196.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="GENERATOR idCD" id="idCD" transform="translate(139.0,132.0)">
                 <circle fill="#228b22" r="6" cx="6" cy="6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 2,6" stroke="#228b22"/>
                 <path fill="#228b22" d="M6,6 A 6 40 0 0 0 10,6" stroke="#228b22"/>
@@ -629,28 +671,31 @@
                 <polyline points="145.0,335.0,145.0,280.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_15_95_BT">
-                <polyline points="145.0,280.0,145.0,165.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="145.0,280.0,145.0,250.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_P_95_AV">
                 <polyline points="145.0,335.0,145.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BT_95_CD">
-                <polyline points="145.0,145.0,145.0,36.0" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BT_95_FICT_95_N_95_CDFictif">
+                <polyline points="145.0,230.0,145.0,200.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CD_DOWN" id="_95_N_95_BT_95_CD_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,140.0,51.0)">
-                <g class="arrow-up" id="_95_N_95_BT_95_CD_ARROW1_ARROW-arrow-up">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD">
+                <polyline points="145.0,200.0,145.0,144.0" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CD_DOWN" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,140.0,157.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BT_95_CD_ARROW1_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">-22  </text>
             </g>
-            <g class="ARROW2_CD_UP" id="_95_N_95_BT_95_CD_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,140.0,71.0)">
-                <g class="arrow-up" id="_95_N_95_BT_95_CD_ARROW2_ARROW-arrow-up">
+            <g class="ARROW2_CD_UP" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,140.0,177.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2_ARROW-arrow-up">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BT_95_CD_ARROW2_ARROW-arrow-down">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2_ARROW-arrow-down">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">21   </text>
@@ -673,7 +718,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBT" id="idBT" transform="translate(135.0,145.0)">
+            <g class="BREAKER idBT" id="idBT" transform="translate(135.0,230.0)">
                 <g class="closed" id="idBT_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -688,7 +733,10 @@
             <g class="NODE idFICT_95_N_95_8" id="idFICT_95_N_95_8" transform="translate(191.0,361.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="PHASE_SHIFT_TRANSFORMER idCI_95_TWO" id="idCI_95_TWO" transform="translate(188.0,606.5)">
+            <g class="NODE idFICT_95_N_95_CI_95_TWOFictif" id="idFICT_95_N_95_CI_95_TWOFictif" transform="translate(191.0,469.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="PHASE_SHIFT_TRANSFORMER idCI_95_TWO" id="idCI_95_TWO" transform="translate(188.0,526.5)">
                 <circle transform="rotate(180.0,7.0,8.5)" fill="#228b22" r="5" cx="7" id="idCI_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" cy="12" stroke="#228b22"/>
                 <g fill="#228b22" id="idCI_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(180.0,7.0,8.5)" stroke="#228b22">
                     <circle r="5" cx="7" cy="7"/>
@@ -698,14 +746,14 @@
                 </g>
                 <text x="-5.0" font-size="8" y="30.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="CI_TWO_S_LABEL">CI</text>
             </g>
-            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,486.0)">
+            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_8_95_BL">
-                <polyline points="195.0,365.0,195.0,417.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,365.0,195.0,382.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_BL_95_FICT_95_N_95_9">
-                <polyline points="195.0,437.5,195.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,402.0,195.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_AD_95_FICT_95_N_95_8">
                 <polyline points="195.0,310.0,195.0,365.0" stroke-width="1" stroke="#228b22"/>
@@ -720,33 +768,36 @@
                 <polyline points="195.0,335.0,195.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_BN">
-                <polyline points="195.0,490.0,195.0,552.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,419.0,195.0,446.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BN_95_CI_95_TWO">
-                <polyline points="195.0,552.5,195.0,606.0" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BN_95_FICT_95_N_95_CI_95_TWOFictif">
+                <polyline points="195.0,446.0,195.0,473.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CI_95_TWO_DOWN" id="_95_N_95_BN_95_CI_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,190.0,581.0)">
-                <g class="arrow-up" id="_95_N_95_BN_95_CI_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO">
+                <polyline points="195.0,473.0,195.0,526.0" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CI_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,190.0,504.5)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BN_95_CI_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_CI_95_TWO_DOWN" id="_95_N_95_BN_95_CI_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,190.0,561.0)">
-                <g class="arrow-up" id="_95_N_95_BN_95_CI_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="ARROW2_CI_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,190.0,484.5)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BN_95_CI_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="195.0,490.0,220.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,419.0,220.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="BREAKER idBL" id="idBL" transform="translate(185.0,417.5)">
+            <g class="BREAKER idBL" id="idBL" transform="translate(185.0,382.0)">
                 <g class="closed" id="idBL_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -774,7 +825,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="DISCONNECTOR idBN" id="idBN" transform="translate(191.0,548.5)">
+            <g class="DISCONNECTOR idBN" id="idBN" transform="translate(191.0,442.0)">
                 <g class="closed" id="idBN_DISCONNECTOR-closed">
                     <line y2="8" x1="0" x2="8" y1="0"/>
                     <line y2="8" x1="8" x2="0" y1="0"/>
@@ -785,35 +836,41 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
-            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,486.0)">
+            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
             <g class="NODE idFICT_95_N_95_2" id="idFICT_95_N_95_2" transform="translate(316.0,361.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="LOAD idCE" id="idCE" transform="translate(337.0,610.5)">
+            <g class="NODE idFICT_95_N_95_CEFictif" id="idFICT_95_N_95_CEFictif" transform="translate(341.0,469.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="LOAD idCE" id="idCE" transform="translate(337.0,530.5)">
                 <rect fill="#228b22" width="16" height="9" stroke="#228b22"/>
                 <line y2="9" fill="#228b22" x1="0" x2="16" stroke="#228b22" y1="0"/>
                 <line y2="9" fill="#228b22" x1="16" x2="0" stroke="#228b22" y1="0"/>
                 <text x="-5.0" font-size="8" y="22.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="CE_S_LABEL">CE</text>
             </g>
-            <g class="LINE idCJ_95_TWO" id="idCJ_95_TWO" transform="translate(295.0,615.0)">
+            <g class="NODE idFICT_95_N_95_CJ_95_TWOFictif" id="idFICT_95_N_95_CJ_95_TWOFictif" transform="translate(291.0,469.0)">
+                <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
+            </g>
+            <g class="LINE idCJ_95_TWO" id="idCJ_95_TWO" transform="translate(295.0,535.0)">
                 <text x="-5.0" font-size="8" y="13.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" id="CJ_TWO_S_LABEL">CJ</text>
             </g>
             <g class="wire" id="_95_N_95_BB_95_FICT_95_N_95_3">
-                <polyline points="320.0,437.5,320.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,402.0,320.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BD">
-                <polyline points="320.0,490.0,345.0,490.0,345.0,542.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,345.0,419.0,345.0,436.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BF">
-                <polyline points="320.0,490.0,295.0,490.0,295.0,552.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,295.0,419.0,295.0,446.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="320.0,490.0,270.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,270.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_2_95_BB">
-                <polyline points="320.0,365.0,320.0,417.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,365.0,320.0,382.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_AF_95_FICT_95_N_95_2">
                 <polyline points="320.0,310.0,320.0,365.0" stroke-width="1" stroke="#228b22"/>
@@ -827,49 +884,55 @@
             <g class="wire" id="_95_N_95_P_95_AZ">
                 <polyline points="320.0,335.0,320.0,335.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="wire" id="_95_N_95_BD_95_CE">
-                <polyline points="345.0,562.5,345.0,610.5" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BD_95_FICT_95_N_95_CEFictif">
+                <polyline points="345.0,456.0,345.0,473.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CE_DOWN" id="_95_N_95_BD_95_CE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,340.0,585.5)">
-                <g class="arrow-up" id="_95_N_95_BD_95_CE_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE">
+                <polyline points="345.0,473.0,345.0,530.5" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CE_DOWN" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,340.0,506.75)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BD_95_CE_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">-72  </text>
             </g>
-            <g class="ARROW2_CE_UP" id="_95_N_95_BD_95_CE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,340.0,565.5)">
-                <g class="arrow-up" id="_95_N_95_BD_95_CE_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="ARROW2_CE_UP" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,340.0,486.75)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BD_95_CE_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">50   </text>
             </g>
-            <g class="wire" id="_95_N_95_BF_95_CJ_95_TWO">
-                <polyline points="295.0,552.5,295.0,615.0" stroke-width="1" stroke="#228b22"/>
+            <g class="wire" id="_95_N_95_BF_95_FICT_95_N_95_CJ_95_TWOFictif">
+                <polyline points="295.0,446.0,295.0,473.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="ARROW1_CJ_95_TWO_DOWN" id="_95_N_95_BF_95_CJ_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,290.0,590.0)">
-                <g class="arrow-up" id="_95_N_95_BF_95_CJ_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="wire" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO">
+                <polyline points="295.0,473.0,295.0,535.0" stroke-width="1" stroke="#228b22"/>
+            </g>
+            <g class="ARROW1_CJ_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,290.0,510.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BF_95_CJ_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="ARROW2_CJ_95_TWO_DOWN" id="_95_N_95_BF_95_CJ_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,290.0,570.0)">
-                <g class="arrow-up" id="_95_N_95_BF_95_CJ_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
+            <g class="ARROW2_CJ_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,290.0,490.0)">
+                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="5,0 10,10 0,10"/>
                 </g>
-                <g class="arrow-down" id="_95_N_95_BF_95_CJ_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
+                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
                     <polygon points="0,0 10,0 5,10"/>
                 </g>
                 <text x="15.0" font-size="8" y="9.0" transform="rotate(0,0,0)" font-family="Verdana" class="component-label" xml:space="preserve" textLength="25">0    </text>
             </g>
-            <g class="BREAKER idBB" id="idBB" transform="translate(310.0,417.5)">
+            <g class="BREAKER idBB" id="idBB" transform="translate(310.0,382.0)">
                 <g class="closed" id="idBB_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -897,7 +960,7 @@
                     <line y2="8" x1="8" x2="0" y1="0"/>
                 </g>
             </g>
-            <g class="BREAKER idBD" id="idBD" transform="translate(335.0,542.5)">
+            <g class="BREAKER idBD" id="idBD" transform="translate(335.0,436.0)">
                 <g class="closed" id="idBD_BREAKER-closed">
                     <rect x="1" width="18" y="1" height="18"/>
                     <line y2="15" x1="10" x2="10" y1="5"/>
@@ -907,7 +970,7 @@
                     <line y2="10" x1="5" x2="15" y1="10"/>
                 </g>
             </g>
-            <g class="DISCONNECTOR idBF" id="idBF" transform="translate(291.0,548.5)">
+            <g class="DISCONNECTOR idBF" id="idBF" transform="translate(291.0,442.0)">
                 <g class="closed" id="idBF_DISCONNECTOR-closed">
                     <line y2="8" x1="0" x2="8" y1="0"/>
                     <line y2="8" x1="8" x2="0" y1="0"/>
@@ -918,46 +981,46 @@
             </g>
         </g>
         <g class="cell idSHUNT_32_10" id="idSHUNT_32_10">
-            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,486.0)">
+            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_1" id="idFICT_95_N_95_Shunt_32_10_46_1" transform="translate(216.0,486.0)">
+            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_1" id="idFICT_95_N_95_Shunt_32_10_46_1" transform="translate(216.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_2" id="idFICT_95_N_95_Shunt_32_10_46_2" transform="translate(266.0,486.0)">
+            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_2" id="idFICT_95_N_95_Shunt_32_10_46_2" transform="translate(266.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
-            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,486.0)">
+            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,415.0)">
                 <circle fill-opacity="0" fill="#228b22" r="4" cx="4" cy="4" stroke="#228b22" stroke-opacity="0"/>
             </g>
             <g class="wire" id="_95_N_95_BL_95_FICT_95_N_95_9">
-                <polyline points="195.0,437.5,195.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,402.0,195.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_BN">
-                <polyline points="195.0,490.0,195.0,552.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,419.0,195.0,446.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="195.0,490.0,220.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="195.0,419.0,220.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="245.0,490.0,220.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="245.0,419.0,220.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="245.0,490.0,270.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="245.0,419.0,270.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="320.0,490.0,270.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,270.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_BB_95_FICT_95_N_95_3">
-                <polyline points="320.0,437.5,320.0,490.0" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,402.0,320.0,419.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BD">
-                <polyline points="320.0,490.0,345.0,490.0,345.0,542.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,345.0,419.0,345.0,436.0" stroke-width="1" stroke="#228b22"/>
             </g>
             <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BF">
-                <polyline points="320.0,490.0,295.0,490.0,295.0,552.5" stroke-width="1" stroke="#228b22"/>
+                <polyline points="320.0,419.0,295.0,419.0,295.0,446.0" stroke-width="1" stroke="#228b22"/>
             </g>
-            <g class="DISCONNECTOR idBH" id="idBH" transform="translate(241.0,486.0)">
+            <g class="DISCONNECTOR idBH" id="idBH" transform="translate(241.0,415.0)">
                 <g class="closed" id="idBH_DISCONNECTOR-closed">
                     <line y2="8" x1="0" x2="8" y1="0"/>
                     <line y2="8" x1="8" x2="0" y1="0"/>

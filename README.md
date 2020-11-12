@@ -89,8 +89,8 @@ VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLa
 // create diagram for the voltage level "N"
 VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
 
-// create default parameters for the SVG layout
-LayoutParameters layoutParameters = new LayoutParameters();
+// create default parameters for the SVG layout, then activating height compaction
+LayoutParameters layoutParameters = new LayoutParameters().setAdaptCellHeightToContent(true);
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
