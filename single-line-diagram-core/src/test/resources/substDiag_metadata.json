@@ -2772,8 +2772,6 @@
     "verticalSnakeLinePadding" : 25.0,
     "arrowDistance" : 20.0,
     "diagramName" : null,
-    "shiftFeedersPosition" : false,
-    "scaleShiftFeedersPosition" : 1.0,
     "avoidSVGComponentsDuplication" : false,
     "adaptCellHeightToContent" : false,
     "maxComponentHeight" : 12.0,

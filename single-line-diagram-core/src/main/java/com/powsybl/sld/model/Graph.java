@@ -495,30 +495,6 @@ public final class Graph {
         return getNodeBuses().stream().allMatch(n -> n.getPosition().get(H) != -1 && n.getPosition().get(V) != -1);
     }
 
-    /**
-     * Adjust feeders height, positioning them on a descending/ascending ramp
-     * (depending on their BusCell direction)
-     */
-    public void shiftFeedersPosition(double scaleShiftFeederNames) {
-        Map<BusCell.Direction, List<Node>> orderedFeederNodesByDirection = getNodes().stream()
-                .filter(node -> !node.isFictitious() && node instanceof FeederNode && node.getCell() != null)
-                .sorted(Comparator.comparing(Node::getX))
-                .collect(Collectors.groupingBy(node -> nodeDirection.apply(node)));
-
-        Map<BusCell.Direction, Double> mapLev = Arrays.stream(BusCell.Direction.values()).collect(Collectors.toMap(d -> d, d -> 0.0));
-
-        Stream.of(BusCell.Direction.values())
-                .filter(direction -> orderedFeederNodesByDirection.get(direction) != null)
-                .forEach(direction ->
-                        orderedFeederNodesByDirection.get(direction).stream().skip(1).forEach(node -> {
-                            double oldY = node.getY();
-                            double newY = mapLev.get(direction) + scaleShiftFeederNames * VALUE_SHIFT_FEEDER;
-                            node.setY(oldY - getY() + ((direction == BusCell.Direction.TOP) ? 1 : -1) * newY);
-                            node.setInitY(oldY);
-                            mapLev.put(direction, newY);
-                        }));
-    }
-
     public void writeJson(Path file) {
         try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
             writeJson(writer);
