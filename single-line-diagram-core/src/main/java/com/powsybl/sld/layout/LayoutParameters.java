@@ -55,9 +55,6 @@ public class LayoutParameters {
     private double arrowDistance = 20;
     private double minSpaceForFeederArrows = 50;
 
-    private boolean shiftFeedersPosition = false;
-
-    private double scaleShiftFeedersPosition = 1;
     private boolean avoidSVGComponentsDuplication = false;
 
     private boolean adaptCellHeightToContent = false;
@@ -104,8 +101,6 @@ public class LayoutParameters {
                             @JsonProperty("arrowDistance") double arrowDistance,
                             @JsonProperty("minSpaceForFeederArrows") double minSpaceForFeederArrows,
                             @JsonProperty("diagramName") String diagramName,
-                            @JsonProperty("shiftFeedersPosition") boolean shiftFeedersPosition,
-                            @JsonProperty("scaleShiftFeedersPosition") double scaleShiftFeedersPosition,
                             @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
                             @JsonProperty("maxComponentHeight") double maxComponentHeight,
@@ -138,8 +133,6 @@ public class LayoutParameters {
         this.arrowDistance = arrowDistance;
         this.minSpaceForFeederArrows = minSpaceForFeederArrows;
         this.diagramName = diagramName;
-        this.shiftFeedersPosition = shiftFeedersPosition;
-        this.scaleShiftFeedersPosition = scaleShiftFeedersPosition;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
         this.adaptCellHeightToContent = adaptCellHeightToContent;
         this.maxComponentHeight = maxComponentHeight;
@@ -176,8 +169,6 @@ public class LayoutParameters {
         arrowDistance = other.arrowDistance;
         minSpaceForFeederArrows = other.minSpaceForFeederArrows;
         diagramName = other.diagramName;
-        shiftFeedersPosition = other.shiftFeedersPosition;
-        scaleShiftFeedersPosition = other.scaleShiftFeedersPosition;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
         adaptCellHeightToContent = other.adaptCellHeightToContent;
         maxComponentHeight = other.maxComponentHeight;
@@ -368,24 +359,6 @@ public class LayoutParameters {
 
     public LayoutParameters setArrowDistance(double arrowDistance) {
         this.arrowDistance = arrowDistance;
-        return this;
-    }
-
-    public boolean isShiftFeedersPosition() {
-        return shiftFeedersPosition;
-    }
-
-    public LayoutParameters setShiftFeedersPosition(boolean shiftFeedersPosition) {
-        this.shiftFeedersPosition = shiftFeedersPosition;
-        return this;
-    }
-
-    public double getScaleShiftFeedersPosition() {
-        return scaleShiftFeedersPosition;
-    }
-
-    public LayoutParameters setScaleShiftFeedersPosition(double scaleShiftFeedersPosition) {
-        this.scaleShiftFeedersPosition = scaleShiftFeedersPosition;
         return this;
     }
 

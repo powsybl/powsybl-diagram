@@ -42,10 +42,6 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         LOGGER.info("Running voltage level layout");
         calculateBusNodeCoord(graph, layoutParam);
         calculateCellCoord(graph, layoutParam);
-
-        if (layoutParam.isShiftFeedersPosition()) {
-            graph.shiftFeedersPosition(layoutParam.getScaleShiftFeedersPosition());
-        }
     }
 
     private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {
