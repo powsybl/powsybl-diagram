@@ -35,6 +35,8 @@ The main features are:
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
 ![Diagram demo](.github/diagram-demo.svg)
+*The example above corresponds to the CGMES file `MicroGrid/Type4_T4/CGMES_v2.4.15_MicroGridTestConfiguration_T4_Assembled_NB_Complete_v2.zip` from the ENSTO-E sample files which can be downloaded [here](https://docstore.entsoe.eu/Documents/CIM_documents/Grid_Model_CIM/TestConfigurations_packageCASv2.0.zip).*
+*A guide to generate the corresponding diagram will be available very soon on [powsybl website](https://www.powsybl.org/).*
 
 ## Getting started
 
@@ -103,3 +105,5 @@ voltageLevelDiagram.writeSvg("",
 We obtain the following SVG:
 
 ![Diagram demo](.github/example_n.svg)
+
+*Note: the 1.8.0-SNAPSHOT version of powsybl-single-line-diagram was used to generate the SVGs of this guide. Because of that, you might experience some differences with the examples shown, which will be corrected by 1.8.0 release (expected: 2020-11-26).*
