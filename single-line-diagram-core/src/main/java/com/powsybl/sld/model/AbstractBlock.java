@@ -12,11 +12,14 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.io.IOException;
 import java.util.*;
 
-import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.Block.Extremity.END;
+import static com.powsybl.sld.model.Block.Extremity.START;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.Coord.Dimension.X;
+import static com.powsybl.sld.model.Coord.Dimension.Y;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
-import static com.powsybl.sld.model.Position.Dimension.*;
+import static com.powsybl.sld.model.Position.Dimension.H;
+import static com.powsybl.sld.model.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -153,42 +156,63 @@ public abstract class AbstractBlock implements Block {
 
     @Override
     public void calculateRootCoord(LayoutParameters layoutParam) {
-        double dyToBus = 0;
-        coord.setSpan(X, (double) position.getSpan(H) / 2 * layoutParam.getCellWidth());
+
+        double spanX = position.getSpan(H) / 2. * layoutParam.getCellWidth();
+        coord.setSpan(X, spanX);
+        coord.set(X, hToX(layoutParam, position.get(H)) + spanX / 2);
+
+        double spanY = getRootSpanYCoord(layoutParam);
+        coord.setSpan(Y, spanY);
+        coord.set(Y, getRootYCoord(spanY, layoutParam));
+
+        calculateCoord(layoutParam);
+    }
+
+    private double getRootSpanYCoord(LayoutParameters layoutParam) {
+        double ySpan;
         if (cell.getType() == INTERN) {
-            coord.setSpan(Y, (double) position.getSpan(V) / 2 * layoutParam.getInternCellHeight());
+            ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
+        } else {
+            // The Y span of root block does not consider the space needed for the FeederPrimaryBlock
+            // nor the one needed for the LegPrimaryBlock.
+            if (layoutParam.isAdaptCellHeightToContent()) {
+                // In this case, corresponds to the previously calculated maximum height of all extern cells having the same direction
+                ySpan = getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
+            } else {
+                ySpan = layoutParam.getExternCellHeight() - getFeederSpan(layoutParam);
+            }
+        }
+        return ySpan;
+    }
+
+    static double getFeederSpan(LayoutParameters layoutParam) {
+        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
+        // + half the height of the feeder component + half the height of that node component
+        return layoutParam.getMinSpaceForFeederArrows() + layoutParam.getMaxComponentHeight();
+    }
+
+    private double getRootYCoord(double spanY, LayoutParameters layoutParam) {
+        double dyToBus = 0;
+        if (cell.getType() == INTERN) {
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
-                dyToBus = layoutParam.getInternCellHeight() * (double) (1 + position.get(V)) / 2 + coord.getSpan(Y) / 2;
+                dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
             }
         } else {
-            // when using the adapt cell height to content option, the extern cell height, here,
-            // is the previously calculated maximum height of all the extern cells having the same direction
-            double externCellHeight = !layoutParam.isAdaptCellHeightToContent()
-                    ? layoutParam.getExternCellHeight()
-                    : getGraph().getMaxCalculatedCellHeight(((BusCell) cell).getDirection());
-            coord.setSpan(Y, externCellHeight);
-            dyToBus = externCellHeight / 2 + layoutParam.getStackHeight();
+            dyToBus = spanY / 2 + layoutParam.getStackHeight();
         }
-
-        coord.set(X, hToX(layoutParam, position.get(H)) + coord.getSpan(X) / 2);
-
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                coord.set(Y, layoutParam.getInitialYBus()
-                        + (cell.getGraph().getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus()
-                        + dyToBus);
-                break;
+                return layoutParam.getInitialYBus()
+                    + (cell.getGraph().getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus()
+                    + dyToBus;
             case TOP:
-                coord.set(Y, layoutParam.getInitialYBus()
-                        - dyToBus);
-                break;
+                return layoutParam.getInitialYBus() - dyToBus;
             case MIDDLE:
-                coord.set(Y, layoutParam.getInitialYBus()
-                        + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus());
-                break;
+                return layoutParam.getInitialYBus()
+                    + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
+                return 0;
         }
-        calculateCoord(layoutParam);
     }
 
     @Override

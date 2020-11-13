@@ -90,14 +90,13 @@ public class ImplicitCellDetector implements CellDetector {
         if (removeUnnecessaryFictitiousNodes) {
             graph.removeUnnecessaryFictitiousNodes();
         }
-        graph.extendFeederWithMultipleSwitches();
+        graph.extendFeeders();
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
         }
         graph.extendFirstOutsideNode();
         graph.conditionalExtensionOfNodeConnectedToBus(node ->
                 node.getType() == Node.NodeType.SWITCH && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR
-                        || node.getType() == Node.NodeType.FEEDER
                         || node instanceof Middle2WTNode || node instanceof Middle3WTNode
         );
         graph.extendBusConnectedToBus();

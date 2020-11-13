@@ -88,7 +88,10 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
 
     void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
         double init = getCoord().get(cDim) - sign * getCoord().getSpan(cDim) / 2;
-        double step = getCoord().getSpan(cDim) / getPosition().getSpan(pDim);
+
+        // Computes the step, avoiding the division by 0 for 0-span composed block (e.g. LegPrimaryBlock + Feeder)
+        int pSpan = getPosition().getSpan(pDim);
+        double step = pSpan == 0 ? 0 : getCoord().getSpan(cDim) / pSpan;
 
         subBlocks.forEach(sub -> {
             sub.getCoord().set(cDim, init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));

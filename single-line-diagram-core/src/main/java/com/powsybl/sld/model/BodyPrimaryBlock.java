@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
@@ -28,19 +29,10 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
         super(BODYPRIMARY, nodes, cell);
-        if (getExtremityNode(START).getType() == FEEDER) {
-            reverseBlock();
-        }
     }
 
     public BodyPrimaryBlock(BodyPrimaryBlock bodyPrimaryBlock) {
         this(bodyPrimaryBlock.getNodes(), bodyPrimaryBlock.getCell());
-    }
-
-    @Override
-    public int getOrder() {
-        return getExtremityNode(END).getType() == FEEDER ?
-                ((FeederNode) getExtremityNode(END)).getOrder() : 0;
     }
 
     @Override
@@ -54,6 +46,17 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
             getPosition().setSpan(H, 2 * (nodes.size() - 2));
             getPosition().setSpan(V, 2);
         }
+    }
+
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        // we do not consider the exact height of components as the maximum height will later be split up equally between nodes
+        double componentHeight = layoutParameters.getMaxComponentHeight() + layoutParameters.getMinSpaceBetweenComponents();
+
+        // we increment the height only if the node is not a bus node and has not been already encountered
+        long nbNodes = nodes.stream().filter(n -> !encounteredNodes.contains(n) && n.getType() != BUS).count();
+
+        return (nbNodes - 1) * componentHeight;
     }
 
     @Override

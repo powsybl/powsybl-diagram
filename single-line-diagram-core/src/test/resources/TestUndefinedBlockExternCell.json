@@ -37,6 +37,26 @@
     "y" : 230.0,
     "open" : false
   }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_l1Fictif",
+    "name" : "l1Fictif",
+    "equipmentId" : "l1Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 0.0,
+    "y" : 42.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_l2Fictif",
+    "name" : "l2Fictif",
+    "equipmentId" : "l2Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 0.0,
+    "y" : 42.0,
+    "open" : false
+  }, {
     "type" : "BUS",
     "id" : "bbs",
     "name" : "bbs",
@@ -116,9 +136,9 @@
       },
       "coord" : {
         "x" : 0.0,
-        "y" : 105.0,
+        "y" : 136.0,
         "xSpan" : 0.0,
-        "ySpan" : 250.0
+        "ySpan" : 188.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -136,9 +156,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 105.0,
+          "y" : 136.0,
           "xSpan" : 0.0,
-          "ySpan" : 250.0
+          "ySpan" : 188.0
         },
         "nodes" : [ "bbs", "d", "FICT_vl_f0" ]
       }, {
@@ -157,9 +177,9 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 105.0,
+          "y" : 136.0,
           "xSpan" : 0.0,
-          "ySpan" : 250.0
+          "ySpan" : 188.0
         },
         "nodes" : [ "FICT_vl_f0", "FICT_vl_f1" ]
       }, {
@@ -178,34 +198,13 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 105.0,
+          "y" : 136.0,
           "xSpan" : 0.0,
-          "ySpan" : 250.0
-        },
-        "nodes" : [ "FICT_vl_f1", "l1" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : -1,
-          "v" : -1,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 0.0,
-          "y" : 105.0,
-          "xSpan" : 0.0,
-          "ySpan" : 250.0
+          "ySpan" : 188.0
         },
         "nodes" : [ "FICT_vl_f1", "FICT_vl_f2" ]
       }, {
-        "type" : "BODYPRIMARY",
+        "type" : "SERIAL",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -220,11 +219,116 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 105.0,
+          "y" : 136.0,
           "xSpan" : 0.0,
-          "ySpan" : 250.0
+          "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_f2", "l2" ]
+        "subBlocks" : [ {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 136.0,
+            "xSpan" : 0.0,
+            "ySpan" : 188.0
+          },
+          "nodes" : [ "FICT_vl_f2", "FICT_vl_l2Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 42.0,
+            "xSpan" : 0.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "FICT_vl_l2Fictif", "l2" ]
+        } ]
+      }, {
+        "type" : "SERIAL",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 136.0,
+          "xSpan" : 0.0,
+          "ySpan" : 188.0
+        },
+        "subBlocks" : [ {
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 136.0,
+            "xSpan" : 0.0,
+            "ySpan" : 188.0
+          },
+          "nodes" : [ "FICT_vl_f1", "FICT_vl_l1Fictif" ]
+        }, {
+          "type" : "FEEDERPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 42.0,
+            "xSpan" : 0.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "FICT_vl_l1Fictif", "l1" ]
+        } ]
       } ]
     }
   } ],
@@ -239,15 +343,21 @@
     "node2" : "FICT_vl_f1"
   }, {
     "node1" : "FICT_vl_f1",
-    "node2" : "l1"
-  }, {
-    "node1" : "FICT_vl_f1",
     "node2" : "FICT_vl_f2"
   }, {
     "node1" : "FICT_vl_f2",
-    "node2" : "l2"
+    "node2" : "FICT_vl_f0"
+  }, {
+    "node1" : "FICT_vl_f1",
+    "node2" : "FICT_vl_l1Fictif"
+  }, {
+    "node1" : "FICT_vl_l1Fictif",
+    "node2" : "l1"
   }, {
     "node1" : "FICT_vl_f2",
-    "node2" : "FICT_vl_f0"
+    "node2" : "FICT_vl_l2Fictif"
+  }, {
+    "node1" : "FICT_vl_l2Fictif",
+    "node2" : "l2"
   } ]
 }

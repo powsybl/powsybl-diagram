@@ -211,10 +211,10 @@ final class CellBlockDecomposer {
     /**
      * Search for primaryBlock
      * a primaryBlock is identified when the the following pattern is detected:
-     * BUS|FICTICIOUS|FEEDER|SHUNT - n * SWITCH - BUS|FICTICIOUS|FEEDER|SHUNT
-     * when there is one BUS, it is instanciated as PrimaryLegBlock with this pattern (only allowed pattern with a bus) :
-     * BUS - SWITCH - FICTICIOUS
-     * otherwise it is instanciated as PrimaryBodyBlock
+     * BUS|FICTITIOUS|FEEDER|SHUNT - n * SWITCH - BUS|FICTITIOUS|FEEDER|SHUNT
+     * when there is one BUS, it is instantiated as PrimaryLegBlock with this pattern (only allowed pattern with a bus):
+     * BUS - SWITCH - FICTITIOUS
+     * otherwise it is instantiated as PrimaryBodyBlock
      *
      * @param cell           cell
      * @param currentNode    currentnode
@@ -245,10 +245,15 @@ final class CellBlockDecomposer {
         if (blockNodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
             b = new LegPrimaryBlock(blockNodes, cell);
         } else {
-            b = new BodyPrimaryBlock(blockNodes, cell);
+            if (blockNodes.stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER)) {
+                b = new FeederPrimaryBlock(blockNodes, cell);
+            } else {
+                b = new BodyPrimaryBlock(blockNodes, cell);
+            }
         }
         blocks.add(b);
-        // If we did'nt reach a Busbar, continue to search for other
+
+        // If we did'nt reach a Busbar or a Feeder, continue to search for other
         // blocks
         if (currentNode2.getType() != Node.NodeType.BUS) {
             Node finalCurrentNode = currentNode2;

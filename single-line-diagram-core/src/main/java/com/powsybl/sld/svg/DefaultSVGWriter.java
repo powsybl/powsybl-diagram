@@ -967,9 +967,14 @@ public class DefaultSVGWriter implements SVGWriter {
             double cosAngle = dx / distancePoints;
             double sinAngle = dy / distancePoints;
 
-            double dist = this.layoutParameters.getArrowDistance();
-            double x = x1 + cosAngle * (dist + shift);
-            double y = y1 + sinAngle * (dist + shift);
+            // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 arrows,
+            // we compute the distance between feeder anchor and first arrow so that the two arrows are centered.
+            double distFeederAnchorToFirstArrowCenter =
+                distancePoints >= 2 * layoutParameters.getArrowDistance() + 2 * componentSize.getHeight()
+                    ? layoutParameters.getArrowDistance()
+                    : (distancePoints - 2 * componentSize.getHeight()) / 2;
+            double x = x1 + cosAngle * (distFeederAnchorToFirstArrowCenter + shift);
+            double y = y1 + sinAngle * (distFeederAnchorToFirstArrowCenter + shift);
 
             double arrowRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
             if (arrowRotationAngle < -Math.PI / 2) {

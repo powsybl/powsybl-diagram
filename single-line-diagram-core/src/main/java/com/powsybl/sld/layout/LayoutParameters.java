@@ -53,6 +53,7 @@ public class LayoutParameters {
     private double horizontalSnakeLinePadding = 20;
     private double verticalSnakeLinePadding = 25;
     private double arrowDistance = 20;
+    private double minSpaceForFeederArrows = 50;
 
     private boolean avoidSVGComponentsDuplication = false;
 
@@ -98,6 +99,7 @@ public class LayoutParameters {
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
                             @JsonProperty("arrowDistance") double arrowDistance,
+                            @JsonProperty("minSpaceForFeederArrows") double minSpaceForFeederArrows,
                             @JsonProperty("diagramName") String diagramName,
                             @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
@@ -129,6 +131,7 @@ public class LayoutParameters {
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
         this.arrowDistance = arrowDistance;
+        this.minSpaceForFeederArrows = minSpaceForFeederArrows;
         this.diagramName = diagramName;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
         this.adaptCellHeightToContent = adaptCellHeightToContent;
@@ -164,6 +167,7 @@ public class LayoutParameters {
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
         arrowDistance = other.arrowDistance;
+        minSpaceForFeederArrows = other.minSpaceForFeederArrows;
         diagramName = other.diagramName;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
         adaptCellHeightToContent = other.adaptCellHeightToContent;
@@ -462,6 +466,15 @@ public class LayoutParameters {
 
     public LayoutParameters setAddNodesInfos(boolean addNodesInfos) {
         this.addNodesInfos = addNodesInfos;
+        return this;
+    }
+
+    public double getMinSpaceForFeederArrows() {
+        return minSpaceForFeederArrows;
+    }
+
+    public LayoutParameters setMinSpaceForFeederArrows(double minSpaceForFeederArrows) {
+        this.minSpaceForFeederArrows = minSpaceForFeederArrows;
         return this;
     }
 }
