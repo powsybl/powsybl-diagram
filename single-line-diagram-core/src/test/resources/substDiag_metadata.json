@@ -3205,8 +3205,6 @@
     "arrowDistance" : 20.0,
     "minSpaceForFeederArrows" : 50.0,
     "diagramName" : null,
-    "shiftFeedersPosition" : false,
-    "scaleShiftFeedersPosition" : 1.0,
     "avoidSVGComponentsDuplication" : false,
     "adaptCellHeightToContent" : false,
     "maxComponentHeight" : 12.0,
