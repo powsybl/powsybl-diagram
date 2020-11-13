@@ -46,6 +46,18 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         setCell(cell);
     }
 
+    public static PrimaryBlock createPrimaryBlock(List<Node> primaryPattern, Cell cell) {
+        Node.NodeType firstNodeType = primaryPattern.get(0).getType();
+        Node.NodeType lastNodeType = primaryPattern.get(primaryPattern.size() - 1).getType();
+        if (firstNodeType == Node.NodeType.BUS || lastNodeType == Node.NodeType.BUS) {
+            return new LegPrimaryBlock(primaryPattern, cell);
+        }
+        if (firstNodeType == Node.NodeType.FEEDER || lastNodeType == Node.NodeType.FEEDER) {
+            return  new FeederPrimaryBlock(primaryPattern, cell);
+        }
+        return new BodyPrimaryBlock(primaryPattern, cell);
+    }
+
     @Override
     public Graph getGraph() {
         return nodes.get(0).getGraph();
