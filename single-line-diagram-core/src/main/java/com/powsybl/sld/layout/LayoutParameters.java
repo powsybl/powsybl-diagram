@@ -71,6 +71,8 @@ public class LayoutParameters {
 
     private boolean addNodesInfos = false;
 
+    private boolean feederArrowSymmetry = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -110,7 +112,8 @@ public class LayoutParameters {
                             @JsonProperty("labelDiagonal") boolean labelDiagonal,
                             @JsonProperty("angleLabelShift") double angleLabelShift,
                             @JsonProperty("highlightLineState") boolean highlightLineState,
-                            @JsonProperty("addNodesInfos") boolean addNodesInfos) {
+                            @JsonProperty("addNodesInfos") boolean addNodesInfos,
+                            @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -143,6 +146,7 @@ public class LayoutParameters {
         this.angleLabelShift = angleLabelShift;
         this.highlightLineState = highlightLineState;
         this.addNodesInfos = addNodesInfos;
+        this.feederArrowSymmetry = feederArrowSymmetry;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -180,6 +184,7 @@ public class LayoutParameters {
         labelCentered = other.labelCentered;
         highlightLineState = other.highlightLineState;
         addNodesInfos = other.addNodesInfos;
+        feederArrowSymmetry = other.feederArrowSymmetry;
     }
 
     public double getTranslateX() {
@@ -475,6 +480,15 @@ public class LayoutParameters {
 
     public LayoutParameters setMinSpaceForFeederArrows(double minSpaceForFeederArrows) {
         this.minSpaceForFeederArrows = minSpaceForFeederArrows;
+        return this;
+    }
+
+    public boolean isFeederArrowSymmetry() {
+        return feederArrowSymmetry;
+    }
+
+    public LayoutParameters setFeederArrowSymmetry(boolean feederArrowSymmetry) {
+        this.feederArrowSymmetry = feederArrowSymmetry;
         return this;
     }
 }

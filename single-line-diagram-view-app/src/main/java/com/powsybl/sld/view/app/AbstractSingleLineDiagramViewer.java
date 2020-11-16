@@ -742,6 +742,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addCheckBox("HighLight line state", rowIndex, LayoutParameters::isHighlightLineState, LayoutParameters::setHighlightLineState);
         rowIndex += 2;
         addCheckBox("Add nodes infos", rowIndex, LayoutParameters::isAddNodesInfos, LayoutParameters::setAddNodesInfos);
+        rowIndex += 2;
+        addCheckBox("Feeder arrow symmetry", rowIndex, LayoutParameters::isFeederArrowSymmetry, LayoutParameters::setFeederArrowSymmetry);
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {

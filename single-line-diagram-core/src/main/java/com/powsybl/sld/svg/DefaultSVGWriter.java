@@ -1022,24 +1022,34 @@ public class DefaultSVGWriter implements SVGWriter {
                                          String wireId,
                                          List<Double> points,
                                          Element root,
-                                         Node n,
+                                         FeederNode feederNode,
                                          GraphMetadata metadata,
                                          DiagramLabelProvider initProvider,
-                                         DiagramStyleProvider styleProvider) {
-        InitialValue init = initProvider.getInitialValue(n);
+                                         DiagramStyleProvider styleProvider,
+                                         boolean feederArrowSymmetry) {
+        InitialValue init = initProvider.getInitialValue(feederNode);
+
+        boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
+
+        Optional<String> label1 = arrowSymmetry ? init.getLabel1() : init.getLabel2();
+        Optional<Direction> direction1 = arrowSymmetry ? init.getArrowDirection1() : init.getArrowDirection2();
+
+        Optional<String> label2 = arrowSymmetry ? init.getLabel2() : init.getLabel1();
+        Optional<Direction> direction2 = arrowSymmetry ? init.getArrowDirection2() : init.getArrowDirection1();
+
+        int iArrow1 = arrowSymmetry ? 1 : 2;
+        int iArrow2 = arrowSymmetry ? 2 : 1;
 
         // we draw the arrow only if value 1 is present
-        init.getLabel1()
-                .ifPresent(lb ->
-                        drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel3(), init.getArrowDirection1(), 0, 1, metadata, styleProvider));
+        label1.ifPresent(lb ->
+                        drawArrowAndLabel(prefixId, wireId, points, root, feederNode, lb, init.getLabel3(), direction1, 0, iArrow1, metadata, styleProvider));
 
         // we draw the arrow only if value 2 is present
-        init.getLabel2()
-                .ifPresent(lb -> {
-                    double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
-                    drawArrowAndLabel(prefixId, wireId, points, root, n, lb, init.getLabel4(),
-                            init.getArrowDirection2(), shiftArrow2, 2, metadata, styleProvider);
-                });
+        label2.ifPresent(lb -> {
+            double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
+            drawArrowAndLabel(prefixId, wireId, points, root, feederNode, lb, init.getLabel4(),
+                    direction2, shiftArrow2, iArrow2, metadata, styleProvider);
+        });
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Double> points, Element root, Node n,
@@ -1128,7 +1138,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertArrowsAndLabels(prefixId, wireId, pol, root, edge.getNode1(), metadata, initProvider, styleProvider);
+                    insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider, styleProvider,
+                            layoutParameters.isFeederArrowSymmetry());
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 List<Double> reversePoints = new ArrayList<>();
@@ -1140,7 +1151,8 @@ public class DefaultSVGWriter implements SVGWriter {
                     }
                 }
 
-                insertArrowsAndLabels(prefixId, wireId, reversePoints, root, edge.getNode2(), metadata, initProvider, styleProvider);
+                insertArrowsAndLabels(prefixId, wireId, reversePoints, root, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider,
+                        layoutParameters.isFeederArrowSymmetry());
             }
         }
     }

@@ -1614,6 +1614,7 @@
     "labelDiagonal" : false,
     "angleLabelShift" : 15.0,
     "highlightLineState" : true,
-    "addNodesInfos" : false
+    "addNodesInfos" : false,
+    "feederArrowSymmetry" : false
   }
 }
