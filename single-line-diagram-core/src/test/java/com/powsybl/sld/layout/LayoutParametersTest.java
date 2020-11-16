@@ -51,7 +51,8 @@ public class LayoutParametersTest {
                 .setHighlightLineState(false)
                 .setTooltipEnabled(true)
                 .setAddNodesInfos(true)
-                .setMinSpaceForFeederArrows(70);
+                .setMinSpaceForFeederArrows(70)
+                .setFeederArrowSymmetry(true);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getTranslateX(), layoutParameters2.getTranslateX(), 0);
@@ -86,5 +87,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isTooltipEnabled(), layoutParameters2.isTooltipEnabled());
         assertEquals(layoutParameters.isAddNodesInfos(), layoutParameters2.isAddNodesInfos());
         assertEquals(layoutParameters.getMinSpaceForFeederArrows(), layoutParameters2.getMinSpaceForFeederArrows(), 0);
+        assertEquals(layoutParameters.isFeederArrowSymmetry(), layoutParameters2.isFeederArrowSymmetry());
     }
 }
