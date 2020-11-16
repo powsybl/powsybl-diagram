@@ -731,8 +731,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         assertEquals(toString("/substation.svg"), toSVG(substG, "/substation.svg", layoutParameters, initValueProvider, styleProvider));
 
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
-        assertEquals(toSVG(substG, "/substation_feeder_arrow_symmetry.svg",
-                new LayoutParameters(layoutParameters).setFeederArrowSymmetry(true), initValueProvider, styleProvider), toString("/substation_feeder_arrow_symmetry.svg"));
+        createSubstationGraph();
+        assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
+            toSVG(substG, "/substation_feeder_arrow_symmetry.svg", new LayoutParameters(layoutParameters).setFeederArrowSymmetry(true), initValueProvider, styleProvider));
 
         // SVG file generation for substation and comparison to reference but with no feeder values
         createSubstationGraph();

@@ -636,7 +636,7 @@
                 <line y2="8" x1="8" x2="0" y1="0"/>
             </g>
         </g>
-        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1_95_vl2_95_trf1" id="idvl1_95_trf1_95_vl2_95_trf1" transform="matrix(0.0,1.0,-1.0,0.0,392.5,595.0)">
+        <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1_95_vl2_95_trf1" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
             <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" cx="5" transform="rotate(90.0,5.0,7.5)" cy="10"/>
             <circle r="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" cx="5" transform="rotate(90.0,5.0,7.5)" cy="5"/>
         </g>
@@ -646,19 +646,19 @@
             <circle r="5" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING3" cx="8" cy="9"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf1_95_vl1_95_trf1_95_vl2_95_trf1">
-            <polyline points="100.0,550.0,100.0,600.0,369.0,600.0"/>
+            <polyline points="100.0,550.0,100.0,600.0,377.0,600.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf1_95_vl2_95_trf1_95_vl2_95_trf1">
-            <polyline points="401.0,600.0,670.0,600.0,670.0,550.0"/>
+            <polyline points="393.0,600.0,670.0,600.0,670.0,550.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one">
-            <polyline points="420.0,130.0,420.0,90.0,716.0,90.0"/>
+            <polyline points="420.0,130.0,420.0,95.0,723.0,95.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl2_95_trf2_95_one">
-            <polyline points="730.0,114.0,730.0,130.0"/>
+            <polyline points="730.0,107.0,730.0,130.0"/>
         </g>
         <g class="wire" id="_95_subst_95_vl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_95_vl3_95_trf2_95_one">
-            <polyline points="744.0,90.0,1020.0,90.0,1020.0,130.0"/>
+            <polyline points="737.0,95.0,1020.0,95.0,1020.0,130.0"/>
         </g>
         <g id="LABEL_VL_vl1">
             <text x="0.0" font-size="12" y="10.0" class="component-label" font-family="Verdana" transform="rotate(0,0,0)">vl1</text>
