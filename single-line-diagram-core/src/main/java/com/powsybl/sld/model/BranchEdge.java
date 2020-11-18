@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface BranchEdge {
 
-    List<Double> getSnakeLine();
+    List<Point> getSnakeLine();
 
-    void setSnakeLine(List<Double> snakeLine);
+    void setSnakeLine(List<Point> snakeLine);
 }

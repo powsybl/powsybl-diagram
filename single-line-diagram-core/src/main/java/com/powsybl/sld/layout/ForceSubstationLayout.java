@@ -166,15 +166,15 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {
-                List<Double> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 Coord coordNodeFict = new Coord(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
                 multiNode.setX(coordNodeFict.get(X), false);
                 multiNode.setY(coordNodeFict.get(Y), false);
             } else if (adjacentNodes.size() == 3) {
-                List<Double> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                List<Double> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+                List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 Coord coordNodeFict = new Coord(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
@@ -191,7 +191,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     }
 
-    private List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
+    private List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
                                                     Node node1, Node node2,
                                                     Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
                                                     Map<String, Integer> nbSnakeLinesBetween) {
@@ -215,8 +215,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         return calculatePolylinePoints(info);
     }
 
-    public static List<Double> calculatePolylinePoints(ForceInfoCalcPoints info) {
-        List<Double> pol = new ArrayList<>();
+    public static List<Point> calculatePolylinePoints(ForceInfoCalcPoints info) {
+        List<Point> pol;
 
         LayoutParameters layoutParam = info.getLayoutParam();
         BusCell.Direction dNode1 = info.getdNode1();
@@ -244,10 +244,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
                     double yDecal = Math.max(initY1 + decalV1, initY2 + decalV2);
 
-                    pol.addAll(Arrays.asList(x1, y1,
+                    pol = Point.createPointsList(x1, y1,
                             x1, yDecal,
                             x2, yDecal,
-                            x2, y2));
+                            x2, y2);
                 } else {  // BOTTOM to TOP
                     if (y1 < y2) {
                         nbSnakeLinesTopBottom.get(vId1).compute(dNode1, (k, v) -> v + 1);
@@ -257,10 +257,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
                         double yDecal = Math.max(initY1 + decalV1, initY2 - decalV2);
 
-                        pol.addAll(Arrays.asList(x1, y1,
+                        pol = Point.createPointsList(x1, y1,
                                 x1, yDecal,
                                 x2, yDecal,
-                                x2, y2));
+                                x2, y2);
                     } else {
                         nbSnakeLinesTopBottom.get(vId1).compute(dNode1, (k, v) -> v + 1);
                         nbSnakeLinesTopBottom.get(vId2).compute(dNode2, (k, v) -> v + 1);
@@ -270,12 +270,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                         double decalV2 = nbSnakeLinesTopBottom.get(vId2).get(dNode2) * layoutParam.getVerticalSnakeLinePadding();
                         double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
-                        pol.addAll(Arrays.asList(x1, y1,
+                        pol = Point.createPointsList(x1, y1,
                                 x1, initY1 + decalV1,
                                 xBetweenGraph, initY1 + decalV1,
                                 xBetweenGraph, initY2 - decalV2,
                                 x2, initY2 - decalV2,
-                                x2, y2));
+                                x2, y2);
                     }
                 }
                 break;
@@ -289,10 +289,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
                     double yDecal = Math.min(initY1 - decalV1, initY2 - decalV2);
 
-                    pol.addAll(Arrays.asList(x1, y1,
+                    pol = Point.createPointsList(x1, y1,
                             x1, yDecal,
                             x2, yDecal,
-                            x2, y2));
+                            x2, y2);
                 } else {  // TOP to BOTTOM
                     if (y1 > y2) {
                         nbSnakeLinesTopBottom.get(vId1).compute(dNode1, (k, v) -> v + 1);
@@ -302,10 +302,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
                         double yDecal = Math.min(initY1 - decalV1, initY2 + decalV2);
 
-                        pol.addAll(Arrays.asList(x1, y1,
+                        pol = Point.createPointsList(x1, y1,
                                 x1, yDecal,
                                 x2, yDecal,
-                                x2, y2));
+                                x2, y2);
                     } else {
                         nbSnakeLinesTopBottom.get(vId1).compute(dNode1, (k, v) -> v + 1);
                         nbSnakeLinesTopBottom.get(vId2).compute(dNode2, (k, v) -> v + 1);
@@ -315,39 +315,38 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
                         double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
-                        pol.addAll(Arrays.asList(x1, y1,
+                        pol = Point.createPointsList(x1, y1,
                                 x1, initY1 - decalV1,
                                 xBetweenGraph, initY1 - decalV1,
                                 xBetweenGraph, initY2 + decalV2,
                                 x2, initY2 + decalV2,
-                                x2, y2));
+                                x2, y2);
                     }
                 }
                 break;
             default:
+                pol = new ArrayList<>();
         }
         return pol;
     }
 
     @Override
-    protected List<Double> splitPolyline3(List<Double> pol1, List<Double> pol2, int numPart, Coord coord) {
-        List<Double> res = new ArrayList<>();
-
+    protected List<Point> splitPolyline3(List<Point> pol1, List<Point> pol2, int numPart, Coord coord) {
+        List<Point> res = new ArrayList<>();
         if (numPart == 1 || numPart == 2) {
             res = super.splitPolyline3(pol1, pol2, numPart, coord);
         } else {
             // the third new edge now begins with the fictitious node point
-            res.add(pol1.get(pol1.size() - 4));
-            res.add(pol1.get(pol1.size() - 3));
+            Point fictPoint = pol1.get(pol1.size() - 2);
+            res.add(fictPoint);
             // then we add an intermediate point with the absciss of the third point in the original second polyline
             // and the ordinate of the fictitious node
-            res.add(pol2.get(4));
-            res.add(pol1.get(pol1.size() - 3));
-            // then we had the last three or two points of the original second polyline
-            if (pol2.size() > 8) {
-                res.addAll(pol2.subList(pol2.size() - 6, pol2.size()));
+            res.add(new Point(pol2.get(2).getX(), fictPoint.getY()));
+            // then we had the last three points or the last point of the original second polyline
+            if (pol2.size() > 4) {
+                res.addAll(pol2.subList(pol2.size() - 3, pol2.size()));
             } else {
-                res.addAll(pol2.subList(pol2.size() - 2, pol2.size()));
+                res.add(pol2.get(pol2.size() - 1));
             }
         }
 
@@ -355,7 +354,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParameters, Node node1, Node node2,
                                                       InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
         return Collections.emptyList();
     }

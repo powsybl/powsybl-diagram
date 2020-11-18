@@ -18,19 +18,19 @@ import java.util.Objects;
  */
 public class TwtEdge extends AbstractBranchEdge {
 
-    private List<Double> snakeLine = new ArrayList<>();
+    private List<Point> snakeLine = new ArrayList<>();
 
     public TwtEdge(Node node1, Node node2) {
         super(node1, node2);
     }
 
     @Override
-    public List<Double> getSnakeLine() {
+    public List<Point> getSnakeLine() {
         return snakeLine;
     }
 
     @Override
-    public void setSnakeLine(List<Double> snakeLine) {
+    public void setSnakeLine(List<Point> snakeLine) {
         this.snakeLine = Objects.requireNonNull(snakeLine);
     }
 
@@ -46,8 +46,9 @@ public class TwtEdge extends AbstractBranchEdge {
         generator.writeEndArray();
         if (generateCoordsInJson) {
             generator.writeArrayFieldStart("snakeLine");
-            for (Double point : snakeLine) {
-                generator.writeNumber(point);
+            for (Point point : snakeLine) {
+                generator.writeNumber(point.getX());
+                generator.writeNumber(point.getY());
             }
             generator.writeEndArray();
         }

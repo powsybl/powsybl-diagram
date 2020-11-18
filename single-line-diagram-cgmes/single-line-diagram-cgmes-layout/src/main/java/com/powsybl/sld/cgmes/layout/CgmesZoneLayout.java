@@ -6,14 +6,6 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.TopologyKind;
@@ -22,10 +14,14 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.ZoneLayout;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.LineEdge;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -117,17 +113,12 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
     }
 
     private void shiftLineCoordinates(LineEdge edge, double scaleFactor) {
-        for (LineEdge.Point point : edge.getPoints()) {
-            point.setX(point.getX() - minX + (X_MARGIN / scaleFactor));
-            point.setY(point.getY() - minY + (Y_MARGIN / scaleFactor));
-        }
+        Point shift = new Point(-minX + (X_MARGIN / scaleFactor), -minY + (Y_MARGIN / scaleFactor));
+        edge.getPoints().forEach(p -> p.shift(shift));
     }
 
     private void scaleLineCoordinates(LineEdge edge, double scaleFactor) {
-        for (LineEdge.Point point : edge.getPoints()) {
-            point.setX(point.getX() * scaleFactor);
-            point.setY(point.getY() * scaleFactor);
-        }
+        edge.getPoints().forEach(p -> p.scale(scaleFactor));
     }
 
 }

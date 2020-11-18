@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
@@ -45,54 +43,13 @@ public class LineEdge extends AbstractBranchEdge {
     }
 
     @Override
-    public List<Double> getSnakeLine() {
-        return getPoints()
-                .stream()
-                .flatMap(point -> Stream.of(point.getX(), point.getY()))
-                .collect(Collectors.toList());
+    public List<Point> getSnakeLine() {
+        return getPoints();
     }
 
     @Override
-    public void setSnakeLine(List<Double> snakeLine) {
-        Objects.requireNonNull(snakeLine);
-        points = new ArrayList<>();
-        for (int i = 0; i < snakeLine.size(); i += 2) {
-            addPoint(snakeLine.get(i), snakeLine.get(i + 1));
-        }
-    }
-
-    public class Point {
-
-        private double x;
-        private double y;
-
-        public Point(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public void setX(double x) {
-            this.x = x;
-        }
-
-        public void setY(double y) {
-            this.y = y;
-        }
-
-        void writeJson(JsonGenerator generator) throws IOException {
-            generator.writeStartObject();
-            generator.writeNumberField("x", x);
-            generator.writeNumberField("y", y);
-            generator.writeEndObject();
-        }
+    public void setSnakeLine(List<Point> snakeLine) {
+        points = Objects.requireNonNull(snakeLine);
     }
 
     @Override

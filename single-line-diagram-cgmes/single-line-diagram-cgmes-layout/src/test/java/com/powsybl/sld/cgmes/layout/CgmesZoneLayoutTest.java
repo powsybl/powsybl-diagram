@@ -6,42 +6,20 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import static com.powsybl.sld.library.ComponentTypeName.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.powsybl.iidm.network.Branch.Side;
+import com.powsybl.iidm.network.*;
+import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.*;
+import org.joda.time.DateTime;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.joda.time.DateTime;
-import org.junit.Test;
-
-import com.powsybl.iidm.network.Branch.Side;
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.Line;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.LineEdge;
-import com.powsybl.sld.model.LineEdge.Point;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.ZoneGraph;
+import static com.powsybl.sld.library.ComponentTypeName.*;
+import static org.junit.Assert.*;
 
 /**
  *
