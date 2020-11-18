@@ -6,14 +6,17 @@
  */
 package com.powsybl.sld.library;
 
-import com.powsybl.sld.svg.SVGLoaderToDocument;
-import org.apache.batik.anim.dom.SVGOMDocument;
+import com.powsybl.commons.exceptions.UncheckedSaxException;
+import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
@@ -35,7 +38,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
 
-    private final Map<String, Map<String, SVGOMDocument>> svgDocuments = new HashMap<>();
+    private final Map<String, Map<String, Document>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components = new HashMap<>();
 
@@ -63,16 +66,22 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         LOGGER.info("Loading component library from {}...", directory);
 
         // preload SVG documents
-        SVGLoaderToDocument svgLoadDoc = new SVGLoaderToDocument();
+        DocumentBuilder db = DomUtil.getDocumentBuilder();
         Components.load(directory).getComponents().forEach(c -> {
             ComponentMetadata componentMetaData = c.getMetadata();
             String componentType = componentMetaData.getType();
             componentMetaData.getSubComponents().forEach(s -> {
                 String resourceName = directory + "/" + s.getFileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);
-                SVGOMDocument doc = svgLoadDoc.read(resourceName);
-                cleanEmptyTextNodes(doc, resourceName);
-                svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), doc);
+                try {
+                    Document doc = db.parse(getClass().getResourceAsStream(resourceName));
+                    cleanEmptyTextNodes(doc, resourceName);
+                    svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), doc);
+                } catch (SAXException e) {
+                    throw new UncheckedSaxException(e);
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
             });
             components.put(componentType, c);
         });
@@ -102,7 +111,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
-    public Map<String, SVGOMDocument> getSvgDocument(String type) {
+    public Map<String, Document> getSvgDocument(String type) {
         Objects.requireNonNull(type);
         return svgDocuments.get(type);
     }
