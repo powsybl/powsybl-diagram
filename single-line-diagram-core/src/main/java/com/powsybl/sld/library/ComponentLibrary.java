@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.library;
 
-import org.apache.batik.anim.dom.SVGOMDocument;
+import org.w3c.dom.Document;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ public interface ComponentLibrary {
 
     List<AnchorPoint> getAnchorPoints(String type);
 
-    Map<String, SVGOMDocument> getSvgDocument(String type);
+    Map<String, Document> getSvgDocument(String type);
 
     ComponentSize getSize(String type);
 

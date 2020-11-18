@@ -55,14 +55,6 @@
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-anim</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-bridge</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.powsybl</groupId>

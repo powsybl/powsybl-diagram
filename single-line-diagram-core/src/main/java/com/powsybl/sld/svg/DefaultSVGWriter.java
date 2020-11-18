@@ -6,84 +6,33 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.commons.exceptions.UncheckedTransformerException;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.AnchorOrientation;
-import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.AnchorPointProvider;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ComponentMetadata;
-import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.FeederWithSideNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.LineEdge;
+import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.model.TwtEdge;
-import com.powsybl.sld.model.VoltageLevelInfos;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
-import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.dom.GenericDOMImplementation;
+import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
+import org.w3c.dom.*;
 
-import javax.xml.XMLConstants;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW;
-import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.BUSBREAKER_CONNECTION;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
-import static com.powsybl.sld.library.ComponentTypeName.NODE;
-import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.Position.Dimension.H;
 import static com.powsybl.sld.model.Position.Dimension.V;
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -155,7 +104,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
-        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+        DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
@@ -166,7 +115,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
-        transformDocument(document, writer);
+        DomUtil.transformDocument(document, writer);
 
         return metadata;
     }
@@ -200,21 +149,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         document.adoptNode(style);
         document.getDocumentElement().appendChild(style);
-    }
-
-    protected void transformDocument(Document document, Writer writer) {
-        try {
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(writer);
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            transformer.transform(source, result);
-        } catch (TransformerException e) {
-            throw new UncheckedTransformerException(e);
-        }
     }
 
     /**
@@ -344,7 +278,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
-        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+        DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
@@ -356,7 +290,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
-        transformDocument(document, writer);
+        DomUtil.transformDocument(document, writer);
 
         return metadata;
     }
@@ -791,14 +725,14 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g, String componentDefsId,
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(name, g);
-        Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(componentType);
+        Map<String, Document> subComponents = componentLibrary.getSvgDocument(componentType);
         subComponents.forEach(!layoutParameters.isAvoidSVGComponentsDuplication() ?
             (subComponentName, svgSubComponent) -> insertClonedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent) :
             (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, componentDefsId, elementAttributesSetter, subComponentName, subComponents.size())
         );
     }
 
-    private void insertClonedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, SVGOMDocument svgSubComponent) {
+    private void insertClonedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Document svgSubComponent) {
         // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
         // If SVG are written differently, it will not work correctly.
         NodeList subComponentChildren = svgSubComponent.getChildNodes().item(0).getChildNodes();
@@ -1287,7 +1221,7 @@ public class DefaultSVGWriter implements SVGWriter {
             Element defs = document.createElement("defs");
 
             listUsedComponentSVG.forEach(c -> {
-                Map<String, SVGOMDocument> subComponents = componentLibrary.getSvgDocument(c);
+                Map<String, Document> subComponents = componentLibrary.getSvgDocument(c);
                 if (subComponents != null) {
                     Element group = document.createElement("g");
                     group.setAttribute("id", c);
@@ -1304,8 +1238,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertSVGComponentIntoDefsArea(Element group, Map<String, SVGOMDocument> subComponents) {
-        for (SVGOMDocument subComponent : subComponents.values()) {
+    protected void insertSVGComponentIntoDefsArea(Element group, Map<String, Document> subComponents) {
+        for (Document subComponent : subComponents.values()) {
             for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
                 org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
                 group.getOwnerDocument().adoptNode(n);
@@ -1333,7 +1267,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
-        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+        DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
@@ -1346,7 +1280,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, labelProvider, styleProvider);
 
-        transformDocument(document, writer);
+        DomUtil.transformDocument(document, writer);
 
         return metadata;
     }
