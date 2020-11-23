@@ -86,12 +86,8 @@ public abstract class AbstractLayout {
             idMaxGraph = node2.getGraph().getVoltageLevelInfos().getId();
         }
 
-        double x1 = node1.getX();
-        double y1 = node1.getY();
-        double initY1 = node1.getInitY() != -1 ? node1.getInitY() : y1;
-        double x2 = node2.getX();
-        double y2 = node2.getY();
-        double initY2 = node2.getInitY() != -1 ? node2.getInitY() : y2;
+        double initY1 = node1.getInitY() != -1 ? node1.getInitY() : node1.getCoordinates().getY();
+        double initY2 = node2.getInitY() != -1 ? node2.getInitY() : node2.getCoordinates().getY();
 
         HorizontalInfoCalcPoints info = new HorizontalInfoCalcPoints();
         info.setLayoutParam(layoutParam);
@@ -99,11 +95,9 @@ public abstract class AbstractLayout {
         info.setdNode2(dNode2);
         info.setNbSnakeLinesTopBottom(infosNbSnakeLines.getNbSnakeLinesTopBottom());
         info.setNbSnakeLinesBetween(infosNbSnakeLines.getNbSnakeLinesBetween());
-        info.setX1(x1);
-        info.setX2(x2);
-        info.setY1(y1);
+        info.setCoord1(node1.getCoordinates());
+        info.setCoord2(node2.getCoordinates());
         info.setInitY1(initY1);
-        info.setY2(y2);
         info.setInitY2(initY2);
         info.setxMaxGraph(xMaxGraph);
         info.setIdMaxGraph(idMaxGraph);
@@ -113,18 +107,26 @@ public abstract class AbstractLayout {
     }
 
     public static List<Point> calculatePolylinePoints(HorizontalInfoCalcPoints info) {
-        List<Point> pol;
+        List<Point> pol = new ArrayList<>();
+        pol.add(info.getCoord1());
+        addMiddlePoints(info, pol);
+        pol.add(info.getCoord2());
+        return pol;
+    }
 
+    private static void addMiddlePoints(HorizontalInfoCalcPoints info, List<Point> pol) {
         LayoutParameters layoutParam = info.getLayoutParam();
         BusCell.Direction dNode1 = info.getdNode1();
         BusCell.Direction dNode2 = info.getdNode2();
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = info.getNbSnakeLinesTopBottom();
         Map<String, Integer> nbSnakeLinesBetween = info.getNbSnakeLinesBetween();
-        double x1 = info.getX1();
-        double x2 = info.getX2();
-        double y1 = info.getY1();
+
+        Point coord1 = info.getCoord1();
+        Point coord2 = info.getCoord2();
+
+        double x1 = coord1.getX();
+        double x2 = coord2.getX();
         double initY1 = info.getInitY1();
-        double y2 = info.getY2();
         double initY2 = info.getInitY2();
         double xMaxGraph = info.getxMaxGraph();
         String idMaxGraph = info.getIdMaxGraph();
@@ -137,12 +139,8 @@ public abstract class AbstractLayout {
                     }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double yDecal = Math.max(initY1 + decalV, initY2 + decalV);
-
-                    pol = Point.createPointsList(x1, y1,
-                        x1, yDecal,
-                        x2, yDecal,
-                        x2, y2);
-
+                    pol.add(new Point(x1, yDecal));
+                    pol.add(new Point(x2, yDecal));
                 } else {  // BOTTOM to TOP
                     if (info.isIncrement()) {
                         nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
@@ -154,12 +152,10 @@ public abstract class AbstractLayout {
                     double decal2V = nbSnakeLinesTopBottom.get(dNode2) * layoutParam.getVerticalSnakeLinePadding();
                     double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
-                    pol = Point.createPointsList(x1, y1,
-                        x1, initY1 + decal1V,
+                    pol.addAll(Point.createPointsList(x1, initY1 + decal1V,
                         xBetweenGraph, initY1 + decal1V,
                         xBetweenGraph, initY2 - decal2V,
-                        x2, initY2 - decal2V,
-                        x2, y2);
+                        x2, initY2 - decal2V));
                 }
                 break;
 
@@ -170,11 +166,8 @@ public abstract class AbstractLayout {
                     }
                     double decalV = nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
                     double yDecal = Math.min(initY1 - decalV, initY2 - decalV);
-
-                    pol = Point.createPointsList(x1, y1,
-                        x1, yDecal,
-                        x2, yDecal,
-                        x2, y2);
+                    pol.add(new Point(x1, yDecal));
+                    pol.add(new Point(x2, yDecal));
                 } else {  // TOP to BOTTOM
                     if (info.isIncrement()) {
                         nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
@@ -186,18 +179,14 @@ public abstract class AbstractLayout {
 
                     double xBetweenGraph = xMaxGraph - (nbSnakeLinesBetween.get(idMaxGraph) * layoutParam.getHorizontalSnakeLinePadding());
 
-                    pol = Point.createPointsList(x1, y1,
-                        x1, initY1 - decal1V,
+                    pol.addAll(Point.createPointsList(x1, initY1 - decal1V,
                         xBetweenGraph, initY1 - decal1V,
                         xBetweenGraph, initY2 + decal2V,
-                        x2, initY2 + decal2V,
-                        x2, y2);
+                        x2, initY2 + decal2V));
                 }
                 break;
             default:
-                pol = new ArrayList<>();
         }
-        return pol;
     }
 
     protected List<Point> splitPolyline2(List<Point> points, int numPart, Point coord) {
