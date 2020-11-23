@@ -9,10 +9,9 @@ package com.powsybl.sld.layout;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
 
-import java.util.*;
-
-import static com.powsybl.sld.model.Coord.Dimension.X;
-import static com.powsybl.sld.model.Coord.Dimension.Y;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -30,20 +29,20 @@ public abstract class AbstractLayout {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), infos, true);
-                Coord coordNodeFict = new Coord(-1, -1);
+                Point coordNodeFict = new Point(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.get(X), false);
-                multiNode.setY(coordNodeFict.get(Y), false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             } else if (adjacentNodes.size() == 3) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), infos, true);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), infos, false);
-                Coord coordNodeFict = new Coord(-1, -1);
+                Point coordNodeFict = new Point(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.get(X), false);
-                multiNode.setY(coordNodeFict.get(Y), false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             }
         }
 
@@ -201,39 +200,29 @@ public abstract class AbstractLayout {
         return pol;
     }
 
-    protected List<Point> splitPolyline2(List<Point> points, int numPart, Coord coord) {
+    protected List<Point> splitPolyline2(List<Point> points, int numPart, Point coord) {
         List<Point> res = new ArrayList<>();
 
-        Point pointSplit;
-        if (points.size() == 4) {
-            pointSplit = points.get(1).getMiddlePoint(points.get(2));
-            if (numPart == 1) {
-                res.addAll(Arrays.asList(points.get(0), points.get(1), pointSplit));
-            } else {
-                res.addAll(Arrays.asList(pointSplit, points.get(2), points.get(3)));
-            }
-        } else if (points.size() == 6) {
-            pointSplit = points.get(2).getMiddlePoint(points.get(3));
-            if (numPart == 1) {
-                res.addAll(points.subList(0, 3));
-                res.add(pointSplit);
-            } else {
-                res.add(pointSplit);
-                res.addAll(points.subList(3, 6));
-            }
+        int iMiddle0 = points.size() / 2 - 1;
+        int iMiddle1 = points.size() / 2;
+        Point pointSplit = points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
+        if (numPart == 1) {
+            res.addAll(points.subList(0, iMiddle1));
+            res.add(pointSplit);
         } else {
-            pointSplit = new Point(0, 0);
+            res.add(pointSplit);
+            res.addAll(points.subList(iMiddle1, points.size()));
         }
 
         if (coord != null) {
-            coord.set(X, pointSplit.getX());
-            coord.set(Y, pointSplit.getY());
+            coord.setX(pointSplit.getX());
+            coord.setY(pointSplit.getY());
         }
 
         return res;
     }
 
-    protected List<Point> splitPolyline3(List<Point> points1, List<Point> points2, int numPart, Coord coord) {
+    protected List<Point> splitPolyline3(List<Point> points1, List<Point> points2, int numPart, Point coord) {
         List<Point> res = new ArrayList<>();
 
         if (numPart == 1) {
@@ -242,8 +231,8 @@ public abstract class AbstractLayout {
             if (coord != null) {
                 // the fictitious node point is the last point of the new edge polyline
                 Point fictitiousNodePoint = points1.get(points1.size() - 2);
-                coord.set(X, fictitiousNodePoint.getX());
-                coord.set(Y, fictitiousNodePoint.getY());
+                coord.setX(fictitiousNodePoint.getX());
+                coord.setY(fictitiousNodePoint.getY());
             }
         } else if (numPart == 2) {
             // for the second new edge, we keep the last two points of the original first polyline

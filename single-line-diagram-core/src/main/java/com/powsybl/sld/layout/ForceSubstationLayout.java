@@ -167,20 +167,20 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                Coord coordNodeFict = new Coord(-1, -1);
+                Point coordNodeFict = new Point(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.get(X), false);
-                multiNode.setY(coordNodeFict.get(Y), false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             } else if (adjacentNodes.size() == 3) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                Coord coordNodeFict = new Coord(-1, -1);
+                Point coordNodeFict = new Point(-1, -1);
                 ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
                 ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.get(X), false);
-                multiNode.setY(coordNodeFict.get(Y), false);
+                multiNode.setX(coordNodeFict.getX(), false);
+                multiNode.setY(coordNodeFict.getY(), false);
             }
         }
 
@@ -331,7 +331,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    protected List<Point> splitPolyline3(List<Point> pol1, List<Point> pol2, int numPart, Coord coord) {
+    protected List<Point> splitPolyline3(List<Point> pol1, List<Point> pol2, int numPart, Point coord) {
         List<Point> res = new ArrayList<>();
         if (numPart == 1 || numPart == 2) {
             res = super.splitPolyline3(pol1, pol2, numPart, coord);
