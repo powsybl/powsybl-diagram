@@ -51,6 +51,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
+    @Override
+    public LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
+
     private void createVoltageLevelGraphs() {
         // Creation "by hand" (without any network) of 3 voltage level graphs
         // and then generation of a SVG with DefaultDiagramStyleProvider (no network necessary)
@@ -659,26 +664,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         createZoneGraph();
 
         // Layout parameters :
-        //
-        layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(80)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setDrawStraightWires(false)
-                .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30);
+        layoutParameters = createDefaultLayoutParameters()
+            .setCellWidth(80);
 
         // initValueProvider example for the test :
         //

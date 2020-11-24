@@ -25,6 +25,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase1BusBreaker extends AbstractTestCaseIidm {
 
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return createDefaultLayoutParameters();
+    }
+
     @Before
     public void setUp() {
         network = Network.create("busBreakerTestCase1", "test");
@@ -65,24 +70,8 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
         // write Json and compare to reference
         assertEquals(toString("/TestCase1BusBreaker.json"), toJson(g, "/TestCase1BusBreaker.json"));
     }

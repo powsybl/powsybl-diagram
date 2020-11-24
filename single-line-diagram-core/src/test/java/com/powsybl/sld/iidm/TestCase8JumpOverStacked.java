@@ -7,6 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.layout.LayoutParameters;
 
 /**
  * <pre>
@@ -26,6 +27,11 @@ import com.powsybl.iidm.network.*;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase8JumpOverStacked extends AbstractTestCaseIidm {
+
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return null;
+    }
 
     @Override
     public void setUp() {

@@ -78,7 +78,7 @@ public class TestInternCellShapes extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/TestInternCellShapes.json"), toJson(g, "/TestInternCellShapes.json"));
     }
 }

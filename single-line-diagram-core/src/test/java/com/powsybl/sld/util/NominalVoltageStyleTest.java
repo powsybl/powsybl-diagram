@@ -14,7 +14,9 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
@@ -35,9 +37,20 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
+    private LayoutParameters layoutParameters;
+
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
 
     @Before
     public void setUp() {
+
+        layoutParameters = createDefaultLayoutParameters()
+            .setCellWidth(80)
+            .setShowInternalNodes(false);
+
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
@@ -138,31 +151,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(attributesArrow.containsKey("fill-opacity"));
         assertEquals("1", attributesArrow.get("fill-opacity"));
 
-        // Layout parameters :
-        //
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(80)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setDrawStraightWires(false)
-                .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30)
-                .setHighlightLineState(true);
-
         DiagramLabelProvider noFeederValueProvider = new DefaultDiagramLabelProvider(
-                Network.create("empty", ""), componentLibrary, layoutParameters) {
+                Network.create("empty", ""), componentLibrary, getLayoutParameters()) {
             @Override
             public InitialValue getInitialValue(Node node) {
                 InitialValue initialValue;
@@ -175,8 +165,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
             }
         };
 
-        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
-        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
-        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", layoutParameters, noFeederValueProvider, styleProvider));
+        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
+        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
+        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
     }
 }

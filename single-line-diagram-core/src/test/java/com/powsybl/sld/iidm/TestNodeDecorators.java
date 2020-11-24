@@ -31,6 +31,11 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
     private LayoutParameters layoutParameters;
 
     @Override
+    public LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
+
+    @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("/ConvergenceLibrary", "/NodeDecoratorsLibrary");
     }
@@ -38,25 +43,8 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
     @Before
     public void setUp() {
         // Layout parameters :
-        layoutParameters = new LayoutParameters()
-            .setTranslateX(20)
-            .setTranslateY(50)
-            .setInitialXBus(0)
-            .setInitialYBus(260)
-            .setVerticalSpaceBus(25)
-            .setHorizontalBusPadding(20)
-            .setCellWidth(80)
-            .setExternCellHeight(250)
-            .setInternCellHeight(40)
-            .setStackHeight(30)
-            .setShowGrid(true)
-            .setShowInternalNodes(false)
-            .setScaleFactor(1)
-            .setHorizontalSubstationPadding(50)
-            .setVerticalSubstationPadding(50)
-            .setDrawStraightWires(false)
-            .setHorizontalSnakeLinePadding(30)
-            .setVerticalSnakeLinePadding(30);
+        layoutParameters = createDefaultLayoutParameters()
+            .setCellWidth(80);
     }
 
     @Test
@@ -65,12 +53,12 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
         Graph graph = TestSVGWriter.createVoltageLevelGraph1();
 
         TestDiagramLabelProvider nodeDecoratorLabelProvider = new TestDiagramLabelProvider();
-        assertEquals(toString("/vl1_decorated.svg"), toSVG(graph, "/vl1_decorated.svg", layoutParameters,
+        assertEquals(toString("/vl1_decorated.svg"), toSVG(graph, "/vl1_decorated.svg", getLayoutParameters(),
             nodeDecoratorLabelProvider, new DefaultDiagramStyleProvider()));
 
         // Same tests than before, with optimized svg :
-        layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/vl1_decorated_opt.svg"), toSVG(graph, "/vl1_decorated_opt.svg", layoutParameters,
+        getLayoutParameters().setAvoidSVGComponentsDuplication(true);
+        assertEquals(toString("/vl1_decorated_opt.svg"), toSVG(graph, "/vl1_decorated_opt.svg", getLayoutParameters(),
             nodeDecoratorLabelProvider, new DefaultDiagramStyleProvider()));
     }
 
@@ -79,7 +67,7 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
         private static final double DECORATOR_OFFSET = 1d;
 
         public TestDiagramLabelProvider() {
-            super(Network.create("empty", ""), componentLibrary, layoutParameters);
+            super(Network.create("empty", ""), componentLibrary, getLayoutParameters());
         }
 
         @Override

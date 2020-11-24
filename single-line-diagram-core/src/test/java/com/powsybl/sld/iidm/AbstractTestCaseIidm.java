@@ -48,21 +48,21 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public void toSVG(Graph g, String filename) {
-        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     @Override
     public void toSVG(SubstationGraph g, String filename) {
-        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     @Override
     public void toSVG(ZoneGraph g, String filename) {
-        toSVG(g, filename, layoutParameters, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     private DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        return new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
     }
 
     private DiagramStyleProvider getDefaultDiagramStyleProvider() {

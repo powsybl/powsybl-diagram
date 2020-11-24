@@ -90,7 +90,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionByClustering()).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/orderConsistencyClust1.json"), toJson(g, "/orderConsistencyClust1.json"));
     }
 
@@ -99,7 +99,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionByClustering()).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/orderConsistencyClust2.json"), toJson(g, "/orderConsistencyClust2.json"));
     }
 
@@ -108,7 +108,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension()).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/orderConsistencyExt1.json"), toJson(g, "/orderConsistencyExt1.json"));
     }
 
@@ -117,7 +117,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension()).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/orderConsistencyExt2.json"), toJson(g, "/orderConsistencyExt2.json"));
     }
 }

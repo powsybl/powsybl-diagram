@@ -29,46 +29,33 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
+    private LayoutParameters layoutParameters;
 
     protected AbstractTestCaseRaw() {
-        layoutParameters = new LayoutParameters()
-            .setTranslateX(20)
-            .setTranslateY(50)
-            .setInitialXBus(0)
-            .setInitialYBus(260)
-            .setVerticalSpaceBus(25)
-            .setHorizontalBusPadding(20)
-            .setCellWidth(50)
-            .setExternCellHeight(250)
-            .setInternCellHeight(40)
-            .setStackHeight(30)
-            .setShowGrid(true)
-            .setShowInternalNodes(true)
-            .setScaleFactor(1)
-            .setHorizontalSubstationPadding(50)
-            .setVerticalSubstationPadding(50)
-            .setArrowDistance(20)
-            .setDrawStraightWires(false)
-            .setHorizontalSnakeLinePadding(30)
-            .setVerticalSnakeLinePadding(30);
+        layoutParameters = createDefaultLayoutParameters();
+    }
+
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return layoutParameters;
     }
 
     @Override
     public void toSVG(Graph graph, String filename) {
         Stream<Node> nodeStream = graph.getNodes().stream();
-        toSVG(graph, filename, layoutParameters, new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
     }
 
     @Override
     public void toSVG(SubstationGraph graph, String filename) {
         Stream<Node> nodeStream = graph.getNodes().stream().flatMap(g -> g.getNodes().stream());
-        toSVG(graph, filename, layoutParameters, new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
     }
 
     @Override
     public void toSVG(ZoneGraph graph, String filename) {
         Stream<Node> nodeStream = graph.getNodes().stream().flatMap(g -> g.getNodes().stream()).flatMap(g -> g.getNodes().stream());
-        toSVG(graph, filename, layoutParameters, new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {

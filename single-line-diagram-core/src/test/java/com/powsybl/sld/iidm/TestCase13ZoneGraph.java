@@ -22,10 +22,15 @@ import static org.junit.Assert.assertEquals;
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
  */
 public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
+
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return new LayoutParameters();
+    }
+
     @Before
     public void setUp() {
         network = ZoneGraphTest.createNetwork();
-        layoutParameters = new LayoutParameters();
     }
 
     @Test

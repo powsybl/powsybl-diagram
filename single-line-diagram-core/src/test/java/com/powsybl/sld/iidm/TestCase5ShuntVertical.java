@@ -39,6 +39,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase5ShuntVertical extends AbstractTestCaseIidm {
 
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return createDefaultLayoutParameters();
+    }
+
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");
@@ -67,24 +72,7 @@ public class TestCase5ShuntVertical extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50);
-
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));

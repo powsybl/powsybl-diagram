@@ -29,7 +29,31 @@ public abstract class AbstractTestCase {
     protected boolean writeFile = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
-    protected LayoutParameters layoutParameters;
+
+    protected abstract LayoutParameters getLayoutParameters();
+
+    protected static LayoutParameters createDefaultLayoutParameters() {
+        return new LayoutParameters()
+            .setTranslateX(20)
+            .setTranslateY(50)
+            .setInitialXBus(0)
+            .setInitialYBus(260)
+            .setVerticalSpaceBus(25)
+            .setHorizontalBusPadding(20)
+            .setCellWidth(50)
+            .setExternCellHeight(250)
+            .setInternCellHeight(40)
+            .setStackHeight(30)
+            .setShowGrid(true)
+            .setShowInternalNodes(true)
+            .setScaleFactor(1)
+            .setHorizontalSubstationPadding(50)
+            .setVerticalSubstationPadding(50)
+            .setArrowDistance(20)
+            .setDrawStraightWires(false)
+            .setHorizontalSnakeLinePadding(30)
+            .setVerticalSnakeLinePadding(30);
+    }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("/ConvergenceLibrary");
