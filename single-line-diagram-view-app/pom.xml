@@ -32,6 +32,14 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-view</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <!-- The Xalan version from FranzXaver does not support http://javax.xml.XMLConstants/property/accessExternalDTD
+                 but JDK internal does -->
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
