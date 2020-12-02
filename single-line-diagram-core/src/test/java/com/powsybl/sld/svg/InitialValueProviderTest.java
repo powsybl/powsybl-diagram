@@ -89,7 +89,7 @@ public class InitialValueProviderTest {
     @Test
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        ComponentLibrary componentLibrary = new ResourcesComponentLibrary();
         LayoutParameters layoutParameters = new LayoutParameters();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);

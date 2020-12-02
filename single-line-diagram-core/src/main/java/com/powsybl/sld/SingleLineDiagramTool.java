@@ -97,7 +97,7 @@ public class SingleLineDiagramTool implements Tool {
 
     static class SvgGenerationConfig {
 
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        ComponentLibrary componentLibrary = new ResourcesComponentLibrary();
 
         LayoutParameters parameters = new LayoutParameters();
 

@@ -93,7 +93,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
     private Map<String, SubstationLayoutFactory> substationsLayouts = new LinkedHashMap<>();
 
-    private final ComponentLibrary convergenceComponentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+    private final ComponentLibrary convergenceComponentLibrary = new ResourcesComponentLibrary();
 
     private final Map<String, ComponentLibrary> svgLibraries
             = ImmutableMap.of("CVG Design", convergenceComponentLibrary);

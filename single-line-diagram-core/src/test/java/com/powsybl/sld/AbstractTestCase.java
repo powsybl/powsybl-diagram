@@ -35,7 +35,7 @@ public abstract class AbstractTestCase {
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("/ConvergenceLibrary");
+        return new ResourcesComponentLibrary();
     }
 
     protected static String normalizeLineSeparator(String str) {
