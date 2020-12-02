@@ -37,12 +37,24 @@ import java.util.*;
 public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
+    public static final String DEFAULT_LIBRARY_DIR = "/ConvergenceLibrary";
 
     private final Map<String, Map<String, Document>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components = new HashMap<>();
 
     private final String styleSheet;
+
+    private static String getDefaultLibraryDirectory() {
+        return DEFAULT_LIBRARY_DIR;
+    }
+
+    /**
+     * Constructs a new library containing the default components
+     */
+    public ResourcesComponentLibrary() {
+        this(getDefaultLibraryDirectory());
+    }
 
     /**
      * Constructs a new library containing the components in the given directories
