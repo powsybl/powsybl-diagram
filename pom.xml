@@ -93,7 +93,7 @@
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.8.0-RC1</powsyblcore.version>
+        <powsyblcore.version>3.8.0</powsyblcore.version>
     </properties>
 
     <profiles>
