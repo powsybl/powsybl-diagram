@@ -35,8 +35,8 @@ The main features are:
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
 ![Diagram demo](.github/diagram-demo.svg)
-*The example above corresponds to the CGMES file `MicroGrid/Type4_T4/CGMES_v2.4.15_MicroGridTestConfiguration_T4_Assembled_NB_Complete_v2.zip` from the ENSTO-E sample files which can be downloaded [here](https://docstore.entsoe.eu/Documents/CIM_documents/Grid_Model_CIM/TestConfigurations_packageCASv2.0.zip).*
-*A guide to generate the corresponding diagram will be available very soon on [powsybl website](https://www.powsybl.org/).*
+*The example above corresponds to a CGMES file from the ENSTO-E sample files.*
+*A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/single-line-diagram_svg-writing.html).*
 
 ## Getting started
 
@@ -47,17 +47,17 @@ and additionally for this example three other ones: two for the `Network` test c
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>3.7.1</version>
+    <version>3.8.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>3.7.1</version>
+    <version>3.8.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-config-test</artifactId>
-    <version>3.7.1</version>
+    <version>3.8.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -76,7 +76,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>1.7.2</version>
+    <version>1.8.0</version>
 </dependency>
 ```
 
@@ -105,5 +105,3 @@ voltageLevelDiagram.writeSvg("",
 We obtain the following SVG:
 
 ![Diagram demo](.github/example_n.svg)
-
-*Note: the 1.8.0-SNAPSHOT version of powsybl-single-line-diagram was used to generate the SVGs of this guide. Because of that, you might experience some differences with the examples shown, which will be corrected by 1.8.0 release (expected: 2020-11-26).*
