@@ -23,6 +23,17 @@ public final class DiagramStyles {
     public static final String BUS_STYLE_CLASS = "busbar-section";
     public static final String LABEL_STYLE_CLASS = "component-label";
     public static final String LINE_STYLE_CLASS = "LINE";
+    public static final String ARROW_ACTIVE_CLASS = "ARROW_P";
+    public static final String ARROW_REACTIVE_CLASS = "ARROW_Q";
+    public static final String UP_CLASS = "UP";
+    public static final String DOWN_CLASS = "DOWN";
+    public static final String INTERNAL_NODE_CLASS = "INTERNAL_NODE";
+    public static final String DISCONNECTED_STYLE_CLASS = "DISCONNECTED";
+    public static final String OPEN_SWITCH_STYLE_CLASS = "OPEN";
+    public static final String CLOSED_SWITCH_STYLE_CLASS = "CLOSED";
+    public static final String WIRE_DISCONNECTED = "WIRE_DISCONNECTED";
+    public static final String WIRE_CONNECTED_DISCONNECTED = "WIRE_CONNECTED-DISCONNECTED";
+    public static final String WIRE_DISCONNECTED_CONNECTED = "WIRE_DISCONNECTED-CONNECTED";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

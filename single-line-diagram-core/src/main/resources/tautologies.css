@@ -1,0 +1,15 @@
+.UP .arrow-down {
+    visibility: hidden;
+}
+
+.DOWN .arrow-up {
+    visibility: hidden;
+}
+
+.CLOSED .switch-open {
+    visibility: hidden;
+}
+
+.OPEN .switch-closed {
+    visibility: hidden;
+}

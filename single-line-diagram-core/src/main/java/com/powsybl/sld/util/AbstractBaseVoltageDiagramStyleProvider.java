@@ -6,25 +6,20 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.FeederType;
-import com.powsybl.sld.model.FeederWithSideNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.ElectricalNodeInfo;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -34,28 +29,11 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
 
-    protected static final String PROFILE = "Default";
-
-    protected final BaseVoltageColor baseVoltageColor;
-    protected final String disconnectedColor;
-
     protected final Network network;
 
-    protected static final String BLACK_COLOR = "black";
-    protected static final String STROKE_DASHARRAY = "3,3";
-
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
-        this.baseVoltageColor = Objects.requireNonNull(baseVoltageColor);
-        disconnectedColor = getBaseColor(0, PROFILE);
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageStyle, Network network) {
+        super(baseVoltageStyle);
         this.network = network;
-    }
-
-    protected String getBaseColor(double baseVoltage) {
-        return getBaseColor(baseVoltage, PROFILE);
-    }
-
-    String getBaseColor(double baseVoltage, String profile) {
-        return baseVoltageColor.getColor(baseVoltage, profile).orElseThrow(() -> new PowsyblException("No color found for base voltage " + baseVoltage + " and profile " + profile));
     }
 
     protected Map<FeederWithSideNode.Side, Boolean> connectionStatus(FeederWithSideNode node) {
@@ -78,7 +56,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     @Override
-    protected void addHighlightStateStyle(Edge edge, Map<String, String> style, String color) {
+    protected String getHighlightLineStateStyle(Edge edge) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
@@ -108,16 +86,15 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
             if (side != null && otherSide != null) {
                 if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                    style.put("stroke", BLACK_COLOR);
+                    return DiagramStyles.WIRE_DISCONNECTED;
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                    style.put("stroke", color);
-                    style.put("stroke-dasharray", STROKE_DASHARRAY);
+                    return DiagramStyles.WIRE_CONNECTED_DISCONNECTED;
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    style.put("stroke", BLACK_COLOR);
-                    style.put("stroke-dasharray", STROKE_DASHARRAY);
+                    return DiagramStyles.WIRE_DISCONNECTED_CONNECTED;
                 }
             }
         }
+        return "";
     }
 
     @Override
@@ -129,19 +106,19 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
         vl.getBusView().getBuses().forEach(b -> {
-            final AtomicReference<String> color = new AtomicReference<>();
+            final AtomicReference<String> style = new AtomicReference<>();
             b.getConnectedTerminals().forEach(t -> {
-                if (color.get() == null) {
+                if (style.get() == null) {
                     feederNodes.forEach(n -> {
-                        if (color.get() == null && n.getEquipmentId().equals(t.getConnectable().getId())) {
-                            String colorValue = getNodeColor(graph.getVoltageLevelInfos(), n);
-                            color.set(colorValue);
+                        if (style.get() == null && n.getEquipmentId().equals(t.getConnectable().getId())) {
+                            String voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), n);
+                            style.set(voltageLevelStyle);
                         }
                     });
                 }
             });
 
-            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), color.get()));
+            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), style.get()));
         });
 
         return nodesInfos;

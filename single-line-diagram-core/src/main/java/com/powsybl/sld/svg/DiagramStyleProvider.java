@@ -6,15 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -22,13 +19,13 @@ import java.util.Optional;
  */
 public interface DiagramStyleProvider {
 
-    Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes);
+    String getCssNodeStyle(boolean isShowInternalNodes);
 
-    Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState);
+    List<String> getSvgWireStyles(Edge edge, boolean highlightLineState);
 
-    Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes);
+    List<String> getSvgNodeStyles(Node node);
 
-    Map<String, String> getSvgArrowStyleAttributes(int num);
+    List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName);
 
     void reset();
 

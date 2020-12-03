@@ -6,26 +6,24 @@
  */
 package com.powsybl.sld.util;
 
-import com.google.common.collect.ImmutableMap;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -123,50 +121,38 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
-        assertFalse(nodeStyle1.isPresent());
+        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1);
+        assertEquals(2, nodeStyle1.size());
+        assertEquals("BUSBAR_SECTION", nodeStyle1.get(0));
+        assertEquals("VL400", nodeStyle1.get(1));
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getCssNodeStyleAttributes(node2, false);
-        assertFalse(nodeStyle2.isPresent());
+        List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2);
+        assertEquals(2, nodeStyle2.size());
+        assertEquals("BUSBAR_SECTION", nodeStyle2.get(0));
+        assertEquals("VL225", nodeStyle2.get(1));
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getCssNodeStyleAttributes(node3, false);
-        assertFalse(nodeStyle3.isPresent());
+        List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3);
+        assertEquals(2, nodeStyle3.size());
+        assertEquals("BUSBAR_SECTION", nodeStyle3.get(0));
+        assertEquals("VL63", nodeStyle3.get(1));
 
         Edge edge = graph1.getEdges().get(12);
-        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
-        assertEquals(ImmutableMap.of("stroke", "#ff0000", "stroke-width", "1"), wireStyle);
+        List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
+        assertEquals(2, wireStyles.size());
+        assertEquals(DiagramStyles.WIRE_STYLE_CLASS, wireStyles.get(0));
+        assertEquals("VL400", wireStyles.get(1));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
-        assertFalse(node3WTStyle.isEmpty());
-        assertTrue(node3WTStyle.containsKey("stroke"));
-        assertEquals("#228b22", node3WTStyle.get("stroke"));
+        List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode);
+        assertEquals(1, node3WTStyle.size());
+        assertEquals("THREE_WINDINGS_TRANSFORMER", node3WTStyle.get(0));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
-        assertFalse(node2WTStyle.isEmpty());
-        assertTrue(node2WTStyle.containsKey("stroke"));
-        assertEquals("#ff0000", node2WTStyle.get("stroke"));
-
-        Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
-        assertEquals(3, attributesArrow.size());
-        assertTrue(attributesArrow.containsKey("fill"));
-        assertEquals("black", attributesArrow.get("fill"));
-        assertTrue(attributesArrow.containsKey("stroke"));
-        assertEquals("black", attributesArrow.get("stroke"));
-        assertTrue(attributesArrow.containsKey("fill-opacity"));
-        assertEquals("1", attributesArrow.get("fill-opacity"));
-
-        attributesArrow = styleProvider.getSvgArrowStyleAttributes(2);
-        assertEquals(3, attributesArrow.size());
-        assertTrue(attributesArrow.containsKey("fill"));
-        assertEquals("blue", attributesArrow.get("fill"));
-        assertTrue(attributesArrow.containsKey("stroke"));
-        assertEquals("blue", attributesArrow.get("stroke"));
-        assertTrue(attributesArrow.containsKey("fill-opacity"));
-        assertEquals("1", attributesArrow.get("fill-opacity"));
+        List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode);
+        assertEquals(1, node2WTStyle.size());
+        assertEquals("TWO_WINDINGS_TRANSFORMER", node2WTStyle.get(0));
 
     }
 

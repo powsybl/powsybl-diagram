@@ -1,0 +1,12 @@
+.WIRE_DISCONNECTED {
+    stroke: black;
+}
+
+.WIRE_CONNECTED-DISCONNECTED {
+    stroke-dasharray: 3,3;
+}
+
+.WIRE_DISCONNECTED-CONNECTED {
+    stroke: black;
+    stroke-dasharray: 3,3;
+}
