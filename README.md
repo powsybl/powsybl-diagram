@@ -35,8 +35,8 @@ The main features are:
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
 ![Diagram demo](.github/diagram-demo.svg)
-*The example above corresponds to a CGMES file from the ENSTO-E sample files.*
-*A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/single-line-diagram_svg-writing.html).*
+*The example above corresponds to a CGMES file from the ENTSO-E sample files.*
+*A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/single-line-diagram/svg-writing.html).*
 
 ## Getting started
 
@@ -80,7 +80,7 @@ After adding the single line diagram core module dependency:
 </dependency>
 ```
 
-We can generate a SVG for the voltage level "N":
+We can generate a SVG for the voltage level `N`:
 ```java
 // "Convergence" style component library
 ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
@@ -88,7 +88,7 @@ ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceL
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
 
-// create diagram for the voltage level "N"
+// create diagram for the voltage level N
 VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
 
 // create default parameters for the SVG layout, then activating height compaction
