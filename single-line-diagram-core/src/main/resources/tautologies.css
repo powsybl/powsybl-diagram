@@ -13,3 +13,7 @@
 .open .switch-closed {
     visibility: hidden;
 }
+
+.hidden-internal-node {
+    visibility: hidden;
+}

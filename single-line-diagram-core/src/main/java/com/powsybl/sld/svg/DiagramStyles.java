@@ -27,7 +27,7 @@ public final class DiagramStyles {
     public static final String ARROW_REACTIVE_CLASS = "arrow-q";
     public static final String UP_CLASS = "up";
     public static final String DOWN_CLASS = "down";
-    public static final String INTERNAL_NODE_CLASS = "internal-node";
+    public static final String HIDDEN_INTERNAL_NODE_CLASS = "hidden-internal-node";
     public static final String DISCONNECTED_STYLE_CLASS = "disconnected";
     public static final String OPEN_SWITCH_STYLE_CLASS = "open";
     public static final String CLOSED_SWITCH_STYLE_CLASS = "closed";

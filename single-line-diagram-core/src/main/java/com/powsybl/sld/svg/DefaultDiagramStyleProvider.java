@@ -6,14 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
 
-import static com.powsybl.sld.svg.DiagramStyles.INTERNAL_NODE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.HIDDEN_INTERNAL_NODE_CLASS;
 import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
 
 /**
@@ -24,7 +22,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     protected static final String WINDING1 = "WINDING1";
     protected static final String WINDING2 = "WINDING2";
     protected static final String WINDING3 = "WINDING3";
-    private static final String INVISIBLE_STYLE = "{stroke-opacity:0; fill-opacity:0; visibility: hidden;}";
 
     private static final String PROFILE = "Default";
 
@@ -39,8 +36,8 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public String getCssNodeStyle(boolean isShowInternalNodes) {
-        return !isShowInternalNodes ? "." + INTERNAL_NODE_CLASS + ' ' + INVISIBLE_STYLE : "";
+    public String getCssAdditionalInlineStyle() {
+        return "";
     }
 
     @Override
@@ -67,13 +64,13 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getSvgNodeStyles(Node node) {
+    public List<String> getSvgNodeStyles(Node node, boolean showInternalNodes) {
 
         List<String> styles = new ArrayList<>();
         styles.add(getNodeDiagramStyle(node));
 
-        if (node instanceof InternalNode) {
-            styles.add(INTERNAL_NODE_CLASS);
+        if (!showInternalNodes && node instanceof InternalNode) {
+            styles.add(HIDDEN_INTERNAL_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(node.isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);

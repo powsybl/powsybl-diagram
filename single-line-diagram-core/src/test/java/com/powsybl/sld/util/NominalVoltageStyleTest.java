@@ -121,19 +121,19 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         Node node1 = graph1.getNode("bbs1");
-        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1);
+        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, false);
         assertEquals(2, nodeStyle1.size());
         assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle1.get(0));
         assertEquals("vl400", nodeStyle1.get(1));
 
         Node node2 = graph2.getNode("bbs2");
-        List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2);
+        List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2, false);
         assertEquals(2, nodeStyle2.size());
         assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle2.get(0));
         assertEquals("vl225", nodeStyle2.get(1));
 
         Node node3 = graph3.getNode("bbs3");
-        List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3);
+        List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3, false);
         assertEquals(2, nodeStyle3.size());
         assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle3.get(0));
         assertEquals("vl63", nodeStyle3.get(1));
@@ -145,12 +145,12 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertEquals("vl400", wireStyles.get(1));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
-        List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode);
+        List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, false);
         assertEquals(1, node3WTStyle.size());
         assertEquals("three-windings-transformer", node3WTStyle.get(0));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode);
+        List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode, false);
         assertEquals(1, node2WTStyle.size());
         assertEquals("two-windings-transformer", node2WTStyle.get(0));
 

@@ -137,7 +137,7 @@ public class DefaultSVGWriter implements SVGWriter {
         style.appendChild(document.createTextNode("@import url(highlightLineStates.css);"));
         style.appendChild(document.createTextNode("@import url(components.css);"));
 
-        String cssNodeStyle = styleProvider.getCssNodeStyle(layoutParameters.isShowInternalNodes());
+        String cssNodeStyle = styleProvider.getCssAdditionalInlineStyle();
         if (!cssNodeStyle.isEmpty()) {
             String graphStyle = "\n" + cssNodeStyle + "\n";
             String cssStr = graphStyle
@@ -451,7 +451,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement("g");
             g.setAttribute("id", nodeId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node)));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, layoutParameters.isShowInternalNodes())));
 
             if (node.getType() == Node.NodeType.BUS) {
                 drawBus((BusNode) node, g);
