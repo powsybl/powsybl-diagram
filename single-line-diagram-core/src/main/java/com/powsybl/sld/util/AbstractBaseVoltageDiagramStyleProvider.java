@@ -40,7 +40,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         this.network = network;
     }
 
-    protected String getEdgeStyle(Edge edge) {
+    protected Optional<String> getEdgeStyle(Edge edge) {
         Node nodeForStyle = edge.getNode1().getVoltageLevelInfos() != null ? edge.getNode1() : edge.getNode2();
         return getVoltageLevelNodeStyle(nodeForStyle.getVoltageLevelInfos(), nodeForStyle);
     }
@@ -53,7 +53,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         if (g != null) {  // node inside a voltageLevel graph
             // Middle3WTNode and Feeder2WTNode have style depending on their subcomponents -> see getSvgNodeSubcomponentStyles
             if (!(node instanceof Middle3WTNode) && !(node instanceof Feeder2WTNode)) {
-                styles.add(getVoltageLevelNodeStyle(g.getVoltageLevelInfos(), node));
+                getVoltageLevelNodeStyle(g.getVoltageLevelInfos(), node).ifPresent(styles::add);
             }
         }
         // Nothing is done for nodes outside any voltageLevel graph (multi-terminal node),
@@ -63,7 +63,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     @Override
-    protected String getHighlightLineStateStyle(Edge edge) {
+    protected Optional<String> getHighlightLineStateStyle(Edge edge) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
@@ -93,15 +93,15 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
             if (side != null && otherSide != null) {
                 if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                    return DiagramStyles.WIRE_DISCONNECTED;
+                    return Optional.of(DiagramStyles.WIRE_DISCONNECTED);
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                    return DiagramStyles.WIRE_CONNECTED_DISCONNECTED;
+                    return Optional.of(DiagramStyles.WIRE_CONNECTED_DISCONNECTED);
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    return DiagramStyles.WIRE_DISCONNECTED_CONNECTED;
+                    return Optional.of(DiagramStyles.WIRE_DISCONNECTED_CONNECTED);
                 }
             }
         }
-        return "";
+        return Optional.empty();
     }
 
     protected Map<FeederWithSideNode.Side, Boolean> connectionStatus(FeederWithSideNode node) {
@@ -148,14 +148,14 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                     vlInfo = getMultiTerminal3WTVoltageLevelInfos(node, subComponentName, adjacentNodes);
                 }
             }
-            styles.add(getVoltageLevelNodeStyle(vlInfo, node));
+            getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
         }
 
         return styles;
     }
 
-    public String getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE).orElse(vlInfo.getName());
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
+        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
     }
 
     private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {
@@ -280,8 +280,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 if (style.get() == null) {
                     feederNodes.forEach(n -> {
                         if (style.get() == null && n.getEquipmentId().equals(t.getConnectable().getId())) {
-                            String voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), n);
-                            style.set(voltageLevelStyle);
+                            Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), n);
+                            voltageLevelStyle.ifPresent(style::set);
                         }
                     });
                 }

@@ -6,13 +6,16 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.InternalNode;
+import com.powsybl.sld.model.Node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static com.powsybl.sld.svg.DiagramStyles.HIDDEN_INTERNAL_NODE_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.WIRE_STYLE_CLASS;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -29,22 +32,19 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);
-        styles.add(getEdgeStyle(edge));
+        getEdgeStyle(edge).ifPresent(styles::add);
         if (highlightLineState) {
-            String highlightLineStateStyle = getHighlightLineStateStyle(edge);
-            if (!highlightLineStateStyle.isEmpty()) {
-                styles.add(highlightLineStateStyle);
-            }
+            getHighlightLineStateStyle(edge).ifPresent(styles::add);
         }
         return styles;
     }
 
-    protected String getEdgeStyle(Edge edge) {
-        return "";
+    protected Optional<String> getEdgeStyle(Edge edge) {
+        return Optional.empty();
     }
 
-    protected String getHighlightLineStateStyle(Edge edge) {
-        return "";
+    protected Optional<String> getHighlightLineStateStyle(Edge edge) {
+        return Optional.empty();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     private String getNodeDiagramStyle(Node node) {
         String componentType = node.getComponentType();
-        return componentType.toLowerCase().replace('_', '-'); //TODO: Add style info to Component class / xml
+        return componentType.toLowerCase().replace('_', '-'); //FIXME: Add style info to Component class / xml
     }
 
     @Override

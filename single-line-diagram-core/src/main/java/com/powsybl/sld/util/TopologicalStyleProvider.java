@@ -37,7 +37,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    protected String getEdgeStyle(Edge edge) {
+    protected Optional<String> getEdgeStyle(Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
@@ -68,10 +68,11 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         return styleMap;
     }
 
-    private String getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
+    private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
         Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
-        return styleMap.computeIfAbsent(
+        String nodeTopologicalStyle = styleMap.computeIfAbsent(
             node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
+        return Optional.ofNullable(nodeTopologicalStyle);
     }
 
     private String findConnectedStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
@@ -110,15 +111,17 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    public String getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
         if (node.getType() == NodeType.SWITCH && node.isOpen()) {
-            return DiagramStyles.DISCONNECTED_STYLE_CLASS;
+            return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         }
-        String baseVoltageLevelStyle = super.getVoltageLevelNodeStyle(voltageLevelInfos, node);
-        String nodeTopologicalStyle = getNodeTopologicalStyle(baseVoltageLevelStyle, voltageLevelInfos, node);
-        if (nodeTopologicalStyle != null) {
-            return nodeTopologicalStyle;
+        Optional<String> baseVoltageLevelStyle = super.getVoltageLevelNodeStyle(voltageLevelInfos, node);
+        if (baseVoltageLevelStyle.isPresent()) {
+            Optional<String> nodeTopologicalStyle = getNodeTopologicalStyle(baseVoltageLevelStyle.get(), voltageLevelInfos, node);
+            if (nodeTopologicalStyle.isPresent()) {
+                return nodeTopologicalStyle;
+            }
         }
-        return DiagramStyles.DISCONNECTED_STYLE_CLASS;
+        return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
     }
 }
