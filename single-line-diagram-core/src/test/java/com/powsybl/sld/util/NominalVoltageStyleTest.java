@@ -123,36 +123,36 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1);
         assertEquals(2, nodeStyle1.size());
-        assertEquals("BUSBAR_SECTION", nodeStyle1.get(0));
-        assertEquals("VL400", nodeStyle1.get(1));
+        assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle1.get(0));
+        assertEquals("vl400", nodeStyle1.get(1));
 
         Node node2 = graph2.getNode("bbs2");
         List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2);
         assertEquals(2, nodeStyle2.size());
-        assertEquals("BUSBAR_SECTION", nodeStyle2.get(0));
-        assertEquals("VL225", nodeStyle2.get(1));
+        assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle2.get(0));
+        assertEquals("vl225", nodeStyle2.get(1));
 
         Node node3 = graph3.getNode("bbs3");
         List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3);
         assertEquals(2, nodeStyle3.size());
-        assertEquals("BUSBAR_SECTION", nodeStyle3.get(0));
-        assertEquals("VL63", nodeStyle3.get(1));
+        assertEquals(DiagramStyles.BUS_STYLE_CLASS, nodeStyle3.get(0));
+        assertEquals("vl63", nodeStyle3.get(1));
 
         Edge edge = graph1.getEdges().get(12);
         List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
         assertEquals(2, wireStyles.size());
         assertEquals(DiagramStyles.WIRE_STYLE_CLASS, wireStyles.get(0));
-        assertEquals("VL400", wireStyles.get(1));
+        assertEquals("vl400", wireStyles.get(1));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode);
         assertEquals(1, node3WTStyle.size());
-        assertEquals("THREE_WINDINGS_TRANSFORMER", node3WTStyle.get(0));
+        assertEquals("three-windings-transformer", node3WTStyle.get(0));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode);
         assertEquals(1, node2WTStyle.size());
-        assertEquals("TWO_WINDINGS_TRANSFORMER", node2WTStyle.get(0));
+        assertEquals("two-windings-transformer", node2WTStyle.get(0));
 
     }
 

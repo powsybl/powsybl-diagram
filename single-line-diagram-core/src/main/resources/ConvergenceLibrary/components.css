@@ -1,70 +1,69 @@
-.BUSBAR_SECTION {
-    stroke: rgb(0,0,0);
+.busbar-section {
     stroke-width: 3;
 }
 
-.BREAKER {
+.breaker {
     stroke: rgb(0, 0, 255);
     stroke-width: 2;
     fill: rgb(255, 255, 255);
 }
 
-.DISCONNECTOR {
+.disconnector {
     stroke: rgb(0, 0, 0);
     stroke-width: 3
 }
 
-.GENERATOR {
+.generator {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill-opacity: 0;
 }
 
-.LOAD {
+.load {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill-opacity: 0;
 }
 
-.LOAD_BREAK_SWITCH {
+.load-break-switch {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: rgb(255, 255, 255);
 }
 
-.NODE {
+.node {
     stroke: rgb(0, 0, 0);
     fill: rgb(0, 0, 0);
     fill-opacity: 1;
 }
 
-.CAPACITOR {
+.capacitor {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill-opacity: 0;
 }
 
-.INDUCTOR {
+.inductor {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill-opacity: 0;
 }
 
-.STATIC_VAR_COMPENSATOR {
+.static-var-compensator {
     stroke: rgb(0, 0, 255);
 }
 
-.TWO_WINDINGS_TRANSFORMER {
-    stroke: rgb(0, 0, 255);
-    fill-opacity: 0;
-}
-
-.THREE_WINDINGS_TRANSFORMER {
+.two-windings-transformer {
     stroke: rgb(0, 0, 255);
     fill-opacity: 0;
 }
 
-.VSC_CONVERTER_STATION {
+.three-windings-transformer {
+    stroke: rgb(0, 0, 255);
+    fill-opacity: 0;
+}
+
+.vsc-converter-station {
     stroke: rgb(0, 0, 255);
     font-size: 7.4314661px;
     line-height: 1.25;
@@ -81,7 +80,7 @@
     stroke-miterlimit: 4;
 }
 
-.PHASE_SHIFT_TRANSFORMER {
+.phase-shift-transformer {
     stroke: rgb(0, 0, 255);
     stroke-linecap: butt;
     stroke-linejoin: miter;
@@ -91,7 +90,6 @@
 }
 
 .wire {
-    stroke: rgb(200,0,0);
     stroke-width: 1;
     fill-opacity: 0;
 }
@@ -109,16 +107,16 @@
     fill-opacity: 1;
 }
 
-.LINE {
+.line {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill-opacity: 0;
 }
 
-.ARROW_P {
+.arrow-p {
     fill:black
 }
 
-.ARROW_Q {
+.arrow-q {
     fill:blue
 }

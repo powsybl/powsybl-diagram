@@ -1,15 +1,15 @@
-.UP .arrow-down {
+.up .arrow-down {
     visibility: hidden;
 }
 
-.DOWN .arrow-up {
+.down .arrow-up {
     visibility: hidden;
 }
 
-.CLOSED .switch-open {
+.closed .switch-open {
     visibility: hidden;
 }
 
-.OPEN .switch-closed {
+.open .switch-closed {
     visibility: hidden;
 }

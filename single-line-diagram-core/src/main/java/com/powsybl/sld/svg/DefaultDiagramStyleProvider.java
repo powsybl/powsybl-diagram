@@ -70,7 +70,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<String> getSvgNodeStyles(Node node) {
 
         List<String> styles = new ArrayList<>();
-        styles.add(node.getComponentType());
+        styles.add(getNodeDiagramStyle(node));
 
         if (node instanceof InternalNode) {
             styles.add(INTERNAL_NODE_CLASS);
@@ -90,6 +90,11 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         // indeed they have subcomponents with specific styles -> see getSvgNodeSubcomponentStyles
 
         return styles;
+    }
+
+    private String getNodeDiagramStyle(Node node) {
+        String componentType = node.getComponentType();
+        return componentType.toLowerCase().replace('_', '-'); //TODO: Add style info to Component class / xml
     }
 
     @Override
@@ -125,7 +130,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     public String getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
         Optional<String> voltageName = baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), PROFILE);
-        return voltageName.map(s -> "VL" + s).orElseGet(vlInfo::getName);
+        return voltageName.map(s -> "vl" + s).orElseGet(vlInfo::getName);
     }
 
     private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {
