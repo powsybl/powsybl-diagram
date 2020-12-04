@@ -34,6 +34,7 @@ public final class DiagramStyles {
     public static final String WIRE_DISCONNECTED = "wire-disconnected";
     public static final String WIRE_CONNECTED_DISCONNECTED = "wire-connected-disconnected";
     public static final String WIRE_DISCONNECTED_CONNECTED = "wire-disconnected-connected";
+    public static final String CONSTANT_COLOR_CLASS = "constant-color";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

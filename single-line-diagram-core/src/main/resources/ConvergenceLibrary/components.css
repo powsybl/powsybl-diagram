@@ -3,30 +3,26 @@
 }
 
 .breaker {
-    stroke: rgb(0, 0, 255);
     stroke-width: 2;
-    fill: none;
+    fill: white;
 }
 
 .disconnector {
-    stroke: rgb(0, 0, 0);
+    stroke: black;
     stroke-width: 3
 }
 
 .generator {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }
 
 .load {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }
 
 .load-break-switch {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }
@@ -37,33 +33,27 @@
 }
 
 .capacitor {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }
 
 .inductor {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }
 
 .static-var-compensator {
-    stroke: rgb(0, 0, 255);
 }
 
 .two-windings-transformer {
-    stroke: rgb(0, 0, 255);
     fill: none;
 }
 
 .three-windings-transformer {
-    stroke: rgb(0, 0, 255);
     fill: none;
 }
 
 .vsc-converter-station {
-    stroke: rgb(0, 0, 255);
     font-size: 7.4314661px;
     line-height: 1.25;
     font-family: sans-serif;
@@ -80,7 +70,6 @@
 }
 
 .phase-shift-transformer {
-    stroke: rgb(0, 0, 255);
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
@@ -106,7 +95,6 @@
 }
 
 .line {
-    stroke: rgb(0, 0, 255);
     stroke-width: 1;
     fill: none;
 }

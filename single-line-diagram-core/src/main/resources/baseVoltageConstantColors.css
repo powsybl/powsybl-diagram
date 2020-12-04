@@ -1,0 +1,11 @@
+.constant-color {
+    fill: none
+}
+
+.breaker.constant-color {
+    stroke: blue;
+}
+
+.disconnector.constant-color {
+    stroke: black
+}

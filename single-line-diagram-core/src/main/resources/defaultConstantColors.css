@@ -1,0 +1,16 @@
+.constant-color {
+    stroke: blue;
+    fill: none
+}
+
+.wire.constant-color {
+    stroke: red
+}
+
+.busbar-section.constant-color {
+    stroke: black;
+}
+
+.disconnector.constant-color {
+    stroke: black
+}

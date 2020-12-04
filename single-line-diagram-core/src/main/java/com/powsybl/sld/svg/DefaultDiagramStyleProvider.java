@@ -40,7 +40,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     protected Optional<String> getEdgeStyle(Edge edge) {
-        return Optional.empty();
+        return Optional.of(CONSTANT_COLOR_CLASS);
     }
 
     protected Optional<String> getHighlightLineStateStyle(Edge edge) {
@@ -53,6 +53,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         List<String> styles = new ArrayList<>();
         styles.add(getNodeDiagramStyle(node));
 
+        if (isConstantColor(node)) {
+            styles.add(CONSTANT_COLOR_CLASS);
+        }
         if (!showInternalNodes && node instanceof InternalNode) {
             styles.add(HIDDEN_INTERNAL_NODE_CLASS);
         }
@@ -61,6 +64,10 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         }
 
         return styles;
+    }
+
+    protected boolean isConstantColor(Node node) {
+        return true;
     }
 
     private String getNodeDiagramStyle(Node node) {
@@ -80,6 +87,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "components.css");
+        return Arrays.asList("tautologies.css", "components.css", "defaultConstantColors.css");
     }
 }
