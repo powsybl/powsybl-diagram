@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
@@ -31,7 +31,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     protected final Network network;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageStyle, Network network) {
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
         super(baseVoltageStyle);
         this.network = network;
     }

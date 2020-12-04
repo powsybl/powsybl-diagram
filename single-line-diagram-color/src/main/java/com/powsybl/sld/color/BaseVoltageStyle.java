@@ -25,28 +25,28 @@ import java.util.stream.Collectors;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class BaseVoltageColor {
+public class BaseVoltageStyle {
 
     private static final String CONFIG_FILE = "base-voltages.yml";
 
     private final BaseVoltagesConfig config;
 
-    protected BaseVoltageColor(BaseVoltagesConfig config) {
+    protected BaseVoltageStyle(BaseVoltagesConfig config) {
         this.config = Objects.requireNonNull(config);
     }
 
-    public static BaseVoltageColor fromPlatformConfig() {
+    public static BaseVoltageStyle fromPlatformConfig() {
         return fromPath(PlatformConfig.defaultConfig().getConfigDir().resolve(CONFIG_FILE));
     }
 
-    public static BaseVoltageColor fromInputStream(InputStream configInputStream) {
+    public static BaseVoltageStyle fromInputStream(InputStream configInputStream) {
         Objects.requireNonNull(configInputStream);
         Yaml yaml = new Yaml(new Constructor(BaseVoltagesConfig.class));
         BaseVoltagesConfig config = yaml.load(configInputStream);
-        return new BaseVoltageColor(config);
+        return new BaseVoltageStyle(config);
     }
 
-    public static BaseVoltageColor fromPath(Path configFile) {
+    public static BaseVoltageStyle fromPath(Path configFile) {
         Objects.requireNonNull(configFile);
         if (Files.exists(configFile)) {
             try (InputStream configInputStream = Files.newInputStream(configFile)) {
@@ -55,7 +55,7 @@ public class BaseVoltageColor {
                 throw new UncheckedIOException(e);
             }
         } else {
-            InputStream configInputStream = BaseVoltageColor.class.getResourceAsStream("/" + CONFIG_FILE);
+            InputStream configInputStream = BaseVoltageStyle.class.getResourceAsStream("/" + CONFIG_FILE);
             if (configInputStream != null) {
                 return fromInputStream(configInputStream);
             } else {
@@ -93,28 +93,6 @@ public class BaseVoltageColor {
                                             && v.getMinValue() <= baseVoltage
                                             && v.getMaxValue() > baseVoltage)
                      .map(BaseVoltageConfig::getName)
-                     .findFirst();
-    }
-
-    public Optional<String> getColor(String baseVoltageName, String profile) {
-        Objects.requireNonNull(baseVoltageName);
-        Objects.requireNonNull(profile);
-        return config.getBaseVoltages()
-                     .stream()
-                     .filter(v -> v.getProfile().equals(profile)
-                                            && v.getName().equals(baseVoltageName))
-                     .map(BaseVoltageConfig::getColor)
-                     .findFirst();
-    }
-
-    public Optional<String> getColor(double baseVoltage, String profile) {
-        Objects.requireNonNull(profile);
-        return config.getBaseVoltages()
-                     .stream()
-                     .filter(v -> v.getProfile().equals(profile)
-                                            && v.getMinValue() <= baseVoltage
-                                            && v.getMaxValue() > baseVoltage)
-                     .map(BaseVoltageConfig::getColor)
                      .findFirst();
     }
 

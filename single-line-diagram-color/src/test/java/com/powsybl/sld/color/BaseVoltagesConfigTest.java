@@ -32,12 +32,10 @@ public class BaseVoltagesConfigTest {
         assertEquals("400", config.getBaseVoltages().get(1).getName());
         assertEquals(300, config.getBaseVoltages().get(1).getMinValue(), 0);
         assertEquals(500, config.getBaseVoltages().get(1).getMaxValue(), 0);
-        assertEquals("#ff0000", config.getBaseVoltages().get(1).getColor());
         assertEquals("Default", config.getBaseVoltages().get(1).getProfile());
         assertEquals("225", config.getBaseVoltages().get(2).getName());
         assertEquals(180, config.getBaseVoltages().get(2).getMinValue(), 0);
         assertEquals(300, config.getBaseVoltages().get(2).getMaxValue(), 0);
-        assertEquals("#228b22", config.getBaseVoltages().get(2).getColor());
         assertEquals("Default", config.getBaseVoltages().get(2).getProfile());
         assertEquals("Default", config.getDefaultProfile());
     }

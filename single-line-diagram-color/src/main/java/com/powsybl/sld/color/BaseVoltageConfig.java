@@ -15,7 +15,6 @@ public class BaseVoltageConfig {
     private String name;
     private double minValue;
     private double maxValue;
-    private String color;
     private String profile;
 
     public String getName() {
@@ -40,14 +39,6 @@ public class BaseVoltageConfig {
 
     public void setMaxValue(double maxValue) {
         this.maxValue = maxValue;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public String getProfile() {

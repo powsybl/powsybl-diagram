@@ -5,7 +5,7 @@
 .breaker {
     stroke: rgb(0, 0, 255);
     stroke-width: 2;
-    fill: rgb(255, 255, 255);
+    fill: none;
 }
 
 .disconnector {
@@ -16,37 +16,36 @@
 .generator {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .load {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .load-break-switch {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill: rgb(255, 255, 255);
+    fill: none;
 }
 
 .node {
     stroke: rgb(0, 0, 0);
     fill: rgb(0, 0, 0);
-    fill-opacity: 1;
 }
 
 .capacitor {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .inductor {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .static-var-compensator {
@@ -55,12 +54,12 @@
 
 .two-windings-transformer {
     stroke: rgb(0, 0, 255);
-    fill-opacity: 0;
+    fill: none;
 }
 
 .three-windings-transformer {
     stroke: rgb(0, 0, 255);
-    fill-opacity: 0;
+    fill: none;
 }
 
 .vsc-converter-station {
@@ -86,12 +85,12 @@
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .wire {
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .grid {
@@ -104,13 +103,12 @@
     fill: black;
     color: black;
     stroke: none;
-    fill-opacity: 1;
 }
 
 .line {
     stroke: rgb(0, 0, 255);
     stroke-width: 1;
-    fill-opacity: 0;
+    fill: none;
 }
 
 .arrow-p {

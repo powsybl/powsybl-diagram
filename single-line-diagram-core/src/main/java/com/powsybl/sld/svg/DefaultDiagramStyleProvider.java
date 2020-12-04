@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
@@ -25,13 +25,13 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     private static final String PROFILE = "Default";
 
-    protected final BaseVoltageColor baseVoltageStyle;
+    protected final BaseVoltageStyle baseVoltageStyle;
 
     public DefaultDiagramStyleProvider() {
-        this(BaseVoltageColor.fromPlatformConfig());
+        this(BaseVoltageStyle.fromPlatformConfig());
     }
 
-    public DefaultDiagramStyleProvider(BaseVoltageColor baseVoltageStyle) {
+    public DefaultDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle) {
         this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
     }
 
@@ -126,8 +126,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     public String getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        Optional<String> voltageName = baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), PROFILE);
-        return voltageName.map(s -> "vl" + s).orElseGet(vlInfo::getName);
+        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), PROFILE).orElse(vlInfo.getName());
     }
 
     private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {

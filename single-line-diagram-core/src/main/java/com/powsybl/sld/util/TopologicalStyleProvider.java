@@ -9,7 +9,7 @@ package com.powsybl.sld.util;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
@@ -29,10 +29,10 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private final Map<String, Map<String, String>> voltageLevelStyleMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
-        this(BaseVoltageColor.fromPlatformConfig(), network);
+        this(BaseVoltageStyle.fromPlatformConfig(), network);
     }
 
-    public TopologicalStyleProvider(BaseVoltageColor baseVoltageStyle, Network network) {
+    public TopologicalStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
         super(baseVoltageStyle, network);
     }
 

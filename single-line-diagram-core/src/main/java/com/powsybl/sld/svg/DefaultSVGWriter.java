@@ -51,10 +51,10 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
-    protected static final int FONT_SIZE = 8;
-    protected static final String FONT_FAMILY = "Verdana";
+    protected static final int FONT_SIZE = 10;
+    protected static final String FONT_FAMILY = "URW Gothic";
     protected static final double LABEL_OFFSET = 5d;
-    protected static final int FONT_VOLTAGE_LEVEL_LABEL_SIZE = 12;
+    protected static final int FONT_VOLTAGE_LEVEL_LABEL_SIZE = 14;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
     protected static final String TEXT_ANCHOR = "text-anchor";
