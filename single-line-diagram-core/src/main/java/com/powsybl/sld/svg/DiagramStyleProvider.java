@@ -32,4 +32,6 @@ public interface DiagramStyleProvider {
     default List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
         return Collections.emptyList();
     }
+
+    List<String> getCssFilenames();
 }

@@ -132,10 +132,8 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         });
 
-        style.appendChild(document.createTextNode("@import url(tautologies.css);"));
-        style.appendChild(document.createTextNode("@import url(baseVoltages.css);"));
-        style.appendChild(document.createTextNode("@import url(highlightLineStates.css);"));
-        style.appendChild(document.createTextNode("@import url(components.css);"));
+        styleProvider.getCssFilenames().forEach(name ->
+            style.appendChild(document.createTextNode("@import url(" + name + ");")));
 
         String cssNodeStyle = styleProvider.getCssAdditionalInlineStyle();
         if (!cssNodeStyle.isEmpty()) {

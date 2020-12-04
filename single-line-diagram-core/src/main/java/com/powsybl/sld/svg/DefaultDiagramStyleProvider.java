@@ -77,4 +77,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public void reset() {
         // Nothing to reset for this implementation
     }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return Arrays.asList("tautologies.css", "components.css");
+    }
 }
