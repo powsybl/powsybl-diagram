@@ -19,8 +19,6 @@ import java.util.List;
  */
 public interface DiagramStyleProvider {
 
-    String getCssAdditionalInlineStyle();
-
     List<String> getSvgWireStyles(Edge edge, boolean highlightLineState);
 
     List<String> getSvgNodeStyles(Node node, boolean showInternalNodes);

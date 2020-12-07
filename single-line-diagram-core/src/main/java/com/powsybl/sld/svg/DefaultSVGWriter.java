@@ -13,6 +13,7 @@ import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
 import com.powsybl.sld.util.DomUtil;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ import org.w3c.dom.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -127,21 +130,33 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         });
 
-        styleProvider.getCssFilenames().forEach(name ->
-            style.appendChild(document.createTextNode("@import url(" + name + ");")));
+        List<String> cssFilenames = styleProvider.getCssFilenames();
 
-        String cssNodeStyle = styleProvider.getCssAdditionalInlineStyle();
-        if (!cssNodeStyle.isEmpty()) {
-            String graphStyle = "\n" + cssNodeStyle + "\n";
-            String cssStr = graphStyle
-                .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
-                .replace("\r", "\n");
-            CDATASection cd = document.createCDATASection(cssStr);
-            style.appendChild(cd);
+        if (layoutParameters.isCssInternal()) {
+            style.appendChild(getCdataSection(document, cssFilenames));
+        } else {
+            cssFilenames.forEach(name -> style.appendChild(document.createTextNode("@import url(" + name + ");")));
         }
 
         document.adoptNode(style);
         document.getDocumentElement().appendChild(style);
+    }
+
+    private CDATASection getCdataSection(Document document, List<String> cssFilenames) {
+        StringBuilder styleSheetBuilder = new StringBuilder();
+        for (String cssFilename : cssFilenames) {
+            try {
+                URL cssUrl = getClass().getResource("/" + cssFilename);
+                styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                throw new UncheckedIOException("Can't read css file " + cssFilename, e);
+            }
+        }
+        String graphStyle = "\n" + styleSheetBuilder + "\n";
+        String cssStr = graphStyle
+            .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
+            .replace("\r", "\n");
+        return document.createCDATASection(cssStr);
     }
 
     /**

@@ -73,6 +73,8 @@ public class LayoutParameters {
 
     private boolean feederArrowSymmetry = false;
 
+    private boolean cssInternal = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -489,6 +491,15 @@ public class LayoutParameters {
 
     public LayoutParameters setFeederArrowSymmetry(boolean feederArrowSymmetry) {
         this.feederArrowSymmetry = feederArrowSymmetry;
+        return this;
+    }
+
+    public boolean isCssInternal() {
+        return cssInternal;
+    }
+
+    public LayoutParameters setCssInternal(boolean cssInternal) {
+        this.cssInternal = cssInternal;
         return this;
     }
 }

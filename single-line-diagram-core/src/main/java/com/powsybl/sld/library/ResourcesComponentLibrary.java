@@ -8,7 +8,6 @@ package com.powsybl.sld.library;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
 import com.powsybl.sld.util.DomUtil;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -22,8 +21,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -42,8 +39,6 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private final Map<String, Component> components = new HashMap<>();
 
-    private final String styleSheet;
-
     /**
      * Constructs a new library containing the components in the given directories
      * @param directory main directory containing the resources components: SVG files, with associated components.xml
@@ -54,15 +49,13 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
      */
     public ResourcesComponentLibrary(String directory, String... additionalDirectories) {
         Objects.requireNonNull(directory);
-        StringBuilder styleSheetBuilder = new StringBuilder();
-        loadLibrary(directory, styleSheetBuilder);
+        loadLibrary(directory);
         for (String addDir : additionalDirectories) {
-            loadLibrary(addDir, styleSheetBuilder);
+            loadLibrary(addDir);
         }
-        styleSheet = styleSheetBuilder.toString();
     }
 
-    private void loadLibrary(String directory, StringBuilder styleSheetBuilder) {
+    private void loadLibrary(String directory) {
         LOGGER.info("Loading component library from {}...", directory);
 
         // preload SVG documents
@@ -85,13 +78,6 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
             });
             components.put(componentType, c);
         });
-
-        try {
-            URL cssUrl = getClass().getResource(directory + "/" + "components.css");
-            styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            throw new UncheckedIOException("Can't read css file from the SVG library!", e);
-        }
     }
 
     private static void cleanEmptyTextNodes(Node parentNode, String resourceName) {
@@ -145,7 +131,4 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         return component == null || component.getMetadata().isAllowRotation();
     }
 
-    public String getStyleSheet() {
-        return styleSheet;
-    }
 }

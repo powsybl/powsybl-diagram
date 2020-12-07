@@ -24,11 +24,6 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
 public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
-    public String getCssAdditionalInlineStyle() {
-        return "";
-    }
-
-    @Override
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);

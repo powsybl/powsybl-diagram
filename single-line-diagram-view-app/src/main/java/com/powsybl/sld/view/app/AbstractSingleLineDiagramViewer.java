@@ -250,7 +250,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
 
                 String dName = getSelectedDiagramName();
-                LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
+                LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName).setCssInternal(true);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
 
                 DiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(networkProperty.get(), getComponentLibrary(), diagramLayoutParameters);
