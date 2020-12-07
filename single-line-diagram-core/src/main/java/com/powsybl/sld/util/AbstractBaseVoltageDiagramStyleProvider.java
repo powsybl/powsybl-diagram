@@ -128,11 +128,11 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
         List<String> styles = new ArrayList<>();
 
+        Graph g = node.getGraph();
+        boolean node2WT = (g != null && node instanceof Feeder2WTNode) || (g == null && node instanceof Middle2WTNode);
         boolean node3WT = node instanceof Middle3WTNode;
-        boolean node2WT = node instanceof Feeder2WTNode;
         if (node2WT || node3WT) {
             VoltageLevelInfos vlInfo;
-            Graph g = node.getGraph();
             if (g != null) {  // node inside a voltageLevel graph
                 VoltageLevelInfos currentVoltageLevel = g.getVoltageLevelInfos();
                 if (node2WT) {

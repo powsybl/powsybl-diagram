@@ -2,6 +2,16 @@
     fill: none
 }
 
+.node.constant-color {
+    stroke: none;
+    fill: black
+}
+
+.busbreaker-connection.constant-color {
+    stroke: none;
+    fill: black
+}
+
 .breaker.constant-color {
     stroke: blue;
 }

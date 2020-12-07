@@ -1352,7 +1352,8 @@ public class DefaultSVGWriter implements SVGWriter {
             Element g = root.getOwnerDocument().createElement("g");
             g.setAttribute("id", nodeId);
 
-            g.setAttribute(CLASS, node.getComponentType());
+            g.setAttribute(CLASS, String.join(" ",
+                styleProvider.getSvgNodeStyles(node, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, node, g, styleProvider);
 

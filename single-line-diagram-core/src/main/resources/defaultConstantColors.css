@@ -7,6 +7,16 @@
     stroke: red
 }
 
+.node.constant-color {
+    stroke: none;
+    fill: black
+}
+
+.busbreaker-connection.constant-color {
+    stroke: none;
+    fill: black
+}
+
 .busbar-section.constant-color {
     stroke: black;
 }
