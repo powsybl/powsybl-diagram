@@ -41,10 +41,10 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
-            return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : null;
+            return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : Optional.empty();
         }
         if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
-            return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : null;
+            return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
         }
         return super.getEdgeStyle(edge);
     }
@@ -78,7 +78,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private String findConnectedStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
         Set<Node> connectedNodes = findConnectedNodes(node);
         for (Node connectedNode : connectedNodes) {
-            String nodeTopologicalStyle = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos).get(connectedNode);
+            String nodeTopologicalStyle = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos).get(connectedNode.getEquipmentId());
             if (nodeTopologicalStyle != null) {
                 return nodeTopologicalStyle;
             }
@@ -124,4 +124,10 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         }
         return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
     }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css", "baseVoltageConstantColors.css");
+    }
+
 }
