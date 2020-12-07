@@ -37,15 +37,22 @@
     stroke-dasharray: 1,10;
 }
 
-.component-label {
-    color: black;
-    stroke: none;
-}
-
 .arrow-p {
     fill:black
 }
 
 .arrow-q {
     fill:blue
+}
+
+.component-label {
+    font: 8px "Verdana";
+}
+
+.arrow-p .component-label {
+    dominant-baseline: middle
+}
+
+.arrow-q .component-label {
+    dominant-baseline: middle
 }

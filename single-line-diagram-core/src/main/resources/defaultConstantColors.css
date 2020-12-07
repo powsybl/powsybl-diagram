@@ -14,3 +14,8 @@
 .disconnector.constant-color {
     stroke: black
 }
+
+.component-label {
+    fill: black;
+    stroke: none;
+}

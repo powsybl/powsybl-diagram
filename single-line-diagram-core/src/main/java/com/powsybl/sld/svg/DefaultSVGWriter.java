@@ -51,18 +51,13 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
-    protected static final int FONT_SIZE = 10;
-    protected static final String FONT_FAMILY = "URW Gothic";
     protected static final double LABEL_OFFSET = 5d;
-    protected static final int FONT_VOLTAGE_LEVEL_LABEL_SIZE = 14;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
     protected static final int VALUE_MAX_NB_CHARS = 5;
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
-    protected static final String FONT_FAMILY_ATTRIBUTE = "font-family";
-    protected static final String FONT_SIZE_ATTRIBUTE = "font-size";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -499,9 +494,9 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawNodeLabel(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider) {
         for (DiagramLabelProvider.NodeLabel nodeLabel : labelProvider.getNodeLabels(node)) {
             LabelPosition labelPosition = nodeLabel.getPosition();
-            drawLabel(prefixId + labelPosition.getPositionName(), nodeLabel.getLabel(), node.isRotated(),
-                    labelPosition.getdX(), labelPosition.getdY(), g, FONT_SIZE, labelPosition.isCentered(),
-                    labelPosition.getShiftAngle(), false);
+            drawLabel(prefixId + labelPosition.getPositionName(), nodeLabel.getLabel(),
+                    labelPosition.getdX(), labelPosition.getdY(), g, labelPosition.isCentered(),
+                    labelPosition.getShiftAngle());
         }
     }
 
@@ -533,7 +528,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawLabel(null, graph.isUseName()
                         ? graph.getVoltageLevelInfos().getName()
                         : graph.getVoltageLevelInfos().getId(),
-                false, graph.getX(), yPos, gLabel, FONT_VOLTAGE_LEVEL_LABEL_SIZE, false, 0, false);
+                graph.getX(), yPos, gLabel, false, 0);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
@@ -573,20 +568,14 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar section names and feeder names
      */
-    protected void drawLabel(String idLabel, String str, boolean rotated, double xShift, double yShift, Element g,
-                             int fontSize, boolean centered, int shiftAngle, boolean adjustLength) {
+    protected void drawLabel(String idLabel, String str, double xShift, double yShift, Element g,
+                             boolean centered, int shiftAngle) {
         Element label = g.getOwnerDocument().createElement("text");
         if (!StringUtils.isEmpty(idLabel)) {
             label.setAttribute("id", idLabel);
         }
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
-        label.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
-        if (adjustLength) {
-            label.setAttribute("xml:space", "preserve");
-            label.setAttribute("textLength", Integer.toString(str.length() * (FONT_SIZE - 3)));
-        }
         label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
@@ -982,7 +971,7 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
-        double shY = cd.getSize().getHeight() - LABEL_OFFSET + (double) FONT_SIZE / 2;
+        double shY = cd.getSize().getHeight() - LABEL_OFFSET;
 
         double y1 = points.get(1);
         double y2 = points.get(3);
@@ -993,14 +982,14 @@ public class DefaultSVGWriter implements SVGWriter {
         transformArrow(points, cd.getSize(), shift, g);
 
         insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize());
-        drawLabel(null, StringUtils.rightPad(labelR, VALUE_MAX_NB_CHARS), false, shX, shY, g, FONT_SIZE, false, 0, true);
+        drawLabel(null, labelR, shX, shY, g, false, 0);
 
         List<String> styles = new ArrayList<>(2);
         styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
         dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
         g.setAttribute(CLASS, String.join(" ", styles));
 
-        labelL.ifPresent(s -> drawLabel(null, StringUtils.rightPad(s, VALUE_MAX_NB_CHARS), false, -(s.length() * (double) FONT_SIZE / 2 + LABEL_OFFSET), shY, g, FONT_SIZE, false, 0, true));
+        labelL.ifPresent(s -> drawLabel(null, s, -LABEL_OFFSET, shY, g, false, 0));
 
         root.appendChild(g);
         metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
@@ -1366,7 +1355,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                double yShift,
                                Element g,
                                String idNode,
-                               int fontSize, //FIXME: in css
                                double circleRadiusSize) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
@@ -1388,8 +1376,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelV.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * circleRadiusSize));
-        labelV.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
-        labelV.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         labelV.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
@@ -1405,8 +1391,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelAngle.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * circleRadiusSize));
-        labelAngle.setAttribute(FONT_FAMILY_ATTRIBUTE, FONT_FAMILY);
-        labelAngle.setAttribute(FONT_SIZE_ATTRIBUTE, Integer.toString(fontSize));
         labelAngle.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
@@ -1431,7 +1415,7 @@ public class DefaultSVGWriter implements SVGWriter {
             Element gNode = root.getOwnerDocument().createElement("g");
             gNode.setAttribute("id", idNode);
 
-            drawNodeInfos(nodes.get(i), graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50)), yPos, gNode, idNode, FONT_SIZE, CIRCLE_RADIUS_NODE_INFOS_SIZE);
+            drawNodeInfos(nodes.get(i), graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50)), yPos, gNode, idNode, CIRCLE_RADIUS_NODE_INFOS_SIZE);
             root.appendChild(gNode);
         });
     }
