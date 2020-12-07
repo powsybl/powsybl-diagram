@@ -92,14 +92,19 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
             List<NodeDecorator> nodeDecorators = new ArrayList<>();
             if (node instanceof SwitchNode) {
                 String componentType = "";
+                String componentStyle = "";
                 switch (((SwitchNode) node).getKind()) {
                     case BREAKER:
-                        componentType = "FLASH"; break;
+                        componentType = "FLASH";
+                        componentStyle = "flash";
+                        break;
                     case DISCONNECTOR:
                     case LOAD_BREAK_SWITCH:
-                        componentType = "LOCK"; break;
+                        componentType = "LOCK";
+                        componentStyle = "lock";
+                        break;
                 }
-                nodeDecorators.add(new NodeDecorator(componentType, getSwitchDecoratorPosition((SwitchNode) node, componentType)));
+                nodeDecorators.add(new NodeDecorator(componentType, componentStyle, getSwitchDecoratorPosition((SwitchNode) node, componentType)));
             }
 
             return nodeDecorators;

@@ -10,10 +10,12 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.InternalNode;
 import com.powsybl.sld.model.Node;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.powsybl.sld.svg.DiagramStyles.*;
 
@@ -82,6 +84,12 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "components.css", "defaultConstantColors.css");
+        return Arrays.asList("tautologies.css", "defaultConstantColors.css");
+    }
+
+    @Override
+    public List<URL> getCssUrls() {
+        return getCssFilenames().stream().map(n -> getClass().getResource("/" + n))
+            .collect(Collectors.toList());
     }
 }

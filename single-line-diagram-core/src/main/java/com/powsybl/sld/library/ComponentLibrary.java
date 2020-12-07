@@ -8,6 +8,7 @@ package com.powsybl.sld.library;
 
 import org.w3c.dom.Document;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +29,8 @@ public interface ComponentLibrary {
     boolean isAllowRotation(String type);
 
     Map<String, ComponentSize> getComponentsSize();
+
+    List<String> getCssFilenames();
+
+    List<URL> getCssUrls();
 }

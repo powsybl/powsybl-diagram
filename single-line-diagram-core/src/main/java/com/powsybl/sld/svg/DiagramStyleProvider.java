@@ -10,6 +10,7 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface DiagramStyleProvider {
     }
 
     List<String> getCssFilenames();
+
+    List<URL> getCssUrls();
 }

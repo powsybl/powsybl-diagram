@@ -130,26 +130,30 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         });
 
-        List<String> cssFilenames = styleProvider.getCssFilenames();
-
         if (layoutParameters.isCssInternal()) {
-            style.appendChild(getCdataSection(document, cssFilenames));
+            List<URL> urls = styleProvider.getCssUrls();
+            urls.addAll(componentLibrary.getCssUrls());
+            style.appendChild(getCdataSection(document, urls));
         } else {
-            cssFilenames.forEach(name -> style.appendChild(document.createTextNode("@import url(" + name + ");")));
+            styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+            componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
         }
 
         document.adoptNode(style);
         document.getDocumentElement().appendChild(style);
     }
 
-    private CDATASection getCdataSection(Document document, List<String> cssFilenames) {
+    private org.w3c.dom.Node addStyleImportTextNode(Document document, Element style, String name) {
+        return style.appendChild(document.createTextNode("@import url(" + name + ");"));
+    }
+
+    private CDATASection getCdataSection(Document document, List<URL> cssUrls) {
         StringBuilder styleSheetBuilder = new StringBuilder();
-        for (String cssFilename : cssFilenames) {
+        for (URL cssUrl : cssUrls) {
             try {
-                URL cssUrl = getClass().getResource("/" + cssFilename);
                 styleSheetBuilder.append(new String(IOUtils.toByteArray(cssUrl), StandardCharsets.UTF_8));
             } catch (IOException e) {
-                throw new UncheckedIOException("Can't read css file " + cssFilename, e);
+                throw new UncheckedIOException("Can't read css file " + cssUrl.getPath(), e);
             }
         }
         String graphStyle = "\n" + styleSheetBuilder + "\n";
@@ -515,10 +519,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void drawNodeDecorators(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider,
+    protected void drawNodeDecorators(String prefixId, Element root, Node node, DiagramLabelProvider labelProvider,
                                       DiagramStyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node)) {
+            Element g = root.getOwnerDocument().createElement("g");
+            g.setAttribute(CLASS, nodeDecorator.getStyleClass());
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, node, styleProvider);
+            root.appendChild(g);
         }
     }
 
@@ -707,7 +714,6 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, node, nodeDecorator, styleProvider, elt, subComponent);
-        //FIXME: create new SVG Element node
         String nodeDecoratorType = nodeDecorator.getType();
         insertSVGIntoDocumentSVG(nodeDecoratorType, nodeDecoratorType, g, elementAttributesSetter);
     }

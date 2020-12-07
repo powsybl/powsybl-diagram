@@ -8,6 +8,7 @@ package com.powsybl.sld.library;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
 import com.powsybl.sld.util.DomUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -21,6 +22,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -38,6 +40,10 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     private final Map<String, Map<String, Document>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components = new HashMap<>();
+
+    private final List<String> cssFilenames = new ArrayList<>();
+
+    private final List<URL> cssUrls = new ArrayList<>();
 
     /**
      * Constructs a new library containing the components in the given directories
@@ -78,6 +84,9 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
             });
             components.put(componentType, c);
         });
+
+        cssFilenames.add(FilenameUtils.getName(directory) + "_components.css");
+        cssUrls.add(getClass().getResource(directory + "/components.css"));
     }
 
     private static void cleanEmptyTextNodes(Node parentNode, String resourceName) {
@@ -122,6 +131,16 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         Map<String, ComponentSize> res = new HashMap<>();
         components.forEach((key, value) -> res.put(key, value.getMetadata().getSize()));
         return res;
+    }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return cssFilenames;
+    }
+
+    @Override
+    public List<URL> getCssUrls() {
+        return cssUrls;
     }
 
     @Override
