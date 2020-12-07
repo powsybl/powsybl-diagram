@@ -4,53 +4,10 @@
 
 .breaker {
     stroke-width: 2;
-    fill: white;
 }
 
 .disconnector {
-    stroke: black;
     stroke-width: 3
-}
-
-.generator {
-    stroke-width: 1;
-    fill: none;
-}
-
-.load {
-    stroke-width: 1;
-    fill: none;
-}
-
-.load-break-switch {
-    stroke-width: 1;
-    fill: none;
-}
-
-.node {
-    stroke: rgb(0, 0, 0);
-    fill: rgb(0, 0, 0);
-}
-
-.capacitor {
-    stroke-width: 1;
-    fill: none;
-}
-
-.inductor {
-    stroke-width: 1;
-    fill: none;
-}
-
-.static-var-compensator {
-}
-
-.two-windings-transformer {
-    fill: none;
-}
-
-.three-windings-transformer {
-    fill: none;
 }
 
 .vsc-converter-station {
@@ -73,30 +30,16 @@
     stroke-linecap: butt;
     stroke-linejoin: miter;
     stroke-miterlimit: 4;
-    stroke-width: 1;
-    fill: none;
-}
-
-.wire {
-    stroke-width: 1;
-    fill: none;
 }
 
 .grid {
     stroke: rgb(0,55,0);
-    stroke-width: 1;
     stroke-dasharray: 1,10;
 }
 
 .component-label {
-    fill: black;
     color: black;
     stroke: none;
-}
-
-.line {
-    stroke-width: 1;
-    fill: none;
 }
 
 .arrow-p {

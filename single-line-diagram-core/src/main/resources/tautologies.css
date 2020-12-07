@@ -1,19 +1,23 @@
 .up .arrow-down {
-    visibility: hidden;
+    visibility: hidden
 }
 
 .down .arrow-up {
-    visibility: hidden;
+    visibility: hidden
 }
 
 .closed .switch-open {
-    visibility: hidden;
+    visibility: hidden
 }
 
 .open .switch-closed {
-    visibility: hidden;
+    visibility: hidden
 }
 
 .hidden-internal-node {
-    visibility: hidden;
+    visibility: hidden
+}
+
+polyline {
+    fill: none
 }
