@@ -215,7 +215,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    public void testHorizontal() {
 
         // build substation graph
         Graph gvl = graphBuilder.buildVoltageLevelGraph("vl1", true, true);
@@ -226,14 +226,20 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // write Json and compare to reference (with horizontal substation layout)
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
+    }
 
-        // rebuild substation graph
-        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
+    @Test
+    public void testVertical() {
+        // build substation graph
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with vertical substation layout)
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
+    }
 
+    @Test
+    public void testHorizontalMetadata() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());

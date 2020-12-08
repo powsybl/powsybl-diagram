@@ -18,7 +18,6 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +37,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl2;
     VoltageLevel vl3;
     private LayoutParameters layoutParameters;
+    private NominalVoltageDiagramStyleProvider styleProvider;
 
     @Override
     protected LayoutParameters getLayoutParameters() {
@@ -54,6 +54,9 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
+
+        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
+        styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor, network);
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 10);
@@ -95,15 +98,29 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
+    private class NoFeederValueProvider extends DefaultDiagramLabelProvider {
+        public NoFeederValueProvider() {
+            super(network, componentLibrary, getLayoutParameters());
+        }
+
+        @Override
+        public InitialValue getInitialValue(Node node) {
+            InitialValue initialValue;
+            if (node.getType() == Node.NodeType.BUS) {
+                initialValue = new InitialValue(null, null, null, null, null, null);
+            } else {
+                initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+            }
+            return initialValue;
+        }
+    }
+
     @Test
-    public void test() {
+    public void testAttributes() {
         // construction des graphes
         Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
         Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
-
-        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
-        NominalVoltageDiagramStyleProvider styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor, network);
 
         Node node1 = graph1.getNode("bbs1");
         Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
@@ -151,22 +168,24 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(attributesArrow.containsKey("fill-opacity"));
         assertEquals("1", attributesArrow.get("fill-opacity"));
 
-        DiagramLabelProvider noFeederValueProvider = new DefaultDiagramLabelProvider(
-                Network.create("empty", ""), componentLibrary, getLayoutParameters()) {
-            @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, null, null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
-                }
-                return initialValue;
-            }
-        };
-
-        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
-        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
-        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), noFeederValueProvider, styleProvider));
     }
+
+    @Test
+    public void testVl1() {
+        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+    }
+
+    @Test
+    public void testVl2() {
+        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+    }
+
+    @Test
+    public void testVl3() {
+        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+    }
+
 }

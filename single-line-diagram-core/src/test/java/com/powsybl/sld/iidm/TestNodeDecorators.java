@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 public class TestNodeDecorators extends AbstractTestCaseIidm {
 
     private LayoutParameters layoutParameters;
+    private Graph graph;
 
     @Override
     public LayoutParameters getLayoutParameters() {
@@ -45,18 +46,21 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
         // Layout parameters :
         layoutParameters = createDefaultLayoutParameters()
             .setCellWidth(80);
+
+        graph = TestSVGWriter.createVoltageLevelGraph1();
     }
 
     @Test
-    public void test() {
-
-        Graph graph = TestSVGWriter.createVoltageLevelGraph1();
-
+    public void testSvg() {
         TestDiagramLabelProvider nodeDecoratorLabelProvider = new TestDiagramLabelProvider();
         assertEquals(toString("/vl1_decorated.svg"), toSVG(graph, "/vl1_decorated.svg", getLayoutParameters(),
             nodeDecoratorLabelProvider, new DefaultDiagramStyleProvider()));
+    }
 
-        // Same tests than before, with optimized svg :
+    @Test
+    public void testOptimizedSvg() {
+        // Same tests than above, with optimized svg :
+        TestDiagramLabelProvider nodeDecoratorLabelProvider = new TestDiagramLabelProvider();
         getLayoutParameters().setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/vl1_decorated_opt.svg"), toSVG(graph, "/vl1_decorated_opt.svg", getLayoutParameters(),
             nodeDecoratorLabelProvider, new DefaultDiagramStyleProvider()));
