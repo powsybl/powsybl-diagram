@@ -109,11 +109,6 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
         if (!StringUtils.isEmpty(node.getId())) {
             GraphMetadata.NodeMetadata nodeMetadata = metadata.getNodeMetadata(node.getId());
             if (nodeMetadata != null) {
-                if (node instanceof Group &&
-                        (nodeMetadata.getComponentType() != null) &&
-                        (nodeMetadata.getComponentType().equals(BREAKER) || nodeMetadata.getComponentType().equals(DISCONNECTOR) || nodeMetadata.getComponentType().equals(LOAD_BREAK_SWITCH))) {
-                    setNodeVisibility((Group) node, nodeMetadata);
-                }
                 installNodeHandlers(node, metadata, nodeMetadata, nodeHandlers, vlHandlers, listener, displayVL);
             }
         }
@@ -191,12 +186,6 @@ public abstract class AbstractContainerDiagramView extends BorderPane {
                 wireMetadata.isSnakeLine(), metadata);
         LOGGER.trace(" Added handler to wire between {} and {}", wireMetadata.getNodeId1(), wireMetadata.getNodeId2());
         wireHandlers.put(node.getId(), wireHandler);
-    }
-
-    private static void setNodeVisibility(Group node, GraphMetadata.NodeMetadata nodeMetadata) {
-        node.getChildren().forEach(child ->
-                child.setVisible((nodeMetadata.isOpen() && child.getId().endsWith("open"))
-                        || (!nodeMetadata.isOpen() && child.getId().endsWith("closed"))));
     }
 
     private static void installHandlers(Node node, GraphMetadata metadata, SwitchPositionChangeListener listener,
