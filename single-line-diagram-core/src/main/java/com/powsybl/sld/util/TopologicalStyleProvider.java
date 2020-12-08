@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
     private final Map<String, Map<String, String>> voltageLevelStyleMap = new HashMap<>();
+    private final Map<Node, Set<Node>> connectedNodesMap = new LinkedHashMap<>();
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltageStyle.fromPlatformConfig(), network);
@@ -63,6 +64,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     @Override
     public void reset() {
         voltageLevelStyleMap.clear();
+        connectedNodesMap.clear();
     }
 
     private Map<String, String> createStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
@@ -83,19 +85,13 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             voltageLevelInfos, Node node) {
         Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
         String nodeTopologicalStyle = styleMap.computeIfAbsent(
-                node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
+            node.getEquipmentId(), id -> findConnectedStyle(styleMap, node).orElse(null));
         return Optional.ofNullable(nodeTopologicalStyle);
     }
 
-    private String findConnectedStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
-        Set<Node> connectedNodes = findConnectedNodes(node);
-        for (Node connectedNode : connectedNodes) {
-            String nodeTopologicalStyle = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos).get(connectedNode.getEquipmentId());
-            if (nodeTopologicalStyle != null) {
-                return nodeTopologicalStyle;
-            }
-        }
-        return null;
+    private Optional<String> findConnectedStyle(Map<String, String> styleMap, Node node) {
+        Set<Node> connectedNodes = connectedNodesMap.getOrDefault(node, findConnectedNodes(node));
+        return connectedNodes.stream().map(c -> styleMap.get(c.getEquipmentId())).filter(Objects::nonNull).findFirst();
     }
 
     private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos
@@ -118,6 +114,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             return;
         }
         visitedNodes.add(node);
+        connectedNodesMap.put(node, visitedNodes);
         for (Node adjNode : node.getAdjacentNodes()) {
             findConnectedNodes(adjNode, visitedNodes);
         }
