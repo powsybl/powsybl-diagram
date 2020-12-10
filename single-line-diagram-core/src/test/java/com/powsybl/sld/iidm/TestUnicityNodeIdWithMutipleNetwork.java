@@ -30,6 +30,11 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
     private Substation substation2;
     private VoltageLevel vl2;
 
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return new LayoutParameters();
+    }
+
     @Before
     public void setUp() {
         // Create first network with a substation and a voltageLevel
@@ -45,6 +50,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
         // Create second network with a substation and a voltageLevel
         network2 = Network.create("n2", "test");
+        graphBuilder2 = new NetworkGraphBuilder(network2);
         substation2 = createSubstation(network2, "s", "s", Country.FR);
         vl2 = createVoltageLevel(substation2, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
         createBusBarSection(vl2, "bbs", "bbs", 0, 1, 1);
@@ -55,23 +61,22 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters();
-
         // Generating json for voltage level in first network
         Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector().detectCells(graph1);
         new BlockOrganizer().organize(graph1);
-        new PositionVoltageLevelLayout(graph1).run(layoutParameters);
+        new PositionVoltageLevelLayout(graph1).run(getLayoutParameters());
 
         String refJson1 = toString("/TestUnicityNodeIdNetWork1.json");
         assertEquals(refJson1, toJson(graph1, "/TestUnicityNodeIdNetWork1.json"));
 
         // Generating json for voltage level in second network
-        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        Graph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), false, true);
         new ImplicitCellDetector().detectCells(graph2);
         new BlockOrganizer().organize(graph2);
-        new PositionVoltageLevelLayout(graph2).run(layoutParameters);
+        new PositionVoltageLevelLayout(graph2).run(getLayoutParameters());
 
+        network = network2; // overwrite network with network2 for debug purposes (svg generated for debug in toJson if writeFile=true takes network as reference)
         String refJson2 = toString("/TestUnicityNodeIdNetWork2.json");
         assertEquals(refJson2, toJson(graph2, "/TestUnicityNodeIdNetWork2.json"));
 

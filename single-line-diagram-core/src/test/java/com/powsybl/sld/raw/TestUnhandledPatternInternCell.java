@@ -49,7 +49,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) g.getCells().iterator().next()).getShape());
     }
 }

@@ -26,6 +26,11 @@ import static org.junit.Assert.*;
  */
 public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return createDefaultLayoutParameters();
+    }
+
     @Before
     public void setUp() {
         Network network = Network.create("testCase1", "test");
@@ -91,28 +96,11 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         assertEquals(2, subPB.getSubBlocks().get(1).getPosition().getSpan(H));
         assertEquals(4, subPB.getSubBlocks().get(1).getPosition().getSpan(V));
 
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(true)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50);
-
         sb.getCoord().set(X, 10);
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(layoutParameters);
+        sb.coordHorizontalCase(getLayoutParameters());
 
         assertEquals(10, sb.getCoord().get(X), 0);
         assertEquals(20, sb.getCoord().get(Y), 0);

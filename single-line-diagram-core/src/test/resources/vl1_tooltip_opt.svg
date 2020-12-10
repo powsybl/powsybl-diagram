@@ -230,24 +230,24 @@
             <polyline points="100.0,370.0,90.0,370.0"/>
         </g>
         <g class="wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2">
-            <polyline points="380.0,150.0,413.0,205.0"/>
+            <polyline points="380.0,150.0,380.0,205.0,413.0,205.0"/>
         </g>
-        <g class="ARROW1_vl1_95_trf2_95_one_UP" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(0.8575,-0.5145,0.5145,0.8575,383.43,165.4349)">
+        <g class="ARROW1_vl1_95_trf2_95_one_UP" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,375.0,162.5)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
             <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
-        <g class="ARROW2_vl1_95_trf2_95_one_DOWN" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(0.8575,-0.5145,0.5145,0.8575,393.7199,182.5847)">
+        <g class="ARROW2_vl1_95_trf2_95_one_DOWN" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,182.5)">
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
             <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
         <g class="wire" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2">
-            <polyline points="460.0,150.0,427.0,205.0"/>
+            <polyline points="460.0,150.0,460.0,205.0,427.0,205.0"/>
         </g>
-        <g class="ARROW1_vl1_95_trf2_95_two_UP" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(0.8575,0.5145,-0.5145,0.8575,447.9951,160.2899)">
+        <g class="ARROW1_vl1_95_trf2_95_two_UP" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,162.5)">
             <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
             <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
-        <g class="ARROW2_vl1_95_trf2_95_two_DOWN" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(0.8575,0.5145,-0.5145,0.8575,437.7052,177.4398)">
+        <g class="ARROW2_vl1_95_trf2_95_two_DOWN" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,182.5)">
             <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
             <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
