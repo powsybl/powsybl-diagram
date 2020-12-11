@@ -106,7 +106,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         // substitute with substitue deprecated method
         String originNodeId = "S1VL2_LD4_BREAKER";
         Node originNode = graph.getNode(originNodeId);
-        graph.substitueNode(originNode, replacingNode);
+        graph.substituteNode(originNode, replacingNode);
         assertNull(graph.getNode(originNodeId));
 
         // substitute fictitious node
