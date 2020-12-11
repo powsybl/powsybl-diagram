@@ -447,8 +447,8 @@ public final class Graph {
      * @param newNode:    node which will replace the first one
      */
     public void replaceNode(Node nodeOrigin, Node newNode) {
-        addNode(newNode);
         substituteNode(nodeOrigin, newNode);
+        addNode(newNode);
     }
 
     public void substituteFictitiousNodesMirroringBusNodes() {

@@ -111,9 +111,9 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
 
         // substitute fictitious node
         String fictitiousNodeId = "FICT_S1VL2_101";
-        assertNotNull(graph.getNode(fictitiousNodeId));
+        assertTrue(graph.getNode(fictitiousNodeId) instanceof InternalNode);
         graph.substituteSingularFictitiousByFeederNode();
-        assertNull(graph.getNode(fictitiousNodeId));
+        assertTrue(graph.getNode(fictitiousNodeId) instanceof FeederNode);
 
     }
 }
