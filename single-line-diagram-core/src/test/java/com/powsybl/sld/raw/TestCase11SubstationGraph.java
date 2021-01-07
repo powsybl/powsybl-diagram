@@ -292,14 +292,14 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
     @Test
     public void testH() {
         SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }
 
     @Test
     public void testV() {
         SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }
 }

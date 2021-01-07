@@ -60,7 +60,7 @@ public class TestCase2 extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/TestCase2Stacked.json"), toJson(g, "/TestCase2Stacked.json"));
     }
 
@@ -69,7 +69,7 @@ public class TestCase2 extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/TestCase2UnStackedCell.json"), toJson(g, "/TestCase2UnStackedCell.json"));
     }
 }

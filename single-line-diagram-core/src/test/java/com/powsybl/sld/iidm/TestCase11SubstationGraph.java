@@ -25,8 +25,17 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
+    protected LayoutParameters layoutParameters;
+
+    @Override
+    public LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
+
     @Before
     public void setUp() {
+        layoutParameters = createDefaultLayoutParameters();
+
         network = Network.create("testCase11", "test");
         graphBuilder = new NetworkGraphBuilder(network);
 
@@ -206,51 +215,37 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(20)
-                .setTranslateY(50)
-                .setInitialXBus(0)
-                .setInitialYBus(260)
-                .setVerticalSpaceBus(25)
-                .setHorizontalBusPadding(20)
-                .setCellWidth(50)
-                .setExternCellHeight(250)
-                .setInternCellHeight(40)
-                .setStackHeight(30)
-                .setShowGrid(true)
-                .setShowInternalNodes(false)
-                .setScaleFactor(1)
-                .setHorizontalSubstationPadding(50)
-                .setVerticalSubstationPadding(50)
-                .setDrawStraightWires(false)
-                .setHorizontalSnakeLinePadding(30)
-                .setVerticalSnakeLinePadding(30);
+    public void testHorizontal() {
 
         // build substation graph
-
         Graph gvl = graphBuilder.buildVoltageLevelGraph("vl1", true, true);
-        new PositionVoltageLevelLayoutFactory().create(gvl).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory().create(gvl).run(getLayoutParameters());
 
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with horizontal substation layout)
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
+    }
 
-        // rebuild substation graph
-        g = graphBuilder.buildSubstationGraph(substation.getId(), false);
+    @Test
+    public void testVertical() {
+        // build substation graph
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with vertical substation layout)
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
+    }
 
+    @Test
+    public void testHorizontalMetadata() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
 
-        compareMetadata(diagram, layoutParameters, "/substDiag_metadata.json",
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+        compareMetadata(diagram, getLayoutParameters(), "/substDiag_metadata.json",
+                new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
                 new DefaultDiagramStyleProvider());
     }
 }

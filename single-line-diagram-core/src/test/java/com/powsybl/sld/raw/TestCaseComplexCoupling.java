@@ -55,7 +55,7 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/TestCaseComplexCoupling.json"), toJson(g, "/TestCaseComplexCoupling.json"));
     }
 }

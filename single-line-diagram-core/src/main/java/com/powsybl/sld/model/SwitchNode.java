@@ -37,7 +37,7 @@ public class SwitchNode extends Node {
     }
 
     public static SwitchNode createFictitious(Graph graph, String id, boolean open) {
-        return new SwitchNode(id, id, NODE, true, graph, SwitchKind.BREAKER, open);
+        return new SwitchNode(id, id, NODE, true, graph, SwitchKind.DISCONNECTOR, open);
     }
 
     public SwitchKind getKind() {

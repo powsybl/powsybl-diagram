@@ -16,11 +16,7 @@ import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.assertEquals;
@@ -33,6 +29,31 @@ public abstract class AbstractTestCase {
     protected boolean writeFile = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
+
+    protected abstract LayoutParameters getLayoutParameters();
+
+    protected static LayoutParameters createDefaultLayoutParameters() {
+        return new LayoutParameters()
+            .setTranslateX(20)
+            .setTranslateY(50)
+            .setInitialXBus(0)
+            .setInitialYBus(260)
+            .setVerticalSpaceBus(25)
+            .setHorizontalBusPadding(20)
+            .setCellWidth(50)
+            .setExternCellHeight(250)
+            .setInternCellHeight(40)
+            .setStackHeight(30)
+            .setShowGrid(true)
+            .setShowInternalNodes(true)
+            .setScaleFactor(1)
+            .setHorizontalSubstationPadding(50)
+            .setVerticalSubstationPadding(50)
+            .setArrowDistance(20)
+            .setDrawStraightWires(false)
+            .setHorizontalSnakeLinePadding(30)
+            .setVerticalSnakeLinePadding(30);
+    }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("/ConvergenceLibrary");
@@ -51,15 +72,21 @@ public abstract class AbstractTestCase {
 
     private void writeToFileInHomeDir(String filename, StringWriter content) {
         if (writeFile) {
-            try {
-                OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(System.getProperty("user.home") + filename), StandardCharsets.UTF_8);
+            File homeFolder = new File(System.getProperty("user.home"));
+            File file = new File(homeFolder, filename);
+            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
                 fw.write(content.toString());
-                fw.close();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
         }
     }
+
+    public abstract void toSVG(Graph g, String filename);
+
+    public abstract void toSVG(SubstationGraph g, String filename);
+
+    public abstract void toSVG(ZoneGraph g, String filename);
 
     public String toSVG(Graph graph,
                         String filename,
@@ -150,6 +177,10 @@ public abstract class AbstractTestCase {
 
             writeToFileInHomeDir(filename, writer);
 
+            if (writeFile) {
+                toSVG(graph, filename.replace(".json", ".svg"));
+            }
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -161,6 +192,10 @@ public abstract class AbstractTestCase {
             graph.writeJson(writer);
 
             writeToFileInHomeDir(filename, writer);
+
+            if (writeFile) {
+                toSVG(graph, filename.replace(".json", ".svg"));
+            }
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
@@ -182,6 +217,9 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
             writeToFileInHomeDir(filename, writer);
+            if (writeFile) {
+                toSVG(graph, filename.replace(".json", ".svg"));
+            }
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);

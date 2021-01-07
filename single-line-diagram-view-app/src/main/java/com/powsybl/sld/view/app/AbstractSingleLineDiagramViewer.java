@@ -719,10 +719,6 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addPositionLayoutCheckBox("Remove fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isRemoveUnnecessaryFictitiousNodes, PositionVoltageLevelLayoutFactory::setRemoveUnnecessaryFictitiousNodes);
         rowIndex += 1;
         addPositionLayoutCheckBox("Substitute singular fictitious nodes", rowIndex, PositionVoltageLevelLayoutFactory::isSubstituteSingularFictitiousByFeederNode, PositionVoltageLevelLayoutFactory::setSubstituteSingularFictitiousByFeederNode);
-        rowIndex += 1;
-        addCheckBox("Shift feeders height", rowIndex, LayoutParameters::isShiftFeedersPosition, LayoutParameters::setShiftFeedersPosition);
-        rowIndex += 1;
-        addSpinner("Shift feeders height scale factor:", 1, 10, 1, rowIndex, LayoutParameters::getScaleShiftFeedersPosition, LayoutParameters::setScaleShiftFeedersPosition);
         rowIndex += 2;
         addSpinner("Scale factor:", 1, 20, 1, rowIndex, LayoutParameters::getScaleFactor, LayoutParameters::setScaleFactor);
         rowIndex += 2;
@@ -746,6 +742,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
         addCheckBox("HighLight line state", rowIndex, LayoutParameters::isHighlightLineState, LayoutParameters::setHighlightLineState);
         rowIndex += 2;
         addCheckBox("Add nodes infos", rowIndex, LayoutParameters::isAddNodesInfos, LayoutParameters::setAddNodesInfos);
+        rowIndex += 2;
+        addCheckBox("Feeder arrow symmetry", rowIndex, LayoutParameters::isFeederArrowSymmetry, LayoutParameters::setFeederArrowSymmetry);
     }
 
     private void setDiagramsNamesContent(Network network, boolean setValues) {

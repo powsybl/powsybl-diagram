@@ -13,6 +13,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.*;
@@ -89,6 +90,13 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
             getPosition().setSpan(H, 2);
             getPosition().setSpan(V, 0);
         }
+    }
+
+    @Override
+    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
+        // LegPrimaryBlock has a 0 vertical span (see sizing above) and its height should not be included in external
+        // cell height. Indeed, its height is fixed and corresponds to the layoutParameters.getStackSize().
+        return 0.;
     }
 
     @Override

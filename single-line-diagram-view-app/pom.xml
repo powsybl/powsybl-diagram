@@ -15,7 +15,7 @@
     <parent>
         <artifactId>powsybl-single-line-diagram</artifactId>
         <groupId>com.powsybl</groupId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>powsybl-single-line-diagram-view-app</artifactId>
@@ -32,6 +32,14 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-view</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <!-- The Xalan version from FranzXaver does not support http://javax.xml.XMLConstants/property/accessExternalDTD
+                 but JDK internal does -->
+                <exclusion>
+                    <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
@@ -61,13 +69,8 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.rdf4j</groupId>
-            <artifactId>rdf4j-rio-rdfxml</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.rdf4j</groupId>
-            <artifactId>rdf4j-runtime</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

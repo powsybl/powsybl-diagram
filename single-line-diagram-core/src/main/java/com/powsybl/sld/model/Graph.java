@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.library.ComponentTypeName;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.Position.Dimension.*;
+import static com.powsybl.sld.model.Position.Dimension.H;
+import static com.powsybl.sld.model.Position.Dimension.V;
 
 /**
  * This class builds the connectivity among the elements of a voltageLevel
@@ -289,21 +291,56 @@ public final class Graph {
                 });
     }
 
-    public void extendFeederWithMultipleSwitches() {
+    public void extendFeeders() {
         List<Node> nodesToAdd = new ArrayList<>();
-        nodes.stream().filter(n -> n instanceof FeederNode && n.getAdjacentNodes().size() > 1)
-                .forEach(node -> {
-                    // Create a new fictitious node
-                    InternalNode nf = new InternalNode(Graph.this, node.getId() + "Fictif");
-                    nodesToAdd.add(nf);
-                    // Create all new edges and remove old ones
-                    for (Node neighbor : node.getAdjacentNodes()) {
-                        addEdge(nf, neighbor);
-                        removeEdge(node, neighbor);
-                    }
-                    addEdge(node, nf);
-                });
-        nodes.addAll(nodesToAdd);
+        List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
+        for (Node feederNode : feederNodes) {
+            List<Node> adjacentNodes = feederNode.getAdjacentNodes();
+            boolean feeder3WT = adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
+            boolean feederConnectedToBus = adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
+            if (!feeder3WT && !feederConnectedToBus) {
+                // Create a new fictitious node
+                InternalNode nf = new InternalNode(feederNode.graph, feederNode.getId() + "Fictif");
+                nodesToAdd.add(nf);
+                // Create all new edges and remove old ones
+                for (Node neighbor : adjacentNodes) {
+                    addEdge(neighbor, nf);
+                    removeEdge(neighbor, feederNode);
+                }
+                addEdge(nf, feederNode);
+            } else {
+                // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an
+                // internal node, while Feeders directly connected to bus need special care
+                if (feederConnectedToBus) {
+                    // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
+                    //  - 1 fictitious disconnector on the bus
+                    //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
+                    addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
+                }
+            }
+        }
+
+        nodesToAdd.forEach(this::addNode);
+    }
+
+    private void addTripleNode(Node busNode, Node feederNode, List<Node> nodesToAdd) {
+        removeEdge(busNode, feederNode);
+
+        // Create nodes
+        SwitchNode fNodeToBus = SwitchNode.createFictitious(Graph.this, feederNode.getId() + "fSwitch", false);
+        InternalNode fNodeToSw1 = new InternalNode(Graph.this, feederNode.getId() + "fNode1");
+        InternalNode fNodeToSw2 = new InternalNode(Graph.this, feederNode.getId() + "fNode2");
+
+        // Nodes will be added afterwards
+        nodesToAdd.add(fNodeToBus);
+        nodesToAdd.add(fNodeToSw1);
+        nodesToAdd.add(fNodeToSw2);
+
+        // Add edges right away
+        addEdge(busNode, fNodeToBus);
+        addEdge(fNodeToBus, fNodeToSw1);
+        addEdge(fNodeToSw1, fNodeToSw2);
+        addEdge(fNodeToSw2, feederNode);
     }
 
     //add a fictitious node between 2 switches or between a switch and a feeder
@@ -493,30 +530,6 @@ public final class Graph {
 
     public boolean isPositionNodeBusesCalculated() {
         return getNodeBuses().stream().allMatch(n -> n.getPosition().get(H) != -1 && n.getPosition().get(V) != -1);
-    }
-
-    /**
-     * Adjust feeders height, positioning them on a descending/ascending ramp
-     * (depending on their BusCell direction)
-     */
-    public void shiftFeedersPosition(double scaleShiftFeederNames) {
-        Map<BusCell.Direction, List<Node>> orderedFeederNodesByDirection = getNodes().stream()
-                .filter(node -> !node.isFictitious() && node instanceof FeederNode && node.getCell() != null)
-                .sorted(Comparator.comparing(Node::getX))
-                .collect(Collectors.groupingBy(node -> nodeDirection.apply(node)));
-
-        Map<BusCell.Direction, Double> mapLev = Arrays.stream(BusCell.Direction.values()).collect(Collectors.toMap(d -> d, d -> 0.0));
-
-        Stream.of(BusCell.Direction.values())
-                .filter(direction -> orderedFeederNodesByDirection.get(direction) != null)
-                .forEach(direction ->
-                        orderedFeederNodesByDirection.get(direction).stream().skip(1).forEach(node -> {
-                            double oldY = node.getY();
-                            double newY = mapLev.get(direction) + scaleShiftFeederNames * VALUE_SHIFT_FEEDER;
-                            node.setY(oldY - getY() + ((direction == BusCell.Direction.TOP) ? 1 : -1) * newY);
-                            node.setInitY(oldY);
-                            mapLev.put(direction, newY);
-                        }));
     }
 
     public void writeJson(Path file) {

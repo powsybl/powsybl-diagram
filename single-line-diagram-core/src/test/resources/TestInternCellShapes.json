@@ -314,7 +314,7 @@
     "x" : 150.0,
     "y" : 260.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "flatDisconectorfSwitch1",
@@ -325,7 +325,7 @@
     "x" : 200.0,
     "y" : 260.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "verticalBreaker",

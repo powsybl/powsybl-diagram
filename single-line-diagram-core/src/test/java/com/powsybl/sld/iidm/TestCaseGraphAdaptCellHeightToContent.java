@@ -28,8 +28,18 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
+    private LayoutParameters layoutParameters;
+
+    @Override
+    protected LayoutParameters getLayoutParameters() {
+        return layoutParameters;
+    }
+
     @Before
     public void setUp() {
+        layoutParameters = createDefaultLayoutParameters()
+            .setExternCellHeight(200);
+
         network = Network.create("testCaseGraphAdaptCellHeightToContent", "test");
         graphBuilder = new NetworkGraphBuilder(network);
 
@@ -83,29 +93,29 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
     }
 
     @Test
-    public void test() {
+    public void testHeightFixed() {
         // layout parameters with extern cell height fixed
-        LayoutParameters layoutParameters = new LayoutParameters()
-                .setExternCellHeight(200)
-                .setShowInternalNodes(true)
-                .setAdaptCellHeightToContent(false);
+        getLayoutParameters()
+            .setAdaptCellHeightToContent(false);
 
         Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
-        layoutParameters.setShowGrid(true);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
         assertEquals(toString("/TestCaseGraphExternCellHeightFixed.json"), toJson(g, "/TestCaseGraphExternCellHeightFixed.json"));
+    }
 
+    @Test
+    public void testAdaptHeight() {
         // layout parameters with adapt cell height to content
-        LayoutParameters layoutParametersAdaptCellHeightToContent = new LayoutParameters(layoutParameters);
-        layoutParametersAdaptCellHeightToContent.setAdaptCellHeightToContent(true);
+        getLayoutParameters()
+            .setAdaptCellHeightToContent(true);
 
-        g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParametersAdaptCellHeightToContent);
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
         assertEquals(toString("/TestCaseGraphAdaptCellHeightToContent.json"), toJson(g, "/TestCaseGraphAdaptCellHeightToContent.json"));
     }
