@@ -22,7 +22,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.BusCell.Direction.*;
+import static com.powsybl.sld.model.BusCell.Direction.TOP;
+import static com.powsybl.sld.model.BusCell.Direction.UNDEFINED;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -82,6 +83,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
+
+        // Creation of snake lines for lines and transformers in the same voltage level
+        //addSnakeLines(graph, substation);
 
         handleGraphPostProcessors(graph);
 
@@ -553,11 +557,36 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         LOGGER.info("Number of node : {} ", graph.getNodes().size());
 
-        // Creation of snake lines for transformers between the voltage levels in the substation diagram
+        // Creation of snake lines for lines and transformers between the voltage levels in the substation diagram
         addSnakeLines(graph, substation);
     }
 
     private void addSnakeLines(SubstationGraph graph, Substation substation) {
+        // Lines
+        //
+        List<String> lines = new ArrayList<>();
+        substation.getVoltageLevelStream().forEach(voltageLevel ->
+                voltageLevel.getConnectableStream(Line.class).forEach(line -> {
+                    if (!lines.contains(line.getId())) {
+                        Terminal t1 = line.getTerminal1();
+                        Terminal t2 = line.getTerminal2();
+
+                        VoltageLevel vl1 = t1.getVoltageLevel();
+                        VoltageLevel vl2 = t2.getVoltageLevel();
+
+                        Graph g1 = graph.getNode(vl1.getId());
+                        Graph g2 = graph.getNode(vl2.getId());
+
+                        if (g1 != null && g2 != null) { // Only in the same substation
+                            Node n1 = g1.getNode(line.getId() + "_" + line.getSide(t1).name());
+                            Node n2 = g2.getNode(line.getId() + "_" + line.getSide(t2).name());
+                            graph.addEdge(line.getId(), n1, n2);
+                            lines.add(line.getId());
+                        }
+                    }
+                })
+        );
+
         // Two windings transformer
         //
         for (TwoWindingsTransformer transfo : substation.getTwoWindingsTransformers()) {
@@ -680,7 +709,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                 String substationId2 = line.getTerminal2().getVoltageLevel().getSubstation().getId();
                                 SubstationGraph sGraph1 = graph.getNode(substationId1);
                                 SubstationGraph sGraph2 = graph.getNode(substationId2);
-                                if (sGraph1 != null && sGraph2 != null) {
+                                if (sGraph1 != null && sGraph2 != null) { // Only between substations differents
                                     Graph vlGraph1 = sGraph1.getNode(voltageLevelId1);
                                     Graph vlGraph2 = sGraph2.getNode(voltageLevelId2);
                                     Node node1 = vlGraph1.getNode(nodeId1);

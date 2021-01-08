@@ -6,16 +6,18 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.*;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class builds the connectivity among the voltageLevels of a substation
@@ -29,7 +31,9 @@ public final class SubstationGraph {
 
     private final List<Graph> nodes = new ArrayList<>();
 
-    private List<TwtEdge> edges = new ArrayList<>();
+    private List<TwtEdge> twtEdges = new ArrayList<>();
+
+    private List<LineEdge> lineEdges = new ArrayList<>();
 
     private final Map<String, Graph> nodesById = new HashMap<>();
 
@@ -61,27 +65,45 @@ public final class SubstationGraph {
 
     public TwtEdge addEdge(Node node1, Node node2) {
         TwtEdge sl = new TwtEdge(node1, node2);
-        edges.add(sl);
+        twtEdges.add(sl);
         return sl;
+    }
+
+    public LineEdge addEdge(String lineId, Node node1, Node node2) {
+        LineEdge edge = new LineEdge(lineId, node1, node2);
+        lineEdges.add(edge);
+        return edge;
     }
 
     public List<Graph> getNodes() {
         return new ArrayList<>(nodes);
     }
 
-    public List<TwtEdge> getEdges() {
-        return new ArrayList<>(edges);
+    public List<Edge> getEdges() {
+        return Stream.concat(lineEdges.stream(), twtEdges.stream()).collect(Collectors.toList());
     }
 
-    public void setEdges(List<TwtEdge> edges) {
-        this.edges = edges;
+    public List<TwtEdge> getTwtEdges() {
+        return new ArrayList<>(twtEdges);
+    }
+
+    public void setTwtEdges(List<TwtEdge> twtEdges) {
+        this.twtEdges = twtEdges;
+    }
+
+    public List<LineEdge> getLineEdges() {
+        return new ArrayList<>(lineEdges);
     }
 
     public boolean graphAdjacents(Graph g1, Graph g2) {
-        int nbNodes = nodes.size();
-        for (int i = 0; i < nbNodes; i++) {
-            if (nodes.get(i) == g1 && i < (nbNodes - 1) && nodes.get(i + 1) == g2) {
-                return true;
+        if (g1 == g2) {
+            return true;
+        } else {
+            int nbNodes = nodes.size();
+            for (int i = 0; i < nbNodes; i++) {
+                if (nodes.get(i) == g1 && i < (nbNodes - 1) && nodes.get(i + 1) == g2) {
+                    return true;
+                }
             }
         }
         return false;
@@ -122,7 +144,12 @@ public final class SubstationGraph {
         }
         generator.writeEndArray();
         generator.writeArrayFieldStart("twtEdges");
-        for (TwtEdge edge : edges) {
+        for (TwtEdge edge : twtEdges) {
+            edge.writeJson(generator, generateCoordsInJson);
+        }
+        generator.writeEndArray();
+        generator.writeArrayFieldStart("lineEdges");
+        for (LineEdge edge : lineEdges) {
             edge.writeJson(generator, generateCoordsInJson);
         }
         generator.writeEndArray();

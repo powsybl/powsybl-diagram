@@ -6,28 +6,16 @@
  */
 package com.powsybl.sld.layout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell.Direction;
+
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.BusCell.Direction;
-import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.ExternCell;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.Side;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.TwtEdge;
-
-import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.Coord.Dimension.X;
+import static com.powsybl.sld.model.Coord.Dimension.Y;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -160,6 +148,14 @@ public abstract class AbstractSubstationLayout implements SubstationLayout {
                 ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
                 multiNode.setX(coordNodeFict.get(X), false);
                 multiNode.setY(coordNodeFict.get(Y), false);
+            }
+        }
+
+        for (LineEdge lineEdge : graph.getLineEdges()) {
+            List<Node> adjacentNodes = lineEdge.getNodes();
+            List<Double> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), infos, true);
+            for (int i = 0; i < pol.size(); i += 2) {
+                lineEdge.addPoint(pol.get(i), pol.get(i + 1));
             }
         }
     }

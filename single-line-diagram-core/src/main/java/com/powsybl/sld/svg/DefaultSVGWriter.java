@@ -51,6 +51,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
+    protected static final String FILL = "fill";
     protected static final int FONT_SIZE = 8;
     protected static final String FONT_FAMILY = "Verdana";
     protected static final double LABEL_OFFSET = 5d;
@@ -904,9 +905,9 @@ public class DefaultSVGWriter implements SVGWriter {
             // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 arrows,
             // we compute the distance between feeder anchor and first arrow so that the two arrows are centered.
             double distFeederAnchorToFirstArrowCenter =
-                distancePoints >= 2 * layoutParameters.getArrowDistance() + 2 * componentSize.getHeight()
-                    ? layoutParameters.getArrowDistance()
-                    : (distancePoints - 2 * componentSize.getHeight()) / 2;
+                    distancePoints >= 2 * layoutParameters.getArrowDistance() + 2 * componentSize.getHeight()
+                            ? layoutParameters.getArrowDistance()
+                            : (distancePoints - 2 * componentSize.getHeight()) / 2;
             double x = x1 + cosAngle * (distFeederAnchorToFirstArrowCenter + shift);
             double y = y1 + sinAngle * (distFeederAnchorToFirstArrowCenter + shift);
 
@@ -976,7 +977,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // we draw the arrow only if value 1 is present
         label1.ifPresent(lb ->
-                        drawArrowAndLabel(prefixId, wireId, points, root, feederNode, lb, init.getLabel3(), direction1, 0, iArrow1, metadata, styleProvider));
+                drawArrowAndLabel(prefixId, wireId, points, root, feederNode, lb, init.getLabel3(), direction1, 0, iArrow1, metadata, styleProvider));
 
         // we draw the arrow only if value 2 is present
         label2.ifPresent(lb -> {
@@ -1092,12 +1093,40 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     /*
+     * Drawing the zone graph edges (snakelines between station diagram)
+     */
+    protected void drawSnakeLines(String prefixId, Element root, ZoneGraph graph,
+                                  GraphMetadata metadata, DiagramStyleProvider styleProvider,
+                                  AnchorPointProvider anchorPointProvider) {
+        for (LineEdge edge : graph.getEdges()) {
+            Graph g1 = edge.getNode1().getGraph();
+            Graph g2 = edge.getNode2().getGraph();
+
+            if (g1 == null || g2 == null) {
+                throw new AssertionError("Edge with a node outside any graph");
+            }
+            drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
+        }
+    }
+
+    /*
      * Drawing the substation graph edges (snakelines between voltageLevel diagram)
      */
     protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
-        for (TwtEdge edge : graph.getEdges()) {
+
+        for (LineEdge edge : graph.getLineEdges()) {
+            Graph g1 = edge.getNode1().getGraph();
+            Graph g2 = edge.getNode2().getGraph();
+
+            if (g1 == null || g2 == null) {
+                throw new AssertionError("Edge with a node outside any graph");
+            }
+            drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
+        }
+
+        for (TwtEdge edge : graph.getTwtEdges()) {
             Graph g1 = edge.getNode1().getGraph();
             Graph g2 = edge.getNode2().getGraph();
 
@@ -1108,48 +1137,43 @@ public class DefaultSVGWriter implements SVGWriter {
                 throw new AssertionError("One node must be outside any graph");
             }
 
-            String wireId = getWireId(prefixId, graph.getSubstationId(), edge);
-
-            Element g = root.getOwnerDocument().createElement("g");
-            g.setAttribute("id", wireId);
-            g.setAttribute(CLASS, WIRE_STYLE_CLASS);
-            root.appendChild(g);
-
-            Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-
-            Map<String, String> styleAttributes = styleProvider.getSvgWireStyleAttributes(edge, layoutParameters.isHighlightLineState());
-            styleAttributes.forEach(polyline::setAttribute);
-
-            // Get the points of the snakeLine, already calculated during the layout application
-            List<Double> pol = edge.getSnakeLine();
-            if (!pol.isEmpty()) {
-                adaptCoordSnakeLine(anchorPointProvider, edge, pol);
-            }
-
-            polyline.setAttribute(POINTS, pointsListToString(pol));
-
-            g.appendChild(polyline);
-
-            metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
-                    escapeId(edge.getNode1().getId()),
-                    escapeId(edge.getNode2().getId()),
-                    layoutParameters.isDrawStraightWires(),
-                    true));
-
-            if (metadata.getComponentMetadata(ARROW) == null) {
-                metadata.addComponentMetadata(new ComponentMetadata(ARROW,
-                        null,
-                        componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW), true, null));
-            }
+            drawSnakeLines(edge, getWireId(prefixId, graph.getSubstationId(), edge), root, metadata, styleProvider, anchorPointProvider);
         }
+    }
+
+    protected void drawSnakeLines(AbstractBranchEdge edge, String wireId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider,
+                                  AnchorPointProvider anchorPointProvider) {
+        Element g = root.getOwnerDocument().createElement("g");
+        g.setAttribute("id", wireId);
+        g.setAttribute(CLASS, WIRE_STYLE_CLASS);
+        g.setAttribute(FILL, "none");
+        root.appendChild(g);
+
+        Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+        Map<String, String> styleAttributes = styleProvider.getSvgWireStyleAttributes(edge, layoutParameters.isHighlightLineState());
+        styleAttributes.forEach(polyline::setAttribute);
+
+        // Get the points of the snakeLine, already calculated during the layout application
+        List<Double> pol = edge.getSnakeLine();
+        if (!pol.isEmpty()) {
+            adaptCoordSnakeLine(anchorPointProvider, edge, pol);
+        }
+        polyline.setAttribute(POINTS, pointsListToString(pol));
+
+        g.appendChild(polyline);
+
+        metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+                escapeId(edge.getNode1().getId()),
+                escapeId(edge.getNode2().getId()),
+                layoutParameters.isDrawStraightWires(),
+                true));
     }
 
     /*
      * Adaptation of the previously calculated snakeLine points, in order to use the anchor points
-     * of the node outside any graph
+     * if a node is outside any graph
      */
-    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, TwtEdge edge, List<Double> pol) {
+    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, AbstractBranchEdge edge, List<Double> pol) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
@@ -1328,27 +1352,9 @@ public class DefaultSVGWriter implements SVGWriter {
             drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider);
         }
 
-        drawLines(prefixId, root, graph, metadata);
-    }
+        AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
 
-    private void drawLines(String prefixId, Element root, ZoneGraph graph, GraphMetadata metadata) {
-        for (LineEdge edge : graph.getEdges()) {
-            String lineId = escapeId(prefixId + edge.getLineId());
-
-            Element g = root.getOwnerDocument().createElement(POLYLINE);
-            g.setAttribute("id", lineId);
-            String polyline = edge.getPoints()
-                    .stream()
-                    .map(point -> (point.getX() + layoutParameters.getTranslateX()) + "," + (point.getY() + layoutParameters.getTranslateY()))
-                    .collect(Collectors.joining(","));
-            g.setAttribute(POINTS, polyline);
-            g.setAttribute(CLASS, DiagramStyles.LINE_STYLE_CLASS + " " + escapeClassName(edge.getLineId()));
-            root.appendChild(g);
-
-            metadata.addLineMetadata(new GraphMetadata.LineMetadata(lineId,
-                    escapeId(edge.getNode1().getId()),
-                    escapeId(edge.getNode2().getId())));
-        }
+        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
     }
 
     /*
@@ -1376,7 +1382,7 @@ public class DefaultSVGWriter implements SVGWriter {
         });
     }
 
-   /*
+    /*
      * Drawing the voltageLevel nodes infos
      */
     private void drawNodeInfos(ElectricalNodeInfo nodeInfo,

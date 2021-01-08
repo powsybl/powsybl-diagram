@@ -34,7 +34,7 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
         assertEquals(toString("/TestCase11SubstationGraphSmart.json"), toJson(g, "/TestCase11SubstationGraphSmart.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
-        assertEquals(19, g.getEdges().size());
+        assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
 
         // write Json and compare to reference (with smart substation layout and horizontal compaction)
@@ -43,7 +43,7 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
         assertEquals(toString("/TestCase11SubstationGraphSmartHorizontal.json"), toJson(g, "/TestCase11SubstationGraphSmartHorizontal.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
-        assertEquals(19, g.getEdges().size());
+        assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
 
         // write Json and compare to reference (with smart substation layout and vertical compaction)
@@ -52,7 +52,7 @@ public class TestCaseSmartSubstationGraph extends TestCase11SubstationGraph {
         assertEquals(toString("/TestCase11SubstationGraphSmartVertical.json"), toJson(g, "/TestCase11SubstationGraphSmartVertical.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
-        assertEquals(19, g.getEdges().size());
+        assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
     }
 }

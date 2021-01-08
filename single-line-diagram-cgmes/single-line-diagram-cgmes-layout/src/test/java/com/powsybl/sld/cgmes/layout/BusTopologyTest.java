@@ -500,7 +500,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     private void checkSubstationTwt(SubstationGraph graph, int edgesNumber) {
-        assertEquals(edgesNumber, graph.getEdges().size());
+        assertEquals(edgesNumber, graph.getTwtEdges().size());
         assertEquals(1, graph.getMultiTermNodes().size());
         assertEquals(200, graph.getMultiTermNodes().get(0).getX(), 0);
         assertEquals(20, graph.getMultiTermNodes().get(0).getY(), 0);

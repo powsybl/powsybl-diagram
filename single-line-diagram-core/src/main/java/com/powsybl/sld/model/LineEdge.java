@@ -12,12 +12,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class LineEdge extends Edge {
+public class LineEdge extends AbstractBranchEdge {
 
     private final String lineId;
     private List<Point> points = new ArrayList<>();
@@ -41,6 +43,13 @@ public class LineEdge extends Edge {
 
     public List<Point> getPoints() {
         return points;
+    }
+
+    public List<Double> getSnakeLine() {
+        return getPoints()
+            .stream()
+            .flatMap(point -> Stream.of(point.getX(), point.getY()))
+            .collect(Collectors.toList());
     }
 
     public class Point {

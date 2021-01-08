@@ -17,7 +17,7 @@ import java.util.Objects;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class TwtEdge extends Edge {
+public class TwtEdge extends AbstractBranchEdge {
 
     private List<Double> snakeLine = new ArrayList<>();
 

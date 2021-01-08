@@ -216,6 +216,15 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 multiNode.setY(coordNodeFict.get(Y), false);
             }
         }
+
+        for (LineEdge lineEdge : graph.getLineEdges()) {
+            List<Node> adjacentNodes = lineEdge.getNodes();
+            List<Double> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+            for (int i = 0; i < pol.size(); i += 2) {
+                lineEdge.addPoint(pol.get(i), pol.get(i + 1));
+            }
+        }
+
     }
 
     protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
