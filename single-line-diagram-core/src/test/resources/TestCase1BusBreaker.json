@@ -18,6 +18,17 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
+    "id" : "FICT_vl_b1_sw",
+    "name" : "b1_sw",
+    "equipmentId" : "b1_sw",
+    "componentType" : "BUSBREAKER_CONNECTION",
+    "fictitious" : true,
+    "x" : 25.0,
+    "y" : 285.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
     "id" : "FICT_vl_b2_sw",
     "name" : "b2_sw",
     "equipmentId" : "b2_sw",
@@ -36,17 +47,6 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 42.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl_swfNode",
-    "name" : "swfNode",
-    "equipmentId" : "swfNode",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 25.0,
-    "y" : 220.0,
-    "rotationAngle" : 90.0,
     "open" : false
   }, {
     "type" : "BUS",
@@ -111,17 +111,6 @@
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
-  }, {
-    "type" : "SWITCH",
-    "id" : "swfSwitch",
-    "name" : "swfSwitch",
-    "equipmentId" : "swfSwitch",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 25.0,
-    "y" : 285.0,
-    "open" : false,
-    "kind" : "DISCONNECTOR"
   } ],
   "cells" : [ {
     "type" : "INTERN",
@@ -166,7 +155,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b2", "swfSwitch", "FICT_vl_swfNode" ]
+        "nodes" : [ "b2", "FICT_vl_b1_sw" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -187,7 +176,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "FICT_vl_swfNode", "sw", "FICT_vl_b2_sw" ]
+        "nodes" : [ "FICT_vl_b1_sw", "sw", "FICT_vl_b2_sw" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -306,25 +295,22 @@
     "node1" : "b1",
     "node2" : "FICT_vl_b1_l"
   }, {
+    "node1" : "FICT_vl_b1_sw",
+    "node2" : "sw"
+  }, {
     "node1" : "FICT_vl_b2_sw",
     "node2" : "sw"
   }, {
     "node1" : "b1",
     "node2" : "FICT_vl_b2_sw"
   }, {
+    "node1" : "FICT_vl_b1_sw",
+    "node2" : "b2"
+  }, {
     "node1" : "FICT_vl_b1_l",
     "node2" : "FICT_vl_lFictif"
   }, {
     "node1" : "FICT_vl_lFictif",
     "node2" : "l"
-  }, {
-    "node1" : "b2",
-    "node2" : "swfSwitch"
-  }, {
-    "node1" : "swfSwitch",
-    "node2" : "FICT_vl_swfNode"
-  }, {
-    "node1" : "FICT_vl_swfNode",
-    "node2" : "sw"
   } ]
 }

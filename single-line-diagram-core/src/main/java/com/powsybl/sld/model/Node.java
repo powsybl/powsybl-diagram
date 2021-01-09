@@ -111,6 +111,10 @@ public class Node implements BaseNode {
         return fictitious;
     }
 
+    public boolean isInternalNode() {
+        return false;
+    }
+
     public void setType(NodeType type) {
         this.type = type;
     }

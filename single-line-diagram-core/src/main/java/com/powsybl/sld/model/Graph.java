@@ -106,7 +106,7 @@ public final class Graph {
 
     public void removeUnnecessaryFictitiousNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node.getType() == Node.NodeType.FICTITIOUS && !(node instanceof BusBreakerConnection))
+                .filter(node -> node.isInternalNode())
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -454,7 +454,7 @@ public final class Graph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
+            if (adjs.size() == 1 && adjs.get(0).isInternalNode()) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
@@ -464,7 +464,7 @@ public final class Graph {
 
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
-                .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
+                .filter(n -> n.isInternalNode() && n.getAdjacentEdges().size() == 1)
                 .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId(), Orientation.UP)));
     }
 
