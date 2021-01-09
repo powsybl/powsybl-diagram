@@ -52,6 +52,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
     protected static final String FILL = "fill";
+    protected static final String POINTER_EVENTS = "pointer-events";
     protected static final int FONT_SIZE = 8;
     protected static final String FONT_FAMILY = "Verdana";
     protected static final double LABEL_OFFSET = 5d;
@@ -1115,7 +1116,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
-
         for (LineEdge edge : graph.getLineEdges()) {
             Graph g1 = edge.getNode1().getGraph();
             Graph g2 = edge.getNode2().getGraph();
@@ -1147,6 +1147,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", wireId);
         g.setAttribute(CLASS, WIRE_STYLE_CLASS);
         g.setAttribute(FILL, "none");
+        g.setAttribute(POINTER_EVENTS, "none");
         root.appendChild(g);
 
         Element polyline = root.getOwnerDocument().createElement(POLYLINE);

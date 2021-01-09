@@ -12,19 +12,11 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.FeederType;
-import com.powsybl.sld.model.FeederWithSideNode;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.ElectricalNodeInfo;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -107,13 +99,14 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             }
 
             if (side != null && otherSide != null) {
-                if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
+                if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {        // disconnected on both ends
                     style.put("stroke", BLACK_COLOR);
+                    style.put("stroke-dasharray", STROKE_DASHARRAY);
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
                     style.put("stroke", color);
                     style.put("stroke-dasharray", STROKE_DASHARRAY);
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    style.put("stroke", BLACK_COLOR);
+                    style.put("stroke", edge instanceof LineEdge ? color : BLACK_COLOR);
                     style.put("stroke-dasharray", STROKE_DASHARRAY);
                 }
             }

@@ -9,6 +9,8 @@ package com.powsybl.sld.util;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.VoltageLevelInfos;
@@ -150,7 +152,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    protected String getEdgeColor(Node node1, Node node2) {
+    protected String getEdgeColor(Edge edge, Node node1, Node node2) {
         if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
             return node2.getVoltageLevelInfos() != null ? getNodeColor(node2.getVoltageLevelInfos(), node2) : null;
         }
@@ -158,7 +160,12 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             return node1.getVoltageLevelInfos() != null ? getNodeColor(node1.getVoltageLevelInfos(), node1) : null;
         }
 
-        return super.getEdgeColor(node1, node2);
+        String color = super.getEdgeColor(edge, node1, node2);
+        if (disconnectedColor.equals(color) && edge instanceof LineEdge) {
+            color = super.getEdgeColor(edge, node2, node1);
+        }
+
+        return color;
     }
 
     @Override

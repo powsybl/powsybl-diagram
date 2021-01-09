@@ -236,10 +236,10 @@
             <circle cx="5" cy="10" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle cx="5" cy="5" id="idTransformer_95_ONE_95_Transformer_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
-        <g class="wire" fill="none" id="_95_Substation1_95_Transformer_95_ONE_95_Transformer_95_ONE_95_Transformer_95_TWO">
+        <g class="wire" fill="none" id="_95_Substation1_95_Transformer_95_ONE_95_Transformer_95_ONE_95_Transformer_95_TWO" pointer-events="none">
             <polyline points="70.0,350.0,70.0,370.0,70.0,392.0"/>
         </g>
-        <g class="wire" fill="none" id="_95_Substation1_95_Transformer_95_ONE_95_Transformer_95_TWO_95_Transformer_95_TWO">
+        <g class="wire" fill="none" id="_95_Substation1_95_Transformer_95_ONE_95_Transformer_95_TWO_95_Transformer_95_TWO" pointer-events="none">
             <polyline points="70.0,408.0,70.0,430.0,70.0,450.0"/>
         </g>
         <g class="BUSBAR_SECTION idBus21" id="idBus21" transform="translate(150.0,1150.0)">
@@ -297,7 +297,7 @@
         <g class="LINE idLine_95_TWO" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
             <text class="component-label" font-family="Verdana" font-size="8" id="Line_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Line</text>
         </g>
-        <g class="wire" fill="none" id="idLine">
+        <g class="wire" fill="none" id="idLine" pointer-events="none">
             <polyline points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0"/>
         </g>
         <g id="LABEL_VL_VoltageLevel11">
