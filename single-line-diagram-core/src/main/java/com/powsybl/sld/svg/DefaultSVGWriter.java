@@ -996,7 +996,7 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
-        double shY = cd.getSize().getHeight() - LABEL_OFFSET;
+        double shY = cd.getSize().getHeight() / 2;
 
         double y1 = points.get(1);
         double y2 = points.get(3);
