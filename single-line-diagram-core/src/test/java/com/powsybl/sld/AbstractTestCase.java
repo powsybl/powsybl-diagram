@@ -52,7 +52,8 @@ public abstract class AbstractTestCase {
             .setArrowDistance(20)
             .setDrawStraightWires(false)
             .setHorizontalSnakeLinePadding(30)
-            .setVerticalSnakeLinePadding(30);
+            .setVerticalSnakeLinePadding(30)
+            .setCssInternal(true);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
