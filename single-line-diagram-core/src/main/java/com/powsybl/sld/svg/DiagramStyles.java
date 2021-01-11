@@ -22,6 +22,8 @@ public final class DiagramStyles {
     public static final String GRID_STYLE_CLASS = "grid";
     public static final String BUS_STYLE_CLASS = "busbar-section";
     public static final String LABEL_STYLE_CLASS = "component-label";
+    public static final String GRAPH_LABEL_STYLE_CLASS = "graph-label";
+    public static final String ARROW_LABEL_STYLE_CLASS = "arrow-label";
     public static final String LINE_STYLE_CLASS = "line";
     public static final String ARROW_ACTIVE_CLASS = "arrow-p";
     public static final String ARROW_REACTIVE_CLASS = "arrow-q";
@@ -34,6 +36,8 @@ public final class DiagramStyles {
     public static final String WIRE_DISCONNECTED = "wire-disconnected";
     public static final String WIRE_CONNECTED_DISCONNECTED = "wire-connected-disconnected";
     public static final String WIRE_DISCONNECTED_CONNECTED = "wire-disconnected-connected";
+    public static final String BOTTOM_FEEDER = "bottom-feeder";
+    public static final String TOP_FEEDER = "top-feeder";
     public static final String CONSTANT_COLOR_CLASS = "constant-color";
     private static final String ID_PREFIX = "id";
 

@@ -6,9 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.InternalNode;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,6 +48,10 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         List<String> styles = new ArrayList<>();
         styles.add(getNodeDiagramStyle(node));
 
+        if (node instanceof FeederNode && node.getCell() != null) {
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            styles.add(direction == BusCell.Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+        }
         if (isConstantColor(node)) {
             styles.add(CONSTANT_COLOR_CLASS);
         }

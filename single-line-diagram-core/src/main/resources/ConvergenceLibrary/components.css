@@ -45,14 +45,14 @@
     fill:blue
 }
 
+.graph-label {
+    font: 12px "Verdana";
+}
+
 .component-label {
     font: 8px "Verdana";
 }
 
-.arrow-p .component-label {
-    dominant-baseline: middle
-}
-
-.arrow-q .component-label {
-    dominant-baseline: middle
+.arrow-label {
+    font: 8px "Verdana";
 }

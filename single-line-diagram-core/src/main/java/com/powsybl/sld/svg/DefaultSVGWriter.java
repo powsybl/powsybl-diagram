@@ -515,7 +515,7 @@ public class DefaultSVGWriter implements SVGWriter {
             LabelPosition labelPosition = nodeLabel.getPosition();
             drawLabel(prefixId + labelPosition.getPositionName(), nodeLabel.getLabel(),
                     labelPosition.getdX(), labelPosition.getdY(), g, labelPosition.isCentered(),
-                    labelPosition.getShiftAngle());
+                    labelPosition.getShiftAngle(), DiagramStyles.LABEL_STYLE_CLASS);
         }
     }
 
@@ -550,7 +550,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawLabel(null, graph.isUseName()
                         ? graph.getVoltageLevelInfos().getName()
                         : graph.getVoltageLevelInfos().getId(),
-                graph.getX(), yPos, gLabel, false, 0);
+                graph.getX(), yPos, gLabel, false, 0, DiagramStyles.GRAPH_LABEL_STYLE_CLASS);
         root.appendChild(gLabel);
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
@@ -591,14 +591,14 @@ public class DefaultSVGWriter implements SVGWriter {
      * Drawing the voltageLevel graph busbar section names and feeder names
      */
     protected void drawLabel(String idLabel, String str, double xShift, double yShift, Element g,
-                             boolean centered, int shiftAngle) {
+                             boolean centered, int shiftAngle, String labelStyle) {
         Element label = g.getOwnerDocument().createElement("text");
         if (!StringUtils.isEmpty(idLabel)) {
             label.setAttribute("id", idLabel);
         }
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute(CLASS, DiagramStyles.LABEL_STYLE_CLASS);
+        label.setAttribute(CLASS, labelStyle);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         if (centered) {
@@ -1003,14 +1003,14 @@ public class DefaultSVGWriter implements SVGWriter {
         transformArrow(points, cd.getSize(), shift, g);
 
         insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize());
-        drawLabel(null, labelR, shX, shY, g, false, 0);
+        drawLabel(null, labelR, shX, shY, g, false, 0, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
 
         List<String> styles = new ArrayList<>(2);
         styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
         dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
         g.setAttribute(CLASS, String.join(" ", styles));
 
-        labelL.ifPresent(s -> drawLabel(null, s, -LABEL_OFFSET, shY, g, false, 0));
+        labelL.ifPresent(s -> drawLabel(null, s, -LABEL_OFFSET, shY, g, false, 0,  DiagramStyles.ARROW_LABEL_STYLE_CLASS));
 
         root.appendChild(g);
         metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));

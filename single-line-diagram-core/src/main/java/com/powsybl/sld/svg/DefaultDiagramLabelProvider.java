@@ -23,7 +23,6 @@ import java.util.Objects;
 public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
-    private static final int FONT_SIZE = 8;
 
     private final Network network;
     private final ComponentLibrary componentLibrary;
@@ -136,7 +135,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         if (node.getCell() != null) {
             yShift = direction == BusCell.Direction.TOP
                     ? -LABEL_OFFSET
-                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + FONT_SIZE + LABEL_OFFSET);
+                    : ((int) (componentLibrary.getSize(node.getComponentType()).getHeight()) + LABEL_OFFSET);
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
             if (layoutParameters.isLabelDiagonal()) {
                 angle = direction == BusCell.Direction.TOP ? -layoutParameters.getAngleLabelShift() : layoutParameters.getAngleLabelShift();

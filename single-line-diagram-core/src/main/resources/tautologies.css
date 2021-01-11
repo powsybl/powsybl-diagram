@@ -21,3 +21,15 @@
 polyline {
     fill: none
 }
+
+.top-feeder .component-label {
+    dominant-baseline: auto;
+}
+
+.bottom-feeder .component-label {
+    dominant-baseline: hanging
+}
+
+.arrow-label {
+    dominant-baseline: middle
+}
