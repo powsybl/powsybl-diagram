@@ -463,7 +463,7 @@ public class DefaultSVGWriter implements SVGWriter {
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement("g");
             g.setAttribute("id", nodeId);
-            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, layoutParameters.isShowInternalNodes())));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             if (node.getType() == Node.NodeType.BUS) {
                 drawBus((BusNode) node, g);
@@ -499,13 +499,17 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
                     nodeId,
                     anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, node.getId()),
-                    new ComponentSize(0, 0), true, null));
+                    new ComponentSize(0, 0),
+                    componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
+                    true, null));
         } else {
             if (metadata.getComponentMetadata(node.getComponentType()) == null) {
                 metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
                         null,
                         componentLibrary.getAnchorPoints(node.getComponentType()),
-                        componentLibrary.getSize(node.getComponentType()), true, null));
+                        componentLibrary.getSize(node.getComponentType()),
+                        componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
+                        true, null));
             }
         }
     }
@@ -1062,7 +1066,9 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW), true, null));
+                        componentLibrary.getSize(ARROW),
+                        componentLibrary.getComponentStyleClass(ARROW).orElse(null),
+                        true, null));
             }
 
             if (edge.getNode1() instanceof FeederNode) {
@@ -1132,7 +1138,9 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponentMetadata(new ComponentMetadata(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW), true, null));
+                        componentLibrary.getSize(ARROW),
+                        componentLibrary.getComponentStyleClass(ARROW).orElse(null),
+                        true, null));
             }
         }
     }
@@ -1359,7 +1367,7 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute("id", nodeId);
 
             g.setAttribute(CLASS, String.join(" ",
-                styleProvider.getSvgNodeStyles(node, layoutParameters.isShowInternalNodes())));
+                styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, node, g, styleProvider);
 

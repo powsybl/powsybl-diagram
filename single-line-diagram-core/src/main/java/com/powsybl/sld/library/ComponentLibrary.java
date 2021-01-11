@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -33,4 +34,6 @@ public interface ComponentLibrary {
     List<String> getCssFilenames();
 
     List<URL> getCssUrls();
+
+    Optional<String> getComponentStyleClass(String componentType);
 }

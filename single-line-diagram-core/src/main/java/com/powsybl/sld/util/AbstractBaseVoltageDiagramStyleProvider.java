@@ -10,6 +10,7 @@ import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
@@ -42,8 +43,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     @Override
-    public List<String> getSvgNodeStyles(Node node, boolean showInternalNodes) {
-        List<String> styles = super.getSvgNodeStyles(node, showInternalNodes);
+    public List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+        List<String> styles = super.getSvgNodeStyles(node, componentLibrary, showInternalNodes);
 
         Graph g = node.getGraph();
         if (g != null) {  // node inside a voltageLevel graph

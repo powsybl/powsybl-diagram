@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
 import java.net.URL;
@@ -43,10 +44,10 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getSvgNodeStyles(Node node, boolean showInternalNodes) {
+    public List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
 
         List<String> styles = new ArrayList<>();
-        styles.add(getNodeDiagramStyle(node));
+        componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
 
         if (node instanceof FeederNode && node.getCell() != null) {
             BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
@@ -67,11 +68,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     protected boolean isConstantColor(Node node) {
         return true;
-    }
-
-    private String getNodeDiagramStyle(Node node) {
-        String componentType = node.getComponentType();
-        return componentType.toLowerCase().replace('_', '-'); //FIXME: Add style info to Component class / xml
     }
 
     @Override

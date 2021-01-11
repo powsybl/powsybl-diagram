@@ -144,6 +144,13 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
+    public Optional<String> getComponentStyleClass(String type) {
+        Objects.requireNonNull(type);
+        Component component = components.get(type);
+        return component != null ? Optional.ofNullable(component.getMetadata().getStyleClass()) : Optional.empty();
+    }
+
+    @Override
     public boolean isAllowRotation(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
