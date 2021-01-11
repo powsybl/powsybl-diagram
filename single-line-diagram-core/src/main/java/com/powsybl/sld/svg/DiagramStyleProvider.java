@@ -9,6 +9,7 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 
 import java.net.URL;
@@ -25,6 +26,8 @@ public interface DiagramStyleProvider {
 
     List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
+    List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary);
+
     List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName);
 
     void reset();
@@ -36,4 +39,5 @@ public interface DiagramStyleProvider {
     List<String> getCssFilenames();
 
     List<URL> getCssUrls();
+
 }

@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
 import java.net.URL;
@@ -66,7 +67,21 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return styles;
     }
 
+    @Override
+    public List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary) {
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(ComponentTypeName.LINE).ifPresent(styles::add);
+        if (isConstantColor(edge)) {
+            styles.add(CONSTANT_COLOR_CLASS);
+        }
+        return styles;
+    }
+
     protected boolean isConstantColor(Node node) {
+        return true;
+    }
+
+    private boolean isConstantColor(LineEdge edge) {
         return true;
     }
 

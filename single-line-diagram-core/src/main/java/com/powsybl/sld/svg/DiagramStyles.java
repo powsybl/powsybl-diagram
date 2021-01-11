@@ -23,7 +23,6 @@ public final class DiagramStyles {
     public static final String LABEL_STYLE_CLASS = "component-label";
     public static final String GRAPH_LABEL_STYLE_CLASS = "graph-label";
     public static final String ARROW_LABEL_STYLE_CLASS = "arrow-label";
-    public static final String LINE_STYLE_CLASS = "line";
     public static final String ARROW_ACTIVE_CLASS = "arrow-p";
     public static final String ARROW_REACTIVE_CLASS = "arrow-q";
     public static final String UP_CLASS = "up";

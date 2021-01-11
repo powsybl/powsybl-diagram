@@ -7,6 +7,10 @@
     stroke: red
 }
 
+.line.constant-color {
+    stroke: blue
+}
+
 .node.constant-color {
     stroke: none;
     fill: black

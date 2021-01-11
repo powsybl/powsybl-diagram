@@ -1328,10 +1328,10 @@ public class DefaultSVGWriter implements SVGWriter {
             drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider);
         }
 
-        drawLines(prefixId, root, graph, metadata);
+        drawLines(prefixId, root, graph, metadata, styleProvider);
     }
 
-    private void drawLines(String prefixId, Element root, ZoneGraph graph, GraphMetadata metadata) {
+    private void drawLines(String prefixId, Element root, ZoneGraph graph, GraphMetadata metadata, DiagramStyleProvider styleProvider) {
         for (LineEdge edge : graph.getEdges()) {
             String lineId = escapeId(prefixId + edge.getLineId());
 
@@ -1342,7 +1342,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     .map(point -> (point.getX() + layoutParameters.getTranslateX()) + "," + (point.getY() + layoutParameters.getTranslateY()))
                     .collect(Collectors.joining(","));
             g.setAttribute(POINTS, polyline);
-            g.setAttribute(CLASS, DiagramStyles.LINE_STYLE_CLASS + " " + escapeClassName(edge.getLineId()));
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getZoneLineStyles(edge, componentLibrary)));
             root.appendChild(g);
 
             metadata.addLineMetadata(new GraphMetadata.LineMetadata(lineId,
