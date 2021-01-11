@@ -10,7 +10,6 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -102,8 +101,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
-        BaseVoltageStyle baseVoltageStyle = BaseVoltageStyle.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
-        TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(baseVoltageStyle, network);
+        TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(network);
 
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, true);

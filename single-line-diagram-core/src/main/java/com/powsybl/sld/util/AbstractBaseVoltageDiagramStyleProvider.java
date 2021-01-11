@@ -10,7 +10,6 @@ import com.powsybl.iidm.network.Branch;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
@@ -31,12 +30,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     private static final String WINDING3 = "WINDING3";
     private static final String BASE_VOLTAGE_PROFILE = "Default";
 
-    protected final BaseVoltageStyle baseVoltageStyle;
-
     protected final Network network;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
-        this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
+    protected AbstractBaseVoltageDiagramStyleProvider(Network network) {
         this.network = network;
     }
 
@@ -155,7 +151,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
+        return Optional.of("vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
     }
 
     private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {

@@ -8,7 +8,6 @@ package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.color.BaseVoltageStyle;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -53,8 +52,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        BaseVoltageStyle baseVoltageStyle = BaseVoltageStyle.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
-        styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageStyle, network);
+        styleProvider = new NominalVoltageDiagramStyleProvider(network);
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 10);

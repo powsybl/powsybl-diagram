@@ -7,7 +7,6 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.color.BaseVoltageStyle;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -16,11 +15,7 @@ import com.powsybl.sld.color.BaseVoltageStyle;
 public class NominalVoltageDiagramStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
     public NominalVoltageDiagramStyleProvider(Network network) {
-        this(BaseVoltageStyle.fromPlatformConfig(), network);
-    }
-
-    public NominalVoltageDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
-        super(baseVoltageStyle, network);
+        super(network);
     }
 
 }
