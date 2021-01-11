@@ -11,25 +11,9 @@
 }
 
 .vsc-converter-station {
-    font-size: 7.4314661px;
-    line-height: 1.25;
+    font-size: 7.43px;
     font-family: sans-serif;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-feature-settings: normal;
-    text-align: start;
-    letter-spacing: 0px;
     word-spacing: 0px;
-    writing-mode: lr-tb;
-    text-anchor: start;
-    stroke-miterlimit: 4;
-}
-
-.phase-shift-transformer {
-    stroke-linecap: butt;
-    stroke-linejoin: miter;
-    stroke-miterlimit: 4;
 }
 
 .grid {
