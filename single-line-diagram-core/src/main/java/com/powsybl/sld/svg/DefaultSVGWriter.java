@@ -51,6 +51,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultSVGWriter.class);
 
     protected static final String CLASS = "class";
+    protected static final String STYLE = "style";
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
@@ -59,7 +60,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String POINTS = "points";
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
-    protected static final int VALUE_MAX_NB_CHARS = 5;
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
 
     protected final ComponentLibrary componentLibrary;
@@ -591,18 +591,31 @@ public class DefaultSVGWriter implements SVGWriter {
         return line;
     }
 
+    protected void drawLabel(String idLabel, String str, double xShift, double yShift, Element g,
+                             boolean centered, int shiftAngle, String labelClassStyle) {
+        drawLabel(idLabel, str, xShift, yShift, g, centered, shiftAngle, labelClassStyle, false);
+    }
+
+    protected void drawRightAlignedLabel(String idLabel, String str, double xShift, double yShift, Element g,
+                                         boolean centered, int shiftAngle, String labelClassStyle) {
+        drawLabel(idLabel, str, xShift, yShift, g, centered, shiftAngle, labelClassStyle, true);
+    }
+
     /*
      * Drawing the voltageLevel graph busbar section names and feeder names
      */
     protected void drawLabel(String idLabel, String str, double xShift, double yShift, Element g,
-                             boolean centered, int shiftAngle, String labelStyle) {
+                             boolean centered, int shiftAngle, String labelClassStyle, boolean rightAlign) {
         Element label = g.getOwnerDocument().createElement("text");
         if (!StringUtils.isEmpty(idLabel)) {
             label.setAttribute("id", idLabel);
         }
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute(CLASS, labelStyle);
+        label.setAttribute(CLASS, labelClassStyle);
+        if (rightAlign) {
+            label.setAttribute(STYLE, "text-anchor:end");
+        }
         Text text = g.getOwnerDocument().createTextNode(str);
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
         if (centered) {
@@ -1014,7 +1027,7 @@ public class DefaultSVGWriter implements SVGWriter {
         dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
         g.setAttribute(CLASS, String.join(" ", styles));
 
-        labelL.ifPresent(s -> drawLabel(null, s, -LABEL_OFFSET, shY, g, false, 0,  DiagramStyles.ARROW_LABEL_STYLE_CLASS));
+        labelL.ifPresent(s -> drawRightAlignedLabel(null, s, -LABEL_OFFSET, shY, g, false, 0,  ARROW_LABEL_STYLE_CLASS));
 
         root.appendChild(g);
         metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
