@@ -296,9 +296,17 @@ public final class Graph {
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         for (Node feederNode : feederNodes) {
             List<Node> adjacentNodes = feederNode.getAdjacentNodes();
-            boolean feeder3WT = adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
-            boolean feederConnectedToBus = adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
-            if (!feeder3WT && !feederConnectedToBus) {
+            if (isFeederConnectedToBus(feederNode)) {
+                // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
+                //  - 1 fictitious disconnector on the bus
+                //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
+                addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
+            } else if (isFeederConnectedToBusDisconnector(feederNode)) {
+                // Feeders linked directly to a bus disconnector need 2 internal nodes to be properly displayed, in order
+                // to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
+                insertTwoInternalNodes(adjacentNodes.get(0), feederNode, nodesToAdd);
+            } else if (!isFeeder3WT(feederNode)) {
+                // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
                 InternalNode nf = new InternalNode(feederNode.graph, feederNode.getId() + "Fictif");
                 nodesToAdd.add(nf);
@@ -308,19 +316,28 @@ public final class Graph {
                     removeEdge(neighbor, feederNode);
                 }
                 addEdge(nf, feederNode);
-            } else {
-                // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an
-                // internal node, while Feeders directly connected to bus need special care
-                if (feederConnectedToBus) {
-                    // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
-                    //  - 1 fictitious disconnector on the bus
-                    //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                    addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
-                }
             }
         }
 
         nodesToAdd.forEach(this::addNode);
+    }
+
+    private boolean isFeederConnectedToBus(Node feederNode) {
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
+        return adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
+    }
+
+    private boolean isFeederConnectedToBusDisconnector(Node feederNode) {
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
+        return adjacentNodes.size() == 1
+            && adjacentNodes.get(0).getType() == Node.NodeType.SWITCH
+            && ((SwitchNode) adjacentNodes.get(0)).getKind() == SwitchNode.SwitchKind.DISCONNECTOR
+            && adjacentNodes.get(0).getAdjacentNodes().stream().anyMatch(n -> n.getType() == Node.NodeType.BUS);
+    }
+
+    private boolean isFeeder3WT(Node feederNode) {
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
+        return adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
     }
 
     private void addTripleNode(Node busNode, Node feederNode, List<Node> nodesToAdd) {
@@ -339,6 +356,23 @@ public final class Graph {
         // Add edges right away
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw1);
+        addEdge(fNodeToSw1, fNodeToSw2);
+        addEdge(fNodeToSw2, feederNode);
+    }
+
+    private void insertTwoInternalNodes(Node busDisconnectorNode, Node feederNode, List<Node> nodesToAdd) {
+        removeEdge(busDisconnectorNode, feederNode);
+
+        // Create nodes
+        InternalNode fNodeToSw1 = new InternalNode(Graph.this, feederNode.getId() + "fNode1");
+        InternalNode fNodeToSw2 = new InternalNode(Graph.this, feederNode.getId() + "fNode2");
+
+        // Nodes will be added afterwards
+        nodesToAdd.add(fNodeToSw1);
+        nodesToAdd.add(fNodeToSw2);
+
+        // Add edges right away
+        addEdge(busDisconnectorNode, fNodeToSw1);
         addEdge(fNodeToSw1, fNodeToSw2);
         addEdge(fNodeToSw2, feederNode);
     }
