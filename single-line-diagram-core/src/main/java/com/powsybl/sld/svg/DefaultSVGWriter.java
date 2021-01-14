@@ -722,13 +722,13 @@ public class DefaultSVGWriter implements SVGWriter {
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(name, g);
         Map<String, Document> subComponents = componentLibrary.getSvgDocument(componentType);
-        subComponents.forEach(!layoutParameters.isAvoidSVGComponentsDuplication() ?
-            (subComponentName, svgSubComponent) -> insertClonedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent) :
-            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size())
+        subComponents.forEach(layoutParameters.isAvoidSVGComponentsDuplication() ?
+            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
+            (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)
         );
     }
 
-    private void insertClonedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Document svgSubComponent) {
+    private void insertDuplicatedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Document svgSubComponent) {
         // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
         // If SVG are written differently, it will not work correctly.
         NodeList subComponentChildren = svgSubComponent.getChildNodes().item(0).getChildNodes();

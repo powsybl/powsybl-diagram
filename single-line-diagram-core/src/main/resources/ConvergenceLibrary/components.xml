@@ -4,8 +4,11 @@
         <metadata type="BREAKER">
             <size width="20" height="20" />
             <styleClass>sld-breaker</styleClass>
-            <subComponent name="BREAKER">
-                <fileName>breaker.svg</fileName>
+            <subComponent name="CLOSED">
+                <fileName>breaker-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="OPEN">
+                <fileName>breaker-open.svg</fileName>
             </subComponent>
             <anchorPoint x="0" y="-10" orientation="VERTICAL"/>
             <anchorPoint x="0" y="10" orientation="VERTICAL"/>
@@ -16,8 +19,11 @@
         <metadata type="LOAD_BREAK_SWITCH">
             <size width="10" height="10"/>
             <styleClass>sld-load-break-switch</styleClass>
-            <subComponent name="LOAD_BREAK_SWITCH">
-                <fileName>load-break-switch.svg</fileName>
+            <subComponent name="CLOSED">
+                <fileName>load-break-switch-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="OPEN">
+                <fileName>load-break-switch-open.svg</fileName>
             </subComponent>
             <anchorPoint x="0" y="-5" orientation="VERTICAL"/>
             <anchorPoint x="0" y="5" orientation="VERTICAL"/>
@@ -114,8 +120,11 @@
         <metadata type="DISCONNECTOR">
             <size height="8" width="8"/>
             <styleClass>sld-disconnector</styleClass>
-            <subComponent name="DISCONNECTOR">
-                <fileName>disconnector.svg</fileName>
+            <subComponent name="OPEN">
+                <fileName>disconnector-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnector-closed.svg</fileName>
             </subComponent>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
             <allowRotation>false</allowRotation>
