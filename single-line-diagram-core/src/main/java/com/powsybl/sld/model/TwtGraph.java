@@ -6,11 +6,17 @@
  */
 package com.powsybl.sld.model;
 
+import java.util.List;
+
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public interface BaseGraph {
-    String getId();
+public interface TwtGraph extends BaseGraph {
+    TwtEdge addTwtEdge(Node n1, Node n2);
 
-    Graph getVLGraph(String voltageLevelId);
+    List<TwtEdge> getTwtEdges();
+
+    List<Node> getMultiTermNodes();
+
+    void addMultiTermNode(Node node);
 }

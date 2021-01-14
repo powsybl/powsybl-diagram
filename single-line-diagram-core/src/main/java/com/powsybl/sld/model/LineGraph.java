@@ -6,11 +6,17 @@
  */
 package com.powsybl.sld.model;
 
+import java.util.List;
+
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public interface BaseGraph {
+public interface LineGraph extends BaseGraph {
     String getId();
+
+    LineEdge addLineEdge(String lineId, Node n1, Node n2);
+
+    List<LineEdge> getLineEdges();
 
     Graph getVLGraph(String voltageLevelId);
 }

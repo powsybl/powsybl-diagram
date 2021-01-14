@@ -38,7 +38,7 @@ import static com.powsybl.sld.model.Position.Dimension.V;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class Graph {
+public final class Graph extends AbstractGraph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
 
@@ -70,8 +70,6 @@ public final class Graph {
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
     // false if substation diagram
 
-    private boolean generateCoordsInJson = true;
-
     Function<Node, BusCell.Direction> nodeDirection = node ->
             (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
 
@@ -92,6 +90,11 @@ public final class Graph {
         return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram);
     }
 
+    @Override
+    public String getId() {
+        return voltageLevelInfos.getId();
+    }
+
     public boolean isUseName() {
         return useName;
     }
@@ -106,7 +109,7 @@ public final class Graph {
 
     public void removeUnnecessaryFictitiousNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node.isInternalNode())
+                .filter(Node::isInternalNode)
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -200,17 +203,24 @@ public final class Graph {
         return nodesById.get(id);
     }
 
+    @Override
+    public Graph getVLGraph(String voltageLevelId) {
+        Objects.requireNonNull(voltageLevelId);
+        return voltageLevelId.equals(voltageLevelInfos.getId()) ? this : null;
+    }
+
     /**
      * Add an edge between the two nodes
      *
      * @param n1 first node
      * @param n2 second node
      */
-    public void addEdge(Node n1, Node n2) {
+    public Edge addEdge(Node n1, Node n2) {
         Edge edge = new Edge(n1, n2);
         edges.add(edge);
         n1.addAdjacentEdge(edge);
         n2.addAdjacentEdge(edge);
+        return edge;
     }
 
     /**
@@ -579,6 +589,9 @@ public final class Graph {
             edge.writeJson(generator);
         }
         generator.writeEndArray();
+
+        super.writeJson(generator);
+
         generator.writeEndObject();
     }
 
@@ -604,14 +617,6 @@ public final class Graph {
 
     public void setMaxCalculatedCellHeight(Map<BusCell.Direction, Double> maxCalculatedCellHeight) {
         this.maxCalculatedCellHeight = maxCalculatedCellHeight;
-    }
-
-    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
-        this.generateCoordsInJson = generateCoordsInJson;
-    }
-
-    public boolean isGenerateCoordsInJson() {
-        return generateCoordsInJson;
     }
 
     public int getMaxHorizontalBusPosition() {

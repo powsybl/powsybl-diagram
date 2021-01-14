@@ -20,7 +20,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.Coord.Dimension.X;
+import static com.powsybl.sld.model.Coord.Dimension.Y;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -81,7 +82,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Creating the graph model for the ForceLayout algorithm
         GraphModel graphModel = new GraphModelImpl();
         UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
-        for (Graph voltageLevelGraph : graph.getNodes()) {
+        for (Graph voltageLevelGraph : getGrah().getNodes()) {
             NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
@@ -120,7 +121,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
         // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
         Map<Graph, Coord> coordsVoltageLevels = new HashMap<>();
-        for (Graph voltageLevelGraph : graph.getNodes()) {
+        for (Graph voltageLevelGraph : getGrah().getNodes()) {
             org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
         }
@@ -134,7 +135,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         });
 
         // Changing the snakeline feeder cells direction using the coordinates calculated by the ForceAtlas algorithm
-        changingCellsOrientation(graph, coordsVoltageLevels);
+        changingCellsOrientation(getGrah(), coordsVoltageLevels);
 
         // List of voltage levels sorted by ascending x value
         List<Graph> graphsX = coordsVoltageLevels.entrySet().stream()
@@ -185,15 +186,19 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             graphsLayouts.get(g).run(layoutParameters);
         });
 
-        // Calculate all the coordinates for the middle nodes and the links between the voltageLevel graphs
         manageSnakeLines(layoutParameters);
     }
 
     @Override
     protected void manageSnakeLines(LayoutParameters layoutParameters) {
         Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = new HashMap<>();
-        graph.getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
-        Map<String, Integer> nbSnakeLinesBetween = graph.getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        getGrah().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom));
+        manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom);
+    }
+
+    private void manageSnakeLines(AbstractGraph graph, LayoutParameters layoutParameters, Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom) {
+        getGrah().getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
+        Map<String, Integer> nbSnakeLinesBetween = getGrah().getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
@@ -219,18 +224,15 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
         for (LineEdge lineEdge : graph.getLineEdges()) {
             List<Node> adjacentNodes = lineEdge.getNodes();
-            List<Double> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-            for (int i = 0; i < pol.size(); i += 2) {
-                lineEdge.addPoint(pol.get(i), pol.get(i + 1));
-            }
+            lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween));
         }
 
     }
 
-    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
-                                                      Node node1, Node node2,
-                                                      Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
-                                                      Map<String, Integer> nbSnakeLinesBetween) {
+    private List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParameters,
+                                                    Node node1, Node node2,
+                                                    Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
+                                                    Map<String, Integer> nbSnakeLinesBetween) {
         ForceInfoCalcPoints info = new ForceInfoCalcPoints();
         info.setLayoutParam(layoutParameters);
         info.setVId1(node1.getGraph().getVoltageLevelInfos().getId());

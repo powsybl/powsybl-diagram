@@ -51,8 +51,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
-    protected static final String FILL = "fill";
-    protected static final String POINTER_EVENTS = "pointer-events";
+    protected static final String FILL_ATTRIBUTE = "fill";
+    protected static final String POINTER_EVENTS_ATTRIBUTE = "pointer-events";
     protected static final int FONT_SIZE = 8;
     protected static final String FONT_FAMILY = "Verdana";
     protected static final double LABEL_OFFSET = 5d;
@@ -216,6 +216,12 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
         drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodes);
+
+        // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
+
+        // Drawing the snake lines
+        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
@@ -1113,7 +1119,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the substation graph edges (snakelines between voltageLevel diagram)
      */
-    protected void drawSnakeLines(String prefixId, Element root, SubstationGraph graph,
+    protected void drawSnakeLines(String prefixId, Element root, AbstractGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
         for (LineEdge edge : graph.getLineEdges()) {
@@ -1137,7 +1143,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 throw new AssertionError("One node must be outside any graph");
             }
 
-            drawSnakeLines(edge, getWireId(prefixId, graph.getSubstationId(), edge), root, metadata, styleProvider, anchorPointProvider);
+            drawSnakeLines(edge, getWireId(prefixId, graph.getId(), edge), root, metadata, styleProvider, anchorPointProvider);
         }
     }
 
@@ -1146,8 +1152,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement("g");
         g.setAttribute("id", wireId);
         g.setAttribute(CLASS, WIRE_STYLE_CLASS);
-        g.setAttribute(FILL, "none");
-        g.setAttribute(POINTER_EVENTS, "none");
+        g.setAttribute(FILL_ATTRIBUTE, "none");
+        g.setAttribute(POINTER_EVENTS_ATTRIBUTE, "none");
         root.appendChild(g);
 
         Element polyline = root.getOwnerDocument().createElement(POLYLINE);
@@ -1363,7 +1369,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawMultiTerminalNodes(String prefixId,
                                           Element root,
-                                          SubstationGraph graph,
+                                          TwtGraph graph,
                                           GraphMetadata metadata,
                                           DiagramStyleProvider styleProvider,
                                           AnchorPointProvider anchorPointProvider) {

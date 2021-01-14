@@ -85,7 +85,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return null;
     }
 
-    protected String getEdgeColor(Edge edge, Node node1, Node node2) {
+    protected String getEdgeColor(Node node1, Node node2) {
         if (node1.getVoltageLevelInfos() != null) {
             return getNodeColor(node1.getVoltageLevelInfos(), node1);
         } else {
@@ -101,7 +101,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        String color = getEdgeColor(edge, node1, node2);
+        String color = getEdgeColor(node1, node2);
         Map<String, String> style = new HashMap<>();
         if (color != null) {
             style.put("stroke", color);

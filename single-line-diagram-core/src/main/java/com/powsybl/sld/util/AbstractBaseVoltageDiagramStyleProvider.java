@@ -34,6 +34,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     protected final Network network;
 
     protected static final String BLACK_COLOR = "black";
+    protected static final String STROKE_DASHARRAY_ATTRIBUTE = "stroke-dasharray";
     protected static final String STROKE_DASHARRAY = "3,3";
 
     protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
@@ -101,13 +102,13 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             if (side != null && otherSide != null) {
                 if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {        // disconnected on both ends
                     style.put("stroke", BLACK_COLOR);
-                    style.put("stroke-dasharray", STROKE_DASHARRAY);
+                    style.put(STROKE_DASHARRAY_ATTRIBUTE, STROKE_DASHARRAY);
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
                     style.put("stroke", color);
-                    style.put("stroke-dasharray", STROKE_DASHARRAY);
+                    style.put(STROKE_DASHARRAY_ATTRIBUTE, STROKE_DASHARRAY);
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
                     style.put("stroke", edge instanceof LineEdge ? color : BLACK_COLOR);
-                    style.put("stroke-dasharray", STROKE_DASHARRAY);
+                    style.put(STROKE_DASHARRAY_ATTRIBUTE, STROKE_DASHARRAY);
                 }
             }
         }

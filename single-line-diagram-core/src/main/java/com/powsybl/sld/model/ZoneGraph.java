@@ -12,17 +12,12 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
- *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public final class ZoneGraph {
+public final class ZoneGraph implements LineGraph {
 
     private List<String> zone;
     private List<SubstationGraph> nodes = new ArrayList<>();
@@ -40,6 +35,10 @@ public final class ZoneGraph {
 
     private boolean generateCoordsInJson = true;
 
+    public String getId() {
+        return String.join("_", zone);
+    }
+
     public void addNode(SubstationGraph sGraph) {
         nodes.add(sGraph);
         nodesById.put(sGraph.getSubstationId(), sGraph);
@@ -49,6 +48,12 @@ public final class ZoneGraph {
         LineEdge edge = new LineEdge(lineId, node1, node2);
         edges.add(edge);
         edgesById.put(lineId, edge);
+    }
+
+    @Override
+    public LineEdge addLineEdge(String lineId, Node n1, Node n2) {
+        addEdge(lineId, n1, n2);
+        return edgesById.get(lineId);
     }
 
     public List<String> getZone() {
@@ -61,6 +66,17 @@ public final class ZoneGraph {
 
     public List<LineEdge> getEdges() {
         return edges;
+    }
+
+    @Override
+    public List<LineEdge> getLineEdges() {
+        return getEdges();
+    }
+
+    @Override
+    public Graph getVLGraph(String voltageLevelId) {
+        Objects.requireNonNull(voltageLevelId);
+        return nodes.stream().flatMap(SubstationGraph::getNodeStream).filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
     }
 
     public SubstationGraph getNode(String id) {

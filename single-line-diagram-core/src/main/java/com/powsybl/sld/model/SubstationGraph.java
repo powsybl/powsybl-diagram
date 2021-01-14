@@ -25,21 +25,13 @@ import java.util.stream.Stream;
  *
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class SubstationGraph {
+public final class SubstationGraph extends AbstractGraph {
 
     private String substationId;
 
     private final List<Graph> nodes = new ArrayList<>();
 
-    private List<TwtEdge> twtEdges = new ArrayList<>();
-
-    private List<LineEdge> lineEdges = new ArrayList<>();
-
     private final Map<String, Graph> nodesById = new HashMap<>();
-
-    private List<Node> multiTermNodes = new ArrayList<>();
-
-    private boolean generateCoordsInJson = true;
 
     /**
      * Constructor
@@ -55,7 +47,7 @@ public final class SubstationGraph {
 
     public void addNode(Graph node) {
         nodes.add(node);
-        nodesById.put(node.getVoltageLevelInfos().getId(), node);
+        nodesById.put(node.getId(), node);
     }
 
     public Graph getNode(String id) {
@@ -64,35 +56,25 @@ public final class SubstationGraph {
     }
 
     public TwtEdge addEdge(Node node1, Node node2) {
-        TwtEdge sl = new TwtEdge(node1, node2);
-        twtEdges.add(sl);
-        return sl;
+        return addTwtEdge(node1, node2);
     }
 
-    public LineEdge addEdge(String lineId, Node node1, Node node2) {
-        LineEdge edge = new LineEdge(lineId, node1, node2);
-        lineEdges.add(edge);
-        return edge;
+    @Override
+    public Graph getVLGraph(String voltageLevelId) {
+        Objects.requireNonNull(voltageLevelId);
+        return nodes.stream().filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
     }
 
     public List<Graph> getNodes() {
         return new ArrayList<>(nodes);
     }
 
+    public Stream<Graph> getNodeStream() {
+        return getNodes().stream();
+    }
+
     public List<Edge> getEdges() {
         return Stream.concat(lineEdges.stream(), twtEdges.stream()).collect(Collectors.toList());
-    }
-
-    public List<TwtEdge> getTwtEdges() {
-        return new ArrayList<>(twtEdges);
-    }
-
-    public void setTwtEdges(List<TwtEdge> twtEdges) {
-        this.twtEdges = twtEdges;
-    }
-
-    public List<LineEdge> getLineEdges() {
-        return new ArrayList<>(lineEdges);
     }
 
     public boolean graphAdjacents(Graph g1, Graph g2) {
@@ -113,12 +95,9 @@ public final class SubstationGraph {
         return substationId;
     }
 
-    public void addMultiTermNode(Node node) {
-        multiTermNodes.add(node);
-    }
-
-    public List<Node> getMultiTermNodes() {
-        return multiTermNodes;
+    @Override
+    public String getId() {
+        return getSubstationId();
     }
 
     public void writeJson(Path file) {
@@ -138,21 +117,9 @@ public final class SubstationGraph {
             graph.writeJson(generator);
         }
         generator.writeEndArray();
-        generator.writeArrayFieldStart("multitermNodes");
-        for (Node multitermNode : multiTermNodes) {
-            multitermNode.writeJson(generator);
-        }
-        generator.writeEndArray();
-        generator.writeArrayFieldStart("twtEdges");
-        for (TwtEdge edge : twtEdges) {
-            edge.writeJson(generator, generateCoordsInJson);
-        }
-        generator.writeEndArray();
-        generator.writeArrayFieldStart("lineEdges");
-        for (LineEdge edge : lineEdges) {
-            edge.writeJson(generator, generateCoordsInJson);
-        }
-        generator.writeEndArray();
+
+        super.writeJson(generator);
+
         generator.writeEndObject();
     }
 
@@ -165,9 +132,5 @@ public final class SubstationGraph {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
-        this.generateCoordsInJson = generateCoordsInJson;
     }
 }

@@ -13,9 +13,11 @@ import java.util.List;
  */
 public abstract class AbstractBranchEdge extends Edge {
 
-    public AbstractBranchEdge(Node node1, Node node2) {
+    protected AbstractBranchEdge(Node node1, Node node2) {
         super(node1, node2);
     }
 
     public abstract List<Double> getSnakeLine();
+
+    public abstract void setSnakeLine(List<Double> snakeLine);
 }

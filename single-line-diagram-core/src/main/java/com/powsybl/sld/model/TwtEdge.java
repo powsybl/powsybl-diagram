@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
 public class TwtEdge extends AbstractBranchEdge {
@@ -25,10 +24,12 @@ public class TwtEdge extends AbstractBranchEdge {
         super(node1, node2);
     }
 
+    @Override
     public List<Double> getSnakeLine() {
         return snakeLine;
     }
 
+    @Override
     public void setSnakeLine(List<Double> snakeLine) {
         this.snakeLine = Objects.requireNonNull(snakeLine);
     }

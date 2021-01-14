@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
 public class LineEdge extends AbstractBranchEdge {
@@ -45,11 +44,21 @@ public class LineEdge extends AbstractBranchEdge {
         return points;
     }
 
+    @Override
     public List<Double> getSnakeLine() {
         return getPoints()
-            .stream()
-            .flatMap(point -> Stream.of(point.getX(), point.getY()))
-            .collect(Collectors.toList());
+                .stream()
+                .flatMap(point -> Stream.of(point.getX(), point.getY()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void setSnakeLine(List<Double> snakeLine) {
+        Objects.requireNonNull(snakeLine);
+        points = new ArrayList<>();
+        for (int i = 0; i < snakeLine.size(); i += 2) {
+            addPoint(snakeLine.get(i), snakeLine.get(i + 1));
+        }
     }
 
     public class Point {
