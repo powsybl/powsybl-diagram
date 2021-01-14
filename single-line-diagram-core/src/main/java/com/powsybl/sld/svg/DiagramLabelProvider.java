@@ -37,7 +37,6 @@ public interface DiagramLabelProvider {
 
     class NodeDecorator {
         private final String type;
-        private final String styleClass;
         private final LabelPosition position;
 
         /**
@@ -45,9 +44,8 @@ public interface DiagramLabelProvider {
          * @param type decorator type; corresponds to the type defined in components.xml file
          * @param labelPosition position of the decorator relatively to the center of the decorated node
          */
-        public NodeDecorator(String type, String styleClass, LabelPosition labelPosition) {
+        public NodeDecorator(String type, LabelPosition labelPosition) {
             this.type = type;
-            this.styleClass = styleClass;
             this.position = labelPosition;
         }
 
@@ -59,9 +57,6 @@ public interface DiagramLabelProvider {
             return position;
         }
 
-        public String getStyleClass() {
-            return styleClass;
-        }
     }
 
     public enum Direction {

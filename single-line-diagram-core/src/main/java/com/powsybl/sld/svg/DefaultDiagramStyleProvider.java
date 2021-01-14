@@ -68,6 +68,13 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
+    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(nodeDecorator.getType()).ifPresent(styles::add);
+        return styles;
+    }
+
+    @Override
     public List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(ComponentTypeName.LINE).ifPresent(styles::add);

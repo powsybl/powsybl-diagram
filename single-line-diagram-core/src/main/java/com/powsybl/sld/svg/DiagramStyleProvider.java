@@ -26,6 +26,8 @@ public interface DiagramStyleProvider {
 
     List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
+    List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
+
     List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary);
 
     List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName);

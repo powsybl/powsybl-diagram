@@ -527,7 +527,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                       DiagramStyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node)) {
             Element g = root.getOwnerDocument().createElement("g");
-            g.setAttribute(CLASS, nodeDecorator.getStyleClass());
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, node, styleProvider);
             root.appendChild(g);
         }
