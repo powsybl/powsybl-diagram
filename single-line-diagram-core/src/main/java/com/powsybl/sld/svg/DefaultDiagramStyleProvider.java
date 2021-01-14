@@ -29,6 +29,9 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);
+        if (isConstantColor(edge)) {
+            styles.add(CONSTANT_COLOR_CLASS);
+        }
         getEdgeStyle(edge).ifPresent(styles::add);
         if (highlightLineState) {
             getHighlightLineStateStyle(edge).ifPresent(styles::add);
@@ -37,7 +40,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     }
 
     protected Optional<String> getEdgeStyle(Edge edge) {
-        return Optional.of(CONSTANT_COLOR_CLASS);
+        return Optional.empty();
     }
 
     protected Optional<String> getHighlightLineStateStyle(Edge edge) {
@@ -88,7 +91,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return true;
     }
 
-    private boolean isConstantColor(LineEdge edge) {
+    protected boolean isConstantColor(Edge edge) {
         return true;
     }
 

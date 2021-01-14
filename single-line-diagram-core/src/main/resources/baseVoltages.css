@@ -1,3 +1,8 @@
+/* Default color, used for unknown voltage levels */
+.constant-color {
+    stroke: lightgrey
+}
+
 .vl0 {
     stroke: #808080
 }
