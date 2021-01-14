@@ -418,5 +418,8 @@
   }, {
     "node1" : "bs",
     "node2" : "FICT_vl_Shunt 3.2"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

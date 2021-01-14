@@ -359,5 +359,8 @@
   }, {
     "node1" : "FICT_vl_l2Fictif",
     "node2" : "l2"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

@@ -561,6 +561,7 @@ public final class Graph extends AbstractGraph {
         }
     }
 
+    @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
 

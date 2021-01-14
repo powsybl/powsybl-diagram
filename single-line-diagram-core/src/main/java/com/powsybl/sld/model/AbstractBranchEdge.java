@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.List;
-
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */

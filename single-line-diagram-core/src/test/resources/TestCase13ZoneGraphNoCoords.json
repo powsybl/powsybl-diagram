@@ -56,7 +56,10 @@
       }, {
         "node1" : "FICT_VoltageLevel1_Bus1_Line",
         "node2" : "Line_ONE"
-      } ]
+      } ],
+      "multitermNodes" : [ ],
+      "twtEdges" : [ ],
+      "lineEdges" : [ ]
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],
@@ -118,7 +121,10 @@
       }, {
         "node1" : "FICT_VoltageLevel2_Bus2_Line",
         "node2" : "Line_TWO"
-      } ]
+      } ],
+      "multitermNodes" : [ ],
+      "twtEdges" : [ ],
+      "lineEdges" : [ ]
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],

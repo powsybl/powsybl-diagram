@@ -108,6 +108,7 @@ public final class SubstationGraph extends AbstractGraph {
         }
     }
 
+    @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);

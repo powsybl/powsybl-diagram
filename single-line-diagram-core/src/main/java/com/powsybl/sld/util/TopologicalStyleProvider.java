@@ -165,12 +165,12 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     protected String getEdgeColor(Edge edge) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        String color = getEdgeColor(node1, node2);
+        Node n1 = edge.getNode1();
+        Node n2 = edge.getNode2();
+        String color = getEdgeColor(n1, n2);
 
         if (disconnectedColor.equals(color) && edge instanceof LineEdge) {
-            color = getEdgeColor(node2, node1);
+            color = getEdgeColor(n2, n1);
         }
 
         return color;

@@ -266,5 +266,8 @@
   }, {
     "node1" : "FICT_vl_lFictif",
     "node2" : "l"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

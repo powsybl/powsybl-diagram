@@ -572,5 +572,8 @@
   }, {
     "node1" : "FICT_vl_ds2fNode1",
     "node2" : "ds2"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

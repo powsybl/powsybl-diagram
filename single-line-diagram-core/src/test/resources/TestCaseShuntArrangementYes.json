@@ -2516,5 +2516,8 @@
   }, {
     "node1" : "bSwitchCG",
     "node2" : "FICT_vl_Shunt 14.2"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

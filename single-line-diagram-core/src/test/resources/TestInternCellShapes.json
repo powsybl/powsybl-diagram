@@ -846,5 +846,8 @@
   }, {
     "node1" : "FICT_vl_flatDisconectorfNode1",
     "node2" : "flatDisconector"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }
