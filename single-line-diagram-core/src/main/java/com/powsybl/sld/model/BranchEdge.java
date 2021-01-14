@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractBranchEdge extends Edge implements BranchEdge {
+public interface BranchEdge {
 
-    protected AbstractBranchEdge(Node node1, Node node2) {
-        super(node1, node2);
-    }
+    List<Double> getSnakeLine();
+
+    void setSnakeLine(List<Double> snakeLine);
 }

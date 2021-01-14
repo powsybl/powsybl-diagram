@@ -59,22 +59,22 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             style.append(ARROW1).append(escapeClassName(node.getId()))
                     .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
             style.append(ARROW1).append(escapeClassName(node.getId()))
-            .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+                    .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW1).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
+                    .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
             style.append(ARROW1).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+                    .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
+                    .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+                    .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
+                    .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
             style.append(ARROW2).append(escapeClassName(node.getId()))
-            .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
+                    .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
 
             return Optional.of(style.toString());
         }
@@ -93,15 +93,17 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         }
     }
 
+    protected String getEdgeColor(Edge edge) {
+        return getEdgeColor(edge.getNode1(), edge.getNode2());
+    }
+
     protected void addHighlightStateStyle(Edge edge, Map<String, String> style, String color) {
         // no highlight by default
     }
 
     @Override
     public Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        String color = getEdgeColor(node1, node2);
+        String color = getEdgeColor(edge);
         Map<String, String> style = new HashMap<>();
         if (color != null) {
             style.put("stroke", color);
@@ -257,8 +259,8 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     @Override
     public Map<String, String> getSvgArrowStyleAttributes(int num) {
         return ImmutableMap.of(STROKE, num == 1 ? "black" : "blue",
-                               "fill", num == 1 ? "black" : "blue",
-                               "fill-opacity", "1");
+                "fill", num == 1 ? "black" : "blue",
+                "fill-opacity", "1");
     }
 
     @Override

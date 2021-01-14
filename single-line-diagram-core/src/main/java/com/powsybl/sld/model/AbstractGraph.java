@@ -57,9 +57,9 @@ public abstract class AbstractGraph implements TwtGraph, LineGraph {
 
     @Override
     public TwtEdge addTwtEdge(Node node1, Node node2) {
-        TwtEdge sl = new TwtEdge(node1, node2);
-        twtEdges.add(sl);
-        return sl;
+        TwtEdge edge = new TwtEdge(node1, node2);
+        twtEdges.add(edge);
+        return edge;
     }
 
     @Override

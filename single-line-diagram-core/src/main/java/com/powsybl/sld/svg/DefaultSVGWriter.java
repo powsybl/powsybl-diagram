@@ -1147,8 +1147,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void drawSnakeLines(AbstractBranchEdge edge, String wireId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider,
-                                  AnchorPointProvider anchorPointProvider) {
+    private void drawSnakeLines(AbstractBranchEdge edge, String wireId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider,
+                                AnchorPointProvider anchorPointProvider) {
         Element g = root.getOwnerDocument().createElement("g");
         g.setAttribute("id", wireId);
         g.setAttribute(CLASS, WIRE_STYLE_CLASS);

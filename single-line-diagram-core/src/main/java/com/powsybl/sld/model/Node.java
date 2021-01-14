@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -165,12 +164,6 @@ public class Node implements BaseNode {
 
     public Stream<Node> getListNodeAdjInCell(Cell cell) {
         return getAdjacentNodes().stream().filter(n -> cell.getNodes().contains(n));
-    }
-
-    public Optional<Edge> getEdge(Node node) {
-        return adjacentEdges.stream()
-                .filter(edge -> edge.getNode1() == node || edge.getNode2() == node)
-                .findFirst();
     }
 
     @Override

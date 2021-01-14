@@ -102,7 +102,6 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             if (side != null && otherSide != null) {
                 if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {        // disconnected on both ends
                     style.put("stroke", BLACK_COLOR);
-                    style.put(STROKE_DASHARRAY_ATTRIBUTE, STROKE_DASHARRAY);
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
                     style.put("stroke", color);
                     style.put(STROKE_DASHARRAY_ATTRIBUTE, STROKE_DASHARRAY);

@@ -73,7 +73,7 @@ public final class SubstationGraph extends AbstractGraph {
         return getNodes().stream();
     }
 
-    public List<Edge> getEdges() {
+    public List<BranchEdge> getEdges() {
         return Stream.concat(lineEdges.stream(), twtEdges.stream()).collect(Collectors.toList());
     }
 
