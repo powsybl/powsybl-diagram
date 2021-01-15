@@ -192,14 +192,16 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     @Override
     protected void manageSnakeLines(LayoutParameters layoutParameters) {
         Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = new HashMap<>();
-        getGrah().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom));
-        manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom);
-    }
-
-    private void manageSnakeLines(AbstractGraph graph, LayoutParameters layoutParameters, Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom) {
         getGrah().getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
         Map<String, Integer> nbSnakeLinesBetween = getGrah().getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
+        getGrah().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween));
+        manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+    }
+
+    private void manageSnakeLines(AbstractGraph graph, LayoutParameters layoutParameters,
+                                  Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
+                                  Map<String, Integer> nbSnakeLinesBetween) {
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
