@@ -18,9 +18,14 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * <PRE>
+ *
+ * fict2
+ * |
  * d2
  * |
  * b
+ * |
+ * fict1
  * |
  * d1
  * |
