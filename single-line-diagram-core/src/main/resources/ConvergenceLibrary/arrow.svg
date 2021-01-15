@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-    <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-    <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-</svg>
