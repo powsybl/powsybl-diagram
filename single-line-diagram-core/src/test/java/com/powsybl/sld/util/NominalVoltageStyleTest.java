@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -120,37 +121,42 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, componentLibrary, false);
-        assertEquals(2, nodeStyle1.size());
-        assertEquals("busbar-section", nodeStyle1.get(0));
-        assertEquals("vl400", nodeStyle1.get(1));
+        assertEquals(3, nodeStyle1.size());
+        assertTrue(nodeStyle1.contains("busbar-section"));
+        assertTrue(nodeStyle1.contains("constant-color"));
+        assertTrue(nodeStyle1.contains("vl400"));
 
         Node node2 = graph2.getNode("bbs2");
         List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, false);
-        assertEquals(2, nodeStyle2.size());
-        assertEquals("busbar-section", nodeStyle2.get(0));
-        assertEquals("vl225", nodeStyle2.get(1));
+        assertTrue(nodeStyle2.contains("busbar-section"));
+        assertTrue(nodeStyle2.contains("constant-color"));
+        assertTrue(nodeStyle2.contains("vl225"));
 
         Node node3 = graph3.getNode("bbs3");
         List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, false);
-        assertEquals(2, nodeStyle3.size());
-        assertEquals("busbar-section", nodeStyle3.get(0));
-        assertEquals("vl63", nodeStyle3.get(1));
+        assertEquals(3, nodeStyle3.size());
+        assertTrue(nodeStyle3.contains("busbar-section"));
+        assertTrue(nodeStyle3.contains("constant-color"));
+        assertTrue(nodeStyle3.contains("vl63"));
 
         Edge edge = graph1.getEdges().get(12);
         List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
-        assertEquals(2, wireStyles.size());
-        assertEquals(DiagramStyles.WIRE_STYLE_CLASS, wireStyles.get(0));
-        assertEquals("vl400", wireStyles.get(1));
+        assertEquals(3, wireStyles.size());
+        assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
+        assertTrue(wireStyles.contains("constant-color"));
+        assertTrue(wireStyles.contains("vl400"));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, false);
-        assertEquals(1, node3WTStyle.size());
-        assertEquals("three-windings-transformer", node3WTStyle.get(0));
+        assertEquals(2, node3WTStyle.size());
+        assertTrue(node3WTStyle.contains("three-wt"));
+        assertTrue(node3WTStyle.contains("constant-color"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode, componentLibrary, false);
-        assertEquals(1, node2WTStyle.size());
-        assertEquals("two-windings-transformer", node2WTStyle.get(0));
+        assertEquals(2, node2WTStyle.size());
+        assertTrue(node2WTStyle.contains("two-wt"));
+        assertTrue(node2WTStyle.contains("constant-color"));
 
     }
 
