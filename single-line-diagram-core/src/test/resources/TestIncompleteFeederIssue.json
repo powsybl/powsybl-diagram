@@ -24,11 +24,21 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 42.0,
+    "y" : -20.0,
     "open" : false,
     "feederType" : "FICTITIOUS",
     "order" : -1,
     "direction" : "TOP"
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_fict2Fictif",
+    "name" : "FICT_vl_fict2Fictif",
+    "equipmentId" : "FICT_vl_fict2Fictif",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 25.0,
+    "y" : 42.0,
+    "open" : false
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -148,7 +158,28 @@
           "xSpan" : 50.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_d1Fictif", "b", "d2", "FICT_vl_fict2" ]
+        "nodes" : [ "FICT_vl_d1Fictif", "b", "d2", "FICT_vl_fict2Fictif" ]
+      }, {
+        "type" : "FEEDERPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 6,
+          "hSpan" : 2,
+          "vSpan" : 0,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 25.0,
+          "y" : 42.0,
+          "xSpan" : 50.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "FICT_vl_fict2Fictif", "FICT_vl_fict2" ]
       } ]
     }
   } ],
@@ -160,6 +191,9 @@
     "node2" : "d2"
   }, {
     "node1" : "d2",
+    "node2" : "FICT_vl_fict2Fictif"
+  }, {
+    "node1" : "FICT_vl_fict2Fictif",
     "node2" : "FICT_vl_fict2"
   }, {
     "node1" : "b",
