@@ -872,17 +872,23 @@ public class DefaultSVGWriter implements SVGWriter {
             if (arrowRotationAngle < -Math.PI / 2) {
                 arrowRotationAngle += Math.PI;
             }
-            g.setAttribute(TRANSFORM, getTransformMatrixString(x, y, arrowRotationAngle, componentSize));
+            g.setAttribute(TRANSFORM, getTransformString(x, y, arrowRotationAngle, componentSize));
         }
 
     }
 
-    private String getTransformMatrixString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
+    private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
         double centerPosTransX = layoutParameters.getTranslateX() + centerPosX;
         double centerPosTransY = layoutParameters.getTranslateY() + centerPosY;
-        double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
+        if (angle == 0) {
+            double translateX = centerPosTransX - componentSize.getWidth() / 2;
+            double translateY = centerPosTransY - componentSize.getHeight() / 2;
+            return TRANSLATE + "(" +  translateX + "," + translateY + ")";
+        } else {
+            double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
                 centerPosTransX, centerPosTransY);
-        return transformMatrixToString(matrix, 4);
+            return transformMatrixToString(matrix, 4);
+        }
     }
 
     private double[] getTransformMatrix(double width, double height, double angle,
