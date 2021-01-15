@@ -9,11 +9,8 @@ package com.powsybl.sld.util;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.color.BaseVoltageColor;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.LineEdge;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.model.VoltageLevelInfos;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -59,48 +56,48 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             b.visitConnectedEquipments(new TopologyVisitor() {
                 @Override
                 public void visitBusbarSection(BusbarSection e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitDanglingLine(DanglingLine e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitGenerator(Generator e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitLine(Line e, Side s) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId(), s), c);
                 }
 
                 @Override
                 public void visitLoad(Load e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitShuntCompensator(ShuntCompensator e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitStaticVarCompensator(StaticVarCompensator e) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId()), c);
                 }
 
                 @Override
                 public void visitThreeWindingsTransformer(ThreeWindingsTransformer e,
                                                           ThreeWindingsTransformer.Side s) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId(), s), c);
                 }
 
                 @Override
                 public void visitTwoWindingsTransformer(TwoWindingsTransformer e, Side s) {
-                    colorMap.put(e.getId(), c);
+                    colorMap.put(getColorMapKey(e.getId(), s), c);
                 }
             });
         });
@@ -108,10 +105,26 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         return colorMap;
     }
 
+    private String getColorMapKey(String equipmentId) {
+        return equipmentId;
+    }
+
+    private String getColorMapKey(String equipmentId, Side s) {
+        return equipmentId + "_" + s.name();
+    }
+
+    private String getColorMapKey(String equipmentId, ThreeWindingsTransformer.Side s) {
+        return equipmentId + "_" + s.name();
+    }
+
+    private String getColorMapKey(Node node) {
+        return node instanceof FeederWithSideNode ? node.getEquipmentId() + "_" + ((FeederWithSideNode) node).getSide().name() : node.getEquipmentId();
+    }
+
     private RGBColor getNodeRgbColor(VoltageLevelInfos voltageLevelInfos, Node node) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
         Map<String, RGBColor> colorMap = voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl));
-        return colorMap.get(node.getEquipmentId());
+        return colorMap.get(getColorMapKey(node));
     }
 
     private Set<Node> findConnectedNodes(Node node) {
