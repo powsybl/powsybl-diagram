@@ -18,11 +18,11 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * <PRE>
- * d
+ * d2
  * |
  * b
  * |
- * d
+ * d1
  * |
  * ------ bbs
  * </PRE>
