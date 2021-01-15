@@ -36,4 +36,6 @@ public interface ComponentLibrary {
     List<URL> getCssUrls();
 
     Optional<String> getComponentStyleClass(String componentType);
+
+    Optional<String> getSubComponentStyleClass(String type, String subComponent);
 }

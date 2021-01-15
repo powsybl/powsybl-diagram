@@ -691,17 +691,17 @@ public class DefaultSVGWriter implements SVGWriter {
         insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
     }
 
-    protected void insertArrowSVGIntoDocumentSVG(String prefixId, Element g, double angle,
-                                                 ComponentSize componentSize) {
+    protected void insertArrowSVGIntoDocumentSVG(String prefixId, Element g, double angle) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, angle, componentSize);
+                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, subComponent, angle);
         insertSVGIntoDocumentSVG("", ARROW, g, elementAttributesSetter);
     }
 
-    private void setArrowAttributes(String prefixId, Element g, Element e,
-                                    double angle, ComponentSize componentSize) {
+    private void setArrowAttributes(String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
+        componentLibrary.getSubComponentStyleClass(ARROW, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
+            ComponentSize componentSize = componentLibrary.getSize(ARROW);
             double cx = componentSize.getWidth() / 2;
             double cy = componentSize.getHeight() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
@@ -772,6 +772,7 @@ public class DefaultSVGWriter implements SVGWriter {
             elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
         }
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponent);
+        componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
         if (!subComponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", subComponentStyles));
         }
@@ -784,6 +785,7 @@ public class DefaultSVGWriter implements SVGWriter {
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
         List<String> svgNodeSubcomponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponentName);
+        componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
         if (!svgNodeSubcomponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));
         }
@@ -1001,7 +1003,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", arrowWireId);
         transformArrow(points, cd.getSize(), shift, g);
 
-        insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize());
+        insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0);
         Element label = createLabelElement(labelR, shX, shY, 0, g);
         g.appendChild(label);
 

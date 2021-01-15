@@ -151,6 +151,17 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
+    public Optional<String> getSubComponentStyleClass(String type, String subComponent) {
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(subComponent);
+        Component component = components.get(type);
+        if (component != null) {
+            return component.getMetadata().getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public boolean isAllowRotation(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
