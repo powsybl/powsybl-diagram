@@ -239,6 +239,13 @@
                 <groupId>org.gephi</groupId>
                 <artifactId>layout-plugin</artifactId>
                 <version>${gephi.version}</version>
+                <exclusions>
+                    <!-- there is a license issue with itextpdf and we don't need it -->
+                    <exclusion>
+                        <groupId>com.itextpdf</groupId>
+                        <artifactId>itextpdf</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.netbeans.api</groupId>
