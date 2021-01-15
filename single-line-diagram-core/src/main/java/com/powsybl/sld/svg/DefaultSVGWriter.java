@@ -743,9 +743,12 @@ public class DefaultSVGWriter implements SVGWriter {
     private void insertSubcomponentReference(Element g, BiConsumer<Element, String> elementAttributesSetter, String componentType, String subComponentName, int nbSubComponents) {
         // Adding <use> markup to reuse the svg defined in the <defs> part
         Element eltUse = g.getOwnerDocument().createElement("use");
-        String hRefValue = nbSubComponents > 1 ? componentType + "-" + subComponentName : componentType;
-        eltUse.setAttribute("href", "#" + hRefValue);
+        eltUse.setAttribute("href", "#" + getHRefValue(nbSubComponents, componentType, subComponentName));
         setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, eltUse);
+    }
+
+    private static String getHRefValue(int nbSubComponents, String componentType, String subComponentName) {
+        return nbSubComponents > 1 ? componentType + "-" + subComponentName : componentType;
     }
 
     private void setAttributesAndInsertElement(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Element element) {
@@ -1229,7 +1232,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     Element group = document.createElement(GROUP);
                     group.setAttribute("id", c);
 
-                    insertSVGComponentIntoDefsArea(group, subComponents);
+                    insertSVGComponentIntoDefsArea(c, group, subComponents);
 
                     defs.getOwnerDocument().adoptNode(group);
                     defs.appendChild(group);
@@ -1241,12 +1244,27 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertSVGComponentIntoDefsArea(Element group, Map<String, Document> subComponents) {
-        for (Document subComponent : subComponents.values()) {
-            for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                group.getOwnerDocument().adoptNode(n);
-                group.appendChild(n);
+    protected void insertSVGComponentIntoDefsArea(String componentType, Element group, Map<String, Document> subComponents) {
+        if (subComponents.size() > 1) {
+            for (Map.Entry<String, Document> subComponent : subComponents.entrySet()) {
+                Element subComponentGroup = group.getOwnerDocument().createElement("g");
+                subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
+                Document subComponentDocument = subComponent.getValue();
+                for (int i = 0; i < subComponentDocument.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+                    org.w3c.dom.Node n = subComponentDocument.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+                    subComponentGroup.getOwnerDocument().adoptNode(n);
+                    subComponentGroup.appendChild(n);
+                }
+                group.getOwnerDocument().adoptNode(subComponentGroup);
+                group.appendChild(subComponentGroup);
+            }
+        } else {
+            for (Document subComponent : subComponents.values()) {
+                for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
+                    org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
+                    group.getOwnerDocument().adoptNode(n);
+                    group.appendChild(n);
+                }
             }
         }
     }
