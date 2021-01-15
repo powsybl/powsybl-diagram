@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestExtendFeeder extends AbstractTestCaseRaw {
+public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {

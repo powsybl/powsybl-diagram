@@ -291,7 +291,15 @@ public final class Graph {
                 });
     }
 
-    public void extendFeeders() {
+    /**
+     * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
+     * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
+     * Some special cases:
+     *  - feeders connected directly to a bus need 3 additional nodes (1 fictitious disconnector, 2 internal nodes) to obey the Leg/Body/Feeder structure
+     *  - feeders connected to a bus through a disconnector need 2 additional internal nodes to obey the Leg/Body/Feeder structure
+     *  - 3WT do not need any fictitious node inserted here as they already have the fictitious Middle3WTNode
+     */
+    public void insertFictitiousNodesAtFeeders() {
         List<Node> nodesToAdd = new ArrayList<>();
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         for (Node feederNode : feederNodes) {
