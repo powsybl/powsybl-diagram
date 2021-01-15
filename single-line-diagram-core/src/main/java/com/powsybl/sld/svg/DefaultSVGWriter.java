@@ -657,7 +657,9 @@ public class DefaultSVGWriter implements SVGWriter {
         Element label = g.getOwnerDocument().createElement("text");
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
-        label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
+        if (shiftAngle != 0) {
+            label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
+        }
         label.setAttribute(CLASS, LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
