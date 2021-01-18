@@ -622,7 +622,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, g);
-        if (componentLibrary.getSvgDocument(componentType) != null && canInsertComponentSVG(node)) {
+        if (componentLibrary.getSvgElements(componentType) != null && canInsertComponentSVG(node)) {
             insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, node, styleProvider);
         }
     }
@@ -721,23 +721,18 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g,
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(name, g);
-        Map<String, Document> subComponents = componentLibrary.getSvgDocument(componentType);
+        Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
         subComponents.forEach(layoutParameters.isAvoidSVGComponentsDuplication() ?
             (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
             (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)
         );
     }
 
-    private void insertDuplicatedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Document svgSubComponent) {
-        // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
-        // If SVG are written differently, it will not work correctly.
-        NodeList subComponentChildren = svgSubComponent.getChildNodes().item(0).getChildNodes();
-        for (int i = 0; i < subComponentChildren.getLength(); i++) {
-            org.w3c.dom.Node n = subComponentChildren.item(i).cloneNode(true);
-            if (n instanceof Element) {
-                setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, (Element) n);
-            }
-        }
+    private void insertDuplicatedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, List<Element> svgSubComponent) {
+        svgSubComponent.forEach(e -> {
+            Element clonedElement = (Element) e.cloneNode(true);
+            setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, clonedElement);
+        });
     }
 
     private void insertSubcomponentReference(Element g, BiConsumer<Element, String> elementAttributesSetter, String componentType, String subComponentName, int nbSubComponents) {
@@ -1227,7 +1222,7 @@ public class DefaultSVGWriter implements SVGWriter {
             Element defs = document.createElement("defs");
 
             listUsedComponentSVG.forEach(c -> {
-                Map<String, Document> subComponents = componentLibrary.getSvgDocument(c);
+                Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
                 if (subComponents != null) {
                     Element group = document.createElement(GROUP);
                     group.setAttribute("id", c);
@@ -1244,28 +1239,25 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertSVGComponentIntoDefsArea(String componentType, Element group, Map<String, Document> subComponents) {
-        if (subComponents.size() > 1) {
-            for (Map.Entry<String, Document> subComponent : subComponents.entrySet()) {
+    protected void insertSVGComponentIntoDefsArea(String componentType, Element group, Map<String, List<Element>> subComponents) {
+        for (Map.Entry<String, List<Element>> subComponent : subComponents.entrySet()) {
+            if (subComponents.size() > 1) {
                 Element subComponentGroup = group.getOwnerDocument().createElement("g");
                 subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
-                Document subComponentDocument = subComponent.getValue();
-                for (int i = 0; i < subComponentDocument.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                    org.w3c.dom.Node n = subComponentDocument.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                    subComponentGroup.getOwnerDocument().adoptNode(n);
-                    subComponentGroup.appendChild(n);
-                }
+                addSvgSubComponentsToElement(subComponent.getValue(), subComponentGroup);
                 group.getOwnerDocument().adoptNode(subComponentGroup);
                 group.appendChild(subComponentGroup);
+            } else {
+                addSvgSubComponentsToElement(subComponent.getValue(), group);
             }
-        } else {
-            for (Document subComponent : subComponents.values()) {
-                for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                    org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                    group.getOwnerDocument().adoptNode(n);
-                    group.appendChild(n);
-                }
-            }
+        }
+    }
+
+    private void addSvgSubComponentsToElement(List<Element> subComponentElements, Element group) {
+        for (Element subComponentElement : subComponentElements) {
+            org.w3c.dom.Node n = subComponentElement.cloneNode(true);
+            group.getOwnerDocument().adoptNode(n);
+            group.appendChild(n);
         }
     }
 

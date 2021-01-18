@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.library;
 
-import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.net.URL;
 import java.util.List;
@@ -23,7 +23,7 @@ public interface ComponentLibrary {
 
     List<AnchorPoint> getAnchorPoints(String type);
 
-    Map<String, Document> getSvgDocument(String type);
+    Map<String, List<Element>> getSvgElements(String type);
 
     ComponentSize getSize(String type);
 
