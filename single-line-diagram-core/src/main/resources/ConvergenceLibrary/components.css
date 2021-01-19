@@ -1,42 +1,10 @@
-.busbar-section {
-    stroke-width: 3;
-}
-
-.breaker {
-    stroke-width: 2;
-}
-
-.disconnector {
-    stroke-width: 3
-}
-
-.vsc-converter-station {
-    font-size: 7.43px;
-    font-family: sans-serif;
-    word-spacing: 0px;
-}
-
-.grid {
-    stroke: rgb(0,55,0);
-    stroke-dasharray: 1,10;
-}
-
-.arrow-p {
-    fill:black
-}
-
-.arrow-q {
-    fill:blue
-}
-
-.graph-label {
-    font: 12px "Verdana";
-}
-
-.component-label {
-    font: 8px "Verdana";
-}
-
-.arrow-label {
-    font: 8px "Verdana";
-}
+.busbar-section {stroke-width: 3}
+.breaker {stroke-width: 2}
+.disconnector {stroke-width: 3}
+.vsc-converter-station {font-size: 7.43px}
+.grid {stroke: #003700; stroke-dasharray: 1,10}
+.arrow-p {fill:black}
+.arrow-q {fill:blue}
+.graph-label {font: 12px "Verdana"}
+.component-label {font: 8px "Verdana"}
+.arrow-label {font: 8px "Verdana"}
