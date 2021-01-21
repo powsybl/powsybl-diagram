@@ -1,5 +1,5 @@
 .constant-color {stroke: blue; fill: none}
-.wire.constant-color {stroke: red}
+.wire.constant-color {stroke: #c80000}
 .line.constant-color {stroke: blue}
 .node.constant-color {stroke: none; fill: black}
 .busbreaker-connection.constant-color {stroke: none; fill: black}
