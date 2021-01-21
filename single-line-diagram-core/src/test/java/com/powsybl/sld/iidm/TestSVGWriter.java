@@ -705,6 +705,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
+    public void testVl1CssExternal() {
+        assertEquals(toString("/vl1_external_css.svg"),
+            toSVG(g1, "/vl1_external_css.svg", getLayoutParameters().setCssInternal(false), initValueProvider, new DefaultDiagramStyleProvider()));
+    }
+
+    @Test
     public void testVl2() {
         assertEquals(toString("/vl2.svg"),
             toSVG(g2, "/vl2.svg", getLayoutParameters(), initValueProvider, new DefaultDiagramStyleProvider()));
