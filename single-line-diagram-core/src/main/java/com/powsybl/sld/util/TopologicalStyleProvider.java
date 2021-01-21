@@ -6,12 +6,14 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.iidm.network.Branch.Side;
-import com.powsybl.iidm.network.*;
-import com.powsybl.sld.color.BaseVoltageColor;
+import com.powsybl.iidm.network.Bus;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,93 +25,65 @@ import java.util.stream.Collectors;
  */
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    private final Map<String, Map<String, RGBColor>> voltageLevelColorMap = new HashMap<>();
+    private final Map<String, Map<String, String>> voltageLevelStyleMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
-        this(BaseVoltageColor.fromPlatformConfig(), network);
+        super(network);
     }
 
-    public TopologicalStyleProvider(BaseVoltageColor baseVoltageColor, Network network) {
-        super(baseVoltageColor, network);
+    @Override
+    protected Optional<String> getEdgeStyle(Edge edge) {
+        Node node1 = edge.getNode1();
+        Node node2 = edge.getNode2();
+        if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
+            return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : Optional.empty();
+        }
+        if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
+            return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
+        }
+        return super.getEdgeStyle(edge);
     }
 
     @Override
     public void reset() {
-        voltageLevelColorMap.clear();
+        voltageLevelStyleMap.clear();
     }
 
-    private Map<String, RGBColor> getColorMap(VoltageLevel vl) {
-        String basecolor = getBaseColor(vl.getNominalV(), PROFILE);
-
-        AtomicInteger idxColor = new AtomicInteger(0);
-
+    private Map<String, String> createStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
+        VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
         List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
-        Map<String, RGBColor> colorMap = new HashMap<>();
-
-        HSLColor color = HSLColor.parse(basecolor);
-
-        List<RGBColor> colors = color.getColorGradient(buses.size());
-
+        Map<String, String> styleMap = new HashMap<>();
+        AtomicInteger idxStyle = new AtomicInteger(0);
         buses.forEach(b -> {
-            RGBColor c = colors.get(idxColor.getAndIncrement());
-
-            b.visitConnectedEquipments(new TopologyVisitor() {
-                @Override
-                public void visitBusbarSection(BusbarSection e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitDanglingLine(DanglingLine e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitGenerator(Generator e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitLine(Line e, Side s) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitLoad(Load e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitShuntCompensator(ShuntCompensator e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitStaticVarCompensator(StaticVarCompensator e) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitThreeWindingsTransformer(ThreeWindingsTransformer e,
-                                                          ThreeWindingsTransformer.Side s) {
-                    colorMap.put(e.getId(), c);
-                }
-
-                @Override
-                public void visitTwoWindingsTransformer(TwoWindingsTransformer e, Side s) {
-                    colorMap.put(e.getId(), c);
-                }
-            });
+            String style = baseVoltageLevelStyle + '-' + idxStyle.getAndIncrement();
+            b.visitConnectedEquipments(new TopologyVisitorId(equipmentId -> styleMap.put(equipmentId, style)));
         });
 
-        return colorMap;
+        return styleMap;
     }
 
-    private RGBColor getNodeRgbColor(VoltageLevelInfos voltageLevelInfos, Node node) {
-        VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
-        Map<String, RGBColor> colorMap = voltageLevelColorMap.computeIfAbsent(vl.getId(), k -> getColorMap(vl));
-        return colorMap.get(node.getEquipmentId());
+    private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
+        Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
+        String nodeTopologicalStyle = styleMap.computeIfAbsent(
+            node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
+        return Optional.ofNullable(nodeTopologicalStyle);
+    }
+
+    private String findConnectedStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
+        Set<Node> connectedNodes = findConnectedNodes(node);
+        for (Node connectedNode : connectedNodes) {
+            String nodeTopologicalStyle = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos).get(connectedNode.getEquipmentId());
+            if (nodeTopologicalStyle != null) {
+                return nodeTopologicalStyle;
+            }
+        }
+        return null;
+    }
+
+    private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
+        return voltageLevelStyleMap.computeIfAbsent(
+            voltageLevelInfos.getId(), k -> createStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
     }
 
     private Set<Node> findConnectedNodes(Node node) {
@@ -131,39 +105,24 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         }
     }
 
-    private RGBColor getSmartNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
+    @Override
+    public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
         if (node.getType() == NodeType.SWITCH && node.isOpen()) {
-            return null;
+            return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         }
-        RGBColor rgbColor = getNodeRgbColor(voltageLevelInfos, node);
-        if (rgbColor != null) {
-            return rgbColor;
-        }
-        Set<Node> connectedNodes = findConnectedNodes(node);
-        for (Node connectedNode : connectedNodes) {
-            rgbColor = getNodeRgbColor(voltageLevelInfos, connectedNode);
-            if (rgbColor != null) {
-                return rgbColor;
+        Optional<String> baseVoltageLevelStyle = super.getVoltageLevelNodeStyle(voltageLevelInfos, node);
+        if (baseVoltageLevelStyle.isPresent()) {
+            Optional<String> nodeTopologicalStyle = getNodeTopologicalStyle(baseVoltageLevelStyle.get(), voltageLevelInfos, node);
+            if (nodeTopologicalStyle.isPresent()) {
+                return nodeTopologicalStyle;
             }
         }
-        return null;
+        return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
     }
 
     @Override
-    protected String getEdgeColor(Node node1, Node node2) {
-        if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
-            return node2.getVoltageLevelInfos() != null ? getNodeColor(node2.getVoltageLevelInfos(), node2) : null;
-        }
-        if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
-            return node1.getVoltageLevelInfos() != null ? getNodeColor(node1.getVoltageLevelInfos(), node1) : null;
-        }
-
-        return super.getEdgeColor(node1, node2);
+    public List<String> getCssFilenames() {
+        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css", "baseVoltageConstantColors.css");
     }
 
-    @Override
-    public String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
-        RGBColor rgbColor = getSmartNodeColor(voltageLevelInfos, node);
-        return rgbColor != null ? rgbColor.toString() : disconnectedColor;
-    }
 }

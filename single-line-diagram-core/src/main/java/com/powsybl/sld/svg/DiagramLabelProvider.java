@@ -56,6 +56,7 @@ public interface DiagramLabelProvider {
         public LabelPosition getPosition() {
             return position;
         }
+
     }
 
     public enum Direction {
