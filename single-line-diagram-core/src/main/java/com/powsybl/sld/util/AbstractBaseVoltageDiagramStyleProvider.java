@@ -29,7 +29,6 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
     private static final String WINDING3 = "WINDING3";
-    private static final String BASE_VOLTAGE_PROFILE = "Default";
 
     protected final Network network;
 
@@ -37,6 +36,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         this.network = network;
     }
 
+    @Override
     protected Optional<String> getEdgeStyle(Edge edge) {
         Node nodeForStyle = edge.getNode1().getVoltageLevelInfos() != null ? edge.getNode1() : edge.getNode2();
         return getVoltageLevelNodeStyle(nodeForStyle.getVoltageLevelInfos(), nodeForStyle);
@@ -151,6 +151,12 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return styles;
     }
 
+    /**
+     * Returns the voltage level style if any to apply to the given node
+     * @param vlInfo the VoltageLevelInfos related to the given node
+     * @param node the node on which the style if any is applied to
+     * @return the voltage level style if any
+     */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
         return Optional.of("vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
     }

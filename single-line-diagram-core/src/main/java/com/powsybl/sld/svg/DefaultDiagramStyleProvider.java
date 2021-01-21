@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
@@ -39,10 +40,20 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return styles;
     }
 
+    /**
+     * Return the style if any applied to given edge
+     * @param edge the edge on which the style if any is applied to
+     * @return the style if any
+     */
     protected Optional<String> getEdgeStyle(Edge edge) {
         return Optional.empty();
     }
 
+    /**
+     * Return the highlight style if any to apply to given edge (if {@link LayoutParameters#isHighlightLineState()})
+     * @param edge the edge on which the style if any is applied to
+     * @return the highlight style if any
+     */
     protected Optional<String> getHighlightLineStateStyle(Edge edge) {
         return Optional.empty();
     }
@@ -87,10 +98,20 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         return styles;
     }
 
+    /**
+     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given node
+     * @param node the node considered
+     * @return true if the constant color class should be applied, false otherwise
+     */
     protected boolean isConstantColor(Node node) {
         return true;
     }
 
+    /**
+     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given edge
+     * @param edge the edge considered
+     * @return true if the constant color class should be applied, false otherwise
+     */
     protected boolean isConstantColor(Edge edge) {
         return true;
     }
