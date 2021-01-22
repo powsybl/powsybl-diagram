@@ -438,7 +438,9 @@ public final class Graph {
      */
     public void replaceNode(Node nodeOrigin, Node newNode) {
         substituteNode(nodeOrigin, newNode);
-        addNode(newNode);
+        if (!nodes.contains(newNode)) {
+            addNode(newNode);
+        }
     }
 
     public void substituteFictitiousNodesMirroringBusNodes() {
