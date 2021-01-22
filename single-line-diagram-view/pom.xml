@@ -27,6 +27,10 @@
             <groupId>com.github.afester.javafx</groupId>
             <artifactId>FranzXaver</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.powsybl</groupId>

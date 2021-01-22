@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg">
-    <style><![CDATA[
+    <style>
+        <![CDATA[
 .up .arrow-down {visibility: hidden}
 .down .arrow-up {visibility: hidden}
 .closed .sw-open {visibility: hidden}
@@ -29,7 +30,8 @@ polyline {fill: none}
 .component-label {font: 8px "Verdana"}
 .arrow-label {font: 8px "Verdana"}
 
-]]></style>
+]]>
+    </style>
     <g>
         <g class="grid" id="GRID_vl3" transform="translate(20.0,50.0)">
             <line x1="850.0" x2="850.0" y1="0.0" y2="560.0"/>
