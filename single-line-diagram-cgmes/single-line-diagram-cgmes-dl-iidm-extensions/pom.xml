@@ -40,6 +40,10 @@
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-commons</artifactId>
+        </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>com.powsybl</groupId>

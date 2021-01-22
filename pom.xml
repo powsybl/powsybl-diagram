@@ -92,7 +92,7 @@
             **/generated/**/*, **/com/powsybl/sld/view/**/*
         </sonar.exclusions>
 
-        <powsyblcore.version>3.8.0</powsyblcore.version>
+        <powsyblcore.version>4.0.0-RC1</powsyblcore.version>
         <javafx.version>11.0.2</javafx.version>
     </properties>
 
@@ -221,6 +221,11 @@
             <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-iidm-api</artifactId>
+                <version>${powsyblcore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-commons</artifactId>
                 <version>${powsyblcore.version}</version>
             </dependency>
             <dependency>
