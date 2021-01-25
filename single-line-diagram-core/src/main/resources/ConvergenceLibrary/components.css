@@ -1,5 +1,5 @@
 .busbar-section {stroke-width: 3}
-.breaker {stroke-width: 2}
+.breaker {stroke-width: 2; fill:white}
 .disconnector {stroke-width: 3}
 .vsc-converter-station {font-size: 7.43px}
 .grid {stroke: #003700; stroke-dasharray: 1,10}
