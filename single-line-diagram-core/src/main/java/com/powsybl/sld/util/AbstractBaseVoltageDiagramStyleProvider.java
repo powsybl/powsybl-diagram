@@ -158,7 +158,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return Optional.of("vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
+        return Optional.of("sld-vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
     }
 
     private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {

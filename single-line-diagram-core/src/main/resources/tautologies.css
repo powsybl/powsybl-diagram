@@ -1,9 +1,9 @@
-.up .arrow-down {visibility: hidden}
-.down .arrow-up {visibility: hidden}
-.closed .sw-open {visibility: hidden}
-.open .sw-closed {visibility: hidden}
-.hidden-internal-node {visibility: hidden}
+.sld-up .sld-arrow-down {visibility: hidden}
+.sld-down .sld-arrow-up {visibility: hidden}
+.sld-closed .sld-sw-open {visibility: hidden}
+.sld-open .sld-sw-closed {visibility: hidden}
+.sld-hidden-internal-node {visibility: hidden}
 polyline {fill: none}
-.top-feeder .component-label {dominant-baseline: auto}
-.bottom-feeder .component-label {dominant-baseline: hanging}
-.arrow-label {dominant-baseline: middle}
+.sld-top-feeder .sld-component-label {dominant-baseline: auto}
+.sld-bottom-feeder .sld-component-label {dominant-baseline: hanging}
+.sld-arrow-label {dominant-baseline: middle}

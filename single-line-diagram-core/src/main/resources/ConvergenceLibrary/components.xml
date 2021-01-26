@@ -3,7 +3,7 @@
     <component>
         <metadata type="BREAKER">
             <size width="20" height="20" />
-            <styleClass>breaker</styleClass>
+            <styleClass>sld-breaker</styleClass>
             <subComponent name="BREAKER">
                 <fileName>breaker.svg</fileName>
             </subComponent>
@@ -15,7 +15,7 @@
     <component>
         <metadata type="LOAD_BREAK_SWITCH">
             <size width="10" height="10"/>
-            <styleClass>load-break-switch</styleClass>
+            <styleClass>sld-load-break-switch</styleClass>
             <subComponent name="LOAD_BREAK_SWITCH">
                 <fileName>load-break-switch.svg</fileName>
             </subComponent>
@@ -27,7 +27,7 @@
     <component>
         <metadata type="LOAD">
             <size width="16" height="9"/>
-            <styleClass>load</styleClass>
+            <styleClass>sld-load</styleClass>
             <subComponent name="LOAD">
                 <fileName>load.svg</fileName>
             </subComponent>
@@ -39,7 +39,7 @@
     <component>
         <metadata type="GENERATOR">
             <size width="12" height="12"/>
-            <styleClass>generator</styleClass>
+            <styleClass>sld-generator</styleClass>
             <subComponent name="GENERATOR">
                 <fileName>generator.svg</fileName>
             </subComponent>
@@ -53,7 +53,7 @@
     <component>
         <metadata type="TWO_WINDINGS_TRANSFORMER">
             <size width="10" height="15"/>
-            <styleClass>two-wt</styleClass>
+            <styleClass>sld-two-wt</styleClass>
             <subComponent name="WINDING1">
                 <fileName>2-windings-transformer-winding1.svg</fileName>
             </subComponent>
@@ -70,7 +70,7 @@
     <component>
         <metadata type="THREE_WINDINGS_TRANSFORMER">
             <size width="16" height="14"/>
-            <styleClass>three-wt</styleClass>
+            <styleClass>sld-three-wt</styleClass>
             <subComponent name="WINDING1">
                 <fileName>3-windings-transformer-winding1.svg</fileName>
             </subComponent>
@@ -89,7 +89,7 @@
     <component>
         <metadata type="CAPACITOR">
             <size width="12" height="12"/>
-            <styleClass>capacitor</styleClass>
+            <styleClass>sld-capacitor</styleClass>
             <subComponent name="CAPACITOR">
                 <fileName>capacitor.svg</fileName>
             </subComponent>
@@ -101,7 +101,7 @@
     <component>
         <metadata type="INDUCTOR">
             <size width="15" height="9"/>
-            <styleClass>inductor</styleClass>
+            <styleClass>sld-inductor</styleClass>
             <subComponent name="INDUCTOR">
                 <fileName>inductor.svg</fileName>
             </subComponent>
@@ -113,7 +113,7 @@
     <component>
         <metadata type="DISCONNECTOR">
             <size height="8" width="8"/>
-            <styleClass>disconnector</styleClass>
+            <styleClass>sld-disconnector</styleClass>
             <subComponent name="DISCONNECTOR">
                 <fileName>disconnector.svg</fileName>
             </subComponent>
@@ -124,7 +124,7 @@
     <component>
         <metadata type="BUSBREAKER_CONNECTION">
             <size height="8" width="8"/>
-            <styleClass>busbreaker-connection</styleClass>
+            <styleClass>sld-busbreaker-connection</styleClass>
             <subComponent name="BUSBREAKER_CONNECTION">
                 <fileName>busbreaker_connection.svg</fileName>
             </subComponent>
@@ -138,7 +138,7 @@
     <component>
         <metadata type="NODE">
             <size height="8" width="8"/>
-            <styleClass>node</styleClass>
+            <styleClass>sld-node</styleClass>
             <subComponent name="NODE">
                 <fileName>node.svg</fileName>
             </subComponent>
@@ -149,7 +149,7 @@
     <component>
         <metadata type="PHASE_SHIFT_TRANSFORMER">
             <size width="14" height="17"/>
-            <styleClass>pst</styleClass>
+            <styleClass>sld-pst</styleClass>
             <subComponent name="WINDING1">
                 <fileName>phase-shifter-winding1.svg</fileName>
             </subComponent>
@@ -166,7 +166,7 @@
     <component>
         <metadata type="STATIC_VAR_COMPENSATOR">
             <size width="12" height="12"/>
-            <styleClass>svc</styleClass>
+            <styleClass>sld-svc</styleClass>
             <subComponent name="STATIC_VAR_COMPENSATOR">
                 <fileName>svc.svg</fileName>
             </subComponent>
@@ -178,7 +178,7 @@
     <component>
         <metadata type="VSC_CONVERTER_STATION">
             <size width="16" height="8"/>
-            <styleClass>vsc</styleClass>
+            <styleClass>sld-vsc</styleClass>
             <subComponent name="VSC_CONVERTER_STATION">
                 <fileName>vsc.svg</fileName>
             </subComponent>
@@ -190,7 +190,7 @@
     <component>
         <metadata type="ARROW">
             <size height="10" width="10"/>
-            <styleClass>arrow</styleClass>
+            <styleClass>sld-arrow</styleClass>
             <subComponent name="ARROW">
                 <fileName>arrow.svg</fileName>
             </subComponent>
@@ -201,7 +201,7 @@
     <component>
         <metadata type="LINE">
             <size height="0" width="0"/>
-            <styleClass>line</styleClass>
+            <styleClass>sld-line</styleClass>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
             <allowRotation>false</allowRotation>
         </metadata>
@@ -209,7 +209,7 @@
     <component>
         <metadata type="BUSBAR_SECTION">
             <size height="0" width="0"/>
-            <styleClass>busbar-section</styleClass>
+            <styleClass>sld-busbar-section</styleClass>
         </metadata>
     </component>
 </components>

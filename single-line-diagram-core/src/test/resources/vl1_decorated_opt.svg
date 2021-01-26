@@ -93,7 +93,7 @@
     fill-opacity: 0;
 }
 
-.wire {
+.sld-wire {
     stroke: rgb(200,0,0);
     stroke-width: 1;
     fill-opacity: 0;
@@ -105,7 +105,7 @@
     stroke-dasharray: 1,10;
 }
 
-.component-label {
+.sld-component-label {
     fill: black;
     color: black;
     stroke: none;
@@ -132,10 +132,10 @@
 ]]></style>
     <defs>
         <g id="ARROW">
-            <g class="arrow-up" id="ARROW-arrow-up">
+            <g class="sld-arrow-up" id="ARROW-sld-arrow-up">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
-            <g class="arrow-down" id="ARROW-arrow-down">
+            <g class="sld-arrow-down" id="ARROW-sld-arrow-down">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
         </g>
@@ -180,7 +180,7 @@
         </g>
     </defs>
     <g>
-        <g class="grid" id="GRID_vl1" transform="translate(20.0,50.0)">
+        <g class="sld-grid" id="GRID_vl1" transform="translate(20.0,50.0)">
             <line x1="0.0" x2="0.0" y1="0.0" y2="560.0"/>
             <line x1="80.0" x2="80.0" y1="0.0" y2="560.0"/>
             <line x1="160.0" x2="160.0" y1="0.0" y2="560.0"/>
@@ -195,87 +195,87 @@
         </g>
         <g class="BUSBAR_SECTION idvl1_95_bbs1" id="idvl1_95_bbs1" transform="translate(20.0,370.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_bbs1_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_bbs1</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_bbs1_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_bbs1</text>
         </g>
         <g class="BUSBAR_SECTION idvl1_95_bbs2" id="idvl1_95_bbs2" transform="translate(300.0,370.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_bbs2_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_bbs2</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_bbs2_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_bbs2</text>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_bbs1_95_vl1_95_d1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_bbs1_95_vl1_95_d1">
             <polyline points="220.0,370.0,240.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_d1_95_vl1_95_b1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_d1_95_vl1_95_b1">
             <polyline points="240.0,370.0,255.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_b1_95_vl1_95_d2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_b1_95_vl1_95_d2">
             <polyline points="275.0,370.0,290.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_d2_95_vl1_95_bbs2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_d2_95_vl1_95_bbs2">
             <polyline points="290.0,370.0,300.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
             <polyline points="60.0,154.5,60.0,240.0"/>
         </g>
         <g class="ARROW1_vl1_95_load1_UP" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,169.5)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
+            <use fill="black" fill-opacity="1" href="#ARROW-sld-arrow-up" stroke="black"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
         <g class="ARROW2_vl1_95_load1_DOWN" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,189.5)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
+            <use fill="blue" fill-opacity="1" href="#ARROW-sld-arrow-down" stroke="blue"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
             <polyline points="60.0,260.0,60.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
             <polyline points="60.0,370.0,50.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="100.0,562.0,100.0,480.0"/>
         </g>
         <g class="ARROW2_vl1_95_trf1_DOWN" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,95.0,537.0)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue" transform="rotate(180.0,5.0,5.0)"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
+            <use fill="blue" fill-opacity="1" href="#ARROW-sld-arrow-down" stroke="blue" transform="rotate(180.0,5.0,5.0)"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
         <g class="ARROW1_vl1_95_trf1_UP" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,95.0,517.0)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black" transform="rotate(180.0,5.0,5.0)"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
+            <use fill="black" fill-opacity="1" href="#ARROW-sld-arrow-up" stroke="black" transform="rotate(180.0,5.0,5.0)"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
             <polyline points="100.0,460.0,100.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
             <polyline points="100.0,370.0,90.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2">
             <polyline points="380.0,150.0,380.0,205.0,413.0,205.0"/>
         </g>
         <g class="ARROW1_vl1_95_trf2_95_one_UP" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,375.0,162.5)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
+            <use fill="black" fill-opacity="1" href="#ARROW-sld-arrow-up" stroke="black"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
         <g class="ARROW2_vl1_95_trf2_95_one_DOWN" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,182.5)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
+            <use fill="blue" fill-opacity="1" href="#ARROW-sld-arrow-down" stroke="blue"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2">
             <polyline points="460.0,150.0,460.0,205.0,427.0,205.0"/>
         </g>
         <g class="ARROW1_vl1_95_trf2_95_two_UP" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,162.5)">
-            <use fill="black" fill-opacity="1" href="#ARROW-arrow-up" stroke="black"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
+            <use fill="black" fill-opacity="1" href="#ARROW-sld-arrow-up" stroke="black"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">10   </text>
         </g>
         <g class="ARROW2_vl1_95_trf2_95_two_DOWN" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,182.5)">
-            <use fill="blue" fill-opacity="1" href="#ARROW-arrow-down" stroke="blue"/>
-            <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
+            <use fill="blue" fill-opacity="1" href="#ARROW-sld-arrow-down" stroke="blue"/>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">20   </text>
         </g>
-        <g class="wire" id="_95_vl1_95_FICT_95_vl1_95_vl1_95_trf2_95_vl1_95_btrf2">
+        <g class="sld-wire" id="_95_vl1_95_FICT_95_vl1_95_vl1_95_trf2_95_vl1_95_btrf2">
             <polyline points="420.0,217.0,420.0,240.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
             <polyline points="420.0,260.0,420.0,370.0"/>
         </g>
-        <g class="wire" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
             <polyline points="420.0,370.0,410.0,370.0"/>
         </g>
         <g class="DISCONNECTOR idvl1_95_d1" id="idvl1_95_d1" transform="translate(236.0,366.0)">
@@ -292,7 +292,7 @@
         </g>
         <g class="LOAD idvl1_95_load1" id="idvl1_95_load1" transform="translate(52.0,145.5)">
             <use href="#LOAD"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_load1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_load1</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_load1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_load1</text>
         </g>
         <g class="BREAKER idvl1_95_bload1" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
             <use href="#BREAKER-closed"/>
@@ -305,7 +305,7 @@
         <g class="TWO_WINDINGS_TRANSFORMER idvl1_95_trf1" id="idvl1_95_trf1" transform="translate(95.0,562.5)">
             <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
             <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf1</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
         <g class="BREAKER idvl1_95_btrf1" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
             <use href="#BREAKER-closed"/>
@@ -316,10 +316,10 @@
             <use href="#LOCK" transform="translate(9.0,0.0)"/>
         </g>
         <g class="LINE idvl1_95_trf2_95_one" id="idvl1_95_trf2_95_one" transform="translate(380.0,150.0)">
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="LINE idvl1_95_trf2_95_two" id="idvl1_95_trf2_95_two" transform="translate(460.0,150.0)">
-            <text class="component-label" font-family="Verdana" font-size="8" id="vl1_trf2_two__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
+            <text class="sld-component-label" font-family="Verdana" font-size="8" id="vl1_trf2_two__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="THREE_WINDINGS_TRANSFORMER idFICT_95_vl1_95_vl1_95_trf2" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(412.0,203.0)">
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>

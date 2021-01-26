@@ -61,7 +61,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "busbar-section"
+    "styleClass" : "sld-busbar-section"
   }, {
     "type" : "GENERATOR",
     "id" : null,
@@ -88,7 +88,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "generator"
+    "styleClass" : "sld-generator"
   }, {
     "type" : "ARROW",
     "id" : null,
@@ -103,7 +103,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "arrow"
+    "styleClass" : "sld-arrow"
   }, {
     "type" : "LOAD",
     "id" : null,
@@ -122,7 +122,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "load"
+    "styleClass" : "sld-load"
   }, {
     "type" : "NODE",
     "id" : null,
@@ -137,7 +137,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "node"
+    "styleClass" : "sld-node"
   }, {
     "type" : "DISCONNECTOR",
     "id" : null,
@@ -152,7 +152,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "disconnector"
+    "styleClass" : "sld-disconnector"
   }, {
     "type" : "LINE",
     "id" : null,
@@ -167,7 +167,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "line"
+    "styleClass" : "sld-line"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -194,7 +194,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "two-wt"
+    "styleClass" : "sld-two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -217,7 +217,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "three-wt"
+    "styleClass" : "sld-three-wt"
   }, {
     "type" : "BREAKER",
     "id" : null,
@@ -236,7 +236,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "breaker"
+    "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {
     "id" : "idFICT_95_vl1_95_dtrf15Fictif",
