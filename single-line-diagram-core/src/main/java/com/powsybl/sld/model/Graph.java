@@ -412,16 +412,6 @@ public final class Graph {
     }
 
     /**
-     * @param nodeOrigin: node which will be substituted
-     * @param newNode:    node which will substitute the first one
-     * @deprecated Use {@link #substituteNode} instead
-     */
-    @Deprecated
-    public void substitueNode(Node nodeOrigin, Node newNode) {
-        substituteNode(nodeOrigin, newNode);
-    }
-
-    /**
      * Substitute a node with another node already in the graph.
      * Use {@link #replaceNode} instead if the node newNode is not already in the graph.
      *
@@ -447,8 +437,10 @@ public final class Graph {
      * @param newNode:    node which will replace the first one
      */
     public void replaceNode(Node nodeOrigin, Node newNode) {
-        addNode(newNode);
         substituteNode(nodeOrigin, newNode);
+        if (!nodes.contains(newNode)) {
+            addNode(newNode);
+        }
     }
 
     public void substituteFictitiousNodesMirroringBusNodes() {
