@@ -13,12 +13,12 @@ package com.powsybl.sld.svg;
 public class ElectricalNodeInfo {
     private double v;
     private double angle;
-    String color;
+    String style;
 
-    public ElectricalNodeInfo(double v, double angle, String color) {
+    public ElectricalNodeInfo(double v, double angle, String style) {
         this.v = v;
         this.angle = angle;
-        this.color = color;
+        this.style = style;
     }
 
     public double getV() {
@@ -29,7 +29,7 @@ public class ElectricalNodeInfo {
         return angle;
     }
 
-    public String getColor() {
-        return color;
+    public String getStyle() {
+        return style;
     }
 }

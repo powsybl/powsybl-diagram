@@ -6,265 +6,138 @@
  */
 package com.powsybl.sld.svg;
 
-import com.google.common.collect.ImmutableMap;
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
-import java.util.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static com.powsybl.sld.svg.DiagramStyles.escapeClassName;
-import static com.powsybl.sld.svg.DiagramStyles.escapeId;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
-    private static final String ARROW1 = ".ARROW1_";
-    private static final String ARROW2 = ".ARROW2_";
-    private static final String UP = "_UP";
-    private static final String DOWN = "_DOWN";
-    private static final String STROKE = "stroke";
-    protected static final String WINDING1 = "WINDING1";
-    protected static final String WINDING2 = "WINDING2";
-    protected static final String WINDING3 = "WINDING3";
 
     @Override
-    public Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes) {
-        Objects.requireNonNull(node);
-
-        if (node.getComponentType().equals(ComponentTypeName.NODE) && !isShowInternalNodes) {
-            StringBuilder style = new StringBuilder();
-            String className = escapeId(node.getId());
-            style.append(".").append(className)
-                    .append(" {stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
-            return Optional.of(style.toString());
+    public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
+        List<String> styles = new ArrayList<>();
+        if (edge instanceof BranchEdge) {
+            styles.add(SNAKELINE_STYLE_CLASS);
+        } else {
+            styles.add(WIRE_STYLE_CLASS);
         }
-        if (node.getType() == Node.NodeType.SWITCH) {
-
-            StringBuilder style = new StringBuilder();
-            String className = escapeId(node.getId());
-            style.append(".").append(className)
-                    .append(" .open { visibility: ").append(node.isOpen() ? "visible;}" : "hidden;}");
-
-            style.append(".").append(className)
-                    .append(" .closed { visibility: ").append(node.isOpen() ? "hidden;}" : "visible;}");
-
-            return Optional.of(style.toString());
-
+        if (isConstantColor(edge)) {
+            styles.add(CONSTANT_COLOR_CLASS);
         }
-        if (node instanceof FeederNode) {
-            StringBuilder style = new StringBuilder();
-            style.append(ARROW1).append(escapeClassName(node.getId()))
-                    .append(UP).append(" .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}");
-            style.append(ARROW1).append(escapeClassName(node.getId()))
-                    .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
-
-            style.append(ARROW1).append(escapeClassName(node.getId()))
-                    .append(DOWN).append(" .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}");
-            style.append(ARROW1).append(escapeClassName(node.getId()))
-                    .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
-
-            style.append(ARROW2).append(escapeClassName(node.getId()))
-                    .append(UP).append(" .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}");
-            style.append(ARROW2).append(escapeClassName(node.getId()))
-                    .append(UP).append(" .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
-
-            style.append(ARROW2).append(escapeClassName(node.getId()))
-                    .append(DOWN).append(" .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}");
-            style.append(ARROW2).append(escapeClassName(node.getId()))
-                    .append(DOWN).append(" .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}");
-
-            return Optional.of(style.toString());
+        getEdgeStyle(edge).ifPresent(styles::add);
+        if (highlightLineState) {
+            getHighlightLineStateStyle(edge).ifPresent(styles::add);
         }
+        return styles;
+    }
+
+    /**
+     * Return the style if any applied to given edge
+     * @param edge the edge on which the style if any is applied to
+     * @return the style if any
+     */
+    protected Optional<String> getEdgeStyle(Edge edge) {
         return Optional.empty();
     }
 
-    protected String getNodeColor(VoltageLevelInfos voltageLevelInfos, Node node) {
-        return null;
-    }
-
-    protected String getEdgeColor(Node node1, Node node2) {
-        if (node1.getVoltageLevelInfos() != null) {
-            return getNodeColor(node1.getVoltageLevelInfos(), node1);
-        } else {
-            return getNodeColor(node2.getVoltageLevelInfos(), node2);
-        }
-    }
-
-    protected String getEdgeColor(Edge edge) {
-        return getEdgeColor(edge.getNode1(), edge.getNode2());
-    }
-
-    protected void addHighlightStateStyle(Edge edge, Map<String, String> style, String color) {
-        // no highlight by default
+    /**
+     * Return the highlight style if any to apply to given edge (if {@link LayoutParameters#isHighlightLineState()})
+     * @param edge the edge on which the style if any is applied to
+     * @return the highlight style if any
+     */
+    protected Optional<String> getHighlightLineStateStyle(Edge edge) {
+        return Optional.empty();
     }
 
     @Override
-    public Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState) {
-        String color = getEdgeColor(edge);
-        Map<String, String> style = new HashMap<>();
-        if (color != null) {
-            style.put("stroke", color);
-            style.put("stroke-width", "1");
-            if (highlightLineState) {
-                addHighlightStateStyle(edge, style, color);
-            }
+    public List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
+
+        if (node instanceof FeederNode && node.getCell() != null) {
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            styles.add(direction == BusCell.Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
         }
-        return style;
+        if (isConstantColor(node)) {
+            styles.add(CONSTANT_COLOR_CLASS);
+        }
+        if (!showInternalNodes && node instanceof InternalNode) {
+            styles.add(HIDDEN_INTERNAL_NODE_CLASS);
+        }
+        if (node.getType() == Node.NodeType.SWITCH) {
+            styles.add(node.isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
+        }
+
+        return styles;
     }
 
     @Override
-    public Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes) {
-        Map<String, String> attributes = new HashMap<>();
-        String color = null;
-
-        Graph g = node.getGraph();
-        if (g != null) {  // node inside a voltageLevel graph
-            if (node.getType() != Node.NodeType.SWITCH) { // we don't color switches
-                if (node instanceof Middle3WTNode) {
-                    String vlId = g.getVoltageLevelInfos().getId();
-                    color = get3WTColor((Middle3WTNode) node, subComponentName, vlId);
-                } else if (node instanceof Feeder2WTNode) {
-                    if (subComponentName.equals(WINDING2)) {
-                        color = getNodeColor(((Feeder2WTNode) node).getOtherSideVoltageLevelInfos(), node);
-                    }
-                } else if (!isShowInternalNodes && node.getComponentType().equals(ComponentTypeName.NODE)) {
-                    attributes.put("stroke-opacity", "0");
-                    attributes.put("fill-opacity", "0");
-                }
-
-                if (color == null) {
-                    color = getNodeColor(node.getGraph().getVoltageLevelInfos(), node);
-                }
-            }
-        } else {  // node outside any voltageLevel graph (multi-terminal node)
-            List<Node> adjacentNodes = node.getAdjacentNodes();
-            if (adjacentNodes.size() == 2) {  // 2 windings transformer
-                adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
-                FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-                FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-                FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-                FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-                FeederWithSideNode nodeWinding = nodeWinding1;
-
-                if (subComponentName.equals(WINDING1)) {
-                    if (!node.isRotated()) {
-                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
-                    } else if (node.getRotationAngle() == 90.) {
-                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
-                    } else if (node.getRotationAngle() == 180.) {
-                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
-                    } else if (node.getRotationAngle() == 270.) {
-                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
-                    }
-                } else if (subComponentName.equals(WINDING2)) {
-                    if (!node.isRotated()) {
-                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
-                    } else if (node.getRotationAngle() == 90.) {
-                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
-                    } else if (node.getRotationAngle() == 180.) {
-                        nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
-                    } else if (node.getRotationAngle() == 270.) {
-                        nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
-                    }
-                }
-
-                color = getNodeColor(nodeWinding.getGraph().getVoltageLevelInfos(), nodeWinding);
-
-            } else if (adjacentNodes.size() == 3) {  // 3 windings transformer
-                adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
-                Node n1 = adjacentNodes.get(0);
-                Node n2 = adjacentNodes.get(1);
-                Node n3 = adjacentNodes.get(2);
-
-                Node n = n1;
-                switch (subComponentName) {
-                    case WINDING1:
-                        n = !node.isRotated() ? n1 : n3;
-                        break;
-                    case WINDING2:
-                        n = !node.isRotated() ? n3 : n1;
-                        break;
-                    case WINDING3:
-                        n = n2;
-                        break;
-                    default:
-                }
-                color = getNodeColor(n.getGraph().getVoltageLevelInfos(), n);
-            }
-        }
-
-        if (color != null) {
-            attributes.put("fill", color);
-            attributes.put(STROKE, color);
-        }
-
-        return attributes;
-    }
-
-    private String get3WTColor(Middle3WTNode node, String subComponentName, String vlId) {
-        VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
-        VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
-        VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
-
-        VoltageLevelInfos voltageLevelInfos = voltageLevelInfosLeg1;
-
-        // A three windings transformer is represented by 3 circles identified by winding1, winding2 and winding3
-        // winding1 and winding2 are horizontally aligned and winding3 is displayed below the others
-        // But, if node is rotated (by 180 degrees), winding3 is displayed above the others and winding1 and winding2 are permuted
-
-        if (subComponentName.equals(WINDING1)) {
-            // colorizing winding1
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding1 corresponds to transformer leg2 or leg3, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg3;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding1 corresponds to transformer leg1 or leg3, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg1 : voltageLevelInfosLeg3;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding1 corresponds to transformer leg1 or leg2, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg1 : voltageLevelInfosLeg2;
-            }
-        } else if (subComponentName.equals(WINDING2)) {
-            // colorizing winding2
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding2 corresponds to transformer leg3 or leg2, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg3 : voltageLevelInfosLeg2;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding2 corresponds to transformer leg3 or leg1, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg3 : voltageLevelInfosLeg1;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding2 corresponds to transformer leg2 or leg1, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg1;
-            }
-        } else {
-            // colorizing winding3 : this winding always correspond to the leg of the voltage level displayed
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg1;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg2;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg3;
-            }
-        }
-
-        return getNodeColor(voltageLevelInfos, node);
+    public List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary) {
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(nodeDecorator.getType()).ifPresent(styles::add);
+        return styles;
     }
 
     @Override
-    public Map<String, String> getSvgArrowStyleAttributes(int num) {
-        return ImmutableMap.of(STROKE, num == 1 ? "black" : "blue",
-                "fill", num == 1 ? "black" : "blue",
-                "fill-opacity", "1");
+    public List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary) {
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(ComponentTypeName.LINE).ifPresent(styles::add);
+        if (isConstantColor(edge)) {
+            styles.add(CONSTANT_COLOR_CLASS);
+        }
+        return styles;
+    }
+
+    /**
+     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given node
+     * @param node the node considered
+     * @return true if the constant color class should be applied, false otherwise
+     */
+    protected boolean isConstantColor(Node node) {
+        return true;
+    }
+
+    /**
+     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given edge
+     * @param edge the edge considered
+     * @return true if the constant color class should be applied, false otherwise
+     */
+    protected boolean isConstantColor(Edge edge) {
+        return true;
+    }
+
+    @Override
+    public List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName) {
+        return new ArrayList<>();
     }
 
     @Override
     public void reset() {
         // Nothing to reset for this implementation
+    }
+
+    @Override
+    public List<String> getCssFilenames() {
+        return Arrays.asList("tautologies.css", "defaultConstantColors.css");
+    }
+
+    @Override
+    public List<URL> getCssUrls() {
+        return getCssFilenames().stream().map(n -> getClass().getResource("/" + n))
+            .collect(Collectors.toList());
     }
 }

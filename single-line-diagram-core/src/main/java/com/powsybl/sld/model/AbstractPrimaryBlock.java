@@ -53,7 +53,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
             return new LegPrimaryBlock(primaryPattern, cell);
         }
         if (firstNodeType == Node.NodeType.FEEDER || lastNodeType == Node.NodeType.FEEDER) {
-            return  new FeederPrimaryBlock(primaryPattern, cell);
+            return new FeederPrimaryBlock(primaryPattern, cell);
         }
         return new BodyPrimaryBlock(primaryPattern, cell);
     }

@@ -1,0 +1,8 @@
+.constant-color {stroke: blue; fill: none}
+.wire.constant-color {stroke: #c80000}
+.line.constant-color {stroke: blue}
+.node.constant-color {stroke: none; fill: black}
+.busbreaker-connection.constant-color {stroke: none; fill: black}
+.busbar-section.constant-color {stroke: black}
+.disconnector.constant-color {stroke: black}
+.component-label {stroke: none; fill: black}

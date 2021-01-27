@@ -52,7 +52,8 @@
       "height" : 0.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "busbar-section"
   }, {
     "type" : "GENERATOR",
     "id" : null,
@@ -78,7 +79,8 @@
       "height" : 12.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "generator"
   }, {
     "type" : "ARROW",
     "id" : null,
@@ -92,7 +94,8 @@
       "height" : 10.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "arrow"
   }, {
     "type" : "LOAD",
     "id" : null,
@@ -110,7 +113,8 @@
       "height" : 9.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "load"
   }, {
     "type" : "NODE",
     "id" : null,
@@ -124,7 +128,8 @@
       "height" : 8.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "node"
   }, {
     "type" : "DISCONNECTOR",
     "id" : null,
@@ -138,7 +143,8 @@
       "height" : 8.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "disconnector"
   }, {
     "type" : "LINE",
     "id" : null,
@@ -152,7 +158,8 @@
       "height" : 0.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "line"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -178,7 +185,8 @@
       "height" : 15.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
     "id" : null,
@@ -200,7 +208,8 @@
       "height" : 14.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "three-wt"
   }, {
     "type" : "BREAKER",
     "id" : null,
@@ -218,7 +227,8 @@
       "height" : 20.0
     },
     "allowRotation" : true,
-    "subComponents" : null
+    "subComponents" : null,
+    "styleClass" : "breaker"
   } ],
   "nodes" : [ {
     "id" : "idtrf7_95_THREE",
@@ -3215,6 +3225,7 @@
     "angleLabelShift" : 15.0,
     "highlightLineState" : true,
     "addNodesInfos" : false,
-    "feederArrowSymmetry" : false
+    "feederArrowSymmetry" : false,
+    "cssInternal" : false
   }
 }

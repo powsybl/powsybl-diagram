@@ -6,15 +6,15 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -22,17 +22,24 @@ import java.util.Optional;
  */
 public interface DiagramStyleProvider {
 
-    Optional<String> getCssNodeStyleAttributes(Node node, boolean isShowInternalNodes);
+    List<String> getSvgWireStyles(Edge edge, boolean highlightLineState);
 
-    Map<String, String> getSvgWireStyleAttributes(Edge edge, boolean highlightLineState);
+    List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
-    Map<String, String> getSvgNodeStyleAttributes(Node node, ComponentSize size, String subComponentName, boolean isShowInternalNodes);
+    List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
 
-    Map<String, String> getSvgArrowStyleAttributes(int num);
+    List<String> getZoneLineStyles(LineEdge edge, ComponentLibrary componentLibrary);
+
+    List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName);
 
     void reset();
 
     default List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
         return Collections.emptyList();
     }
+
+    List<String> getCssFilenames();
+
+    List<URL> getCssUrls();
+
 }

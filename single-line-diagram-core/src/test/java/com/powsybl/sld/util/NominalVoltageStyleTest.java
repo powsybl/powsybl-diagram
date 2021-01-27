@@ -6,26 +6,24 @@
  */
 package com.powsybl.sld.util;
 
-import com.google.common.collect.ImmutableMap;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.color.BaseVoltageColor;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.InitialValue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -55,8 +53,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
 
-        BaseVoltageColor baseVoltageColor = BaseVoltageColor.fromInputStream(getClass().getResourceAsStream("/base-voltages.yml"));
-        styleProvider = new NominalVoltageDiagramStyleProvider(baseVoltageColor, network);
+        styleProvider = new NominalVoltageDiagramStyleProvider(network);
 
         // first voltage level
         vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 10);
@@ -123,50 +120,43 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         Node node1 = graph1.getNode("bbs1");
-        Optional<String> nodeStyle1 = styleProvider.getCssNodeStyleAttributes(node1, false);
-        assertFalse(nodeStyle1.isPresent());
+        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, componentLibrary, false);
+        assertEquals(3, nodeStyle1.size());
+        assertTrue(nodeStyle1.contains("busbar-section"));
+        assertTrue(nodeStyle1.contains("constant-color"));
+        assertTrue(nodeStyle1.contains("vl400"));
 
         Node node2 = graph2.getNode("bbs2");
-        Optional<String> nodeStyle2 = styleProvider.getCssNodeStyleAttributes(node2, false);
-        assertFalse(nodeStyle2.isPresent());
+        List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, false);
+        assertTrue(nodeStyle2.contains("busbar-section"));
+        assertTrue(nodeStyle2.contains("constant-color"));
+        assertTrue(nodeStyle2.contains("vl225"));
 
         Node node3 = graph3.getNode("bbs3");
-        Optional<String> nodeStyle3 = styleProvider.getCssNodeStyleAttributes(node3, false);
-        assertFalse(nodeStyle3.isPresent());
+        List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, false);
+        assertEquals(3, nodeStyle3.size());
+        assertTrue(nodeStyle3.contains("busbar-section"));
+        assertTrue(nodeStyle3.contains("constant-color"));
+        assertTrue(nodeStyle3.contains("vl63"));
 
         Edge edge = graph1.getEdges().get(12);
-        Map<String, String> wireStyle = styleProvider.getSvgWireStyleAttributes(edge, false);
-        assertEquals(ImmutableMap.of("stroke", "#ff0000", "stroke-width", "1"), wireStyle);
+        List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
+        assertEquals(3, wireStyles.size());
+        assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
+        assertTrue(wireStyles.contains("constant-color"));
+        assertTrue(wireStyles.contains("vl400"));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
-        Map<String, String> node3WTStyle = styleProvider.getSvgNodeStyleAttributes(fict3WTNode, new ComponentSize(14, 12), "WINDING1", true);
-        assertFalse(node3WTStyle.isEmpty());
-        assertTrue(node3WTStyle.containsKey("stroke"));
-        assertEquals("#228b22", node3WTStyle.get("stroke"));
+        List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, false);
+        assertEquals(2, node3WTStyle.size());
+        assertTrue(node3WTStyle.contains("three-wt"));
+        assertTrue(node3WTStyle.contains("constant-color"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        Map<String, String> node2WTStyle = styleProvider.getSvgNodeStyleAttributes(f2WTNode, new ComponentSize(13, 8), "WINDING1", true);
-        assertFalse(node2WTStyle.isEmpty());
-        assertTrue(node2WTStyle.containsKey("stroke"));
-        assertEquals("#ff0000", node2WTStyle.get("stroke"));
-
-        Map<String, String> attributesArrow = styleProvider.getSvgArrowStyleAttributes(1);
-        assertEquals(3, attributesArrow.size());
-        assertTrue(attributesArrow.containsKey("fill"));
-        assertEquals("black", attributesArrow.get("fill"));
-        assertTrue(attributesArrow.containsKey("stroke"));
-        assertEquals("black", attributesArrow.get("stroke"));
-        assertTrue(attributesArrow.containsKey("fill-opacity"));
-        assertEquals("1", attributesArrow.get("fill-opacity"));
-
-        attributesArrow = styleProvider.getSvgArrowStyleAttributes(2);
-        assertEquals(3, attributesArrow.size());
-        assertTrue(attributesArrow.containsKey("fill"));
-        assertEquals("blue", attributesArrow.get("fill"));
-        assertTrue(attributesArrow.containsKey("stroke"));
-        assertEquals("blue", attributesArrow.get("stroke"));
-        assertTrue(attributesArrow.containsKey("fill-opacity"));
-        assertEquals("1", attributesArrow.get("fill-opacity"));
+        List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode, componentLibrary, false);
+        assertEquals(2, node2WTStyle.size());
+        assertTrue(node2WTStyle.contains("two-wt"));
+        assertTrue(node2WTStyle.contains("constant-color"));
 
     }
 

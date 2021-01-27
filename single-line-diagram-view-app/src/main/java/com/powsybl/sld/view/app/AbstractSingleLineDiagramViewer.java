@@ -250,7 +250,7 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
                 DiagramStyleProvider styleProvider = styles.get(styleComboBox.getSelectionModel().getSelectedItem());
 
                 String dName = getSelectedDiagramName();
-                LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName);
+                LayoutParameters diagramLayoutParameters = new LayoutParameters(layoutParameters.get()).setDiagramName(dName).setCssInternal(true);
                 diagramLayoutParameters.setComponentsSize(getComponentLibrary().getComponentsSize());
 
                 DiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(networkProperty.get(), getComponentLibrary(), diagramLayoutParameters);
@@ -278,7 +278,8 @@ public abstract class AbstractSingleLineDiagramViewer extends Application implem
 
                 svgWriter.flush();
                 metadataWriter.flush();
-                svgData = svgWriter.toString();
+                svgData = svgWriter.toString()
+                    .replace("visibility: hidden", "stroke-opacity:0; fill-opacity:0;"); // visibility not supported by afester library
                 metadataData = metadataWriter.toString();
                 jsonData = jsonWriter.toString();
             } catch (IOException e) {

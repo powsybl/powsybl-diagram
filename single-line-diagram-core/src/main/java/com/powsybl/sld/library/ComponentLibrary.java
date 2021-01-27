@@ -8,8 +8,10 @@ package com.powsybl.sld.library;
 
 import org.w3c.dom.Document;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -27,7 +29,11 @@ public interface ComponentLibrary {
 
     boolean isAllowRotation(String type);
 
-    String getStyleSheet();
-
     Map<String, ComponentSize> getComponentsSize();
+
+    List<String> getCssFilenames();
+
+    List<URL> getCssUrls();
+
+    Optional<String> getComponentStyleClass(String componentType);
 }

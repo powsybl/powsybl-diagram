@@ -1,0 +1,10 @@
+.up .arrow-down {visibility: hidden}
+.down .arrow-up {visibility: hidden}
+.closed .sw-open {visibility: hidden}
+.open .sw-closed {visibility: hidden}
+.hidden-internal-node {visibility: hidden}
+polyline {fill: none}
+.snakeline {fill: none; pointer-events: none}
+.top-feeder .component-label {dominant-baseline: auto}
+.bottom-feeder .component-label {dominant-baseline: hanging}
+.arrow-label {dominant-baseline: middle}

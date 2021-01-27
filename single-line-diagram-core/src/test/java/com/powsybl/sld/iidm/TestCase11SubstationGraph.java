@@ -15,6 +15,7 @@ import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -239,7 +240,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontalMetadata() {
+    public void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
         SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
@@ -247,5 +248,16 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         compareMetadata(diagram, getLayoutParameters(), "/substDiag_metadata.json",
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
                 new DefaultDiagramStyleProvider());
+    }
+
+    @Test
+    public void testHorizontalNominalStyle() {
+        // compare metadata of substation diagram with reference
+        // (with horizontal substation layout)
+        SubstationDiagram diagram = SubstationDiagram.build(graphBuilder, substation.getId());
+
+        compareMetadata(diagram, getLayoutParameters(), "/substDiag_metadata.json",
+                new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
+                new NominalVoltageDiagramStyleProvider(network));
     }
 }
