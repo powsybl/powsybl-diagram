@@ -10,6 +10,7 @@ import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.VoltageLevelInfos;
@@ -41,7 +42,13 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
             return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
         }
-        return super.getEdgeStyle(edge);
+
+        Optional<String> edgeStyle = super.getEdgeStyle(node1, node2);
+        if (edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS) && edge instanceof LineEdge) {
+            edgeStyle = super.getEdgeStyle(node2, node1);
+        }
+
+        return edgeStyle;
     }
 
     @Override
@@ -66,7 +73,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
         Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
         String nodeTopologicalStyle = styleMap.computeIfAbsent(
-            node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
+                node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
         return Optional.ofNullable(nodeTopologicalStyle);
     }
 
@@ -83,7 +90,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
         return voltageLevelStyleMap.computeIfAbsent(
-            voltageLevelInfos.getId(), k -> createStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
+                voltageLevelInfos.getId(), k -> createStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
     }
 
     private Set<Node> findConnectedNodes(Node node) {

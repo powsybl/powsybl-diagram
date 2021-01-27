@@ -38,7 +38,11 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     @Override
     protected Optional<String> getEdgeStyle(Edge edge) {
-        Node nodeForStyle = edge.getNode1().getVoltageLevelInfos() != null ? edge.getNode1() : edge.getNode2();
+        return getEdgeStyle(edge.getNode1(), edge.getNode2());
+    }
+
+    protected Optional<String> getEdgeStyle(Node node1, Node node2) {
+        Node nodeForStyle = node1.getVoltageLevelInfos() != null ? node1 : node2;
         return getVoltageLevelNodeStyle(nodeForStyle.getVoltageLevelInfos(), nodeForStyle);
     }
 
