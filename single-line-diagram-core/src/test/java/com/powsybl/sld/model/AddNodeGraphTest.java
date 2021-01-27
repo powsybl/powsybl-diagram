@@ -78,17 +78,11 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         String replacingNodeId = "S1VL2_TWT_BREAKER";
         Node originNode = graph.getNode(originNodeId);
         Node replacingNode = graph.getNode(replacingNodeId);
-        try {
-            graph.replaceNode(originNode, replacingNode);
-            fail();
-        } catch (AssertionError e) {
-            assertEquals("The node cannot be added, it is already in the graph", e.getMessage());
-        }
+        graph.replaceNode(originNode, replacingNode);
 
-        assertNotNull(graph.getNode(originNodeId));
-        assertEquals(originNbNodes, graph.getNodes().size());
+        assertNull(graph.getNode(originNodeId));
+        assertEquals(originNbNodes - 1, graph.getNodes().size());
         assertEquals(originNbEdges, graph.getEdges().size());
-
     }
 
     @Test
@@ -106,14 +100,14 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         // substitute with substitue deprecated method
         String originNodeId = "S1VL2_LD4_BREAKER";
         Node originNode = graph.getNode(originNodeId);
-        graph.substitueNode(originNode, replacingNode);
+        graph.substituteNode(originNode, replacingNode);
         assertNull(graph.getNode(originNodeId));
 
         // substitute fictitious node
         String fictitiousNodeId = "FICT_S1VL2_101";
-        assertNotNull(graph.getNode(fictitiousNodeId));
+        assertTrue(graph.getNode(fictitiousNodeId) instanceof InternalNode);
         graph.substituteSingularFictitiousByFeederNode();
-        assertNull(graph.getNode(fictitiousNodeId));
+        assertTrue(graph.getNode(fictitiousNodeId) instanceof FeederNode);
 
     }
 }
