@@ -12,6 +12,7 @@ polyline {fill: none}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 .sld-constant-color {stroke: black} /* Default color, used for unknown voltage levels */
+.sld-disconnected {stroke: #808080}
 .sld-vl0-0 {stroke: #808080}
 .sld-vl0-1 {stroke: #404040}
 .sld-vl0-2 {stroke: #D8D8D8}
