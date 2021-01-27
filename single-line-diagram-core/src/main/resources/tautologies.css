@@ -2,7 +2,7 @@
 .sld-down .sld-arrow-up {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
-.sld-hidden-internal-node {visibility: hidden}
+.sld-hidden-node {visibility: hidden}
 polyline {fill: none}
 .sld-top-feeder .sld-component-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-component-label {dominant-baseline: hanging}

@@ -5,7 +5,7 @@
 .sld-down .sld-arrow-up {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
-.sld-hidden-internal-node {visibility: hidden}
+.sld-hidden-node {visibility: hidden}
 polyline {fill: none}
 .sld-top-feeder .sld-component-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-component-label {dominant-baseline: hanging}
@@ -79,10 +79,10 @@ polyline {fill: none}
             <text class="sld-component-label" id="bbs4_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">bbs4</text>
         </g>
         <g class="cell idINTERN_32_0" id="idINTERN_32_0">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dsect11Fictif" transform="matrix(0.0,1.0,-1.0,0.0,744.0,306.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dsect11Fictif" transform="matrix(0.0,1.0,-1.0,0.0,744.0,306.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dsect12Fictif" transform="matrix(0.0,1.0,-1.0,0.0,824.0,306.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dsect12Fictif" transform="matrix(0.0,1.0,-1.0,0.0,824.0,306.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_bbs1_95_dsect11">
@@ -133,10 +133,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idINTERN_32_1" id="idINTERN_32_1">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dsect21Fictif" transform="matrix(0.0,1.0,-1.0,0.0,744.0,331.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dsect21Fictif" transform="matrix(0.0,1.0,-1.0,0.0,744.0,331.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dsect22Fictif" transform="matrix(0.0,1.0,-1.0,0.0,824.0,331.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dsect22Fictif" transform="matrix(0.0,1.0,-1.0,0.0,824.0,331.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_bbs3_95_dsect21">
@@ -187,10 +187,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dload1Fictif" transform="translate(56.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dload1Fictif" transform="translate(56.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_load1Fictif" transform="translate(56.0,196.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_load1Fictif" transform="translate(56.0,196.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder sld-constant-color sld-vl400" id="idload1" transform="translate(52.0,133.5)">
@@ -245,10 +245,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf11Fictif" transform="translate(136.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf11Fictif" transform="translate(136.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_trf1_95_ONEFictif" transform="translate(136.0,196.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_trf1_95_ONEFictif" transform="translate(136.0,196.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf1_95_ONE" transform="translate(135.0,130.5)">
@@ -302,10 +302,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf15Fictif" transform="translate(376.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf15Fictif" transform="translate(376.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_trf5_95_ONEFictif" transform="translate(376.0,196.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_trf5_95_ONEFictif" transform="translate(376.0,196.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf5_95_ONE" transform="translate(375.0,130.5)">
@@ -359,7 +359,7 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf16Fictif" transform="translate(496.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf16Fictif" transform="translate(496.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl1_95_trf6_95_fictif" transform="translate(492.0,193.0)">
@@ -432,10 +432,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dload2Fictif" transform="translate(856.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dload2Fictif" transform="translate(856.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_load2Fictif" transform="translate(856.0,196.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_load2Fictif" transform="translate(856.0,196.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder sld-constant-color sld-vl400" id="idload2" transform="translate(852.0,133.5)">
@@ -490,10 +490,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf12Fictif" transform="translate(1176.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf12Fictif" transform="translate(1176.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_trf2_95_ONEFictif" transform="translate(1176.0,196.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_trf2_95_ONEFictif" transform="translate(1176.0,196.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf2_95_ONE" transform="translate(1175.0,130.5)">
@@ -547,7 +547,7 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf18Fictif" transform="translate(976.0,276.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf18Fictif" transform="translate(976.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl1_95_trf8_95_fictif" transform="translate(972.0,193.0)">
@@ -620,10 +620,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dgen1Fictif" transform="translate(216.0,361.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dgen1Fictif" transform="translate(216.0,361.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_gen1Fictif" transform="translate(216.0,441.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_gen1Fictif" transform="translate(216.0,441.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-generator sld-bottom-feeder sld-constant-color sld-vl400" id="idgen1" transform="translate(214.0,501.0)">
@@ -678,10 +678,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_10" id="idEXTERN_32_10">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf13Fictif" transform="translate(296.0,361.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf13Fictif" transform="translate(296.0,361.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_trf3_95_ONEFictif" transform="translate(296.0,441.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_trf3_95_ONEFictif" transform="translate(296.0,441.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-bottom-feeder sld-constant-color" id="idtrf3_95_ONE" transform="translate(295.0,499.5)">
@@ -735,7 +735,7 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_11" id="idEXTERN_32_11">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf17Fictif" transform="translate(656.0,361.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf17Fictif" transform="translate(656.0,361.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl1_95_trf7_95_fictif" transform="translate(652.0,438.0)">
@@ -808,10 +808,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_12" id="idEXTERN_32_12">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dgen2Fictif" transform="translate(1256.0,361.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dgen2Fictif" transform="translate(1256.0,361.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_gen2Fictif" transform="translate(1256.0,441.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_gen2Fictif" transform="translate(1256.0,441.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-generator sld-bottom-feeder sld-constant-color sld-vl400" id="idgen2" transform="translate(1254.0,501.0)">
@@ -866,10 +866,10 @@ polyline {fill: none}
             </g>
         </g>
         <g class="cell idEXTERN_32_13" id="idEXTERN_32_13">
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_dtrf14Fictif" transform="translate(1096.0,361.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_dtrf14Fictif" transform="translate(1096.0,361.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color sld-hidden-internal-node sld-vl400" id="idFICT_95_vl1_95_trf4_95_ONEFictif" transform="translate(1096.0,441.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_trf4_95_ONEFictif" transform="translate(1096.0,441.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-bottom-feeder sld-constant-color" id="idtrf4_95_ONE" transform="translate(1095.0,499.5)">

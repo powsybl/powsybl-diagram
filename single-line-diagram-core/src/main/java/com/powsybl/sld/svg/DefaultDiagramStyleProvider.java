@@ -72,7 +72,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             styles.add(CONSTANT_COLOR_CLASS);
         }
         if (!showInternalNodes && node instanceof InternalNode) {
-            styles.add(HIDDEN_INTERNAL_NODE_CLASS);
+            styles.add(HIDDEN_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(node.isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
