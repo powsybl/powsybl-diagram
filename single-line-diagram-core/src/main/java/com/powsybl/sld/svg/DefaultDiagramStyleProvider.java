@@ -71,7 +71,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         if (isConstantColor(node)) {
             styles.add(CONSTANT_COLOR_CLASS);
         }
-        if (!showInternalNodes && node instanceof InternalNode) {
+        if (!showInternalNodes && isEquivalentToInternalNode(node)) {
             styles.add(HIDDEN_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
@@ -79,6 +79,10 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
         }
 
         return styles;
+    }
+
+    private static boolean isEquivalentToInternalNode(Node node) {
+        return node.getComponentType().equals(ComponentTypeName.NODE);
     }
 
     @Override
