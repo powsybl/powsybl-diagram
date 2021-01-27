@@ -3,6 +3,7 @@
     <component>
         <metadata type="FLASH">
             <size width="10" height="15"/>
+            <styleClass>flash</styleClass>
             <subComponent name="FLASH">
                 <fileName>flash.svg</fileName>
             </subComponent>
@@ -13,6 +14,7 @@
     <component>
         <metadata type="LOCK">
             <size width="12" height="12"/>
+            <styleClass>lock</styleClass>
             <subComponent name="LOCK">
                 <fileName>lock.svg</fileName>
             </subComponent>

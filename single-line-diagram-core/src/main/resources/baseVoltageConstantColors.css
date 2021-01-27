@@ -1,0 +1,6 @@
+.constant-color {fill: none}
+.node.constant-color {stroke: none; fill: black}
+.busbreaker-connection.constant-color {stroke: none; fill: black}
+.breaker.constant-color {stroke: blue;}
+.disconnector.constant-color {stroke: black}
+.component-label {fill: black; stroke: none;}
