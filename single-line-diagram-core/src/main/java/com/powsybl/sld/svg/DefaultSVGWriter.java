@@ -1006,7 +1006,8 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute(CLASS, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
         g.appendChild(label);
 
-        List<String> styles = new ArrayList<>(2);
+        List<String> styles = new ArrayList<>(3);
+        componentLibrary.getComponentStyleClass(ARROW).ifPresent(styles::add);
         styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
         dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
         g.setAttribute(CLASS, String.join(" ", styles));

@@ -103,7 +103,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "sld-arrow"
+    "styleClass" : null
   }, {
     "type" : "LOAD",
     "id" : null,

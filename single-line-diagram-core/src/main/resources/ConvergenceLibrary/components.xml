@@ -190,7 +190,6 @@
     <component>
         <metadata type="ARROW">
             <size height="10" width="10"/>
-            <styleClass>sld-arrow</styleClass>
             <subComponent name="ARROW">
                 <fileName>arrow.svg</fileName>
             </subComponent>
