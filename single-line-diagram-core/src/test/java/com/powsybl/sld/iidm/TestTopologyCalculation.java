@@ -50,7 +50,7 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 12);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 12);
         createBusBarSection(vl, "bbs1.1", "bbs1.1", 0, 1, 1);
         createBusBarSection(vl, "bbs1.2", "bbs1.2", 1, 1, 2);
         createBusBarSection(vl, "bbs2.1", "bbs2.1", 2, 2, 1);

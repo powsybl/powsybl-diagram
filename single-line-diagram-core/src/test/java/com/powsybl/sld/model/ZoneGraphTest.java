@@ -46,7 +46,7 @@ public class ZoneGraphTest {
                 .add();
         VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
                 .setId(VOLTAGELEVEL_ID_1)
-                .setNominalV(400)
+                .setNominalV(380)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel1.getBusBreakerView().newBus()
@@ -58,7 +58,7 @@ public class ZoneGraphTest {
                 .add();
         VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
                 .setId(VOLTAGELEVEL_ID_2)
-                .setNominalV(400)
+                .setNominalV(380)
                 .setTopologyKind(TopologyKind.BUS_BREAKER)
                 .add();
         voltageLevel2.getBusBreakerView().newBus()

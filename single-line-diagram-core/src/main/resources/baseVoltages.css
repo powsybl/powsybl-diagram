@@ -1,6 +1,6 @@
 .sld-constant-color {stroke: black} /* Default color, used for unknown voltage levels */
 .sld-vl0 {stroke: #808080}
-.sld-vl400 {stroke: #ff0000}
+.sld-vl380 {stroke: #ff0000}
 .sld-vl225 {stroke: #228b22}
 .sld-vl150 {stroke: #01afaf}
 .sld-vl90 {stroke: #cc5500}

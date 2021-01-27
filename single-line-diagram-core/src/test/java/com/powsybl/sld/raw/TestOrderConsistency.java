@@ -31,7 +31,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
     }
 
     private void createCommons(String vlId, boolean middleLeft) {
-        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder(vlId, 400);
+        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder(vlId, 380);
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs21", 2, 1);

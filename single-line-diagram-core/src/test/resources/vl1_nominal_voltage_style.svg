@@ -13,7 +13,7 @@ polyline {fill: none}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 .sld-constant-color {stroke: black} /* Default color, used for unknown voltage levels */
 .sld-vl0 {stroke: #808080}
-.sld-vl400 {stroke: #ff0000}
+.sld-vl380 {stroke: #ff0000}
 .sld-vl225 {stroke: #228b22}
 .sld-vl150 {stroke: #01afaf}
 .sld-vl90 {stroke: #cc5500}
@@ -39,7 +39,7 @@ polyline {fill: none}
 
 ]]></style>
     <g>
-        <g class="sld-busbar-section sld-constant-color sld-vl400" id="idbbs1" transform="translate(19.0,49.0)">
+        <g class="sld-busbar-section sld-constant-color sld-vl380" id="idbbs1" transform="translate(19.0,49.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">bbs1</text>
         </g>
@@ -49,68 +49,68 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color sld-vl63 sld-wire-disconnected" id="_95_vl1_95_FICT_95_vl1_95_3WT_95_fictif_95_3WT_95_THREE">
             <polyline points="19.0,56.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_bbs1_95_d">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_bbs1_95_d">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_d_95_FICT_95_vl1_95_1">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_d_95_FICT_95_vl1_95_1">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_FICT_95_vl1_95_1_95_b">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_FICT_95_vl1_95_1_95_b">
             <polyline points="19.0,49.0,19.0,39.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_b_95_l">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_b_95_l">
             <polyline points="19.0,39.0,19.0,44.5"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_bbs1_95_d2WT_95_1">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_bbs1_95_d2WT_95_1">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_d2WT_95_1_95_FICT_95_vl1_95_4">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_d2WT_95_1_95_FICT_95_vl1_95_4">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400 sld-wire-connected-disconnected" id="_95_vl1_95_2WT_95_ONE_95_b2WT_95_1">
+        <g class="sld-wire sld-constant-color sld-vl380 sld-wire-connected-disconnected" id="_95_vl1_95_2WT_95_ONE_95_b2WT_95_1">
             <polyline points="19.0,41.0,19.0,39.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_b2WT_95_1_95_FICT_95_vl1_95_4">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_b2WT_95_1_95_FICT_95_vl1_95_4">
             <polyline points="19.0,39.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_bbs1_95_d3WT_95_1">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_bbs1_95_d3WT_95_1">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_d3WT_95_1_95_FICT_95_vl1_95_6">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_d3WT_95_1_95_FICT_95_vl1_95_6">
             <polyline points="19.0,49.0,19.0,49.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_FICT_95_vl1_95_3WT_95_fictif_95_b3WT_95_1">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_FICT_95_vl1_95_3WT_95_fictif_95_b3WT_95_1">
             <polyline points="19.0,56.0,19.0,59.0"/>
         </g>
-        <g class="sld-wire sld-constant-color sld-vl400" id="_95_vl1_95_b3WT_95_1_95_FICT_95_vl1_95_6">
+        <g class="sld-wire sld-constant-color sld-vl380" id="_95_vl1_95_b3WT_95_1_95_FICT_95_vl1_95_6">
             <polyline points="19.0,39.0,19.0,49.0"/>
         </g>
-        <g class="sld-load sld-constant-color sld-vl400" id="idl" transform="translate(11.0,44.5)">
+        <g class="sld-load sld-constant-color sld-vl380" id="idl" transform="translate(11.0,44.5)">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
             <text class="sld-label" id="l__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">l</text>
         </g>
         <g class="sld-two-wt sld-constant-color" id="id2WT_95_ONE" transform="translate(14.0,41.5)">
-            <circle class="sld-vl400" cx="5" cy="10" id="id2WT_95_ONE_TWO_WINDINGS_TRANSFORMER-WINDING1" r="5"/>
+            <circle class="sld-vl380" cx="5" cy="10" id="id2WT_95_ONE_TWO_WINDINGS_TRANSFORMER-WINDING1" r="5"/>
             <circle class="sld-vl225" cx="5" cy="5" id="id2WT_95_ONE_TWO_WINDINGS_TRANSFORMER-WINDING2" r="5"/>
             <text class="sld-label" id="2WT_ONE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">2WT_1</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl1_95_3WT_95_fictif" transform="translate(11.0,42.0)">
             <circle class="sld-vl225" cx="5" cy="5" id="idFICT_95_vl1_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING1" r="5"/>
             <circle class="sld-vl63" cx="11" cy="5" id="idFICT_95_vl1_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING2" r="5"/>
-            <circle class="sld-vl400" cx="8" cy="9" id="idFICT_95_vl1_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING3" r="5"/>
+            <circle class="sld-vl380" cx="8" cy="9" id="idFICT_95_vl1_95_3WT_95_fictif_THREE_WINDINGS_TRANSFORMER-WINDING3" r="5"/>
         </g>
-        <g class="sld-line sld-constant-color sld-vl400" id="id3WT_95_TWO" transform="translate(19.0,49.0)">
+        <g class="sld-line sld-constant-color sld-vl380" id="id3WT_95_TWO" transform="translate(19.0,49.0)">
             <text class="sld-label" id="3WT_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">3WT_1</text>
         </g>
-        <g class="sld-line sld-constant-color sld-vl400" id="id3WT_95_THREE" transform="translate(19.0,49.0)">
+        <g class="sld-line sld-constant-color sld-vl380" id="id3WT_95_THREE" transform="translate(19.0,49.0)">
             <text class="sld-label" id="3WT_THREE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">3WT_1</text>
         </g>
-        <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_1" transform="translate(15.0,45.0)">
+        <g class="sld-node sld-constant-color sld-hidden-node sld-vl380" id="idFICT_95_vl1_95_1" transform="translate(15.0,45.0)">
             <circle cx="4" cy="4" r="4"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed sld-vl400" id="idd" transform="translate(15.0,45.0)">
+        <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="idd" transform="translate(15.0,45.0)">
             <g class="sld-sw-closed">
                 <line x1="0" x2="8" y1="0" y2="8"/>
                 <line x1="8" x2="0" y1="0" y2="8"/>
@@ -119,7 +119,7 @@ polyline {fill: none}
                 <line x1="8" x2="0" y1="0" y2="8"/>
             </g>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed sld-vl400" id="idb" transform="translate(9.0,39.0)">
+        <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idb" transform="translate(9.0,39.0)">
             <g class="sld-sw-closed">
                 <rect height="18" width="18" x="1" y="1"/>
                 <line x1="10" x2="10" y1="5" y2="15"/>
@@ -129,10 +129,10 @@ polyline {fill: none}
                 <line x1="5" x2="15" y1="10" y2="10"/>
             </g>
         </g>
-        <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_4" transform="translate(15.0,45.0)">
+        <g class="sld-node sld-constant-color sld-hidden-node sld-vl380" id="idFICT_95_vl1_95_4" transform="translate(15.0,45.0)">
             <circle cx="4" cy="4" r="4"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed sld-vl400" id="idd2WT_95_1" transform="translate(15.0,45.0)">
+        <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="idd2WT_95_1" transform="translate(15.0,45.0)">
             <g class="sld-sw-closed">
                 <line x1="0" x2="8" y1="0" y2="8"/>
                 <line x1="8" x2="0" y1="0" y2="8"/>
@@ -141,7 +141,7 @@ polyline {fill: none}
                 <line x1="8" x2="0" y1="0" y2="8"/>
             </g>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed sld-vl400" id="idb2WT_95_1" transform="translate(9.0,39.0)">
+        <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idb2WT_95_1" transform="translate(9.0,39.0)">
             <g class="sld-sw-closed">
                 <rect height="18" width="18" x="1" y="1"/>
                 <line x1="10" x2="10" y1="5" y2="15"/>
@@ -151,10 +151,10 @@ polyline {fill: none}
                 <line x1="5" x2="15" y1="10" y2="10"/>
             </g>
         </g>
-        <g class="sld-node sld-constant-color sld-hidden-node sld-vl400" id="idFICT_95_vl1_95_6" transform="translate(15.0,45.0)">
+        <g class="sld-node sld-constant-color sld-hidden-node sld-vl380" id="idFICT_95_vl1_95_6" transform="translate(15.0,45.0)">
             <circle cx="4" cy="4" r="4"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed sld-vl400" id="idd3WT_95_1" transform="translate(15.0,45.0)">
+        <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="idd3WT_95_1" transform="translate(15.0,45.0)">
             <g class="sld-sw-closed">
                 <line x1="0" x2="8" y1="0" y2="8"/>
                 <line x1="8" x2="0" y1="0" y2="8"/>
@@ -163,7 +163,7 @@ polyline {fill: none}
                 <line x1="8" x2="0" y1="0" y2="8"/>
             </g>
         </g>
-        <g class="sld-breaker sld-constant-color sld-open sld-vl400" id="idb3WT_95_1" transform="translate(9.0,39.0)">
+        <g class="sld-breaker sld-constant-color sld-open sld-vl380" id="idb3WT_95_1" transform="translate(9.0,39.0)">
             <g class="sld-sw-closed">
                 <rect height="18" width="18" x="1" y="1"/>
                 <line x1="10" x2="10" y1="5" y2="15"/>

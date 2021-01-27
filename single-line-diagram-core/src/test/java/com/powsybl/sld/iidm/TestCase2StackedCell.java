@@ -48,7 +48,7 @@ public class TestCase2StackedCell extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
         createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
         createBusBarSection(vl, "bbs2", "bbs2", 1, 2, 1);
         createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 3, 10, 10);

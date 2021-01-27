@@ -45,7 +45,7 @@ public class TestCase3Coupling extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
         createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
         createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);

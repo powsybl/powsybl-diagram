@@ -2,7 +2,7 @@
   "voltageLevelInfos" : {
     "id" : "vl1",
     "name" : "vl1",
-    "nominalVoltage" : 400.0
+    "nominalVoltage" : 380.0
   },
   "x" : 0.0,
   "y" : 0.0,
@@ -273,7 +273,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",
@@ -298,7 +298,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",
@@ -323,7 +323,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",

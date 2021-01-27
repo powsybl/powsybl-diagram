@@ -5,7 +5,7 @@
       "voltageLevelInfos" : {
         "id" : "VoltageLevel1",
         "name" : "VoltageLevel1",
-        "nominalVoltage" : 400.0
+        "nominalVoltage" : 380.0
       },
       "nodes" : [ {
         "type" : "BUS",
@@ -46,7 +46,7 @@
         "otherSideVoltageLevelInfos" : {
           "id" : "VoltageLevel2",
           "name" : "VoltageLevel2",
-          "nominalVoltage" : 400.0
+          "nominalVoltage" : 380.0
         }
       } ],
       "cells" : [ ],
@@ -66,7 +66,7 @@
       "voltageLevelInfos" : {
         "id" : "VoltageLevel2",
         "name" : "VoltageLevel2",
-        "nominalVoltage" : 400.0
+        "nominalVoltage" : 380.0
       },
       "nodes" : [ {
         "type" : "BUS",
@@ -107,7 +107,7 @@
         "otherSideVoltageLevelInfos" : {
           "id" : "VoltageLevel1",
           "name" : "VoltageLevel1",
-          "nominalVoltage" : 400.0
+          "nominalVoltage" : 380.0
         }
       } ],
       "cells" : [ ],
