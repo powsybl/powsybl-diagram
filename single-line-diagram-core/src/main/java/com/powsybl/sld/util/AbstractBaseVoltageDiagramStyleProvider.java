@@ -90,11 +90,11 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
             if (side != null && otherSide != null) {
                 if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // disconnected on both ends
-                    return Optional.of(DiagramStyles.WIRE_DISCONNECTED);
+                    return Optional.of(DiagramStyles.FEEDER_DISCONNECTED);
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
-                    return Optional.of(DiagramStyles.WIRE_CONNECTED_DISCONNECTED);
+                    return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    return Optional.of(DiagramStyles.WIRE_DISCONNECTED_CONNECTED);
+                    return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
                 }
             }
         }

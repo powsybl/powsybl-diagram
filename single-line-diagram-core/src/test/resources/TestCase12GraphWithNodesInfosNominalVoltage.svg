@@ -19,9 +19,9 @@ polyline {fill: none}
 .sld-vl90 {stroke: #cc5500}
 .sld-vl63 {stroke: #a020f0}
 .sld-vl45 {stroke: #ff8290}
-.sld-vl20 {stroke: #abae28}.sld-wire-disconnected {stroke: black}
-.sld-wire-connected-disconnected {stroke-dasharray: 3,3}
-.sld-wire-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
+.sld-vl20 {stroke: #abae28}.sld-feeder-disconnected {stroke: black}
+.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
+.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
 .sld-constant-color {fill: none}
 .sld-node.sld-constant-color {stroke: none; fill: black}
 .sld-busbreaker-connection.sld-constant-color {stroke: none; fill: black}
