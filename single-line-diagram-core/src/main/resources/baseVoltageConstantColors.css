@@ -3,4 +3,4 @@
 .sld-busbreaker-connection.sld-constant-color {stroke: none; fill: black}
 .sld-breaker.sld-constant-color {stroke: blue;}
 .sld-disconnector.sld-constant-color {stroke: black}
-.sld-component-label {fill: black; stroke: none;}
+.sld-label {fill: black; stroke: none;}

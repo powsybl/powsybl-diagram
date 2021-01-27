@@ -5,4 +5,4 @@
 .sld-busbreaker-connection.sld-constant-color {stroke: none; fill: black}
 .sld-busbar-section.sld-constant-color {stroke: black}
 .sld-disconnector.sld-constant-color {stroke: black}
-.sld-component-label {stroke: none; fill: black}
+.sld-label {stroke: none; fill: black}

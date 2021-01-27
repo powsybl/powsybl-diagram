@@ -520,7 +520,6 @@ public class DefaultSVGWriter implements SVGWriter {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
             label.setAttribute("id", prefixId + labelPosition.getPositionName());
-            label.setAttribute(CLASS, LABEL_STYLE_CLASS);
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
@@ -604,6 +603,7 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
+        label.setAttribute(CLASS, LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
@@ -1003,7 +1003,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize());
         Element label = createLabelElement(labelR, shX, shY, 0, g);
-        label.setAttribute(CLASS, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
         g.appendChild(label);
 
         List<String> styles = new ArrayList<>(3);
@@ -1014,7 +1013,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelL.ifPresent(s -> {
             Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-            labelLeft.setAttribute(CLASS, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
         });

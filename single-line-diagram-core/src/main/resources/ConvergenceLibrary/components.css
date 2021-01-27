@@ -5,6 +5,5 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
+.sld-label {font: 8px "Verdana"}
 .sld-graph-label {font: 12px "Verdana"}
-.sld-component-label {font: 8px "Verdana"}
-.sld-arrow-label {font: 8px "Verdana"}
