@@ -129,23 +129,29 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         boolean node2WT = (g != null && node instanceof Feeder2WTNode) || (g == null && node instanceof Middle2WTNode);
         boolean node3WT = node instanceof Middle3WTNode;
         if (node2WT || node3WT) {
-            VoltageLevelInfos vlInfo;
-            if (g != null) {  // node inside a voltageLevel graph
+            if (g != null) {
+                // node inside a voltageLevel graph
                 VoltageLevelInfos currentVoltageLevel = g.getVoltageLevelInfos();
+                VoltageLevelInfos vlInfo;
                 if (node2WT) {
                     vlInfo = subComponentName.equals(WINDING1) ? currentVoltageLevel : ((Feeder2WTNode) node).getOtherSideVoltageLevelInfos();
                 } else {
                     vlInfo = get3WTNodeVoltageLevelInfos((Middle3WTNode) node, subComponentName, currentVoltageLevel.getId());
                 }
-            } else {  // node outside any voltageLevel graph (multi-terminal node)
+                getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+
+            } else {
+                // node outside any voltageLevel graph (multi-terminal node)
                 List<Node> adjacentNodes = node.getAdjacentNodes();
+                Node windingNode;
                 if (node2WT) {
-                    vlInfo = getMultiTerminal2WTVoltageLevelInfos(node, subComponentName, adjacentNodes);
+                    windingNode = getMultiTerminal2WTWindingNode(node, subComponentName, adjacentNodes);
                 } else {
-                    vlInfo = getMultiTerminal3WTVoltageLevelInfos(node, subComponentName, adjacentNodes);
+                    windingNode = getMultiTerminal3WTWindingNode(node, subComponentName, adjacentNodes);
                 }
+                VoltageLevelInfos vlInfo = windingNode.getVoltageLevelInfos();
+                getVoltageLevelNodeStyle(vlInfo, windingNode).ifPresent(styles::add);
             }
-            getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
         }
 
         return styles;
@@ -161,7 +167,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return Optional.of("sld-vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
     }
 
-    private VoltageLevelInfos getMultiTerminal3WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {
+    private Node getMultiTerminal3WTWindingNode(Node node, String subComponentName, List<Node> adjacentNodes) {
         adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         Node n1 = adjacentNodes.get(0);
         Node n2 = adjacentNodes.get(1);
@@ -181,10 +187,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             default:
         }
 
-        return n.getGraph().getVoltageLevelInfos();
+        return n;
     }
 
-    private VoltageLevelInfos getMultiTerminal2WTVoltageLevelInfos(Node node, String subComponentName, List<Node> adjacentNodes) {
+    private Node getMultiTerminal2WTWindingNode(Node node, String subComponentName, List<Node> adjacentNodes) {
         adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
@@ -214,7 +220,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             }
         }
 
-        return nodeWinding.getGraph().getVoltageLevelInfos();
+        return nodeWinding;
     }
 
     private VoltageLevelInfos get3WTNodeVoltageLevelInfos(Middle3WTNode node, String subComponentName, String vlId) {
