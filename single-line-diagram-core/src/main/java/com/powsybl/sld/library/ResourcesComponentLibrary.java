@@ -12,14 +12,12 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
@@ -37,7 +35,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
 
-    private final Map<String, Map<String, Document>> svgDocuments = new HashMap<>();
+    private final Map<String, Map<String, List<Element>>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components = new HashMap<>();
 
@@ -74,8 +72,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 try {
                     Document doc = db.parse(getClass().getResourceAsStream(resourceName));
-                    cleanEmptyTextNodes(doc, resourceName);
-                    svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), doc);
+                    svgDocuments.computeIfAbsent(componentType, k -> new TreeMap<>()).put(s.getName(), getElements(doc));
                 } catch (SAXException e) {
                     throw new UncheckedSaxException(e);
                 } catch (IOException e) {
@@ -89,24 +86,24 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         cssUrls.add(getClass().getResource(directory + "/components.css"));
     }
 
-    private static void cleanEmptyTextNodes(Node parentNode, String resourceName) {
-        try {
-            // Find empty text nodes
-            NodeList nl = (NodeList) XPathFactory.newInstance().newXPath()
-                .evaluate("//text()[normalize-space(.)='']", parentNode, XPathConstants.NODESET);
+    protected List<Element> getElements(Document doc) {
+        // Getting the node corresponding to the svg tag
+        Node svgNode = doc.getChildNodes().item(0);
 
-            // Remove the found nodes
-            for (int i = 0; i < nl.getLength(); ++i) {
-                Node node = nl.item(i);
-                node.getParentNode().removeChild(node);
+        // Listing all the elements which are children of the svg node.
+        List<Element> elements = new ArrayList<>();
+        NodeList subComponentChildren = svgNode.getChildNodes();
+        for (int i = 0; i < subComponentChildren.getLength(); i++) {
+            org.w3c.dom.Node n = subComponentChildren.item(i);
+            if (n instanceof Element) {
+                elements.add((Element) n.cloneNode(true));
             }
-        } catch (XPathExpressionException e) {
-            LOGGER.warn("Exception occurred while cleaning the subcomponent {} from empty text nodes", resourceName);
         }
+        return elements;
     }
 
     @Override
-    public Map<String, Document> getSvgDocument(String type) {
+    public Map<String, List<Element>> getSvgElements(String type) {
         Objects.requireNonNull(type);
         return svgDocuments.get(type);
     }
@@ -148,6 +145,17 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         Objects.requireNonNull(type);
         Component component = components.get(type);
         return component != null ? Optional.ofNullable(component.getMetadata().getStyleClass()) : Optional.empty();
+    }
+
+    @Override
+    public Optional<String> getSubComponentStyleClass(String type, String subComponent) {
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(subComponent);
+        Component component = components.get(type);
+        if (component != null) {
+            return component.getMetadata().getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
+        }
+        return Optional.empty();
     }
 
     @Override

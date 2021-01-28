@@ -89,13 +89,13 @@ polyline {fill: none}
             <polyline points="60.0,154.5,60.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,169.5)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,189.5)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
@@ -108,13 +108,13 @@ polyline {fill: none}
             <polyline points="100.0,570.0,100.0,480.0"/>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,95.0,545.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,95.0,525.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
@@ -127,13 +127,13 @@ polyline {fill: none}
             <polyline points="420.0,150.0,420.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,415.0,165.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,415.0,185.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
@@ -143,32 +143,16 @@ polyline {fill: none}
             <polyline points="420.0,370.0,410.0,370.0"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d1" transform="translate(236.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-load sld-constant-color" id="idvl1_95_load1" transform="translate(52.0,145.5)">
             <rect height="9" width="16"/>
@@ -177,67 +161,34 @@ polyline {fill: none}
             <text class="sld-label" id="vl1_load1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_load1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-line sld-constant-color" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
             <text class="sld-label" id="vl1_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-line sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
             <text class="sld-label" id="vl1_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf2" transform="translate(416.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-busbar-section sld-constant-color" id="idvl2_95_bbs1" transform="translate(570.0,370.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
@@ -247,13 +198,13 @@ polyline {fill: none}
             <polyline points="620.0,156.0,620.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,171.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,615.0,191.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
@@ -266,13 +217,13 @@ polyline {fill: none}
             <polyline points="670.0,570.0,670.0,480.0"/>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,665.0,545.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,665.0,525.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
@@ -285,13 +236,13 @@ polyline {fill: none}
             <polyline points="730.0,150.0,730.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,725.0,165.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,725.0,185.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
@@ -307,67 +258,34 @@ polyline {fill: none}
             <text class="sld-label" id="vl2_gen1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl2_gen1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_bgen1" transform="translate(610.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dgen1" transform="translate(616.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-line sld-constant-color" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
             <text class="sld-label" id="vl2_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf1" transform="translate(660.0,460.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf1" transform="translate(666.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-line sld-constant-color" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
             <text class="sld-label" id="vl2_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf2" transform="translate(720.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf2" transform="translate(726.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-busbar-section sld-constant-color" id="idvl3_95_bbs1" transform="translate(870.0,370.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
@@ -377,13 +295,13 @@ polyline {fill: none}
             <polyline points="910.0,156.0,910.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,905.0,171.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,905.0,191.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
@@ -396,13 +314,13 @@ polyline {fill: none}
             <polyline points="1020.0,150.0,1020.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1015.0,165.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1015.0,185.0)">
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
@@ -419,54 +337,32 @@ polyline {fill: none}
             <text class="sld-label" id="vl3_capa1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl3_capa1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl3_95_bcapa1" transform="translate(900.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl3_95_dcapa1" transform="translate(906.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-line sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
             <text class="sld-label" id="vl3_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl3_95_btrf2" transform="translate(1010.0,240.0)">
-            <g class="sld-sw-closed">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="10" x2="10" y1="5" y2="15"/>
-            </g>
-            <g class="sld-sw-open">
-                <rect height="18" width="18" x="1" y="1"/>
-                <line x1="5" x2="15" y1="10" y2="10"/>
-            </g>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl3_95_dtrf2" transform="translate(1016.0,366.0)">
-            <g class="sld-sw-closed">
-                <line x1="0" x2="8" y1="0" y2="8"/>
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
-            <g class="sld-sw-open">
-                <line x1="8" x2="0" y1="0" y2="8"/>
-            </g>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
-            <circle cx="5" cy="10" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING1" r="5" transform="rotate(90.0,5.0,7.5)"/>
-            <circle cx="5" cy="5" id="idvl1_95_trf1_95_vl2_95_trf1_TWO_WINDINGS_TRANSFORMER-WINDING2" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
         <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,93.0)">
-            <circle cx="5" cy="5" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING1" r="5"/>
-            <circle cx="11" cy="5" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING2" r="5"/>
-            <circle cx="8" cy="9" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one_THREE_WINDINGS_TRANSFORMER-WINDING3" r="5"/>
+            <circle cx="5" cy="5" r="5"/>
+            <circle cx="11" cy="5" r="5"/>
+            <circle cx="8" cy="9" r="5"/>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_subst_95_vl1_95_trf1_95_vl1_95_trf1_95_vl2_95_trf1">
             <polyline points="100.0,550.0,100.0,600.0,377.0,600.0"/>
