@@ -1,1098 +1,720 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="650" height="470">
+<svg xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
-.BUSBAR_SECTION {
-    stroke: rgb(0,0,0);
-    stroke-width: 3;
-}
+.sld-up .sld-arrow-down {visibility: hidden}
+.sld-down .sld-arrow-up {visibility: hidden}
+.sld-closed .sld-sw-open {visibility: hidden}
+.sld-open .sld-sw-closed {visibility: hidden}
+.sld-hidden-node {visibility: hidden}
+polyline {fill: none}
+.sld-top-feeder .sld-label {dominant-baseline: auto}
+.sld-bottom-feeder .sld-label {dominant-baseline: hanging}
+.sld-arrow-p .sld-label {dominant-baseline: middle}
+.sld-arrow-q .sld-label {dominant-baseline: middle}
+.sld-constant-color {stroke: black} /* Default color, used for unknown voltage levels */
+.sld-vl0 {stroke: #808080}
+.sld-vl380 {stroke: #ff0000}
+.sld-vl225 {stroke: #228b22}
+.sld-vl150 {stroke: #01afaf}
+.sld-vl90 {stroke: #cc5500}
+.sld-vl63 {stroke: #a020f0}
+.sld-vl45 {stroke: #ff8290}
+.sld-vl20 {stroke: #abae28}.sld-feeder-disconnected {stroke: black}
+.sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
+.sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
+.sld-constant-color {fill: none}
+.sld-node.sld-constant-color {stroke: none; fill: black}
+.sld-busbreaker-connection.sld-constant-color {stroke: black}
+.sld-breaker.sld-constant-color {stroke: blue;}
+.sld-disconnector.sld-constant-color {stroke: black}
+.sld-label {fill: black; stroke: none;}
+.sld-busbar-section {stroke-width: 3}
+.sld-breaker {stroke-width: 2; fill:white}
+.sld-disconnector {stroke-width: 3}
+.sld-busbreaker-connection {stroke-width: 4}
+.sld-vsc {font-size: 7.43px}
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-arrow-p {fill:black}
+.sld-arrow-q {fill:blue}
+.sld-label {font: 8px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}
 
-.BREAKER {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 2;
-    fill: rgb(255, 255, 255);
-}
-
-.DISCONNECTOR {
-    stroke: rgb(0, 0, 0);
-    stroke-width: 3
-}
-
-.GENERATOR {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.LOAD {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.LOAD_BREAK_SWITCH {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill: rgb(255, 255, 255);
-}
-
-.NODE {
-    stroke: rgb(0, 0, 0);
-    fill: rgb(0, 0, 0);
-    fill-opacity: 1;
-}
-
-.CAPACITOR {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.INDUCTOR {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.STATIC_VAR_COMPENSATOR {
-    stroke: rgb(0, 0, 255);
-}
-
-.TWO_WINDINGS_TRANSFORMER {
-    stroke: rgb(0, 0, 255);
-    fill-opacity: 0;
-}
-
-.THREE_WINDINGS_TRANSFORMER {
-    stroke: rgb(0, 0, 255);
-    fill-opacity: 0;
-}
-
-.VSC_CONVERTER_STATION {
-    stroke: rgb(0, 0, 255);
-    font-size: 7.4314661px;
-    line-height: 1.25;
-    font-family: sans-serif;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-feature-settings: normal;
-    text-align: start;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    writing-mode: lr-tb;
-    text-anchor: start;
-    stroke-miterlimit: 4;
-}
-
-.PHASE_SHIFT_TRANSFORMER {
-    stroke: rgb(0, 0, 255);
-    stroke-linecap: butt;
-    stroke-linejoin: miter;
-    stroke-miterlimit: 4;
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.wire {
-    stroke: rgb(200,0,0);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-
-.grid {
-    stroke: rgb(0,55,0);
-    stroke-width: 1;
-    stroke-dasharray: 1,10;
-}
-
-.component-label {
-    fill: black;
-    color: black;
-    stroke: none;
-    fill-opacity: 1;
-}
-
-.LINE {
-    stroke: rgb(0, 0, 255);
-    stroke-width: 1;
-    fill-opacity: 0;
-}
-.ARROW1_CE_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CE_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CE_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CE_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CE_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CE_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CJ_95_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CJ_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CJ_95_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CJ_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CJ_95_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CJ_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CJ_95_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CJ_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CI_95_TWO_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CI_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CI_95_TWO_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CI_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CI_95_TWO_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CI_95_TWO_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CI_95_TWO_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CI_95_TWO_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CB_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CB_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CB_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CB_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CB_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CB_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CB_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CB_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CC_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CC_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CC_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CC_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CC_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CC_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CC_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CC_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CD_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CD_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CD_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CD_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CD_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CD_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CD_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CD_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CF_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CF_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CF_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CF_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CF_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CF_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CF_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CF_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CG_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CG_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CG_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CG_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CG_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CG_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CG_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CG_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.ARROW1_CH_UP .arrow-up {stroke: black; fill: black; fill-opacity:1; visibility: visible;}.ARROW1_CH_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW1_CH_DOWN .arrow-down {stroke: black; fill: black; fill-opacity:1;  visibility: visible;}.ARROW1_CH_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CH_UP .arrow-up {stroke: blue; fill: blue; fill-opacity:1; visibility: visible;}.ARROW2_CH_UP .arrow-down { stroke-opacity:0; fill-opacity:0; visibility: hidden;}.ARROW2_CH_DOWN .arrow-down {stroke: blue; fill: blue; fill-opacity:1;  visibility: visible;}.ARROW2_CH_DOWN .arrow-up { stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_19 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idR .open { visibility: visible;}.idR .closed { visibility: hidden;}
-.idFICT_95_N_95_17 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idT .open { visibility: visible;}.idT .closed { visibility: hidden;}
-.idFICT_95_N_95_21 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idV .open { visibility: visible;}.idV .closed { visibility: hidden;}
-.idFICT_95_N_95_11 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idX .open { visibility: visible;}.idX .closed { visibility: hidden;}
-.idFICT_95_N_95_13 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idZ .open { visibility: visible;}.idZ .closed { visibility: hidden;}
-.idFICT_95_N_95_15 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idAB .open { visibility: hidden;}.idAB .closed { visibility: visible;}
-.idFICT_95_N_95_8 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idAD .open { visibility: visible;}.idAD .closed { visibility: hidden;}
-.idFICT_95_N_95_2 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idAF .open { visibility: visible;}.idAF .closed { visibility: hidden;}
-.idAH .open { visibility: hidden;}.idAH .closed { visibility: visible;}
-.idAJ .open { visibility: hidden;}.idAJ .closed { visibility: visible;}
-.idAL .open { visibility: hidden;}.idAL .closed { visibility: visible;}
-.idAN .open { visibility: hidden;}.idAN .closed { visibility: visible;}
-.idAP .open { visibility: hidden;}.idAP .closed { visibility: visible;}
-.idAR .open { visibility: visible;}.idAR .closed { visibility: hidden;}
-.idAT .open { visibility: visible;}.idAT .closed { visibility: hidden;}
-.idAV .open { visibility: visible;}.idAV .closed { visibility: hidden;}
-.idAX .open { visibility: hidden;}.idAX .closed { visibility: visible;}
-.idAZ .open { visibility: visible;}.idAZ .closed { visibility: hidden;}
-.idFICT_95_N_95_3 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idBB .open { visibility: visible;}.idBB .closed { visibility: hidden;}
-.idBD .open { visibility: hidden;}.idBD .closed { visibility: visible;}
-.idBF .open { visibility: hidden;}.idBF .closed { visibility: visible;}
-.idFICT_95_N_95_9 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idBH .open { visibility: visible;}.idBH .closed { visibility: hidden;}
-.idBJ .open { visibility: hidden;}.idBJ .closed { visibility: visible;}
-.idBL .open { visibility: hidden;}.idBL .closed { visibility: visible;}
-.idBN .open { visibility: hidden;}.idBN .closed { visibility: visible;}
-.idBP .open { visibility: visible;}.idBP .closed { visibility: hidden;}
-.idBR .open { visibility: visible;}.idBR .closed { visibility: hidden;}
-.idBT .open { visibility: hidden;}.idBT .closed { visibility: visible;}
-.idBV .open { visibility: hidden;}.idBV .closed { visibility: visible;}
-.idBX .open { visibility: hidden;}.idBX .closed { visibility: visible;}
-.idBZ .open { visibility: hidden;}.idBZ .closed { visibility: visible;}
-.idFICT_95_N_95_CEFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CJ_95_TWOFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CI_95_TWOFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CBFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CCFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CDFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CFFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CGFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_CHFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_AHFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_AJFictif {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_Shunt_32_10_46_1 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
-.idFICT_95_N_95_Shunt_32_10_46_2 {stroke-opacity:0; fill-opacity:0; visibility: hidden;}
 ]]></style>
     <g>
-        <g class="BUSBAR_SECTION idO" id="idO" transform="translate(30.0,200.0)">
-            <line fill="#228b22" stroke="#228b22" x1="0" x2="580.0" y1="0" y2="0"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="O_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">O</text>
+        <g class="sld-busbar-section sld-constant-color sld-vl225" id="idO" transform="translate(30.0,310.0)">
+            <line x1="0" x2="580.0" y1="0" y2="0"/>
+            <text class="sld-label" id="O_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">O</text>
         </g>
-        <g class="BUSBAR_SECTION idP" id="idP" transform="translate(30.0,225.0)">
-            <line fill="#228b22" stroke="#228b22" x1="0" x2="580.0" y1="0" y2="0"/>
-            <text class="component-label" font-family="Verdana" font-size="8" id="P_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">P</text>
+        <g class="sld-busbar-section sld-constant-color sld-vl225" id="idP" transform="translate(30.0,335.0)">
+            <line x1="0" x2="580.0" y1="0" y2="0"/>
+            <text class="sld-label" id="P_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">P</text>
         </g>
         <g class="cell idINTERN_32_0" id="idINTERN_32_0">
-            <g class="NODE idFICT_95_N_95_AHFictif" id="idFICT_95_N_95_AHFictif" transform="matrix(0.0,1.0,-1.0,0.0,99.0,156.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_AHFictif" transform="matrix(0.0,1.0,-1.0,0.0,99.0,266.0)">
                 <title>AHFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0" transform="rotate(90.0,4.0,4.0)"/>
+                <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
-            <g class="NODE idFICT_95_N_95_AJFictif" id="idFICT_95_N_95_AJFictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,156.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_AJFictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,266.0)">
                 <title>AJFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0" transform="rotate(90.0,4.0,4.0)"/>
+                <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
-            <g class="wire" id="_95_N_95_AH_95_O">
-                <polyline points="95.0,200.0,95.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AH_95_O">
+                <polyline points="95.0,310.0,95.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AH_95_FICT_95_N_95_AHFictif">
-                <polyline points="95.0,200.0,95.0,160.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AH_95_FICT_95_N_95_AHFictif">
+                <polyline points="95.0,310.0,95.0,270.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BJ_95_FICT_95_N_95_AHFictif">
-                <polyline points="80.0,160.0,95.0,160.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BJ_95_FICT_95_N_95_AHFictif">
+                <polyline points="80.0,270.0,95.0,270.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BJ_95_FICT_95_N_95_AJFictif">
-                <polyline points="60.0,160.0,45.0,160.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BJ_95_FICT_95_N_95_AJFictif">
+                <polyline points="60.0,270.0,45.0,270.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AJ_95_FICT_95_N_95_AJFictif">
-                <polyline points="45.0,225.0,45.0,160.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AJ_95_FICT_95_N_95_AJFictif">
+                <polyline points="45.0,335.0,45.0,270.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AJ">
-                <polyline points="45.0,225.0,45.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AJ">
+                <polyline points="45.0,335.0,45.0,335.0"/>
             </g>
-            <g class="DISCONNECTOR idAH" id="idAH" transform="translate(91.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAH" transform="translate(91.0,306.0)">
                 <title>AI</title>
-                <g class="closed" id="idAH_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAH_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBJ" id="idBJ" transform="matrix(0.0,1.0,-1.0,0.0,80.0,150.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBJ" transform="matrix(0.0,1.0,-1.0,0.0,80.0,260.0)">
                 <title>BK</title>
-                <g class="closed" id="idBJ_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBJ_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="DISCONNECTOR idAJ" id="idAJ" transform="translate(41.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAJ" transform="translate(41.0,331.0)">
                 <title>AK</title>
-                <g class="closed" id="idAJ_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAJ_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="NODE idFICT_95_N_95_19" id="idFICT_95_N_95_19" transform="translate(391.0,166.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_19" transform="translate(391.0,276.0)">
                 <title>19</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CGFictif" id="idFICT_95_N_95_CGFictif" transform="translate(391.0,86.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CGFictif" transform="translate(391.0,196.0)">
                 <title>CGFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="LOAD idCG" id="idCG" transform="translate(387.0,23.5)">
+            <g class="sld-load sld-top-feeder sld-constant-color sld-vl225" id="idCG" transform="translate(387.0,133.5)">
                 <title>CG</title>
-                <rect fill="#228b22" height="9" stroke="#228b22" width="16"/>
-                <line fill="#228b22" stroke="#228b22" x1="0" x2="16" y1="0" y2="9"/>
-                <line fill="#228b22" stroke="#228b22" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CG_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CG</text>
+                <rect height="9" width="16"/>
+                <line x1="0" x2="16" y1="0" y2="9"/>
+                <line x1="16" x2="0" y1="0" y2="9"/>
+                <text class="sld-label" id="CG_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CG</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_R">
-                <polyline points="395.0,200.0,395.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_R">
+                <polyline points="395.0,310.0,395.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_R_95_FICT_95_N_95_19">
-                <polyline points="395.0,200.0,395.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_R_95_FICT_95_N_95_19">
+                <polyline points="395.0,310.0,395.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AL_95_FICT_95_N_95_19">
-                <polyline points="395.0,225.0,395.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AL_95_FICT_95_N_95_19">
+                <polyline points="395.0,335.0,395.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_19_95_BX">
-                <polyline points="395.0,170.0,395.0,140.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_19_95_BX">
+                <polyline points="395.0,280.0,395.0,250.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AL">
-                <polyline points="395.0,225.0,395.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AL">
+                <polyline points="395.0,335.0,395.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BX_95_FICT_95_N_95_CGFictif">
-                <polyline points="395.0,120.0,395.0,90.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BX_95_FICT_95_N_95_CGFictif">
+                <polyline points="395.0,230.0,395.0,200.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG">
-                <polyline points="395.0,90.0,395.0,32.5" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG">
+                <polyline points="395.0,200.0,395.0,142.5"/>
             </g>
-            <g class="ARROW1_CG_UP" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,390.0,46.25)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">90   </text>
+            <g class="sld-arrow-p sld-up" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,390.0,156.25)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">90</text>
             </g>
-            <g class="ARROW2_CG_DOWN" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,390.0,66.25)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">-52  </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CGFictif_95_CG_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,390.0,176.25)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">-52</text>
             </g>
-            <g class="DISCONNECTOR idR" id="idR" transform="translate(391.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idR" transform="translate(391.0,306.0)">
                 <title>S</title>
-                <g class="closed" id="idR_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idR_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAL" id="idAL" transform="translate(391.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAL" transform="translate(391.0,331.0)">
                 <title>AM</title>
-                <g class="closed" id="idAL_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAL_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBX" id="idBX" transform="translate(385.0,120.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBX" transform="translate(385.0,230.0)">
                 <title>BY</title>
-                <g class="closed" id="idBX_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBX_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
-            <g class="NODE idFICT_95_N_95_17" id="idFICT_95_N_95_17" transform="translate(441.0,251.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_17" transform="translate(441.0,361.0)">
                 <title>17</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CFFictif" id="idFICT_95_N_95_CFFictif" transform="translate(441.0,359.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CFFictif" transform="translate(441.0,469.0)">
                 <title>CFFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="LOAD idCF" id="idCF" transform="translate(437.0,420.5)">
+            <g class="sld-load sld-bottom-feeder sld-constant-color sld-vl225" id="idCF" transform="translate(437.0,530.5)">
                 <title>CF</title>
-                <rect fill="#228b22" height="9" stroke="#228b22" width="16"/>
-                <line fill="#228b22" stroke="#228b22" x1="0" x2="16" y1="0" y2="9"/>
-                <line fill="#228b22" stroke="#228b22" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CF_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="22.0">CF</text>
+                <rect height="9" width="16"/>
+                <line x1="0" x2="16" y1="0" y2="9"/>
+                <line x1="16" x2="0" y1="0" y2="9"/>
+                <text class="sld-label" id="CF_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="14.0">CF</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_T">
-                <polyline points="445.0,200.0,445.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_T">
+                <polyline points="445.0,310.0,445.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_T_95_FICT_95_N_95_17">
-                <polyline points="445.0,200.0,445.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_T_95_FICT_95_N_95_17">
+                <polyline points="445.0,310.0,445.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AN_95_FICT_95_N_95_17">
-                <polyline points="445.0,225.0,445.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AN_95_FICT_95_N_95_17">
+                <polyline points="445.0,335.0,445.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_17_95_BV">
-                <polyline points="445.0,255.0,445.0,299.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_17_95_BV">
+                <polyline points="445.0,365.0,445.0,409.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AN">
-                <polyline points="445.0,225.0,445.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AN">
+                <polyline points="445.0,335.0,445.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BV_95_FICT_95_N_95_CFFictif">
-                <polyline points="445.0,319.0,445.0,363.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BV_95_FICT_95_N_95_CFFictif">
+                <polyline points="445.0,429.0,445.0,473.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF">
-                <polyline points="445.0,363.0,445.0,420.5" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF">
+                <polyline points="445.0,473.0,445.0,530.5"/>
             </g>
-            <g class="ARROW2_CF_DOWN" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,440.0,396.75)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">-24  </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,440.0,506.75)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">-24</text>
             </g>
-            <g class="ARROW1_CF_UP" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,440.0,376.75)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">8    </text>
+            <g class="sld-arrow-p sld-up" id="_95_N_95_FICT_95_N_95_CFFictif_95_CF_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,440.0,486.75)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">8</text>
             </g>
-            <g class="DISCONNECTOR idT" id="idT" transform="translate(441.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idT" transform="translate(441.0,306.0)">
                 <title>U</title>
-                <g class="closed" id="idT_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idT_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAN" id="idAN" transform="translate(441.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAN" transform="translate(441.0,331.0)">
                 <title>AO</title>
-                <g class="closed" id="idAN_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAN_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBV" id="idBV" transform="translate(435.0,299.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBV" transform="translate(435.0,409.0)">
                 <title>BW</title>
-                <g class="closed" id="idBV_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBV_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
-            <g class="NODE idFICT_95_N_95_21" id="idFICT_95_N_95_21" transform="translate(491.0,166.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_21" transform="translate(491.0,276.0)">
                 <title>21</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CHFictif" id="idFICT_95_N_95_CHFictif" transform="translate(491.0,86.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CHFictif" transform="translate(491.0,196.0)">
                 <title>CHFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="LOAD idCH" id="idCH" transform="translate(487.0,23.5)">
+            <g class="sld-load sld-top-feeder sld-constant-color sld-vl225" id="idCH" transform="translate(487.0,133.5)">
                 <title>CH</title>
-                <rect fill="#228b22" height="9" stroke="#228b22" width="16"/>
-                <line fill="#228b22" stroke="#228b22" x1="0" x2="16" y1="0" y2="9"/>
-                <line fill="#228b22" stroke="#228b22" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CH_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CH</text>
+                <rect height="9" width="16"/>
+                <line x1="0" x2="16" y1="0" y2="9"/>
+                <line x1="16" x2="0" y1="0" y2="9"/>
+                <text class="sld-label" id="CH_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CH</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_V">
-                <polyline points="495.0,200.0,495.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_V">
+                <polyline points="495.0,310.0,495.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_V_95_FICT_95_N_95_21">
-                <polyline points="495.0,200.0,495.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_V_95_FICT_95_N_95_21">
+                <polyline points="495.0,310.0,495.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AP_95_FICT_95_N_95_21">
-                <polyline points="495.0,225.0,495.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AP_95_FICT_95_N_95_21">
+                <polyline points="495.0,335.0,495.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_21_95_BZ">
-                <polyline points="495.0,170.0,495.0,140.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_21_95_BZ">
+                <polyline points="495.0,280.0,495.0,250.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AP">
-                <polyline points="495.0,225.0,495.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AP">
+                <polyline points="495.0,335.0,495.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BZ_95_FICT_95_N_95_CHFictif">
-                <polyline points="495.0,120.0,495.0,90.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BZ_95_FICT_95_N_95_CHFictif">
+                <polyline points="495.0,230.0,495.0,200.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH">
-                <polyline points="495.0,90.0,495.0,32.5" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH">
+                <polyline points="495.0,200.0,495.0,142.5"/>
             </g>
-            <g class="ARROW1_CH_DOWN" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,490.0,46.25)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">-5   </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,490.0,156.25)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">-5</text>
             </g>
-            <g class="ARROW2_CH_UP" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,490.0,66.25)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">5    </text>
+            <g class="sld-arrow-q sld-up" id="_95_N_95_FICT_95_N_95_CHFictif_95_CH_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,490.0,176.25)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">5</text>
             </g>
-            <g class="DISCONNECTOR idV" id="idV" transform="translate(491.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idV" transform="translate(491.0,306.0)">
                 <title>W</title>
-                <g class="closed" id="idV_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idV_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAP" id="idAP" transform="translate(491.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAP" transform="translate(491.0,331.0)">
                 <title>AQ</title>
-                <g class="closed" id="idAP_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAP_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBZ" id="idBZ" transform="translate(485.0,120.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBZ" transform="translate(485.0,230.0)">
                 <title>CA</title>
-                <g class="closed" id="idBZ_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBZ_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
-            <g class="NODE idFICT_95_N_95_11" id="idFICT_95_N_95_11" transform="translate(541.0,251.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_11" transform="translate(541.0,361.0)">
                 <title>11</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CBFictif" id="idFICT_95_N_95_CBFictif" transform="translate(541.0,359.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CBFictif" transform="translate(541.0,469.0)">
                 <title>CBFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="GENERATOR idCB" id="idCB" transform="translate(539.0,419.0)">
+            <g class="sld-generator sld-bottom-feeder sld-constant-color sld-vl225" id="idCB" transform="translate(539.0,529.0)">
                 <title>CB</title>
-                <circle cx="6" cy="6" fill="#228b22" r="6" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 2,6" fill="#228b22" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 10,6" fill="#228b22" stroke="#228b22"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CB_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="25.0">CB</text>
+                <circle cx="6" cy="6" r="6"/>
+                <path d="M6,6 A 6 40 0 0 0 2,6"/>
+                <path d="M6,6 A 6 40 0 0 0 10,6"/>
+                <text class="sld-label" id="CB_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="17.0">CB</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_X">
-                <polyline points="545.0,200.0,545.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_X">
+                <polyline points="545.0,310.0,545.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_X_95_FICT_95_N_95_11">
-                <polyline points="545.0,200.0,545.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_X_95_FICT_95_N_95_11">
+                <polyline points="545.0,310.0,545.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AR_95_FICT_95_N_95_11">
-                <polyline points="545.0,225.0,545.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AR_95_FICT_95_N_95_11">
+                <polyline points="545.0,335.0,545.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_11_95_BP">
-                <polyline points="545.0,255.0,545.0,299.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_11_95_BP">
+                <polyline points="545.0,365.0,545.0,409.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AR">
-                <polyline points="545.0,225.0,545.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AR">
+                <polyline points="545.0,335.0,545.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BP_95_FICT_95_N_95_CBFictif">
-                <polyline points="545.0,319.0,545.0,363.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BP_95_FICT_95_N_95_CBFictif">
+                <polyline points="545.0,429.0,545.0,473.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB">
-                <polyline points="545.0,363.0,545.0,419.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB">
+                <polyline points="545.0,473.0,545.0,529.0"/>
             </g>
-            <g class="ARROW2_CB_DOWN" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,396.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,506.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="ARROW1_CB_DOWN" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,376.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CBFictif_95_CB_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,486.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="DISCONNECTOR idX" id="idX" transform="translate(541.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idX" transform="translate(541.0,306.0)">
                 <title>Y</title>
-                <g class="closed" id="idX_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idX_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAR" id="idAR" transform="translate(541.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAR" transform="translate(541.0,331.0)">
                 <title>AS</title>
-                <g class="closed" id="idAR_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAR_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBP" id="idBP" transform="translate(535.0,299.0)">
+            <g class="sld-breaker sld-constant-color sld-open sld-vl225" id="idBP" transform="translate(535.0,409.0)">
                 <title>BQ</title>
-                <g class="closed" id="idBP_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBP_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
-            <g class="NODE idFICT_95_N_95_13" id="idFICT_95_N_95_13" transform="translate(591.0,166.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_13" transform="translate(591.0,276.0)">
                 <title>13</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CCFictif" id="idFICT_95_N_95_CCFictif" transform="translate(591.0,86.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CCFictif" transform="translate(591.0,196.0)">
                 <title>CCFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="GENERATOR idCC" id="idCC" transform="translate(589.0,22.0)">
+            <g class="sld-generator sld-top-feeder sld-constant-color sld-vl225" id="idCC" transform="translate(589.0,132.0)">
                 <title>CC</title>
-                <circle cx="6" cy="6" fill="#228b22" r="6" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 2,6" fill="#228b22" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 10,6" fill="#228b22" stroke="#228b22"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CC_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CC</text>
+                <circle cx="6" cy="6" r="6"/>
+                <path d="M6,6 A 6 40 0 0 0 2,6"/>
+                <path d="M6,6 A 6 40 0 0 0 10,6"/>
+                <text class="sld-label" id="CC_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CC</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_Z">
-                <polyline points="595.0,200.0,595.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_Z">
+                <polyline points="595.0,310.0,595.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_Z_95_FICT_95_N_95_13">
-                <polyline points="595.0,200.0,595.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_Z_95_FICT_95_N_95_13">
+                <polyline points="595.0,310.0,595.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AT_95_FICT_95_N_95_13">
-                <polyline points="595.0,225.0,595.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AT_95_FICT_95_N_95_13">
+                <polyline points="595.0,335.0,595.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_13_95_BR">
-                <polyline points="595.0,170.0,595.0,140.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_13_95_BR">
+                <polyline points="595.0,280.0,595.0,250.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AT">
-                <polyline points="595.0,225.0,595.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AT">
+                <polyline points="595.0,335.0,595.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BR_95_FICT_95_N_95_CCFictif">
-                <polyline points="595.0,120.0,595.0,90.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BR_95_FICT_95_N_95_CCFictif">
+                <polyline points="595.0,230.0,595.0,200.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC">
-                <polyline points="595.0,90.0,595.0,34.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC">
+                <polyline points="595.0,200.0,595.0,144.0"/>
             </g>
-            <g class="ARROW1_CC_DOWN" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,47.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,157.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="ARROW2_CC_DOWN" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,67.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CCFictif_95_CC_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,177.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="DISCONNECTOR idZ" id="idZ" transform="translate(591.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idZ" transform="translate(591.0,306.0)">
                 <title>AA</title>
-                <g class="closed" id="idZ_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idZ_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAT" id="idAT" transform="translate(591.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAT" transform="translate(591.0,331.0)">
                 <title>AU</title>
-                <g class="closed" id="idAT_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAT_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBR" id="idBR" transform="translate(585.0,120.0)">
+            <g class="sld-breaker sld-constant-color sld-open sld-vl225" id="idBR" transform="translate(585.0,230.0)">
                 <title>BS</title>
-                <g class="closed" id="idBR_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBR_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
-            <g class="NODE idFICT_95_N_95_15" id="idFICT_95_N_95_15" transform="translate(141.0,166.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_15" transform="translate(141.0,276.0)">
                 <title>15</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CDFictif" id="idFICT_95_N_95_CDFictif" transform="translate(141.0,86.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CDFictif" transform="translate(141.0,196.0)">
                 <title>CDFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="GENERATOR idCD" id="idCD" transform="translate(139.0,22.0)">
+            <g class="sld-generator sld-top-feeder sld-constant-color sld-vl225" id="idCD" transform="translate(139.0,132.0)">
                 <title>CD</title>
-                <circle cx="6" cy="6" fill="#228b22" r="6" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 2,6" fill="#228b22" stroke="#228b22"/>
-                <path d="M6,6 A 6 40 0 0 0 10,6" fill="#228b22" stroke="#228b22"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CD_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CD</text>
+                <circle cx="6" cy="6" r="6"/>
+                <path d="M6,6 A 6 40 0 0 0 2,6"/>
+                <path d="M6,6 A 6 40 0 0 0 10,6"/>
+                <text class="sld-label" id="CD_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">CD</text>
             </g>
-            <g class="wire" id="_95_N_95_O_95_AB">
-                <polyline points="145.0,200.0,145.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_AB">
+                <polyline points="145.0,310.0,145.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AB_95_FICT_95_N_95_15">
-                <polyline points="145.0,200.0,145.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AB_95_FICT_95_N_95_15">
+                <polyline points="145.0,310.0,145.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AV_95_FICT_95_N_95_15">
-                <polyline points="145.0,225.0,145.0,170.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AV_95_FICT_95_N_95_15">
+                <polyline points="145.0,335.0,145.0,280.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_15_95_BT">
-                <polyline points="145.0,170.0,145.0,140.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_15_95_BT">
+                <polyline points="145.0,280.0,145.0,250.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AV">
-                <polyline points="145.0,225.0,145.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AV">
+                <polyline points="145.0,335.0,145.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BT_95_FICT_95_N_95_CDFictif">
-                <polyline points="145.0,120.0,145.0,90.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BT_95_FICT_95_N_95_CDFictif">
+                <polyline points="145.0,230.0,145.0,200.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD">
-                <polyline points="145.0,90.0,145.0,34.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD">
+                <polyline points="145.0,200.0,145.0,144.0"/>
             </g>
-            <g class="ARROW1_CD_DOWN" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,140.0,47.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">-22  </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,140.0,157.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">-22</text>
             </g>
-            <g class="ARROW2_CD_UP" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,140.0,67.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2_ARROW-arrow-up">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2_ARROW-arrow-down">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">21   </text>
+            <g class="sld-arrow-q sld-up" id="_95_N_95_FICT_95_N_95_CDFictif_95_CD_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,140.0,177.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">21</text>
             </g>
-            <g class="DISCONNECTOR idAB" id="idAB" transform="translate(141.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAB" transform="translate(141.0,306.0)">
                 <title>AC</title>
-                <g class="closed" id="idAB_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAB_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAV" id="idAV" transform="translate(141.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAV" transform="translate(141.0,331.0)">
                 <title>AW</title>
-                <g class="closed" id="idAV_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAV_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBT" id="idBT" transform="translate(135.0,120.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBT" transform="translate(135.0,230.0)">
                 <title>BU</title>
-                <g class="closed" id="idBT_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBT_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
-            <g class="NODE idFICT_95_N_95_8" id="idFICT_95_N_95_8" transform="translate(191.0,251.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_8" transform="translate(191.0,361.0)">
                 <title>8</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CI_95_TWOFictif" id="idFICT_95_N_95_CI_95_TWOFictif" transform="translate(191.0,359.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CI_95_TWOFictif" transform="translate(191.0,469.0)">
                 <title>CI_TWOFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="PHASE_SHIFT_TRANSFORMER idCI_95_TWO" id="idCI_95_TWO" transform="translate(188.0,416.5)">
+            <g class="sld-pst sld-bottom-feeder sld-constant-color" id="idCI_95_TWO" transform="translate(188.0,526.5)">
                 <title>CI</title>
-                <circle cx="7" cy="12" fill="#228b22" id="idCI_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING1" r="5" stroke="#228b22" transform="rotate(180.0,7.0,8.5)"/>
-                <g fill="#228b22" id="idCI_95_TWO_TWO_WINDINGS_TRANSFORMER-WINDING2" stroke="#228b22" transform="rotate(180.0,7.0,8.5)">
-                    <circle cx="7" cy="7" r="5"/>
-                    <line x1="14" x2="0" y1="0" y2="14"/>
-                    <line x1="14" x2="11" y1="0" y2="0"/>
-                    <line x1="14" x2="14" y1="0" y2="3"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CI_TWO_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="30.0">CI</text>
+                <circle class="sld-vl225" cx="7" cy="12" r="5" transform="rotate(180.0,7.0,8.5)"/>
+                <g class="sld-vl225" transform="rotate(180.0,7.0,8.5)">
+        <circle cx="7" cy="7" r="5"/>
+        <line x1="14" x2="0" y1="0" y2="14"/>
+        <line x1="14" x2="11" y1="0" y2="0"/>
+        <line x1="14" x2="14" y1="0" y2="3"/>
+    </g>
+                <text class="sld-label" id="CI_TWO_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="22.0">CI</text>
             </g>
-            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_9" transform="translate(191.0,415.0)">
                 <title>9</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_8_95_BL">
-                <polyline points="195.0,255.0,195.0,272.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_8_95_BL">
+                <polyline points="195.0,365.0,195.0,382.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BL_95_FICT_95_N_95_9">
-                <polyline points="195.0,292.0,195.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BL_95_FICT_95_N_95_9">
+                <polyline points="195.0,402.0,195.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AD_95_FICT_95_N_95_8">
-                <polyline points="195.0,200.0,195.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AD_95_FICT_95_N_95_8">
+                <polyline points="195.0,310.0,195.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AX_95_FICT_95_N_95_8">
-                <polyline points="195.0,225.0,195.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AX_95_FICT_95_N_95_8">
+                <polyline points="195.0,335.0,195.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_O_95_AD">
-                <polyline points="195.0,200.0,195.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_AD">
+                <polyline points="195.0,310.0,195.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AX">
-                <polyline points="195.0,225.0,195.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AX">
+                <polyline points="195.0,335.0,195.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_BN">
-                <polyline points="195.0,309.0,195.0,336.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_9_95_BN">
+                <polyline points="195.0,419.0,195.0,446.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BN_95_FICT_95_N_95_CI_95_TWOFictif">
-                <polyline points="195.0,336.0,195.0,363.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BN_95_FICT_95_N_95_CI_95_TWOFictif">
+                <polyline points="195.0,446.0,195.0,473.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO">
-                <polyline points="195.0,363.0,195.0,416.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO">
+                <polyline points="195.0,473.0,195.0,526.0"/>
             </g>
-            <g class="ARROW2_CI_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,190.0,394.5)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,190.0,504.5)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="ARROW1_CI_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,190.0,374.5)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CI_95_TWOFictif_95_CI_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,190.0,484.5)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="195.0,309.0,220.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
+                <polyline points="195.0,419.0,220.0,419.0"/>
             </g>
-            <g class="BREAKER idBL" id="idBL" transform="translate(185.0,272.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBL" transform="translate(185.0,382.0)">
                 <title>BM</title>
-                <g class="closed" id="idBL_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBL_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="DISCONNECTOR idAD" id="idAD" transform="translate(191.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAD" transform="translate(191.0,306.0)">
                 <title>AE</title>
-                <g class="closed" id="idAD_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAD_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAX" id="idAX" transform="translate(191.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idAX" transform="translate(191.0,331.0)">
                 <title>AY</title>
-                <g class="closed" id="idAX_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAX_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idBN" id="idBN" transform="translate(191.0,332.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idBN" transform="translate(191.0,442.0)">
                 <title>BO</title>
-                <g class="closed" id="idBN_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idBN_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
-            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_3" transform="translate(316.0,415.0)">
                 <title>3</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_2" id="idFICT_95_N_95_2" transform="translate(316.0,251.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_2" transform="translate(316.0,361.0)">
                 <title>2</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_CEFictif" id="idFICT_95_N_95_CEFictif" transform="translate(341.0,359.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CEFictif" transform="translate(341.0,469.0)">
                 <title>CEFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="LOAD idCE" id="idCE" transform="translate(337.0,420.5)">
+            <g class="sld-load sld-bottom-feeder sld-constant-color sld-vl225" id="idCE" transform="translate(337.0,530.5)">
                 <title>CE</title>
-                <rect fill="#228b22" height="9" stroke="#228b22" width="16"/>
-                <line fill="#228b22" stroke="#228b22" x1="0" x2="16" y1="0" y2="9"/>
-                <line fill="#228b22" stroke="#228b22" x1="16" x2="0" y1="0" y2="9"/>
-                <text class="component-label" font-family="Verdana" font-size="8" id="CE_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="22.0">CE</text>
+                <rect height="9" width="16"/>
+                <line x1="0" x2="16" y1="0" y2="9"/>
+                <line x1="16" x2="0" y1="0" y2="9"/>
+                <text class="sld-label" id="CE_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="14.0">CE</text>
             </g>
-            <g class="NODE idFICT_95_N_95_CJ_95_TWOFictif" id="idFICT_95_N_95_CJ_95_TWOFictif" transform="translate(291.0,359.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_CJ_95_TWOFictif" transform="translate(291.0,469.0)">
                 <title>CJ_TWOFictif</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="LINE idCJ_95_TWO" id="idCJ_95_TWO" transform="translate(295.0,425.0)">
-                <text class="component-label" font-family="Verdana" font-size="8" id="CJ_TWO_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="13.0">CJ</text>
+            <g class="sld-line sld-bottom-feeder sld-constant-color sld-vl225" id="idCJ_95_TWO" transform="translate(295.0,535.0)">
+                <text class="sld-label" id="CJ_TWO_S_LABEL" transform="rotate(0,0,0)" x="-5.0" y="5.0">CJ</text>
             </g>
-            <g class="wire" id="_95_N_95_BB_95_FICT_95_N_95_3">
-                <polyline points="320.0,292.0,320.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BB_95_FICT_95_N_95_3">
+                <polyline points="320.0,402.0,320.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BD">
-                <polyline points="320.0,309.0,345.0,309.0,345.0,326.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_BD">
+                <polyline points="320.0,419.0,345.0,419.0,345.0,436.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BF">
-                <polyline points="320.0,309.0,295.0,309.0,295.0,336.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_BF">
+                <polyline points="320.0,419.0,295.0,419.0,295.0,446.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="320.0,309.0,270.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
+                <polyline points="320.0,419.0,270.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_2_95_BB">
-                <polyline points="320.0,255.0,320.0,272.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_2_95_BB">
+                <polyline points="320.0,365.0,320.0,382.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AF_95_FICT_95_N_95_2">
-                <polyline points="320.0,200.0,320.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AF_95_FICT_95_N_95_2">
+                <polyline points="320.0,310.0,320.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_AZ_95_FICT_95_N_95_2">
-                <polyline points="320.0,225.0,320.0,255.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_AZ_95_FICT_95_N_95_2">
+                <polyline points="320.0,335.0,320.0,365.0"/>
             </g>
-            <g class="wire" id="_95_N_95_O_95_AF">
-                <polyline points="320.0,200.0,320.0,200.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_O_95_AF">
+                <polyline points="320.0,310.0,320.0,310.0"/>
             </g>
-            <g class="wire" id="_95_N_95_P_95_AZ">
-                <polyline points="320.0,225.0,320.0,225.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_P_95_AZ">
+                <polyline points="320.0,335.0,320.0,335.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BD_95_FICT_95_N_95_CEFictif">
-                <polyline points="345.0,346.0,345.0,363.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BD_95_FICT_95_N_95_CEFictif">
+                <polyline points="345.0,456.0,345.0,473.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE">
-                <polyline points="345.0,363.0,345.0,420.5" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE">
+                <polyline points="345.0,473.0,345.0,530.5"/>
             </g>
-            <g class="ARROW2_CE_UP" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,340.0,396.75)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">50   </text>
+            <g class="sld-arrow-q sld-up" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,340.0,506.75)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">50</text>
             </g>
-            <g class="ARROW1_CE_DOWN" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,340.0,376.75)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">-72  </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CEFictif_95_CE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,340.0,486.75)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">-72</text>
             </g>
-            <g class="wire" id="_95_N_95_BF_95_FICT_95_N_95_CJ_95_TWOFictif">
-                <polyline points="295.0,336.0,295.0,363.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BF_95_FICT_95_N_95_CJ_95_TWOFictif">
+                <polyline points="295.0,446.0,295.0,473.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO">
-                <polyline points="295.0,363.0,295.0,425.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO">
+                <polyline points="295.0,473.0,295.0,535.0"/>
             </g>
-            <g class="ARROW2_CJ_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,290.0,400.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-q sld-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,290.0,510.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="ARROW1_CJ_95_TWO_DOWN" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,290.0,380.0)">
-                <g class="arrow-up" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1_ARROW-arrow-up" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="5,0 10,10 0,10"/>
-                </g>
-                <g class="arrow-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1_ARROW-arrow-down" transform="rotate(180.0,5.0,5.0)">
-                    <polygon points="0,0 10,0 5,10"/>
-                </g>
-                <text class="component-label" font-family="Verdana" font-size="8" textLength="25" transform="rotate(0,0,0)" x="15.0" xml:space="preserve" y="9.0">0    </text>
+            <g class="sld-arrow-p sld-down" id="_95_N_95_FICT_95_N_95_CJ_95_TWOFictif_95_CJ_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,290.0,490.0)">
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="BREAKER idBB" id="idBB" transform="translate(310.0,272.0)">
+            <g class="sld-breaker sld-constant-color sld-open sld-vl225" id="idBB" transform="translate(310.0,382.0)">
                 <title>BC</title>
-                <g class="closed" id="idBB_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBB_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="DISCONNECTOR idAF" id="idAF" transform="translate(316.0,196.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAF" transform="translate(316.0,306.0)">
                 <title>AG</title>
-                <g class="closed" id="idAF_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAF_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="DISCONNECTOR idAZ" id="idAZ" transform="translate(316.0,221.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idAZ" transform="translate(316.0,331.0)">
                 <title>BA</title>
-                <g class="closed" id="idAZ_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idAZ_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="BREAKER idBD" id="idBD" transform="translate(335.0,326.0)">
+            <g class="sld-breaker sld-constant-color sld-closed sld-vl225" id="idBD" transform="translate(335.0,436.0)">
                 <title>BE</title>
-                <g class="closed" id="idBD_BREAKER-closed">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="10" x2="10" y1="5" y2="15"/>
-                </g>
-                <g class="open" id="idBD_BREAKER-open">
-                    <rect height="18" width="18" x="1" y="1"/>
-                    <line x1="5" x2="15" y1="10" y2="10"/>
-                </g>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="DISCONNECTOR idBF" id="idBF" transform="translate(291.0,332.0)">
+            <g class="sld-disconnector sld-constant-color sld-closed sld-vl225" id="idBF" transform="translate(291.0,442.0)">
                 <title>BG</title>
-                <g class="closed" id="idBF_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idBF_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
         <g class="cell idSHUNT_32_10" id="idSHUNT_32_10">
-            <g class="NODE idFICT_95_N_95_9" id="idFICT_95_N_95_9" transform="translate(191.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_9" transform="translate(191.0,415.0)">
                 <title>9</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_1" id="idFICT_95_N_95_Shunt_32_10_46_1" transform="translate(216.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_Shunt_32_10_46_1" transform="translate(216.0,415.0)">
                 <title>Shunt 10.1</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_Shunt_32_10_46_2" id="idFICT_95_N_95_Shunt_32_10_46_2" transform="translate(266.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_Shunt_32_10_46_2" transform="translate(266.0,415.0)">
                 <title>Shunt 10.2</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="NODE idFICT_95_N_95_3" id="idFICT_95_N_95_3" transform="translate(316.0,305.0)">
+            <g class="sld-node sld-constant-color sld-hidden-node sld-vl225" id="idFICT_95_N_95_3" transform="translate(316.0,415.0)">
                 <title>3</title>
-                <circle cx="4" cy="4" fill="#228b22" fill-opacity="0" r="4" stroke="#228b22" stroke-opacity="0"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="wire" id="_95_N_95_BL_95_FICT_95_N_95_9">
-                <polyline points="195.0,292.0,195.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BL_95_FICT_95_N_95_9">
+                <polyline points="195.0,402.0,195.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_BN">
-                <polyline points="195.0,309.0,195.0,336.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_9_95_BN">
+                <polyline points="195.0,419.0,195.0,446.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="195.0,309.0,220.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_9_95_FICT_95_N_95_Shunt_32_10_46_1">
+                <polyline points="195.0,419.0,220.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_1">
-                <polyline points="245.0,309.0,220.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_1">
+                <polyline points="245.0,419.0,220.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="245.0,309.0,270.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BH_95_FICT_95_N_95_Shunt_32_10_46_2">
+                <polyline points="245.0,419.0,270.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
-                <polyline points="320.0,309.0,270.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_FICT_95_N_95_Shunt_32_10_46_2">
+                <polyline points="320.0,419.0,270.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_BB_95_FICT_95_N_95_3">
-                <polyline points="320.0,292.0,320.0,309.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_BB_95_FICT_95_N_95_3">
+                <polyline points="320.0,402.0,320.0,419.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BD">
-                <polyline points="320.0,309.0,345.0,309.0,345.0,326.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_BD">
+                <polyline points="320.0,419.0,345.0,419.0,345.0,436.0"/>
             </g>
-            <g class="wire" id="_95_N_95_FICT_95_N_95_3_95_BF">
-                <polyline points="320.0,309.0,295.0,309.0,295.0,336.0" stroke="#228b22" stroke-width="1"/>
+            <g class="sld-wire sld-constant-color sld-vl225" id="_95_N_95_FICT_95_N_95_3_95_BF">
+                <polyline points="320.0,419.0,295.0,419.0,295.0,446.0"/>
             </g>
-            <g class="DISCONNECTOR idBH" id="idBH" transform="translate(241.0,305.0)">
+            <g class="sld-disconnector sld-constant-color sld-open sld-vl225" id="idBH" transform="translate(241.0,415.0)">
                 <title>BI</title>
-                <g class="closed" id="idBH_DISCONNECTOR-closed">
-                    <line x1="0" x2="8" y1="0" y2="8"/>
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
-                <g class="open" id="idBH_DISCONNECTOR-open">
-                    <line x1="8" x2="0" y1="0" y2="8"/>
-                </g>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
     </g>
