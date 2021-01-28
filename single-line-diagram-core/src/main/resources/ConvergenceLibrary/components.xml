@@ -6,9 +6,11 @@
             <styleClass>sld-breaker</styleClass>
             <subComponent name="CLOSED">
                 <fileName>breaker-closed.svg</fileName>
+                <styleClass>sld-sw-closed</styleClass>
             </subComponent>
             <subComponent name="OPEN">
                 <fileName>breaker-open.svg</fileName>
+                <styleClass>sld-sw-open</styleClass>
             </subComponent>
             <anchorPoint x="0" y="-10" orientation="VERTICAL"/>
             <anchorPoint x="0" y="10" orientation="VERTICAL"/>
@@ -21,9 +23,11 @@
             <styleClass>sld-load-break-switch</styleClass>
             <subComponent name="CLOSED">
                 <fileName>load-break-switch-closed.svg</fileName>
+                <styleClass>sld-sw-closed</styleClass>
             </subComponent>
             <subComponent name="OPEN">
                 <fileName>load-break-switch-open.svg</fileName>
+                <styleClass>sld-sw-open</styleClass>
             </subComponent>
             <anchorPoint x="0" y="-5" orientation="VERTICAL"/>
             <anchorPoint x="0" y="5" orientation="VERTICAL"/>
@@ -120,11 +124,13 @@
         <metadata type="DISCONNECTOR">
             <size height="8" width="8"/>
             <styleClass>sld-disconnector</styleClass>
-            <subComponent name="OPEN">
-                <fileName>disconnector-open.svg</fileName>
-            </subComponent>
             <subComponent name="CLOSED">
                 <fileName>disconnector-closed.svg</fileName>
+                <styleClass>sld-sw-closed</styleClass>
+            </subComponent>
+            <subComponent name="OPEN">
+                <fileName>disconnector-open.svg</fileName>
+                <styleClass>sld-sw-open</styleClass>
             </subComponent>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
             <allowRotation>false</allowRotation>
@@ -199,8 +205,13 @@
     <component>
         <metadata type="ARROW">
             <size height="10" width="10"/>
-            <subComponent name="ARROW">
-                <fileName>arrow.svg</fileName>
+            <subComponent name="UP">
+                <fileName>arrow-up.svg</fileName>
+                <styleClass>sld-arrow-up</styleClass>
+            </subComponent>
+            <subComponent name="DOWN">
+                <fileName>arrow-down.svg</fileName>
+                <styleClass>sld-arrow-down</styleClass>
             </subComponent>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
             <allowRotation>true</allowRotation>
