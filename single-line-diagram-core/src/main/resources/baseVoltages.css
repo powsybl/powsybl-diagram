@@ -1,9 +1,9 @@
-.constant-color {stroke: black} /* Default color, used for unknown voltage levels */
-.vl0 {stroke: #808080}
-.vl400 {stroke: #ff0000}
-.vl225 {stroke: #228b22}
-.vl150 {stroke: #01afaf}
-.vl90 {stroke: #cc5500}
-.vl63 {stroke: #a020f0}
-.vl45 {stroke: #ff8290}
-.vl20 {stroke: #abae28}
+.sld-constant-color {stroke: black} /* Default color, used for unknown voltage levels */
+.sld-vl0 {stroke: #808080}
+.sld-vl380 {stroke: #ff0000}
+.sld-vl225 {stroke: #228b22}
+.sld-vl150 {stroke: #01afaf}
+.sld-vl90 {stroke: #cc5500}
+.sld-vl63 {stroke: #a020f0}
+.sld-vl45 {stroke: #ff8290}
+.sld-vl20 {stroke: #abae28}

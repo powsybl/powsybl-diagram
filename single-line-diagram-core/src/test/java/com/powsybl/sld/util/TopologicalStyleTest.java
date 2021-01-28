@@ -53,7 +53,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
 
         // first voltage level
-        vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 10);
+        vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
         createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         createLoad(vl1, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl1, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
@@ -107,43 +107,43 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, componentLibrary, true);
         assertEquals(3, nodeStyle1.size());
-        assertTrue(nodeStyle1.contains("busbar-section"));
-        assertTrue(nodeStyle1.contains("constant-color"));
-        assertTrue(nodeStyle1.contains("vl400-0"));
+        assertTrue(nodeStyle1.contains("sld-busbar-section"));
+        assertTrue(nodeStyle1.contains("sld-constant-color"));
+        assertTrue(nodeStyle1.contains("sld-vl380-0"));
 
         Node node2 = graph2.getNode("bbs2");
         List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, true);
         assertEquals(3, nodeStyle2.size());
-        assertTrue(nodeStyle2.contains("busbar-section"));
-        assertTrue(nodeStyle2.contains("constant-color"));
+        assertTrue(nodeStyle2.contains("sld-busbar-section"));
+        assertTrue(nodeStyle2.contains("sld-constant-color"));
         assertTrue(nodeStyle2.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
 
         Node node3 = graph3.getNode("bbs3");
         List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, true);
         assertEquals(3, nodeStyle3.size());
-        assertTrue(nodeStyle3.contains("busbar-section"));
-        assertTrue(nodeStyle3.contains("constant-color"));
-        assertTrue(nodeStyle3.contains("vl63-0"));
+        assertTrue(nodeStyle3.contains("sld-busbar-section"));
+        assertTrue(nodeStyle3.contains("sld-constant-color"));
+        assertTrue(nodeStyle3.contains("sld-vl63-0"));
 
         Edge edge = graph1.getEdges().get(12);
 
         List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
         assertEquals(3, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
-        assertTrue(wireStyles.contains("constant-color"));
-        assertTrue(wireStyles.contains("vl400-0"));
+        assertTrue(wireStyles.contains("sld-constant-color"));
+        assertTrue(wireStyles.contains("sld-vl380-0"));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         List<String> node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, true);
         assertEquals(2, node3WTStyle.size());
-        assertTrue(node3WTStyle.contains("constant-color"));
-        assertTrue(node3WTStyle.contains("three-wt"));
+        assertTrue(node3WTStyle.contains("sld-constant-color"));
+        assertTrue(node3WTStyle.contains("sld-three-wt"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         List<String> node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode, componentLibrary, true);
         assertEquals(2, node2WTStyle.size());
-        assertTrue(node2WTStyle.contains("constant-color"));
-        assertTrue(node2WTStyle.contains("two-wt"));
+        assertTrue(node2WTStyle.contains("sld-constant-color"));
+        assertTrue(node2WTStyle.contains("sld-two-wt"));
 
     }
 }

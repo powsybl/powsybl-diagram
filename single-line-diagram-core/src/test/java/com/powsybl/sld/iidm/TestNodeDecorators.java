@@ -13,7 +13,10 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SwitchNode;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.InitialValue;
+import com.powsybl.sld.svg.LabelPosition;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -63,8 +65,7 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
         // Same tests than above, with optimized svg :
         TestDiagramLabelProvider nodeDecoratorLabelProvider = new TestDiagramLabelProvider();
         getLayoutParameters().setAvoidSVGComponentsDuplication(true);
-        // FIXME: optimized svg is currently not compatible of CSS changes
-        assertNotEquals(toString("/vl1_decorated_opt.svg"), toSVG(graph, "/vl1_decorated_opt.svg", getLayoutParameters(),
+        assertEquals(toString("/vl1_decorated_opt.svg"), toSVG(graph, "/vl1_decorated_opt.svg", getLayoutParameters(),
             nodeDecoratorLabelProvider, new DefaultDiagramStyleProvider()));
     }
 

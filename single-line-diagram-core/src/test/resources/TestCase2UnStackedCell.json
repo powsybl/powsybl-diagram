@@ -2,7 +2,7 @@
   "voltageLevelInfos" : {
     "id" : "vlUnstack",
     "name" : "vlUnstack",
-    "nominalVoltage" : 400.0
+    "nominalVoltage" : 380.0
   },
   "x" : 0.0,
   "y" : 0.0,
