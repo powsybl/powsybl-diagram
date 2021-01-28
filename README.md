@@ -76,7 +76,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
 </dependency>
 ```
 
@@ -91,10 +91,12 @@ VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLa
 // create diagram for the voltage level N
 VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
 
-// create default parameters for the SVG layout, then activating height compaction and tooltip
+// create default parameters for the SVG layout
+// then activating height compaction, tooltip and inclusion of CSS styles in the SVG
 LayoutParameters layoutParameters = new LayoutParameters()
     .setAdaptCellHeightToContent(true)
-    .setTooltipEnabled(true);
+    .setTooltipEnabled(true)
+    .setCssInternal(true);
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
