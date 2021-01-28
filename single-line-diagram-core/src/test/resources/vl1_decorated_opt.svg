@@ -137,13 +137,13 @@ polyline {fill: none}
             <polyline points="60.0,154.5,60.0,240.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,169.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,189.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
@@ -156,13 +156,13 @@ polyline {fill: none}
             <polyline points="100.0,562.0,100.0,480.0"/>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,95.0,537.0)">
-            <use class="arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
-            <use class="arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,95.0,517.0)">
-            <use class="arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
-            <use class="arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
@@ -175,26 +175,26 @@ polyline {fill: none}
             <polyline points="380.0,150.0,380.0,205.0,413.0,205.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,375.0,162.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_one_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,182.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2">
             <polyline points="460.0,150.0,460.0,205.0,427.0,205.0"/>
         </g>
         <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,162.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_two_95_FICT_95_vl1_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,182.5)">
-            <use class="arrow-down" href="#ARROW-DOWN"/>
-            <use class="arrow-up" href="#ARROW-UP"/>
+            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
+            <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_FICT_95_vl1_95_vl1_95_trf2_95_vl1_95_btrf2">
@@ -207,22 +207,22 @@ polyline {fill: none}
             <polyline points="420.0,370.0,410.0,370.0"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d1" transform="translate(236.0,366.0)">
-            <use class="sw-closed" href="#DISCONNECTOR-CLOSED"/>
-            <use class="sw-open" href="#DISCONNECTOR-OPEN"/>
+            <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
+            <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             <g class="lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
-            <use class="sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sw-open" href="#BREAKER-OPEN"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
             <g class="flash">
                 <use href="#FLASH" transform="matrix(0.0,-1.0,1.0,0.0,0.0,-1.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
-            <use class="sw-closed" href="#DISCONNECTOR-CLOSED"/>
-            <use class="sw-open" href="#DISCONNECTOR-OPEN"/>
+            <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
+            <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             <g class="lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
@@ -232,15 +232,15 @@ polyline {fill: none}
             <text class="sld-label" id="vl1_load1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_load1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
-            <use class="sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sw-open" href="#BREAKER-OPEN"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
             <g class="flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
-            <use class="sw-closed" href="#DISCONNECTOR-CLOSED"/>
-            <use class="sw-open" href="#DISCONNECTOR-OPEN"/>
+            <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
+            <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             <g class="lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
@@ -251,15 +251,15 @@ polyline {fill: none}
             <text class="sld-label" id="vl1_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
-            <use class="sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sw-open" href="#BREAKER-OPEN"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
             <g class="flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
-            <use class="sw-closed" href="#DISCONNECTOR-CLOSED"/>
-            <use class="sw-open" href="#DISCONNECTOR-OPEN"/>
+            <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
+            <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             <g class="lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
@@ -276,15 +276,15 @@ polyline {fill: none}
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
-            <use class="sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sw-open" href="#BREAKER-OPEN"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
             <g class="flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf2" transform="translate(416.0,366.0)">
-            <use class="sw-closed" href="#DISCONNECTOR-CLOSED"/>
-            <use class="sw-open" href="#DISCONNECTOR-OPEN"/>
+            <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
+            <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
             <g class="lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>

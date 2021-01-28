@@ -78,12 +78,12 @@ polyline {fill: none}
             <circle cx="4" cy="4" r="4"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed sld-vl63" id="idd3WT_95_3" transform="translate(15.0,45.0)">
-            <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-            <path class="sw-open" d="M8,0 0,8"/>
+            <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+            <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-breaker sld-constant-color sld-open sld-vl63" id="idb3WT_95_3" transform="translate(9.0,39.0)">
-            <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-            <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
     </g>
 </svg>

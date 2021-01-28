@@ -106,16 +106,16 @@ polyline {fill: none}
                 <polyline points="820.0,310.0,830.0,310.0"/>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddsect11" transform="translate(736.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="iddtrct11" transform="matrix(0.0,1.0,-1.0,0.0,790.0,300.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddsect12" transform="translate(816.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
         <g class="cell idINTERN_32_1" id="idINTERN_32_1">
@@ -144,16 +144,16 @@ polyline {fill: none}
                 <polyline points="820.0,335.0,830.0,335.0"/>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddsect21" transform="translate(736.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="iddtrct21" transform="matrix(0.0,1.0,-1.0,0.0,790.0,325.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddsect22" transform="translate(816.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
@@ -185,22 +185,22 @@ polyline {fill: none}
                 <polyline points="60.0,200.0,60.0,142.5"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_load1Fictif_95_load1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,156.25)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_load1Fictif_95_load1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,176.25)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddload1" transform="translate(56.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbload1" transform="translate(50.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
@@ -231,22 +231,22 @@ polyline {fill: none}
                 <polyline points="140.0,200.0,140.0,146.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf1_95_ONEFictif_95_trf1_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,135.0,158.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf1_95_ONEFictif_95_trf1_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,135.0,178.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf11" transform="translate(136.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf11" transform="translate(130.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
@@ -277,22 +277,22 @@ polyline {fill: none}
                 <polyline points="380.0,200.0,380.0,146.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf5_95_ONEFictif_95_trf5_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,375.0,158.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf5_95_ONEFictif_95_trf5_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,178.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf15" transform="translate(376.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf15" transform="translate(370.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
@@ -326,35 +326,35 @@ polyline {fill: none}
                 <polyline points="493.0,195.0,460.0,195.0,460.0,138.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf6_95_fictif_95_trf6_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,151.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf6_95_fictif_95_trf6_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,171.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl63" id="_95_vl1_95_FICT_95_vl1_95_trf6_95_fictif_95_trf6_95_THREE">
                 <polyline points="507.0,195.0,540.0,195.0,540.0,138.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf6_95_fictif_95_trf6_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,535.0,151.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf6_95_fictif_95_trf6_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,535.0,171.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf16" transform="translate(496.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf16" transform="translate(490.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
@@ -386,22 +386,22 @@ polyline {fill: none}
                 <polyline points="860.0,200.0,860.0,142.5"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_load2Fictif_95_load2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,855.0,156.25)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_load2Fictif_95_load2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,855.0,176.25)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddload2" transform="translate(856.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbload2" transform="translate(850.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
@@ -432,22 +432,22 @@ polyline {fill: none}
                 <polyline points="1180.0,200.0,1180.0,146.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf2_95_ONEFictif_95_trf2_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1175.0,158.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf2_95_ONEFictif_95_trf2_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1175.0,178.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf12" transform="translate(1176.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf12" transform="translate(1170.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
@@ -481,35 +481,35 @@ polyline {fill: none}
                 <polyline points="973.0,195.0,940.0,195.0,940.0,138.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf8_95_fictif_95_trf8_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,935.0,151.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf8_95_fictif_95_trf8_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,935.0,171.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl63" id="_95_vl1_95_FICT_95_vl1_95_trf8_95_fictif_95_trf8_95_THREE">
                 <polyline points="987.0,195.0,1020.0,195.0,1020.0,138.0"/>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf8_95_fictif_95_trf8_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1015.0,151.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf8_95_fictif_95_trf8_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1015.0,171.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf18" transform="translate(976.0,306.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf18" transform="translate(970.0,230.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
@@ -541,22 +541,22 @@ polyline {fill: none}
                 <polyline points="220.0,445.0,220.0,501.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_gen1Fictif_95_gen1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,215.0,478.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_gen1Fictif_95_gen1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,215.0,458.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddgen1" transform="translate(216.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbgen1" transform="translate(210.0,395.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_10" id="idEXTERN_32_10">
@@ -587,22 +587,22 @@ polyline {fill: none}
                 <polyline points="300.0,445.0,300.0,499.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf3_95_ONEFictif_95_trf3_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,295.0,477.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf3_95_ONEFictif_95_trf3_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,295.0,457.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf13" transform="translate(296.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf13" transform="translate(290.0,395.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_11" id="idEXTERN_32_11">
@@ -636,35 +636,35 @@ polyline {fill: none}
                 <polyline points="653.0,450.0,620.0,450.0,620.0,507.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf7_95_fictif_95_trf7_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,615.0,483.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf7_95_fictif_95_trf7_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,615.0,463.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl63" id="_95_vl1_95_FICT_95_vl1_95_trf7_95_fictif_95_trf7_95_THREE">
                 <polyline points="667.0,450.0,700.0,450.0,700.0,507.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf7_95_fictif_95_trf7_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,695.0,483.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf7_95_fictif_95_trf7_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,695.0,463.5)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf17" transform="translate(656.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf17" transform="translate(650.0,395.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_12" id="idEXTERN_32_12">
@@ -696,22 +696,22 @@ polyline {fill: none}
                 <polyline points="1260.0,445.0,1260.0,501.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_gen2Fictif_95_gen2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1255.0,478.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_gen2Fictif_95_gen2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1255.0,458.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddgen2" transform="translate(1256.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbgen2" transform="translate(1250.0,395.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_13" id="idEXTERN_32_13">
@@ -742,22 +742,22 @@ polyline {fill: none}
                 <polyline points="1100.0,445.0,1100.0,499.0"/>
             </g>
             <g class="sld-arrow-q sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf4_95_ONEFictif_95_trf4_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,1095.0,477.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-p sld-down" id="_95_vl1_95_FICT_95_vl1_95_trf4_95_ONEFictif_95_trf4_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,1095.0,457.0)">
-                <polygon class="arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed sld-vl380" id="iddtrf14" transform="translate(1096.0,331.0)">
-                <path class="sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
+                <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-constant-color sld-closed sld-vl380" id="idbtrf14" transform="translate(1090.0,395.0)">
-                <path class="sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g id="NODE_0_vl1">
