@@ -13,6 +13,7 @@ import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.Node.NodeType;
 import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.styles.BaseVoltageStyle;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
@@ -22,13 +23,18 @@ import java.util.stream.Collectors;
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
+ * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
     private final Map<String, Map<String, String>> voltageLevelStyleMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
-        super(network);
+        this(BaseVoltageStyle.fromPlatformConfig(), network);
+    }
+
+    public TopologicalStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
+        super(baseVoltageStyle, network);
     }
 
     @Override
