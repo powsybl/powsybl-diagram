@@ -25,7 +25,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
     @Before
     public void setUp() {
         int i = 0;
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs21", 2, 1);
         BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);

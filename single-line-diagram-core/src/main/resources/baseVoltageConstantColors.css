@@ -1,6 +1,6 @@
-.constant-color {fill: none}
-.node.constant-color {stroke: none; fill: black}
-.busbreaker-connection.constant-color {stroke: none; fill: black}
-.breaker.constant-color {stroke: blue;}
-.disconnector.constant-color {stroke: black}
-.component-label {fill: black; stroke: none;}
+.sld-constant-color {fill: none}
+.sld-node.sld-constant-color {stroke: none; fill: black}
+.sld-busbreaker-connection.sld-constant-color {stroke: black}
+.sld-breaker.sld-constant-color {stroke: blue; fill: white}
+.sld-disconnector.sld-constant-color {stroke: black}
+.sld-label {fill: black; stroke: none;}

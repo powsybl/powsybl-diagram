@@ -528,7 +528,6 @@ public class DefaultSVGWriter implements SVGWriter {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
             label.setAttribute("id", prefixId + labelPosition.getPositionName());
-            label.setAttribute(CLASS, LABEL_STYLE_CLASS);
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
@@ -612,6 +611,7 @@ public class DefaultSVGWriter implements SVGWriter {
         label.setAttribute("x", String.valueOf(xShift));
         label.setAttribute("y", String.valueOf(yShift));
         label.setAttribute(TRANSFORM, ROTATE + "(" + shiftAngle + "," + 0 + "," + 0 + ")");
+        label.setAttribute(CLASS, LABEL_STYLE_CLASS);
         Text text = g.getOwnerDocument().createTextNode(str);
         label.appendChild(text);
         return label;
@@ -630,7 +630,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void incorporateComponents(String prefixId, Node node, Element g, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, g);
-        if (componentLibrary.getSvgDocument(componentType) != null && canInsertComponentSVG(node)) {
+        if (componentLibrary.getSvgElements(componentType) != null && canInsertComponentSVG(node)) {
             insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, node, styleProvider);
         }
     }
@@ -699,17 +699,17 @@ public class DefaultSVGWriter implements SVGWriter {
         insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
     }
 
-    protected void insertArrowSVGIntoDocumentSVG(String prefixId, Element g, double angle,
-                                                 ComponentSize componentSize) {
+    protected void insertArrowSVGIntoDocumentSVG(String prefixId, Element g, double angle) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, angle, componentSize);
+                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, subComponent, angle);
         insertSVGIntoDocumentSVG("", ARROW, g, elementAttributesSetter);
     }
 
-    private void setArrowAttributes(String prefixId, Element g, Element e,
-                                    double angle, ComponentSize componentSize) {
+    private void setArrowAttributes(String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
+        componentLibrary.getSubComponentStyleClass(ARROW, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
+            ComponentSize componentSize = componentLibrary.getSize(ARROW);
             double cx = componentSize.getWidth() / 2;
             double cy = componentSize.getHeight() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
@@ -729,31 +729,29 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g,
                                             BiConsumer<Element, String> elementAttributesSetter) {
         addToolTip(name, g);
-        Map<String, Document> subComponents = componentLibrary.getSvgDocument(componentType);
-        subComponents.forEach(!layoutParameters.isAvoidSVGComponentsDuplication() ?
-            (subComponentName, svgSubComponent) -> insertClonedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent) :
-            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size())
+        Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
+        subComponents.forEach(layoutParameters.isAvoidSVGComponentsDuplication() ?
+            (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
+            (subComponentName, svgSubComponent) -> insertDuplicatedSubcomponent(g, elementAttributesSetter, subComponentName, svgSubComponent)
         );
     }
 
-    private void insertClonedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Document svgSubComponent) {
-        // The following code work correctly considering SVG part describing the component is the first child of the SVGDocument.
-        // If SVG are written differently, it will not work correctly.
-        NodeList subComponentChildren = svgSubComponent.getChildNodes().item(0).getChildNodes();
-        for (int i = 0; i < subComponentChildren.getLength(); i++) {
-            org.w3c.dom.Node n = subComponentChildren.item(i).cloneNode(true);
-            if (n instanceof Element) {
-                setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, (Element) n);
-            }
-        }
+    private void insertDuplicatedSubcomponent(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, List<Element> svgSubComponent) {
+        svgSubComponent.forEach(e -> {
+            Element clonedElement = (Element) e.cloneNode(true);
+            setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, clonedElement);
+        });
     }
 
     private void insertSubcomponentReference(Element g, BiConsumer<Element, String> elementAttributesSetter, String componentType, String subComponentName, int nbSubComponents) {
         // Adding <use> markup to reuse the svg defined in the <defs> part
         Element eltUse = g.getOwnerDocument().createElement("use");
-        String hRefValue = nbSubComponents > 1 ? componentType + "-" + subComponentName : componentType;
-        eltUse.setAttribute("href", "#" + hRefValue);
+        eltUse.setAttribute("href", "#" + getHRefValue(nbSubComponents, componentType, subComponentName));
         setAttributesAndInsertElement(g, elementAttributesSetter, subComponentName, eltUse);
+    }
+
+    private static String getHRefValue(int nbSubComponents, String componentType, String subComponentName) {
+        return nbSubComponents > 1 ? componentType + "-" + subComponentName : componentType;
     }
 
     private void setAttributesAndInsertElement(Element g, BiConsumer<Element, String> elementAttributesSetter, String subComponentName, Element element) {
@@ -780,6 +778,7 @@ public class DefaultSVGWriter implements SVGWriter {
             elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
         }
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponent);
+        componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
         if (!subComponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", subComponentStyles));
         }
@@ -792,6 +791,7 @@ public class DefaultSVGWriter implements SVGWriter {
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
         List<String> svgNodeSubcomponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponentName);
+        componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
         if (!svgNodeSubcomponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));
         }
@@ -1009,19 +1009,18 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", arrowWireId);
         transformArrow(points, cd.getSize(), shift, g);
 
-        insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0, cd.getSize());
+        insertArrowSVGIntoDocumentSVG(prefixId, g, y1 > y2 ? 180 : 0);
         Element label = createLabelElement(labelR, shX, shY, 0, g);
-        label.setAttribute(CLASS, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
         g.appendChild(label);
 
-        List<String> styles = new ArrayList<>(2);
+        List<String> styles = new ArrayList<>(3);
+        componentLibrary.getComponentStyleClass(ARROW).ifPresent(styles::add);
         styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
         dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
         g.setAttribute(CLASS, String.join(" ", styles));
 
         labelL.ifPresent(s -> {
             Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-            labelLeft.setAttribute(CLASS, DiagramStyles.ARROW_LABEL_STYLE_CLASS);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
         });
@@ -1251,12 +1250,12 @@ public class DefaultSVGWriter implements SVGWriter {
             Element defs = document.createElement("defs");
 
             listUsedComponentSVG.forEach(c -> {
-                Map<String, Document> subComponents = componentLibrary.getSvgDocument(c);
+                Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(c);
                 if (subComponents != null) {
                     Element group = document.createElement(GROUP);
                     group.setAttribute("id", c);
 
-                    insertSVGComponentIntoDefsArea(group, subComponents);
+                    insertSVGComponentIntoDefsArea(c, group, subComponents);
 
                     defs.getOwnerDocument().adoptNode(group);
                     defs.appendChild(group);
@@ -1268,13 +1267,25 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void insertSVGComponentIntoDefsArea(Element group, Map<String, Document> subComponents) {
-        for (Document subComponent : subComponents.values()) {
-            for (int i = 0; i < subComponent.getChildNodes().item(0).getChildNodes().getLength(); i++) {
-                org.w3c.dom.Node n = subComponent.getChildNodes().item(0).getChildNodes().item(i).cloneNode(true);
-                group.getOwnerDocument().adoptNode(n);
-                group.appendChild(n);
+    protected void insertSVGComponentIntoDefsArea(String componentType, Element group, Map<String, List<Element>> subComponents) {
+        for (Map.Entry<String, List<Element>> subComponent : subComponents.entrySet()) {
+            if (subComponents.size() > 1) {
+                Element subComponentGroup = group.getOwnerDocument().createElement("g");
+                subComponentGroup.setAttribute("id", getHRefValue(subComponents.size(), componentType, subComponent.getKey()));
+                addSvgSubComponentsToElement(subComponent.getValue(), subComponentGroup);
+                group.getOwnerDocument().adoptNode(subComponentGroup);
+                group.appendChild(subComponentGroup);
+            } else {
+                addSvgSubComponentsToElement(subComponent.getValue(), group);
             }
+        }
+    }
+
+    private void addSvgSubComponentsToElement(List<Element> subComponentElements, Element group) {
+        for (Element subComponentElement : subComponentElements) {
+            org.w3c.dom.Node n = subComponentElement.cloneNode(true);
+            group.getOwnerDocument().adoptNode(n);
+            group.appendChild(n);
         }
     }
 

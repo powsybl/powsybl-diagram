@@ -37,7 +37,7 @@ public class TestCase8JumpOverStacked extends AbstractTestCaseIidm {
     public void setUp() {
         network = Network.create("testCase", "test");
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 15);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 15);
         createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
         createBusBarSection(vl, "bbs12", "bbs12", 1, 1, 2);
         createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);

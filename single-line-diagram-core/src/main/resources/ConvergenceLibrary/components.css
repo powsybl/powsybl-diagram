@@ -1,10 +1,10 @@
-.busbar-section {stroke-width: 3}
-.breaker {stroke-width: 2}
-.disconnector {stroke-width: 3}
-.vsc-converter-station {font-size: 7.43px}
-.grid {stroke: #003700; stroke-dasharray: 1,10}
-.arrow-p {fill:black}
-.arrow-q {fill:blue}
-.graph-label {font: 12px "Verdana"}
-.component-label {font: 8px "Verdana"}
-.arrow-label {font: 8px "Verdana"}
+.sld-busbar-section {stroke-width: 3}
+.sld-breaker {stroke-width: 2; fill:white}
+.sld-disconnector {stroke-width: 3}
+.sld-busbreaker-connection {stroke-width: 4}
+.sld-vsc {font-size: 7.43px}
+.sld-grid {stroke: #003700; stroke-dasharray: 1,10}
+.sld-arrow-p {fill:black}
+.sld-arrow-q {fill:blue}
+.sld-label {font: 8px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}

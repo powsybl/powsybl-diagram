@@ -191,7 +191,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",
@@ -216,7 +216,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",
@@ -241,7 +241,7 @@
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
       "id" : "vl2",
@@ -569,7 +569,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -589,7 +589,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -609,7 +609,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -629,7 +629,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -649,7 +649,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -689,7 +689,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -729,7 +729,7 @@
     "otherSideVoltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",

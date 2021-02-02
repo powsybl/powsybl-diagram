@@ -4,7 +4,7 @@
     "voltageLevelInfos" : {
       "id" : "vl1",
       "name" : "vl1",
-      "nominalVoltage" : 400.0
+      "nominalVoltage" : 380.0
     },
     "x" : 50.0,
     "y" : 50.0,

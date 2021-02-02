@@ -51,7 +51,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // first voltage level
         //
-        vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 50);
+        vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 50);
 
         createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         createBusBarSection(vl1, "bbs2", "bbs2", 1, 1, 2);

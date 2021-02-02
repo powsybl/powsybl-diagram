@@ -49,7 +49,7 @@ public class TestCase5ShuntHorizontal extends AbstractTestCaseIidm {
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 400, 10);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
         createBusBarSection(vl, "bbs", "bbs", 0, 1, 1);
         createLoad(vl, "la", "la", "la", 10, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl, "ba", "ba", SwitchKind.BREAKER, false, false, false, 2, 1);

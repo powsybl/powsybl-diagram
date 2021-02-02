@@ -42,7 +42,7 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         FictitiousNode fict1 = vlBuilder.createFictitiousNode("fict1");

@@ -32,7 +32,7 @@ public class TestCase1 extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);

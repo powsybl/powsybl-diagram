@@ -35,7 +35,7 @@ public class TestCase1BusBreaker extends AbstractTestCaseIidm {
         network = Network.create("busBreakerTestCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 400, 10);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.BUS_BREAKER, 380, 10);
         VoltageLevel.BusBreakerView view = vl.getBusBreakerView();
         view.newBus()
                 .setId("b1")

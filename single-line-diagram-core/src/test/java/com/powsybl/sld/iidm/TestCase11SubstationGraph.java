@@ -44,7 +44,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // first voltage level
         //
-        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 400, 50);
+        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 50);
 
         createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         createBusBarSection(vl1, "bbs2", "bbs2", 1, 1, 2);
@@ -201,7 +201,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // Creation of another substation, another voltageLevel and a line between the two substations
         //
         Substation substation2 = createSubstation(network, "subst2", "subst2", Country.FR);
-        VoltageLevel vlSubst2 = createVoltageLevel(substation2, "vlSubst2", "vlSubst2", TopologyKind.NODE_BREAKER, 400, 50);
+        VoltageLevel vlSubst2 = createVoltageLevel(substation2, "vlSubst2", "vlSubst2", TopologyKind.NODE_BREAKER, 380, 50);
 
         createBusBarSection(vlSubst2, "bbs1_2", "bbs1_2", 0, 1, 1);
 
