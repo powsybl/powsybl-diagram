@@ -124,27 +124,27 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertEquals(3, nodeStyle1.size());
         assertTrue(nodeStyle1.contains("sld-busbar-section"));
         assertTrue(nodeStyle1.contains("sld-constant-color"));
-        assertTrue(nodeStyle1.contains("sld-vl380"));
+        assertTrue(nodeStyle1.contains("sld-vl300to500"));
 
         Node node2 = graph2.getNode("bbs2");
         List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, false);
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
         assertTrue(nodeStyle2.contains("sld-constant-color"));
-        assertTrue(nodeStyle2.contains("sld-vl225"));
+        assertTrue(nodeStyle2.contains("sld-vl180to300"));
 
         Node node3 = graph3.getNode("bbs3");
         List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, false);
         assertEquals(3, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-constant-color"));
-        assertTrue(nodeStyle3.contains("sld-vl63"));
+        assertTrue(nodeStyle3.contains("sld-vl50to70"));
 
         Edge edge = graph1.getEdges().get(12);
         List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
         assertEquals(3, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-constant-color"));
-        assertTrue(wireStyles.contains("sld-vl380"));
+        assertTrue(wireStyles.contains("sld-vl300to500"));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, false);

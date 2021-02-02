@@ -28,14 +28,14 @@ public class BaseVoltagesConfigTest {
         BaseVoltagesConfig config = yaml.load(configInputStream);
         assertNotNull(config);
         assertNotNull(config.getBaseVoltages());
-        assertEquals(8, config.getBaseVoltages().size());
-        assertEquals("sld-vl400", config.getBaseVoltages().get(1).getName());
-        assertEquals(300, config.getBaseVoltages().get(1).getMinValue(), 0);
-        assertEquals(500, config.getBaseVoltages().get(1).getMaxValue(), 0);
+        assertEquals(7, config.getBaseVoltages().size());
+        assertEquals("sld-vl180to300", config.getBaseVoltages().get(1).getName());
+        assertEquals(300, config.getBaseVoltages().get(0).getMinValue(), 0);
+        assertEquals(500, config.getBaseVoltages().get(0).getMaxValue(), 0);
         assertEquals("Default", config.getBaseVoltages().get(1).getProfile());
-        assertEquals("sld-vl225", config.getBaseVoltages().get(2).getName());
-        assertEquals(180, config.getBaseVoltages().get(2).getMinValue(), 0);
-        assertEquals(300, config.getBaseVoltages().get(2).getMaxValue(), 0);
+        assertEquals("sld-vl180to300", config.getBaseVoltages().get(1).getName());
+        assertEquals(180, config.getBaseVoltages().get(1).getMinValue(), 0);
+        assertEquals(300, config.getBaseVoltages().get(1).getMaxValue(), 0);
         assertEquals("Default", config.getBaseVoltages().get(2).getProfile());
         assertEquals("Default", config.getDefaultProfile());
     }
