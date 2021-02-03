@@ -88,7 +88,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                                 x2, y2));
                     }
                 } else {  // BOTTOM to TOP
-                    if (!getGrah().graphAdjacents(node1.getGraph(), node2.getGraph()) || (node1.getGraph() == node2.getGraph())) {
+                    if (!getGraph().graphAdjacents(node1.getGraph(), node2.getGraph()) || (node1.getGraph() == node2.getGraph())) {
                         if (increment) {
                             infosNbSnakeLines.getNbSnakeLinesBottomVL().compute(node1.getGraph().getVoltageLevelInfos().getId(), (k, v) -> v + 1);
                             infosNbSnakeLines.getNbSnakeLinesTopVL().compute(node2.getGraph().getVoltageLevelInfos().getId(), (k, v) -> v + 1);
@@ -146,7 +146,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                                 x2, y2));
                     }
                 } else {  // TOP to BOTTOM
-                    if (!getGrah().graphAdjacents(node2.getGraph(), node1.getGraph()) || (node1.getGraph() == node2.getGraph())) {
+                    if (!getGraph().graphAdjacents(node2.getGraph(), node1.getGraph()) || (node1.getGraph() == node2.getGraph())) {
                         if (increment) {
                             infosNbSnakeLines.getNbSnakeLinesTopVL().compute(node1.getGraph().getVoltageLevelInfos().getId(), (k, v) -> v + 1);
                             infosNbSnakeLines.getNbSnakeLinesBottomVL().compute(node2.getGraph().getVoltageLevelInfos().getId(), (k, v) -> v + 1);

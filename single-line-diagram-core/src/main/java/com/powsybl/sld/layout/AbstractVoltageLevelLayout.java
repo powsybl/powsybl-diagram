@@ -7,6 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
+
+import java.util.List;
 
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
@@ -17,12 +20,19 @@ public abstract class AbstractVoltageLevelLayout extends AbstractLayout implemen
         super(graph);
     }
 
+    @Override
     public Graph getGraph() {
         return (Graph) graph;
     }
 
     @Override
-    protected void manageSnakeLines(LayoutParameters layoutParameters) {
+    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+                                                      InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, infosNbSnakeLines, increment);
+    }
+
+    @Override
+    public void manageSnakeLines(LayoutParameters layoutParameters) {
         if (getGraph().isForVoltageLevelDiagram()) {
             manageSnakeLines(getGraph(), layoutParameters, InfosNbSnakeLines.create(getGraph()));
         }

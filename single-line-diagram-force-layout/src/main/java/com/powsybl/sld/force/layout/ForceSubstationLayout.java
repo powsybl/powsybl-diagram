@@ -82,7 +82,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Creating the graph model for the ForceLayout algorithm
         GraphModel graphModel = new GraphModelImpl();
         UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
-        for (Graph voltageLevelGraph : getGrah().getNodes()) {
+        for (Graph voltageLevelGraph : getGraph().getNodes()) {
             NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
@@ -121,7 +121,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
         // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
         Map<Graph, Coord> coordsVoltageLevels = new HashMap<>();
-        for (Graph voltageLevelGraph : getGrah().getNodes()) {
+        for (Graph voltageLevelGraph : getGraph().getNodes()) {
             org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
         }
@@ -135,7 +135,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         });
 
         // Changing the snakeline feeder cells direction using the coordinates calculated by the ForceAtlas algorithm
-        changingCellsOrientation(getGrah(), coordsVoltageLevels);
+        changingCellsOrientation(getGraph(), coordsVoltageLevels);
 
         // List of voltage levels sorted by ascending x value
         List<Graph> graphsX = coordsVoltageLevels.entrySet().stream()
@@ -190,12 +190,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    protected void manageSnakeLines(LayoutParameters layoutParameters) {
+    public void manageSnakeLines(LayoutParameters layoutParameters) {
         Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = new HashMap<>();
-        getGrah().getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
-        Map<String, Integer> nbSnakeLinesBetween = getGrah().getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        getGraph().getNodes().forEach(g -> nbSnakeLinesTopBottom.put(g.getVoltageLevelInfos().getId(), EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0))));
+        Map<String, Integer> nbSnakeLinesBetween = getGraph().getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
-        getGrah().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween));
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween));
         manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween);
     }
 

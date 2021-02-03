@@ -29,11 +29,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
-        if (edge instanceof BranchEdge) {
-            styles.add(SNAKELINE_STYLE_CLASS);
-        } else {
-            styles.add(WIRE_STYLE_CLASS);
-        }
+        styles.add(WIRE_STYLE_CLASS);
         if (isConstantColor(edge)) {
             styles.add(CONSTANT_COLOR_CLASS);
         }

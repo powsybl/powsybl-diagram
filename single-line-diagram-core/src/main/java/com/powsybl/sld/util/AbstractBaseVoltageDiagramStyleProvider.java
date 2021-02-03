@@ -38,11 +38,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     @Override
     protected Optional<String> getEdgeStyle(Edge edge) {
-        return getEdgeStyle(edge.getNode1(), edge.getNode2());
-    }
-
-    protected Optional<String> getEdgeStyle(Node node1, Node node2) {
-        Node nodeForStyle = node1.getVoltageLevelInfos() != null ? node1 : node2;
+        Node nodeForStyle = edge.getNode1().getVoltageLevelInfos() != null ? edge.getNode1() : edge.getNode2();
         return getVoltageLevelNodeStyle(nodeForStyle.getVoltageLevelInfos(), nodeForStyle);
     }
 
@@ -77,6 +73,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             if (n.getFeederType() == FeederType.BRANCH || n.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
                 side = n.getSide();
                 otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+                if (edge instanceof LineEdge) {
+                    side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
+                    otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+                }
             } else if (n.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
                 String idVl = n.getGraph().getVoltageLevelInfos().getId();
                 ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
@@ -98,7 +98,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 } else if (Boolean.TRUE.equals(connectionStatus.get(side)) && Boolean.FALSE.equals(connectionStatus.get(otherSide))) {  // connected on side and disconnected on other side
                     return Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED);
                 } else if (Boolean.FALSE.equals(connectionStatus.get(side)) && Boolean.TRUE.equals(connectionStatus.get(otherSide))) {  // disconnected on side and connected on other side
-                    return edge instanceof LineEdge ? Optional.of(DiagramStyles.FEEDER_CONNECTED_DISCONNECTED) : Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
+                    return Optional.of(DiagramStyles.FEEDER_DISCONNECTED_CONNECTED);
                 }
             }
         }
@@ -163,8 +163,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     /**
      * Returns the voltage level style if any to apply to the given node
+     *
      * @param vlInfo the VoltageLevelInfos related to the given node
-     * @param node the node on which the style if any is applied to
+     * @param node   the node on which the style if any is applied to
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {

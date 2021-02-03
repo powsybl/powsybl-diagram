@@ -28,7 +28,8 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
     }
 
-    public SubstationGraph getGrah() {
+    @Override
+    public SubstationGraph getGraph() {
         return (SubstationGraph) graph;
     }
 
@@ -64,10 +65,10 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
     protected abstract double getVerticalSubstationPadding(LayoutParameters layoutParameters);
 
     @Override
-    protected void manageSnakeLines(LayoutParameters layoutParameters) {
-        InfosNbSnakeLines infosNbSnakeLines = InfosNbSnakeLines.create(getGrah());
+    public void manageSnakeLines(LayoutParameters layoutParameters) {
+        InfosNbSnakeLines infosNbSnakeLines = InfosNbSnakeLines.create(getGraph());
 
-        getGrah().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, infosNbSnakeLines));
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, infosNbSnakeLines));
 
         manageSnakeLines(graph, layoutParameters, infosNbSnakeLines);
     }

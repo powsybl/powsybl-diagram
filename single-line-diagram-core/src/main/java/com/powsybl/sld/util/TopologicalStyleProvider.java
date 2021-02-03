@@ -34,20 +34,26 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     protected Optional<String> getEdgeStyle(Edge edge) {
-        Node node1 = edge.getNode1();
-        Node node2 = edge.getNode2();
-        if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
-            return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : Optional.empty();
+        if (edge instanceof LineEdge) {
+            return getLineEdgeStyle((LineEdge) edge);
+        } else {
+            Node node1 = edge.getNode1();
+            Node node2 = edge.getNode2();
+            if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
+                return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : Optional.empty();
+            }
+            if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
+                return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
+            }
+            return super.getEdgeStyle(edge);
         }
-        if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
-            return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
-        }
+    }
 
-        Optional<String> edgeStyle = super.getEdgeStyle(node1, node2);
+    private Optional<String> getLineEdgeStyle(LineEdge edge) {
+        Optional<String> edgeStyle = getVoltageLevelNodeStyle(edge.getNode1().getVoltageLevelInfos(), edge.getNode1());
         if (edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS) && edge instanceof LineEdge) {
-            edgeStyle = super.getEdgeStyle(node2, node1);
+            edgeStyle = getVoltageLevelNodeStyle(edge.getNode2().getVoltageLevelInfos(), edge.getNode2());
         }
-
         return edgeStyle;
     }
 
@@ -70,7 +76,8 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         return styleMap;
     }
 
-    private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
+    private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos
+            voltageLevelInfos, Node node) {
         Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
         String nodeTopologicalStyle = styleMap.computeIfAbsent(
                 node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
@@ -88,7 +95,8 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         return null;
     }
 
-    private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
+    private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos
+            voltageLevelInfos) {
         return voltageLevelStyleMap.computeIfAbsent(
                 voltageLevelInfos.getId(), k -> createStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
     }

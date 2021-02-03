@@ -8,7 +8,10 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Coord;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
+
+import java.util.List;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -18,6 +21,12 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
     public HorizontalSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, vLayoutFactory);
+    }
+
+    @Override
+    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+                                                      InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, infosNbSnakeLines, increment);
     }
 
     /**

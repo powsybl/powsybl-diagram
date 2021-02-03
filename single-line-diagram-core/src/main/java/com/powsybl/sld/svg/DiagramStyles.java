@@ -20,7 +20,6 @@ public final class DiagramStyles {
 
     private static final String STYLE_PREFIX = "sld-";
     public static final String WIRE_STYLE_CLASS = STYLE_PREFIX + "wire";
-    public static final String SNAKELINE_STYLE_CLASS = STYLE_PREFIX + "snakeline";
     public static final String GRID_STYLE_CLASS = STYLE_PREFIX + "grid";
     public static final String LABEL_STYLE_CLASS = STYLE_PREFIX + "label";
     public static final String GRAPH_LABEL_STYLE_CLASS = STYLE_PREFIX + "graph-label";
