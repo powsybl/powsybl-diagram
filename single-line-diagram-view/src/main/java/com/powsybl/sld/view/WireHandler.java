@@ -112,7 +112,6 @@ public class WireHandler {
         relocateArrow(polyline, arrow, center, distance);
     }
 
-
     /**
      * A position in the 2D plane together with an orientation
      */
