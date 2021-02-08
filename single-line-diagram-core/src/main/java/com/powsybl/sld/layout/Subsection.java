@@ -126,7 +126,7 @@ public class Subsection {
     }
 
     private static void identifyVerticalInternCells(Graph graph, List<Subsection> subsections) {
-        Map<InternCell, Subsection> verticalCells = new HashMap<>();
+        Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
         graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.INTERN
