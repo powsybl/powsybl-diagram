@@ -109,7 +109,7 @@ public final class Graph extends AbstractGraph {
 
     public void removeUnnecessaryFictitiousNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(Node::isInternalNode)
+                .filter(node -> node.getType() == Node.NodeType.FICTITIOUS && !(node instanceof BusBreakerConnection))
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -498,7 +498,7 @@ public final class Graph extends AbstractGraph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).isInternalNode()) {
+            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
@@ -508,7 +508,7 @@ public final class Graph extends AbstractGraph {
 
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
-                .filter(n -> n.isInternalNode() && n.getAdjacentEdges().size() == 1)
+                .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
                 .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId(), Orientation.UP)));
     }
 

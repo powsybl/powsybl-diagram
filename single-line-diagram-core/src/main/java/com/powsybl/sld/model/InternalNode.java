@@ -16,9 +16,4 @@ public class InternalNode extends FictitiousNode {
     public InternalNode(Graph graph, String id) {
         super(graph, id, NODE);
     }
-
-    @Override
-    public boolean isInternalNode() {
-        return true;
-    }
 }
