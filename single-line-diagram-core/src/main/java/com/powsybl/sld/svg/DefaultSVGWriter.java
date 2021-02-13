@@ -56,8 +56,6 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
-    protected static final String FILL_ATTRIBUTE = "fill";
-    protected static final String POINTER_EVENTS_ATTRIBUTE = "pointer-events";
     protected static final double LABEL_OFFSET = 5d;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
@@ -1125,26 +1123,10 @@ public class DefaultSVGWriter implements SVGWriter {
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
         for (LineEdge edge : graph.getLineEdges()) {
-            Graph g1 = edge.getNode1().getGraph();
-            Graph g2 = edge.getNode2().getGraph();
-
-            if (g1 == null || g2 == null) {
-                throw new AssertionError("Edge with a node outside any graph");
-            }
             drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
         }
 
         for (TwtEdge edge : graph.getTwtEdges()) {
-            Graph g1 = edge.getNode1().getGraph();
-            Graph g2 = edge.getNode2().getGraph();
-
-            if (g1 == null && g2 == null) {
-                throw new AssertionError("Edge between two nodes outside any graph");
-            }
-            if (g1 != null && g2 != null) {
-                throw new AssertionError("One node must be outside any graph");
-            }
-
             drawSnakeLines(edge, getWireId(prefixId, graph.getId(), edge), root, metadata, styleProvider, anchorPointProvider);
         }
     }

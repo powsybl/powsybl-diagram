@@ -39,7 +39,7 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
         double graphX = layoutParameters.getHorizontalSubstationPadding();
         double graphY = layoutParameters.getVerticalSubstationPadding();
 
-        for (Graph vlGraph : ((SubstationGraph) graph).getNodes()) {
+        for (Graph vlGraph : getGraph().getNodes()) {
             vlGraph.setX(graphX);
             vlGraph.setY(graphY);
 
