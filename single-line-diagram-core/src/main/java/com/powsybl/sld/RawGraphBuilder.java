@@ -49,16 +49,16 @@ public class RawGraphBuilder implements GraphBuilder {
     public class VoltageLevelBuilder {
 
         private VoltageLevelInfos voltageLevelInfos;
-        private final Graph graph;
+        private final VoltageLevelGraph graph;
 
         private SubstationBuilder substationBuilder;
 
         public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
             this.voltageLevelInfos = voltageLevelInfos;
-            graph = Graph.create(voltageLevelInfos, false, forVoltageLevelDiagram);
+            graph = VoltageLevelGraph.create(voltageLevelInfos, false, forVoltageLevelDiagram);
         }
 
-        public Graph getGraph() {
+        public VoltageLevelGraph getGraph() {
             return graph;
         }
 
@@ -235,9 +235,9 @@ public class RawGraphBuilder implements GraphBuilder {
         }
     }
 
-    public Graph buildVoltageLevelGraph(String id,
-                                        boolean useName,
-                                        boolean forVoltageLevelDiagram) {
+    public VoltageLevelGraph buildVoltageLevelGraph(String id,
+                                                    boolean useName,
+                                                    boolean forVoltageLevelDiagram) {
         return vlBuilders.get(id).getGraph();
     }
 

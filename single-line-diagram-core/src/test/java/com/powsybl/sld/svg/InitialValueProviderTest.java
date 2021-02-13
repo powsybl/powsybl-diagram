@@ -14,7 +14,7 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -92,7 +92,7 @@ public class InitialValueProviderTest {
         ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
         LayoutParameters layoutParameters = new LayoutParameters();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
         InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
         assertFalse(init.getLabel1().isPresent());
         assertFalse(init.getLabel2().isPresent());

@@ -22,7 +22,7 @@ public class Middle2WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg2;
 
-    public Middle2WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2) {
+    public Middle2WTNode(VoltageLevelGraph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2) {
         super(graph, id, TWO_WINDINGS_TRANSFORMER);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);

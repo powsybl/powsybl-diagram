@@ -12,5 +12,5 @@ package com.powsybl.sld.model;
 public interface BaseGraph {
     String getId();
 
-    Graph getVLGraph(String voltageLevelId);
+    VoltageLevelGraph getVLGraph(String voltageLevelId);
 }

@@ -15,7 +15,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayout;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
 /**
  *
@@ -25,9 +25,9 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
 
     private static final Logger LOG = LoggerFactory.getLogger(CgmesVoltageLevelLayout.class);
 
-    private final Graph graph;
+    private final VoltageLevelGraph graph;
 
-    public CgmesVoltageLevelLayout(Graph graph, Network network) {
+    public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));

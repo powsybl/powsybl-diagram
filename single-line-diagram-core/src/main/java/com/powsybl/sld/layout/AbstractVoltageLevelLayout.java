@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 
 import java.util.List;
@@ -16,13 +16,13 @@ import java.util.List;
  */
 public abstract class AbstractVoltageLevelLayout extends AbstractLayout implements VoltageLevelLayout {
 
-    protected AbstractVoltageLevelLayout(Graph graph) {
+    protected AbstractVoltageLevelLayout(VoltageLevelGraph graph) {
         super(graph);
     }
 
     @Override
-    public Graph getGraph() {
-        return (Graph) graph;
+    public VoltageLevelGraph getGraph() {
+        return (VoltageLevelGraph) graph;
     }
 
     @Override

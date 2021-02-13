@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -326,7 +326,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testVLGraph() {
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

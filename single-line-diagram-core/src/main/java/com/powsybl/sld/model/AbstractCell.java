@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
  */
 
 public abstract class AbstractCell implements Cell {
-    final Graph graph;
+    final VoltageLevelGraph graph;
     private CellType type;
     private int number;
     protected final List<Node> nodes = new ArrayList<>();
 
     private Block rootBlock;
 
-    AbstractCell(Graph graph, CellType type) {
+    AbstractCell(VoltageLevelGraph graph, CellType type) {
         this.graph = Objects.requireNonNull(graph);
         this.type = Objects.requireNonNull(type);
         number = graph.getNextCellIndex();
@@ -108,7 +108,7 @@ public abstract class AbstractCell implements Cell {
         return type + " " + nodes;
     }
 
-    public Graph getGraph() {
+    public VoltageLevelGraph getGraph() {
         return graph;
     }
 

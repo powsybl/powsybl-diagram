@@ -74,7 +74,7 @@ public final class ZoneGraph implements LineGraph {
     }
 
     @Override
-    public Graph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
         return nodes.stream().flatMap(SubstationGraph::getNodeStream).filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
     }

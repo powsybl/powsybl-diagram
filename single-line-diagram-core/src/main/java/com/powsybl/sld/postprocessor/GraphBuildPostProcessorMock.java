@@ -8,7 +8,7 @@
 package com.powsybl.sld.postprocessor;
 
 import com.google.auto.service.AutoService;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.Objects;
 
@@ -23,7 +23,7 @@ public class GraphBuildPostProcessorMock implements GraphBuildPostProcessor {
         return ID;
     }
 
-    public void addNode(Graph graph, Object network) {
+    public void addNode(VoltageLevelGraph graph, Object network) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(network);
 

@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 public class TestNodeDecorators extends AbstractTestCaseIidm {
 
     private LayoutParameters layoutParameters;
-    private Graph graph;
+    private VoltageLevelGraph graph;
 
     @Override
     public LayoutParameters getLayoutParameters() {

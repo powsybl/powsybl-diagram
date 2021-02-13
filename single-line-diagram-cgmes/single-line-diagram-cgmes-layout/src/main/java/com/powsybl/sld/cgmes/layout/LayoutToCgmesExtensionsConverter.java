@@ -96,7 +96,7 @@ public class LayoutToCgmesExtensionsConverter {
         LayoutInfo subsBoundary = new LayoutInfo(0.0, 0.0);
         Substation substation = network.getSubstation(substationId);
         substation.getVoltageLevelStream().forEach(voltageLevel -> {
-            Graph vlGraph = sgraph.getNode(voltageLevel.getId());
+            VoltageLevelGraph vlGraph = sgraph.getNode(voltageLevel.getId());
 
             // remove fictitious nodes&switches (no CGMES DL data available for them)
             vlGraph.removeUnnecessaryFictitiousNodes();

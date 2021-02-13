@@ -80,7 +80,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     @Override
     public GraphMetadata write(String prefixId,
-                               Graph graph,
+                               VoltageLevelGraph graph,
                                DiagramLabelProvider initProvider,
                                DiagramStyleProvider styleProvider,
                                Path svgFile) {
@@ -99,7 +99,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     @Override
     public GraphMetadata write(String prefixId,
-                               Graph graph,
+                               VoltageLevelGraph graph,
                                DiagramLabelProvider labelProvider,
                                DiagramStyleProvider styleProvider,
                                Writer writer) {
@@ -120,7 +120,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
-                            List<Graph> graphs, Set<String> listUsedComponentSVG) {
+                            List<VoltageLevelGraph> graphs, Set<String> listUsedComponentSVG) {
         Element style = document.createElement(STYLE);
 
         graphs.stream().flatMap(g -> g.getNodes().stream()).forEach(n -> {
@@ -168,7 +168,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Create the SVGDocument corresponding to the graph
      */
     protected GraphMetadata writeGraph(String prefixId,
-                                       Graph graph,
+                                       VoltageLevelGraph graph,
                                        Document document,
                                        DiagramLabelProvider initProvider,
                                        DiagramStyleProvider styleProvider) {
@@ -189,7 +189,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void drawVoltageLevel(String prefixId,
-                                    Graph graph,
+                                    VoltageLevelGraph graph,
                                     Element root,
                                     GraphMetadata metadata,
                                     DiagramLabelProvider initProvider,
@@ -239,7 +239,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private List<Edge> drawCell(String prefixId, Element root, Graph graph, Cell cell,
+    private List<Edge> drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
                                 GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
                                 DiagramStyleProvider styleProvider) {
 
@@ -338,7 +338,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Drawing grid lines
         if (layoutParameters.isShowGrid()) {
-            for (Graph vlGraph : graph.getNodes()) {
+            for (VoltageLevelGraph vlGraph : graph.getNodes()) {
                 if (vlGraph.isPositionNodeBusesCalculated()) {
                     root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
                 }
@@ -349,7 +349,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             drawGraphLabel(prefixId, root, vlGraph, metadata);
         }
 
@@ -366,7 +366,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   DiagramLabelProvider initProvider,
                                   DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, false);
         }
 
@@ -382,7 +382,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the grid lines (if required)
      */
-    protected Element drawGrid(String prefixId, Graph graph, Document document, GraphMetadata metadata) {
+    protected Element drawGrid(String prefixId, VoltageLevelGraph graph, Document document, GraphMetadata metadata) {
         int maxH = graph.getNodeBuses().stream()
                 .mapToInt(nodeBus -> (nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H)) / 2)
                 .max().orElse(0);
@@ -430,13 +430,13 @@ public class DefaultSVGWriter implements SVGWriter {
         return gridRoot;
     }
 
-    protected Element drawGridHorizontalLine(Document document, Graph graph, int maxH, double y) {
+    protected Element drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y) {
         return drawGridLine(document,
                 layoutParameters.getInitialXBus() + graph.getX(), y,
                 layoutParameters.getInitialXBus() + maxH * layoutParameters.getCellWidth() + graph.getX(), y);
     }
 
-    protected Element drawGridVerticalLine(Document document, Graph graph, int maxV, double x) {
+    protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
         return drawGridLine(document,
                 x, layoutParameters.getInitialYBus()
                         - layoutParameters.getStackHeight() - layoutParameters.getExternCellHeight() + graph.getY(),
@@ -459,7 +459,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawNodes(String prefixId,
                              Element root,
-                             Graph graph,
+                             VoltageLevelGraph graph,
                              GraphMetadata metadata,
                              AnchorPointProvider anchorPointProvider,
                              DiagramLabelProvider initProvider,
@@ -489,7 +489,7 @@ public class DefaultSVGWriter implements SVGWriter {
         });
     }
 
-    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, Graph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
+    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -546,7 +546,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the graph label
      */
-    protected void drawGraphLabel(String prefixId, Element root, Graph graph, GraphMetadata metadata) {
+    protected void drawGraphLabel(String prefixId, Element root, VoltageLevelGraph graph, GraphMetadata metadata) {
         // drawing the label of the voltageLevel
         String idLabelVoltageLevel = prefixId + "LABEL_VL_" + graph.getVoltageLevelInfos().getId();
         Element gLabel = root.getOwnerDocument().createElement(GROUP);
@@ -1040,7 +1040,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph edges
      */
-    protected void drawEdges(String prefixId, Element root, Graph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
         String voltageLevelId = graph.getVoltageLevelInfos().getId();
 
         for (Edge edge : edges) {
@@ -1106,8 +1106,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
         for (LineEdge edge : graph.getEdges()) {
-            Graph g1 = edge.getNode1().getGraph();
-            Graph g2 = edge.getNode2().getGraph();
+            VoltageLevelGraph g1 = edge.getNode1().getGraph();
+            VoltageLevelGraph g2 = edge.getNode2().getGraph();
 
             if (g1 == null || g2 == null) {
                 throw new AssertionError("Edge with a node outside any graph");
@@ -1164,8 +1164,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
-        Graph g1 = n1.getGraph();
-        Graph g2 = n2.getGraph();
+        VoltageLevelGraph g1 = n1.getGraph();
+        VoltageLevelGraph g2 = n2.getGraph();
 
         // Getting the right polyline point from where we need to compute the best anchor point
         double x;
@@ -1294,7 +1294,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
 
-        List<Graph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
+        List<VoltageLevelGraph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
 
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, labelProvider, vlGraphs, listUsedComponentSVG);
@@ -1310,7 +1310,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private GraphMetadata writeGraph(String prefixId,
                                      ZoneGraph graph,
-                                     List<Graph> vlGraphs,
+                                     List<VoltageLevelGraph> vlGraphs,
                                      Document document,
                                      DiagramLabelProvider initProvider,
                                      DiagramStyleProvider styleProvider) {
@@ -1320,7 +1320,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Drawing grid lines
         if (layoutParameters.isShowGrid()) {
-            for (Graph vlGraph : vlGraphs) {
+            for (VoltageLevelGraph vlGraph : vlGraphs) {
                 if (vlGraph.isPositionNodeBusesCalculated()) {
                     root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
                 }
@@ -1331,7 +1331,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
-        for (Graph vlGraph : vlGraphs) {
+        for (VoltageLevelGraph vlGraph : vlGraphs) {
             drawGraphLabel(prefixId, root, vlGraph, metadata);
         }
 
@@ -1434,7 +1434,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void drawNodesInfos(String prefixId,
                                 Element root,
-                                Graph graph,
+                                VoltageLevelGraph graph,
                                 DiagramStyleProvider styleProvider) {
         double xInitPos = graph.getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.BUS)

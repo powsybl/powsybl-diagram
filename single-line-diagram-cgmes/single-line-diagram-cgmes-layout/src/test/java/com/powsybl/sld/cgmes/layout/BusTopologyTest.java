@@ -47,7 +47,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 
@@ -350,7 +350,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     @Override
-    protected void checkGraph(Graph graph) {
+    protected void checkGraph(VoltageLevelGraph graph) {
         assertEquals(9, graph.getNodes().size());
 
         assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());
@@ -403,7 +403,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
     }
 
     @Override
-    protected void checkCoordinates(Graph graph) {
+    protected void checkCoordinates(VoltageLevelGraph graph) {
         assertEquals(120, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(120, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
@@ -422,7 +422,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertFalse(graph.getNodes().get(7).isRotated());
     }
 
-    private void checkGraphVl2(Graph graph) {
+    private void checkGraphVl2(VoltageLevelGraph graph) {
         assertEquals(5, graph.getNodes().size());
 
         assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());
@@ -448,7 +448,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("FICT_VoltageLevel2_Bus2_Transformer", graph.getNodes().get(3).getAdjacentNodes().get(0).getId());
     }
 
-    private void checkCoordinatesVl2(Graph graph) {
+    private void checkCoordinatesVl2(VoltageLevelGraph graph) {
         assertEquals(240, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(30, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
@@ -461,7 +461,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertFalse(graph.getNodes().get(2).isRotated());
     }
 
-    private void checkGraphVl3(Graph graph) {
+    private void checkGraphVl3(VoltageLevelGraph graph) {
         assertEquals(5, graph.getNodes().size());
 
         assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());
@@ -487,7 +487,7 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals("Bus3", graph.getNodes().get(2).getAdjacentNodes().get(0).getId());
     }
 
-    private void checkCoordinatesVl3(Graph graph) {
+    private void checkCoordinatesVl3(VoltageLevelGraph graph) {
         assertEquals(160, graph.getNodes().get(0).getX(), 0);
         assertEquals(70, graph.getNodes().get(0).getY(), 0);
         assertEquals(80, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);

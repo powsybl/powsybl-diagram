@@ -29,9 +29,9 @@ public final class SubstationGraph extends AbstractGraph {
 
     private String substationId;
 
-    private final List<Graph> nodes = new ArrayList<>();
+    private final List<VoltageLevelGraph> nodes = new ArrayList<>();
 
-    private final Map<String, Graph> nodesById = new HashMap<>();
+    private final Map<String, VoltageLevelGraph> nodesById = new HashMap<>();
 
     /**
      * Constructor
@@ -45,12 +45,12 @@ public final class SubstationGraph extends AbstractGraph {
         return new SubstationGraph(id);
     }
 
-    public void addNode(Graph node) {
+    public void addNode(VoltageLevelGraph node) {
         nodes.add(node);
         nodesById.put(node.getId(), node);
     }
 
-    public Graph getNode(String id) {
+    public VoltageLevelGraph getNode(String id) {
         Objects.requireNonNull(id);
         return nodesById.get(id);
     }
@@ -60,16 +60,16 @@ public final class SubstationGraph extends AbstractGraph {
     }
 
     @Override
-    public Graph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
         return nodes.stream().filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
     }
 
-    public List<Graph> getNodes() {
+    public List<VoltageLevelGraph> getNodes() {
         return new ArrayList<>(nodes);
     }
 
-    public Stream<Graph> getNodeStream() {
+    public Stream<VoltageLevelGraph> getNodeStream() {
         return getNodes().stream();
     }
 
@@ -77,7 +77,7 @@ public final class SubstationGraph extends AbstractGraph {
         return Stream.concat(lineEdges.stream(), twtEdges.stream()).collect(Collectors.toList());
     }
 
-    public boolean graphAdjacents(Graph g1, Graph g2) {
+    public boolean graphAdjacents(VoltageLevelGraph g1, VoltageLevelGraph g2) {
         if (g1 == g2) {
             return true;
         } else {
@@ -113,7 +113,7 @@ public final class SubstationGraph extends AbstractGraph {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
-        for (Graph graph : nodes) {
+        for (VoltageLevelGraph graph : nodes) {
             graph.setGenerateCoordsInJson(generateCoordsInJson);
             graph.writeJson(generator);
         }

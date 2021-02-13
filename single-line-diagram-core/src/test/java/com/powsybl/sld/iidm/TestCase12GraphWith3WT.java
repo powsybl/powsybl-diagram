@@ -13,7 +13,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
@@ -232,7 +232,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         // build voltage level 1 graph
-        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
@@ -244,7 +244,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl2() {
         // build voltage level 2 graph
-        Graph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
         new ImplicitCellDetector().detectCells(g2);
         new BlockOrganizer().organize(g2);
         new PositionVoltageLevelLayout(g2).run(getLayoutParameters());
@@ -256,7 +256,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl3() {
         // build voltage level 3 graph
-        Graph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
         new ImplicitCellDetector().detectCells(g3);
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(getLayoutParameters());
@@ -288,7 +288,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAddNodesInfos(true);
 
         // build voltage level 1 graph
-        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
@@ -311,7 +311,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
-        Graph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());

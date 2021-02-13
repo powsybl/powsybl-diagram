@@ -10,7 +10,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayout;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +33,11 @@ public final class VoltageLevelDiagram {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelDiagram.class);
 
-    private final Graph graph;
+    private final VoltageLevelGraph graph;
 
     private final VoltageLevelLayout vlLayout;
 
-    private VoltageLevelDiagram(Graph graph, VoltageLevelLayout layout) {
+    private VoltageLevelDiagram(VoltageLevelGraph graph, VoltageLevelLayout layout) {
         this.graph = Objects.requireNonNull(graph);
         this.vlLayout = Objects.requireNonNull(layout);
     }
@@ -49,14 +49,14 @@ public final class VoltageLevelDiagram {
         Objects.requireNonNull(voltageLevelId);
         Objects.requireNonNull(layoutFactory);
 
-        Graph graph = graphBuilder.buildVoltageLevelGraph(voltageLevelId, useName, true);
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(voltageLevelId, useName, true);
 
         VoltageLevelLayout layout = layoutFactory.create(graph);
 
         return new VoltageLevelDiagram(graph, layout);
     }
 
-    public Graph getGraph() {
+    public VoltageLevelGraph getGraph() {
         return graph;
     }
 

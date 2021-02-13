@@ -8,7 +8,7 @@ package com.powsybl.sld;
 
 import java.util.List;
 
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
 
@@ -17,9 +17,9 @@ import com.powsybl.sld.model.ZoneGraph;
  */
 public interface GraphBuilder {
 
-    Graph buildVoltageLevelGraph(String id,
-                                 boolean useName,
-                                 boolean forVoltageLevelDiagram);
+    VoltageLevelGraph buildVoltageLevelGraph(String id,
+                                             boolean useName,
+                                             boolean forVoltageLevelDiagram);
 
     SubstationGraph buildSubstationGraph(String id,
                                          boolean useName);

@@ -54,7 +54,7 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(Graph graph, boolean exceptionIfPatternNotHandled) {
+    public InternCell(VoltageLevelGraph graph, boolean exceptionIfPatternNotHandled) {
         super(graph, CellType.INTERN);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.TOP);

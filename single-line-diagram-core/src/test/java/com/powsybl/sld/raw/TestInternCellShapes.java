@@ -11,7 +11,7 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +75,7 @@ public class TestInternCellShapes extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());

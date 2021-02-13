@@ -13,11 +13,11 @@ import com.powsybl.sld.library.ComponentTypeName;
  */
 public class FeederLineNode extends FeederBranchNode {
 
-    protected FeederLineNode(String id, String name, String equipmentId, Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    protected FeederLineNode(String id, String name, String equipmentId, VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, equipmentId, ComponentTypeName.LINE, graph, side, otherSideVoltageLevelInfos);
     }
 
-    public static FeederLineNode create(Graph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    public static FeederLineNode create(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new FeederLineNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
     }
 }

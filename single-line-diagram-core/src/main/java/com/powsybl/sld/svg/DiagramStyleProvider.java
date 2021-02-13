@@ -8,7 +8,7 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.Node;
 
@@ -34,7 +34,7 @@ public interface DiagramStyleProvider {
 
     void reset();
 
-    default List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
+    default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         return Collections.emptyList();
     }
 

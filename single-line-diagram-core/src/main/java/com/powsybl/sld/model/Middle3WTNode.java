@@ -24,7 +24,7 @@ public class Middle3WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg3;
 
-    public Middle3WTNode(Graph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
+    public Middle3WTNode(VoltageLevelGraph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2,
                          VoltageLevelInfos voltageLevelInfosLeg3) {
         super(graph, id, THREE_WINDINGS_TRANSFORMER);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);

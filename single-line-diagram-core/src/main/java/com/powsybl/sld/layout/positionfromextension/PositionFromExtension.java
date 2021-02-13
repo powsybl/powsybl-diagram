@@ -44,7 +44,7 @@ public class PositionFromExtension implements PositionFinder {
     }
 
     @Override
-    public LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets) {
+    public LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets) {
         gatherLayoutExtensionInformation(graph);
 
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
@@ -60,7 +60,7 @@ public class PositionFromExtension implements PositionFinder {
         return lbsCluster;
     }
 
-    private void gatherLayoutExtensionInformation(Graph graph) {
+    private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
         graph.getNodes().stream()
                 .filter(node -> node.getType() == Node.NodeType.FEEDER)
                 .map(FeederNode.class::cast)

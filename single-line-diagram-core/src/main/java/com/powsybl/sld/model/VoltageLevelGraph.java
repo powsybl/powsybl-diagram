@@ -38,9 +38,9 @@ import static com.powsybl.sld.model.Position.Dimension.V;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class Graph extends AbstractGraph {
+public final class VoltageLevelGraph extends AbstractGraph {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Graph.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 
     private final VoltageLevelInfos voltageLevelInfos;
 
@@ -79,15 +79,15 @@ public final class Graph extends AbstractGraph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    private Graph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
+    private VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;
     }
 
-    public static Graph create(VoltageLevelInfos voltageLevelInfos,
-                               boolean useName, boolean forVoltageLevelDiagram) {
-        return new Graph(voltageLevelInfos, useName, forVoltageLevelDiagram);
+    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos,
+                                           boolean useName, boolean forVoltageLevelDiagram) {
+        return new VoltageLevelGraph(voltageLevelInfos, useName, forVoltageLevelDiagram);
     }
 
     @Override
@@ -204,7 +204,7 @@ public final class Graph extends AbstractGraph {
     }
 
     @Override
-    public Graph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
         return voltageLevelId.equals(voltageLevelInfos.getId()) ? this : null;
     }
@@ -362,9 +362,9 @@ public final class Graph extends AbstractGraph {
         removeEdge(busNode, feederNode);
 
         // Create nodes
-        SwitchNode fNodeToBus = SwitchNode.createFictitious(Graph.this, feederNode.getId() + "fSwitch", false);
-        InternalNode fNodeToSw1 = new InternalNode(Graph.this, feederNode.getId() + "fNode1");
-        InternalNode fNodeToSw2 = new InternalNode(Graph.this, feederNode.getId() + "fNode2");
+        SwitchNode fNodeToBus = SwitchNode.createFictitious(VoltageLevelGraph.this, feederNode.getId() + "fSwitch", false);
+        InternalNode fNodeToSw1 = new InternalNode(VoltageLevelGraph.this, feederNode.getId() + "fNode1");
+        InternalNode fNodeToSw2 = new InternalNode(VoltageLevelGraph.this, feederNode.getId() + "fNode2");
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToBus);
@@ -382,8 +382,8 @@ public final class Graph extends AbstractGraph {
         removeEdge(busDisconnectorNode, feederNode);
 
         // Create nodes
-        InternalNode fNodeToSw1 = new InternalNode(Graph.this, feederNode.getId() + "fNode1");
-        InternalNode fNodeToSw2 = new InternalNode(Graph.this, feederNode.getId() + "fNode2");
+        InternalNode fNodeToSw1 = new InternalNode(VoltageLevelGraph.this, feederNode.getId() + "fNode1");
+        InternalNode fNodeToSw2 = new InternalNode(VoltageLevelGraph.this, feederNode.getId() + "fNode2");
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToSw1);
@@ -407,7 +407,7 @@ public final class Graph extends AbstractGraph {
                                         node.getType() == Node.NodeType.FEEDER)
                                 .forEach(node -> {
                                     removeEdge(node, nodeSwitch);
-                                    InternalNode newNode = new InternalNode(Graph.this, nodeSwitch.getId() + "Fictif");
+                                    InternalNode newNode = new InternalNode(VoltageLevelGraph.this, nodeSwitch.getId() + "Fictif");
                                     addNode(newNode);
                                     addEdge(node, newNode);
                                     addEdge(nodeSwitch, newNode);
@@ -454,9 +454,9 @@ public final class Graph extends AbstractGraph {
 
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
         removeEdge(busNode, node);
-        SwitchNode fNodeToBus = SwitchNode.createFictitious(Graph.this, node.getId() + "fSwitch" + suffix, node.isOpen());
+        SwitchNode fNodeToBus = SwitchNode.createFictitious(VoltageLevelGraph.this, node.getId() + "fSwitch" + suffix, node.isOpen());
         addNode(fNodeToBus);
-        InternalNode fNodeToSw = new InternalNode(Graph.this, node.getId() + "fNode" + suffix);
+        InternalNode fNodeToSw = new InternalNode(VoltageLevelGraph.this, node.getId() + "fNode" + suffix);
         addNode(fNodeToSw);
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw);

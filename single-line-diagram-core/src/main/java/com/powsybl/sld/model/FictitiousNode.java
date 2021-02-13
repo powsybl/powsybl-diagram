@@ -14,7 +14,7 @@ package com.powsybl.sld.model;
  */
 public class FictitiousNode extends Node {
 
-    protected FictitiousNode(Graph graph, String id, String componentType) {
+    protected FictitiousNode(VoltageLevelGraph graph, String id, String componentType) {
         super(NodeType.FICTITIOUS, id, id, id, componentType, true, graph);
     }
 

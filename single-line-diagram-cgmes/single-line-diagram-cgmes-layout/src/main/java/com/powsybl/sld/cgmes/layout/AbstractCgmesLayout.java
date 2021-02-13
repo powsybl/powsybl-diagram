@@ -74,7 +74,7 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected Graph removeFictitiousNodes(Graph graph, VoltageLevel vl) {
+    protected VoltageLevelGraph removeFictitiousNodes(VoltageLevelGraph graph, VoltageLevel vl) {
         graph.removeUnnecessaryFictitiousNodes();
         removeFictitiousSwitchNodes(graph, vl);
         return graph;
@@ -92,7 +92,7 @@ public abstract class AbstractCgmesLayout {
         return true;
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, Graph graph, String diagramName) {
+    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName) {
         isNodeBreaker = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind());
         // skip line nodes: I need the coordinates of the adjacent node to know which side of the line belongs to this voltage level
         graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, graph, node, diagramName));
@@ -106,7 +106,7 @@ public abstract class AbstractCgmesLayout {
                     && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType()));
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
+    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getType()) {
             case BUS:
@@ -194,7 +194,7 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setFeederNodeCoordinates(VoltageLevel vl, Graph graph, Node node, String diagramName) {
+    protected void setFeederNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName) {
         String componentType = node.getComponentType();
         if (node instanceof Feeder2WTNode || node instanceof Feeder2WTLegNode) {
             componentType = TWO_WINDINGS_TRANSFORMER;
@@ -370,7 +370,7 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setVoltageLevelCoord(Graph vlGraph) {
+    protected void setVoltageLevelCoord(VoltageLevelGraph vlGraph) {
         vlGraph.setX(vlGraph.getNodes().stream()
                 .mapToDouble(Node::getX)
                 .min().orElse(0));
@@ -379,7 +379,7 @@ public abstract class AbstractCgmesLayout {
                 .min().orElse(0));
     }
 
-    public static void removeFictitiousSwitchNodes(Graph graph, VoltageLevel vl) {
+    public static void removeFictitiousSwitchNodes(VoltageLevelGraph graph, VoltageLevel vl) {
         List<Node> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
                 .filter(node -> node.getType() == Node.NodeType.SWITCH)
                 .filter(node -> isFictitiousSwitchNode(node, vl))

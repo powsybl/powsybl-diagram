@@ -79,9 +79,9 @@ public class Subsection {
         return Arrays.asList(busNodes).containsAll(nodes);
     }
 
-    static List<Subsection> createSubsections(Graph graph, LBSCluster lbsCluster, boolean handleShunts) {
+    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
-        Optional<Graph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getGraph);
+        Optional<VoltageLevelGraph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getGraph);
         if (!oVLGraph.isPresent()) {
             return subsections;
         }
@@ -112,11 +112,11 @@ public class Subsection {
         return subsections;
     }
 
-    static List<Subsection> createSubsections(Graph graph, LBSCluster lbsCluster) {
+    static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster) {
         return createSubsections(graph, lbsCluster, false);
     }
 
-    private static void internCellCoherence(Graph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
+    private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
         lbsList.stream()
                 .flatMap(lbs -> lbs.getCellsSideMapFromShape(InternCell.Shape.MAYBEFLAT).keySet().stream()).distinct()
@@ -125,7 +125,7 @@ public class Subsection {
         slipInternCellSideToEdge(subsections);
     }
 
-    private static void identifyVerticalInternCells(Graph graph, List<Subsection> subsections) {
+    private static void identifyVerticalInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
         Map<InternCell, Subsection> verticalCells = new HashMap<>();
 
         graph.getCells().stream()
@@ -212,7 +212,7 @@ public class Subsection {
         cellSideToMove.forEach((cellSide, ss) -> ss.internCellSides.add(cellSide));
     }
 
-    private static void shuntCellCoherence(Graph vlGraph, List<Subsection> subsections) {
+    private static void shuntCellCoherence(VoltageLevelGraph vlGraph, List<Subsection> subsections) {
         Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT)
                 .map(ShuntCell.class::cast)

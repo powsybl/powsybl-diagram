@@ -18,7 +18,7 @@ import static com.powsybl.sld.model.Position.Dimension.*;
  */
 class BlockPositionner {
 
-    void determineBlockPositions(Graph graph, List<Subsection> subsections) {
+    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
@@ -97,7 +97,7 @@ class BlockPositionner {
         return hPosRes;
     }
 
-    private void manageInternCellOverlaps(Graph graph) {
+    private void manageInternCellOverlaps(VoltageLevelGraph graph) {
         List<InternCell> cellsToHandle = graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.INTERN)
                 .map(InternCell.class::cast)

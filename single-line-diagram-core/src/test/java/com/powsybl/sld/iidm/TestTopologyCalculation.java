@@ -13,7 +13,7 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -91,7 +91,7 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         List<TopologicallyConnectedNodesSet> tcnss = TopologyCalculation.run(g);
         assertTopo(tcnss, 1, 0, 25, 0);
         g.getNode("bA1").setOpen(true);

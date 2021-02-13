@@ -13,7 +13,7 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  */
 public class InternalNode extends FictitiousNode {
 
-    public InternalNode(Graph graph, String id) {
+    public InternalNode(VoltageLevelGraph graph, String id) {
         super(graph, id, NODE);
     }
 }

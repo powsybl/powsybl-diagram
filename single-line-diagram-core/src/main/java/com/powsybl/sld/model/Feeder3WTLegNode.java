@@ -13,7 +13,7 @@ import com.powsybl.sld.library.ComponentTypeName;
  */
 public class Feeder3WTLegNode extends FeederWithSideNode {
 
-    protected Feeder3WTLegNode(String id, String name, String equipmentId, Graph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+    protected Feeder3WTLegNode(String id, String name, String equipmentId, VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, equipmentId, ComponentTypeName.LINE, graph, side, otherSideVoltageLevelInfos,
                 FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
@@ -28,12 +28,12 @@ public class Feeder3WTLegNode extends FeederWithSideNode {
         return super.getVoltageLevelInfos();
     }
 
-    public static Feeder3WTLegNode createForVoltageLevelDiagram(Graph graph, String id, String name, String equipmentId, Side side,
+    public static Feeder3WTLegNode createForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side,
                                                                 VoltageLevelInfos otherSideVoltageLevelInfos) {
         return new Feeder3WTLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
     }
 
-    public static Feeder3WTLegNode createForSubstationDiagram(Graph graph, String id, String name, String equipmentId, Side side) {
+    public static Feeder3WTLegNode createForSubstationDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
         return new Feeder3WTLegNode(id, name, equipmentId, graph, side, graph.getVoltageLevelInfos());
     }
 }

@@ -8,7 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
 
-    public PositionVoltageLevelLayout(Graph graph) {
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph) {
         super(graph);
     }
 
@@ -44,11 +44,11 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         manageSnakeLines(layoutParam);
     }
 
-    private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {
+    private void calculateBusNodeCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
         graph.getNodeBuses().forEach(nb -> nb.calculateCoord(layoutParam));
     }
 
-    private void calculateCellCoord(Graph graph, LayoutParameters layoutParam) {
+    private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
         if (layoutParam.isAdaptCellHeightToContent()) {
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)

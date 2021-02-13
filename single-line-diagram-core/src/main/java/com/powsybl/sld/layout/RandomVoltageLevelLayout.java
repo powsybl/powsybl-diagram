@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class RandomVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private final Random random;
 
-    public RandomVoltageLevelLayout(Graph graph, double width, double height, Random random) {
+    public RandomVoltageLevelLayout(VoltageLevelGraph graph, double width, double height, Random random) {
         super(graph);
         this.width = width;
         this.height = height;

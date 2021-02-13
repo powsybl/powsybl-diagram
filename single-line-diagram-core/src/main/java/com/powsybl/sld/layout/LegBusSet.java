@@ -106,7 +106,7 @@ public final class LegBusSet {
         return extendedNodeSet;
     }
 
-    static List<LegBusSet> createLegBusSets(Graph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
+    static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
         List<LegBusSet> legBusSets = new ArrayList<>();
 
         List<ExternCell> externCells = graph.getCells().stream()
@@ -145,7 +145,7 @@ public final class LegBusSet {
         return legBusSets;
     }
 
-    private static void manageShunts(Graph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
+    private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
         List<ShuntCell> shuntCells = graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast).collect(Collectors.toList());
         List<List<ShuntCell>> sameBusNodesShuntCells = shuntCells.stream()

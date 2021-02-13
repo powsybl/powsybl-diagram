@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
 
 import java.util.Objects;
@@ -39,7 +39,7 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
         double graphX = layoutParameters.getHorizontalSubstationPadding();
         double graphY = layoutParameters.getVerticalSubstationPadding();
 
-        for (Graph vlGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
             vlGraph.setX(graphX);
             vlGraph.setY(graphY);
 
@@ -58,7 +58,7 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
         manageSnakeLines(layoutParameters);
     }
 
-    protected abstract Coord calculateCoordVoltageLevel(LayoutParameters layoutParameters, Graph vlGraph);
+    protected abstract Coord calculateCoordVoltageLevel(LayoutParameters layoutParameters, VoltageLevelGraph vlGraph);
 
     protected abstract double getHorizontalSubstationPadding(LayoutParameters layoutParameters);
 

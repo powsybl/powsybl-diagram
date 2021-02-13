@@ -26,9 +26,9 @@ public interface PositionFinder {
 
     Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes);
 
-    LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets);
+    LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets);
 
-    default List<Subsection> buildLayout(Graph graph, boolean handleShunt) {
+    default List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
         }
@@ -41,13 +41,13 @@ public interface PositionFinder {
         return subsections;
     }
 
-    default void forceSameOrientationForShuntedCell(Graph graph) {
+    default void forceSameOrientationForShuntedCell(VoltageLevelGraph graph) {
         graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
                 .forEach(sc -> sc.alignDirections(Side.LEFT));
     }
 
-    default void organizeDirections(Graph graph, List<Subsection> subsections) {
+    default void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
         forceSameOrientationForShuntedCell(graph);
     }
 }

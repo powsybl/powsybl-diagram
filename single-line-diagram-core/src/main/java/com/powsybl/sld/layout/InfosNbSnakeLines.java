@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Side;
 import com.powsybl.sld.model.SubstationGraph;
 
@@ -43,7 +43,7 @@ public final class InfosNbSnakeLines {
         return new InfosNbSnakeLines(nbSnakeLinesTopBottom, nbSnakeLinesBetween, nbSnakeLinesLeftRight, nbSnakeLinesBottomVL, nbSnakeLinesTopVL);
     }
 
-    static InfosNbSnakeLines create(Graph graph) {
+    static InfosNbSnakeLines create(VoltageLevelGraph graph) {
         // used only for horizontal layout
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         Map<String, Integer> nbSnakeLinesBetween = Stream.of(graph).collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));

@@ -82,7 +82,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // Creating the graph model for the ForceLayout algorithm
         GraphModel graphModel = new GraphModelImpl();
         UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
-        for (Graph voltageLevelGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
             NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
             n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
             undirectedGraph.addNode(n);
@@ -120,14 +120,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         forceAtlas2.endAlgo();
 
         // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
-        Map<Graph, Coord> coordsVoltageLevels = new HashMap<>();
-        for (Graph voltageLevelGraph : getGraph().getNodes()) {
+        Map<VoltageLevelGraph, Coord> coordsVoltageLevels = new HashMap<>();
+        for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
             org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
         }
 
         // Creating and applying the voltage levels layout with these coordinates
-        Map<Graph, VoltageLevelLayout> graphsLayouts = new HashMap<>();
+        Map<VoltageLevelGraph, VoltageLevelLayout> graphsLayouts = new HashMap<>();
         coordsVoltageLevels.entrySet().stream().forEach(e -> {
             VoltageLevelLayout vlLayout = vLayoutFactory.create(e.getKey());
             graphsLayouts.put(e.getKey(), vlLayout);
@@ -138,13 +138,13 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         changingCellsOrientation(getGraph(), coordsVoltageLevels);
 
         // List of voltage levels sorted by ascending x value
-        List<Graph> graphsX = coordsVoltageLevels.entrySet().stream()
+        List<VoltageLevelGraph> graphsX = coordsVoltageLevels.entrySet().stream()
                 .sorted(Comparator.comparingDouble(e -> e.getValue().get(X)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         // List of voltage levels sorted by ascending y value
-        List<Graph> graphsY = coordsVoltageLevels.entrySet().stream()
+        List<VoltageLevelGraph> graphsY = coordsVoltageLevels.entrySet().stream()
                 .sorted(Comparator.comparingDouble(e -> e.getValue().get(Y)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -153,7 +153,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // (if no compaction, one voltage level only in a column
         //  if horizontal compaction, a voltage level is positioned horizontally at the middle of the preceding voltage level)
         double graphX = getHorizontalSubstationPadding(layoutParameters);
-        for (Graph g : graphsX) {
+        for (VoltageLevelGraph g : graphsX) {
             g.setX(graphX);
             int maxH = g.getMaxH();
             graphX += layoutParameters.getInitialXBus() + (maxH + 2) * layoutParameters.getCellWidth()
@@ -167,7 +167,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // (if no compaction, one voltage level only in a line
         //  if vertical compaction, a voltage level is positioned vertically at the middle of the preceding voltage level)
         double graphY = getVerticalSubstationPadding(layoutParameters);
-        for (Graph g : graphsY) {
+        for (VoltageLevelGraph g : graphsY) {
             g.setY(graphY);
             int maxV = g.getMaxV();
             graphY += layoutParameters.getInitialYBus() + layoutParameters.getStackHeight()
@@ -401,7 +401,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParameters, Graph vlGraph) {
+    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParameters, VoltageLevelGraph vlGraph) {
         return null;
     }
 
@@ -415,7 +415,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         return layoutParameters.getVerticalSubstationPadding();
     }
 
-    private void changingCellsOrientation(SubstationGraph graph, Map<Graph, Coord> coordsVoltageLevels) {
+    private void changingCellsOrientation(SubstationGraph graph, Map<VoltageLevelGraph, Coord> coordsVoltageLevels) {
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
 

@@ -22,7 +22,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.ZoneLayout;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
@@ -36,13 +36,13 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
     private static final Logger LOG = LoggerFactory.getLogger(CgmesZoneLayout.class);
 
     private final ZoneGraph graph;
-    private List<Graph> vlGraphs;
+    private List<VoltageLevelGraph> vlGraphs;
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
         vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
-        for (Graph vlGraph : vlGraphs) {
+        for (VoltageLevelGraph vlGraph : vlGraphs) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
         }
         fixTransformersLabel = true;
@@ -60,7 +60,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             return;
         }
         // assign coordinates
-        for (Graph vlGraph : vlGraphs) {
+        for (VoltageLevelGraph vlGraph : vlGraphs) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
@@ -69,7 +69,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates
-        for (Graph vlGraph : vlGraphs) {
+        for (VoltageLevelGraph vlGraph : vlGraphs) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
         for (LineEdge edge : graph.getEdges()) {
@@ -77,7 +77,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         }
         // scale coordinates
         if (layoutParam.getScaleFactor() != 1) {
-            for (Graph vlGraph : vlGraphs) {
+            for (VoltageLevelGraph vlGraph : vlGraphs) {
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
             for (LineEdge edge : graph.getEdges()) {

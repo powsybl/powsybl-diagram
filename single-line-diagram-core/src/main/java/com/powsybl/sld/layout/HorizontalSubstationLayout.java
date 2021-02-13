@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 
@@ -33,7 +33,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
      * Calculate relative coordinate of voltageLevel in the substation
      */
     @Override
-    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, Graph vlGraph) {
+    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, VoltageLevelGraph vlGraph) {
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         int maxH = vlGraph.getMaxH();
         int betweenVlHSpan = 4; // to leave enough space for lines and transformer between voltage levels

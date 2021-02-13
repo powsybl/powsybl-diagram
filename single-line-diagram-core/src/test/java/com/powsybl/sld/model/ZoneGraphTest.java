@@ -101,7 +101,7 @@ public class ZoneGraphTest {
     private String getLineNodeId(ZoneGraph graph, String substationId, String voltageLevelId, Branch.Side side) {
         SubstationGraph substationGraph1 = graph.getNode(substationId);
         assertNotNull(substationGraph1);
-        Graph voltageLevelGraph1 = substationGraph1.getNode(voltageLevelId);
+        VoltageLevelGraph voltageLevelGraph1 = substationGraph1.getNode(voltageLevelId);
         assertNotNull(voltageLevelGraph1);
         Node lineNode = voltageLevelGraph1.getNode(LINE_ID + "_" + side);
         assertNotNull(lineNode);
