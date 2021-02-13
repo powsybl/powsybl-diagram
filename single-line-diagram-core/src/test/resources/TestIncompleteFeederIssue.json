@@ -201,5 +201,8 @@
   }, {
     "node1" : "d1",
     "node2" : "FICT_vl_d1Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

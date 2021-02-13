@@ -180,5 +180,8 @@
   }, {
     "node1" : "FICT_vl_line_ONEfNode2",
     "node2" : "line_ONE"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }
