@@ -1119,7 +1119,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the substation graph edges (snakelines between voltageLevel diagram)
      */
-    protected void drawSnakeLines(String prefixId, Element root, AbstractGraph graph,
+    protected void drawSnakeLines(String prefixId, Element root, AbstractBaseGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
         for (LineEdge edge : graph.getLineEdges()) {
@@ -1361,7 +1361,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawMultiTerminalNodes(String prefixId,
                                           Element root,
-                                          TwtGraph graph,
+                                          BaseGraph graph,
                                           GraphMetadata metadata,
                                           DiagramStyleProvider styleProvider,
                                           AnchorPointProvider anchorPointProvider) {

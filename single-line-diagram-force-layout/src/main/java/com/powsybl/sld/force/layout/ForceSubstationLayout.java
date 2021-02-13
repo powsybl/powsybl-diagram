@@ -199,7 +199,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween);
     }
 
-    private void manageSnakeLines(AbstractGraph graph, LayoutParameters layoutParameters,
+    private void manageSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters,
                                   Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom,
                                   Map<String, Integer> nbSnakeLinesBetween) {
         for (Node multiNode : graph.getMultiTermNodes()) {

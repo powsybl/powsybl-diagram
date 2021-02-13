@@ -32,7 +32,7 @@ public class Middle3WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
     }
 
-    public static Middle3WTNode create(TwtGraph ssGraph, Node node1, Node node2, Node node3,
+    public static Middle3WTNode create(BaseGraph ssGraph, Node node1, Node node2, Node node3,
                                        VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3) {
         Middle3WTNode middleNode = new Middle3WTNode(null, node1.getId() + "_" + node2.getId() + "_" + node3.getId(),
                 vlInfos1, vlInfos2, vlInfos3);

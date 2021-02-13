@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  *
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class SubstationGraph extends AbstractGraph {
+public final class SubstationGraph extends AbstractBaseGraph {
 
     private String substationId;
 

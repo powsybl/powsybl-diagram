@@ -38,7 +38,7 @@ import static com.powsybl.sld.model.Position.Dimension.V;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class VoltageLevelGraph extends AbstractGraph {
+public final class VoltageLevelGraph extends AbstractBaseGraph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 

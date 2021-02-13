@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractGraph implements TwtGraph, LineGraph {
+public abstract class AbstractBaseGraph implements BaseGraph, LineGraph {
 
     protected List<LineEdge> lineEdges = new ArrayList<>();
 

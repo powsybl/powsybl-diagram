@@ -35,6 +35,7 @@ public final class ZoneGraph implements LineGraph {
 
     private boolean generateCoordsInJson = true;
 
+    @Override
     public String getId() {
         return String.join("_", zone);
     }

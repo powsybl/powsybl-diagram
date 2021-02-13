@@ -20,19 +20,19 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  */
 public abstract class AbstractLayout {
 
-    protected AbstractGraph graph;
+    protected AbstractBaseGraph graph;
 
-    public AbstractGraph getGraph() {
+    public AbstractBaseGraph getGraph() {
         return graph;
     }
 
-    protected AbstractLayout(AbstractGraph graph) {
+    protected AbstractLayout(AbstractBaseGraph graph) {
         this.graph = Objects.requireNonNull(graph);
     }
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
-    protected void manageSnakeLines(AbstractGraph graph, LayoutParameters layoutParameters, InfosNbSnakeLines infos) {
+    protected void manageSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters, InfosNbSnakeLines infos) {
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();

@@ -645,7 +645,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void add2wtEdges(TwtGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
+    private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
         twoWindingsTransformers.forEach(transfo -> {
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
@@ -670,7 +670,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void add3wtEdges(TwtGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
+    private void add3wtEdges(BaseGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
         threeWindingsTransformers.forEach(transfo -> {
             Terminal t1 = transfo.getLeg1().getTerminal();
             Terminal t2 = transfo.getLeg2().getTerminal();
