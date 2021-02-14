@@ -488,7 +488,7 @@ public final class Graph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
+            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS && !(adjs.get(0) instanceof BusBreakerConnection)) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
