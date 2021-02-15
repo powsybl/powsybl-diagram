@@ -51,7 +51,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     private Optional<String> getLineEdgeStyle(LineEdge edge) {
         Optional<String> edgeStyle = getVoltageLevelNodeStyle(edge.getNode1().getVoltageLevelInfos(), edge.getNode1());
-        if (edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS) && edge instanceof LineEdge) {
+        if (edgeStyle.isPresent() && edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS) && edge instanceof LineEdge) {
             edgeStyle = getVoltageLevelNodeStyle(edge.getNode2().getVoltageLevelInfos(), edge.getNode2());
         }
         return edgeStyle;

@@ -41,11 +41,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         this.network = Objects.requireNonNull(network);
     }
 
-    private static boolean isInternalToVoltageLevel(Branch branch) {
+    private static boolean isInternalToVoltageLevel(Branch<?> branch) {
         return branch.getTerminal1().getVoltageLevel().getId().equals(branch.getTerminal2().getVoltageLevel().getId());
     }
 
-    private static boolean isNotInternalToVoltageLevel(Branch branch) {
+    private static boolean isNotInternalToVoltageLevel(Branch<?> branch) {
         return !isInternalToVoltageLevel(branch);
     }
 
@@ -58,11 +58,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return !isInternalToVoltageLevel(transformer);
     }
 
-    private static boolean isInternalToSubstation(Branch branch) {
+    private static boolean isInternalToSubstation(Branch<?> branch) {
         return branch.getTerminal1().getVoltageLevel().getSubstation().getId().equals(branch.getTerminal2().getVoltageLevel().getSubstation().getId());
     }
 
-    private static boolean isNotInternalToSubstation(Branch branch) {
+    private static boolean isNotInternalToSubstation(Branch<?> branch) {
         return !isInternalToSubstation(branch);
     }
 
@@ -193,7 +193,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return FeederLineNode.create(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
-        private FeederNode createFeederNode(VoltageLevelGraph graph, Injection injection) {
+        private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(injection);
             switch (injection.getType()) {
