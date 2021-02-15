@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public interface BaseGraph extends Graph {
+public interface BaseGraph extends LineGraph {
 
     TwtEdge addTwtEdge(Node n1, Node n2);
 
