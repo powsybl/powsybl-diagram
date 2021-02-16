@@ -1105,13 +1105,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawSnakeLines(String prefixId, Element root, ZoneGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
-        for (LineEdge edge : graph.getEdges()) {
-            VoltageLevelGraph g1 = edge.getNode1().getGraph();
-            VoltageLevelGraph g2 = edge.getNode2().getGraph();
-
-            if (g1 == null || g2 == null) {
-                throw new AssertionError("Edge with a node outside any graph");
-            }
+        for (LineEdge edge : graph.getLineEdges()) {
             drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
         }
     }

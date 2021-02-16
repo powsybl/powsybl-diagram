@@ -648,11 +648,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         zGraph = ZoneGraph.create(Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID));
         zGraph.addNode(s1Graph);
         zGraph.addNode(s2Graph);
-        zGraph.addEdge(LINE_ID, lineSide1Node, lineSide2Node);
-        zGraph.getEdge(LINE_ID).addPoint(50, 650);
-        zGraph.getEdge(LINE_ID).addPoint(50, 800);
-        zGraph.getEdge(LINE_ID).addPoint(150, 800);
-        zGraph.getEdge(LINE_ID).addPoint(150, 950);
+        zGraph.addLineEdge(LINE_ID, lineSide1Node, lineSide2Node);
+        zGraph.getLineEdge(LINE_ID).addPoint(50, 650);
+        zGraph.getLineEdge(LINE_ID).addPoint(50, 800);
+        zGraph.getLineEdge(LINE_ID).addPoint(150, 800);
+        zGraph.getLineEdge(LINE_ID).addPoint(150, 950);
     }
 
     @Before

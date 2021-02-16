@@ -6,15 +6,9 @@
  */
 package com.powsybl.sld.model;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,7 +68,7 @@ public final class SubstationGraph extends AbstractBaseGraph {
     }
 
     public List<BranchEdge> getEdges() {
-        return Stream.concat(lineEdges.stream(), twtEdges.stream()).collect(Collectors.toList());
+        return Stream.concat(getLineEdges().stream(), twtEdges.stream()).collect(Collectors.toList());
     }
 
     public boolean graphAdjacents(VoltageLevelGraph g1, VoltageLevelGraph g2) {
@@ -100,38 +94,19 @@ public final class SubstationGraph extends AbstractBaseGraph {
         return getSubstationId();
     }
 
-    public void writeJson(Path file) {
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
     @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
         for (VoltageLevelGraph graph : nodes) {
-            graph.setGenerateCoordsInJson(generateCoordsInJson);
+            graph.setGenerateCoordsInJson(isGenerateCoordsInJson());
             graph.writeJson(generator);
         }
         generator.writeEndArray();
 
-        super.writeJson(generator);
+        writeBranchFields(generator);
 
         generator.writeEndObject();
-    }
-
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        try (JsonGenerator generator = new JsonFactory()
-                .createGenerator(writer)
-                .useDefaultPrettyPrinter()) {
-            writeJson(generator);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 }

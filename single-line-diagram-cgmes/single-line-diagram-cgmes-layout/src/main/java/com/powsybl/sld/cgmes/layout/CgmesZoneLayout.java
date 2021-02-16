@@ -64,7 +64,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
-        for (LineEdge edge : graph.getEdges()) {
+        for (LineEdge edge : graph.getLineEdges()) {
             VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
             setLineCoordinates(vl, edge, diagramName);
         }
@@ -72,7 +72,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
-        for (LineEdge edge : graph.getEdges()) {
+        for (LineEdge edge : graph.getLineEdges()) {
             shiftLineCoordinates(edge, layoutParam.getScaleFactor());
         }
         // scale coordinates
@@ -80,7 +80,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             for (VoltageLevelGraph vlGraph : vlGraphs) {
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
-            for (LineEdge edge : graph.getEdges()) {
+            for (LineEdge edge : graph.getLineEdges()) {
                 scaleLineCoordinates(edge, layoutParam.getScaleFactor());
             }
         }

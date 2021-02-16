@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.model;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.library.ComponentTypeName;
 import org.jgrapht.graph.Pseudograph;
@@ -14,11 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -576,25 +570,6 @@ public final class VoltageLevelGraph extends AbstractBaseGraph {
         return getNodeBuses().stream().allMatch(n -> n.getPosition().get(H) != -1 && n.getPosition().get(V) != -1);
     }
 
-    public void writeJson(Path file) {
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        try (JsonGenerator generator = new JsonFactory()
-                .createGenerator(writer)
-                .useDefaultPrettyPrinter()) {
-            writeJson(generator);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
     @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
@@ -602,7 +577,7 @@ public final class VoltageLevelGraph extends AbstractBaseGraph {
         generator.writeFieldName("voltageLevelInfos");
         voltageLevelInfos.writeJsonContent(generator);
 
-        if (generateCoordsInJson) {
+        if (isGenerateCoordsInJson()) {
             generator.writeNumberField("x", x);
             generator.writeNumberField("y", y);
         }
@@ -625,7 +600,7 @@ public final class VoltageLevelGraph extends AbstractBaseGraph {
         }
         generator.writeEndArray();
 
-        super.writeJson(generator);
+        writeBranchFields(generator);
 
         generator.writeEndObject();
     }

@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model;
 
+import java.io.Writer;
+import java.nio.file.Path;
+
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
@@ -13,4 +16,12 @@ public interface Graph {
     String getId();
 
     VoltageLevelGraph getVLGraph(String voltageLevelId);
+
+    void setGenerateCoordsInJson(boolean generateCoordsInJson);
+
+    boolean isGenerateCoordsInJson();
+
+    void writeJson(Path file);
+
+    void writeJson(Writer writer);
 }
