@@ -88,7 +88,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             undirectedGraph.addNode(n);
         }
 
-        for (Node multiNode : graph.getMultiTermNodes()) {
+        for (Node multiNode : getGraph().getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(0).getGraph().getVoltageLevelInfos().getId());
@@ -196,7 +196,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         Map<String, Integer> nbSnakeLinesBetween = getGraph().getNodes().stream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween));
-        manageSnakeLines(graph, layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween);
+        manageSnakeLines(getGraph(), layoutParameters, nbSnakeLinesTopBottom, nbSnakeLinesBetween);
     }
 
     private void manageSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters,

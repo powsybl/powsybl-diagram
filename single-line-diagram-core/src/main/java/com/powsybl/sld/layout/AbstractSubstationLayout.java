@@ -21,16 +21,16 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  */
 public abstract class AbstractSubstationLayout extends AbstractLayout implements SubstationLayout {
 
+    private final SubstationGraph graph;
     protected VoltageLevelLayoutFactory vLayoutFactory;
 
     public AbstractSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        super(graph);
+        this.graph = graph;
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
     }
 
-    @Override
     public SubstationGraph getGraph() {
-        return (SubstationGraph) graph;
+        return graph;
     }
 
     @Override

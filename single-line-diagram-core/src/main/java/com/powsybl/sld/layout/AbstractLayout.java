@@ -20,15 +20,7 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  */
 public abstract class AbstractLayout {
 
-    protected AbstractBaseGraph graph;
-
-    public AbstractBaseGraph getGraph() {
-        return graph;
-    }
-
-    protected AbstractLayout(AbstractBaseGraph graph) {
-        this.graph = Objects.requireNonNull(graph);
-    }
+    public abstract AbstractBaseGraph getGraph();
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 

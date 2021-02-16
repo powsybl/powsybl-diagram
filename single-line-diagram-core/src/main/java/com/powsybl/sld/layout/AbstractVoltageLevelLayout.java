@@ -16,13 +16,14 @@ import java.util.List;
  */
 public abstract class AbstractVoltageLevelLayout extends AbstractLayout implements VoltageLevelLayout {
 
+    private final VoltageLevelGraph graph;
+
     protected AbstractVoltageLevelLayout(VoltageLevelGraph graph) {
-        super(graph);
+        this.graph = graph;
     }
 
-    @Override
     public VoltageLevelGraph getGraph() {
-        return (VoltageLevelGraph) graph;
+        return graph;
     }
 
     @Override
