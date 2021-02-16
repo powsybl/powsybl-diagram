@@ -356,6 +356,6 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
 
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
-        assertEquals(toString("/InternalBranchesNodeBreakerV.json"), toJson(g, "/InternalBranchesNodeBreakerH.json"));
+        assertEquals(toString("/InternalBranchesNodeBreakerV.json"), toJson(g, "/InternalBranchesNodeBreakerV.json"));
     }
 }
