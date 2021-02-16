@@ -6,16 +6,12 @@
  */
 package com.powsybl.sld.model;
 
-import java.util.*;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class builds the connectivity among the voltageLevels of a substation
@@ -23,19 +19,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
  *
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class SubstationGraph {
+public final class SubstationGraph extends AbstractBaseGraph {
 
     private String substationId;
 
-    private final List<Graph> nodes = new ArrayList<>();
+    private final List<VoltageLevelGraph> nodes = new ArrayList<>();
 
-    private List<TwtEdge> edges = new ArrayList<>();
-
-    private final Map<String, Graph> nodesById = new HashMap<>();
-
-    private List<Node> multiTermNodes = new ArrayList<>();
-
-    private boolean generateCoordsInJson = true;
+    private final Map<String, VoltageLevelGraph> nodesById = new HashMap<>();
 
     /**
      * Constructor
@@ -49,39 +39,47 @@ public final class SubstationGraph {
         return new SubstationGraph(id);
     }
 
-    public void addNode(Graph node) {
+    public void addNode(VoltageLevelGraph node) {
         nodes.add(node);
-        nodesById.put(node.getVoltageLevelInfos().getId(), node);
+        nodesById.put(node.getId(), node);
     }
 
-    public Graph getNode(String id) {
+    public VoltageLevelGraph getNode(String id) {
         Objects.requireNonNull(id);
         return nodesById.get(id);
     }
 
     public TwtEdge addEdge(Node node1, Node node2) {
-        TwtEdge sl = new TwtEdge(node1, node2);
-        edges.add(sl);
-        return sl;
+        return addTwtEdge(node1, node2);
     }
 
-    public List<Graph> getNodes() {
+    @Override
+    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
+        Objects.requireNonNull(voltageLevelId);
+        return nodes.stream().filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
+    }
+
+    public List<VoltageLevelGraph> getNodes() {
         return new ArrayList<>(nodes);
     }
 
-    public List<TwtEdge> getEdges() {
-        return new ArrayList<>(edges);
+    public Stream<VoltageLevelGraph> getNodeStream() {
+        return getNodes().stream();
     }
 
-    public void setEdges(List<TwtEdge> edges) {
-        this.edges = edges;
+    public List<BranchEdge> getEdges() {
+        return Stream.concat(getLineEdges().stream(), twtEdges.stream()).collect(Collectors.toList());
     }
 
-    public boolean graphAdjacents(Graph g1, Graph g2) {
-        int nbNodes = nodes.size();
-        for (int i = 0; i < nbNodes; i++) {
-            if (nodes.get(i) == g1 && i < (nbNodes - 1) && nodes.get(i + 1) == g2) {
-                return true;
+    public boolean graphAdjacents(VoltageLevelGraph g1, VoltageLevelGraph g2) {
+        if (g1 == g2) {
+            return true;
+        } else {
+            int nbNodes = nodes.size();
+            for (int i = 0; i < nbNodes; i++) {
+                if (nodes.get(i) == g1 && i < (nbNodes - 1) && nodes.get(i + 1) == g2) {
+                    return true;
+                }
             }
         }
         return false;
@@ -91,56 +89,24 @@ public final class SubstationGraph {
         return substationId;
     }
 
-    public void addMultiTermNode(Node node) {
-        multiTermNodes.add(node);
+    @Override
+    public String getId() {
+        return getSubstationId();
     }
 
-    public List<Node> getMultiTermNodes() {
-        return multiTermNodes;
-    }
-
-    public void writeJson(Path file) {
-        try (Writer writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8)) {
-            writeJson(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
+    @Override
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
-        for (Graph graph : nodes) {
-            graph.setGenerateCoordsInJson(generateCoordsInJson);
+        for (VoltageLevelGraph graph : nodes) {
+            graph.setGenerateCoordsInJson(isGenerateCoordsInJson());
             graph.writeJson(generator);
         }
         generator.writeEndArray();
-        generator.writeArrayFieldStart("multitermNodes");
-        for (Node multitermNode : multiTermNodes) {
-            multitermNode.writeJson(generator);
-        }
-        generator.writeEndArray();
-        generator.writeArrayFieldStart("twtEdges");
-        for (TwtEdge edge : edges) {
-            edge.writeJson(generator, generateCoordsInJson);
-        }
-        generator.writeEndArray();
+
+        writeBranchFields(generator);
+
         generator.writeEndObject();
-    }
-
-    public void writeJson(Writer writer) {
-        Objects.requireNonNull(writer);
-        try (JsonGenerator generator = new JsonFactory()
-                .createGenerator(writer)
-                .useDefaultPrettyPrinter()) {
-            writeJson(generator);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
-        this.generateCoordsInJson = generateCoordsInJson;
     }
 }

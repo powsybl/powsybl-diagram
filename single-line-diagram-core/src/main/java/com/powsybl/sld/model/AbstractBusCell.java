@@ -25,7 +25,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
     private Direction direction = Direction.UNDEFINED;
 
-    protected AbstractBusCell(Graph graph, CellType type) {
+    protected AbstractBusCell(VoltageLevelGraph graph, CellType type) {
         super(graph, type);
     }
 

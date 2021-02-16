@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import org.junit.Before;
 import org.junit.Test;
@@ -207,7 +207,7 @@ public abstract class AbstractNodeTopologyTest extends AbstractCgmesVoltageLevel
     }
 
     @Override
-    protected void checkGraph(Graph graph) {
+    protected void checkGraph(VoltageLevelGraph graph) {
         assertEquals(6, graph.getNodes().size());
 
         assertEquals(Node.NodeType.BUS, graph.getNodes().get(0).getType());

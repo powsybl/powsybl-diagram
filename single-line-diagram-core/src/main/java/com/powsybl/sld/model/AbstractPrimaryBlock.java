@@ -59,7 +59,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    public Graph getGraph() {
+    public VoltageLevelGraph getGraph() {
         return nodes.get(0).getGraph();
     }
 

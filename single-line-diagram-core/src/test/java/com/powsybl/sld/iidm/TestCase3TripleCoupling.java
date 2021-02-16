@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,7 +51,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
     @Test
     public void test() {
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
@@ -72,7 +72,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         network.getSwitch("d3").setOpen(true);
 
         // build graph
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

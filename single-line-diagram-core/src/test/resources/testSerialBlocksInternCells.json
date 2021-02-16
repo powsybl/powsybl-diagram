@@ -509,5 +509,8 @@
   }, {
     "node1" : "sd22",
     "node2" : "FICT_vl_sd22Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

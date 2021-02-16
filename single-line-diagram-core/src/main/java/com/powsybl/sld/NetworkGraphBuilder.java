@@ -22,10 +22,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.BusCell.Direction.*;
+import static com.powsybl.sld.model.BusCell.Direction.TOP;
+import static com.powsybl.sld.model.BusCell.Direction.UNDEFINED;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Slimane Amar <slimane.amar at rte-france.com>
  */
 public class NetworkGraphBuilder implements GraphBuilder {
 
@@ -39,7 +41,32 @@ public class NetworkGraphBuilder implements GraphBuilder {
         this.network = Objects.requireNonNull(network);
     }
 
-    public Graph buildVoltageLevelGraph(String id, boolean useName, boolean forVoltageLevelDiagram) {
+    private static boolean isInternalToVoltageLevel(Branch<?> branch) {
+        return branch.getTerminal1().getVoltageLevel().getId().equals(branch.getTerminal2().getVoltageLevel().getId());
+    }
+
+    private static boolean isNotInternalToVoltageLevel(Branch<?> branch) {
+        return !isInternalToVoltageLevel(branch);
+    }
+
+    private static boolean isInternalToVoltageLevel(ThreeWindingsTransformer transformer) {
+        return transformer.getLeg1().getTerminal().getVoltageLevel().getId().equals(transformer.getLeg2().getTerminal().getVoltageLevel().getId())
+                && transformer.getLeg2().getTerminal().getVoltageLevel().getId().equals(transformer.getLeg3().getTerminal().getVoltageLevel().getId());
+    }
+
+    private static boolean isNotInternalToVoltageLevel(ThreeWindingsTransformer transformer) {
+        return !isInternalToVoltageLevel(transformer);
+    }
+
+    private static boolean isInternalToSubstation(Branch<?> branch) {
+        return branch.getTerminal1().getVoltageLevel().getSubstation().getId().equals(branch.getTerminal2().getVoltageLevel().getSubstation().getId());
+    }
+
+    private static boolean isNotInternalToSubstation(Branch<?> branch) {
+        return !isInternalToSubstation(branch);
+    }
+
+    public VoltageLevelGraph buildVoltageLevelGraph(String id, boolean useName, boolean forVoltageLevelDiagram) {
         // get the voltageLevel from id
         VoltageLevel vl = network.getVoltageLevel(id);
         if (vl == null) {
@@ -47,10 +74,50 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        Graph graph = Graph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), useName, forVoltageLevelDiagram);
+        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), useName, forVoltageLevelDiagram);
         buildGraph(graph, vl);
 
         return graph;
+    }
+
+    private void buildGraph(VoltageLevelGraph graph, VoltageLevel vl) {
+        LOGGER.info("Building '{}' graph...", vl.getId());
+
+        switch (vl.getTopologyKind()) {
+            case BUS_BREAKER:
+                buildBusBreakerGraph(graph, vl);
+                break;
+            case NODE_BREAKER:
+                buildNodeBreakerGraph(graph, vl);
+                break;
+            default:
+                throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
+        }
+
+        // Add snake edges in the same voltage level
+        addSnakeEdges(graph, vl);
+
+        LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
+
+        handleGraphPostProcessors(graph);
+
+        handleConnectedComponents(graph);
+    }
+
+    private void addSnakeEdges(VoltageLevelGraph graph, VoltageLevel vl) {
+        addLineEdges(graph, vl.getConnectableStream(Line.class)
+                .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
+                .collect(Collectors.toList()));
+
+        add2wtEdges(graph, vl.getConnectableStream(TwoWindingsTransformer.class)
+                .filter(NetworkGraphBuilder::isInternalToVoltageLevel)
+                .collect(Collectors.toList()));
+
+        add3wtEdges(graph, vl.getConnectableStream(ThreeWindingsTransformer.class)
+                .filter(t -> t.getLeg1().getTerminal().getVoltageLevel().getId().equals(t.getLeg2().getTerminal().getVoltageLevel().getId())
+                        && t.getLeg2().getTerminal().getVoltageLevel().getId().equals(t.getLeg3().getTerminal().getVoltageLevel().getId()))
+                .collect(Collectors.toList()));
+
     }
 
     public SubstationGraph buildSubstationGraph(String id, boolean useName) {
@@ -67,32 +134,44 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return graph;
     }
 
-    private void buildGraph(Graph graph, VoltageLevel vl) {
-        LOGGER.info("Building '{}' graph...", vl.getId());
+    private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
+        // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
+        substation.getVoltageLevelStream()
+                .sorted(Comparator.comparing(VoltageLevel::getNominalV)
+                        .reversed())
+                .forEach(v -> {
+                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
+                    buildGraph(vlGraph, v);
+                    graph.addNode(vlGraph);
+                });
 
-        switch (vl.getTopologyKind()) {
-            case BUS_BREAKER:
-                buildBusBreakerGraph(graph, vl);
-                break;
-            case NODE_BREAKER:
-                buildNodeBreakerGraph(graph, vl);
-                break;
-            default:
-                throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
-        }
+        // Add snake edges between different voltageLevels in the same substation
+        addSnakeEdges(graph, substation);
 
-        LOGGER.info("{} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
+        LOGGER.info("Number of node : {} ", graph.getNodes().size());
+    }
 
-        handleGraphPostProcessors(graph);
+    private void addSnakeEdges(SubstationGraph graph, Substation substation) {
+        addLineEdges(graph, substation.getVoltageLevelStream()
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
+                .filter(NetworkGraphBuilder::isInternalToSubstation)
+                .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
+                .collect(Collectors.toList()));
 
-        handleConnectedComponents(graph);
+        add2wtEdges(graph, substation.getTwoWindingsTransformerStream()
+                .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
+                .collect(Collectors.toList()));
+
+        add3wtEdges(graph, substation.getThreeWindingsTransformerStream()
+                .filter(NetworkGraphBuilder::isNotInternalToVoltageLevel)
+                .collect(Collectors.toList()));
     }
 
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
-        protected final Graph graph;
+        protected final VoltageLevelGraph graph;
 
-        protected AbstractGraphBuilder(Graph graph) {
+        protected AbstractGraphBuilder(VoltageLevelGraph graph) {
             this.graph = graph;
         }
 
@@ -101,7 +180,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode,
                                              Feeder3WTLegNode secondOtherLegNode, Terminal terminal);
 
-        private FeederNode createFeederLineNode(Graph graph, Line line, Branch.Side side) {
+        private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, Branch.Side side) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(line);
 
@@ -114,7 +193,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return FeederLineNode.create(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
         }
 
-        private FeederNode createFeederNode(Graph graph, Injection injection) {
+        private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(injection);
             switch (injection.getType()) {
@@ -137,7 +216,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        private FeederNode createFeeder2wtNode(Graph graph,
+        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph,
                                                TwoWindingsTransformer branch,
                                                Branch.Side side) {
             Objects.requireNonNull(graph);
@@ -150,7 +229,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
 
-            if (graph.isForVoltageLevelDiagram()) {
+            if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
                 if (branch.getPhaseTapChanger() == null) {
                     return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
@@ -161,57 +240,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        @Override
-        public void visitLoad(Load load) {
-            addFeeder(createFeederNode(graph, load), load.getTerminal());
-        }
-
-        @Override
-        public void visitGenerator(Generator generator) {
-            addFeeder(createFeederNode(graph, generator), generator.getTerminal());
-        }
-
-        @Override
-        public void visitShuntCompensator(ShuntCompensator sc) {
-            addFeeder(createFeederNode(graph, sc), sc.getTerminal());
-        }
-
-        @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-            addFeeder(createFeederNode(graph, danglingLine), danglingLine.getTerminal());
-        }
-
-        @Override
-        public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            addFeeder(createFeederNode(graph, converterStation), converterStation.getTerminal());
-        }
-
-        @Override
-        public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
-            addFeeder(createFeederNode(graph, staticVarCompensator), staticVarCompensator.getTerminal());
-        }
-
-        @Override
-        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
-                                                Branch.Side side) {
-            addFeeder(createFeeder2wtNode(graph, transformer, side), transformer.getTerminal(side));
-        }
-
-        @Override
-        public void visitLine(Line line, Branch.Side side) {
-            addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
-        }
-
-        private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
-            VoltageLevel vl = terminal.getVoltageLevel();
-            return new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV());
-        }
-
-        @Override
-        public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer,
-                                                  ThreeWindingsTransformer.Side side) {
-
-            if (graph.isForVoltageLevelDiagram()) {
+        private void addFeeder3wtNode(VoltageLevelGraph graph,
+                                      ThreeWindingsTransformer transformer,
+                                      ThreeWindingsTransformer.Side side) {
+            if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(transformer)) {
                 // in a voltageLevel diagram we represent 3 windings transformers by a double feeder cell:
                 //   - a transformer middle node at double feeder fork
                 //   - a feeder for first other leg
@@ -268,13 +300,65 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 addFeeder(legNode, transformer.getTerminal(side));
             }
         }
+
+        @Override
+        public void visitLoad(Load load) {
+            addFeeder(createFeederNode(graph, load), load.getTerminal());
+        }
+
+        @Override
+        public void visitGenerator(Generator generator) {
+            addFeeder(createFeederNode(graph, generator), generator.getTerminal());
+        }
+
+        @Override
+        public void visitShuntCompensator(ShuntCompensator sc) {
+            addFeeder(createFeederNode(graph, sc), sc.getTerminal());
+        }
+
+        @Override
+        public void visitDanglingLine(DanglingLine danglingLine) {
+            addFeeder(createFeederNode(graph, danglingLine), danglingLine.getTerminal());
+        }
+
+        @Override
+        public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
+            addFeeder(createFeederNode(graph, converterStation), converterStation.getTerminal());
+        }
+
+        @Override
+        public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
+            addFeeder(createFeederNode(graph, staticVarCompensator), staticVarCompensator.getTerminal());
+        }
+
+        @Override
+        public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
+                                                Branch.Side side) {
+            addFeeder(createFeeder2wtNode(graph, transformer, side), transformer.getTerminal(side));
+        }
+
+        @Override
+        public void visitLine(Line line, Branch.Side side) {
+            addFeeder(createFeederLineNode(graph, line, side), line.getTerminal(side));
+        }
+
+        private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
+            VoltageLevel vl = terminal.getVoltageLevel();
+            return new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV());
+        }
+
+        @Override
+        public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer,
+                                                  ThreeWindingsTransformer.Side side) {
+            addFeeder3wtNode(graph, transformer, side);
+        }
     }
 
     private class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
-        NodeBreakerGraphBuilder(Graph graph, Map<Integer, Node> nodesByNumber) {
+        NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
             super(graph);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
@@ -367,12 +451,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private int order = 1;
 
-        BusBreakerGraphBuilder(Graph graph, Map<String, Node> nodesByBusId) {
+        BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
             super(graph);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
-        private Node createBusBreakerConnexionNodeFromTerminal(Graph graph, Terminal terminal) {
+        private Node createBusBreakerConnexionNodeFromTerminal(VoltageLevelGraph graph, Terminal terminal) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(terminal);
             Bus bus = terminal.getBusBreakerView().getConnectableBus();
@@ -417,7 +501,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    protected Node connectToBus(Graph graph, SwitchNode sw, Bus bus) {
+    protected Node connectToBus(VoltageLevelGraph graph, SwitchNode sw, Bus bus) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(sw);
         String id = bus.getId() + "_" + sw.getId();
@@ -427,7 +511,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return newNode;
     }
 
-    private void buildBusBreakerGraph(Graph graph, VoltageLevel vl) {
+    private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<String, Node> nodesByBusId = new HashMap<>();
 
         int v = 1;
@@ -455,7 +539,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void buildNodeBreakerGraph(Graph graph, VoltageLevel vl) {
+    private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<Integer, Node> nodesByNumber = new HashMap<>();
 
         // visit equipments
@@ -488,7 +572,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         });
     }
 
-    private void ensureNodeExists(Graph graph, int n, Map<Integer, Node> nodesByNumber) {
+    private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
         if (!nodesByNumber.containsKey(n)) {
             InternalNode node = new InternalNode(graph, "" + n);
             nodesByNumber.put(n, node);
@@ -501,7 +585,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
      *
      * @return true if connected, false otherwise
      */
-    private void handleConnectedComponents(Graph graph) {
+    private void handleConnectedComponents(VoltageLevelGraph graph) {
         List<Set<Node>> connectedSets = new ConnectivityInspector<>(graph.toJgrapht()).connectedSets();
         if (connectedSets.size() != 1) {
             LOGGER.warn("{} connected components found", connectedSets.size());
@@ -513,7 +597,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         connectedSets.forEach(s -> ensureOneBusInConnectedComponent(graph, s));
     }
 
-    private void ensureOneBusInConnectedComponent(Graph graph, Set<Node> nodes) {
+    private void ensureOneBusInConnectedComponent(VoltageLevelGraph graph, Set<Node> nodes) {
         if (nodes.stream().anyMatch(node -> node.getType() == Node.NodeType.BUS)) {
             return;
         }
@@ -531,7 +615,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     /**
      * Discover and apply postprocessor plugins to add custom nodes
      **/
-    private void handleGraphPostProcessors(Graph graph) {
+    private void handleGraphPostProcessors(VoltageLevelGraph graph) {
         List<GraphBuildPostProcessor> listPostProcessors = POST_PROCESSOR_LOADER.getServices();
         for (GraphBuildPostProcessor gbp : listPostProcessors) {
             LOGGER.info("Graph post-processor id '{}' : Adding custom node in graph '{}'",
@@ -540,27 +624,29 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
-        // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
-        substation.getVoltageLevelStream()
-                .sorted(Comparator.comparing(VoltageLevel::getNominalV)
-                        .reversed())
-                .forEach(v -> {
-                    Graph vlGraph = Graph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
-                    buildGraph(vlGraph, v);
-                    graph.addNode(vlGraph);
-                });
+    private void addLineEdges(LineGraph graph, List<Line> lines) {
+        Set<String> linesIds = new HashSet<>();
+        lines.forEach(line -> {
+            if (!linesIds.contains(line.getId())) {
+                Terminal t1 = line.getTerminal1();
+                Terminal t2 = line.getTerminal2();
 
-        LOGGER.info("Number of node : {} ", graph.getNodes().size());
+                VoltageLevel vl1 = t1.getVoltageLevel();
+                VoltageLevel vl2 = t2.getVoltageLevel();
 
-        // Creation of snake lines for transformers between the voltage levels in the substation diagram
-        addSnakeLines(graph, substation);
+                VoltageLevelGraph g1 = graph.getVLGraph(vl1.getId());
+                VoltageLevelGraph g2 = graph.getVLGraph(vl2.getId());
+
+                Node n1 = g1.getNode(line.getId() + "_" + line.getSide(t1).name());
+                Node n2 = g2.getNode(line.getId() + "_" + line.getSide(t2).name());
+                graph.addLineEdge(line.getId(), n1, n2);
+                linesIds.add(line.getId());
+            }
+        });
     }
 
-    private void addSnakeLines(SubstationGraph graph, Substation substation) {
-        // Two windings transformer
-        //
-        for (TwoWindingsTransformer transfo : substation.getTwoWindingsTransformers()) {
+    private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
+        twoWindingsTransformers.forEach(transfo -> {
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
 
@@ -570,8 +656,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vl1 = t1.getVoltageLevel();
             VoltageLevel vl2 = t2.getVoltageLevel();
 
-            Graph g1 = graph.getNode(vl1.getId());
-            Graph g2 = graph.getNode(vl2.getId());
+            VoltageLevelGraph g1 = graph.getVLGraph(vl1.getId());
+            VoltageLevelGraph g2 = graph.getVLGraph(vl2.getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
@@ -581,11 +667,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
             graph.addMultiTermNode(Middle2WTNode.create(graph, n1, n2, voltageLevelInfos1, voltageLevelInfos2));
-        }
+        });
+    }
 
-        // Three windings transformer
-        //
-        for (ThreeWindingsTransformer transfo : substation.getThreeWindingsTransformers()) {
+    private void add3wtEdges(BaseGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
+        threeWindingsTransformers.forEach(transfo -> {
             Terminal t1 = transfo.getLeg1().getTerminal();
             Terminal t2 = transfo.getLeg2().getTerminal();
             Terminal t3 = transfo.getLeg3().getTerminal();
@@ -598,9 +684,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vl2 = t2.getVoltageLevel();
             VoltageLevel vl3 = t3.getVoltageLevel();
 
-            Graph g1 = graph.getNode(t1.getVoltageLevel().getId());
-            Graph g2 = graph.getNode(t2.getVoltageLevel().getId());
-            Graph g3 = graph.getNode(t3.getVoltageLevel().getId());
+            VoltageLevelGraph g1 = graph.getVLGraph(t1.getVoltageLevel().getId());
+            VoltageLevelGraph g2 = graph.getVLGraph(t2.getVoltageLevel().getId());
+            VoltageLevelGraph g3 = graph.getVLGraph(t3.getVoltageLevel().getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
@@ -612,10 +698,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
 
             graph.addMultiTermNode(Middle3WTNode.create(graph, n1, n2, n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3));
-        }
+        });
     }
 
-    private SwitchNode createSwitchNodeFromSwitch(Graph graph, Switch aSwitch) {
+    private SwitchNode createSwitchNodeFromSwitch(VoltageLevelGraph graph, Switch aSwitch) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(aSwitch);
         String componentType;
@@ -666,33 +752,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), useName);
             graph.addNode(sGraph);
         });
-        // add edges -> lines
-        List<String> lines = new ArrayList<>();
-        zone.forEach(substation ->
-                substation.getVoltageLevelStream().forEach(voltageLevel ->
-                        voltageLevel.getConnectableStream(Line.class).forEach(line -> {
-                            if (!lines.contains(line.getId())) {
-                                String nodeId1 = line.getId() + "_" + Branch.Side.ONE;
-                                String nodeId2 = line.getId() + "_" + Branch.Side.TWO;
-                                String voltageLevelId1 = line.getTerminal1().getVoltageLevel().getId();
-                                String voltageLevelId2 = line.getTerminal2().getVoltageLevel().getId();
-                                String substationId1 = line.getTerminal1().getVoltageLevel().getSubstation().getId();
-                                String substationId2 = line.getTerminal2().getVoltageLevel().getSubstation().getId();
-                                SubstationGraph sGraph1 = graph.getNode(substationId1);
-                                SubstationGraph sGraph2 = graph.getNode(substationId2);
-                                if (sGraph1 != null && sGraph2 != null) {
-                                    Graph vlGraph1 = sGraph1.getNode(voltageLevelId1);
-                                    Graph vlGraph2 = sGraph2.getNode(voltageLevelId2);
-                                    Node node1 = vlGraph1.getNode(nodeId1);
-                                    Node node2 = vlGraph2.getNode(nodeId2);
-                                    LOGGER.info("Adding line {} to zone graph", line.getId());
-                                    graph.addEdge(line.getId(), node1, node2);
-                                    lines.add(line.getId());
-                                }
-                            }
-                        })
-                )
-        );
+        // Add snake edges between different substations in the same zone
+        addLineEdges(graph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+                .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
+                .filter(NetworkGraphBuilder::isNotInternalToSubstation)
+                .collect(Collectors.toList()));
     }
-
 }

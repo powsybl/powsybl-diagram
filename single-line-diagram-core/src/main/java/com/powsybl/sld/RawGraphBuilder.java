@@ -49,16 +49,16 @@ public class RawGraphBuilder implements GraphBuilder {
     public class VoltageLevelBuilder {
 
         private VoltageLevelInfos voltageLevelInfos;
-        private final Graph graph;
+        private final VoltageLevelGraph graph;
 
         private SubstationBuilder substationBuilder;
 
         public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
             this.voltageLevelInfos = voltageLevelInfos;
-            graph = Graph.create(voltageLevelInfos, false, forVoltageLevelDiagram);
+            graph = VoltageLevelGraph.create(voltageLevelInfos, false, forVoltageLevelDiagram);
         }
 
-        public Graph getGraph() {
+        public VoltageLevelGraph getGraph() {
             return graph;
         }
 
@@ -189,7 +189,7 @@ public class RawGraphBuilder implements GraphBuilder {
             FeederLineNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.voltageLevelInfos.getId(), TWO, order2, direction2);
             feederLineNodes.put(vl1, feederLineNode1);
             feederLineNodes.put(vl2, feederLineNode2);
-            ssGraph.addEdge(feederLineNode1, feederLineNode2);
+            ssGraph.addTwtEdge(feederLineNode1, feederLineNode2);
             return feederLineNodes;
         }
 
@@ -235,9 +235,9 @@ public class RawGraphBuilder implements GraphBuilder {
         }
     }
 
-    public Graph buildVoltageLevelGraph(String id,
-                                        boolean useName,
-                                        boolean forVoltageLevelDiagram) {
+    public VoltageLevelGraph buildVoltageLevelGraph(String id,
+                                                    boolean useName,
+                                                    boolean forVoltageLevelDiagram) {
         return vlBuilders.get(id).getGraph();
     }
 

@@ -41,7 +41,7 @@ public interface Block {
         START, END;
     }
 
-    Graph getGraph();
+    VoltageLevelGraph getGraph();
 
     Node getExtremityNode(Extremity extremity);
 

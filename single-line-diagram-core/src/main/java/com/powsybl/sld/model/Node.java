@@ -33,7 +33,7 @@ public class Node implements BaseNode {
         OTHER
     }
 
-    protected final Graph graph;
+    protected final VoltageLevelGraph graph;
 
     private NodeType type;
 
@@ -65,7 +65,7 @@ public class Node implements BaseNode {
     /**
      * Constructor
      */
-    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph) {
+    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph) {
         this.type = Objects.requireNonNull(type);
         this.name = name;
         this.equipmentId = equipmentId;
@@ -93,7 +93,7 @@ public class Node implements BaseNode {
         this.cell = cell;
     }
 
-    public Graph getGraph() {
+    public VoltageLevelGraph getGraph() {
         return graph;
     }
 

@@ -1951,7 +1951,10 @@
     }, {
       "node1" : "dtrf14",
       "node2" : "FICT_vl1_dtrf14Fictif"
-    } ]
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
   }, {
     "voltageLevelInfos" : {
       "id" : "vl2",
@@ -3249,7 +3252,10 @@
     }, {
       "node1" : "dtrf28",
       "node2" : "FICT_vl2_dtrf28Fictif"
-    } ]
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
   }, {
     "voltageLevelInfos" : {
       "id" : "vl3",
@@ -3904,7 +3910,10 @@
     }, {
       "node1" : "dtrf38",
       "node2" : "FICT_vl3_dtrf38Fictif"
-    } ]
+    } ],
+    "multitermNodes" : [ ],
+    "twtEdges" : [ ],
+    "lineEdges" : [ ]
   } ],
   "multitermNodes" : [ {
     "type" : "FICTITIOUS",
@@ -4161,5 +4170,6 @@
       "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
       "node2" : "trf8_THREE"
     } ]
-  } ]
+  } ],
+  "lineEdges" : [ ]
 }

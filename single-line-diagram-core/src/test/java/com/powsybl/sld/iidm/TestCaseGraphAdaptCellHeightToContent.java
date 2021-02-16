@@ -17,7 +17,7 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -98,7 +98,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         getLayoutParameters()
             .setAdaptCellHeightToContent(false);
 
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
@@ -112,7 +112,7 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         getLayoutParameters()
             .setAdaptCellHeightToContent(true);
 
-        Graph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());

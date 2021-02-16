@@ -8,13 +8,12 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.EnumSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,14 +23,12 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class PositionVoltageLevelLayout implements VoltageLevelLayout {
+public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
 
-    private final Graph graph;
-
-    public PositionVoltageLevelLayout(Graph graph) {
-        this.graph = Objects.requireNonNull(graph);
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph) {
+        super(graph);
     }
 
     /**
@@ -40,15 +37,18 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         LOGGER.info("Running voltage level layout");
-        calculateBusNodeCoord(graph, layoutParam);
-        calculateCellCoord(graph, layoutParam);
+        calculateBusNodeCoord(getGraph(), layoutParam);
+        calculateCellCoord(getGraph(), layoutParam);
+
+        // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
+        manageSnakeLines(layoutParam);
     }
 
-    private void calculateBusNodeCoord(Graph graph, LayoutParameters layoutParam) {
+    private void calculateBusNodeCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
         graph.getNodeBuses().forEach(nb -> nb.calculateCoord(layoutParam));
     }
 
-    private void calculateCellCoord(Graph graph, LayoutParameters layoutParam) {
+    private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
         if (layoutParam.isAdaptCellHeightToContent()) {
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
@@ -71,7 +71,7 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
     private void calculateMaxCellHeight(LayoutParameters layoutParam) {
         Map<BusCell.Direction, Double> maxCalculatedCellHeight = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0.));
 
-        graph.getCells().stream()
+        getGraph().getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
                 .forEach(cell -> maxCalculatedCellHeight.compute(((BusCell) cell).getDirection(), (k, v) -> Math.max(v, cell.calculateHeight(layoutParam))));
 
@@ -79,6 +79,6 @@ public class PositionVoltageLevelLayout implements VoltageLevelLayout {
         maxCalculatedCellHeight.compute(BusCell.Direction.TOP, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()));
         maxCalculatedCellHeight.compute(BusCell.Direction.BOTTOM, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()));
 
-        graph.setMaxCalculatedCellHeight(maxCalculatedCellHeight);
+        getGraph().setMaxCalculatedCellHeight(maxCalculatedCellHeight);
     }
 }

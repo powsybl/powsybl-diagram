@@ -30,19 +30,19 @@ public class FeederNode extends Node {
 
     private Orientation orientation;
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, Graph graph,
+    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph,
                          FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
         this.orientation = orientation;
     }
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, Graph graph,
+    protected FeederNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
                          FeederType feederType) {
         this(id, name, equipmentId, componentType, false, graph, feederType, null);
     }
 
-    static FeederNode createFictitious(Graph graph, String id, Orientation orientation) {
+    static FeederNode createFictitious(VoltageLevelGraph graph, String id, Orientation orientation) {
         return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS, orientation);
     }
 

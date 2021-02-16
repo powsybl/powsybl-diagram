@@ -22,7 +22,7 @@ import static com.powsybl.sld.model.Position.Dimension.*;
 public final class ShuntCell extends AbstractCell {
     private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
 
-    private ShuntCell(Graph graph) {
+    private ShuntCell(VoltageLevelGraph graph) {
         super(graph, CellType.SHUNT);
     }
 

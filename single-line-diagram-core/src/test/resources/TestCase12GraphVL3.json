@@ -1598,5 +1598,8 @@
   }, {
     "node1" : "dself6",
     "node2" : "FICT_vl3_dself6Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

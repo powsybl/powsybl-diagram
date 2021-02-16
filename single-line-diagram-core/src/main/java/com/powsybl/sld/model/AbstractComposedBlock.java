@@ -32,7 +32,7 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    public Graph getGraph() {
+    public VoltageLevelGraph getGraph() {
         return subBlocks.get(0).getGraph();
     }
 

@@ -37,7 +37,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.LineEdge;
 import com.powsybl.sld.model.LineEdge.Point;
 import com.powsybl.sld.model.Node;
@@ -229,7 +229,7 @@ public class CgmesZoneLayoutTest {
         assertEquals(SUBSTATION_1_ID, graph.getNodes().get(0).getSubstationId());
         assertEquals(SUBSTATION_2_ID, graph.getNodes().get(1).getSubstationId());
 
-        Graph vlGraph11 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_11_ID);
+        VoltageLevelGraph vlGraph11 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_11_ID);
         assertEquals(5, vlGraph11.getNodes().size());
         assertEquals(4, vlGraph11.getEdges().size());
         String busbarConnectorId = "FICT_" + VOLTAGE_LEVEL_11_ID + "_" + BUS_11_ID + "_";
@@ -239,7 +239,7 @@ public class CgmesZoneLayoutTest {
         checkNode(vlGraph11.getNodes().get(3), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, LINE, Arrays.asList(busbarConnectorId + TRANSFORMER_ID), 100, 30, false);
         checkNode(vlGraph11.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + TRANSFORMER_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_11_ID, TRANSFORMER_ID + "_" + Side.ONE), -2, -12, false);
 
-        Graph vlGraph12 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_12_ID);
+        VoltageLevelGraph vlGraph12 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_12_ID);
         assertEquals(5, vlGraph12.getNodes().size());
         assertEquals(4, vlGraph12.getEdges().size());
         busbarConnectorId = "FICT_" + VOLTAGE_LEVEL_12_ID + "_" + BUS_12_ID + "_";
@@ -249,7 +249,7 @@ public class CgmesZoneLayoutTest {
         checkNode(vlGraph12.getNodes().get(3), Node.NodeType.FEEDER, LINE_ID + "_" + Side.ONE, LINE, Arrays.asList(busbarConnectorId + LINE_ID), 180, 30, true);
         checkNode(vlGraph12.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + LINE_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_12_ID, LINE_ID + "_" + Side.ONE), -2, -12, false);
 
-        Graph vlGraph21 = graph.getNode(SUBSTATION_2_ID).getNode(VOLTAGE_LEVEL_21_ID);
+        VoltageLevelGraph vlGraph21 = graph.getNode(SUBSTATION_2_ID).getNode(VOLTAGE_LEVEL_21_ID);
         assertEquals(5, vlGraph21.getNodes().size());
         assertEquals(4, vlGraph21.getEdges().size());
 
@@ -260,8 +260,8 @@ public class CgmesZoneLayoutTest {
         checkNode(vlGraph21.getNodes().get(3), Node.NodeType.FEEDER, LINE_ID + "_" + Side.TWO, LINE, Arrays.asList(busbarConnectorId + LINE_ID), 180, 30, true);
         checkNode(vlGraph21.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + LINE_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_21_ID,  LINE_ID + "_" + Side.TWO), -2, -12, false);
 
-        assertEquals(1, graph.getEdges().size());
-        LineEdge linEdge = graph.getEdges().get(0);
+        assertEquals(1, graph.getLineEdges().size());
+        LineEdge linEdge = graph.getLineEdges().get(0);
         assertEquals(LINE_ID, linEdge.getLineId());
         assertEquals(LINE_ID + "_" + Side.ONE, linEdge.getNode1().getId());
         assertEquals(LINE_ID + "_" + Side.TWO, linEdge.getNode2().getId());

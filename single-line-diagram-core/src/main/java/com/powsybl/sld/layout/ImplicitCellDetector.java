@@ -51,7 +51,7 @@ public class ImplicitCellDetector implements CellDetector {
      * stop the visit if reach a Bus : stopTypes = {BUS,FEEDER} * @param graph g
      */
     @Override
-    public void detectCells(Graph graph) {
+    public void detectCells(VoltageLevelGraph graph) {
         cleaning(graph);
 
         LOGGER.info("Detecting cells...");
@@ -85,7 +85,7 @@ public class ImplicitCellDetector implements CellDetector {
         graph.logCellDetectionStatus();
     }
 
-    private void cleaning(Graph graph) {
+    private void cleaning(VoltageLevelGraph graph) {
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {
             graph.removeUnnecessaryFictitiousNodes();
@@ -108,7 +108,7 @@ public class ImplicitCellDetector implements CellDetector {
      * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
      **/
-    private void detectCell(Graph graph,
+    private void detectCell(VoltageLevelGraph graph,
                             List<Node.NodeType> typeStops,
                             List<Node.NodeType> exclusionTypes,
                             boolean isCellIntern,
@@ -135,7 +135,7 @@ public class ImplicitCellDetector implements CellDetector {
      *
      * @param cell : the cell to analyse
      **/
-    private boolean isPureExternCell(Graph graph, ExternCell cell) {
+    private boolean isPureExternCell(VoltageLevelGraph graph, ExternCell cell) {
         /*Explore the graph of the candidate cell. Remove successively one node, assess if it splits the graph into n>1 branches
         if so, then check if each component is exclusively reaching FEEDER or exclusively reaching BUS
         And verify you have at least one of them
@@ -184,7 +184,7 @@ public class ImplicitCellDetector implements CellDetector {
     /**
      * @param cell the nodes of a cell that is suppected to be a shunt
      **/
-    private void detectAndTypeShunt(Graph graph, Cell cell) {
+    private void detectAndTypeShunt(VoltageLevelGraph graph, Cell cell) {
 
         List<Node> externalNodes = graph.getNodes()
                 .stream()

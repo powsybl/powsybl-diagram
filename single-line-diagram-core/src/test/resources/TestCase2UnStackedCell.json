@@ -266,5 +266,8 @@
   }, {
     "node1" : "FICT_vlUnstack_lFictif",
     "node2" : "l"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

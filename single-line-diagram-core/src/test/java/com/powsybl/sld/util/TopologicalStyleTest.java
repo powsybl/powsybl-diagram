@@ -14,7 +14,7 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DiagramStyles;
 import org.junit.Before;
@@ -98,9 +98,9 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     @Test
     public void test() throws IOException {
         // construction des graphes
-        Graph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        Graph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        Graph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
         TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(network);
 

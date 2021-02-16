@@ -14,7 +14,7 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW;
  */
 public class ArrowNode extends Node {
 
-    public ArrowNode(Graph graph) {
+    public ArrowNode(VoltageLevelGraph graph) {
         super(NodeType.OTHER, "", "", "", ARROW, false, graph);
     }
 

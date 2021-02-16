@@ -47,7 +47,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, null);
         vlBuilder.connectNode(bbs, feederLineNode);
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));
@@ -62,7 +62,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, BusCell.Direction.BOTTOM);
         vlBuilder.connectNode(bbs, busDisconnector);
         vlBuilder.connectNode(busDisconnector, feederLineNode);
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));

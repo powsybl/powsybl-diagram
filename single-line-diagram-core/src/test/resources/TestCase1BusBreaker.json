@@ -326,5 +326,8 @@
   }, {
     "node1" : "FICT_vl_swfNode",
     "node2" : "sw"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

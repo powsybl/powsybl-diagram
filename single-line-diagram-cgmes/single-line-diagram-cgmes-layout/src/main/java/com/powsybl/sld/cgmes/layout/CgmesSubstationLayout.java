@@ -16,7 +16,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayout;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 
@@ -33,7 +33,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     public CgmesSubstationLayout(SubstationGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
         }
         fixTransformersLabel = true;
@@ -47,19 +47,19 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
         if (layoutParam.getScaleFactor() != 1) {
-            for (Graph vlGraph : graph.getNodes()) {
+            for (VoltageLevelGraph vlGraph : graph.getNodes()) {
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
         }
-        for (Graph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             setVoltageLevelCoord(vlGraph);
         }
 

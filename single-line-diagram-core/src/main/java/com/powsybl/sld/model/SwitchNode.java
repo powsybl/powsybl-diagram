@@ -30,13 +30,13 @@ public class SwitchNode extends Node {
 
     private final SwitchKind kind;
 
-    public SwitchNode(String id, String name, String componentType, boolean fictitious, Graph graph, SwitchKind kind, boolean open) {
+    public SwitchNode(String id, String name, String componentType, boolean fictitious, VoltageLevelGraph graph, SwitchKind kind, boolean open) {
         super(NodeType.SWITCH, id, name, id, componentType, fictitious, graph);
         this.kind = Objects.requireNonNull(kind);
         setOpen(open);
     }
 
-    public static SwitchNode createFictitious(Graph graph, String id, boolean open) {
+    public static SwitchNode createFictitious(VoltageLevelGraph graph, String id, boolean open) {
         return new SwitchNode(id, id, NODE, true, graph, SwitchKind.DISCONNECTOR, open);
     }
 

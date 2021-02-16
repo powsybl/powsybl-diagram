@@ -64,7 +64,7 @@ public class BlockOrganizer {
     /**
      * Organize cells into blocks and call the layout resolvers
      */
-    public void organize(Graph graph) {
+    public void organize(VoltageLevelGraph graph) {
         LOGGER.info("Organizing graph cells into blocks");
         graph.getCells().stream()
                 .filter(cell -> cell.getType().isBusCell())
@@ -98,7 +98,7 @@ public class BlockOrganizer {
     /**
      * Determines blocks connected to busbar that are stackable
      */
-    private void determineStackableBlocks(Graph graph) {
+    private void determineStackableBlocks(VoltageLevelGraph graph) {
         LOGGER.info("Determining stackable Blocks");
         graph.getBusCells().forEach(cell -> {
             List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();

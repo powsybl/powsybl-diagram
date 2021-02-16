@@ -1070,5 +1070,8 @@
   }, {
     "node1" : "FICT_vl2_ss2fNode1",
     "node2" : "ss2"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

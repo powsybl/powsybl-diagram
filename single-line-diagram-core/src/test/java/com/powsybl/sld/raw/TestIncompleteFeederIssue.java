@@ -54,7 +54,7 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
         vlBuilder.connectNode(fict1, b2);
         vlBuilder.connectNode(b2, d2);
         vlBuilder.connectNode(d2, fict2);
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());

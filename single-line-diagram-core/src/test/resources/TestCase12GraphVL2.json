@@ -1939,5 +1939,8 @@
   }, {
     "node1" : "dtrf28",
     "node2" : "FICT_vl2_dtrf28Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

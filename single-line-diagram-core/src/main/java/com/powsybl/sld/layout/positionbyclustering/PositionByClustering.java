@@ -71,7 +71,7 @@ public class PositionByClustering implements PositionFinder {
         return busToNb;
     }
 
-    public LBSCluster organizeLegBusSets(Graph graph, List<LegBusSet> legBusSets) {
+    public LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets) {
         List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(legBusSets);
         Links links = Links.create(lbsClusters, HBLMANAGER);
         while (!links.isEmpty()) {
@@ -131,7 +131,7 @@ public class PositionByClustering implements PositionFinder {
         }
     }
 
-    public void organizeDirections(Graph graph, List<Subsection> subsections) {
+    public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
         List<ShuntCell> shuntCells = graph.getCells().stream()
                 .filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast)
                 .collect(Collectors.toList());

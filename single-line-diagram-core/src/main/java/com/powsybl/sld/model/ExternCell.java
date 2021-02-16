@@ -29,7 +29,7 @@ public class ExternCell extends AbstractBusCell {
     private int order = -1;
     private ShuntCell shuntCell = null;
 
-    public ExternCell(Graph graph) {
+    public ExternCell(VoltageLevelGraph graph) {
         super(graph, EXTERN);
     }
 

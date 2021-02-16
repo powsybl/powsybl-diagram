@@ -829,5 +829,8 @@
   }, {
     "node1" : "FICT_vl_ss1fNode1",
     "node2" : "ss1"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

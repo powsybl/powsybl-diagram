@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.Objects;
 
@@ -84,7 +84,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     }
 
     @Override
-    public VoltageLevelLayout create(Graph graph) {
+    public VoltageLevelLayout create(VoltageLevelGraph graph) {
         // detect cells
         new ImplicitCellDetector(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode, exceptionIfPatternNotHandled)
                 .detectCells(graph);

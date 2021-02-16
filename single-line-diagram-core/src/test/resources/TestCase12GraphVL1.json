@@ -2630,5 +2630,8 @@
   }, {
     "node1" : "dtrf14",
     "node2" : "FICT_vl1_dtrf14Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

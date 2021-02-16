@@ -9,7 +9,7 @@ package com.powsybl.sld;
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
@@ -83,13 +83,13 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public abstract void toSVG(Graph g, String filename);
+    public abstract void toSVG(VoltageLevelGraph g, String filename);
 
     public abstract void toSVG(SubstationGraph g, String filename);
 
     public abstract void toSVG(ZoneGraph g, String filename);
 
-    public String toSVG(Graph graph,
+    public String toSVG(VoltageLevelGraph graph,
                         String filename,
                         LayoutParameters layoutParameters,
                         DiagramLabelProvider initValueProvider,
@@ -172,7 +172,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toJson(Graph graph, String filename) {
+    public String toJson(VoltageLevelGraph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
 

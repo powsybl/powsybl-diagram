@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SwitchNode;
 
@@ -30,7 +30,7 @@ public final class TopologyCalculation {
      * @param graph the graph to be analysed
      * @return a list of TopologicallyConnectedNodeSets
      */
-    public static List<TopologicallyConnectedNodesSet> run(Graph graph) {
+    public static List<TopologicallyConnectedNodesSet> run(VoltageLevelGraph graph) {
         List<TopologicallyConnectedNodesSet> topologicallyConnectedNodesSets = new ArrayList<>();
         List<Node> nodesToVisit = graph.getNodes();
         List<Node> visitedNodes = new ArrayList<>();

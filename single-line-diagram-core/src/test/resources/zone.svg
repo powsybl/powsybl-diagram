@@ -158,7 +158,9 @@ polyline {fill: none}
         <g class="sld-line sld-constant-color" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
             <text class="sld-label" id="Line_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Line</text>
         </g>
-        <polyline class="sld-line sld-constant-color" id="idLine" points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0"/>
+        <g class="sld-wire sld-constant-color" id="idLine">
+            <polyline points="70.0,700.0,70.0,850.0,170.0,850.0,170.0,1000.0"/>
+        </g>
         <g id="LABEL_VL_VoltageLevel11">
             <text class="sld-graph-label" transform="rotate(0,0,0)" x="0.0" y="-10.0">VoltageLevel11</text>
         </g>

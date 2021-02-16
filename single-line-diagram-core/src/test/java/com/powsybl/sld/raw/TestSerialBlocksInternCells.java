@@ -58,7 +58,7 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        Graph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());

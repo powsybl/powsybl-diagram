@@ -520,5 +520,8 @@
   }, {
     "node1" : "db32",
     "node2" : "FICT_vl_db32Fictif"
-  } ]
+  } ],
+  "multitermNodes" : [ ],
+  "twtEdges" : [ ],
+  "lineEdges" : [ ]
 }

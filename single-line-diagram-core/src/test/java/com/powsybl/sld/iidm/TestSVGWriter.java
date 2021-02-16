@@ -40,9 +40,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private static final String GENERATOR_ID = "Generator";
     private static final String TRANSFORMER_ID = "Transformer";
 
-    private Graph g1;
-    private Graph g2;
-    private Graph g3;
+    private VoltageLevelGraph g1;
+    private VoltageLevelGraph g2;
+    private VoltageLevelGraph g3;
     private SubstationGraph substG;
     private DiagramLabelProvider initValueProvider;
     private DiagramLabelProvider noFeederValueProvider;
@@ -63,8 +63,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g3 = createVoltageLevelGraph3();
     }
 
-    protected static Graph createVoltageLevelGraph1() {
-        Graph g1 = Graph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
+    protected static VoltageLevelGraph createVoltageLevelGraph1() {
+        VoltageLevelGraph g1 = VoltageLevelGraph.create(new VoltageLevelInfos("vl1", "vl1", 400), false, true);
         g1.setX(0);
         g1.setY(20);
 
@@ -171,8 +171,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         return g1;
     }
 
-    private static Graph createVoltageLevelGraph2() {
-        Graph g2 = Graph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
+    private static VoltageLevelGraph createVoltageLevelGraph2() {
+        VoltageLevelGraph g2 = VoltageLevelGraph.create(new VoltageLevelInfos("vl2", "vl2", 225), false, true);
         g2.setX(550);
         g2.setY(20);
 
@@ -256,8 +256,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         return g2;
     }
 
-    private static Graph createVoltageLevelGraph3() {
-        Graph g3 = Graph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
+    private static VoltageLevelGraph createVoltageLevelGraph3() {
+        VoltageLevelGraph g3 = VoltageLevelGraph.create(new VoltageLevelInfos("vl3", "vl3", 63), false, true);
         g3.setX(850);
         g3.setY(20);
 
@@ -330,7 +330,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // First voltage level graph :
         //
         VoltageLevelInfos vl1Infos = new VoltageLevelInfos("vl1", "vl1", 400);
-        Graph g1Graph = Graph.create(vl1Infos, false, true);
+        VoltageLevelGraph g1Graph = VoltageLevelGraph.create(vl1Infos, false, true);
         g1Graph.setX(0);
         g1Graph.setY(20);
 
@@ -421,7 +421,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // Second voltage level graph :
         //
         VoltageLevelInfos vl2Infos = new VoltageLevelInfos("vl2", "vl2", 225);
-        Graph g2Graph = Graph.create(vl2Infos, false, true);
+        VoltageLevelGraph g2Graph = VoltageLevelGraph.create(vl2Infos, false, true);
         g2Graph.setX(550);
         g2Graph.setY(20);
 
@@ -489,7 +489,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // Third voltage level graph :
         //
         VoltageLevelInfos vl3Infos = new VoltageLevelInfos("vl3", "vl3", 63);
-        Graph g3Graph = Graph.create(vl3Infos, false, true);
+        VoltageLevelGraph g3Graph = VoltageLevelGraph.create(vl3Infos, false, true);
         g3Graph.setX(850);
         g3Graph.setY(20);
 
@@ -574,7 +574,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         VoltageLevelInfos vl21Infos = new VoltageLevelInfos(VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_ID, VOLTAGE_LEVEL_21_V);
 
         // create first voltage level graph
-        Graph vl11Graph = Graph.create(vl11Infos, false, false);
+        VoltageLevelGraph vl11Graph = VoltageLevelGraph.create(vl11Infos, false, false);
         BusNode bus11Node = BusNode.create(vl11Graph, BUS_11_ID, BUS_11_ID);
         bus11Node.setX(30);
         bus11Node.setY(200);
@@ -591,7 +591,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl11Graph.addEdge(bus11Node, loadNode);
         vl11Graph.addEdge(bus11Node, twtSide1Node);
         // create second voltage level graph
-        Graph vl12Graph = Graph.create(vl12Infos, false, false);
+        VoltageLevelGraph vl12Graph = VoltageLevelGraph.create(vl12Infos, false, false);
         BusNode bus12Node = BusNode.create(vl12Graph, BUS_12_ID, BUS_12_ID);
         bus12Node.setX(30);
         bus12Node.setY(500);
@@ -608,7 +608,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl12Graph.addEdge(bus12Node, twtSide2Node);
         vl12Graph.addEdge(bus12Node, lineSide1Node);
         // create third voltage level graph
-        Graph vl21Graph = Graph.create(vl21Infos, false, false);
+        VoltageLevelGraph vl21Graph = VoltageLevelGraph.create(vl21Infos, false, false);
         BusNode bus21Node = BusNode.create(vl21Graph, BUS_21_ID, BUS_21_ID);
         bus21Node.setX(130);
         bus21Node.setY(1100);
@@ -648,11 +648,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         zGraph = ZoneGraph.create(Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID));
         zGraph.addNode(s1Graph);
         zGraph.addNode(s2Graph);
-        zGraph.addEdge(LINE_ID, lineSide1Node, lineSide2Node);
-        zGraph.getEdge(LINE_ID).addPoint(50, 650);
-        zGraph.getEdge(LINE_ID).addPoint(50, 800);
-        zGraph.getEdge(LINE_ID).addPoint(150, 800);
-        zGraph.getEdge(LINE_ID).addPoint(150, 950);
+        zGraph.addLineEdge(LINE_ID, lineSide1Node, lineSide2Node);
+        zGraph.getLineEdge(LINE_ID).addPoint(50, 650);
+        zGraph.getLineEdge(LINE_ID).addPoint(50, 800);
+        zGraph.getLineEdge(LINE_ID).addPoint(150, 800);
+        zGraph.getLineEdge(LINE_ID).addPoint(150, 950);
     }
 
     @Before

@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.ZoneGraph;
 
@@ -22,13 +22,13 @@ import com.powsybl.sld.model.ZoneGraph;
 public interface SVGWriter {
 
     GraphMetadata write(String prefixId,
-                        Graph graph,
+                        VoltageLevelGraph graph,
                         DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
                         Path svgFile);
 
     GraphMetadata write(String prefixId,
-                        Graph graph,
+                        VoltageLevelGraph graph,
                         DiagramLabelProvider initProvider,
                         DiagramStyleProvider styleProvider,
                         Writer writer);

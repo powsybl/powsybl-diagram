@@ -52,7 +52,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     public List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getSvgNodeStyles(node, componentLibrary, showInternalNodes);
 
-        Graph g = node.getGraph();
+        VoltageLevelGraph g = node.getGraph();
         if (g != null) {  // node inside a voltageLevel graph
             // Middle3WTNode and Feeder2WTNode have style depending on their subcomponents -> see getSvgNodeSubcomponentStyles
             if (!(node instanceof Middle3WTNode) && !(node instanceof Feeder2WTNode)) {
@@ -79,6 +79,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
             if (n.getFeederType() == FeederType.BRANCH || n.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
                 side = n.getSide();
                 otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+                if (edge instanceof LineEdge) {
+                    side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
+                    otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+                }
             } else if (n.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
                 String idVl = n.getGraph().getVoltageLevelInfos().getId();
                 ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
@@ -131,7 +135,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
         List<String> styles = new ArrayList<>();
 
-        Graph g = node.getGraph();
+        VoltageLevelGraph g = node.getGraph();
         boolean node2WT = (g != null && node instanceof Feeder2WTNode) || (g == null && node instanceof Middle2WTNode);
         boolean node3WT = node instanceof Middle3WTNode;
         if (node2WT || node3WT) {
@@ -165,8 +169,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     /**
      * Returns the voltage level style if any to apply to the given node
+     *
      * @param vlInfo the VoltageLevelInfos related to the given node
-     * @param node the node on which the style if any is applied to
+     * @param node   the node on which the style if any is applied to
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
@@ -282,7 +287,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     @Override
-    public List<ElectricalNodeInfo> getElectricalNodesInfos(Graph graph) {
+    public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         List<ElectricalNodeInfo> nodesInfos = new ArrayList<>();
         List<Node> feederNodes = graph.getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FEEDER)
