@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.styles.BaseVoltageStyle;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.ElectricalNodeInfo;
@@ -23,16 +24,21 @@ import java.util.stream.Collectors;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
+
+    protected static final String BASE_VOLTAGE_PROFILE = "Default";
 
     private static final String WINDING1 = "WINDING1";
     private static final String WINDING2 = "WINDING2";
     private static final String WINDING3 = "WINDING3";
 
     protected final Network network;
+    protected final BaseVoltageStyle baseVoltageStyle;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(Network network) {
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
+        this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
         this.network = network;
     }
 
@@ -169,7 +175,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return Optional.of("sld-vl" + String.format("%.0f", vlInfo.getNominalVoltage()));
+        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
     }
 
     private Node getMultiTerminal3WTWindingNode(Node node, String subComponentName, List<Node> adjacentNodes) {

@@ -109,7 +109,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertEquals(3, nodeStyle1.size());
         assertTrue(nodeStyle1.contains("sld-busbar-section"));
         assertTrue(nodeStyle1.contains("sld-constant-color"));
-        assertTrue(nodeStyle1.contains("sld-vl380-0"));
+        assertTrue(nodeStyle1.contains("sld-vl300to500-0"));
 
         Node node2 = graph2.getNode("bbs2");
         List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, true);
@@ -123,7 +123,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertEquals(3, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-constant-color"));
-        assertTrue(nodeStyle3.contains("sld-vl63-0"));
+        assertTrue(nodeStyle3.contains("sld-vl50to70-0"));
 
         Edge edge = graph1.getEdges().get(12);
 
@@ -131,7 +131,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertEquals(3, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-constant-color"));
-        assertTrue(wireStyles.contains("sld-vl380-0"));
+        assertTrue(wireStyles.contains("sld-vl300to500-0"));
 
         Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
         List<String> node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, true);
