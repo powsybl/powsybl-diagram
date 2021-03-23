@@ -38,7 +38,7 @@ public class BranchStatusXmlSerializer<C extends Connectable<C>> implements Exte
 
     @Override
     public boolean hasSubElements() {
-        return true;
+        return false;
     }
 
     @Override
