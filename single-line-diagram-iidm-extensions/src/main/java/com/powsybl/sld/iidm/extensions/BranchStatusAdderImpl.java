@@ -9,6 +9,8 @@ package com.powsybl.sld.iidm.extensions;
 import com.powsybl.commons.extensions.AbstractExtensionAdder;
 import com.powsybl.iidm.network.Connectable;
 
+import java.util.Objects;
+
 /**
  * @author Nicolas Noir <nicolas.noir at rte-france.com>
  */
@@ -28,6 +30,7 @@ public class BranchStatusAdderImpl<C extends Connectable<C>> extends AbstractExt
 
     @Override
     public BranchStatusAdder withStatus(BranchStatus.Status branchStatus) {
+        Objects.requireNonNull(branchStatus);
         this.status = branchStatus;
         return this;
     }
