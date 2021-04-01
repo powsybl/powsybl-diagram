@@ -68,7 +68,6 @@
         <commons-math3.version>3.5</commons-math3.version>
         <findbugs-annotations.version>3.0.1</findbugs-annotations.version>
         <findbugs-jsr305.version>3.0.2</findbugs-jsr305.version>
-        <franzxaver.version>0.1</franzxaver.version>
         <jackson.version>2.10.0</jackson.version>
         <jimfs.version>1.1</jimfs.version>
         <jgrapht.version>1.4.0</jgrapht.version>
@@ -89,24 +88,13 @@
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <sonar.exclusions>
-            **/generated/**/*, **/com/powsybl/sld/view/**/*
+            **/generated/**/*
         </sonar.exclusions>
 
         <powsyblcore.version>4.0.0</powsyblcore.version>
-        <javafx.version>11.0.2</javafx.version>
     </properties>
 
     <profiles>
-        <profile>
-            <id>viewer</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <modules>
-                <module>single-line-diagram-view</module>
-                <module>single-line-diagram-view-app</module>
-            </modules>
-        </profile>
         <profile>
             <id>release</id>
             <activation>
@@ -146,11 +134,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.afester.javafx</groupId>
-                <artifactId>FranzXaver</artifactId>
-                <version>${franzxaver.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
@@ -201,11 +184,6 @@
                 <groupId>org.jgrapht</groupId>
                 <artifactId>jgrapht-core</artifactId>
                 <version>${jgrapht.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-controls</artifactId>
-                <version>${javafx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
