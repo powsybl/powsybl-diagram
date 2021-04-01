@@ -9,7 +9,7 @@
 -->
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:cp="http://www.powsybl.org/schema/iidm/ext/branch_status/1_0"
+           xmlns:bs="http://www.powsybl.org/schema/iidm/ext/branch_status/1_0"
            targetNamespace="http://www.powsybl.org/schema/iidm/ext/branch_status/1_0"
            elementFormDefault="qualified">
     <xs:simpleType name="BranchStatus">
@@ -19,9 +19,5 @@
             <xs:enumeration value="FORCED_OUTAGE"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:element name="branchStatus">
-        <xs:complexType>
-            <xs:attribute name="status" use="required" type="cp:BranchStatus"/>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="branchStatus" type="bs:BranchStatus"/>
 </xs:schema>

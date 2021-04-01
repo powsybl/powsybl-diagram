@@ -9,6 +9,7 @@ package com.powsybl.sld.iidm.extensions;
 import com.google.auto.service.AutoService;
 import com.powsybl.commons.extensions.ExtensionXmlSerializer;
 import com.powsybl.commons.xml.XmlReaderContext;
+import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.commons.xml.XmlWriterContext;
 import com.powsybl.iidm.network.Connectable;
 
@@ -38,7 +39,7 @@ public class BranchStatusXmlSerializer<C extends Connectable<C>> implements Exte
 
     @Override
     public boolean hasSubElements() {
-        return false;
+        return true;
     }
 
     @Override
@@ -58,12 +59,12 @@ public class BranchStatusXmlSerializer<C extends Connectable<C>> implements Exte
 
     @Override
     public void write(BranchStatus branchStatus, XmlWriterContext context) throws XMLStreamException {
-        context.getExtensionsWriter().writeAttribute("status", branchStatus.getStatus().name());
+        context.getExtensionsWriter().writeCharacters(branchStatus.getStatus().name());
     }
 
     @Override
-    public BranchStatus read(Connectable connectable, XmlReaderContext context) {
-        BranchStatus.Status status = BranchStatus.Status.valueOf(context.getReader().getAttributeValue(null, "status"));
+    public BranchStatus read(Connectable connectable, XmlReaderContext context) throws XMLStreamException {
+        BranchStatus.Status status = BranchStatus.Status.valueOf(XmlUtil.readText("branchStatus", context.getReader()));
         ((Connectable<?>) connectable).newExtension(BranchStatusAdder.class)
                 .withStatus(status)
                 .add();
