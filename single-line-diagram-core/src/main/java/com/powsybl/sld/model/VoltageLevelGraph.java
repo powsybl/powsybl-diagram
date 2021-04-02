@@ -32,7 +32,7 @@ import static com.powsybl.sld.model.Position.Dimension.V;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class VoltageLevelGraph extends AbstractBaseGraph {
+public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 
@@ -73,7 +73,7 @@ public final class VoltageLevelGraph extends AbstractBaseGraph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    private VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
+    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;

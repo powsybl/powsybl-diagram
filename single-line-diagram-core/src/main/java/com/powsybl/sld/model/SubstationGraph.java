@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  *
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class SubstationGraph extends AbstractBaseGraph {
+public class SubstationGraph extends AbstractBaseGraph {
 
     private String substationId;
 
@@ -30,7 +30,7 @@ public final class SubstationGraph extends AbstractBaseGraph {
     /**
      * Constructor
      */
-    private SubstationGraph(String id) {
+    protected SubstationGraph(String id) {
         this.substationId = Objects.requireNonNull(id);
     }
 
