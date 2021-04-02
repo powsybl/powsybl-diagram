@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
  *
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public final class SubstationGraph {
+public class SubstationGraph {
 
     private String substationId;
 
@@ -40,7 +40,7 @@ public final class SubstationGraph {
     /**
      * Constructor
      */
-    private SubstationGraph(String id) {
+    protected SubstationGraph(String id) {
         this.substationId = Objects.requireNonNull(id);
     }
 

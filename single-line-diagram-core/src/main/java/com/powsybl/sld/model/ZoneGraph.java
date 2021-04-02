@@ -22,7 +22,7 @@ import java.util.Objects;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public final class ZoneGraph {
+public class ZoneGraph {
 
     private List<String> zone;
     private List<SubstationGraph> nodes = new ArrayList<>();
@@ -30,7 +30,7 @@ public final class ZoneGraph {
     private Map<String, SubstationGraph> nodesById = new HashMap<>();
     private Map<String, LineEdge> edgesById = new HashMap<>();
 
-    private ZoneGraph(List<String> zone) {
+    protected ZoneGraph(List<String> zone) {
         this.zone = Objects.requireNonNull(zone);
     }
 
