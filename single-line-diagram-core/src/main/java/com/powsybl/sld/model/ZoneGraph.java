@@ -14,14 +14,14 @@ import java.util.*;
 /**
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public final class ZoneGraph extends AbstractLineGraph {
+public class ZoneGraph extends AbstractLineGraph {
 
     private List<String> zone;
     private List<SubstationGraph> nodes = new ArrayList<>();
     private Map<String, SubstationGraph> nodesById = new HashMap<>();
     private Map<String, LineEdge> edgesById = new HashMap<>();
 
-    private ZoneGraph(List<String> zone) {
+    protected ZoneGraph(List<String> zone) {
         this.zone = Objects.requireNonNull(zone);
     }
 
