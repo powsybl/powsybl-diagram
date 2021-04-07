@@ -233,6 +233,19 @@
                         <groupId>com.itextpdf</groupId>
                         <artifactId>itextpdf</artifactId>
                     </exclusion>
+                    <!--
+                        This is available on maven central under a different groupId, reimported below.
+                        We already use stax-utils with the groupId from maven central in powsybl-core.
+                    -->
+                    <exclusion>
+                        <groupId>net.java.dev</groupId>
+                        <artifactId>stax-utils</artifactId>
+                    </exclusion>
+                    <!-- gephi uses v8.2 of netbeans API (unavailable on central), v9.0 reimported below -->
+                    <exclusion>
+                        <groupId>org.netbeans.api</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
