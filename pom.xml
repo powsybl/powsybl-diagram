@@ -74,7 +74,6 @@
         <joda-time.version>2.9.7</joda-time.version>
         <junit.version>4.13.1</junit.version>
         <logback.version>1.2.3</logback.version>
-        <guava.version>27.0.1-jre</guava.version>
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.22</slf4j.version>
         <xmlunit.version>2.3.0</xmlunit.version>
@@ -154,11 +153,6 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
