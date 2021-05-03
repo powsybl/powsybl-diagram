@@ -167,20 +167,16 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                Point coordNodeFict = new Point(-1, -1);
-                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline2(pol, 1, coordNodeFict));
-                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline2(pol, 2, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
+                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
+                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
             } else if (adjacentNodes.size() == 3) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
-                Point coordNodeFict = new Point(-1, -1);
-                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(splitPolyline3(pol1, pol2, 1, coordNodeFict));
-                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(splitPolyline3(pol1, pol2, 2, null));
-                ((TwtEdge) adjacentEdges.get(2)).setSnakeLine(splitPolyline3(pol1, pol2, 3, null));
-                multiNode.setX(coordNodeFict.getX(), false);
-                multiNode.setY(coordNodeFict.getY(), false);
+                List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
+                for (int i = 0; i < 3; i++) {
+                    ((TwtEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
+                }
             }
         }
 
@@ -292,26 +288,28 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    protected List<Point> splitPolyline3(List<Point> pol1, List<Point> pol2, int numPart, Point coord) {
-        List<Point> res = new ArrayList<>();
-        if (numPart == 1 || numPart == 2) {
-            res = super.splitPolyline3(pol1, pol2, numPart, coord);
+    protected List<List<Point>> splitPolyline3(List<Point> pol1, List<Point> pol2, Node multiNode) {
+        // the two first new edge are the same as default
+        List<List<Point>> defaultSplit = super.splitPolyline3(pol1, pol2, multiNode);
+        Point fictitiousNode = multiNode.getCoordinates();
+
+        List<Point> part3 = new ArrayList<>(5);
+
+        // the third new edge now begins with the fictitious node point
+        part3.add(new Point(fictitiousNode));
+
+        // then we add an intermediate point with the absciss of the third point in the original second polyline
+        // and the ordinate of the fictitious node
+        part3.add(new Point(pol2.get(2).getX(), fictitiousNode.getY()));
+
+        // then we add the last three points or the last point of the original second polyline
+        if (pol2.size() > 4) {
+            part3.addAll(pol2.subList(pol2.size() - 3, pol2.size()));
         } else {
-            // the third new edge now begins with the fictitious node point
-            Point fictPoint = pol1.get(pol1.size() - 2);
-            res.add(fictPoint);
-            // then we add an intermediate point with the absciss of the third point in the original second polyline
-            // and the ordinate of the fictitious node
-            res.add(new Point(pol2.get(2).getX(), fictPoint.getY()));
-            // then we had the last three points or the last point of the original second polyline
-            if (pol2.size() > 4) {
-                res.addAll(pol2.subList(pol2.size() - 3, pol2.size()));
-            } else {
-                res.add(pol2.get(pol2.size() - 1));
-            }
+            part3.add(pol2.get(pol2.size() - 1));
         }
 
-        return res;
+        return Arrays.asList(defaultSplit.get(0), defaultSplit.get(1), part3);
     }
 
     @Override
