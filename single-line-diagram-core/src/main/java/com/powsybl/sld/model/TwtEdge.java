@@ -8,50 +8,17 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 /**
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
 public class TwtEdge extends AbstractBranchEdge {
-
-    private List<Point> snakeLine = new ArrayList<>();
 
     public TwtEdge(Node node1, Node node2) {
         super(node1, node2);
     }
 
     @Override
-    public List<Point> getSnakeLine() {
-        return snakeLine;
+    protected void writeIdJson(JsonGenerator generator) {
     }
 
-    @Override
-    public void setSnakeLine(List<Point> snakeLine) {
-        this.snakeLine = Objects.requireNonNull(snakeLine);
-    }
-
-    @Override
-    void writeJson(JsonGenerator generator) throws IOException {
-        writeJson(generator, false);
-    }
-
-    void writeJson(JsonGenerator generator, boolean generateCoordsInJson) throws IOException {
-        generator.writeStartObject();
-        generator.writeArrayFieldStart("nodes");
-        super.writeJson(generator);
-        generator.writeEndArray();
-        if (generateCoordsInJson) {
-            generator.writeArrayFieldStart("snakeLine");
-            for (Point point : snakeLine) {
-                generator.writeNumber(point.getX());
-                generator.writeNumber(point.getY());
-            }
-            generator.writeEndArray();
-        }
-        generator.writeEndObject();
-    }
 }

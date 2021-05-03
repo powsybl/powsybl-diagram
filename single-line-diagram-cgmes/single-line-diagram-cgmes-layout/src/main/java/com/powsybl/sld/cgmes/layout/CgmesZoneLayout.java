@@ -104,21 +104,21 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
-            edge.getPoints().get(0).setX(firstPoint.getX());
-            edge.getPoints().get(0).setY(firstPoint.getY());
+            edge.getSnakeLine().get(0).setX(firstPoint.getX());
+            edge.getSnakeLine().get(0).setY(firstPoint.getY());
             DiagramPoint lastPoint = lineDiagramData.getLastPoint(diagramName, LINE_OFFSET);
-            edge.getPoints().get(edge.getPoints().size() - 1).setX(lastPoint.getX());
-            edge.getPoints().get(edge.getPoints().size() - 1).setY(lastPoint.getY());
+            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setX(lastPoint.getX());
+            edge.getSnakeLine().get(edge.getSnakeLine().size() - 1).setY(lastPoint.getY());
         }
     }
 
     private void shiftLineCoordinates(LineEdge edge, double scaleFactor) {
         Point shift = new Point(-minX + (X_MARGIN / scaleFactor), -minY + (Y_MARGIN / scaleFactor));
-        edge.getPoints().forEach(p -> p.shift(shift));
+        edge.getSnakeLine().forEach(p -> p.shift(shift));
     }
 
     private void scaleLineCoordinates(LineEdge edge, double scaleFactor) {
-        edge.getPoints().forEach(p -> p.scale(scaleFactor));
+        edge.getSnakeLine().forEach(p -> p.scale(scaleFactor));
     }
 
 }

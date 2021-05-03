@@ -243,7 +243,7 @@ public class CgmesZoneLayoutTest {
         assertEquals(LINE_ID, linEdge.getLineId());
         assertEquals(LINE_ID + "_" + Side.ONE, linEdge.getNode1().getId());
         assertEquals(LINE_ID + "_" + Side.TWO, linEdge.getNode2().getId());
-        List<Point> points = linEdge.getPoints();
+        List<Point> points = linEdge.getSnakeLine();
         assertEquals(4, points.size());
         checkLinePointCoordinates(points.get(0), 180, 30);
         checkLinePointCoordinates(points.get(1), 200, 30);

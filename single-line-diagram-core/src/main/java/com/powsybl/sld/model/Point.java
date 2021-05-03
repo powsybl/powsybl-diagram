@@ -44,13 +44,6 @@ public class Point {
         this.y = y;
     }
 
-    void writeJson(JsonGenerator generator) throws IOException {
-        generator.writeStartObject();
-        generator.writeNumberField("x", x);
-        generator.writeNumberField("y", y);
-        generator.writeEndObject();
-    }
-
     public static List<Point> createPointsList(double... coordinates) {
         if (coordinates.length % 2 == 1) {
             throw new AssertionError("The number of coordinates given must be even");
