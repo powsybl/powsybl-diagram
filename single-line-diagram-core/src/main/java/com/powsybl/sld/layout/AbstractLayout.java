@@ -189,10 +189,9 @@ public abstract class AbstractLayout {
     protected List<List<Point>> splitPolyline2(List<Point> points, Node multiNode) {
         int iMiddle0 = points.size() / 2 - 1;
         int iMiddle1 = points.size() / 2;
-        Point pointSplit =  points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
 
-        multiNode.setX(pointSplit.getX(), false);
-        multiNode.setY(pointSplit.getY(), false);
+        Point pointSplit =  points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
+        multiNode.setCoordinates(pointSplit, false);
 
         List<Point> part1 = new ArrayList<>(points.subList(0, iMiddle1));
         part1.add(pointSplit);
@@ -216,8 +215,7 @@ public abstract class AbstractLayout {
 
         // the fictitious node point is the last point of the first polyline
         Point fictitiousNodePoint = part1.get(part1.size() - 1);
-        coord.setX(fictitiousNodePoint.getX(), false);
-        coord.setY(fictitiousNodePoint.getY(), false);
+        coord.setCoordinates(fictitiousNodePoint, false);
 
         return Arrays.asList(part1, part2, part3);
     }

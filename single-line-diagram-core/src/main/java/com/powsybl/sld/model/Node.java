@@ -166,6 +166,14 @@ public class Node implements BaseNode {
         return position;
     }
 
+    public void setCoordinates(Point coord) {
+        setCoordinates(coord, true);
+    }
+
+    public void setCoordinates(Point coord, boolean addGraph) {
+        position.setCoordinates(addGraph ? coord.getShiftedPoint(graph.getCoord()) : coord);
+    }
+
     public double getX() {
         return position.getX();
     }
