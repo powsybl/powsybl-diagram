@@ -190,14 +190,14 @@ public abstract class AbstractLayout {
         int iMiddle0 = points.size() / 2 - 1;
         int iMiddle1 = points.size() / 2;
 
-        Point pointSplit =  points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
+        Point pointSplit = points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
         multiNode.setCoordinates(pointSplit, false);
 
         List<Point> part1 = new ArrayList<>(points.subList(0, iMiddle1));
-        part1.add(pointSplit);
+        part1.add(new Point(pointSplit));
 
         List<Point> part2 = new ArrayList<>();
-        part2.add(pointSplit);
+        part2.add(new Point(pointSplit));
         part2.addAll(points.subList(iMiddle1, points.size()));
 
         return Arrays.asList(part1, part2);
@@ -208,14 +208,14 @@ public abstract class AbstractLayout {
         List<Point> part1 = new ArrayList<>(points1.subList(0, points1.size() - 1));
 
         // for the second new edge, we keep the last two points of the original first polyline
-        List<Point> part2 = new ArrayList<>(points1.subList(points1.size() - 2, points1.size()));
+        // we need to create a new point to avoid having a point shared between part1 and part2
+        List<Point> part2 = Arrays.asList(new Point(points1.get(points1.size() - 2)), points1.get(points1.size() - 1));
 
         // the third new edge is made with the original second polyline, except the first point
         List<Point> part3 = new ArrayList<>(points2.subList(1, points2.size()));
 
-        // the fictitious node point is the last point of the first polyline
-        Point fictitiousNodePoint = part1.get(part1.size() - 1);
-        coord.setCoordinates(fictitiousNodePoint, false);
+        // the fictitious node point is the second to last point of the original first polyline (or the second of the original seond polyline)
+        coord.setCoordinates(points2.get(1), false);
 
         return Arrays.asList(part1, part2, part3);
     }
