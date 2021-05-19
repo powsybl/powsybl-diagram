@@ -421,11 +421,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     .forEach(n2 -> {
                         removeEdge(n1, n2);
                         SwitchNode fSwToBus1 = SwitchNode.createFictitious(this, n1.getId() + "fSwitch1", false);
-                        InternalNode internalNode = new InternalNode(this, "internal" + n1.getId() + n2.getId());
+                        InternalNode internalNode1 = new InternalNode(this, n1.getId() + "fNode1");
+                        InternalNode internalNode2 = new InternalNode(this, n2.getId() + "fNode2");
                         SwitchNode fSwToBus2 = SwitchNode.createFictitious(this, n2.getId() + "fSwitch2", false);
                         addEdge(n1, fSwToBus1);
-                        addEdge(internalNode, fSwToBus1);
-                        addEdge(internalNode, fSwToBus2);
+                        addEdge(fSwToBus1, internalNode1);
+                        addEdge(internalNode1, internalNode2);
+                        addEdge(internalNode2, fSwToBus2);
                         addEdge(n2, fSwToBus2);
                     });
         }
