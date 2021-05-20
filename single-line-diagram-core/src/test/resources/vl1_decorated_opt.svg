@@ -30,17 +30,13 @@ polyline {fill: none}
 .sld-arrow-q {fill:blue}
 .sld-label {font: 8px "Verdana"}
 .sld-graph-label {font: 12px "Verdana"}
-.flash {
-    stroke: black;
-    stroke-width: 1;
-    fill: #efcb09;
-    fill-opacity: 1;
-}
-
-.lock {
+.sld-flash {
     stroke: none;
-    fill: #ef9409;
-    fill-opacity: 1;
+    fill: black;
+}
+.sld-lock {
+    stroke: none;
+    fill: black;
 }
 
 ]]>
@@ -211,21 +207,21 @@ polyline {fill: none}
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d1" transform="translate(236.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
-            <g class="lock">
+            <g class="sld-lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
-            <g class="flash">
+            <g class="sld-flash">
                 <use href="#FLASH" transform="matrix(0.0,-1.0,1.0,0.0,0.0,-1.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
-            <g class="lock">
+            <g class="sld-lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>
@@ -236,14 +232,14 @@ polyline {fill: none}
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_bload1" transform="translate(50.0,240.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
-            <g class="flash">
+            <g class="sld-flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dload1" transform="translate(56.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
-            <g class="lock">
+            <g class="sld-lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>
@@ -255,14 +251,14 @@ polyline {fill: none}
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
-            <g class="flash">
+            <g class="sld-flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf1" transform="translate(96.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
-            <g class="lock">
+            <g class="sld-lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>
@@ -280,14 +276,14 @@ polyline {fill: none}
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
-            <g class="flash">
+            <g class="sld-flash">
                 <use href="#FLASH" transform="translate(21.0,0.0)"/>
             </g>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf2" transform="translate(416.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
-            <g class="lock">
+            <g class="sld-lock">
                 <use href="#LOCK" transform="translate(9.0,0.0)"/>
             </g>
         </g>

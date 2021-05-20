@@ -41,7 +41,7 @@ public class TestNodeDecorators extends AbstractTestCaseIidm {
 
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("/ConvergenceLibrary", "/NodeDecoratorsLibrary");
+        return new ResourcesComponentLibrary("/ConvergenceLibrary");
     }
 
     @Before

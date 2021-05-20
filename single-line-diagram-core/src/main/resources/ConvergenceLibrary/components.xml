@@ -231,4 +231,26 @@
             <styleClass>sld-busbar-section</styleClass>
         </metadata>
     </component>
+    <component>
+        <metadata type="FLASH">
+            <size width="10" height="15"/>
+            <styleClass>sld-flash</styleClass>
+            <subComponent name="FLASH">
+                <fileName>flash.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="LOCK">
+            <size width="12" height="12"/>
+            <styleClass>sld-lock</styleClass>
+            <subComponent name="LOCK">
+                <fileName>lock.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
 </components>
