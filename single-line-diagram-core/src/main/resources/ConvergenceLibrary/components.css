@@ -11,8 +11,10 @@
 .sld-flash {
     stroke: none;
     fill: black;
+    transform-origin: center;
 }
 .sld-lock {
     stroke: none;
     fill: black;
+    transform-origin: center;
 }

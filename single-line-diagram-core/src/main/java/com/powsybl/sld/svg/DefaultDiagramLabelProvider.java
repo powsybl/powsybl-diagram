@@ -131,7 +131,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             switch (feederType) {
                 case BRANCH:
                 case TWO_WINDINGS_TRANSFORMER_LEG:
-                    return getBranchNodeDecorators(node);
+                    return getBranchNodeDecorators(node, (BranchStatus) network.getBranch(node.getEquipmentId()).getExtension(BranchStatus.class));
+                case THREE_WINDINGS_TRANSFORMER_LEG:
+                    return getBranchNodeDecorators(node, network.getThreeWindingsTransformer(node.getEquipmentId()).getExtension(BranchStatus.class));
                 default:
                     break;
             }
@@ -140,11 +142,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new ArrayList<>();
     }
 
-    public List<NodeDecorator> getBranchNodeDecorators(Node node) {
+    public List<NodeDecorator> getBranchNodeDecorators(Node node, BranchStatus branchStatus) {
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
 
-        Branch branch = network.getBranch(node.getEquipmentId());
-        BranchStatus branchStatus = (BranchStatus) branch.getExtension(BranchStatus.class);
         if (branchStatus != null) {
             switch (branchStatus.getStatus()) {
                 case PLANNED_OUTAGE:
