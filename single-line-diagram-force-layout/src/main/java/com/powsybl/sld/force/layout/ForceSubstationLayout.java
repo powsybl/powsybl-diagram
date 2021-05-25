@@ -8,13 +8,8 @@ package com.powsybl.sld.force.layout;
 
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
-import org.gephi.graph.api.GraphModel;
-import org.gephi.graph.api.UndirectedGraph;
-import org.gephi.graph.impl.EdgeImpl;
-import org.gephi.graph.impl.GraphModelImpl;
-import org.gephi.graph.impl.NodeImpl;
-import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
-import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.Pseudograph;
 
 import java.util.*;
 import java.util.function.Function;
@@ -77,53 +72,58 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         this.compactionType = compactionType;
     }
 
-    @Override
-    public void run(LayoutParameters layoutParameters) {
-        // Creating the graph model for the ForceLayout algorithm
-        GraphModel graphModel = new GraphModelImpl();
-        UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
-        for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
-            NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
-            n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
-            undirectedGraph.addNode(n);
+    // Move this function in the SubstationGraph class
+    private Graph<Point, Spring> toJgrapht(SubstationGraph graph) {
+        Graph<Point, Spring> pseudograph = new Pseudograph<>(Spring.class);
+
+        // Create nodes
+        for (VoltageLevelGraph voltageLevelGraph : graph.getNodes()) {
+            String id = voltageLevelGraph.getVoltageLevelInfos().getId();
+            Point point = new Point(id, random.nextDouble() * 1000, random.nextDouble() * 1000);
+            pseudograph.addVertex(point);
         }
 
-        for (Node multiNode : getGraph().getMultiTermNodes()) {
+        // Create edges
+        for (Node multiNode : graph.getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
-            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(0).getGraph().getVoltageLevelInfos().getId());
-            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(1).getGraph().getVoltageLevelInfos().getId());
-            undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(0).toString() + "_" + adjacentEdges.get(1).toString(), node1, node2, 0, 1, false));
+
+            Point point1 = getPointAtIndex(pseudograph, adjacentNodes, 0);
+            Point point2 = getPointAtIndex(pseudograph, adjacentNodes, 1);
+            pseudograph.addEdge(point1, point2);
 
             if (adjacentNodes.size() == 3) {
-                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(2).getGraph().getVoltageLevelInfos().getId());
-                undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(1).toString() + "_" + adjacentEdges.get(2).toString(), node2, node3, 0, 1, false));
+                Point point3 = getPointAtIndex(pseudograph, adjacentNodes, 2);
+                pseudograph.addEdge(point2, point3);
             }
         }
 
-        // Creating the ForceAtlas and run the algorithm
-        ForceAtlas2 forceAtlas2 = new ForceAtlas2Builder().buildLayout();
-        forceAtlas2.setGraphModel(graphModel);
-        forceAtlas2.resetPropertiesValues();
-        forceAtlas2.setAdjustSizes(true);
-        forceAtlas2.setOutboundAttractionDistribution(false);
-        forceAtlas2.setEdgeWeightInfluence(1.5d);
-        forceAtlas2.setGravity(10d);
-        forceAtlas2.setJitterTolerance(.02);
-        forceAtlas2.setScalingRatio(15.0);
-        forceAtlas2.initAlgo();
-        int maxSteps = 1000;
+        return pseudograph;
+    }
 
-        for (int i = 0; i < maxSteps && forceAtlas2.canAlgo(); i++) {
-            forceAtlas2.goAlgo();
-        }
-        forceAtlas2.endAlgo();
+    private Point getPointAtIndex(Graph<Point, Spring> graph, List<Node> adjacentNodes, int index)  {
+        String adjacentNodeId1 = adjacentNodes.get(index).getGraph().getVoltageLevelInfos().getId();
+        return (Point) graph.vertexSet().stream().filter(p -> p.getId().equals(adjacentNodeId1)).findAny().get();
+    }
 
-        // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
+    @Override
+    public void run(LayoutParameters layoutParameters) {
+        // TODO: rename point and string?
+        //  that is not really clear that points are nodes and springs are edge
+        //  but it avoid conflicts with already existing node and edge classes
+        // Creating the graph for the force layout algorithm
+        Graph<Point, Spring> graph = this.toJgrapht(getGraph());
+
+        // Executing force layout algorithm
+        ForceLayout forceLayout = new ForceLayout();
+        forceLayout.execute(graph, 15000);
+
+        // Memorizing the voltage levels coordinates calculated by the force layout algorithm
         Map<VoltageLevelGraph, Coord> coordsVoltageLevels = new HashMap<>();
         for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
-            org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
-            coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
+            String id = voltageLevelGraph.getVoltageLevelInfos().getId();
+            Point point = graph.vertexSet().stream().filter(p -> p.getId().equals(id)).findAny().get();
+            Vector position = point.getPosition();
+            coordsVoltageLevels.put(voltageLevelGraph, new Coord(position.getX(), position.getY()));
         }
 
         // Creating and applying the voltage levels layout with these coordinates
