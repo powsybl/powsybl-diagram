@@ -478,10 +478,12 @@ public class DefaultSVGWriter implements SVGWriter {
                 incorporateComponents(prefixId, node, g, styleProvider);
             }
 
-            if (!node.isFictitious()) {
+            if (!node.isFictitious() || node.getClass() == Middle3WTNode.class) {
                 drawNodeLabel(prefixId, g, node, initProvider);
-                drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
             }
+
+            drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
+
             root.appendChild(g);
 
             BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
