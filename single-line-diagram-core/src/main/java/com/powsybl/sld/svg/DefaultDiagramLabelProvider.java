@@ -27,6 +27,7 @@ import static com.powsybl.sld.model.Node.NodeType.FEEDER;
 public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
+    private static final double DECORATOR_OFFSET = 5d;
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
@@ -175,31 +176,24 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     private LabelPosition getFeederDecoratorPosition(Node node, String componentType) {
-        BusCell.Direction direction = node.getCell() != null
-                ? ((BusCell) node.getCell()).getDirection()
-                : BusCell.Direction.UNDEFINED;
-        double yShift = -LABEL_OFFSET;
+        double yShift = -DECORATOR_OFFSET;
         String positionName = "";
         if (node.getCell() != null) {
-            yShift = direction == BusCell.Direction.TOP
-                    ? AbstractBlock.getFeederSpan(layoutParameters)
-                    : -AbstractBlock.getFeederSpan(layoutParameters);
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            yShift = -direction.toOrientation().progressionSign() * AbstractBlock.getFeederSpan(layoutParameters);
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
         }
 
         return new LabelPosition(node.getId() + "_" + positionName + "_DECORATOR",
-                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + LABEL_OFFSET), yShift, true, 0);
+                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
     private LabelPosition getMiddle3WTDecoratorPosition(Middle3WTNode node) {
-        BusCell.Direction direction = node.getCell() != null
-                ? ((BusCell) node.getCell()).getDirection()
-                : BusCell.Direction.UNDEFINED;
-        double yShift = -LABEL_OFFSET;
+        double yShift = -DECORATOR_OFFSET;
         String positionName = "";
         if (node.getCell() != null) {
-            yShift = componentLibrary.getSize(node.getComponentType()).getHeight() + LABEL_OFFSET;
-            yShift = direction == BusCell.Direction.TOP ? -yShift : yShift;
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() + DECORATOR_OFFSET);
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
         }
 

@@ -790,6 +790,11 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
+        List<String> svgNodeSubcomponentStyles = new ArrayList<>();
+        componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
+        if (!svgNodeSubcomponentStyles.isEmpty()) {
+            elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));
+        }
     }
 
     /**
@@ -810,15 +815,21 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
-        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
-        double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
-        if (decoratorPosition.isCentered()) {
-            dX -= decoratorSize.getWidth() / 2;
-            dY -= decoratorSize.getHeight() / 2;
+        String transform;
+        if (node.isRotated() && node.getType() == Node.NodeType.SWITCH) {
+            double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition, decoratorSize);
+            transform = transformMatrixToString(matrix, 4);
+        } else {
+            ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
+            double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
+            double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
+            if (decoratorPosition.isCentered()) {
+                dX -= decoratorSize.getWidth() / 2;
+                dY -= decoratorSize.getHeight() / 2;
+            }
+            transform = TRANSLATE + "(" + dX + "," + dY + ")";
         }
-
-        return TRANSLATE + "(" + dX + "," + dY + ")";
+        return transform;
     }
 
     protected void transformComponent(Node node, Element g) {
