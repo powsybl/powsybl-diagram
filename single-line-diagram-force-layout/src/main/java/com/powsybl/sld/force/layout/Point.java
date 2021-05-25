@@ -3,9 +3,9 @@ package com.powsybl.sld.force.layout;
 public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
-    private String id;
+    private final String id;
+    private final double mass;
     private Vector position;
-    private double mass;
     private Vector velocity;
     private Vector acceleration;
 

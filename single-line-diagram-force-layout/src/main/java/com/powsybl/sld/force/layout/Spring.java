@@ -6,8 +6,8 @@ public class Spring extends DefaultEdge {
     private static final double DEFAULT_LENGTH = 1.0;
     private static final double DEFAULT_STIFFNESS = 400.0;
 
-    private double length;
-    private double stiffness;
+    private final double length;
+    private final double stiffness;
 
     public Spring() {
         super();

@@ -24,7 +24,7 @@ public class ForceLayout {
         maxSpeed = DEFAULT_MAX_SPEED;
     }
 
-    // TODO: make graph’s node and edge generics ?
+    // TODO: make graph’s node and edge generics?
     public void execute(Graph<Point, Spring> graph, int maxSteps) {
         double deltaTime = 0.01;
         int iterationCounter = 0;
@@ -55,12 +55,12 @@ public class ForceLayout {
             for (Point otherNode : nodes) {
                 if (!node.equals(otherNode)) {
                     Vector distance = node.getPosition().subtract(otherNode.getPosition());
-                    double magnitude = distance.magnitude() + 0.1; // avoid massive forces at small distances (and divide by zero) // TODO: remove magic number
+                    double magnitude = distance.magnitude() + 0.1; // avoid massive forces at small distances (and divide by zero) // TODO: remove magic number?
                     Vector direction = distance.normalize();
 
                     Vector force = direction.multiply(this.repulsion).divide(magnitude * magnitude * 0.5);
                     node.applyForce(force);
-                    otherNode.applyForce(force.multiply(-1)); // TODO: be sure that is the same to apply the * -1 here than in the force calcul
+                    otherNode.applyForce(force.multiply(-1));
                 }
             }
         }
@@ -72,7 +72,7 @@ public class ForceLayout {
             double displacement = edge.getLength() - distance.magnitude();
             Vector direction = distance.normalize();
 
-            Vector force = direction.multiply(edge.getStiffness() * displacement * 0.5); // TODO: remove magic number
+            Vector force = direction.multiply(edge.getStiffness() * displacement * 0.5); // TODO: remove magic number?
             edge.getNode1().applyForce(force.multiply(-1));
             edge.getNode2().applyForce(force);
         }
@@ -82,7 +82,7 @@ public class ForceLayout {
         for (Point node : graph.vertexSet()) {
             Vector direction = node.getPosition().multiply(-1);
 
-            node.applyForce(direction.multiply(this.repulsion / 50.0)); // TODO : remove magic number
+            node.applyForce(direction.multiply(this.repulsion / 50.0)); // TODO: remove magic number?
         }
     }
 
