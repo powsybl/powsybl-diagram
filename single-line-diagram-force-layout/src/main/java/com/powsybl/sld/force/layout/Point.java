@@ -1,7 +1,7 @@
 package com.powsybl.sld.force.layout;
 
 public class Point {
-    private final static double DEFAULT_MASS = 1.0;
+    private static final double DEFAULT_MASS = 1.0;
 
     private String id;
     private Vector position;

@@ -1,10 +1,14 @@
 package com.powsybl.sld.force.layout;
 
 import org.jgrapht.Graph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
 public class ForceLayout {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
+
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
@@ -26,7 +30,7 @@ public class ForceLayout {
         int iterationCounter = 0;
         boolean isStopped = false;
 
-        while(!isStopped) {
+        while (!isStopped) {
             this.applyCoulombsLaw(graph);
             this.applyHookesLaw(graph);
             this.attractToCenter(graph);
@@ -42,13 +46,13 @@ public class ForceLayout {
             }
         }
 
-        System.out.println("Number of steps: " + iterationCounter);
+        LOGGER.info("Number of steps: {}", iterationCounter);
     }
 
     private void applyCoulombsLaw(Graph<Point, Spring> graph) {
         Set<Point> nodes = graph.vertexSet();
-        for (Point node: nodes) {
-            for (Point otherNode: nodes) {
+        for (Point node : nodes) {
+            for (Point otherNode : nodes) {
                 if (!node.equals(otherNode)) {
                     Vector distance = node.getPosition().subtract(otherNode.getPosition());
                     double magnitude = distance.magnitude() + 0.1; // avoid massive forces at small distances (and divide by zero) // TODO: remove magic number

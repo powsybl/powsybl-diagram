@@ -6,7 +6,7 @@ public class Vector {
     private double x;
     private double y;
 
-    public Vector() {}
+    public Vector() { }
 
     public Vector(double x, double y) {
         this.x = x;
@@ -47,8 +47,12 @@ public class Vector {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Vector vector = (Vector) o;
         return x == vector.x && y == vector.y;
     }
