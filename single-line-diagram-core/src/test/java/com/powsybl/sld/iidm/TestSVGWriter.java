@@ -15,7 +15,9 @@ import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -678,6 +680,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 }
                 return initialValue;
             }
+
+            @Override
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+                return new ArrayList<>();
+            }
         };
 
         // no feeder value provider example for the test :
@@ -694,6 +701,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 return initialValue;
             }
 
+            @Override
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+                return new ArrayList<>();
+            }
         };
     }
 

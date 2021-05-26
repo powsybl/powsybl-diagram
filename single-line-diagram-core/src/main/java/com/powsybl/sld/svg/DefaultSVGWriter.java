@@ -478,10 +478,11 @@ public class DefaultSVGWriter implements SVGWriter {
                 incorporateComponents(prefixId, node, g, styleProvider);
             }
 
-            if (!node.isFictitious()) {
+            if (!node.isFictitious() || node instanceof Middle3WTNode) {
                 drawNodeLabel(prefixId, g, node, initProvider);
                 drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
             }
+
             root.appendChild(g);
 
             BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
@@ -814,7 +815,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
         String transform;
-        if (node.isRotated()) {
+        if (node.isRotated() && node.getType() == Node.NodeType.SWITCH) {
             double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition, decoratorSize);
             transform = transformMatrixToString(matrix, 4);
         } else {
