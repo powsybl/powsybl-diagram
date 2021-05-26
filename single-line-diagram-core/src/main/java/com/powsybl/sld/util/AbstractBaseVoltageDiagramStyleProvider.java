@@ -136,31 +136,28 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         List<String> styles = new ArrayList<>();
 
         VoltageLevelGraph g = node.getGraph();
-        boolean node2WT = (g != null && node instanceof Feeder2WTNode) || (g == null && node instanceof Middle2WTNode);
-        boolean node3WT = node instanceof Middle3WTNode;
-        if (node2WT || node3WT) {
-            if (g != null) {
-                // node inside a voltageLevel graph
-                VoltageLevelInfos currentVoltageLevel = g.getVoltageLevelInfos();
-                VoltageLevelInfos vlInfo;
-                if (node2WT) {
-                    vlInfo = subComponentName.equals(WINDING1) ? currentVoltageLevel : ((Feeder2WTNode) node).getOtherSideVoltageLevelInfos();
-                } else {
-                    vlInfo = get3WTNodeVoltageLevelInfos((Middle3WTNode) node, subComponentName, currentVoltageLevel.getId());
-                }
+        if (g != null) {
+            // node inside a voltageLevel graph
+            VoltageLevelInfos vlInfo = null;
+            if (node instanceof Feeder2WTNode) {
+                vlInfo = getWindingVoltageLevelInfos((Feeder2WTNode) node, subComponentName);
+            } else if (node instanceof Middle3WTNode) {
+                vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName, g.getVoltageLevelInfos().getId());
+            }
+            if (vlInfo != null) {
                 getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
+            }
 
-            } else {
-                // node outside any voltageLevel graph (multi-terminal node)
-                List<Node> adjacentNodes = node.getAdjacentNodes();
-                Node windingNode;
-                if (node2WT) {
-                    windingNode = getMultiTerminal2WTWindingNode(node, subComponentName, adjacentNodes);
-                } else {
-                    windingNode = getMultiTerminal3WTWindingNode(node, subComponentName, adjacentNodes);
-                }
-                VoltageLevelInfos vlInfo = windingNode.getVoltageLevelInfos();
-                getVoltageLevelNodeStyle(vlInfo, windingNode).ifPresent(styles::add);
+        } else {
+            // node outside any voltageLevel graph (multi-terminal node)
+            Node windingNode = null;
+            if (node instanceof Middle2WTNode) {
+                windingNode = getWindingNode((Middle2WTNode) node, subComponentName);
+            } else if (node instanceof Middle3WTNode) {
+                windingNode = getWindingNode((Middle3WTNode) node, subComponentName);
+            }
+            if (windingNode != null) {
+                getVoltageLevelNodeStyle(windingNode.getVoltageLevelInfos(), windingNode).ifPresent(styles::add);
             }
         }
 
@@ -178,7 +175,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
     }
 
-    private Node getMultiTerminal3WTWindingNode(Node node, String subComponentName, List<Node> adjacentNodes) {
+    private Node getWindingNode(Middle3WTNode node, String subComponentName) {
+        List<Node> adjacentNodes = node.getAdjacentNodes();
         adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         Node n1 = adjacentNodes.get(0);
         Node n2 = adjacentNodes.get(1);
@@ -201,7 +199,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return n;
     }
 
-    private Node getMultiTerminal2WTWindingNode(Node node, String subComponentName, List<Node> adjacentNodes) {
+    private Node getWindingNode(Middle2WTNode node, String subComponentName) {
+        List<Node> adjacentNodes = node.getAdjacentNodes();
         adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
@@ -234,12 +233,22 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
         return nodeWinding;
     }
 
-    private VoltageLevelInfos get3WTNodeVoltageLevelInfos(Middle3WTNode node, String subComponentName, String vlId) {
+    private VoltageLevelInfos getWindingVoltageLevelInfos(Feeder2WTNode node, String subComponentName) {
+        if (subComponentName.equals(WINDING1)) {
+            return node.getVoltageLevelInfos();
+        } else if (subComponentName.equals(WINDING2)) {
+            return node.getOtherSideVoltageLevelInfos();
+        } else {
+            return null;
+        }
+    }
+
+    private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName, String vlId) {
         VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
         VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
         VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
 
-        VoltageLevelInfos voltageLevelInfos = voltageLevelInfosLeg1;
+        VoltageLevelInfos voltageLevelInfos = null;
 
         // A three windings transformer is represented by 3 circles identified by winding1, winding2 and winding3
         // winding1 and winding2 are horizontally aligned and winding3 is displayed below the others
@@ -269,7 +278,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 // if voltage level displayed is the transformer leg3, winding2 corresponds to transformer leg2 or leg1, depending on whether a rotation occurred or not
                 voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg1;
             }
-        } else {
+        } else if (subComponentName.equals(WINDING3)) {
             // colorizing winding3 : this winding always correspond to the leg of the voltage level displayed
             if (voltageLevelInfosLeg1.getId().equals(vlId)) {
                 // if voltage level displayed is the transformer leg1, winding3 corresponds to this transformer leg
