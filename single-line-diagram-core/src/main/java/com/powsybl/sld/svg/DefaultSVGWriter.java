@@ -790,7 +790,7 @@ public class DefaultSVGWriter implements SVGWriter {
         ComponentSize decoratorSize = componentLibrary.getSize(nodeDecorator.getType());
         LabelPosition decoratorPosition = nodeDecorator.getPosition();
         elt.setAttribute(TRANSFORM, getTransformStringDecorator(node, decoratorPosition, decoratorSize));
-        List<String> svgNodeSubcomponentStyles = new ArrayList<>();
+        List<String> svgNodeSubcomponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponentName);
         componentLibrary.getSubComponentStyleClass(nodeDecorator.getType(), subComponentName).ifPresent(svgNodeSubcomponentStyles::add);
         if (!svgNodeSubcomponentStyles.isEmpty()) {
             elt.setAttribute(CLASS, String.join(" ", svgNodeSubcomponentStyles));

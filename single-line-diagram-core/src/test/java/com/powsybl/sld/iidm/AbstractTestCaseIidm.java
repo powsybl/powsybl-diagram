@@ -61,11 +61,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
-    private DiagramLabelProvider getDefaultDiagramLabelProvider() {
+    protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
         return new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
     }
 
-    private DiagramStyleProvider getDefaultDiagramStyleProvider() {
+    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
         return new DefaultDiagramStyleProvider();
     }
 
