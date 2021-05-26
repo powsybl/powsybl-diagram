@@ -7,10 +7,11 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.BlockOrganizer;
+import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
-import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,10 +36,19 @@ public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
 
     @Test
     public void testBranchStatusDecorators() {
-        // build substation graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph("S1", true);
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
 
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // detect cells
+        new ImplicitCellDetector().detectCells(g);
+
+        // build blocks
+        new BlockOrganizer().organize(g);
+
+        // calculate coordinates
+        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+
+        // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsBranchStatusBusBreaker.svg"),
             toSVG(g, "/NodeDecoratorsBranchStatusBusBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
