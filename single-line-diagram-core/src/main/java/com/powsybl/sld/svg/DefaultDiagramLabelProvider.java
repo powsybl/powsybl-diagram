@@ -138,14 +138,14 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                     addBranchStatusDecorator(nodeDecorators, node, network.getBranch(node.getEquipmentId()));
                     break;
                 case THREE_WINDINGS_TRANSFORMER_LEG:
-                    if (node.getAdjacentNodes().stream().noneMatch(n -> n.getClass() == Middle3WTNode.class)) {
+                    if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
                         addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
                     }
                     break;
                 default:
                     break;
             }
-        } else if (node.getClass() == Middle3WTNode.class) {
+        } else if (node instanceof Middle3WTNode) {
             Optional<Node> feederNode = node.getAdjacentNodes().stream().filter(n -> n.getType() == FEEDER).findFirst();
             feederNode.ifPresent(value -> addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(value.getEquipmentId())));
         }
@@ -170,7 +170,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     private NodeDecorator getBranchStatusDecorator(Node node, String decoratorType) {
-        return (node.getClass() == Middle3WTNode.class) ?
+        return (node instanceof Middle3WTNode) ?
                 new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node)) :
                 new NodeDecorator(decoratorType, getFeederDecoratorPosition(node, decoratorType));
     }
