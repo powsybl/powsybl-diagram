@@ -27,7 +27,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        network = CreateNetworksUtil.createBusBreakerNetworkWithBranchStatus("TestInternalBranchesBusBreaker", "test");
+        network = CreateNetworksUtil.createBusBreakerNetworkWithInternalBranches("TestInternalBranchesBusBreaker", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.getSubstation("S1");
     }
@@ -46,13 +46,9 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         // calculate coordinates
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
-        // write Json and compare to reference
-        assertEquals(toString("/InternalBranchesBusBreaker.json"), toJson(g, "/InternalBranchesBusBreaker.json"));
-
-        // write Svg and compare to reference
+        // write SVG and compare to reference
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
                 toSVG(g, "/InternalBranchesBusBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
-
     }
 
     @Test
