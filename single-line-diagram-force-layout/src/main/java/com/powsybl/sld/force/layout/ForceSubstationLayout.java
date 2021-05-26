@@ -72,7 +72,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         this.compactionType = compactionType;
     }
 
-    // Move this function in the SubstationGraph class
+    // TODO: move this function in the SubstationGraph class? It implies that the Substation class see the Point and Edge class which is a bit weird?
     private Graph<Point, Spring> toJgrapht(SubstationGraph graph) {
         Graph<Point, Spring> pseudograph = new Pseudograph<>(Spring.class);
 
@@ -110,6 +110,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         // TODO: rename point and string?
         //  that is not really clear that points are nodes and springs are edge
         //  but it avoid conflicts with already existing node and edge classes
+
         // Creating the graph for the force layout algorithm
         Graph<Point, Spring> graph = this.toJgrapht(getGraph());
 
