@@ -35,19 +35,6 @@ public class WireConnection {
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
 
-    /**
-     * Calculates the distance between two points.
-     *
-     * @param x1 x1
-     * @param y1 y1
-     * @param x2 x2
-     * @param y2 y2
-     * @return distance
-     */
-    private static double calculateDistancePoint(double x1, double y1, double x2, double y2) {
-        return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
-    }
-
     public static List<AnchorPoint> getAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node) {
         return anchorPointProvider.getAnchorPoints(node.getComponentType(), node.getId())
                 .stream()
