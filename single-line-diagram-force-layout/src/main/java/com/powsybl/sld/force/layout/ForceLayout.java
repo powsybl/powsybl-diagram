@@ -12,20 +12,49 @@ public class ForceLayout {
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
-    private static final double  MIN_ENERGY_THRESHOLD = 0.00001;
+    private static final double MIN_ENERGY_THRESHOLD = 0.1;
 
-    private final double repulsion;
-    private final double damping;
-    private final double maxSpeed;
+    private int maxSteps;
+    private double minEnergyThreshold;
+    private double repulsion;
+    private double damping;
+    private double maxSpeed;
 
     public ForceLayout() {
-        repulsion = DEFAULT_REPULSION;
-        damping = DEFAULT_DAMPING;
-        maxSpeed = DEFAULT_MAX_SPEED;
+        this.repulsion = DEFAULT_REPULSION;
+        this.damping = DEFAULT_DAMPING;
+        this.maxSpeed = DEFAULT_MAX_SPEED;
+    }
+
+    public ForceLayout(int maxSteps) {
+        this();
+        this.maxSteps = maxSteps;
+        this.minEnergyThreshold = MIN_ENERGY_THRESHOLD;
+    }
+
+    public ForceLayout(int maxSteps, double minEnergyThreshold) {
+        this();
+        this.maxSteps = maxSteps;
+        this.minEnergyThreshold = minEnergyThreshold;
+    }
+
+    public ForceLayout setRepulsion(double repulsion) {
+        this.repulsion = repulsion;
+        return this;
+    }
+
+    public ForceLayout setDamping(double damping) {
+        this.damping = damping;
+        return this;
+    }
+
+    public ForceLayout setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+        return this;
     }
 
     // TODO: make graph’s node and edge generics instead of point and spring type?
-    public void execute(Graph<Point, Spring> graph, int maxSteps) {
+    public void execute(Graph<Point, Spring> graph) {
         double deltaTime = 0.01;
         int iterationCounter = 0;
 
