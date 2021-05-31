@@ -13,6 +13,7 @@ public class ForceLayout {
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
     private static final double MIN_ENERGY_THRESHOLD = 0.1;
+    private static final int MAX_STEPS = 10000;
 
     private int maxSteps;
     private double minEnergyThreshold;
@@ -21,6 +22,8 @@ public class ForceLayout {
     private double maxSpeed;
 
     public ForceLayout() {
+        this.maxSteps = MAX_STEPS;
+        this.minEnergyThreshold = MIN_ENERGY_THRESHOLD;
         this.repulsion = DEFAULT_REPULSION;
         this.damping = DEFAULT_DAMPING;
         this.maxSpeed = DEFAULT_MAX_SPEED;
@@ -29,7 +32,6 @@ public class ForceLayout {
     public ForceLayout(int maxSteps) {
         this();
         this.maxSteps = maxSteps;
-        this.minEnergyThreshold = MIN_ENERGY_THRESHOLD;
     }
 
     public ForceLayout(int maxSteps, double minEnergyThreshold) {
