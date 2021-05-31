@@ -93,6 +93,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
             if (adjacentNodes.size() == 3) {
                 Point point3 = getPointAtIndex(pseudograph, adjacentNodes, 2);
+                pseudograph.addEdge(point1, point3);
                 pseudograph.addEdge(point2, point3);
             }
         }
