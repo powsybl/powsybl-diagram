@@ -1,5 +1,7 @@
 package com.powsybl.sld.force.layout;
 
+import java.io.PrintWriter;
+
 public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
@@ -51,5 +53,24 @@ public class Point {
 
     public void setAcceleration(Vector acceleration) {
         this.acceleration = acceleration;
+    }
+
+    public void printSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
+        Vector position = this.getPosition();
+        Vector screenPosition = canvas.toScreen(boundingBox, position);
+
+        int screenPositionX = (int) Math.round(screenPosition.getX());
+        int screenPositionY = (int) Math.round(screenPosition.getY());
+
+        printWriter.println("<g>");
+        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"20\" fill=\"purple\"/>%n",
+                screenPositionX,
+                screenPositionY);
+        printWriter.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" fill=\"purple\">%n",
+                screenPositionX,
+                screenPositionY - 25);
+        printWriter.println(id);
+        printWriter.println("</text>");
+        printWriter.println("</g>");
     }
 }

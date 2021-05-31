@@ -4,6 +4,10 @@ import org.jgrapht.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Set;
 
 public class ForceLayout {
@@ -12,7 +16,7 @@ public class ForceLayout {
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
-    private static final double MIN_ENERGY_THRESHOLD = 0.1;
+    private static final double MIN_ENERGY_THRESHOLD = 0.001;
     private static final int MAX_STEPS = 10000;
 
     private int maxSteps;
@@ -151,5 +155,59 @@ public class ForceLayout {
         }
 
         return energy;
+    }
+
+    public void renderToSVG(Graph<Point, Spring> graph, Canvas canvas) throws IOException {
+        File tmpFile = File.createTempFile("springy", ".html");
+
+        FileWriter fileWriter = new FileWriter(tmpFile);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+
+        printWriter.println("<!DOCTYPE html>");
+        printWriter.println("<html>");
+        printWriter.println("<body>");
+        printWriter.printf("<svg width=\"%d\" height=\"%d\">%n", canvas.getWidth(), canvas.getHeight());
+
+        BoundingBox boundingBox = computeBoundingBox(graph);
+
+        for (Point node : graph.vertexSet()) {
+            node.printSVG(printWriter, canvas, boundingBox);
+        }
+
+        for (Spring edge : graph.edgeSet()) {
+            edge.printSVG(printWriter, canvas, boundingBox);
+        }
+
+        printWriter.println("</svg>");
+        printWriter.println("</body>");
+        printWriter.println("</html>");
+
+        printWriter.close();
+        fileWriter.close();
+    }
+
+    private BoundingBox computeBoundingBox(Graph<Point, Spring> graph) {
+        Vector topRight = new Vector(2, 2);
+        Vector bottomLeft = new Vector(-2, -2);
+
+        for (Point node : graph.vertexSet()) {
+            Vector position = node.getPosition();
+            if (position.getX() < bottomLeft.getX())  {
+                bottomLeft.setX(position.getX());
+            }
+            if (position.getY() < bottomLeft.getY()) {
+                bottomLeft.setY(position.getY());
+            }
+            if (position.getX() > topRight.getX()) {
+                topRight.setX(position.getX());
+            }
+            if (position.getY() > topRight.getY()) {
+                topRight.setY(position.getY());
+            }
+        }
+
+        Vector padding = topRight.subtract(bottomLeft).multiply(0.07); // to give 5% of padding, can be removed if needed
+
+        return new BoundingBox(topRight.add(padding), bottomLeft.subtract(padding));
     }
 }
