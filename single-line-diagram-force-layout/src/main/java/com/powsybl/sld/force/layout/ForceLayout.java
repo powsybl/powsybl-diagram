@@ -16,7 +16,7 @@ public class ForceLayout {
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
-    private static final double MIN_ENERGY_THRESHOLD = 0.001;
+    private static final double MIN_ENERGY_THRESHOLD = 0.01;
     private static final int MAX_STEPS = 10000;
 
     private int maxSteps;
@@ -75,7 +75,7 @@ public class ForceLayout {
 
             iterationCounter = i;
 
-            if (this.totalEnergy(graph) <= this.minEnergyThreshold) {
+            if (this.isStable(graph)) {
                 break;
             }
         }
@@ -145,16 +145,19 @@ public class ForceLayout {
         }
     }
 
-    private double totalEnergy(Graph<Point, Spring> graph) {
+    private boolean isStable(Graph<Point, Spring> graph) {
         Set<Point> nodes = graph.vertexSet();
-        double energy = 0.0;
 
         for (Point node : nodes) {
             double speed = node.getVelocity().magnitude();
-            energy += 0.5 * node.getMass() * speed * speed;
+            double energy = 0.5 * node.getMass() * speed * speed;
+
+            if (energy > this.minEnergyThreshold) {
+                return false;
+            }
         }
 
-        return energy;
+        return true;
     }
 
     public void renderToSVG(Graph<Point, Spring> graph, Canvas canvas) throws IOException {
