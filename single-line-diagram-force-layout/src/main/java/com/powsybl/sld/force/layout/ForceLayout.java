@@ -29,6 +29,8 @@ public class ForceLayout {
         double deltaTime = 0.01;
         int iterationCounter = 0;
 
+        long start = System.nanoTime();
+
         for (int i = 0; i < this.maxSteps; i++) {
             this.applyCoulombsLaw(graph);
             this.applyHookesLaw(graph);
@@ -43,7 +45,10 @@ public class ForceLayout {
             }
         }
 
+        long elapsedTime = System.nanoTime() - start;
+
         LOGGER.info("Number of steps: {}", iterationCounter);
+        LOGGER.info("Elapsed time: {}", (double) elapsedTime / 1000000000);
     }
 
     private void applyCoulombsLaw(Graph<Point, Spring> graph) {
