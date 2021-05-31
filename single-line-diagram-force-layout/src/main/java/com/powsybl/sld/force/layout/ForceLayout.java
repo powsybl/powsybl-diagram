@@ -89,7 +89,7 @@ public class ForceLayout {
             node.setVelocity(velocity);
 
             if (node.getVelocity().magnitude() > this.maxSpeed) {
-                System.out.println("velocity is superior to max max speed");
+                LOGGER.debug("Velocity is superior to max speed");
                 velocity = node.getVelocity().normalize().multiply(this.maxSpeed);
                 node.setVelocity(velocity);
             }
