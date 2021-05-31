@@ -59,8 +59,6 @@
         <java.version>11</java.version>
 
         <slf4j.version>1.7.22</slf4j.version>
-        <gephi.version>0.9.2</gephi.version>
-        <openide.version>RELEASE90</openide.version><!-- gephi uses RELEASE82 but it's not available on central -->
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
@@ -117,62 +115,6 @@
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-
-            <!-- gephi and its weird transitive dependencies -->
-            <dependency>
-                <groupId>org.gephi</groupId>
-                <artifactId>layout-plugin</artifactId>
-                <version>${gephi.version}</version>
-                <exclusions>
-                    <!-- there is a license issue with itextpdf and we don't need it -->
-                    <exclusion>
-                        <groupId>com.itextpdf</groupId>
-                        <artifactId>itextpdf</artifactId>
-                    </exclusion>
-                    <!--
-                        This is available on maven central under a different groupId, reimported below.
-                        We already use stax-utils with the groupId from maven central in powsybl-core.
-                    -->
-                    <exclusion>
-                        <groupId>net.java.dev</groupId>
-                        <artifactId>stax-utils</artifactId>
-                    </exclusion>
-                    <!-- gephi uses v8.2 of netbeans API (unavailable on central), v9.0 reimported below -->
-                    <exclusion>
-                        <groupId>org.netbeans.api</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.netbeans.api</groupId>
-                <artifactId>org-openide-nodes</artifactId>
-                <version>${openide.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.netbeans.api</groupId>
-                <artifactId>org-openide-util</artifactId>
-                <version>${openide.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.netbeans.api</groupId>
-                <artifactId>org-openide-util-lookup</artifactId>
-                <version>${openide.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.netbeans.api</groupId>
-                <artifactId>org-openide-filesystems</artifactId>
-                <version>${openide.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-core</artifactId>
-            <version>1.5.1</version>
-        </dependency>
-    </dependencies>
-
 </project>
