@@ -13,35 +13,42 @@ import java.util.Set;
 public class ForceLayout {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
+    private static final int DEFAULT_MAX_STEPS = 2000;
+    private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
+    private static final double DEFAULT_DELTA_TIME = 0.05;
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
     private static final double DEFAULT_MAX_SPEED = Double.POSITIVE_INFINITY;
-    private static final double MIN_ENERGY_THRESHOLD = 0.01;
-    private static final int MAX_STEPS = 10000;
 
     private int maxSteps;
     private double minEnergyThreshold;
+    private double deltaTime;
     private double repulsion;
     private double damping;
     private double maxSpeed;
 
     public ForceLayout() {
-        this.maxSteps = MAX_STEPS;
-        this.minEnergyThreshold = MIN_ENERGY_THRESHOLD;
+        this.maxSteps = DEFAULT_MAX_STEPS;
+        this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
+        this.deltaTime = DEFAULT_DELTA_TIME;
         this.repulsion = DEFAULT_REPULSION;
         this.damping = DEFAULT_DAMPING;
         this.maxSpeed = DEFAULT_MAX_SPEED;
     }
 
-    public ForceLayout(int maxSteps) {
-        this();
+    public ForceLayout setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
+        return this;
     }
 
-    public ForceLayout(int maxSteps, double minEnergyThreshold) {
-        this();
-        this.maxSteps = maxSteps;
+    public ForceLayout setMinEnergyThreshold(double minEnergyThreshold) {
         this.minEnergyThreshold = minEnergyThreshold;
+        return this;
+    }
+
+    public ForceLayout setDeltaTime(double deltaTime) {
+        this.deltaTime = deltaTime;
+        return this;
     }
 
     public ForceLayout setRepulsion(double repulsion) {
@@ -61,7 +68,6 @@ public class ForceLayout {
 
     // TODO: make graph’s node and edge generics instead of point and spring type?
     public void execute(Graph<Point, Spring> graph) {
-        double deltaTime = 0.01;
         int iterationCounter = 0;
 
         long start = System.nanoTime();
@@ -70,8 +76,8 @@ public class ForceLayout {
             this.applyCoulombsLaw(graph);
             this.applyHookesLaw(graph);
             this.attractToCenter(graph);
-            this.updateVelocity(graph, deltaTime);
-            this.updatePosition(graph, deltaTime);
+            this.updateVelocity(graph);
+            this.updatePosition(graph);
 
             iterationCounter = i;
 
@@ -123,9 +129,9 @@ public class ForceLayout {
         }
     }
 
-    private void updateVelocity(Graph<Point, Spring> graph, double deltaTime) {
+    private void updateVelocity(Graph<Point, Spring> graph) {
         for (Point node : graph.vertexSet()) {
-            Vector velocity = node.getVelocity().add(node.getAcceleration().multiply(deltaTime)).multiply(this.damping);
+            Vector velocity = node.getVelocity().add(node.getAcceleration().multiply(this.deltaTime)).multiply(this.damping);
             node.setVelocity(velocity);
 
             if (node.getVelocity().magnitude() > this.maxSpeed) {
@@ -138,9 +144,9 @@ public class ForceLayout {
         }
     }
 
-    private void updatePosition(Graph<Point, Spring> graph, double deltaTime) {
+    private void updatePosition(Graph<Point, Spring> graph) {
         for (Point node : graph.vertexSet()) {
-            Vector position = node.getPosition().add(node.getVelocity().multiply(deltaTime));
+            Vector position = node.getPosition().add(node.getVelocity().multiply(this.deltaTime));
             node.setPosition(position);
         }
     }
