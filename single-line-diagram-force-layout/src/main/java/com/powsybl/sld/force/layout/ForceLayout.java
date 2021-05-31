@@ -28,21 +28,18 @@ public class ForceLayout {
     public void execute(Graph<Point, Spring> graph, int maxSteps) {
         double deltaTime = 0.01;
         int iterationCounter = 0;
-        boolean isStopped = false;
 
-        while (!isStopped) {
+        for (int i = 0; i < this.maxSteps; i++) {
             this.applyCoulombsLaw(graph);
             this.applyHookesLaw(graph);
             this.attractToCenter(graph);
             this.updateVelocity(graph, deltaTime);
             this.updatePosition(graph, deltaTime);
 
-            iterationCounter++;
-            if (this.totalEnergy(graph) <= MIN_ENERGY_THRESHOLD) {
-                isStopped = true;
-            }
-            if (iterationCounter >= maxSteps) {
-                isStopped = true;
+            iterationCounter = i;
+
+            if (this.totalEnergy(graph) <= this.minEnergyThreshold) {
+                break;
             }
         }
 
