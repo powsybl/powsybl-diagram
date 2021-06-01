@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class ForceLayout<V, E extends Spring> {
+public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
     private final Random random = new Random();
@@ -30,7 +30,8 @@ public class ForceLayout<V, E extends Spring> {
     private double maxSpeed;
 
     private Graph<V, E> graph;
-    private Map<V, Point> points;
+    private Map<V, Point> points = new LinkedHashMap<>();
+    private Set<Spring> springs = new LinkedHashSet<>();
 
     public ForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
@@ -41,7 +42,6 @@ public class ForceLayout<V, E extends Spring> {
         this.maxSpeed = DEFAULT_MAX_SPEED;
 
         this.graph = graph;
-        this.points = new HashMap<>();
     }
 
     public ForceLayout<V, E> setMaxSteps(int maxSteps) {
@@ -80,29 +80,34 @@ public class ForceLayout<V, E extends Spring> {
     }
 
     // TODO: implement other initialisations methods
-    public ForceLayout<V, E> initializePoints() {
-        for (V vertex : this.graph.vertexSet()) {
-            // TODO: not sure vertex is unique anymore if the user override the equals method
-            //       maybe we should just use an id ?
-            this.points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
+    private void initializePoints() {
+        for (V vertex : graph.vertexSet()) {
+            points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
         }
+    }
 
-        return this;
+    private void initializeSprings() {
+        for (E e : graph.edgeSet()) {
+            Point pointSource = points.get(graph.getEdgeSource(e));
+            Point pointTarget = points.get(graph.getEdgeTarget(e));
+            springs.add(new Spring(pointSource, pointTarget));
+        }
     }
 
     public void execute() {
-        int iterationCounter = 0;
 
         long start = System.nanoTime();
 
-        for (int i = 0; i < this.maxSteps; i++) {
+        initializePoints();
+        initializeSprings();
+
+        int i;
+        for (i = 0; i < this.maxSteps; i++) {
             this.applyCoulombsLaw();
             this.applyHookesLaw();
             this.attractToCenter();
             this.updateVelocity();
             this.updatePosition();
-
-            iterationCounter = i;
 
             if (this.isStable()) {
                 break;
@@ -111,8 +116,8 @@ public class ForceLayout<V, E extends Spring> {
 
         long elapsedTime = System.nanoTime() - start;
 
-        LOGGER.info("Number of steps: {}", iterationCounter);
-        LOGGER.info("Elapsed time: {}", (double) elapsedTime / 1000000000);
+        LOGGER.info("Number of steps: {}", i);
+        LOGGER.info("Elapsed time: {}", (double) elapsedTime / 1e9);
     }
 
     private void applyCoulombsLaw() {
@@ -133,18 +138,15 @@ public class ForceLayout<V, E extends Spring> {
     }
 
     private void applyHookesLaw() {
-        for (E edge : this.graph.edgeSet()) {
-            V vertex1 = (V) edge.getNode1();
-            V vertex2 = (V) edge.getNode2();
-
-            Point point1 = this.points.get(vertex1);
-            Point point2 = this.points.get(vertex2);
+        for (Spring spring : springs) {
+            Point point1 = spring.getNode1();
+            Point point2 = spring.getNode2();
 
             Vector distance = point2.getPosition().subtract(point1.getPosition());
-            double displacement = edge.getLength() - distance.magnitude();
+            double displacement = spring.getLength() - distance.magnitude();
             Vector direction = distance.normalize();
 
-            Vector force = direction.multiply(edge.getStiffness() * displacement * 0.5);
+            Vector force = direction.multiply(spring.getStiffness() * displacement * 0.5);
             point1.applyForce(force.multiply(-1));
             point2.applyForce(force);
         }
@@ -216,9 +218,8 @@ public class ForceLayout<V, E extends Spring> {
             point.printSVG(printWriter, canvas, boundingBox);
         }
 
-        // TODO: find a solution for edges
-        for (E edge : graph.edgeSet()) {
-            edge.printSVG(printWriter, canvas, boundingBox, this.points);
+        for (Spring spring : springs) {
+            spring.printSVG(printWriter, canvas, boundingBox);
         }
 
         printWriter.println("</svg>");

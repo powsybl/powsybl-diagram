@@ -109,7 +109,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         Graph<VoltageLevelGraph, Spring> graph = this.toJgrapht(getGraph());
 
         // Executing force layout algorithm
-        ForceLayout forceLayout = new ForceLayout(graph).initializePoints();
+        ForceLayout forceLayout = new ForceLayout(graph);
         forceLayout.execute();
 
         // Memorizing the voltage levels coordinates calculated by the force layout algorithm

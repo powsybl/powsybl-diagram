@@ -1,29 +1,30 @@
 package com.powsybl.sld.force.layout;
 
-import org.jgrapht.graph.DefaultEdge;
-
 import java.io.PrintWriter;
-import java.util.Map;
 
-public class Spring<V> extends DefaultEdge {
+public class Spring {
     private static final double DEFAULT_LENGTH = 1.0;
     private static final double DEFAULT_STIFFNESS = 400.0;
 
     private final double length;
     private final double stiffness;
+    private final Point source;
+    private final Point target;
 
-    public Spring() {
+    public Spring(Point source, Point target) {
         super();
+        this.source = source;
+        this.target = target;
         length = DEFAULT_LENGTH;
         stiffness = DEFAULT_STIFFNESS;
     }
 
-    public V getNode1() {
-        return (V) this.getSource();
+    public Point getNode1() {
+        return source;
     }
 
-    public V getNode2() {
-        return (V) this.getTarget();
+    public Point getNode2() {
+        return target;
     }
 
     public double getLength() {
@@ -34,12 +35,9 @@ public class Spring<V> extends DefaultEdge {
         return stiffness;
     }
 
-    public void printSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox, Map<V, Point> points) {
-        V vertex1 = this.getNode1();
-        V vertex2 = this.getNode2();
-
-        Vector position1 = points.get(vertex1).getPosition();
-        Vector position2 = points.get(vertex2).getPosition();
+    public void printSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
+        Vector position1 = target.getPosition();
+        Vector position2 = source.getPosition();
 
         Vector screenPosition1 = canvas.toScreen(boundingBox, position1);
         Vector screenPosition2 = canvas.toScreen(boundingBox, position2);
