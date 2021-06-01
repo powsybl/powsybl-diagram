@@ -239,8 +239,8 @@ public class CgmesZoneLayoutTest {
         checkNode(vlGraph21.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + LINE_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_21_ID,  LINE_ID + "_" + Side.TWO), -2, -12, false);
 
         assertEquals(1, graph.getLineEdges().size());
-        LineEdge linEdge = graph.getLineEdges().get(0);
-        assertEquals(LINE_ID, linEdge.getLineId());
+        BranchEdge linEdge = graph.getLineEdges().get(0);
+        assertEquals(LINE_ID, linEdge.getId());
         assertEquals(LINE_ID + "_" + Side.ONE, linEdge.getNode1().getId());
         assertEquals(LINE_ID + "_" + Side.TWO, linEdge.getNode2().getId());
         List<Point> points = linEdge.getSnakeLine();

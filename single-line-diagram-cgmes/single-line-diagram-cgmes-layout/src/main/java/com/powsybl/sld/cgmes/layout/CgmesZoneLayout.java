@@ -60,7 +60,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName);
         }
-        for (LineEdge edge : graph.getLineEdges()) {
+        for (BranchEdge edge : graph.getLineEdges()) {
             VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getGraph().getVoltageLevelInfos().getId());
             setLineCoordinates(vl, edge, diagramName);
         }
@@ -68,7 +68,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
-        for (LineEdge edge : graph.getLineEdges()) {
+        for (BranchEdge edge : graph.getLineEdges()) {
             shiftLineCoordinates(edge, layoutParam.getScaleFactor());
         }
         // scale coordinates
@@ -76,31 +76,33 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
             for (VoltageLevelGraph vlGraph : vlGraphs) {
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
-            for (LineEdge edge : graph.getLineEdges()) {
+            for (BranchEdge edge : graph.getLineEdges()) {
                 scaleLineCoordinates(edge, layoutParam.getScaleFactor());
             }
         }
     }
 
-    private void setLineCoordinates(VoltageLevel vl, LineEdge edge, String diagramName) {
-        Line line = vl.getConnectable(edge.getLineId(), Line.class);
+    private void setLineCoordinates(VoltageLevel vl, BranchEdge edge, String diagramName) {
+        Line line = vl.getConnectable(edge.getId(), Line.class);
         if (line == null) {
-            LOG.warn("No line {} in voltage level {}, skipping line edge", edge.getLineId(), edge.getLineId());
+            LOG.warn("No line {} in voltage level {}, skipping line edge", edge.getId(), edge.getId());
             return;
         }
         LineDiagramData<Line> lineDiagramData = line.getExtension(LineDiagramData.class);
         if (lineDiagramData == null) {
-            LOG.warn("No CGMES-DL data for line {} name {}, skipping line edge {}", line.getId(), line.getName(), edge.getLineId());
+            LOG.warn("No CGMES-DL data for line {} name {}, skipping line edge {}", line.getId(), line.getName(), edge.getId());
             return;
         }
         if (!lineDiagramData.getDiagramsNames().contains(diagramName)) {
-            LOG.warn("No CGMES-DL data for line {} name {}, diagramName {}, skipping line edge {}", line.getId(), line.getName(), diagramName, edge.getLineId());
+            LOG.warn("No CGMES-DL data for line {} name {}, diagramName {}, skipping line edge {}", line.getId(), line.getName(), diagramName, edge.getId());
             return;
         }
+        List<Point> snakeLine = edge.getSnakeLine();
         lineDiagramData.getPoints(diagramName).forEach(point -> {
-            edge.addPoint(point.getX(), point.getY());
+            snakeLine.add(new Point(point.getX(), point.getY()));
             setMin(point.getX(), point.getY());
         });
+
         if (TopologyKind.BUS_BREAKER.equals(line.getTerminal1().getVoltageLevel().getTopologyKind())) {
             // if bus breaker topology first and last point of lines are shifted
             DiagramPoint firstPoint = lineDiagramData.getFirstPoint(diagramName, LINE_OFFSET);
@@ -112,12 +114,12 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         }
     }
 
-    private void shiftLineCoordinates(LineEdge edge, double scaleFactor) {
+    private void shiftLineCoordinates(BranchEdge edge, double scaleFactor) {
         Point shift = new Point(-minX + (X_MARGIN / scaleFactor), -minY + (Y_MARGIN / scaleFactor));
         edge.getSnakeLine().forEach(p -> p.shift(shift));
     }
 
-    private void scaleLineCoordinates(LineEdge edge, double scaleFactor) {
+    private void scaleLineCoordinates(BranchEdge edge, double scaleFactor) {
         edge.getSnakeLine().forEach(p -> p.scale(scaleFactor));
     }
 

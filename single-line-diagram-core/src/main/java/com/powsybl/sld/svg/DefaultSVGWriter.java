@@ -652,8 +652,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
                 FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
                 List<Edge> edges = node.getAdjacentEdges();
-                List<Point> pol1 = ((TwtEdge) edges.get(0)).getSnakeLine();
-                List<Point> pol2 = ((TwtEdge) edges.get(1)).getSnakeLine();
+                List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
+                List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
                 if (!(pol1.isEmpty() || pol2.isEmpty())) {
                     // get points for the line supporting the svg component
                     double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
@@ -1088,8 +1088,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawSnakeLines(String prefixId, Element root, ZoneGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
-        for (LineEdge edge : graph.getLineEdges()) {
-            drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
+        for (BranchEdge edge : graph.getLineEdges()) {
+            drawSnakeLines(edge, prefixId, root, metadata, styleProvider, anchorPointProvider);
         }
     }
 
@@ -1099,19 +1099,20 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void drawSnakeLines(String prefixId, Element root, AbstractBaseGraph graph,
                                   GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                   AnchorPointProvider anchorPointProvider) {
-        for (LineEdge edge : graph.getLineEdges()) {
-            drawSnakeLines(edge, escapeId(prefixId + edge.getLineId()), root, metadata, styleProvider, anchorPointProvider);
+        for (BranchEdge edge : graph.getLineEdges()) {
+            drawSnakeLines(edge, prefixId, root, metadata, styleProvider, anchorPointProvider);
         }
 
-        for (TwtEdge edge : graph.getTwtEdges()) {
-            drawSnakeLines(edge, getWireId(prefixId, graph.getId(), edge), root, metadata, styleProvider, anchorPointProvider);
+        for (BranchEdge edge : graph.getTwtEdges()) {
+            drawSnakeLines(edge, prefixId, root, metadata, styleProvider, anchorPointProvider);
         }
     }
 
-    private void drawSnakeLines(AbstractBranchEdge edge, String wireId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider,
+    private void drawSnakeLines(BranchEdge edge, String prefixId, Element root, GraphMetadata metadata, DiagramStyleProvider styleProvider,
                                 AnchorPointProvider anchorPointProvider) {
         Element g = root.getOwnerDocument().createElement(GROUP);
-        g.setAttribute("id", wireId);
+        String snakeLineId = escapeId(prefixId + edge.getId());
+        g.setAttribute("id", snakeLineId);
         List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
         g.setAttribute(CLASS, String.join(" ", wireStyles));
         root.appendChild(g);
@@ -1126,7 +1127,7 @@ public class DefaultSVGWriter implements SVGWriter {
         polyline.setAttribute(POINTS, pointsListToString(pol));
         g.appendChild(polyline);
 
-        metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
+        metadata.addWireMetadata(new GraphMetadata.WireMetadata(snakeLineId,
                 escapeId(edge.getNode1().getId()),
                 escapeId(edge.getNode2().getId()),
                 layoutParameters.isDrawStraightWires(),
@@ -1137,7 +1138,7 @@ public class DefaultSVGWriter implements SVGWriter {
      * Adaptation of the previously calculated snakeLine points, in order to use the anchor points
      * if a node is outside any graph
      */
-    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, AbstractBranchEdge edge, List<Point> pol) {
+    private void adaptCoordSnakeLine(AnchorPointProvider anchorPointProvider, BranchEdge edge, List<Point> pol) {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 

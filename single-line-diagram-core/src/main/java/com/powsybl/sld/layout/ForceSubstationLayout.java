@@ -168,19 +168,19 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             if (adjacentNodes.size() == 2) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
-                ((TwtEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
-                ((TwtEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
+                ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
+                ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
             } else if (adjacentNodes.size() == 3) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), nbSnakeLinesTopBottom, nbSnakeLinesBetween);
                 List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
                 for (int i = 0; i < 3; i++) {
-                    ((TwtEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
+                    ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
                 }
             }
         }
 
-        for (LineEdge lineEdge : graph.getLineEdges()) {
+        for (BranchEdge lineEdge : graph.getLineEdges()) {
             List<Node> adjacentNodes = lineEdge.getNodes();
             lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), nbSnakeLinesTopBottom, nbSnakeLinesBetween));
         }
