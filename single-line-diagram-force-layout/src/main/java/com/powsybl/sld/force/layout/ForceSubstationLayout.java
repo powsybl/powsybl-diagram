@@ -23,7 +23,7 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  */
 public class ForceSubstationLayout extends AbstractSubstationLayout {
 
-    private final Random random = new Random();
+    // private final Random random = new Random();
     private ForceSubstationLayoutFactory.CompactionType compactionType;
 
     public static class ForceInfoCalcPoints extends InfoCalcPoints {
@@ -73,37 +73,30 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     // TODO: move this function in the SubstationGraph class? It implies that the Substation class see the Point and Edge class which is a bit weird?
-    private Graph<Point, Spring> toJgrapht(SubstationGraph graph) {
-        Graph<Point, Spring> pseudograph = new Pseudograph<>(Spring.class);
+    private Graph<VoltageLevelGraph, Spring> toJgrapht(SubstationGraph graph) {
+        Graph<VoltageLevelGraph, Spring> pseudograph = new Pseudograph<>(Spring.class);
 
         // Create nodes
         for (VoltageLevelGraph voltageLevelGraph : graph.getNodes()) {
-            String id = voltageLevelGraph.getVoltageLevelInfos().getId();
-            Point point = new Point(id, random.nextDouble() * 1000, random.nextDouble() * 1000);
-            pseudograph.addVertex(point);
+            pseudograph.addVertex(voltageLevelGraph);
         }
 
         // Create edges
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
 
-            Point point1 = getPointAtIndex(pseudograph, adjacentNodes, 0);
-            Point point2 = getPointAtIndex(pseudograph, adjacentNodes, 1);
-            pseudograph.addEdge(point1, point2);
+            VoltageLevelGraph voltageLevelGraph1 = adjacentNodes.get(0).getGraph();
+            VoltageLevelGraph voltageLevelGraph2 = adjacentNodes.get(1).getGraph();
+            pseudograph.addEdge(voltageLevelGraph1, voltageLevelGraph2);
 
             if (adjacentNodes.size() == 3) {
-                Point point3 = getPointAtIndex(pseudograph, adjacentNodes, 2);
-                pseudograph.addEdge(point1, point3);
-                pseudograph.addEdge(point2, point3);
+                VoltageLevelGraph voltageLevelGraph3 = adjacentNodes.get(2).getGraph();
+                pseudograph.addEdge(voltageLevelGraph1, voltageLevelGraph3);
+                pseudograph.addEdge(voltageLevelGraph2, voltageLevelGraph3);
             }
         }
 
         return pseudograph;
-    }
-
-    private Point getPointAtIndex(Graph<Point, Spring> graph, List<Node> adjacentNodes, int index)  {
-        String adjacentNodeId1 = adjacentNodes.get(index).getGraph().getVoltageLevelInfos().getId();
-        return (Point) graph.vertexSet().stream().filter(p -> p.getId().equals(adjacentNodeId1)).findAny().get();
     }
 
     @Override
@@ -113,18 +106,19 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         //  but it avoid conflicts with already existing node and edge classes
 
         // Creating the graph for the force layout algorithm
-        Graph<Point, Spring> graph = this.toJgrapht(getGraph());
+        Graph<VoltageLevelGraph, Spring> graph = this.toJgrapht(getGraph());
 
         // Executing force layout algorithm
-        ForceLayout forceLayout = new ForceLayout();
-        forceLayout.execute(graph);
+        ForceLayout forceLayout = new ForceLayout(graph).initializePoints();
+        forceLayout.execute();
 
         // Memorizing the voltage levels coordinates calculated by the force layout algorithm
         Map<VoltageLevelGraph, Coord> coordsVoltageLevels = new HashMap<>();
         for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
-            String id = voltageLevelGraph.getVoltageLevelInfos().getId();
-            Point point = graph.vertexSet().stream().filter(p -> p.getId().equals(id)).findAny().get();
-            Vector position = point.getPosition();
+            // String id = voltageLevelGraph.getVoltageLevelInfos().getId();
+            // Point point = graph.vertexSet().stream().filter(p -> p.getId().equals(id)).findAny().get();
+            // Vector position = point.getPosition();
+            Vector position = forceLayout.getStablePosition(voltageLevelGraph);
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(position.getX(), position.getY()));
         }
 

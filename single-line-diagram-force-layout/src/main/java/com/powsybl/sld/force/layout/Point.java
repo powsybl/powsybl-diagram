@@ -5,22 +5,26 @@ import java.io.PrintWriter;
 public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
-    private final String id;
-    private final double mass;
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
+    private double mass;
+    private String label;
 
-    public Point(String id, double x, double y) {
-        this.id = id;
+    public Point(double x, double y) {
         this.position = new Vector(x, y);
-        this.mass = DEFAULT_MASS;
         this.velocity = new Vector();
         this.acceleration = new Vector();
+        this.mass = DEFAULT_MASS;
     }
 
-    public String getId() {
-        return id;
+    public Point(double x, double y, String label) {
+        this(x, y);
+        this.label = label;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 
     public void applyForce(Vector force) {
@@ -66,11 +70,15 @@ public class Point {
         printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"20\" fill=\"purple\"/>%n",
                 screenPositionX,
                 screenPositionY);
-        printWriter.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" fill=\"purple\">%n",
-                screenPositionX,
-                screenPositionY - 25);
-        printWriter.println(id);
-        printWriter.println("</text>");
+
+        if (this.label != null && !this.label.isEmpty()) {
+            printWriter.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" fill=\"purple\">%n",
+                    screenPositionX,
+                    screenPositionY - 25);
+            printWriter.println(this.label);
+            printWriter.println("</text>");
+        }
+
         printWriter.println("</g>");
     }
 }

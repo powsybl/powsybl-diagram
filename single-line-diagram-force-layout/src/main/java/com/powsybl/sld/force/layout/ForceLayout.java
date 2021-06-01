@@ -8,10 +8,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
+import java.util.*;
 
-public class ForceLayout {
+public class ForceLayout<V, E extends Spring> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
+
+    private final Random random = new Random();
 
     private static final int DEFAULT_MAX_STEPS = 2000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
@@ -27,61 +29,82 @@ public class ForceLayout {
     private double damping;
     private double maxSpeed;
 
-    public ForceLayout() {
+    private Graph<V, E> graph;
+    private Map<V, Point> points;
+
+    public ForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
         this.minEnergyThreshold = DEFAULT_MIN_ENERGY_THRESHOLD;
         this.deltaTime = DEFAULT_DELTA_TIME;
         this.repulsion = DEFAULT_REPULSION;
         this.damping = DEFAULT_DAMPING;
         this.maxSpeed = DEFAULT_MAX_SPEED;
+
+        this.graph = graph;
+        this.points = new HashMap<>();
     }
 
-    public ForceLayout setMaxSteps(int maxSteps) {
+    public ForceLayout<V, E> setMaxSteps(int maxSteps) {
         this.maxSteps = maxSteps;
         return this;
     }
 
-    public ForceLayout setMinEnergyThreshold(double minEnergyThreshold) {
+    public ForceLayout<V, E> setMinEnergyThreshold(double minEnergyThreshold) {
         this.minEnergyThreshold = minEnergyThreshold;
         return this;
     }
 
-    public ForceLayout setDeltaTime(double deltaTime) {
+    public ForceLayout<V, E> setDeltaTime(double deltaTime) {
         this.deltaTime = deltaTime;
         return this;
     }
 
-    public ForceLayout setRepulsion(double repulsion) {
+    public ForceLayout<V, E> setRepulsion(double repulsion) {
         this.repulsion = repulsion;
         return this;
     }
 
-    public ForceLayout setDamping(double damping) {
+    public ForceLayout<V, E> setDamping(double damping) {
         this.damping = damping;
         return this;
     }
 
-    public ForceLayout setMaxSpeed(double maxSpeed) {
+    public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
         return this;
     }
 
-    // TODO: make graph’s node and edge generics instead of point and spring type?
-    public void execute(Graph<Point, Spring> graph) {
+    public ForceLayout<V, E> setInitialisationSeed(long seed) {
+        random.setSeed(seed);
+        return this;
+    }
+
+    // TODO: implement other initialisations methods
+    public ForceLayout<V, E> initializePoints() {
+        for (V vertex : this.graph.vertexSet()) {
+            // TODO: not sure vertex is unique anymore if the user override the equals method
+            //       maybe we should just use an id ?
+            this.points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
+        }
+
+        return this;
+    }
+
+    public void execute() {
         int iterationCounter = 0;
 
         long start = System.nanoTime();
 
         for (int i = 0; i < this.maxSteps; i++) {
-            this.applyCoulombsLaw(graph);
-            this.applyHookesLaw(graph);
-            this.attractToCenter(graph);
-            this.updateVelocity(graph);
-            this.updatePosition(graph);
+            this.applyCoulombsLaw();
+            this.applyHookesLaw();
+            this.attractToCenter();
+            this.updateVelocity();
+            this.updatePosition();
 
             iterationCounter = i;
 
-            if (this.isStable(graph)) {
+            if (this.isStable()) {
                 break;
             }
         }
@@ -92,71 +115,75 @@ public class ForceLayout {
         LOGGER.info("Elapsed time: {}", (double) elapsedTime / 1000000000);
     }
 
-    private void applyCoulombsLaw(Graph<Point, Spring> graph) {
-        Set<Point> nodes = graph.vertexSet();
-        for (Point node : nodes) {
-            for (Point otherNode : nodes) {
-                if (!node.equals(otherNode)) {
-                    Vector distance = node.getPosition().subtract(otherNode.getPosition());
-                    double magnitude = distance.magnitude() + 0.1; // avoid massive forces at small distances (and divide by zero)
+    private void applyCoulombsLaw() {
+        Collection<Point> points = this.points.values();
+        for (Point point : points) {
+            for (Point otherPoint : points) {
+                if (!point.equals(otherPoint)) {
+                    Vector distance = point.getPosition().subtract(otherPoint.getPosition());
+                    double magnitude = distance.magnitude() + 0.1;
                     Vector direction = distance.normalize();
 
                     Vector force = direction.multiply(this.repulsion).divide(magnitude * magnitude * 0.5);
-                    node.applyForce(force);
-                    otherNode.applyForce(force.multiply(-1));
+                    point.applyForce(force);
+                    otherPoint.applyForce(force.multiply(-1));
                 }
             }
         }
     }
 
-    private void applyHookesLaw(Graph<Point, Spring> graph) {
-        for (Spring edge : graph.edgeSet()) {
-            Vector distance = edge.getNode2().getPosition().subtract(edge.getNode1().getPosition());
+    private void applyHookesLaw() {
+        for (E edge : this.graph.edgeSet()) {
+            V vertex1 = (V) edge.getNode1();
+            V vertex2 = (V) edge.getNode2();
+
+            Point point1 = this.points.get(vertex1);
+            Point point2 = this.points.get(vertex2);
+
+            Vector distance = point2.getPosition().subtract(point1.getPosition());
             double displacement = edge.getLength() - distance.magnitude();
             Vector direction = distance.normalize();
 
             Vector force = direction.multiply(edge.getStiffness() * displacement * 0.5);
-            edge.getNode1().applyForce(force.multiply(-1));
-            edge.getNode2().applyForce(force);
+            point1.applyForce(force.multiply(-1));
+            point2.applyForce(force);
         }
     }
 
-    private void attractToCenter(Graph<Point, Spring> graph) {
-        for (Point node : graph.vertexSet()) {
-            Vector direction = node.getPosition().multiply(-1);
+    private void attractToCenter() {
+        for (Point point : this.points.values()) {
+            Vector direction = point.getPosition().multiply(-1);
 
-            node.applyForce(direction.multiply(this.repulsion / 50.0));
+            point.applyForce(direction.multiply(this.repulsion / 50.0));
         }
     }
 
-    private void updateVelocity(Graph<Point, Spring> graph) {
-        for (Point node : graph.vertexSet()) {
-            Vector velocity = node.getVelocity().add(node.getAcceleration().multiply(this.deltaTime)).multiply(this.damping);
-            node.setVelocity(velocity);
+    private void updateVelocity() {
+        for (Point point : this.points.values()) {
+            Vector velocity = point.getVelocity().add(point.getAcceleration().multiply(this.deltaTime)).multiply(this.damping);
+            point.setVelocity(velocity);
 
-            if (node.getVelocity().magnitude() > this.maxSpeed) {
-                LOGGER.debug("Velocity is superior to max speed");
-                velocity = node.getVelocity().normalize().multiply(this.maxSpeed);
-                node.setVelocity(velocity);
+            if (point.getVelocity().magnitude() > this.maxSpeed) {
+                velocity = point.getVelocity().normalize().multiply(this.maxSpeed);
+                point.setVelocity(velocity);
             }
 
-            node.setAcceleration(new Vector(0, 0));
+            point.setAcceleration(new Vector(0, 0));
         }
     }
 
-    private void updatePosition(Graph<Point, Spring> graph) {
-        for (Point node : graph.vertexSet()) {
-            Vector position = node.getPosition().add(node.getVelocity().multiply(this.deltaTime));
-            node.setPosition(position);
+    private void updatePosition() {
+        for (Point point : this.points.values()) {
+            Vector position = point.getPosition().add(point.getVelocity().multiply(this.deltaTime));
+            point.setPosition(position);
         }
     }
 
-    private boolean isStable(Graph<Point, Spring> graph) {
-        Set<Point> nodes = graph.vertexSet();
-
-        for (Point node : nodes) {
-            double speed = node.getVelocity().magnitude();
-            double energy = 0.5 * node.getMass() * speed * speed;
+    // TODO: make it a lambda ?
+    private boolean isStable() {
+        for (Point point : this.points.values()) {
+            double speed = point.getVelocity().magnitude();
+            double energy = 0.5 * point.getMass() * speed * speed;
 
             if (energy > this.minEnergyThreshold) {
                 return false;
@@ -166,7 +193,13 @@ public class ForceLayout {
         return true;
     }
 
-    public void renderToSVG(Graph<Point, Spring> graph, Canvas canvas) throws IOException {
+    public Vector getStablePosition(V vertex) {
+        return points.get(vertex).getPosition();
+    }
+
+    public void renderToSVG(int width, int height) throws IOException {
+        Canvas canvas = new Canvas(width, height);
+
         File tmpFile = File.createTempFile("springy", ".html");
 
         FileWriter fileWriter = new FileWriter(tmpFile);
@@ -177,14 +210,15 @@ public class ForceLayout {
         printWriter.println("<body>");
         printWriter.printf("<svg width=\"%d\" height=\"%d\">%n", canvas.getWidth(), canvas.getHeight());
 
-        BoundingBox boundingBox = computeBoundingBox(graph);
+        BoundingBox boundingBox = computeBoundingBox();
 
-        for (Point node : graph.vertexSet()) {
-            node.printSVG(printWriter, canvas, boundingBox);
+        for (Point point : this.points.values()) {
+            point.printSVG(printWriter, canvas, boundingBox);
         }
 
-        for (Spring edge : graph.edgeSet()) {
-            edge.printSVG(printWriter, canvas, boundingBox);
+        // TODO: find a solution for edges
+        for (E edge : graph.edgeSet()) {
+            edge.printSVG(printWriter, canvas, boundingBox, this.points);
         }
 
         printWriter.println("</svg>");
@@ -195,11 +229,11 @@ public class ForceLayout {
         fileWriter.close();
     }
 
-    private BoundingBox computeBoundingBox(Graph<Point, Spring> graph) {
+    private BoundingBox computeBoundingBox() {
         Vector topRight = new Vector(2, 2);
         Vector bottomLeft = new Vector(-2, -2);
 
-        for (Point node : graph.vertexSet()) {
+        for (Point node : this.points.values()) {
             Vector position = node.getPosition();
             if (position.getX() < bottomLeft.getX())  {
                 bottomLeft.setX(position.getX());
