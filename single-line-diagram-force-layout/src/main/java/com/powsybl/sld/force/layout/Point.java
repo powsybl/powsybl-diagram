@@ -59,6 +59,11 @@ public class Point {
         this.acceleration = acceleration;
     }
 
+    public double getEnergy() {
+        double speed = velocity.magnitude();
+        return 0.5 * mass * speed * speed;
+    }
+
     public void printSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
         Vector position = this.getPosition();
         Vector screenPosition = canvas.toScreen(boundingBox, position);

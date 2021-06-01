@@ -181,18 +181,8 @@ public class ForceLayout<V, E> {
         }
     }
 
-    // TODO: make it a lambda ?
     private boolean isStable() {
-        for (Point point : this.points.values()) {
-            double speed = point.getVelocity().magnitude();
-            double energy = 0.5 * point.getMass() * speed * speed;
-
-            if (energy > this.minEnergyThreshold) {
-                return false;
-            }
-        }
-
-        return true;
+        return points.values().stream().allMatch(p -> p.getEnergy() < minEnergyThreshold);
     }
 
     public Vector getStablePosition(V vertex) {
