@@ -37,16 +37,7 @@ final class CellBlockDecomposer {
      *
      * @param cell Cell we are working on
      */
-
-    static void determineBlocks(Cell cell, boolean exceptionIfPatternNotHandled) {
-        if (cell.getType() == Cell.CellType.SHUNT) {
-            determineShuntCellBlocks((ShuntCell) cell);
-        } else {
-            determineBusCellBlocks((BusCell) cell, exceptionIfPatternNotHandled);
-        }
-    }
-
-    private static void determineBusCellBlocks(BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    static void determineBusCellBlocks(BusCell busCell, boolean exceptionIfPatternNotHandled) {
         if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
             SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
             busCell.getGraph().extendSwitchBetweenBus(switchNode);
@@ -60,7 +51,7 @@ final class CellBlockDecomposer {
         determineComplexCell(busCell, exceptionIfPatternNotHandled);
     }
 
-    private static void determineShuntCellBlocks(ShuntCell shuntCell) {
+    static void determineShuntCellBlocks(ShuntCell shuntCell) {
         BodyPrimaryBlock bpy = new BodyPrimaryBlock(shuntCell.getNodes(), shuntCell);
         shuntCell.setRootBlock(bpy);
     }

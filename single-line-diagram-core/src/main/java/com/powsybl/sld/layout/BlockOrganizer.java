@@ -67,17 +67,16 @@ public class BlockOrganizer {
     public void organize(VoltageLevelGraph graph) {
         LOGGER.info("Organizing graph cells into blocks");
         graph.getCells().stream()
-                .filter(cell -> cell.getType().isBusCell())
-                .map(BusCell.class::cast)
+                .filter(BusCell.class::isInstance)
                 .forEach(cell -> {
-                    CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
+                    CellBlockDecomposer.determineBusCellBlocks((BusCell) cell, exceptionIfPatternNotHandled);
                     if (cell.getType() == INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == SHUNT)
-                .forEach(cell -> CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled));
+                .filter(ShuntCell.class::isInstance)
+                .forEach(cell -> CellBlockDecomposer.determineShuntCellBlocks((ShuntCell) cell));
 
         if (stack) {
             determineStackableBlocks(graph);

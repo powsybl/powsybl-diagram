@@ -67,20 +67,14 @@ public class ImplicitCellDetector implements CellDetector {
         // ****************EXTERN AND SHUNT CELLS******
         stopTypes.add(Node.NodeType.FEEDER);
         detectCell(graph, stopTypes, new ArrayList<>(), false, allocatedNodes);
-        for (ExternCell cell : graph.getCells().stream()
 
-                .filter(cell -> cell instanceof ExternCell)
-                .map(ExternCell.class::cast)
-                .collect(Collectors.toList())) {
-
-            //*****************EXTERN CELL
-            if (!isPureExternCell(graph, cell)) {
-                //*****************SHUNT CELL
-                //in that case the cell is splitted into 2 EXTERN Cells and 1 SHUNT CELL
-                detectAndTypeShunt(graph, cell);
-            }
-        }
-        graph.getCells().forEach(Cell::getFullId);
+        // *****************SHUNT CELL
+        // Looking for shunt cells in all extern cells
+        // if an extern cell is not a pure extern cell, the cell is splitted into 2 EXTERN Cells and 1 SHUNT CELL
+        graph.getCells().stream()
+            .filter(ExternCell.class::isInstance)
+            .filter(externCell -> !isPureExternCell(graph, externCell))
+            .forEach(nonPureExternCell -> detectAndTypeShunt(graph, nonPureExternCell));
 
         graph.logCellDetectionStatus();
     }
@@ -117,15 +111,13 @@ public class ImplicitCellDetector implements CellDetector {
             List<Node> cellNodes = new ArrayList<>();
             List<Node> outsideNodes = new ArrayList<>(allocatedNodes);
             outsideNodes.add(bus);
+            cellNodes.add(bus);
             if (GraphTraversal.run(
                     adj, node -> typeStops.contains(node.getType()), node -> exclusionTypes.contains(node.getType()),
                     cellNodes, outsideNodes)) {
-                cellNodes.add(0, bus);
                 Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
                 cell.setNodes(cellNodes);
-                allocatedNodes.addAll(cellNodes.stream()
-                        .filter(node -> node.getType() != Node.NodeType.BUS)
-                        .collect(Collectors.toList()));
+                cellNodes.stream().filter(node -> !(node instanceof BusNode)).forEach(allocatedNodes::add);
             }
         }));
     }
@@ -135,7 +127,7 @@ public class ImplicitCellDetector implements CellDetector {
      *
      * @param cell : the cell to analyse
      **/
-    private boolean isPureExternCell(VoltageLevelGraph graph, ExternCell cell) {
+    private boolean isPureExternCell(VoltageLevelGraph graph, Cell cell) {
         /*Explore the graph of the candidate cell. Remove successively one node, assess if it splits the graph into n>1 branches
         if so, then check if each component is exclusively reaching FEEDER or exclusively reaching BUS
         And verify you have at least one of them
