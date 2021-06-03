@@ -18,13 +18,13 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class TestForceLayout {
-    private final static boolean enableSVG = false;
-    private final static ObjectMapper mapper = new ObjectMapper();
+    private static final boolean ENABLE_SVG = false;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public void toJson(String filename, Set<Spring> springs) throws IOException {
         File tmpFile = File.createTempFile(filename, ".json");
 
-        mapper.writeValue(tmpFile, springs);
+        MAPPER.writeValue(tmpFile, springs);
     }
 
     public String toString(String filename) {
@@ -41,7 +41,7 @@ public class TestForceLayout {
 
     public String toString(Set<Spring> springs) {
         try {
-            return mapper.writeValueAsString(springs);
+            return MAPPER.writeValueAsString(springs);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -51,7 +51,7 @@ public class TestForceLayout {
 
     @Before
     public void setUp() {
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class TestForceLayout {
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        if (enableSVG) {
+        if (ENABLE_SVG) {
             try {
                 forceLayout.toSVG(600, 600);
             } catch (IOException exception) {
@@ -110,7 +110,7 @@ public class TestForceLayout {
         ForceLayout<Integer, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        if (enableSVG) {
+        if (ENABLE_SVG) {
             try {
                 forceLayout.toSVG(600, 600);
             } catch (IOException exception) {
