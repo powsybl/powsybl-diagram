@@ -79,7 +79,7 @@ public class ForceLayout<V, E> {
         return this;
     }
 
-    // TODO: implement other initialisations methods
+    // TODO: implement other initialization methods
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
             points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
@@ -95,7 +95,6 @@ public class ForceLayout<V, E> {
     }
 
     public void execute() {
-
         long start = System.nanoTime();
 
         initializePoints();
@@ -189,7 +188,11 @@ public class ForceLayout<V, E> {
         return points.get(vertex).getPosition();
     }
 
-    public void renderToSVG(int width, int height) throws IOException {
+    public Set<Spring> getSprings() {
+        return springs;
+    }
+
+    public void toSVG(int width, int height) throws IOException {
         Canvas canvas = new Canvas(width, height);
 
         File tmpFile = File.createTempFile("springy", ".html");
@@ -205,11 +208,11 @@ public class ForceLayout<V, E> {
         BoundingBox boundingBox = computeBoundingBox();
 
         for (Point point : this.points.values()) {
-            point.printSVG(printWriter, canvas, boundingBox);
+            point.toSVG(printWriter, canvas, boundingBox);
         }
 
         for (Spring spring : springs) {
-            spring.printSVG(printWriter, canvas, boundingBox);
+            spring.toSVG(printWriter, canvas, boundingBox);
         }
 
         printWriter.println("</svg>");

@@ -35,7 +35,7 @@ public class Spring {
         return stiffness;
     }
 
-    public void printSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
+    public void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
         Vector position1 = target.getPosition();
         Vector position2 = source.getPosition();
 

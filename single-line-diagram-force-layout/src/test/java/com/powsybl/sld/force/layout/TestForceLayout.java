@@ -1,12 +1,58 @@
 package com.powsybl.sld.force.layout;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Pseudograph;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestForceLayout {
+    private final static boolean enableSVG = false;
+    private final static ObjectMapper mapper = new ObjectMapper();
+
+    public void toJson(String filename, Set<Spring> springs) throws IOException {
+        File tmpFile = File.createTempFile(filename, ".json");
+
+        mapper.writeValue(tmpFile, springs);
+    }
+
+    public String toString(String filename) {
+        String filepath = TestForceLayout.class.getResource(filename).getPath();
+
+        try {
+            return new String(Files.readAllBytes(Paths.get(filepath)));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return "";
+    }
+
+    public String toString(Set<Spring> springs) {
+        try {
+            return mapper.writeValueAsString(springs);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    @Before
+    public void setUp() {
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+    }
 
     @Test
     public void test4Points() {
@@ -15,7 +61,7 @@ public class TestForceLayout {
         String kyoto = "Kyoto";
         String osaka = "Osaka";
 
-        Graph<String, Spring> graph = new Pseudograph<>(Spring.class);
+        Graph<String, DefaultEdge> graph = new Pseudograph<>(DefaultEdge.class);
         graph.addVertex(neoYokio);
         graph.addVertex(tokyo);
         graph.addVertex(kyoto);
@@ -26,19 +72,23 @@ public class TestForceLayout {
         graph.addEdge(kyoto, osaka);
         graph.addEdge(osaka, tokyo);
 
-        ForceLayout forceLayout = new ForceLayout(graph).setInitialisationSeed(0).initializePoints();
+        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        try {
-            forceLayout.renderToSVG(600, 600);
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        if (enableSVG) {
+            try {
+                forceLayout.toSVG(600, 600);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
         }
+
+        assertEquals(toString("/Graph4Points.json"), toString(forceLayout.getSprings()));
     }
 
     @Test
     public void test10Points() {
-        Graph<Integer, Spring> graph = new Pseudograph<>(Spring.class);
+        Graph<Integer, DefaultEdge> graph = new Pseudograph<>(DefaultEdge.class);
 
         for (int i = 0; i < 10; i++) {
             graph.addVertex(i);
@@ -57,13 +107,17 @@ public class TestForceLayout {
         graph.addEdge(7, 2);
         // graph.addEdge(2, 2); // does not seem to end if we set self-loop node
 
-        ForceLayout forceLayout = new ForceLayout(graph).setInitialisationSeed(0).initializePoints();
+        ForceLayout<Integer, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        try {
-            forceLayout.renderToSVG(600, 600);
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        if (enableSVG) {
+            try {
+                forceLayout.toSVG(600, 600);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
         }
+
+        assertEquals(toString("/Graph10Points.json"), toString(forceLayout.getSprings()));
     }
 }
