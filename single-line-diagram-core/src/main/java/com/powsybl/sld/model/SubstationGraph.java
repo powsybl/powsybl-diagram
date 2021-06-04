@@ -94,22 +94,21 @@ public class SubstationGraph extends AbstractBaseGraph {
         return substationId;
     }
 
-    public Graph<VoltageLevelGraph, AbstractBranchEdge> toJgrapht() {
-        Graph<VoltageLevelGraph, AbstractBranchEdge> graph = new Pseudograph<>(AbstractBranchEdge.class);
+    public Graph<VoltageLevelGraph, Object> toJgrapht() {
+        Graph<VoltageLevelGraph, Object> graph = new Pseudograph<>(Object.class);
 
         for (VoltageLevelGraph voltageLevelGraph : getNodes()) {
             graph.addVertex(voltageLevelGraph);
         }
 
         for (Node multiNode : getMultiTermNodes()) {
-            for (Edge adjacentEdge : multiNode.getAdjacentEdges()) {
-                // TODO: this is strange
-                LOGGER.warn("Node 1: " + adjacentEdge.getNode1().getGraph());
-                LOGGER.warn("Node 2: " + adjacentEdge.getNode2().getGraph());
-                LOGGER.warn("Edge: " + adjacentEdge);
-                if (adjacentEdge.getNode1().getGraph() != null && adjacentEdge.getNode2().getGraph() != null) {
-                    graph.addEdge(adjacentEdge.getNode1().getGraph(), adjacentEdge.getNode2().getGraph(), (AbstractBranchEdge) adjacentEdge);
-                }
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+
+            graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(1).getGraph());
+
+            if (adjacentNodes.size() == 3) {
+                graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(2).getGraph());
+                graph.addEdge(adjacentNodes.get(1).getGraph(), adjacentNodes.get(2).getGraph());
             }
         }
 

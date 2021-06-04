@@ -73,10 +73,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     @Override
     public void run(LayoutParameters layoutParameters) {
         // Creating the graph for the force layout algorithm
-        Graph<VoltageLevelGraph, AbstractBranchEdge> graph = getGraph().toJgrapht();
+        Graph<VoltageLevelGraph, Object> graph = getGraph().toJgrapht();
 
         // Executing force layout algorithm
-        ForceLayout<VoltageLevelGraph, AbstractBranchEdge> forceLayout = new ForceLayout<>(graph);
+        ForceLayout<VoltageLevelGraph, Object> forceLayout = new ForceLayout<>(graph);
         forceLayout.execute();
 
         // Memorizing the voltage levels coordinates calculated by the force layout algorithm

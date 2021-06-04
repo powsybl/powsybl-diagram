@@ -35,7 +35,7 @@ public class ForceLayout<V, E> {
     private final Random random = new Random();
 
     private static final int DEFAULT_MAX_STEPS = 2000;
-    private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01; // TODO: lower the value
+    private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
     private static final double DEFAULT_DELTA_TIME = 0.05;
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
