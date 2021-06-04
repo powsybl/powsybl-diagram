@@ -18,7 +18,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class TestForceLayout {
-    private static final boolean ENABLE_SVG = false;
+    private static final boolean ENABLE_SVG = true;
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public void toJson(String filename, Set<Spring> springs) throws IOException {
@@ -77,7 +77,7 @@ public class TestForceLayout {
 
         if (ENABLE_SVG) {
             try {
-                forceLayout.toSVG(600, 600);
+                forceLayout.toSVG();
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -112,7 +112,7 @@ public class TestForceLayout {
 
         if (ENABLE_SVG) {
             try {
-                forceLayout.toSVG(600, 600);
+                forceLayout.toSVG();
             } catch (IOException exception) {
                 exception.printStackTrace();
             }

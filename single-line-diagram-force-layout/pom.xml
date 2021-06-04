@@ -22,11 +22,13 @@
     <name>Single line diagram Force Layout</name>
     <description>Single line diagram Force Layout parent project</description>
     <dependencies>
+        <!--
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-core</artifactId>
@@ -53,12 +55,18 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!--
+        <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
+        -->
     </dependencies>
 
 </project>

@@ -1,7 +1,16 @@
+/**
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld.force.layout;
 
 import java.io.PrintWriter;
 
+/**
+ * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ */
 public class Point {
     private static final double DEFAULT_MASS = 1.0;
 
@@ -28,7 +37,7 @@ public class Point {
     }
 
     public void applyForce(Vector force) {
-        this.acceleration = this.acceleration.add(force.divide(this.mass));
+        acceleration = acceleration.add(force.divide(mass));
     }
 
     public Vector getPosition() {
@@ -72,15 +81,15 @@ public class Point {
         int screenPositionY = (int) Math.round(screenPosition.getY());
 
         printWriter.println("<g>");
-        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"20\" fill=\"purple\"/>%n",
+        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"10\" fill=\"purple\"/>%n",
                 screenPositionX,
                 screenPositionY);
 
-        if (this.label != null && !this.label.isEmpty()) {
+        if (label != null && !label.isEmpty()) {
             printWriter.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" fill=\"purple\">%n",
                     screenPositionX,
                     screenPositionY - 25);
-            printWriter.println(this.label);
+            printWriter.println(label);
             printWriter.println("</text>");
         }
 

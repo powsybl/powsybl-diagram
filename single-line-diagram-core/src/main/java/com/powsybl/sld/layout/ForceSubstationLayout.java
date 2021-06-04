@@ -4,12 +4,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.force.layout;
+package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.force.layout.ForceLayout;
+import com.powsybl.sld.force.layout.Vector;
 import com.powsybl.sld.model.*;
 import org.jgrapht.Graph;
-import org.jgrapht.graph.Pseudograph;
 
 import java.util.*;
 import java.util.function.Function;
@@ -70,44 +70,13 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         this.compactionType = compactionType;
     }
 
-    // TODO: move this function in the SubstationGraph class? It implies that the Substation class see the Point and Edge class which is a bit weird?
-    private Graph<VoltageLevelGraph, BranchEdge> toJgrapht(SubstationGraph graph) {
-        Graph<VoltageLevelGraph, BranchEdge> pseudograph = new Pseudograph<>(BranchEdge.class);
-
-        // Create nodes
-        for (VoltageLevelGraph voltageLevelGraph : graph.getNodes()) {
-            pseudograph.addVertex(voltageLevelGraph);
-        }
-
-        // Create edges
-        for (Node multiNode : graph.getMultiTermNodes()) {
-            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-
-            VoltageLevelGraph voltageLevelGraph1 = adjacentNodes.get(0).getGraph();
-            VoltageLevelGraph voltageLevelGraph2 = adjacentNodes.get(1).getGraph();
-            pseudograph.addEdge(voltageLevelGraph1, voltageLevelGraph2);
-
-            if (adjacentNodes.size() == 3) {
-                VoltageLevelGraph voltageLevelGraph3 = adjacentNodes.get(2).getGraph();
-                pseudograph.addEdge(voltageLevelGraph1, voltageLevelGraph3);
-                pseudograph.addEdge(voltageLevelGraph2, voltageLevelGraph3);
-            }
-        }
-
-        return pseudograph;
-    }
-
     @Override
     public void run(LayoutParameters layoutParameters) {
-        // TODO: rename point and string?
-        //  that is not really clear that points are nodes and springs are edge
-        //  but it avoid conflicts with already existing node and edge classes
-
         // Creating the graph for the force layout algorithm
-        Graph<VoltageLevelGraph, BranchEdge> graph = this.toJgrapht(getGraph());
+        Graph<VoltageLevelGraph, AbstractBranchEdge> graph = getGraph().toJgrapht();
 
         // Executing force layout algorithm
-        ForceLayout<VoltageLevelGraph, BranchEdge> forceLayout = new ForceLayout<>(graph);
+        ForceLayout<VoltageLevelGraph, AbstractBranchEdge> forceLayout = new ForceLayout<>(graph);
         forceLayout.execute();
 
         // Memorizing the voltage levels coordinates calculated by the force layout algorithm

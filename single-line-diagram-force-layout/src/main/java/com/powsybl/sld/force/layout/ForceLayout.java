@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2021, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld.force.layout;
 
 import org.jgrapht.Graph;
@@ -10,13 +16,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ *
+ * The following algorithm is a force layout algorithm.
+ * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no crossings.
+ * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
+ * Force calculations are used to place the nodes.
+ *
+ * The algorithm is taken from: https://github.com/dhotson/springy
+ */
+
+/**
+ * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
+ */
 public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
     private final Random random = new Random();
 
     private static final int DEFAULT_MAX_STEPS = 2000;
-    private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
+    private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01; // TODO: lower the value
     private static final double DEFAULT_DELTA_TIME = 0.05;
     private static final double DEFAULT_REPULSION = 400.0;
     private static final double DEFAULT_DAMPING = 0.5;
@@ -32,6 +51,8 @@ public class ForceLayout<V, E> {
     private Graph<V, E> graph;
     private Map<V, Point> points = new LinkedHashMap<>();
     private Set<Spring> springs = new LinkedHashSet<>();
+
+    private boolean hasBeenExecuted = false;
 
     public ForceLayout(Graph<V, E> graph) {
         this.maxSteps = DEFAULT_MAX_STEPS;
@@ -79,7 +100,6 @@ public class ForceLayout<V, E> {
         return this;
     }
 
-    // TODO: implement other initialization methods
     private void initializePoints() {
         for (V vertex : graph.vertexSet()) {
             points.put(vertex, new Point(random.nextDouble(), random.nextDouble()));
@@ -101,17 +121,19 @@ public class ForceLayout<V, E> {
         initializeSprings();
 
         int i;
-        for (i = 0; i < this.maxSteps; i++) {
-            this.applyCoulombsLaw();
-            this.applyHookesLaw();
-            this.attractToCenter();
-            this.updateVelocity();
-            this.updatePosition();
+        for (i = 0; i < maxSteps; i++) {
+            applyCoulombsLaw();
+            applyHookesLaw();
+            attractToCenter();
+            updateVelocity();
+            updatePosition();
 
-            if (this.isStable()) {
+            if (isStable()) {
                 break;
             }
         }
+
+        hasBeenExecuted = true;
 
         long elapsedTime = System.nanoTime() - start;
 
@@ -128,7 +150,7 @@ public class ForceLayout<V, E> {
                     double magnitude = distance.magnitude() + 0.1;
                     Vector direction = distance.normalize();
 
-                    Vector force = direction.multiply(this.repulsion).divide(magnitude * magnitude * 0.5);
+                    Vector force = direction.multiply(repulsion).divide(magnitude * magnitude * 0.5);
                     point.applyForce(force);
                     otherPoint.applyForce(force.multiply(-1));
                 }
@@ -152,20 +174,20 @@ public class ForceLayout<V, E> {
     }
 
     private void attractToCenter() {
-        for (Point point : this.points.values()) {
+        for (Point point : points.values()) {
             Vector direction = point.getPosition().multiply(-1);
 
-            point.applyForce(direction.multiply(this.repulsion / 50.0));
+            point.applyForce(direction.multiply(repulsion / 50.0));
         }
     }
 
     private void updateVelocity() {
-        for (Point point : this.points.values()) {
-            Vector velocity = point.getVelocity().add(point.getAcceleration().multiply(this.deltaTime)).multiply(this.damping);
+        for (Point point : points.values()) {
+            Vector velocity = point.getVelocity().add(point.getAcceleration().multiply(deltaTime)).multiply(damping);
             point.setVelocity(velocity);
 
-            if (point.getVelocity().magnitude() > this.maxSpeed) {
-                velocity = point.getVelocity().normalize().multiply(this.maxSpeed);
+            if (point.getVelocity().magnitude() > maxSpeed) {
+                velocity = point.getVelocity().normalize().multiply(maxSpeed);
                 point.setVelocity(velocity);
             }
 
@@ -174,8 +196,8 @@ public class ForceLayout<V, E> {
     }
 
     private void updatePosition() {
-        for (Point point : this.points.values()) {
-            Vector position = point.getPosition().add(point.getVelocity().multiply(this.deltaTime));
+        for (Point point : points.values()) {
+            Vector position = point.getPosition().add(point.getVelocity().multiply(deltaTime));
             point.setPosition(position);
         }
     }
@@ -185,29 +207,34 @@ public class ForceLayout<V, E> {
     }
 
     public Vector getStablePosition(V vertex) {
-        return points.get(vertex).getPosition();
+        if (!hasBeenExecuted) {
+            LOGGER.warn("Force layout has not been executed yet");
+        }
+        return points.getOrDefault(vertex, new Point(-1, -1)).getPosition();
     }
 
     public Set<Spring> getSprings() {
         return springs;
     }
 
-    public void toSVG(int width, int height) throws IOException {
-        Canvas canvas = new Canvas(width, height);
+    public void toSVG() throws IOException {
+        if (!hasBeenExecuted) {
+            LOGGER.warn("Force layout has not been executed yet");
+            return;
+        }
 
-        File tmpFile = File.createTempFile("springy", ".html");
+        BoundingBox boundingBox = computeBoundingBox();
+        Canvas canvas = new Canvas((int) Math.ceil(boundingBox.getWidth() * 600 / boundingBox.getHeight()), 600);
+
+        File tmpFile = File.createTempFile("springy", ".svg");
 
         FileWriter fileWriter = new FileWriter(tmpFile);
         PrintWriter printWriter = new PrintWriter(fileWriter);
 
-        printWriter.println("<!DOCTYPE html>");
-        printWriter.println("<html>");
-        printWriter.println("<body>");
-        printWriter.printf("<svg width=\"%d\" height=\"%d\">%n", canvas.getWidth(), canvas.getHeight());
+        printWriter.printf("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+        printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
 
-        BoundingBox boundingBox = computeBoundingBox();
-
-        for (Point point : this.points.values()) {
+        for (Point point : points.values()) {
             point.toSVG(printWriter, canvas, boundingBox);
         }
 
@@ -216,8 +243,6 @@ public class ForceLayout<V, E> {
         }
 
         printWriter.println("</svg>");
-        printWriter.println("</body>");
-        printWriter.println("</html>");
 
         printWriter.close();
         fileWriter.close();
@@ -227,7 +252,7 @@ public class ForceLayout<V, E> {
         Vector topRight = new Vector(2, 2);
         Vector bottomLeft = new Vector(-2, -2);
 
-        for (Point node : this.points.values()) {
+        for (Point node : points.values()) {
             Vector position = node.getPosition();
             if (position.getX() < bottomLeft.getX())  {
                 bottomLeft.setX(position.getX());
@@ -243,7 +268,7 @@ public class ForceLayout<V, E> {
             }
         }
 
-        Vector padding = topRight.subtract(bottomLeft).multiply(0.07); // to give 5% of padding, can be removed if needed
+        Vector padding = topRight.subtract(bottomLeft).multiply(0.07); // padding
 
         return new BoundingBox(topRight.add(padding), bottomLeft.subtract(padding));
     }

@@ -7,6 +7,10 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.Pseudograph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,6 +24,7 @@ import java.util.stream.Stream;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class SubstationGraph extends AbstractBaseGraph {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubstationGraph.class);
 
     private String substationId;
 
@@ -87,6 +92,28 @@ public class SubstationGraph extends AbstractBaseGraph {
 
     public String getSubstationId() {
         return substationId;
+    }
+
+    public Graph<VoltageLevelGraph, AbstractBranchEdge> toJgrapht() {
+        Graph<VoltageLevelGraph, AbstractBranchEdge> graph = new Pseudograph<>(AbstractBranchEdge.class);
+
+        for (VoltageLevelGraph voltageLevelGraph : getNodes()) {
+            graph.addVertex(voltageLevelGraph);
+        }
+
+        for (Node multiNode : getMultiTermNodes()) {
+            for (Edge adjacentEdge : multiNode.getAdjacentEdges()) {
+                // TODO: this is strange
+                LOGGER.warn("Node 1: " + adjacentEdge.getNode1().getGraph());
+                LOGGER.warn("Node 2: " + adjacentEdge.getNode2().getGraph());
+                LOGGER.warn("Edge: " + adjacentEdge);
+                if (adjacentEdge.getNode1().getGraph() != null && adjacentEdge.getNode2().getGraph() != null) {
+                    graph.addEdge(adjacentEdge.getNode1().getGraph(), adjacentEdge.getNode2().getGraph(), (AbstractBranchEdge) adjacentEdge);
+                }
+            }
+        }
+
+        return graph;
     }
 
     @Override
