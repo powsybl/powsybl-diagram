@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  *
@@ -217,7 +218,7 @@ public class ForceLayout<V, E> {
         return springs;
     }
 
-    public void toSVG() throws IOException {
+    public void toSVG(Function<V, String> tooltip) throws IOException {
         if (!hasBeenExecuted) {
             LOGGER.warn("Force layout has not been executed yet");
             return;
@@ -234,9 +235,9 @@ public class ForceLayout<V, E> {
         printWriter.printf("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
         printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
 
-        for (Point point : points.values()) {
-            point.toSVG(printWriter, canvas, boundingBox);
-        }
+        points.forEach((vertex, point) -> {
+            point.toSVG(printWriter, canvas, boundingBox, tooltip, vertex);
+        });
 
         for (Spring spring : springs) {
             spring.toSVG(printWriter, canvas, boundingBox);

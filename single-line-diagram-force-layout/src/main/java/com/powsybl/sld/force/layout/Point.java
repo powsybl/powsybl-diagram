@@ -7,6 +7,7 @@
 package com.powsybl.sld.force.layout;
 
 import java.io.PrintWriter;
+import java.util.function.Function;
 
 /**
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
@@ -18,22 +19,12 @@ public class Point {
     private Vector velocity;
     private Vector acceleration;
     private double mass;
-    private String label;
 
     public Point(double x, double y) {
         this.position = new Vector(x, y);
         this.velocity = new Vector();
         this.acceleration = new Vector();
         this.mass = DEFAULT_MASS;
-    }
-
-    public Point(double x, double y, String label) {
-        this(x, y);
-        this.label = label;
-    }
-
-    public void setMass(double mass) {
-        this.mass = mass;
     }
 
     public void applyForce(Vector force) {
@@ -68,12 +59,16 @@ public class Point {
         this.acceleration = acceleration;
     }
 
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
     public double getEnergy() {
         double speed = velocity.magnitude();
         return 0.5 * mass * speed * speed;
     }
 
-    public void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
+    public <V> void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox, Function<V, String> tooltip, V vertex) {
         Vector position = this.getPosition();
         Vector screenPosition = canvas.toScreen(boundingBox, position);
 
@@ -81,17 +76,13 @@ public class Point {
         int screenPositionY = (int) Math.round(screenPosition.getY());
 
         printWriter.println("<g>");
+
+        printWriter.printf("<title>%s</title>%n", tooltip.apply(vertex));
+
         printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"10\" fill=\"purple\"/>%n",
                 screenPositionX,
-                screenPositionY);
-
-        if (label != null && !label.isEmpty()) {
-            printWriter.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" fill=\"purple\">%n",
-                    screenPositionX,
-                    screenPositionY - 25);
-            printWriter.println(label);
-            printWriter.println("</text>");
-        }
+                screenPositionY
+        );
 
         printWriter.println("</g>");
     }

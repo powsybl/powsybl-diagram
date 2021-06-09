@@ -77,7 +77,7 @@ public class TestForceLayout {
 
         if (ENABLE_SVG) {
             try {
-                forceLayout.toSVG();
+                forceLayout.toSVG(s -> s);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -112,7 +112,7 @@ public class TestForceLayout {
 
         if (ENABLE_SVG) {
             try {
-                forceLayout.toSVG();
+                forceLayout.toSVG(i -> Integer.toString(i));
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
