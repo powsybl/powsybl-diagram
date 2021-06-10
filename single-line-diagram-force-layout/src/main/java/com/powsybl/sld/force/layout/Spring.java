@@ -59,7 +59,7 @@ public class Spring {
         Vector screenPosition2 = canvas.toScreen(boundingBox, position2);
 
         printWriter.println("<g>");
-        printWriter.printf("<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"purple\" stroke-width=\"%d\"/>%n",
+        printWriter.printf("<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"%d\"/>%n",
                 (int) Math.round(screenPosition1.getX()),
                 (int) Math.round(screenPosition1.getY()),
                 (int) Math.round(screenPosition2.getX()),

@@ -234,6 +234,12 @@ public class ForceLayout<V, E> {
 
         printWriter.printf("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
         printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
+        printWriter.println("<style>");
+        printWriter.println("<![CDATA[");
+        printWriter.printf("circle {fill: %s;}%n", "purple");
+        printWriter.printf("line {stroke: %s;}%n", "purple");
+        printWriter.println("]]>");
+        printWriter.println("</style>");
 
         points.forEach((vertex, point) -> {
             point.toSVG(printWriter, canvas, boundingBox, tooltip, vertex);

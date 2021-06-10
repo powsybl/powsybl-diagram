@@ -79,7 +79,7 @@ public class Point {
 
         printWriter.printf("<title>%s</title>%n", tooltip.apply(vertex));
 
-        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"10\" fill=\"purple\"/>%n",
+        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"10\"/>%n",
                 screenPositionX,
                 screenPositionY
         );
