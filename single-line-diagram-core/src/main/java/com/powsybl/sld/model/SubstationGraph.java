@@ -9,8 +9,6 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.Pseudograph;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -24,8 +22,6 @@ import java.util.stream.Stream;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class SubstationGraph extends AbstractBaseGraph {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SubstationGraph.class);
-
     private String substationId;
 
     private final List<VoltageLevelGraph> nodes = new ArrayList<>();

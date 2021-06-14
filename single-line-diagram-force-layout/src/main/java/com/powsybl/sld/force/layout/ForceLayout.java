@@ -141,13 +141,12 @@ public class ForceLayout<V, E> {
         long elapsedTime = System.nanoTime() - start;
 
         LOGGER.info("Number of steps: {}", i);
-        LOGGER.info("Elapsed time: {}", (double) elapsedTime / 1e9);
+        LOGGER.info("Elapsed time: {}", elapsedTime / 1e9);
     }
 
     private void applyCoulombsLaw() {
-        Collection<Point> points = this.points.values();
-        for (Point point : points) {
-            for (Point otherPoint : points) {
+        for (Point point : points.values()) {
+            for (Point otherPoint : points.values()) {
                 if (!point.equals(otherPoint)) {
                     Vector distance = point.getPosition().subtract(otherPoint.getPosition());
                     double magnitude = distance.magnitude() + 0.1;
@@ -226,7 +225,7 @@ public class ForceLayout<V, E> {
         }
     }
 
-    public void toSVG(Function<V, String> tooltip, Writer writer) throws IOException {
+    public void toSVG(Function<V, String> tooltip, Writer writer) {
         if (!hasBeenExecuted) {
             LOGGER.warn("Force layout has not been executed yet");
             return;
@@ -237,7 +236,7 @@ public class ForceLayout<V, E> {
 
         PrintWriter printWriter = new PrintWriter(writer);
 
-        printWriter.printf("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
+        printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
         printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
         printWriter.println("<style>");
         printWriter.println("<![CDATA[");
@@ -246,9 +245,7 @@ public class ForceLayout<V, E> {
         printWriter.println("]]>");
         printWriter.println("</style>");
 
-        points.forEach((vertex, point) -> {
-            point.toSVG(printWriter, canvas, boundingBox, tooltip, vertex);
-        });
+        points.forEach((vertex, point) -> point.toSVG(printWriter, canvas, boundingBox, tooltip, vertex));
 
         for (Spring spring : springs) {
             spring.toSVG(printWriter, canvas, boundingBox);

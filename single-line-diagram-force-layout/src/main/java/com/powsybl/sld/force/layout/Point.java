@@ -69,8 +69,7 @@ public class Point {
     }
 
     public <V> void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox, Function<V, String> tooltip, V vertex) {
-        Vector position = this.getPosition();
-        Vector screenPosition = canvas.toScreen(boundingBox, position);
+        Vector screenPosition = canvas.toScreen(boundingBox, getPosition());
 
         int screenPositionX = (int) Math.round(screenPosition.getX());
         int screenPositionY = (int) Math.round(screenPosition.getY());

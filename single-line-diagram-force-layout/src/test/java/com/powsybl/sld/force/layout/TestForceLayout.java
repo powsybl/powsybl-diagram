@@ -32,7 +32,7 @@ public class TestForceLayout {
     }
 
     @Test
-    public void test4Points() throws IOException {
+    public void test4Points() {
         String neoYokio = "NeoYokio";
         String tokyo = "Tokyo";
         String kyoto = "Kyoto";
@@ -59,7 +59,7 @@ public class TestForceLayout {
     }
 
     @Test
-    public void test10Points() throws IOException {
+    public void test10Points() {
         Graph<Integer, DefaultEdge> graph = new Pseudograph<>(DefaultEdge.class);
 
         for (int i = 0; i < 10; i++) {
