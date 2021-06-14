@@ -1,61 +1,38 @@
 package com.powsybl.sld.force.layout;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.common.io.ByteStreams;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Pseudograph;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Set;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestForceLayout {
-    private static final boolean ENABLE_SVG = true;
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public void toJson(String filename, Set<Spring> springs) throws IOException {
-        File tmpFile = File.createTempFile(filename, ".json");
-
-        MAPPER.writeValue(tmpFile, springs);
-    }
-
-    public String toString(String filename) {
-        String filepath = TestForceLayout.class.getResource(filename).getPath();
-
+    public String toString(String resourceName) {
         try {
-            return new String(Files.readAllBytes(Paths.get(filepath)));
-        } catch (IOException exception) {
-            exception.printStackTrace();
+            InputStream resourceIs = Objects.requireNonNull(getClass().getResourceAsStream(resourceName));
+            return normalizeLineSeparator(new String(ByteStreams.toByteArray(resourceIs), StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
-
-        return "";
     }
 
-    public String toString(Set<Spring> springs) {
-        try {
-            return MAPPER.writeValueAsString(springs);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }
-
-    @Before
-    public void setUp() {
-        MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+    protected static String normalizeLineSeparator(String str) {
+        return str.replace("\r\n", "\n")
+            .replace("\r", "\n");
     }
 
     @Test
-    public void test4Points() {
+    public void test4Points() throws IOException {
         String neoYokio = "NeoYokio";
         String tokyo = "Tokyo";
         String kyoto = "Kyoto";
@@ -75,19 +52,14 @@ public class TestForceLayout {
         ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        if (ENABLE_SVG) {
-            try {
-                forceLayout.toSVG(s -> s);
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
+        StringWriter svgSw = new StringWriter();
+        forceLayout.toSVG(s -> s, svgSw);
 
-        assertEquals(toString("/Graph4Points.json"), toString(forceLayout.getSprings()));
+        assertEquals(toString("/Graph4Points.svg"), normalizeLineSeparator(svgSw.toString()));
     }
 
     @Test
-    public void test10Points() {
+    public void test10Points() throws IOException {
         Graph<Integer, DefaultEdge> graph = new Pseudograph<>(DefaultEdge.class);
 
         for (int i = 0; i < 10; i++) {
@@ -110,14 +82,9 @@ public class TestForceLayout {
         ForceLayout<Integer, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
         forceLayout.execute();
 
-        if (ENABLE_SVG) {
-            try {
-                forceLayout.toSVG(i -> Integer.toString(i));
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
+        StringWriter svgSw = new StringWriter();
+        forceLayout.toSVG(i -> Integer.toString(i), svgSw);
 
-        assertEquals(toString("/Graph10Points.json"), toString(forceLayout.getSprings()));
+        assertEquals(toString("/Graph10Points.svg"), normalizeLineSeparator(svgSw.toString()));
     }
 }

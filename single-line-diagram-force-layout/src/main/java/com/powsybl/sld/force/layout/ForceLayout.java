@@ -10,10 +10,12 @@ import org.jgrapht.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
 
@@ -218,7 +220,13 @@ public class ForceLayout<V, E> {
         return springs;
     }
 
-    public void toSVG(Function<V, String> tooltip) throws IOException {
+    public void toSVG(Function<V, String> tooltip, Path path) throws IOException {
+        try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            toSVG(tooltip, writer);
+        }
+    }
+
+    public void toSVG(Function<V, String> tooltip, Writer writer) throws IOException {
         if (!hasBeenExecuted) {
             LOGGER.warn("Force layout has not been executed yet");
             return;
@@ -227,10 +235,7 @@ public class ForceLayout<V, E> {
         BoundingBox boundingBox = computeBoundingBox();
         Canvas canvas = new Canvas((int) Math.ceil(boundingBox.getWidth() * 600 / boundingBox.getHeight()), 600);
 
-        File tmpFile = File.createTempFile("springy", ".svg");
-
-        FileWriter fileWriter = new FileWriter(tmpFile);
-        PrintWriter printWriter = new PrintWriter(fileWriter);
+        PrintWriter printWriter = new PrintWriter(writer);
 
         printWriter.printf("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
         printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
@@ -252,7 +257,6 @@ public class ForceLayout<V, E> {
         printWriter.println("</svg>");
 
         printWriter.close();
-        fileWriter.close();
     }
 
     private BoundingBox computeBoundingBox() {
