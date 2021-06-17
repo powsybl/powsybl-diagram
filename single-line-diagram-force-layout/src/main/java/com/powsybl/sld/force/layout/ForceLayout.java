@@ -231,7 +231,7 @@ public class ForceLayout<V, E> {
             return;
         }
 
-        BoundingBox boundingBox = computeBoundingBox();
+        BoundingBox boundingBox = BoundingBox.computeBoundingBox(points.values());
         Canvas canvas = new Canvas((int) Math.ceil(boundingBox.getWidth() * 600 / boundingBox.getHeight()), 600);
 
         PrintWriter printWriter = new PrintWriter(writer);
@@ -256,28 +256,4 @@ public class ForceLayout<V, E> {
         printWriter.close();
     }
 
-    private BoundingBox computeBoundingBox() {
-        Vector topRight = new Vector(2, 2);
-        Vector bottomLeft = new Vector(-2, -2);
-
-        for (Point node : points.values()) {
-            Vector position = node.getPosition();
-            if (position.getX() < bottomLeft.getX())  {
-                bottomLeft.setX(position.getX());
-            }
-            if (position.getY() < bottomLeft.getY()) {
-                bottomLeft.setY(position.getY());
-            }
-            if (position.getX() > topRight.getX()) {
-                topRight.setX(position.getX());
-            }
-            if (position.getY() > topRight.getY()) {
-                topRight.setY(position.getY());
-            }
-        }
-
-        Vector padding = topRight.subtract(bottomLeft).multiply(0.07); // padding
-
-        return new BoundingBox(topRight.add(padding), bottomLeft.subtract(padding));
-    }
 }

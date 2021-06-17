@@ -6,31 +6,49 @@
  */
 package com.powsybl.sld.force.layout;
 
+import java.util.Collection;
+
 /**
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
-public class BoundingBox {
-    private Vector topRight;
-    private Vector bottomLeft;
+public final class BoundingBox {
 
-    public BoundingBox(Vector topRight, Vector bottomLeft) {
-        this.topRight = topRight;
-        this.bottomLeft = bottomLeft;
+    private final double left;
+    private final double bottom;
+    private final double right;
+    private final double top;
+
+    private BoundingBox(double left, double top, double right, double bottom) {
+        this.left = left;
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
+        if (left > right || bottom < top) {
+            throw new IllegalStateException("Bounding box with negative width or height");
+        }
     }
 
-    public Vector getTopRight() {
-        return topRight;
-    }
-
-    public Vector getBottomLeft() {
-        return bottomLeft;
+    public static BoundingBox computeBoundingBox(Collection<Point> points) {
+        double left = points.stream().mapToDouble(p -> p.getPosition().getX()).min().orElse(-2);
+        double top = points.stream().mapToDouble(p -> p.getPosition().getY()).min().orElse(-2);
+        double right = points.stream().mapToDouble(p -> p.getPosition().getX()).max().orElse(2);
+        double bottom = points.stream().mapToDouble(p -> p.getPosition().getY()).max().orElse(2);
+        return new BoundingBox(left, top, right, bottom);
     }
 
     public double getHeight() {
-        return topRight.getY() - bottomLeft.getY();
+        return bottom - top;
     }
 
     public double getWidth() {
-        return topRight.getX() - bottomLeft.getX();
+        return right - left;
+    }
+
+    public double getLeft() {
+        return left;
+    }
+
+    public double getTop() {
+        return top;
     }
 }

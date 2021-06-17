@@ -10,8 +10,8 @@ package com.powsybl.sld.force.layout;
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
 public class Canvas {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public Canvas(int width, int height) {
         this.width = width;
@@ -19,11 +19,8 @@ public class Canvas {
     }
 
     public Vector toScreen(BoundingBox boundingBox, Vector position) {
-        Vector size = boundingBox.getTopRight().subtract(boundingBox.getBottomLeft());
-
-        double screenX = position.subtract(boundingBox.getBottomLeft()).divide(size.getX()).getX() * width;
-        double screenY = position.subtract(boundingBox.getBottomLeft()).divide(size.getY()).getY() * height;
-
+        double screenX = (position.getX() - boundingBox.getLeft()) / boundingBox.getWidth() * width;
+        double screenY = (position.getY() - boundingBox.getTop()) / boundingBox.getHeight() * height;
         return new Vector(screenX, screenY);
     }
 
