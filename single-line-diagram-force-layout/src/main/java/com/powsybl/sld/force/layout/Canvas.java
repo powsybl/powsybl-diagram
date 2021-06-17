@@ -10,25 +10,31 @@ package com.powsybl.sld.force.layout;
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
 public class Canvas {
-    private final int width;
-    private final int height;
+    private final double width;
+    private final double height;
+    private final BoundingBox boundingBox;
+    private final double margin;
+    private final double scale;
 
-    public Canvas(int width, int height) {
-        this.width = width;
+    public Canvas(BoundingBox boundingBox, double height, double margin) {
+        this.boundingBox = boundingBox;
         this.height = height;
+        this.scale = (height - 2 * margin) / boundingBox.getHeight(); // scale has to be computed and used without margins
+        this.width = boundingBox.getWidth() * scale + 2 * margin;
+        this.margin = margin;
     }
 
-    public Vector toScreen(BoundingBox boundingBox, Vector position) {
-        double screenX = (position.getX() - boundingBox.getLeft()) / boundingBox.getWidth() * width;
-        double screenY = (position.getY() - boundingBox.getTop()) / boundingBox.getHeight() * height;
+    public Vector toScreen(Vector position) {
+        double screenX = (position.getX() - boundingBox.getLeft()) * scale + margin;
+        double screenY = (position.getY() - boundingBox.getTop()) * scale + margin;
         return new Vector(screenX, screenY);
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 }

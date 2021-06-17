@@ -232,23 +232,23 @@ public class ForceLayout<V, E> {
         }
 
         BoundingBox boundingBox = BoundingBox.computeBoundingBox(points.values());
-        Canvas canvas = new Canvas((int) Math.ceil(boundingBox.getWidth() * 600 / boundingBox.getHeight()), 600);
+        Canvas canvas = new Canvas(boundingBox, 600, 10);
 
         PrintWriter printWriter = new PrintWriter(writer);
 
         printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
-        printWriter.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
+        printWriter.printf(Locale.US, "<svg width=\"%.2f\" height=\"%.2f\" xmlns=\"http://www.w3.org/2000/svg\">%n", canvas.getWidth(), canvas.getHeight());
         printWriter.println("<style>");
         printWriter.println("<![CDATA[");
         printWriter.printf("circle {fill: %s;}%n", "purple");
-        printWriter.printf("line {stroke: %s;}%n", "purple");
+        printWriter.printf("line {stroke: %s; stroke-width: 2}%n", "purple");
         printWriter.println("]]>");
         printWriter.println("</style>");
 
-        points.forEach((vertex, point) -> point.toSVG(printWriter, canvas, boundingBox, tooltip, vertex));
+        points.forEach((vertex, point) -> point.toSVG(printWriter, canvas, tooltip, vertex));
 
         for (Spring spring : springs) {
-            spring.toSVG(printWriter, canvas, boundingBox);
+            spring.toSVG(printWriter, canvas);
         }
 
         printWriter.println("</svg>");

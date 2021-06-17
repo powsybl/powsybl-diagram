@@ -7,6 +7,7 @@
 package com.powsybl.sld.force.layout;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 import java.util.function.Function;
 
 /**
@@ -68,19 +69,14 @@ public class Point {
         return 0.5 * mass * speed * speed;
     }
 
-    public <V> void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox, Function<V, String> tooltip, V vertex) {
-        Vector screenPosition = canvas.toScreen(boundingBox, getPosition());
-
-        int screenPositionX = (int) Math.round(screenPosition.getX());
-        int screenPositionY = (int) Math.round(screenPosition.getY());
-
+    public <V> void toSVG(PrintWriter printWriter, Canvas canvas, Function<V, String> tooltip, V vertex) {
         printWriter.println("<g>");
 
         printWriter.printf("<title>%s</title>%n", tooltip.apply(vertex));
 
-        printWriter.printf("<circle cx=\"%d\" cy=\"%d\" r=\"10\"/>%n",
-                screenPositionX,
-                screenPositionY
+        Vector screenPosition = canvas.toScreen(getPosition());
+        printWriter.printf(Locale.US, "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"10\"/>%n",
+            screenPosition.getX(), screenPosition.getY()
         );
 
         printWriter.println("</g>");

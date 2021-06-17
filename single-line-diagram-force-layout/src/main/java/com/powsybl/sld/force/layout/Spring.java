@@ -7,6 +7,7 @@
 package com.powsybl.sld.force.layout;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 
 /**
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
@@ -51,20 +52,10 @@ public class Spring {
         return stiffness;
     }
 
-    public void toSVG(PrintWriter printWriter, Canvas canvas, BoundingBox boundingBox) {
-        Vector position1 = target.getPosition();
-        Vector position2 = source.getPosition();
-
-        Vector screenPosition1 = canvas.toScreen(boundingBox, position1);
-        Vector screenPosition2 = canvas.toScreen(boundingBox, position2);
-
-        printWriter.println("<g>");
-        printWriter.printf("<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"%d\"/>%n",
-                (int) Math.round(screenPosition1.getX()),
-                (int) Math.round(screenPosition1.getY()),
-                (int) Math.round(screenPosition2.getX()),
-                (int) Math.round(screenPosition2.getY()),
-                2);
-        printWriter.println("</g>");
+    public void toSVG(PrintWriter printWriter, Canvas canvas) {
+        Vector screenPosition1 = canvas.toScreen(target.getPosition());
+        Vector screenPosition2 = canvas.toScreen(source.getPosition());
+        printWriter.printf(Locale.US, "<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\"/>%n",
+            screenPosition1.getX(), screenPosition1.getY(), screenPosition2.getX(), screenPosition2.getY());
     }
 }
