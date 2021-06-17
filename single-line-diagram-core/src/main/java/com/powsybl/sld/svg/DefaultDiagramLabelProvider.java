@@ -6,15 +6,19 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
+import com.powsybl.sld.iidm.extensions.BranchStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
+import static com.powsybl.sld.model.Node.NodeType.FEEDER;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -23,6 +27,9 @@ import java.util.Objects;
 public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private static final double LABEL_OFFSET = 5d;
+    private static final double DECORATOR_OFFSET = 5d;
+    private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
+    private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
     private final Network network;
     private final ComponentLibrary componentLibrary;
@@ -121,7 +128,77 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     @Override
     public List<NodeDecorator> getNodeDecorators(Node node) {
         Objects.requireNonNull(node);
-        return Collections.emptyList();
+
+        List<NodeDecorator> nodeDecorators = new ArrayList<>();
+        if (node.getType() == FEEDER) {
+            FeederType feederType = ((FeederNode) node).getFeederType();
+            switch (feederType) {
+                case BRANCH:
+                case TWO_WINDINGS_TRANSFORMER_LEG:
+                    addBranchStatusDecorator(nodeDecorators, node, network.getBranch(node.getEquipmentId()));
+                    break;
+                case THREE_WINDINGS_TRANSFORMER_LEG:
+                    if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
+                        addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } else if (node instanceof Middle3WTNode) {
+            Optional<Node> feederNode = node.getAdjacentNodes().stream().filter(n -> n.getType() == FEEDER).findFirst();
+            feederNode.ifPresent(value -> addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(value.getEquipmentId())));
+        }
+
+        return nodeDecorators;
+    }
+
+    private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Extendable e) {
+        BranchStatus branchStatus = (BranchStatus) e.getExtension(BranchStatus.class);
+        if (branchStatus != null) {
+            switch (branchStatus.getStatus()) {
+                case PLANNED_OUTAGE:
+                    nodeDecorators.add(getBranchStatusDecorator(node, PLANNED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    break;
+                case FORCED_OUTAGE:
+                    nodeDecorators.add(getBranchStatusDecorator(node, FORCED_OUTAGE_BRANCH_NODE_DECORATOR));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private NodeDecorator getBranchStatusDecorator(Node node, String decoratorType) {
+        return (node instanceof Middle3WTNode) ?
+                new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node)) :
+                new NodeDecorator(decoratorType, getFeederDecoratorPosition(node, decoratorType));
+    }
+
+    private LabelPosition getFeederDecoratorPosition(Node node, String componentType) {
+        double yShift = -DECORATOR_OFFSET;
+        String positionName = "";
+        if (node.getCell() != null) {
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            yShift = -direction.toOrientation().progressionSign() * AbstractBlock.getFeederSpan(layoutParameters);
+            positionName = direction == BusCell.Direction.TOP ? "N" : "S";
+        }
+
+        return new LabelPosition(node.getId() + "_" + positionName + "_DECORATOR",
+                (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
+    }
+
+    private LabelPosition getMiddle3WTDecoratorPosition(Middle3WTNode node) {
+        double yShift = -DECORATOR_OFFSET;
+        String positionName = "";
+        if (node.getCell() != null) {
+            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
+            yShift = direction.toOrientation().progressionSign() * (componentLibrary.getSize(node.getComponentType()).getHeight() + DECORATOR_OFFSET);
+            positionName = direction == BusCell.Direction.TOP ? "N" : "S";
+        }
+
+        return new LabelPosition(node.getId() + "_" + positionName + "_DECORATOR",
+                0, yShift, true, 0);
     }
 
     private LabelPosition getFeederLabelPosition(Node node) {

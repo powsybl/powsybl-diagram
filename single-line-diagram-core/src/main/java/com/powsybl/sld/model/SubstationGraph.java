@@ -22,6 +22,7 @@ import java.util.stream.Stream;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class SubstationGraph extends AbstractBaseGraph {
+
     private String substationId;
 
     private final List<VoltageLevelGraph> nodes = new ArrayList<>();
