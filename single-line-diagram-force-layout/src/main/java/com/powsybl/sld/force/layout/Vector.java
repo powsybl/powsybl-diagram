@@ -10,10 +10,8 @@ package com.powsybl.sld.force.layout;
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
 public class Vector {
-    private double x;
-    private double y;
-
-    public Vector() { }
+    private final double x;
+    private final double y;
 
     public Vector(double x, double y) {
         this.x = x;
@@ -50,14 +48,6 @@ public class Vector {
 
     public double getY() {
         return y;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
 }

@@ -27,8 +27,8 @@ public class Point {
 
     public Point(double x, double y, double mass) {
         this.position = new Vector(x, y);
-        this.velocity = new Vector();
-        this.acceleration = new Vector();
+        this.velocity = new Vector(0, 0);
+        this.acceleration = new Vector(0, 0);
         this.mass = mass;
     }
 
