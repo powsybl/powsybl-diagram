@@ -28,12 +28,12 @@ public class Spring {
         this.target = target;
     }
 
-    public Spring(Point source, Point target, double stiffness) {
-        this(source, target, DEFAULT_LENGTH, stiffness);
+    public Spring(Point source, Point target, double length) {
+        this(source, target, length, DEFAULT_STIFFNESS);
     }
 
     public Spring(Point source, Point target) {
-        this(source, target, DEFAULT_LENGTH, DEFAULT_STIFFNESS);
+        this(source, target, DEFAULT_LENGTH);
     }
 
     public Point getNode1() {

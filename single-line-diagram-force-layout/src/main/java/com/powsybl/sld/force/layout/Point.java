@@ -19,13 +19,17 @@ public class Point {
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
-    private double mass;
+    private final double mass;
 
     public Point(double x, double y) {
+        this(x, y, DEFAULT_MASS);
+    }
+
+    public Point(double x, double y, double mass) {
         this.position = new Vector(x, y);
         this.velocity = new Vector();
         this.acceleration = new Vector();
-        this.mass = DEFAULT_MASS;
+        this.mass = mass;
     }
 
     public void applyForce(Vector force) {
@@ -44,10 +48,6 @@ public class Point {
         return acceleration;
     }
 
-    public double getMass() {
-        return mass;
-    }
-
     public void setPosition(Vector position) {
         this.position = position;
     }
@@ -58,10 +58,6 @@ public class Point {
 
     public void setAcceleration(Vector acceleration) {
         this.acceleration = acceleration;
-    }
-
-    public void setMass(double mass) {
-        this.mass = mass;
     }
 
     public double getEnergy() {
