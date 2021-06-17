@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.force.layout;
 
-import java.util.Objects;
-
 /**
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
@@ -62,20 +60,4 @@ public class Vector {
         this.y = y;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Vector vector = (Vector) o;
-        return x == vector.x && y == vector.y;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
 }
