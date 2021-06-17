@@ -99,6 +99,8 @@ public class SubstationGraph extends AbstractBaseGraph {
         }
 
         for (Node multiNode : getMultiTermNodes()) {
+            // the multiTermNode itself is not in the graph created
+            // edges are added between its adjacent nodes
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
 
             graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(1).getGraph());

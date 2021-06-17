@@ -20,16 +20,13 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- *
  * The following algorithm is a force layout algorithm.
- * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no crossings.
+ * It seeks to place the nodes of a graph in such a way that the nodes are well spaced and that there are no unnecessary crossings.
  * The algorithm uses an analogy with physics where the nodes of the graph are particles with mass and the edges are springs.
  * Force calculations are used to place the nodes.
  *
  * The algorithm is taken from: https://github.com/dhotson/springy
- */
-
-/**
+ *
  * @author Mathilde Grapin <mathilde.grapin at rte-france.com>
  */
 public class ForceLayout<V, E> {
