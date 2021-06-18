@@ -49,7 +49,7 @@ public class TestForceLayout {
         graph.addEdge(kyoto, osaka);
         graph.addEdge(osaka, tokyo);
 
-        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
+        ForceLayout<String, DefaultEdge> forceLayout = new ForceLayout<>(graph);
         forceLayout.execute();
 
         StringWriter svgSw = new StringWriter();
@@ -79,7 +79,7 @@ public class TestForceLayout {
         graph.addEdge(7, 2);
         // graph.addEdge(2, 2); // does not seem to end if we set self-loop node
 
-        ForceLayout<Integer, DefaultEdge> forceLayout = new ForceLayout<>(graph).setInitialisationSeed(3);
+        ForceLayout<Integer, DefaultEdge> forceLayout = new ForceLayout<>(graph);
         forceLayout.execute();
 
         StringWriter svgSw = new StringWriter();

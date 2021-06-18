@@ -53,7 +53,7 @@ import java.util.function.Function;
 public class ForceLayout<V, E> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForceLayout.class);
 
-    private final Random random = new Random();
+    private final Random random = new Random(3L); // deterministic randomness
 
     private static final int DEFAULT_MAX_STEPS = 2000;
     private static final double DEFAULT_MIN_ENERGY_THRESHOLD = 0.01;
@@ -113,11 +113,6 @@ public class ForceLayout<V, E> {
 
     public ForceLayout<V, E> setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
-        return this;
-    }
-
-    public ForceLayout<V, E> setInitialisationSeed(long seed) {
-        random.setSeed(seed);
         return this;
     }
 
