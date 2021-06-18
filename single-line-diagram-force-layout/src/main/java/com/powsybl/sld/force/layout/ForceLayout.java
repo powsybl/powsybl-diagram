@@ -69,9 +69,9 @@ public class ForceLayout<V, E> {
     private double damping;
     private double maxSpeed;
 
-    private Graph<V, E> graph;
-    private Map<V, Point> points = new LinkedHashMap<>();
-    private Set<Spring> springs = new LinkedHashSet<>();
+    private final Graph<V, E> graph;
+    private final Map<V, Point> points = new LinkedHashMap<>();
+    private final Set<Spring> springs = new LinkedHashSet<>();
 
     private boolean hasBeenExecuted = false;
 
