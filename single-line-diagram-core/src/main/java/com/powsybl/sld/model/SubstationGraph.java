@@ -7,6 +7,8 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.Pseudograph;
 
 import java.io.IOException;
 import java.util.*;
@@ -87,6 +89,29 @@ public class SubstationGraph extends AbstractBaseGraph {
 
     public String getSubstationId() {
         return substationId;
+    }
+
+    public Graph<VoltageLevelGraph, Object> toJgrapht() {
+        Graph<VoltageLevelGraph, Object> graph = new Pseudograph<>(Object.class);
+
+        for (VoltageLevelGraph voltageLevelGraph : getNodes()) {
+            graph.addVertex(voltageLevelGraph);
+        }
+
+        for (Node multiNode : getMultiTermNodes()) {
+            // the multiTermNode itself is not in the graph created
+            // edges are added between its adjacent nodes
+            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
+
+            graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(1).getGraph());
+
+            if (adjacentNodes.size() == 3) {
+                graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(2).getGraph());
+                graph.addEdge(adjacentNodes.get(1).getGraph(), adjacentNodes.get(2).getGraph());
+            }
+        }
+
+        return graph;
     }
 
     @Override
