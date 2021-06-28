@@ -35,6 +35,8 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcesComponentLibrary.class);
 
+    private final String name;
+
     private final Map<String, Map<String, List<Element>>> svgDocuments = new HashMap<>();
 
     private final Map<String, Component> components = new HashMap<>();
@@ -45,18 +47,25 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     /**
      * Constructs a new library containing the components in the given directories
+     * @param name of the library
      * @param directory main directory containing the resources components: SVG files, with associated components.xml
      *                 (containing the list of SVG files) and components.css (containing the style applied to each
      *                  component)
      * @param additionalDirectories directories for additional components (each directory containing SVG files,
      *                              associated components.xml and components.css).
      */
-    public ResourcesComponentLibrary(String directory, String... additionalDirectories) {
+    public ResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {
+        this.name = Objects.requireNonNull(name);
         Objects.requireNonNull(directory);
         loadLibrary(directory);
         for (String addDir : additionalDirectories) {
             loadLibrary(addDir);
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     private void loadLibrary(String directory) {

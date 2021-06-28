@@ -8,6 +8,7 @@ package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
@@ -57,7 +58,7 @@ public abstract class AbstractTestCase {
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("/ConvergenceLibrary");
+        return new ConvergenceComponentLibrary();
     }
 
     protected static String normalizeLineSeparator(String str) {
