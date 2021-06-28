@@ -423,26 +423,24 @@ public class DefaultSVGWriter implements SVGWriter {
         gridRoot.setAttribute("id", gridId);
         gridRoot.setAttribute(CLASS, DiagramStyles.GRID_STYLE_CLASS);
         gridRoot.setAttribute(TRANSFORM,
-                TRANSLATE + "(" + layoutParameters.getTranslateX() + "," + layoutParameters.getTranslateY() + ")");
+                TRANSLATE + "(" + layoutParameters.getPaddingLeft() + "," + layoutParameters.getPaddingTop() + ")");
         // vertical lines
         for (int i = 0; i < maxH + 1; i++) {
             gridRoot.appendChild(drawGridVerticalLine(document, graph, maxV,
-                    graph.getX() + layoutParameters.getInitialXBus() + i * layoutParameters.getCellWidth()));
+                    graph.getX() + i * layoutParameters.getCellWidth()));
         }
 
         // StackHeight Horizontal lines
         gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + layoutParameters.getInitialYBus() - layoutParameters.getStackHeight()));
+                graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight()));
         gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + layoutParameters.getInitialYBus() + layoutParameters.getStackHeight()
-                        + layoutParameters.getVerticalSpaceBus() * maxV));
+                graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
 
         // internCellHeight Horizontal lines
         gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + layoutParameters.getInitialYBus() - layoutParameters.getInternCellHeight()));
+                graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getInternCellHeight()));
         gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + layoutParameters.getInitialYBus() + layoutParameters.getInternCellHeight()
-                        + layoutParameters.getVerticalSpaceBus() * maxV));
+                graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
                 graph.getVoltageLevelInfos().getId(),
@@ -459,17 +457,14 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected Element drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y) {
         return drawGridLine(document,
-                layoutParameters.getInitialXBus() + graph.getX(), y,
-                layoutParameters.getInitialXBus() + maxH * layoutParameters.getCellWidth() + graph.getX(), y);
+                graph.getX(), y, maxH * layoutParameters.getCellWidth() + graph.getX(), y);
     }
 
     protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
         return drawGridLine(document,
-                x, layoutParameters.getInitialYBus()
-                        - layoutParameters.getStackHeight() - layoutParameters.getExternCellHeight() + graph.getY(),
-                x, layoutParameters.getInitialYBus()
-                        + layoutParameters.getStackHeight() + layoutParameters.getExternCellHeight()
-                        + layoutParameters.getVerticalSpaceBus() * maxV + graph.getY());
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight() - layoutParameters.getExternCellHeight(),
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getExternCellHeight()
+                        + layoutParameters.getVerticalSpaceBus() * maxV);
     }
 
     protected Element drawGridLine(Document document, double x1, double y1, double x2, double y2) {
@@ -607,14 +602,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Element gLabel = root.getOwnerDocument().createElement(GROUP);
         gLabel.setAttribute("id", idLabelVoltageLevel);
 
-        double decalYLabel = !layoutParameters.isAdaptCellHeightToContent()
-                ? layoutParameters.getExternCellHeight()
-                : graph.getMaxCalculatedCellHeight(BusCell.Direction.TOP);
-        if (decalYLabel < 0) {
-            decalYLabel = layoutParameters.getExternCellHeight();
-        }
-
-        double yPos = graph.getY() + layoutParameters.getInitialYBus() - decalYLabel - 20.;
+        double yPos = graph.getY() - 20.;
 
         String graphName = graph.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
         Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
@@ -650,8 +638,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.appendChild(line);
 
-        g.setAttribute(TRANSFORM, TRANSLATE + "(" + (layoutParameters.getTranslateX() + node.getX()) + ","
-                + (layoutParameters.getTranslateY() + node.getY()) + ")");
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + (layoutParameters.getPaddingLeft() + node.getX()) + ","
+                + (layoutParameters.getPaddingTop() + node.getY()) + ")");
 
         return line;
     }
@@ -838,8 +826,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private double[] getNodeTranslate(Node node) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double translateX = layoutParameters.getTranslateX() + node.getX() - componentSize.getWidth() / 2;
-        double translateY = layoutParameters.getTranslateY() + node.getY() - componentSize.getHeight() / 2;
+        double translateX = layoutParameters.getPaddingLeft() + node.getX() - componentSize.getWidth() / 2;
+        double translateY = layoutParameters.getPaddingTop() + node.getY() - componentSize.getHeight() / 2;
         return new double[]{translateX, translateY};
     }
 
@@ -886,8 +874,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
-        double centerPosTransX = layoutParameters.getTranslateX() + centerPosX;
-        double centerPosTransY = layoutParameters.getTranslateY() + centerPosY;
+        double centerPosTransX = layoutParameters.getPaddingLeft() + centerPosX;
+        double centerPosTransY = layoutParameters.getPaddingTop() + centerPosY;
         if (angle == 0) {
             double translateX = centerPosTransX - componentSize.getWidth() / 2;
             double translateY = centerPosTransY - componentSize.getHeight() / 2;
@@ -1151,7 +1139,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected String pointsListToString(List<Point> polyline) {
         return polyline.stream()
-            .map(pt -> (pt.getX() + layoutParameters.getTranslateX()) + "," + (pt.getY() + layoutParameters.getTranslateY()))
+            .map(pt -> (pt.getX() + layoutParameters.getPaddingLeft()) + "," + (pt.getY() + layoutParameters.getPaddingTop()))
             .collect(Collectors.joining(","));
     }
 
@@ -1370,10 +1358,10 @@ public class DefaultSVGWriter implements SVGWriter {
                                 DiagramStyleProvider styleProvider) {
         double xInitPos = graph.getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.BUS)
-                .mapToDouble(Node::getX).min().getAsDouble() + layoutParameters.getTranslateX() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+                .mapToDouble(Node::getX).min().orElse(0) + layoutParameters.getPaddingLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
-        double maxY = graph.getNodes().stream().mapToDouble(Node::getY).max().getAsDouble();
-        double yPos = graph.getY() + layoutParameters.getInitialYBus() + maxY - 120;
+        double maxY = graph.getNodes().stream().mapToDouble(Node::getY).max().orElse(0);
+        double yPos = graph.getY() + graph.getFirstBusY(layoutParameters) + maxY - 120;
 
         List<ElectricalNodeInfo> nodes = styleProvider.getElectricalNodesInfos(graph);
 
