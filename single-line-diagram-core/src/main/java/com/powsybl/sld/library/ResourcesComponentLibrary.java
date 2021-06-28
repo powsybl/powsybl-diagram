@@ -47,7 +47,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
 
     /**
      * Constructs a new library containing the components in the given directories
-     * @param name of the library
+     * @param name name of the library
      * @param directory main directory containing the resources components: SVG files, with associated components.xml
      *                 (containing the list of SVG files) and components.css (containing the style applied to each
      *                  component)
