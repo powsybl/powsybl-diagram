@@ -189,7 +189,7 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(drawGrid(prefixId, graph, document, metadata));
         }
 
-        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider, true);
+        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider);
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
@@ -202,8 +202,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     Element root,
                                     GraphMetadata metadata,
                                     DiagramLabelProvider initProvider,
-                                    DiagramStyleProvider styleProvider,
-                                    boolean useNodesInfosParam) {
+                                    DiagramStyleProvider styleProvider) {
 
         AnchorPointProvider anchorPointProvider =
             (type, id) -> type.equals(BUSBAR_SECTION) ? getBusbarAnchors(id, graph) : componentLibrary.getAnchorPoints(type);
@@ -229,7 +228,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
 
-        if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
+        if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
         }
     }
@@ -345,7 +344,11 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
-        return graph.getHeight() + layoutParameters.getDiagramPadding().getTop() + layoutParameters.getDiagramPadding().getBottom();
+        double height = graph.getHeight() + layoutParameters.getDiagramPadding().getTop() + layoutParameters.getDiagramPadding().getBottom();
+        if (graph instanceof VoltageLevelGraph && layoutParameters.isAddNodesInfos()) {
+            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        }
+        return height;
     }
 
     @Override
@@ -401,7 +404,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
         for (VoltageLevelGraph vlGraph : graph.getNodes()) {
-            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, false);
+            drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
 
         // Handle multi-terminal nodes rotation
@@ -1310,15 +1313,14 @@ public class DefaultSVGWriter implements SVGWriter {
                                double xShift,
                                double yShift,
                                Element g,
-                               String idNode,
-                               double circleRadiusSize) {
+                               String idNode) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         circle.setAttribute("id", idNode + "_circle");
         circle.setAttribute("cx", String.valueOf(xShift));
         circle.setAttribute("cy", String.valueOf(yShift));
-        circle.setAttribute("r", String.valueOf(circleRadiusSize / 2));
-        circle.setAttribute("stroke-width", String.valueOf(circleRadiusSize));
+        circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE / 2.));
+        circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
         circle.setAttribute(CLASS, nodeInfo.getStyle());
         g.appendChild(circle);
 
@@ -1330,8 +1332,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 : "\u2014";  // em dash unicode for undefined value
         valueV += " kV";
 
-        labelV.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
-        labelV.setAttribute("y", String.valueOf(yShift + 2.5 * circleRadiusSize));
+        labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
+        labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelV.setAttribute(CLASS, LABEL_STYLE_CLASS);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
@@ -1345,8 +1347,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 : "\u2014";  // em dash unicode for undefined value
         valueAngle += " \u00b0";  // degree sign unicode for degree symbol
 
-        labelAngle.setAttribute("x", String.valueOf(xShift - circleRadiusSize));
-        labelAngle.setAttribute("y", String.valueOf(yShift + 4 * circleRadiusSize));
+        labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
+        labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelAngle.setAttribute(CLASS, LABEL_STYLE_CLASS);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
@@ -1357,22 +1359,21 @@ public class DefaultSVGWriter implements SVGWriter {
                                 Element root,
                                 VoltageLevelGraph graph,
                                 DiagramStyleProvider styleProvider) {
-        double xInitPos = graph.getNodes().stream()
-                .filter(n -> n.getType() == Node.NodeType.BUS)
-                .mapToDouble(Node::getX).min().orElse(0) + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
-        double maxY = graph.getNodes().stream().mapToDouble(Node::getY).max().orElse(0);
-        double yPos = graph.getY() + graph.getFirstBusY(layoutParameters) + maxY - 120;
+        double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         List<ElectricalNodeInfo> nodes = styleProvider.getElectricalNodesInfos(graph);
 
-        IntStream.range(0, nodes.size()).forEach(i -> {
+        for (int i = 0; i < nodes.size(); i++) {
             String idNode = prefixId + "NODE_" + i + "_" + graph.getVoltageLevelInfos().getId();
             Element gNode = root.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
-            drawNodeInfos(nodes.get(i), graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50)), yPos, gNode, idNode, CIRCLE_RADIUS_NODE_INFOS_SIZE);
+            double xShift = graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50));
+            drawNodeInfos(nodes.get(i), xShift, yPos, gNode, idNode);
+
             root.appendChild(gNode);
-        });
+        }
     }
 }
