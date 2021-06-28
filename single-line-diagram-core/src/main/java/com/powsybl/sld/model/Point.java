@@ -51,6 +51,11 @@ public class Point {
         setY(point.y);
     }
 
+    public void setCoordinates(double x, double y) {
+        setX(x);
+        setY(y);
+    }
+
     public static List<Point> createPointsList(double... coordinates) {
         if (coordinates.length % 2 == 1) {
             throw new AssertionError("The number of coordinates given must be even");

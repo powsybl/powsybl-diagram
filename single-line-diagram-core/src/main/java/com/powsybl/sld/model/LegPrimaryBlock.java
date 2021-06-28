@@ -102,15 +102,13 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     @Override
     public void coordHorizontalCase(LayoutParameters layoutParam) {
-        getNodeOnBus().setX(getCoord().get(X) + getCoord().getSpan(X) / 2);
-        getNodeOnBus().setY(getBusNode().getY(), false);
-        getLegNode().setY(getBusNode().getY(), false);
+        getNodeOnBus().setCoordinates(getCoord().get(X) + getCoord().getSpan(X) / 2, getBusNode().getVlY());
+        getLegNode().setY(getBusNode().getVlY());
     }
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        getNodeOnBus().setX(getCoord().get(X));
-        getNodeOnBus().setY(getBusNode().getY(), false);
+        getNodeOnBus().setCoordinates(getCoord().get(X), getBusNode().getVlY());
 
         getLegNode().setX(getCoord().get(X));
         if (getCell().getType() == INTERN && ((InternCell) getCell()).checkisShape(UNILEG)) {

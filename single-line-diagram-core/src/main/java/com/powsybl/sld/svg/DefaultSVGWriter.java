@@ -34,7 +34,6 @@ import java.util.stream.IntStream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.Position.Dimension.H;
-import static com.powsybl.sld.model.Position.Dimension.V;
 import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
@@ -209,10 +208,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 BusNode busbarSectionNode = (BusNode) graph.getNode(id);
                 List<AnchorPoint> result = new ArrayList<>();
                 result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                for (int i = 1; i < busbarSectionNode.getPosition().getSpan(H); i++) {
-                    result.add(new AnchorPoint(
-                            ((double) i / 2) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding() / 2,
-                            0, AnchorOrientation.VERTICAL));
+                for (int iCell = 0; iCell < busbarSectionNode.getPosition().getSpan(H) / 2; iCell++) {
+                    result.add(new AnchorPoint((iCell + 0.5) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding(), 0, AnchorOrientation.VERTICAL));
                 }
                 result.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
                 return result;
