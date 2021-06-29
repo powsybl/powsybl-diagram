@@ -12,7 +12,7 @@ import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -295,7 +295,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
 
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
 
         // write SVGs and compare to reference
@@ -318,7 +318,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
 
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),

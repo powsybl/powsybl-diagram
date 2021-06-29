@@ -6,12 +6,11 @@
  */
 package com.powsybl.sld.library;
 
+import com.google.common.collect.Lists;
 import org.w3c.dom.Element;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -20,6 +19,17 @@ import java.util.Optional;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface ComponentLibrary {
+
+    static List<ComponentLibrary> findAll() {
+        return Lists.newArrayList(ServiceLoader.load(ComponentLibrary.class));
+    }
+
+    static Optional<ComponentLibrary> find(String name) {
+        Objects.requireNonNull(name);
+        return findAll().stream().filter(cl -> cl.getName().equals(name)).findFirst();
+    }
+
+    String getName();
 
     List<AnchorPoint> getAnchorPoints(String type);
 
