@@ -45,16 +45,25 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             totalHeight += vlGraph.getHeight() + layoutParameters.getVerticalSubstationPadding();
         }
 
-        getGraph().setSize(maxWidth + layoutParameters.getPaddingLeft(), totalHeight + layoutParameters.getPaddingTop());
+        getGraph().setSize(maxWidth, totalHeight);
     }
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        InfosNbSnakeLines infosNbSnakeLines1 = InfosNbSnakeLines.create(getGraph());
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
 
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, infosNbSnakeLines1));
-        manageSnakeLines(getGraph(), layoutParameters, infosNbSnakeLines1);
+        double widthSnakeLinesLeft = infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT) * layoutParameters.getHorizontalSnakeLinePadding();
+        double widthSnakeLinesRight = infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) * layoutParameters.getHorizontalSnakeLinePadding();
+        getGraph().setSize(getGraph().getWidth() + widthSnakeLinesLeft + widthSnakeLinesRight, getGraph().getHeight());
 
+        if (widthSnakeLinesLeft > 0) {
+            getGraph().getNodes().forEach(g -> g.setCoord(g.getX() + widthSnakeLinesLeft, g.getY()));
+
+            infosNbSnakeLines.reset();
+            getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+            manageSnakeLines(getGraph(), layoutParameters);
+        }
     }
 
     /*
@@ -131,7 +140,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             double ySnakeLine2 = getYSnakeLine(node2, dNode2, decal2V, layoutParam);
 
             Side side = getSide(dNode1, increment);
-            double xSnakeLine = getXSnakeLine(side, layoutParam);
+            double xSnakeLine = getXSnakeLine(node1, side, layoutParam);
             polyline.addAll(Point.createPointsList(x1, ySnakeLine1,
                 xSnakeLine, ySnakeLine1,
                 xSnakeLine, ySnakeLine2,
@@ -146,13 +155,11 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         return ((increment && dNode1 == BusCell.Direction.BOTTOM) || (!increment && dNode1 == BusCell.Direction.TOP)) ? Side.RIGHT : Side.LEFT;
     }
 
-    private double getXSnakeLine(Side side, LayoutParameters layoutParam) {
-        int maxVlH = getGraph().getNodes().stream().mapToInt(VoltageLevelGraph::getMaxH).max().orElse(0);
-        double maxH = layoutParam.getPaddingLeft() + (maxVlH + 1) * layoutParam.getCellWidth() / 2;
+    private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
         double shiftLeftRight = infosNbSnakeLines.getNbSnakeLinesLeftRight().compute(side, (k, v) -> v + 1) * layoutParam.getHorizontalSnakeLinePadding();
         return side == Side.LEFT
-            ? layoutParam.getHorizontalSubstationPadding() - shiftLeftRight
-            : maxH + shiftLeftRight;
+            ? node.getGraph().getX() - shiftLeftRight
+            : node.getGraph().getX() + shiftLeftRight + getGraph().getNodeStream().mapToDouble(VoltageLevelGraph::getWidth).max().orElse(0) - layoutParam.getPaddingRight() - layoutParam.getPaddingLeft();
     }
 
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
@@ -165,8 +172,8 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                 return node.getCoordinates().getY() - decalV;
             } else {
                 VoltageLevelGraph vlAbove = vls.get(iVl - 1);
-                return vlAbove.getY() + layoutParam.getVerticalSpaceBus() * (vlAbove.getMaxV() - 1) + layoutParam.getStackHeight() + layoutParam.getExternCellHeight()
-                    + decalV;
+                double heightWithoutPaddings = vlAbove.getHeight() - layoutParam.getPaddingBottom() - layoutParam.getPaddingTop();
+                return vlAbove.getY() + heightWithoutPaddings + decalV;
             }
         }
     }
