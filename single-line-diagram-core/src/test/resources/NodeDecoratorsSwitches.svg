@@ -272,7 +272,7 @@ polyline {fill: none}
             <g class="sld-node sld-constant-color sld-hidden-node" id="idFICT_95_VL1_95_T11_95_ONEFictif" transform="translate(291.0,88.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT11_95_ONE" transform="translate(295.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT11_95_ONE" transform="translate(295.0,30.0)">
                 <text class="sld-label" id="T11_ONE_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T11</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BBS11_95_D17">
@@ -324,10 +324,10 @@ polyline {fill: none}
                 <circle cx="11" cy="5" r="5"/>
                 <circle cx="8" cy="9" r="5"/>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT3_95_12_95_TWO" transform="translate(545.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_TWO" transform="translate(545.0,30.0)">
                 <text class="sld-label" id="T3_12_TWO_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT3_95_12_95_THREE" transform="translate(595.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_THREE" transform="translate(595.0,30.0)">
                 <text class="sld-label" id="T3_12_THREE_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BBS11_95_D19">
@@ -493,7 +493,7 @@ polyline {fill: none}
             <g class="sld-node sld-constant-color sld-hidden-node" id="idFICT_95_VL1_95_T11_95_TWOFictif" transform="translate(441.0,88.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT11_95_TWO" transform="translate(445.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT11_95_TWO" transform="translate(445.0,30.0)">
                 <text class="sld-label" id="T11_TWO_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T11</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BBS12_95_D25">
@@ -597,10 +597,10 @@ polyline {fill: none}
                 <circle cx="11" cy="5" r="5"/>
                 <circle cx="8" cy="9" r="5"/>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT3_95_12_95_ONE" transform="translate(645.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_ONE" transform="translate(645.0,30.0)">
                 <text class="sld-label" id="T3_12_ONE_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
-            <g class="sld-line sld-top-feeder sld-constant-color" id="idT3_95_12_95_THREE" transform="translate(695.0,30.0)">
+            <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_THREE" transform="translate(695.0,30.0)">
                 <text class="sld-label" id="T3_12_THREE_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BBS12_95_D29">

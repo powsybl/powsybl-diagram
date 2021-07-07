@@ -231,7 +231,7 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
+        <g class="sld-constant-color" id="idvl1_95_trf1" transform="translate(100.0,570.0)">
             <text class="sld-label" id="vl1_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf1" transform="translate(90.0,460.0)">
@@ -242,7 +242,7 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
+        <g class="sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(420.0,150.0)">
             <text class="sld-label" id="vl1_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(410.0,240.0)">
@@ -326,7 +326,7 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
+        <g class="sld-constant-color" id="idvl2_95_trf1" transform="translate(670.0,570.0)">
             <text class="sld-label" id="vl2_trf1__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf1" transform="translate(660.0,460.0)">
@@ -337,7 +337,7 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
+        <g class="sld-constant-color" id="idvl2_95_trf2_95_one" transform="translate(730.0,150.0)">
             <text class="sld-label" id="vl2_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf2" transform="translate(720.0,240.0)">
@@ -402,7 +402,7 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
+        <g class="sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(1020.0,150.0)">
             <text class="sld-label" id="vl3_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl3_95_btrf2" transform="translate(1010.0,240.0)">

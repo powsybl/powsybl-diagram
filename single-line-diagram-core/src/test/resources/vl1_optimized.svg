@@ -229,10 +229,10 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(380.0,150.0)">
+        <g class="sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(380.0,150.0)">
             <text class="sld-label" id="vl1_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl1_95_trf2_95_two" transform="translate(460.0,150.0)">
+        <g class="sld-constant-color" id="idvl1_95_trf2_95_two" transform="translate(460.0,150.0)">
             <text class="sld-label" id="vl1_trf2_two__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl1_95_vl1_95_trf2" transform="translate(412.0,203.0)">

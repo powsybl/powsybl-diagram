@@ -72,7 +72,7 @@ polyline {fill: none}
             <line x1="16" x2="0" y1="0" y2="9"/>
             <text class="sld-label" id="Load__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Load</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idTransformer_95_ONE" transform="translate(70.0,350.0)">
+        <g class="sld-constant-color" id="idTransformer_95_ONE" transform="translate(70.0,350.0)">
             <text class="sld-label" id="Transformer_ONE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Transformer</text>
         </g>
         <g class="sld-busbar-section sld-constant-color" id="idBus12" transform="translate(50.0,550.0)">
@@ -105,7 +105,7 @@ polyline {fill: none}
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
+        <g class="sld-constant-color" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
             <text class="sld-label" id="Transformer_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Transformer</text>
         </g>
         <g class="sld-line sld-constant-color" id="idLine_95_ONE" transform="translate(70.0,700.0)">

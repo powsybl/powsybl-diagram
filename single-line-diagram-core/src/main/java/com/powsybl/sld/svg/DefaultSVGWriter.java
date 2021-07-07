@@ -499,19 +499,9 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
-        // to generate the real component type in node metadata for 2WT and 3WT transformers
-        // (actually, the component type is set to 'LINE' for 3WT feeder leg nodes and for 2WT feeder leg nodes in
-        //  substation diagram, for internal reasons)
-        String nodeComponentType = node.getComponentType();
-        if (node instanceof Feeder2WTLegNode || node instanceof Feeder2WTNode) {
-            nodeComponentType = TWO_WINDINGS_TRANSFORMER;
-        } else if (node instanceof Feeder3WTLegNode) {
-            nodeComponentType = THREE_WINDINGS_TRANSFORMER;
-        }
-
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
-                        nodeComponentType, node.getRotationAngle(),
+                        node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId()));
         if (node.getType() == Node.NodeType.BUS) {
             metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
