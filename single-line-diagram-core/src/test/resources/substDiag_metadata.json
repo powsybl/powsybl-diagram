@@ -151,7 +151,7 @@
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,
-      "orientation" : "VERTICAL"
+      "orientation" : "NONE"
     } ],
     "size" : {
       "width" : 0.0,
@@ -159,7 +159,7 @@
     },
     "allowRotation" : true,
     "subComponents" : null,
-    "styleClass" : "sld-line"
+    "styleClass" : null
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER_LEG",
     "id" : null,

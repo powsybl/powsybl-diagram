@@ -14,7 +14,6 @@ polyline {fill: none}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 .sld-constant-color {stroke: blue; fill: none}
 .sld-wire.sld-constant-color {stroke: #c80000}
-.sld-line.sld-constant-color {stroke: blue}
 .sld-node.sld-constant-color {stroke: none; fill: black}
 .sld-busbreaker-connection.sld-constant-color {stroke: black}
 .sld-busbar-section.sld-constant-color {stroke: black}
@@ -108,7 +107,7 @@ polyline {fill: none}
         <g class="sld-constant-color" id="idTransformer_95_TWO" transform="translate(70.0,450.0)">
             <text class="sld-label" id="Transformer_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Transformer</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idLine_95_ONE" transform="translate(70.0,700.0)">
+        <g class="sld-constant-color" id="idLine_95_ONE" transform="translate(70.0,700.0)">
             <text class="sld-label" id="Line_ONE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Line</text>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(65.0,392.5)">
@@ -157,7 +156,7 @@ polyline {fill: none}
             <path d="M6,6 A 6 40 0 0 0 10,6"/>
             <text class="sld-label" id="Generator__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Generator</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
+        <g class="sld-constant-color" id="idLine_95_TWO" transform="translate(170.0,1000.0)">
             <text class="sld-label" id="Line_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Line</text>
         </g>
         <g class="sld-wire sld-constant-color" id="idLine">
