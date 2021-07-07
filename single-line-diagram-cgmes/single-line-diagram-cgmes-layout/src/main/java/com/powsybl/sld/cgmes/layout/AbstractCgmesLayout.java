@@ -101,9 +101,7 @@ public abstract class AbstractCgmesLayout {
     }
 
     protected boolean isLineNode(Node node) {
-        return (node instanceof FeederLineNode)
-                || (node instanceof FeederInjectionNode
-                    && Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType()));
+        return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
     protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName) {
