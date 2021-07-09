@@ -415,8 +415,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String gridId = prefixId + "GRID_" + graph.getVoltageLevelInfos().getId();
         gridRoot.setAttribute("id", gridId);
         gridRoot.setAttribute(CLASS, DiagramStyles.GRID_STYLE_CLASS);
-        gridRoot.setAttribute(TRANSFORM,
-                TRANSLATE + "(" + layoutParameters.getPaddingLeft() + "," + layoutParameters.getPaddingTop() + ")");
+
         // vertical lines
         for (int iCell = 0; iCell < maxH / 2 + 1; iCell++) {
             gridRoot.appendChild(drawGridVerticalLine(document, graph, maxV,
@@ -631,8 +630,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.appendChild(line);
 
-        g.setAttribute(TRANSFORM, TRANSLATE + "(" + (layoutParameters.getPaddingLeft() + node.getX()) + ","
-                + (layoutParameters.getPaddingTop() + node.getY()) + ")");
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + node.getX() + "," + node.getY() + ")");
 
         return line;
     }
@@ -819,8 +817,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private double[] getNodeTranslate(Node node) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double translateX = layoutParameters.getPaddingLeft() + node.getX() - componentSize.getWidth() / 2;
-        double translateY = layoutParameters.getPaddingTop() + node.getY() - componentSize.getHeight() / 2;
+        double translateX = node.getX() - componentSize.getWidth() / 2;
+        double translateY = node.getY() - componentSize.getHeight() / 2;
         return new double[]{translateX, translateY};
     }
 
@@ -867,15 +865,13 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
-        double centerPosTransX = layoutParameters.getPaddingLeft() + centerPosX;
-        double centerPosTransY = layoutParameters.getPaddingTop() + centerPosY;
         if (angle == 0) {
-            double translateX = centerPosTransX - componentSize.getWidth() / 2;
-            double translateY = centerPosTransY - componentSize.getHeight() / 2;
+            double translateX = centerPosX - componentSize.getWidth() / 2;
+            double translateY = centerPosY - componentSize.getHeight() / 2;
             return TRANSLATE + "(" +  translateX + "," + translateY + ")";
         } else {
             double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
-                centerPosTransX, centerPosTransY);
+                centerPosX, centerPosY);
             return transformMatrixToString(matrix, 4);
         }
     }
@@ -1132,7 +1128,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected String pointsListToString(List<Point> polyline) {
         return polyline.stream()
-            .map(pt -> (pt.getX() + layoutParameters.getPaddingLeft()) + "," + (pt.getY() + layoutParameters.getPaddingTop()))
+            .map(pt -> pt.getX() + "," + pt.getY())
             .collect(Collectors.joining(","));
     }
 
@@ -1351,7 +1347,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                 DiagramStyleProvider styleProvider) {
         double xInitPos = graph.getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.BUS)
-                .mapToDouble(Node::getX).min().orElse(0) + layoutParameters.getPaddingLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
+                .mapToDouble(Node::getX).min().orElse(0) + layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         double maxY = graph.getNodes().stream().mapToDouble(Node::getY).max().orElse(0);
         double yPos = graph.getY() + graph.getFirstBusY(layoutParameters) + maxY - 120;

@@ -23,11 +23,6 @@ import java.util.Objects;
  */
 public class LayoutParameters {
 
-    private double paddingLeft = 20;
-    private double paddingRight = 20;
-    private double paddingTop = 20;
-    private double paddingBottom = 20;
-
     private double verticalSpaceBus = 25;
     private double horizontalBusPadding = 20;
 
@@ -76,6 +71,10 @@ public class LayoutParameters {
 
     private CssLocation cssLocation = CssLocation.EXTERNAL_IMPORTED;
 
+    private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
+
+    private Padding diagramPadding = new Padding(20);
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -84,10 +83,8 @@ public class LayoutParameters {
     }
 
     @JsonCreator
-    public LayoutParameters(@JsonProperty("paddingLeft") double paddingLeft,
-                            @JsonProperty("paddingRight") double paddingRight,
-                            @JsonProperty("paddingTop") double paddingTop,
-                            @JsonProperty("paddingBottom") double paddingBottom,
+    public LayoutParameters(@JsonProperty("voltageLevelPadding") Padding voltageLevelPadding,
+                            @JsonProperty("diagramPadding") Padding diagramPadding,
                             @JsonProperty("verticalSpaceBus") double verticalSpaceBus,
                             @JsonProperty("horizontalBusPadding") double horizontalBusPadding,
                             @JsonProperty("cellWidth") double cellWidth,
@@ -118,10 +115,8 @@ public class LayoutParameters {
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
                             @JsonProperty("cssLocation") CssLocation cssLocation) {
-        this.paddingLeft = paddingLeft;
-        this.paddingTop = paddingTop;
-        this.paddingRight = paddingRight;
-        this.paddingBottom = paddingBottom;
+        this.diagramPadding = diagramPadding;
+        this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
         this.cellWidth = cellWidth;
@@ -156,10 +151,8 @@ public class LayoutParameters {
 
     public LayoutParameters(LayoutParameters other) {
         Objects.requireNonNull(other);
-        paddingLeft = other.paddingLeft;
-        paddingTop = other.paddingTop;
-        paddingRight = other.paddingRight;
-        paddingBottom = other.paddingBottom;
+        diagramPadding = new Padding(other.diagramPadding);
+        voltageLevelPadding = new Padding(other.voltageLevelPadding);
         verticalSpaceBus = other.verticalSpaceBus;
         horizontalBusPadding = other.horizontalBusPadding;
         cellWidth = other.cellWidth;
@@ -191,34 +184,6 @@ public class LayoutParameters {
         addNodesInfos = other.addNodesInfos;
         feederArrowSymmetry = other.feederArrowSymmetry;
         cssLocation = other.cssLocation;
-    }
-
-    public double getPaddingLeft() {
-        return paddingLeft;
-    }
-
-    public double getPaddingTop() {
-        return paddingTop;
-    }
-
-    public double getPaddingRight() {
-        return paddingRight;
-    }
-
-    public double getPaddingBottom() {
-        return paddingBottom;
-    }
-
-    public LayoutParameters setPaddings(double padding) {
-        return setPaddings(padding, padding, padding, padding);
-    }
-
-    public LayoutParameters setPaddings(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
-        this.paddingLeft = paddingLeft;
-        this.paddingTop = paddingTop;
-        this.paddingRight = paddingRight;
-        this.paddingBottom = paddingBottom;
-        return this;
     }
 
     public double getVerticalSpaceBus() {
@@ -499,7 +464,67 @@ public class LayoutParameters {
         return this;
     }
 
+    public Padding getVoltageLevelPadding() {
+        return voltageLevelPadding;
+    }
+
+    public LayoutParameters setVoltageLevelPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
+        this.voltageLevelPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        return this;
+    }
+
+    public Padding getDiagramPadding() {
+        return diagramPadding;
+    }
+
+    public LayoutParameters setDiagrammPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
+        this.diagramPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        return this;
+    }
+
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
+    }
+
+    public static class Padding {
+        private final double left;
+        private final double top;
+        private final double right;
+        private final double bottom;
+
+        @JsonCreator
+        public Padding(@JsonProperty("left") double left,
+                       @JsonProperty("top") double top,
+                       @JsonProperty("right") double right,
+                       @JsonProperty("bottom") double bottom) {
+            this.left = left;
+            this.top = top;
+            this.right = right;
+            this.bottom = bottom;
+        }
+
+        public Padding(int padding) {
+            this(padding, padding, padding, padding);
+        }
+
+        public Padding(Padding padding) {
+            this(padding.left, padding.top, padding.right, padding.bottom);
+        }
+
+        public double getLeft() {
+            return left;
+        }
+
+        public double getRight() {
+            return right;
+        }
+
+        public double getTop() {
+            return top;
+        }
+
+        public double getBottom() {
+            return bottom;
+        }
     }
 }
