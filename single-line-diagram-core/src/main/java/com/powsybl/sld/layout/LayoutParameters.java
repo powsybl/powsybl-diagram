@@ -115,7 +115,8 @@ public class LayoutParameters {
                             @JsonProperty("angleLabelShift") double angleLabelShift,
                             @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
-                            @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry) {
+                            @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
+                            @JsonProperty("cssInternal") boolean cssInternal) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -149,6 +150,7 @@ public class LayoutParameters {
         this.highlightLineState = highlightLineState;
         this.addNodesInfos = addNodesInfos;
         this.feederArrowSymmetry = feederArrowSymmetry;
+        this.cssInternal = cssInternal;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -187,6 +189,7 @@ public class LayoutParameters {
         highlightLineState = other.highlightLineState;
         addNodesInfos = other.addNodesInfos;
         feederArrowSymmetry = other.feederArrowSymmetry;
+        cssInternal = other.cssInternal;
     }
 
     public double getTranslateX() {
