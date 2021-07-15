@@ -47,17 +47,17 @@ and additionally for this example three other ones: two for the `Network` test c
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-config-test</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -76,14 +76,14 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>2.2.0</version>
+    <version>2.3.0</version>
 </dependency>
 ```
 
 We can generate a SVG for the voltage level `N`:
 ```java
 // "Convergence" style component library
-ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
 
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
@@ -96,7 +96,7 @@ VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkG
 LayoutParameters layoutParameters = new LayoutParameters()
     .setAdaptCellHeightToContent(true)
     .setTooltipEnabled(true)
-    .setCssInternal(true);
+    .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",
