@@ -121,7 +121,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
                             List<VoltageLevelGraph> graphs, Set<String> listUsedComponentSVG) {
-        Element style = document.createElement(STYLE);
 
         graphs.stream().flatMap(g -> g.getNodes().stream()).forEach(n -> {
             listUsedComponentSVG.add(n.getComponentType());
@@ -131,17 +130,27 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         });
 
-        if (layoutParameters.isCssInternal()) {
-            List<URL> urls = styleProvider.getCssUrls();
-            urls.addAll(componentLibrary.getCssUrls());
-            style.appendChild(getCdataSection(document, urls));
-        } else {
-            styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
-            componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+        Element style = document.createElement(STYLE);
+        switch (layoutParameters.getCssLocation()) {
+            case INSERTED_IN_SVG:
+                List<URL> urls = styleProvider.getCssUrls();
+                urls.addAll(componentLibrary.getCssUrls());
+                style.appendChild(getCdataSection(document, urls));
+                document.adoptNode(style);
+                document.getDocumentElement().appendChild(style);
+                break;
+            case EXTERNAL_IMPORTED:
+                styleProvider.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+                componentLibrary.getCssFilenames().forEach(name -> addStyleImportTextNode(document, style, name));
+                document.adoptNode(style);
+                document.getDocumentElement().appendChild(style);
+                break;
+            case EXTERNAL_NO_IMPORT:
+                // Nothing to do
+                break;
+            default:
+                throw new AssertionError("Unexpected CSS location: " + layoutParameters.getCssLocation());
         }
-
-        document.adoptNode(style);
-        document.getDocumentElement().appendChild(style);
     }
 
     private org.w3c.dom.Node addStyleImportTextNode(Document document, Element style, String name) {
