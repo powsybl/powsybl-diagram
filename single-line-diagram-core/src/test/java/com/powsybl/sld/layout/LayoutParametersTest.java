@@ -53,7 +53,7 @@ public class LayoutParametersTest {
                 .setAddNodesInfos(true)
                 .setMinSpaceForFeederArrows(70)
                 .setFeederArrowSymmetry(true)
-                .setCssInternal(true);
+                .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getTranslateX(), layoutParameters2.getTranslateX(), 0);
@@ -89,6 +89,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isAddNodesInfos(), layoutParameters2.isAddNodesInfos());
         assertEquals(layoutParameters.getMinSpaceForFeederArrows(), layoutParameters2.getMinSpaceForFeederArrows(), 0);
         assertEquals(layoutParameters.isFeederArrowSymmetry(), layoutParameters2.isFeederArrowSymmetry());
-        assertEquals(layoutParameters.isCssInternal(), layoutParameters2.isCssInternal());
+        assertEquals(layoutParameters.getCssLocation(), layoutParameters2.getCssLocation());
     }
 }

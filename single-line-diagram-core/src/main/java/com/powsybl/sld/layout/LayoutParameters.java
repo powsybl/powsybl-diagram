@@ -73,7 +73,7 @@ public class LayoutParameters {
 
     private boolean feederArrowSymmetry = false;
 
-    private boolean cssInternal = false;
+    private CssLocation cssLocation = CssLocation.EXTERNAL_IMPORTED;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -116,7 +116,7 @@ public class LayoutParameters {
                             @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
-                            @JsonProperty("cssInternal") boolean cssInternal) {
+                            @JsonProperty("cssLocation") CssLocation cssLocation) {
         this.translateX = translateX;
         this.translateY = translateY;
         this.initialXBus = initialXBus;
@@ -150,7 +150,7 @@ public class LayoutParameters {
         this.highlightLineState = highlightLineState;
         this.addNodesInfos = addNodesInfos;
         this.feederArrowSymmetry = feederArrowSymmetry;
-        this.cssInternal = cssInternal;
+        this.cssLocation = cssLocation;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -189,7 +189,7 @@ public class LayoutParameters {
         highlightLineState = other.highlightLineState;
         addNodesInfos = other.addNodesInfos;
         feederArrowSymmetry = other.feederArrowSymmetry;
-        cssInternal = other.cssInternal;
+        cssLocation = other.cssLocation;
     }
 
     public double getTranslateX() {
@@ -497,12 +497,16 @@ public class LayoutParameters {
         return this;
     }
 
-    public boolean isCssInternal() {
-        return cssInternal;
+    public CssLocation getCssLocation() {
+        return cssLocation;
     }
 
-    public LayoutParameters setCssInternal(boolean cssInternal) {
-        this.cssInternal = cssInternal;
+    public LayoutParameters setCssLocation(CssLocation cssLocation) {
+        this.cssLocation = cssLocation;
         return this;
+    }
+
+    public enum CssLocation {
+        INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
     }
 }

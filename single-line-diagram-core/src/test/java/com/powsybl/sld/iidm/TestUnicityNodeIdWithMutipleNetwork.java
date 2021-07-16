@@ -32,7 +32,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Override
     protected LayoutParameters getLayoutParameters() {
-        return new LayoutParameters().setCssInternal(true);
+        return new LayoutParameters().setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
     }
 
     @Before
