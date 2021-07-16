@@ -105,6 +105,7 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
+        setDocumentSize(graph, document);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, labelProvider, Collections.singletonList(graph), listUsedComponentSVG);
@@ -317,8 +318,8 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
-
         setDocumentSize(graph, document);
+
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, labelProvider, graph.getNodes(), listUsedComponentSVG);
         graph.getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
@@ -332,7 +333,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return metadata;
     }
 
-    private void setDocumentSize(SubstationGraph graph, Document document) {
+    private void setDocumentSize(Graph graph, Document document) {
         document.getDocumentElement().setAttribute("width", Double.toString(graph.getWidth()));
         document.getDocumentElement().setAttribute("height", Double.toString(graph.getHeight()));
     }
@@ -1203,6 +1204,7 @@ public class DefaultSVGWriter implements SVGWriter {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
+        setDocumentSize(graph, document);
 
         List<VoltageLevelGraph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
 

@@ -21,6 +21,10 @@ public interface Graph {
 
     boolean isGenerateCoordsInJson();
 
+    double getWidth();
+
+    double getHeight();
+
     void writeJson(Path file);
 
     void writeJson(Writer writer);
