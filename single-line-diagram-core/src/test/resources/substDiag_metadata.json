@@ -3256,6 +3256,6 @@
     "highlightLineState" : true,
     "addNodesInfos" : false,
     "feederArrowSymmetry" : false,
-    "cssInternal" : false
+    "cssLocation" : "EXTERNAL_IMPORTED"
   }
 }
