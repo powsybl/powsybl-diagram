@@ -8,6 +8,8 @@ package com.powsybl.sld.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -58,6 +60,10 @@ public class Point {
             res.add(new Point(coordinates[2 * i], coordinates[2 * i + 1]));
         }
         return res;
+    }
+
+    public static List<Double> pointsToDoubles(List<Point> pol) {
+        return pol.stream().flatMap(p -> Stream.of(p.getX(), p.getY())).collect(Collectors.toList());
     }
 
     public Point getMiddlePoint(Point other) {
