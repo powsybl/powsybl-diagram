@@ -256,7 +256,6 @@ public abstract class AbstractTestCase {
         }
     }
 
-
     public String toPlasmaSVG(VoltageLevelGraph graph,
                               String filename,
                               LayoutParameters layoutParameters,
