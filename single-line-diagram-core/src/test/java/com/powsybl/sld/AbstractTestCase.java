@@ -10,8 +10,8 @@ import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
@@ -35,30 +35,34 @@ public abstract class AbstractTestCase {
 
     protected static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
-            .setTranslateX(20)
-            .setTranslateY(50)
-            .setInitialXBus(0)
-            .setInitialYBus(260)
-            .setVerticalSpaceBus(25)
-            .setHorizontalBusPadding(20)
-            .setCellWidth(50)
-            .setExternCellHeight(250)
-            .setInternCellHeight(40)
-            .setStackHeight(30)
-            .setShowGrid(true)
-            .setShowInternalNodes(true)
-            .setScaleFactor(1)
-            .setHorizontalSubstationPadding(50)
-            .setVerticalSubstationPadding(50)
-            .setArrowDistance(20)
-            .setDrawStraightWires(false)
-            .setHorizontalSnakeLinePadding(30)
-            .setVerticalSnakeLinePadding(30)
-            .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+                .setTranslateX(20)
+                .setTranslateY(50)
+                .setInitialXBus(0)
+                .setInitialYBus(260)
+                .setVerticalSpaceBus(25)
+                .setHorizontalBusPadding(20)
+                .setCellWidth(50)
+                .setExternCellHeight(250)
+                .setInternCellHeight(40)
+                .setStackHeight(30)
+                .setShowGrid(true)
+                .setShowInternalNodes(true)
+                .setScaleFactor(1)
+                .setHorizontalSubstationPadding(50)
+                .setVerticalSubstationPadding(50)
+                .setArrowDistance(20)
+                .setDrawStraightWires(false)
+                .setHorizontalSnakeLinePadding(30)
+                .setVerticalSnakeLinePadding(30)
+                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ConvergenceComponentLibrary();
+    }
+
+    protected ResourcesComponentLibrary getPlasmaComponentLibrary() {
+        return new ResourcesComponentLibrary("Plasma", "/PlasmaLibrary");
     }
 
     protected static String normalizeLineSeparator(String str) {
@@ -239,6 +243,27 @@ public abstract class AbstractTestCase {
     public String toSVG(ZoneGraph graph, String filename, LayoutParameters layoutParameters, DiagramLabelProvider initValueProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             new DefaultSVGWriter(componentLibrary, layoutParameters)
+                    .write("", graph,
+                            initValueProvider,
+                            styleProvider,
+                            writer);
+
+            writeToFileInHomeDir(filename, writer);
+
+            return normalizeLineSeparator(writer.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+
+    public String toPlasmaSVG(VoltageLevelGraph graph,
+                              String filename,
+                              LayoutParameters layoutParameters,
+                              DiagramLabelProvider initValueProvider,
+                              DiagramStyleProvider styleProvider) {
+        try (StringWriter writer = new StringWriter()) {
+            new DefaultSVGWriter(getPlasmaComponentLibrary(), layoutParameters)
                     .write("", graph,
                             initValueProvider,
                             styleProvider,

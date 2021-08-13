@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
+    <defs>
+        <style>.cls-sab-open{stroke-linecap:round;stroke-linejoin:round;}</style>
+    </defs>
+    <rect y="0" width="100" height="50" class="tooltip-panel" style="opacity: 0;" x="-40"></rect>
+    <g id="DISCONNECTOR-open" class="open">
+        <line class="cls-sab-open" x1="12.5" y1="0.5" x2="0.5" y2="12.5"/>
+    </g>
+</svg>
+

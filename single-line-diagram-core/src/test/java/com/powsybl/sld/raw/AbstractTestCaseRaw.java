@@ -9,9 +9,9 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
@@ -85,5 +85,10 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         public List<NodeDecorator> getNodeDecorators(Node node) {
             return new ArrayList<>();
         }
+    }
+
+    public String toPlasmaSVG(VoltageLevelGraph graph, String filename) {
+        Stream<Node> nodeStream = graph.getNodes().stream();
+        return toPlasmaSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
     }
 }

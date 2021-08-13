@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="no"?>
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="15" height="9">
+    <path d="M5,5 A 5 20 0 0 0 0,5"/>
+    <path d="M10,5 A 5 20 0 0 0 5,5"/>
+    <path d="M15,5 A 5 20 0 0 0 10,5"/>
+</svg>

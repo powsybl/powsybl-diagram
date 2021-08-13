@@ -1,0 +1,171 @@
+svg {
+    overflow: auto !important;
+}
+
+/* Default color, for previsualization */
+
+.sld-vl1 {
+    stroke: #DA627D;
+    fill: #DA627D
+}
+
+.sld-vl2 {
+    stroke: #A4036F;
+    fill: #A4036F
+}
+
+.sld-vl3 {
+    stroke: #D19C1D;
+    fill: #D19C1D
+}
+
+.sld-vl4 {
+    stroke: #32965D;
+    fill: #32965D
+}
+
+.sld-vl5 {
+    stroke: #003F91;
+    fill: #003F91
+}
+
+.sld-vl6 {
+    stroke: #E3170A;
+    fill: #E3170A
+}
+
+.sld-vl7 {
+    stroke: #6E2594;
+    fill: #6E2594
+}
+
+
+.open, .closed {
+    visibility: hidden;
+}
+
+.BUSBAR_SECTION {
+    stroke-width: 3;
+}
+
+.BREAKER, .DISCONNECTORSRB, .DISCONNECTORSL, .DISCONNECTORSMALT, .DISCONNECTORSTL {
+    stroke-width: 2;
+    fill: white;
+    fill-opacity: 0;
+}
+
+.DISCONNECTOR {
+    stroke-width: 1;
+}
+
+.DISCONNECTORSMALT .closed {
+    fill: rgb(0, 0, 255);
+}
+
+
+.DISCONNECTORSL .closed {
+    fill: rgb(0, 0, 255);
+}
+
+.DISCONNECTORSTL .open {
+    fill: rgb(0, 0, 255);
+}
+
+.DISCONNECTOR .open {
+    stroke-width: 2
+}
+
+.DISCONNECTORSTL .closed {
+    fill: rgb(0, 0, 255);
+}
+
+.undefined circle {
+}
+
+.GENERATOR {
+    stroke-width: 1;
+}
+
+.LOAD {
+    stroke-width: 1;
+}
+
+.LOAD_BREAK_SWITCH {
+    stroke-width: 1;
+}
+
+.NODE {
+    fill-opacity: 1;
+}
+
+.CAPACITOR {
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.INDUCTOR {
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.STATIC_VAR_COMPENSATOR {
+}
+
+.TWO_WINDINGS_TRANSFORMER {
+    fill-opacity: 0;
+}
+
+.THREE_WINDINGS_TRANSFORMER {
+    fill-opacity: 0;
+}
+
+.VSC_CONVERTER_STATION {
+    font-size: 7.4314661px;
+    line-height: 1.25;
+    font-family: sans-serif;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-feature-settings: normal;
+    text-align: start;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    writing-mode: lr-tb;
+    text-anchor: start;
+    stroke-miterlimit: 4;
+}
+
+.PHASE_SHIFT_TRANSFORMER {
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 1;
+}
+
+.wire {
+    stroke: rgb(200, 0, 0);
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.grid {
+    stroke: rgb(0, 55, 0);
+    stroke-width: 1;
+    stroke-dasharray: 1, 10;
+}
+
+.component-label {
+    fill: black;
+    color: black;
+    stroke: none;
+    fill-opacity: 1;
+}
+
+.LINE {
+    stroke-width: 1;
+    fill-opacity: 0;
+}
+
+.tooltip-panel {
+    fill: white;
+}

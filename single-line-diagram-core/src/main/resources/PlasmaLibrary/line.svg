@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 24.05">
+    <defs>
+        <style>.cls-1-line{fill:none;stroke-miterlimit:10;}</style>
+    </defs>
+    <g>
+        <line class="cls-1-line" x1="5.5" y1="5.36" x2="5.5" y2="24.05"/>
+        <polygon points="5.74 0 0 14.69 5.74 14.69 11.47 14.69 5.74 0"/>
+    </g>
+</svg>
