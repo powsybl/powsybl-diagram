@@ -5,6 +5,7 @@
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-single-line-diagram&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.powsybl%3Apowsybl-single-line-diagram)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/powsybl)
+[![Slack](https://img.shields.io/badge/slack-powsybl-blueviolet.svg?logo=slack)](https://join.slack.com/t/powsybl/shared_invite/zt-rzvbuzjk-nxi0boim1RKPS5PjieI0rA)
 
 PowSyBl (**Pow**er **Sy**stem **Bl**ocks) is an open source framework written in Java, that makes it easy to write complex
 software for power systems’ simulations and analysis. Its modular approach allows developers to extend or customize its
@@ -47,17 +48,17 @@ and additionally for this example three other ones: two for the `Network` test c
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-config-test</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.1</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -76,14 +77,14 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>2.2.0</version>
+    <version>2.3.0</version>
 </dependency>
 ```
 
 We can generate a SVG for the voltage level `N`:
 ```java
 // "Convergence" style component library
-ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
 
 // fully automatic layout
 VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
@@ -96,7 +97,7 @@ VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkG
 LayoutParameters layoutParameters = new LayoutParameters()
     .setAdaptCellHeightToContent(true)
     .setTooltipEnabled(true)
-    .setCssInternal(true);
+    .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
 
 // generate SVG
 voltageLevelDiagram.writeSvg("",

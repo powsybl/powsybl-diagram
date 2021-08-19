@@ -13,7 +13,7 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,7 +89,7 @@ public class InitialValueProviderTest {
     @Test
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
-        ComponentLibrary componentLibrary = new ResourcesComponentLibrary("/ConvergenceLibrary");
+        ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         LayoutParameters layoutParameters = new LayoutParameters();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);

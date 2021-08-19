@@ -4,17 +4,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.force.layout;
+package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.force.layout.ForceLayout;
+import com.powsybl.sld.force.layout.Vector;
 import com.powsybl.sld.model.*;
-import org.gephi.graph.api.GraphModel;
-import org.gephi.graph.api.UndirectedGraph;
-import org.gephi.graph.impl.EdgeImpl;
-import org.gephi.graph.impl.GraphModelImpl;
-import org.gephi.graph.impl.NodeImpl;
-import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2;
-import org.gephi.layout.plugin.forceAtlas2.ForceAtlas2Builder;
+import org.jgrapht.Graph;
 
 import java.util.*;
 import java.util.function.Function;
@@ -27,8 +22,6 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class ForceSubstationLayout extends AbstractSubstationLayout {
-
-    private final Random random = new Random();
     private ForceSubstationLayoutFactory.CompactionType compactionType;
 
     public static class ForceInfoCalcPoints extends InfoCalcPoints {
@@ -79,51 +72,18 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     @Override
     public void run(LayoutParameters layoutParameters) {
-        // Creating the graph model for the ForceLayout algorithm
-        GraphModel graphModel = new GraphModelImpl();
-        UndirectedGraph undirectedGraph = graphModel.getUndirectedGraph();
-        for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
-            NodeImpl n = new NodeImpl(voltageLevelGraph.getVoltageLevelInfos().getId());
-            n.setPosition(random.nextFloat() * 1000, random.nextFloat() * 1000);
-            undirectedGraph.addNode(n);
-        }
+        // Creating the graph for the force layout algorithm
+        Graph<VoltageLevelGraph, Object> graph = getGraph().toJgrapht();
 
-        for (Node multiNode : getGraph().getMultiTermNodes()) {
-            List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
-            NodeImpl node1 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(0).getGraph().getVoltageLevelInfos().getId());
-            NodeImpl node2 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(1).getGraph().getVoltageLevelInfos().getId());
-            undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(0).toString() + "_" + adjacentEdges.get(1).toString(), node1, node2, 0, 1, false));
+        // Executing force layout algorithm
+        ForceLayout<VoltageLevelGraph, Object> forceLayout = new ForceLayout<>(graph);
+        forceLayout.execute();
 
-            if (adjacentNodes.size() == 3) {
-                NodeImpl node3 = (NodeImpl) undirectedGraph.getNode(adjacentNodes.get(2).getGraph().getVoltageLevelInfos().getId());
-                undirectedGraph.addEdge(new EdgeImpl(adjacentEdges.get(1).toString() + "_" + adjacentEdges.get(2).toString(), node2, node3, 0, 1, false));
-            }
-        }
-
-        // Creating the ForceAtlas and run the algorithm
-        ForceAtlas2 forceAtlas2 = new ForceAtlas2Builder().buildLayout();
-        forceAtlas2.setGraphModel(graphModel);
-        forceAtlas2.resetPropertiesValues();
-        forceAtlas2.setAdjustSizes(true);
-        forceAtlas2.setOutboundAttractionDistribution(false);
-        forceAtlas2.setEdgeWeightInfluence(1.5d);
-        forceAtlas2.setGravity(10d);
-        forceAtlas2.setJitterTolerance(.02);
-        forceAtlas2.setScalingRatio(15.0);
-        forceAtlas2.initAlgo();
-        int maxSteps = 1000;
-
-        for (int i = 0; i < maxSteps && forceAtlas2.canAlgo(); i++) {
-            forceAtlas2.goAlgo();
-        }
-        forceAtlas2.endAlgo();
-
-        // Memorizing the voltage levels coordinates calculated by the ForceAtlas algorithm
+        // Memorizing the voltage levels coordinates calculated by the force layout algorithm
         Map<VoltageLevelGraph, Coord> coordsVoltageLevels = new HashMap<>();
         for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
-            org.gephi.graph.api.Node n = undirectedGraph.getNode(voltageLevelGraph.getVoltageLevelInfos().getId());
-            coordsVoltageLevels.put(voltageLevelGraph, new Coord(n.x(), n.y()));
+            Vector position = forceLayout.getStablePosition(voltageLevelGraph);
+            coordsVoltageLevels.put(voltageLevelGraph, new Coord(position.getX(), position.getY()));
         }
 
         // Creating and applying the voltage levels layout with these coordinates

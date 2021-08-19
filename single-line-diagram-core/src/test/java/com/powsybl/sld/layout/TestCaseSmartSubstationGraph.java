@@ -4,10 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.force.layout;
+package com.powsybl.sld.layout;
 
 import com.powsybl.sld.iidm.TestCase11SubstationGraph;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
 import org.junit.Before;
 import org.junit.Test;

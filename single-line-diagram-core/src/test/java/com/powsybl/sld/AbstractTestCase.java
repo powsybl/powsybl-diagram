@@ -8,6 +8,7 @@ package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
@@ -53,11 +54,11 @@ public abstract class AbstractTestCase {
             .setDrawStraightWires(false)
             .setHorizontalSnakeLinePadding(30)
             .setVerticalSnakeLinePadding(30)
-            .setCssInternal(true);
+            .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("/ConvergenceLibrary");
+        return new ConvergenceComponentLibrary();
     }
 
     protected static String normalizeLineSeparator(String str) {

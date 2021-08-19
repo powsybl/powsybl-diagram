@@ -14,7 +14,6 @@ polyline {fill: none}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 .sld-constant-color {stroke: blue; fill: none}
 .sld-wire.sld-constant-color {stroke: #c80000}
-.sld-line.sld-constant-color {stroke: blue}
 .sld-node.sld-constant-color {stroke: none; fill: black}
 .sld-busbreaker-connection.sld-constant-color {stroke: black}
 .sld-busbar-section.sld-constant-color {stroke: black}
@@ -119,10 +118,10 @@ polyline {fill: none}
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(980.0,150.0)">
+        <g class="sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(980.0,150.0)">
             <text class="sld-label" id="vl3_trf2_one__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
-        <g class="sld-line sld-constant-color" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
+        <g class="sld-constant-color" id="idvl3_95_trf2_95_two" transform="translate(1060.0,150.0)">
             <text class="sld-label" id="vl3_trf2_two__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl3_95_vl3_95_trf2" transform="translate(1012.0,203.0)">
