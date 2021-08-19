@@ -60,9 +60,9 @@
       "kind" : "BREAKER"
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_BR1fBc",
-      "name" : "BR1fBc",
-      "equipmentId" : "BR1fBc",
+      "id" : "FICT_VL1_BR1_fBc",
+      "name" : "BR1_fBc",
+      "equipmentId" : "BR1_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 125.0,
@@ -70,9 +70,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_BR1fBc",
-      "name" : "BR1fBc",
-      "equipmentId" : "BR1fBc",
+      "id" : "FICT_VL1_BR1_fBc",
+      "name" : "BR1_fBc",
+      "equipmentId" : "BR1_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 75.0,
@@ -80,9 +80,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_BR1fNode",
-      "name" : "BR1fNode",
-      "equipmentId" : "BR1fNode",
+      "id" : "FICT_VL1_BR1_fNode",
+      "name" : "BR1_fNode",
+      "equipmentId" : "BR1_fNode",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -91,9 +91,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_BR1fNode",
-      "name" : "BR1fNode",
-      "equipmentId" : "BR1fNode",
+      "id" : "FICT_VL1_BR1_fNode",
+      "name" : "BR1_fNode",
+      "equipmentId" : "BR1_fNode",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -102,9 +102,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_GfBc",
-      "name" : "GfBc",
-      "equipmentId" : "GfBc",
+      "id" : "FICT_VL1_G_fBc",
+      "name" : "G_fBc",
+      "equipmentId" : "G_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 425.0,
@@ -112,9 +112,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_GfNode1",
-      "name" : "GfNode1",
-      "equipmentId" : "GfNode1",
+      "id" : "FICT_VL1_G_fNode1",
+      "name" : "G_fNode1",
+      "equipmentId" : "G_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
@@ -122,9 +122,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_GfNode2",
-      "name" : "GfNode2",
-      "equipmentId" : "GfNode2",
+      "id" : "FICT_VL1_G_fNode2",
+      "name" : "G_fNode2",
+      "equipmentId" : "G_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
@@ -132,9 +132,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_ONEfBc",
-      "name" : "L11_ONEfBc",
-      "equipmentId" : "L11_ONEfBc",
+      "id" : "FICT_VL1_L11_ONE_fBc",
+      "name" : "L11_ONE_fBc",
+      "equipmentId" : "L11_ONE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 225.0,
@@ -142,9 +142,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_ONEfNode1",
-      "name" : "L11_ONEfNode1",
-      "equipmentId" : "L11_ONEfNode1",
+      "id" : "FICT_VL1_L11_ONE_fNode1",
+      "name" : "L11_ONE_fNode1",
+      "equipmentId" : "L11_ONE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -152,9 +152,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_ONEfNode2",
-      "name" : "L11_ONEfNode2",
-      "equipmentId" : "L11_ONEfNode2",
+      "id" : "FICT_VL1_L11_ONE_fNode2",
+      "name" : "L11_ONE_fNode2",
+      "equipmentId" : "L11_ONE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -162,9 +162,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_TWOfBc",
-      "name" : "L11_TWOfBc",
-      "equipmentId" : "L11_TWOfBc",
+      "id" : "FICT_VL1_L11_TWO_fBc",
+      "name" : "L11_TWO_fBc",
+      "equipmentId" : "L11_TWO_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 475.0,
@@ -172,9 +172,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_TWOfNode1",
-      "name" : "L11_TWOfNode1",
-      "equipmentId" : "L11_TWOfNode1",
+      "id" : "FICT_VL1_L11_TWO_fNode1",
+      "name" : "L11_TWO_fNode1",
+      "equipmentId" : "L11_TWO_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -182,9 +182,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L11_TWOfNode2",
-      "name" : "L11_TWOfNode2",
-      "equipmentId" : "L11_TWOfNode2",
+      "id" : "FICT_VL1_L11_TWO_fNode2",
+      "name" : "L11_TWO_fNode2",
+      "equipmentId" : "L11_TWO_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -192,9 +192,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L12_ONEfBc",
-      "name" : "L12_ONEfBc",
-      "equipmentId" : "L12_ONEfBc",
+      "id" : "FICT_VL1_L12_ONE_fBc",
+      "name" : "L12_ONE_fBc",
+      "equipmentId" : "L12_ONE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 325.0,
@@ -202,9 +202,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L12_ONEfNode1",
-      "name" : "L12_ONEfNode1",
-      "equipmentId" : "L12_ONEfNode1",
+      "id" : "FICT_VL1_L12_ONE_fNode1",
+      "name" : "L12_ONE_fNode1",
+      "equipmentId" : "L12_ONE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -212,9 +212,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_L12_ONEfNode2",
-      "name" : "L12_ONEfNode2",
-      "equipmentId" : "L12_ONEfNode2",
+      "id" : "FICT_VL1_L12_ONE_fNode2",
+      "name" : "L12_ONE_fNode2",
+      "equipmentId" : "L12_ONE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -222,9 +222,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_LD1fBc",
-      "name" : "LD1fBc",
-      "equipmentId" : "LD1fBc",
+      "id" : "FICT_VL1_LD1_fBc",
+      "name" : "LD1_fBc",
+      "equipmentId" : "LD1_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 175.0,
@@ -232,9 +232,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_LD1fNode1",
-      "name" : "LD1fNode1",
-      "equipmentId" : "LD1fNode1",
+      "id" : "FICT_VL1_LD1_fNode1",
+      "name" : "LD1_fNode1",
+      "equipmentId" : "LD1_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -242,9 +242,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_LD1fNode2",
-      "name" : "LD1fNode2",
-      "equipmentId" : "LD1fNode2",
+      "id" : "FICT_VL1_LD1_fNode2",
+      "name" : "LD1_fNode2",
+      "equipmentId" : "LD1_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -252,9 +252,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_ONEfBc",
-      "name" : "T11_ONEfBc",
-      "equipmentId" : "T11_ONEfBc",
+      "id" : "FICT_VL1_T11_ONE_fBc",
+      "name" : "T11_ONE_fBc",
+      "equipmentId" : "T11_ONE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 275.0,
@@ -262,9 +262,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_ONEfNode1",
-      "name" : "T11_ONEfNode1",
-      "equipmentId" : "T11_ONEfNode1",
+      "id" : "FICT_VL1_T11_ONE_fNode1",
+      "name" : "T11_ONE_fNode1",
+      "equipmentId" : "T11_ONE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -272,9 +272,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_ONEfNode2",
-      "name" : "T11_ONEfNode2",
-      "equipmentId" : "T11_ONEfNode2",
+      "id" : "FICT_VL1_T11_ONE_fNode2",
+      "name" : "T11_ONE_fNode2",
+      "equipmentId" : "T11_ONE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -282,9 +282,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_TWOfBc",
-      "name" : "T11_TWOfBc",
-      "equipmentId" : "T11_TWOfBc",
+      "id" : "FICT_VL1_T11_TWO_fBc",
+      "name" : "T11_TWO_fBc",
+      "equipmentId" : "T11_TWO_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 525.0,
@@ -292,9 +292,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_TWOfNode1",
-      "name" : "T11_TWOfNode1",
-      "equipmentId" : "T11_TWOfNode1",
+      "id" : "FICT_VL1_T11_TWO_fNode1",
+      "name" : "T11_TWO_fNode1",
+      "equipmentId" : "T11_TWO_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
@@ -302,9 +302,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T11_TWOfNode2",
-      "name" : "T11_TWOfNode2",
-      "equipmentId" : "T11_TWOfNode2",
+      "id" : "FICT_VL1_T11_TWO_fNode2",
+      "name" : "T11_TWO_fNode2",
+      "equipmentId" : "T11_TWO_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
@@ -312,9 +312,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T12_ONEfBc",
-      "name" : "T12_ONEfBc",
-      "equipmentId" : "T12_ONEfBc",
+      "id" : "FICT_VL1_T12_ONE_fBc",
+      "name" : "T12_ONE_fBc",
+      "equipmentId" : "T12_ONE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 575.0,
@@ -322,9 +322,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T12_ONEfNode1",
-      "name" : "T12_ONEfNode1",
-      "equipmentId" : "T12_ONEfNode1",
+      "id" : "FICT_VL1_T12_ONE_fNode1",
+      "name" : "T12_ONE_fNode1",
+      "equipmentId" : "T12_ONE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
@@ -332,9 +332,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T12_ONEfNode2",
-      "name" : "T12_ONEfNode2",
-      "equipmentId" : "T12_ONEfNode2",
+      "id" : "FICT_VL1_T12_ONE_fNode2",
+      "name" : "T12_ONE_fNode2",
+      "equipmentId" : "T12_ONE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
@@ -342,9 +342,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_ONEfBc",
-      "name" : "T3_12_ONEfBc",
-      "equipmentId" : "T3_12_ONEfBc",
+      "id" : "FICT_VL1_T3_12_ONE_fBc",
+      "name" : "T3_12_ONE_fBc",
+      "equipmentId" : "T3_12_ONE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 375.0,
@@ -352,9 +352,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_ONEfNode1",
-      "name" : "T3_12_ONEfNode1",
-      "equipmentId" : "T3_12_ONEfNode1",
+      "id" : "FICT_VL1_T3_12_ONE_fNode1",
+      "name" : "T3_12_ONE_fNode1",
+      "equipmentId" : "T3_12_ONE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -362,9 +362,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_ONEfNode2",
-      "name" : "T3_12_ONEfNode2",
-      "equipmentId" : "T3_12_ONEfNode2",
+      "id" : "FICT_VL1_T3_12_ONE_fNode2",
+      "name" : "T3_12_ONE_fNode2",
+      "equipmentId" : "T3_12_ONE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -372,9 +372,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_TWOfBc",
-      "name" : "T3_12_TWOfBc",
-      "equipmentId" : "T3_12_TWOfBc",
+      "id" : "FICT_VL1_T3_12_TWO_fBc",
+      "name" : "T3_12_TWO_fBc",
+      "equipmentId" : "T3_12_TWO_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 625.0,
@@ -382,9 +382,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_TWOfNode1",
-      "name" : "T3_12_TWOfNode1",
-      "equipmentId" : "T3_12_TWOfNode1",
+      "id" : "FICT_VL1_T3_12_TWO_fNode1",
+      "name" : "T3_12_TWO_fNode1",
+      "equipmentId" : "T3_12_TWO_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 625.0,
@@ -392,9 +392,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL1_T3_12_TWOfNode2",
-      "name" : "T3_12_TWOfNode2",
-      "equipmentId" : "T3_12_TWOfNode2",
+      "id" : "FICT_VL1_T3_12_TWO_fNode2",
+      "name" : "T3_12_TWO_fNode2",
+      "equipmentId" : "T3_12_TWO_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 625.0,
@@ -622,7 +622,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_BR1fBc", "FICT_VL1_BR1fNode" ]
+          "nodes" : [ "B12", "FICT_VL1_BR1_fBc", "FICT_VL1_BR1_fNode" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -643,7 +643,7 @@
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "FICT_VL1_BR1fNode", "BR1", "FICT_VL1_BR1fNode" ]
+          "nodes" : [ "FICT_VL1_BR1_fNode", "BR1", "FICT_VL1_BR1_fNode" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -664,7 +664,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_BR1fBc", "FICT_VL1_BR1fNode" ]
+          "nodes" : [ "B11", "FICT_VL1_BR1_fBc", "FICT_VL1_BR1_fNode" ]
         } ]
       }
     }, {
@@ -712,7 +712,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_LD1fBc", "FICT_VL1_LD1fNode1" ]
+          "nodes" : [ "B11", "FICT_VL1_LD1_fBc", "FICT_VL1_LD1_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -733,7 +733,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_LD1fNode1", "FICT_VL1_LD1fNode2" ]
+          "nodes" : [ "FICT_VL1_LD1_fNode1", "FICT_VL1_LD1_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -754,7 +754,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_LD1fNode2", "LD1" ]
+          "nodes" : [ "FICT_VL1_LD1_fNode2", "LD1" ]
         } ]
       }
     }, {
@@ -802,7 +802,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_L11_ONEfBc", "FICT_VL1_L11_ONEfNode1" ]
+          "nodes" : [ "B11", "FICT_VL1_L11_ONE_fBc", "FICT_VL1_L11_ONE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -823,7 +823,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_L11_ONEfNode1", "FICT_VL1_L11_ONEfNode2" ]
+          "nodes" : [ "FICT_VL1_L11_ONE_fNode1", "FICT_VL1_L11_ONE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -844,7 +844,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_L11_ONEfNode2", "L11_ONE" ]
+          "nodes" : [ "FICT_VL1_L11_ONE_fNode2", "L11_ONE" ]
         } ]
       }
     }, {
@@ -892,7 +892,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_T11_ONEfBc", "FICT_VL1_T11_ONEfNode1" ]
+          "nodes" : [ "B11", "FICT_VL1_T11_ONE_fBc", "FICT_VL1_T11_ONE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -913,7 +913,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_T11_ONEfNode1", "FICT_VL1_T11_ONEfNode2" ]
+          "nodes" : [ "FICT_VL1_T11_ONE_fNode1", "FICT_VL1_T11_ONE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -934,7 +934,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_T11_ONEfNode2", "T11_ONE" ]
+          "nodes" : [ "FICT_VL1_T11_ONE_fNode2", "T11_ONE" ]
         } ]
       }
     }, {
@@ -982,7 +982,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_L12_ONEfBc", "FICT_VL1_L12_ONEfNode1" ]
+          "nodes" : [ "B11", "FICT_VL1_L12_ONE_fBc", "FICT_VL1_L12_ONE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1003,7 +1003,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_L12_ONEfNode1", "FICT_VL1_L12_ONEfNode2" ]
+          "nodes" : [ "FICT_VL1_L12_ONE_fNode1", "FICT_VL1_L12_ONE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1024,7 +1024,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_L12_ONEfNode2", "L12_ONE" ]
+          "nodes" : [ "FICT_VL1_L12_ONE_fNode2", "L12_ONE" ]
         } ]
       }
     }, {
@@ -1072,7 +1072,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B11", "FICT_VL1_T3_12_ONEfBc", "FICT_VL1_T3_12_ONEfNode1" ]
+          "nodes" : [ "B11", "FICT_VL1_T3_12_ONE_fBc", "FICT_VL1_T3_12_ONE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1093,7 +1093,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_T3_12_ONEfNode1", "FICT_VL1_T3_12_ONEfNode2" ]
+          "nodes" : [ "FICT_VL1_T3_12_ONE_fNode1", "FICT_VL1_T3_12_ONE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1114,7 +1114,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_T3_12_ONEfNode2", "T3_12_ONE" ]
+          "nodes" : [ "FICT_VL1_T3_12_ONE_fNode2", "T3_12_ONE" ]
         } ]
       }
     }, {
@@ -1162,7 +1162,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_GfBc", "FICT_VL1_GfNode1" ]
+          "nodes" : [ "B12", "FICT_VL1_G_fBc", "FICT_VL1_G_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1183,7 +1183,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_GfNode1", "FICT_VL1_GfNode2" ]
+          "nodes" : [ "FICT_VL1_G_fNode1", "FICT_VL1_G_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1204,7 +1204,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_GfNode2", "G" ]
+          "nodes" : [ "FICT_VL1_G_fNode2", "G" ]
         } ]
       }
     }, {
@@ -1252,7 +1252,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_L11_TWOfBc", "FICT_VL1_L11_TWOfNode1" ]
+          "nodes" : [ "B12", "FICT_VL1_L11_TWO_fBc", "FICT_VL1_L11_TWO_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1273,7 +1273,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_L11_TWOfNode1", "FICT_VL1_L11_TWOfNode2" ]
+          "nodes" : [ "FICT_VL1_L11_TWO_fNode1", "FICT_VL1_L11_TWO_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1294,7 +1294,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_L11_TWOfNode2", "L11_TWO" ]
+          "nodes" : [ "FICT_VL1_L11_TWO_fNode2", "L11_TWO" ]
         } ]
       }
     }, {
@@ -1342,7 +1342,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_T11_TWOfBc", "FICT_VL1_T11_TWOfNode1" ]
+          "nodes" : [ "B12", "FICT_VL1_T11_TWO_fBc", "FICT_VL1_T11_TWO_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1363,7 +1363,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_T11_TWOfNode1", "FICT_VL1_T11_TWOfNode2" ]
+          "nodes" : [ "FICT_VL1_T11_TWO_fNode1", "FICT_VL1_T11_TWO_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1384,7 +1384,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_T11_TWOfNode2", "T11_TWO" ]
+          "nodes" : [ "FICT_VL1_T11_TWO_fNode2", "T11_TWO" ]
         } ]
       }
     }, {
@@ -1432,7 +1432,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_T12_ONEfBc", "FICT_VL1_T12_ONEfNode1" ]
+          "nodes" : [ "B12", "FICT_VL1_T12_ONE_fBc", "FICT_VL1_T12_ONE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1453,7 +1453,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_T12_ONEfNode1", "FICT_VL1_T12_ONEfNode2" ]
+          "nodes" : [ "FICT_VL1_T12_ONE_fNode1", "FICT_VL1_T12_ONE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1474,7 +1474,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_T12_ONEfNode2", "T12_ONE" ]
+          "nodes" : [ "FICT_VL1_T12_ONE_fNode2", "T12_ONE" ]
         } ]
       }
     }, {
@@ -1522,7 +1522,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B12", "FICT_VL1_T3_12_TWOfBc", "FICT_VL1_T3_12_TWOfNode1" ]
+          "nodes" : [ "B12", "FICT_VL1_T3_12_TWO_fBc", "FICT_VL1_T3_12_TWO_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1543,7 +1543,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL1_T3_12_TWOfNode1", "FICT_VL1_T3_12_TWOfNode2" ]
+          "nodes" : [ "FICT_VL1_T3_12_TWO_fNode1", "FICT_VL1_T3_12_TWO_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1564,147 +1564,147 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL1_T3_12_TWOfNode2", "T3_12_TWO" ]
+          "nodes" : [ "FICT_VL1_T3_12_TWO_fNode2", "T3_12_TWO" ]
         } ]
       }
     } ],
     "edges" : [ {
       "node1" : "B11",
-      "node2" : "FICT_VL1_LD1fBc"
+      "node2" : "FICT_VL1_LD1_fBc"
     }, {
-      "node1" : "FICT_VL1_LD1fBc",
-      "node2" : "FICT_VL1_LD1fNode1"
+      "node1" : "FICT_VL1_LD1_fBc",
+      "node2" : "FICT_VL1_LD1_fNode1"
     }, {
-      "node1" : "FICT_VL1_LD1fNode1",
-      "node2" : "FICT_VL1_LD1fNode2"
+      "node1" : "FICT_VL1_LD1_fNode1",
+      "node2" : "FICT_VL1_LD1_fNode2"
     }, {
-      "node1" : "FICT_VL1_LD1fNode2",
+      "node1" : "FICT_VL1_LD1_fNode2",
       "node2" : "LD1"
     }, {
       "node1" : "B11",
-      "node2" : "FICT_VL1_L11_ONEfBc"
+      "node2" : "FICT_VL1_L11_ONE_fBc"
     }, {
-      "node1" : "FICT_VL1_L11_ONEfBc",
-      "node2" : "FICT_VL1_L11_ONEfNode1"
+      "node1" : "FICT_VL1_L11_ONE_fBc",
+      "node2" : "FICT_VL1_L11_ONE_fNode1"
     }, {
-      "node1" : "FICT_VL1_L11_ONEfNode1",
-      "node2" : "FICT_VL1_L11_ONEfNode2"
+      "node1" : "FICT_VL1_L11_ONE_fNode1",
+      "node2" : "FICT_VL1_L11_ONE_fNode2"
     }, {
-      "node1" : "FICT_VL1_L11_ONEfNode2",
+      "node1" : "FICT_VL1_L11_ONE_fNode2",
       "node2" : "L11_ONE"
     }, {
       "node1" : "B11",
-      "node2" : "FICT_VL1_T11_ONEfBc"
+      "node2" : "FICT_VL1_T11_ONE_fBc"
     }, {
-      "node1" : "FICT_VL1_T11_ONEfBc",
-      "node2" : "FICT_VL1_T11_ONEfNode1"
+      "node1" : "FICT_VL1_T11_ONE_fBc",
+      "node2" : "FICT_VL1_T11_ONE_fNode1"
     }, {
-      "node1" : "FICT_VL1_T11_ONEfNode1",
-      "node2" : "FICT_VL1_T11_ONEfNode2"
+      "node1" : "FICT_VL1_T11_ONE_fNode1",
+      "node2" : "FICT_VL1_T11_ONE_fNode2"
     }, {
-      "node1" : "FICT_VL1_T11_ONEfNode2",
+      "node1" : "FICT_VL1_T11_ONE_fNode2",
       "node2" : "T11_ONE"
     }, {
       "node1" : "B11",
-      "node2" : "FICT_VL1_L12_ONEfBc"
+      "node2" : "FICT_VL1_L12_ONE_fBc"
     }, {
-      "node1" : "FICT_VL1_L12_ONEfBc",
-      "node2" : "FICT_VL1_L12_ONEfNode1"
+      "node1" : "FICT_VL1_L12_ONE_fBc",
+      "node2" : "FICT_VL1_L12_ONE_fNode1"
     }, {
-      "node1" : "FICT_VL1_L12_ONEfNode1",
-      "node2" : "FICT_VL1_L12_ONEfNode2"
+      "node1" : "FICT_VL1_L12_ONE_fNode1",
+      "node2" : "FICT_VL1_L12_ONE_fNode2"
     }, {
-      "node1" : "FICT_VL1_L12_ONEfNode2",
+      "node1" : "FICT_VL1_L12_ONE_fNode2",
       "node2" : "L12_ONE"
     }, {
       "node1" : "B11",
-      "node2" : "FICT_VL1_T3_12_ONEfBc"
+      "node2" : "FICT_VL1_T3_12_ONE_fBc"
     }, {
-      "node1" : "FICT_VL1_T3_12_ONEfBc",
-      "node2" : "FICT_VL1_T3_12_ONEfNode1"
+      "node1" : "FICT_VL1_T3_12_ONE_fBc",
+      "node2" : "FICT_VL1_T3_12_ONE_fNode1"
     }, {
-      "node1" : "FICT_VL1_T3_12_ONEfNode1",
-      "node2" : "FICT_VL1_T3_12_ONEfNode2"
+      "node1" : "FICT_VL1_T3_12_ONE_fNode1",
+      "node2" : "FICT_VL1_T3_12_ONE_fNode2"
     }, {
-      "node1" : "FICT_VL1_T3_12_ONEfNode2",
+      "node1" : "FICT_VL1_T3_12_ONE_fNode2",
       "node2" : "T3_12_ONE"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_GfBc"
+      "node2" : "FICT_VL1_G_fBc"
     }, {
-      "node1" : "FICT_VL1_GfBc",
-      "node2" : "FICT_VL1_GfNode1"
+      "node1" : "FICT_VL1_G_fBc",
+      "node2" : "FICT_VL1_G_fNode1"
     }, {
-      "node1" : "FICT_VL1_GfNode1",
-      "node2" : "FICT_VL1_GfNode2"
+      "node1" : "FICT_VL1_G_fNode1",
+      "node2" : "FICT_VL1_G_fNode2"
     }, {
-      "node1" : "FICT_VL1_GfNode2",
+      "node1" : "FICT_VL1_G_fNode2",
       "node2" : "G"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_L11_TWOfBc"
+      "node2" : "FICT_VL1_L11_TWO_fBc"
     }, {
-      "node1" : "FICT_VL1_L11_TWOfBc",
-      "node2" : "FICT_VL1_L11_TWOfNode1"
+      "node1" : "FICT_VL1_L11_TWO_fBc",
+      "node2" : "FICT_VL1_L11_TWO_fNode1"
     }, {
-      "node1" : "FICT_VL1_L11_TWOfNode1",
-      "node2" : "FICT_VL1_L11_TWOfNode2"
+      "node1" : "FICT_VL1_L11_TWO_fNode1",
+      "node2" : "FICT_VL1_L11_TWO_fNode2"
     }, {
-      "node1" : "FICT_VL1_L11_TWOfNode2",
+      "node1" : "FICT_VL1_L11_TWO_fNode2",
       "node2" : "L11_TWO"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_T11_TWOfBc"
+      "node2" : "FICT_VL1_T11_TWO_fBc"
     }, {
-      "node1" : "FICT_VL1_T11_TWOfBc",
-      "node2" : "FICT_VL1_T11_TWOfNode1"
+      "node1" : "FICT_VL1_T11_TWO_fBc",
+      "node2" : "FICT_VL1_T11_TWO_fNode1"
     }, {
-      "node1" : "FICT_VL1_T11_TWOfNode1",
-      "node2" : "FICT_VL1_T11_TWOfNode2"
+      "node1" : "FICT_VL1_T11_TWO_fNode1",
+      "node2" : "FICT_VL1_T11_TWO_fNode2"
     }, {
-      "node1" : "FICT_VL1_T11_TWOfNode2",
+      "node1" : "FICT_VL1_T11_TWO_fNode2",
       "node2" : "T11_TWO"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_T12_ONEfBc"
+      "node2" : "FICT_VL1_T12_ONE_fBc"
     }, {
-      "node1" : "FICT_VL1_T12_ONEfBc",
-      "node2" : "FICT_VL1_T12_ONEfNode1"
+      "node1" : "FICT_VL1_T12_ONE_fBc",
+      "node2" : "FICT_VL1_T12_ONE_fNode1"
     }, {
-      "node1" : "FICT_VL1_T12_ONEfNode1",
-      "node2" : "FICT_VL1_T12_ONEfNode2"
+      "node1" : "FICT_VL1_T12_ONE_fNode1",
+      "node2" : "FICT_VL1_T12_ONE_fNode2"
     }, {
-      "node1" : "FICT_VL1_T12_ONEfNode2",
+      "node1" : "FICT_VL1_T12_ONE_fNode2",
       "node2" : "T12_ONE"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_T3_12_TWOfBc"
+      "node2" : "FICT_VL1_T3_12_TWO_fBc"
     }, {
-      "node1" : "FICT_VL1_T3_12_TWOfBc",
-      "node2" : "FICT_VL1_T3_12_TWOfNode1"
+      "node1" : "FICT_VL1_T3_12_TWO_fBc",
+      "node2" : "FICT_VL1_T3_12_TWO_fNode1"
     }, {
-      "node1" : "FICT_VL1_T3_12_TWOfNode1",
-      "node2" : "FICT_VL1_T3_12_TWOfNode2"
+      "node1" : "FICT_VL1_T3_12_TWO_fNode1",
+      "node2" : "FICT_VL1_T3_12_TWO_fNode2"
     }, {
-      "node1" : "FICT_VL1_T3_12_TWOfNode2",
+      "node1" : "FICT_VL1_T3_12_TWO_fNode2",
       "node2" : "T3_12_TWO"
     }, {
       "node1" : "B11",
-      "node2" : "FICT_VL1_BR1fBc"
+      "node2" : "FICT_VL1_BR1_fBc"
     }, {
-      "node1" : "FICT_VL1_BR1fBc",
-      "node2" : "FICT_VL1_BR1fNode"
+      "node1" : "FICT_VL1_BR1_fBc",
+      "node2" : "FICT_VL1_BR1_fNode"
     }, {
-      "node1" : "FICT_VL1_BR1fNode",
+      "node1" : "FICT_VL1_BR1_fNode",
       "node2" : "BR1"
     }, {
       "node1" : "B12",
-      "node2" : "FICT_VL1_BR1fBc"
+      "node2" : "FICT_VL1_BR1_fBc"
     }, {
-      "node1" : "FICT_VL1_BR1fBc",
-      "node2" : "FICT_VL1_BR1fNode"
+      "node1" : "FICT_VL1_BR1_fBc",
+      "node2" : "FICT_VL1_BR1_fNode"
     }, {
-      "node1" : "FICT_VL1_BR1fNode",
+      "node1" : "FICT_VL1_BR1_fNode",
       "node2" : "BR1"
     } ],
     "multitermNodes" : [ {
@@ -1794,9 +1794,9 @@
       }
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_L12_TWOfBc",
-      "name" : "L12_TWOfBc",
-      "equipmentId" : "L12_TWOfBc",
+      "id" : "FICT_VL2_L12_TWO_fBc",
+      "name" : "L12_TWO_fBc",
+      "equipmentId" : "L12_TWO_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 875.0,
@@ -1804,9 +1804,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_L12_TWOfNode1",
-      "name" : "L12_TWOfNode1",
-      "equipmentId" : "L12_TWOfNode1",
+      "id" : "FICT_VL2_L12_TWO_fNode1",
+      "name" : "L12_TWO_fNode1",
+      "equipmentId" : "L12_TWO_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 875.0,
@@ -1814,9 +1814,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_L12_TWOfNode2",
-      "name" : "L12_TWOfNode2",
-      "equipmentId" : "L12_TWOfNode2",
+      "id" : "FICT_VL2_L12_TWO_fNode2",
+      "name" : "L12_TWO_fNode2",
+      "equipmentId" : "L12_TWO_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 875.0,
@@ -1824,9 +1824,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_LD2fBc",
-      "name" : "LD2fBc",
-      "equipmentId" : "LD2fBc",
+      "id" : "FICT_VL2_LD2_fBc",
+      "name" : "LD2_fBc",
+      "equipmentId" : "LD2_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 825.0,
@@ -1834,9 +1834,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_LD2fNode1",
-      "name" : "LD2fNode1",
-      "equipmentId" : "LD2fNode1",
+      "id" : "FICT_VL2_LD2_fNode1",
+      "name" : "LD2_fNode1",
+      "equipmentId" : "LD2_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 825.0,
@@ -1844,9 +1844,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_LD2fNode2",
-      "name" : "LD2fNode2",
-      "equipmentId" : "LD2fNode2",
+      "id" : "FICT_VL2_LD2_fNode2",
+      "name" : "LD2_fNode2",
+      "equipmentId" : "LD2_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 825.0,
@@ -1854,9 +1854,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T12_TWOfBc",
-      "name" : "T12_TWOfBc",
-      "equipmentId" : "T12_TWOfBc",
+      "id" : "FICT_VL2_T12_TWO_fBc",
+      "name" : "T12_TWO_fBc",
+      "equipmentId" : "T12_TWO_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 925.0,
@@ -1864,9 +1864,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T12_TWOfNode1",
-      "name" : "T12_TWOfNode1",
-      "equipmentId" : "T12_TWOfNode1",
+      "id" : "FICT_VL2_T12_TWO_fNode1",
+      "name" : "T12_TWO_fNode1",
+      "equipmentId" : "T12_TWO_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 925.0,
@@ -1874,9 +1874,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T12_TWOfNode2",
-      "name" : "T12_TWOfNode2",
-      "equipmentId" : "T12_TWOfNode2",
+      "id" : "FICT_VL2_T12_TWO_fNode2",
+      "name" : "T12_TWO_fNode2",
+      "equipmentId" : "T12_TWO_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 925.0,
@@ -1884,9 +1884,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T3_12_THREEfBc",
-      "name" : "T3_12_THREEfBc",
-      "equipmentId" : "T3_12_THREEfBc",
+      "id" : "FICT_VL2_T3_12_THREE_fBc",
+      "name" : "T3_12_THREE_fBc",
+      "equipmentId" : "T3_12_THREE_fBc",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 975.0,
@@ -1894,9 +1894,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T3_12_THREEfNode1",
-      "name" : "T3_12_THREEfNode1",
-      "equipmentId" : "T3_12_THREEfNode1",
+      "id" : "FICT_VL2_T3_12_THREE_fNode1",
+      "name" : "T3_12_THREE_fNode1",
+      "equipmentId" : "T3_12_THREE_fNode1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 975.0,
@@ -1904,9 +1904,9 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "FICT_VL2_T3_12_THREEfNode2",
-      "name" : "T3_12_THREEfNode2",
-      "equipmentId" : "T3_12_THREEfNode2",
+      "id" : "FICT_VL2_T3_12_THREE_fNode2",
+      "name" : "T3_12_THREE_fNode2",
+      "equipmentId" : "T3_12_THREE_fNode2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 975.0,
@@ -2028,7 +2028,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B21", "FICT_VL2_LD2fBc", "FICT_VL2_LD2fNode1" ]
+          "nodes" : [ "B21", "FICT_VL2_LD2_fBc", "FICT_VL2_LD2_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2049,7 +2049,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL2_LD2fNode1", "FICT_VL2_LD2fNode2" ]
+          "nodes" : [ "FICT_VL2_LD2_fNode1", "FICT_VL2_LD2_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2070,7 +2070,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL2_LD2fNode2", "LD2" ]
+          "nodes" : [ "FICT_VL2_LD2_fNode2", "LD2" ]
         } ]
       }
     }, {
@@ -2118,7 +2118,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B21", "FICT_VL2_L12_TWOfBc", "FICT_VL2_L12_TWOfNode1" ]
+          "nodes" : [ "B21", "FICT_VL2_L12_TWO_fBc", "FICT_VL2_L12_TWO_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2139,7 +2139,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL2_L12_TWOfNode1", "FICT_VL2_L12_TWOfNode2" ]
+          "nodes" : [ "FICT_VL2_L12_TWO_fNode1", "FICT_VL2_L12_TWO_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2160,7 +2160,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL2_L12_TWOfNode2", "L12_TWO" ]
+          "nodes" : [ "FICT_VL2_L12_TWO_fNode2", "L12_TWO" ]
         } ]
       }
     }, {
@@ -2208,7 +2208,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B21", "FICT_VL2_T12_TWOfBc", "FICT_VL2_T12_TWOfNode1" ]
+          "nodes" : [ "B21", "FICT_VL2_T12_TWO_fBc", "FICT_VL2_T12_TWO_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2229,7 +2229,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL2_T12_TWOfNode1", "FICT_VL2_T12_TWOfNode2" ]
+          "nodes" : [ "FICT_VL2_T12_TWO_fNode1", "FICT_VL2_T12_TWO_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2250,7 +2250,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL2_T12_TWOfNode2", "T12_TWO" ]
+          "nodes" : [ "FICT_VL2_T12_TWO_fNode2", "T12_TWO" ]
         } ]
       }
     }, {
@@ -2298,7 +2298,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "B21", "FICT_VL2_T3_12_THREEfBc", "FICT_VL2_T3_12_THREEfNode1" ]
+          "nodes" : [ "B21", "FICT_VL2_T3_12_THREE_fBc", "FICT_VL2_T3_12_THREE_fNode1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2319,7 +2319,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_VL2_T3_12_THREEfNode1", "FICT_VL2_T3_12_THREEfNode2" ]
+          "nodes" : [ "FICT_VL2_T3_12_THREE_fNode1", "FICT_VL2_T3_12_THREE_fNode2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2340,57 +2340,57 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_VL2_T3_12_THREEfNode2", "T3_12_THREE" ]
+          "nodes" : [ "FICT_VL2_T3_12_THREE_fNode2", "T3_12_THREE" ]
         } ]
       }
     } ],
     "edges" : [ {
       "node1" : "B21",
-      "node2" : "FICT_VL2_LD2fBc"
+      "node2" : "FICT_VL2_LD2_fBc"
     }, {
-      "node1" : "FICT_VL2_LD2fBc",
-      "node2" : "FICT_VL2_LD2fNode1"
+      "node1" : "FICT_VL2_LD2_fBc",
+      "node2" : "FICT_VL2_LD2_fNode1"
     }, {
-      "node1" : "FICT_VL2_LD2fNode1",
-      "node2" : "FICT_VL2_LD2fNode2"
+      "node1" : "FICT_VL2_LD2_fNode1",
+      "node2" : "FICT_VL2_LD2_fNode2"
     }, {
-      "node1" : "FICT_VL2_LD2fNode2",
+      "node1" : "FICT_VL2_LD2_fNode2",
       "node2" : "LD2"
     }, {
       "node1" : "B21",
-      "node2" : "FICT_VL2_L12_TWOfBc"
+      "node2" : "FICT_VL2_L12_TWO_fBc"
     }, {
-      "node1" : "FICT_VL2_L12_TWOfBc",
-      "node2" : "FICT_VL2_L12_TWOfNode1"
+      "node1" : "FICT_VL2_L12_TWO_fBc",
+      "node2" : "FICT_VL2_L12_TWO_fNode1"
     }, {
-      "node1" : "FICT_VL2_L12_TWOfNode1",
-      "node2" : "FICT_VL2_L12_TWOfNode2"
+      "node1" : "FICT_VL2_L12_TWO_fNode1",
+      "node2" : "FICT_VL2_L12_TWO_fNode2"
     }, {
-      "node1" : "FICT_VL2_L12_TWOfNode2",
+      "node1" : "FICT_VL2_L12_TWO_fNode2",
       "node2" : "L12_TWO"
     }, {
       "node1" : "B21",
-      "node2" : "FICT_VL2_T12_TWOfBc"
+      "node2" : "FICT_VL2_T12_TWO_fBc"
     }, {
-      "node1" : "FICT_VL2_T12_TWOfBc",
-      "node2" : "FICT_VL2_T12_TWOfNode1"
+      "node1" : "FICT_VL2_T12_TWO_fBc",
+      "node2" : "FICT_VL2_T12_TWO_fNode1"
     }, {
-      "node1" : "FICT_VL2_T12_TWOfNode1",
-      "node2" : "FICT_VL2_T12_TWOfNode2"
+      "node1" : "FICT_VL2_T12_TWO_fNode1",
+      "node2" : "FICT_VL2_T12_TWO_fNode2"
     }, {
-      "node1" : "FICT_VL2_T12_TWOfNode2",
+      "node1" : "FICT_VL2_T12_TWO_fNode2",
       "node2" : "T12_TWO"
     }, {
       "node1" : "B21",
-      "node2" : "FICT_VL2_T3_12_THREEfBc"
+      "node2" : "FICT_VL2_T3_12_THREE_fBc"
     }, {
-      "node1" : "FICT_VL2_T3_12_THREEfBc",
-      "node2" : "FICT_VL2_T3_12_THREEfNode1"
+      "node1" : "FICT_VL2_T3_12_THREE_fBc",
+      "node2" : "FICT_VL2_T3_12_THREE_fNode1"
     }, {
-      "node1" : "FICT_VL2_T3_12_THREEfNode1",
-      "node2" : "FICT_VL2_T3_12_THREEfNode2"
+      "node1" : "FICT_VL2_T3_12_THREE_fNode1",
+      "node2" : "FICT_VL2_T3_12_THREE_fNode2"
     }, {
-      "node1" : "FICT_VL2_T3_12_THREEfNode2",
+      "node1" : "FICT_VL2_T3_12_THREE_fNode2",
       "node2" : "T3_12_THREE"
     } ],
     "multitermNodes" : [ ],

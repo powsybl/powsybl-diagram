@@ -36,8 +36,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoltageLevelGraph.class);
 
-    public static final String BUS_CONNECTION_ID_SUFFIX = "fBc";
-    public static final String INTERNAL_NODE_ID_SUFFIX = "fNode";
+    public static final String BUS_CONNECTION_ID_SUFFIX = "_fBc";
+    public static final String INTERNAL_NODE_ID_SUFFIX = "_fNode";
 
     private final VoltageLevelInfos voltageLevelInfos;
 
@@ -423,7 +423,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     .filter(n2 -> n2.getType() == Node.NodeType.BUS)
                     .forEach(n2 -> {
                         removeEdge(n1, n2);
-                        String busToBusPrefix = n1.getId() + "_" + n2.getId() + "_";
+                        String busToBusPrefix = n1.getId() + "-" + n2.getId();
                         BusConnection fSwToBus1 = new BusConnection(this, busToBusPrefix + BUS_CONNECTION_ID_SUFFIX + "1");
                         InternalNode internalNode1 = new InternalNode(this, busToBusPrefix + INTERNAL_NODE_ID_SUFFIX + "1");
                         InternalNode internalNode2 = new InternalNode(this, busToBusPrefix + INTERNAL_NODE_ID_SUFFIX + "2");

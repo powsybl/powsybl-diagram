@@ -30,9 +30,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds1fBc0",
-    "name" : "ds1fBc0",
-    "equipmentId" : "ds1fBc0",
+    "id" : "FICT_vl_ds1_fBc0",
+    "name" : "ds1_fBc0",
+    "equipmentId" : "ds1_fBc0",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 50.0,
@@ -40,9 +40,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds1fBc1",
-    "name" : "ds1fBc1",
-    "equipmentId" : "ds1fBc1",
+    "id" : "FICT_vl_ds1_fBc1",
+    "name" : "ds1_fBc1",
+    "equipmentId" : "ds1_fBc1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 100.0,
@@ -50,9 +50,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds1fNode0",
-    "name" : "ds1fNode0",
-    "equipmentId" : "ds1fNode0",
+    "id" : "FICT_vl_ds1_fNode0",
+    "name" : "ds1_fNode0",
+    "equipmentId" : "ds1_fNode0",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -61,9 +61,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds1fNode1",
-    "name" : "ds1fNode1",
-    "equipmentId" : "ds1fNode1",
+    "id" : "FICT_vl_ds1_fNode1",
+    "name" : "ds1_fNode1",
+    "equipmentId" : "ds1_fNode1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -72,9 +72,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds2fBc0",
-    "name" : "ds2fBc0",
-    "equipmentId" : "ds2fBc0",
+    "id" : "FICT_vl_ds2_fBc0",
+    "name" : "ds2_fBc0",
+    "equipmentId" : "ds2_fBc0",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 50.0,
@@ -82,9 +82,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds2fBc1",
-    "name" : "ds2fBc1",
-    "equipmentId" : "ds2fBc1",
+    "id" : "FICT_vl_ds2_fBc1",
+    "name" : "ds2_fBc1",
+    "equipmentId" : "ds2_fBc1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 100.0,
@@ -92,9 +92,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds2fNode0",
-    "name" : "ds2fNode0",
-    "equipmentId" : "ds2fNode0",
+    "id" : "FICT_vl_ds2_fNode0",
+    "name" : "ds2_fNode0",
+    "equipmentId" : "ds2_fNode0",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -103,9 +103,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_ds2fNode1",
-    "name" : "ds2fNode1",
-    "equipmentId" : "ds2fNode1",
+    "id" : "FICT_vl_ds2_fNode1",
+    "name" : "ds2_fNode1",
+    "equipmentId" : "ds2_fNode1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -379,7 +379,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1.2", "FICT_vl_ds1fBc1", "FICT_vl_ds1fNode1" ]
+        "nodes" : [ "bbs1.2", "FICT_vl_ds1_fBc1", "FICT_vl_ds1_fNode1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -400,7 +400,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "FICT_vl_ds1fNode0", "ds1", "FICT_vl_ds1fNode1" ]
+        "nodes" : [ "FICT_vl_ds1_fNode0", "ds1", "FICT_vl_ds1_fNode1" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -421,7 +421,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1.1", "FICT_vl_ds1fBc0", "FICT_vl_ds1fNode0" ]
+        "nodes" : [ "bbs1.1", "FICT_vl_ds1_fBc0", "FICT_vl_ds1_fNode0" ]
       } ]
     }
   }, {
@@ -468,7 +468,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs2.2", "FICT_vl_ds2fBc1", "FICT_vl_ds2fNode1" ]
+        "nodes" : [ "bbs2.2", "FICT_vl_ds2_fBc1", "FICT_vl_ds2_fNode1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -489,7 +489,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "FICT_vl_ds2fNode0", "ds2", "FICT_vl_ds2fNode1" ]
+        "nodes" : [ "FICT_vl_ds2_fNode0", "ds2", "FICT_vl_ds2_fNode1" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -510,7 +510,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs2.1", "FICT_vl_ds2fBc0", "FICT_vl_ds2fNode0" ]
+        "nodes" : [ "bbs2.1", "FICT_vl_ds2_fBc0", "FICT_vl_ds2_fNode0" ]
       } ]
     }
   } ],
@@ -534,39 +534,39 @@
     "node2" : "FICT_vl_d2Fictif"
   }, {
     "node1" : "bbs1.1",
-    "node2" : "FICT_vl_ds1fBc0"
+    "node2" : "FICT_vl_ds1_fBc0"
   }, {
-    "node1" : "FICT_vl_ds1fBc0",
-    "node2" : "FICT_vl_ds1fNode0"
+    "node1" : "FICT_vl_ds1_fBc0",
+    "node2" : "FICT_vl_ds1_fNode0"
   }, {
-    "node1" : "FICT_vl_ds1fNode0",
+    "node1" : "FICT_vl_ds1_fNode0",
     "node2" : "ds1"
   }, {
     "node1" : "bbs1.2",
-    "node2" : "FICT_vl_ds1fBc1"
+    "node2" : "FICT_vl_ds1_fBc1"
   }, {
-    "node1" : "FICT_vl_ds1fBc1",
-    "node2" : "FICT_vl_ds1fNode1"
+    "node1" : "FICT_vl_ds1_fBc1",
+    "node2" : "FICT_vl_ds1_fNode1"
   }, {
-    "node1" : "FICT_vl_ds1fNode1",
+    "node1" : "FICT_vl_ds1_fNode1",
     "node2" : "ds1"
   }, {
     "node1" : "bbs2.1",
-    "node2" : "FICT_vl_ds2fBc0"
+    "node2" : "FICT_vl_ds2_fBc0"
   }, {
-    "node1" : "FICT_vl_ds2fBc0",
-    "node2" : "FICT_vl_ds2fNode0"
+    "node1" : "FICT_vl_ds2_fBc0",
+    "node2" : "FICT_vl_ds2_fNode0"
   }, {
-    "node1" : "FICT_vl_ds2fNode0",
+    "node1" : "FICT_vl_ds2_fNode0",
     "node2" : "ds2"
   }, {
     "node1" : "bbs2.2",
-    "node2" : "FICT_vl_ds2fBc1"
+    "node2" : "FICT_vl_ds2_fBc1"
   }, {
-    "node1" : "FICT_vl_ds2fBc1",
-    "node2" : "FICT_vl_ds2fNode1"
+    "node1" : "FICT_vl_ds2_fBc1",
+    "node2" : "FICT_vl_ds2_fNode1"
   }, {
-    "node1" : "FICT_vl_ds2fNode1",
+    "node1" : "FICT_vl_ds2_fNode1",
     "node2" : "ds2"
   } ],
   "multitermNodes" : [ ],
