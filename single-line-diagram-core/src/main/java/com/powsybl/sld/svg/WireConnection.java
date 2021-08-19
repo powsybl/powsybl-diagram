@@ -38,7 +38,7 @@ public class WireConnection {
     public static List<AnchorPoint> getAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node) {
         return anchorPointProvider.getAnchorPoints(node.getComponentType(), node.getId())
                 .stream()
-                .map(anchorPoint -> node.isRotated() ? anchorPoint.rotate(node.getRotationAngle()) : anchorPoint)
+                .map(anchorPoint -> node.isRotated() ? anchorPoint.createRotatedAnchorPoint(node.getRotationAngle()) : anchorPoint)
                 .collect(Collectors.toList());
     }
 

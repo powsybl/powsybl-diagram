@@ -45,7 +45,7 @@ public class AnchorPoint extends Point {
     /**
      * Rotate the anchorPoints
      */
-    public AnchorPoint rotate(Double rotationAngle) {
+    public AnchorPoint createRotatedAnchorPoint(Double rotationAngle) {
         if (rotationAngle == 90.) {
             switch (orientation) {
                 case VERTICAL:
@@ -60,12 +60,8 @@ public class AnchorPoint extends Point {
         } else if (rotationAngle == 180.) {
             return new AnchorPoint(-getX(), -getY(), orientation);
         } else {
-            return this;
+            return new AnchorPoint(getX(), getY(), orientation);
         }
-    }
-
-    public AnchorPoint rotate() {
-        return rotate(90.);
     }
 
     @Override
