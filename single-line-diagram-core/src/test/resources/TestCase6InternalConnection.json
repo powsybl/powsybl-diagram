@@ -327,7 +327,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1.2", "bbs1.2fSwitch2", "FICT_vl_bbs1.2fNode2" ]
+        "nodes" : [ "bbs1.2", "bbs1.2fSwitch2", "FICT_vl_bbs1.1_bbs1.2_fNode2" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -348,7 +348,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "FICT_vl_bbs1.1fNode1", "FICT_vl_bbs1.2fNode2" ]
+        "nodes" : [ "FICT_vl_bbs1.1_bbs1.2_fNode1", "FICT_vl_bbs1.1_bbs1.2_fNode2" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -369,7 +369,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1.1", "bbs1.1fSwitch1", "FICT_vl_bbs1.1fNode1" ]
+        "nodes" : [ "bbs1.1", "bbs1.1fSwitch1", "FICT_vl_bbs1.1_bbs1.2_fNode1" ]
       } ]
     }
   }, {
@@ -485,12 +485,12 @@
     "node2" : "bbs1.1fSwitch1"
   }, {
     "node1" : "bbs1.1fSwitch1",
-    "node2" : "FICT_vl_bbs1.1fNode1"
+    "node2" : "FICT_vl_bbs1.1_bbs1.2_fNode1"
   }, {
-    "node1" : "FICT_vl_bbs1.1fNode1",
-    "node2" : "FICT_vl_bbs1.2fNode2"
+    "node1" : "FICT_vl_bbs1.1_bbs1.2_fNode1",
+    "node2" : "FICT_vl_bbs1.1_bbs1.2_fNode2"
   }, {
-    "node1" : "FICT_vl_bbs1.2fNode2",
+    "node1" : "FICT_vl_bbs1.1_bbs1.2_fNode2",
     "node2" : "bbs1.2fSwitch2"
   }, {
     "node1" : "bbs1.2",
