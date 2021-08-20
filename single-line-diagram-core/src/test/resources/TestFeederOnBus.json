@@ -8,9 +8,19 @@
   "y" : 0.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_line_ONEfNode1",
-    "name" : "line_ONEfNode1",
-    "equipmentId" : "line_ONEfNode1",
+    "id" : "FICT_vl_line_ONE_fBc",
+    "name" : "line_ONE_fBc",
+    "equipmentId" : "line_ONE_fBc",
+    "componentType" : "BUS_CONNECTION",
+    "fictitious" : true,
+    "x" : 25.0,
+    "y" : 260.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "FICT_vl_line_ONE_fNode1",
+    "name" : "line_ONE_fNode1",
+    "equipmentId" : "line_ONE_fNode1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -18,9 +28,9 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_line_ONEfNode2",
-    "name" : "line_ONEfNode2",
-    "equipmentId" : "line_ONEfNode2",
+    "id" : "FICT_vl_line_ONE_fNode2",
+    "name" : "line_ONE_fNode2",
+    "equipmentId" : "line_ONE_fNode2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -65,17 +75,6 @@
       "name" : "OTHER",
       "nominalVoltage" : 0.0
     }
-  }, {
-    "type" : "SWITCH",
-    "id" : "line_ONEfSwitch",
-    "name" : "line_ONEfSwitch",
-    "equipmentId" : "line_ONEfSwitch",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 25.0,
-    "y" : 260.0,
-    "open" : false,
-    "kind" : "DISCONNECTOR"
   } ],
   "cells" : [ {
     "type" : "EXTERN",
@@ -122,7 +121,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "line_ONEfSwitch", "FICT_vl_line_ONEfNode1" ]
+        "nodes" : [ "bbs", "FICT_vl_line_ONE_fBc", "FICT_vl_line_ONE_fNode1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -143,7 +142,7 @@
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "FICT_vl_line_ONEfNode1", "FICT_vl_line_ONEfNode2" ]
+        "nodes" : [ "FICT_vl_line_ONE_fNode1", "FICT_vl_line_ONE_fNode2" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -164,21 +163,21 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vl_line_ONEfNode2", "line_ONE" ]
+        "nodes" : [ "FICT_vl_line_ONE_fNode2", "line_ONE" ]
       } ]
     }
   } ],
   "edges" : [ {
     "node1" : "bbs",
-    "node2" : "line_ONEfSwitch"
+    "node2" : "FICT_vl_line_ONE_fBc"
   }, {
-    "node1" : "line_ONEfSwitch",
-    "node2" : "FICT_vl_line_ONEfNode1"
+    "node1" : "FICT_vl_line_ONE_fBc",
+    "node2" : "FICT_vl_line_ONE_fNode1"
   }, {
-    "node1" : "FICT_vl_line_ONEfNode1",
-    "node2" : "FICT_vl_line_ONEfNode2"
+    "node1" : "FICT_vl_line_ONE_fNode1",
+    "node2" : "FICT_vl_line_ONE_fNode2"
   }, {
-    "node1" : "FICT_vl_line_ONEfNode2",
+    "node1" : "FICT_vl_line_ONE_fNode2",
     "node2" : "line_ONE"
   } ],
   "multitermNodes" : [ ],
