@@ -220,22 +220,20 @@ public class DefaultSVGWriter implements SVGWriter {
             return componentLibrary.getAnchorPoints(type);
         };
 
-        List<Node> remainingNodes = graph.getNodes();
+        List<Node> nodesToDraw = graph.getNodes();
+        List<Edge> edgesToDraw = graph.getEdges();
 
-        List<Node> nodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDraw);
+        List<Node> busNodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
+        nodesToDraw.removeAll(busNodesToDraw);
 
-        remainingNodes.removeAll(nodesToDraw);
-
-        List<Edge> remainingEdges = graph.getEdges();
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, busNodesToDraw);
 
         for (Cell cell : graph.getCells()) {
-            remainingEdges.removeAll(drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider,
-                    styleProvider));
-            remainingNodes.removeAll(cell.getNodes());
+            drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider,
+                edgesToDraw, nodesToDraw);
         }
-        drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodes);
+        drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
+        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDraw);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
@@ -248,32 +246,43 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private List<Edge> drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
-                                GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
-                                DiagramStyleProvider styleProvider) {
+    private void drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
+                          GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
+                          DiagramStyleProvider styleProvider, List<Edge> remainingEdgesToDraw, List<Node> remainingNodesToDraw) {
 
-        // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
-        // then we draw all the edges, and finally we draw the switch nodes
+        // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
+        // then we draw all the edges, and finally we draw the switch nodes and bus connections
 
         String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, "cell " + cellId);
 
-        List<Node> nodesToDrawBefore = cell.getNodes().stream()
-            .filter(n -> !(n instanceof BusNode || n instanceof SwitchNode || n instanceof BusConnection))
-            .collect(Collectors.toList());
+        List<Node> nodesToDrawBefore = new ArrayList<>();
+        List<Node> nodesToDrawAfter = new ArrayList<>();
+        Collection<Edge> edgesToDraw = new LinkedHashSet<>();
+        for (Node n : cell.getNodes()) {
+            if (n instanceof BusNode) {
+                // Bus have already been drawn in drawNodes > drawBus
+                continue;
+            }
+            if (n instanceof SwitchNode || n instanceof BusConnection) {
+                nodesToDrawAfter.add(n);
+            } else {
+                nodesToDrawBefore.add(n);
+            }
+            edgesToDraw.addAll(n.getAdjacentEdges());
+        }
+
+        remainingEdgesToDraw.removeAll(edgesToDraw);
+        remainingNodesToDraw.removeAll(nodesToDrawBefore);
+        remainingNodesToDraw.removeAll(nodesToDrawAfter);
+
         drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawBefore);
-
-        List<Edge> edgesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode))
-                .flatMap(n -> n.getAdjacentEdges().stream())
-                .distinct().collect(Collectors.toList());
-        drawEdges(prefixId, g, graph, edgesToDraw, metadata, anchorPointProvider, initProvider, styleProvider);
-
-        List<Node> nodesToDrawAfter = cell.getNodes().stream().filter(n -> n instanceof SwitchNode || n instanceof BusConnection).collect(Collectors.toList());
+        drawEdges(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
         drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawAfter);
+
         root.appendChild(g);
-        return edgesToDraw;
     }
 
     /**
@@ -1058,7 +1067,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph edges
      */
-    protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Collection<Edge> edges) {
         String voltageLevelId = graph.getVoltageLevelInfos().getId();
 
         for (Edge edge : edges) {
