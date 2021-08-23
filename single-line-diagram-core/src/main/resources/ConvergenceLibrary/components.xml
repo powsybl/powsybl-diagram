@@ -148,7 +148,7 @@
             <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
             <anchorPoint x="0" y="4" orientation="VERTICAL"/>
             <anchorPoint x="0" y="0" orientation="VERTICAL"/>
-            <allowRotation>true</allowRotation>
+            <allowRotation>false</allowRotation>
         </metadata>
     </component>
     <component>
@@ -159,7 +159,7 @@
                 <fileName>node.svg</fileName>
             </subComponent>
             <anchorPoint x="0" y="0" orientation="NONE"/>
-            <allowRotation>true</allowRotation>
+            <allowRotation>false</allowRotation>
         </metadata>
     </component>
     <component>
