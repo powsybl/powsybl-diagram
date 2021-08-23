@@ -196,10 +196,10 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
+        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="translate(255.0,360.0)">
             <title>vl1_b1</title>
-            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(90.0,10.0,10.0)"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(90.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <title>vl1_d2</title>

@@ -65,10 +65,10 @@ polyline {fill: none}
             <text class="sld-label" id="BBS12_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">BBS12</text>
         </g>
         <g class="cell idINTERN_32_0" id="idINTERN_32_0">
-            <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D10Fictif" transform="matrix(0.0,1.0,-1.0,0.0,99.0,266.0)">
+            <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D10Fictif" transform="translate(91.0,266.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
-            <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D20Fictif" transform="matrix(0.0,1.0,-1.0,0.0,49.0,266.0)">
+            <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D20Fictif" transform="translate(41.0,266.0)">
                 <circle cx="4" cy="4" r="4" transform="rotate(90.0,4.0,4.0)"/>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BBS11_95_D10">
@@ -93,9 +93,9 @@ polyline {fill: none}
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-constant-color sld-closed" id="idBR1" transform="matrix(0.0,1.0,-1.0,0.0,80.0,260.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+            <g class="sld-breaker sld-constant-color sld-closed" id="idBR1" transform="translate(60.0,260.0)">
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
             <g class="sld-disconnector sld-constant-color sld-closed" id="idD20" transform="translate(41.0,331.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -285,11 +285,6 @@ polyline {fill: none}
             <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D19Fictif" transform="translate(566.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(562.0,80.0)">
-                <circle cx="5" cy="15" r="5"/>
-                <circle cx="11" cy="15" r="5"/>
-                <circle cx="8" cy="19" r="5"/>
-            </g>
             <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_TWO" transform="translate(545.0,30.0)">
                 <text class="sld-label" id="T3_12_TWO_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
@@ -341,6 +336,11 @@ polyline {fill: none}
             <g class="sld-breaker sld-constant-color sld-closed" id="idBR20" transform="translate(560.0,176.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+            </g>
+            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(562.0,80.0)">
+                <circle cx="5" cy="15" r="5"/>
+                <circle cx="11" cy="15" r="5"/>
+                <circle cx="8" cy="19" r="5"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
@@ -528,11 +528,6 @@ polyline {fill: none}
             <g class="sld-node sld-constant-color" id="idFICT_95_VL1_95_D29Fictif" transform="translate(666.0,276.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(662.0,80.0)">
-                <circle cx="5" cy="15" r="5"/>
-                <circle cx="11" cy="15" r="5"/>
-                <circle cx="8" cy="19" r="5"/>
-            </g>
             <g class="sld-top-feeder sld-constant-color" id="idT3_95_12_95_ONE" transform="translate(645.0,30.0)">
                 <text class="sld-label" id="T3_12_ONE_N_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">T3_12</text>
             </g>
@@ -585,10 +580,11 @@ polyline {fill: none}
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-        </g>
-        <g class="sld-two-wt sld-constant-color" id="idT11_95_ONE_95_T11_95_TWO" transform="translate(365.0,-7.5)">
-            <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
-            <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(662.0,80.0)">
+                <circle cx="5" cy="15" r="5"/>
+                <circle cx="11" cy="15" r="5"/>
+                <circle cx="8" cy="19" r="5"/>
+            </g>
         </g>
         <g class="sld-wire sld-constant-color" id="idL11">
             <polyline points="195.0,30.0,195.0,-30.0,395.0,-30.0,395.0,30.0"/>
@@ -598,6 +594,10 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="idT11_95_TWO_95_edge">
             <polyline points="378.0,0.0,445.0,0.0,445.0,30.0"/>
+        </g>
+        <g class="sld-two-wt sld-constant-color" id="idT11_95_ONE_95_T11_95_TWO" transform="translate(365.0,-7.5)">
+            <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
     </g>
 </svg>
