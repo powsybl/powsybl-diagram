@@ -48,4 +48,10 @@ public class Edge {
         }
         generator.writeEndObject();
     }
+
+    public boolean isZeroLength() {
+        Point node1 = getNode1().getCoordinates();
+        Point node2 = getNode2().getCoordinates();
+        return node1.getX() == node2.getX() && node1.getY() == node2.getY();
+    }
 }

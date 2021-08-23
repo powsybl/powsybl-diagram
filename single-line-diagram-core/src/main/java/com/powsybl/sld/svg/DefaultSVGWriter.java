@@ -271,16 +271,17 @@ public class DefaultSVGWriter implements SVGWriter {
             } else {
                 nodesToDrawBefore.add(n);
             }
+
             edgesToDraw.addAll(n.getAdjacentEdges());
         }
-
-        remainingEdgesToDraw.removeAll(edgesToDraw);
-        remainingNodesToDraw.removeAll(nodesToDrawBefore);
-        remainingNodesToDraw.removeAll(nodesToDrawAfter);
 
         drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawBefore);
         drawEdges(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
         drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawAfter);
+
+        remainingEdgesToDraw.removeAll(edgesToDraw);
+        remainingNodesToDraw.removeAll(nodesToDrawBefore);
+        remainingNodesToDraw.removeAll(nodesToDrawAfter);
 
         root.appendChild(g);
     }
@@ -995,8 +996,12 @@ public class DefaultSVGWriter implements SVGWriter {
                                          GraphMetadata metadata,
                                          DiagramLabelProvider initProvider,
                                          boolean feederArrowSymmetry) {
-        InitialValue init = initProvider.getInitialValue(feederNode);
+        if (points.isEmpty()) {
+            points.add(new Point(feederNode.getCoordinates()));
+            points.add(new Point(feederNode.getCoordinates()));
+        }
 
+        InitialValue init = initProvider.getInitialValue(feederNode);
         boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
 
         Optional<String> label1 = arrowSymmetry ? init.getLabel1() : init.getLabel2();
@@ -1073,22 +1078,24 @@ public class DefaultSVGWriter implements SVGWriter {
         for (Edge edge : edges) {
             String wireId = getWireId(prefixId, voltageLevelId, edge);
 
-            Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute("id", wireId);
-            List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
-            g.setAttribute(CLASS, String.join(" ", wireStyles));
+            List<Point> pol = new ArrayList<>();
+            if (!edge.isZeroLength()) {
+                Element g = root.getOwnerDocument().createElement(GROUP);
+                g.setAttribute("id", wireId);
+                List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
+                g.setAttribute(CLASS, String.join(" ", wireStyles));
 
-            root.appendChild(g);
+                root.appendChild(g);
 
-            Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-            WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
+                Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
 
-            // Determine points of the polyline
-            List<Point> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
-                    layoutParameters.isDrawStraightWires());
+                // Determine points of the polyline
+                pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires());
 
-            polyline.setAttribute(POINTS, pointsListToString(pol));
-            g.appendChild(polyline);
+                polyline.setAttribute(POINTS, pointsListToString(pol));
+                g.appendChild(polyline);
+            }
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
                     escapeId(edge.getNode1().getId()),
