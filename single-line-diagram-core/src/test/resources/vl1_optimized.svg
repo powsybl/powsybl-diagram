@@ -121,12 +121,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
             <polyline points="60.0,154.5,60.0,240.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,55.0,169.5)">
+        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="translate(55.0,169.5)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,55.0,189.5)">
+        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="translate(55.0,189.5)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
@@ -140,12 +140,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="100.0,562.0,100.0,480.0"/>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,95.0,537.0)">
+        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="translate(95.0,537.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
             <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,95.0,517.0)">
+        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="translate(95.0,517.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
             <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
@@ -159,12 +159,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2">
             <polyline points="380.0,150.0,380.0,210.0,413.0,210.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,375.0,165.0)">
+        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW1" transform="translate(375.0,165.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,375.0,185.0)">
+        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW2" transform="translate(375.0,185.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
@@ -172,12 +172,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2">
             <polyline points="460.0,150.0,460.0,210.0,427.0,210.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,455.0,165.0)">
+        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW1" transform="translate(455.0,165.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,455.0,185.0)">
+        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW2" transform="translate(455.0,185.0)">
             <use class="sld-arrow-down" href="#ARROW-DOWN"/>
             <use class="sld-arrow-up" href="#ARROW-UP"/>
             <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">20</text>
