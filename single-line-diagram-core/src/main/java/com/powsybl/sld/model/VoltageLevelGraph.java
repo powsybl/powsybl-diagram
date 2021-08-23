@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.Position.Dimension.H;
 import static com.powsybl.sld.model.Position.Dimension.V;
 
@@ -660,5 +661,21 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void setMaxVerticalBusPosition(int maxVerticalBusPosition) {
         this.maxVerticalBusPosition = maxVerticalBusPosition;
+    }
+
+    @Override
+    public void handleMultiTermsNodeRotation() {
+        super.handleMultiTermsNodeRotation();
+        for (Node node : nodes) {
+            if ((node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
+                || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER))
+                && node.getCell() != null
+                && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
+                // permutation if cell direction is BOTTOM,
+                // because in the svg component library, circle for winding1 is below circle for winding2
+                node.setRotationAngle(180.);
+            }
+        }
     }
 }
