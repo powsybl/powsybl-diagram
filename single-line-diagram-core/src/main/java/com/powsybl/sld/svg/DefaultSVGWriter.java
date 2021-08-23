@@ -235,11 +235,11 @@ public class DefaultSVGWriter implements SVGWriter {
         drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingEdgesToDraw);
         drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
 
+        // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
+        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
+
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
-
-        // Drawing the snake lines
-        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
@@ -266,7 +266,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 // Buses have already been drawn in drawBusNodes
                 continue;
             }
-            if (n instanceof SwitchNode || n instanceof BusConnection) {
+            if (n instanceof SwitchNode || n instanceof BusConnection || n instanceof Middle3WTNode) {
                 nodesToDrawAfter.add(n);
             } else {
                 nodesToDrawBefore.add(n);
@@ -390,14 +390,14 @@ public class DefaultSVGWriter implements SVGWriter {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, false);
         }
 
-        // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
-
         // Handle multi-terminal nodes rotation
         graph.handleMultiTermsNodeRotation();
 
-        // Drawing the snake lines
+        // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
+
+        // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
     }
 
     /*
