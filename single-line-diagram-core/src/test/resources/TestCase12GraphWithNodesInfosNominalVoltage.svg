@@ -92,17 +92,11 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_bbs1_95_dsect11">
                 <polyline points="730.0,310.0,740.0,310.0"/>
             </g>
-            <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect11_95_FICT_95_vl1_95_dsect11Fictif">
-                <polyline points="740.0,310.0,740.0,310.0"/>
-            </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dtrct11_95_FICT_95_vl1_95_dsect11Fictif">
                 <polyline points="770.0,310.0,740.0,310.0"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dtrct11_95_FICT_95_vl1_95_dsect12Fictif">
                 <polyline points="790.0,310.0,820.0,310.0"/>
-            </g>
-            <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect12_95_FICT_95_vl1_95_dsect12Fictif">
-                <polyline points="820.0,310.0,820.0,310.0"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect12_95_bbs2">
                 <polyline points="820.0,310.0,830.0,310.0"/>
@@ -130,17 +124,11 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_bbs3_95_dsect21">
                 <polyline points="730.0,335.0,740.0,335.0"/>
             </g>
-            <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect21_95_FICT_95_vl1_95_dsect21Fictif">
-                <polyline points="740.0,335.0,740.0,335.0"/>
-            </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dtrct21_95_FICT_95_vl1_95_dsect21Fictif">
                 <polyline points="770.0,335.0,740.0,335.0"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dtrct21_95_FICT_95_vl1_95_dsect22Fictif">
                 <polyline points="790.0,335.0,820.0,335.0"/>
-            </g>
-            <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect22_95_FICT_95_vl1_95_dsect22Fictif">
-                <polyline points="820.0,335.0,820.0,335.0"/>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500" id="_95_vl1_95_dsect22_95_bbs4">
                 <polyline points="820.0,335.0,830.0,335.0"/>
