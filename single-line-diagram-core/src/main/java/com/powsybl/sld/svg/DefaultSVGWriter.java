@@ -220,17 +220,17 @@ public class DefaultSVGWriter implements SVGWriter {
             return componentLibrary.getAnchorPoints(type);
         };
 
-        List<Node> nodesToDraw = graph.getNodes();
-        List<Edge> edgesToDraw = graph.getEdges();
+        Set<Node> remainingNodesToDraw = graph.getNodeSet();
+        Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
-        drawBuses(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDraw);
+        drawBuses(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodesToDraw);
         for (Cell cell : graph.getCells()) {
             drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider,
-                edgesToDraw, nodesToDraw);
+                remainingEdgesToDraw, remainingNodesToDraw);
         }
 
-        drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
-        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, nodesToDraw);
+        drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingEdgesToDraw);
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
@@ -245,7 +245,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
                           GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
-                          DiagramStyleProvider styleProvider, List<Edge> remainingEdgesToDraw, List<Node> remainingNodesToDraw) {
+                          DiagramStyleProvider styleProvider, Set<Edge> remainingEdgesToDraw, Set<Node> remainingNodesToDraw) {
 
         // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
         // then we draw all the edges, and finally we draw the switch nodes and bus connections
@@ -277,8 +277,8 @@ public class DefaultSVGWriter implements SVGWriter {
         drawNodes(prefixId, g, graph, metadata, initProvider, styleProvider, nodesToDrawAfter);
 
         remainingEdgesToDraw.removeAll(edgesToDraw);
-        remainingNodesToDraw.removeAll(nodesToDrawBefore);
-        remainingNodesToDraw.removeAll(nodesToDrawAfter);
+        nodesToDrawBefore.forEach(remainingNodesToDraw::remove);
+        nodesToDrawAfter.forEach(remainingNodesToDraw::remove);
 
         root.appendChild(g);
     }
@@ -479,7 +479,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              AnchorPointProvider anchorPointProvider,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             List<Node> remainingNodesToDraw) {
+                             Set<Node> remainingNodesToDraw) {
 
         for (BusNode busNode : graph.getNodeBuses()) {
 

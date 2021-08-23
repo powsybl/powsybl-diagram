@@ -547,6 +547,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return new ArrayList<>(edges);
     }
 
+    public Set<Node> getNodeSet() {
+        return new LinkedHashSet<>(nodes);
+    }
+
+    public Set<Edge> getEdgeSet() {
+        return new LinkedHashSet<>(edges);
+    }
+
     public Set<Cell> getCells() {
         return new TreeSet<>(cells);
     }
