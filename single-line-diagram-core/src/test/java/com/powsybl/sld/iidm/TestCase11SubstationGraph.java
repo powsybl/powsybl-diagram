@@ -44,7 +44,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // first voltage level
         //
-        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 50);
+        VoltageLevel vl1 = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 225, 50);
 
         createBusBarSection(vl1, "bbs1", "bbs1", 0, 1, 1);
         createBusBarSection(vl1, "bbs2", "bbs2", 1, 1, 2);
@@ -77,7 +77,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // second voltage level
         //
-        VoltageLevel vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 225, 30);
+        VoltageLevel vl2 = createVoltageLevel(substation, "vl2", "vl2", TopologyKind.NODE_BREAKER, 380, 30);
 
         createBusBarSection(vl2, "bbs5", "bbs5", 0, 1, 1);
         createBusBarSection(vl2, "bbs6", "bbs6", 1, 2, 1);
@@ -96,7 +96,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // third voltage level
         //
-        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 225, 20);
+        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 50, 20);
 
         createBusBarSection(vl3, "bbs7", "bbs7", 0, 1, 1);
 
@@ -219,9 +219,6 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontal() {
 
         // build substation graph
-        VoltageLevelGraph gvl = graphBuilder.buildVoltageLevelGraph("vl1", true, true);
-        new PositionVoltageLevelLayoutFactory().create(gvl).run(getLayoutParameters());
-
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // write Json and compare to reference (with horizontal substation layout)

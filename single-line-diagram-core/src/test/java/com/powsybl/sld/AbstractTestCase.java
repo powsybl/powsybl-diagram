@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class AbstractTestCase {
 
-    protected boolean writeFile = false;
+    protected boolean writeFile = true;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
