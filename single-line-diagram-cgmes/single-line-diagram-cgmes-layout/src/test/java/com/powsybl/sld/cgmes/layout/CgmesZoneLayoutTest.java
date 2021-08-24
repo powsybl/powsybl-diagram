@@ -208,35 +208,25 @@ public class CgmesZoneLayoutTest {
         assertEquals(SUBSTATION_2_ID, graph.getNodes().get(1).getSubstationId());
 
         VoltageLevelGraph vlGraph11 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_11_ID);
-        assertEquals(5, vlGraph11.getNodes().size());
-        assertEquals(4, vlGraph11.getEdges().size());
-        String busbarConnectorId = "FICT_" + VOLTAGE_LEVEL_11_ID + "_" + BUS_11_ID + "_";
-        checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(busbarConnectorId + LOAD_ID, busbarConnectorId + TRANSFORMER_ID), 60, 10, true);
-        checkNode(vlGraph11.getNodes().get(1), Node.NodeType.FEEDER, LOAD_ID, LOAD, Arrays.asList(busbarConnectorId + LOAD_ID), 20, 30, true);
-        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FICTITIOUS, busbarConnectorId + LOAD_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_11_ID, LOAD_ID), -2, -12, false);
-        checkNode(vlGraph11.getNodes().get(3), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(busbarConnectorId + TRANSFORMER_ID), 100, 30, false);
-        checkNode(vlGraph11.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + TRANSFORMER_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_11_ID, TRANSFORMER_ID + "_" + Side.ONE), -2, -12, false);
+        assertEquals(3, vlGraph11.getNodes().size());
+        assertEquals(2, vlGraph11.getEdges().size());
+        checkNode(vlGraph11.getNodes().get(0), Node.NodeType.BUS, BUS_11_ID, BUSBAR_SECTION, Arrays.asList(LOAD_ID, TRANSFORMER_ID + "_" + Side.ONE), 60, 10, true);
+        checkNode(vlGraph11.getNodes().get(1), Node.NodeType.FEEDER, LOAD_ID, LOAD, Arrays.asList(BUS_11_ID), 20, 30, true);
+        checkNode(vlGraph11.getNodes().get(2), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.ONE, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_11_ID), 100, 30, false);
 
         VoltageLevelGraph vlGraph12 = graph.getNode(SUBSTATION_1_ID).getNode(VOLTAGE_LEVEL_12_ID);
-        assertEquals(5, vlGraph12.getNodes().size());
-        assertEquals(4, vlGraph12.getEdges().size());
-        busbarConnectorId = "FICT_" + VOLTAGE_LEVEL_12_ID + "_" + BUS_12_ID + "_";
-        checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(busbarConnectorId + LINE_ID, busbarConnectorId + TRANSFORMER_ID), 140, 10, true);
-        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.TWO, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(busbarConnectorId + TRANSFORMER_ID), 100, 30, false);
-        checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FICTITIOUS, busbarConnectorId + TRANSFORMER_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_12_ID,  TRANSFORMER_ID + "_" + Side.TWO), -2, -12, false);
-        checkNode(vlGraph12.getNodes().get(3), Node.NodeType.FEEDER, LINE_ID + "_" + Side.ONE, LINE, Arrays.asList(busbarConnectorId + LINE_ID), 180, 30, true);
-        checkNode(vlGraph12.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + LINE_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_12_ID, LINE_ID + "_" + Side.ONE), -2, -12, false);
+        assertEquals(3, vlGraph12.getNodes().size());
+        assertEquals(2, vlGraph12.getEdges().size());
+        checkNode(vlGraph12.getNodes().get(0), Node.NodeType.BUS, BUS_12_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + Side.ONE, TRANSFORMER_ID + "_" + Side.TWO), 140, 10, true);
+        checkNode(vlGraph12.getNodes().get(1), Node.NodeType.FEEDER, TRANSFORMER_ID + "_" + Side.TWO, TWO_WINDINGS_TRANSFORMER_LEG, Arrays.asList(BUS_12_ID), 100, 30, false);
+        checkNode(vlGraph12.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.ONE, LINE, Arrays.asList(BUS_12_ID), 180, 30, true);
 
         VoltageLevelGraph vlGraph21 = graph.getNode(SUBSTATION_2_ID).getNode(VOLTAGE_LEVEL_21_ID);
-        assertEquals(5, vlGraph21.getNodes().size());
-        assertEquals(4, vlGraph21.getEdges().size());
-
-        busbarConnectorId = "FICT_" + VOLTAGE_LEVEL_21_ID + "_" + BUS_21_ID + "_";
-        checkNode(vlGraph21.getNodes().get(0), Node.NodeType.BUS, BUS_21_ID, BUSBAR_SECTION, Arrays.asList(busbarConnectorId + LINE_ID, busbarConnectorId + GENERATOR_ID), 260, 90, true);
-        checkNode(vlGraph21.getNodes().get(1), Node.NodeType.FEEDER, GENERATOR_ID, GENERATOR, Arrays.asList(busbarConnectorId + GENERATOR_ID), 300, 110, false);
-        checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FICTITIOUS, busbarConnectorId + GENERATOR_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_21_ID,  GENERATOR_ID), -2, -12, false);
-        checkNode(vlGraph21.getNodes().get(3), Node.NodeType.FEEDER, LINE_ID + "_" + Side.TWO, LINE, Arrays.asList(busbarConnectorId + LINE_ID), 180, 30, true);
-        checkNode(vlGraph21.getNodes().get(4), Node.NodeType.FICTITIOUS, busbarConnectorId + LINE_ID, BUSBREAKER_CONNECTION, Arrays.asList(BUS_21_ID,  LINE_ID + "_" + Side.TWO), -2, -12, false);
+        assertEquals(3, vlGraph21.getNodes().size());
+        assertEquals(2, vlGraph21.getEdges().size());
+        checkNode(vlGraph21.getNodes().get(0), Node.NodeType.BUS, BUS_21_ID, BUSBAR_SECTION, Arrays.asList(LINE_ID + "_" + Side.TWO, GENERATOR_ID), 260, 90, true);
+        checkNode(vlGraph21.getNodes().get(1), Node.NodeType.FEEDER, GENERATOR_ID, GENERATOR, Arrays.asList(BUS_21_ID), 300, 110, false);
+        checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.TWO, LINE, Arrays.asList(BUS_21_ID), 220, 110, true);
 
         assertEquals(1, graph.getLineEdges().size());
         BranchEdge linEdge = graph.getLineEdges().get(0);
