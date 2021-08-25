@@ -47,7 +47,7 @@ polyline {fill: none}
             <line x1="0" x2="1.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs3_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">bbs3</text>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl3_95_3WT_95_fictif" transform="translate(11.0,37.0)">
+        <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(11.0,37.0)">
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
             <circle class="sld-vl180to300" cx="11" cy="15" r="5"/>
             <circle class="sld-vl50to70" cx="8" cy="19" r="5"/>

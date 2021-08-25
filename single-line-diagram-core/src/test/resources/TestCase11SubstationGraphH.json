@@ -5133,9 +5133,9 @@
   } ],
   "multitermNodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "trf1_ONE_trf1_TWO",
-    "name" : "trf1_ONE_trf1_TWO",
-    "equipmentId" : "trf1_ONE_trf1_TWO",
+    "id" : "trf1",
+    "name" : "trf1",
+    "equipmentId" : "trf1",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5151,9 +5151,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf2_ONE_trf2_TWO",
-    "name" : "trf2_ONE_trf2_TWO",
-    "equipmentId" : "trf2_ONE_trf2_TWO",
+    "id" : "trf2",
+    "name" : "trf2",
+    "equipmentId" : "trf2",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5169,9 +5169,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf3_ONE_trf3_TWO",
-    "name" : "trf3_ONE_trf3_TWO",
-    "equipmentId" : "trf3_ONE_trf3_TWO",
+    "id" : "trf3",
+    "name" : "trf3",
+    "equipmentId" : "trf3",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5187,9 +5187,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf4_ONE_trf4_TWO",
-    "name" : "trf4_ONE_trf4_TWO",
-    "equipmentId" : "trf4_ONE_trf4_TWO",
+    "id" : "trf4",
+    "name" : "trf4",
+    "equipmentId" : "trf4",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5205,9 +5205,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf5_ONE_trf5_TWO",
-    "name" : "trf5_ONE_trf5_TWO",
-    "equipmentId" : "trf5_ONE_trf5_TWO",
+    "id" : "trf5",
+    "name" : "trf5",
+    "equipmentId" : "trf5",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5223,9 +5223,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf6_ONE_trf6_TWO_trf6_THREE",
-    "name" : "trf6_ONE_trf6_TWO_trf6_THREE",
-    "equipmentId" : "trf6_ONE_trf6_TWO_trf6_THREE",
+    "id" : "trf6",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5246,9 +5246,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf7_ONE_trf7_TWO_trf7_THREE",
-    "name" : "trf7_ONE_trf7_TWO_trf7_THREE",
-    "equipmentId" : "trf7_ONE_trf7_TWO_trf7_THREE",
+    "id" : "trf7",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5269,9 +5269,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "trf8_ONE_trf8_TWO_trf8_THREE",
-    "name" : "trf8_ONE_trf8_TWO_trf8_THREE",
-    "equipmentId" : "trf8_ONE_trf8_TWO_trf8_THREE",
+    "id" : "trf8",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -5295,13 +5295,13 @@
     "id" : "trf1_ONE_edge",
     "nodes" : [ {
       "node1" : "trf1_ONE",
-      "node2" : "trf1_ONE_trf1_TWO"
+      "node2" : "trf1"
     } ],
     "snakeLine" : [ 125.0, 30.0, 125.0, 0.0, 600.0, 0.0 ]
   }, {
     "id" : "trf1_TWO_edge",
     "nodes" : [ {
-      "node1" : "trf1_ONE_trf1_TWO",
+      "node1" : "trf1",
       "node2" : "trf1_TWO"
     } ],
     "snakeLine" : [ 600.0, 0.0, 1075.0, 0.0, 1075.0, 30.0 ]
@@ -5309,13 +5309,13 @@
     "id" : "trf2_ONE_edge",
     "nodes" : [ {
       "node1" : "trf2_ONE",
-      "node2" : "trf2_ONE_trf2_TWO"
+      "node2" : "trf2"
     } ],
     "snakeLine" : [ 675.0, 30.0, 675.0, -30.0, 870.0, -30.0, 870.0, 307.5 ]
   }, {
     "id" : "trf2_TWO_edge",
     "nodes" : [ {
-      "node1" : "trf2_ONE_trf2_TWO",
+      "node1" : "trf2",
       "node2" : "trf2_TWO"
     } ],
     "snakeLine" : [ 870.0, 307.5, 870.0, 645.0, 1375.0, 645.0, 1375.0, 615.0 ]
@@ -5323,13 +5323,13 @@
     "id" : "trf3_ONE_edge",
     "nodes" : [ {
       "node1" : "trf3_ONE",
-      "node2" : "trf3_ONE_trf3_TWO"
+      "node2" : "trf3"
     } ],
     "snakeLine" : [ 225.0, 615.0, 225.0, 675.0, 825.0, 675.0 ]
   }, {
     "id" : "trf3_TWO_edge",
     "nodes" : [ {
-      "node1" : "trf3_ONE_trf3_TWO",
+      "node1" : "trf3",
       "node2" : "trf3_TWO"
     } ],
     "snakeLine" : [ 825.0, 675.0, 1425.0, 675.0, 1425.0, 615.0 ]
@@ -5337,13 +5337,13 @@
     "id" : "trf4_ONE_edge",
     "nodes" : [ {
       "node1" : "trf4_ONE",
-      "node2" : "trf4_ONE_trf4_TWO"
+      "node2" : "trf4"
     } ],
     "snakeLine" : [ 625.0, 615.0, 625.0, 705.0, 840.0, 705.0, 840.0, 322.5 ]
   }, {
     "id" : "trf4_TWO_edge",
     "nodes" : [ {
-      "node1" : "trf4_ONE_trf4_TWO",
+      "node1" : "trf4",
       "node2" : "trf4_TWO"
     } ],
     "snakeLine" : [ 840.0, 322.5, 840.0, -60.0, 1175.0, -60.0, 1175.0, 30.0 ]
@@ -5351,13 +5351,13 @@
     "id" : "trf5_ONE_edge",
     "nodes" : [ {
       "node1" : "trf5_ONE",
-      "node2" : "trf5_ONE_trf5_TWO"
+      "node2" : "trf5"
     } ],
     "snakeLine" : [ 275.0, 30.0, 275.0, -90.0, 1570.0, -90.0, 1570.0, 310.0 ]
   }, {
     "id" : "trf5_TWO_edge",
     "nodes" : [ {
-      "node1" : "trf5_ONE_trf5_TWO",
+      "node1" : "trf5",
       "node2" : "trf5_TWO"
     } ],
     "snakeLine" : [ 1570.0, 310.0, 1570.0, 710.0, 1675.0, 710.0, 1675.0, 590.0 ]
@@ -5365,20 +5365,20 @@
     "id" : "trf6_ONE_EDGE",
     "nodes" : [ {
       "node1" : "trf6_ONE",
-      "node2" : "trf6_ONE_trf6_TWO_trf6_THREE"
+      "node2" : "trf6"
     } ],
     "snakeLine" : [ 325.0, 30.0, 325.0, -120.0, 1275.0, -120.0 ]
   }, {
     "id" : "trf6_TWO_EDGE",
     "nodes" : [ {
-      "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
+      "node1" : "trf6",
       "node2" : "trf6_TWO"
     } ],
     "snakeLine" : [ 1275.0, -120.0, 1275.0, 30.0 ]
   }, {
     "id" : "trf6_THREE_EDGE",
     "nodes" : [ {
-      "node1" : "trf6_ONE_trf6_TWO_trf6_THREE",
+      "node1" : "trf6",
       "node2" : "trf6_THREE"
     } ],
     "snakeLine" : [ 1275.0, -120.0, 1725.0, -120.0, 1725.0, 30.0 ]
@@ -5386,20 +5386,20 @@
     "id" : "trf7_ONE_EDGE",
     "nodes" : [ {
       "node1" : "trf7_ONE",
-      "node2" : "trf7_ONE_trf7_TWO_trf7_THREE"
+      "node2" : "trf7"
     } ],
     "snakeLine" : [ 375.0, 615.0, 375.0, 765.0, 810.0, 765.0, 810.0, -150.0, 1225.0, -150.0 ]
   }, {
     "id" : "trf7_TWO_EDGE",
     "nodes" : [ {
-      "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
+      "node1" : "trf7",
       "node2" : "trf7_TWO"
     } ],
     "snakeLine" : [ 1225.0, -150.0, 1225.0, 30.0 ]
   }, {
     "id" : "trf7_THREE_EDGE",
     "nodes" : [ {
-      "node1" : "trf7_ONE_trf7_TWO_trf7_THREE",
+      "node1" : "trf7",
       "node2" : "trf7_THREE"
     } ],
     "snakeLine" : [ 1225.0, -150.0, 1540.0, -150.0, 1540.0, 740.0, 1775.0, 740.0, 1775.0, 590.0 ]
@@ -5407,20 +5407,20 @@
     "id" : "trf8_ONE_EDGE",
     "nodes" : [ {
       "node1" : "trf8_ONE",
-      "node2" : "trf8_ONE_trf8_TWO_trf8_THREE"
+      "node2" : "trf8"
     } ],
     "snakeLine" : [ 575.0, 30.0, 575.0, -180.0, 780.0, -180.0, 780.0, 795.0, 1325.0, 795.0 ]
   }, {
     "id" : "trf8_TWO_EDGE",
     "nodes" : [ {
-      "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
+      "node1" : "trf8",
       "node2" : "trf8_TWO"
     } ],
     "snakeLine" : [ 1325.0, 795.0, 1325.0, 615.0 ]
   }, {
     "id" : "trf8_THREE_EDGE",
     "nodes" : [ {
-      "node1" : "trf8_ONE_trf8_TWO_trf8_THREE",
+      "node1" : "trf8",
       "node2" : "trf8_THREE"
     } ],
     "snakeLine" : [ 1325.0, 795.0, 1510.0, 795.0, 1510.0, -180.0, 1825.0, -180.0, 1825.0, 30.0 ]

@@ -146,7 +146,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(wireStyles.contains("sld-constant-color"));
         assertTrue(wireStyles.contains("sld-vl300to500"));
 
-        Node fict3WTNode = graph1.getNode("FICT_vl1_3WT_fictif");
+        Node fict3WTNode = graph1.getNode("3WT");
         List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, false);
         assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
