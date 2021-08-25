@@ -552,7 +552,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
         if (!nodesByNumber.containsKey(n)) {
-            InternalNode node = new InternalNode("" + n, graph);
+            InternalNode node = new InternalNode(n, graph);
             nodesByNumber.put(n, node);
             graph.addNode(node);
         }

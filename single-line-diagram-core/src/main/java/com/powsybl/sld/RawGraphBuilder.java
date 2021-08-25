@@ -93,6 +93,12 @@ public class RawGraphBuilder implements GraphBuilder {
             graph.addEdge(node1, node2);
         }
 
+        public FictitiousNode createFictitiousNode(int id) {
+            InternalNode fictitiousNode = new InternalNode(id, graph);
+            graph.addNode(fictitiousNode);
+            return fictitiousNode;
+        }
+
         public FictitiousNode createFictitiousNode(String id) {
             InternalNode fictitiousNode = new InternalNode(id, graph);
             graph.addNode(fictitiousNode);
