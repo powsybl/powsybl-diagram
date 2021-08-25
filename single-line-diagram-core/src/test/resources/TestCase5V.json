@@ -9,7 +9,7 @@
   "nodes" : [ {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_3",
-    "equipmentId" : null,
+    "equipmentId" : "3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,

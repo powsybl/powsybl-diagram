@@ -9,7 +9,7 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vlUnstack_2",
-    "equipmentId" : null,
+    "equipmentId" : "2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,

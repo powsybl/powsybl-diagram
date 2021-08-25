@@ -27,7 +27,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_4",
-    "equipmentId" : null,
+    "equipmentId" : "4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -36,7 +36,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_6",
-    "equipmentId" : null,
+    "equipmentId" : "6",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,

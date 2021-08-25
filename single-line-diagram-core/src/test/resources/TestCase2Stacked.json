@@ -9,7 +9,7 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_2",
-    "equipmentId" : null,
+    "equipmentId" : "2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,

@@ -9,7 +9,7 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_10",
-    "equipmentId" : null,
+    "equipmentId" : "10",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -18,7 +18,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_11",
-    "equipmentId" : null,
+    "equipmentId" : "11",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -27,7 +27,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_12",
-    "equipmentId" : null,
+    "equipmentId" : "12",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -36,7 +36,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_13",
-    "equipmentId" : null,
+    "equipmentId" : "13",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -45,7 +45,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_14",
-    "equipmentId" : null,
+    "equipmentId" : "14",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -54,7 +54,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_16",
-    "equipmentId" : null,
+    "equipmentId" : "16",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
@@ -63,7 +63,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_18",
-    "equipmentId" : null,
+    "equipmentId" : "18",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -72,7 +72,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_19",
-    "equipmentId" : null,
+    "equipmentId" : "19",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
@@ -81,7 +81,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_2",
-    "equipmentId" : null,
+    "equipmentId" : "2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -91,7 +91,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_20",
-    "equipmentId" : null,
+    "equipmentId" : "20",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
@@ -100,7 +100,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_22",
-    "equipmentId" : null,
+    "equipmentId" : "22",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
@@ -109,7 +109,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_23",
-    "equipmentId" : null,
+    "equipmentId" : "23",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
@@ -118,7 +118,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_24",
-    "equipmentId" : null,
+    "equipmentId" : "24",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
@@ -127,7 +127,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_3",
-    "equipmentId" : null,
+    "equipmentId" : "3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -137,7 +137,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_4",
-    "equipmentId" : null,
+    "equipmentId" : "4",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -146,7 +146,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_5",
-    "equipmentId" : null,
+    "equipmentId" : "5",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -155,7 +155,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_6",
-    "equipmentId" : null,
+    "equipmentId" : "6",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -164,7 +164,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_7",
-    "equipmentId" : null,
+    "equipmentId" : "7",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -173,7 +173,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_8",
-    "equipmentId" : null,
+    "equipmentId" : "8",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -182,7 +182,7 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_9",
-    "equipmentId" : null,
+    "equipmentId" : "9",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
