@@ -10,8 +10,8 @@ import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
@@ -19,6 +19,8 @@ import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 public abstract class AbstractTestCase {
 
     protected boolean writeFile = false;
+    protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
@@ -80,6 +83,17 @@ public abstract class AbstractTestCase {
                 fw.write(content.toString());
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
+            }
+
+            if (overrideTestReferences) {
+                File testReference = new File("src/test/resources", filename);
+                if (testReference.exists()) {
+                    try {
+                        Files.copy(file.toPath(), testReference.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                }
             }
         }
     }
