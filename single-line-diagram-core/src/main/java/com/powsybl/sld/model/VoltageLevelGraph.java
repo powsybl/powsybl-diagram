@@ -321,7 +321,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             } else if (!isFeeder3WT(feederNode)) {
                 // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
-                InternalNode nf = new InternalNode(InternalNode.ID_PREFIX + feederNode.getId(), feederNode.graph);
+                InternalNode nf = new InternalNode(feederNode.getId(), feederNode.graph);
                 nodesToAdd.add(nf);
                 // Create all new edges and remove old ones
                 for (Node neighbor : adjacentNodes) {
@@ -357,9 +357,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         removeEdge(busNode, feederNode);
 
         // Create nodes
-        BusConnection fNodeToBus = new BusConnection(BusConnection.ID_PREFIX + feederNode.getId(), VoltageLevelGraph.this);
-        InternalNode fNodeToSw1 = new InternalNode(InternalNode.ID_PREFIX + feederNode.getId() + "_1", VoltageLevelGraph.this);
-        InternalNode fNodeToSw2 = new InternalNode(InternalNode.ID_PREFIX + feederNode.getId() + "_2", VoltageLevelGraph.this);
+        BusConnection fNodeToBus = new BusConnection(feederNode.getId(), VoltageLevelGraph.this);
+        InternalNode fNodeToSw1 = new InternalNode(feederNode.getId() + "_1", VoltageLevelGraph.this);
+        InternalNode fNodeToSw2 = new InternalNode(feederNode.getId() + "_2", VoltageLevelGraph.this);
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToBus);
@@ -377,8 +377,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         removeEdge(busDisconnectorNode, feederNode);
 
         // Create nodes
-        InternalNode fNodeToSw1 = new InternalNode(InternalNode.ID_PREFIX + feederNode.getId() + "_1", VoltageLevelGraph.this);
-        InternalNode fNodeToSw2 = new InternalNode(InternalNode.ID_PREFIX + feederNode.getId() + "_2", VoltageLevelGraph.this);
+        InternalNode fNodeToSw1 = new InternalNode(feederNode.getId() + "_1", VoltageLevelGraph.this);
+        InternalNode fNodeToSw2 = new InternalNode(feederNode.getId() + "_2", VoltageLevelGraph.this);
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToSw1);
@@ -402,7 +402,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                                         node.getType() == Node.NodeType.FEEDER)
                                 .forEach(node -> {
                                     removeEdge(node, nodeSwitch);
-                                    InternalNode newNode = new InternalNode(InternalNode.ID_PREFIX + nodeSwitch.getId(), VoltageLevelGraph.this);
+                                    InternalNode newNode = new InternalNode(nodeSwitch.getId(), VoltageLevelGraph.this);
                                     addNode(newNode);
                                     addEdge(node, newNode);
                                     addEdge(nodeSwitch, newNode);
@@ -422,10 +422,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     .forEach(n2 -> {
                         removeEdge(n1, n2);
                         String busToBusId = n1.getId() + "-" + n2.getId();
-                        BusConnection fSwToBus1 = new BusConnection(BusConnection.ID_PREFIX + busToBusId + "_1", this);
-                        InternalNode internalNode1 = new InternalNode(InternalNode.ID_PREFIX + busToBusId + "_1", this);
-                        InternalNode internalNode2 = new InternalNode(InternalNode.ID_PREFIX + busToBusId + "_2", this);
-                        BusConnection fSwToBus2 = new BusConnection(BusConnection.ID_PREFIX + busToBusId + "_2", this);
+                        BusConnection fSwToBus1 = new BusConnection(busToBusId + "_1", this);
+                        InternalNode internalNode1 = new InternalNode(busToBusId + "_1", this);
+                        InternalNode internalNode2 = new InternalNode(busToBusId + "_2", this);
+                        BusConnection fSwToBus2 = new BusConnection(busToBusId + "_2", this);
                         addEdge(n1, fSwToBus1);
                         addEdge(fSwToBus1, internalNode1);
                         addEdge(internalNode1, internalNode2);
@@ -452,9 +452,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
         removeEdge(busNode, node);
-        BusConnection fNodeToBus = new BusConnection(BusConnection.ID_PREFIX + node.getId() + suffix, VoltageLevelGraph.this);
+        BusConnection fNodeToBus = new BusConnection(node.getId() + suffix, VoltageLevelGraph.this);
         addNode(fNodeToBus);
-        InternalNode fNodeToSw = new InternalNode(InternalNode.ID_PREFIX + node.getId() + suffix, VoltageLevelGraph.this);
+        InternalNode fNodeToSw = new InternalNode(node.getId() + suffix, VoltageLevelGraph.this);
         addNode(fNodeToSw);
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw);
