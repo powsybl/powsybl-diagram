@@ -14,6 +14,6 @@ import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
 public class BusConnection extends FictitiousNode {
 
     public BusConnection(VoltageLevelGraph graph, String id) {
-        super(graph, id, BUS_CONNECTION);
+        super(id, BUS_CONNECTION, graph);
     }
 }
