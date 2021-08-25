@@ -7,8 +7,6 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.library.ComponentTypeName;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +63,7 @@ public class Node implements BaseNode {
      */
     protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph) {
         this.type = Objects.requireNonNull(type);
+        this.id = Objects.requireNonNull(id);
         this.name = name;
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
@@ -72,16 +71,6 @@ public class Node implements BaseNode {
         // graph can be null here : for example, in a substation diagram, a fictitious node is created outside
         // any graph, in order to link the different windings together
         this.graph = graph;
-        // for unicity purpose (in substation diagram), we prefix the id of the fictitious node with the voltageLevel id and "_"
-        String tmpId = Objects.requireNonNull(id);
-        if (type == NodeType.FICTITIOUS &&
-                graph != null &&
-                !componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER) &&
-                !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelInfos().getId() + "_")) {
-            this.id = "FICT_" + graph.getVoltageLevelInfos().getId() + "_" + tmpId;
-        } else {
-            this.id = tmpId;
-        }
     }
 
     public Cell getCell() {

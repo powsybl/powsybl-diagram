@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.model;
 
+import java.util.Objects;
+
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
 /**
@@ -13,7 +15,20 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  */
 public class InternalNode extends FictitiousNode {
 
-    public InternalNode(VoltageLevelGraph graph, String id) {
-        super(id, NODE, graph);
+    public static final String ID_PREFIX = "INTERNAL_";
+
+    public InternalNode(String id, VoltageLevelGraph graph) {
+        super(prefixId(id, graph), null, null, NODE, graph);
+    }
+
+    private static String prefixId(String id, VoltageLevelGraph graph) {
+        // for uniqueness purpose (in substation diagram), we prefix the id of the internal nodes with the voltageLevel id and "_"
+        String tmpId = Objects.requireNonNull(id);
+        if (tmpId.startsWith(ID_PREFIX)) {
+            // the ids prefixed with INTERNAL should already be unique
+            return tmpId;
+        } else {
+            return ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + tmpId;
+        }
     }
 }

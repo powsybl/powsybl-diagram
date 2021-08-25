@@ -26,16 +26,16 @@ public class Middle3WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg3;
 
-    public Middle3WTNode(String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, VoltageLevelGraph graph) {
-        super(id, THREE_WINDINGS_TRANSFORMER, graph);
+    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, VoltageLevelGraph graph) {
+        super(id, name, id, THREE_WINDINGS_TRANSFORMER, graph);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
         this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
     }
 
-    public static Middle3WTNode create(String id, BaseGraph ssGraph, Node node1, Node node2, Node node3,
+    public static Middle3WTNode create(String id, String name, BaseGraph ssGraph, Node node1, Node node2, Node node3,
                                        VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3) {
-        Middle3WTNode middleNode = new Middle3WTNode(id, vlInfos1, vlInfos2, vlInfos3, null);
+        Middle3WTNode middleNode = new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3, null);
 
         BranchEdge edge1 = ssGraph.addTwtEdge(node1.getId() + EDGE_SUFFIX, node1, middleNode);
         BranchEdge edge2 = ssGraph.addTwtEdge(node2.getId() + EDGE_SUFFIX, middleNode, node2);
