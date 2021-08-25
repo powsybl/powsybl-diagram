@@ -16,7 +16,6 @@ import com.powsybl.sld.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static com.powsybl.sld.model.Node.NodeType.FEEDER;
 
@@ -146,8 +145,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                     break;
             }
         } else if (node instanceof Middle3WTNode) {
-            Optional<Node> feederNode = node.getAdjacentNodes().stream().filter(n -> n.getType() == FEEDER).findFirst();
-            feederNode.ifPresent(value -> addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(value.getEquipmentId())));
+            addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
         }
 
         return nodeDecorators;
