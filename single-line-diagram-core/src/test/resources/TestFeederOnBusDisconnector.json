@@ -8,9 +8,8 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_line_ONE_fNode1",
-    "name" : "line_ONE_fNode1",
-    "equipmentId" : "line_ONE_fNode1",
+    "id" : "INTERNAL_vl_line_ONE_1",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -18,9 +17,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_line_ONE_fNode2",
-    "name" : "line_ONE_fNode2",
-    "equipmentId" : "line_ONE_fNode2",
+    "id" : "INTERNAL_vl_line_ONE_2",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -122,7 +120,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "busDisconnector", "FICT_vl_line_ONE_fNode1" ]
+        "nodes" : [ "bbs", "busDisconnector", "INTERNAL_vl_line_ONE_1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -143,7 +141,7 @@
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
-        "nodes" : [ "FICT_vl_line_ONE_fNode1", "FICT_vl_line_ONE_fNode2" ]
+        "nodes" : [ "INTERNAL_vl_line_ONE_1", "INTERNAL_vl_line_ONE_2" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -164,7 +162,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vl_line_ONE_fNode2", "line_ONE" ]
+        "nodes" : [ "INTERNAL_vl_line_ONE_2", "line_ONE" ]
       } ]
     }
   } ],
@@ -173,12 +171,12 @@
     "node2" : "busDisconnector"
   }, {
     "node1" : "busDisconnector",
-    "node2" : "FICT_vl_line_ONE_fNode1"
+    "node2" : "INTERNAL_vl_line_ONE_1"
   }, {
-    "node1" : "FICT_vl_line_ONE_fNode1",
-    "node2" : "FICT_vl_line_ONE_fNode2"
+    "node1" : "INTERNAL_vl_line_ONE_1",
+    "node2" : "INTERNAL_vl_line_ONE_2"
   }, {
-    "node1" : "FICT_vl_line_ONE_fNode2",
+    "node1" : "INTERNAL_vl_line_ONE_2",
     "node2" : "line_ONE"
   } ],
   "multitermNodes" : [ ],

@@ -116,7 +116,7 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="idedge_95_Transformer_95_TWO">
             <polyline points="90.0,358.0,90.0,380.0,90.0,400.0"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(85.0,342.5)">
+        <g class="sld-two-wt sld-constant-color" id="idTransformer" transform="translate(85.0,342.5)">
             <circle cx="5" cy="10" r="5"/>
             <circle cx="5" cy="5" r="5"/>
         </g>

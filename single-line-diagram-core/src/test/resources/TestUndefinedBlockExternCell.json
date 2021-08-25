@@ -8,9 +8,8 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_f0",
-    "name" : "f0",
-    "equipmentId" : "f0",
+    "id" : "INTERNAL_vl_f0",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
@@ -18,9 +17,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_f1",
-    "name" : "f1",
-    "equipmentId" : "f1",
+    "id" : "INTERNAL_vl_f1",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
@@ -28,9 +26,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_f2",
-    "name" : "f2",
-    "equipmentId" : "f2",
+    "id" : "INTERNAL_vl_f2",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
@@ -38,9 +35,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_l1Fictif",
-    "name" : "l1Fictif",
-    "equipmentId" : "l1Fictif",
+    "id" : "INTERNAL_vl_l1",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
@@ -48,9 +44,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_l2Fictif",
-    "name" : "l2Fictif",
-    "equipmentId" : "l2Fictif",
+    "id" : "INTERNAL_vl_l2",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
@@ -160,7 +155,7 @@
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "bbs", "d", "FICT_vl_f0" ]
+        "nodes" : [ "bbs", "d", "INTERNAL_vl_f0" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -181,7 +176,7 @@
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_f0", "FICT_vl_f1" ]
+        "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -202,7 +197,7 @@
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_f1", "FICT_vl_f2" ]
+        "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_f2" ]
       }, {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -243,7 +238,7 @@
             "xSpan" : 0.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_vl_f2", "FICT_vl_l2Fictif" ]
+          "nodes" : [ "INTERNAL_vl_f2", "INTERNAL_vl_l2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -264,7 +259,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl_l2Fictif", "l2" ]
+          "nodes" : [ "INTERNAL_vl_l2", "l2" ]
         } ]
       }, {
         "type" : "SERIAL",
@@ -306,7 +301,7 @@
             "xSpan" : 0.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "FICT_vl_f1", "FICT_vl_l1Fictif" ]
+          "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_l1" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -327,7 +322,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl_l1Fictif", "l1" ]
+          "nodes" : [ "INTERNAL_vl_l1", "l1" ]
         } ]
       } ]
     }
@@ -337,27 +332,27 @@
     "node2" : "d"
   }, {
     "node1" : "d",
-    "node2" : "FICT_vl_f0"
+    "node2" : "INTERNAL_vl_f0"
   }, {
-    "node1" : "FICT_vl_f0",
-    "node2" : "FICT_vl_f1"
+    "node1" : "INTERNAL_vl_f0",
+    "node2" : "INTERNAL_vl_f1"
   }, {
-    "node1" : "FICT_vl_f1",
-    "node2" : "FICT_vl_f2"
+    "node1" : "INTERNAL_vl_f1",
+    "node2" : "INTERNAL_vl_f2"
   }, {
-    "node1" : "FICT_vl_f2",
-    "node2" : "FICT_vl_f0"
+    "node1" : "INTERNAL_vl_f2",
+    "node2" : "INTERNAL_vl_f0"
   }, {
-    "node1" : "FICT_vl_f1",
-    "node2" : "FICT_vl_l1Fictif"
+    "node1" : "INTERNAL_vl_f1",
+    "node2" : "INTERNAL_vl_l1"
   }, {
-    "node1" : "FICT_vl_l1Fictif",
+    "node1" : "INTERNAL_vl_l1",
     "node2" : "l1"
   }, {
-    "node1" : "FICT_vl_f2",
-    "node2" : "FICT_vl_l2Fictif"
+    "node1" : "INTERNAL_vl_f2",
+    "node2" : "INTERNAL_vl_l2"
   }, {
-    "node1" : "FICT_vl_l2Fictif",
+    "node1" : "INTERNAL_vl_l2",
     "node2" : "l2"
   } ],
   "multitermNodes" : [ ],
