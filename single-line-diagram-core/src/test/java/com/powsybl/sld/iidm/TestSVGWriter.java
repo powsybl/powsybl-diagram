@@ -139,13 +139,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Btrf1, vl1Dtrf1);
         g1.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder2WTLegNode vl1Trf2One = Feeder2WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
+        Feeder3WTLegNode vl1Trf2One = Feeder3WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf2One.setOrder(2);
         vl1Trf2One.setDirection(BusCell.Direction.TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
         g1.addNode(vl1Trf2One);
-        Feeder2WTLegNode vl1Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        Feeder3WTLegNode vl1Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl1Trf2Two.setOrder(3);
         vl1Trf2Two.setDirection(BusCell.Direction.TOP);
         vl1Trf2Two.setX(440);
@@ -225,13 +225,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Btrf1, vl2Dtrf1);
         g2.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder2WTLegNode vl2Trf2One = Feeder2WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
+        Feeder3WTLegNode vl2Trf2One = Feeder3WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf2One.setOrder(2);
         vl2Trf2One.setDirection(BusCell.Direction.TOP);
         vl2Trf2One.setX(130);
         vl2Trf2One.setY(80);
         g2.addNode(vl2Trf2One);
-        Feeder2WTLegNode vl2Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        Feeder3WTLegNode vl2Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl2Trf2Two.setOrder(3);
         vl2Trf2Two.setDirection(BusCell.Direction.TOP);
         vl2Trf2Two.setX(190);
@@ -298,7 +298,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2One.setX(110);
         vl3Trf2One.setY(80);
         g3.addNode(vl3Trf2One);
-        Feeder2WTLegNode vl3Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl2", "vl2", 225));
+        Feeder3WTLegNode vl3Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl2", "vl2", 225));
         vl3Trf2Two.setOrder(2);
         vl3Trf2Two.setDirection(BusCell.Direction.TOP);
         vl3Trf2Two.setX(190);
