@@ -493,6 +493,11 @@ public class LayoutParameters {
         return this;
     }
 
+    @JsonIgnore
+    public double getBusPadding() {
+        return getCellWidth() / 4;
+    }
+
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
     }

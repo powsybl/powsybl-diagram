@@ -204,19 +204,9 @@ public class DefaultSVGWriter implements SVGWriter {
                                     DiagramLabelProvider initProvider,
                                     DiagramStyleProvider styleProvider,
                                     boolean useNodesInfosParam) {
-        AnchorPointProvider anchorPointProvider = (type, id) -> {
-            if (type.equals(BUSBAR_SECTION)) {
-                BusNode busbarSectionNode = (BusNode) graph.getNode(id);
-                List<AnchorPoint> result = new ArrayList<>();
-                result.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-                for (int iCell = 0; iCell < busbarSectionNode.getPosition().getSpan(H) / 2; iCell++) {
-                    result.add(new AnchorPoint((iCell + 0.5) * layoutParameters.getCellWidth() - layoutParameters.getHorizontalBusPadding(), 0, AnchorOrientation.VERTICAL));
-                }
-                result.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
-                return result;
-            }
-            return componentLibrary.getAnchorPoints(type);
-        };
+
+        AnchorPointProvider anchorPointProvider =
+            (type, id) -> type.equals(BUSBAR_SECTION) ? getBusbarAnchors(id, graph) : componentLibrary.getAnchorPoints(type);
 
         // Handle multi-term nodes rotation
         graph.handleMultiTermsNodeRotation();
@@ -242,6 +232,18 @@ public class DefaultSVGWriter implements SVGWriter {
         if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
         }
+    }
+
+    private List<AnchorPoint> getBusbarAnchors(String id, VoltageLevelGraph graph) {
+        BusNode busbarSectionNode = (BusNode) graph.getNode(id);
+        List<AnchorPoint> anchors = new ArrayList<>();
+        anchors.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
+        IntStream.range(0, busbarSectionNode.getPosition().getSpan(H) / 2) // cells
+            .mapToDouble(i -> i * layoutParameters.getCellWidth() + layoutParameters.getBusPadding())   // middle point in cells relative to bus
+            .mapToObj(x -> new AnchorPoint(x, 0, AnchorOrientation.VERTICAL))
+            .forEach(anchors::add);
+        anchors.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
+        return anchors;
     }
 
     private void drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
