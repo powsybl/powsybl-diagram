@@ -74,7 +74,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.TOP) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, BusCell.Direction.TOP, infosNbSnakeLines);
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -83,14 +83,14 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double totalWidth = diagramPadding.getLeft();
 
         for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
-            totalWidth += voltageLevelPadding.getLeft() + getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters);
+            totalWidth += voltageLevelPadding.getLeft() + getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
             vlGraph.setCoord(totalWidth, yVoltageLevels);
             totalWidth += vlGraph.getWidth() + voltageLevelPadding.getRight();
         }
 
         totalWidth += diagramPadding.getRight();
 
-        double heightSnakeLinesBottom = Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.BOTTOM) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
         getGraph().setSize(totalWidth, getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom);
 
         infosNbSnakeLines.reset();
@@ -98,7 +98,4 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
-    private double getWidthVerticalSnakeLines(String vlGraphId, LayoutParameters layoutParameters) {
-        return Math.max(infosNbSnakeLines.getNbSnakeLinesVerticalBetween().get(vlGraphId) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
-    }
 }

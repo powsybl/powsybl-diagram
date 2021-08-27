@@ -6,7 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +41,28 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         calculateBusNodeCoord(getGraph(), layoutParam);
         calculateCellCoord(getGraph(), layoutParam);
 
+        setGraphCoord(layoutParam);
+        setGraphSize(layoutParam);
+
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
         manageSnakeLines(layoutParam);
 
-        Point size = calculateSize(layoutParam);
-        getGraph().setSize(size.getX(), size.getY());
+        if (getGraph().isForVoltageLevelDiagram() && layoutParam.isPaddingAdaptedToSnakeLines()) {
+            adaptPaddingToSnakeLines(layoutParam);
+        }
     }
 
-    private Point calculateSize(LayoutParameters layoutParam) {
+    private void setGraphCoord(LayoutParameters layoutParam) {
+        if (getGraph().isForVoltageLevelDiagram()) {
+            LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
+            LayoutParameters.Padding diagramPadding = layoutParam.getDiagramPadding();
+            getGraph().setCoord(padding.getLeft() + diagramPadding.getLeft(), padding.getTop() + diagramPadding.getTop());
+        } else {
+            getGraph().setCoord(0, 0);
+        }
+    }
+
+    private void setGraphSize(LayoutParameters layoutParam) {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double width = graph.getMaxH() * elementaryWidth;
@@ -55,10 +71,25 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
         if (graph.isForVoltageLevelDiagram()) {
             LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-            width += padding.getLeft() + padding.getRight();
-            height += padding.getTop() + padding.getBottom();
+            LayoutParameters.Padding diagramPadding = layoutParam.getDiagramPadding();
+            width += diagramPadding.getLeft() + padding.getLeft() + padding.getRight() + diagramPadding.getRight();
+            height += diagramPadding.getTop() + padding.getTop() + padding.getBottom() + diagramPadding.getRight();
         }
-        return new Point(width, height);
+        getGraph().setSize(width, height);
+    }
+
+    private void adaptPaddingToSnakeLines(LayoutParameters layoutParam) {
+        VoltageLevelGraph graph = getGraph();
+        double widthSnakeLinesLeft = getWidthVerticalSnakeLines(graph.getId(), layoutParam, infosNbSnakeLines);
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParam, BusCell.Direction.TOP, infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
+        double width = graph.getWidth() + widthSnakeLinesLeft;
+        double height = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+        graph.setSize(width, height);
+        graph.setCoord(graph.getX() + widthSnakeLinesLeft, graph.getY() + heightSnakeLinesTop);
+
+        infosNbSnakeLines.reset();
+        manageSnakeLines(getGraph(), layoutParam);
     }
 
     private void calculateBusNodeCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {

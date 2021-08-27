@@ -162,4 +162,11 @@ public abstract class AbstractLayout {
         return Arrays.asList(part1, part2, part3);
     }
 
+    protected static double getWidthVerticalSnakeLines(String vlGraphId, LayoutParameters layoutParameters, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesVerticalBetween().get(vlGraphId) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
+    }
+
+    protected static double getHeightSnakeLines(LayoutParameters layoutParameters, BusCell.Direction top, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(top) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
+    }
 }
