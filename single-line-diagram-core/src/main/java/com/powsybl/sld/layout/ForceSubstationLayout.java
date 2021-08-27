@@ -98,6 +98,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         }
 
         infosNbSnakeLines = InfosNbSnakeLinesForce.create(getGraph(), compactionType);
+
+        // Finally, running the voltage levels layout a second time with the new adapted voltage levels coordinates
+        // (here, we keep the cells and blocks already detected before, and we only recompute the nodes coordinates)
+        coordsVoltageLevels.keySet().stream().forEach(g -> {
+            g.resetCoords();
+            graphsLayouts.get(g).run(layoutParameters);
+        });
+
         manageSnakeLines(layoutParameters);
     }
 
