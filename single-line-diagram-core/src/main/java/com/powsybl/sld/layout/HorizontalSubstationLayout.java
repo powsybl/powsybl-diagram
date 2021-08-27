@@ -74,7 +74,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.TOP) * layoutParameters.getVerticalSnakeLinePadding();
+        double heightSnakeLinesTop = Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.TOP) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -90,7 +90,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
         totalWidth += diagramPadding.getRight();
 
-        double heightSnakeLinesBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.BOTTOM) * layoutParameters.getVerticalSnakeLinePadding();
+        double heightSnakeLinesBottom = Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(BusCell.Direction.BOTTOM) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
         getGraph().setSize(totalWidth, getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom);
 
         infosNbSnakeLines.reset();

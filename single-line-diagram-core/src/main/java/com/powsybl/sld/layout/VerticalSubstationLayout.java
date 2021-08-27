@@ -197,10 +197,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
-        double shiftLeftRight = infosNbSnakeLines.getNbSnakeLinesLeftRight().compute(side, (k, v) -> v + 1) * layoutParam.getHorizontalSnakeLinePadding();
+        double shiftLeftRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().compute(side, (k, v) -> v + 1) - 1, 0) * layoutParam.getHorizontalSnakeLinePadding();
         return side == Side.LEFT
-            ? node.getGraph().getX() - shiftLeftRight
-            : node.getGraph().getX() + shiftLeftRight + getGraph().getNodeStream().mapToDouble(VoltageLevelGraph::getWidth).max().orElse(0);
+            ? node.getGraph().getX() - layoutParam.getVoltageLevelPadding().getLeft() - shiftLeftRight
+            : node.getGraph().getX() + layoutParam.getVoltageLevelPadding().getRight() + shiftLeftRight + getGraph().getNodeStream().mapToDouble(VoltageLevelGraph::getWidth).max().orElse(0);
     }
 
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
