@@ -53,28 +53,23 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     private void setGraphCoord(LayoutParameters layoutParam) {
-        if (getGraph().isForVoltageLevelDiagram()) {
-            LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-            LayoutParameters.Padding diagramPadding = layoutParam.getDiagramPadding();
-            getGraph().setCoord(padding.getLeft() + diagramPadding.getLeft(), padding.getTop() + diagramPadding.getTop());
-        } else {
-            getGraph().setCoord(0, 0);
-        }
+        LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
+        LayoutParameters.Padding dPadding = layoutParam.getDiagramPadding();
+        getGraph().setCoord(dPadding.getLeft() + vlPadding.getLeft(), dPadding.getTop() + vlPadding.getTop());
     }
 
     private void setGraphSize(LayoutParameters layoutParam) {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
-        double width = graph.getMaxH() * elementaryWidth;
-        double height = graph.getExternCellHeight(BusCell.Direction.TOP) //TODO: check there is TOP / BOTTOM cells
+        double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
+        double heightWithoutPadding = graph.getExternCellHeight(BusCell.Direction.TOP) //TODO: check there is TOP / BOTTOM cells
             + 2 * layoutParam.getStackHeight() + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
             + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
-        if (graph.isForVoltageLevelDiagram()) {
-            LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-            LayoutParameters.Padding diagramPadding = layoutParam.getDiagramPadding();
-            width += diagramPadding.getLeft() + padding.getLeft() + padding.getRight() + diagramPadding.getRight();
-            height += diagramPadding.getTop() + padding.getTop() + padding.getBottom() + diagramPadding.getRight();
-        }
+
+        LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
+        double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
+        double height = heightWithoutPadding + padding.getTop() + padding.getBottom();
+
         getGraph().setSize(width, height);
     }
 
