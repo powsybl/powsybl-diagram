@@ -39,9 +39,6 @@ public class LayoutParameters {
 
     private double scaleFactor = 1;
 
-    private double horizontalSubstationPadding = 50;
-    private double verticalSubstationPadding = 50;
-
     private String diagramName = null;
 
     private boolean drawStraightWires = false;
@@ -97,8 +94,6 @@ public class LayoutParameters {
                             @JsonProperty("tooltipEnabled") boolean tooltipEnabled,
                             @JsonProperty("showInternalNodes") boolean showInternalNodes,
                             @JsonProperty("scaleFactor") double scaleFactor,
-                            @JsonProperty("horizontalSubstationPadding") double horizontalSubstationPadding,
-                            @JsonProperty("verticalSubstationPadding") double verticalSubstationPadding,
                             @JsonProperty("drawStraightWires") boolean drawStraightWires,
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
@@ -129,8 +124,6 @@ public class LayoutParameters {
         this.tooltipEnabled = tooltipEnabled;
         this.showInternalNodes = showInternalNodes;
         this.scaleFactor = scaleFactor;
-        this.horizontalSubstationPadding = horizontalSubstationPadding;
-        this.verticalSubstationPadding = verticalSubstationPadding;
         this.drawStraightWires = drawStraightWires;
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
@@ -165,8 +158,6 @@ public class LayoutParameters {
         tooltipEnabled = other.tooltipEnabled;
         showInternalNodes = other.showInternalNodes;
         scaleFactor = other.scaleFactor;
-        horizontalSubstationPadding = other.horizontalSubstationPadding;
-        verticalSubstationPadding = other.verticalSubstationPadding;
         drawStraightWires = other.drawStraightWires;
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
@@ -266,24 +257,6 @@ public class LayoutParameters {
 
     public LayoutParameters setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
-        return this;
-    }
-
-    public double getHorizontalSubstationPadding() {
-        return horizontalSubstationPadding;
-    }
-
-    public LayoutParameters setHorizontalSubstationPadding(double padding) {
-        this.horizontalSubstationPadding = padding;
-        return this;
-    }
-
-    public double getVerticalSubstationPadding() {
-        return verticalSubstationPadding;
-    }
-
-    public LayoutParameters setVerticalSubstationPadding(double padding) {
-        this.verticalSubstationPadding = padding;
         return this;
     }
 

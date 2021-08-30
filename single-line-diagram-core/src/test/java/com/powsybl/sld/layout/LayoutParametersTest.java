@@ -31,8 +31,6 @@ public class LayoutParametersTest {
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
                 .setScaleFactor(2)
-                .setHorizontalSubstationPadding(60)
-                .setVerticalSubstationPadding(70)
                 .setDrawStraightWires(true)
                 .setHorizontalSnakeLinePadding(25)
                 .setVerticalSnakeLinePadding(40)
@@ -71,8 +69,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isShowGrid(), layoutParameters2.isShowGrid());
         assertEquals(layoutParameters.isShowInternalNodes(), layoutParameters2.isShowInternalNodes());
         assertEquals(layoutParameters.getScaleFactor(), layoutParameters2.getScaleFactor(), 0);
-        assertEquals(layoutParameters.getHorizontalSubstationPadding(), layoutParameters2.getHorizontalSubstationPadding(), 0);
-        assertEquals(layoutParameters.getVerticalSubstationPadding(), layoutParameters2.getVerticalSubstationPadding(), 0);
         assertEquals(layoutParameters.isDrawStraightWires(), layoutParameters2.isDrawStraightWires());
         assertEquals(layoutParameters.getHorizontalSnakeLinePadding(), layoutParameters2.getHorizontalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getVerticalSnakeLinePadding(), layoutParameters2.getVerticalSnakeLinePadding(), 0);

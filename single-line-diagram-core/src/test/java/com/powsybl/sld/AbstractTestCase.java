@@ -47,8 +47,6 @@ public abstract class AbstractTestCase {
             .setShowGrid(true)
             .setShowInternalNodes(true)
             .setScaleFactor(1)
-            .setHorizontalSubstationPadding(50)
-            .setVerticalSubstationPadding(50)
             .setArrowDistance(20)
             .setDrawStraightWires(false)
             .setHorizontalSnakeLinePadding(30)
