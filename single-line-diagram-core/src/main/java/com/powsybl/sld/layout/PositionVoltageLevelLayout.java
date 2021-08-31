@@ -47,7 +47,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
         manageSnakeLines(layoutParam);
 
-        if (getGraph().isForVoltageLevelDiagram() && layoutParam.isPaddingAdaptedToSnakeLines()) {
+        if (getGraph().isForVoltageLevelDiagram()) {
             adaptPaddingToSnakeLines(layoutParam);
         }
     }

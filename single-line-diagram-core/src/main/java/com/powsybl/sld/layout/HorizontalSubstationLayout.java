@@ -65,9 +65,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
 
-        if (layoutParameters.isPaddingAdaptedToSnakeLines()) {
-            adaptPaddingToSnakeLines(layoutParameters);
-        }
+        adaptPaddingToSnakeLines(layoutParameters);
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {

@@ -72,8 +72,6 @@ public class LayoutParameters {
 
     private Padding diagramPadding = new Padding(20);
 
-    private boolean paddingAdaptedToSnakeLines = true;
-
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -454,15 +452,6 @@ public class LayoutParameters {
 
     public LayoutParameters setDiagrammPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
         this.diagramPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-        return this;
-    }
-
-    public boolean isPaddingAdaptedToSnakeLines() {
-        return paddingAdaptedToSnakeLines;
-    }
-
-    public LayoutParameters setPaddingAdaptedToSnakeLines(boolean paddingAdaptedToSnakeLines) {
-        this.paddingAdaptedToSnakeLines = paddingAdaptedToSnakeLines;
         return this;
     }
 
