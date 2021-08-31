@@ -4,8 +4,8 @@
     "name" : "vl",
     "nominalVoltage" : 380.0
   },
-  "x" : 0.0,
-  "y" : 0.0,
+  "x" : 40.0,
+  "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "FICT_vl_10",
@@ -14,7 +14,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 154.72727272727272,
+    "y" : 124.72727272727272,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -24,7 +24,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 142.1818181818182,
+    "y" : 112.18181818181817,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -34,7 +34,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 129.63636363636365,
+    "y" : 99.63636363636364,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -44,7 +44,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 117.0909090909091,
+    "y" : 87.0909090909091,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -54,7 +54,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 104.54545454545455,
+    "y" : 74.54545454545455,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -64,7 +64,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
-    "y" : 315.0,
+    "y" : 285.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -74,7 +74,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 230.0,
+    "y" : 200.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -84,7 +84,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 230.0,
+    "y" : 200.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -94,7 +94,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 220.0,
+    "y" : 190.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -105,7 +105,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 161.0,
+    "y" : 131.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -115,7 +115,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
-    "y" : 315.0,
+    "y" : 285.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -125,7 +125,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
-    "y" : 361.0,
+    "y" : 331.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -135,7 +135,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
-    "y" : 407.0,
+    "y" : 377.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -145,7 +145,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 220.0,
+    "y" : 190.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -156,7 +156,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 230.0,
+    "y" : 200.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -166,7 +166,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 217.45454545454547,
+    "y" : 187.45454545454547,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -176,7 +176,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 204.9090909090909,
+    "y" : 174.9090909090909,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -186,7 +186,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 192.36363636363637,
+    "y" : 162.36363636363637,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -196,7 +196,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 179.81818181818184,
+    "y" : 149.81818181818184,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -206,7 +206,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 167.27272727272728,
+    "y" : 137.27272727272728,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -216,7 +216,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
-    "y" : 453.0,
+    "y" : 423.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -226,7 +226,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
-    "y" : 453.0,
+    "y" : 423.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -236,7 +236,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 92.0,
+    "y" : 62.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -246,7 +246,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 92.0,
+    "y" : 62.0,
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -256,7 +256,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 50.0,
-    "y" : 220.0,
+    "y" : 190.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -268,7 +268,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 123.36363636363639,
+    "y" : 93.36363636363637,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -279,7 +279,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 110.81818181818183,
+    "y" : 80.81818181818183,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -290,7 +290,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 98.27272727272728,
+    "y" : 68.27272727272728,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -301,7 +301,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 375.0,
-    "y" : 384.0,
+    "y" : 354.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -312,7 +312,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 225.0,
-    "y" : 195.5,
+    "y" : 165.5,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -323,7 +323,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 175.0,
-    "y" : 195.5,
+    "y" : 165.5,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -334,7 +334,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 200.0,
-    "y" : 126.5,
+    "y" : 96.5,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -345,7 +345,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 300.0,
-    "y" : 338.0,
+    "y" : 308.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -356,7 +356,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 275.0,
-    "y" : 384.0,
+    "y" : 354.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -367,7 +367,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 325.0,
-    "y" : 384.0,
+    "y" : 354.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -378,7 +378,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 223.72727272727272,
+    "y" : 193.72727272727272,
     "open" : true,
     "kind" : "BREAKER"
   }, {
@@ -389,7 +389,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 300.0,
-    "y" : 430.0,
+    "y" : 400.0,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -400,7 +400,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 211.1818181818182,
+    "y" : 181.1818181818182,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -411,7 +411,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 198.63636363636363,
+    "y" : 168.63636363636363,
     "open" : true,
     "kind" : "BREAKER"
   }, {
@@ -422,7 +422,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 186.0909090909091,
+    "y" : 156.0909090909091,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -433,7 +433,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 173.54545454545456,
+    "y" : 143.54545454545456,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -444,7 +444,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 161.0,
+    "y" : 131.0,
     "open" : true,
     "kind" : "BREAKER"
   }, {
@@ -455,7 +455,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 148.45454545454544,
+    "y" : 118.45454545454545,
     "open" : true,
     "kind" : "BREAKER"
   }, {
@@ -466,7 +466,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 135.9090909090909,
+    "y" : 105.9090909090909,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -476,15 +476,15 @@
     "equipmentId" : "bbs1",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
-    "x" : 10.0,
-    "y" : 260.0,
+    "x" : 12.5,
+    "y" : 230.0,
     "open" : false,
-    "pxWidth" : 380.0,
+    "pxWidth" : 375.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
     "position" : {
       "h" : 0,
-      "v" : 1,
+      "v" : 0,
       "hSpan" : 16,
       "vSpan" : 0
     }
@@ -495,15 +495,15 @@
     "equipmentId" : "bbs2",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
-    "x" : 10.0,
-    "y" : 285.0,
+    "x" : 12.5,
+    "y" : 255.0,
     "open" : false,
-    "pxWidth" : 380.0,
+    "pxWidth" : 375.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
     "position" : {
       "h" : 0,
-      "v" : 2,
+      "v" : 1,
       "hSpan" : 16,
       "vSpan" : 0
     }
@@ -515,7 +515,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 260.0,
+    "y" : 230.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -526,7 +526,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 285.0,
+    "y" : 255.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -537,7 +537,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 260.0,
+    "y" : 230.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -548,7 +548,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 375.0,
-    "y" : 285.0,
+    "y" : 255.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
   }, {
@@ -559,7 +559,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 225.0,
-    "y" : 260.0,
+    "y" : 230.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
   }, {
@@ -570,7 +570,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 175.0,
-    "y" : 285.0,
+    "y" : 255.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
   }, {
@@ -581,7 +581,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 300.0,
-    "y" : 260.0,
+    "y" : 230.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
   }, {
@@ -592,7 +592,7 @@
     "componentType" : "GENERATOR",
     "fictitious" : false,
     "x" : 375.0,
-    "y" : 515.0,
+    "y" : 485.0,
     "open" : false,
     "label" : "gen1",
     "feederType" : "INJECTION",
@@ -606,7 +606,7 @@
     "componentType" : "GENERATOR",
     "fictitious" : false,
     "x" : 300.0,
-    "y" : 515.0,
+    "y" : 485.0,
     "open" : false,
     "label" : "gen2",
     "feederType" : "INJECTION",
@@ -620,7 +620,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 30.0,
+    "y" : 0.0,
     "open" : false,
     "label" : "load1",
     "feederType" : "INJECTION",
@@ -634,7 +634,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 200.0,
-    "y" : 30.0,
+    "y" : 0.0,
     "open" : false,
     "label" : "load2",
     "feederType" : "INJECTION",
@@ -680,7 +680,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 260.0,
+          "y" : 230.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -701,7 +701,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 220.0,
+          "y" : 190.0,
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
@@ -722,7 +722,7 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 260.0,
+          "y" : 230.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -750,7 +750,7 @@
       },
       "coord" : {
         "x" : 125.0,
-        "y" : 161.0,
+        "y" : 131.0,
         "xSpan" : 50.0,
         "ySpan" : 138.0
       },
@@ -770,7 +770,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 230.0,
+          "y" : 200.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -791,7 +791,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 223.72727272727272,
+          "y" : 193.72727272727272,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -812,7 +812,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 211.1818181818182,
+          "y" : 181.1818181818182,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -833,7 +833,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 198.63636363636363,
+          "y" : 168.63636363636363,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -854,7 +854,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 186.0909090909091,
+          "y" : 156.0909090909091,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -875,7 +875,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 173.54545454545456,
+          "y" : 143.54545454545456,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -896,7 +896,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 161.0,
+          "y" : 131.0,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -917,7 +917,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 148.45454545454544,
+          "y" : 118.45454545454545,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -938,7 +938,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 135.9090909090909,
+          "y" : 105.9090909090909,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -959,7 +959,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 123.36363636363637,
+          "y" : 93.36363636363637,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -980,7 +980,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 110.81818181818183,
+          "y" : 80.81818181818183,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -1001,7 +1001,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 98.27272727272728,
+          "y" : 68.27272727272728,
           "xSpan" : 50.0,
           "ySpan" : 12.545454545454545
         },
@@ -1022,7 +1022,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 92.0,
+          "y" : 62.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -1050,7 +1050,7 @@
       },
       "coord" : {
         "x" : 200.0,
-        "y" : 161.0,
+        "y" : 131.0,
         "xSpan" : 100.0,
         "ySpan" : 138.0
       },
@@ -1070,7 +1070,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 195.5,
+          "y" : 165.5,
           "xSpan" : 100.0,
           "ySpan" : 69.0
         },
@@ -1090,7 +1090,7 @@
           },
           "coord" : {
             "x" : 175.0,
-            "y" : 195.5,
+            "y" : 165.5,
             "xSpan" : 50.0,
             "ySpan" : 69.0
           },
@@ -1110,7 +1110,7 @@
             },
             "coord" : {
               "x" : 175.0,
-              "y" : 230.0,
+              "y" : 200.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -1131,7 +1131,7 @@
             },
             "coord" : {
               "x" : 175.0,
-              "y" : 195.5,
+              "y" : 165.5,
               "xSpan" : 50.0,
               "ySpan" : 69.0
             },
@@ -1153,7 +1153,7 @@
           },
           "coord" : {
             "x" : 225.0,
-            "y" : 195.5,
+            "y" : 165.5,
             "xSpan" : 50.0,
             "ySpan" : 69.0
           },
@@ -1173,7 +1173,7 @@
             },
             "coord" : {
               "x" : 225.0,
-              "y" : 230.0,
+              "y" : 200.0,
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
@@ -1194,7 +1194,7 @@
             },
             "coord" : {
               "x" : 225.0,
-              "y" : 195.5,
+              "y" : 165.5,
               "xSpan" : 50.0,
               "ySpan" : 69.0
             },
@@ -1217,7 +1217,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 126.5,
+          "y" : 96.5,
           "xSpan" : 100.0,
           "ySpan" : 69.0
         },
@@ -1238,7 +1238,7 @@
         },
         "coord" : {
           "x" : 200.0,
-          "y" : 92.0,
+          "y" : 62.0,
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
@@ -1266,7 +1266,7 @@
       },
       "coord" : {
         "x" : 300.0,
-        "y" : 384.0,
+        "y" : 354.0,
         "xSpan" : 100.0,
         "ySpan" : 138.0
       },
@@ -1286,7 +1286,7 @@
         },
         "coord" : {
           "x" : 300.0,
-          "y" : 315.0,
+          "y" : 285.0,
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
@@ -1307,7 +1307,7 @@
         },
         "coord" : {
           "x" : 300.0,
-          "y" : 338.0,
+          "y" : 308.0,
           "xSpan" : 100.0,
           "ySpan" : 46.0
         },
@@ -1328,7 +1328,7 @@
         },
         "coord" : {
           "x" : 300.0,
-          "y" : 384.0,
+          "y" : 354.0,
           "xSpan" : 100.0,
           "ySpan" : 46.0
         },
@@ -1348,7 +1348,7 @@
           },
           "coord" : {
             "x" : 275.0,
-            "y" : 384.0,
+            "y" : 354.0,
             "xSpan" : 50.0,
             "ySpan" : 46.0
           },
@@ -1369,7 +1369,7 @@
           },
           "coord" : {
             "x" : 325.0,
-            "y" : 384.0,
+            "y" : 354.0,
             "xSpan" : 50.0,
             "ySpan" : 46.0
           },
@@ -1391,7 +1391,7 @@
         },
         "coord" : {
           "x" : 300.0,
-          "y" : 430.0,
+          "y" : 400.0,
           "xSpan" : 100.0,
           "ySpan" : 46.0
         },
@@ -1412,7 +1412,7 @@
         },
         "coord" : {
           "x" : 300.0,
-          "y" : 453.0,
+          "y" : 423.0,
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
@@ -1440,7 +1440,7 @@
       },
       "coord" : {
         "x" : 375.0,
-        "y" : 384.0,
+        "y" : 354.0,
         "xSpan" : 50.0,
         "ySpan" : 138.0
       },
@@ -1460,7 +1460,7 @@
         },
         "coord" : {
           "x" : 375.0,
-          "y" : 315.0,
+          "y" : 285.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -1481,7 +1481,7 @@
         },
         "coord" : {
           "x" : 375.0,
-          "y" : 384.0,
+          "y" : 354.0,
           "xSpan" : 50.0,
           "ySpan" : 138.0
         },
@@ -1502,7 +1502,7 @@
         },
         "coord" : {
           "x" : 375.0,
-          "y" : 453.0,
+          "y" : 423.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

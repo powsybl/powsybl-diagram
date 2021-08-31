@@ -4,8 +4,8 @@
     "name" : "vl",
     "nominalVoltage" : 380.0
   },
-  "x" : 0.0,
-  "y" : 0.0,
+  "x" : 40.0,
+  "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "FICT_vl_f0",
@@ -14,7 +14,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 230.0,
+    "y" : 250.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -24,7 +24,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 230.0,
+    "y" : 250.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -34,7 +34,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 230.0,
+    "y" : 250.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -44,7 +44,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 42.0,
+    "y" : 62.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -54,7 +54,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 42.0,
+    "y" : 62.0,
     "open" : false
   }, {
     "type" : "BUS",
@@ -63,15 +63,15 @@
     "equipmentId" : "bbs",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
-    "x" : 10.0,
-    "y" : 260.0,
+    "x" : 12.5,
+    "y" : 280.0,
     "open" : false,
-    "pxWidth" : 5.0,
+    "pxWidth" : 0.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
     "position" : {
       "h" : 0,
-      "v" : 1,
+      "v" : 0,
       "hSpan" : 1,
       "vSpan" : 0
     }
@@ -83,7 +83,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 0.0,
-    "y" : 260.0,
+    "y" : 280.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -94,7 +94,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 0.0,
-    "y" : -20.0,
+    "y" : 0.0,
     "open" : false,
     "label" : "l1",
     "feederType" : "INJECTION",
@@ -108,7 +108,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 0.0,
-    "y" : -20.0,
+    "y" : 0.0,
     "open" : false,
     "label" : "l2",
     "feederType" : "INJECTION",
@@ -136,7 +136,7 @@
       },
       "coord" : {
         "x" : 0.0,
-        "y" : 136.0,
+        "y" : 156.0,
         "xSpan" : 0.0,
         "ySpan" : 188.0
       },
@@ -156,7 +156,7 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 136.0,
+          "y" : 156.0,
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
@@ -177,7 +177,7 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 136.0,
+          "y" : 156.0,
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
@@ -198,7 +198,7 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 136.0,
+          "y" : 156.0,
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
@@ -219,7 +219,7 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 136.0,
+          "y" : 156.0,
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
@@ -239,7 +239,7 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 136.0,
+            "y" : 156.0,
             "xSpan" : 0.0,
             "ySpan" : 188.0
           },
@@ -260,7 +260,7 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 42.0,
+            "y" : 62.0,
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
@@ -282,7 +282,7 @@
         },
         "coord" : {
           "x" : 0.0,
-          "y" : 136.0,
+          "y" : 156.0,
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
@@ -302,7 +302,7 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 136.0,
+            "y" : 156.0,
             "xSpan" : 0.0,
             "ySpan" : 188.0
           },
@@ -323,7 +323,7 @@
           },
           "coord" : {
             "x" : 0.0,
-            "y" : 42.0,
+            "y" : 62.0,
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },

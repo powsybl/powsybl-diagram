@@ -7,43 +7,27 @@
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     }, {
-      "x" : 15.0,
+      "x" : 12.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : 40.0,
+      "x" : 62.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : 65.0,
+      "x" : 112.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : 90.0,
+      "x" : 162.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : 115.0,
+      "x" : 212.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
-      "x" : 140.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 165.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 190.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 215.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 230.0,
+      "x" : 225.0,
       "y" : 0.0,
       "orientation" : "HORIZONTAL"
     } ],
@@ -3223,10 +3207,18 @@
     "distance" : 20.0
   } ],
   "layoutParams" : {
-    "translateX" : 20.0,
-    "translateY" : 50.0,
-    "initialXBus" : 0.0,
-    "initialYBus" : 260.0,
+    "voltageLevelPadding" : {
+      "left" : 20.0,
+      "top" : 60.0,
+      "right" : 20.0,
+      "bottom" : 60.0
+    },
+    "diagramPadding" : {
+      "left" : 20.0,
+      "top" : 20.0,
+      "right" : 20.0,
+      "bottom" : 20.0
+    },
     "verticalSpaceBus" : 25.0,
     "horizontalBusPadding" : 20.0,
     "cellWidth" : 50.0,
@@ -3237,8 +3229,6 @@
     "tooltipEnabled" : false,
     "showInternalNodes" : false,
     "scaleFactor" : 1.0,
-    "horizontalSubstationPadding" : 50.0,
-    "verticalSubstationPadding" : 50.0,
     "drawStraightWires" : false,
     "horizontalSnakeLinePadding" : 20.0,
     "verticalSnakeLinePadding" : 25.0,

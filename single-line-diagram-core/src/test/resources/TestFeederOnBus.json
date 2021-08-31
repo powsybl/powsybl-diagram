@@ -4,8 +4,8 @@
     "name" : "vl",
     "nominalVoltage" : 400.0
   },
-  "x" : 0.0,
-  "y" : 0.0,
+  "x" : 40.0,
+  "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "FICT_vl_line_ONE_fBc",
@@ -14,7 +14,7 @@
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 260.0,
+    "y" : 172.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -24,7 +24,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 230.0,
+    "y" : 142.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -34,7 +34,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 150.0,
+    "y" : 62.0,
     "open" : false
   }, {
     "type" : "BUS",
@@ -43,15 +43,15 @@
     "equipmentId" : "bbs",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
-    "x" : 10.0,
-    "y" : 260.0,
+    "x" : 12.5,
+    "y" : 172.0,
     "open" : false,
-    "pxWidth" : 30.0,
+    "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
     "position" : {
       "h" : 0,
-      "v" : 1,
+      "v" : 0,
       "hSpan" : 2,
       "vSpan" : 0
     }
@@ -63,7 +63,7 @@
     "componentType" : "LINE",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 88.0,
+    "y" : 0.0,
     "open" : false,
     "label" : "line",
     "feederType" : "BRANCH",
@@ -97,7 +97,7 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 190.0,
+        "y" : 102.0,
         "xSpan" : 50.0,
         "ySpan" : 80.0
       },
@@ -117,7 +117,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 230.0,
+          "y" : 142.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -138,7 +138,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 190.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
@@ -159,7 +159,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 150.0,
+          "y" : 62.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
