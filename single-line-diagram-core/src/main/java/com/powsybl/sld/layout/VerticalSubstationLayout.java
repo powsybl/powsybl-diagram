@@ -130,9 +130,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
         } else {
             polyline = new ArrayList<>();
-            polyline.add(node1.getCoordinates());
+            polyline.add(node1.getDiagramCoordinates());
             addMiddlePoints(layoutParam, node1, node2, increment, polyline);
-            polyline.add(node2.getCoordinates());
+            polyline.add(node2.getDiagramCoordinates());
             return polyline;
         }
     }
@@ -148,12 +148,12 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             : infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(vl1, dNode1);
         double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLines1);
 
-        double x1 = node1.getCoordinates().getX();
-        double x2 = node2.getCoordinates().getX();
+        double x1 = node1.getDiagramX();
+        double x2 = node2.getDiagramX();
 
         if (facingNodes(node1, node2)) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
-            double ySnakeLine = Math.min(node1.getCoordinates().getY(), node2.getCoordinates().getY()) + decal1V;
+            double ySnakeLine = Math.min(node1.getDiagramY(), node2.getDiagramY()) + decal1V;
             if (x1 != x2) {
                 polyline.add(new Point(x1, ySnakeLine));
                 polyline.add(new Point(x2, ySnakeLine));
@@ -197,12 +197,12 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
         if (dNode1 == BusCell.Direction.BOTTOM) {
-            return node.getCoordinates().getY() + decalV;
+            return node.getDiagramY() + decalV;
         } else {
             List<VoltageLevelGraph> vls = getGraph().getNodes();
             int iVl = vls.indexOf(node.getGraph());
             if (iVl == 0) {
-                return node.getCoordinates().getY() - decalV;
+                return node.getDiagramY() - decalV;
             } else {
                 VoltageLevelGraph vlAbove = vls.get(iVl - 1);
                 return vlAbove.getY()

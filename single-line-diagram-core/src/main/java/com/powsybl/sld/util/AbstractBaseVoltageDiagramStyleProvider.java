@@ -177,7 +177,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     private Node getWindingNode(Middle3WTNode node, String subComponentName) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
+        adjacentNodes.sort(Comparator.comparingDouble(Node::getDiagramX));
         Node n1 = adjacentNodes.get(0);
         Node n2 = adjacentNodes.get(1);
         Node n3 = adjacentNodes.get(2);
@@ -201,7 +201,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     private Node getWindingNode(Middle2WTNode node, String subComponentName) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
+        adjacentNodes.sort(Comparator.comparingDouble(Node::getDiagramX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
         FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
@@ -210,23 +210,23 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
         if (subComponentName.equals(WINDING1)) {
             if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
             }
         } else if (subComponentName.equals(WINDING2)) {
             if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = nodeWinding1.getY() > nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = nodeWinding1.getX() > nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
             }
         }
 

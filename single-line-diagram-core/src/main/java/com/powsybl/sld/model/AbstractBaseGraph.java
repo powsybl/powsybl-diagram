@@ -75,7 +75,7 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
 
     private void handle2wtNodeRotation(Node node) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getVlX));
+        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
 
@@ -95,7 +95,7 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
             // vertical line supporting the svg component
             FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
             FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-            if (nodeWinding2.getVlY() > nodeWinding1.getVlY()) {
+            if (nodeWinding2.getY() > nodeWinding1.getY()) {
                 // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
                 node.setRotationAngle(180.);
             }

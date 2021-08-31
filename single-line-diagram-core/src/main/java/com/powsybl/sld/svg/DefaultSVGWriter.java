@@ -644,7 +644,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.appendChild(line);
 
-        g.setAttribute(TRANSFORM, TRANSLATE + "(" + node.getX() + "," + node.getY() + ")");
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + node.getDiagramX() + "," + node.getDiagramY() + ")");
 
         return line;
     }
@@ -831,8 +831,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private double[] getNodeTranslate(Node node) {
         ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double translateX = node.getX() - componentSize.getWidth() / 2;
-        double translateY = node.getY() - componentSize.getHeight() / 2;
+        double translateX = node.getDiagramX() - componentSize.getWidth() / 2;
+        double translateY = node.getDiagramY() - componentSize.getHeight() / 2;
         return new double[]{translateX, translateY};
     }
 
@@ -924,8 +924,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                          DiagramLabelProvider initProvider,
                                          boolean feederArrowSymmetry) {
         if (points.isEmpty()) {
-            points.add(new Point(feederNode.getCoordinates()));
-            points.add(new Point(feederNode.getCoordinates()));
+            points.add(new Point(feederNode.getDiagramCoordinates()));
+            points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
         InitialValue init = initProvider.getInitialValue(feederNode);

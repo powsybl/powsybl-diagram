@@ -70,9 +70,9 @@ public abstract class AbstractLayout {
     protected static List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
                                                                                boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
         List<Point> pol = new ArrayList<>();
-        pol.add(node1.getCoordinates());
+        pol.add(node1.getDiagramCoordinates());
         addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol);
-        pol.add(node2.getCoordinates());
+        pol.add(node2.getDiagramCoordinates());
         return pol;
     }
 
@@ -84,10 +84,10 @@ public abstract class AbstractLayout {
 
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
 
-        double x1 = node1.getCoordinates().getX();
-        double x2 = node2.getCoordinates().getX();
-        double y1 = node1.getCoordinates().getY();
-        double y2 = node2.getCoordinates().getY();
+        double x1 = node1.getDiagramX();
+        double x2 = node2.getDiagramX();
+        double y1 = node1.getDiagramY();
+        double y2 = node2.getDiagramY();
 
         if (dNode1 == dNode2) {
             if (increment) {

@@ -175,9 +175,9 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
         List<Point> polyline = new ArrayList<>();
-        polyline.add(node1.getCoordinates());
+        polyline.add(node1.getDiagramCoordinates());
         addMiddlePoints(layoutParam, node1, node2, increment, polyline);
-        polyline.add(node2.getCoordinates());
+        polyline.add(node2.getDiagramCoordinates());
         return polyline;
     }
 
@@ -192,12 +192,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             : infosNbSnakeLines.getNbSnakeLinesTopBottom(vl1, dNode1);
         double decal1V = Math.max(nbSnakeLinesH1 - 1, 0) * layoutParam.getVerticalSnakeLinePadding();
 
-        double x1 = node1.getCoordinates().getX();
-        double x2 = node2.getCoordinates().getX();
+        double x1 = node1.getDiagramX();
+        double x2 = node2.getDiagramX();
 
         if (facingNodes(node1, node2)) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
-            double ySnakeLine = Math.min(node1.getCoordinates().getY(), node2.getCoordinates().getY()) + layoutParam.getVoltageLevelPadding().getBottom() + decal1V;
+            double ySnakeLine = Math.min(node1.getDiagramY(), node2.getDiagramY()) + layoutParam.getVoltageLevelPadding().getBottom() + decal1V;
             if (x1 != x2) {
                 polyline.add(new Point(x1, ySnakeLine));
                 polyline.add(new Point(x2, ySnakeLine));
@@ -226,20 +226,20 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
         LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
         if (dNode1 == BusCell.Direction.BOTTOM) {
-            return node.getCoordinates().getY() + vlPadding.getBottom() + decalV;
+            return node.getDiagramY() + vlPadding.getBottom() + decalV;
         } else {
             if (compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
                 List<String> vls = infosNbSnakeLines.getYSortedVls();
                 int iVl = vls.indexOf(node.getGraph().getId());
                 if (iVl == 0) {
-                    return node.getCoordinates().getY() - vlPadding.getTop() - decalV;
+                    return node.getDiagramY() - vlPadding.getTop() - decalV;
                 } else {
                     String vlAboveId = vls.get(iVl - 1);
                     VoltageLevelGraph vlAbove = getGraph().getNodeStream().filter(voltageLevelGraph -> voltageLevelGraph.getId().equals(vlAboveId)).findFirst().orElseThrow();
                     return vlAbove.getY() - vlPadding.getTop() + vlAbove.getHeight() + decalV;
                 }
             } else {
-                return node.getCoordinates().getY() - decalV;
+                return node.getDiagramY() - decalV;
             }
         }
     }

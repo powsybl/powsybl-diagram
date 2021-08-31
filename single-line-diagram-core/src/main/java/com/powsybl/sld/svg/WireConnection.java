@@ -51,7 +51,7 @@ public class WireConnection {
 
         List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
         List<AnchorPoint> anchorPoints2 = getAnchorPoints(anchorPointProvider, node2);
-        return searchBetterAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
+        return searchBetterAnchorPoints(node1.getDiagramCoordinates(), node2.getDiagramCoordinates(), anchorPoints1, anchorPoints2);
     }
 
     public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
@@ -61,7 +61,7 @@ public class WireConnection {
 
         List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
         List<AnchorPoint> anchorPoints2 = Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
-        return searchBetterAnchorPoints(node1.getCoordinates(), coord2, anchorPoints1, anchorPoints2);
+        return searchBetterAnchorPoints(node1.getDiagramCoordinates(), coord2, anchorPoints1, anchorPoints2);
     }
 
     private static WireConnection searchBetterAnchorPoints(Point coord1, Point coord2,
@@ -100,8 +100,8 @@ public class WireConnection {
      */
     public List<Point> calculatePolylinePoints(BaseNode node1, BaseNode node2, boolean straight) {
 
-        Point point1 = node1.getCoordinates().getShiftedPoint(getAnchorPoint1());
-        Point point2 = node2.getCoordinates().getShiftedPoint(getAnchorPoint2());
+        Point point1 = node1.getDiagramCoordinates().getShiftedPoint(getAnchorPoint1());
+        Point point2 = node2.getDiagramCoordinates().getShiftedPoint(getAnchorPoint2());
 
         List<Point> pol = new ArrayList<>();
         pol.add(point1);

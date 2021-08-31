@@ -90,9 +90,9 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
     void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
         double x0 = hToX(layoutParameters, hLeft);
-        double y0 = getExtremityNode(START).getVlY();
+        double y0 = getExtremityNode(START).getY();
         double x1 = hToX(layoutParameters, hRight);
-        double y1 = getExtremityNode(END).getVlY();
+        double y1 = getExtremityNode(END).getY();
         double y = (y0 + y1) / 2;
 
         nodes.get(1).setCoordinates(x0, y);

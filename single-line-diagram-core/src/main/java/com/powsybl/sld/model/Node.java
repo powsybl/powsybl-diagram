@@ -162,8 +162,12 @@ public class Node implements BaseNode {
     }
 
     @Override
-    public Point getCoordinates() {
+    public Point getDiagramCoordinates() {
         return graph != null ? position.getShiftedPoint(graph.getCoord()) : position;
+    }
+
+    public Point getCoordinates() {
+        return position;
     }
 
     public void setCoordinates(Point coord) {
@@ -178,7 +182,7 @@ public class Node implements BaseNode {
      * Get abscissa within current voltage level
      * @return abscissa within voltage level
      */
-    public double getVlX() {
+    public double getX() {
         return position.getX();
     }
 
@@ -186,7 +190,7 @@ public class Node implements BaseNode {
      * Get ordinate within current voltage level
      * @return ordinate within voltage level
      */
-    public double getVlY() {
+    public double getY() {
         return position.getY();
     }
 
@@ -194,7 +198,7 @@ public class Node implements BaseNode {
      * Get abscissa within the diagram
      * @return abscissa within diagram
      */
-    public double getX() {
+    public double getDiagramX() {
         return graph != null ? position.getX() + graph.getX() : position.getX();
     }
 
@@ -202,7 +206,7 @@ public class Node implements BaseNode {
      * Get ordinate within the diagram
      * @return ordinate within diagram
      */
-    public double getY() {
+    public double getDiagramY() {
         return graph != null ? position.getY() + graph.getY() : position.getY();
     }
 

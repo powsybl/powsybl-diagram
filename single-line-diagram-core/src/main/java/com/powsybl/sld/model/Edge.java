@@ -50,8 +50,8 @@ public class Edge {
     }
 
     public boolean isZeroLength() {
-        Point node1 = getNode1().getCoordinates();
-        Point node2 = getNode2().getCoordinates();
+        Point node1 = getNode1().getDiagramCoordinates();
+        Point node2 = getNode2().getDiagramCoordinates();
         return node1.getX() == node2.getX() && node1.getY() == node2.getY();
     }
 }
