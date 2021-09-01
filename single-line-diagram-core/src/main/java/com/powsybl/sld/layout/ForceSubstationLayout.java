@@ -197,10 +197,10 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             || (dNode1 == BusCell.Direction.TOP && dNode2 == BusCell.Direction.BOTTOM && adjacentGraphs(node2, node1));
     }
 
-    private boolean adjacentGraphs(Node node1, Node node2) {
+    private boolean adjacentGraphs(Node nodeA, Node nodeB) {
         List<String> ySortedVl = infosNbSnakeLines.getYSortedVls();
-        int i1 = ySortedVl.indexOf(node1.getGraph().getId());
-        int i2 = ySortedVl.indexOf(node2.getGraph().getId());
+        int i1 = ySortedVl.indexOf(nodeA.getGraph().getId());
+        int i2 = ySortedVl.indexOf(nodeB.getGraph().getId());
         return i2 - i1 == 1;
     }
 

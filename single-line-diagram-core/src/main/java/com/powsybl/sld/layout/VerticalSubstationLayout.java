@@ -110,7 +110,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             double ySnakeLine2 = getYSnakeLine(node2, dNode2, decal2V, layoutParam);
 
             Side side = getSide(dNode1, increment);
-            double xSnakeLine = getXSnakeLine(node1, side, layoutParam);
+            double xSnakeLine = getXSnakeLine(side, layoutParam);
             polyline.addAll(Point.createPointsList(x1, ySnakeLine1,
                 xSnakeLine, ySnakeLine1,
                 xSnakeLine, ySnakeLine2,
@@ -125,7 +125,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         return ((increment && dNode1 == BusCell.Direction.BOTTOM) || (!increment && dNode1 == BusCell.Direction.TOP)) ? Side.RIGHT : Side.LEFT;
     }
 
-    private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
+    private double getXSnakeLine(Side side, LayoutParameters layoutParam) {
         int maxVlH = getGraph().getNodes().stream().mapToInt(VoltageLevelGraph::getMaxH).max().orElse(0);
         double maxH = layoutParam.getTranslateX() +
             layoutParam.getInitialXBus() +

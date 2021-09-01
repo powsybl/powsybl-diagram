@@ -90,11 +90,11 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
         }
         LineDiagramData<Line> lineDiagramData = line.getExtension(LineDiagramData.class);
         if (lineDiagramData == null) {
-            LOG.warn("No CGMES-DL data for line {} name {}, skipping line edge {}", line.getId(), line.getName(), edge.getId());
+            LOG.warn("No CGMES-DL data for line {} name {}, skipping line edge {}", line.getId(), line.getNameOrId(), edge.getId());
             return;
         }
         if (!lineDiagramData.getDiagramsNames().contains(diagramName)) {
-            LOG.warn("No CGMES-DL data for line {} name {}, diagramName {}, skipping line edge {}", line.getId(), line.getName(), diagramName, edge.getId());
+            LOG.warn("No CGMES-DL data for line {} name {}, diagramName {}, skipping line edge {}", line.getId(), line.getNameOrId(), diagramName, edge.getId());
             return;
         }
         List<Point> snakeLine = edge.getSnakeLine();
