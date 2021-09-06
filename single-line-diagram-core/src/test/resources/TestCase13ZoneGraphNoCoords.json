@@ -109,7 +109,7 @@
     "lineEdges" : [ ]
   } ],
   "lineEdges" : [ {
-    "lineId" : "Line",
+    "id" : "Line",
     "nodes" : [ {
       "node1" : "Line_ONE",
       "node2" : "Line_TWO"
