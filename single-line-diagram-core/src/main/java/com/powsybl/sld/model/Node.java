@@ -255,8 +255,8 @@ public class Node implements BaseNode {
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
         if (graph != null && graph.isGenerateCoordsInJson()) {
-            generator.writeNumberField("x", position.getX());
-            generator.writeNumberField("y", position.getY());
+            generator.writeNumberField("x", getX());
+            generator.writeNumberField("y", getY());
         }
         if (rotationAngle != null) {
             generator.writeNumberField("rotationAngle", rotationAngle);
@@ -279,8 +279,8 @@ public class Node implements BaseNode {
     }
 
     public void resetCoords() {
-        position.setX(-1);
-        position.setY(-1);
+        setX(-1, false);
+        setY(-1, false);
         initY = -1;
     }
 
