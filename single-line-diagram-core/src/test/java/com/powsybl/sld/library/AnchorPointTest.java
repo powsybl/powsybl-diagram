@@ -21,11 +21,11 @@ public class AnchorPointTest {
     public void rotationTest() {
         AnchorPoint anchorPoint1 = new AnchorPoint(0, -10, AnchorOrientation.VERTICAL);
         AnchorPoint anchorPoint2 = new AnchorPoint(0, 10, AnchorOrientation.VERTICAL);
-        AnchorPoint rotatedAnchorPoint1 = anchorPoint1.rotate();
+        AnchorPoint rotatedAnchorPoint1 = anchorPoint1.createRotatedAnchorPoint(90d);
         assertEquals(AnchorOrientation.HORIZONTAL, rotatedAnchorPoint1.getOrientation());
         assertEquals(-10, rotatedAnchorPoint1.getX(), 0);
         assertEquals(0, rotatedAnchorPoint1.getY(), 0);
-        AnchorPoint rotatedAnchorPoint2 = anchorPoint2.rotate();
+        AnchorPoint rotatedAnchorPoint2 = anchorPoint2.createRotatedAnchorPoint(90d);
         assertEquals(AnchorOrientation.HORIZONTAL, rotatedAnchorPoint2.getOrientation());
         assertEquals(10, rotatedAnchorPoint2.getX(), 0);
         assertEquals(0, rotatedAnchorPoint2.getY(), 0);

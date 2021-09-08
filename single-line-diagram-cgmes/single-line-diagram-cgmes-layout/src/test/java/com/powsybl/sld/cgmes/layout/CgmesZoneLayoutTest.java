@@ -11,11 +11,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.LineEdge;
-import com.powsybl.sld.model.LineEdge.Point;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.*;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -233,11 +229,11 @@ public class CgmesZoneLayoutTest {
         checkNode(vlGraph21.getNodes().get(2), Node.NodeType.FEEDER, LINE_ID + "_" + Side.TWO, LINE, Arrays.asList(BUS_21_ID), 220, 110, true);
 
         assertEquals(1, graph.getLineEdges().size());
-        LineEdge linEdge = graph.getLineEdges().get(0);
-        assertEquals(LINE_ID, linEdge.getLineId());
+        BranchEdge linEdge = graph.getLineEdges().get(0);
+        assertEquals(LINE_ID, linEdge.getId());
         assertEquals(LINE_ID + "_" + Side.ONE, linEdge.getNode1().getId());
         assertEquals(LINE_ID + "_" + Side.TWO, linEdge.getNode2().getId());
-        List<Point> points = linEdge.getPoints();
+        List<Point> points = linEdge.getSnakeLine();
         assertEquals(4, points.size());
         checkLinePointCoordinates(points.get(0), 180, 30);
         checkLinePointCoordinates(points.get(1), 200, 30);

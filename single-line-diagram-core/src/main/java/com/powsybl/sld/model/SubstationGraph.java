@@ -51,8 +51,8 @@ public class SubstationGraph extends AbstractBaseGraph {
         return nodesById.get(id);
     }
 
-    public TwtEdge addEdge(Node node1, Node node2) {
-        return addTwtEdge(node1, node2);
+    public BranchEdge addEdge(String id, Node node1, Node node2) {
+        return addTwtEdge(id, node1, node2);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SubstationGraph extends AbstractBaseGraph {
     }
 
     public Stream<VoltageLevelGraph> getNodeStream() {
-        return getNodes().stream();
+        return nodes.stream();
     }
 
     public List<BranchEdge> getEdges() {
@@ -78,8 +78,8 @@ public class SubstationGraph extends AbstractBaseGraph {
             return true;
         } else {
             int nbNodes = nodes.size();
-            for (int i = 0; i < nbNodes; i++) {
-                if (nodes.get(i) == g1 && i < (nbNodes - 1) && nodes.get(i + 1) == g2) {
+            for (int i = 0; i < nbNodes - 1; i++) {
+                if (nodes.get(i) == g1 && nodes.get(i + 1) == g2) {
                     return true;
                 }
             }

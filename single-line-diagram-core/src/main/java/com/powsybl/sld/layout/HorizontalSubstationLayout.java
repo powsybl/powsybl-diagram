@@ -6,10 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.*;
 
 import java.util.List;
 
@@ -19,14 +16,17 @@ import java.util.List;
  */
 public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
+    private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
+
     public HorizontalSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, vLayoutFactory);
+        this.infosNbSnakeLines = InfosNbSnakeLinesHorizontal.create(graph);
     }
 
     @Override
-    protected List<Double> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
-                                                      InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
-        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, infosNbSnakeLines, increment);
+    protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
+                                                     boolean increment) {
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLines);
     }
 
     /**

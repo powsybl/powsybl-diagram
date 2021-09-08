@@ -7,8 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Coord;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.Objects;
 
@@ -66,11 +66,8 @@ public abstract class AbstractSubstationLayout extends AbstractLayout implements
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        InfosNbSnakeLines infosNbSnakeLines = InfosNbSnakeLines.create(getGraph());
-
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters, infosNbSnakeLines));
-
-        manageSnakeLines(graph, layoutParameters, infosNbSnakeLines);
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(graph, layoutParameters);
     }
 
 }
