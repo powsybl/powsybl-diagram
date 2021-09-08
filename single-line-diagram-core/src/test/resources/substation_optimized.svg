@@ -210,9 +210,9 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
-            <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
-            <use class="sld-sw-open" href="#BREAKER-OPEN"/>
+        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="translate(255.0,360.0)">
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(90.0,10.0,10.0)"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(90.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
@@ -412,15 +412,6 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1" transform="rotate(90.0,5.0,7.5)"/>
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(90.0,5.0,7.5)"/>
-        </g>
-        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,88.0)">
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf1">
             <polyline points="100.0,550.0,100.0,600.0,377.0,600.0"/>
         </g>
@@ -435,6 +426,15 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_vl3_95_trf2_95_one">
             <polyline points="737.0,100.0,1020.0,100.0,1020.0,130.0"/>
+        </g>
+        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
+            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1" transform="rotate(90.0,5.0,7.5)"/>
+            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(90.0,5.0,7.5)"/>
+        </g>
+        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,88.0)">
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
+            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
         </g>
         <g id="LABEL_VL_vl1">
             <text class="sld-graph-label" transform="rotate(0,0,0)" x="0.0" y="10.0">vl1</text>

@@ -145,9 +145,9 @@ polyline {fill: none}
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
-            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="translate(255.0,360.0)">
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

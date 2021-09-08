@@ -119,9 +119,9 @@ polyline {fill: none}
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="matrix(0.0,1.0,-1.0,0.0,275.0,360.0)">
-            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
-            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="translate(255.0,360.0)">
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(286.0,366.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -278,15 +278,6 @@ polyline {fill: none}
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
-            <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
-            <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
-        </g>
-        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,88.0)">
-            <circle cx="5" cy="15" r="5"/>
-            <circle cx="11" cy="15" r="5"/>
-            <circle cx="8" cy="19" r="5"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf1">
             <polyline points="100.0,550.0,100.0,600.0,377.0,600.0"/>
         </g>
@@ -301,6 +292,15 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_vl3_95_trf2_95_one">
             <polyline points="737.0,100.0,1020.0,100.0,1020.0,130.0"/>
+        </g>
+        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(380.0,592.5)">
+            <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
+        </g>
+        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(722.0,88.0)">
+            <circle cx="5" cy="15" r="5"/>
+            <circle cx="11" cy="15" r="5"/>
+            <circle cx="8" cy="19" r="5"/>
         </g>
         <g id="LABEL_VL_vl1">
             <text class="sld-graph-label" transform="rotate(0,0,0)" x="0.0" y="10.0">vl1</text>

@@ -110,15 +110,15 @@ polyline {fill: none}
         <g class="sld-constant-color" id="idLine_95_ONE" transform="translate(70.0,700.0)">
             <text class="sld-label" id="Line_ONE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">Line</text>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(65.0,392.5)">
-            <circle cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
-            <circle cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_Transformer_95_ONE">
             <polyline points="70.0,350.0,70.0,370.0,70.0,392.0"/>
         </g>
         <g class="sld-wire sld-constant-color" id="idedge_95_Transformer_95_TWO">
             <polyline points="70.0,408.0,70.0,430.0,70.0,450.0"/>
+        </g>
+        <g class="sld-two-wt sld-constant-color" id="idTransformer_95_ONE_95_Transformer_95_TWO" transform="translate(65.0,392.5)">
+            <circle cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
+            <circle cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
         <g class="sld-busbar-section sld-constant-color" id="idBus21" transform="translate(150.0,1150.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>

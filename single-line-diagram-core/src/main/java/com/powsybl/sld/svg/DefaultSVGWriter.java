@@ -220,60 +220,70 @@ public class DefaultSVGWriter implements SVGWriter {
             return componentLibrary.getAnchorPoints(type);
         };
 
-        List<Node> remainingNodes = graph.getNodes();
+        // Handle multi-term nodes rotation
+        graph.handleMultiTermsNodeRotation();
 
-        List<Node> nodesToDraw = graph.getNodes().stream().filter(n -> n instanceof BusNode).collect(Collectors.toList());
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDraw);
+        Set<Node> remainingNodesToDraw = graph.getNodeSet();
+        Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
-        remainingNodes.removeAll(nodesToDraw);
-
-        List<Edge> remainingEdges = graph.getEdges();
-
+        drawBuses(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodesToDraw);
         for (Cell cell : graph.getCells()) {
-            remainingEdges.removeAll(drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider,
-                    styleProvider));
-            remainingNodes.removeAll(cell.getNodes());
+            drawCell(prefixId, root, graph, cell, metadata, anchorPointProvider, initProvider, styleProvider,
+                remainingEdgesToDraw, remainingNodesToDraw);
         }
-        drawEdges(prefixId, root, graph, remainingEdges, metadata, anchorPointProvider, initProvider, styleProvider);
-        drawNodes(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingNodes);
+
+        drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingEdgesToDraw);
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
+
+        // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
+        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
-
-        // Drawing the snake lines
-        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
 
         if (useNodesInfosParam && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
         }
     }
 
-    private List<Edge> drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
-                                GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
-                                DiagramStyleProvider styleProvider) {
+    private void drawCell(String prefixId, Element root, VoltageLevelGraph graph, Cell cell,
+                          GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider,
+                          DiagramStyleProvider styleProvider, Set<Edge> remainingEdgesToDraw, Set<Node> remainingNodesToDraw) {
 
-        // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes,
-        // then we draw all the edges, and finally we draw the switch nodes
+        // To avoid overlapping lines over the switches, first, we draw all nodes except the switch nodes and bus connections,
+        // then we draw all the edges, and finally we draw the switch nodes and bus connections
 
         String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, "cell " + cellId);
 
-        List<Node> nodesToDrawBefore = cell.getNodes().stream()
-            .filter(n -> !(n instanceof BusNode || n instanceof SwitchNode || n instanceof BusConnection))
-            .collect(Collectors.toList());
-        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawBefore);
+        List<Node> nodesToDrawBefore = new ArrayList<>();
+        List<Node> nodesToDrawAfter = new ArrayList<>();
+        Collection<Edge> edgesToDraw = new LinkedHashSet<>();
+        for (Node n : cell.getNodes()) {
+            if (n instanceof BusNode) {
+                // Buses have already been drawn in drawBusNodes
+                continue;
+            }
+            if (n instanceof SwitchNode || n instanceof BusConnection || n instanceof Middle3WTNode) {
+                nodesToDrawAfter.add(n);
+            } else {
+                nodesToDrawBefore.add(n);
+            }
 
-        List<Edge> edgesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode))
-                .flatMap(n -> n.getAdjacentEdges().stream())
-                .distinct().collect(Collectors.toList());
-        drawEdges(prefixId, g, graph, edgesToDraw, metadata, anchorPointProvider, initProvider, styleProvider);
+            edgesToDraw.addAll(n.getAdjacentEdges());
+        }
 
-        List<Node> nodesToDrawAfter = cell.getNodes().stream().filter(n -> n instanceof SwitchNode || n instanceof BusConnection).collect(Collectors.toList());
-        drawNodes(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, nodesToDrawAfter);
+        drawNodes(prefixId, g, graph, metadata, initProvider, styleProvider, nodesToDrawBefore);
+        drawEdges(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
+        drawNodes(prefixId, g, graph, metadata, initProvider, styleProvider, nodesToDrawAfter);
+
+        remainingEdgesToDraw.removeAll(edgesToDraw);
+        nodesToDrawBefore.forEach(remainingNodesToDraw::remove);
+        nodesToDrawAfter.forEach(remainingNodesToDraw::remove);
+
         root.appendChild(g);
-        return edgesToDraw;
     }
 
     /**
@@ -380,13 +390,14 @@ public class DefaultSVGWriter implements SVGWriter {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider, false);
         }
 
-        AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
+        // Handle multi-terminal nodes rotation
+        graph.handleMultiTermsNodeRotation();
+
+        // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
+        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
-
-        // Drawing the snake lines
-        drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
     }
 
     /*
@@ -467,26 +478,62 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph nodes
      */
-    protected void drawNodes(String prefixId,
+    protected void drawBuses(String prefixId,
                              Element root,
                              VoltageLevelGraph graph,
                              GraphMetadata metadata,
                              AnchorPointProvider anchorPointProvider,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             List<Node> nodes) {
-        nodes.forEach(node -> {
+                             Set<Node> remainingNodesToDraw) {
 
+        for (BusNode busNode : graph.getNodeBuses()) {
+
+            String nodeId = DiagramStyles.escapeId(prefixId + busNode.getId());
+
+            Element g = root.getOwnerDocument().createElement(GROUP);
+            g.setAttribute("id", nodeId);
+            g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
+
+            drawBus(busNode, g);
+            drawNodeLabel(prefixId, g, busNode, initProvider);
+            drawNodeDecorators(prefixId, g, busNode, initProvider, styleProvider);
+
+            root.appendChild(g);
+
+            metadata.addNodeMetadata(
+                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
+                    BUSBAR_SECTION, busNode.getRotationAngle(),
+                    false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId()));
+            metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
+                nodeId,
+                anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, busNode.getId()),
+                new ComponentSize(0, 0),
+                componentLibrary.getComponentStyleClass(busNode.getComponentType()).orElse(null),
+                true, null));
+
+            remainingNodesToDraw.remove(busNode);
+        }
+    }
+
+   /*
+     * Drawing the voltageLevel graph nodes
+     */
+    protected void drawNodes(String prefixId,
+                             Element root,
+                             VoltageLevelGraph graph,
+                             GraphMetadata metadata,
+                             DiagramLabelProvider initProvider,
+                             DiagramStyleProvider styleProvider,
+                             Collection<Node> nodes) {
+
+        for (Node node : nodes) {
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute("id", nodeId);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
-            if (node.getType() == Node.NodeType.BUS) {
-                drawBus((BusNode) node, g);
-            } else {
-                incorporateComponents(prefixId, node, g, styleProvider);
-            }
+            incorporateComponents(prefixId, node, g, styleProvider);
 
             if (!node.isFictitious() || node instanceof Middle3WTNode) {
                 drawNodeLabel(prefixId, g, node, initProvider);
@@ -496,11 +543,11 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(g);
 
             BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-            setMetadata(metadata, node, nodeId, graph, direction, anchorPointProvider);
-        });
+            setMetadata(metadata, node, nodeId, graph, direction);
+        }
     }
 
-    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction, AnchorPointProvider anchorPointProvider) {
+    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -513,22 +560,13 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId()));
-        if (node.getType() == Node.NodeType.BUS) {
-            metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
-                    nodeId,
-                    anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, node.getId()),
-                    new ComponentSize(0, 0),
-                    componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
-                    true, null));
-        } else {
-            if (metadata.getComponentMetadata(node.getComponentType()) == null) {
-                metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
-                        null,
-                        componentLibrary.getAnchorPoints(node.getComponentType()),
-                        componentLibrary.getSize(node.getComponentType()),
-                        componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
-                        true, null));
-            }
+        if (metadata.getComponentMetadata(node.getComponentType()) == null) {
+            metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
+                null,
+                componentLibrary.getAnchorPoints(node.getComponentType()),
+                componentLibrary.getSize(node.getComponentType()),
+                componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
+                true, null));
         }
     }
 
@@ -644,82 +682,10 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void handleNodeRotation(Node node) {
-        if (node.getGraph() != null) { // node in voltage level graph
-            if ((node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                    || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                    || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER))
-                    && node.getCell() != null
-                    && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
-                // permutation if cell direction is BOTTOM,
-                // because in the svg component library, circle for winding1 is below circle for winding2
-                node.setRotationAngle(180.);
-            }
-        } else {  // node outside any graph
-            List<Node> adjacentNodes = node.getAdjacentNodes();
-            adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
-            if (adjacentNodes.size() == 2) {  // 2 windings transformer
-                FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-                FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-                List<Edge> edges = node.getAdjacentEdges();
-                List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-                List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-                if (!(pol1.isEmpty() || pol2.isEmpty())) {
-                    // get points for the line supporting the svg component
-                    double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
-                    double x2 = pol2.get(1).getX();  // absciss of the second polyline third point
-
-                    if (x1 == x2) {
-                        // vertical line supporting the svg component
-                        FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-                        FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-                        if (nodeWinding2.getY() > nodeWinding1.getY()) {
-                            // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
-                            node.setRotationAngle(180.);
-                        }
-                    } else {
-                        // horizontal line supporting the svg component,
-                        // so we rotate the component by 90 or 270 (the component is vertical in the library)
-                        if (node1.getSide() == FeederWithSideNode.Side.ONE) {
-                            // rotation by 90 to get circle for winding1 at the left side
-                            node.setRotationAngle(90.);
-                        } else {
-                            // rotation by 90 to get circle for winding1 at the right side
-                            node.setRotationAngle(270.);
-                        }
-                    }
-                }
-            } else {  // 3 windings transformer
-                List<Edge> edges = node.getAdjacentEdges();
-                List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-                List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-                List<Point> pol3 = ((BranchEdge) edges.get(2)).getSnakeLine();
-                if (!(pol1.isEmpty() || pol2.isEmpty() || pol3.isEmpty())) {
-                    // get points for the line supporting the svg component
-                    Point coord1 = pol1.get(pol1.size() - 2); // abscissa of the first polyline second last point
-                    Point coord2 = pol2.get(1);  // abscissa of the second polyline second point
-                    Point coord3 = pol3.get(1);  // abscissa of the third polyline second point
-                    if (coord1.getY() == coord3.getY()) {
-                        if (coord2.getY() < coord1.getY()) {
-                            node.setRotationAngle(180.);  // rotation if middle node cell orientation is BOTTOM
-                        }
-                    } else {
-                        if (coord2.getX() == coord1.getX()) {
-                            node.setRotationAngle(coord3.getX() > coord1.getX() ? 270. : 90.);
-                        } else if (coord2.getX() == coord3.getX()) {
-                            node.setRotationAngle(coord1.getX() > coord3.getX() ? 270. : 90.);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     protected void insertComponentSVGIntoDocumentSVG(String prefixId,
                                                      String componentType,
                                                      Element g, Node node,
                                                      DiagramStyleProvider styleProvider) {
-        handleNodeRotation(node);
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, componentType, subComponent);
         insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
@@ -800,7 +766,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                         Element elt, String componentType, String subComponent) {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(componentType);
-        if (node.getType() != Node.NodeType.SWITCH && node.isRotated()) {
+        if (node.isRotated()) {
             elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
         }
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponent);
@@ -841,42 +807,25 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private String getTransformStringDecorator(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
-        String transform;
-        if (node.isRotated() && node.getType() == Node.NodeType.SWITCH) {
-            double[] matrix = getDecoratorTransformMatrix(node, decoratorPosition, decoratorSize);
-            transform = transformMatrixToString(matrix, 4);
-        } else {
-            ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-            double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
-            double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
-            if (decoratorPosition.isCentered()) {
-                dX -= decoratorSize.getWidth() / 2;
-                dY -= decoratorSize.getHeight() / 2;
-            }
-            transform = TRANSLATE + "(" + dX + "," + dY + ")";
+        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
+        double dX = componentSize.getWidth() / 2 + decoratorPosition.getdX();
+        double dY = componentSize.getHeight() / 2 + decoratorPosition.getdY();
+        if (decoratorPosition.isCentered()) {
+            dX -= decoratorSize.getWidth() / 2;
+            dY -= decoratorSize.getHeight() / 2;
         }
-        return transform;
+        return TRANSLATE + "(" + dX + "," + dY + ")";
     }
 
     protected void transformComponent(Node node, Element g) {
-        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-
         // For a node marked for rotation during the graph building, but with an svg component not allowed
         // to rotate (ex : disconnector in SVG component library), we cancel the rotation
         if (node.isRotated() && !componentLibrary.isAllowRotation(node.getComponentType())) {
             node.setRotationAngle(null);
         }
 
-        String trans;
-        if (!node.isRotated()) {
-            double[] translate = getNodeTranslate(node);
-            trans = TRANSLATE + "(" + translate[0] + "," + translate[1] + ")";
-        } else {
-            // afester javafx library does not handle more than one transformation, yet, so
-            // combine the couple of transformations, translation+rotation, in a single matrix transformation
-            trans = getTransformMatrixString(node.getX(), node.getY(), Math.toRadians(node.getRotationAngle()), componentSize);
-        }
-        g.setAttribute(TRANSFORM, trans);
+        double[] translate = getNodeTranslate(node);
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + translate[0] + "," + translate[1] + ")");
     }
 
     private double[] getNodeTranslate(Node node) {
@@ -886,24 +835,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return new double[]{translateX, translateY};
     }
 
-    private double[] getDecoratorTransformMatrix(Node node, LabelPosition decoratorPosition, ComponentSize decoratorSize) {
-        ComponentSize componentSize = componentLibrary.getSize(node.getComponentType());
-        double[] translateNode = getNodeTranslate(node);
-        double[] matrixNode = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), node.getRotationAngle() * Math.PI / 180,
-                layoutParameters.getTranslateX() + node.getX(), layoutParameters.getTranslateY() + node.getY());
-        double translateDecoratorX = translateNode[0] + componentSize.getWidth() / 2 + decoratorPosition.getdX();
-        double translateDecoratorY = translateNode[1] + componentSize.getHeight() / 2 + decoratorPosition.getdY();
-        if (decoratorPosition.isCentered()) {
-            translateDecoratorX -= decoratorSize.getWidth() / 2;
-            translateDecoratorY -= decoratorSize.getHeight() / 2;
-        }
-        double t1 = +matrixNode[3] * (translateDecoratorX - matrixNode[4]) - matrixNode[2] * (translateDecoratorY - matrixNode[5]);
-        double t2 = -matrixNode[1] * (translateDecoratorX - matrixNode[4]) + matrixNode[0] * (translateDecoratorY - matrixNode[5]);
-        return new double[]{matrixNode[3], -matrixNode[1], -matrixNode[2], matrixNode[0], t1, t2};
-    }
-
     protected void transformArrow(List<Point> points, ComponentSize componentSize, double shift, Element g) {
-
         Point pointA = points.get(0);
         Point pointB = points.get(1);
         double distancePoints = pointA.distance(pointB);
@@ -986,8 +918,12 @@ public class DefaultSVGWriter implements SVGWriter {
                                          GraphMetadata metadata,
                                          DiagramLabelProvider initProvider,
                                          boolean feederArrowSymmetry) {
-        InitialValue init = initProvider.getInitialValue(feederNode);
+        if (points.isEmpty()) {
+            points.add(new Point(feederNode.getCoordinates()));
+            points.add(new Point(feederNode.getCoordinates()));
+        }
 
+        InitialValue init = initProvider.getInitialValue(feederNode);
         boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
 
         Optional<String> label1 = arrowSymmetry ? init.getLabel1() : init.getLabel2();
@@ -1058,28 +994,30 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph edges
      */
-    protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, List<Edge> edges, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
+    protected void drawEdges(String prefixId, Element root, VoltageLevelGraph graph, GraphMetadata metadata, AnchorPointProvider anchorPointProvider, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Collection<Edge> edges) {
         String voltageLevelId = graph.getVoltageLevelInfos().getId();
 
         for (Edge edge : edges) {
             String wireId = getWireId(prefixId, voltageLevelId, edge);
 
-            Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute("id", wireId);
-            List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
-            g.setAttribute(CLASS, String.join(" ", wireStyles));
+            List<Point> pol = new ArrayList<>();
+            if (!edge.isZeroLength()) {
+                Element g = root.getOwnerDocument().createElement(GROUP);
+                g.setAttribute("id", wireId);
+                List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
+                g.setAttribute(CLASS, String.join(" ", wireStyles));
 
-            root.appendChild(g);
+                root.appendChild(g);
 
-            Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-            WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
+                Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
 
-            // Determine points of the polyline
-            List<Point> pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(),
-                    layoutParameters.isDrawStraightWires());
+                // Determine points of the polyline
+                pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires());
 
-            polyline.setAttribute(POINTS, pointsListToString(pol));
-            g.appendChild(polyline);
+                polyline.setAttribute(POINTS, pointsListToString(pol));
+                g.appendChild(polyline);
+            }
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
                     escapeId(edge.getNode1().getId()),
@@ -1344,8 +1282,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                           Element root,
                                           BaseGraph graph,
                                           GraphMetadata metadata,
-                                          DiagramStyleProvider styleProvider,
-                                          AnchorPointProvider anchorPointProvider) {
+                                          DiagramStyleProvider styleProvider) {
         graph.getMultiTermNodes().forEach(node -> {
 
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
@@ -1359,7 +1296,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             root.appendChild(g);
 
-            setMetadata(metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, anchorPointProvider);
+            setMetadata(metadata, node, nodeId, null, BusCell.Direction.UNDEFINED);
         });
     }
 
