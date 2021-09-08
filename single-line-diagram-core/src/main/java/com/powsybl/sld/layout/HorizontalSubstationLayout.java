@@ -16,14 +16,17 @@ import java.util.List;
  */
 public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
+    private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
+
     public HorizontalSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, vLayoutFactory);
+        this.infosNbSnakeLines = InfosNbSnakeLinesHorizontal.create(graph);
     }
 
     @Override
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
-                                                     InfosNbSnakeLines infosNbSnakeLines, boolean increment) {
-        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, infosNbSnakeLines, increment);
+                                                     boolean increment) {
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLines);
     }
 
     /**
