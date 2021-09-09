@@ -10,6 +10,7 @@ import com.google.common.io.ByteStreams;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
+import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.ZoneGraph;
@@ -93,23 +94,16 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public abstract void toSVG(VoltageLevelGraph g, String filename);
+    public abstract void toSVG(Graph g, String filename);
 
-    public abstract void toSVG(SubstationGraph g, String filename);
-
-    public abstract void toSVG(ZoneGraph g, String filename);
-
-    public String toSVG(VoltageLevelGraph graph,
+    public String toSVG(Graph graph,
                         String filename,
                         LayoutParameters layoutParameters,
                         DiagramLabelProvider initValueProvider,
                         DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
-            new DefaultSVGWriter(componentLibrary, layoutParameters)
-                    .write("", graph,
-                            initValueProvider,
-                            styleProvider,
-                            writer);
+            DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters);
+            writeGraph(svgWriter, graph, initValueProvider, styleProvider, writer);
 
             if (debugSvgFiles) {
                 writeToFileInHomeDir(filename, writer);
@@ -121,6 +115,19 @@ public abstract class AbstractTestCase {
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        }
+    }
+
+    private static void writeGraph(DefaultSVGWriter svgWriter, Graph graph, DiagramLabelProvider initValueProvider, DiagramStyleProvider styleProvider, StringWriter writer) {
+        // TODO: put in SVGWriter interface
+        if (graph instanceof VoltageLevelGraph) {
+            svgWriter.write("", (VoltageLevelGraph) graph, initValueProvider, styleProvider, writer);
+        } else if (graph instanceof SubstationGraph) {
+            svgWriter.write("", (SubstationGraph) graph, initValueProvider, styleProvider, writer);
+        } else if (graph instanceof ZoneGraph) {
+            svgWriter.write("", (ZoneGraph) graph, initValueProvider, styleProvider, writer);
+        } else {
+            throw new AssertionError();
         }
     }
 
@@ -148,31 +155,6 @@ public abstract class AbstractTestCase {
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
             assertEquals(refMetadata, metadata);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public String toSVG(SubstationGraph graph,
-                        String filename,
-                        LayoutParameters layoutParameters,
-                        DiagramLabelProvider initValueProvider,
-                        DiagramStyleProvider styleProvider) {
-        try (StringWriter writer = new StringWriter()) {
-            new DefaultSVGWriter(componentLibrary, layoutParameters)
-                    .write("", graph,
-                            initValueProvider,
-                            styleProvider,
-                            writer);
-
-            if (debugSvgFiles) {
-                writeToFileInHomeDir(filename, writer);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(filename, writer);
-            }
-
-            return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -208,57 +190,12 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toJson(VoltageLevelGraph graph, String filename) {
-        try (StringWriter writer = new StringWriter()) {
-            graph.writeJson(writer);
-
-            if (debugJsonFiles) {
-                writeToFileInHomeDir(filename, writer);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(filename, writer);
-            }
-            if (debugSvgFiles) {
-                toSVG(graph, filename.replace(".json", ".svg"));
-            }
-
-            return normalizeLineSeparator(writer.toString());
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public String toJson(SubstationGraph graph, String filename) {
-        try (StringWriter writer = new StringWriter()) {
-            graph.writeJson(writer);
-
-            if (debugJsonFiles) {
-                writeToFileInHomeDir(filename, writer);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(filename, writer);
-            }
-            if (debugSvgFiles) {
-                toSVG(graph, filename.replace(".json", ".svg"));
-            }
-
-            return normalizeLineSeparator(writer.toString());
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    public String toJson(SubstationGraph graph, String filename, boolean genCoords) {
+    public String toJson(Graph graph, String filename, boolean genCoords) {
         graph.setGenerateCoordsInJson(genCoords);
         return toJson(graph, filename);
     }
 
-    public String toJson(ZoneGraph graph, String filename, boolean generateCoordsInJson) {
-        graph.setGenerateCoordsInJson(generateCoordsInJson);
-        return toJson(graph, filename);
-    }
-
-    public String toJson(ZoneGraph graph, String filename) {
+    public String toJson(Graph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
 
@@ -285,26 +222,4 @@ public abstract class AbstractTestCase {
             throw new UncheckedIOException(e);
         }
     }
-
-    public String toSVG(ZoneGraph graph, String filename, LayoutParameters layoutParameters, DiagramLabelProvider initValueProvider, DiagramStyleProvider styleProvider) {
-        try (StringWriter writer = new StringWriter()) {
-            new DefaultSVGWriter(componentLibrary, layoutParameters)
-                    .write("", graph,
-                            initValueProvider,
-                            styleProvider,
-                            writer);
-
-            if (debugSvgFiles) {
-                writeToFileInHomeDir(filename, writer);
-            }
-            if (overrideTestReferences) {
-                overrideTestReference(filename, writer);
-            }
-
-            return normalizeLineSeparator(writer.toString());
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
 }
