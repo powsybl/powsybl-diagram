@@ -87,6 +87,9 @@ public abstract class AbstractTestCase {
 
     private void overrideTestReference(String filename, StringWriter content) {
         File testReference = new File("src/test/resources", filename);
+        if (!testReference.exists()) {
+            return;
+        }
         try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
             fw.write(content.toString());
         } catch (IOException e) {
