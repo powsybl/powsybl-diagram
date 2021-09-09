@@ -45,7 +45,7 @@ polyline {fill: none}
     <g>
         <g class="sld-busbar-section sld-constant-color sld-vl50to70" id="idbbs3" transform="translate(19.0,49.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs3_NW_LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">bbs3</text>
+            <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(11.0,37.0)">
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
@@ -53,10 +53,10 @@ polyline {fill: none}
             <circle class="sld-vl50to70" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-constant-color sld-vl50to70" id="id3WT_95_ONE" transform="translate(19.0,49.0)">
-            <text class="sld-label" id="3WT_ONE__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">3WT_3</text>
+            <text class="sld-label" id="3WT_ONE__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
         <g class="sld-constant-color sld-vl50to70" id="id3WT_95_TWO" transform="translate(19.0,49.0)">
-            <text class="sld-label" id="3WT_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">3WT_3</text>
+            <text class="sld-label" id="3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl50to70" id="idFICT_95_vl3_95_2" transform="translate(15.0,45.0)">
             <circle cx="4" cy="4" r="4"/>
