@@ -25,12 +25,11 @@ import java.io.UncheckedIOException;
 import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.model.Position.Dimension.H;
@@ -41,6 +40,7 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class DefaultSVGWriter implements SVGWriter {
 
@@ -73,42 +73,21 @@ public class DefaultSVGWriter implements SVGWriter {
 
     /**
      * Create the SVGDocument corresponding to the graph
-     *
-     * @param graph   graph
-     * @param svgFile file
+     * @param graph  zone, voltage level or substation graph
+     * @param writer writer for the SVG content
      */
     @Override
-    public GraphMetadata write(String prefixId,
-                               VoltageLevelGraph graph,
-                               DiagramLabelProvider initProvider,
-                               DiagramStyleProvider styleProvider,
-                               Path svgFile) {
-        try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    /**
-     * Create the SVGDocument corresponding to the graph
-     *
-     * @param graph  graph
-     * @param writer writer
-     */
-    @Override
-    public GraphMetadata write(String prefixId,
-                               VoltageLevelGraph graph,
-                               DiagramLabelProvider labelProvider,
-                               DiagramStyleProvider styleProvider,
-                               Writer writer) {
+    public GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider, Writer writer) {
         DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
 
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
         setDocumentSize(graph, document);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, labelProvider, Collections.singletonList(graph), listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, graph.getAllNodesStream(), listUsedComponentSVG);
+        if (graph instanceof BaseGraph) {
+            ((BaseGraph) graph).getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
+        }
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
@@ -120,10 +99,30 @@ public class DefaultSVGWriter implements SVGWriter {
         return metadata;
     }
 
-    protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
-                            List<VoltageLevelGraph> graphs, Set<String> listUsedComponentSVG) {
+    private void setDocumentSize(Graph graph, Document document) {
+        document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
+        if (layoutParameters.isSvgWidthAndHeightAdded()) {
+            document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
+        }
+    }
 
-        graphs.stream().flatMap(g -> g.getNodes().stream()).forEach(n -> {
+    private double getDiagramWidth(Graph graph, LayoutParameters layoutParameters) {
+        return graph.getWidth() + layoutParameters.getDiagramPadding().getLeft() + layoutParameters.getDiagramPadding().getRight();
+    }
+
+    private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
+        double height = graph.getHeight() + layoutParameters.getDiagramPadding().getTop() + layoutParameters.getDiagramPadding().getBottom();
+        if (graph instanceof VoltageLevelGraph && layoutParameters.isAddNodesInfos()) {
+            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
+        }
+        return height;
+    }
+
+    protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
+                            Stream<Node> nodes, Set<String> listUsedComponentSVG) {
+
+        nodes.forEach(n -> {
             listUsedComponentSVG.add(n.getComponentType());
             List<DiagramLabelProvider.NodeDecorator> nodeDecorators = labelProvider.getNodeDecorators(n);
             if (nodeDecorators != null) {
@@ -186,25 +185,35 @@ public class DefaultSVGWriter implements SVGWriter {
     /**
      * Create the SVGDocument corresponding to the graph
      */
-    protected GraphMetadata writeGraph(String prefixId,
-                                       VoltageLevelGraph graph,
-                                       Document document,
-                                       DiagramLabelProvider initProvider,
-                                       DiagramStyleProvider styleProvider) {
+    protected GraphMetadata writeGraph(String prefixId, Graph graph, Document document, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
         GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 
-        if (layoutParameters.isShowGrid() && graph.isPositionNodeBusesCalculated()) {
-            root.appendChild(drawGrid(prefixId, graph, document, metadata));
-        }
+        drawGrid(prefixId, graph, document, metadata, root);
 
-        drawVoltageLevel(prefixId, graph, root, metadata, initProvider, styleProvider);
+        if (graph instanceof VoltageLevelGraph) {
+            drawVoltageLevel(prefixId, (VoltageLevelGraph) graph, root, metadata, initProvider, styleProvider);
+        } else if (graph instanceof SubstationGraph) {
+            drawSubstation(prefixId, (SubstationGraph) graph, root, metadata, initProvider, styleProvider);
+        } else if (graph instanceof ZoneGraph) {
+            drawZone(prefixId, (ZoneGraph) graph, root, metadata, initProvider, styleProvider);
+        }
 
         document.adoptNode(root);
         document.getDocumentElement().appendChild(root);
 
         return metadata;
+    }
+
+    private void drawGrid(String prefixId, Graph graph, Document document, GraphMetadata metadata, Element root) {
+        if (layoutParameters.isShowGrid()) {
+            for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
+                if (vlGraph.isPositionNodeBusesCalculated()) {
+                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                }
+            }
+        }
     }
 
     protected void drawVoltageLevel(String prefixId,
@@ -213,6 +222,10 @@ public class DefaultSVGWriter implements SVGWriter {
                                     GraphMetadata metadata,
                                     DiagramLabelProvider initProvider,
                                     DiagramStyleProvider styleProvider) {
+
+        if (!graph.isForVoltageLevelDiagram()) {
+            drawGraphLabel(prefixId, root, graph, metadata);
+        }
 
         AnchorPointProvider anchorPointProvider =
             (type, id) -> type.equals(BUSBAR_SECTION) ? getBusbarAnchors(id, graph) : componentLibrary.getAnchorPoints(type);
@@ -293,121 +306,6 @@ public class DefaultSVGWriter implements SVGWriter {
         nodesToDrawAfter.forEach(remainingNodesToDraw::remove);
 
         root.appendChild(g);
-    }
-
-    /**
-     * Create the SVGDocument corresponding to the substation graph
-     *
-     * @param graph   substation graph
-     * @param svgFile file
-     */
-    @Override
-    public GraphMetadata write(String prefixId,
-                               SubstationGraph graph,
-                               DiagramLabelProvider initProvider,
-                               DiagramStyleProvider styleProvider,
-                               Path svgFile) {
-        try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    /**
-     * Create the SVGDocument corresponding to the substation graph
-     *
-     * @param graph  substation graph
-     * @param writer writer
-     */
-    @Override
-    public GraphMetadata write(String prefixId,
-                               SubstationGraph graph,
-                               DiagramLabelProvider labelProvider,
-                               DiagramStyleProvider styleProvider,
-                               Writer writer) {
-        DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
-
-        Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
-        setDocumentSize(graph, document);
-
-        Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, labelProvider, graph.getVoltageLevels(), listUsedComponentSVG);
-        graph.getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
-
-        createDefsSVGComponents(document, listUsedComponentSVG);
-
-        addFrame(document);
-        GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
-
-        DomUtil.transformDocument(document, writer);
-
-        return metadata;
-    }
-
-    private void setDocumentSize(Graph graph, Document document) {
-        document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
-        if (layoutParameters.isSvgWidthAndHeightAdded()) {
-            document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
-            document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
-        }
-    }
-
-    private double getDiagramWidth(Graph graph, LayoutParameters layoutParameters) {
-        return graph.getWidth() + layoutParameters.getDiagramPadding().getLeft() + layoutParameters.getDiagramPadding().getRight();
-    }
-
-    private double getDiagramHeight(Graph graph, LayoutParameters layoutParameters) {
-        double height = graph.getHeight() + layoutParameters.getDiagramPadding().getTop() + layoutParameters.getDiagramPadding().getBottom();
-        if (graph instanceof VoltageLevelGraph && layoutParameters.isAddNodesInfos()) {
-            height += 6 * CIRCLE_RADIUS_NODE_INFOS_SIZE;
-        }
-        return height;
-    }
-
-    @Override
-    public LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
-    @Override
-    public ComponentLibrary getComponentLibrary() {
-        return componentLibrary;
-    }
-
-    /**
-     * Create the SVGDocument corresponding to the substation graph
-     */
-    protected GraphMetadata writeGraph(String prefixId,
-                                       SubstationGraph graph,
-                                       Document document,
-                                       DiagramLabelProvider initProvider,
-                                       DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata(layoutParameters);
-
-        Element root = document.createElement(GROUP);
-
-        // Drawing grid lines
-        if (layoutParameters.isShowGrid()) {
-            for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-                if (vlGraph.isPositionNodeBusesCalculated()) {
-                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
-                }
-            }
-        }
-
-        drawSubstation(prefixId, graph, root, metadata, initProvider, styleProvider);
-
-        // the drawing of the voltageLevel graph labels is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
-            drawGraphLabel(prefixId, root, vlGraph, metadata);
-        }
-
-        document.adoptNode(root);
-        document.getDocumentElement().appendChild(root);
-
-        return metadata;
     }
 
     protected void drawSubstation(String prefixId,
@@ -1220,78 +1118,6 @@ public class DefaultSVGWriter implements SVGWriter {
             group.getOwnerDocument().adoptNode(n);
             group.appendChild(n);
         }
-    }
-
-    @Override
-    public GraphMetadata write(String prefixId,
-                               ZoneGraph graph,
-                               DiagramLabelProvider initProvider,
-                               DiagramStyleProvider styleProvider,
-                               Path svgFile) {
-        try (Writer writer = Files.newBufferedWriter(svgFile)) {
-            return write(prefixId, graph, initProvider, styleProvider, writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    @Override
-    public GraphMetadata write(String prefixId,
-                               ZoneGraph graph,
-                               DiagramLabelProvider labelProvider,
-                               DiagramStyleProvider styleProvider,
-                               Writer writer) {
-        DOMImplementation domImpl = DomUtil.getDocumentBuilder().getDOMImplementation();
-
-        Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
-        setDocumentSize(graph, document);
-
-        List<VoltageLevelGraph> vlGraphs = graph.getVoltageLevels();
-
-        Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, labelProvider, vlGraphs, listUsedComponentSVG);
-
-        createDefsSVGComponents(document, listUsedComponentSVG);
-
-        addFrame(document);
-        GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, labelProvider, styleProvider);
-
-        DomUtil.transformDocument(document, writer);
-
-        return metadata;
-    }
-
-    private GraphMetadata writeGraph(String prefixId,
-                                     ZoneGraph graph,
-                                     List<VoltageLevelGraph> vlGraphs,
-                                     Document document,
-                                     DiagramLabelProvider initProvider,
-                                     DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata(layoutParameters);
-
-        Element root = document.createElement(GROUP);
-
-        // Drawing grid lines
-        if (layoutParameters.isShowGrid()) {
-            for (VoltageLevelGraph vlGraph : vlGraphs) {
-                if (vlGraph.isPositionNodeBusesCalculated()) {
-                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
-                }
-            }
-        }
-
-        drawZone(prefixId, graph, root, metadata, initProvider, styleProvider);
-
-        // the drawing of the voltageLevel graph labels is done at the end in order to
-        // facilitate the move of a voltageLevel in the diagram
-        for (VoltageLevelGraph vlGraph : vlGraphs) {
-            drawGraphLabel(prefixId, root, vlGraph, metadata);
-        }
-
-        document.adoptNode(root);
-        document.getDocumentElement().appendChild(root);
-
-        return metadata;
     }
 
     private void drawZone(String prefixId,
