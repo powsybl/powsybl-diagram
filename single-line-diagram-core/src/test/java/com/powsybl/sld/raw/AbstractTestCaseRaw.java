@@ -9,10 +9,7 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.InitialValue;
@@ -41,21 +38,20 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     }
 
     @Override
-    public void toSVG(VoltageLevelGraph graph, String filename) {
-        Stream<Node> nodeStream = graph.getNodes().stream();
+    public void toSVG(Graph graph, String filename) {
+        Stream<Node> nodeStream = getNodeStream(graph);
         toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
     }
 
-    @Override
-    public void toSVG(SubstationGraph graph, String filename) {
-        Stream<Node> nodeStream = graph.getNodes().stream().flatMap(g -> g.getNodes().stream());
-        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
-    }
-
-    @Override
-    public void toSVG(ZoneGraph graph, String filename) {
-        Stream<Node> nodeStream = graph.getNodes().stream().flatMap(g -> g.getNodes().stream()).flatMap(g -> g.getNodes().stream());
-        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+    private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface
+        if (graph instanceof VoltageLevelGraph) {
+            return ((VoltageLevelGraph) graph).getNodes().stream();
+        } else if (graph instanceof SubstationGraph) {
+            return ((SubstationGraph) graph).getNodes().stream().flatMap(g -> g.getNodes().stream());
+        } else if (graph instanceof ZoneGraph) {
+            return ((ZoneGraph) graph).getNodes().stream().flatMap(g -> g.getNodes().stream()).flatMap(g -> g.getNodes().stream());
+        }
+        throw new AssertionError();
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {
