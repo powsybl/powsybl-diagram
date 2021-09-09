@@ -42,7 +42,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double x = diagramPadding.getLeft();
         double substationHeight = 0;
 
-        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
 
             // Calculate the objects coordinates inside the voltageLevel graph
             VoltageLevelLayout vLayout = vLayoutFactory.create(vlGraph);
@@ -62,7 +62,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
 
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
 
         adaptPaddingToSnakeLines(layoutParameters);
@@ -77,7 +77,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double yVoltageLevels = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
         double x = diagramPadding.getLeft();
 
-        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
             vlGraph.setCoord(x + voltageLevelPadding.getLeft(), yVoltageLevels);
             x += vlGraph.getWidth();
@@ -90,7 +90,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         getGraph().setSize(substationWidth, substationHeight);
 
         infosNbSnakeLines.reset();
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
     }
 

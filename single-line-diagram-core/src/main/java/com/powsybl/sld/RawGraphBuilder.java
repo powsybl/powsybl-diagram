@@ -184,18 +184,19 @@ public class RawGraphBuilder implements GraphBuilder {
 
     public class SubstationBuilder {
 
-        SubstationGraph ssGraph;
+        SubstationGraph substationGraph;
+        List<VoltageLevelBuilder> voltageLevelBuilders = new ArrayList<>();
 
         public SubstationBuilder(String id) {
-            ssGraph = SubstationGraph.create(id);
+            substationGraph = SubstationGraph.create(id);
         }
 
-        public SubstationGraph getSsGraph() {
-            return ssGraph;
+        public SubstationGraph getSubstationGraph() {
+            return substationGraph;
         }
 
         public void addVlBuilder(VoltageLevelBuilder vlBuilder) {
-            ssGraph.addNode(vlBuilder.getGraph());
+            voltageLevelBuilders.add(vlBuilder);
             vlBuilder.setSubstationBuilder(this);
         }
 
@@ -206,7 +207,7 @@ public class RawGraphBuilder implements GraphBuilder {
             FeederLineNode feederLineNode2 = vl2.createFeederLineNode(id, vl1.voltageLevelInfos.getId(), TWO, order2, direction2);
             feederLineNodes.put(vl1, feederLineNode1);
             feederLineNodes.put(vl2, feederLineNode2);
-            ssGraph.addLineEdge(id, feederLineNode1, feederLineNode2);
+            substationGraph.addLineEdge(id, feederLineNode1, feederLineNode2);
             return feederLineNodes;
         }
 
@@ -221,7 +222,7 @@ public class RawGraphBuilder implements GraphBuilder {
             Feeder2WTLegNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
             f2WTNodes.put(vl1, feeder2WtNode1);
             f2WTNodes.put(vl2, feeder2WTNode2);
-            ssGraph.addMultiTermNode(Middle2WTNode.create(id, id, ssGraph, feeder2WtNode1, feeder2WTNode2, vl1.voltageLevelInfos, vl2.voltageLevelInfos));
+            substationGraph.addMultiTermNode(Middle2WTNode.create(id, id, substationGraph, feeder2WtNode1, feeder2WTNode2, vl1.voltageLevelInfos, vl2.voltageLevelInfos));
             return f2WTNodes;
         }
 
@@ -241,7 +242,7 @@ public class RawGraphBuilder implements GraphBuilder {
             f3WTNodes.put(vl3, feeder3WTNode3);
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            ssGraph.addMultiTermNode(Middle3WTNode.create(id, id, ssGraph, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
+            substationGraph.addMultiTermNode(Middle3WTNode.create(id, id, substationGraph, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
                     vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos));
 
             return f3WTNodes;
@@ -258,8 +259,12 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     public SubstationGraph buildSubstationGraph(String id) {
-        SubstationGraph ssGraph = ssBuilders.get(id).getSsGraph();
-        ssGraph.getNodes().sort(Comparator.comparingDouble(g -> -g.getVoltageLevelInfos().getNominalVoltage()));
+        SubstationBuilder sGraphBuilder = ssBuilders.get(id);
+        SubstationGraph ssGraph = sGraphBuilder.getSubstationGraph();
+        sGraphBuilder.voltageLevelBuilders.stream()
+            .map(VoltageLevelBuilder::getGraph)
+            .sorted(Comparator.comparingDouble(vlGraph -> -vlGraph.getVoltageLevelInfos().getNominalVoltage()))
+            .forEach(ssGraph::addVoltageLevel);
         return ssGraph;
     }
 

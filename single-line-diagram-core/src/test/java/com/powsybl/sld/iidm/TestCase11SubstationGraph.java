@@ -261,7 +261,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmart.json"), toJson(g, "/TestCase11SubstationGraphSmart.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
-        assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
+        assertEquals(substation.getVoltageLevelStream().count(), g.getVoltageLevels().size());
         assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
     }
@@ -273,7 +273,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.HORIZONTAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmartHorizontal.json"), toJson(g, "/TestCase11SubstationGraphSmartHorizontal.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
-        assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
+        assertEquals(substation.getVoltageLevelStream().count(), g.getVoltageLevels().size());
         assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
     }
@@ -285,7 +285,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.VERTICAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmartVertical.json"), toJson(g, "/TestCase11SubstationGraphSmartVertical.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
-        assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
+        assertEquals(substation.getVoltageLevelStream().count(), g.getVoltageLevels().size());
         assertEquals(19, g.getTwtEdges().size());
         assertEquals(8, g.getMultiTermNodes().size());
     }

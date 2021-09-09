@@ -332,7 +332,7 @@ public class DefaultSVGWriter implements SVGWriter {
         setDocumentSize(graph, document);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, labelProvider, graph.getNodes(), listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, graph.getVoltageLevels(), listUsedComponentSVG);
         graph.getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
 
         createDefsSVGComponents(document, listUsedComponentSVG);
@@ -389,7 +389,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Drawing grid lines
         if (layoutParameters.isShowGrid()) {
-            for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+            for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
                 if (vlGraph.isPositionNodeBusesCalculated()) {
                     root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
                 }
@@ -400,7 +400,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // the drawing of the voltageLevel graph labels is done at the end in order to
         // facilitate the move of a voltageLevel in the diagram
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             drawGraphLabel(prefixId, root, vlGraph, metadata);
         }
 
@@ -417,7 +417,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   DiagramLabelProvider initProvider,
                                   DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
 
@@ -1246,7 +1246,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Document document = domImpl.createDocument(SVG_NAMESPACE, SVG_QUALIFIED_NAME, null);
         setDocumentSize(graph, document);
 
-        List<VoltageLevelGraph> vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
+        List<VoltageLevelGraph> vlGraphs = graph.getVoltageLevels();
 
         Set<String> listUsedComponentSVG = new HashSet<>();
         addStyle(document, styleProvider, labelProvider, vlGraphs, listUsedComponentSVG);
@@ -1300,7 +1300,7 @@ public class DefaultSVGWriter implements SVGWriter {
                           GraphMetadata metadata,
                           DiagramLabelProvider initProvider,
                           DiagramStyleProvider styleProvider) {
-        for (SubstationGraph sGraph : graph.getNodes()) {
+        for (SubstationGraph sGraph : graph.getSubstations()) {
             drawSubstation(prefixId, sGraph, root, metadata, initProvider, styleProvider);
         }
 

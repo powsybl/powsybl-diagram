@@ -25,9 +25,9 @@ public class SubstationGraph extends AbstractBaseGraph {
 
     private String substationId;
 
-    private final List<VoltageLevelGraph> nodes = new ArrayList<>();
+    private final List<VoltageLevelGraph> voltageLevels = new ArrayList<>();
 
-    private final Map<String, VoltageLevelGraph> nodesById = new HashMap<>();
+    private final Map<String, VoltageLevelGraph> voltageLevelsById = new HashMap<>();
 
     /**
      * Constructor
@@ -41,28 +41,30 @@ public class SubstationGraph extends AbstractBaseGraph {
         return new SubstationGraph(id);
     }
 
-    public void addNode(VoltageLevelGraph node) {
-        nodes.add(node);
-        nodesById.put(node.getId(), node);
-    }
-
-    public VoltageLevelGraph getNode(String id) {
-        Objects.requireNonNull(id);
-        return nodesById.get(id);
+    public void addVoltageLevel(VoltageLevelGraph node) {
+        voltageLevels.add(node);
+        voltageLevelsById.put(node.getId(), node);
     }
 
     @Override
-    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVoltageLevel(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
-        return nodes.stream().filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
+        return voltageLevelsById.get(voltageLevelId);
     }
 
-    public List<VoltageLevelGraph> getNodes() {
-        return new ArrayList<>(nodes);
+    @Override
+    public List<VoltageLevelGraph> getVoltageLevels() {
+        return Collections.unmodifiableList(voltageLevels);
     }
 
-    public Stream<VoltageLevelGraph> getNodeStream() {
-        return nodes.stream();
+    @Override
+    public Stream<VoltageLevelGraph> getVoltageLevelStream() {
+        return voltageLevels.stream();
+    }
+
+    @Override
+    public Stream<Node> getAllNodesStream() {
+        return voltageLevels.stream().flatMap(g -> g.getNodes().stream());
     }
 
     public List<BranchEdge> getEdges() {
@@ -73,9 +75,9 @@ public class SubstationGraph extends AbstractBaseGraph {
         if (g1 == g2) {
             return true;
         } else {
-            int nbNodes = nodes.size();
+            int nbNodes = voltageLevels.size();
             for (int i = 0; i < nbNodes - 1; i++) {
-                if (nodes.get(i) == g1 && nodes.get(i + 1) == g2) {
+                if (voltageLevels.get(i) == g1 && voltageLevels.get(i + 1) == g2) {
                     return true;
                 }
             }
@@ -90,7 +92,7 @@ public class SubstationGraph extends AbstractBaseGraph {
     public Graph<VoltageLevelGraph, Object> toJgrapht() {
         Graph<VoltageLevelGraph, Object> graph = new Pseudograph<>(Object.class);
 
-        for (VoltageLevelGraph voltageLevelGraph : getNodes()) {
+        for (VoltageLevelGraph voltageLevelGraph : getVoltageLevels()) {
             graph.addVertex(voltageLevelGraph);
         }
 
@@ -120,7 +122,7 @@ public class SubstationGraph extends AbstractBaseGraph {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
-        for (VoltageLevelGraph graph : nodes) {
+        for (VoltageLevelGraph graph : voltageLevels) {
             graph.setGenerateCoordsInJson(isGenerateCoordsInJson());
             graph.writeJson(generator);
         }

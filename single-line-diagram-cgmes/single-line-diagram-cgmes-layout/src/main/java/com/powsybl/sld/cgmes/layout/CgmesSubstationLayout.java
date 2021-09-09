@@ -33,7 +33,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
     public CgmesSubstationLayout(SubstationGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
         Objects.requireNonNull(graph);
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
         }
         fixTransformersLabel = true;
@@ -47,19 +47,19 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
             setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
         }
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         }
         if (layoutParam.getScaleFactor() != 1) {
-            for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+            for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
                 vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
             }
         }
-        for (VoltageLevelGraph vlGraph : graph.getNodes()) {
+        for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             setVoltageLevelCoord(vlGraph);
         }
 
