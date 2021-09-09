@@ -19,8 +19,6 @@ import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,7 +27,8 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class AbstractTestCase {
 
-    protected boolean writeFile = false;
+    protected boolean debugJsonFiles = false;
+    protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
@@ -76,25 +75,21 @@ public abstract class AbstractTestCase {
     }
 
     private void writeToFileInHomeDir(String filename, StringWriter content) {
-        if (writeFile) {
-            File homeFolder = new File(System.getProperty("user.home"));
-            File file = new File(homeFolder, filename);
-            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
-                fw.write(content.toString());
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+        File homeFolder = new File(System.getProperty("user.home"));
+        File file = new File(homeFolder, filename);
+        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+            fw.write(content.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 
-            if (overrideTestReferences) {
-                File testReference = new File("src/test/resources", filename);
-                if (testReference.exists()) {
-                    try {
-                        Files.copy(file.toPath(), testReference.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException e) {
-                        throw new UncheckedIOException(e);
-                    }
-                }
-            }
+    private void overrideTestReference(String filename, StringWriter content) {
+        File testReference = new File("src/test/resources", filename);
+        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
+            fw.write(content.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -116,7 +111,12 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             writer);
 
-            writeToFileInHomeDir(filename, writer);
+            if (debugSvgFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
@@ -135,7 +135,15 @@ public abstract class AbstractTestCase {
                     initValueProvider, styleProvider,
                     writer, metadataWriter);
 
-            writeToFileInHomeDir(refMetdataName, metadataWriter);
+            if (debugJsonFiles) {
+                writeToFileInHomeDir(refMetdataName, metadataWriter);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(refMetdataName, metadataWriter);
+            }
+            if (debugSvgFiles) {
+                writeToFileInHomeDir(refMetdataName.replace(".json", ".svg"), writer);
+            }
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
@@ -157,7 +165,12 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             writer);
 
-            writeToFileInHomeDir(filename, writer);
+            if (debugSvgFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
@@ -177,7 +190,15 @@ public abstract class AbstractTestCase {
                     styleProvider,
                     writer, metadataWriter);
 
-            writeToFileInHomeDir(refMetdataName, metadataWriter);
+            if (debugJsonFiles) {
+                writeToFileInHomeDir(refMetdataName, metadataWriter);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(refMetdataName, metadataWriter);
+            }
+            if (debugSvgFiles) {
+                writeToFileInHomeDir(refMetdataName.replace(".json", ".svg"), writer);
+            }
 
             String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
@@ -191,9 +212,13 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
 
-            writeToFileInHomeDir(filename, writer);
-
-            if (writeFile) {
+            if (debugJsonFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
+            if (debugSvgFiles) {
                 toSVG(graph, filename.replace(".json", ".svg"));
             }
 
@@ -207,9 +232,13 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
 
-            writeToFileInHomeDir(filename, writer);
-
-            if (writeFile) {
+            if (debugJsonFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
+            if (debugSvgFiles) {
                 toSVG(graph, filename.replace(".json", ".svg"));
             }
 
@@ -232,10 +261,17 @@ public abstract class AbstractTestCase {
     public String toJson(ZoneGraph graph, String filename) {
         try (StringWriter writer = new StringWriter()) {
             graph.writeJson(writer);
-            writeToFileInHomeDir(filename, writer);
-            if (writeFile) {
+
+            if (debugJsonFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
+            if (debugSvgFiles) {
                 toSVG(graph, filename.replace(".json", ".svg"));
             }
+
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -258,7 +294,12 @@ public abstract class AbstractTestCase {
                             styleProvider,
                             writer);
 
-            writeToFileInHomeDir(filename, writer);
+            if (debugSvgFiles) {
+                writeToFileInHomeDir(filename, writer);
+            }
+            if (overrideTestReferences) {
+                overrideTestReference(filename, writer);
+            }
 
             return normalizeLineSeparator(writer.toString());
         } catch (IOException e) {
