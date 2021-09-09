@@ -145,5 +145,14 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertTrue(node2WTStyle.contains("sld-constant-color"));
         assertTrue(node2WTStyle.contains("sld-two-wt"));
 
+        network.getSwitch("b3WT_3").setOpen(true);
+        styleProvider.reset();
+
+        nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, true);
+        assertEquals(3, nodeStyle3.size());
+        assertTrue(nodeStyle3.contains("sld-busbar-section"));
+        assertTrue(nodeStyle3.contains("sld-constant-color"));
+        assertTrue(nodeStyle3.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
+
     }
 }

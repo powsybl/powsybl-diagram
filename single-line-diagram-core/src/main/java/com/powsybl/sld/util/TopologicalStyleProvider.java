@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
  */
 public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStyleProvider {
 
-    private final Map<String, Map<String, String>> voltageLevelStyleMap = new HashMap<>();
+    private final Map<String, Map<String, String>> vlNodeIdStyleMap = new HashMap<>();
+    private final Map<String, Map<String, String>> vlEquipmentIdStyleMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
         this(BaseVoltageStyle.fromPlatformConfig(), network);
@@ -62,52 +63,44 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     public void reset() {
-        voltageLevelStyleMap.clear();
+        vlNodeIdStyleMap.clear();
+        vlEquipmentIdStyleMap.clear();
     }
 
-    private Map<String, String> createStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
+    private Map<String, String> createEquipmentIdStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos) {
         VoltageLevel vl = network.getVoltageLevel(voltageLevelInfos.getId());
         List<Bus> buses = vl.getBusView().getBusStream().collect(Collectors.toList());
 
-        Map<String, String> styleMap = new HashMap<>();
+        Map<String, String> equipmentIdStyleMap = new HashMap<>();
         AtomicInteger idxStyle = new AtomicInteger(0);
         buses.forEach(b -> {
             String style = baseVoltageLevelStyle + '-' + idxStyle.getAndIncrement();
-            b.visitConnectedEquipments(new TopologyVisitorId(equipmentId -> styleMap.put(equipmentId, style)));
+            b.visitConnectedEquipments(new TopologyVisitorId(equipmentId -> equipmentIdStyleMap.put(equipmentId, style)));
         });
 
-        return styleMap;
+        return equipmentIdStyleMap;
     }
 
     private Optional<String> getNodeTopologicalStyle(String baseVoltageLevelStyle, VoltageLevelInfos
             voltageLevelInfos, Node node) {
-        Map<String, String> styleMap = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
-        String nodeTopologicalStyle = styleMap.computeIfAbsent(
-                node.getEquipmentId(), id -> findConnectedStyle(baseVoltageLevelStyle, voltageLevelInfos, node));
+        Map<String, String> equipmentIdStyleMap = getEquipmentIdStyleMap(baseVoltageLevelStyle, voltageLevelInfos);
+        Map<String, String> nodeIdStyleMap = vlNodeIdStyleMap.computeIfAbsent(voltageLevelInfos.getId(), k -> new HashMap<>());
+        String nodeTopologicalStyle = nodeIdStyleMap.getOrDefault(node.getId(), findConnectedStyle(equipmentIdStyleMap, nodeIdStyleMap, node));
         return Optional.ofNullable(nodeTopologicalStyle);
     }
 
-    private String findConnectedStyle(String baseVoltageLevelStyle, VoltageLevelInfos voltageLevelInfos, Node node) {
-        Set<Node> connectedNodes = findConnectedNodes(node);
-        for (Node connectedNode : connectedNodes) {
-            String nodeTopologicalStyle = getVoltageLevelStyleMap(baseVoltageLevelStyle, voltageLevelInfos).get(connectedNode.getEquipmentId());
-            if (nodeTopologicalStyle != null) {
-                return nodeTopologicalStyle;
-            }
-        }
-        return null;
+    private String findConnectedStyle(Map<String, String> equipmentIdStyleMap, Map<String, String> nodeIdStyleMap, Node node) {
+        Set<Node> connectedNodes = new HashSet<>();
+        findConnectedNodes(node, connectedNodes);
+        String connectedStyle = connectedNodes.stream().map(c -> equipmentIdStyleMap.get(c.getEquipmentId())).filter(Objects::nonNull).findFirst().orElse(null);
+        connectedNodes.forEach(n -> nodeIdStyleMap.put(n.getId(), connectedStyle));
+        return connectedStyle;
     }
 
-    private Map<String, String> getVoltageLevelStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos
+    private Map<String, String> getEquipmentIdStyleMap(String baseVoltageLevelStyle, VoltageLevelInfos
             voltageLevelInfos) {
-        return voltageLevelStyleMap.computeIfAbsent(
-                voltageLevelInfos.getId(), k -> createStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
-    }
-
-    private Set<Node> findConnectedNodes(Node node) {
-        Set<Node> visitedNodes = new HashSet<>();
-        findConnectedNodes(node, visitedNodes);
-        return visitedNodes;
+        return vlEquipmentIdStyleMap.computeIfAbsent(
+                voltageLevelInfos.getId(), k -> createEquipmentIdStyleMap(baseVoltageLevelStyle, voltageLevelInfos));
     }
 
     private void findConnectedNodes(Node node, Set<Node> visitedNodes) {
