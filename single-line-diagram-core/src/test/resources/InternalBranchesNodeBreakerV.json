@@ -1871,9 +1871,9 @@
     } ],
     "multitermNodes" : [ {
       "type" : "FICTITIOUS",
-      "id" : "T11_ONE_T11_TWO",
-      "name" : "T11_ONE_T11_TWO",
-      "equipmentId" : "T11_ONE_T11_TWO",
+      "id" : "T11",
+      "name" : "T11",
+      "equipmentId" : "T11",
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
       "open" : false,
@@ -1892,13 +1892,13 @@
       "id" : "T11_ONE_edge",
       "nodes" : [ {
         "node1" : "T11_ONE",
-        "node2" : "T11_ONE_T11_TWO"
+        "node2" : "T11"
       } ],
       "snakeLine" : [ 325.0, 30.0, 325.0, 0.0, 425.0, 0.0 ]
     }, {
       "id" : "T11_TWO_edge",
       "nodes" : [ {
-        "node1" : "T11_ONE_T11_TWO",
+        "node1" : "T11",
         "node2" : "T11_TWO"
       } ],
       "snakeLine" : [ 425.0, 0.0, 525.0, 0.0, 525.0, 30.0 ]
@@ -2609,9 +2609,9 @@
   } ],
   "multitermNodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "T12_ONE_T12_TWO",
-    "name" : "T12_ONE_T12_TWO",
-    "equipmentId" : "T12_ONE_T12_TWO",
+    "id" : "T12",
+    "name" : "T12",
+    "equipmentId" : "T12",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -2627,9 +2627,9 @@
     }
   }, {
     "type" : "FICTITIOUS",
-    "id" : "T3_12_ONE_T3_12_TWO_T3_12_THREE",
-    "name" : "T3_12_ONE_T3_12_TWO_T3_12_THREE",
-    "equipmentId" : "T3_12_ONE_T3_12_TWO_T3_12_THREE",
+    "id" : "T3_12",
+    "name" : "T3_12",
+    "equipmentId" : "T3_12",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "open" : false,
@@ -2653,13 +2653,13 @@
     "id" : "T12_ONE_edge",
     "nodes" : [ {
       "node1" : "T12_ONE",
-      "node2" : "T12_ONE_T12_TWO"
+      "node2" : "T12"
     } ],
     "snakeLine" : [ 575.0, 30.0, 575.0, -60.0, 20.0, -60.0, 20.0, 292.5 ]
   }, {
     "id" : "T12_TWO_edge",
     "nodes" : [ {
-      "node1" : "T12_ONE_T12_TWO",
+      "node1" : "T12",
       "node2" : "T12_TWO"
     } ],
     "snakeLine" : [ 20.0, 292.5, 20.0, 645.0, 175.0, 645.0, 175.0, 720.0 ]
@@ -2667,20 +2667,20 @@
     "id" : "T3_12_ONE_EDGE",
     "nodes" : [ {
       "node1" : "T3_12_ONE",
-      "node2" : "T3_12_ONE_T3_12_TWO_T3_12_THREE"
+      "node2" : "T3_12"
     } ],
     "snakeLine" : [ 375.0, 30.0, 375.0, -90.0, 625.0, -90.0 ]
   }, {
     "id" : "T3_12_TWO_EDGE",
     "nodes" : [ {
-      "node1" : "T3_12_ONE_T3_12_TWO_T3_12_THREE",
+      "node1" : "T3_12",
       "node2" : "T3_12_TWO"
     } ],
     "snakeLine" : [ 625.0, -90.0, 625.0, 30.0 ]
   }, {
     "id" : "T3_12_THREE_EDGE",
     "nodes" : [ {
-      "node1" : "T3_12_ONE_T3_12_TWO_T3_12_THREE",
+      "node1" : "T3_12",
       "node2" : "T3_12_THREE"
     } ],
     "snakeLine" : [ 625.0, -90.0, 675.0, -90.0, 675.0, 675.0, 225.0, 675.0, 225.0, 720.0 ]

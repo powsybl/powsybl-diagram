@@ -333,31 +333,31 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR20_95_FICT_95_VL1_95_D19Fictif">
                 <polyline points="570.0,196.0,570.0,280.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR20_95_FICT_95_VL1_95_T3_95_12_95_fictif">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR20_95_T3_95_12">
                 <polyline points="570.0,176.0,570.0,104.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_TWO">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO">
                 <polyline points="563.0,92.0,545.0,92.0,545.0,30.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,45.0)">
+            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,540.0,45.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,65.0)">
+            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,540.0,65.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
                 <polyline points="577.0,92.0,595.0,92.0,595.0,30.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,45.0)">
+            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,590.0,45.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,65.0)">
+            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,590.0,65.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
@@ -376,7 +376,7 @@ polyline {fill: none}
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(21.0,0.0)"/>
                 </g>
             </g>
-            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(562.0,80.0)">
+            <g class="sld-three-wt sld-constant-color" id="idT3_95_12" transform="translate(562.0,80.0)">
                 <circle cx="5" cy="15" r="5"/>
                 <circle cx="11" cy="15" r="5"/>
                 <circle cx="8" cy="19" r="5"/>
@@ -606,31 +606,31 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR30_95_FICT_95_VL1_95_D29Fictif">
                 <polyline points="670.0,196.0,670.0,280.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR30_95_FICT_95_VL1_95_T3_95_12_95_fictif">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_BR30_95_T3_95_12">
                 <polyline points="670.0,176.0,670.0,104.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_ONE">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE">
                 <polyline points="663.0,92.0,645.0,92.0,645.0,30.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,640.0,45.0)">
+            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,640.0,45.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,640.0,65.0)">
+            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,640.0,65.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE">
+            <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
                 <polyline points="677.0,92.0,695.0,92.0,695.0,30.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,690.0,45.0)">
+            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW1" transform="matrix(1.0,0.0,-0.0,1.0,690.0,45.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_FICT_95_VL1_95_T3_95_12_95_fictif_95_T3_95_12_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,690.0,65.0)">
+            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW2" transform="matrix(1.0,0.0,-0.0,1.0,690.0,65.0)">
                 <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
                 <text class="sld-label" transform="rotate(0,0,0)" x="15.0" y="5.0">0</text>
@@ -649,7 +649,7 @@ polyline {fill: none}
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(21.0,0.0)"/>
                 </g>
             </g>
-            <g class="sld-three-wt sld-constant-color" id="idFICT_95_VL1_95_T3_95_12_95_fictif" transform="translate(662.0,80.0)">
+            <g class="sld-three-wt sld-constant-color" id="idT3_95_12" transform="translate(662.0,80.0)">
                 <circle cx="5" cy="15" r="5"/>
                 <circle cx="11" cy="15" r="5"/>
                 <circle cx="8" cy="19" r="5"/>
@@ -664,7 +664,7 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="idT11_95_TWO_95_edge">
             <polyline points="378.0,0.0,445.0,0.0,445.0,30.0"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idT11_95_ONE_95_T11_95_TWO" transform="translate(365.0,-7.5)">
+        <g class="sld-two-wt sld-constant-color" id="idT11" transform="translate(365.0,-7.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
             <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>

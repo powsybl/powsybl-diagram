@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.library.ComponentTypeName;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -75,6 +76,7 @@ public class Node implements BaseNode {
         String tmpId = Objects.requireNonNull(id);
         if (type == NodeType.FICTITIOUS &&
                 graph != null &&
+                !componentType.equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER) &&
                 !StringUtils.startsWith(tmpId, "FICT_" + this.graph.getVoltageLevelInfos().getId() + "_")) {
             this.id = "FICT_" + graph.getVoltageLevelInfos().getId() + "_" + tmpId;
         } else {

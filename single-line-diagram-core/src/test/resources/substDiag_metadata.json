@@ -281,16 +281,6 @@
     "vlabel" : false,
     "equipmentId" : "gen1Fictif"
   }, {
-    "id" : "idtrf6_95_ONE_95_trf6_95_TWO_95_trf6_95_THREE",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf6_ONE_trf6_TWO_trf6_THREE"
-  }, {
     "id" : "idFICT_95_vl1_95_trf8_95_ONEFictif",
     "vid" : "vl1",
     "nextVId" : null,
@@ -571,16 +561,6 @@
     "vlabel" : false,
     "equipmentId" : "trf8_THREEFictif"
   }, {
-    "id" : "idtrf8_95_ONE_95_trf8_95_TWO_95_trf8_95_THREE",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 180.0,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf8_ONE_trf8_TWO_trf8_THREE"
-  }, {
     "id" : "iddtrf18",
     "vid" : "vl1",
     "nextVId" : null,
@@ -801,16 +781,6 @@
     "vlabel" : false,
     "equipmentId" : "dsect22"
   }, {
-    "id" : "idtrf3_95_ONE_95_trf3_95_TWO",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 90.0,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf3_ONE_trf3_TWO"
-  }, {
     "id" : "idFICT_95_vl1_95_gen2Fictif",
     "vid" : "vl1",
     "nextVId" : null,
@@ -1021,16 +991,6 @@
     "vlabel" : false,
     "equipmentId" : "bload2"
   }, {
-    "id" : "idtrf4_95_ONE_95_trf4_95_TWO",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf4_ONE_trf4_TWO"
-  }, {
     "id" : "idbload1",
     "vid" : "vl1",
     "nextVId" : null,
@@ -1230,16 +1190,6 @@
     "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dgen1Fictif"
-  }, {
-    "id" : "idtrf7_95_ONE_95_trf7_95_TWO_95_trf7_95_THREE",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "rotationAngle" : null,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf7_ONE_trf7_TWO_trf7_THREE"
   }, {
     "id" : "idFICT_95_vl1_95_dtrf12Fictif",
     "vid" : "vl1",
@@ -1551,16 +1501,6 @@
     "vlabel" : false,
     "equipmentId" : "btrf27"
   }, {
-    "id" : "idtrf5_95_ONE_95_trf5_95_TWO",
-    "vid" : "",
-    "nextVId" : null,
-    "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 180.0,
-    "open" : false,
-    "direction" : "UNDEFINED",
-    "vlabel" : false,
-    "equipmentId" : "trf5_ONE_trf5_TWO"
-  }, {
     "id" : "idbtrf22",
     "vid" : "vl2",
     "nextVId" : null,
@@ -1651,6 +1591,26 @@
     "vlabel" : false,
     "equipmentId" : "btrf23"
   }, {
+    "id" : "idtrf1",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "rotationAngle" : 90.0,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf1"
+  }, {
+    "id" : "idtrf2",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "rotationAngle" : 180.0,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf2"
+  }, {
     "id" : "idFICT_95_vl2_95_trf8_95_TWOFictif",
     "vid" : "vl2",
     "nextVId" : null,
@@ -1661,7 +1621,7 @@
     "vlabel" : false,
     "equipmentId" : "trf8_TWOFictif"
   }, {
-    "id" : "idtrf1_95_ONE_95_trf1_95_TWO",
+    "id" : "idtrf3",
     "vid" : "",
     "nextVId" : null,
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
@@ -1669,7 +1629,17 @@
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false,
-    "equipmentId" : "trf1_ONE_trf1_TWO"
+    "equipmentId" : "trf3"
+  }, {
+    "id" : "idtrf4",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf4"
   }, {
     "id" : "idFICT_95_vl2_95_trf4_95_TWOFictif",
     "vid" : "vl2",
@@ -1701,6 +1671,26 @@
     "vlabel" : false,
     "equipmentId" : "trf2_TWOFictif"
   }, {
+    "id" : "idtrf5",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "rotationAngle" : 180.0,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf5"
+  }, {
+    "id" : "idtrf6",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf6"
+  }, {
     "id" : "iddgen1",
     "vid" : "vl1",
     "nextVId" : null,
@@ -1710,6 +1700,16 @@
     "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dgen1"
+  }, {
+    "id" : "idtrf7",
+    "vid" : "",
+    "nextVId" : null,
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "rotationAngle" : null,
+    "open" : false,
+    "direction" : "UNDEFINED",
+    "vlabel" : false,
+    "equipmentId" : "trf7"
   }, {
     "id" : "iddgen2",
     "vid" : "vl1",
@@ -1721,15 +1721,15 @@
     "vlabel" : false,
     "equipmentId" : "dgen2"
   }, {
-    "id" : "idtrf2_95_ONE_95_trf2_95_TWO",
+    "id" : "idtrf8",
     "vid" : "",
     "nextVId" : null,
-    "componentType" : "TWO_WINDINGS_TRANSFORMER",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "rotationAngle" : 180.0,
     "open" : false,
     "direction" : "UNDEFINED",
     "vlabel" : false,
-    "equipmentId" : "trf2_ONE_trf2_TWO"
+    "equipmentId" : "trf8"
   }, {
     "id" : "idtrf8_95_TWO",
     "vid" : "vl2",
@@ -1991,7 +1991,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf3_95_TWO_95_edge",
-    "nodeId1" : "idtrf3_95_ONE_95_trf3_95_TWO",
+    "nodeId1" : "idtrf3",
     "nodeId2" : "idtrf3_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2003,7 +2003,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf6_95_TWO_95_EDGE",
-    "nodeId1" : "idtrf6_95_ONE_95_trf6_95_TWO_95_trf6_95_THREE",
+    "nodeId1" : "idtrf6",
     "nodeId2" : "idtrf6_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2064,7 +2064,7 @@
   }, {
     "id" : "idtrf7_95_ONE_95_EDGE",
     "nodeId1" : "idtrf7_95_ONE",
-    "nodeId2" : "idtrf7_95_ONE_95_trf7_95_TWO_95_trf7_95_THREE",
+    "nodeId2" : "idtrf7",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2106,7 +2106,7 @@
   }, {
     "id" : "idtrf4_95_ONE_95_edge",
     "nodeId1" : "idtrf4_95_ONE",
-    "nodeId2" : "idtrf4_95_ONE_95_trf4_95_TWO",
+    "nodeId2" : "idtrf4",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2255,7 +2255,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf7_95_TWO_95_EDGE",
-    "nodeId1" : "idtrf7_95_ONE_95_trf7_95_TWO_95_trf7_95_THREE",
+    "nodeId1" : "idtrf7",
     "nodeId2" : "idtrf7_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2268,7 +2268,7 @@
   }, {
     "id" : "idtrf6_95_ONE_95_EDGE",
     "nodeId1" : "idtrf6_95_ONE",
-    "nodeId2" : "idtrf6_95_ONE_95_trf6_95_TWO_95_trf6_95_THREE",
+    "nodeId2" : "idtrf6",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2339,7 +2339,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf7_95_THREE_95_EDGE",
-    "nodeId1" : "idtrf7_95_ONE_95_trf7_95_TWO_95_trf7_95_THREE",
+    "nodeId1" : "idtrf7",
     "nodeId2" : "idtrf7_95_THREE",
     "straight" : false,
     "snakeLine" : true
@@ -2357,14 +2357,14 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf2_95_TWO_95_edge",
-    "nodeId1" : "idtrf2_95_ONE_95_trf2_95_TWO",
+    "nodeId1" : "idtrf2",
     "nodeId2" : "idtrf2_95_TWO",
     "straight" : false,
     "snakeLine" : true
   }, {
     "id" : "idtrf3_95_ONE_95_edge",
     "nodeId1" : "idtrf3_95_ONE",
-    "nodeId2" : "idtrf3_95_ONE_95_trf3_95_TWO",
+    "nodeId2" : "idtrf3",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2405,7 +2405,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf6_95_THREE_95_EDGE",
-    "nodeId1" : "idtrf6_95_ONE_95_trf6_95_TWO_95_trf6_95_THREE",
+    "nodeId1" : "idtrf6",
     "nodeId2" : "idtrf6_95_THREE",
     "straight" : false,
     "snakeLine" : true
@@ -2478,7 +2478,7 @@
   }, {
     "id" : "idtrf8_95_ONE_95_EDGE",
     "nodeId1" : "idtrf8_95_ONE",
-    "nodeId2" : "idtrf8_95_ONE_95_trf8_95_TWO_95_trf8_95_THREE",
+    "nodeId2" : "idtrf8",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2507,7 +2507,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf4_95_TWO_95_edge",
-    "nodeId1" : "idtrf4_95_ONE_95_trf4_95_TWO",
+    "nodeId1" : "idtrf4",
     "nodeId2" : "idtrf4_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2526,7 +2526,7 @@
   }, {
     "id" : "idtrf1_95_ONE_95_edge",
     "nodeId1" : "idtrf1_95_ONE",
-    "nodeId2" : "idtrf1_95_ONE_95_trf1_95_TWO",
+    "nodeId2" : "idtrf1",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2580,7 +2580,7 @@
   }, {
     "id" : "idtrf2_95_ONE_95_edge",
     "nodeId1" : "idtrf2_95_ONE",
-    "nodeId2" : "idtrf2_95_ONE_95_trf2_95_TWO",
+    "nodeId2" : "idtrf2",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2603,7 +2603,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf8_95_TWO_95_EDGE",
-    "nodeId1" : "idtrf8_95_ONE_95_trf8_95_TWO_95_trf8_95_THREE",
+    "nodeId1" : "idtrf8",
     "nodeId2" : "idtrf8_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2651,7 +2651,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf1_95_TWO_95_edge",
-    "nodeId1" : "idtrf1_95_ONE_95_trf1_95_TWO",
+    "nodeId1" : "idtrf1",
     "nodeId2" : "idtrf1_95_TWO",
     "straight" : false,
     "snakeLine" : true
@@ -2706,7 +2706,7 @@
   }, {
     "id" : "idtrf5_95_ONE_95_edge",
     "nodeId1" : "idtrf5_95_ONE",
-    "nodeId2" : "idtrf5_95_ONE_95_trf5_95_TWO",
+    "nodeId2" : "idtrf5",
     "straight" : false,
     "snakeLine" : true
   }, {
@@ -2873,7 +2873,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf8_95_THREE_95_EDGE",
-    "nodeId1" : "idtrf8_95_ONE_95_trf8_95_TWO_95_trf8_95_THREE",
+    "nodeId1" : "idtrf8",
     "nodeId2" : "idtrf8_95_THREE",
     "straight" : false,
     "snakeLine" : true
@@ -2897,7 +2897,7 @@
     "snakeLine" : false
   }, {
     "id" : "idtrf5_95_TWO_95_edge",
-    "nodeId1" : "idtrf5_95_ONE_95_trf5_95_TWO",
+    "nodeId1" : "idtrf5",
     "nodeId2" : "idtrf5_95_TWO",
     "straight" : false,
     "snakeLine" : true

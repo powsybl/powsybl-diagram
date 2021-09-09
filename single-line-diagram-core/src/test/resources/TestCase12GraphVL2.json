@@ -179,81 +179,6 @@
     "y" : 42.0,
     "open" : false
   }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl2_trf6_fictif",
-    "name" : "trf6_fictif",
-    "equipmentId" : "trf6_fictif",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 720.0,
-    "y" : 42.0,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    }
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl2_trf7_fictif",
-    "name" : "trf7_fictif",
-    "equipmentId" : "trf7_fictif",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 560.0,
-    "y" : 42.0,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    }
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl2_trf8_fictif",
-    "name" : "trf8_fictif",
-    "equipmentId" : "trf8_fictif",
-    "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "fictitious" : true,
-    "x" : 880.0,
-    "y" : 503.0,
-    "open" : false,
-    "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    }
-  }, {
     "type" : "BUS",
     "id" : "bbs5",
     "name" : "bbs5",
@@ -632,6 +557,31 @@
       "nominalVoltage" : 380.0
     }
   }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf6",
+    "name" : "trf6",
+    "equipmentId" : "trf6",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 720.0,
+    "y" : 42.0,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
     "type" : "FEEDER",
     "id" : "trf6_ONE",
     "name" : "trf6",
@@ -672,6 +622,31 @@
       "nominalVoltage" : 63.0
     }
   }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf7",
+    "name" : "trf7",
+    "equipmentId" : "trf7",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 560.0,
+    "y" : 42.0,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
     "type" : "FEEDER",
     "id" : "trf7_ONE",
     "name" : "trf7",
@@ -707,6 +682,31 @@
     "direction" : "TOP",
     "side" : "THREE",
     "otherSideVoltageLevelInfos" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
+    }
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "trf8",
+    "name" : "trf8",
+    "equipmentId" : "trf8",
+    "componentType" : "THREE_WINDINGS_TRANSFORMER",
+    "fictitious" : true,
+    "x" : 880.0,
+    "y" : 503.0,
+    "open" : false,
+    "voltageLevelInfosLeg1" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
@@ -1176,7 +1176,7 @@
           "xSpan" : 160.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "FICT_vl2_trf7_fictif" ]
+        "nodes" : [ "FICT_vl2_dtrf27Fictif", "btrf27", "trf7" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1217,7 +1217,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf7_fictif", "trf7_ONE" ]
+          "nodes" : [ "trf7", "trf7_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1238,7 +1238,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf7_fictif", "trf7_THREE" ]
+          "nodes" : [ "trf7", "trf7_THREE" ]
         } ]
       } ]
     }
@@ -1578,7 +1578,7 @@
           "xSpan" : 160.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "FICT_vl2_trf6_fictif" ]
+        "nodes" : [ "FICT_vl2_dtrf26Fictif", "btrf26", "trf6" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1619,7 +1619,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf6_fictif", "trf6_ONE" ]
+          "nodes" : [ "trf6", "trf6_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1640,7 +1640,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf6_fictif", "trf6_THREE" ]
+          "nodes" : [ "trf6", "trf6_THREE" ]
         } ]
       } ]
     }
@@ -1710,7 +1710,7 @@
           "xSpan" : 160.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "FICT_vl2_trf8_fictif" ]
+        "nodes" : [ "FICT_vl2_dtrf28Fictif", "btrf28", "trf8" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -1751,7 +1751,7 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf8_fictif", "trf8_ONE" ]
+          "nodes" : [ "trf8", "trf8_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1772,28 +1772,28 @@
             "xSpan" : 80.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "FICT_vl2_trf8_fictif", "trf8_THREE" ]
+          "nodes" : [ "trf8", "trf8_THREE" ]
         } ]
       } ]
     }
   } ],
   "edges" : [ {
-    "node1" : "FICT_vl2_trf6_fictif",
+    "node1" : "trf6",
     "node2" : "trf6_ONE"
   }, {
-    "node1" : "FICT_vl2_trf6_fictif",
+    "node1" : "trf6",
     "node2" : "trf6_THREE"
   }, {
-    "node1" : "FICT_vl2_trf7_fictif",
+    "node1" : "trf7",
     "node2" : "trf7_ONE"
   }, {
-    "node1" : "FICT_vl2_trf7_fictif",
+    "node1" : "trf7",
     "node2" : "trf7_THREE"
   }, {
-    "node1" : "FICT_vl2_trf8_fictif",
+    "node1" : "trf8",
     "node2" : "trf8_ONE"
   }, {
-    "node1" : "FICT_vl2_trf8_fictif",
+    "node1" : "trf8",
     "node2" : "trf8_THREE"
   }, {
     "node1" : "bbs5",
@@ -1824,19 +1824,19 @@
     "node2" : "dtrf26"
   }, {
     "node1" : "btrf26",
-    "node2" : "FICT_vl2_trf6_fictif"
+    "node2" : "trf6"
   }, {
     "node1" : "bbs5",
     "node2" : "dtrf27"
   }, {
     "node1" : "btrf27",
-    "node2" : "FICT_vl2_trf7_fictif"
+    "node2" : "trf7"
   }, {
     "node1" : "bbs6",
     "node2" : "dtrf28"
   }, {
     "node1" : "btrf28",
-    "node2" : "FICT_vl2_trf8_fictif"
+    "node2" : "trf8"
   }, {
     "node1" : "bload3",
     "node2" : "FICT_vl2_load3Fictif"

@@ -23,14 +23,14 @@ public class Middle2WTNode extends FictitiousNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg2;
 
-    public Middle2WTNode(VoltageLevelGraph graph, String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2) {
-        super(graph, id, TWO_WINDINGS_TRANSFORMER);
+    public Middle2WTNode(String id, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelGraph graph) {
+        super(id, TWO_WINDINGS_TRANSFORMER, graph);
         this.voltageLevelInfosLeg1 = Objects.requireNonNull(voltageLevelInfosLeg1);
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
     }
 
-    public static Middle2WTNode create(BaseGraph graph, Node node1, Node node2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
-        Middle2WTNode middleNode = new Middle2WTNode(null, node1.getId() + "_" + node2.getId(), vlInfos1, vlInfos2);
+    public static Middle2WTNode create(String id, BaseGraph graph, Node node1, Node node2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
+        Middle2WTNode middleNode = new Middle2WTNode(id, vlInfos1, vlInfos2, null);
 
         BranchEdge edge1 = graph.addTwtEdge(node1.getId() + EDGE_SUFFIX, node1, middleNode);
         BranchEdge edge2 = graph.addTwtEdge(node2.getId() + EDGE_SUFFIX, middleNode, node2);

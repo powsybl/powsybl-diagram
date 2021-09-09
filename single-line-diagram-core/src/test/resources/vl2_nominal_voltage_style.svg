@@ -52,7 +52,7 @@ polyline {fill: none}
             <circle class="sld-vl300to500" cx="5" cy="5" r="5"/>
             <text class="sld-label" id="2WT_TWO__LABEL" transform="rotate(0,0,0)" x="-5.0" y="-5.0">2WT_2</text>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="idFICT_95_vl2_95_3WT_95_fictif" transform="translate(11.0,37.0)">
+        <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(11.0,37.0)">
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
             <circle class="sld-vl50to70" cx="11" cy="15" r="5"/>
             <circle class="sld-vl180to300" cx="8" cy="19" r="5"/>
