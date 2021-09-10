@@ -468,8 +468,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
         return drawGridLine(document,
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight() - layoutParameters.getExternCellHeight(),
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getExternCellHeight()
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight() - graph.getExternCellHeight(BusCell.Direction.TOP),
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
                         + layoutParameters.getVerticalSpaceBus() * maxV);
     }
 
