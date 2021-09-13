@@ -335,8 +335,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void setDocumentSize(Graph graph, Document document) {
-        document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
-        document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
+        document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
     }
 
     private double getDiagramWidth(Graph graph, LayoutParameters layoutParameters) {
