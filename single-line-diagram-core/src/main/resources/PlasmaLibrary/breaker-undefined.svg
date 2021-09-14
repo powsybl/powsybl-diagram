@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.99 18.99">
+    <defs>
+        <style>
+            .cls-1-breaker-und{fill:#fff;stroke-linecap:round;stroke-linejoin:round;}.cls-1-breaker-und,.cls-2-breaker-und{}.cls-2-breaker-und{fill:none;stroke-miterlimit:10;}
+        </style>
+    </defs>
+    <rect y="0" width="100" height="50" class="tooltip-panel" style="opacity: 0;" x="-40"></rect>
+    <g id="BREAKER-undefined" class="undefined">
+        <line class="cls-1-breaker-und" x1="15.5" y1="3.53" x2="3.5" y2="15.53"/>
+        <line class="cls-1-breaker-und" x1="3.5" y1="3.53" x2="15.1" y2="15.13"/>
+        <rect class="cls-2-breaker-und" x="0.5" y="0.5" width="17.99" height="17.99"
+              transform="translate(18.99) rotate(90)"/>
+    </g>
+</svg>

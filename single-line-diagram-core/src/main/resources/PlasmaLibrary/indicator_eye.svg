@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>D7012428-E1FF-4B89-9A89-D7D354C52FE5</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix"
+                           values="0 0 0 0 0.000000 0 0 0 0 0.611765 0 0 0 0 0.874510 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="indicator" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+       stroke-linejoin="round" visibility="hidden">
+        <g id="Guidelines-SEER-/-Iconographie" transform="translate(-29.000000, -164.000000)">
+            <g class="indicator_eye" transform="translate(29.000000, 165.000000)"
+               filter="url(#filter-1)">
+                <g>
+                    <line x1="5.24" y1="6.1" x2="9.64" y2="6.1" id="Path" stroke="#000000" stroke-width="1.47"></line>
+                    <line x1="5.24" y1="9.77" x2="7.44" y2="9.77" id="Path" stroke="#000000" stroke-width="1.47"></line>
+                    <line x1="5.24" y1="13.44" x2="7.44" y2="13.44" id="Path" stroke="#000000"
+                          stroke-width="1.47"></line>
+                    <path d="M13.31,0.23 L17,0.23 C17.8040374,0.240940293 18.4500744,0.8958882 18.45,1.7 L18.45,5.7"
+                          id="Path" stroke="#000000" stroke-width="1.47"></path>
+                    <path d="M12.31,18.58 L2.3,18.58 C1.48814142,18.58 0.83,17.9218586 0.83,17.11 L0.83,1.7 C0.83,0.888141418 1.48814142,0.23 2.3,0.23 L13.17,0.23"
+                          id="Path" stroke="#000000" stroke-width="1.47"></path>
+                    <path d="M16.64,8.15 C14.3,8.15 11.88,9.74 10.36,11.42 C10.0455768,11.7925221 10.0455768,12.3374779 10.36,12.71 C11.85,14.35 14.26,16.02 16.64,15.98 C19.02,15.94 21.43,14.35 22.92,12.71 C23.2344232,12.3374779 23.2344232,11.7925221 22.92,11.42 C21.4,9.74 19,8.11 16.64,8.15 Z"
+                          id="Path" stroke="#000000" stroke-width="1.33"></path>
+                    <path d="M18.810023,12.06 C18.8140437,12.9435346 18.2843916,13.7421355 17.4688794,14.0821202 C16.6533671,14.4221049 15.7132899,14.2362298 15.08853,13.61147 C14.4637702,12.9867101 14.2778951,12.0466329 14.6178798,11.2311206 C14.9578645,10.4156084 15.7564654,9.8859563 16.64,9.88997701 C17.8361829,9.89547461 18.8045254,10.8638171 18.810023,12.06 L18.810023,12.06 Z"
+                          id="Path" stroke="#000000" stroke-width="1.33"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

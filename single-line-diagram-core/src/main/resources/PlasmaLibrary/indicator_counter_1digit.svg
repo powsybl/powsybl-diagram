@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="24px" viewBox="0 0 16 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>87CF2091-8814-4E63-BC6F-5265685BFB84</title>
+    <g id="indicator_counter_1digit" visibility="hidden" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Guidelines-SEER-V2.0---Zoom---Géolocalisation-et-niveaux-de-tensions" transform="translate(-29.000000, -2276.000000)">
+            <g id="Plasma/Notification/Dott" transform="translate(29.000000, 2276.000000)">
+                <circle id="Oval-Copy-3" fill="#D97A73" cx="17" cy="0" r="8"></circle>
+                <text id="2" class="indicator_text_counter" font-family="OpenSans, Open Sans" y="5" font-size="13" x="13.5" font-weight="normal" letter-spacing="0.09" fill="#EEEEEE">1</text>
+            </g>
+        </g>
+    </g>
+</svg>

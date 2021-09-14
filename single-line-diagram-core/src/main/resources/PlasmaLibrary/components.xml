@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<components>
+    <component>
+        <metadata type="BREAKER">
+            <size width="19" height="19"/>
+            <subComponent name="OPEN">
+                <fileName>breaker-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>breaker-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>breaker-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-9" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="9" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="LOAD_BREAK_SWITCH">
+            <size width="10" height="10"/>
+            <subComponent name="LOAD_BREAK_SWITCH">
+                <fileName>load-break-switch.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-5" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="5" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="LOAD">
+            <size width="16" height="9"/>
+            <subComponent name="LOAD">
+                <fileName>load.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="DISCONNECTOR">
+            <size height="13" width="13"/>
+            <subComponent name="OPEN">
+                <fileName>disconnector-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnector-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>disconnector-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>false</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="DISCONNECTORSMALT">
+            <size width="40" height="48"/>
+            <subComponent name="OPEN">
+                <fileName>disconnectorsmalt-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnectorsmalt-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>disconnectorsmalt-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>teg
+        <metadata type="DISCONNECTORSRB">
+            <size width="27" height="27"/>
+            <subComponent name="OPEN">
+                <fileName>disconnectorsrb-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnectorsrb-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>disconnectorsrb-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-15" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="15" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+
+    <component>
+        <metadata type="DISCONNECTORSTL">
+            <size width="38" height="48"/>
+            <subComponent name="OPEN">
+                <fileName>disconnectorstl-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnectorstl-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>disconnectorstl-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-19" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="19" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="DISCONNECTORSL">
+            <size width="13" height="48"/>
+            <subComponent name="OPEN">
+                <fileName>disconnectorsl-open.svg</fileName>
+            </subComponent>
+            <subComponent name="CLOSED">
+                <fileName>disconnectorsl-closed.svg</fileName>
+            </subComponent>
+            <subComponent name="UNDEFINED">
+                <fileName>disconnectorsl-undefined.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-20" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="20" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="GENERATOR">
+            <size width="12" height="12"/>
+            <subComponent name="GENERATOR">
+                <fileName>generator.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <anchorPoint x="-6" y="0" orientation="HORIZONTtegAL"/>
+            <anchorPoint x="6" y="0" orientation="HORIZONTAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="TWO_WINDINGS_TRANSFORMER">
+            <size width="19" height="32"/>
+            <subComponent name="TWO_WINDINGS_TRANSFORMER">
+                <fileName>2-windings-transformer.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-17" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="16" orientation="VERTICAL"/>
+            <anchorPoint x="-6.5" y="0" orientation="HORIZONTAL"/>
+            <anchorPoint x="6.5" y="0" orientation="HORIZONTAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="THREE_WINDINGS_TRANSFORMER">
+            <size width="14" height="12"/>
+            <subComponent name="WINDING1">
+                <fileName>3-windings-transformer-winding1.svg</fileName>
+            </subComponent>
+            <subComponent name="WINDING2">
+                <fileName>3-windings-transformer-winding2.svg</fileName>
+            </subComponent>
+            <subComponent name="WINDING3">
+                <fileName>3-windings-transformer-winding3.svg</fileName>
+            </subComponent>
+            <anchorPoint x="-7" y="-4" orientation="HORIZONTAL"/>
+            <anchorPoint x="7" y="-4" orientation="HORIZONTAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="CAPACITOR">
+            <size width="12" height="12"/>
+            <subComponent name="CAPACITOR">
+                <fileName>capacitor.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>trans
+        <metadata type="INDUCTOR">
+            <size width="15" height="9"/>
+            <subComponent name="INDUCTOR">
+                <fileName>inductor.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-4" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="4" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="NODE">
+            <size height="8" width="8"/>
+            <styleClass>sld-node</styleClass>
+            <subComponent name="NODE">
+                <fileName>node.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="PHASE_SHIFT_TRANSFORMER">
+            <size width="15" height="15"/>
+            <subComponent name="PHASE_SHIFT_TRANSFORMER">
+                <fileName>phaseShift.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="NONE"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="STATIC_VAR_COMPENSATOR">
+            <size width="12" height="12"/>
+            <subComponent name="STATIC_VAR_COMPENSATOR">
+                <fileName>svc.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="VSC_CONVERTER_STATION">
+            <size width="16" height="8"/>
+            <subComponent name="VSC_CONVERTER_STATION">
+                <fileName>vsc.svg</fileName>
+            </subComponent>
+            trans
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="INDICATOR">
+            <size width="16" height="8"/>
+            <subComponent name="INDICATOR">
+                <fileName>indicator_eye.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="INDICATOR_COUNTER_1DIGIT">
+            <size width="16" height="8"/>
+            <subComponent name="INDICATOR_COUNTER_1DIGIT">
+                <fileName>indicator_counter_1digit.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-2" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="8" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="INDICATOR_COUNTER_2DIGIT">
+            <size width="16" height="8"/>
+            <subComponent name="INDICATOR_COUNTER_2DIGIT">
+                <fileName>indicator_counter_2digit.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="-6" orientation="VERTICAL"/>
+            <anchorPoint x="0" y="6" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="ARROW">
+            <size height="10" width="10"/>
+            <subComponent name="ARROW">
+                <fileName>arrow.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+    <component>
+        <metadata type="LINE">
+            <size height="11" width="11"/>
+            <subComponent name="LINE">
+                <fileName>line.svg</fileName>
+            </subComponent>
+            <anchorPoint x="0" y="0" orientation="VERTICAL"/>
+            <allowRotation>true</allowRotation>
+        </metadata>
+    </component>
+</components>
