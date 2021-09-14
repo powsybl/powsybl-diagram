@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 48">
+    <defs>
+        <style>
+            .cls-1-smalt-open,.cls-4-smalt-open,.cls-5-smalt-open{fill:none;}.cls-1-smalt-open,.cls-2-smalt-open,.cls-3-smalt-open,.cls-4-smalt-open{}.cls-1-smalt-open,.cls-2-smalt-open{stroke-linecap:round;stroke-linejoin:round;}.cls-2-smalt-open,.cls-3-smalt-open{fill:#fff;}.cls-3-smalt-open,.cls-4-smalt-open{stroke-miterlimit:10;}
+        </style>
+    </defs>
+    <rect y="0" width="100" height="50" class="tooltip-panel" style="opacity: 0;" x="-40"></rect>
+    <g id="DISCONNECTORSMALT-open" class="open">
+        <path class="cls-1-smalt-open" d="M50.73,24.07H41.92l-11.22,7"/>
+        <line class="cls-2-smalt-open" x1="29.67" y1="20.44" x2="29.67"
+              y2="27.62"/>
+        <line class="cls-3-smalt-open" x1="62.87" y1="30.03" x2="62.87" y2="18.03"/>
+        <line class="cls-3-smalt-open" x1="65.18" y1="19.97" x2="65.18" y2="28.08"/>
+        <line class="cls-3-smalt-open" x1="67.49" y1="25.38" x2="67.49" y2="22.58"/>
+        <line class="cls-4-smalt-open" x1="62.56" y1="24.07" x2="48.97"
+              y2="24.07"/>
+        <line class="cls-4-smalt-open" x1="29.67" y1="24.01" x2="20" y2="24.01"/>
+    </g>
+</svg>

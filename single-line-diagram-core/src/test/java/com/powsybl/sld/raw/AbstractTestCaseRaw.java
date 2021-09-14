@@ -82,4 +82,9 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             return new ArrayList<>();
         }
     }
+
+    public String toPlasmaSVG(VoltageLevelGraph graph, String filename) {
+        Stream<Node> nodeStream = graph.getNodes().stream();
+        return toPlasmaSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+    }
 }

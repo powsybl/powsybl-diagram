@@ -1,0 +1,48 @@
+baseVoltages:
+  - name: "0"
+    minValue: 0.0
+    maxValue: 0.1
+    color: "rgb(135,206,235)"
+    profile: "Default"
+  - name: "20"
+    minValue: 1.0
+    maxValue: 1.1
+    color: "#4AB6E4"
+    profile: "Default"
+  - name: "45"
+    minValue: 2.0
+    maxValue: 2.1
+    color: "#A4036F"
+    profile: "Default"
+  - name: "63"
+    minValue: 3.0
+    maxValue: 3.1
+    color: "#F2BB05"
+    profile: "Default"
+  - name: "90"
+    minValue: 4.0
+    maxValue: 4.1
+    color: "#32965D"
+    profile: "Default"
+  - name: "150"
+    minValue: 5.0
+    maxValue: 5.1
+    color: "#003F91"
+    profile: "Default"
+  - name: "225"
+    minValue: 6.0
+    maxValue: 6.1
+    color: "#E3170A"
+    profile: "Default"
+  - name: "400"
+    minValue: 7.0
+    maxValue: 7.1
+    color: "#6E2594"
+    profile: "Default"
+  - name: "AC"
+    minValue: 8.0
+    maxValue: 8.1
+    color: "#DC602E"
+    profile: "Default"
+
+defaultProfile: "Default"

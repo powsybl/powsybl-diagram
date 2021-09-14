@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.86 26.86">
+    <defs>
+        <style>
+            .cls-1-srb-und{fill:#fff;stroke-linecap:round;stroke-linejoin:round;}.cls-1-srb-und,.cls-2-srb-und{}.cls-2-srb-und{fill:#eee;stroke-miterlimit:10;}
+        </style>
+    </defs>
+    <rect y="0" width="100" height="50" class="tooltip-panel" style="opacity: 0;" x="-40"></rect>
+    <g id="DISCONNECTORSRB-undefined" class="undefined">
+        <rect class="cls-2-srb-und" x="4.43" y="4.43" width="17.99" height="17.99"
+              transform="translate(32.43 13.43) rotate(135)"/>
+        <line class="cls-1-srb-und" x1="17.7" y1="9.22" x2="9.22" y2="17.7"/>
+        <line class="cls-1-srb-und" x1="9.22" y1="9.22" x2="17.7" y2="17.7"/>
+    </g>
+</svg>
