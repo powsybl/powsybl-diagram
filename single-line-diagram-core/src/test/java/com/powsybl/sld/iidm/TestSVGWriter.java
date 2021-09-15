@@ -545,9 +545,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addNode(g3Graph);
         Node nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null);
         nMulti1.setCoordinates(405., 590.);
-        BranchEdge edge1 = substG.addEdge("edge_" + vl1Trf1.getId(), vl1Trf1, nMulti1);
+        BranchEdge edge1 = substG.addTwtEdge("edge_" + vl1Trf1.getId(), vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
-        BranchEdge edge2 = substG.addEdge("edge_" + vl2Trf1.getId(), nMulti1, vl2Trf1);
+        BranchEdge edge2 = substG.addTwtEdge("edge_" + vl2Trf1.getId(), nMulti1, vl2Trf1);
         edge2.setSnakeLine(Point.createPointsList(405., 590., 690., 590., 690., 540.));
         nMulti1.addAdjacentEdge(edge1);
         nMulti1.addAdjacentEdge(edge2);
@@ -555,11 +555,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Node nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, null);
         nMulti3.setCoordinates(750., 90.);
-        BranchEdge edge21 = substG.addEdge("edge_" + vl1Trf2.getId(), vl1Trf2, nMulti3);
+        BranchEdge edge21 = substG.addTwtEdge("edge_" + vl1Trf2.getId(), vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
-        BranchEdge edge22 = substG.addEdge("edge_" + vl2Trf2.getId(), nMulti3, vl2Trf2);
+        BranchEdge edge22 = substG.addTwtEdge("edge_" + vl2Trf2.getId(), nMulti3, vl2Trf2);
         edge22.setSnakeLine(Point.createPointsList(750., 90., 750., 120.));
-        BranchEdge edge23 = substG.addEdge("edge_" + vl3Trf2.getId(), nMulti3, vl3Trf2);
+        BranchEdge edge23 = substG.addTwtEdge("edge_" + vl3Trf2.getId(), nMulti3, vl3Trf2);
         edge23.setSnakeLine(Point.createPointsList(750., 90., 1040., 90., 1040., 120.));
 
         nMulti3.addAdjacentEdge(edge21);
@@ -631,9 +631,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         twtSide2Node.setLabel(TRANSFORMER_ID);
         Node nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null);
         nMulti1.setCoordinates(90, 350);
-        BranchEdge edge1 = s1Graph.addEdge("edge_" + twtSide1Node.getId(), twtSide1Node, nMulti1);
+        BranchEdge edge1 = s1Graph.addTwtEdge("edge_" + twtSide1Node.getId(), twtSide1Node, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(90., 300., 90., 320., 90., 350.));
-        BranchEdge edge2 = s1Graph.addEdge("edge_" + twtSide2Node.getId(), nMulti1, twtSide2Node);
+        BranchEdge edge2 = s1Graph.addTwtEdge("edge_" + twtSide2Node.getId(), nMulti1, twtSide2Node);
         edge2.setSnakeLine(Point.createPointsList(90., 350., 90., 380., 90., 400.));
         nMulti1.addAdjacentEdge(edge1);
         nMulti1.addAdjacentEdge(edge2);
