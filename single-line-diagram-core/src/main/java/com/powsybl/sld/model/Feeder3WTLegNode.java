@@ -11,21 +11,11 @@ import com.powsybl.sld.library.ComponentTypeName;
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Feeder3WTLegNode extends FeederWithSideNode {
+public class Feeder3WTLegNode extends FeederTwtLegNode {
 
     protected Feeder3WTLegNode(String id, String name, String equipmentId, VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
         super(id, name, equipmentId, ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG, graph, side, otherSideVoltageLevelInfos,
                 FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
-    }
-
-    @Override
-    public VoltageLevelInfos getVoltageLevelInfos() {
-        // we consider this node represent the other side of the transformer so voltage level infos is the other
-        // side one
-        if (otherSideVoltageLevelInfos != null) {
-            return otherSideVoltageLevelInfos;
-        }
-        return super.getVoltageLevelInfos();
     }
 
     public static Feeder3WTLegNode createForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side,

@@ -644,7 +644,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
-            graph.addMultiTermNode(Middle2WTNode.create(transfo.getId(), transfo.getNameOrId(), graph, n1, n2, voltageLevelInfos1, voltageLevelInfos2));
+            graph.addMultiTermNode(Middle2WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
+                (Feeder2WTLegNode) n1, (Feeder2WTLegNode) n2, voltageLevelInfos1, voltageLevelInfos2));
         });
     }
 
@@ -675,7 +676,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
             VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
 
-            graph.addMultiTermNode(Middle3WTNode.create(transfo.getId(), transfo.getNameOrId(), graph, n1, n2, n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3));
+            graph.addMultiTermNode(Middle3WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
+                (Feeder3WTLegNode) n1, (Feeder3WTLegNode) n2, (Feeder3WTLegNode) n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3));
         });
     }
 

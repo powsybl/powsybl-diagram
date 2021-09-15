@@ -16,9 +16,8 @@ import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Middle2WTNode extends FictitiousNode {
+public class Middle2WTNode extends MiddleTwtNode {
 
-    private static final String EDGE_SUFFIX = "_edge";
     private final VoltageLevelInfos voltageLevelInfosLeg1;
 
     private final VoltageLevelInfos voltageLevelInfosLeg2;
@@ -29,14 +28,10 @@ public class Middle2WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg2 = Objects.requireNonNull(voltageLevelInfosLeg2);
     }
 
-    public static Middle2WTNode create(String id, String name, BaseGraph graph, Node node1, Node node2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
+    public static Middle2WTNode create(String id, String name, BaseGraph graph, Feeder2WTLegNode legNode1, Feeder2WTLegNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
         Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, null);
-
-        BranchEdge edge1 = graph.addTwtEdge(node1.getId() + EDGE_SUFFIX, node1, middleNode);
-        BranchEdge edge2 = graph.addTwtEdge(node2.getId() + EDGE_SUFFIX, middleNode, node2);
-
-        middleNode.addAdjacentEdge(edge1);
-        middleNode.addAdjacentEdge(edge2);
+        graph.addTwtEdge(legNode1, middleNode);
+        graph.addTwtEdge(legNode2, middleNode);
         return middleNode;
     }
 

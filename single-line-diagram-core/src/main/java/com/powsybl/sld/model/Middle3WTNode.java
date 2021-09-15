@@ -16,9 +16,7 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Middle3WTNode extends FictitiousNode {
-
-    private static final String EDGE_SUFFIX = "_EDGE";
+public class Middle3WTNode extends MiddleTwtNode {
 
     private final VoltageLevelInfos voltageLevelInfosLeg1;
 
@@ -33,17 +31,13 @@ public class Middle3WTNode extends FictitiousNode {
         this.voltageLevelInfosLeg3 = Objects.requireNonNull(voltageLevelInfosLeg3);
     }
 
-    public static Middle3WTNode create(String id, String name, BaseGraph ssGraph, Node node1, Node node2, Node node3,
+    public static Middle3WTNode create(String id, String name, BaseGraph ssGraph,
+                                       Feeder3WTLegNode legNode1, Feeder3WTLegNode legNode2, Feeder3WTLegNode legNode3,
                                        VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3) {
         Middle3WTNode middleNode = new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3, null);
-
-        BranchEdge edge1 = ssGraph.addTwtEdge(node1.getId() + EDGE_SUFFIX, node1, middleNode);
-        BranchEdge edge2 = ssGraph.addTwtEdge(node2.getId() + EDGE_SUFFIX, middleNode, node2);
-        BranchEdge edge3 = ssGraph.addTwtEdge(node3.getId() + EDGE_SUFFIX, middleNode, node3);
-
-        middleNode.addAdjacentEdge(edge1);
-        middleNode.addAdjacentEdge(edge2);
-        middleNode.addAdjacentEdge(edge3);
+        ssGraph.addTwtEdge(legNode1, middleNode);
+        ssGraph.addTwtEdge(legNode2, middleNode);
+        ssGraph.addTwtEdge(legNode3, middleNode);
         return middleNode;
     }
 

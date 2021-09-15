@@ -543,28 +543,23 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addNode(g1Graph);
         substG.addNode(g2);
         substG.addNode(g3Graph);
-        Node nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null);
         nMulti1.setCoordinates(405., 590.);
-        BranchEdge edge1 = substG.addTwtEdge("edge_" + vl1Trf1.getId(), vl1Trf1, nMulti1);
+        BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
-        BranchEdge edge2 = substG.addTwtEdge("edge_" + vl2Trf1.getId(), nMulti1, vl2Trf1);
-        edge2.setSnakeLine(Point.createPointsList(405., 590., 690., 590., 690., 540.));
-        nMulti1.addAdjacentEdge(edge1);
-        nMulti1.addAdjacentEdge(edge2);
+        BranchEdge edge2 = substG.addTwtEdge(vl2Trf1, nMulti1);
+        edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Node nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, null);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, null);
         nMulti3.setCoordinates(750., 90.);
-        BranchEdge edge21 = substG.addTwtEdge("edge_" + vl1Trf2.getId(), vl1Trf2, nMulti3);
+        BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
-        BranchEdge edge22 = substG.addTwtEdge("edge_" + vl2Trf2.getId(), nMulti3, vl2Trf2);
-        edge22.setSnakeLine(Point.createPointsList(750., 90., 750., 120.));
-        BranchEdge edge23 = substG.addTwtEdge("edge_" + vl3Trf2.getId(), nMulti3, vl3Trf2);
-        edge23.setSnakeLine(Point.createPointsList(750., 90., 1040., 90., 1040., 120.));
+        BranchEdge edge22 = substG.addTwtEdge(vl2Trf2, nMulti3);
+        edge22.setSnakeLine(Point.createPointsList(750., 120., 750., 90.));
+        BranchEdge edge23 = substG.addTwtEdge(vl3Trf2, nMulti3);
+        edge23.setSnakeLine(Point.createPointsList(1040., 120., 1040., 90., 750., 90.));
 
-        nMulti3.addAdjacentEdge(edge21);
-        nMulti3.addAdjacentEdge(edge22);
-        nMulti3.addAdjacentEdge(edge23);
         substG.addMultiTermNode(nMulti3);
 
         substG.setSize(1090, 580);
@@ -629,14 +624,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         s1Graph.addNode(vl12Graph);
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
-        Node nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null);
         nMulti1.setCoordinates(90, 350);
-        BranchEdge edge1 = s1Graph.addTwtEdge("edge_" + twtSide1Node.getId(), twtSide1Node, nMulti1);
+        BranchEdge edge1 = s1Graph.addTwtEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(90., 300., 90., 320., 90., 350.));
-        BranchEdge edge2 = s1Graph.addTwtEdge("edge_" + twtSide2Node.getId(), nMulti1, twtSide2Node);
-        edge2.setSnakeLine(Point.createPointsList(90., 350., 90., 380., 90., 400.));
-        nMulti1.addAdjacentEdge(edge1);
-        nMulti1.addAdjacentEdge(edge2);
+        BranchEdge edge2 = s1Graph.addTwtEdge(twtSide2Node, nMulti1);
+        edge2.setSnakeLine(Point.createPointsList(90., 400., 90., 380., 90., 350.));
         s1Graph.addMultiTermNode(nMulti1);
 
         // create second substation graph
