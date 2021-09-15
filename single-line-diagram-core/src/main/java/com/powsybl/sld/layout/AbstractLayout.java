@@ -70,9 +70,9 @@ public abstract class AbstractLayout {
     protected static List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
                                                                                boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
         List<Point> pol = new ArrayList<>();
-        pol.add(node1.getCoordinates());
+        pol.add(node1.getDiagramCoordinates());
         addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol);
-        pol.add(node2.getCoordinates());
+        pol.add(node2.getDiagramCoordinates());
         return pol;
     }
 
@@ -84,16 +84,16 @@ public abstract class AbstractLayout {
 
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
 
-        double x1 = node1.getCoordinates().getX();
-        double x2 = node2.getCoordinates().getX();
-        double y1 = node1.getCoordinates().getY();
-        double y2 = node2.getCoordinates().getY();
+        double x1 = node1.getDiagramX();
+        double x2 = node2.getDiagramX();
+        double y1 = node1.getDiagramY();
+        double y2 = node2.getDiagramY();
 
         if (dNode1 == dNode2) {
             if (increment) {
                 nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
             }
-            double decalV = getSgn(dNode1) * nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
+            double decalV = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
             double yDecal = Math.max(y1 + decalV, y2 + decalV);
             pol.add(new Point(x1, yDecal));
             pol.add(new Point(x2, yDecal));
@@ -107,10 +107,11 @@ public abstract class AbstractLayout {
             double xMaxGraph = rightestVoltageLevel.getX();
             String idMaxGraph = rightestVoltageLevel.getId();
 
-            double decal1V = getSgn(dNode1) * nbSnakeLinesTopBottom.get(dNode1) * layoutParam.getVerticalSnakeLinePadding();
-            double decal2V = getSgn(dNode2) * nbSnakeLinesTopBottom.get(dNode2) * layoutParam.getVerticalSnakeLinePadding();
-            double xBetweenGraph = xMaxGraph -
-                (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) * layoutParam.getHorizontalSnakeLinePadding());
+            LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
+            double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
+            double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLinesTopBottom);
+            double xBetweenGraph = xMaxGraph - vlPadding.getLeft()
+                - (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) - 1) * layoutParam.getHorizontalSnakeLinePadding();
 
             pol.addAll(Point.createPointsList(x1, y1 + decal1V,
                 xBetweenGraph, y1 + decal1V,
@@ -119,8 +120,12 @@ public abstract class AbstractLayout {
         }
     }
 
-    private static double getSgn(BusCell.Direction direction) {
-        return direction == BusCell.Direction.BOTTOM ? 1 : -1;
+    private static double getVerticalShift(LayoutParameters layoutParam, BusCell.Direction dNode1, Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom) {
+        if (dNode1 == BusCell.Direction.BOTTOM) {
+            return Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() + layoutParam.getVoltageLevelPadding().getBottom();
+        } else {
+            return -Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() - layoutParam.getVoltageLevelPadding().getTop();
+        }
     }
 
     protected List<List<Point>> splitPolyline2(List<Point> points, Node multiNode) {
@@ -128,7 +133,7 @@ public abstract class AbstractLayout {
         int iMiddle1 = points.size() / 2;
 
         Point pointSplit = points.get(iMiddle0).getMiddlePoint(points.get(iMiddle1));
-        multiNode.setCoordinates(pointSplit, false);
+        multiNode.setCoordinates(pointSplit);
 
         List<Point> part1 = new ArrayList<>(points.subList(0, iMiddle1));
         part1.add(new Point(pointSplit));
@@ -152,9 +157,16 @@ public abstract class AbstractLayout {
         List<Point> part3 = new ArrayList<>(points2.subList(1, points2.size()));
 
         // the fictitious node point is the second to last point of the original first polyline (or the second of the original seond polyline)
-        coord.setCoordinates(points2.get(1), false);
+        coord.setCoordinates(points2.get(1));
 
         return Arrays.asList(part1, part2, part3);
     }
 
+    protected static double getWidthVerticalSnakeLines(String vlGraphId, LayoutParameters layoutParameters, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesVerticalBetween().get(vlGraphId) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
+    }
+
+    protected static double getHeightSnakeLines(LayoutParameters layoutParameters, BusCell.Direction top, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(top) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
+    }
 }

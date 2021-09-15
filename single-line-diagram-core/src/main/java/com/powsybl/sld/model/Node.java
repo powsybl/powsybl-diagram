@@ -162,40 +162,60 @@ public class Node implements BaseNode {
     }
 
     @Override
+    public Point getDiagramCoordinates() {
+        return graph != null ? position.getShiftedPoint(graph.getCoord()) : position;
+    }
+
     public Point getCoordinates() {
         return position;
     }
 
     public void setCoordinates(Point coord) {
-        setCoordinates(coord, true);
+        position.setCoordinates(coord);
     }
 
-    public void setCoordinates(Point coord, boolean addGraph) {
-        position.setCoordinates(addGraph ? coord.getShiftedPoint(graph.getCoord()) : coord);
+    public void setCoordinates(double x, double y) {
+        position.setCoordinates(x, y);
     }
 
+    /**
+     * Get abscissa within current voltage level
+     * @return abscissa within voltage level
+     */
     public double getX() {
         return position.getX();
     }
 
+    /**
+     * Get ordinate within current voltage level
+     * @return ordinate within voltage level
+     */
     public double getY() {
         return position.getY();
     }
 
-    public void setX(double x) {
-        setX(x, true);
+    /**
+     * Get abscissa within the diagram
+     * @return abscissa within diagram
+     */
+    public double getDiagramX() {
+        return graph != null ? position.getX() + graph.getX() : position.getX();
     }
 
-    public void setX(double x, boolean addXGraph) {
-        position.setX(x + (addXGraph ? graph.getX() : 0));
+    /**
+     * Get ordinate within the diagram
+     * @return ordinate within diagram
+     */
+    public double getDiagramY() {
+        return graph != null ? position.getY() + graph.getY() : position.getY();
+    }
+
+    public void setX(double x) {
+        position.setX(x);
     }
 
     public void setY(double y) {
-        setY(y, true);
-    }
-
-    public void setY(double y, boolean addYGraph) {
-        position.setY(y + (addYGraph ? graph.getY() : 0));
+        position.setY(y);
     }
 
     public NodeType getType() {
@@ -271,8 +291,7 @@ public class Node implements BaseNode {
     }
 
     public void resetCoords() {
-        setX(-1, false);
-        setY(-1, false);
+        setCoordinates(-1, -1);
     }
 
     public void shiftY(double yShift) {

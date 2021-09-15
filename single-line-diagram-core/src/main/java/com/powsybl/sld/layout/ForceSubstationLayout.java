@@ -22,7 +22,9 @@ import static com.powsybl.sld.model.Coord.Dimension.Y;
  */
 public class ForceSubstationLayout extends AbstractSubstationLayout {
     private InfosNbSnakeLinesForce infosNbSnakeLines;
-    private ForceSubstationLayoutFactory.CompactionType compactionType;
+    private final ForceSubstationLayoutFactory.CompactionType compactionType;
+    private List<VoltageLevelGraph> graphsXSorted;
+    private List<VoltageLevelGraph> graphsYSorted;
 
     public ForceSubstationLayout(SubstationGraph substationGraph,
                                  VoltageLevelLayoutFactory voltageLevelLayoutFactory,
@@ -32,7 +34,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     @Override
-    public void run(LayoutParameters layoutParameters) {
+    protected void calculateCoordVoltageLevels(LayoutParameters layoutParameters) {
         // Creating the graph for the force layout algorithm
         Graph<VoltageLevelGraph, Object> graph = getGraph().toJgrapht();
 
@@ -56,71 +58,126 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         });
 
         // List of voltage levels sorted by ascending x value
-        List<VoltageLevelGraph> graphsX = coordsVoltageLevels.entrySet().stream()
+        graphsXSorted = coordsVoltageLevels.entrySet().stream()
                 .sorted(Comparator.comparingDouble(e -> e.getValue().get(X)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         // List of voltage levels sorted by ascending y value
-        List<VoltageLevelGraph> graphsY = coordsVoltageLevels.entrySet().stream()
+        graphsYSorted = coordsVoltageLevels.entrySet().stream()
                 .sorted(Comparator.comparingDouble(e -> e.getValue().get(Y)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         // Narrowing / Spreading the voltage levels in the horizontal direction
-        // (if no compaction, one voltage level only in a column
-        //  if horizontal compaction, a voltage level is positioned horizontally at the middle of the preceding voltage level)
-        double graphX = getHorizontalSubstationPadding(layoutParameters);
-        for (VoltageLevelGraph g : graphsX) {
-            g.setX(graphX);
-            int maxH = g.getMaxH();
-            graphX += layoutParameters.getInitialXBus() + (maxH + 2) * layoutParameters.getCellWidth()
-                    + getHorizontalSubstationPadding(layoutParameters);
-            if (compactionType == ForceSubstationLayoutFactory.CompactionType.HORIZONTAL) {
-                graphX /= 2;
+        double x = layoutParameters.getDiagramPadding().getLeft();
+        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+        if (compactionType != ForceSubstationLayoutFactory.CompactionType.HORIZONTAL) {
+            // if no compaction, one voltage level only in a column
+            for (VoltageLevelGraph g : graphsXSorted) {
+                g.setCoord(x + vlPadding.getLeft(), g.getY());
+                x += g.getWidth();
+            }
+        } else {
+            //  if horizontal compaction, a voltage level is positioned horizontally at the middle of the preceding voltage level
+            for (VoltageLevelGraph g : graphsXSorted) {
+                g.setCoord(x + vlPadding.getLeft(), g.getY());
+                x += g.getWidth() / 2;
             }
         }
 
         // Narrowing / Spreading the voltage levels in the vertical direction
-        // (if no compaction, one voltage level only in a line
-        //  if vertical compaction, a voltage level is positioned vertically at the middle of the preceding voltage level)
-        double graphY = getVerticalSubstationPadding(layoutParameters);
-        for (VoltageLevelGraph g : graphsY) {
-            g.setY(graphY);
-            int maxV = g.getMaxV();
-            graphY += layoutParameters.getInitialYBus() + layoutParameters.getStackHeight()
-                    + layoutParameters.getExternCellHeight()
-                    + layoutParameters.getVerticalSpaceBus() * (maxV + 2)
-                    + getVerticalSubstationPadding(layoutParameters);
-            if (compactionType == ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
-                graphY /= 2;
+        double y = layoutParameters.getDiagramPadding().getTop();
+        if (compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
+            // if no compaction, one voltage level only in a line
+            for (VoltageLevelGraph g : graphsYSorted) {
+                g.setCoord(g.getX(), y + vlPadding.getTop());
+                y += g.getHeight();
+            }
+        } else {
+            //  if vertical compaction, a voltage level is positioned vertically at the middle of the preceding voltage level
+            for (VoltageLevelGraph g : graphsYSorted) {
+                g.setCoord(g.getX(), y + vlPadding.getTop());
+                y += g.getHeight() / 2;
             }
         }
 
+        double substationWidth = getGraph().getNodeStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
+        double substationHeight = getGraph().getNodeStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight()).max().orElse(0);
+        getGraph().setSize(substationWidth, substationHeight);
+
         infosNbSnakeLines = InfosNbSnakeLinesForce.create(getGraph(), compactionType);
-
-        // Finally, running the voltage levels layout a second time with the new adapted voltage levels coordinates
-        // (here, we keep the cells and blocks already detected before, and we only recompute the nodes coordinates)
-        coordsVoltageLevels.keySet().stream().forEach(g -> {
-            g.resetCoords();
-            graphsLayouts.get(g).run(layoutParameters);
-        });
-
-        manageSnakeLines(layoutParameters);
     }
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
         getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
+
+        adaptPaddingToSnakeLines(layoutParameters);
+    }
+
+    private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
+        // Narrowing / Spreading the voltage levels in the horizontal direction
+        double x = layoutParameters.getDiagramPadding().getLeft();
+        LayoutParameters.Padding vlPadding = layoutParameters.getVoltageLevelPadding();
+        if (compactionType != ForceSubstationLayoutFactory.CompactionType.HORIZONTAL) {
+            // if no compaction, one voltage level only in a column
+            for (VoltageLevelGraph g : graphsXSorted) {
+                x += getSnakeLineWidth(layoutParameters, g);
+                g.setCoord(x + vlPadding.getLeft(), g.getY());
+                x += g.getWidth();
+            }
+        } else {
+            //  if horizontal compaction, a voltage level is positioned horizontally at the middle of the preceding voltage level
+            for (VoltageLevelGraph g : graphsXSorted) {
+                x += getSnakeLineWidth(layoutParameters, g);
+                g.setCoord(x + vlPadding.getLeft(), g.getY());
+                x += g.getWidth() / 2;
+            }
+        }
+
+        // Narrowing / Spreading the voltage levels in the vertical direction
+        double y = layoutParameters.getDiagramPadding().getTop();
+        if (compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
+            // if no compaction, one voltage level only in a line
+            for (VoltageLevelGraph g : graphsYSorted) {
+                y += getSnakeLineHeight(g, BusCell.Direction.TOP, layoutParameters);
+                g.setCoord(g.getX(), y + vlPadding.getTop());
+                y += g.getHeight();
+            }
+        } else {
+            //  if vertical compaction, a voltage level is positioned vertically at the middle of the preceding voltage level
+            for (VoltageLevelGraph g : graphsYSorted) {
+                y += getSnakeLineHeight(g, BusCell.Direction.TOP, layoutParameters);
+                g.setCoord(g.getX(), y + vlPadding.getTop());
+                y += g.getHeight() / 2;
+            }
+        }
+
+        double substationWidth = getGraph().getNodeStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
+        double substationHeight = getGraph().getNodeStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight() + getSnakeLineHeight(g, BusCell.Direction.BOTTOM, layoutParameters)).max().orElse(0);
+        getGraph().setSize(substationWidth, substationHeight);
+
+        infosNbSnakeLines.reset();
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
+    }
+
+    private double getSnakeLineHeight(VoltageLevelGraph g, BusCell.Direction direction, LayoutParameters layoutParam) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom(g.getId(), direction) - 1, 0) * layoutParam.getVerticalSnakeLinePadding();
+    }
+
+    private double getSnakeLineWidth(LayoutParameters layoutParameters, VoltageLevelGraph g) {
+        return Math.max(infosNbSnakeLines.getNbSnakeLinesLeft(g.getId()) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
     }
 
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
         List<Point> polyline = new ArrayList<>();
-        polyline.add(node1.getCoordinates());
+        polyline.add(node1.getDiagramCoordinates());
         addMiddlePoints(layoutParam, node1, node2, increment, polyline);
-        polyline.add(node2.getCoordinates());
+        polyline.add(node2.getDiagramCoordinates());
         return polyline;
     }
 
@@ -133,14 +190,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         int nbSnakeLinesH1 = increment
             ? infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
             : infosNbSnakeLines.getNbSnakeLinesTopBottom(vl1, dNode1);
-        double decal1V = nbSnakeLinesH1 * layoutParam.getVerticalSnakeLinePadding();
+        double decal1V = Math.max(nbSnakeLinesH1 - 1, 0) * layoutParam.getVerticalSnakeLinePadding();
 
-        double x1 = node1.getCoordinates().getX();
-        double x2 = node2.getCoordinates().getX();
+        double x1 = node1.getDiagramX();
+        double x2 = node2.getDiagramX();
 
         if (facingNodes(node1, node2)) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
-            double ySnakeLine = Math.min(node1.getCoordinates().getY(), node2.getCoordinates().getY()) + decal1V;
+            double ySnakeLine = Math.min(node1.getDiagramY(), node2.getDiagramY()) + layoutParam.getVoltageLevelPadding().getBottom() + decal1V;
             if (x1 != x2) {
                 polyline.add(new Point(x1, ySnakeLine));
                 polyline.add(new Point(x2, ySnakeLine));
@@ -150,14 +207,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         } else {
             String vl2 = node2.getGraph().getVoltageLevelInfos().getId();
             int nbSnakeLinesH2 = infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
-            double decal2V = nbSnakeLinesH2 * layoutParam.getVerticalSnakeLinePadding();
+            double decal2V = Math.max(nbSnakeLinesH2 - 1, 0) * layoutParam.getVerticalSnakeLinePadding();
 
             double ySnakeLine1 = getYSnakeLine(node1, dNode1, decal1V, layoutParam);
             double ySnakeLine2 = getYSnakeLine(node2, dNode2, decal2V, layoutParam);
 
             VoltageLevelGraph rightestVl = node1.getGraph().getX() > node2.getGraph().getX() ? node1.getGraph() : node2.getGraph();
             int nbSnakeLinesV = infosNbSnakeLines.incrementAndGetNbSnakeLinesLeft(rightestVl.getId());
-            double decalH = nbSnakeLinesV * layoutParam.getHorizontalSnakeLinePadding();
+            double decalH = Math.max(nbSnakeLinesV - 1, 0) * layoutParam.getHorizontalSnakeLinePadding();
             double xSnakeLine = rightestVl.getX() - decalH;
             polyline.addAll(Point.createPointsList(x1, ySnakeLine1,
                 xSnakeLine, ySnakeLine1,
@@ -167,22 +224,22 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
     }
 
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
+        LayoutParameters.Padding vlPadding = layoutParam.getVoltageLevelPadding();
         if (dNode1 == BusCell.Direction.BOTTOM) {
-            return node.getCoordinates().getY() + decalV;
+            return node.getDiagramY() + vlPadding.getBottom() + decalV;
         } else {
             if (compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
                 List<String> vls = infosNbSnakeLines.getYSortedVls();
                 int iVl = vls.indexOf(node.getGraph().getId());
                 if (iVl == 0) {
-                    return node.getCoordinates().getY() - decalV;
+                    return node.getDiagramY() - vlPadding.getTop() - decalV;
                 } else {
                     String vlAboveId = vls.get(iVl - 1);
                     VoltageLevelGraph vlAbove = getGraph().getNodeStream().filter(voltageLevelGraph -> voltageLevelGraph.getId().equals(vlAboveId)).findFirst().orElseThrow();
-                    return vlAbove.getY() + layoutParam.getInitialYBus() + layoutParam.getVerticalSpaceBus() * (vlAbove.getMaxV() - 1) + layoutParam.getStackHeight() + layoutParam.getExternCellHeight()
-                        + decalV;
+                    return vlAbove.getY() - vlPadding.getTop() + vlAbove.getHeight() + decalV;
                 }
             } else {
-                return node.getCoordinates().getY() - decalV;
+                return node.getDiagramY() - decalV;
             }
         }
     }
@@ -203,20 +260,4 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         int i2 = ySortedVl.indexOf(nodeB.getGraph().getId());
         return i2 - i1 == 1;
     }
-
-    @Override
-    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParameters, VoltageLevelGraph vlGraph) {
-        return null;
-    }
-
-    @Override
-    protected double getHorizontalSubstationPadding(LayoutParameters layoutParameters) {
-        return layoutParameters.getHorizontalSubstationPadding();
-    }
-
-    @Override
-    protected double getVerticalSubstationPadding(LayoutParameters layoutParameters) {
-        return layoutParameters.getVerticalSubstationPadding();
-    }
-
 }

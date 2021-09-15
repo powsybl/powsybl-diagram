@@ -30,23 +30,68 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     /**
-     * Calculate relative coordinate of voltageLevel in the substation
+     * Calculate relative coordinate of voltageLevels in the substation
      */
     @Override
-    protected Coord calculateCoordVoltageLevel(LayoutParameters layoutParam, VoltageLevelGraph vlGraph) {
-        double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
-        int maxH = vlGraph.getMaxH();
-        int betweenVlHSpan = 4; // to leave enough space for lines and transformer between voltage levels
-        return new Coord(layoutParam.getInitialXBus() + (maxH + betweenVlHSpan) * elementaryWidth, 0);
+    protected void calculateCoordVoltageLevels(LayoutParameters layoutParameters) {
+
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
+        LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
+
+        double yVoltageLevels = diagramPadding.getTop() + voltageLevelPadding.getTop();
+        double x = diagramPadding.getLeft();
+        double substationHeight = 0;
+
+        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+
+            // Calculate the objects coordinates inside the voltageLevel graph
+            VoltageLevelLayout vLayout = vLayoutFactory.create(vlGraph);
+            vLayout.run(layoutParameters);
+
+            x += voltageLevelPadding.getLeft();
+            vlGraph.setCoord(x, yVoltageLevels);
+
+            x += vlGraph.getWidth() + voltageLevelPadding.getRight();
+            substationHeight = Math.max(substationHeight, vlGraph.getHeight());
+        }
+
+        double substationWidth = x - diagramPadding.getLeft();
+        getGraph().setSize(substationWidth, substationHeight);
     }
 
     @Override
-    protected double getHorizontalSubstationPadding(LayoutParameters layoutParameters) {
-        return layoutParameters.getHorizontalSubstationPadding();
+    public void manageSnakeLines(LayoutParameters layoutParameters) {
+
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
+
+        adaptPaddingToSnakeLines(layoutParameters);
     }
 
-    @Override
-    protected double getVerticalSubstationPadding(LayoutParameters layoutParameters) {
-        return 0;
+    private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, BusCell.Direction.TOP, infosNbSnakeLines);
+
+        LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
+        LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
+
+        double yVoltageLevels = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
+        double x = diagramPadding.getLeft();
+
+        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+            x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), yVoltageLevels);
+            x += vlGraph.getWidth();
+        }
+
+        double substationWidth = x - diagramPadding.getLeft();
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
+        double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+
+        getGraph().setSize(substationWidth, substationHeight);
+
+        infosNbSnakeLines.reset();
+        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        manageSnakeLines(getGraph(), layoutParameters);
     }
+
 }

@@ -258,12 +258,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 380.0,
+      "pxWidth" : 375.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
       "position" : {
         "h" : 0,
-        "v" : 1,
+        "v" : 0,
         "hSpan" : 16,
         "vSpan" : 0
       }
@@ -275,12 +275,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 230.0,
+      "pxWidth" : 225.0,
       "busbarIndex" : 1,
       "sectionIndex" : 2,
       "position" : {
         "h" : 18,
-        "v" : 1,
+        "v" : 0,
         "hSpan" : 10,
         "vSpan" : 0
       }
@@ -292,12 +292,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 380.0,
+      "pxWidth" : 375.0,
       "busbarIndex" : 2,
       "sectionIndex" : 1,
       "position" : {
         "h" : 0,
-        "v" : 2,
+        "v" : 1,
         "hSpan" : 16,
         "vSpan" : 0
       }
@@ -309,12 +309,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 230.0,
+      "pxWidth" : 225.0,
       "busbarIndex" : 2,
       "sectionIndex" : 2,
       "position" : {
         "h" : 18,
-        "v" : 2,
+        "v" : 1,
         "hSpan" : 10,
         "vSpan" : 0
       }
@@ -2131,12 +2131,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 530.0,
+      "pxWidth" : 525.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
       "position" : {
         "h" : 0,
-        "v" : 1,
+        "v" : 0,
         "hSpan" : 22,
         "vSpan" : 0
       }
@@ -2148,12 +2148,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 530.0,
+      "pxWidth" : 525.0,
       "busbarIndex" : 2,
       "sectionIndex" : 1,
       "position" : {
         "h" : 0,
-        "v" : 2,
+        "v" : 1,
         "hSpan" : 22,
         "vSpan" : 0
       }
@@ -3350,12 +3350,12 @@
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "open" : false,
-      "pxWidth" : 230.0,
+      "pxWidth" : 225.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
       "position" : {
         "h" : 0,
-        "v" : 1,
+        "v" : 0,
         "hSpan" : 10,
         "vSpan" : 0
       }

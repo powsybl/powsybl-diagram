@@ -23,10 +23,6 @@ import java.util.Objects;
  */
 public class LayoutParameters {
 
-    private double translateX = 20;
-    private double translateY = 50;
-    private double initialXBus = 0;
-    private double initialYBus = 260;
     private double verticalSpaceBus = 25;
     private double horizontalBusPadding = 20;
 
@@ -42,9 +38,6 @@ public class LayoutParameters {
     private boolean showInternalNodes = false;
 
     private double scaleFactor = 1;
-
-    private double horizontalSubstationPadding = 50;
-    private double verticalSubstationPadding = 50;
 
     private String diagramName = null;
 
@@ -75,6 +68,12 @@ public class LayoutParameters {
 
     private CssLocation cssLocation = CssLocation.EXTERNAL_IMPORTED;
 
+    private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
+
+    private Padding diagramPadding = new Padding(20);
+
+    private boolean svgWidthAndHeightAdded = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -83,10 +82,8 @@ public class LayoutParameters {
     }
 
     @JsonCreator
-    public LayoutParameters(@JsonProperty("translateX") double translateX,
-                            @JsonProperty("translateY") double translateY,
-                            @JsonProperty("initialXBus") double initialXBus,
-                            @JsonProperty("initialYBus") double initialYBus,
+    public LayoutParameters(@JsonProperty("voltageLevelPadding") Padding voltageLevelPadding,
+                            @JsonProperty("diagramPadding") Padding diagramPadding,
                             @JsonProperty("verticalSpaceBus") double verticalSpaceBus,
                             @JsonProperty("horizontalBusPadding") double horizontalBusPadding,
                             @JsonProperty("cellWidth") double cellWidth,
@@ -97,8 +94,6 @@ public class LayoutParameters {
                             @JsonProperty("tooltipEnabled") boolean tooltipEnabled,
                             @JsonProperty("showInternalNodes") boolean showInternalNodes,
                             @JsonProperty("scaleFactor") double scaleFactor,
-                            @JsonProperty("horizontalSubstationPadding") double horizontalSubstationPadding,
-                            @JsonProperty("verticalSubstationPadding") double verticalSubstationPadding,
                             @JsonProperty("drawStraightWires") boolean drawStraightWires,
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
@@ -116,11 +111,10 @@ public class LayoutParameters {
                             @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
-                            @JsonProperty("cssLocation") CssLocation cssLocation) {
-        this.translateX = translateX;
-        this.translateY = translateY;
-        this.initialXBus = initialXBus;
-        this.initialYBus = initialYBus;
+                            @JsonProperty("cssLocation") CssLocation cssLocation,
+                            @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded) {
+        this.diagramPadding = diagramPadding;
+        this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
         this.horizontalBusPadding = horizontalBusPadding;
         this.cellWidth = cellWidth;
@@ -131,8 +125,6 @@ public class LayoutParameters {
         this.tooltipEnabled = tooltipEnabled;
         this.showInternalNodes = showInternalNodes;
         this.scaleFactor = scaleFactor;
-        this.horizontalSubstationPadding = horizontalSubstationPadding;
-        this.verticalSubstationPadding = verticalSubstationPadding;
         this.drawStraightWires = drawStraightWires;
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
@@ -151,14 +143,13 @@ public class LayoutParameters {
         this.addNodesInfos = addNodesInfos;
         this.feederArrowSymmetry = feederArrowSymmetry;
         this.cssLocation = cssLocation;
+        this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
     }
 
     public LayoutParameters(LayoutParameters other) {
         Objects.requireNonNull(other);
-        translateX = other.translateX;
-        translateY = other.translateY;
-        initialXBus = other.initialXBus;
-        initialYBus = other.initialYBus;
+        diagramPadding = new Padding(other.diagramPadding);
+        voltageLevelPadding = new Padding(other.voltageLevelPadding);
         verticalSpaceBus = other.verticalSpaceBus;
         horizontalBusPadding = other.horizontalBusPadding;
         cellWidth = other.cellWidth;
@@ -169,8 +160,6 @@ public class LayoutParameters {
         tooltipEnabled = other.tooltipEnabled;
         showInternalNodes = other.showInternalNodes;
         scaleFactor = other.scaleFactor;
-        horizontalSubstationPadding = other.horizontalSubstationPadding;
-        verticalSubstationPadding = other.verticalSubstationPadding;
         drawStraightWires = other.drawStraightWires;
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
@@ -190,42 +179,7 @@ public class LayoutParameters {
         addNodesInfos = other.addNodesInfos;
         feederArrowSymmetry = other.feederArrowSymmetry;
         cssLocation = other.cssLocation;
-    }
-
-    public double getTranslateX() {
-        return translateX;
-    }
-
-    public LayoutParameters setTranslateX(double translateX) {
-        this.translateX = translateX;
-        return this;
-    }
-
-    public double getTranslateY() {
-        return translateY;
-    }
-
-    public LayoutParameters setTranslateY(double translateY) {
-        this.translateY = translateY;
-        return this;
-    }
-
-    public double getInitialXBus() {
-        return initialXBus;
-    }
-
-    public LayoutParameters setInitialXBus(double initialXBus) {
-        this.initialXBus = initialXBus;
-        return this;
-    }
-
-    public double getInitialYBus() {
-        return initialYBus;
-    }
-
-    public LayoutParameters setInitialYBus(double initialYBus) {
-        this.initialYBus = initialYBus;
-        return this;
+        svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
     }
 
     public double getVerticalSpaceBus() {
@@ -306,24 +260,6 @@ public class LayoutParameters {
 
     public LayoutParameters setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
-        return this;
-    }
-
-    public double getHorizontalSubstationPadding() {
-        return horizontalSubstationPadding;
-    }
-
-    public LayoutParameters setHorizontalSubstationPadding(double padding) {
-        this.horizontalSubstationPadding = padding;
-        return this;
-    }
-
-    public double getVerticalSubstationPadding() {
-        return verticalSubstationPadding;
-    }
-
-    public LayoutParameters setVerticalSubstationPadding(double padding) {
-        this.verticalSubstationPadding = padding;
         return this;
     }
 
@@ -506,7 +442,81 @@ public class LayoutParameters {
         return this;
     }
 
+    public Padding getVoltageLevelPadding() {
+        return voltageLevelPadding;
+    }
+
+    public LayoutParameters setVoltageLevelPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
+        this.voltageLevelPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        return this;
+    }
+
+    public Padding getDiagramPadding() {
+        return diagramPadding;
+    }
+
+    public LayoutParameters setDiagrammPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
+        this.diagramPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        return this;
+    }
+
+    public boolean isSvgWidthAndHeightAdded() {
+        return svgWidthAndHeightAdded;
+    }
+
+    public LayoutParameters setSvgWidthAndHeightAdded(boolean svgWidthAndHeightAdded) {
+        this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
+        return this;
+    }
+
+    @JsonIgnore
+    public double getBusPadding() {
+        return getCellWidth() / 4;
+    }
+
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT;
+    }
+
+    public static class Padding {
+        private final double left;
+        private final double top;
+        private final double right;
+        private final double bottom;
+
+        @JsonCreator
+        public Padding(@JsonProperty("left") double left,
+                       @JsonProperty("top") double top,
+                       @JsonProperty("right") double right,
+                       @JsonProperty("bottom") double bottom) {
+            this.left = left;
+            this.top = top;
+            this.right = right;
+            this.bottom = bottom;
+        }
+
+        public Padding(int padding) {
+            this(padding, padding, padding, padding);
+        }
+
+        public Padding(Padding padding) {
+            this(padding.left, padding.top, padding.right, padding.bottom);
+        }
+
+        public double getLeft() {
+            return left;
+        }
+
+        public double getRight() {
+            return right;
+        }
+
+        public double getTop() {
+            return top;
+        }
+
+        public double getBottom() {
+            return bottom;
+        }
     }
 }

@@ -20,10 +20,8 @@ public class LayoutParametersTest {
     @Test
     public void test() {
         LayoutParameters layoutParameters = new LayoutParameters()
-                .setTranslateX(25)
-                .setTranslateY(60)
-                .setInitialXBus(10)
-                .setInitialYBus(280)
+                .setVoltageLevelPadding(15, 35, 25, 45)
+                .setDiagrammPadding(20, 40, 30, 50)
                 .setVerticalSpaceBus(20)
                 .setHorizontalBusPadding(30)
                 .setCellWidth(70)
@@ -33,8 +31,6 @@ public class LayoutParametersTest {
                 .setShowGrid(true)
                 .setShowInternalNodes(true)
                 .setScaleFactor(2)
-                .setHorizontalSubstationPadding(60)
-                .setVerticalSubstationPadding(70)
                 .setDrawStraightWires(true)
                 .setHorizontalSnakeLinePadding(25)
                 .setVerticalSnakeLinePadding(40)
@@ -53,13 +49,18 @@ public class LayoutParametersTest {
                 .setAddNodesInfos(true)
                 .setMinSpaceForFeederArrows(70)
                 .setFeederArrowSymmetry(true)
-                .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
+                .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT)
+                .setSvgWidthAndHeightAdded(true);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
-        assertEquals(layoutParameters.getTranslateX(), layoutParameters2.getTranslateX(), 0);
-        assertEquals(layoutParameters.getTranslateY(), layoutParameters2.getTranslateY(), 0);
-        assertEquals(layoutParameters.getInitialXBus(), layoutParameters2.getInitialXBus(), 0);
-        assertEquals(layoutParameters.getInitialYBus(), layoutParameters2.getInitialYBus(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().getTop(), layoutParameters2.getVoltageLevelPadding().getTop(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().getRight(), layoutParameters2.getVoltageLevelPadding().getRight(), 0);
+        assertEquals(layoutParameters.getVoltageLevelPadding().getBottom(), layoutParameters2.getVoltageLevelPadding().getBottom(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().getLeft(), layoutParameters2.getDiagramPadding().getLeft(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().getTop(), layoutParameters2.getDiagramPadding().getTop(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().getRight(), layoutParameters2.getDiagramPadding().getRight(), 0);
+        assertEquals(layoutParameters.getDiagramPadding().getBottom(), layoutParameters2.getDiagramPadding().getBottom(), 0);
         assertEquals(layoutParameters.getVerticalSpaceBus(), layoutParameters2.getVerticalSpaceBus(), 0);
         assertEquals(layoutParameters.getHorizontalBusPadding(), layoutParameters2.getHorizontalBusPadding(), 0);
         assertEquals(layoutParameters.getCellWidth(), layoutParameters2.getCellWidth(), 0);
@@ -69,8 +70,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isShowGrid(), layoutParameters2.isShowGrid());
         assertEquals(layoutParameters.isShowInternalNodes(), layoutParameters2.isShowInternalNodes());
         assertEquals(layoutParameters.getScaleFactor(), layoutParameters2.getScaleFactor(), 0);
-        assertEquals(layoutParameters.getHorizontalSubstationPadding(), layoutParameters2.getHorizontalSubstationPadding(), 0);
-        assertEquals(layoutParameters.getVerticalSubstationPadding(), layoutParameters2.getVerticalSubstationPadding(), 0);
         assertEquals(layoutParameters.isDrawStraightWires(), layoutParameters2.isDrawStraightWires());
         assertEquals(layoutParameters.getHorizontalSnakeLinePadding(), layoutParameters2.getHorizontalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getVerticalSnakeLinePadding(), layoutParameters2.getVerticalSnakeLinePadding(), 0);
@@ -90,5 +89,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getMinSpaceForFeederArrows(), layoutParameters2.getMinSpaceForFeederArrows(), 0);
         assertEquals(layoutParameters.isFeederArrowSymmetry(), layoutParameters2.isFeederArrowSymmetry());
         assertEquals(layoutParameters.getCssLocation(), layoutParameters2.getCssLocation());
+        assertEquals(layoutParameters.isSvgWidthAndHeightAdded(), layoutParameters2.isSvgWidthAndHeightAdded());
     }
 }

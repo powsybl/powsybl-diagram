@@ -45,12 +45,11 @@ public class BusNode extends Node {
     }
 
     public void calculateCoord(LayoutParameters layoutParameters) {
-        setY(layoutParameters.getInitialYBus() +
-                (position.get(V) - 1) * layoutParameters.getVerticalSpaceBus());
-        setX(layoutParameters.getInitialXBus()
-                + (double) position.get(H) / 2 * layoutParameters.getCellWidth()
-                + layoutParameters.getHorizontalBusPadding() / 2);
-        setPxWidth(position.getSpan(H) * layoutParameters.getCellWidth() / 2 - layoutParameters.getHorizontalBusPadding());
+        double elementaryWidth = layoutParameters.getCellWidth() / 2;
+        double busPadding = layoutParameters.getBusPadding();
+        setCoordinates(position.get(H) * elementaryWidth + busPadding,
+            getGraph().getFirstBusY(layoutParameters) + position.get(V) * layoutParameters.getVerticalSpaceBus());
+        setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
     }
 
     @Override

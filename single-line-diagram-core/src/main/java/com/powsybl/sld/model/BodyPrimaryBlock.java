@@ -66,8 +66,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double yPxStep = calcYPxStep(sign);
         int v = 0;
         for (Node node : nodes) {
-            node.setX(getCoord().get(X));
-            node.setY(y0 - yPxStep * v);
+            node.setCoordinates(getCoord().get(X), y0 - yPxStep * v);
             node.setRotationAngle(null);
             v++;
         }
@@ -83,8 +82,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double xPxStep = getCoord().getSpan(X) / (nodes.size() - 1);
         int h = 0;
         for (Node node : nodes) {
-            node.setY(getCoord().get(Y));
-            node.setX(x0 + xPxStep * h);
+            node.setCoordinates(x0 + xPxStep * h, getCoord().get(Y));
             node.setRotationAngle(90.);
             h++;
         }
@@ -97,16 +95,13 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         double y1 = getExtremityNode(END).getY();
         double y = (y0 + y1) / 2;
 
-        nodes.get(1).setX(x0);
-        nodes.get(1).setY(y, false);
-        nodes.get(nodes.size() - 2).setX(x1);
-        nodes.get(nodes.size() - 2).setY(y, false);
+        nodes.get(1).setCoordinates(x0, y);
+        nodes.get(nodes.size() - 2).setCoordinates(x1, y);
 
         double dx = (x1 - x0) / (nodes.size() - 3);
         for (int i = 2; i < nodes.size() - 2; i++) {
             Node node = nodes.get(i);
-            node.setX(x0 + (i - 1) * dx);
-            node.setY(y, false);
+            node.setCoordinates(x0 + (i - 1) * dx, y);
             node.setRotationAngle(90.);
         }
     }

@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -74,7 +75,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     // by direction, max calculated height of the extern cells
     // (filled and used only when using the adapt cell height to content option)
-    private Map<BusCell.Direction, Double> maxCalculatedCellHeight = new EnumMap<>(BusCell.Direction.class);
+    private Map<BusCell.Direction, Double> externCellHeight = new EnumMap<>(BusCell.Direction.class);
 
     protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
@@ -568,20 +569,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return coord;
     }
 
+    public void setCoord(double x, double y) {
+        coord.setX(x);
+        coord.setY(y);
+    }
+
     public double getX() {
         return coord.getX();
     }
 
-    public void setX(double x) {
-        coord.setX(x);
-    }
-
     public double getY() {
         return coord.getY();
-    }
-
-    public void setY(double y) {
-        coord.setY(y);
     }
 
     public boolean isPositionNodeBusesCalculated() {
@@ -639,12 +637,12 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .max().orElse(0);
     }
 
-    public Double getMaxCalculatedCellHeight(BusCell.Direction direction) {
-        return !maxCalculatedCellHeight.isEmpty() ? maxCalculatedCellHeight.get(direction) : -1.;
+    public Double getExternCellHeight(BusCell.Direction direction) {
+        return !externCellHeight.isEmpty() ? externCellHeight.get(direction) : -1.;
     }
 
-    public void setMaxCalculatedCellHeight(Map<BusCell.Direction, Double> maxCalculatedCellHeight) {
-        this.maxCalculatedCellHeight = maxCalculatedCellHeight;
+    public void setExternCellHeight(Map<BusCell.Direction, Double> externCellHeight) {
+        this.externCellHeight = externCellHeight;
     }
 
     public int getMaxHorizontalBusPosition() {
@@ -677,5 +675,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 node.setRotationAngle(180.);
             }
         }
+    }
+
+    public double getFirstBusY(LayoutParameters layoutParam) {
+        return getExternCellHeight(BusCell.Direction.TOP) + layoutParam.getStackHeight();
+    }
+
+    public double getLastBusY(LayoutParameters layoutParam) {
+        return getFirstBusY(layoutParam) + (getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus();
     }
 }
