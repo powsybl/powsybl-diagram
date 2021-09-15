@@ -110,11 +110,11 @@ polyline {fill: none}
         <g class="sld-constant-color" id="idLine_95_ONE" transform="translate(90.0,650.0)">
             <text class="sld-label" id="Line_ONE__LABEL" x="-5.0" y="-5.0">Line</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_Transformer_95_ONE">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_Transformer_95_ONE">
             <polyline points="90.0,300.0,90.0,320.0,90.0,342.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_Transformer_95_TWO">
-            <polyline points="90.0,358.0,90.0,380.0,90.0,400.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_Transformer_95_TWO">
+            <polyline points="90.0,400.0,90.0,380.0,90.0,358.0"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idTransformer" transform="translate(85.0,342.5)">
             <circle cx="5" cy="10" r="5"/>

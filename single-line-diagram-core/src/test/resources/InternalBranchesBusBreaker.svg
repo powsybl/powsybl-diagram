@@ -507,11 +507,11 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="idL11">
             <polyline points="215.0,665.0,215.0,725.0,515.0,725.0,515.0,665.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT11_95_ONE_95_edge">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T11_95_ONE">
             <polyline points="265.0,80.0,265.0,20.0,407.0,20.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT11_95_TWO_95_edge">
-            <polyline points="423.0,20.0,565.0,20.0,565.0,80.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T11_95_TWO">
+            <polyline points="565.0,80.0,565.0,20.0,423.0,20.0"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idT11" transform="translate(410.0,12.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>

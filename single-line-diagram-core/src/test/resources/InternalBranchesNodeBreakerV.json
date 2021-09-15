@@ -1867,19 +1867,19 @@
       }
     } ],
     "twtEdges" : [ {
-      "id" : "T11_ONE_edge",
+      "id" : "EDGE_T11_ONE",
       "nodes" : [ {
         "node1" : "T11_ONE",
         "node2" : "T11"
       } ],
       "snakeLine" : [ 345.0, 200.0, 345.0, 140.0, 445.0, 140.0 ]
     }, {
-      "id" : "T11_TWO_edge",
+      "id" : "EDGE_T11_TWO",
       "nodes" : [ {
-        "node1" : "T11",
-        "node2" : "T11_TWO"
+        "node1" : "T11_TWO",
+        "node2" : "T11"
       } ],
-      "snakeLine" : [ 445.0, 140.0, 545.0, 140.0, 545.0, 200.0 ]
+      "snakeLine" : [ 545.0, 200.0, 545.0, 140.0, 445.0, 140.0 ]
     } ],
     "lineEdges" : [ {
       "id" : "L11",
@@ -2620,40 +2620,40 @@
     }
   } ],
   "twtEdges" : [ {
-    "id" : "T12_ONE_edge",
+    "id" : "EDGE_T12_ONE",
     "nodes" : [ {
       "node1" : "T12_ONE",
       "node2" : "T12"
     } ],
     "snakeLine" : [ 595.0, 200.0, 595.0, 80.0, 50.0, 80.0, 50.0, 462.5 ]
   }, {
-    "id" : "T12_TWO_edge",
+    "id" : "EDGE_T12_TWO",
     "nodes" : [ {
-      "node1" : "T12",
-      "node2" : "T12_TWO"
+      "node1" : "T12_TWO",
+      "node2" : "T12"
     } ],
-    "snakeLine" : [ 50.0, 462.5, 50.0, 845.0, 195.0, 845.0, 195.0, 965.0 ]
+    "snakeLine" : [ 195.0, 965.0, 195.0, 845.0, 50.0, 845.0, 50.0, 462.5 ]
   }, {
-    "id" : "T3_12_ONE_EDGE",
+    "id" : "EDGE_T3_12_ONE",
     "nodes" : [ {
       "node1" : "T3_12_ONE",
       "node2" : "T3_12"
     } ],
     "snakeLine" : [ 395.0, 200.0, 395.0, 50.0, 645.0, 50.0 ]
   }, {
-    "id" : "T3_12_TWO_EDGE",
+    "id" : "EDGE_T3_12_TWO",
     "nodes" : [ {
-      "node1" : "T3_12",
-      "node2" : "T3_12_TWO"
+      "node1" : "T3_12_TWO",
+      "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 645.0, 50.0, 645.0, 200.0 ]
+    "snakeLine" : [ 645.0, 200.0, 645.0, 50.0 ]
   }, {
-    "id" : "T3_12_THREE_EDGE",
+    "id" : "EDGE_T3_12_THREE",
     "nodes" : [ {
-      "node1" : "T3_12",
-      "node2" : "T3_12_THREE"
+      "node1" : "T3_12_THREE",
+      "node2" : "T3_12"
     } ],
-    "snakeLine" : [ 645.0, 50.0, 690.0, 50.0, 690.0, 875.0, 245.0, 875.0, 245.0, 965.0 ]
+    "snakeLine" : [ 245.0, 965.0, 245.0, 875.0, 690.0, 875.0, 690.0, 50.0, 645.0, 50.0 ]
   } ],
   "lineEdges" : [ {
     "id" : "L12",

@@ -245,20 +245,20 @@ polyline {fill: none}
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf1">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf1">
             <polyline points="120.0,540.0,120.0,590.0,397.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl2_95_trf1">
-            <polyline points="413.0,590.0,690.0,590.0,690.0,540.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf1">
+            <polyline points="690.0,540.0,690.0,590.0,413.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf2_95_one">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf2_95_one">
             <polyline points="440.0,120.0,440.0,90.0,743.0,90.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl2_95_trf2_95_one">
-            <polyline points="750.0,102.0,750.0,120.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf2_95_one">
+            <polyline points="750.0,120.0,750.0,102.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl3_95_trf2_95_one">
-            <polyline points="757.0,90.0,1040.0,90.0,1040.0,120.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl3_95_trf2_95_one">
+            <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>

@@ -584,11 +584,11 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="idL11">
             <polyline points="215.0,200.0,215.0,110.0,465.0,110.0,465.0,200.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT11_95_ONE_95_edge">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T11_95_ONE">
             <polyline points="315.0,200.0,315.0,140.0,407.0,140.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT11_95_TWO_95_edge">
-            <polyline points="423.0,140.0,515.0,140.0,515.0,200.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T11_95_TWO">
+            <polyline points="515.0,200.0,515.0,140.0,423.0,140.0"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idT11" transform="translate(410.0,132.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
@@ -789,20 +789,20 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="idL12">
             <polyline points="265.0,200.0,265.0,20.0,755.0,20.0,755.0,200.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT12_95_ONE_95_edge">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T12_95_ONE">
             <polyline points="565.0,200.0,565.0,80.0,677.0,80.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT12_95_TWO_95_edge">
-            <polyline points="693.0,80.0,805.0,80.0,805.0,200.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T12_95_TWO">
+            <polyline points="805.0,200.0,805.0,80.0,693.0,80.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT3_95_12_95_ONE_95_EDGE">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T3_95_12_95_ONE">
             <polyline points="365.0,200.0,365.0,50.0,608.0,50.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT3_95_12_95_TWO_95_EDGE">
-            <polyline points="615.0,62.0,615.0,200.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T3_95_12_95_TWO">
+            <polyline points="615.0,200.0,615.0,62.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idT3_95_12_95_THREE_95_EDGE">
-            <polyline points="622.0,50.0,855.0,50.0,855.0,200.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_T3_95_12_95_THREE">
+            <polyline points="855.0,200.0,855.0,50.0,622.0,50.0"/>
         </g>
         <g class="sld-two-wt sld-constant-color" id="idT12" transform="translate(680.0,72.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
