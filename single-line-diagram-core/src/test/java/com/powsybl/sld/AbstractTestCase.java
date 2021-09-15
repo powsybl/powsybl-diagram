@@ -51,7 +51,8 @@ public abstract class AbstractTestCase {
             .setDrawStraightWires(false)
             .setHorizontalSnakeLinePadding(30)
             .setVerticalSnakeLinePadding(30)
-            .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+            .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
+            .setSvgWidthAndHeightAdded(true);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {

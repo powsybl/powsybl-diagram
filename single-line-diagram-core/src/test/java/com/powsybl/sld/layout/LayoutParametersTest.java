@@ -49,7 +49,8 @@ public class LayoutParametersTest {
                 .setAddNodesInfos(true)
                 .setMinSpaceForFeederArrows(70)
                 .setFeederArrowSymmetry(true)
-                .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT);
+                .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT)
+                .setSvgWidthAndHeightAdded(true);
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
@@ -88,5 +89,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getMinSpaceForFeederArrows(), layoutParameters2.getMinSpaceForFeederArrows(), 0);
         assertEquals(layoutParameters.isFeederArrowSymmetry(), layoutParameters2.isFeederArrowSymmetry());
         assertEquals(layoutParameters.getCssLocation(), layoutParameters2.getCssLocation());
+        assertEquals(layoutParameters.isSvgWidthAndHeightAdded(), layoutParameters2.isSvgWidthAndHeightAdded());
     }
 }

@@ -1612,6 +1612,7 @@
     "highlightLineState" : true,
     "addNodesInfos" : false,
     "feederArrowSymmetry" : false,
-    "cssLocation" : "EXTERNAL_IMPORTED"
+    "cssLocation" : "EXTERNAL_IMPORTED",
+    "svgWidthAndHeightAdded" : false
   }
 }

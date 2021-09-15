@@ -72,6 +72,8 @@ public class LayoutParameters {
 
     private Padding diagramPadding = new Padding(20);
 
+    private boolean svgWidthAndHeightAdded = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -109,7 +111,8 @@ public class LayoutParameters {
                             @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
-                            @JsonProperty("cssLocation") CssLocation cssLocation) {
+                            @JsonProperty("cssLocation") CssLocation cssLocation,
+                            @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -140,6 +143,7 @@ public class LayoutParameters {
         this.addNodesInfos = addNodesInfos;
         this.feederArrowSymmetry = feederArrowSymmetry;
         this.cssLocation = cssLocation;
+        this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -175,6 +179,7 @@ public class LayoutParameters {
         addNodesInfos = other.addNodesInfos;
         feederArrowSymmetry = other.feederArrowSymmetry;
         cssLocation = other.cssLocation;
+        svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
     }
 
     public double getVerticalSpaceBus() {
@@ -452,6 +457,15 @@ public class LayoutParameters {
 
     public LayoutParameters setDiagrammPadding(double paddingLeft, double paddingTop, double paddingRight, double paddingBottom) {
         this.diagramPadding = new Padding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+        return this;
+    }
+
+    public boolean isSvgWidthAndHeightAdded() {
+        return svgWidthAndHeightAdded;
+    }
+
+    public LayoutParameters setSvgWidthAndHeightAdded(boolean svgWidthAndHeightAdded) {
+        this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
         return this;
     }
 
