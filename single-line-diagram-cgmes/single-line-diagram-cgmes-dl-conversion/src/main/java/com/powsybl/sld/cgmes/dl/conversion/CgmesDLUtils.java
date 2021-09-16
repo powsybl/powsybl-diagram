@@ -11,10 +11,9 @@ import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.math.graph.TraverseResult;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.triplestore.api.TripleStore;
-import gnu.trove.set.TIntSet;
-import gnu.trove.set.hash.TIntHashSet;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -77,13 +76,11 @@ public final class CgmesDLUtils {
     public static Set<Switch> findSurroundingSwitches(VoltageLevel.NodeBreakerView nodeBreakerView, int n) {
         Objects.requireNonNull(nodeBreakerView);
         final Set<Switch> encounteredSwitches = new HashSet<>();
-        final TIntSet encountered = new TIntHashSet();
         nodeBreakerView.traverse(n, (n1, sw, n2) -> {
-            encountered.add(n2);
             if (sw != null) {
                 encounteredSwitches.add(sw);
             }
-            return !encountered.contains(n1);
+            return TraverseResult.CONTINUE;
         });
         return encounteredSwitches;
     }
