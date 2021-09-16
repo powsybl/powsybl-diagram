@@ -6,11 +6,43 @@
  */
 package com.powsybl.sld.model;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import java.io.IOException;
+import java.util.Objects;
+
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class MiddleTwtNode extends FictitiousNode {
-    protected MiddleTwtNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph) {
-        super(id, name, equipmentId, componentType, graph);
+    private final VoltageLevelInfos[] voltageLevelInfosLeg;
+
+    protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType, VoltageLevelGraph graph) {
+        super(id, name, id, componentType, graph);
+        this.voltageLevelInfosLeg = voltageLevelInfosLeg;
+    }
+
+    @Override
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
+    }
+
+    public VoltageLevelInfos getVoltageLevelInfos(FeederWithSideNode.Side side) {
+        Objects.requireNonNull(side);
+        int sideIntValue = side.getIntValue();
+        if (sideIntValue > voltageLevelInfosLeg.length) {
+            throw new IllegalStateException();
+        }
+        return voltageLevelInfosLeg[sideIntValue - 1];
+    }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+        super.writeJsonContent(generator);
+        int side = 1;
+        for (VoltageLevelInfos voltageLevelInfos : voltageLevelInfosLeg) {
+            generator.writeFieldName("voltageLevelInfosLeg" + (side++));
+            voltageLevelInfos.writeJsonContent(generator);
+        }
     }
 }

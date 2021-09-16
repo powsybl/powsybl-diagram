@@ -9,8 +9,10 @@ package com.powsybl.sld.model;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class FeederTwtLegNode extends FeederWithSideNode {
-    protected FeederTwtLegNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+public class FeederTwtLegNode extends FeederWithSideNode {
+    protected FeederTwtLegNode(String id, String name, String equipmentId, String componentType,
+                               VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos,
+                               FeederType feederType) {
         super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, feederType);
     }
 
