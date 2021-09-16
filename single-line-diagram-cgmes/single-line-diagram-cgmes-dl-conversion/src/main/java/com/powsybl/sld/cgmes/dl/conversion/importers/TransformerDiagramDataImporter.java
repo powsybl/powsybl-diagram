@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
             addTerminalPoints(transformerId, transformer.getName(), transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), DiagramTerminal.TERMINAL2, "2", diagramDetails);
             transformerIidmDiagramData.addData(transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), diagramDetails);
             transformer.addExtension(CouplingDeviceDiagramData.class, transformerIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer.getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer.getSubstation().map(Substation::getId).orElse(null));
         } else {
             ThreeWindingsTransformer transformer3w = network.getThreeWindingsTransformer(transformerId);
             if (transformer3w != null) {
@@ -66,7 +67,7 @@ public class TransformerDiagramDataImporter extends AbstractCouplingDeviceDiagra
                 addTerminalPoints(transformerId, transformer3w.getName(), transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), DiagramTerminal.TERMINAL3, "3", diagramDetails);
                 transformerIidmDiagramData.addData(transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), diagramDetails);
                 transformer3w.addExtension(ThreeWindingsTransformerDiagramData.class, transformerIidmDiagramData);
-                NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer3w.getSubstation().getId());
+                NetworkDiagramData.addDiagramName(network, transformersDiagramData.get(CgmesDLModel.DIAGRAM_NAME), transformer3w.getSubstation().map(Substation::getId).orElse(null));
             } else {
                 LOG.warn("Cannot find transformer {}, name {} in network {}: skipping transformer diagram data", transformerId, transformersDiagramData.get("name"), network.getId());
             }
