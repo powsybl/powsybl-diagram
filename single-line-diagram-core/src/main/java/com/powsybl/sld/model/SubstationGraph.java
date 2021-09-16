@@ -51,10 +51,6 @@ public class SubstationGraph extends AbstractBaseGraph {
         return nodesById.get(id);
     }
 
-    public BranchEdge addEdge(String id, Node node1, Node node2) {
-        return addTwtEdge(id, node1, node2);
-    }
-
     @Override
     public VoltageLevelGraph getVLGraph(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);

@@ -44,7 +44,7 @@ public class TestCase2 extends AbstractTestCaseRaw {
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        FictitiousNode f = vlBuilder.createFictitiousNode("2");
+        FictitiousNode f = vlBuilder.createFictitiousNode(2);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
         vlBuilder.connectNode(bbs1, d1);

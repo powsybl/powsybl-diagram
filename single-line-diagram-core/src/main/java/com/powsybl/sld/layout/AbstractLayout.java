@@ -9,10 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -138,9 +135,10 @@ public abstract class AbstractLayout {
         List<Point> part1 = new ArrayList<>(points.subList(0, iMiddle1));
         part1.add(new Point(pointSplit));
 
-        List<Point> part2 = new ArrayList<>();
+        // we need to reverse the order for the second part as the edges are always from middleTwtNode to twtLegNode
+        LinkedList<Point> part2 = new LinkedList<>();
+        points.stream().skip(iMiddle1).forEach(part2::addFirst);
         part2.add(new Point(pointSplit));
-        part2.addAll(points.subList(iMiddle1, points.size()));
 
         return Arrays.asList(part1, part2);
     }
@@ -149,14 +147,17 @@ public abstract class AbstractLayout {
         // for the first new edge, we keep all the original first polyline points, except the last one
         List<Point> part1 = new ArrayList<>(points1.subList(0, points1.size() - 1));
 
-        // for the second new edge, we keep the last two points of the original first polyline
+        // for the second new edge, we keep the last two points of the original first polyline (in reverse order
+        // as the edges are always from middleTwtNode to twtLegNode
         // we need to create a new point to avoid having a point shared between part1 and part2
-        List<Point> part2 = Arrays.asList(new Point(points1.get(points1.size() - 2)), points1.get(points1.size() - 1));
+        List<Point> part2 = Arrays.asList(points1.get(points1.size() - 1), new Point(points1.get(points1.size() - 2)));
 
-        // the third new edge is made with the original second polyline, except the first point
-        List<Point> part3 = new ArrayList<>(points2.subList(1, points2.size()));
+        // the third new edge is made with the original second polyline, except the first point (in reverse order
+        // as the edges are always from middleTwtNode to twtLegNode)
+        LinkedList<Point> part3 = new LinkedList<>();
+        points2.stream().skip(1).forEach(part3::addFirst);
 
-        // the fictitious node point is the second to last point of the original first polyline (or the second of the original seond polyline)
+        // the fictitious node point is the second to last point of the original first polyline (or the second of the original second polyline)
         coord.setCoordinates(points2.get(1));
 
         return Arrays.asList(part1, part2, part3);

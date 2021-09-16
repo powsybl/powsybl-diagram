@@ -139,19 +139,19 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g1.addEdge(vl1Btrf1, vl1Dtrf1);
         g1.addEdge(vl1Dtrf1, vl1Bbs1);
 
-        Feeder2WTLegNode vl1Trf2One = Feeder2WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
+        Feeder3WTLegNode vl1Trf2One = Feeder3WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf2One.setOrder(2);
         vl1Trf2One.setDirection(BusCell.Direction.TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
         g1.addNode(vl1Trf2One);
-        Feeder2WTLegNode vl1Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        Feeder3WTLegNode vl1Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl1Trf2Two.setOrder(3);
         vl1Trf2Two.setDirection(BusCell.Direction.TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g1);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g1);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -225,19 +225,19 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         g2.addEdge(vl2Btrf1, vl2Dtrf1);
         g2.addEdge(vl2Dtrf1, vl2Bbs1);
 
-        Feeder2WTLegNode vl2Trf2One = Feeder2WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
+        Feeder3WTLegNode vl2Trf2One = Feeder3WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf2One.setOrder(2);
         vl2Trf2One.setDirection(BusCell.Direction.TOP);
         vl2Trf2One.setX(130);
         vl2Trf2One.setY(80);
         g2.addNode(vl2Trf2One);
-        Feeder2WTLegNode vl2Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        Feeder3WTLegNode vl2Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl2Trf2Two.setOrder(3);
         vl2Trf2Two.setDirection(BusCell.Direction.TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g2);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g2);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -298,13 +298,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2One.setX(110);
         vl3Trf2One.setY(80);
         g3.addNode(vl3Trf2One);
-        Feeder2WTLegNode vl3Trf2Two = Feeder2WTLegNode.createForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl2", "vl2", 225));
+        Feeder3WTLegNode vl3Trf2Two = Feeder3WTLegNode.createForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl2", "vl2", 225));
         vl3Trf2Two.setOrder(2);
         vl3Trf2Two.setDirection(BusCell.Direction.TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g3);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g3);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -543,28 +543,23 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addNode(g1Graph);
         substG.addNode(g2);
         substG.addNode(g3Graph);
-        Node nMulti1 = new Middle2WTNode(vl1Trf1.getId() + "_" + vl2Trf1.getId(), vl1Infos, vl2Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null);
         nMulti1.setCoordinates(405., 590.);
-        BranchEdge edge1 = substG.addEdge("edge_" + vl1Trf1.getId(), vl1Trf1, nMulti1);
+        BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
-        BranchEdge edge2 = substG.addEdge("edge_" + vl2Trf1.getId(), nMulti1, vl2Trf1);
-        edge2.setSnakeLine(Point.createPointsList(405., 590., 690., 590., 690., 540.));
-        nMulti1.addAdjacentEdge(edge1);
-        nMulti1.addAdjacentEdge(edge2);
+        BranchEdge edge2 = substG.addTwtEdge(vl2Trf1, nMulti1);
+        edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Node nMulti3 = new Middle3WTNode(vl1Trf2.getId() + "_" + vl2Trf2.getId() + "_" + vl3Trf2.getId(), vl1Infos, vl2Infos, vl3Infos, null);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, null);
         nMulti3.setCoordinates(750., 90.);
-        BranchEdge edge21 = substG.addEdge("edge_" + vl1Trf2.getId(), vl1Trf2, nMulti3);
+        BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
-        BranchEdge edge22 = substG.addEdge("edge_" + vl2Trf2.getId(), nMulti3, vl2Trf2);
-        edge22.setSnakeLine(Point.createPointsList(750., 90., 750., 120.));
-        BranchEdge edge23 = substG.addEdge("edge_" + vl3Trf2.getId(), nMulti3, vl3Trf2);
-        edge23.setSnakeLine(Point.createPointsList(750., 90., 1040., 90., 1040., 120.));
+        BranchEdge edge22 = substG.addTwtEdge(vl2Trf2, nMulti3);
+        edge22.setSnakeLine(Point.createPointsList(750., 120., 750., 90.));
+        BranchEdge edge23 = substG.addTwtEdge(vl3Trf2, nMulti3);
+        edge23.setSnakeLine(Point.createPointsList(1040., 120., 1040., 90., 750., 90.));
 
-        nMulti3.addAdjacentEdge(edge21);
-        nMulti3.addAdjacentEdge(edge22);
-        nMulti3.addAdjacentEdge(edge23);
         substG.addMultiTermNode(nMulti3);
 
         substG.setSize(1090, 580);
@@ -629,14 +624,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         s1Graph.addNode(vl12Graph);
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
-        Node nMulti1 = new Middle2WTNode(twtSide1Node.getId() + "_" + twtSide2Node.getId(), vl12Infos, vl11Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null);
         nMulti1.setCoordinates(90, 350);
-        BranchEdge edge1 = s1Graph.addEdge("edge_" + twtSide1Node.getId(), twtSide1Node, nMulti1);
+        BranchEdge edge1 = s1Graph.addTwtEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(90., 300., 90., 320., 90., 350.));
-        BranchEdge edge2 = s1Graph.addEdge("edge_" + twtSide2Node.getId(), nMulti1, twtSide2Node);
-        edge2.setSnakeLine(Point.createPointsList(90., 350., 90., 380., 90., 400.));
-        nMulti1.addAdjacentEdge(edge1);
-        nMulti1.addAdjacentEdge(edge2);
+        BranchEdge edge2 = s1Graph.addTwtEdge(twtSide2Node, nMulti1);
+        edge2.setSnakeLine(Point.createPointsList(90., 400., 90., 380., 90., 350.));
         s1Graph.addMultiTermNode(nMulti1);
 
         // create second substation graph

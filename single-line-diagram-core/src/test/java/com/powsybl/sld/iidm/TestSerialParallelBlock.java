@@ -73,7 +73,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
         assertEquals("bbs", sb.getStartingNode().getId());
         assertEquals("bbs", subSB.getStartingNode().getId());
-        assertEquals("FICT_vl_2", subPB.getSubBlocks().get(0).getStartingNode().getId());
+        assertEquals("INTERNAL_vl_2", subPB.getSubBlocks().get(0).getStartingNode().getId());
 
         sb.sizing();
         assertEquals(0, sb.getPosition().get(H));
@@ -124,8 +124,8 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
         sb.reverseBlock();
 
-        assertEquals("FICT_vl_daFictif", sb.getEndingNode().getId());
-        assertEquals("FICT_vl_daFictif", subSB.getEndingNode().getId());
-        assertEquals("FICT_vl_2", subPB.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("INTERNAL_vl_da", sb.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_da", subSB.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_2", subPB.getSubBlocks().get(1).getEndingNode().getId());
     }
 }

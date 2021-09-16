@@ -18,6 +18,8 @@ import java.util.List;
  */
 public abstract class AbstractBaseGraph extends AbstractLineGraph implements BaseGraph {
 
+    private static final String EDGE_PREFIX = "EDGE_";
+
     protected List<BranchEdge> twtEdges = new ArrayList<>();
 
     protected List<Node> multiTermNodes = new ArrayList<>();
@@ -33,8 +35,9 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
     }
 
     @Override
-    public BranchEdge addTwtEdge(String id, Node node1, Node node2) {
-        BranchEdge edge = new BranchEdge(id, node1, node2);
+    public BranchEdge addTwtEdge(FeederTwtLegNode legNode, MiddleTwtNode twtNode) {
+        BranchEdge edge = new BranchEdge(EDGE_PREFIX + legNode.getId(), legNode, twtNode);
+        twtNode.addAdjacentEdge(edge);
         twtEdges.add(edge);
         return edge;
     }
@@ -89,7 +92,7 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
 
         // get points for the line supporting the svg component
         double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
-        double x2 = pol2.get(1).getX();  // absciss of the second polyline second point
+        double x2 = pol2.get(pol2.size() - 2).getX();  // absciss of the second polyline second last point
 
         if (x1 == x2) {
             // vertical line supporting the svg component
@@ -124,8 +127,8 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
 
         // get points for the line supporting the svg component
         Point coord1 = pol1.get(pol1.size() - 2); // abscissa of the first polyline second last point
-        Point coord2 = pol2.get(1);  // abscissa of the second polyline second point
-        Point coord3 = pol3.get(1);  // abscissa of the third polyline second point
+        Point coord2 = pol2.get(pol2.size() - 2);  // abscissa of the second polyline second last point
+        Point coord3 = pol3.get(pol3.size() - 2);  // abscissa of the third polyline second last point
         if (coord1.getY() == coord3.getY()) {
             if (coord2.getY() < coord1.getY()) {
                 node.setRotationAngle(180.);  // rotation if middle node cell orientation is BOTTOM

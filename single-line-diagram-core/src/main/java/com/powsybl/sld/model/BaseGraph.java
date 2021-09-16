@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface BaseGraph extends LineGraph {
 
-    BranchEdge addTwtEdge(String id, Node n1, Node n2);
+    BranchEdge addTwtEdge(FeederTwtLegNode legNode, MiddleTwtNode twtNode);
 
     List<BranchEdge> getTwtEdges();
 

@@ -379,26 +379,26 @@ polyline {fill: none}
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf1">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf1">
             <polyline points="120.0,540.0,120.0,590.0,397.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl2_95_trf1">
-            <polyline points="413.0,590.0,690.0,590.0,690.0,540.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf1">
+            <polyline points="690.0,540.0,690.0,590.0,413.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl1_95_trf2_95_one">
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf2_95_one">
             <polyline points="440.0,120.0,440.0,90.0,743.0,90.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl2_95_trf2_95_one">
-            <polyline points="750.0,102.0,750.0,120.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf2_95_one">
+            <polyline points="750.0,120.0,750.0,102.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idedge_95_vl3_95_trf2_95_one">
-            <polyline points="757.0,90.0,1040.0,90.0,1040.0,120.0"/>
+        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl3_95_trf2_95_one">
+            <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1_95_vl2_95_trf1" transform="translate(400.0,582.5)">
+        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
             <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1" transform="rotate(90.0,5.0,7.5)"/>
             <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(90.0,5.0,7.5)"/>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2_95_one_95_vl2_95_trf2_95_one_95_vl3_95_trf2_95_one" transform="translate(742.0,78.0)">
+        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>

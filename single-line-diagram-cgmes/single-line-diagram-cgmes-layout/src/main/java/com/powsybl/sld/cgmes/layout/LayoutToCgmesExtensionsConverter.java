@@ -103,14 +103,11 @@ public class LayoutToCgmesExtensionsConverter {
             AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
 
             //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL
-            List<Node> fictitiousNodes = vlGraph.getNodes()
-                    .stream()
-                    .filter(Node::isFictitious)
+            vlGraph.getNodes().stream()
+                    .filter(InternalNode::isIidmInternalNode)
                     .filter(this::isNodeSurroundedbySwitchesOrFeeders)
-                    .collect(Collectors.toList());
-            fictitiousNodes.stream().filter(fNode -> StringUtils.isNumeric(fNode.getName())).forEach(fNode ->
-                VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName, Integer.parseInt(fNode.getName()), new DiagramPoint(fNode.getX(), fNode.getY(), 0))
-            );
+                    .forEach(fNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName,
+                        Integer.parseInt(fNode.getEquipmentId()), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);

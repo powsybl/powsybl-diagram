@@ -51,7 +51,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
 
         FeederNode la = vlBuilder.createLoad("la", 10, BusCell.Direction.TOP);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
-        FictitiousNode fa = vlBuilder.createFictitiousNode("4");
+        FictitiousNode fa = vlBuilder.createFictitiousNode(4);
         SwitchNode da1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da1", false, false);
         SwitchNode da2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da2", false, false);
         vlBuilder.connectNode(la, ba);
@@ -63,7 +63,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
 
         SwitchNode db1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db1", false, false);
         SwitchNode db2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db2", false, false);
-        FictitiousNode fb = vlBuilder.createFictitiousNode("6");
+        FictitiousNode fb = vlBuilder.createFictitiousNode(6);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.BOTTOM);
         vlBuilder.connectNode(lb, bb);

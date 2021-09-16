@@ -8,8 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vlUnstack_2",
-    "name" : "2",
+    "id" : "INTERNAL_vlUnstack_2",
     "equipmentId" : "2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -18,9 +17,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vlUnstack_lFictif",
-    "name" : "lFictif",
-    "equipmentId" : "lFictif",
+    "id" : "INTERNAL_vlUnstack_l",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -177,7 +175,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "d2", "FICT_vlUnstack_2" ]
+          "nodes" : [ "bbs2", "d2", "INTERNAL_vlUnstack_2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -198,7 +196,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "d1", "FICT_vlUnstack_2" ]
+          "nodes" : [ "bbs1", "d1", "INTERNAL_vlUnstack_2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -220,7 +218,7 @@
           "xSpan" : 100.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vlUnstack_2", "b", "FICT_vlUnstack_lFictif" ]
+        "nodes" : [ "INTERNAL_vlUnstack_2", "b", "INTERNAL_vlUnstack_l" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -241,7 +239,7 @@
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vlUnstack_lFictif", "l" ]
+        "nodes" : [ "INTERNAL_vlUnstack_l", "l" ]
       } ]
     }
   } ],
@@ -250,21 +248,21 @@
     "node2" : "d1"
   }, {
     "node1" : "d1",
-    "node2" : "FICT_vlUnstack_2"
+    "node2" : "INTERNAL_vlUnstack_2"
   }, {
     "node1" : "bbs2",
     "node2" : "d2"
   }, {
     "node1" : "d2",
-    "node2" : "FICT_vlUnstack_2"
+    "node2" : "INTERNAL_vlUnstack_2"
   }, {
-    "node1" : "FICT_vlUnstack_2",
+    "node1" : "INTERNAL_vlUnstack_2",
     "node2" : "b"
   }, {
     "node1" : "b",
-    "node2" : "FICT_vlUnstack_lFictif"
+    "node2" : "INTERNAL_vlUnstack_l"
   }, {
-    "node1" : "FICT_vlUnstack_lFictif",
+    "node1" : "INTERNAL_vlUnstack_l",
     "node2" : "l"
   } ],
   "multitermNodes" : [ ],

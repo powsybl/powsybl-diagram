@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.model;
 
+import java.util.Objects;
+
 import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
 
 /**
@@ -13,7 +15,13 @@ import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
  */
 public class BusConnection extends FictitiousNode {
 
-    public BusConnection(VoltageLevelGraph graph, String id) {
-        super(id, BUS_CONNECTION, graph);
+    private static final String ID_PREFIX = "BUSCO_";
+
+    public BusConnection(String id, VoltageLevelGraph graph) {
+        super(prefixId(id), null, null, BUS_CONNECTION, graph);
+    }
+
+    private static String prefixId(String id) {
+        return ID_PREFIX + Objects.requireNonNull(id);
     }
 }

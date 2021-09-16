@@ -8,9 +8,8 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_l_fBc",
-    "name" : "l_fBc",
-    "equipmentId" : "l_fBc",
+    "id" : "BUSCO_l",
+    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
@@ -18,29 +17,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_l_fNode1",
-    "name" : "l_fNode1",
-    "equipmentId" : "l_fNode1",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 125.0,
-    "y" : 250.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl_l_fNode2",
-    "name" : "l_fNode2",
-    "equipmentId" : "l_fNode2",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 125.0,
-    "y" : 62.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "FICT_vl_sw_fBc",
-    "name" : "sw_fBc",
-    "equipmentId" : "sw_fBc",
+    "id" : "BUSCO_sw",
+    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
@@ -48,9 +26,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_sw_fBc",
-    "name" : "sw_fBc",
-    "equipmentId" : "sw_fBc",
+    "id" : "BUSCO_sw",
+    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
@@ -58,9 +35,26 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_sw_fNode",
-    "name" : "sw_fNode",
-    "equipmentId" : "sw_fNode",
+    "id" : "INTERNAL_vl_l_1",
+    "equipmentId" : null,
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 125.0,
+    "y" : 250.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_l_2",
+    "equipmentId" : null,
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 125.0,
+    "y" : 62.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_sw",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -69,9 +63,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_sw_fNode",
-    "name" : "sw_fNode",
-    "equipmentId" : "sw_fNode",
+    "id" : "INTERNAL_vl_sw",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -185,7 +178,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b2", "FICT_vl_sw_fBc", "FICT_vl_sw_fNode" ]
+        "nodes" : [ "b2", "BUSCO_sw", "INTERNAL_vl_sw" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -206,7 +199,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "FICT_vl_sw_fNode", "sw", "FICT_vl_sw_fNode" ]
+        "nodes" : [ "INTERNAL_vl_sw", "sw", "INTERNAL_vl_sw" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -227,7 +220,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "FICT_vl_sw_fBc", "FICT_vl_sw_fNode" ]
+        "nodes" : [ "b1", "BUSCO_sw", "INTERNAL_vl_sw" ]
       } ]
     }
   }, {
@@ -275,7 +268,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "FICT_vl_l_fBc", "FICT_vl_l_fNode1" ]
+        "nodes" : [ "b1", "BUSCO_l", "INTERNAL_vl_l_1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -296,7 +289,7 @@
           "xSpan" : 50.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_l_fNode1", "FICT_vl_l_fNode2" ]
+        "nodes" : [ "INTERNAL_vl_l_1", "INTERNAL_vl_l_2" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -317,39 +310,39 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vl_l_fNode2", "l" ]
+        "nodes" : [ "INTERNAL_vl_l_2", "l" ]
       } ]
     }
   } ],
   "edges" : [ {
     "node1" : "b1",
-    "node2" : "FICT_vl_l_fBc"
+    "node2" : "BUSCO_l"
   }, {
-    "node1" : "FICT_vl_l_fBc",
-    "node2" : "FICT_vl_l_fNode1"
+    "node1" : "BUSCO_l",
+    "node2" : "INTERNAL_vl_l_1"
   }, {
-    "node1" : "FICT_vl_l_fNode1",
-    "node2" : "FICT_vl_l_fNode2"
+    "node1" : "INTERNAL_vl_l_1",
+    "node2" : "INTERNAL_vl_l_2"
   }, {
-    "node1" : "FICT_vl_l_fNode2",
+    "node1" : "INTERNAL_vl_l_2",
     "node2" : "l"
   }, {
     "node1" : "b1",
-    "node2" : "FICT_vl_sw_fBc"
+    "node2" : "BUSCO_sw"
   }, {
-    "node1" : "FICT_vl_sw_fBc",
-    "node2" : "FICT_vl_sw_fNode"
+    "node1" : "BUSCO_sw",
+    "node2" : "INTERNAL_vl_sw"
   }, {
-    "node1" : "FICT_vl_sw_fNode",
+    "node1" : "INTERNAL_vl_sw",
     "node2" : "sw"
   }, {
     "node1" : "b2",
-    "node2" : "FICT_vl_sw_fBc"
+    "node2" : "BUSCO_sw"
   }, {
-    "node1" : "FICT_vl_sw_fBc",
-    "node2" : "FICT_vl_sw_fNode"
+    "node1" : "BUSCO_sw",
+    "node2" : "INTERNAL_vl_sw"
   }, {
-    "node1" : "FICT_vl_sw_fNode",
+    "node1" : "INTERNAL_vl_sw",
     "node2" : "sw"
   } ],
   "multitermNodes" : [ ],

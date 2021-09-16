@@ -8,8 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_2",
-    "name" : "2",
+    "id" : "INTERNAL_vl_2",
     "equipmentId" : "2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -18,9 +17,8 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "FICT_vl_lFictif",
-    "name" : "lFictif",
-    "equipmentId" : "lFictif",
+    "id" : "INTERNAL_vl_l",
+    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -177,7 +175,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "d2", "FICT_vl_2" ]
+          "nodes" : [ "bbs2", "d2", "INTERNAL_vl_2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -198,7 +196,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "d1", "FICT_vl_2" ]
+          "nodes" : [ "bbs1", "d1", "INTERNAL_vl_2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -220,7 +218,7 @@
           "xSpan" : 50.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "FICT_vl_2", "b", "FICT_vl_lFictif" ]
+        "nodes" : [ "INTERNAL_vl_2", "b", "INTERNAL_vl_l" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -241,7 +239,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "FICT_vl_lFictif", "l" ]
+        "nodes" : [ "INTERNAL_vl_l", "l" ]
       } ]
     }
   } ],
@@ -250,21 +248,21 @@
     "node2" : "d1"
   }, {
     "node1" : "d1",
-    "node2" : "FICT_vl_2"
+    "node2" : "INTERNAL_vl_2"
   }, {
     "node1" : "bbs2",
     "node2" : "d2"
   }, {
     "node1" : "d2",
-    "node2" : "FICT_vl_2"
+    "node2" : "INTERNAL_vl_2"
   }, {
-    "node1" : "FICT_vl_2",
+    "node1" : "INTERNAL_vl_2",
     "node2" : "b"
   }, {
     "node1" : "b",
-    "node2" : "FICT_vl_lFictif"
+    "node2" : "INTERNAL_vl_l"
   }, {
-    "node1" : "FICT_vl_lFictif",
+    "node1" : "INTERNAL_vl_l",
     "node2" : "l"
   } ],
   "multitermNodes" : [ ],
