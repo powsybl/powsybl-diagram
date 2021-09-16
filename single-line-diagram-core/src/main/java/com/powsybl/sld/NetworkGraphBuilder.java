@@ -59,7 +59,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private static boolean isInternalToSubstation(Branch<?> branch) {
-        return branch.getTerminal1().getVoltageLevel().getSubstation().getId().equals(branch.getTerminal2().getVoltageLevel().getSubstation().getId());
+        Optional<Substation> substation1 = branch.getTerminal1().getVoltageLevel().getSubstation();
+        Optional<Substation> substation2 = branch.getTerminal2().getVoltageLevel().getSubstation();
+        return substation1.isPresent() && substation2.isPresent() && substation1.get() == substation2.get();
     }
 
     private static boolean isNotInternalToSubstation(Branch<?> branch) {

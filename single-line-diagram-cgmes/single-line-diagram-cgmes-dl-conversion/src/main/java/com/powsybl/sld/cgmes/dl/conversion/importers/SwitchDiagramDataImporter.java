@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,7 @@ public class SwitchDiagramDataImporter extends AbstractCouplingDeviceDiagramData
             addTerminalPoints(switchId, sw.getName(), switchesDiagramData.get("diagramName"), DiagramTerminal.TERMINAL2, "2", diagramDetails);
             switchIidmDiagramData.addData(switchesDiagramData.get("diagramName"), diagramDetails);
             sw.addExtension(CouplingDeviceDiagramData.class, switchIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, switchesDiagramData.get("diagramName"), sw.getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, switchesDiagramData.get("diagramName"), sw.getVoltageLevel().getSubstation().map(Substation::getId).orElse(""));
         } else {
             LOG.warn("Cannot find switch {}, name {} in network {}: skipping switch diagram data", switchId, switchesDiagramData.get("name"), network.getId());
         }

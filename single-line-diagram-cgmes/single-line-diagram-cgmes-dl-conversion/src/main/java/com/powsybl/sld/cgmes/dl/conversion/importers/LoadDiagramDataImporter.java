@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class LoadDiagramDataImporter extends AbstractInjectionDiagramDataImporte
             addTerminalPoints(loadId, load.getName(), loadDiagramData.get("diagramName"), diagramDetails);
             loadIidmDiagramData.addData(loadDiagramData.get("diagramName"), diagramDetails);
             load.addExtension(InjectionDiagramData.class, loadIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"), load.getTerminal().getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, loadDiagramData.get("diagramName"), load.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find load {}, name {} in network {}: skipping load diagram data", loadId, loadDiagramData.get("name"), network.getId());
         }

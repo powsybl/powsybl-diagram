@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class GeneratorDiagramDataImporter extends AbstractInjectionDiagramDataIm
             addTerminalPoints(generatorId, generator.getName(), generatorDiagramData.get("diagramName"), diagramDetails);
             generatorIidmDiagramData.addData(generatorDiagramData.get("diagramName"), diagramDetails);
             generator.addExtension(InjectionDiagramData.class, generatorIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"), generator.getTerminal().getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, generatorDiagramData.get("diagramName"), generator.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find generator {}, name {} in network {}: skipping generator diagram data", generatorId, generatorDiagramData.get("name"), network.getId());
         }

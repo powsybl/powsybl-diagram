@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class SvcDiagramDataImporter extends AbstractInjectionDiagramDataImporter
             addTerminalPoints(svcId, svc.getName(), svcDiagramData.get("diagramName"), diagramDetails);
             svcIidmDiagramData.addData(svcDiagramData.get("diagramName"), diagramDetails);
             svc.addExtension(InjectionDiagramData.class, svcIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, svcDiagramData.get("diagramName"), svc.getTerminal().getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, svcDiagramData.get("diagramName"), svc.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find svc {}, name {} in network {}: skipping svc diagram data", svcId, svcDiagramData.get("name"), network.getId());
         }

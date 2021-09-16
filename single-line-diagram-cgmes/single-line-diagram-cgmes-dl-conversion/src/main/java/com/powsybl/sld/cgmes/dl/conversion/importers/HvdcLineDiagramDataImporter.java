@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +45,8 @@ public class HvdcLineDiagramDataImporter {
             String diagramName = hvdcLineDiagramData.get("diagramName");
             hvdcLineIidmDiagramData.addPoint(diagramName, new DiagramPoint(hvdcLineDiagramData.asDouble("x"), hvdcLineDiagramData.asDouble("y"), hvdcLineDiagramData.asInt("seq")));
             hvdcLine.addExtension(LineDiagramData.class, hvdcLineIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, diagramName, hvdcLine.getConverterStation1().getTerminal().getVoltageLevel().getSubstation().getId());
-            NetworkDiagramData.addDiagramName(network, diagramName, hvdcLine.getConverterStation2().getTerminal().getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, diagramName, hvdcLine.getConverterStation1().getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
+            NetworkDiagramData.addDiagramName(network, diagramName, hvdcLine.getConverterStation2().getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find HVDC line {}, name {} in network {}: skipping HVDC line diagram data", hvdcLineId, hvdcLineDiagramData.get("name"), network.getId());
         }

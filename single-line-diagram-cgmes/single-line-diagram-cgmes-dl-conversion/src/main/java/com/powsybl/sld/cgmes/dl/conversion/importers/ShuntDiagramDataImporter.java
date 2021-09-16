@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Map;
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class ShuntDiagramDataImporter extends AbstractInjectionDiagramDataImport
             addTerminalPoints(shuntId, shunt.getName(), shuntDiagramData.get("diagramName"), diagramDetails);
             shuntIidmDiagramData.addData(shuntDiagramData.get("diagramName"), diagramDetails);
             shunt.addExtension(InjectionDiagramData.class, shuntIidmDiagramData);
-            NetworkDiagramData.addDiagramName(network, shuntDiagramData.get("diagramName"), shunt.getTerminal().getVoltageLevel().getSubstation().getId());
+            NetworkDiagramData.addDiagramName(network, shuntDiagramData.get("diagramName"), shunt.getTerminal().getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
         } else {
             LOG.warn("Cannot find shunt {}, name {} in network {}: skipping shunt diagram data", shuntId, shuntDiagramData.get("name"), network.getId());
         }

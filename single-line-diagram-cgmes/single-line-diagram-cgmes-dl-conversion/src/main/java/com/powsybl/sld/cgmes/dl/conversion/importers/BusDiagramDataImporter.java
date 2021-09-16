@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 
 import java.util.Objects;
 
+import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class BusDiagramDataImporter {
                 }
                 busIidmDiagramData.addData(diagramName, diagramDetails);
                 bus.addExtension(NodeDiagramData.class, busIidmDiagramData);
-                NetworkDiagramData.addDiagramName(network, diagramName, bus.getVoltageLevel().getSubstation().getId());
+                NetworkDiagramData.addDiagramName(network, diagramName, bus.getVoltageLevel().getSubstation().map(Substation::getId).orElse(null));
             } else {
                 LOG.warn("Cannot find bus {}, name {} in network {}: skipping bus diagram data", busId, busDiagramData.get("name"), network.getId());
             }
