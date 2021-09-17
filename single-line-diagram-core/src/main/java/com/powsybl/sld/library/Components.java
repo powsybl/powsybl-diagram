@@ -10,8 +10,6 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.powsybl.commons.json.JsonUtil;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
