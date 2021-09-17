@@ -48,11 +48,11 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     /**
      * Constructs a new library containing the components in the given directories
      * @param name name of the library
-     * @param directory main directory containing the resources components: SVG files, with associated components.xml
+     * @param directory main directory containing the resources components: SVG files, with associated components.json
      *                 (containing the list of SVG files) and components.css (containing the style applied to each
      *                  component)
      * @param additionalDirectories directories for additional components (each directory containing SVG files,
-     *                              associated components.xml and components.css).
+     *                              associated components.json and components.css).
      */
     public ResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {
         this.name = Objects.requireNonNull(name);

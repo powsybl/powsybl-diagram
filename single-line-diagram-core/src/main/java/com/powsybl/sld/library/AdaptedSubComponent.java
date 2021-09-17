@@ -6,25 +6,30 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class AdaptedSubComponent {
 
-    @XmlAttribute(name = "name")
     private String name;
 
-    @XmlElement(name = "fileName")
     private String fileName;
 
-    @XmlElement(name = "styleClass")
     private String styleClass;
+
+    @JsonCreator
+    public AdaptedSubComponent(@JsonProperty("name") String name,
+                               @JsonProperty("fileName") String fileName,
+                               @JsonProperty("styleClass") String styleClass) {
+        this.name = Objects.requireNonNull(name);
+        this.fileName = Objects.requireNonNull(fileName);
+        this.styleClass = Objects.requireNonNull(styleClass);
+    }
 
     public String getName() {
         return name;

@@ -9,7 +9,6 @@ package com.powsybl.sld.library;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +19,6 @@ import java.util.Objects;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-@XmlJavaTypeAdapter(ComponentMetadataAdapter.class)
 public class ComponentMetadata {
 
     private final String type;
@@ -70,6 +68,7 @@ public class ComponentMetadata {
         return size;
     }
 
+    @JsonProperty("anchorPoints")
     public List<AnchorPoint> getAnchorPoints() {
         return anchorPoints;
     }
@@ -78,6 +77,7 @@ public class ComponentMetadata {
         return allowRotation;
     }
 
+    @JsonProperty("subComponents")
     public List<SubComponent> getSubComponents() {
         return subComponents;
     }

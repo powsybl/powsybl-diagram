@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.library;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -15,6 +18,11 @@ package com.powsybl.sld.library;
 public class Component {
 
     private ComponentMetadata metadata;
+
+    @JsonCreator
+    public Component(@JsonProperty("") ComponentMetadata metadata) {
+        this.metadata = metadata;
+    }
 
     public ComponentMetadata getMetadata() {
         return metadata;

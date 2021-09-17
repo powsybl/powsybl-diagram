@@ -6,12 +6,14 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-@XmlJavaTypeAdapter(SubComponentAdapter.class)
 public class SubComponent {
 
     private String name;
@@ -20,10 +22,13 @@ public class SubComponent {
 
     private final String styleClass;
 
-    public SubComponent(String name, String fileName, String styleClass) {
-        this.name = name;
-        this.fileName = fileName;
-        this.styleClass = styleClass;
+    @JsonCreator
+    public SubComponent(@JsonProperty("name") String name,
+                        @JsonProperty("fileName") String fileName,
+                        @JsonProperty("styleClass") String styleClass) {
+        this.name = Objects.requireNonNull(name);
+        this.fileName = Objects.requireNonNull(fileName);
+        this.styleClass = styleClass; // FIXME : TBC - can be null ?
     }
 
     public String getName() {

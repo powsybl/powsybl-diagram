@@ -6,23 +6,27 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Thomas Adam <tadam at silicom.fr>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class AdaptedComponentSize {
 
-    @XmlAttribute(name = "width")
     private double width = 0;
 
-    @XmlAttribute(name = "height")
     private double height = 0;
+
+    @JsonCreator
+    public AdaptedComponentSize(@JsonProperty("width") double width,
+                                @JsonProperty("height") double height) {
+        this.width = width;
+        this.height = height;
+    }
 
     public double getWidth() {
         return width;

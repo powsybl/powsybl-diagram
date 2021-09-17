@@ -6,30 +6,26 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Thomas Adam <tadam at silicom.fr>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class AdaptedComponentMetadata {
 
-    @XmlAttribute(name = "type", required = true)
     private String type;
 
-    @XmlAttribute(name = "id")
     private String id;
 
-    @XmlElement(name = "anchorPoint")
-    private List<AnchorPoint> anchorPoints = new ArrayList<>();
+    private List<AnchorPoint> anchorPoints;
 
     private ComponentSize size;
 
@@ -37,8 +33,27 @@ public class AdaptedComponentMetadata {
 
     private boolean allowRotation;
 
-    @XmlElement(name = "subComponent")
-    private List<SubComponent> subComponents = new ArrayList<>();
+    private List<SubComponent> subComponents;
+
+    /**
+     * Constructor
+     */
+    @JsonCreator
+    public AdaptedComponentMetadata(@JsonProperty("type") String type,
+                                    @JsonProperty("id") String id,
+                                    @JsonProperty("anchorPoint") List<AnchorPoint> anchorPoints,
+                                    @JsonProperty("size") ComponentSize size,
+                                    @JsonProperty("styleClass") String styleClass,
+                                    @JsonProperty("allowRotation") boolean allowRotation,
+                                    @JsonProperty("subComponent") List<SubComponent> subComponents) {
+        this.type = Objects.requireNonNull(type);
+        this.id = Objects.requireNonNull(id);
+        this.anchorPoints = Objects.requireNonNull(anchorPoints);
+        this.size = Objects.requireNonNull(size);
+        this.styleClass = Objects.requireNonNull(styleClass);
+        this.allowRotation = allowRotation;
+        this.subComponents = Objects.requireNonNull(subComponents);
+    }
 
     public String getType() {
         return type;
@@ -64,6 +79,7 @@ public class AdaptedComponentMetadata {
         this.size = size;
     }
 
+    @JsonProperty("anchorPoint")
     public List<AnchorPoint> getAnchorPoints() {
         return anchorPoints;
     }
@@ -80,6 +96,7 @@ public class AdaptedComponentMetadata {
         this.allowRotation = allowRotation;
     }
 
+    @JsonProperty("subComponent")
     public List<SubComponent> getSubComponents() {
         return subComponents;
     }

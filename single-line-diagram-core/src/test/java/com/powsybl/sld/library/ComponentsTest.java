@@ -9,8 +9,6 @@ package com.powsybl.sld.library;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 
 import static com.powsybl.sld.library.ComponentTypeName.BREAKER;
@@ -27,27 +25,38 @@ public class ComponentsTest {
 
     @Test
     public void test() {
-        String componentXml = String.join(System.lineSeparator(),
-                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
-                "<components>",
-                "    <component>",
-                "        <metadata type=\"BREAKER\">",
-                "            <size width=\"18\" height=\"19\" />",
-                "            <subComponent name=\"BREAKER\">",
-                "              <fileName>breaker.svg</fileName>",
-                "            </subComponent>",
-                "            <anchorPoint x=\"9\" y=\"0\" orientation=\"VERTICAL\"/>",
-                "            <anchorPoint x=\"9\" y=\"18\" orientation=\"HORIZONTAL\"/>",
-                "            <allowRotation>true</allowRotation>",
-                "        </metadata>",
-                "    </component>",
-                "</components>");
+        String componentJSon = String.join(System.lineSeparator(),
+                "{",
+                "\"components\" : [ {",
+                    "\"type\" : \"BREAKER\",",
+                    "\"id\" : null,",
+                    "\"anchorPoints\" : [ {",
+                        "\"x\" : 9.0,",
+                        "\"y\" : 0.0,",
+                        "\"orientation\" : \"VERTICAL\"",
+                    "}, {",
+                        "\"x\" : 9.0,",
+                        "\"y\" : 18.0,",
+                        "\"orientation\" : \"HORIZONTAL\"",
+                    "} ],",
+                    "\"size\" : {",
+                        "\"width\" : 18.0,",
+                        "\"height\" : 19.0",
+                "},",
+                "\"allowRotation\" : true,",
+                "\"subComponents\" : [ {",
+                    "\"name\" : \"BREAKER\",",
+                    "\"fileName\" : \"breaker.svg\",",
+                    "\"styleClass\" : null",
+                "} ],",
+                "\"styleClass\" : \"sld-breaker\"",
+                "} ]",
+                "}");
+
         Components components;
-        try (ByteArrayInputStream is = new ByteArrayInputStream(componentXml.getBytes(StandardCharsets.UTF_8))) {
-            components = Components.load(is);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
+        components = Components.load(is);
+
         assertEquals(1, components.getComponents().size());
         assertEquals("breaker.svg", components.getComponents().get(0).getMetadata().getSubComponents().get(0).getFileName());
         assertEquals(BREAKER, components.getComponents().get(0).getMetadata().getType());

@@ -6,26 +6,39 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class AdaptedAnchorPoint {
 
-    @XmlAttribute(name = "x")
-    private double x = 0;
+    private double x;
 
-    @XmlAttribute(name = "y")
-    private double y = 0;
+    private double y;
 
-    @XmlAttribute(name = "orientation")
     private AnchorOrientation orientation;
+
+    /**
+     * Constructor
+     *
+     * @param x    abscissa
+     * @param y    ordinate
+     * @param orientation connection orientation
+     */
+    @JsonCreator
+    public AdaptedAnchorPoint(@JsonProperty("x") double x,
+                              @JsonProperty("y") double y,
+                              @JsonProperty("orientation") AnchorOrientation orientation) {
+        this.x = x;
+        this.y = y;
+        this.orientation = Objects.requireNonNull(orientation);
+    }
 
     public double getX() {
         return x;
