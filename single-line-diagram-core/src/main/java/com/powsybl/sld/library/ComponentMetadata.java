@@ -29,9 +29,9 @@ public class ComponentMetadata {
 
     private final ComponentSize size;
 
-    private String styleClass;
+    private final String styleClass;
 
-    private boolean allowRotation;
+    private final boolean allowRotation;
 
     private final List<SubComponent> subComponents;
 

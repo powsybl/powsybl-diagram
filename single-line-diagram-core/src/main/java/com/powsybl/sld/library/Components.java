@@ -34,16 +34,6 @@ public class Components {
         return load(Components.class.getResourceAsStream(directory + "/components.json"));
     }
 
-    private static Components load(Path jsonFile) {
-        Objects.requireNonNull(jsonFile);
-
-        try (InputStream is = Files.newInputStream(jsonFile)) {
-            return load(is);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
     public static Components load(InputStream is) {
         Objects.requireNonNull(is);
 

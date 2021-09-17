@@ -16,9 +16,9 @@ import java.util.Objects;
  */
 public class SubComponent {
 
-    private String name;
+    private final String name;
 
-    private String fileName;
+    private final String fileName;
 
     private final String styleClass;
 
@@ -28,7 +28,7 @@ public class SubComponent {
                         @JsonProperty("styleClass") String styleClass) {
         this.name = Objects.requireNonNull(name);
         this.fileName = Objects.requireNonNull(fileName);
-        this.styleClass = styleClass; // FIXME : TBC - can be null ?
+        this.styleClass = styleClass;
     }
 
     public String getName() {
