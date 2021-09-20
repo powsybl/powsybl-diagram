@@ -9,26 +9,79 @@ package com.powsybl.sld.library;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Thomas Adam <tadam at silicom>
  */
 public class Component {
 
-    private ComponentMetadata metadata;
+    private final String type;
+
+    private final String id;
+
+    private final List<AnchorPoint> anchorPoints;
+
+    private final ComponentSize size;
+
+    private final String styleClass;
+
+    private final boolean allowRotation;
+
+    private final List<SubComponent> subComponents;
 
     @JsonCreator
-    public Component(@JsonProperty("") ComponentMetadata metadata) {
-        this.metadata = metadata;
+    public Component(@JsonProperty("type") String type,
+                     @JsonProperty("id") String id,
+                     @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
+                     @JsonProperty("size") ComponentSize size,
+                     @JsonProperty("style") String styleClass,
+                     @JsonProperty("allowRotation") boolean allowRotation,
+                     @JsonProperty("subComponents") List<SubComponent> subComponents) {
+        this.type = Objects.requireNonNull(type);
+        this.id = id;
+        this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNull(anchorPoints));
+        this.size = Objects.requireNonNull(size);
+        this.styleClass = styleClass;
+        this.allowRotation = allowRotation;
+        if (subComponents != null) {
+            this.subComponents = Collections.unmodifiableList(subComponents);
+        } else {
+            this.subComponents = null;
+        }
     }
 
-    public ComponentMetadata getMetadata() {
-        return metadata;
+    public String getType() {
+        return type;
     }
 
-    public void setMetadata(ComponentMetadata metadata) {
-        this.metadata = metadata;
+    public String getId() {
+        return id;
+    }
+
+    public ComponentSize getSize() {
+        return size;
+    }
+
+    public List<AnchorPoint> getAnchorPoints() {
+        return anchorPoints;
+    }
+
+    public boolean isAllowRotation() {
+        return allowRotation;
+    }
+
+    public List<SubComponent> getSubComponents() {
+        return subComponents;
+    }
+
+    public String getStyleClass() {
+        return styleClass;
     }
 }

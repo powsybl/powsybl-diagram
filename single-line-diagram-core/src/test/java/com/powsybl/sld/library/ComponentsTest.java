@@ -53,23 +53,22 @@ public class ComponentsTest {
                 "} ]",
                 "}");
 
-        Components components;
         ByteArrayInputStream is = new ByteArrayInputStream(componentJSon.getBytes(StandardCharsets.UTF_8));
-        components = Components.load(is);
+        Components components = Components.load(is);
 
         assertEquals(1, components.getComponents().size());
-        assertEquals("breaker.svg", components.getComponents().get(0).getMetadata().getSubComponents().get(0).getFileName());
-        assertEquals(BREAKER, components.getComponents().get(0).getMetadata().getType());
-        assertEquals(BREAKER, components.getComponents().get(0).getMetadata().getSubComponents().get(0).getName());
-        assertEquals(18, components.getComponents().get(0).getMetadata().getSize().getWidth(), 0);
-        assertEquals(19, components.getComponents().get(0).getMetadata().getSize().getHeight(), 0);
-        assertEquals(2, components.getComponents().get(0).getMetadata().getAnchorPoints().size());
-        assertEquals(9, components.getComponents().get(0).getMetadata().getAnchorPoints().get(0).getX(), 0);
-        assertEquals(0, components.getComponents().get(0).getMetadata().getAnchorPoints().get(0).getY(), 0);
-        assertEquals(AnchorOrientation.VERTICAL, components.getComponents().get(0).getMetadata().getAnchorPoints().get(0).getOrientation());
-        assertEquals(9, components.getComponents().get(0).getMetadata().getAnchorPoints().get(1).getX(), 0);
-        assertEquals(18, components.getComponents().get(0).getMetadata().getAnchorPoints().get(1).getY(), 0);
-        assertEquals(AnchorOrientation.HORIZONTAL, components.getComponents().get(0).getMetadata().getAnchorPoints().get(1).getOrientation());
-        assertTrue(components.getComponents().get(0).getMetadata().isAllowRotation());
+        assertEquals("breaker.svg", components.getComponents().get(0).getSubComponents().get(0).getFileName());
+        assertEquals(BREAKER, components.getComponents().get(0).getType());
+        assertEquals(BREAKER, components.getComponents().get(0).getSubComponents().get(0).getName());
+        assertEquals(18, components.getComponents().get(0).getSize().getWidth(), 0);
+        assertEquals(19, components.getComponents().get(0).getSize().getHeight(), 0);
+        assertEquals(2, components.getComponents().get(0).getAnchorPoints().size());
+        assertEquals(9, components.getComponents().get(0).getAnchorPoints().get(0).getX(), 0);
+        assertEquals(0, components.getComponents().get(0).getAnchorPoints().get(0).getY(), 0);
+        assertEquals(AnchorOrientation.VERTICAL, components.getComponents().get(0).getAnchorPoints().get(0).getOrientation());
+        assertEquals(9, components.getComponents().get(0).getAnchorPoints().get(1).getX(), 0);
+        assertEquals(18, components.getComponents().get(0).getAnchorPoints().get(1).getY(), 0);
+        assertEquals(AnchorOrientation.HORIZONTAL, components.getComponents().get(0).getAnchorPoints().get(1).getOrientation());
+        assertTrue(components.getComponents().get(0).isAllowRotation());
     }
 }
