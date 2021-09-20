@@ -211,9 +211,9 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
-    private final Map<String, ComponentMetadata> componentMetadataByType = new HashMap<>();
+    private final Map<String, Component> componentByType = new HashMap<>();
 
-    private final Map<String, ComponentMetadata> componentMetadataById = new HashMap<>();
+    private final Map<String, Component> componentById = new HashMap<>();
 
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
 
@@ -230,14 +230,14 @@ public class GraphMetadata implements AnchorPointProvider {
     }
 
     @JsonCreator
-    public GraphMetadata(@JsonProperty("components") List<ComponentMetadata> componentMetadataList,
+    public GraphMetadata(@JsonProperty("components") List<Component> componentList,
                          @JsonProperty("nodes") List<NodeMetadata> nodeMetadataList,
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("arrows") List<ArrowMetadata> arrowMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams) {
-        for (ComponentMetadata componentMetadata : componentMetadataList) {
-            addComponentMetadata(componentMetadata);
+        for (Component component : componentList) {
+            addComponent(component);
         }
         for (NodeMetadata nodeMetadata : nodeMetadataList) {
             addNodeMetadata(nodeMetadata);
@@ -302,34 +302,34 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
-    public void addComponentMetadata(ComponentMetadata metadata) {
-        Objects.requireNonNull(metadata);
-        componentMetadataByType.put(metadata.getType(), metadata);
-        if (metadata.getId() != null) {
-            componentMetadataById.put(metadata.getId(), metadata);
+    public void addComponent(Component component) {
+        Objects.requireNonNull(component);
+        componentByType.put(component.getType(), component);
+        if (component.getId() != null) {
+            componentById.put(component.getId(), component);
         }
     }
 
-    public ComponentMetadata getComponentMetadata(String componentType) {
-        return componentType != null ? componentMetadataByType.get(componentType) : null;
+    public Component getComponentMetadata(String componentType) {
+        return componentType != null ? componentByType.get(componentType) : null;
     }
 
     @Override
     public List<AnchorPoint> getAnchorPoints(String type, String id) {
-        ComponentMetadata componentMetadata = null;
+        Component component = null;
         if (id != null) {
-            componentMetadata = componentMetadataById.get(id);
+            component = componentById.get(id);
         }
-        if (componentMetadata == null) {
-            componentMetadata = getComponentMetadata(type);
+        if (component == null) {
+            component = getComponentMetadata(type);
         }
-        return componentMetadata != null ? componentMetadata.getAnchorPoints()
+        return component != null ? component.getAnchorPoints()
                                          : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }
 
     @JsonProperty("components")
-    public List<ComponentMetadata> getComponentMetadata() {
-        return ImmutableList.copyOf(componentMetadataByType.values());
+    public List<Component> getComponentMetadata() {
+        return ImmutableList.copyOf(componentByType.values());
     }
 
     public void addNodeMetadata(NodeMetadata metadata) {
