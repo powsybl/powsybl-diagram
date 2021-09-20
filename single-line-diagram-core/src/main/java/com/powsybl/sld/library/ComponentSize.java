@@ -9,14 +9,11 @@ package com.powsybl.sld.library;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-@XmlJavaTypeAdapter(ComponentSizeAdapter.class)
 public class ComponentSize {
 
     private final double width;
@@ -24,7 +21,8 @@ public class ComponentSize {
     private final double height;
 
     @JsonCreator
-    public ComponentSize(@JsonProperty("width") double width, @JsonProperty("height") double height) {
+    public ComponentSize(@JsonProperty("width") double width,
+                         @JsonProperty("height") double height) {
         this.width = width;
         this.height = height;
     }
