@@ -29,7 +29,7 @@ public class RandomVoltageLevelLayoutFactory implements VoltageLevelLayoutFactor
     }
 
     @Override
-    public VoltageLevelLayout create(VoltageLevelGraph graph) {
+    public Layout create(VoltageLevelGraph graph) {
         return new RandomVoltageLevelLayout(graph, width, height, random);
     }
 }

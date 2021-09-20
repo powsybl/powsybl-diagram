@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractVoltageLevelLayout extends AbstractLayout implements VoltageLevelLayout {
+public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
 
     private final VoltageLevelGraph graph;
     protected final InfosNbSnakeLinesHorizontal infosNbSnakeLines;

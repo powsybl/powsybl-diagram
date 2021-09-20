@@ -8,6 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.Node.NodeType;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ import static com.powsybl.sld.library.ComponentTypeName.*;
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
-public abstract class AbstractCgmesLayout {
+public abstract class AbstractCgmesLayout implements Layout {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCgmesLayout.class);
 
