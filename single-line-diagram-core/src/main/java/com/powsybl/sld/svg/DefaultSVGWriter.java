@@ -757,7 +757,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void addToolTip(String tooltip, Element g) {
-        if (layoutParameters.isTooltipEnabled() && !tooltip.isEmpty()) {
+        if (layoutParameters.isTooltipEnabled() && !StringUtils.isEmpty(tooltip)) {
             Document doc = g.getOwnerDocument();
             Element title = doc.createElement("title");
             title.appendChild(doc.createTextNode(tooltip));
