@@ -94,7 +94,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1B1.setX(245);
         vl1B1.setY(300);
         g1.addNode(vl1B1);
-        SwitchNode vl1D2 = new SwitchNode("vl1_d2", "vl1_d2", ComponentTypeName.DISCONNECTOR, false, g1, SwitchNode.SwitchKind.DISCONNECTOR, false);
+        SwitchNode vl1D2 = new SwitchNode("vl1_d2", null, ComponentTypeName.DISCONNECTOR, false, g1, SwitchNode.SwitchKind.DISCONNECTOR, false);
         vl1D2.setX(270);
         vl1D2.setY(300);
         g1.addNode(vl1D2);
