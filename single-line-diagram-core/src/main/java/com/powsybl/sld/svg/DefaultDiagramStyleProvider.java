@@ -27,9 +27,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);
-        if (isConstantColor(edge)) {
-            styles.add(CONSTANT_COLOR_CLASS);
-        }
         getEdgeStyle(edge).ifPresent(styles::add);
         if (highlightLineState) {
             getHighlightLineStateStyle(edge).ifPresent(styles::add);
@@ -65,9 +62,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
             BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
             styles.add(direction == BusCell.Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
         }
-        if (isConstantColor(node)) {
-            styles.add(CONSTANT_COLOR_CLASS);
-        }
         if (!showInternalNodes && isEquivalentToInternalNode(node)) {
             styles.add(HIDDEN_NODE_CLASS);
         }
@@ -93,28 +87,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);
-        if (isConstantColor(edge)) {
-            styles.add(CONSTANT_COLOR_CLASS);
-        }
         return styles;
-    }
-
-    /**
-     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given node
-     * @param node the node considered
-     * @return true if the constant color class should be applied, false otherwise
-     */
-    protected boolean isConstantColor(Node node) {
-        return true;
-    }
-
-    /**
-     * Return whether {@link DiagramStyles#CONSTANT_COLOR_CLASS} should be applied to the given edge
-     * @param edge the edge considered
-     * @return true if the constant color class should be applied, false otherwise
-     */
-    protected boolean isConstantColor(Edge edge) {
-        return true;
     }
 
     @Override

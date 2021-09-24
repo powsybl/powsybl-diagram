@@ -1,8 +1,7 @@
-.sld-constant-color {stroke: lightgrey}
-.sld-vl300to500 {--sld-vl-color: #ff0000; stroke:var(--sld-vl-color);}
-.sld-vl180to300 {--sld-vl-color: #228b22; stroke:var(--sld-vl-color);}
-.sld-vl120to180 {--sld-vl-color: #01afaf; stroke:var(--sld-vl-color);}
-.sld-vl70to120 {--sld-vl-color: #cc5500; stroke:var(--sld-vl-color);}
-.sld-vl50to70 {--sld-vl-color: #a020f0; stroke:var(--sld-vl-color);}
-.sld-vl30to50 {--sld-vl-color: #ff8290; stroke:var(--sld-vl-color);}
-.sld-vl0to30 {--sld-vl-color: #abae28; stroke:var(--sld-vl-color);}
+.sld-vl300to500 {--sld-vl-color: #ff0000; stroke:var(--sld-vl-color)}
+.sld-vl180to300 {--sld-vl-color: #228b22; stroke:var(--sld-vl-color)}
+.sld-vl120to180 {--sld-vl-color: #01afaf; stroke:var(--sld-vl-color)}
+.sld-vl70to120 {--sld-vl-color: #cc5500; stroke:var(--sld-vl-color)}
+.sld-vl50to70 {--sld-vl-color: #a020f0; stroke:var(--sld-vl-color)}
+.sld-vl30to50 {--sld-vl-color: #ff8290; stroke:var(--sld-vl-color)}
+.sld-vl0to30 {--sld-vl-color: #abae28; stroke:var(--sld-vl-color)}
