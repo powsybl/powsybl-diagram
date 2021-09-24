@@ -138,6 +138,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                     addBranchStatusDecorator(nodeDecorators, node, network.getBranch(node.getEquipmentId()));
                     break;
                 case THREE_WINDINGS_TRANSFORMER_LEG:
+                    // For 3wt the branch status decorator is added on the legs if the 3wt is displayed outside the voltage level
                     if (node.getAdjacentNodes().stream().noneMatch(Middle3WTNode.class::isInstance)) {
                         addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
                     }
@@ -145,7 +146,8 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                 default:
                     break;
             }
-        } else if (node instanceof Middle3WTNode) {
+        } else if (node instanceof Middle3WTNode && node.getGraph() != null) {
+            // For 3wt the branch status decorator is added above the 3wt component if the 3wt is displayed inside the voltage level
             addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
         }
 

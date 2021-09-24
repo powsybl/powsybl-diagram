@@ -220,13 +220,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         drawEdges(prefixId, root, graph, metadata, anchorPointProvider, initProvider, styleProvider, remainingEdgesToDraw);
-        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
+        drawNodes(prefixId, root, metadata, initProvider, styleProvider, remainingNodesToDraw);
 
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawNodes(prefixId, root, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, styleProvider);
@@ -274,9 +274,9 @@ public class DefaultSVGWriter implements SVGWriter {
             edgesToDraw.addAll(n.getAdjacentEdges());
         }
 
-        drawNodes(prefixId, g, graph, metadata, initProvider, styleProvider, nodesToDrawBefore);
+        drawNodes(prefixId, g, metadata, initProvider, styleProvider, nodesToDrawBefore);
         drawEdges(prefixId, g, graph, metadata, anchorPointProvider, initProvider, styleProvider, edgesToDraw);
-        drawNodes(prefixId, g, graph, metadata, initProvider, styleProvider, nodesToDrawAfter);
+        drawNodes(prefixId, g, metadata, initProvider, styleProvider, nodesToDrawAfter);
 
         remainingEdgesToDraw.removeAll(edgesToDraw);
         nodesToDrawBefore.forEach(remainingNodesToDraw::remove);
@@ -417,7 +417,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawNodes(prefixId, root, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
     }
 
     /*
@@ -526,12 +526,11 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-   /*
+    /*
      * Drawing the voltageLevel graph nodes
      */
     protected void drawNodes(String prefixId,
                              Element root,
-                             VoltageLevelGraph graph,
                              GraphMetadata metadata,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
@@ -552,12 +551,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             root.appendChild(g);
 
-            BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-            setMetadata(metadata, node, nodeId, graph, direction);
+            setMetadata(metadata, node, nodeId);
         }
     }
 
-    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction) {
+    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -565,11 +563,14 @@ public class DefaultSVGWriter implements SVGWriter {
                 nextVId = otherSideVoltageLevelInfos.getId();
             }
         }
+        BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ?
+            ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
 
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
-                        node.getComponentType(), node.getRotationAngle(),
-                        node.isOpen(), direction, false, node.getEquipmentId()));
+            new GraphMetadata.NodeMetadata(nodeId,
+                node.getGraph() != null ? node.getGraph().getVoltageLevelInfos().getId() : "", nextVId,
+                node.getComponentType(), node.getRotationAngle(),
+                node.isOpen(), direction, false, node.getEquipmentId()));
         if (metadata.getComponentMetadata(node.getComponentType()) == null) {
             metadata.addComponent(new Component(node.getComponentType(),
                 null,
@@ -1282,31 +1283,6 @@ public class DefaultSVGWriter implements SVGWriter {
         AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
 
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
-    }
-
-    /*
-     * Drawing the multi-terminal nodes
-     */
-    protected void drawMultiTerminalNodes(String prefixId,
-                                          Element root,
-                                          BaseGraph graph,
-                                          GraphMetadata metadata,
-                                          DiagramStyleProvider styleProvider) {
-        graph.getMultiTermNodes().forEach(node -> {
-
-            String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
-            Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute("id", nodeId);
-
-            g.setAttribute(CLASS, String.join(" ",
-                    styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
-
-            incorporateComponents(prefixId, node, g, styleProvider);
-
-            root.appendChild(g);
-
-            setMetadata(metadata, node, nodeId, null, BusCell.Direction.UNDEFINED);
-        });
     }
 
     /*
