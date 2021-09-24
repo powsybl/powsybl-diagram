@@ -3,7 +3,6 @@
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
