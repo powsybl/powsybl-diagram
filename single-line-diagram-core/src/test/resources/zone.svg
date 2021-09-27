@@ -6,17 +6,12 @@
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: blue; fill: none}
-.sld-wire.sld-constant-color {stroke: #c80000}
-.sld-node.sld-constant-color {stroke: none; fill: black}
-.sld-bus-connection.sld-constant-color {stroke: black}
-.sld-busbar-section.sld-constant-color {stroke: black}
-.sld-disconnector.sld-constant-color {stroke: black}
+svg {stroke: blue}
+.sld-node {stroke: none; fill: black}
 .sld-label {stroke: none; fill: black}
 .sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
@@ -28,18 +23,18 @@ polyline {fill: none}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-label {font: 8px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
+.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-constant-color" id="idBus11" transform="translate(70.0,200.0)">
+        <g class="sld-busbar-section" id="idBus11" transform="translate(70.0,200.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
             <text class="sld-label" id="Bus11_Bus11_NW_LABEL" x="-5.0" y="-5.0">Bus11</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel11_95_Bus11_95_Load">
+        <g class="sld-wire" id="_95_VoltageLevel11_95_Bus11_95_Load">
             <polyline points="70.0,200.0,90.0,200.0,90.0,54.5"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idLoad_ARROW_REACTIVE" transform="translate(85.0,69.5)">
@@ -52,7 +47,7 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE">
+        <g class="sld-wire" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE">
             <polyline points="70.0,200.0,90.0,200.0,90.0,300.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idTransformer_95_ONE_ARROW_REACTIVE" transform="translate(85.0,275.0)">
@@ -65,20 +60,20 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-load sld-constant-color" id="idLoad" transform="translate(82.0,45.5)">
+        <g class="sld-load" id="idLoad" transform="translate(82.0,45.5)">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
             <text class="sld-label" id="Load_Load__LABEL" x="-5.0" y="-5.0">Load</text>
         </g>
-        <g class="sld-constant-color" id="idTransformer_95_ONE" transform="translate(90.0,300.0)">
+        <g class="" id="idTransformer_95_ONE" transform="translate(90.0,300.0)">
             <text class="sld-label" id="Transformer_ONE_Transformer_ONE__LABEL" x="-5.0" y="-5.0">Transformer</text>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idBus12" transform="translate(70.0,500.0)">
+        <g class="sld-busbar-section" id="idBus12" transform="translate(70.0,500.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
             <text class="sld-label" id="Bus12_Bus12_NW_LABEL" x="-5.0" y="-5.0">Bus12</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO">
+        <g class="sld-wire" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO">
             <polyline points="70.0,500.0,90.0,500.0,90.0,400.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idTransformer_95_TWO_ARROW_REACTIVE" transform="translate(85.0,415.0)">
@@ -91,7 +86,7 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE">
+        <g class="sld-wire" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE">
             <polyline points="70.0,500.0,90.0,500.0,90.0,650.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idLine_95_ONE_ARROW_REACTIVE" transform="translate(85.0,625.0)">
@@ -104,27 +99,27 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-constant-color" id="idTransformer_95_TWO" transform="translate(90.0,400.0)">
+        <g class="" id="idTransformer_95_TWO" transform="translate(90.0,400.0)">
             <text class="sld-label" id="Transformer_TWO_Transformer_TWO__LABEL" x="-5.0" y="-5.0">Transformer</text>
         </g>
-        <g class="sld-constant-color" id="idLine_95_ONE" transform="translate(90.0,650.0)">
+        <g class="" id="idLine_95_ONE" transform="translate(90.0,650.0)">
             <text class="sld-label" id="Line_ONE_Line_ONE__LABEL" x="-5.0" y="-5.0">Line</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_Transformer_95_ONE">
+        <g class="sld-wire" id="idEDGE_95_Transformer_95_ONE">
             <polyline points="90.0,300.0,90.0,320.0,90.0,342.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_Transformer_95_TWO">
+        <g class="sld-wire" id="idEDGE_95_Transformer_95_TWO">
             <polyline points="90.0,400.0,90.0,380.0,90.0,358.0"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idTransformer" transform="translate(85.0,342.5)">
+        <g class="sld-two-wt" id="idTransformer" transform="translate(85.0,342.5)">
             <circle cx="5" cy="10" r="5"/>
             <circle cx="5" cy="5" r="5"/>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idBus21" transform="translate(170.0,1100.0)">
+        <g class="sld-busbar-section" id="idBus21" transform="translate(170.0,1100.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
             <text class="sld-label" id="Bus21_Bus21_NW_LABEL" x="-5.0" y="-5.0">Bus21</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel21_95_Bus21_95_Generator">
+        <g class="sld-wire" id="_95_VoltageLevel21_95_Bus21_95_Generator">
             <polyline points="170.0,1100.0,190.0,1100.0,190.0,1244.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idGenerator_ARROW_REACTIVE" transform="translate(185.0,1219.0)">
@@ -137,7 +132,7 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO">
+        <g class="sld-wire" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO">
             <polyline points="170.0,1100.0,190.0,1100.0,190.0,950.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idLine_95_TWO_ARROW_REACTIVE" transform="translate(185.0,965.0)">
@@ -150,16 +145,16 @@ polyline {fill: none}
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-generator sld-constant-color" id="idGenerator" transform="translate(184.0,1244.0)">
+        <g class="sld-generator" id="idGenerator" transform="translate(184.0,1244.0)">
             <circle cx="6" cy="6" r="6"/>
             <path d="M6,6 A 6 40 0 0 0 2,6"/>
             <path d="M6,6 A 6 40 0 0 0 10,6"/>
             <text class="sld-label" id="Generator_Generator__LABEL" x="-5.0" y="-5.0">Generator</text>
         </g>
-        <g class="sld-constant-color" id="idLine_95_TWO" transform="translate(190.0,950.0)">
+        <g class="" id="idLine_95_TWO" transform="translate(190.0,950.0)">
             <text class="sld-label" id="Line_TWO_Line_TWO__LABEL" x="-5.0" y="-5.0">Line</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="idLine">
+        <g class="sld-wire" id="idLine">
             <polyline points="90.0,650.0,90.0,800.0,190.0,800.0,190.0,950.0"/>
         </g>
         <g id="LABEL_VL_VoltageLevel11">

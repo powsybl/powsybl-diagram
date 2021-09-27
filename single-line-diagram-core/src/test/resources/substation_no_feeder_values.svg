@@ -6,17 +6,12 @@
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: blue; fill: none}
-.sld-wire.sld-constant-color {stroke: #c80000}
-.sld-node.sld-constant-color {stroke: none; fill: black}
-.sld-bus-connection.sld-constant-color {stroke: black}
-.sld-busbar-section.sld-constant-color {stroke: black}
-.sld-disconnector.sld-constant-color {stroke: black}
+svg {stroke: blue}
+.sld-node {stroke: none; fill: black}
 .sld-label {stroke: none; fill: black}
 .sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
@@ -28,243 +23,243 @@ polyline {fill: none}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-label {font: 8px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
+.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-constant-color" id="idvl1_95_bbs1" transform="translate(40.0,340.0)">
+        <g class="sld-busbar-section" id="idvl1_95_bbs1" transform="translate(40.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl1_bbs1_vl1_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl1_bbs1</text>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idvl1_95_bbs2" transform="translate(320.0,340.0)">
+        <g class="sld-busbar-section" id="idvl1_95_bbs2" transform="translate(320.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl1_bbs2_vl1_bbs2_NW_LABEL" x="-5.0" y="-5.0">vl1_bbs2</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_bbs1_95_vl1_95_d1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_bbs1_95_vl1_95_d1">
             <polyline points="240.0,340.0,260.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_d1_95_vl1_95_b1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_d1_95_vl1_95_b1">
             <polyline points="260.0,340.0,275.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_b1_95_vl1_95_d2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_b1_95_vl1_95_d2">
             <polyline points="295.0,340.0,310.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_d2_95_vl1_95_bbs2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_d2_95_vl1_95_bbs2">
             <polyline points="310.0,340.0,320.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
             <polyline points="80.0,124.5,80.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
             <polyline points="80.0,230.0,80.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
             <polyline points="80.0,340.0,102.5,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,540.0,120.0,450.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
             <polyline points="120.0,430.0,120.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
             <polyline points="120.0,340.0,102.5,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2">
             <polyline points="440.0,120.0,440.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
             <polyline points="440.0,230.0,440.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
+        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
             <polyline points="440.0,340.0,432.5,340.0"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d1" transform="translate(256.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl1_95_d1" transform="translate(256.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_b1" transform="translate(275.0,330.0)">
+        <g class="sld-breaker sld-closed" id="idvl1_95_b1" transform="translate(275.0,330.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(306.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl1_95_d2" transform="translate(306.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-load sld-constant-color" id="idvl1_95_load1" transform="translate(72.0,115.5)">
+        <g class="sld-load" id="idvl1_95_load1" transform="translate(72.0,115.5)">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
             <text class="sld-label" id="vl1_load1_vl1_load1__LABEL" x="-5.0" y="-5.0">vl1_load1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_bload1" transform="translate(70.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl1_95_bload1" transform="translate(70.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dload1" transform="translate(76.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl1_95_dload1" transform="translate(76.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-constant-color" id="idvl1_95_trf1" transform="translate(120.0,540.0)">
+        <g class="" id="idvl1_95_trf1" transform="translate(120.0,540.0)">
             <text class="sld-label" id="vl1_trf1_vl1_trf1__LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf1" transform="translate(110.0,430.0)">
+        <g class="sld-breaker sld-closed" id="idvl1_95_btrf1" transform="translate(110.0,430.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf1" transform="translate(116.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl1_95_dtrf1" transform="translate(116.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-constant-color" id="idvl1_95_trf2_95_one" transform="translate(440.0,120.0)">
+        <g class="" id="idvl1_95_trf2_95_one" transform="translate(440.0,120.0)">
             <text class="sld-label" id="vl1_trf2_one_vl1_trf2_one__LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(430.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl1_95_btrf2" transform="translate(430.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_dtrf2" transform="translate(436.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl1_95_dtrf2" transform="translate(436.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idvl2_95_bbs1" transform="translate(590.0,340.0)">
+        <g class="sld-busbar-section" id="idvl2_95_bbs1" transform="translate(590.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl2_bbs1_vl2_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
             <polyline points="640.0,126.0,640.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
             <polyline points="640.0,230.0,640.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
             <polyline points="640.0,340.0,652.5,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="690.0,540.0,690.0,450.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
             <polyline points="690.0,430.0,690.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
             <polyline points="690.0,340.0,702.5,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2">
             <polyline points="750.0,120.0,750.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
             <polyline points="750.0,230.0,750.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
             <polyline points="750.0,340.0,790.0,340.0"/>
         </g>
-        <g class="sld-generator sld-constant-color" id="idvl2_95_gen1" transform="translate(634.0,114.0)">
+        <g class="sld-generator" id="idvl2_95_gen1" transform="translate(634.0,114.0)">
             <circle cx="6" cy="6" r="6"/>
             <path d="M6,6 A 6 40 0 0 0 2,6"/>
             <path d="M6,6 A 6 40 0 0 0 10,6"/>
             <text class="sld-label" id="vl2_gen1_vl2_gen1__LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_bgen1" transform="translate(630.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_bgen1" transform="translate(630.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dgen1" transform="translate(636.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dgen1" transform="translate(636.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-constant-color" id="idvl2_95_trf1" transform="translate(690.0,540.0)">
+        <g class="" id="idvl2_95_trf1" transform="translate(690.0,540.0)">
             <text class="sld-label" id="vl2_trf1_vl2_trf1__LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf1" transform="translate(680.0,430.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_btrf1" transform="translate(680.0,430.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf1" transform="translate(686.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dtrf1" transform="translate(686.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-constant-color" id="idvl2_95_trf2_95_one" transform="translate(750.0,120.0)">
+        <g class="" id="idvl2_95_trf2_95_one" transform="translate(750.0,120.0)">
             <text class="sld-label" id="vl2_trf2_one_vl2_trf2_one__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf2" transform="translate(740.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_btrf2" transform="translate(740.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf2" transform="translate(746.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dtrf2" transform="translate(746.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idvl3_95_bbs1" transform="translate(890.0,340.0)">
+        <g class="sld-busbar-section" id="idvl3_95_bbs1" transform="translate(890.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl3_bbs1_vl3_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
             <polyline points="930.0,126.0,930.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
             <polyline points="930.0,230.0,930.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_dcapa1_95_vl3_95_bbs1">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_dcapa1_95_vl3_95_bbs1">
             <polyline points="930.0,340.0,952.5,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2">
             <polyline points="1040.0,120.0,1040.0,210.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
             <polyline points="1040.0,230.0,1040.0,340.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_dtrf2_95_vl3_95_bbs1">
+        <g class="sld-wire" id="_95_vl3_95_vl3_95_dtrf2_95_vl3_95_bbs1">
             <polyline points="1040.0,340.0,1002.5,340.0"/>
         </g>
-        <g class="sld-capacitor sld-constant-color" id="idvl3_95_capa1" transform="translate(924.0,114.0)">
+        <g class="sld-capacitor" id="idvl3_95_capa1" transform="translate(924.0,114.0)">
             <line x1="6" x2="6" y1="0" y2="4.5"/>
             <line x1="0" x2="12" y1="4.5" y2="4.5"/>
             <line x1="0" x2="12" y1="7.5" y2="7.5"/>
             <line x1="6" x2="6" y1="7.5" y2="12"/>
             <text class="sld-label" id="vl3_capa1_vl3_capa1__LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl3_95_bcapa1" transform="translate(920.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl3_95_bcapa1" transform="translate(920.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl3_95_dcapa1" transform="translate(926.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl3_95_dcapa1" transform="translate(926.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-constant-color" id="idvl3_95_trf2_95_one" transform="translate(1040.0,120.0)">
+        <g class="" id="idvl3_95_trf2_95_one" transform="translate(1040.0,120.0)">
             <text class="sld-label" id="vl3_trf2_one_vl3_trf2_one__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl3_95_btrf2" transform="translate(1030.0,210.0)">
+        <g class="sld-breaker sld-closed" id="idvl3_95_btrf2" transform="translate(1030.0,210.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl3_95_dtrf2" transform="translate(1036.0,336.0)">
+        <g class="sld-disconnector sld-closed" id="idvl3_95_dtrf2" transform="translate(1036.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf1">
+        <g class="sld-wire" id="idEDGE_95_vl1_95_trf1">
             <polyline points="120.0,540.0,120.0,590.0,397.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf1">
+        <g class="sld-wire" id="idEDGE_95_vl2_95_trf1">
             <polyline points="690.0,540.0,690.0,590.0,413.0,590.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl1_95_trf2_95_one">
+        <g class="sld-wire" id="idEDGE_95_vl1_95_trf2_95_one">
             <polyline points="440.0,120.0,440.0,90.0,743.0,90.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl2_95_trf2_95_one">
+        <g class="sld-wire" id="idEDGE_95_vl2_95_trf2_95_one">
             <polyline points="750.0,120.0,750.0,102.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="idEDGE_95_vl3_95_trf2_95_one">
+        <g class="sld-wire" id="idEDGE_95_vl3_95_trf2_95_one">
             <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
+        <g class="sld-two-wt" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
             <circle cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
             <circle cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
+        <g class="sld-three-wt" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
             <circle cx="5" cy="15" r="5"/>
             <circle cx="11" cy="15" r="5"/>
             <circle cx="8" cy="19" r="5"/>

@@ -6,25 +6,23 @@
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: lightgrey}
-.sld-vl300to500 {stroke: #ff0000}
-.sld-vl180to300 {stroke: #228b22}
-.sld-vl120to180 {stroke: #01afaf}
-.sld-vl70to120 {stroke: #cc5500}
-.sld-vl50to70 {stroke: #a020f0}
-.sld-vl30to50 {stroke: #ff8290}
-.sld-vl0to30 {stroke: #abae28}.sld-feeder-disconnected {stroke: black}
+.sld-vl300to500 {--sld-vl-color: #ff0000; stroke:var(--sld-vl-color)}
+.sld-vl180to300 {--sld-vl-color: #228b22; stroke:var(--sld-vl-color)}
+.sld-vl120to180 {--sld-vl-color: #01afaf; stroke:var(--sld-vl-color)}
+.sld-vl70to120 {--sld-vl-color: #cc5500; stroke:var(--sld-vl-color)}
+.sld-vl50to70 {--sld-vl-color: #a020f0; stroke:var(--sld-vl-color)}
+.sld-vl30to50 {--sld-vl-color: #ff8290; stroke:var(--sld-vl-color)}
+.sld-vl0to30 {--sld-vl-color: #abae28; stroke:var(--sld-vl-color)}
+.sld-feeder-disconnected {stroke: black}
 .sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
-.sld-constant-color {fill: none}
-.sld-node.sld-constant-color {stroke: none; fill: black}
-.sld-breaker.sld-constant-color {stroke: blue; fill: white}
-.sld-disconnector.sld-constant-color {stroke: black}
+.sld-node {stroke: none; fill: black}
+.sld-breaker {stroke: blue; fill: white}
+.sld-disconnector {stroke: black}
 .sld-label {fill: black; stroke: none;}
 .sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
@@ -36,36 +34,36 @@ polyline {fill: none}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-label {font: 8px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
+.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-constant-color sld-vl50to70" id="idbbs3" transform="translate(-1.0,-1.0)">
+        <g class="sld-busbar-section sld-vl50to70" id="idbbs3" transform="translate(-1.0,-1.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs3_bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(-9.0,-13.0)">
+        <g class="sld-three-wt" id="id3WT" transform="translate(-9.0,-13.0)">
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
             <circle class="sld-vl180to300" cx="11" cy="15" r="5"/>
             <circle class="sld-vl50to70" cx="8" cy="19" r="5"/>
         </g>
-        <g class="sld-constant-color sld-vl50to70" id="id3WT_95_ONE" transform="translate(-1.0,-1.0)">
+        <g class="sld-vl50to70" id="id3WT_95_ONE" transform="translate(-1.0,-1.0)">
             <text class="sld-label" id="3WT_ONE_3WT_ONE__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
-        <g class="sld-constant-color sld-vl50to70" id="id3WT_95_TWO" transform="translate(-1.0,-1.0)">
+        <g class="sld-vl50to70" id="id3WT_95_TWO" transform="translate(-1.0,-1.0)">
             <text class="sld-label" id="3WT_TWO_3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
-        <g class="sld-node sld-constant-color sld-hidden-node sld-vl50to70" id="idINTERNAL_95_vl3_95_2" transform="translate(-5.0,-5.0)">
+        <g class="sld-node sld-hidden-node sld-vl50to70" id="idINTERNAL_95_vl3_95_2" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed sld-vl50to70" id="idd3WT_95_3" transform="translate(-5.0,-5.0)">
+        <g class="sld-disconnector sld-closed sld-vl50to70" id="idd3WT_95_3" transform="translate(-5.0,-5.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-open sld-vl50to70" id="idb3WT_95_3" transform="translate(-11.0,-11.0)">
+        <g class="sld-breaker sld-open sld-vl50to70" id="idb3WT_95_3" transform="translate(-11.0,-11.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
             <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
         </g>

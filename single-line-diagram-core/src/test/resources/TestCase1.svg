@@ -6,17 +6,12 @@
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: blue; fill: none}
-.sld-wire.sld-constant-color {stroke: #c80000}
-.sld-node.sld-constant-color {stroke: none; fill: black}
-.sld-bus-connection.sld-constant-color {stroke: black}
-.sld-busbar-section.sld-constant-color {stroke: black}
-.sld-disconnector.sld-constant-color {stroke: black}
+svg {stroke: blue}
+.sld-node {stroke: none; fill: black}
 .sld-label {stroke: none; fill: black}
 .sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
@@ -28,7 +23,7 @@ polyline {fill: none}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-label {font: 8px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
+.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
@@ -43,36 +38,36 @@ polyline {fill: none}
             <line x1="40.0" x2="90.0" y1="320.0" y2="320.0"/>
             <line x1="40.0" x2="90.0" y1="400.0" y2="400.0"/>
         </g>
-        <g class="sld-busbar-section sld-constant-color" id="idbbs" transform="translate(52.5,360.0)">
+        <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,360.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs_default" text-anchor="middle" x="0.0" y="-5.0">bbs</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-constant-color" id="idINTERNAL_95_vl_95_d" transform="translate(61.0,326.0)">
+            <g class="sld-node" id="idINTERNAL_95_vl_95_d" transform="translate(61.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-constant-color" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,138.0)">
+            <g class="sld-node" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-load sld-top-feeder sld-constant-color" id="idl" transform="translate(57.0,75.5)">
+            <g class="sld-load sld-top-feeder" id="idl" transform="translate(57.0,75.5)">
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="l_default" text-anchor="middle" x="0.0" y="-5.0">l</text>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_vl_95_bbs_95_d">
+            <g class="sld-wire" id="_95_vl_95_bbs_95_d">
                 <polyline points="65.0,360.0,65.0,360.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d">
+            <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_d">
                 <polyline points="65.0,360.0,65.0,330.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_vl_95_b_95_INTERNAL_95_vl_95_d">
+            <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_d">
                 <polyline points="65.0,246.0,65.0,330.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_vl_95_b_95_INTERNAL_95_vl_95_l">
+            <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_l">
                 <polyline points="65.0,226.0,65.0,142.0"/>
             </g>
-            <g class="sld-wire sld-constant-color" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
+            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
                 <polyline points="65.0,142.0,65.0,84.5"/>
             </g>
             <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,98.25)">
@@ -87,12 +82,12 @@ polyline {fill: none}
                 <text class="sld-label" x="15.0" y="5.0">tutu</text>
                 <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
             </g>
-            <g class="sld-disconnector sld-constant-color sld-closed" id="idd" transform="translate(61.0,356.0)">
+            <g class="sld-disconnector sld-closed" id="idd" transform="translate(61.0,356.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
                 <text class="sld-label" id="d_default" text-anchor="middle" x="0.0" y="-5.0">d</text>
             </g>
-            <g class="sld-breaker sld-constant-color sld-closed" id="idb" transform="translate(55.0,226.0)">
+            <g class="sld-breaker sld-closed" id="idb" transform="translate(55.0,226.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
                 <text class="sld-label" id="b_default" text-anchor="middle" x="0.0" y="-5.0">b</text>
