@@ -10,82 +10,82 @@
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: lightgrey}
-.sld-disconnected {stroke: #808080}
-.sld-vl300to500-0 {stroke: #FF0000}
-.sld-vl300to500-1 {stroke: #7F6C00}
-.sld-vl300to500-2 {stroke: #F6B2FF}
-.sld-vl300to500-3 {stroke: #996700}
-.sld-vl300to500-4 {stroke: #FF85EB}
-.sld-vl300to500-5 {stroke: #B25B00}
-.sld-vl300to500-6 {stroke: #FF59B5}
-.sld-vl300to500-7 {stroke: #CC4400}
-.sld-vl300to500-8 {stroke: #FF2C67}
-.sld-vl300to500-9 {stroke: #E52600}
-.sld-vl180to300-0 {stroke: #218B21}
-.sld-vl180to300-1 {stroke: #0D4940}
-.sld-vl180to300-2 {stroke: #DFDAB9}
-.sld-vl180to300-3 {stroke: #105640}
-.sld-vl180to300-4 {stroke: #C2CB92}
-.sld-vl180to300-5 {stroke: #14643C}
-.sld-vl180to300-6 {stroke: #95B66B}
-.sld-vl180to300-7 {stroke: #187036}
-.sld-vl180to300-8 {stroke: #5FA046}
-.sld-vl180to300-9 {stroke: #1C7E2D}
-.sld-vl120to180-0 {stroke: #00AFAE}
-.sld-vl120to180-1 {stroke: #000D58}
-.sld-vl120to180-2 {stroke: #B8E7B2}
-.sld-vl120to180-3 {stroke: #002169}
-.sld-vl120to180-4 {stroke: #85D993}
-.sld-vl120to180-5 {stroke: #003C7B}
-.sld-vl120to180-6 {stroke: #59CB8B}
-.sld-vl120to180-7 {stroke: #005C8C}
-.sld-vl120to180-8 {stroke: #2CBD94}
-.sld-vl120to180-9 {stroke: #00839E}
-.sld-vl70to120-0 {stroke: #CC5500}
-.sld-vl70to120-1 {stroke: #4A6600}
-.sld-vl70to120-2 {stroke: #EFB2DD}
-.sld-vl70to120-3 {stroke: #6E7A00}
-.sld-vl70to120-4 {stroke: #E685AE}
-.sld-vl70to120-5 {stroke: #8E8400}
-.sld-vl70to120-6 {stroke: #DD596B}
-.sld-vl70to120-7 {stroke: #A37B00}
-.sld-vl70to120-8 {stroke: #D4432C}
-.sld-vl70to120-9 {stroke: #B76B00}
-.sld-vl50to70-0 {stroke: #A020EF}
-.sld-vl50to70-1 {stroke: #7F0848}
-.sld-vl50to70-2 {stroke: #B7DBFE}
-.sld-vl50to70-3 {stroke: #960C6D}
-.sld-vl50to70-4 {stroke: #8DA6FE}
-.sld-vl50to70-5 {stroke: #AD109A}
-.sld-vl50to70-6 {stroke: #6F66FB}
-.sld-vl50to70-7 {stroke: #BC14C4}
-.sld-vl50to70-8 {stroke: #7F42F6}
-.sld-vl50to70-9 {stroke: #B11AD9}
-.sld-vl30to50-0 {stroke: #FF8290}
-.sld-vl30to50-1 {stroke: #7F6F41}
-.sld-vl30to50-2 {stroke: #F6D9FF}
-.sld-vl30to50-3 {stroke: #99784E}
-.sld-vl30to50-4 {stroke: #FFC3FB}
-.sld-vl30to50-5 {stroke: #B27D5B}
-.sld-vl30to50-6 {stroke: #FFADE3}
-.sld-vl30to50-7 {stroke: #CC7E68}
-.sld-vl30to50-8 {stroke: #FF97BF}
-.sld-vl30to50-9 {stroke: #E57B75}
-.sld-vl0to30-0 {stroke: #AAAE27}
-.sld-vl0to30-1 {stroke: #195B0F}
-.sld-vl0to30-2 {stroke: #EABABE}
-.sld-vl0to30-3 {stroke: #2D6C13}
-.sld-vl0to30-4 {stroke: #DDA193}
-.sld-vl0to30-5 {stroke: #477D17}
-.sld-vl0to30-6 {stroke: #CE9A6E}
-.sld-vl0to30-7 {stroke: #648D1C}
-.sld-vl0to30-8 {stroke: #BEA04A}
-.sld-vl0to30-9 {stroke: #869D22}
+.sld-disconnected {--sld-vl-color: #808080; stroke:var(--sld-vl-color)}
+.sld-vl300to500-0 {--sld-vl-color: #FF0000; stroke:var(--sld-vl-color)}
+.sld-vl300to500-1 {--sld-vl-color: #7F6C00; stroke:var(--sld-vl-color)}
+.sld-vl300to500-2 {--sld-vl-color: #F6B2FF; stroke:var(--sld-vl-color)}
+.sld-vl300to500-3 {--sld-vl-color: #996700; stroke:var(--sld-vl-color)}
+.sld-vl300to500-4 {--sld-vl-color: #FF85EB; stroke:var(--sld-vl-color)}
+.sld-vl300to500-5 {--sld-vl-color: #B25B00; stroke:var(--sld-vl-color)}
+.sld-vl300to500-6 {--sld-vl-color: #FF59B5; stroke:var(--sld-vl-color)}
+.sld-vl300to500-7 {--sld-vl-color: #CC4400; stroke:var(--sld-vl-color)}
+.sld-vl300to500-8 {--sld-vl-color: #FF2C67; stroke:var(--sld-vl-color)}
+.sld-vl300to500-9 {--sld-vl-color: #E52600; stroke:var(--sld-vl-color)}
+.sld-vl180to300-0 {--sld-vl-color: #218B21; stroke:var(--sld-vl-color)}
+.sld-vl180to300-1 {--sld-vl-color: #0D4940; stroke:var(--sld-vl-color)}
+.sld-vl180to300-2 {--sld-vl-color: #DFDAB9; stroke:var(--sld-vl-color)}
+.sld-vl180to300-3 {--sld-vl-color: #105640; stroke:var(--sld-vl-color)}
+.sld-vl180to300-4 {--sld-vl-color: #C2CB92; stroke:var(--sld-vl-color)}
+.sld-vl180to300-5 {--sld-vl-color: #14643C; stroke:var(--sld-vl-color)}
+.sld-vl180to300-6 {--sld-vl-color: #95B66B; stroke:var(--sld-vl-color)}
+.sld-vl180to300-7 {--sld-vl-color: #187036; stroke:var(--sld-vl-color)}
+.sld-vl180to300-8 {--sld-vl-color: #5FA046; stroke:var(--sld-vl-color)}
+.sld-vl180to300-9 {--sld-vl-color: #1C7E2D; stroke:var(--sld-vl-color)}
+.sld-vl120to180-0 {--sld-vl-color: #00AFAE; stroke:var(--sld-vl-color)}
+.sld-vl120to180-1 {--sld-vl-color: #000D58; stroke:var(--sld-vl-color)}
+.sld-vl120to180-2 {--sld-vl-color: #B8E7B2; stroke:var(--sld-vl-color)}
+.sld-vl120to180-3 {--sld-vl-color: #002169; stroke:var(--sld-vl-color)}
+.sld-vl120to180-4 {--sld-vl-color: #85D993; stroke:var(--sld-vl-color)}
+.sld-vl120to180-5 {--sld-vl-color: #003C7B; stroke:var(--sld-vl-color)}
+.sld-vl120to180-6 {--sld-vl-color: #59CB8B; stroke:var(--sld-vl-color)}
+.sld-vl120to180-7 {--sld-vl-color: #005C8C; stroke:var(--sld-vl-color)}
+.sld-vl120to180-8 {--sld-vl-color: #2CBD94; stroke:var(--sld-vl-color)}
+.sld-vl120to180-9 {--sld-vl-color: #00839E; stroke:var(--sld-vl-color)}
+.sld-vl70to120-0 {--sld-vl-color: #CC5500; stroke:var(--sld-vl-color)}
+.sld-vl70to120-1 {--sld-vl-color: #4A6600; stroke:var(--sld-vl-color)}
+.sld-vl70to120-2 {--sld-vl-color: #EFB2DD; stroke:var(--sld-vl-color)}
+.sld-vl70to120-3 {--sld-vl-color: #6E7A00; stroke:var(--sld-vl-color)}
+.sld-vl70to120-4 {--sld-vl-color: #E685AE; stroke:var(--sld-vl-color)}
+.sld-vl70to120-5 {--sld-vl-color: #8E8400; stroke:var(--sld-vl-color)}
+.sld-vl70to120-6 {--sld-vl-color: #DD596B; stroke:var(--sld-vl-color)}
+.sld-vl70to120-7 {--sld-vl-color: #A37B00; stroke:var(--sld-vl-color)}
+.sld-vl70to120-8 {--sld-vl-color: #D4432C; stroke:var(--sld-vl-color)}
+.sld-vl70to120-9 {--sld-vl-color: #B76B00; stroke:var(--sld-vl-color)}
+.sld-vl50to70-0 {--sld-vl-color: #A020EF; stroke:var(--sld-vl-color)}
+.sld-vl50to70-1 {--sld-vl-color: #7F0848; stroke:var(--sld-vl-color)}
+.sld-vl50to70-2 {--sld-vl-color: #B7DBFE; stroke:var(--sld-vl-color)}
+.sld-vl50to70-3 {--sld-vl-color: #960C6D; stroke:var(--sld-vl-color)}
+.sld-vl50to70-4 {--sld-vl-color: #8DA6FE; stroke:var(--sld-vl-color)}
+.sld-vl50to70-5 {--sld-vl-color: #AD109A; stroke:var(--sld-vl-color)}
+.sld-vl50to70-6 {--sld-vl-color: #6F66FB; stroke:var(--sld-vl-color)}
+.sld-vl50to70-7 {--sld-vl-color: #BC14C4; stroke:var(--sld-vl-color)}
+.sld-vl50to70-8 {--sld-vl-color: #7F42F6; stroke:var(--sld-vl-color)}
+.sld-vl50to70-9 {--sld-vl-color: #B11AD9; stroke:var(--sld-vl-color)}
+.sld-vl30to50-0 {--sld-vl-color: #FF8290; stroke:var(--sld-vl-color)}
+.sld-vl30to50-1 {--sld-vl-color: #7F6F41; stroke:var(--sld-vl-color)}
+.sld-vl30to50-2 {--sld-vl-color: #F6D9FF; stroke:var(--sld-vl-color)}
+.sld-vl30to50-3 {--sld-vl-color: #99784E; stroke:var(--sld-vl-color)}
+.sld-vl30to50-4 {--sld-vl-color: #FFC3FB; stroke:var(--sld-vl-color)}
+.sld-vl30to50-5 {--sld-vl-color: #B27D5B; stroke:var(--sld-vl-color)}
+.sld-vl30to50-6 {--sld-vl-color: #FFADE3; stroke:var(--sld-vl-color)}
+.sld-vl30to50-7 {--sld-vl-color: #CC7E68; stroke:var(--sld-vl-color)}
+.sld-vl30to50-8 {--sld-vl-color: #FF97BF; stroke:var(--sld-vl-color)}
+.sld-vl30to50-9 {--sld-vl-color: #E57B75; stroke:var(--sld-vl-color)}
+.sld-vl0to30-0 {--sld-vl-color: #AAAE27; stroke:var(--sld-vl-color)}
+.sld-vl0to30-1 {--sld-vl-color: #195B0F; stroke:var(--sld-vl-color)}
+.sld-vl0to30-2 {--sld-vl-color: #EABABE; stroke:var(--sld-vl-color)}
+.sld-vl0to30-3 {--sld-vl-color: #2D6C13; stroke:var(--sld-vl-color)}
+.sld-vl0to30-4 {--sld-vl-color: #DDA193; stroke:var(--sld-vl-color)}
+.sld-vl0to30-5 {--sld-vl-color: #477D17; stroke:var(--sld-vl-color)}
+.sld-vl0to30-6 {--sld-vl-color: #CE9A6E; stroke:var(--sld-vl-color)}
+.sld-vl0to30-7 {--sld-vl-color: #648D1C; stroke:var(--sld-vl-color)}
+.sld-vl0to30-8 {--sld-vl-color: #BEA04A; stroke:var(--sld-vl-color)}
+.sld-vl0to30-9 {--sld-vl-color: #869D22; stroke:var(--sld-vl-color)}
 .sld-feeder-disconnected {stroke: black}
 .sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
 .sld-node {stroke: none; fill: black}
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color)}
 .sld-breaker {stroke: blue; fill: white}
 .sld-disconnector {stroke: black}
 .sld-label {fill: black; stroke: none;}
@@ -814,12 +814,12 @@
             </g>
         </g>
         <g id="NODE_vl1_0">
-            <circle class="sld-vl300to500-0" cx="70.0" cy="519.0" id="NODE_vl1_0_circle" r="5.0" stroke-width="10"/>
+            <circle class="sld-vl300to500-0" cx="70.0" cy="519.0" id="NODE_vl1_0_circle" r="10" stroke-width="10"/>
             <text class="sld-label" id="NODE_vl1_0_v" x="60.0" y="544.0">392.0 kV</text>
             <text class="sld-label" id="NODE_vl1_0_angle" x="60.0" y="559.0">-2.3 °</text>
         </g>
         <g id="NODE_vl1_2">
-            <circle class="sld-vl300to500-1" cx="140.0" cy="519.0" id="NODE_vl1_2_circle" r="5.0" stroke-width="10"/>
+            <circle class="sld-vl300to500-1" cx="140.0" cy="519.0" id="NODE_vl1_2_circle" r="10" stroke-width="10"/>
             <text class="sld-label" id="NODE_vl1_2_v" x="130.0" y="544.0">403.0 kV</text>
             <text class="sld-label" id="NODE_vl1_2_angle" x="130.0" y="559.0">-1.7 °</text>
         </g>

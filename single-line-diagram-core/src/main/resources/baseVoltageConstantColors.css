@@ -1,4 +1,5 @@
 .sld-node {stroke: none; fill: black}
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color)}
 .sld-breaker {stroke: blue; fill: white}
 .sld-disconnector {stroke: black}
 .sld-label {fill: black; stroke: none;}

@@ -21,6 +21,7 @@
 .sld-feeder-connected-disconnected {stroke-dasharray: 3,3}
 .sld-feeder-disconnected-connected {stroke: black; stroke-dasharray: 3,3}
 .sld-node {stroke: none; fill: black}
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color)}
 .sld-breaker {stroke: blue; fill: white}
 .sld-disconnector {stroke: black}
 .sld-label {fill: black; stroke: none;}
