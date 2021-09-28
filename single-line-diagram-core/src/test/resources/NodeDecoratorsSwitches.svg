@@ -12,7 +12,6 @@
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
