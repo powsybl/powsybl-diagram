@@ -1,3 +1,5 @@
+/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -7,3 +9,20 @@
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
+/* Fill: none */
+.sld-disconnector {fill: none}
+.sld-busbar-section {fill: none}
+.sld-bus-connection {fill: none}
+.sld-wire {fill: none}
+.sld-load-break-switch {fill: none}
+.sld-load {fill: none}
+.sld-generator {fill: none}
+.sld-two-wt {fill: none}
+.sld-three-wt {fill: none}
+.sld-capacitor {fill: none}
+.sld-inductor {fill: none}
+.sld-pst {fill: none}
+.sld-svc {fill: none}
+.sld-vsc {fill: none}
+/* Stroke blue & fill: white */
+.sld-breaker {stroke: blue; fill: white}

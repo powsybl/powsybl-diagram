@@ -123,8 +123,8 @@
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-two-wt" id="idvl1_95_trf1" transform="translate(115.0,512.5)">
-            <circle cx="5" cy="10" r="5"/>
-            <circle cx="5" cy="5" r="5"/>
+            <circle class="sld-winding" cx="5" cy="10" r="5"/>
+            <circle class="sld-winding" cx="5" cy="5" r="5"/>
             <text class="sld-label" id="vl1_trf1_vl1_trf1__LABEL" x="-5.0" y="-5.0">vl1_trf1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_btrf1" transform="translate(110.0,410.0)">
@@ -142,9 +142,9 @@
             <text class="sld-label" id="vl1_trf2_two_vl1_trf2_two__LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-three-wt" id="idvl1_95_trf2" transform="translate(432.0,148.0)">
-            <circle cx="5" cy="15" r="5"/>
-            <circle cx="11" cy="15" r="5"/>
-            <circle cx="8" cy="19" r="5"/>
+            <circle class="sld-winding" cx="5" cy="15" r="5"/>
+            <circle class="sld-winding" cx="11" cy="15" r="5"/>
+            <circle class="sld-winding" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_btrf2" transform="translate(430.0,190.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="620.0" viewBox="0 0 280.0 620.0" width="280.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
+/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -10,23 +12,78 @@
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-svg {stroke: blue}
-.sld-node {stroke: none; fill: black}
-.sld-node-infos {stroke: none; fill: var(--sld-vl-color)}
-.sld-label {stroke: none; fill: black}
+/* Fill: none */
+.sld-disconnector {fill: none}
+.sld-busbar-section {fill: none}
+.sld-bus-connection {fill: none}
+.sld-wire {fill: none}
+.sld-load-break-switch {fill: none}
+.sld-load {fill: none}
+.sld-generator {fill: none}
+.sld-two-wt {fill: none}
+.sld-three-wt {fill: none}
+.sld-capacitor {fill: none}
+.sld-inductor {fill: none}
+.sld-pst {fill: none}
+.sld-svc {fill: none}
+.sld-vsc {fill: none}
+/* Stroke blue & fill: white */
+.sld-breaker {stroke: blue; fill: white}
+/* ----------------------------------------------------------------------- */
+/* File: defaultConstantColors.css --------------------------------------- */
 .sld-frame {fill: lightgrey}
-.sld-busbar-section {stroke-width: 3}
+/* Stroke none & fill: black */
+.sld-label {stroke: none; fill: black}
+.sld-node {stroke: none; fill: black}
+.sld-flash {stroke: none; fill: black}
+.sld-lock {stroke: none; fill: black}
+.sld-graph-label {stroke: none; fill: black}
+/* Stroke black */
+.sld-disconnector {stroke: black}
+.sld-busbar-section {stroke: black}
+.sld-bus-connection {stroke: black}
+/* Stroke red & fill: none */
+.sld-wire {stroke: #c80000}
+/* Stroke blue */
+.sld-load-break-switch {stroke: blue}
+.sld-load {stroke: blue}
+.sld-generator {stroke: blue}
+.sld-two-wt {stroke: blue}
+.sld-three-wt {stroke: blue}
+.sld-winding {stroke: blue}
+.sld-capacitor {stroke: blue}
+.sld-inductor {stroke: blue}
+.sld-pst {stroke: blue}
+.sld-svc {stroke: blue}
+.sld-vsc {stroke: blue}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000)}
+/* Stroke blue as default */
 .sld-breaker {stroke-width: 2; fill:white}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load-break-switch {stroke: var(--sld-vl-color, blue)}
+.sld-load {stroke: var(--sld-vl-color, blue)}
+.sld-generator {stroke: var(--sld-vl-color, blue)}
+.sld-two-wt {stroke: var(--sld-vl-color, blue)}
+.sld-three-wt {stroke: var(--sld-vl-color, blue)}
+.sld-winding {stroke: var(--sld-vl-color, blue)}
+.sld-capacitor {stroke: var(--sld-vl-color, blue)}
+.sld-inductor {stroke: var(--sld-vl-color, blue)}
+.sld-pst {stroke: var(--sld-vl-color, blue)}
+.sld-svc {stroke: var(--sld-vl-color, blue)}
+.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px}
+/* Specific */
+.sld-label {font: 8px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}
 .sld-disconnector {stroke-width: 3}
-.sld-bus-connection {stroke-width: 4}
-.sld-vsc {font-size: 7.43px}
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
-.sld-label {font: 8px "Verdana"}
-.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
-.sld-flash {stroke: none; fill: black}
-.sld-lock {stroke: none; fill: black}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -123,8 +180,8 @@ svg {stroke: blue}
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-two-wt" id="idvl2_95_trf1" transform="translate(135.0,512.5)">
-            <circle cx="5" cy="10" r="5"/>
-            <circle cx="5" cy="5" r="5"/>
+            <circle class="sld-winding" cx="5" cy="10" r="5"/>
+            <circle class="sld-winding" cx="5" cy="5" r="5"/>
             <text class="sld-label" id="vl2_trf1_vl2_trf1__LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl2_95_btrf1" transform="translate(130.0,410.0)">
@@ -142,9 +199,9 @@ svg {stroke: blue}
             <text class="sld-label" id="vl2_trf2_two_vl2_trf2_two__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
         <g class="sld-three-wt" id="idvl2_95_trf2" transform="translate(192.0,148.0)">
-            <circle cx="5" cy="15" r="5"/>
-            <circle cx="11" cy="15" r="5"/>
-            <circle cx="8" cy="19" r="5"/>
+            <circle class="sld-winding" cx="5" cy="15" r="5"/>
+            <circle class="sld-winding" cx="11" cy="15" r="5"/>
+            <circle class="sld-winding" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-breaker sld-closed" id="idvl2_95_btrf2" transform="translate(190.0,190.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>

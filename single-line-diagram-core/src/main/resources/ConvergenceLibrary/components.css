@@ -1,12 +1,28 @@
-.sld-busbar-section {stroke-width: 3}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000)}
+/* Stroke blue as default */
 .sld-breaker {stroke-width: 2; fill:white}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load-break-switch {stroke: var(--sld-vl-color, blue)}
+.sld-load {stroke: var(--sld-vl-color, blue)}
+.sld-generator {stroke: var(--sld-vl-color, blue)}
+.sld-two-wt {stroke: var(--sld-vl-color, blue)}
+.sld-three-wt {stroke: var(--sld-vl-color, blue)}
+.sld-winding {stroke: var(--sld-vl-color, blue)}
+.sld-capacitor {stroke: var(--sld-vl-color, blue)}
+.sld-inductor {stroke: var(--sld-vl-color, blue)}
+.sld-pst {stroke: var(--sld-vl-color, blue)}
+.sld-svc {stroke: var(--sld-vl-color, blue)}
+.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px}
+/* Specific */
+.sld-label {font: 8px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}
 .sld-disconnector {stroke-width: 3}
-.sld-bus-connection {stroke-width: 4}
-.sld-vsc {font-size: 7.43px}
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
-.sld-label {font: 8px "Verdana"}
-.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
-.sld-flash {stroke: none; fill: black}
-.sld-lock {stroke: none; fill: black}
