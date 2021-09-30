@@ -102,7 +102,7 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "defaultConstantColors.css");
+        return Arrays.asList("tautologies.css");
     }
 
     @Override

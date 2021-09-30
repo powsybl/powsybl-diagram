@@ -133,7 +133,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css", "baseVoltageConstantColors.css");
+        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css");
     }
 
 }

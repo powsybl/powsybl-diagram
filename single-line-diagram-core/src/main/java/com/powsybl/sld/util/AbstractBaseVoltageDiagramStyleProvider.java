@@ -309,7 +309,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "baseVoltageConstantColors.css");
+        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css");
     }
 
 }

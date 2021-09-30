@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="620.0" viewBox="0 0 560.0 620.0" width="560.0" xmlns="http://www.w3.org/2000/svg">
-    <style>@import url(tautologies.css);@import url(defaultConstantColors.css);@import url(ConvergenceLibrary_components.css);</style>
+    <style>@import url(tautologies.css);@import url(ConvergenceLibrary_components.css);</style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-busbar-section" id="idvl1_95_bbs1" transform="translate(40.0,320.0)">
