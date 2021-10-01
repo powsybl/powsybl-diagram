@@ -42,7 +42,7 @@ public class InitialValueProviderTest {
         bbs.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(1).withSectionIndex(1);
         BusbarSection bbs2 = view.newBusbarSection().setId("bbs2").setNode(3).add();
         bbs2.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(2).withSectionIndex(2);
-        vl.newStaticVarCompensator()
+        StaticVarCompensator svc = vl.newStaticVarCompensator()
             .setId("svc")
             .setName("svc")
             .setNode(2)
@@ -51,7 +51,10 @@ public class InitialValueProviderTest {
             .setRegulationMode(RegulationMode.VOLTAGE)
             .setVoltageSetPoint(390)
             .add();
-        vl.newVscConverterStation()
+        svc.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        VscConverterStation vsc = vl.newVscConverterStation()
             .setId("vsc")
             .setName("Converter1")
             .setNode(1)
@@ -59,7 +62,10 @@ public class InitialValueProviderTest {
             .setVoltageSetpoint(405.0)
             .setVoltageRegulatorOn(true)
             .add();
-        vl.newShuntCompensator()
+        vsc.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        ShuntCompensator c1 = vl.newShuntCompensator()
             .setId("C1")
             .setName("Filter 1")
             .setNode(4)
@@ -69,7 +75,7 @@ public class InitialValueProviderTest {
                 .setMaximumSectionCount(1)
             .add()
             .add();
-        vl.newDanglingLine()
+        DanglingLine dl1 = vl.newDanglingLine()
                 .setId("dl1")
                 .setName("Dangling line 1")
                 .setNode(5)
@@ -80,6 +86,9 @@ public class InitialValueProviderTest {
                 .setB(0)
                 .setG(0)
                 .add();
+        dl1.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
         view.newDisconnector().setId("d").setNode1(0).setNode2(1).add();
         view.newBreaker().setId("b").setNode1(1).setNode2(2).add();
         view.newBreaker().setId("b2").setNode1(3).setNode2(4).add();
@@ -93,48 +102,48 @@ public class InitialValueProviderTest {
         LayoutParameters layoutParameters = new LayoutParameters();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
-        InitialValue init = initProvider.getInitialValue(g.getNode("svc"));
-        assertFalse(init.getLabel1().isPresent());
-        assertFalse(init.getLabel2().isPresent());
-        assertFalse(init.getLabel3().isPresent());
-        assertFalse(init.getLabel4().isPresent());
-        assertFalse(init.getArrowDirection1().isPresent());
-        assertFalse(init.getArrowDirection2().isPresent());
+        FlowTransfers init = initProvider.getInitialValue(g.getNode("svc"));
+        assertFalse(init.getActive().getValueLabel().isPresent());
+        assertFalse(init.getReactive().getValueLabel().isPresent());
+        assertFalse(init.getActive().getCustomLabel().isPresent());
+        assertFalse(init.getReactive().getCustomLabel().isPresent());
+        assertFalse(init.getActive().getArrowDirection().isPresent());
+        assertFalse(init.getReactive().getArrowDirection().isPresent());
         DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        InitialValue init1 = initProvider1.getInitialValue(g.getNode("svc"));
-        assertTrue(init1.getLabel1().isPresent());
-        assertTrue(init1.getLabel2().isPresent());
-        assertFalse(init1.getLabel3().isPresent());
-        assertFalse(init1.getLabel4().isPresent());
-        assertTrue(init1.getArrowDirection1().isPresent());
-        assertTrue(init1.getArrowDirection2().isPresent());
-        InitialValue init2 = initProvider1.getInitialValue(g.getNode("vsc"));
-        assertTrue(init2.getLabel1().isPresent());
-        assertTrue(init2.getLabel2().isPresent());
-        assertFalse(init2.getLabel3().isPresent());
-        assertFalse(init2.getLabel4().isPresent());
-        assertTrue(init2.getArrowDirection1().isPresent());
-        assertTrue(init2.getArrowDirection2().isPresent());
-        InitialValue init3 = initProvider1.getInitialValue(g.getNode("C1"));
-        assertTrue(init3.getLabel1().isPresent());
-        assertTrue(init3.getLabel2().isPresent());
-        assertFalse(init3.getLabel3().isPresent());
-        assertFalse(init3.getLabel4().isPresent());
-        assertTrue(init3.getArrowDirection1().isPresent());
-        assertTrue(init3.getArrowDirection2().isPresent());
-        InitialValue init4 = initProvider1.getInitialValue(g.getNode("b"));
-        assertFalse(init4.getLabel1().isPresent());
-        assertFalse(init4.getLabel2().isPresent());
-        assertFalse(init4.getLabel3().isPresent());
-        assertFalse(init4.getLabel4().isPresent());
-        assertFalse(init4.getArrowDirection1().isPresent());
-        assertFalse(init4.getArrowDirection2().isPresent());
-        InitialValue init5 = initProvider1.getInitialValue(g.getNode("dl1"));
-        assertTrue(init5.getLabel1().isPresent());
-        assertTrue(init5.getLabel2().isPresent());
-        assertFalse(init5.getLabel3().isPresent());
-        assertFalse(init5.getLabel4().isPresent());
-        assertTrue(init5.getArrowDirection1().isPresent());
-        assertTrue(init5.getArrowDirection2().isPresent());
+        FlowTransfers init1 = initProvider1.getInitialValue(g.getNode("svc"));
+        assertTrue(init1.getActive().getValueLabel().isPresent());
+        assertTrue(init1.getReactive().getValueLabel().isPresent());
+        assertFalse(init1.getActive().getCustomLabel().isPresent());
+        assertFalse(init1.getReactive().getCustomLabel().isPresent());
+        assertTrue(init1.getActive().getArrowDirection().isPresent());
+        assertTrue(init1.getReactive().getArrowDirection().isPresent());
+        FlowTransfers init2 = initProvider1.getInitialValue(g.getNode("vsc"));
+        assertTrue(init2.getActive().getValueLabel().isPresent());
+        assertTrue(init2.getReactive().getValueLabel().isPresent());
+        assertFalse(init2.getActive().getCustomLabel().isPresent());
+        assertFalse(init2.getReactive().getCustomLabel().isPresent());
+        assertTrue(init2.getActive().getArrowDirection().isPresent());
+        assertTrue(init2.getReactive().getArrowDirection().isPresent());
+        FlowTransfers init3 = initProvider1.getInitialValue(g.getNode("C1"));
+        assertFalse(init3.getActive().getValueLabel().isPresent());
+        assertFalse(init3.getReactive().getValueLabel().isPresent());
+        assertFalse(init3.getActive().getCustomLabel().isPresent());
+        assertFalse(init3.getReactive().getCustomLabel().isPresent());
+        assertFalse(init3.getActive().getArrowDirection().isPresent());
+        assertFalse(init3.getReactive().getArrowDirection().isPresent());
+        FlowTransfers init4 = initProvider1.getInitialValue(g.getNode("b"));
+        assertFalse(init4.getActive().getValueLabel().isPresent());
+        assertFalse(init4.getReactive().getValueLabel().isPresent());
+        assertFalse(init4.getActive().getCustomLabel().isPresent());
+        assertFalse(init4.getReactive().getCustomLabel().isPresent());
+        assertFalse(init4.getActive().getArrowDirection().isPresent());
+        assertFalse(init4.getReactive().getArrowDirection().isPresent());
+        FlowTransfers init5 = initProvider1.getInitialValue(g.getNode("dl1"));
+        assertTrue(init5.getActive().getValueLabel().isPresent());
+        assertTrue(init5.getReactive().getValueLabel().isPresent());
+        assertFalse(init5.getActive().getCustomLabel().isPresent());
+        assertFalse(init5.getReactive().getCustomLabel().isPresent());
+        assertTrue(init5.getActive().getArrowDirection().isPresent());
+        assertTrue(init5.getReactive().getArrowDirection().isPresent());
     }
 }
