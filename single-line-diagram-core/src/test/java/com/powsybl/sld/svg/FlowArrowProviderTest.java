@@ -24,8 +24,9 @@ import static org.junit.Assert.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
+ * @author Thomas Adam <tadam at silicom.fr>
  */
-public class InitialValueProviderTest {
+public class FlowArrowProviderTest {
 
     private Network network;
     private Substation substation;
