@@ -59,12 +59,11 @@ public interface DiagramLabelProvider {
 
     }
 
-    public enum Direction {
+    enum Direction {
         UP, DOWN;
-
     }
 
-    InitialValue getInitialValue(Node node);
+    List<FlowArrow> getFlowArrows(Node node);
 
     List<NodeLabel> getNodeLabels(Node node);
 

@@ -16,10 +16,11 @@ import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.InitialValue;
+import com.powsybl.sld.svg.FlowArrow;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -101,14 +102,16 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         }
 
         @Override
-        public InitialValue getInitialValue(Node node) {
-            InitialValue initialValue;
+        public List<FlowArrow> getFlowArrows(Node node) {
+            List<FlowArrow> arrows = new ArrayList<>();
             if (node.getType() == Node.NodeType.BUS) {
-                initialValue = new InitialValue(null, null, null, null, null, null);
+                arrows.add(new FlowArrow());
+                arrows.add(new FlowArrow());
             } else {
-                initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                arrows.add(new FlowArrow(Direction.UP, null, null));
+                arrows.add(new FlowArrow(Direction.DOWN, null, null));
             }
-            return initialValue;
+            return arrows;
         }
     }
 

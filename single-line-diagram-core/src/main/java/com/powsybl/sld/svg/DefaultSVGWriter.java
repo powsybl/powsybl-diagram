@@ -931,27 +931,23 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        InitialValue init = initProvider.getInitialValue(feederNode);
+        List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode);
         boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
 
-        Optional<String> label1 = arrowSymmetry ? init.getLabel1() : init.getLabel2();
-        Optional<Direction> direction1 = arrowSymmetry ? init.getArrowDirection1() : init.getArrowDirection2();
-
-        Optional<String> label2 = arrowSymmetry ? init.getLabel2() : init.getLabel1();
-        Optional<Direction> direction2 = arrowSymmetry ? init.getArrowDirection2() : init.getArrowDirection1();
-
+        FlowArrow arrow1 = arrowSymmetry ? arrows.get(0) : arrows.get(1);
+        FlowArrow arrow2 = arrowSymmetry ? arrows.get(1) : arrows.get(0);
         int iArrow1 = arrowSymmetry ? 1 : 2;
         int iArrow2 = arrowSymmetry ? 2 : 1;
 
         // we draw the arrow only if value 1 is present
-        label1.ifPresent(lb ->
-                drawArrowAndLabel(prefixId, wireId, points, root, lb, init.getLabel3(), direction1, 0, iArrow1, metadata));
+        arrow1.getLeftLabel().ifPresent(lb ->
+                drawArrowAndLabel(prefixId, wireId, points, root, lb, arrow1.getRightLabel(), arrow1.getDirection(), 0, iArrow1, metadata));
 
         // we draw the arrow only if value 2 is present
-        label2.ifPresent(lb -> {
+        arrow2.getLeftLabel().ifPresent(lb -> {
             double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
-            drawArrowAndLabel(prefixId, wireId, points, root, lb, init.getLabel4(),
-                    direction2, shiftArrow2, iArrow2, metadata);
+            drawArrowAndLabel(prefixId, wireId, points, root, lb, arrow2.getRightLabel(),
+                    arrow2.getDirection(), shiftArrow2, iArrow2, metadata);
         });
     }
 

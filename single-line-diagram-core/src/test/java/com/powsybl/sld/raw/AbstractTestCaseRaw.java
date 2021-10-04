@@ -10,10 +10,7 @@ import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.InitialValue;
-import com.powsybl.sld.svg.LabelPosition;
+import com.powsybl.sld.svg.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,8 +65,11 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
 
         @Override
-        public InitialValue getInitialValue(Node node) {
-            return new InitialValue(Direction.UP, Direction.DOWN, "tata", "tutu", "", "");
+        public List<FlowArrow> getFlowArrows(Node node) {
+            List<FlowArrow> arrows = new ArrayList<>();
+            arrows.add(new FlowArrow(Direction.UP, "tata", ""));
+            arrows.add(new FlowArrow(Direction.DOWN, "tutu", ""));
+            return arrows;
         }
 
         @Override

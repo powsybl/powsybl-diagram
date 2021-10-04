@@ -42,28 +42,30 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
-    public InitialValue getInitialValue(Node node) {
+    public List<FlowArrow> getFlowArrows(Node node) {
         Objects.requireNonNull(node);
 
-        InitialValue initialValue = null;
+        List<FlowArrow> arrows = null;
 
         switch (node.getType()) {
             case BUS:
-                initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                arrows = new ArrayList<>();
+                arrows.add(new FlowArrow(null, node.getLabel(), null));
+                arrows.add(new FlowArrow());
                 break;
             case FEEDER:
                 switch (((FeederNode) node).getFeederType()) {
                     case INJECTION:
-                        initialValue = getInjectionInitialValue((FeederInjectionNode) node);
+                        arrows = getInjectionFlowArrows((FeederInjectionNode) node);
                         break;
                     case BRANCH:
-                        initialValue = getBranchInitialValue((FeederBranchNode) node);
+                        arrows = getBranchFlowArrows((FeederBranchNode) node);
                         break;
                     case TWO_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get2WTInitialValue((Feeder2WTLegNode) node);
+                        arrows = get2WTFlowArrows((Feeder2WTLegNode) node);
                         break;
                     case THREE_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get3WTInitialValue((Feeder3WTLegNode) node);
+                        arrows = get3WTFlowArrows((Feeder3WTLegNode) node);
                         break;
                     default:
                         break;
@@ -73,40 +75,46 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                 break;
         }
 
-        return initialValue != null ? initialValue : new InitialValue(null, null, null, null, null, null);
+        if (arrows == null) {
+            arrows = new ArrayList<>();
+            arrows.add(new FlowArrow());
+            arrows.add(new FlowArrow());
+        }
+
+        return arrows;
     }
 
-    private InitialValue getInjectionInitialValue(FeederInjectionNode node) {
+    private List<FlowArrow> getInjectionFlowArrows(FeederInjectionNode node) {
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
-            return buildInitialValue(injection);
+            return buildFlowArrows(injection);
         }
         return null;
     }
 
-    private InitialValue getBranchInitialValue(FeederBranchNode node) {
+    private List<FlowArrow> getBranchFlowArrows(FeederBranchNode node) {
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildInitialValue(branch, side);
+            return buildFlowArrows(branch, side);
         }
         return null;
     }
 
-    private InitialValue get3WTInitialValue(Feeder3WTLegNode node) {
+    private List<FlowArrow> get3WTFlowArrows(Feeder3WTLegNode node) {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            return buildInitialValue(transformer, side);
+            return buildFlowArrows(transformer, side);
         }
         return null;
     }
 
-    private InitialValue get2WTInitialValue(Feeder2WTLegNode node) {
+    private List<FlowArrow> get2WTFlowArrows(Feeder2WTLegNode node) {
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildInitialValue(transformer, side);
+            return buildFlowArrows(transformer, side);
         }
         return null;
     }
@@ -227,41 +235,29 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
-    private InitialValue buildInitialValue(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+    private List<FlowArrow> buildFlowArrows(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         Objects.requireNonNull(transformer);
         Objects.requireNonNull(side);
-        double p = transformer.getTerminal(side).getP();
-        double q = transformer.getTerminal(side).getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+        List<FlowArrow> arrows = new ArrayList<>();
+        arrows.add(new FlowArrow(transformer.getTerminal(side).getP()));
+        arrows.add(new FlowArrow(transformer.getTerminal(side).getQ()));
+        return arrows;
     }
 
-    private InitialValue buildInitialValue(Injection injection) {
+    private List<FlowArrow> buildFlowArrows(Injection injection) {
         Objects.requireNonNull(injection);
-        double p = injection.getTerminal().getP();
-        double q = injection.getTerminal().getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+        List<FlowArrow> arrows = new ArrayList<>();
+        arrows.add(new FlowArrow(injection.getTerminal().getP()));
+        arrows.add(new FlowArrow(injection.getTerminal().getQ()));
+        return arrows;
     }
 
-    private InitialValue buildInitialValue(Branch branch, Branch.Side side) {
+    private List<FlowArrow> buildFlowArrows(Branch branch, Branch.Side side) {
         Objects.requireNonNull(branch);
         Objects.requireNonNull(side);
-        double p = branch.getTerminal(side).getP();
-        double q = branch.getTerminal(side).getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+        List<FlowArrow> arrows = new ArrayList<>();
+        arrows.add(new FlowArrow(branch.getTerminal(side).getP()));
+        arrows.add(new FlowArrow(branch.getTerminal(side).getQ()));
+        return arrows;
     }
 }

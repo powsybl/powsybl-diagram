@@ -660,14 +660,16 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
+            public List<FlowArrow> getFlowArrows(Node node) {
+                List<FlowArrow> arrows = new ArrayList<>();
                 if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+                    arrows.add(new FlowArrow(null, node.getLabel(), null));
+                    arrows.add(new FlowArrow());
                 } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
+                    arrows.add(new FlowArrow(Direction.UP, "10", null));
+                    arrows.add(new FlowArrow(Direction.DOWN, "20", null));
                 }
-                return initialValue;
+                return arrows;
             }
 
             @Override
@@ -680,14 +682,16 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
+            public List<FlowArrow> getFlowArrows(Node node) {
+                List<FlowArrow> arrows = new ArrayList<>();
                 if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, null, null, null, null);
+                    arrows.add(new FlowArrow());
+                    arrows.add(new FlowArrow());
                 } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
+                    arrows.add(new FlowArrow(Direction.UP, null, null));
+                    arrows.add(new FlowArrow(Direction.DOWN, null, null));
                 }
-                return initialValue;
+                return arrows;
             }
 
             @Override
