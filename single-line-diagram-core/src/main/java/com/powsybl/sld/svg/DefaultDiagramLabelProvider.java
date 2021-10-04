@@ -45,14 +45,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     public List<FlowArrow> getFlowArrows(Node node) {
         Objects.requireNonNull(node);
 
-        List<FlowArrow> arrows = null;
+        List<FlowArrow> arrows = new ArrayList<>();
 
         switch (node.getType()) {
-            case BUS:
-                arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(null, node.getLabel(), null));
-                arrows.add(new FlowArrow());
-                break;
             case FEEDER:
                 switch (((FeederNode) node).getFeederType()) {
                     case INJECTION:
@@ -71,11 +66,12 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                         break;
                 }
                 break;
+            case BUS:
             default:
                 break;
         }
 
-        if (arrows == null) {
+        if (arrows.isEmpty()) {
             arrows = new ArrayList<>();
             arrows.add(new FlowArrow());
             arrows.add(new FlowArrow());
@@ -85,38 +81,42 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     private List<FlowArrow> getInjectionFlowArrows(FeederInjectionNode node) {
+        List<FlowArrow> arrows = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
-            return buildFlowArrows(injection);
+            arrows = buildFlowArrows(injection);
         }
-        return null;
+        return arrows;
     }
 
     private List<FlowArrow> getBranchFlowArrows(FeederBranchNode node) {
+        List<FlowArrow> arrows = new ArrayList<>();
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildFlowArrows(branch, side);
+            arrows = buildFlowArrows(branch, side);
         }
-        return null;
+        return arrows;
     }
 
     private List<FlowArrow> get3WTFlowArrows(Feeder3WTLegNode node) {
+        List<FlowArrow> arrows = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            return buildFlowArrows(transformer, side);
+            arrows = buildFlowArrows(transformer, side);
         }
-        return null;
+        return arrows;
     }
 
     private List<FlowArrow> get2WTFlowArrows(Feeder2WTLegNode node) {
+        List<FlowArrow> arrows = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildFlowArrows(transformer, side);
+            arrows = buildFlowArrows(transformer, side);
         }
-        return null;
+        return arrows;
     }
 
     @Override
