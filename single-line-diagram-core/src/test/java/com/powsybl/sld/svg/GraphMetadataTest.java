@@ -13,7 +13,7 @@ import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.ComponentMetadata;
+import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
@@ -55,7 +55,7 @@ public class GraphMetadataTest {
     @Test
     public void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata();
-        metadata.addComponentMetadata(new ComponentMetadata(
+        metadata.addComponent(new Component(
             BREAKER,
             "br1",
             ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),

@@ -526,7 +526,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
                     BUSBAR_SECTION, busNode.getRotationAngle(),
                     false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId()));
-            metadata.addComponentMetadata(new ComponentMetadata(BUSBAR_SECTION,
+            metadata.addComponent(new Component(BUSBAR_SECTION,
                 nodeId,
                 anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, busNode.getId()),
                 new ComponentSize(0, 0),
@@ -582,7 +582,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId()));
         if (metadata.getComponentMetadata(node.getComponentType()) == null) {
-            metadata.addComponentMetadata(new ComponentMetadata(node.getComponentType(),
+            metadata.addComponent(new Component(node.getComponentType(),
                 null,
                 componentLibrary.getAnchorPoints(node.getComponentType()),
                 componentLibrary.getSize(node.getComponentType()),
@@ -768,7 +768,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void addToolTip(String tooltip, Element g) {
-        if (layoutParameters.isTooltipEnabled() && !tooltip.isEmpty()) {
+        if (layoutParameters.isTooltipEnabled() && !StringUtils.isEmpty(tooltip)) {
             Document doc = g.getOwnerDocument();
             Element title = doc.createElement("title");
             title.appendChild(doc.createTextNode(tooltip));
@@ -969,7 +969,7 @@ public class DefaultSVGWriter implements SVGWriter {
     private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
                                    String labelR, Optional<String> labelL, Optional<Direction> dir, double shift, int iArrow,
                                    GraphMetadata metadata) {
-        ComponentMetadata cd = metadata.getComponentMetadata(ARROW);
+        Component cd = metadata.getComponentMetadata(ARROW);
 
         double shX = cd.getSize().getWidth() + LABEL_OFFSET;
         double shY = cd.getSize().getHeight() / 2;
@@ -1045,7 +1045,7 @@ public class DefaultSVGWriter implements SVGWriter {
                     false));
 
             if (metadata.getComponentMetadata(ARROW) == null) {
-                metadata.addComponentMetadata(new ComponentMetadata(ARROW,
+                metadata.addComponent(new Component(ARROW,
                         null,
                         componentLibrary.getAnchorPoints(ARROW),
                         componentLibrary.getSize(ARROW),

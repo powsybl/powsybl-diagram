@@ -6,24 +6,22 @@
  */
 package com.powsybl.sld.library;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.InputStream;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.powsybl.commons.json.JsonUtil;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Thomas Adam <tadam at silicom.fr>
  */
-@XmlRootElement(name = "components")
 public class Components {
 
-    @XmlElement(name = "component")
     private final List<Component> components = new ArrayList<>();
 
     public List<Component> getComponents() {
@@ -31,27 +29,23 @@ public class Components {
     }
 
     public static Components load(String directory) {
-        return load(Components.class.getResourceAsStream(directory + "/components.xml"));
+        return load(Components.class.getResourceAsStream(directory + "/components.json"));
     }
 
     public static Components load(InputStream is) {
-        try {
-            JAXBContext jc = JAXBContext.newInstance(Components.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            return (Components) unmarshaller.unmarshal(is);
-        } catch (JAXBException e) {
-            throw new UncheckedJaxbException(e);
+        Objects.requireNonNull(is);
+
+        try (Reader reader = new InputStreamReader(is)) {
+            return load(reader);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
-    private static class UncheckedJaxbException extends RuntimeException {
-        public UncheckedJaxbException(JAXBException cause) {
-            super(cause);
-        }
+    public static Components load(Reader reader) throws IOException {
+        Objects.requireNonNull(reader);
 
-        @Override
-        public synchronized JAXBException getCause() {
-            return (JAXBException) super.getCause();
-        }
+        ObjectReader objectReader = JsonUtil.createObjectMapper().readerFor(Components.class);
+        return objectReader.readValue(reader);
     }
 }

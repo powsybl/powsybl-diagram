@@ -48,11 +48,11 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     /**
      * Constructs a new library containing the components in the given directories
      * @param name name of the library
-     * @param directory main directory containing the resources components: SVG files, with associated components.xml
+     * @param directory main directory containing the resources components: SVG files, with associated components.json
      *                 (containing the list of SVG files) and components.css (containing the style applied to each
      *                  component)
      * @param additionalDirectories directories for additional components (each directory containing SVG files,
-     *                              associated components.xml and components.css).
+     *                              associated components.json and components.css).
      */
     public ResourcesComponentLibrary(String name, String directory, String... additionalDirectories) {
         this.name = Objects.requireNonNull(name);
@@ -74,9 +74,8 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         // preload SVG documents
         DocumentBuilder db = DomUtil.getDocumentBuilder();
         Components.load(directory).getComponents().forEach(c -> {
-            ComponentMetadata componentMetaData = c.getMetadata();
-            String componentType = componentMetaData.getType();
-            componentMetaData.getSubComponents().forEach(s -> {
+            String componentType = c.getType();
+            c.getSubComponents().forEach(s -> {
                 String resourceName = directory + "/" + s.getFileName();
                 LOGGER.debug("Reading subComponent {}", resourceName);
                 try {
@@ -121,7 +120,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public List<AnchorPoint> getAnchorPoints(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component != null ? component.getMetadata().getAnchorPoints()
+        return component != null ? component.getAnchorPoints()
                                  : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }
 
@@ -129,13 +128,13 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public ComponentSize getSize(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component != null ? component.getMetadata().getSize() : new ComponentSize(0, 0);
+        return component != null ? component.getSize() : new ComponentSize(0, 0);
     }
 
     @Override
     public Map<String, ComponentSize> getComponentsSize() {
         Map<String, ComponentSize> res = new HashMap<>();
-        components.forEach((key, value) -> res.put(key, value.getMetadata().getSize()));
+        components.forEach((key, value) -> res.put(key, value.getSize()));
         return res;
     }
 
@@ -153,7 +152,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public Optional<String> getComponentStyleClass(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component != null ? Optional.ofNullable(component.getMetadata().getStyleClass()) : Optional.empty();
+        return component != null ? Optional.ofNullable(component.getStyleClass()) : Optional.empty();
     }
 
     @Override
@@ -162,7 +161,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         Objects.requireNonNull(subComponent);
         Component component = components.get(type);
         if (component != null) {
-            return component.getMetadata().getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
+            return component.getSubComponents().stream().filter(sc -> sc.getName().equals(subComponent)).findFirst().map(SubComponent::getStyleClass);
         }
         return Optional.empty();
     }
@@ -171,7 +170,7 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     public boolean isAllowRotation(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component == null || component.getMetadata().isAllowRotation();
+        return component == null || component.isAllowRotation();
     }
 
 }

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.powsybl.sld.model.Point;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Objects;
 
 /**
@@ -18,8 +17,8 @@ import java.util.Objects;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
+ * @author Thomas Adam <tadam at silicom.fr>
  */
-@XmlJavaTypeAdapter(AnchorPointAdapter.class)
 public class AnchorPoint extends Point {
 
     private final AnchorOrientation orientation;
@@ -32,7 +31,8 @@ public class AnchorPoint extends Point {
      * @param orientation connection orientation
      */
     @JsonCreator
-    public AnchorPoint(@JsonProperty("x") double x, @JsonProperty("y") double y,
+    public AnchorPoint(@JsonProperty("x") double x,
+                       @JsonProperty("y") double y,
                        @JsonProperty("orientation") AnchorOrientation orientation) {
         super(x, y);
         this.orientation = Objects.requireNonNull(orientation);

@@ -191,7 +191,6 @@ polyline {fill: none}
             <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(90.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed" id="idvl1_95_d2" transform="translate(306.0,316.0)">
-            <title>vl1_d2</title>
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
