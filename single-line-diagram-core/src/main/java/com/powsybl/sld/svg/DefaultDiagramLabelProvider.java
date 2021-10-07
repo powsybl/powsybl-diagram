@@ -42,31 +42,24 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
-    public List<FlowArrow> getFlowArrows(Node node) {
+    public List<FlowArrow> getFlowArrows(FeederNode node) {
         Objects.requireNonNull(node);
 
         List<FlowArrow> arrows = new ArrayList<>();
 
-        switch (node.getType()) {
-            case FEEDER:
-                switch (((FeederNode) node).getFeederType()) {
-                    case INJECTION:
-                        arrows = getInjectionFlowArrows((FeederInjectionNode) node);
-                        break;
-                    case BRANCH:
-                        arrows = getBranchFlowArrows((FeederBranchNode) node);
-                        break;
-                    case TWO_WINDINGS_TRANSFORMER_LEG:
-                        arrows = get2WTFlowArrows((Feeder2WTLegNode) node);
-                        break;
-                    case THREE_WINDINGS_TRANSFORMER_LEG:
-                        arrows = get3WTFlowArrows((Feeder3WTLegNode) node);
-                        break;
-                    default:
-                        break;
-                }
+        switch (node.getFeederType()) {
+            case INJECTION:
+                arrows = getInjectionFlowArrows((FeederInjectionNode) node);
                 break;
-            case BUS:
+            case BRANCH:
+                arrows = getBranchFlowArrows((FeederBranchNode) node);
+                break;
+            case TWO_WINDINGS_TRANSFORMER_LEG:
+                arrows = get2WTFlowArrows((Feeder2WTLegNode) node);
+                break;
+            case THREE_WINDINGS_TRANSFORMER_LEG:
+                arrows = get3WTFlowArrows((Feeder3WTLegNode) node);
+                break;
             default:
                 break;
         }

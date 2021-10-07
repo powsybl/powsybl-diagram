@@ -12,6 +12,7 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
@@ -102,7 +103,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         }
 
         @Override
-        public List<FlowArrow> getFlowArrows(Node node) {
+        public List<FlowArrow> getFlowArrows(FeederNode node) {
             List<FlowArrow> arrows = new ArrayList<>();
             if (node.getType() == Node.NodeType.BUS) {
                 arrows.add(new FlowArrow());

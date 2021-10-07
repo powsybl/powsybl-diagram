@@ -14,6 +14,7 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
+import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,10 +105,10 @@ public class FlowArrowProviderTest {
         LayoutParameters layoutParameters = new LayoutParameters();
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
-        List<FlowArrow> arrows = initProvider.getFlowArrows(g.getNode("svc"));
+        List<FlowArrow> arrows = initProvider.getFlowArrows((FeederNode) g.getNode("svc"));
         assertTrue(arrows.isEmpty());
         DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        List<FlowArrow> arrows1 = initProvider1.getFlowArrows(g.getNode("svc"));
+        List<FlowArrow> arrows1 = initProvider1.getFlowArrows((FeederNode) g.getNode("svc"));
         assertEquals(2, arrows1.size());
         assertTrue(arrows1.get(0).getLeftLabel().isPresent());
         assertTrue(arrows1.get(1).getLeftLabel().isPresent());
@@ -115,7 +116,7 @@ public class FlowArrowProviderTest {
         assertFalse(arrows1.get(1).getRightLabel().isPresent());
         assertTrue(arrows1.get(0).getDirection().isPresent());
         assertTrue(arrows1.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows2 = initProvider1.getFlowArrows(g.getNode("vsc"));
+        List<FlowArrow> arrows2 = initProvider1.getFlowArrows((FeederNode) g.getNode("vsc"));
         assertEquals(2, arrows2.size());
         assertTrue(arrows2.get(0).getLeftLabel().isPresent());
         assertTrue(arrows2.get(1).getLeftLabel().isPresent());
@@ -123,7 +124,7 @@ public class FlowArrowProviderTest {
         assertFalse(arrows2.get(1).getRightLabel().isPresent());
         assertTrue(arrows2.get(0).getDirection().isPresent());
         assertTrue(arrows2.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows3 = initProvider1.getFlowArrows(g.getNode("C1"));
+        List<FlowArrow> arrows3 = initProvider1.getFlowArrows((FeederNode) g.getNode("C1"));
         assertEquals(2, arrows3.size());
         assertTrue(arrows3.get(0).getLeftLabel().isPresent());
         assertTrue(arrows3.get(1).getLeftLabel().isPresent());
@@ -131,15 +132,13 @@ public class FlowArrowProviderTest {
         assertFalse(arrows3.get(1).getRightLabel().isPresent());
         assertTrue(arrows3.get(0).getDirection().isPresent());
         assertTrue(arrows3.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows4 = initProvider1.getFlowArrows(g.getNode("b"));
-        assertTrue(arrows4.isEmpty());
-        List<FlowArrow> arrows5 = initProvider1.getFlowArrows(g.getNode("dl1"));
-        assertEquals(2, arrows5.size());
-        assertTrue(arrows5.get(0).getLeftLabel().isPresent());
-        assertTrue(arrows5.get(1).getLeftLabel().isPresent());
-        assertFalse(arrows5.get(0).getRightLabel().isPresent());
-        assertFalse(arrows5.get(1).getRightLabel().isPresent());
-        assertTrue(arrows5.get(0).getDirection().isPresent());
-        assertTrue(arrows5.get(1).getDirection().isPresent());
+        List<FlowArrow> arrows4 = initProvider1.getFlowArrows((FeederNode) g.getNode("dl1"));
+        assertEquals(2, arrows4.size());
+        assertTrue(arrows4.get(0).getLeftLabel().isPresent());
+        assertTrue(arrows4.get(1).getLeftLabel().isPresent());
+        assertFalse(arrows4.get(0).getRightLabel().isPresent());
+        assertFalse(arrows4.get(1).getRightLabel().isPresent());
+        assertTrue(arrows4.get(0).getDirection().isPresent());
+        assertTrue(arrows4.get(1).getDirection().isPresent());
     }
 }

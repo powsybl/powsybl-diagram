@@ -65,7 +65,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
 
         @Override
-        public List<FlowArrow> getFlowArrows(Node node) {
+        public List<FlowArrow> getFlowArrows(FeederNode node) {
             List<FlowArrow> arrows = new ArrayList<>();
             arrows.add(new FlowArrow(Direction.UP, "tata", ""));
             arrows.add(new FlowArrow(Direction.DOWN, "tutu", ""));

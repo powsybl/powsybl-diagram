@@ -660,7 +660,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FlowArrow> getFlowArrows(Node node) {
+            public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
                 if (node.getType() == Node.NodeType.BUS) {
                     arrows.add(new FlowArrow(null, node.getLabel(), null));
@@ -682,7 +682,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FlowArrow> getFlowArrows(Node node) {
+            public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
                 if (node.getType() == Node.NodeType.BUS) {
                     arrows.add(new FlowArrow());
