@@ -70,13 +70,6 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             default:
                 break;
         }
-
-        if (arrows.isEmpty()) {
-            arrows = new ArrayList<>();
-            arrows.add(new FlowArrow());
-            arrows.add(new FlowArrow());
-        }
-
         return arrows;
     }
 
