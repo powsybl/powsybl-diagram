@@ -66,6 +66,10 @@ public interface DiagramLabelProvider {
 
     List<FlowArrow> getFlowArrows(FeederNode node);
 
+    default List<FlowArrow> getFlowArrows(FeederNode node, boolean feederArrowSymmetry) {
+        return getFlowArrows(node);
+    }
+
     List<NodeLabel> getNodeLabels(Node node);
 
     List<NodeDecorator> getNodeDecorators(Node node);

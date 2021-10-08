@@ -77,12 +77,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,540.0,120.0,450.0"/>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="translate(115.0,515.0)">
+        <g class="sld-arrow-p sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="translate(115.0,515.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="translate(115.0,495.0)">
+        <g class="sld-arrow-q sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="translate(115.0,495.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -186,12 +186,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="690.0,540.0,690.0,450.0"/>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="translate(685.0,515.0)">
+        <g class="sld-arrow-p sld-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="translate(685.0,515.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="translate(685.0,495.0)">
+        <g class="sld-arrow-q sld-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="translate(685.0,495.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>

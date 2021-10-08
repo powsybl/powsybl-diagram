@@ -43,6 +43,11 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     @Override
     public List<FlowArrow> getFlowArrows(FeederNode node) {
+        return getFlowArrows(node, false);
+    }
+
+    @Override
+    public List<FlowArrow> getFlowArrows(FeederNode node, boolean feederArrowSymmetry) {
         Objects.requireNonNull(node);
 
         List<FlowArrow> arrows = new ArrayList<>();
@@ -63,6 +68,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             default:
                 break;
         }
+
         return arrows;
     }
 

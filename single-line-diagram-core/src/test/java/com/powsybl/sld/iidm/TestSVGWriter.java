@@ -662,13 +662,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
-                if (node.getType() == Node.NodeType.BUS) {
-                    arrows.add(new FlowArrow(null, node.getLabel(), null));
-                    arrows.add(new FlowArrow());
-                } else {
-                    arrows.add(new FlowArrow(Direction.UP, "10", null));
-                    arrows.add(new FlowArrow(Direction.DOWN, "20", null));
-                }
+                arrows.add(new FlowArrow(Direction.UP, "10", null));
+                arrows.add(new FlowArrow(Direction.DOWN, "20", null));
                 return arrows;
             }
 
@@ -684,13 +679,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
-                if (node.getType() == Node.NodeType.BUS) {
-                    arrows.add(new FlowArrow());
-                    arrows.add(new FlowArrow());
-                } else {
-                    arrows.add(new FlowArrow(Direction.UP, null, null));
-                    arrows.add(new FlowArrow(Direction.DOWN, null, null));
-                }
+                arrows.add(new FlowArrow(Direction.UP, null, null));
+                arrows.add(new FlowArrow(Direction.DOWN, null, null));
                 return arrows;
             }
 

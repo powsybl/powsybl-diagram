@@ -105,13 +105,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         @Override
         public List<FlowArrow> getFlowArrows(FeederNode node) {
             List<FlowArrow> arrows = new ArrayList<>();
-            if (node.getType() == Node.NodeType.BUS) {
-                arrows.add(new FlowArrow());
-                arrows.add(new FlowArrow());
-            } else {
-                arrows.add(new FlowArrow(Direction.UP, null, null));
-                arrows.add(new FlowArrow(Direction.DOWN, null, null));
-            }
+            arrows.add(new FlowArrow());
+            arrows.add(new FlowArrow());
             return arrows;
         }
     }

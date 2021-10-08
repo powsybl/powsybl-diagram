@@ -934,56 +934,62 @@ public class DefaultSVGWriter implements SVGWriter {
         List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode);
         boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
 
-        FlowArrow arrow1 = arrowSymmetry ? arrows.get(0) : arrows.get(1);
-        FlowArrow arrow2 = arrowSymmetry ? arrows.get(1) : arrows.get(0);
-        int iArrow1 = arrowSymmetry ? 1 : 2;
-        int iArrow2 = arrowSymmetry ? 2 : 1;
-
-        // we draw the arrow only if value 1 is present
-        arrow1.getLeftLabel().ifPresent(lb ->
-                drawArrowAndLabel(prefixId, wireId, points, root, lb, arrow1.getRightLabel(), arrow1.getDirection(), 0, iArrow1, metadata));
-
-        // we draw the arrow only if value 2 is present
-        arrow2.getLeftLabel().ifPresent(lb -> {
-            double shiftArrow2 = 2 * metadata.getComponentMetadata(ARROW).getSize().getHeight();
-            drawArrowAndLabel(prefixId, wireId, points, root, lb, arrow2.getRightLabel(),
-                    arrow2.getDirection(), shiftArrow2, iArrow2, metadata);
-        });
+        if (!arrowSymmetry) {
+            Collections.reverse(arrows);
+        }
+        int iArrow = 0;
+        double height = metadata.getComponentMetadata(ARROW).getSize().getHeight();
+        for (FlowArrow arrow : arrows) {
+            // Compute shifting
+            double shiftArrow = iArrow * 2 * height;
+            drawArrowAndLabel(prefixId, wireId, points, root, arrow, shiftArrow, ++iArrow, metadata);
+        }
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
-                                   String labelR, Optional<String> labelL, Optional<Direction> dir, double shift, int iArrow,
+                                   FlowArrow arrow,
+                                   double shift, int iArrow,
                                    GraphMetadata metadata) {
-        Component cd = metadata.getComponentMetadata(ARROW);
+        Optional<Direction> dir = arrow.getDirection();
+        // we draw the arrow only if direction is present
+        if (dir.isPresent()) {
+            Optional<String> labelL = arrow.getLeftLabel();
+            Optional<String> labelR = arrow.getRightLabel();
 
-        double shX = cd.getSize().getWidth() + LABEL_OFFSET;
-        double shY = cd.getSize().getHeight() / 2;
+            Component cd = metadata.getComponentMetadata(ARROW);
 
-        Element g = root.getOwnerDocument().createElement(GROUP);
-        String arrowWireId = wireId + "_ARROW" + iArrow;
-        g.setAttribute("id", arrowWireId);
-        transformArrow(points, cd.getSize(), shift, g);
+            double shX = cd.getSize().getWidth() + LABEL_OFFSET;
+            double shY = cd.getSize().getHeight() / 2;
 
-        double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-        insertArrowSVGIntoDocumentSVG(prefixId, g, rotationAngle);
-        Element label = createLabelElement(labelR, shX, shY, 0, g);
-        g.appendChild(label);
+            Element g = root.getOwnerDocument().createElement(GROUP);
+            String arrowWireId = wireId + "_ARROW" + iArrow;
+            g.setAttribute("id", arrowWireId);
+            transformArrow(points, cd.getSize(), shift, g);
 
-        List<String> styles = new ArrayList<>(3);
-        componentLibrary.getComponentStyleClass(ARROW).ifPresent(styles::add);
-        styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
-        dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
-        g.setAttribute(CLASS, String.join(" ", styles));
+            double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+            insertArrowSVGIntoDocumentSVG(prefixId, g, rotationAngle);
+            // we draw the left label only if is present
+            labelL.ifPresent(s -> {
+                Element labelLeft = createLabelElement(s, shX, shY, 0, g);
+                g.appendChild(labelLeft);
+            });
 
-        labelL.ifPresent(s -> {
-            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-            labelLeft.setAttribute(STYLE, "text-anchor:end");
-            g.appendChild(labelLeft);
-        });
+            List<String> styles = new ArrayList<>(3);
+            componentLibrary.getComponentStyleClass(ARROW).ifPresent(styles::add);
+            styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
+            dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
+            g.setAttribute(CLASS, String.join(" ", styles));
 
-        root.appendChild(g);
-        metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+            // we draw the right label only if is present
+            labelR.ifPresent(s -> {
+                Element labelRight = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
+                labelRight.setAttribute(STYLE, "text-anchor:end");
+                g.appendChild(labelRight);
+            });
 
+            root.appendChild(g);
+            metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+        }
     }
 
     /**
