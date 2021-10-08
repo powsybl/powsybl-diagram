@@ -931,12 +931,9 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode);
         boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
+        List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode, arrowSymmetry);
 
-        if (!arrowSymmetry) {
-            Collections.reverse(arrows);
-        }
         int iArrow = 0;
         double height = metadata.getComponentMetadata(ARROW).getSize().getHeight();
         for (FlowArrow arrow : arrows) {
