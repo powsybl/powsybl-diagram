@@ -1,7 +1,6 @@
 {
   "components" : [ {
     "type" : "BREAKER",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -10.0,
@@ -29,7 +28,6 @@
     "styleClass" : "sld-breaker"
   }, {
     "type" : "LOAD_BREAK_SWITCH",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -5.0,
@@ -57,7 +55,6 @@
     "styleClass" : "sld-load-break-switch"
   }, {
     "type" : "LOAD",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -4.5,
@@ -74,13 +71,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "LOAD",
-      "fileName" : "load.svg",
-      "styleClass" : null
+      "fileName" : "load.svg"
     } ],
     "styleClass" : "sld-load"
   }, {
     "type" : "GENERATOR",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -6.0,
@@ -105,13 +100,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "GENERATOR",
-      "fileName" : "generator.svg",
-      "styleClass" : null
+      "fileName" : "generator.svg"
     } ],
     "styleClass" : "sld-generator"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -8.0,
@@ -146,7 +139,6 @@
     "styleClass" : "sld-two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : -7.0,
       "y" : 0.0,
@@ -181,7 +173,6 @@
     "styleClass" : "sld-three-wt"
   }, {
     "type" : "CAPACITOR",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -6.0,
@@ -198,13 +189,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "CAPACITOR",
-      "fileName" : "capacitor.svg",
-      "styleClass" : null
+      "fileName" : "capacitor.svg"
     } ],
     "styleClass" : "sld-capacitor"
   }, {
     "type" : "INDUCTOR",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -4.0,
@@ -221,13 +210,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "INDUCTOR",
-      "fileName" : "inductor.svg",
-      "styleClass" : null
+      "fileName" : "inductor.svg"
     } ],
     "styleClass" : "sld-inductor"
   }, {
     "type" : "DISCONNECTOR",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,
@@ -250,7 +237,6 @@
     "styleClass" : "sld-disconnector"
   }, {
     "type" : "BUS_CONNECTION",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 4.0,
       "y" : 0.0,
@@ -279,13 +265,11 @@
     "allowRotation" : false,
     "subComponents" : [ {
       "name" : "BUS_CONNECTION",
-      "fileName" : "bus_connection.svg",
-      "styleClass" : null
+      "fileName" : "bus_connection.svg"
     } ],
     "styleClass" : "sld-bus-connection"
   }, {
     "type" : "NODE",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,
@@ -298,13 +282,11 @@
     "allowRotation" : false,
     "subComponents" : [ {
       "name" : "NODE",
-      "fileName" : "node.svg",
-      "styleClass" : null
+      "fileName" : "node.svg"
     } ],
     "styleClass" : "sld-node"
   }, {
     "type" : "PHASE_SHIFT_TRANSFORMER",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -7.5,
@@ -335,7 +317,6 @@
     "styleClass" : "sld-pst"
   }, {
     "type" : "STATIC_VAR_COMPENSATOR",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -6.0,
@@ -352,13 +333,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "STATIC_VAR_COMPENSATOR",
-      "fileName" : "svc.svg",
-      "styleClass" : null
+      "fileName" : "svc.svg"
     } ],
     "styleClass" : "sld-svc"
   }, {
     "type" : "VSC_CONVERTER_STATION",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : -6.0,
@@ -375,14 +354,11 @@
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "VSC_CONVERTER_STATION",
-      "fileName" : "vsc.svg",
-      "styleClass" : null
+      "fileName" : "vsc.svg"
     } ],
     "styleClass" : "sld-vsc"
   }, {
     "type" : "BUSBAR_SECTION",
-    "id" : null,
-    "anchorPoints" : [],
     "size" : {
       "width" : 0.0,
       "height" : 0.0
@@ -392,8 +368,6 @@
     "styleClass" : "sld-busbar-section"
   }, {
     "type" : "FLASH",
-    "id" : null,
-    "anchorPoints" : [],
     "size" : {
       "width" : 10.0,
       "height" : 15.0
@@ -401,14 +375,11 @@
     "allowRotation" : false,
     "subComponents" : [ {
       "name" : "FLASH",
-      "fileName" : "flash.svg",
-      "styleClass" : null
+      "fileName" : "flash.svg"
     } ],
     "styleClass" : "sld-flash"
   }, {
     "type" : "LOCK",
-    "id" : null,
-    "anchorPoints" : [],
     "size" : {
       "width" : 12.0,
       "height" : 12.0
@@ -416,13 +387,11 @@
     "allowRotation" : false,
     "subComponents" : [ {
       "name" : "LOCK",
-      "fileName" : "lock.svg",
-      "styleClass" : null
+      "fileName" : "lock.svg"
     } ],
     "styleClass" : "sld-lock"
   }, {
     "type" : "ARROW_ACTIVE",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,
@@ -445,7 +414,6 @@
     "styleClass" : "sld-arrow-p"
   }, {
     "type" : "ARROW_REACTIVE",
-    "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
       "y" : 0.0,

@@ -48,7 +48,7 @@ public class Component {
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.id = id;
-        this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNull(anchorPoints));
+        this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
         this.size = Objects.requireNonNull(size);
         this.styleClass = styleClass;
         this.allowRotation = allowRotation;
