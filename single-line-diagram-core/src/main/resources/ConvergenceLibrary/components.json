@@ -384,29 +384,6 @@
     } ],
     "styleClass" : "sld-vsc"
   }, {
-    "type" : "ARROW",
-    "id" : null,
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    } ],
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "allowRotation" : true,
-    "subComponents" : [ {
-      "name" : "UP",
-      "fileName" : "arrow-up.svg",
-      "styleClass" : "sld-arrow-up"
-    } , {
-      "name" : "DOWN",
-      "fileName" : "arrow-down.svg",
-      "styleClass" : "sld-arrow-down"
-    } ],
-    "styleClass" : null
-  }, {
     "type" : "BUSBAR_SECTION",
     "id" : null,
     "anchorPoints" : [],
@@ -473,5 +450,51 @@
       "styleClass" : null
     } ],
     "styleClass" : "sld-lock"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "id" : null,
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "allowRotation" : true,
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-up"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-down"
+    } ],
+    "styleClass" : "sld-arrow-p"
+  }, {
+    "type" : "ARROW_REACTIVE",
+    "id" : null,
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "allowRotation" : true,
+    "subComponents" : [ {
+      "name" : "UP",
+      "fileName" : "arrow-up.svg",
+      "styleClass" : "sld-arrow-up"
+    } , {
+      "name" : "DOWN",
+      "fileName" : "arrow-down.svg",
+      "styleClass" : "sld-arrow-down"
+    } ],
+    "styleClass" : "sld-arrow-q"
   } ]
 }

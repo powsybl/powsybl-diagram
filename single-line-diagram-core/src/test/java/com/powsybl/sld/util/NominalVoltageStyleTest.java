@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.util;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
@@ -105,8 +108,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         @Override
         public List<FlowArrow> getFlowArrows(FeederNode node) {
             List<FlowArrow> arrows = new ArrayList<>();
-            arrows.add(new FlowArrow());
-            arrows.add(new FlowArrow());
+            arrows.add(new FlowArrow(ARROW_ACTIVE));
+            arrows.add(new FlowArrow(ARROW_REACTIVE));
             return arrows;
         }
     }

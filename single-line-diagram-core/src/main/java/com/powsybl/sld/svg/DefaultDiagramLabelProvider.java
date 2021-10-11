@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.svg;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BranchStatus;
@@ -226,16 +229,16 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         Objects.requireNonNull(transformer);
         Objects.requireNonNull(side);
         List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(transformer.getTerminal(side).getP()));
-        arrows.add(new FlowArrow(transformer.getTerminal(side).getQ()));
+        arrows.add(new FlowArrow(ARROW_ACTIVE, transformer.getTerminal(side).getP()));
+        arrows.add(new FlowArrow(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
         return arrows;
     }
 
     private List<FlowArrow> buildFlowArrows(Injection injection) {
         Objects.requireNonNull(injection);
         List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(injection.getTerminal().getP()));
-        arrows.add(new FlowArrow(injection.getTerminal().getQ()));
+        arrows.add(new FlowArrow(ARROW_ACTIVE, injection.getTerminal().getP()));
+        arrows.add(new FlowArrow(ARROW_REACTIVE, injection.getTerminal().getQ()));
         return arrows;
     }
 
@@ -243,8 +246,8 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         Objects.requireNonNull(branch);
         Objects.requireNonNull(side);
         List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(branch.getTerminal(side).getP()));
-        arrows.add(new FlowArrow(branch.getTerminal(side).getQ()));
+        arrows.add(new FlowArrow(ARROW_ACTIVE, branch.getTerminal(side).getP()));
+        arrows.add(new FlowArrow(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
         return arrows;
     }
 }

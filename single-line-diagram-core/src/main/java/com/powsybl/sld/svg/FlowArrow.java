@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
@@ -16,28 +17,32 @@ import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
  */
 public class FlowArrow {
 
+    private final String componentType;
     private final Direction direction;
     private final String leftLabel;
     private final String rightText;
 
-    public FlowArrow() {
-        this(null, null, null);
+    public FlowArrow(String componentType) {
+        this(componentType, null, null, null);
     }
 
-    public FlowArrow(Direction direction, String leftLabel, String rightText) {
+    public FlowArrow(String componentType, Direction direction, String leftLabel, String rightText) {
+        this.componentType = Objects.requireNonNull(componentType);
         this.direction = direction;
         this.leftLabel = leftLabel;
         this.rightText = rightText;
     }
 
-    public FlowArrow(double value, String rightText) {
-        direction = value > 0 ? Direction.UP : Direction.DOWN;
-        leftLabel = String.valueOf(Math.round(value));
-        this.rightText = rightText;
+    public FlowArrow(String componentType, double value, String rightText) {
+        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, String.valueOf(Math.round(value)), rightText);
     }
 
-    public FlowArrow(double value) {
-        this(value, null);
+    public FlowArrow(String componentType, double value) {
+        this(componentType, value, null);
+    }
+
+    public String getComponentType() {
+        return componentType;
     }
 
     public Optional<Direction> getDirection() {

@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.svg;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.GraphBuilder;
@@ -110,6 +113,8 @@ public class FlowArrowProviderTest {
         DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
         List<FlowArrow> arrows1 = initProvider1.getFlowArrows((FeederNode) g.getNode("svc"));
         assertEquals(2, arrows1.size());
+        assertEquals(ARROW_ACTIVE, arrows1.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, arrows1.get(1).getComponentType());
         assertTrue(arrows1.get(0).getLeftLabel().isPresent());
         assertTrue(arrows1.get(1).getLeftLabel().isPresent());
         assertFalse(arrows1.get(0).getRightLabel().isPresent());
@@ -118,6 +123,8 @@ public class FlowArrowProviderTest {
         assertTrue(arrows1.get(1).getDirection().isPresent());
         List<FlowArrow> arrows2 = initProvider1.getFlowArrows((FeederNode) g.getNode("vsc"));
         assertEquals(2, arrows2.size());
+        assertEquals(ARROW_ACTIVE, arrows2.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, arrows2.get(1).getComponentType());
         assertTrue(arrows2.get(0).getLeftLabel().isPresent());
         assertTrue(arrows2.get(1).getLeftLabel().isPresent());
         assertFalse(arrows2.get(0).getRightLabel().isPresent());
@@ -126,6 +133,8 @@ public class FlowArrowProviderTest {
         assertTrue(arrows2.get(1).getDirection().isPresent());
         List<FlowArrow> arrows3 = initProvider1.getFlowArrows((FeederNode) g.getNode("C1"));
         assertEquals(2, arrows3.size());
+        assertEquals(ARROW_ACTIVE, arrows3.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, arrows3.get(1).getComponentType());
         assertTrue(arrows3.get(0).getLeftLabel().isPresent());
         assertTrue(arrows3.get(1).getLeftLabel().isPresent());
         assertFalse(arrows3.get(0).getRightLabel().isPresent());
@@ -134,6 +143,8 @@ public class FlowArrowProviderTest {
         assertTrue(arrows3.get(1).getDirection().isPresent());
         List<FlowArrow> arrows4 = initProvider1.getFlowArrows((FeederNode) g.getNode("dl1"));
         assertEquals(2, arrows4.size());
+        assertEquals(ARROW_ACTIVE, arrows4.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, arrows4.get(1).getComponentType());
         assertTrue(arrows4.get(0).getLeftLabel().isPresent());
         assertTrue(arrows4.get(1).getLeftLabel().isPresent());
         assertFalse(arrows4.get(0).getRightLabel().isPresent());

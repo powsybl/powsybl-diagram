@@ -42,12 +42,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel11_95_Bus11_95_Load">
             <polyline points="70.0,200.0,90.0,200.0,90.0,54.5"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW1" transform="translate(85.0,69.5)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW_REACTIVE" transform="translate(85.0,69.5)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW2" transform="translate(85.0,89.5)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel11_95_Bus11_95_Load_ARROW_ACTIVE" transform="translate(85.0,89.5)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -55,12 +55,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE">
             <polyline points="70.0,200.0,90.0,200.0,90.0,300.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE_ARROW1" transform="translate(85.0,275.0)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE_ARROW_REACTIVE" transform="translate(85.0,275.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE_ARROW2" transform="translate(85.0,255.0)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel11_95_Bus11_95_Transformer_95_ONE_ARROW_ACTIVE" transform="translate(85.0,255.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -81,12 +81,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO">
             <polyline points="70.0,500.0,90.0,500.0,90.0,400.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO_ARROW1" transform="translate(85.0,415.0)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO_ARROW_REACTIVE" transform="translate(85.0,415.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO_ARROW2" transform="translate(85.0,435.0)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel12_95_Bus12_95_Transformer_95_TWO_ARROW_ACTIVE" transform="translate(85.0,435.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -94,12 +94,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE">
             <polyline points="70.0,500.0,90.0,500.0,90.0,650.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE_ARROW1" transform="translate(85.0,625.0)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE_ARROW_REACTIVE" transform="translate(85.0,625.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE_ARROW2" transform="translate(85.0,605.0)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel12_95_Bus12_95_Line_95_ONE_ARROW_ACTIVE" transform="translate(85.0,605.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -127,12 +127,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel21_95_Bus21_95_Generator">
             <polyline points="170.0,1100.0,190.0,1100.0,190.0,1244.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel21_95_Bus21_95_Generator_ARROW1" transform="translate(185.0,1219.0)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel21_95_Bus21_95_Generator_ARROW_REACTIVE" transform="translate(185.0,1219.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel21_95_Bus21_95_Generator_ARROW2" transform="translate(185.0,1199.0)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel21_95_Bus21_95_Generator_ARROW_ACTIVE" transform="translate(185.0,1199.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -140,12 +140,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO">
             <polyline points="170.0,1100.0,190.0,1100.0,190.0,950.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO_ARROW1" transform="translate(185.0,965.0)">
+        <g class="sld-arrow-q sld-down" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO_ARROW_REACTIVE" transform="translate(185.0,965.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-q sld-up" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO_ARROW2" transform="translate(185.0,985.0)">
+        <g class="sld-arrow-p sld-up" id="_95_VoltageLevel21_95_Bus21_95_Line_95_TWO_ARROW_ACTIVE" transform="translate(185.0,985.0)">
             <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>

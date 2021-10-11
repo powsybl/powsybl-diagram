@@ -695,17 +695,17 @@ public class DefaultSVGWriter implements SVGWriter {
         insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
     }
 
-    protected void insertArrowSVGIntoDocumentSVG(String prefixId, Element g, double angle) {
+    protected void insertArrowSVGIntoDocumentSVG(String arrowType, String prefixId, Element g, double angle) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setArrowAttributes(prefixId, g, e, subComponent, angle);
-        insertSVGIntoDocumentSVG("", ARROW, g, elementAttributesSetter);
+                = (e, subComponent) -> setArrowAttributes(arrowType, prefixId, g, e, subComponent, angle);
+        insertSVGIntoDocumentSVG("", arrowType, g, elementAttributesSetter);
     }
 
-    private void setArrowAttributes(String prefixId, Element g, Element e, String subComponent, double angle) {
+    private void setArrowAttributes(String arrowType, String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
-        componentLibrary.getSubComponentStyleClass(ARROW, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
+        componentLibrary.getSubComponentStyleClass(arrowType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
-            ComponentSize componentSize = componentLibrary.getSize(ARROW);
+            ComponentSize componentSize = componentLibrary.getSize(arrowType);
             double cx = componentSize.getWidth() / 2;
             double cy = componentSize.getHeight() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
@@ -935,17 +935,17 @@ public class DefaultSVGWriter implements SVGWriter {
         List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode, arrowSymmetry);
 
         int iArrow = 0;
-        double height = metadata.getComponentMetadata(ARROW).getSize().getHeight();
         for (FlowArrow arrow : arrows) {
+            double height = metadata.getComponentMetadata(arrow.getComponentType()).getSize().getHeight();
             // Compute shifting
-            double shiftArrow = iArrow * 2 * height;
-            drawArrowAndLabel(prefixId, wireId, points, root, arrow, shiftArrow, ++iArrow, metadata);
+            double shiftArrow = iArrow++ * 2 * height;
+            drawArrowAndLabel(prefixId, wireId, points, root, arrow, shiftArrow, metadata);
         }
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
                                    FlowArrow arrow,
-                                   double shift, int iArrow,
+                                   double shift,
                                    GraphMetadata metadata) {
         Optional<Direction> dir = arrow.getDirection();
         // we draw the arrow only if direction is present
@@ -953,18 +953,18 @@ public class DefaultSVGWriter implements SVGWriter {
             Optional<String> labelL = arrow.getLeftLabel();
             Optional<String> labelR = arrow.getRightLabel();
 
-            Component cd = metadata.getComponentMetadata(ARROW);
+            Component cd = metadata.getComponentMetadata(arrow.getComponentType());
 
             double shX = cd.getSize().getWidth() + LABEL_OFFSET;
             double shY = cd.getSize().getHeight() / 2;
 
             Element g = root.getOwnerDocument().createElement(GROUP);
-            String arrowWireId = wireId + "_ARROW" + iArrow;
+            String arrowWireId = wireId + "_" + arrow.getComponentType();
             g.setAttribute("id", arrowWireId);
             transformArrow(points, cd.getSize(), shift, g);
 
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertArrowSVGIntoDocumentSVG(prefixId, g, rotationAngle);
+            insertArrowSVGIntoDocumentSVG(arrow.getComponentType(), prefixId, g, rotationAngle);
             // we draw the left label only if is present
             labelL.ifPresent(s -> {
                 Element labelLeft = createLabelElement(s, shX, shY, 0, g);
@@ -972,8 +972,7 @@ public class DefaultSVGWriter implements SVGWriter {
             });
 
             List<String> styles = new ArrayList<>(3);
-            componentLibrary.getComponentStyleClass(ARROW).ifPresent(styles::add);
-            styles.add(iArrow == 1 ? ARROW_ACTIVE_CLASS : ARROW_REACTIVE_CLASS);
+            componentLibrary.getComponentStyleClass(arrow.getComponentType()).ifPresent(styles::add);
             dir.ifPresent(direction -> styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS));
             g.setAttribute(CLASS, String.join(" ", styles));
 
@@ -1032,12 +1031,21 @@ public class DefaultSVGWriter implements SVGWriter {
                     layoutParameters.isDrawStraightWires(),
                     false));
 
-            if (metadata.getComponentMetadata(ARROW) == null) {
-                metadata.addComponent(new Component(ARROW,
+            if (metadata.getComponentMetadata(ARROW_ACTIVE) == null) {
+                metadata.addComponent(new Component(ARROW_ACTIVE,
                         null,
-                        componentLibrary.getAnchorPoints(ARROW),
-                        componentLibrary.getSize(ARROW),
-                        componentLibrary.getComponentStyleClass(ARROW).orElse(null),
+                        componentLibrary.getAnchorPoints(ARROW_ACTIVE),
+                        componentLibrary.getSize(ARROW_ACTIVE),
+                        componentLibrary.getComponentStyleClass(ARROW_ACTIVE).orElse(null),
+                        true, null));
+            }
+
+            if (metadata.getComponentMetadata(ARROW_REACTIVE) == null) {
+                metadata.addComponent(new Component(ARROW_REACTIVE,
+                        null,
+                        componentLibrary.getAnchorPoints(ARROW_REACTIVE),
+                        componentLibrary.getSize(ARROW_REACTIVE),
+                        componentLibrary.getComponentStyleClass(ARROW_REACTIVE).orElse(null),
                         true, null));
             }
 
@@ -1153,7 +1161,9 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void createDefsSVGComponents(Document document, Set<String> listUsedComponentSVG) {
         if (layoutParameters.isAvoidSVGComponentsDuplication()) {
-            listUsedComponentSVG.add(ARROW);  // adding also arrows
+            // adding also arrows
+            listUsedComponentSVG.add(ARROW_ACTIVE);
+            listUsedComponentSVG.add(ARROW_REACTIVE);
 
             Element defs = document.createElement("defs");
 

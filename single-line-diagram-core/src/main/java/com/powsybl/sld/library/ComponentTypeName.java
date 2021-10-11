@@ -10,7 +10,8 @@ package com.powsybl.sld.library;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public final class ComponentTypeName {
-    public static final String ARROW = "ARROW";
+    public static final String ARROW_ACTIVE = "ARROW_ACTIVE";
+    public static final String ARROW_REACTIVE = "ARROW_REACTIVE";
     public static final String BUSBAR_SECTION = "BUSBAR_SECTION";
     public static final String BREAKER = "BREAKER";
     public static final String DISCONNECTOR = "DISCONNECTOR";

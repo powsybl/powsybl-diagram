@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.raw;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -67,8 +70,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FlowArrow> getFlowArrows(FeederNode node) {
             List<FlowArrow> arrows = new ArrayList<>();
-            arrows.add(new FlowArrow(Direction.UP, "tata", ""));
-            arrows.add(new FlowArrow(Direction.DOWN, "tutu", ""));
+            arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, "tata", ""));
+            arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, "tutu", ""));
             return arrows;
         }
 

@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.iidm;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -662,8 +665,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(Direction.UP, "10", null));
-                arrows.add(new FlowArrow(Direction.DOWN, "20", null));
+                arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, "10", null));
+                arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, "20", null));
                 return arrows;
             }
 
@@ -679,8 +682,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(Direction.UP, null, null));
-                arrows.add(new FlowArrow(Direction.DOWN, null, null));
+                arrows.add(new FlowArrow(ARROW_ACTIVE, null, "LeftLabel", null));
+                arrows.add(new FlowArrow(ARROW_REACTIVE, null, null, "RightLabel"));
                 return arrows;
             }
 

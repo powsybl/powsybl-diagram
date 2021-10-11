@@ -58,14 +58,6 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
             <polyline points="80.0,124.5,80.0,210.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW1" transform="translate(75.0,139.5)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW2" transform="translate(75.0,159.5)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
             <polyline points="80.0,230.0,80.0,340.0"/>
         </g>
@@ -75,14 +67,6 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,540.0,120.0,450.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW1" transform="translate(115.0,515.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-        </g>
-        <g class="sld-arrow-q sld-up" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW2" transform="translate(115.0,495.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
             <polyline points="120.0,430.0,120.0,340.0"/>
         </g>
@@ -91,14 +75,6 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2">
             <polyline points="440.0,120.0,440.0,210.0"/>
-        </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2_ARROW1" transform="translate(435.0,135.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2_ARROW2" transform="translate(435.0,155.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
             <polyline points="440.0,230.0,440.0,340.0"/>
@@ -161,14 +137,6 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
             <polyline points="640.0,126.0,640.0,210.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1" transform="translate(635.0,141.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2" transform="translate(635.0,161.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
             <polyline points="640.0,230.0,640.0,340.0"/>
         </g>
@@ -178,14 +146,6 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="690.0,540.0,690.0,450.0"/>
         </g>
-        <g class="sld-arrow-p sld-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="translate(685.0,515.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-        </g>
-        <g class="sld-arrow-q sld-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="translate(685.0,495.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
             <polyline points="690.0,430.0,690.0,340.0"/>
         </g>
@@ -194,14 +154,6 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2">
             <polyline points="750.0,120.0,750.0,210.0"/>
-        </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2_ARROW1" transform="translate(745.0,135.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2_ARROW2" transform="translate(745.0,155.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
             <polyline points="750.0,230.0,750.0,340.0"/>
@@ -252,14 +204,6 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
             <polyline points="930.0,126.0,930.0,210.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW1" transform="translate(925.0,141.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW2" transform="translate(925.0,161.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
             <polyline points="930.0,230.0,930.0,340.0"/>
         </g>
@@ -268,14 +212,6 @@ polyline {fill: none}
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2">
             <polyline points="1040.0,120.0,1040.0,210.0"/>
-        </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2_ARROW1" transform="translate(1035.0,135.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
-        </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2_ARROW2" transform="translate(1035.0,155.0)">
-            <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-            <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
             <polyline points="1040.0,230.0,1040.0,340.0"/>
