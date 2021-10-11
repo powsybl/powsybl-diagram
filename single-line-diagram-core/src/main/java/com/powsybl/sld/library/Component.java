@@ -49,14 +49,10 @@ public class Component {
         this.type = Objects.requireNonNull(type);
         this.id = id;
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
-        this.size = Objects.requireNonNull(size);
+        this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
         this.allowRotation = allowRotation;
-        if (subComponents != null) {
-            this.subComponents = Collections.unmodifiableList(subComponents);
-        } else {
-            this.subComponents = null;
-        }
+        this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 
     public String getType() {

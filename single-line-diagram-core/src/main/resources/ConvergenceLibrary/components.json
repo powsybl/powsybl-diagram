@@ -359,12 +359,6 @@
     "styleClass" : "sld-vsc"
   }, {
     "type" : "BUSBAR_SECTION",
-    "size" : {
-      "width" : 0.0,
-      "height" : 0.0
-    },
-    "allowRotation" : true,
-    "subComponents" : [],
     "styleClass" : "sld-busbar-section"
   }, {
     "type" : "FLASH",
