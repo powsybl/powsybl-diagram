@@ -976,17 +976,17 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
             });
 
-            // we draw the left label only if is present
-            labelL.ifPresent(s -> {
-                Element labelLeft = createLabelElement(s, shX, shY, 0, g);
-                g.appendChild(labelLeft);
-            });
-
             // we draw the right label only if is present
             labelR.ifPresent(s -> {
-                Element labelRight = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-                labelRight.setAttribute(STYLE, "text-anchor:end");
+                Element labelRight = createLabelElement(s, shX, shY, 0, g);
                 g.appendChild(labelRight);
+            });
+
+            // we draw the left label only if is present
+            labelL.ifPresent(s -> {
+                Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
+                labelLeft.setAttribute(STYLE, "text-anchor:end");
+                g.appendChild(labelLeft);
             });
 
             g.setAttribute(CLASS, String.join(" ", styles));

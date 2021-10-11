@@ -665,8 +665,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FlowArrow> getFlowArrows(FeederNode node) {
                 List<FlowArrow> arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, "10", null));
-                arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, "20", null));
+                arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, null, "10"));
+                arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, null, "20"));
                 return arrows;
             }
 

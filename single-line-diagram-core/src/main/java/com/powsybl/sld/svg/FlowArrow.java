@@ -33,8 +33,8 @@ public class FlowArrow {
         this.rightText = rightText;
     }
 
-    public FlowArrow(String componentType, double value, String rightText) {
-        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, String.valueOf(Math.round(value)), rightText);
+    public FlowArrow(String componentType, double value, String leftText) {
+        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, leftText, String.valueOf(Math.round(value)));
     }
 
     public FlowArrow(String componentType, double value) {
