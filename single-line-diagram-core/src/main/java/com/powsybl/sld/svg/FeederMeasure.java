@@ -33,12 +33,8 @@ public class FeederMeasure {
         this.rightLabel = rightLabel;
     }
 
-    public FeederMeasure(String componentType, double value, String leftLabel) {
-        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, leftLabel, String.valueOf(Math.round(value)));
-    }
-
     public FeederMeasure(String componentType, double value) {
-        this(componentType, value, null);
+        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, null, String.valueOf(Math.round(value)));
     }
 
     public boolean isEmpty() {
