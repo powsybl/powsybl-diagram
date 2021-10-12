@@ -931,65 +931,81 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         List<FeederMeasure> measures = initProvider.getFeederMeasures(feederNode);
+        // Add component metadata if at least one ARROW_ACTIVE is provided
+        addArrowMetadata(metadata, measures, ARROW_ACTIVE);
+        // Add component metadata if at least one ARROW_REACTIVE is provided
+        addArrowMetadata(metadata, measures, ARROW_REACTIVE);
 
         int iArrow = 0;
         for (FeederMeasure measure : measures) {
-            double height = metadata.getComponentMetadata(measure.getComponentType()).getSize().getHeight();
-            // Compute shifting
-            double shiftArrow = iArrow++ * 2 * height;
-            drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
+            if (!measure.isEmpty()) {
+                double height = metadata.getComponentMetadata(measure.getComponentType()).getSize().getHeight();
+                // Compute shifting
+                double shiftArrow = iArrow++ * 2 * height;
+                drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
+            }
+        }
+    }
+
+    private void addArrowMetadata(GraphMetadata metadata, List<FeederMeasure> measures, String componentType) {
+        if (measures.stream().filter(m -> Objects.equals(m.getComponentType(), componentType)).anyMatch(m -> !m.isEmpty()) &&
+                metadata.getComponentMetadata(componentType) == null) {
+            metadata.addComponent(new Component(componentType,
+                    null,
+                    componentLibrary.getAnchorPoints(componentType),
+                    componentLibrary.getSize(componentType),
+                    componentLibrary.getComponentStyleClass(componentType).orElse(null),
+                    true, null));
         }
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
-                                   FeederMeasure arrow,
+                                   FeederMeasure measure,
                                    double shift,
                                    GraphMetadata metadata) {
-        Optional<Direction> dir = arrow.getDirection();
-        Optional<String> labelL = arrow.getLeftLabel();
-        Optional<String> labelR = arrow.getRightLabel();
+        Optional<Direction> dir = measure.getDirection();
+        Optional<String> labelL = measure.getLeftLabel();
+        Optional<String> labelR = measure.getRightLabel();
 
         // we draw the arrow only if direction is present
-        if (!arrow.isEmpty()) {
-            Element g = root.getOwnerDocument().createElement(GROUP);
-            Component cd = metadata.getComponentMetadata(arrow.getComponentType());
+        Element g = root.getOwnerDocument().createElement(GROUP);
+        Component cd = metadata.getComponentMetadata(measure.getComponentType());
 
-            double shX = cd.getSize().getWidth() + LABEL_OFFSET;
-            double shY = cd.getSize().getHeight() / 2;
+        double shX = cd.getSize().getWidth() + LABEL_OFFSET;
+        double shY = cd.getSize().getHeight() / 2;
 
-            List<String> styles = new ArrayList<>(3);
-            componentLibrary.getComponentStyleClass(arrow.getComponentType()).ifPresent(styles::add);
+        List<String> styles = new ArrayList<>(3);
+        componentLibrary.getComponentStyleClass(measure.getComponentType()).ifPresent(styles::add);
 
-            transformArrow(points, cd.getSize(), shift, g);
+        transformArrow(points, cd.getSize(), shift, g);
 
-            dir.ifPresent(direction -> {
-                String arrowWireId = wireId + "_" + arrow.getComponentType();
-                g.setAttribute("id", arrowWireId);
+        dir.ifPresent(direction -> {
+            String arrowWireId = wireId + "_" + measure.getComponentType();
+            g.setAttribute("id", arrowWireId);
 
-                double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-                insertArrowSVGIntoDocumentSVG(arrow.getComponentType(), prefixId, g, rotationAngle);
+            double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+            insertArrowSVGIntoDocumentSVG(measure.getComponentType(), prefixId, g, rotationAngle);
 
-                styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
+            styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
 
-                metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
-            });
+            metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+        });
 
-            // we draw the right label only if is present
-            labelR.ifPresent(s -> {
-                Element labelRight = createLabelElement(s, shX, shY, 0, g);
-                g.appendChild(labelRight);
-            });
+        // we draw the right label only if is present
+        labelR.ifPresent(s -> {
+            Element labelRight = createLabelElement(s, shX, shY, 0, g);
+            g.appendChild(labelRight);
+        });
 
-            // we draw the left label only if is present
-            labelL.ifPresent(s -> {
-                Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-                labelLeft.setAttribute(STYLE, "text-anchor:end");
-                g.appendChild(labelLeft);
-            });
+        // we draw the left label only if is present
+        labelL.ifPresent(s -> {
+            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
+            labelLeft.setAttribute(STYLE, "text-anchor:end");
+            g.appendChild(labelLeft);
+        });
 
-            g.setAttribute(CLASS, String.join(" ", styles));
-            root.appendChild(g);
-        }
+        g.setAttribute(CLASS, String.join(" ", styles));
+        root.appendChild(g);
     }
 
     /**
@@ -1034,24 +1050,6 @@ public class DefaultSVGWriter implements SVGWriter {
                     escapeId(edge.getNode2().getId()),
                     layoutParameters.isDrawStraightWires(),
                     false));
-
-            if (metadata.getComponentMetadata(ARROW_ACTIVE) == null) {
-                metadata.addComponent(new Component(ARROW_ACTIVE,
-                        null,
-                        componentLibrary.getAnchorPoints(ARROW_ACTIVE),
-                        componentLibrary.getSize(ARROW_ACTIVE),
-                        componentLibrary.getComponentStyleClass(ARROW_ACTIVE).orElse(null),
-                        true, null));
-            }
-
-            if (metadata.getComponentMetadata(ARROW_REACTIVE) == null) {
-                metadata.addComponent(new Component(ARROW_REACTIVE,
-                        null,
-                        componentLibrary.getAnchorPoints(ARROW_REACTIVE),
-                        componentLibrary.getSize(ARROW_REACTIVE),
-                        componentLibrary.getComponentStyleClass(ARROW_REACTIVE).orElse(null),
-                        true, null));
-            }
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {

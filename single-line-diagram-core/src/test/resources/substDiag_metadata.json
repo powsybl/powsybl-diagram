@@ -81,21 +81,6 @@
     "subComponents" : null,
     "styleClass" : "sld-arrow-q"
   }, {
-    "type" : "ARROW_ACTIVE",
-    "id" : null,
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    } ],
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "allowRotation" : true,
-    "subComponents" : null,
-    "styleClass" : "sld-arrow-p"
-  }, {
     "type" : "LOAD",
     "id" : null,
     "anchorPoints" : [ {
@@ -114,6 +99,21 @@
     "allowRotation" : true,
     "subComponents" : null,
     "styleClass" : "sld-load"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "id" : null,
+    "anchorPoints" : [ {
+      "x" : 0.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    } ],
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "allowRotation" : true,
+    "subComponents" : null,
+    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
     "id" : null,
