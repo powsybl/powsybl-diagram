@@ -61,7 +61,7 @@ public interface DiagramLabelProvider {
     }
 
     enum Direction {
-        UP, DOWN;
+        OUT, IN;
     }
 
     List<FeederMeasure> getFeederMeasures(FeederNode node);

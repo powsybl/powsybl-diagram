@@ -34,7 +34,7 @@ public class FeederMeasure {
     }
 
     public FeederMeasure(String componentType, double value) {
-        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, null, String.valueOf(Math.round(value)));
+        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
     }
 
     public boolean isEmpty() {

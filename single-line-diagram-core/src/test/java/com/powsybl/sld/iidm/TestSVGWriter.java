@@ -666,8 +666,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederMeasure> getFeederMeasures(FeederNode node) {
                 List<FeederMeasure> measures = new ArrayList<>();
-                measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, null, "10"));
-                measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, null, "20"));
+                measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.OUT, null, "10"));
+                measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.IN, null, "20"));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(measures);

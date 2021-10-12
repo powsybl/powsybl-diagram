@@ -969,7 +969,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
                 insertArrowSVGIntoDocumentSVG(arrow.getComponentType(), prefixId, g, rotationAngle);
 
-                styles.add(direction == Direction.UP ? UP_CLASS : DOWN_CLASS);
+                styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
 
                 metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
             });

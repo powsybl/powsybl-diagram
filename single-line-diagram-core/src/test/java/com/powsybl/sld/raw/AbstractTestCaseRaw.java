@@ -70,8 +70,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FeederMeasure> getFeederMeasures(FeederNode node) {
             List<FeederMeasure> measures = new ArrayList<>();
-            measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, "", "tata"));
-            measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, "", "tutu"));
+            measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.OUT, "", "tata"));
+            measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.IN, "", "tutu"));
             return measures;
         }
 
