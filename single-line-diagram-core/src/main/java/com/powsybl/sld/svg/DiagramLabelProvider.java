@@ -64,7 +64,7 @@ public interface DiagramLabelProvider {
         UP, DOWN;
     }
 
-    List<FeederMeasure> getFlowArrows(FeederNode node);
+    List<FeederMeasure> getFeederMeasures(FeederNode node);
 
     List<NodeLabel> getNodeLabels(Node node);
 

@@ -930,14 +930,14 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        List<FeederMeasure> arrows = initProvider.getFlowArrows(feederNode);
+        List<FeederMeasure> measures = initProvider.getFeederMeasures(feederNode);
 
         int iArrow = 0;
-        for (FeederMeasure arrow : arrows) {
-            double height = metadata.getComponentMetadata(arrow.getComponentType()).getSize().getHeight();
+        for (FeederMeasure measure : measures) {
+            double height = metadata.getComponentMetadata(measure.getComponentType()).getSize().getHeight();
             // Compute shifting
             double shiftArrow = iArrow++ * 2 * height;
-            drawArrowAndLabel(prefixId, wireId, points, root, arrow, shiftArrow, metadata);
+            drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
         }
     }
 

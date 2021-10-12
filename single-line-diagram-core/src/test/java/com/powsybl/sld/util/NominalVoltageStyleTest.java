@@ -106,11 +106,11 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         }
 
         @Override
-        public List<FeederMeasure> getFlowArrows(FeederNode node) {
-            List<FeederMeasure> arrows = new ArrayList<>();
-            arrows.add(new FeederMeasure(ARROW_ACTIVE));
-            arrows.add(new FeederMeasure(ARROW_REACTIVE));
-            return arrows;
+        public List<FeederMeasure> getFeederMeasures(FeederNode node) {
+            List<FeederMeasure> measures = new ArrayList<>();
+            measures.add(new FeederMeasure(ARROW_ACTIVE));
+            measures.add(new FeederMeasure(ARROW_REACTIVE));
+            return measures;
         }
     }
 

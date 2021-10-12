@@ -664,15 +664,15 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederMeasure> getFlowArrows(FeederNode node) {
-                List<FeederMeasure> arrows = new ArrayList<>();
-                arrows.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, null, "10"));
-                arrows.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, null, "20"));
+            public List<FeederMeasure> getFeederMeasures(FeederNode node) {
+                List<FeederMeasure> measures = new ArrayList<>();
+                measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, null, "10"));
+                measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, null, "20"));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
                 if (!feederArrowSymmetry) {
-                    Collections.reverse(arrows);
+                    Collections.reverse(measures);
                 }
-                return arrows;
+                return measures;
             }
 
             @Override
@@ -685,11 +685,11 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederMeasure> getFlowArrows(FeederNode node) {
-                List<FeederMeasure> arrows = new ArrayList<>();
-                arrows.add(new FeederMeasure(ARROW_ACTIVE, null, null, null));
-                arrows.add(new FeederMeasure(ARROW_REACTIVE, null, null, null));
-                return arrows;
+            public List<FeederMeasure> getFeederMeasures(FeederNode node) {
+                List<FeederMeasure> measures = new ArrayList<>();
+                measures.add(new FeederMeasure(ARROW_ACTIVE, null, null, null));
+                measures.add(new FeederMeasure(ARROW_REACTIVE, null, null, null));
+                return measures;
             }
 
             @Override
