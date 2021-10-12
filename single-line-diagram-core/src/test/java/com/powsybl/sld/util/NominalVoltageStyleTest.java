@@ -20,7 +20,7 @@ import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.FlowArrow;
+import com.powsybl.sld.svg.FeederMeasure;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -106,10 +106,10 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         }
 
         @Override
-        public List<FlowArrow> getFlowArrows(FeederNode node) {
-            List<FlowArrow> arrows = new ArrayList<>();
-            arrows.add(new FlowArrow(ARROW_ACTIVE));
-            arrows.add(new FlowArrow(ARROW_REACTIVE));
+        public List<FeederMeasure> getFlowArrows(FeederNode node) {
+            List<FeederMeasure> arrows = new ArrayList<>();
+            arrows.add(new FeederMeasure(ARROW_ACTIVE));
+            arrows.add(new FeederMeasure(ARROW_REACTIVE));
             return arrows;
         }
     }

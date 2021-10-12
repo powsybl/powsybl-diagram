@@ -18,6 +18,7 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,10 +46,10 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
-    public List<FlowArrow> getFlowArrows(FeederNode node) {
+    public List<FeederMeasure> getFlowArrows(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FlowArrow> arrows = new ArrayList<>();
+        List<FeederMeasure> arrows = new ArrayList<>();
 
         switch (node.getFeederType()) {
             case INJECTION:
@@ -66,12 +67,15 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             default:
                 break;
         }
-
+        boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
+        if (!feederArrowSymmetry) {
+            Collections.reverse(arrows);
+        }
         return arrows;
     }
 
-    private List<FlowArrow> getInjectionFlowArrows(FeederInjectionNode node) {
-        List<FlowArrow> arrows = new ArrayList<>();
+    private List<FeederMeasure> getInjectionFlowArrows(FeederInjectionNode node) {
+        List<FeederMeasure> arrows = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
             arrows = buildFlowArrows(injection);
@@ -79,8 +83,8 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return arrows;
     }
 
-    private List<FlowArrow> getBranchFlowArrows(FeederBranchNode node) {
-        List<FlowArrow> arrows = new ArrayList<>();
+    private List<FeederMeasure> getBranchFlowArrows(FeederBranchNode node) {
+        List<FeederMeasure> arrows = new ArrayList<>();
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
@@ -89,8 +93,8 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return arrows;
     }
 
-    private List<FlowArrow> get3WTFlowArrows(Feeder3WTLegNode node) {
-        List<FlowArrow> arrows = new ArrayList<>();
+    private List<FeederMeasure> get3WTFlowArrows(Feeder3WTLegNode node) {
+        List<FeederMeasure> arrows = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
@@ -99,8 +103,8 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return arrows;
     }
 
-    private List<FlowArrow> get2WTFlowArrows(Feeder2WTLegNode node) {
-        List<FlowArrow> arrows = new ArrayList<>();
+    private List<FeederMeasure> get2WTFlowArrows(Feeder2WTLegNode node) {
+        List<FeederMeasure> arrows = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
@@ -225,29 +229,29 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
-    private List<FlowArrow> buildFlowArrows(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+    private List<FeederMeasure> buildFlowArrows(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         Objects.requireNonNull(transformer);
         Objects.requireNonNull(side);
-        List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(ARROW_ACTIVE, transformer.getTerminal(side).getP()));
-        arrows.add(new FlowArrow(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
+        List<FeederMeasure> arrows = new ArrayList<>();
+        arrows.add(new FeederMeasure(ARROW_ACTIVE, transformer.getTerminal(side).getP()));
+        arrows.add(new FeederMeasure(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
         return arrows;
     }
 
-    private List<FlowArrow> buildFlowArrows(Injection injection) {
+    private List<FeederMeasure> buildFlowArrows(Injection injection) {
         Objects.requireNonNull(injection);
-        List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(ARROW_ACTIVE, injection.getTerminal().getP()));
-        arrows.add(new FlowArrow(ARROW_REACTIVE, injection.getTerminal().getQ()));
+        List<FeederMeasure> arrows = new ArrayList<>();
+        arrows.add(new FeederMeasure(ARROW_ACTIVE, injection.getTerminal().getP()));
+        arrows.add(new FeederMeasure(ARROW_REACTIVE, injection.getTerminal().getQ()));
         return arrows;
     }
 
-    private List<FlowArrow> buildFlowArrows(Branch branch, Branch.Side side) {
+    private List<FeederMeasure> buildFlowArrows(Branch branch, Branch.Side side) {
         Objects.requireNonNull(branch);
         Objects.requireNonNull(side);
-        List<FlowArrow> arrows = new ArrayList<>();
-        arrows.add(new FlowArrow(ARROW_ACTIVE, branch.getTerminal(side).getP()));
-        arrows.add(new FlowArrow(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
+        List<FeederMeasure> arrows = new ArrayList<>();
+        arrows.add(new FeederMeasure(ARROW_ACTIVE, branch.getTerminal(side).getP()));
+        arrows.add(new FeederMeasure(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
         return arrows;
     }
 }

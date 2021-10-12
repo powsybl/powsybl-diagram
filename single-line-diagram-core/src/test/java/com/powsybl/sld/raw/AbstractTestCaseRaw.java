@@ -68,10 +68,10 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
 
         @Override
-        public List<FlowArrow> getFlowArrows(FeederNode node) {
-            List<FlowArrow> arrows = new ArrayList<>();
-            arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, "", "tata"));
-            arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, "", "tutu"));
+        public List<FeederMeasure> getFlowArrows(FeederNode node) {
+            List<FeederMeasure> arrows = new ArrayList<>();
+            arrows.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, "", "tata"));
+            arrows.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, "", "tutu"));
             return arrows;
         }
 

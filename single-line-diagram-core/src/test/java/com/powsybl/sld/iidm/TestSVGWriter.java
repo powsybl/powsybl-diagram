@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -663,10 +664,14 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FlowArrow> getFlowArrows(FeederNode node) {
-                List<FlowArrow> arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(ARROW_ACTIVE, Direction.UP, null, "10"));
-                arrows.add(new FlowArrow(ARROW_REACTIVE, Direction.DOWN, null, "20"));
+            public List<FeederMeasure> getFlowArrows(FeederNode node) {
+                List<FeederMeasure> arrows = new ArrayList<>();
+                arrows.add(new FeederMeasure(ARROW_ACTIVE, Direction.UP, null, "10"));
+                arrows.add(new FeederMeasure(ARROW_REACTIVE, Direction.DOWN, null, "20"));
+                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
+                if (!feederArrowSymmetry) {
+                    Collections.reverse(arrows);
+                }
                 return arrows;
             }
 
@@ -680,10 +685,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FlowArrow> getFlowArrows(FeederNode node) {
-                List<FlowArrow> arrows = new ArrayList<>();
-                arrows.add(new FlowArrow(ARROW_ACTIVE, null, null, null));
-                arrows.add(new FlowArrow(ARROW_REACTIVE, null, null, null));
+            public List<FeederMeasure> getFlowArrows(FeederNode node) {
+                List<FeederMeasure> arrows = new ArrayList<>();
+                arrows.add(new FeederMeasure(ARROW_ACTIVE, null, null, null));
+                arrows.add(new FeederMeasure(ARROW_REACTIVE, null, null, null));
                 return arrows;
             }
 

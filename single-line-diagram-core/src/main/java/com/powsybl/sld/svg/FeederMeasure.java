@@ -15,30 +15,34 @@ import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FlowArrow {
+public class FeederMeasure {
 
     private final String componentType;
-    private final Direction direction;
+    private final Direction arrowDirection;
     private final String leftLabel;
-    private final String rightText;
+    private final String rightLabel;
 
-    public FlowArrow(String componentType) {
+    public FeederMeasure(String componentType) {
         this(componentType, null, null, null);
     }
 
-    public FlowArrow(String componentType, Direction direction, String leftLabel, String rightText) {
+    public FeederMeasure(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
         this.componentType = Objects.requireNonNull(componentType);
-        this.direction = direction;
+        this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
-        this.rightText = rightText;
+        this.rightLabel = rightLabel;
     }
 
-    public FlowArrow(String componentType, double value, String leftText) {
-        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, leftText, String.valueOf(Math.round(value)));
+    public FeederMeasure(String componentType, double value, String leftLabel) {
+        this(componentType, value > 0 ? Direction.UP : Direction.DOWN, leftLabel, String.valueOf(Math.round(value)));
     }
 
-    public FlowArrow(String componentType, double value) {
+    public FeederMeasure(String componentType, double value) {
         this(componentType, value, null);
+    }
+
+    public boolean isEmpty() {
+        return getDirection().isEmpty() && getLeftLabel().isEmpty() || getRightLabel().isEmpty();
     }
 
     public String getComponentType() {
@@ -46,7 +50,7 @@ public class FlowArrow {
     }
 
     public Optional<Direction> getDirection() {
-        return Optional.ofNullable(direction);
+        return Optional.ofNullable(arrowDirection);
     }
 
     public Optional<String> getLeftLabel() {
@@ -54,6 +58,6 @@ public class FlowArrow {
     }
 
     public Optional<String> getRightLabel() {
-        return Optional.ofNullable(rightText);
+        return Optional.ofNullable(rightLabel);
     }
 }

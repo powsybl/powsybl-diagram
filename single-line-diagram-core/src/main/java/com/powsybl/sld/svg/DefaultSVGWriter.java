@@ -924,18 +924,16 @@ public class DefaultSVGWriter implements SVGWriter {
                                          Element root,
                                          FeederNode feederNode,
                                          GraphMetadata metadata,
-                                         DiagramLabelProvider initProvider,
-                                         boolean feederArrowSymmetry) {
+                                         DiagramLabelProvider initProvider) {
         if (points.isEmpty()) {
             points.add(new Point(feederNode.getDiagramCoordinates()));
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        boolean arrowSymmetry = feederNode.getDirection() == BusCell.Direction.TOP || feederArrowSymmetry;
-        List<FlowArrow> arrows = initProvider.getFlowArrows(feederNode, arrowSymmetry);
+        List<FeederMeasure> arrows = initProvider.getFlowArrows(feederNode);
 
         int iArrow = 0;
-        for (FlowArrow arrow : arrows) {
+        for (FeederMeasure arrow : arrows) {
             double height = metadata.getComponentMetadata(arrow.getComponentType()).getSize().getHeight();
             // Compute shifting
             double shiftArrow = iArrow++ * 2 * height;
@@ -944,7 +942,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
-                                   FlowArrow arrow,
+                                   FeederMeasure arrow,
                                    double shift,
                                    GraphMetadata metadata) {
         Optional<Direction> dir = arrow.getDirection();
@@ -952,7 +950,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Optional<String> labelR = arrow.getRightLabel();
 
         // we draw the arrow only if direction is present
-        if (dir.isPresent() || labelL.isPresent() || labelR.isPresent()) {
+        if (!arrow.isEmpty()) {
             Element g = root.getOwnerDocument().createElement(GROUP);
             Component cd = metadata.getComponentMetadata(arrow.getComponentType());
 
@@ -1057,13 +1055,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider,
-                            layoutParameters.isFeederArrowSymmetry());
+                    insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider,
-                        layoutParameters.isFeederArrowSymmetry());
+                insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
             }
         }
     }

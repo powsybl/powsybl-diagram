@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FlowArrowProviderTest {
+public class FeederMeasureProviderTest {
 
     private Network network;
     private Substation substation;
@@ -105,51 +105,56 @@ public class FlowArrowProviderTest {
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        LayoutParameters layoutParameters = new LayoutParameters();
+        LayoutParameters layoutParameters = new LayoutParameters().setFeederArrowSymmetry(true);
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
-        List<FlowArrow> arrows = initProvider.getFlowArrows((FeederNode) g.getNode("svc"));
-        assertTrue(arrows.isEmpty());
+        List<FeederMeasure> measures = initProvider.getFlowArrows((FeederNode) g.getNode("svc"));
+        assertTrue(measures.isEmpty());
         DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        List<FlowArrow> arrows1 = initProvider1.getFlowArrows((FeederNode) g.getNode("svc"));
-        assertEquals(2, arrows1.size());
-        assertEquals(ARROW_ACTIVE, arrows1.get(0).getComponentType());
-        assertEquals(ARROW_REACTIVE, arrows1.get(1).getComponentType());
-        assertTrue(arrows1.get(0).getRightLabel().isPresent());
-        assertTrue(arrows1.get(1).getRightLabel().isPresent());
-        assertFalse(arrows1.get(0).getLeftLabel().isPresent());
-        assertFalse(arrows1.get(1).getLeftLabel().isPresent());
-        assertTrue(arrows1.get(0).getDirection().isPresent());
-        assertTrue(arrows1.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows2 = initProvider1.getFlowArrows((FeederNode) g.getNode("vsc"));
-        assertEquals(2, arrows2.size());
-        assertEquals(ARROW_ACTIVE, arrows2.get(0).getComponentType());
-        assertEquals(ARROW_REACTIVE, arrows2.get(1).getComponentType());
-        assertTrue(arrows2.get(0).getRightLabel().isPresent());
-        assertTrue(arrows2.get(1).getRightLabel().isPresent());
-        assertFalse(arrows2.get(0).getLeftLabel().isPresent());
-        assertFalse(arrows2.get(1).getLeftLabel().isPresent());
-        assertTrue(arrows2.get(0).getDirection().isPresent());
-        assertTrue(arrows2.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows3 = initProvider1.getFlowArrows((FeederNode) g.getNode("C1"));
-        assertEquals(2, arrows3.size());
-        assertEquals(ARROW_ACTIVE, arrows3.get(0).getComponentType());
-        assertEquals(ARROW_REACTIVE, arrows3.get(1).getComponentType());
-        assertTrue(arrows3.get(0).getRightLabel().isPresent());
-        assertTrue(arrows3.get(1).getRightLabel().isPresent());
-        assertFalse(arrows3.get(0).getLeftLabel().isPresent());
-        assertFalse(arrows3.get(1).getLeftLabel().isPresent());
-        assertTrue(arrows3.get(0).getDirection().isPresent());
-        assertTrue(arrows3.get(1).getDirection().isPresent());
-        List<FlowArrow> arrows4 = initProvider1.getFlowArrows((FeederNode) g.getNode("dl1"));
-        assertEquals(2, arrows4.size());
-        assertEquals(ARROW_ACTIVE, arrows4.get(0).getComponentType());
-        assertEquals(ARROW_REACTIVE, arrows4.get(1).getComponentType());
-        assertTrue(arrows4.get(0).getRightLabel().isPresent());
-        assertTrue(arrows4.get(1).getRightLabel().isPresent());
-        assertFalse(arrows4.get(0).getLeftLabel().isPresent());
-        assertFalse(arrows4.get(1).getLeftLabel().isPresent());
-        assertTrue(arrows4.get(0).getDirection().isPresent());
-        assertTrue(arrows4.get(1).getDirection().isPresent());
+        List<FeederMeasure> measures1 = initProvider1.getFlowArrows((FeederNode) g.getNode("svc"));
+        assertEquals(2, measures1.size());
+        assertEquals(ARROW_ACTIVE, measures1.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, measures1.get(1).getComponentType());
+        assertTrue(measures1.get(0).getRightLabel().isPresent());
+        assertTrue(measures1.get(1).getRightLabel().isPresent());
+        assertFalse(measures1.get(0).getLeftLabel().isPresent());
+        assertFalse(measures1.get(1).getLeftLabel().isPresent());
+        assertTrue(measures1.get(0).getDirection().isPresent());
+        assertTrue(measures1.get(1).getDirection().isPresent());
+        List<FeederMeasure> measures2 = initProvider1.getFlowArrows((FeederNode) g.getNode("vsc"));
+        assertEquals(2, measures2.size());
+        assertEquals(ARROW_ACTIVE, measures2.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, measures2.get(1).getComponentType());
+        assertTrue(measures2.get(0).getRightLabel().isPresent());
+        assertTrue(measures2.get(1).getRightLabel().isPresent());
+        assertFalse(measures2.get(0).getLeftLabel().isPresent());
+        assertFalse(measures2.get(1).getLeftLabel().isPresent());
+        assertTrue(measures2.get(0).getDirection().isPresent());
+        assertTrue(measures2.get(1).getDirection().isPresent());
+        List<FeederMeasure> measures3 = initProvider1.getFlowArrows((FeederNode) g.getNode("C1"));
+        assertEquals(2, measures3.size());
+        assertEquals(ARROW_ACTIVE, measures3.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, measures3.get(1).getComponentType());
+        assertTrue(measures3.get(0).getRightLabel().isPresent());
+        assertTrue(measures3.get(1).getRightLabel().isPresent());
+        assertFalse(measures3.get(0).getLeftLabel().isPresent());
+        assertFalse(measures3.get(1).getLeftLabel().isPresent());
+        assertTrue(measures3.get(0).getDirection().isPresent());
+        assertTrue(measures3.get(1).getDirection().isPresent());
+        List<FeederMeasure> measures4 = initProvider1.getFlowArrows((FeederNode) g.getNode("dl1"));
+        assertEquals(2, measures4.size());
+        assertEquals(ARROW_ACTIVE, measures4.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, measures4.get(1).getComponentType());
+        assertTrue(measures4.get(0).getRightLabel().isPresent());
+        assertTrue(measures4.get(1).getRightLabel().isPresent());
+        assertFalse(measures4.get(0).getLeftLabel().isPresent());
+        assertFalse(measures4.get(1).getLeftLabel().isPresent());
+        assertTrue(measures4.get(0).getDirection().isPresent());
+        assertTrue(measures4.get(1).getDirection().isPresent());
+        // Reverse order
+        layoutParameters.setFeederArrowSymmetry(false);
+        List<FeederMeasure> measures5 = initProvider1.getFlowArrows((FeederNode) g.getNode("dl1"));
+        assertEquals(ARROW_REACTIVE, measures5.get(0).getComponentType());
+        assertEquals(ARROW_ACTIVE, measures5.get(1).getComponentType());
     }
 }

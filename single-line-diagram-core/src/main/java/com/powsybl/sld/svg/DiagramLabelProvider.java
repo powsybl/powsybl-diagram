@@ -9,7 +9,6 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,15 +64,7 @@ public interface DiagramLabelProvider {
         UP, DOWN;
     }
 
-    List<FlowArrow> getFlowArrows(FeederNode node);
-
-    default List<FlowArrow> getFlowArrows(FeederNode node, boolean feederArrowSymmetry) {
-        List<FlowArrow> arrows = getFlowArrows(node);
-        if (!feederArrowSymmetry) {
-            Collections.reverse(arrows);
-        }
-        return arrows;
-    }
+    List<FeederMeasure> getFlowArrows(FeederNode node);
 
     List<NodeLabel> getNodeLabels(Node node);
 
