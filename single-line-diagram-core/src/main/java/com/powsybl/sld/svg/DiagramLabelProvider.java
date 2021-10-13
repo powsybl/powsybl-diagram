@@ -64,7 +64,7 @@ public interface DiagramLabelProvider {
         OUT, IN;
     }
 
-    List<FeederMeasure> getFeederMeasures(FeederNode node);
+    List<FeederValue> getFeederValues(FeederNode node);
 
     List<NodeLabel> getNodeLabels(Node node);
 

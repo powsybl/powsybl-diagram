@@ -12,28 +12,36 @@ import java.util.Optional;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 
 /**
+ * Class used to describe an information element which is displayed below feeders, which contains one or more of the following:
+ * <ul>
+ * <li>an arrow whose direction is specified</li>
+ * <li>a string on its right</li>
+ * <li>a string on its left</li>
+ * </ul>
+ * Each of these three element part is optional
+ *
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederMeasure {
+public class FeederValue {
 
     private final String componentType;
     private final Direction arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
 
-    public FeederMeasure(String componentType) {
+    public FeederValue(String componentType) {
         this(componentType, null, null, null);
     }
 
-    public FeederMeasure(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public FeederValue(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
     }
 
-    public FeederMeasure(String componentType, double value) {
+    public FeederValue(String componentType, double value) {
         this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
     }
 

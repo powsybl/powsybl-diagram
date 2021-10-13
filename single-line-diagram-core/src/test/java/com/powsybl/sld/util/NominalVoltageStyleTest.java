@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.util;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
@@ -16,17 +13,19 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.FeederMeasure;
+import com.powsybl.sld.svg.FeederValue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -106,11 +105,8 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         }
 
         @Override
-        public List<FeederMeasure> getFeederMeasures(FeederNode node) {
-            List<FeederMeasure> measures = new ArrayList<>();
-            measures.add(new FeederMeasure(ARROW_ACTIVE));
-            measures.add(new FeederMeasure(ARROW_REACTIVE));
-            return measures;
+        public List<FeederValue> getFeederValues(FeederNode node) {
+            return Arrays.asList(new FeederValue(ARROW_ACTIVE), new FeederValue(ARROW_REACTIVE));
         }
     }
 

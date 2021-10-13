@@ -664,15 +664,15 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederMeasure> getFeederMeasures(FeederNode node) {
-                List<FeederMeasure> measures = new ArrayList<>();
-                measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.OUT, null, "10"));
-                measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.IN, null, "20"));
+            public List<FeederValue> getFeederValues(FeederNode node) {
+                List<FeederValue> feederValues = Arrays.asList(
+                        new FeederValue(ARROW_ACTIVE, Direction.OUT, null, "10"),
+                        new FeederValue(ARROW_REACTIVE, Direction.IN, null, "20"));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
                 if (!feederArrowSymmetry) {
-                    Collections.reverse(measures);
+                    Collections.reverse(feederValues);
                 }
-                return measures;
+                return feederValues;
             }
 
             @Override
@@ -685,11 +685,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederMeasure> getFeederMeasures(FeederNode node) {
-                List<FeederMeasure> measures = new ArrayList<>();
-                measures.add(new FeederMeasure(ARROW_ACTIVE, null, null, null));
-                measures.add(new FeederMeasure(ARROW_REACTIVE, null, null, null));
-                return measures;
+            public List<FeederValue> getFeederValues(FeederNode node) {
+                return Arrays.asList(
+                        new FeederValue(ARROW_ACTIVE, null, null, null),
+                        new FeederValue(ARROW_REACTIVE, null, null, null));
             }
 
             @Override

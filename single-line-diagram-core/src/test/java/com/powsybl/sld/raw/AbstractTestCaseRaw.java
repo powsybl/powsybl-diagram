@@ -15,10 +15,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -68,11 +65,10 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         }
 
         @Override
-        public List<FeederMeasure> getFeederMeasures(FeederNode node) {
-            List<FeederMeasure> measures = new ArrayList<>();
-            measures.add(new FeederMeasure(ARROW_ACTIVE, Direction.OUT, "", "tata"));
-            measures.add(new FeederMeasure(ARROW_REACTIVE, Direction.IN, "", "tutu"));
-            return measures;
+        public List<FeederValue> getFeederValues(FeederNode node) {
+            return Arrays.asList(
+                    new FeederValue(ARROW_ACTIVE, Direction.OUT, "", "tata"),
+                    new FeederValue(ARROW_REACTIVE, Direction.IN, "", "tutu"));
         }
 
         @Override

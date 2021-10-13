@@ -11,7 +11,7 @@ import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
-import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
+import com.powsybl.sld.svg.GraphMetadata.FeederValueMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -918,31 +918,31 @@ public class DefaultSVGWriter implements SVGWriter {
                 + matrix2[4] + "," + matrix2[5] + ")";
     }
 
-    protected void insertArrowsAndLabels(String prefixId,
-                                         String wireId,
-                                         List<Point> points,
-                                         Element root,
-                                         FeederNode feederNode,
-                                         GraphMetadata metadata,
-                                         DiagramLabelProvider initProvider) {
+    protected void insertFeederValues(String prefixId,
+                                      String wireId,
+                                      List<Point> points,
+                                      Element root,
+                                      FeederNode feederNode,
+                                      GraphMetadata metadata,
+                                      DiagramLabelProvider initProvider) {
         if (points.isEmpty()) {
             points.add(new Point(feederNode.getDiagramCoordinates()));
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
         int iArrow = 0;
-        for (FeederMeasure measure : initProvider.getFeederMeasures(feederNode)) {
+        for (FeederValue feederValue : initProvider.getFeederValues(feederNode)) {
             // Compute shifting even if not displayed to ensure aligned arrows
-            double height = componentLibrary.getSize(measure.getComponentType()).getHeight();
+            double height = componentLibrary.getSize(feederValue.getComponentType()).getHeight();
             double shiftArrow = iArrow++ * 2 * height;
-            if (!measure.isEmpty()) {
-                drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
-                addArrowComponentMetadata(metadata, measure.getComponentType());
+            if (!feederValue.isEmpty()) {
+                drawFeederValue(prefixId, wireId, points, root, feederValue, shiftArrow, metadata);
+                addFeederValueComponentMetadata(metadata, feederValue.getComponentType());
             }
         }
     }
 
-    private void addArrowComponentMetadata(GraphMetadata metadata, String componentType) {
+    private void addFeederValueComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     null,
@@ -953,43 +953,43 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawArrowAndLabel(String prefixId, String wireId, List<Point> points, Element root,
-                                   FeederMeasure measure,
+    private void drawFeederValue(String prefixId, String wireId, List<Point> points, Element root,
+                                   FeederValue feederValue,
                                    double shift,
                                    GraphMetadata metadata) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
-        ComponentSize size = componentLibrary.getSize(measure.getComponentType());
+        ComponentSize size = componentLibrary.getSize(feederValue.getComponentType());
 
         double shX = size.getWidth() + LABEL_OFFSET;
         double shY = size.getHeight() / 2;
 
         List<String> styles = new ArrayList<>(3);
-        componentLibrary.getComponentStyleClass(measure.getComponentType()).ifPresent(styles::add);
+        componentLibrary.getComponentStyleClass(feederValue.getComponentType()).ifPresent(styles::add);
 
         transformArrow(points, size, shift, g);
 
         // we draw the arrow only if direction is present
-        measure.getDirection().ifPresent(direction -> {
-            String arrowWireId = wireId + "_" + measure.getComponentType();
+        feederValue.getDirection().ifPresent(direction -> {
+            String arrowWireId = wireId + "_" + feederValue.getComponentType();
             g.setAttribute("id", arrowWireId);
 
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertArrowSVGIntoDocumentSVG(measure.getComponentType(), prefixId, g, rotationAngle);
+            insertArrowSVGIntoDocumentSVG(feederValue.getComponentType(), prefixId, g, rotationAngle);
 
             styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
 
-            metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+            metadata.addFeederValueMetadata(new FeederValueMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
         });
 
         // we draw the right label only if present
-        measure.getRightLabel().ifPresent(s -> {
+        feederValue.getRightLabel().ifPresent(s -> {
             Element labelRight = createLabelElement(s, shX, shY, 0, g);
             g.appendChild(labelRight);
         });
 
         // we draw the left label only if present
-        measure.getLeftLabel().ifPresent(s -> {
+        feederValue.getLeftLabel().ifPresent(s -> {
             Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
@@ -1044,11 +1044,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
+                    insertFeederValues(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertArrowsAndLabels(prefixId, wireId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
+                insertFeederValues(prefixId, wireId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
             }
         }
     }
