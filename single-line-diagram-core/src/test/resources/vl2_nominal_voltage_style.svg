@@ -2,8 +2,8 @@
 <svg height="40.0" viewBox="0 0 40.0 40.0" width="40.0" xmlns="http://www.w3.org/2000/svg">
     <style>
         <![CDATA[
-.sld-up .sld-arrow-down {visibility: hidden}
-.sld-down .sld-arrow-up {visibility: hidden}
+.sld-out .sld-arrow-in {visibility: hidden}
+.sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}

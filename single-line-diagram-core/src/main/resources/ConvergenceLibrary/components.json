@@ -466,11 +466,11 @@
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",
-      "styleClass" : "sld-arrow-up"
+      "styleClass" : "sld-arrow-out"
     } , {
       "name" : "DOWN",
       "fileName" : "arrow-down.svg",
-      "styleClass" : "sld-arrow-down"
+      "styleClass" : "sld-arrow-in"
     } ],
     "styleClass" : "sld-arrow-p"
   }, {
@@ -489,11 +489,11 @@
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",
-      "styleClass" : "sld-arrow-up"
+      "styleClass" : "sld-arrow-out"
     } , {
       "name" : "DOWN",
       "fileName" : "arrow-down.svg",
-      "styleClass" : "sld-arrow-down"
+      "styleClass" : "sld-arrow-in"
     } ],
     "styleClass" : "sld-arrow-q"
   } ]

@@ -2,8 +2,8 @@
 <svg height="745.0" viewBox="0 0 780.0 745.0" width="780.0" xmlns="http://www.w3.org/2000/svg">
     <style>
         <![CDATA[
-.sld-up .sld-arrow-down {visibility: hidden}
-.sld-down .sld-arrow-up {visibility: hidden}
+.sld-out .sld-arrow-in {visibility: hidden}
+.sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
@@ -125,14 +125,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_2_95_LD1">
                 <polyline points="165.0,142.0,165.0,84.5"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_2_95_LD1_ARROW_ACTIVE" transform="translate(160.0,98.25)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_2_95_LD1_ARROW_ACTIVE" transform="translate(160.0,98.25)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_2_95_LD1_ARROW_REACTIVE" transform="translate(160.0,118.25)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_LD1_95_2_95_LD1_ARROW_REACTIVE" transform="translate(160.0,118.25)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_LD1" transform="translate(161.0,356.0)">
@@ -161,14 +161,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_ONE_95_2_95_L11_95_ONE">
                 <polyline points="215.0,603.0,215.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_ONE_95_2_95_L11_95_ONE_ARROW_REACTIVE" transform="translate(210.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_ONE_95_2_95_L11_95_ONE_ARROW_REACTIVE" transform="translate(210.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_ONE_95_2_95_L11_95_ONE_ARROW_ACTIVE" transform="translate(210.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_ONE_95_2_95_L11_95_ONE_ARROW_ACTIVE" transform="translate(210.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_L11_95_ONE" transform="translate(211.0,356.0)">
@@ -197,14 +197,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_ONE_95_2_95_T11_95_ONE">
                 <polyline points="265.0,142.0,265.0,80.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_ONE_95_2_95_T11_95_ONE_ARROW_ACTIVE" transform="translate(260.0,95.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_ONE_95_2_95_T11_95_ONE_ARROW_ACTIVE" transform="translate(260.0,95.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_ONE_95_2_95_T11_95_ONE_ARROW_REACTIVE" transform="translate(260.0,115.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_ONE_95_2_95_T11_95_ONE_ARROW_REACTIVE" transform="translate(260.0,115.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_T11_95_ONE" transform="translate(261.0,356.0)">
@@ -233,14 +233,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_2_95_L12_95_ONE">
                 <polyline points="315.0,603.0,315.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_2_95_L12_95_ONE_ARROW_REACTIVE" transform="translate(310.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_2_95_L12_95_ONE_ARROW_REACTIVE" transform="translate(310.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_2_95_L12_95_ONE_ARROW_ACTIVE" transform="translate(310.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L12_95_ONE_95_2_95_L12_95_ONE_ARROW_ACTIVE" transform="translate(310.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_L12_95_ONE" transform="translate(311.0,356.0)">
@@ -269,27 +269,27 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO">
                 <polyline points="383.0,603.0,365.0,603.0,365.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW_REACTIVE" transform="translate(360.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW_REACTIVE" transform="translate(360.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW_ACTIVE" transform="translate(360.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO_ARROW_ACTIVE" transform="translate(360.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
                 <polyline points="397.0,603.0,415.0,603.0,415.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(410.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(410.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(410.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(410.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_T3_95_12" transform="translate(386.0,356.0)">
@@ -326,14 +326,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_G_95_2_95_G">
                 <polyline points="465.0,142.0,465.0,86.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_G_95_2_95_G_ARROW_ACTIVE" transform="translate(460.0,99.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_G_95_2_95_G_ARROW_ACTIVE" transform="translate(460.0,99.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_G_95_2_95_G_ARROW_REACTIVE" transform="translate(460.0,119.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_G_95_2_95_G_ARROW_REACTIVE" transform="translate(460.0,119.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_G" transform="translate(461.0,381.0)">
@@ -362,14 +362,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_TWO_95_2_95_L11_95_TWO">
                 <polyline points="515.0,603.0,515.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_TWO_95_2_95_L11_95_TWO_ARROW_REACTIVE" transform="translate(510.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_TWO_95_2_95_L11_95_TWO_ARROW_REACTIVE" transform="translate(510.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_TWO_95_2_95_L11_95_TWO_ARROW_ACTIVE" transform="translate(510.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_L11_95_TWO_95_2_95_L11_95_TWO_ARROW_ACTIVE" transform="translate(510.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_L11_95_TWO" transform="translate(511.0,381.0)">
@@ -398,14 +398,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_TWO_95_2_95_T11_95_TWO">
                 <polyline points="565.0,142.0,565.0,80.0"/>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_TWO_95_2_95_T11_95_TWO_ARROW_ACTIVE" transform="translate(560.0,95.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_TWO_95_2_95_T11_95_TWO_ARROW_ACTIVE" transform="translate(560.0,95.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_TWO_95_2_95_T11_95_TWO_ARROW_REACTIVE" transform="translate(560.0,115.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T11_95_TWO_95_2_95_T11_95_TWO_ARROW_REACTIVE" transform="translate(560.0,115.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_T11_95_TWO" transform="translate(561.0,381.0)">
@@ -436,14 +436,14 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_2_95_T12_95_ONE">
                 <polyline points="615.0,603.0,615.0,657.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_2_95_T12_95_ONE_ARROW_REACTIVE" transform="translate(610.0,635.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_2_95_T12_95_ONE_ARROW_REACTIVE" transform="translate(610.0,635.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_2_95_T12_95_ONE_ARROW_ACTIVE" transform="translate(610.0,615.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_INTERNAL_95_VL1_95_T12_95_ONE_95_2_95_T12_95_ONE_ARROW_ACTIVE" transform="translate(610.0,615.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_T12_95_ONE" transform="translate(611.0,381.0)">
@@ -472,27 +472,27 @@ polyline {fill: none}
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE">
                 <polyline points="683.0,603.0,665.0,603.0,665.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW_REACTIVE" transform="translate(660.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW_REACTIVE" transform="translate(660.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW_ACTIVE" transform="translate(660.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE_ARROW_ACTIVE" transform="translate(660.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-wire sld-constant-color" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
                 <polyline points="697.0,603.0,715.0,603.0,715.0,665.0"/>
             </g>
-            <g class="sld-arrow-q sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(710.0,640.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-q sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_REACTIVE" transform="translate(710.0,640.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-down" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(710.0,620.0)">
-                <polygon class="sld-arrow-down" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
-                <polygon class="sld-arrow-up" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
+            <g class="sld-arrow-p sld-in" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(710.0,620.0)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-bus-connection sld-constant-color" id="idBUSCO_95_T3_95_12" transform="translate(686.0,381.0)">

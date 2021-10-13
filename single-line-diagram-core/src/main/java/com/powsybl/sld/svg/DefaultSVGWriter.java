@@ -978,7 +978,7 @@ public class DefaultSVGWriter implements SVGWriter {
         feederValue.getDirection().ifPresent(direction -> {
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
             insertArrowSVGIntoDocumentSVG(feederValue.getComponentType(), prefixId, g, rotationAngle);
-            styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
+            styles.add(direction == Direction.OUT ? OUT_CLASS : IN_CLASS);
         });
 
         // we draw the right label only if present
