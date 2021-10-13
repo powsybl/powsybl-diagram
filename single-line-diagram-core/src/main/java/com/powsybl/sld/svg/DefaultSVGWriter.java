@@ -932,10 +932,10 @@ public class DefaultSVGWriter implements SVGWriter {
 
         int iArrow = 0;
         for (FeederMeasure measure : initProvider.getFeederMeasures(feederNode)) {
+            // Compute shifting even if not displayed to ensure aligned arrows
+            double height = componentLibrary.getSize(measure.getComponentType()).getHeight();
+            double shiftArrow = iArrow++ * 2 * height;
             if (!measure.isEmpty()) {
-                // Compute shifting
-                double height = componentLibrary.getSize(measure.getComponentType()).getHeight();
-                double shiftArrow = iArrow++ * 2 * height;
                 drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
                 addArrowComponentMetadata(metadata, measure.getComponentType());
             }
