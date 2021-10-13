@@ -930,26 +930,20 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        List<FeederMeasure> measures = initProvider.getFeederMeasures(feederNode);
-        // Add component metadata if at least one ARROW_ACTIVE is provided
-        addArrowMetadata(metadata, measures, ARROW_ACTIVE);
-        // Add component metadata if at least one ARROW_REACTIVE is provided
-        addArrowMetadata(metadata, measures, ARROW_REACTIVE);
-
         int iArrow = 0;
-        for (FeederMeasure measure : measures) {
+        for (FeederMeasure measure : initProvider.getFeederMeasures(feederNode)) {
             if (!measure.isEmpty()) {
-                double height = metadata.getComponentMetadata(measure.getComponentType()).getSize().getHeight();
                 // Compute shifting
+                double height = componentLibrary.getSize(measure.getComponentType()).getHeight();
                 double shiftArrow = iArrow++ * 2 * height;
                 drawArrowAndLabel(prefixId, wireId, points, root, measure, shiftArrow, metadata);
+                addArrowComponentMetadata(metadata, measure.getComponentType());
             }
         }
     }
 
-    private void addArrowMetadata(GraphMetadata metadata, List<FeederMeasure> measures, String componentType) {
-        if (measures.stream().filter(m -> Objects.equals(m.getComponentType(), componentType)).anyMatch(m -> !m.isEmpty()) &&
-                metadata.getComponentMetadata(componentType) == null) {
+    private void addArrowComponentMetadata(GraphMetadata metadata, String componentType) {
+        if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     null,
                     componentLibrary.getAnchorPoints(componentType),
@@ -963,23 +957,20 @@ public class DefaultSVGWriter implements SVGWriter {
                                    FeederMeasure measure,
                                    double shift,
                                    GraphMetadata metadata) {
-        Optional<Direction> dir = measure.getDirection();
-        Optional<String> labelL = measure.getLeftLabel();
-        Optional<String> labelR = measure.getRightLabel();
 
-        // we draw the arrow only if direction is present
         Element g = root.getOwnerDocument().createElement(GROUP);
-        Component cd = metadata.getComponentMetadata(measure.getComponentType());
+        ComponentSize size = componentLibrary.getSize(measure.getComponentType());
 
-        double shX = cd.getSize().getWidth() + LABEL_OFFSET;
-        double shY = cd.getSize().getHeight() / 2;
+        double shX = size.getWidth() + LABEL_OFFSET;
+        double shY = size.getHeight() / 2;
 
         List<String> styles = new ArrayList<>(3);
         componentLibrary.getComponentStyleClass(measure.getComponentType()).ifPresent(styles::add);
 
-        transformArrow(points, cd.getSize(), shift, g);
+        transformArrow(points, size, shift, g);
 
-        dir.ifPresent(direction -> {
+        // we draw the arrow only if direction is present
+        measure.getDirection().ifPresent(direction -> {
             String arrowWireId = wireId + "_" + measure.getComponentType();
             g.setAttribute("id", arrowWireId);
 
@@ -991,14 +982,14 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addArrowMetadata(new ArrowMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
         });
 
-        // we draw the right label only if is present
-        labelR.ifPresent(s -> {
+        // we draw the right label only if present
+        measure.getRightLabel().ifPresent(s -> {
             Element labelRight = createLabelElement(s, shX, shY, 0, g);
             g.appendChild(labelRight);
         });
 
-        // we draw the left label only if is present
-        labelL.ifPresent(s -> {
+        // we draw the left label only if present
+        measure.getLeftLabel().ifPresent(s -> {
             Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
