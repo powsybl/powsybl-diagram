@@ -969,17 +969,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformArrow(points, size, shift, g);
 
+        String arrowWireId = wireId + "_" + feederValue.getComponentType();
+        g.setAttribute("id", arrowWireId);
+
+        metadata.addFeederValueMetadata(new FeederValueMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+
         // we draw the arrow only if direction is present
         feederValue.getDirection().ifPresent(direction -> {
-            String arrowWireId = wireId + "_" + feederValue.getComponentType();
-            g.setAttribute("id", arrowWireId);
-
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
             insertArrowSVGIntoDocumentSVG(feederValue.getComponentType(), prefixId, g, rotationAngle);
-
             styles.add(direction == Direction.OUT ? UP_CLASS : DOWN_CLASS);
-
-            metadata.addFeederValueMetadata(new FeederValueMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
         });
 
         // we draw the right label only if present
