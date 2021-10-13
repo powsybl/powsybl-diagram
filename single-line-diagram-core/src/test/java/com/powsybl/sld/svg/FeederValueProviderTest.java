@@ -6,15 +6,14 @@
  */
 package com.powsybl.sld.svg;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.FeederNode;
@@ -24,6 +23,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.Assert.*;
 
 /**
@@ -107,7 +108,8 @@ public class FeederValueProviderTest {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         LayoutParameters layoutParameters = new LayoutParameters().setFeederArrowSymmetry(true);
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, false);
+        VoltageLevelDiagram vlDiagram = VoltageLevelDiagram.build(graphBuilder, vl.getId(), new SmartVoltageLevelLayoutFactory(network), false);
+        VoltageLevelGraph g = vlDiagram.getGraph();
         List<FeederValue> feederValues = initProvider.getFeederValues((FeederNode) g.getNode("svc"));
         assertTrue(feederValues.isEmpty());
         DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
