@@ -116,12 +116,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1">
             <polyline points="80.0,104.5,80.0,190.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW_ACTIVE" transform="translate(75.0,119.5)">
+        <g class="sld-arrow-p sld-out" id="idvl1_95_load1_ARROW_ACTIVE" transform="translate(75.0,119.5)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl1_95_vl1_95_load1_95_vl1_95_bload1_ARROW_REACTIVE" transform="translate(75.0,139.5)">
+        <g class="sld-arrow-q sld-in" id="idvl1_95_load1_ARROW_REACTIVE" transform="translate(75.0,139.5)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -135,12 +135,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,512.0,120.0,430.0"/>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW_REACTIVE" transform="translate(115.0,487.0)">
+        <g class="sld-arrow-q sld-in" id="idvl1_95_trf1_ARROW_REACTIVE" transform="translate(115.0,487.0)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN" transform="rotate(180.0,5.0,5.0)"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1_ARROW_ACTIVE" transform="translate(115.0,467.0)">
+        <g class="sld-arrow-p sld-out" id="idvl1_95_trf1_ARROW_ACTIVE" transform="translate(115.0,467.0)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN" transform="rotate(180.0,5.0,5.0)"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
@@ -154,12 +154,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2">
             <polyline points="400.0,100.0,400.0,160.0,433.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW_ACTIVE" transform="translate(395.0,115.0)">
+        <g class="sld-arrow-p sld-out" id="idvl1_95_trf2_95_one_ARROW_ACTIVE" transform="translate(395.0,115.0)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2_ARROW_REACTIVE" transform="translate(395.0,135.0)">
+        <g class="sld-arrow-q sld-in" id="idvl1_95_trf2_95_one_ARROW_REACTIVE" transform="translate(395.0,135.0)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -167,12 +167,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2">
             <polyline points="480.0,100.0,480.0,160.0,447.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW_ACTIVE" transform="translate(475.0,115.0)">
+        <g class="sld-arrow-p sld-out" id="idvl1_95_trf2_95_two_ARROW_ACTIVE" transform="translate(475.0,115.0)">
             <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl1_95_vl1_95_trf2_95_two_95_vl1_95_trf2_ARROW_REACTIVE" transform="translate(475.0,135.0)">
+        <g class="sld-arrow-q sld-in" id="idvl1_95_trf2_95_two_ARROW_REACTIVE" transform="translate(475.0,135.0)">
             <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>

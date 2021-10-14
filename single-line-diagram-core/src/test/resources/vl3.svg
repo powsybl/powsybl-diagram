@@ -42,12 +42,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
             <polyline points="80.0,106.0,80.0,190.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW_ACTIVE" transform="translate(75.0,121.0)">
+        <g class="sld-arrow-p sld-out" id="idvl3_95_capa1_ARROW_ACTIVE" transform="translate(75.0,121.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1_ARROW_REACTIVE" transform="translate(75.0,141.0)">
+        <g class="sld-arrow-q sld-in" id="idvl3_95_capa1_ARROW_REACTIVE" transform="translate(75.0,141.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -61,12 +61,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2">
             <polyline points="150.0,100.0,150.0,160.0,183.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2_ARROW_ACTIVE" transform="translate(145.0,115.0)">
+        <g class="sld-arrow-p sld-out" id="idvl3_95_trf2_95_one_ARROW_ACTIVE" transform="translate(145.0,115.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2_ARROW_REACTIVE" transform="translate(145.0,135.0)">
+        <g class="sld-arrow-q sld-in" id="idvl3_95_trf2_95_one_ARROW_REACTIVE" transform="translate(145.0,135.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
@@ -74,12 +74,12 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,197.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-out" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2_ARROW_ACTIVE" transform="translate(225.0,115.0)">
+        <g class="sld-arrow-p sld-out" id="idvl3_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-in" id="_95_vl3_95_vl3_95_trf2_95_two_95_vl3_95_trf2_ARROW_REACTIVE" transform="translate(225.0,135.0)">
+        <g class="sld-arrow-q sld-in" id="idvl3_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
             <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
             <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
