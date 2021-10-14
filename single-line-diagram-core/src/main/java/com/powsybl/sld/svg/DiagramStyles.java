@@ -23,10 +23,8 @@ public final class DiagramStyles {
     public static final String GRID_STYLE_CLASS = STYLE_PREFIX + "grid";
     public static final String LABEL_STYLE_CLASS = STYLE_PREFIX + "label";
     public static final String GRAPH_LABEL_STYLE_CLASS = STYLE_PREFIX + "graph-label";
-    public static final String ARROW_ACTIVE_CLASS = STYLE_PREFIX + "arrow-p";
-    public static final String ARROW_REACTIVE_CLASS = STYLE_PREFIX + "arrow-q";
-    public static final String UP_CLASS = STYLE_PREFIX + "up";
-    public static final String DOWN_CLASS = STYLE_PREFIX + "down";
+    public static final String OUT_CLASS = STYLE_PREFIX + "out";
+    public static final String IN_CLASS = STYLE_PREFIX + "in";
     public static final String HIDDEN_NODE_CLASS = STYLE_PREFIX + "hidden-node";
     public static final String DISCONNECTED_STYLE_CLASS = STYLE_PREFIX + "disconnected";
     public static final String OPEN_SWITCH_STYLE_CLASS = STYLE_PREFIX + "open";

@@ -183,18 +183,18 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
-    public static class ArrowMetadata {
+    public static class FeederInfoMetadata {
 
         private final String id;
 
-        private final String wireId;
+        private final String feederNodeId;
 
         private final double distance;
 
         @JsonCreator
-        public ArrowMetadata(@JsonProperty("id") String id, @JsonProperty("wireId") String wireId1, @JsonProperty("distance") double distance) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("distance") double distance) {
             this.id = Objects.requireNonNull(id);
-            this.wireId = Objects.requireNonNull(wireId1);
+            this.feederNodeId = Objects.requireNonNull(feederNodeId);
             this.distance = distance;
         }
 
@@ -202,8 +202,8 @@ public class GraphMetadata implements AnchorPointProvider {
             return id;
         }
 
-        public String getWireId() {
-            return wireId;
+        public String getFeederNodeId() {
+            return feederNodeId;
         }
 
         public double getDistance() {
@@ -223,7 +223,7 @@ public class GraphMetadata implements AnchorPointProvider {
 
     private final LayoutParameters layoutParameters;
 
-    private final Map<String, ArrowMetadata> arrowMetadataMap = new HashMap<>();
+    private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata() {
         this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), new LayoutParameters());
@@ -234,7 +234,7 @@ public class GraphMetadata implements AnchorPointProvider {
                          @JsonProperty("nodes") List<NodeMetadata> nodeMetadataList,
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
-                         @JsonProperty("arrows") List<ArrowMetadata> arrowMetadataList,
+                         @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams) {
         for (Component component : componentList) {
             addComponent(component);
@@ -248,8 +248,8 @@ public class GraphMetadata implements AnchorPointProvider {
         for (LineMetadata lineMetadata : lineMetadataList) {
             addLineMetadata(lineMetadata);
         }
-        for (ArrowMetadata arrowMetadata : arrowMetadataList) {
-            addArrowMetadata(arrowMetadata);
+        for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
+            addFeederInfoMetadata(feederInfoMetadata);
         }
         layoutParameters = layoutParams;
     }
@@ -377,19 +377,19 @@ public class GraphMetadata implements AnchorPointProvider {
         return ImmutableList.copyOf(lineMetadataMap.values());
     }
 
-    public void addArrowMetadata(ArrowMetadata metadata) {
+    public void addFeederInfoMetadata(FeederInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
-        arrowMetadataMap.put(metadata.getId(), metadata);
+        feederInfoMetadataMap.put(metadata.getId(), metadata);
     }
 
-    public ArrowMetadata getArrowMetadata(String id) {
+    public FeederInfoMetadata getFeederInfoMetadata(String id) {
         Objects.requireNonNull(id);
-        return arrowMetadataMap.get(id);
+        return feederInfoMetadataMap.get(id);
     }
 
-    @JsonProperty("arrows")
-    public List<ArrowMetadata> getArrowMetadata() {
-        return ImmutableList.copyOf(arrowMetadataMap.values());
+    @JsonProperty("feederInfos")
+    public List<FeederInfoMetadata> getFeederInfoMetadata() {
+        return ImmutableList.copyOf(feederInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

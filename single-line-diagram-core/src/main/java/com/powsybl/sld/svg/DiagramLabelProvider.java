@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
 
 import java.util.List;
@@ -59,12 +60,11 @@ public interface DiagramLabelProvider {
 
     }
 
-    public enum Direction {
-        UP, DOWN;
-
+    enum Direction {
+        OUT, IN;
     }
 
-    InitialValue getInitialValue(Node node);
+    List<FeederInfo> getFeederInfos(FeederNode node);
 
     List<NodeLabel> getNodeLabels(Node node);
 

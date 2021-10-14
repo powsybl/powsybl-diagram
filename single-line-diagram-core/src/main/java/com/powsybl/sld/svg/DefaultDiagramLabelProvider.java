@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.svg;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BranchStatus;
@@ -14,9 +17,7 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.powsybl.sld.model.Node.NodeType.FEEDER;
 
@@ -42,73 +43,70 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
-    public InitialValue getInitialValue(Node node) {
+    public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        InitialValue initialValue = null;
+        List<FeederInfo> feederInfos = new ArrayList<>();
 
-        switch (node.getType()) {
-            case BUS:
-                initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
+        switch (node.getFeederType()) {
+            case INJECTION:
+                feederInfos = getInjectionFeederInfos((FeederInjectionNode) node);
                 break;
-            case FEEDER:
-                switch (((FeederNode) node).getFeederType()) {
-                    case INJECTION:
-                        initialValue = getInjectionInitialValue((FeederInjectionNode) node);
-                        break;
-                    case BRANCH:
-                        initialValue = getBranchInitialValue((FeederBranchNode) node);
-                        break;
-                    case TWO_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get2WTInitialValue((Feeder2WTLegNode) node);
-                        break;
-                    case THREE_WINDINGS_TRANSFORMER_LEG:
-                        initialValue = get3WTInitialValue((Feeder3WTLegNode) node);
-                        break;
-                    default:
-                        break;
-                }
+            case BRANCH:
+                feederInfos = getBranchFeederInfos((FeederBranchNode) node);
+                break;
+            case TWO_WINDINGS_TRANSFORMER_LEG:
+                feederInfos = get2WTFeederInfos((Feeder2WTLegNode) node);
+                break;
+            case THREE_WINDINGS_TRANSFORMER_LEG:
+                feederInfos = get3WTFeederInfos((Feeder3WTLegNode) node);
                 break;
             default:
                 break;
         }
-
-        return initialValue != null ? initialValue : new InitialValue(null, null, null, null, null, null);
+        if (node.getDirection() == BusCell.Direction.BOTTOM && !layoutParameters.isFeederArrowSymmetry()) {
+            Collections.reverse(feederInfos);
+        }
+        return feederInfos;
     }
 
-    private InitialValue getInjectionInitialValue(FeederInjectionNode node) {
+    private List<FeederInfo> getInjectionFeederInfos(FeederInjectionNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
-            return buildInitialValue(injection);
+            measures = buildFeederInfos(injection);
         }
-        return null;
+        return measures;
     }
 
-    private InitialValue getBranchInitialValue(FeederBranchNode node) {
+    private List<FeederInfo> getBranchFeederInfos(FeederBranchNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildInitialValue(branch, side);
+            measures = buildFeederInfos(branch, side);
         }
-        return null;
+        return measures;
     }
 
-    private InitialValue get3WTInitialValue(Feeder3WTLegNode node) {
+    private List<FeederInfo> get3WTFeederInfos(Feeder3WTLegNode node) {
+        List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            return buildInitialValue(transformer, side);
+            feederInfos = buildFeederInfos(transformer, side);
         }
-        return null;
+        return feederInfos;
     }
 
-    private InitialValue get2WTInitialValue(Feeder2WTLegNode node) {
+    private List<FeederInfo> get2WTFeederInfos(Feeder2WTLegNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            return buildInitialValue(transformer, side);
+            measures = buildFeederInfos(transformer, side);
         }
-        return null;
+        return measures;
     }
 
     @Override
@@ -227,41 +225,21 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
-    private InitialValue buildInitialValue(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
-        Objects.requireNonNull(transformer);
-        Objects.requireNonNull(side);
-        double p = transformer.getTerminal(side).getP();
-        double q = transformer.getTerminal(side).getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+        return Arrays.asList(
+                new FeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
     }
 
-    private InitialValue buildInitialValue(Injection injection) {
-        Objects.requireNonNull(injection);
-        double p = injection.getTerminal().getP();
-        double q = injection.getTerminal().getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+    private List<FeederInfo> buildFeederInfos(Injection injection) {
+        return Arrays.asList(
+                new FeederInfo(ARROW_ACTIVE, injection.getTerminal().getP()),
+                new FeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ()));
     }
 
-    private InitialValue buildInitialValue(Branch branch, Branch.Side side) {
-        Objects.requireNonNull(branch);
-        Objects.requireNonNull(side);
-        double p = branch.getTerminal(side).getP();
-        double q = branch.getTerminal(side).getQ();
-        String label1 = String.valueOf(Math.round(p));
-        String label2 = String.valueOf(Math.round(q));
-        Direction direction1 = p > 0 ? Direction.UP : Direction.DOWN;
-        Direction direction2 = q > 0 ? Direction.UP : Direction.DOWN;
-
-        return new InitialValue(direction1, direction2, label1, label2, null, null);
+    private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side) {
+        return Arrays.asList(
+                new FeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
     }
 }

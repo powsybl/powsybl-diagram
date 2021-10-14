@@ -16,7 +16,7 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.svg.GraphMetadata.ArrowMetadata;
+import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,7 +64,7 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addArrowMetadata(new ArrowMetadata("id1", "id3", 20));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", 20));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
@@ -94,7 +94,7 @@ public class GraphMetadataTest {
         assertEquals("id1", metadata2.getWireMetadata("id3").getNodeId1());
         assertEquals("id2", metadata2.getWireMetadata("id3").getNodeId2());
         assertFalse(metadata2.getWireMetadata("id3").isStraight());
-        assertEquals("id3", metadata2.getArrowMetadata("id1").getWireId());
+        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getFeederNodeId());
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);
         assertEquals(4, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getY(), 0);
@@ -125,7 +125,7 @@ public class GraphMetadataTest {
         assertEquals("id1", metadata3.getWireMetadata("id3").getNodeId1());
         assertEquals("id2", metadata3.getWireMetadata("id3").getNodeId2());
         assertFalse(metadata3.getWireMetadata("id3").isStraight());
-        assertEquals("id3", metadata3.getArrowMetadata("id1").getWireId());
+        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").getFeederNodeId());
     }
 
     @Test

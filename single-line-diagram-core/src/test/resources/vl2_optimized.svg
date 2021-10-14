@@ -2,8 +2,8 @@
 <svg height="620.0" viewBox="0 0 280.0 620.0" width="280.0" xmlns="http://www.w3.org/2000/svg">
     <style>
         <![CDATA[
-.sld-up .sld-arrow-down {visibility: hidden}
-.sld-down .sld-arrow-up {visibility: hidden}
+.sld-out .sld-arrow-in {visibility: hidden}
+.sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
@@ -40,11 +40,19 @@ polyline {fill: none}
             <path d="M6,6 A 6 40 0 0 0 2,6"/>
             <path d="M6,6 A 6 40 0 0 0 10,6"/>
         </g>
-        <g id="ARROW">
-            <g id="ARROW-DOWN">
+        <g id="ARROW_REACTIVE">
+            <g id="ARROW_REACTIVE-DOWN">
                 <polygon points="0,0 10,0 5,10"/>
             </g>
-            <g id="ARROW-UP">
+            <g id="ARROW_REACTIVE-UP">
+                <polygon points="5,0 10,10 0,10"/>
+            </g>
+        </g>
+        <g id="ARROW_ACTIVE">
+            <g id="ARROW_ACTIVE-DOWN">
+                <polygon points="0,0 10,0 5,10"/>
+            </g>
+            <g id="ARROW_ACTIVE-UP">
                 <polygon points="5,0 10,10 0,10"/>
             </g>
         </g>
@@ -92,14 +100,14 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
             <polyline points="90.0,106.0,90.0,190.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW1" transform="translate(85.0,121.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-p sld-out" id="idvl2_95_gen1_ARROW_ACTIVE" transform="translate(85.0,121.0)">
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1_ARROW2" transform="translate(85.0,141.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-q sld-in" id="idvl2_95_gen1_ARROW_REACTIVE" transform="translate(85.0,141.0)">
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
@@ -111,14 +119,14 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="140.0,512.0,140.0,430.0"/>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW2" transform="translate(135.0,487.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
-            <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
+        <g class="sld-arrow-q sld-in" id="idvl2_95_trf1_ARROW_REACTIVE" transform="translate(135.0,487.0)">
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1_ARROW1" transform="translate(135.0,467.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN" transform="rotate(180.0,5.0,5.0)"/>
-            <use class="sld-arrow-up" href="#ARROW-UP" transform="rotate(180.0,5.0,5.0)"/>
+        <g class="sld-arrow-p sld-out" id="idvl2_95_trf1_ARROW_ACTIVE" transform="translate(135.0,467.0)">
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN" transform="rotate(180.0,5.0,5.0)"/>
+            <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
@@ -130,27 +138,27 @@ polyline {fill: none}
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2">
             <polyline points="170.0,100.0,170.0,160.0,193.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2_ARROW1" transform="translate(165.0,115.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-p sld-out" id="idvl2_95_trf2_95_one_ARROW_ACTIVE" transform="translate(165.0,115.0)">
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2_ARROW2" transform="translate(165.0,135.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-q sld-in" id="idvl2_95_trf2_95_one_ARROW_REACTIVE" transform="translate(165.0,135.0)">
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_two_95_vl2_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,207.0,160.0"/>
         </g>
-        <g class="sld-arrow-p sld-up" id="_95_vl2_95_vl2_95_trf2_95_two_95_vl2_95_trf2_ARROW1" transform="translate(225.0,115.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-p sld-out" id="idvl2_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
+            <use class="sld-arrow-in" href="#ARROW_ACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-arrow-q sld-down" id="_95_vl2_95_vl2_95_trf2_95_two_95_vl2_95_trf2_ARROW2" transform="translate(225.0,135.0)">
-            <use class="sld-arrow-down" href="#ARROW-DOWN"/>
-            <use class="sld-arrow-up" href="#ARROW-UP"/>
+        <g class="sld-arrow-q sld-in" id="idvl2_95_trf2_95_two_ARROW_REACTIVE" transform="translate(225.0,135.0)">
+            <use class="sld-arrow-in" href="#ARROW_REACTIVE-DOWN"/>
+            <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
         <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2">
