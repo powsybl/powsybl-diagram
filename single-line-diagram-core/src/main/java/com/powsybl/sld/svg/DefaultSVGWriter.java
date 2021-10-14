@@ -919,7 +919,6 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertFeederValues(String prefixId,
-                                      String wireId,
                                       List<Point> points,
                                       Element root,
                                       FeederNode feederNode,
@@ -936,7 +935,7 @@ public class DefaultSVGWriter implements SVGWriter {
             double height = componentLibrary.getSize(feederValue.getComponentType()).getHeight();
             double shiftArrow = iArrow++ * 2 * height;
             if (!feederValue.isEmpty()) {
-                drawFeederValue(prefixId, wireId, points, root, feederValue, shiftArrow, metadata);
+                drawFeederValue(prefixId, feederNode.getId(), points, root, feederValue, shiftArrow, metadata);
                 addFeederValueComponentMetadata(metadata, feederValue.getComponentType());
             }
         }
@@ -953,10 +952,8 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawFeederValue(String prefixId, String wireId, List<Point> points, Element root,
-                                   FeederValue feederValue,
-                                   double shift,
-                                   GraphMetadata metadata) {
+    private void drawFeederValue(String prefixId, String feederNodeId, List<Point> points, Element root,
+                                 FeederValue feederValue, double shift, GraphMetadata metadata) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederValue.getComponentType());
@@ -969,10 +966,10 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformArrow(points, size, shift, g);
 
-        String arrowWireId = wireId + "_" + feederValue.getComponentType();
-        g.setAttribute("id", arrowWireId);
+        String svgId = escapeId(feederNodeId) + "_" + feederValue.getComponentType();
+        g.setAttribute("id", svgId);
 
-        metadata.addFeederValueMetadata(new FeederValueMetadata(arrowWireId, wireId, layoutParameters.getArrowDistance()));
+        metadata.addFeederValueMetadata(new FeederValueMetadata(svgId, feederNodeId, layoutParameters.getArrowDistance()));
 
         // we draw the arrow only if direction is present
         feederValue.getDirection().ifPresent(direction -> {
@@ -1043,11 +1040,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertFeederValues(prefixId, wireId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
+                    insertFeederValues(prefixId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertFeederValues(prefixId, wireId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
+                insertFeederValues(prefixId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
             }
         }
     }
