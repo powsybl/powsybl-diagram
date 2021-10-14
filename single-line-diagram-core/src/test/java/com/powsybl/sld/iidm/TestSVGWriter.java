@@ -51,7 +51,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
     private DiagramLabelProvider initValueProvider;
-    private DiagramLabelProvider noFeederValueProvider;
+    private DiagramLabelProvider noFeederInfoProvider;
     private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
@@ -664,15 +664,15 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederValue> getFeederValues(FeederNode node) {
-                List<FeederValue> feederValues = Arrays.asList(
-                        new FeederValue(ARROW_ACTIVE, Direction.OUT, null, "10"),
-                        new FeederValue(ARROW_REACTIVE, Direction.IN, null, "20"));
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                List<FeederInfo> feederInfos = Arrays.asList(
+                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10"),
+                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20"));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
                 if (!feederArrowSymmetry) {
-                    Collections.reverse(feederValues);
+                    Collections.reverse(feederInfos);
                 }
-                return feederValues;
+                return feederInfos;
             }
 
             @Override
@@ -683,12 +683,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // no feeder value provider example for the test :
         //
-        noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        noFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<FeederValue> getFeederValues(FeederNode node) {
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
                 return Arrays.asList(
-                        new FeederValue(ARROW_ACTIVE, null, null, null),
-                        new FeederValue(ARROW_REACTIVE, null, null, null));
+                        new FeederInfo(ARROW_ACTIVE, null, null, null),
+                        new FeederInfo(ARROW_REACTIVE, null, null, null));
             }
 
             @Override
@@ -744,10 +744,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationNoFeederValues() {
+    public void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
-            toSVG(substG, "/substation_no_feeder_values.svg", getLayoutParameters(), noFeederValueProvider, new DefaultDiagramStyleProvider()));
+            toSVG(substG, "/substation_no_feeder_values.svg", getLayoutParameters(), noFeederInfoProvider, new DefaultDiagramStyleProvider()));
     }
 
     @Test

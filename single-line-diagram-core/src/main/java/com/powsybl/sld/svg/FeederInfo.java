@@ -23,25 +23,25 @@ import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederValue {
+public class FeederInfo {
 
     private final String componentType;
     private final Direction arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
 
-    public FeederValue(String componentType) {
+    public FeederInfo(String componentType) {
         this(componentType, null, null, null);
     }
 
-    public FeederValue(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
     }
 
-    public FeederValue(String componentType, double value) {
+    public FeederInfo(String componentType, double value) {
         this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
     }
 

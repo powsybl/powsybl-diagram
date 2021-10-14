@@ -43,68 +43,68 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
-    public List<FeederValue> getFeederValues(FeederNode node) {
+    public List<FeederInfo> getFeederInfos(FeederNode node) {
         Objects.requireNonNull(node);
 
-        List<FeederValue> feederValues = new ArrayList<>();
+        List<FeederInfo> feederInfos = new ArrayList<>();
 
         switch (node.getFeederType()) {
             case INJECTION:
-                feederValues = getInjectionFeederValues((FeederInjectionNode) node);
+                feederInfos = getInjectionFeederInfos((FeederInjectionNode) node);
                 break;
             case BRANCH:
-                feederValues = getBranchFeederValues((FeederBranchNode) node);
+                feederInfos = getBranchFeederInfos((FeederBranchNode) node);
                 break;
             case TWO_WINDINGS_TRANSFORMER_LEG:
-                feederValues = get2WTFeederValues((Feeder2WTLegNode) node);
+                feederInfos = get2WTFeederInfos((Feeder2WTLegNode) node);
                 break;
             case THREE_WINDINGS_TRANSFORMER_LEG:
-                feederValues = get3WTFeederValues((Feeder3WTLegNode) node);
+                feederInfos = get3WTFeederInfos((Feeder3WTLegNode) node);
                 break;
             default:
                 break;
         }
         if (node.getDirection() == BusCell.Direction.BOTTOM && !layoutParameters.isFeederArrowSymmetry()) {
-            Collections.reverse(feederValues);
+            Collections.reverse(feederInfos);
         }
-        return feederValues;
+        return feederInfos;
     }
 
-    private List<FeederValue> getInjectionFeederValues(FeederInjectionNode node) {
-        List<FeederValue> measures = new ArrayList<>();
+    private List<FeederInfo> getInjectionFeederInfos(FeederInjectionNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
-            measures = buildFeederValues(injection);
+            measures = buildFeederInfos(injection);
         }
         return measures;
     }
 
-    private List<FeederValue> getBranchFeederValues(FeederBranchNode node) {
-        List<FeederValue> measures = new ArrayList<>();
+    private List<FeederInfo> getBranchFeederInfos(FeederBranchNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            measures = buildFeederValues(branch, side);
+            measures = buildFeederInfos(branch, side);
         }
         return measures;
     }
 
-    private List<FeederValue> get3WTFeederValues(Feeder3WTLegNode node) {
-        List<FeederValue> feederValues = new ArrayList<>();
+    private List<FeederInfo> get3WTFeederInfos(Feeder3WTLegNode node) {
+        List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            feederValues = buildFeederValues(transformer, side);
+            feederInfos = buildFeederInfos(transformer, side);
         }
-        return feederValues;
+        return feederInfos;
     }
 
-    private List<FeederValue> get2WTFeederValues(Feeder2WTLegNode node) {
-        List<FeederValue> measures = new ArrayList<>();
+    private List<FeederInfo> get2WTFeederInfos(Feeder2WTLegNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            measures = buildFeederValues(transformer, side);
+            measures = buildFeederInfos(transformer, side);
         }
         return measures;
     }
@@ -225,21 +225,21 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
-    private List<FeederValue> buildFeederValues(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         return Arrays.asList(
-                new FeederValue(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
-                new FeederValue(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
+                new FeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
     }
 
-    private List<FeederValue> buildFeederValues(Injection injection) {
+    private List<FeederInfo> buildFeederInfos(Injection injection) {
         return Arrays.asList(
-                new FeederValue(ARROW_ACTIVE, injection.getTerminal().getP()),
-                new FeederValue(ARROW_REACTIVE, injection.getTerminal().getQ()));
+                new FeederInfo(ARROW_ACTIVE, injection.getTerminal().getP()),
+                new FeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ()));
     }
 
-    private List<FeederValue> buildFeederValues(Branch branch, Branch.Side side) {
+    private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side) {
         return Arrays.asList(
-                new FeederValue(ARROW_ACTIVE, branch.getTerminal(side).getP()),
-                new FeederValue(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
+                new FeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
     }
 }

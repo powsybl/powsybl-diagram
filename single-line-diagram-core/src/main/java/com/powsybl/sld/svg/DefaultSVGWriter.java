@@ -11,7 +11,7 @@ import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
-import com.powsybl.sld.svg.GraphMetadata.FeederValueMetadata;
+import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -918,7 +918,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 + matrix2[4] + "," + matrix2[5] + ")";
     }
 
-    protected void insertFeederValues(String prefixId,
+    protected void insertFeederInfos(String prefixId,
                                       List<Point> points,
                                       Element root,
                                       FeederNode feederNode,
@@ -930,18 +930,18 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         int iArrow = 0;
-        for (FeederValue feederValue : initProvider.getFeederValues(feederNode)) {
+        for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
             // Compute shifting even if not displayed to ensure aligned arrows
-            double height = componentLibrary.getSize(feederValue.getComponentType()).getHeight();
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
             double shiftArrow = iArrow++ * 2 * height;
-            if (!feederValue.isEmpty()) {
-                drawFeederValue(prefixId, feederNode.getId(), points, root, feederValue, shiftArrow, metadata);
-                addFeederValueComponentMetadata(metadata, feederValue.getComponentType());
+            if (!feederInfo.isEmpty()) {
+                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftArrow, metadata);
+                addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
         }
     }
 
-    private void addFeederValueComponentMetadata(GraphMetadata metadata, String componentType) {
+    private void addFeederInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     null,
@@ -952,40 +952,40 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawFeederValue(String prefixId, String feederNodeId, List<Point> points, Element root,
-                                 FeederValue feederValue, double shift, GraphMetadata metadata) {
+    private void drawFeederInfo(String prefixId, String feederNodeId, List<Point> points, Element root,
+                                 FeederInfo feederInfo, double shift, GraphMetadata metadata) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
-        ComponentSize size = componentLibrary.getSize(feederValue.getComponentType());
+        ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
 
         double shX = size.getWidth() + LABEL_OFFSET;
         double shY = size.getHeight() / 2;
 
         List<String> styles = new ArrayList<>(3);
-        componentLibrary.getComponentStyleClass(feederValue.getComponentType()).ifPresent(styles::add);
+        componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).ifPresent(styles::add);
 
         transformArrow(points, size, shift, g);
 
-        String svgId = escapeId(feederNodeId) + "_" + feederValue.getComponentType();
+        String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederValueMetadata(new FeederValueMetadata(svgId, feederNodeId, layoutParameters.getArrowDistance()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, layoutParameters.getArrowDistance()));
 
         // we draw the arrow only if direction is present
-        feederValue.getDirection().ifPresent(direction -> {
+        feederInfo.getDirection().ifPresent(direction -> {
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertArrowSVGIntoDocumentSVG(feederValue.getComponentType(), prefixId, g, rotationAngle);
+            insertArrowSVGIntoDocumentSVG(feederInfo.getComponentType(), prefixId, g, rotationAngle);
             styles.add(direction == Direction.OUT ? OUT_CLASS : IN_CLASS);
         });
 
         // we draw the right label only if present
-        feederValue.getRightLabel().ifPresent(s -> {
+        feederInfo.getRightLabel().ifPresent(s -> {
             Element labelRight = createLabelElement(s, shX, shY, 0, g);
             g.appendChild(labelRight);
         });
 
         // we draw the left label only if present
-        feederValue.getLeftLabel().ifPresent(s -> {
+        feederInfo.getLeftLabel().ifPresent(s -> {
             Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
             labelLeft.setAttribute(STYLE, "text-anchor:end");
             g.appendChild(labelLeft);
@@ -1040,11 +1040,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertFeederValues(prefixId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
+                    insertFeederInfos(prefixId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertFeederValues(prefixId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
+                insertFeederInfos(prefixId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
             }
         }
     }
