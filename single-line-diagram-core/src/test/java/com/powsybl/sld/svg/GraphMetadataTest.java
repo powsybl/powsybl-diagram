@@ -94,7 +94,12 @@ public class GraphMetadataTest {
         assertEquals("id1", metadata2.getWireMetadata("id3").getNodeId1());
         assertEquals("id2", metadata2.getWireMetadata("id3").getNodeId2());
         assertFalse(metadata2.getWireMetadata("id3").isStraight());
+        assertNotNull(metadata2.getFeederInfoMetadata("id1"));
         assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getFeederNodeId());
+        assertEquals(20, metadata2.getFeederInfoMetadata("id1").getDistance(), 0);
+        assertEquals(DiagramLabelProvider.Direction.OUT, metadata2.getFeederInfoMetadata("id1").getArrowDirection());
+        assertEquals("LeftLabel", metadata2.getFeederInfoMetadata("id1").getLeftLabel());
+        assertEquals("RightLabel", metadata2.getFeederInfoMetadata("id1").getRightLabel());
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);
         assertEquals(4, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getY(), 0);
