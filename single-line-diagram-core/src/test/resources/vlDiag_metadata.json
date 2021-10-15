@@ -1469,123 +1469,213 @@
   "feederInfos" : [ {
     "id" : "idgen1_ARROW_REACTIVE",
     "feederNodeId" : "gen1",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idload1_ARROW_ACTIVE",
     "feederNodeId" : "load1",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_ACTIVE",
     "feederNodeId" : "trf8_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_REACTIVE",
     "feederNodeId" : "trf4_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_ACTIVE",
     "feederNodeId" : "trf1_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_ACTIVE",
     "feederNodeId" : "trf8_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idload2_ARROW_ACTIVE",
     "feederNodeId" : "load2",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_REACTIVE",
     "feederNodeId" : "trf3_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idgen2_ARROW_REACTIVE",
     "feederNodeId" : "gen2",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_REACTIVE",
     "feederNodeId" : "trf5_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_REACTIVE",
     "feederNodeId" : "trf6_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_REACTIVE",
     "feederNodeId" : "trf6_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idload1_ARROW_REACTIVE",
     "feederNodeId" : "load1",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_ACTIVE",
     "feederNodeId" : "trf5_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_ACTIVE",
     "feederNodeId" : "trf3_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_ACTIVE",
     "feederNodeId" : "trf7_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_REACTIVE",
     "feederNodeId" : "trf7_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_ACTIVE",
     "feederNodeId" : "trf7_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idload2_ARROW_REACTIVE",
     "feederNodeId" : "load2",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idgen1_ARROW_ACTIVE",
     "feederNodeId" : "gen1",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_REACTIVE",
     "feederNodeId" : "trf7_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_ACTIVE",
     "feederNodeId" : "trf6_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_REACTIVE",
     "feederNodeId" : "trf8_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_REACTIVE",
     "feederNodeId" : "trf1_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idgen2_ARROW_ACTIVE",
     "feederNodeId" : "gen2",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_ACTIVE",
     "feederNodeId" : "trf2_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_ACTIVE",
     "feederNodeId" : "trf6_TWO",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_REACTIVE",
     "feederNodeId" : "trf8_THREE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_REACTIVE",
     "feederNodeId" : "trf2_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_ACTIVE",
     "feederNodeId" : "trf4_ONE",
-    "distance" : 20.0
+    "distance" : 20.0,
+    "arrowDirection" : "IN",
+    "leftLabel" : null,
+    "rightLabel" : "0"
   } ],
   "layoutParams" : {
     "voltageLevelPadding" : {

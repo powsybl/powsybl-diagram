@@ -191,11 +191,21 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final double distance;
 
+        private final DiagramLabelProvider.Direction arrowDirection;
+
+        private final String leftLabel;
+
+        private final String rightLabel;
+
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("distance") double distance) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("distance") double distance,
+                                  @JsonProperty("arrowDirection") DiagramLabelProvider.Direction arrowDirection, @JsonProperty("leftLabel") String leftLabel, @JsonProperty("rightLabel") String rightLabel) {
             this.id = Objects.requireNonNull(id);
             this.feederNodeId = Objects.requireNonNull(feederNodeId);
             this.distance = distance;
+            this.arrowDirection = arrowDirection;
+            this.leftLabel = leftLabel;
+            this.rightLabel = rightLabel;
         }
 
         public String getId() {
@@ -208,6 +218,18 @@ public class GraphMetadata implements AnchorPointProvider {
 
         public double getDistance() {
             return distance;
+        }
+
+        public DiagramLabelProvider.Direction getArrowDirection() {
+            return arrowDirection;
+        }
+
+        public String getLeftLabel() {
+            return leftLabel;
+        }
+
+        public String getRightLabel() {
+            return rightLabel;
         }
     }
 

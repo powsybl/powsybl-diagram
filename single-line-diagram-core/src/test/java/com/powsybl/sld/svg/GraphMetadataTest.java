@@ -64,7 +64,7 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", 20));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", 20, DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
