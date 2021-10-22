@@ -27,7 +27,7 @@ public interface BusCell extends Cell {
                 case MIDDLE:
                     return Orientation.MIDDLE;
                 default:
-                    return null;
+                    return Orientation.UNDEFINED;
             }
         }
     }

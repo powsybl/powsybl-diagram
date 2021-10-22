@@ -28,8 +28,8 @@ import static org.junit.Assert.assertEquals;
  */
 public abstract class AbstractTestCase {
 
-    protected boolean debugJsonFiles = true;
-    protected boolean debugSvgFiles = true;
+    protected boolean debugJsonFiles = false;
+    protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();

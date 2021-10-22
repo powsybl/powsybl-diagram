@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell.Direction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,9 +39,10 @@ class BlockPositionner {
                     Side.RIGHT, nonFlatCellsToClose);
             ArrayList<BusCell> verticalCells = new ArrayList<>(ss.getVerticalInternCells());
             verticalCells.addAll(ss.getExternCells());
-            // hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
-            hPos = placeVerticalCells(hPos, verticalCells.stream()
-                    .sorted(Comparator.comparingInt(BusCell::getOrder)).collect(Collectors.toList()));
+            // hPos = placeVerticalCells(hPos, new
+            // ArrayList<>(ss.getVerticalInternCells()));
+            hPos = placeVerticalCells(hPos, verticalCells.stream().sorted(Comparator.comparingInt(BusCell::getOrder))
+                    .collect(Collectors.toList()));
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT,
                     nonFlatCellsToClose);
             if (hPos == prevHPos) {
@@ -204,7 +206,9 @@ class BlockPositionner {
                 final int j = i % 2;
                 final int newV = i / 2;
                 lane.cells.forEach(c -> {
-                    c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    if (c.getDirection() == Direction.UNDEFINED) {
+                        c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    }
                     if (!c.checkisShape(InternCell.Shape.UNILEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);
                     }

@@ -41,14 +41,23 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
         vlBuilder.connectNode(dl2, bl2);
         vlBuilder.connectNode(bl2, load2);
 
-        SwitchNode dc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc1", false, false);
-        SwitchNode dc2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc2", false, false);
-        SwitchNode bc = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc", false, false, 2,
+        SwitchNode dc11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc11", false, false);
+        SwitchNode dc12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc12", false, false);
+        SwitchNode bc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc1", false, false, 2,
                 Direction.BOTTOM);
-        vlBuilder.connectNode(bbs1, dc1);
-        vlBuilder.connectNode(bc, dc1);
-        vlBuilder.connectNode(bc, dc2);
-        vlBuilder.connectNode(bbs2, dc2);
+        vlBuilder.connectNode(bbs1, dc11);
+        vlBuilder.connectNode(bc1, dc11);
+        vlBuilder.connectNode(bc1, dc12);
+        vlBuilder.connectNode(bbs2, dc12);
+
+        SwitchNode dc21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc21", false, false);
+        SwitchNode dc22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc22", false, false);
+        SwitchNode bc2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc2", false, false, 4,
+                Direction.TOP);
+        vlBuilder.connectNode(bbs1, dc21);
+        vlBuilder.connectNode(bc2, dc21);
+        vlBuilder.connectNode(bc2, dc22);
+        vlBuilder.connectNode(bbs2, dc22);
 
     }
 

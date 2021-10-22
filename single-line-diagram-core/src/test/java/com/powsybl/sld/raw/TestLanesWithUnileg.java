@@ -25,7 +25,8 @@ import static org.junit.Assert.assertEquals;
 public class TestLanesWithUnileg extends AbstractTestCaseRaw {
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl",
+                380);
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
         BusNode bbs13 = vlBuilder.createBusBarSection("bbs13", 1, 3);
@@ -63,5 +64,6 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
         assertEquals(toString("/testLanesWithUnileg.json"), toJson(g, "/testLanesWithUnileg.json"));
+        toSVG(g, "testLanesWithUnileg.svg");
     }
 }
