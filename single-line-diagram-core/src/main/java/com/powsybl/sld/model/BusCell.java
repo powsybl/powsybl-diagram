@@ -40,6 +40,12 @@ public interface BusCell extends Cell {
 
     int newHPosition(int hPosition);
 
+    int getOrder();
+
+    void setOrder(int order);
+
+    void averageOrder();
+
     Direction getDirection();
 
     void setDirection(Direction direction);

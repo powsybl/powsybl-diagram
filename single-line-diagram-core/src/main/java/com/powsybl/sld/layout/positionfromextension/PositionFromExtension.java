@@ -68,10 +68,10 @@ public class PositionFromExtension implements PositionFinder {
                     ExternCell cell = (ExternCell) feederNode.getCell();
                     cell.setDirection(
                             feederNode.getDirection() == BusCell.Direction.UNDEFINED ? DEFAULTDIRECTION : feederNode.getDirection());
-                    cell.setOrder(feederNode.getOrder());
+                    cell.setOrder(feederNode.getOrder().orElse(-1));
                 });
-        graph.getCells().stream().filter(cell -> cell.getType() == Cell.CellType.EXTERN).map(ExternCell.class::cast)
-                .forEach(ExternCell::orderFromFeederOrders);
+        graph.getCells().stream().filter(cell -> cell.getType().isBusCell()).map(BusCell.class::cast)
+                .forEach(BusCell::averageOrder);
 
         List<ExternCell> problematicCells = graph.getCells().stream()
                 .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN))

@@ -34,11 +34,15 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells().stream()
-                    .sorted(Comparator.comparingInt(ExternCell::getOrder)).collect(Collectors.toList())));
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT),
+                    Side.RIGHT, nonFlatCellsToClose);
+            ArrayList<BusCell> verticalCells = new ArrayList<>(ss.getVerticalInternCells());
+            verticalCells.addAll(ss.getExternCells());
+            // hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
+            hPos = placeVerticalCells(hPos, verticalCells.stream()
+                    .sorted(Comparator.comparingInt(BusCell::getOrder)).collect(Collectors.toList()));
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT,
+                    nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;
             }
@@ -59,8 +63,8 @@ class BlockPositionner {
                     && (actualBusNode == null || prevBusNode != actualBusNode)) {
                 Position p = prevBusNode.getPosition();
                 p.setSpan(H, hPos - Math.max(p.get(H), 0) - hSpace);
-            } else if (ssSide == Side.LEFT && actualBusNode != null &&
-                    (prevBusNode == null || prevBusNode != actualBusNode)) {
+            } else if (ssSide == Side.LEFT && actualBusNode != null
+                    && (prevBusNode == null || prevBusNode != actualBusNode)) {
                 actualBusNode.getPosition().set(H, hPos);
             }
         }
@@ -82,10 +86,10 @@ class BlockPositionner {
         return hPosRes;
     }
 
-    private int placeCrossOverInternCells(int hPos,
-                                          List<InternCell> cells,
-                                          Side side, List<InternCell> nonFlatCellsToClose) {
-        // side, is the side from the InternCell standpoint. The left side of the internCell shall be on the right of the subsection
+    private int placeCrossOverInternCells(int hPos, List<InternCell> cells, Side side,
+            List<InternCell> nonFlatCellsToClose) {
+        // side, is the side from the InternCell standpoint. The left side of the
+        // internCell shall be on the right of the subsection
         int hPosRes = hPos;
         cells.sort(Comparator.comparingInt(c -> -nonFlatCellsToClose.indexOf(c)));
         for (InternCell cell : cells) {
@@ -101,18 +105,19 @@ class BlockPositionner {
 
     private void manageInternCellOverlaps(VoltageLevelGraph graph) {
         List<InternCell> cellsToHandle = graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
-                .map(InternCell.class::cast)
-                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN).map(InternCell.class::cast)
+                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED,
+                        InternCell.Shape.UNHANDLEDPATTERN))
                 .collect(Collectors.toList());
         InternCellsLanes lane = new InternCellsLanes(cellsToHandle);
         lane.run();
     }
 
     /**
-     * The class lane manages the overlaps of internCells.
-     * After bundleToCompatibleLanes each lane contents non overlapping cells
-     * arrangeLane at this stage balance the lanes on TOP and BOTTOM this could be improved by having various VPos per lane
+     * The class lane manages the overlaps of internCells. After
+     * bundleToCompatibleLanes each lane contents non overlapping cells arrangeLane
+     * at this stage balance the lanes on TOP and BOTTOM this could be improved by
+     * having various VPos per lane
      */
     private class InternCellsLanes {
         InternCellsLanes nextLane;
@@ -182,11 +187,8 @@ class BlockPositionner {
         }
 
         private void shiftIncompatibilities(Map<InternCell, List<InternCell>> incompatibilities) {
-            incompatibilities.entrySet().stream()
-                    .filter(e -> !e.getValue().isEmpty())
-                    .max(Comparator.comparingInt(e -> e.getValue().size()))
-                    .map(Map.Entry::getKey)
-                    .ifPresent(cell -> {
+            incompatibilities.entrySet().stream().filter(e -> !e.getValue().isEmpty())
+                    .max(Comparator.comparingInt(e -> e.getValue().size())).map(Map.Entry::getKey).ifPresent(cell -> {
                         cells.remove(cell);
                         if (nextLane == null) {
                             nextLane = new InternCellsLanes(cell, lanes);

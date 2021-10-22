@@ -89,6 +89,15 @@ public class RawGraphBuilder implements GraphBuilder {
             return sw;
         }
 
+        public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open, int order, BusCell.Direction direction) {
+            SwitchNode sw = new SwitchNode(id, id, sk.name(), fictitious, graph, sk, open);
+            graph.addNode(sw);
+            if (direction != null) {
+                addExtension(sw, order, direction);
+            }
+            return sw;
+        }
+
         public void connectNode(Node node1, Node node2) {
             graph.addEdge(node1, node2);
         }
@@ -105,7 +114,7 @@ public class RawGraphBuilder implements GraphBuilder {
             return fictitiousNode;
         }
 
-        public void addExtension(FeederNode fn, int order, BusCell.Direction direction) {
+        public void addExtension(Node fn, int order, BusCell.Direction direction) {
             fn.setOrder(order);
             fn.setDirection(direction);
         }

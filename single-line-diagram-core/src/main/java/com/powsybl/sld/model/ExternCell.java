@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
@@ -26,25 +25,10 @@ import static com.powsybl.sld.model.Side.*;
 public class ExternCell extends AbstractBusCell {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternCell.class);
 
-    private int order = -1;
     private ShuntCell shuntCell = null;
 
     public ExternCell(VoltageLevelGraph graph) {
         super(graph, EXTERN);
-    }
-
-    public void orderFromFeederOrders() {
-        int sumOrder = 0;
-        int nbFeeder = 0;
-        for (FeederNode node : getNodes().stream()
-                .filter(node -> node.getType() == FEEDER)
-                .map(node -> (FeederNode) node).collect(Collectors.toList())) {
-            sumOrder += node.getOrder();
-            nbFeeder++;
-        }
-        if (nbFeeder != 0) {
-            setOrder(sumOrder / nbFeeder);
-        }
     }
 
     public void organizeBlockDirections() {
@@ -78,17 +62,9 @@ public class ExternCell extends AbstractBusCell {
         this.shuntCell = shuntCell;
     }
 
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
     @Override
     public String toString() {
-        return getType() + " " + order + " " + getDirection() + " " + nodes;
+        return getType() + " " + getOrder() + " " + getDirection() + " " + nodes;
     }
 
     @Override
@@ -104,9 +80,4 @@ public class ExternCell extends AbstractBusCell {
                 });
     }
 
-    @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
-        generator.writeNumberField("order", order);
-    }
 }

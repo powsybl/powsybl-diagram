@@ -693,6 +693,7 @@
       "type" : "INTERN",
       "number" : 0,
       "direction" : "TOP",
+      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {

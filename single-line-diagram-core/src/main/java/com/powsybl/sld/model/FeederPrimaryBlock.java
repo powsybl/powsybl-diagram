@@ -64,7 +64,7 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public int getOrder() {
-        return getFeederNode().getOrder();
+        return getFeederNode().getOrder().orElse(-1);
     }
 
     @Override

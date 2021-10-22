@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,12 +25,7 @@ import java.util.stream.Stream;
 public class Node implements BaseNode {
 
     public enum NodeType {
-        BUS,
-        FEEDER,
-        FICTITIOUS,
-        SWITCH,
-        SHUNT,
-        OTHER
+        BUS, FEEDER, FICTITIOUS, SWITCH, SHUNT, OTHER
     }
 
     protected final VoltageLevelGraph graph;
@@ -52,23 +48,32 @@ public class Node implements BaseNode {
 
     private Double rotationAngle;
 
+    // TODO: why is open attribute at the Node level rather than SwitchNode?
     private boolean open = false;
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
 
     private String label;
 
+    private Optional<Integer> order = Optional.empty();
+
+    private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
+
+    private Orientation orientation;
+
     /**
      * Constructor
      */
-    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph) {
+    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious,
+            VoltageLevelGraph graph) {
         this.type = Objects.requireNonNull(type);
         this.id = Objects.requireNonNull(id);
         this.name = name;
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
-        // graph can be null here : for example, in a substation diagram, a fictitious node is created outside
+        // graph can be null here : for example, in a substation diagram, a fictitious
+        // node is created outside
         // any graph, in order to link the different windings together
         this.graph = graph;
     }
@@ -129,8 +134,7 @@ public class Node implements BaseNode {
     }
 
     public List<Node> getAdjacentNodes() {
-        return adjacentEdges.stream()
-                .map(edge -> edge.getNode1() == Node.this ? edge.getNode2() : edge.getNode1())
+        return adjacentEdges.stream().map(edge -> edge.getNode1() == Node.this ? edge.getNode2() : edge.getNode1())
                 .collect(Collectors.toList());
     }
 
@@ -228,22 +232,47 @@ public class Node implements BaseNode {
         this.open = open;
     }
 
+    public Optional<Integer> getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = Optional.of(order);
+    }
+
+    public BusCell.Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(BusCell.Direction direction) {
+        this.direction = direction;
+        if (orientation == null || orientation.isHorizontal()) {
+            this.orientation = direction.toOrientation();
+        }
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
     /**
      * Check similarity with another node
      *
      * @param n the node to compare with
-     * @return true IF the both are the same OR they are both Busbar OR they are both EQ(but not Busbar);
-     * false otherwise
+     * @return true IF the both are the same OR they are both Busbar OR they are
+     *         both EQ(but not Busbar); false otherwise
      **/
     public boolean checkNodeSimilarity(Node n) {
-        return this.equals(n)
-                || ((similarToAFeederNode(this)) && (similarToAFeederNode(n)))
+        return this.equals(n) || ((similarToAFeederNode(this)) && (similarToAFeederNode(n)))
                 || ((this instanceof BusNode) && (n instanceof BusNode));
     }
 
     public boolean similarToAFeederNode(Node n) {
-        return (n instanceof FeederNode)
-                || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
+        return (n instanceof FeederNode) || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
     }
 
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
@@ -288,8 +317,9 @@ public class Node implements BaseNode {
     }
 
     /**
-     * Get voltage level infos for this node. By default it is the voltage level infos of the graph but it
-     * could be override in case of node that represents an external voltage level.
+     * Get voltage level infos for this node. By default it is the voltage level
+     * infos of the graph but it could be override in case of node that represents
+     * an external voltage level.
      */
     public VoltageLevelInfos getVoltageLevelInfos() {
         if (graph != null) {

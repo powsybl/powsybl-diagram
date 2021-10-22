@@ -23,10 +23,27 @@ import java.util.stream.Collectors;
 public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
+
+    private int order = -1;
+
     private Direction direction = Direction.UNDEFINED;
 
     protected AbstractBusCell(VoltageLevelGraph graph, CellType type) {
         super(graph, type);
+    }
+
+    public void averageOrder() {
+        int sumOrder = 0;
+        int nbFeeder = 0;
+        for (Node node : getNodes()) {
+            if (node.getOrder().isPresent()) {
+                sumOrder += node.getOrder().get();
+                nbFeeder++;
+            }
+        }
+        if (nbFeeder != 0) {
+            setOrder(sumOrder / nbFeeder);
+        }
     }
 
     @Override
@@ -37,15 +54,23 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public List<BusNode> getBusNodes() {
-        return nodes.stream()
-                .filter(n -> n.getType() == Node.NodeType.BUS)
-                .map(BusNode.class::cast)
+        return nodes.stream().filter(n -> n.getType() == Node.NodeType.BUS).map(BusNode.class::cast)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<LegPrimaryBlock> getLegPrimaryBlocks() {
         return new ArrayList<>(legPrimaryBlocks);
+    }
+
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
+    @Override
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     @Override
@@ -73,6 +98,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         super.writeJsonContent(generator);
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", getDirection().name());
+            generator.writeNumberField("order", getOrder());
         }
     }
 
