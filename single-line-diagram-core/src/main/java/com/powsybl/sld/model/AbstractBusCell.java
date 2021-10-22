@@ -12,6 +12,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -36,8 +37,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         int sumOrder = 0;
         int nbFeeder = 0;
         for (Node node : getNodes()) {
-            if (node.getOrder().isPresent()) {
-                sumOrder += node.getOrder().get();
+            Optional<Integer> oOrder = node.getOrder();
+            if (oOrder.isPresent()) {
+                sumOrder += oOrder.get();
                 nbFeeder++;
             }
         }
