@@ -67,8 +67,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
             return Arrays.asList(
-                    new FeederInfo(ARROW_ACTIVE, Direction.OUT, "", "tata"),
-                    new FeederInfo(ARROW_REACTIVE, Direction.IN, "", "tutu"));
+                    new FeederInfo(null, ARROW_ACTIVE, Direction.OUT, "", "tata"),
+                    new FeederInfo(null, ARROW_REACTIVE, Direction.IN, "", "tutu"));
         }
 
         @Override

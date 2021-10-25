@@ -666,8 +666,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10"),
-                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20"));
+                        new FeederInfo(null, ARROW_ACTIVE, Direction.OUT, null, "10"),
+                        new FeederInfo(null, ARROW_REACTIVE, Direction.IN, null, "20"));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -687,8 +687,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 return Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, null, null, null),
-                        new FeederInfo(ARROW_REACTIVE, null, null, null));
+                        new FeederInfo(null, ARROW_ACTIVE, null, null, null),
+                        new FeederInfo(null, ARROW_REACTIVE, null, null, null));
             }
 
             @Override

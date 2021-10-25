@@ -64,7 +64,7 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", 20, DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", "user_id", DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
@@ -96,7 +96,7 @@ public class GraphMetadataTest {
         assertFalse(metadata2.getWireMetadata("id3").isStraight());
         assertNotNull(metadata2.getFeederInfoMetadata("id1"));
         assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getFeederNodeId());
-        assertEquals(20, metadata2.getFeederInfoMetadata("id1").getDistance(), 0);
+        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserId());
         assertEquals(DiagramLabelProvider.Direction.OUT, metadata2.getFeederInfoMetadata("id1").getArrowDirection());
         assertEquals("LeftLabel", metadata2.getFeederInfoMetadata("id1").getLeftLabel());
         assertEquals("RightLabel", metadata2.getFeederInfoMetadata("id1").getRightLabel());

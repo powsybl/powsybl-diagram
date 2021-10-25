@@ -25,28 +25,34 @@ import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
  */
 public class FeederInfo {
 
+    private final String id;
     private final String componentType;
     private final Direction arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
 
-    public FeederInfo(String componentType) {
-        this(componentType, null, null, null);
+    public FeederInfo(String id, String componentType) {
+        this(id, componentType, null, null, null);
     }
 
-    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public FeederInfo(String id, String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+        this.id = id;
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
     }
 
-    public FeederInfo(String componentType, double value) {
-        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
+    public FeederInfo(String id, String componentType, double value) {
+        this(id, componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
     }
 
     public boolean isEmpty() {
         return getDirection().isEmpty() && getLeftLabel().isEmpty() || getRightLabel().isEmpty();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getComponentType() {

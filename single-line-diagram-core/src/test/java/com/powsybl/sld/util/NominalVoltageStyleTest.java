@@ -106,7 +106,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
-            return Arrays.asList(new FeederInfo(ARROW_ACTIVE), new FeederInfo(ARROW_REACTIVE));
+            return Arrays.asList(new FeederInfo(null, ARROW_ACTIVE), new FeederInfo(null, ARROW_REACTIVE));
         }
     }
 

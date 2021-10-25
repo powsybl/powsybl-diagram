@@ -969,7 +969,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, layoutParameters.getArrowDistance(),
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getId(),
                 feederInfo.getDirection().orElse(null), feederInfo.getLeftLabel().orElse(null), feederInfo.getRightLabel().orElse(null)));
 
         // we draw the arrow only if direction is present
