@@ -270,6 +270,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         // Optimize SVG by avoiding duplication
         getLayoutParameters().setAvoidSVGComponentsDuplication(true);
+        getLayoutParameters().setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),

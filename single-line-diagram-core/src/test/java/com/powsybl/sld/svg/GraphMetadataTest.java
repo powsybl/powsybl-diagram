@@ -16,7 +16,6 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,7 +67,8 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", "user_id", DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
+        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "user_id", DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
+        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
@@ -108,6 +108,9 @@ public class GraphMetadataTest {
         assertEquals(DiagramLabelProvider.Direction.OUT, metadata2.getFeederInfoMetadata("id1").getArrowDirection());
         assertEquals("LeftLabel", metadata2.getFeederInfoMetadata("id1").getLeftLabel());
         assertEquals("RightLabel", metadata2.getFeederInfoMetadata("id1").getRightLabel());
+
+        assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
+
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);
         assertEquals(4, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getY(), 0);

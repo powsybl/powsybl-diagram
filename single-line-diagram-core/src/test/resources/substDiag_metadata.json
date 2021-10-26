@@ -3690,6 +3690,7 @@
     "leftLabel" : null,
     "rightLabel" : "0"
   } ],
+  "electricalNodeInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,

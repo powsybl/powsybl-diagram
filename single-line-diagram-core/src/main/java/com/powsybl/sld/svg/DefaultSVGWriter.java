@@ -229,7 +229,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
-            drawNodesInfos(prefixId, root, graph, styleProvider);
+            drawNodesInfos(prefixId, root, graph, metadata, styleProvider);
         }
     }
 
@@ -1364,6 +1364,7 @@ public class DefaultSVGWriter implements SVGWriter {
     private void drawNodesInfos(String prefixId,
                                 Element root,
                                 VoltageLevelGraph graph,
+                                GraphMetadata metadata,
                                 DiagramStyleProvider styleProvider) {
 
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
@@ -1380,6 +1381,8 @@ public class DefaultSVGWriter implements SVGWriter {
             drawNodeInfos(nodes.get(i), xShift, yPos, gNode, idNode);
 
             root.appendChild(gNode);
+
+            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode));
         }
     }
 }

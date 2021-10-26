@@ -1831,6 +1831,11 @@
     "leftLabel" : null,
     "rightLabel" : "0"
   } ],
+  "electricalNodeInfos" : [ {
+    "id" : "NODE_0_vl1"
+  }, {
+    "id" : "NODE_1_vl1"
+  } ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,
