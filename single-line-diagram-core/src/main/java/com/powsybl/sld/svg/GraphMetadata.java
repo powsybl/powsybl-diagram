@@ -49,6 +49,8 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String equipmentId;
 
+        private final List<NodeLabelMetadata> labels;
+
         @JsonCreator
         public NodeMetadata(@JsonProperty("id") String id,
                             @JsonProperty("vid") String vId,
@@ -58,7 +60,8 @@ public class GraphMetadata implements AnchorPointProvider {
                             @JsonProperty("open") boolean open,
                             @JsonProperty("direction") BusCell.Direction direction,
                             @JsonProperty("vlabel") boolean vLabel,
-                            @JsonProperty("equipmentId") String equipmentId) {
+                            @JsonProperty("equipmentId") String equipmentId,
+                            @JsonProperty("labels") List<NodeLabelMetadata> labels) {
             this.id = Objects.requireNonNull(id);
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
@@ -68,6 +71,7 @@ public class GraphMetadata implements AnchorPointProvider {
             this.direction = direction;
             this.vLabel = vLabel;
             this.equipmentId = equipmentId;
+            this.labels = Objects.requireNonNull(labels);
         }
 
         public String getId() {
@@ -104,6 +108,40 @@ public class GraphMetadata implements AnchorPointProvider {
 
         public String getEquipmentId() {
             return equipmentId;
+        }
+
+        public List<NodeLabelMetadata> getLabels() {
+            return labels;
+        }
+    }
+
+    public static class NodeLabelMetadata {
+
+        private final String id;
+
+        private final String userId;
+
+        private final String positionName;
+
+        @JsonCreator
+        public NodeLabelMetadata(@JsonProperty("id") String id,
+                                 @JsonProperty("userId") String userId,
+                                 @JsonProperty("positionName") String positionName) {
+            this.id = Objects.requireNonNull(id);
+            this.userId = userId;
+            this.positionName = Objects.requireNonNull(positionName);
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getPositionName() {
+            return positionName;
         }
     }
 

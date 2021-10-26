@@ -59,7 +59,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
+                labels.add(new DiagramLabelProvider.NodeLabel(null, n.getLabel(), labelPosition));
                 busLabels.put(n, labels);
             });
         }

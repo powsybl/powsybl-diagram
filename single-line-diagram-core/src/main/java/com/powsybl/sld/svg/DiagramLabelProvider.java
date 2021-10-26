@@ -18,12 +18,18 @@ import java.util.List;
 public interface DiagramLabelProvider {
 
     class NodeLabel {
+        private final String id;
         private final String label;
         private final LabelPosition position;
 
-        public NodeLabel(String label, LabelPosition labelPosition) {
+        public NodeLabel(String id, String label, LabelPosition labelPosition) {
+            this.id = id;
             this.label = label;
             this.position = labelPosition;
+        }
+
+        public String getId() {
+            return id;
         }
 
         public String getLabel() {

@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.*;
@@ -61,8 +63,10 @@ public class GraphMetadataTest {
             ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", true, null));
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
+        List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "user_id", "position_name"));
+
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new FeederInfoMetadata("id1", "id3", "user_id", DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
 
@@ -87,6 +91,10 @@ public class GraphMetadataTest {
         Assert.assertEquals(BUSBAR_SECTION, metadata2.getNodeMetadata("id2").getComponentType());
         assertEquals("id2", metadata2.getNodeMetadata("id2").getId());
         assertEquals("vid2", metadata2.getNodeMetadata("id2").getVId());
+        assertNotNull(metadata2.getNodeMetadata("id1").getLabels());
+        assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).getId());
+        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).getUserId());
+        assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).getPositionName());
         assertNotNull(metadata2.getNodeMetadata("id2"));
         assertEquals(1, metadata2.getWireMetadata().size());
         assertNotNull(metadata2.getWireMetadata("id3"));
@@ -136,11 +144,11 @@ public class GraphMetadataTest {
     @Test
     public void testGraphMetadataWithLine() throws IOException {
         GraphMetadata metadata = new GraphMetadata();
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, null, false, BusCell.Direction.UNDEFINED, false, null));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null));
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid2", "vid2", null, LINE, null, false, BusCell.Direction.UNDEFINED, false, null));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid2", "vid2", null, LINE, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid2", "bid2", "lid2", false, false));
         metadata.addLineMetadata(new GraphMetadata.LineMetadata("lid", "lid1", "lid2"));
 
