@@ -507,7 +507,8 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             drawBus(busNode, g);
-            List<GraphMetadata.NodeLabelMetadata> labelsMetadata = drawNodeLabel(prefixId, g, busNode, initProvider);
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode);
+            drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, busNode, initProvider, styleProvider);
 
             root.appendChild(g);
@@ -515,7 +516,7 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
                     BUSBAR_SECTION, busNode.getRotationAngle(),
-                    false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId(), labelsMetadata));
+                    false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             metadata.addComponent(new Component(BUSBAR_SECTION,
                 nodeId,
                 anchorPointProvider.getAnchorPoints(BUSBAR_SECTION, busNode.getId()),
@@ -525,6 +526,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
             remainingNodesToDraw.remove(busNode);
         }
+    }
+
+    protected List<GraphMetadata.NodeLabelMetadata> createNodeLabelMetadata(String prefixId, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
+        List<GraphMetadata.NodeLabelMetadata> labelsMetadata = new ArrayList<>();
+        for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
+            LabelPosition labelPosition = nodeLabel.getPosition();
+            String svgId = prefixId + node.getId() + "_" + labelPosition.getPositionName();
+            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
+        }
+        return labelsMetadata;
     }
 
    /*
@@ -545,20 +556,21 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, node, g, styleProvider);
-            List<GraphMetadata.NodeLabelMetadata> labelsMetadata = Collections.emptyList();
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = Collections.emptyList();
             if (!node.isFictitious() || node instanceof Middle3WTNode) {
-                labelsMetadata = drawNodeLabel(prefixId, g, node, initProvider);
+                nodeLabels = initProvider.getNodeLabels(node);
+                drawNodeLabel(prefixId, g, node, nodeLabels);
                 drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
             }
 
             root.appendChild(g);
 
             BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-            setMetadata(metadata, node, nodeId, graph, direction, labelsMetadata);
+            setMetadata(prefixId, metadata, node, nodeId, graph, direction, nodeLabels);
         }
     }
 
-    protected void setMetadata(GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction, List<GraphMetadata.NodeLabelMetadata> labelsMetadata) {
+    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -570,7 +582,7 @@ public class DefaultSVGWriter implements SVGWriter {
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
                         node.getComponentType(), node.getRotationAngle(),
-                        node.isOpen(), direction, false, node.getEquipmentId(), labelsMetadata));
+                        node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
         if (metadata.getComponentMetadata(node.getComponentType()) == null) {
             metadata.addComponent(new Component(node.getComponentType(),
                 null,
@@ -581,20 +593,17 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected List<GraphMetadata.NodeLabelMetadata> drawNodeLabel(String prefixId, Element g, Node node, DiagramLabelProvider labelProvider) {
-        List<GraphMetadata.NodeLabelMetadata> labelsMetadata = new ArrayList<>();
-        for (DiagramLabelProvider.NodeLabel nodeLabel : labelProvider.getNodeLabels(node)) {
+    protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
+        for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
-            String svgId = prefixId + labelPosition.getPositionName();
+            String svgId = prefixId + node.getId() + "_" + labelPosition.getPositionName();
             label.setAttribute("id", svgId);
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
             g.appendChild(label);
-            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
         }
-        return labelsMetadata;
     }
 
     protected void drawNodeDecorators(String prefixId, Element root, Node node, DiagramLabelProvider labelProvider,
@@ -1308,7 +1317,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             root.appendChild(g);
 
-            setMetadata(metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, Collections.emptyList());
+            setMetadata(prefixId, metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, Collections.emptyList());
         });
     }
 
