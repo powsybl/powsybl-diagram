@@ -592,7 +592,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
             }
             g.appendChild(label);
-            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, nodeLabel.getId(), labelPosition.getPositionName()));
+            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
         }
         return labelsMetadata;
     }
@@ -975,7 +975,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getId(),
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserId(),
                 feederInfo.getDirection().orElse(null), feederInfo.getLeftLabel().orElse(null), feederInfo.getRightLabel().orElse(null)));
 
         // we draw the arrow only if direction is present
@@ -1382,7 +1382,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             root.appendChild(gNode);
 
-            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode));
+            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, null));
         }
     }
 }

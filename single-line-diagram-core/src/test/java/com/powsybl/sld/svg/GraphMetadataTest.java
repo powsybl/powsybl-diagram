@@ -62,13 +62,13 @@ public class GraphMetadataTest {
             ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", true, null));
 
-        List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "user_id", "position_name"));
+        List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "user_id", DiagramLabelProvider.Direction.OUT, "LeftLabel", "RightLabel"));
-        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1"));
+        metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
@@ -110,6 +110,7 @@ public class GraphMetadataTest {
         assertEquals("RightLabel", metadata2.getFeederInfoMetadata("id1").getRightLabel());
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
+        assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserId());
 
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);

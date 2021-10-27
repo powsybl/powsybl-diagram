@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
@@ -29,6 +30,7 @@ import java.util.*;
  */
 public class GraphMetadata implements AnchorPointProvider {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
 
         private final String id;
@@ -115,21 +117,22 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeLabelMetadata {
 
         private final String id;
 
-        private final String userId;
-
         private final String positionName;
+
+        private final String userId;
 
         @JsonCreator
         public NodeLabelMetadata(@JsonProperty("id") String id,
-                                 @JsonProperty("userId") String userId,
-                                 @JsonProperty("positionName") String positionName) {
+                                 @JsonProperty("positionName") String positionName,
+                                 @JsonProperty("userId") String userId) {
             this.id = Objects.requireNonNull(id);
-            this.userId = userId;
             this.positionName = Objects.requireNonNull(positionName);
+            this.userId = userId;
         }
 
         public String getId() {
@@ -145,6 +148,7 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class WireMetadata {
 
         private final String id;
@@ -191,6 +195,7 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class LineMetadata {
 
         private final String id;
@@ -221,6 +226,7 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class FeederInfoMetadata {
 
         private final String id;
@@ -271,17 +277,25 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class ElectricalNodeInfoMetadata {
 
         private final String id;
 
+        private final String userId;
+
         @JsonCreator
-        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id) {
+        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id, @JsonProperty("userId") String userId) {
             this.id = Objects.requireNonNull(id);
+            this.userId = userId;
         }
 
         public String getId() {
             return id;
+        }
+
+        public String getUserId() {
+            return userId;
         }
     }
 
