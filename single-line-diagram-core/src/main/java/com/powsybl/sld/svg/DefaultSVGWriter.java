@@ -532,7 +532,7 @@ public class DefaultSVGWriter implements SVGWriter {
         List<GraphMetadata.NodeLabelMetadata> labelsMetadata = new ArrayList<>();
         for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
-            String svgId = getNodeId(prefixId, node, labelPosition);
+            String svgId = getNodeLabelId(prefixId, node, labelPosition);
             labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
         }
         return labelsMetadata;
@@ -556,9 +556,8 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, node, g, styleProvider);
-            List<DiagramLabelProvider.NodeLabel> nodeLabels = Collections.emptyList();
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node);
             if (!node.isFictitious() || node instanceof Middle3WTNode) {
-                nodeLabels = initProvider.getNodeLabels(node);
                 drawNodeLabel(prefixId, g, node, nodeLabels);
                 drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
             }
@@ -597,7 +596,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
-            String svgId = getNodeId(prefixId, node, labelPosition);
+            String svgId = getNodeLabelId(prefixId, node, labelPosition);
             label.setAttribute("id", svgId);
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
@@ -1019,7 +1018,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return escapeClassName(prefixId + "_" + containerId + "_" + edge.getNode1().getId() + "_" + edge.getNode2().getId());
     }
 
-    private static String getNodeId(String prefixId, Node node, LabelPosition labelPosition) {
+    private static String getNodeLabelId(String prefixId, Node node, LabelPosition labelPosition) {
         return prefixId + node.getId() + "_" + labelPosition.getPositionName();
     }
 
