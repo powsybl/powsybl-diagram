@@ -15,7 +15,6 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
@@ -152,10 +151,53 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     @Override
     public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
+        List<ElectricalNodeInfo> electricalNodesInfos = new ArrayList<>();
+
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        return vl.getBusView().getBusStream()
-                .map(b -> new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle(), null))
-                .collect(Collectors.toList());
+        vl.getBusView().getBusStream()
+                .map(this::getElectricalNode)
+                .forEach(electricalNodesInfos::add);
+
+        getNeighbouringBuses(vl).stream()
+                .map(this::getElectricalNode)
+                .forEach(electricalNodesInfos::add);
+
+        return electricalNodesInfos;
+    }
+
+    private Set<Bus> getNeighbouringBuses(VoltageLevel vl) {
+        Set<Bus> neighbouringBuses = new LinkedHashSet<>();
+        vl.visitEquipments(new DefaultTopologyVisitor() {
+            @Override
+            public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer, Branch.Side side) {
+                addNeighbouringBus(neighbouringBuses, transformer.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE));
+            }
+
+            @Override
+            public void visitThreeWindingsTransformer(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
+                if (side != ThreeWindingsTransformer.Side.ONE) {
+                    addNeighbouringBus(neighbouringBuses, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE));
+                }
+                if (side != ThreeWindingsTransformer.Side.TWO) {
+                    addNeighbouringBus(neighbouringBuses, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO));
+                }
+                if (side != ThreeWindingsTransformer.Side.THREE) {
+                    addNeighbouringBus(neighbouringBuses, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE));
+                }
+            }
+
+            private void addNeighbouringBus(Set<Bus> neighbouringBuses, Terminal terminal) {
+                Bus bus = terminal.getBusView().getBus();
+                if (bus != null) {
+                    neighbouringBuses.add(bus);
+                }
+            }
+        });
+        return neighbouringBuses;
+    }
+
+    private ElectricalNodeInfo getElectricalNode(Bus b) {
+        return new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle(), null);
     }
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Extendable e) {

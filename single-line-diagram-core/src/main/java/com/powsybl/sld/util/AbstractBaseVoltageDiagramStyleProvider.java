@@ -14,6 +14,7 @@ import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -293,10 +294,26 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
         Bus bus = network.getBusView().getBus(busId);
         if (bus != null) {
-            for (Terminal t : bus.getConnectedTerminals()) {
-                for (FeederNode feederNode : graph.getFeederNodes()) {
-                    if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
-                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
+            if (bus.getVoltageLevel().getId().equals(graph.getVoltageLevelInfos().getId())) {
+                return findFeederNodeInBus(graph, bus)
+                        .map(node -> getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node)
+                        .map(Collections::singletonList)
+                        .orElse(Collections.emptyList()))
+                        .orElse(Collections.emptyList());
+            } else {
+                Optional<Feeder2WTNode> t2w = findFeeder2WTNodeInBus(graph, bus);
+                if (t2w.isPresent()) {
+                    Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(t2w.get().getOtherSideVoltageLevelInfos(), t2w.get());
+                    if (voltageLevelStyle.isPresent()) {
+                        return Collections.singletonList(voltageLevelStyle.get());
+                    }
+                }
+
+                Optional<Middle3WTNode> t3w = findMiddle3WTInBus(graph, bus);
+                if (t3w.isPresent()) {
+                    Optional<VoltageLevelInfos> vlInfo = getVoltageLevelInfos(bus.getVoltageLevel().getId(), t3w.get());
+                    if (vlInfo.isPresent()) {
+                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(vlInfo.get(), t3w.get());
                         if (voltageLevelStyle.isPresent()) {
                             return Collections.singletonList(voltageLevelStyle.get());
                         }
@@ -304,7 +321,62 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 }
             }
         }
+
         return Collections.emptyList();
+    }
+
+    private Optional<FeederNode> findFeederNodeInBus(VoltageLevelGraph graph, Bus bus) {
+        for (Terminal t : bus.getConnectedTerminals()) {
+            for (FeederNode node : graph.getFeederNodes()) {
+                if (node.getEquipmentId().equals(t.getConnectable().getId())) {
+                    return Optional.of(node);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Feeder2WTNode> findFeeder2WTNodeInBus(VoltageLevelGraph graph, Bus bus) {
+        List<Feeder2WTNode> t2w = graph.getNodes().stream()
+                .filter(Feeder2WTNode.class::isInstance)
+                .map(Feeder2WTNode.class::cast)
+                .collect(Collectors.toList());
+
+        for (Feeder2WTNode transfo : t2w) {
+            for (Terminal t : bus.getConnectedTerminals()) {
+                if (transfo.getEquipmentId().equals(t.getConnectable().getId())) {
+                    return Optional.of(transfo);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Middle3WTNode> findMiddle3WTInBus(VoltageLevelGraph graph, Bus bus) {
+        List<Middle3WTNode> t3w = graph.getNodes().stream()
+                .filter(Middle3WTNode.class::isInstance)
+                .map(Middle3WTNode.class::cast)
+                .collect(Collectors.toList());
+        for (Middle3WTNode transfo : t3w) {
+            for (Terminal t : bus.getConnectedTerminals()) {
+                if (transfo.getEquipmentId().equals(t.getConnectable().getId())) {
+                    return Optional.of(transfo);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<VoltageLevelInfos> getVoltageLevelInfos(String vlId, MiddleTwtNode transfo) {
+        VoltageLevelInfos voltageInfo = null;
+        if (transfo.getVoltageLevelInfos(FeederWithSideNode.Side.ONE).getId().equals(vlId)) {
+            voltageInfo = transfo.getVoltageLevelInfos(FeederWithSideNode.Side.ONE);
+        } else if (transfo.getVoltageLevelInfos(FeederWithSideNode.Side.TWO).getId().equals(vlId)) {
+            voltageInfo = transfo.getVoltageLevelInfos(FeederWithSideNode.Side.TWO);
+        } else  if (transfo.getVoltageLevelInfos(FeederWithSideNode.Side.THREE).getId().equals(vlId)) {
+            voltageInfo = transfo.getVoltageLevelInfos(FeederWithSideNode.Side.THREE);
+        }
+        return Optional.ofNullable(voltageInfo);
     }
 
     @Override
