@@ -8,7 +8,9 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -74,4 +76,8 @@ public interface DiagramLabelProvider {
     List<NodeLabel> getNodeLabels(Node node);
 
     List<NodeDecorator> getNodeDecorators(Node node);
+
+    default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
+        return Collections.emptyList();
+    }
 }

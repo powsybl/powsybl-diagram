@@ -229,7 +229,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
-            drawNodesInfos(prefixId, root, graph, metadata, styleProvider);
+            drawNodesInfos(prefixId, root, graph, metadata, initProvider, styleProvider);
         }
     }
 
@@ -1326,11 +1326,8 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel nodes infos
      */
-    private void drawNodeInfos(ElectricalNodeInfo nodeInfo,
-                               double xShift,
-                               double yShift,
-                               Element g,
-                               String idNode) {
+    private void drawNodeInfos(ElectricalNodeInfo nodeInfo, double xShift, double yShift,
+                               Element g, String idNode, List<String> styles) {
         Element circle = g.getOwnerDocument().createElement("circle");
 
         circle.setAttribute("id", idNode + "_circle");
@@ -1338,7 +1335,9 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE / 2.));
         circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        circle.setAttribute(CLASS, nodeInfo.getStyle());
+        if (!styles.isEmpty()) {
+            circle.setAttribute(CLASS, String.join(" ", styles));
+        }
         g.appendChild(circle);
 
         // v
@@ -1372,29 +1371,26 @@ public class DefaultSVGWriter implements SVGWriter {
         g.appendChild(labelAngle);
     }
 
-    private void drawNodesInfos(String prefixId,
-                                Element root,
-                                VoltageLevelGraph graph,
-                                GraphMetadata metadata,
-                                DiagramStyleProvider styleProvider) {
+    private void drawNodesInfos(String prefixId, Element root, VoltageLevelGraph graph,
+                                GraphMetadata metadata, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
 
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
-        List<ElectricalNodeInfo> nodes = styleProvider.getElectricalNodesInfos(graph);
-
-        for (int i = 0; i < nodes.size(); i++) {
-            ElectricalNodeInfo node = nodes.get(i);
-            String idNode = prefixId + "NODE_" + i + "_" + graph.getVoltageLevelInfos().getId();
+        double xShift = graph.getX() + xInitPos;
+        for (ElectricalNodeInfo node : initProvider.getElectricalNodesInfos(graph)) {
+            String idNode = prefixId + "NODE_" + node.getBusId();
             Element gNode = root.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
-            double xShift = graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50));
-            drawNodeInfos(node, xShift, yPos, gNode, idNode);
+            List<String> styles = styleProvider.getBusStyles(node.getBusId(), graph);
+            drawNodeInfos(node, xShift, yPos, gNode, idNode, styles);
 
             root.appendChild(gNode);
 
             metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, node.getUserId()));
+
+            xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }
     }
 }

@@ -6,20 +6,14 @@
  */
 package com.powsybl.sld.util;
 
-import com.powsybl.iidm.network.Branch;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.styles.BaseVoltageStyle;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.ElectricalNodeInfo;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -296,30 +290,21 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     }
 
     @Override
-    public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
-        List<ElectricalNodeInfo> nodesInfos = new ArrayList<>();
-        List<Node> feederNodes = graph.getNodes().stream()
-                .filter(n -> n.getType() == Node.NodeType.FEEDER)
-                .collect(Collectors.toList());
-
-        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        vl.getBusView().getBuses().forEach(b -> {
-            final AtomicReference<String> style = new AtomicReference<>();
-            b.getConnectedTerminals().forEach(t -> {
-                if (style.get() == null) {
-                    feederNodes.forEach(n -> {
-                        if (style.get() == null && n.getEquipmentId().equals(t.getConnectable().getId())) {
-                            Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), n);
-                            voltageLevelStyle.ifPresent(style::set);
+    public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
+        Bus bus = network.getBusView().getBus(busId);
+        if (bus != null) {
+            for (Terminal t : bus.getConnectedTerminals()) {
+                for (FeederNode feederNode : graph.getFeederNodes()) {
+                    if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
+                        Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
+                        if (voltageLevelStyle.isPresent()) {
+                            return Collections.singletonList(voltageLevelStyle.get());
                         }
-                    });
+                    }
                 }
-            });
-
-            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), style.get(), null));
-        });
-
-        return nodesInfos;
+            }
+        }
+        return Collections.emptyList();
     }
 
     @Override
