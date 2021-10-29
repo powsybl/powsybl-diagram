@@ -235,13 +235,10 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String userId;
 
-        private final double distance;
-
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("distance") double distance, @JsonProperty("userId") String userId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("userId") String userId) {
             this.id = Objects.requireNonNull(id);
             this.feederNodeId = Objects.requireNonNull(feederNodeId);
-            this.distance = distance;
             this.userId = userId;
         }
 
@@ -251,10 +248,6 @@ public class GraphMetadata implements AnchorPointProvider {
 
         public String getFeederNodeId() {
             return feederNodeId;
-        }
-
-        public double getDistance() {
-            return distance;
         }
 
         public String getUserId() {
