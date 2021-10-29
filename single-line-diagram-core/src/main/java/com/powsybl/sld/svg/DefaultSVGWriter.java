@@ -532,7 +532,7 @@ public class DefaultSVGWriter implements SVGWriter {
         List<GraphMetadata.NodeLabelMetadata> labelsMetadata = new ArrayList<>();
         for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
-            String svgId = prefixId + node.getId() + "_" + labelPosition.getPositionName();
+            String svgId = getNodeId(prefixId, node, labelPosition);
             labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
         }
         return labelsMetadata;
@@ -597,7 +597,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
             Element label = createLabelElement(nodeLabel.getLabel(), labelPosition.getdX(), labelPosition.getdY(), labelPosition.getShiftAngle(), g);
-            String svgId = prefixId + node.getId() + "_" + labelPosition.getPositionName();
+            String svgId = getNodeId(prefixId, node, labelPosition);
             label.setAttribute("id", svgId);
             if (labelPosition.isCentered()) {
                 label.setAttribute(TEXT_ANCHOR, MIDDLE);
@@ -1020,6 +1020,10 @@ public class DefaultSVGWriter implements SVGWriter {
         return escapeClassName(prefixId + "_" + containerId + "_" + edge.getNode1().getId() + "_" + edge.getNode2().getId());
     }
 
+    private static String getNodeId(String prefixId, Node node, LabelPosition labelPosition) {
+        return prefixId + node.getId() + "_" + labelPosition.getPositionName();
+    }
+
     /*
      * Drawing the voltageLevel graph edges
      */
@@ -1382,16 +1386,17 @@ public class DefaultSVGWriter implements SVGWriter {
         List<ElectricalNodeInfo> nodes = styleProvider.getElectricalNodesInfos(graph);
 
         for (int i = 0; i < nodes.size(); i++) {
+            ElectricalNodeInfo node = nodes.get(i);
             String idNode = prefixId + "NODE_" + i + "_" + graph.getVoltageLevelInfos().getId();
             Element gNode = root.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
             double xShift = graph.getX() + xInitPos + (i * (2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50));
-            drawNodeInfos(nodes.get(i), xShift, yPos, gNode, idNode);
+            drawNodeInfos(node, xShift, yPos, gNode, idNode);
 
             root.appendChild(gNode);
 
-            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, null));
+            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, node.getUserId()));
         }
     }
 }
