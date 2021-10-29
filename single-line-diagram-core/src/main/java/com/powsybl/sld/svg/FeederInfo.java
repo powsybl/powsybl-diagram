@@ -29,24 +29,26 @@ public class FeederInfo {
     private final Direction arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
+    private final String userId;
 
-    public FeederInfo(String componentType) {
-        this(componentType, null, null, null);
-    }
-
-    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel, String userId) {
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
+        this.userId = userId;
     }
 
-    public FeederInfo(String componentType, double value) {
-        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)));
+    public FeederInfo(String componentType, double value, String userId) {
+        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)), userId);
     }
 
     public boolean isEmpty() {
         return getDirection().isEmpty() && getLeftLabel().isEmpty() || getRightLabel().isEmpty();
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getComponentType() {

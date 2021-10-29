@@ -316,7 +316,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                 }
             });
 
-            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), style.get()));
+            nodesInfos.add(new ElectricalNodeInfo(b.getV(), b.getAngle(), style.get(), null));
         });
 
         return nodesInfos;

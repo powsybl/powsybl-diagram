@@ -20,10 +20,12 @@ public interface DiagramLabelProvider {
     class NodeLabel {
         private final String label;
         private final LabelPosition position;
+        private final String userId;
 
-        public NodeLabel(String label, LabelPosition labelPosition) {
+        public NodeLabel(String label, LabelPosition labelPosition, String userId) {
             this.label = label;
             this.position = labelPosition;
+            this.userId = userId;
         }
 
         public String getLabel() {
@@ -34,6 +36,9 @@ public interface DiagramLabelProvider {
             return position;
         }
 
+        public String getUserId() {
+            return userId;
+        }
     }
 
     class NodeDecorator {

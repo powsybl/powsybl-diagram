@@ -45,18 +45,18 @@ polyline {fill: none}
     <g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500" id="idbbs1" transform="translate(-1.0,-1.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
+            <text class="sld-label" id="bbs1_bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
         <g class="sld-load sld-constant-color sld-vl300to500" id="idl" transform="translate(-9.0,-5.5)">
             <rect height="9" width="16"/>
             <line x1="0" x2="16" y1="0" y2="9"/>
             <line x1="16" x2="0" y1="0" y2="9"/>
-            <text class="sld-label" id="l__LABEL" x="-5.0" y="-5.0">l</text>
+            <text class="sld-label" id="l_l__LABEL" x="-5.0" y="-5.0">l</text>
         </g>
         <g class="sld-two-wt sld-constant-color" id="id2WT_95_ONE" transform="translate(-6.0,-8.5)">
             <circle class="sld-vl300to500" cx="5" cy="10" r="5"/>
             <circle class="sld-vl180to300" cx="5" cy="5" r="5"/>
-            <text class="sld-label" id="2WT_ONE__LABEL" x="-5.0" y="-5.0">2WT_1</text>
+            <text class="sld-label" id="2WT_ONE_2WT_ONE__LABEL" x="-5.0" y="-5.0">2WT_1</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(-9.0,-13.0)">
             <circle class="sld-vl180to300" cx="5" cy="15" r="5"/>
@@ -64,10 +64,10 @@ polyline {fill: none}
             <circle class="sld-vl300to500" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-constant-color sld-vl300to500" id="id3WT_95_TWO" transform="translate(-1.0,-1.0)">
-            <text class="sld-label" id="3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_1</text>
+            <text class="sld-label" id="3WT_TWO_3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_1</text>
         </g>
         <g class="sld-constant-color sld-vl300to500" id="id3WT_95_THREE" transform="translate(-1.0,-1.0)">
-            <text class="sld-label" id="3WT_THREE__LABEL" x="-5.0" y="-5.0">3WT_1</text>
+            <text class="sld-label" id="3WT_THREE_3WT_THREE__LABEL" x="-5.0" y="-5.0">3WT_1</text>
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_1" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
