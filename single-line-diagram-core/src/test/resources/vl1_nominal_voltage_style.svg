@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="40.0" viewBox="0 0 40.0 40.0" width="40.0" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        <![CDATA[
+    <style><![CDATA[
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -40,8 +39,7 @@ polyline {fill: none}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
-]]>
-    </style>
+]]></style>
     <g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500" id="idbbs1" transform="translate(-1.0,-1.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
