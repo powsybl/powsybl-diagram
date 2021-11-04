@@ -20,6 +20,8 @@ import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +29,8 @@ import static org.junit.Assert.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public abstract class AbstractTestCase {
+
+    private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
@@ -86,13 +90,23 @@ public abstract class AbstractTestCase {
             return;
         }
         try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
-            fw.write(content.toString());
+            fw.write(fixSvg(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
     public abstract void toSVG(Graph g, String filename);
+
+    /**
+     * Between Java 9 and 14 an extra new lines is added before and after CDATA element. To support both Java 11 and 17
+     * we need to remove these new lines => To remove when migrating to Java 17.
+     *
+     * See https://stackoverflow.com/questions/55853220/handling-change-in-newlines-by-xml-transformation-for-cdata-from-java-8-to-java
+     */
+    private static String fixSvg(String svg) {
+        return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
+    }
 
     public String toSVG(Graph graph,
                         String filename,
@@ -110,7 +124,7 @@ public abstract class AbstractTestCase {
                 overrideTestReference(filename, writer);
             }
 
-            return normalizeLineSeparator(writer.toString());
+            return fixSvg(normalizeLineSeparator(writer.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

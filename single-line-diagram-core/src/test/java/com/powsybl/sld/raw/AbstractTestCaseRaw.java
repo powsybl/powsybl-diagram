@@ -6,19 +6,16 @@
  */
 package com.powsybl.sld.raw;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.InitialValue;
-import com.powsybl.sld.svg.LabelPosition;
+import com.powsybl.sld.svg.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -62,14 +59,16 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
+                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition, null));
                 busLabels.put(n, labels);
             });
         }
 
         @Override
-        public InitialValue getInitialValue(Node node) {
-            return new InitialValue(Direction.UP, Direction.DOWN, "tata", "tutu", "", "");
+        public List<FeederInfo> getFeederInfos(FeederNode node) {
+            return Arrays.asList(
+                    new FeederInfo(ARROW_ACTIVE, Direction.OUT, "", "tata", null),
+                    new FeederInfo(ARROW_REACTIVE, Direction.IN, "", "tutu", null));
         }
 
         @Override

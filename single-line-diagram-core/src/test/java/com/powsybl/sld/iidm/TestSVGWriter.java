@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.iidm;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -17,6 +20,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +51,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private VoltageLevelGraph g3;
     private SubstationGraph substG;
     private DiagramLabelProvider initValueProvider;
-    private DiagramLabelProvider noFeederValueProvider;
+    private DiagramLabelProvider noFeederInfoProvider;
     private LayoutParameters layoutParameters;
     private ZoneGraph zGraph;
 
@@ -660,14 +664,15 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, node.getLabel(), null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, "10", "20", null, null);
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                List<FeederInfo> feederInfos = Arrays.asList(
+                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
+                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null));
+                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
+                if (!feederArrowSymmetry) {
+                    Collections.reverse(feederInfos);
                 }
-                return initialValue;
+                return feederInfos;
             }
 
             @Override
@@ -678,16 +683,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         // no feeder value provider example for the test :
         //
-        noFeederValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+        noFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public InitialValue getInitialValue(Node node) {
-                InitialValue initialValue;
-                if (node.getType() == Node.NodeType.BUS) {
-                    initialValue = new InitialValue(null, null, null, null, null, null);
-                } else {
-                    initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
-                }
-                return initialValue;
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                return Arrays.asList(
+                        new FeederInfo(ARROW_ACTIVE, null, null, null, null),
+                        new FeederInfo(ARROW_REACTIVE, null, null, null, null));
             }
 
             @Override
@@ -743,10 +744,10 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testSubstationNoFeederValues() {
+    public void testSubstationNoFeederInfos() {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
-            toSVG(substG, "/substation_no_feeder_values.svg", getLayoutParameters(), noFeederValueProvider, new DefaultDiagramStyleProvider()));
+            toSVG(substG, "/substation_no_feeder_values.svg", getLayoutParameters(), noFeederInfoProvider, new DefaultDiagramStyleProvider()));
     }
 
     @Test

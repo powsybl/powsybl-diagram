@@ -12,16 +12,20 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.InitialValue;
+import com.powsybl.sld.svg.FeederInfo;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -95,20 +99,15 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, true, true, 1, 2);
     }
 
-    private class NoFeederValueProvider extends DefaultDiagramLabelProvider {
-        public NoFeederValueProvider() {
+    private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
+        public NoFeederInfoProvider() {
             super(network, componentLibrary, getLayoutParameters());
         }
 
         @Override
-        public InitialValue getInitialValue(Node node) {
-            InitialValue initialValue;
-            if (node.getType() == Node.NodeType.BUS) {
-                initialValue = new InitialValue(null, null, null, null, null, null);
-            } else {
-                initialValue = new InitialValue(Direction.UP, Direction.DOWN, null, null, null, null);
-            }
-            return initialValue;
+        public List<FeederInfo> getFeederInfos(FeederNode node) {
+            return Arrays.asList(new FeederInfo(ARROW_ACTIVE, null, null, null, null),
+                    new FeederInfo(ARROW_REACTIVE, null, null, null, null));
         }
     }
 
@@ -163,19 +162,19 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl2() {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl3() {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
-        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederValueProvider(), styleProvider));
+        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
     }
 
 }

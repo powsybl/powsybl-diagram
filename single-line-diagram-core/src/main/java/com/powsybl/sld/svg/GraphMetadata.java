@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
@@ -29,6 +30,7 @@ import java.util.*;
  */
 public class GraphMetadata implements AnchorPointProvider {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
 
         private final String id;
@@ -49,6 +51,8 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String equipmentId;
 
+        private final List<NodeLabelMetadata> labels;
+
         @JsonCreator
         public NodeMetadata(@JsonProperty("id") String id,
                             @JsonProperty("vid") String vId,
@@ -58,7 +62,8 @@ public class GraphMetadata implements AnchorPointProvider {
                             @JsonProperty("open") boolean open,
                             @JsonProperty("direction") BusCell.Direction direction,
                             @JsonProperty("vlabel") boolean vLabel,
-                            @JsonProperty("equipmentId") String equipmentId) {
+                            @JsonProperty("equipmentId") String equipmentId,
+                            @JsonProperty("labels") List<NodeLabelMetadata> labels) {
             this.id = Objects.requireNonNull(id);
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
@@ -68,6 +73,7 @@ public class GraphMetadata implements AnchorPointProvider {
             this.direction = direction;
             this.vLabel = vLabel;
             this.equipmentId = equipmentId;
+            this.labels = Objects.requireNonNull(labels);
         }
 
         public String getId() {
@@ -105,8 +111,44 @@ public class GraphMetadata implements AnchorPointProvider {
         public String getEquipmentId() {
             return equipmentId;
         }
+
+        public List<NodeLabelMetadata> getLabels() {
+            return labels;
+        }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class NodeLabelMetadata {
+
+        private final String id;
+
+        private final String positionName;
+
+        private final String userId;
+
+        @JsonCreator
+        public NodeLabelMetadata(@JsonProperty("id") String id,
+                                 @JsonProperty("positionName") String positionName,
+                                 @JsonProperty("userId") String userId) {
+            this.id = Objects.requireNonNull(id);
+            this.positionName = Objects.requireNonNull(positionName);
+            this.userId = userId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getPositionName() {
+            return positionName;
+        }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class WireMetadata {
 
         private final String id;
@@ -153,6 +195,7 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class LineMetadata {
 
         private final String id;
@@ -183,31 +226,54 @@ public class GraphMetadata implements AnchorPointProvider {
         }
     }
 
-    public static class ArrowMetadata {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class FeederInfoMetadata {
 
         private final String id;
 
-        private final String wireId;
+        private final String feederNodeId;
 
-        private final double distance;
+        private final String userId;
 
         @JsonCreator
-        public ArrowMetadata(@JsonProperty("id") String id, @JsonProperty("wireId") String wireId1, @JsonProperty("distance") double distance) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("userId") String userId) {
             this.id = Objects.requireNonNull(id);
-            this.wireId = Objects.requireNonNull(wireId1);
-            this.distance = distance;
+            this.feederNodeId = Objects.requireNonNull(feederNodeId);
+            this.userId = userId;
         }
 
         public String getId() {
             return id;
         }
 
-        public String getWireId() {
-            return wireId;
+        public String getFeederNodeId() {
+            return feederNodeId;
         }
 
-        public double getDistance() {
-            return distance;
+        public String getUserId() {
+            return userId;
+        }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class ElectricalNodeInfoMetadata {
+
+        private final String id;
+
+        private final String userId;
+
+        @JsonCreator
+        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id, @JsonProperty("userId") String userId) {
+            this.id = Objects.requireNonNull(id);
+            this.userId = userId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getUserId() {
+            return userId;
         }
     }
 
@@ -223,10 +289,12 @@ public class GraphMetadata implements AnchorPointProvider {
 
     private final LayoutParameters layoutParameters;
 
-    private final Map<String, ArrowMetadata> arrowMetadataMap = new HashMap<>();
+    private final Map<String, FeederInfoMetadata> feederInfoMetadataMap = new HashMap<>();
+
+    private final Map<String, ElectricalNodeInfoMetadata> electricalNodeInfoMetadataMap = new HashMap<>();
 
     public GraphMetadata() {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), new LayoutParameters());
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), new LayoutParameters());
     }
 
     @JsonCreator
@@ -234,7 +302,8 @@ public class GraphMetadata implements AnchorPointProvider {
                          @JsonProperty("nodes") List<NodeMetadata> nodeMetadataList,
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
-                         @JsonProperty("arrows") List<ArrowMetadata> arrowMetadataList,
+                         @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
+                         @JsonProperty("electricalNodeInfos") List<ElectricalNodeInfoMetadata> electricalNodeInfoMetadataMap,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams) {
         for (Component component : componentList) {
             addComponent(component);
@@ -248,8 +317,11 @@ public class GraphMetadata implements AnchorPointProvider {
         for (LineMetadata lineMetadata : lineMetadataList) {
             addLineMetadata(lineMetadata);
         }
-        for (ArrowMetadata arrowMetadata : arrowMetadataList) {
-            addArrowMetadata(arrowMetadata);
+        for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
+            addFeederInfoMetadata(feederInfoMetadata);
+        }
+        for (ElectricalNodeInfoMetadata electricalNodeInfoMetadata : electricalNodeInfoMetadataMap) {
+            addElectricalNodeInfoMetadata(electricalNodeInfoMetadata);
         }
         layoutParameters = layoutParams;
     }
@@ -377,19 +449,34 @@ public class GraphMetadata implements AnchorPointProvider {
         return ImmutableList.copyOf(lineMetadataMap.values());
     }
 
-    public void addArrowMetadata(ArrowMetadata metadata) {
+    public void addFeederInfoMetadata(FeederInfoMetadata metadata) {
         Objects.requireNonNull(metadata);
-        arrowMetadataMap.put(metadata.getId(), metadata);
+        feederInfoMetadataMap.put(metadata.getId(), metadata);
     }
 
-    public ArrowMetadata getArrowMetadata(String id) {
+    public FeederInfoMetadata getFeederInfoMetadata(String id) {
         Objects.requireNonNull(id);
-        return arrowMetadataMap.get(id);
+        return feederInfoMetadataMap.get(id);
     }
 
-    @JsonProperty("arrows")
-    public List<ArrowMetadata> getArrowMetadata() {
-        return ImmutableList.copyOf(arrowMetadataMap.values());
+    @JsonProperty("feederInfos")
+    public List<FeederInfoMetadata> getFeederInfoMetadata() {
+        return ImmutableList.copyOf(feederInfoMetadataMap.values());
+    }
+
+    public void addElectricalNodeInfoMetadata(ElectricalNodeInfoMetadata metadata) {
+        Objects.requireNonNull(metadata);
+        electricalNodeInfoMetadataMap.put(metadata.getId(), metadata);
+    }
+
+    public ElectricalNodeInfoMetadata getElectricalNodeInfoMetadata(String id) {
+        Objects.requireNonNull(id);
+        return electricalNodeInfoMetadataMap.get(id);
+    }
+
+    @JsonProperty("electricalNodeInfos")
+    public List<ElectricalNodeInfoMetadata> getElectricalNodeInfoMetadata() {
+        return ImmutableList.copyOf(electricalNodeInfoMetadataMap.values());
     }
 
     @JsonProperty("layoutParams")

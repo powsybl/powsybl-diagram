@@ -13,7 +13,6 @@ import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,12 +33,9 @@ public interface DiagramStyleProvider {
 
     void reset();
 
-    default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
-        return Collections.emptyList();
-    }
-
     List<String> getCssFilenames();
 
     List<URL> getCssUrls();
 
+    List<String> getBusStyles(String busId, VoltageLevelGraph graph);
 }
