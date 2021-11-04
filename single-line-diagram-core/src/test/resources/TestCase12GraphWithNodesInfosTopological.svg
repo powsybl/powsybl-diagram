@@ -91,6 +91,7 @@ polyline {fill: none}
 .sld-breaker.sld-constant-color {stroke: blue; fill: white}
 .sld-disconnector.sld-constant-color {stroke: black}
 .sld-label {fill: black; stroke: none;}
+.sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
 .sld-breaker {stroke-width: 2; fill:white}
 .sld-disconnector {stroke-width: 3}
@@ -105,6 +106,7 @@ polyline {fill: none}
 .sld-lock {stroke: none; fill: black}
 
 ]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-grid" id="GRID_vl1">
             <line x1="40.0" x2="40.0" y1="80.0" y2="449.0"/>

@@ -18,6 +18,7 @@ polyline {fill: none}
 .sld-busbar-section.sld-constant-color {stroke: black}
 .sld-disconnector.sld-constant-color {stroke: black}
 .sld-label {stroke: none; fill: black}
+.sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
 .sld-breaker {stroke-width: 2; fill:white}
 .sld-disconnector {stroke-width: 3}
@@ -32,6 +33,7 @@ polyline {fill: none}
 .sld-lock {stroke: none; fill: black}
 
 ]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-busbar-section sld-constant-color" id="idvl2_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>

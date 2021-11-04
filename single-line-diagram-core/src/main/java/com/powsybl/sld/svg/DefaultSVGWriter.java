@@ -112,6 +112,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
+        addFrame(document);
         GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
         DomUtil.transformDocument(document, writer);
@@ -171,6 +172,15 @@ public class DefaultSVGWriter implements SVGWriter {
                 .replace("\r\n", "\n") // workaround for https://bugs.openjdk.java.net/browse/JDK-8133452
                 .replace("\r", "\n");
         return document.createCDATASection(cssStr);
+    }
+
+    private void addFrame(Document document) {
+        Element rect = document.createElement("rect");
+        rect.setAttribute("width", "100%");
+        rect.setAttribute("height", "100%");
+        rect.setAttribute(CLASS, FRAME_CLASS);
+        document.adoptNode(rect);
+        document.getDocumentElement().appendChild(rect);
     }
 
     /**
@@ -327,6 +337,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
+        addFrame(document);
         GraphMetadata metadata = writeGraph(prefixId, graph, document, labelProvider, styleProvider);
 
         DomUtil.transformDocument(document, writer);
@@ -1243,6 +1254,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         createDefsSVGComponents(document, listUsedComponentSVG);
 
+        addFrame(document);
         GraphMetadata metadata = writeGraph(prefixId, graph, vlGraphs, document, labelProvider, styleProvider);
 
         DomUtil.transformDocument(document, writer);

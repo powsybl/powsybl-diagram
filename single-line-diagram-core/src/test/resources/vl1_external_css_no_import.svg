@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="620.0" viewBox="0 0 560.0 620.0" width="560.0" xmlns="http://www.w3.org/2000/svg">
+    <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-busbar-section sld-constant-color" id="idvl1_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>

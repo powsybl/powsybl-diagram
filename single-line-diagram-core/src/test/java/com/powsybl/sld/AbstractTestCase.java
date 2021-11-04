@@ -90,7 +90,7 @@ public abstract class AbstractTestCase {
             return;
         }
         try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
-            fw.write(content.toString());
+            fw.write(fixSvg(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
