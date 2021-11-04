@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.svg;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-
 import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BranchStatus;
@@ -18,7 +15,10 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import static com.powsybl.sld.model.Node.NodeType.FEEDER;
 
 /**
@@ -148,6 +148,14 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         }
 
         return nodeDecorators;
+    }
+
+    @Override
+    public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
+        VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
+        return vl.getBusView().getBusStream()
+                .map(b -> new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle(), null))
+                .collect(Collectors.toList());
     }
 
     private void addBranchStatusDecorator(List<NodeDecorator> nodeDecorators, Node node, Extendable e) {

@@ -748,15 +748,15 @@ polyline {fill: none}
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g id="NODE_0_vl1">
-            <circle class="sld-vl300to500" cx="70.0" cy="519.0" id="NODE_0_vl1_circle" r="5.0" stroke-width="10"/>
-            <text class="sld-label" id="NODE_0_vl1_v" x="60.0" y="544.0">392.0 kV</text>
-            <text class="sld-label" id="NODE_0_vl1_angle" x="60.0" y="559.0">-2.3 °</text>
+        <g id="NODE_vl1_0">
+            <circle class="sld-vl300to500" cx="70.0" cy="519.0" id="NODE_vl1_0_circle" r="5.0" stroke-width="10"/>
+            <text class="sld-label" id="NODE_vl1_0_v" x="60.0" y="544.0">392.0 kV</text>
+            <text class="sld-label" id="NODE_vl1_0_angle" x="60.0" y="559.0">-2.3 °</text>
         </g>
-        <g id="NODE_1_vl1">
-            <circle class="sld-vl300to500" cx="140.0" cy="519.0" id="NODE_1_vl1_circle" r="5.0" stroke-width="10"/>
-            <text class="sld-label" id="NODE_1_vl1_v" x="130.0" y="544.0">403.0 kV</text>
-            <text class="sld-label" id="NODE_1_vl1_angle" x="130.0" y="559.0">-1.7 °</text>
+        <g id="NODE_vl1_2">
+            <circle class="sld-vl300to500" cx="140.0" cy="519.0" id="NODE_vl1_2_circle" r="5.0" stroke-width="10"/>
+            <text class="sld-label" id="NODE_vl1_2_v" x="130.0" y="544.0">403.0 kV</text>
+            <text class="sld-label" id="NODE_vl1_2_angle" x="130.0" y="559.0">-1.7 °</text>
         </g>
     </g>
 </svg>

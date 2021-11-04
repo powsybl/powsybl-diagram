@@ -12,18 +12,18 @@ package com.powsybl.sld.svg;
  */
 public class ElectricalNodeInfo {
 
-    private double v;
+    private final String busId;
 
-    private double angle;
+    private final double v;
 
-    private String style;
+    private final double angle;
 
     private String userId;
 
-    public ElectricalNodeInfo(double v, double angle, String style, String userId) {
+    public ElectricalNodeInfo(String busId, double v, double angle, String userId) {
+        this.busId = busId;
         this.v = v;
         this.angle = angle;
-        this.style = style;
         this.userId = userId;
     }
 
@@ -35,11 +35,11 @@ public class ElectricalNodeInfo {
         return angle;
     }
 
-    public String getStyle() {
-        return style;
-    }
-
     public String getUserId() {
         return userId;
+    }
+
+    public String getBusId() {
+        return busId;
     }
 }

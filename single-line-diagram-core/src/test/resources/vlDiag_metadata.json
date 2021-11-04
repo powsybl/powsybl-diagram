@@ -1504,9 +1504,9 @@
     "feederNodeId" : "trf4_ONE"
   } ],
   "electricalNodeInfos" : [ {
-    "id" : "NODE_0_vl1"
+    "id" : "NODE_vl1_0"
   }, {
-    "id" : "NODE_1_vl1"
+    "id" : "NODE_vl1_2"
   } ],
   "layoutParams" : {
     "voltageLevelPadding" : {
