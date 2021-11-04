@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="589.0" viewBox="0 0 1360.0 589.0" width="1360.0" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        <![CDATA[
+    <style><![CDATA[
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -40,8 +39,7 @@ polyline {fill: none}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
-]]>
-    </style>
+]]></style>
     <g>
         <g class="sld-grid" id="GRID_vl1">
             <line x1="40.0" x2="40.0" y1="80.0" y2="449.0"/>
