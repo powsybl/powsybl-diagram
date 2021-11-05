@@ -236,7 +236,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, initProvider, styleProvider);
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, metadata, initProvider, styleProvider);
@@ -428,7 +428,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawMultiTerminalNodes(prefixId, root, graph, metadata, initProvider, styleProvider);
     }
 
     /*
@@ -1317,6 +1317,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                           Element root,
                                           BaseGraph graph,
                                           GraphMetadata metadata,
+                                          DiagramLabelProvider initProvider,
                                           DiagramStyleProvider styleProvider) {
         graph.getMultiTermNodes().forEach(node -> {
 
@@ -1329,9 +1330,13 @@ public class DefaultSVGWriter implements SVGWriter {
 
             incorporateComponents(prefixId, node, g, styleProvider);
 
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node);
+            drawNodeLabel(prefixId, g, node, nodeLabels);
+            drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
+
             root.appendChild(g);
 
-            setMetadata(prefixId, metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, Collections.emptyList());
+            setMetadata(prefixId, metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, nodeLabels);
         });
     }
 

@@ -119,9 +119,11 @@ public class Node implements BaseNode {
     public String getLabel() {
         if (label != null) {
             return label;
-        } else {
+        } else if (graph != null) {
             return graph.isUseName() ? name : equipmentId;
         }
+        // FIXME : to be confirmed
+        return null;
     }
 
     public void setLabel(String label) {

@@ -117,7 +117,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         if (node instanceof FeederNode) {
             nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node)));
         } else if (node instanceof BusNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node)));
+            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node), null));
+        } else if (node instanceof FictitiousNode) {
+            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node), null));
         }
 
         return nodeLabels;
