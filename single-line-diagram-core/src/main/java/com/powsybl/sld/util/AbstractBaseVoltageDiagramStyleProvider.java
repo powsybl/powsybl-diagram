@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.util;
 
+import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.styles.BaseVoltageStyle;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -29,10 +29,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
     private static final String WINDING3 = "WINDING3";
 
     protected final Network network;
-    protected final BaseVoltageStyle baseVoltageStyle;
+    protected final BaseVoltagesConfig baseVoltagesConfig;
 
-    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
-        this.baseVoltageStyle = Objects.requireNonNull(baseVoltageStyle);
+    protected AbstractBaseVoltageDiagramStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
+        this.baseVoltagesConfig = Objects.requireNonNull(baseVoltagesConfig);
         this.network = network;
     }
 
@@ -166,7 +166,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltageStyle.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
+        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
     }
 
     private Node getWindingNode(Middle3WTNode node, String subComponentName) {
