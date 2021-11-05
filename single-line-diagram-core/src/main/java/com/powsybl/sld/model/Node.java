@@ -122,7 +122,6 @@ public class Node implements BaseNode {
         } else if (graph != null) {
             return graph.isUseName() ? name : equipmentId;
         }
-        // FIXME : to be confirmed
         return null;
     }
 

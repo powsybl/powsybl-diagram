@@ -663,6 +663,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // initValueProvider example for the test :
         //
         initValueProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
@@ -807,4 +808,28 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             toSVG(g1, "/vl1_tooltip_opt.svg", getLayoutParameters(), initValueProvider, styleProvider));
     }
 
+    @Test
+    public void testLabelOnAllNodes() {
+        // same node label provider example for the test :
+        //
+        DiagramLabelProvider sameNodeLabelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+            @Override
+            public List<NodeLabel> getNodeLabels(Node node) {
+                LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
+                return Collections.singletonList(new DiagramLabelProvider.NodeLabel("Tests", labelPosition, null));
+            }
+
+            @Override
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+                return new ArrayList<>();
+            }
+        };
+
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
+        getLayoutParameters()
+                .setTooltipEnabled(true)
+                .setAvoidSVGComponentsDuplication(true);
+        assertEquals(toString("/label_on_all_nodes.svg"),
+                toSVG(g1, "/label_on_all_nodes.svg", getLayoutParameters(), sameNodeLabelProvider, styleProvider));
+    }
 }

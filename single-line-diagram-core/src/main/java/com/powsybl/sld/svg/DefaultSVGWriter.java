@@ -568,10 +568,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
             incorporateComponents(prefixId, node, g, styleProvider);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node);
-            if (!node.isFictitious() || node instanceof Middle3WTNode) {
-                drawNodeLabel(prefixId, g, node, nodeLabels);
-                drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
-            }
+            drawNodeLabel(prefixId, g, node, nodeLabels);
+            drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
 
             root.appendChild(g);
 

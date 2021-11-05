@@ -52,15 +52,15 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {
-        private final Map<Node, List<NodeLabel>> busLabels;
+        private final Map<Node, List<NodeLabel>> nodeLabels;
 
         public RawDiagramLabelProvider(Stream<Node> nodeStream) {
-            this.busLabels = new HashMap<>();
+            this.nodeLabels = new HashMap<>();
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
-                busLabels.put(n, labels);
+                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition, null));
+                nodeLabels.put(n, labels);
             });
         }
 
@@ -73,7 +73,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
         @Override
         public List<NodeLabel> getNodeLabels(Node node) {
-            return busLabels.get(node);
+            List<NodeLabel> labels = nodeLabels.get(node);
+            return labels != null ? labels : Collections.emptyList();
         }
 
         @Override
