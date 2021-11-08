@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="40.0" viewBox="0 0 40.0 40.0" width="40.0" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        <![CDATA[
+    <style><![CDATA[
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -27,6 +26,7 @@ polyline {fill: none}
 .sld-breaker.sld-constant-color {stroke: blue; fill: white}
 .sld-disconnector.sld-constant-color {stroke: black}
 .sld-label {fill: black; stroke: none;}
+.sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
 .sld-breaker {stroke-width: 2; fill:white}
 .sld-disconnector {stroke-width: 3}
@@ -40,12 +40,12 @@ polyline {fill: none}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
-]]>
-    </style>
+]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-busbar-section sld-constant-color sld-vl50to70" id="idbbs3" transform="translate(-1.0,-1.0)">
             <line x1="0" x2="1.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
+            <text class="sld-label" id="bbs3_bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
         <g class="sld-three-wt sld-constant-color" id="id3WT" transform="translate(-9.0,-13.0)">
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
@@ -53,10 +53,10 @@ polyline {fill: none}
             <circle class="sld-vl50to70" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-constant-color sld-vl50to70" id="id3WT_95_ONE" transform="translate(-1.0,-1.0)">
-            <text class="sld-label" id="3WT_ONE__LABEL" x="-5.0" y="-5.0">3WT_3</text>
+            <text class="sld-label" id="3WT_ONE_3WT_ONE__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
         <g class="sld-constant-color sld-vl50to70" id="id3WT_95_TWO" transform="translate(-1.0,-1.0)">
-            <text class="sld-label" id="3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_3</text>
+            <text class="sld-label" id="3WT_TWO_3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_3</text>
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl50to70" id="idINTERNAL_95_vl3_95_2" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>

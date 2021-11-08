@@ -12,10 +12,7 @@ import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.svg.DiagramStyles.*;
@@ -139,5 +136,10 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
     public List<URL> getCssUrls() {
         return getCssFilenames().stream().map(n -> getClass().getResource("/" + n))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
+        return Collections.emptyList();
     }
 }

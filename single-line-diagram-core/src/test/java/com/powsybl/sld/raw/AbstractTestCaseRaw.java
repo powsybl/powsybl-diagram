@@ -59,7 +59,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
+                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition, null));
                 busLabels.put(n, labels);
             });
         }
@@ -67,8 +67,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
             return Arrays.asList(
-                    new FeederInfo(ARROW_ACTIVE, Direction.OUT, "", "tata"),
-                    new FeederInfo(ARROW_REACTIVE, Direction.IN, "", "tutu"));
+                    new FeederInfo(ARROW_ACTIVE, Direction.OUT, "", "tata", null),
+                    new FeederInfo(ARROW_REACTIVE, Direction.IN, "", "tutu", null));
         }
 
         @Override

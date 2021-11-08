@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.util;
 
+import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.Node.NodeType;
-import com.powsybl.sld.styles.BaseVoltageStyle;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
@@ -29,11 +29,11 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private final Map<String, Map<String, String>> vlEquipmentIdStyleMap = new HashMap<>();
 
     public TopologicalStyleProvider(Network network) {
-        this(BaseVoltageStyle.fromPlatformConfig(), network);
+        this(BaseVoltagesConfig.fromPlatformConfig(), network);
     }
 
-    public TopologicalStyleProvider(BaseVoltageStyle baseVoltageStyle, Network network) {
-        super(baseVoltageStyle, network);
+    public TopologicalStyleProvider(BaseVoltagesConfig baseVoltagesConfig, Network network) {
+        super(baseVoltagesConfig, network);
     }
 
     @Override

@@ -538,6 +538,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .collect(Collectors.toList());
     }
 
+    public List<FeederNode> getFeederNodes() {
+        return nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>())
+                .stream()
+                .map(FeederNode.class::cast)
+                .collect(Collectors.toList());
+    }
+
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
     }

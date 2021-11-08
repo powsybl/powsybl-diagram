@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="589.0" viewBox="0 0 1360.0 589.0" width="1360.0" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        <![CDATA[
+    <style><![CDATA[
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
@@ -92,6 +91,7 @@ polyline {fill: none}
 .sld-breaker.sld-constant-color {stroke: blue; fill: white}
 .sld-disconnector.sld-constant-color {stroke: black}
 .sld-label {fill: black; stroke: none;}
+.sld-frame {fill: lightgrey}
 .sld-busbar-section {stroke-width: 3}
 .sld-breaker {stroke-width: 2; fill:white}
 .sld-disconnector {stroke-width: 3}
@@ -105,8 +105,8 @@ polyline {fill: none}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 
-]]>
-    </style>
+]]></style>
+    <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-grid" id="GRID_vl1">
             <line x1="40.0" x2="40.0" y1="80.0" y2="449.0"/>
@@ -133,19 +133,19 @@ polyline {fill: none}
         </g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500-0" id="idbbs1" transform="translate(60.0,252.0)">
             <line x1="0" x2="680.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
+            <text class="sld-label" id="bbs1_bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500-0" id="idbbs2" transform="translate(860.0,252.0)">
             <line x1="0" x2="440.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
+            <text class="sld-label" id="bbs2_bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500-1" id="idbbs3" transform="translate(60.0,277.0)">
             <line x1="0" x2="680.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
+            <text class="sld-label" id="bbs3_bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
         <g class="sld-busbar-section sld-constant-color sld-vl300to500-1" id="idbbs4" transform="translate(860.0,277.0)">
             <line x1="0" x2="440.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs4_NW_LABEL" x="-5.0" y="-5.0">bbs4</text>
+            <text class="sld-label" id="bbs4_bbs4_NW_LABEL" x="-5.0" y="-5.0">bbs4</text>
         </g>
         <g class="cell idINTERN_32_0" id="idINTERN_32_0">
             <g class="sld-node sld-constant-color sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dsect11" transform="translate(756.0,248.0)">
@@ -222,7 +222,7 @@ polyline {fill: none}
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="load1_N_LABEL" x="-5.0" y="-5.0">load1</text>
+                <text class="sld-label" id="load1_load1_N_LABEL" x="-5.0" y="-5.0">load1</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dload1">
                 <polyline points="80.0,252.0,80.0,252.0"/>
@@ -268,7 +268,7 @@ polyline {fill: none}
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf1_95_ONE" transform="translate(155.0,72.5)">
                 <circle class="sld-vl300to500-0" cx="5" cy="10" r="5"/>
                 <circle class="sld-vl180to300-0" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="trf1_ONE_N_LABEL" x="-5.0" y="-5.0">trf1</text>
+                <text class="sld-label" id="trf1_ONE_trf1_ONE_N_LABEL" x="-5.0" y="-5.0">trf1</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dtrf11">
                 <polyline points="160.0,252.0,160.0,252.0"/>
@@ -314,7 +314,7 @@ polyline {fill: none}
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf5_95_ONE" transform="translate(395.0,72.5)">
                 <circle class="sld-vl300to500-0" cx="5" cy="10" r="5"/>
                 <circle class="sld-vl50to70-0" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="trf5_ONE_N_LABEL" x="-5.0" y="-5.0">trf5</text>
+                <text class="sld-label" id="trf5_ONE_trf5_ONE_N_LABEL" x="-5.0" y="-5.0">trf5</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dtrf15">
                 <polyline points="400.0,252.0,400.0,252.0"/>
@@ -355,10 +355,10 @@ polyline {fill: none}
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-constant-color sld-vl300to500-0" id="idtrf6_95_TWO" transform="translate(480.0,80.0)">
-                <text class="sld-label" id="trf6_TWO_N_LABEL" x="-5.0" y="-5.0">trf61</text>
+                <text class="sld-label" id="trf6_TWO_trf6_TWO_N_LABEL" x="-5.0" y="-5.0">trf61</text>
             </g>
             <g class="sld-top-feeder sld-constant-color sld-vl300to500-0" id="idtrf6_95_THREE" transform="translate(560.0,80.0)">
-                <text class="sld-label" id="trf6_THREE_N_LABEL" x="-5.0" y="-5.0">trf61</text>
+                <text class="sld-label" id="trf6_THREE_trf6_THREE_N_LABEL" x="-5.0" y="-5.0">trf61</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dtrf16">
                 <polyline points="480.0,252.0,520.0,252.0"/>
@@ -423,7 +423,7 @@ polyline {fill: none}
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="load2_N_LABEL" x="-5.0" y="-5.0">load2</text>
+                <text class="sld-label" id="load2_load2_N_LABEL" x="-5.0" y="-5.0">load2</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs2_95_dload2">
                 <polyline points="880.0,252.0,880.0,252.0"/>
@@ -469,7 +469,7 @@ polyline {fill: none}
             <g class="sld-two-wt sld-top-feeder sld-constant-color" id="idtrf2_95_ONE" transform="translate(1195.0,72.5)">
                 <circle class="sld-vl300to500-0" cx="5" cy="10" r="5"/>
                 <circle class="sld-vl180to300-0" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="trf2_ONE_N_LABEL" x="-5.0" y="-5.0">trf2</text>
+                <text class="sld-label" id="trf2_ONE_trf2_ONE_N_LABEL" x="-5.0" y="-5.0">trf2</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs2_95_dtrf12">
                 <polyline points="1200.0,252.0,1200.0,252.0"/>
@@ -510,10 +510,10 @@ polyline {fill: none}
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-constant-color sld-vl300to500-0" id="idtrf8_95_TWO" transform="translate(960.0,80.0)">
-                <text class="sld-label" id="trf8_TWO_N_LABEL" x="-5.0" y="-5.0">trf81</text>
+                <text class="sld-label" id="trf8_TWO_trf8_TWO_N_LABEL" x="-5.0" y="-5.0">trf81</text>
             </g>
             <g class="sld-top-feeder sld-constant-color sld-vl300to500-0" id="idtrf8_95_THREE" transform="translate(1040.0,80.0)">
-                <text class="sld-label" id="trf8_THREE_N_LABEL" x="-5.0" y="-5.0">trf81</text>
+                <text class="sld-label" id="trf8_THREE_trf8_THREE_N_LABEL" x="-5.0" y="-5.0">trf81</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-0" id="_95_vl1_95_bbs2_95_dtrf18">
                 <polyline points="960.0,252.0,1000.0,252.0"/>
@@ -578,7 +578,7 @@ polyline {fill: none}
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="gen1_S_LABEL" x="-5.0" y="17.0">gen1</text>
+                <text class="sld-label" id="gen1_gen1_S_LABEL" x="-5.0" y="17.0">gen1</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-1" id="_95_vl1_95_bbs3_95_dgen1">
                 <polyline points="240.0,277.0,240.0,277.0"/>
@@ -624,7 +624,7 @@ polyline {fill: none}
             <g class="sld-two-wt sld-bottom-feeder sld-constant-color" id="idtrf3_95_ONE" transform="translate(315.0,441.5)">
                 <circle class="sld-vl300to500-1" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-vl180to300-0" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="trf3_ONE_S_LABEL" x="-5.0" y="20.0">trf3</text>
+                <text class="sld-label" id="trf3_ONE_trf3_ONE_S_LABEL" x="-5.0" y="20.0">trf3</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-1" id="_95_vl1_95_bbs3_95_dtrf13">
                 <polyline points="320.0,277.0,320.0,277.0"/>
@@ -665,10 +665,10 @@ polyline {fill: none}
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder sld-constant-color sld-vl300to500-1" id="idtrf7_95_TWO" transform="translate(640.0,449.0)">
-                <text class="sld-label" id="trf7_TWO_S_LABEL" x="-5.0" y="5.0">trf71</text>
+                <text class="sld-label" id="trf7_TWO_trf7_TWO_S_LABEL" x="-5.0" y="5.0">trf71</text>
             </g>
             <g class="sld-bottom-feeder sld-constant-color sld-vl300to500-1" id="idtrf7_95_THREE" transform="translate(720.0,449.0)">
-                <text class="sld-label" id="trf7_THREE_S_LABEL" x="-5.0" y="5.0">trf71</text>
+                <text class="sld-label" id="trf7_THREE_trf7_THREE_S_LABEL" x="-5.0" y="5.0">trf71</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-1" id="_95_vl1_95_bbs3_95_dtrf17">
                 <polyline points="640.0,277.0,680.0,277.0"/>
@@ -733,7 +733,7 @@ polyline {fill: none}
                 <circle cx="6" cy="6" r="6"/>
                 <path d="M6,6 A 6 40 0 0 0 2,6"/>
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
-                <text class="sld-label" id="gen2_S_LABEL" x="-5.0" y="17.0">gen2</text>
+                <text class="sld-label" id="gen2_gen2_S_LABEL" x="-5.0" y="17.0">gen2</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-1" id="_95_vl1_95_bbs4_95_dgen2">
                 <polyline points="1280.0,277.0,1280.0,277.0"/>
@@ -779,7 +779,7 @@ polyline {fill: none}
             <g class="sld-two-wt sld-bottom-feeder sld-constant-color" id="idtrf4_95_ONE" transform="translate(1115.0,441.5)">
                 <circle class="sld-vl300to500-1" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-vl180to300-0" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="trf4_ONE_S_LABEL" x="-5.0" y="20.0">trf4</text>
+                <text class="sld-label" id="trf4_ONE_trf4_ONE_S_LABEL" x="-5.0" y="20.0">trf4</text>
             </g>
             <g class="sld-wire sld-constant-color sld-vl300to500-1" id="_95_vl1_95_bbs4_95_dtrf14">
                 <polyline points="1120.0,277.0,1120.0,277.0"/>
@@ -815,15 +815,15 @@ polyline {fill: none}
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g id="NODE_0_vl1">
-            <circle class="sld-vl300to500-0" cx="70.0" cy="519.0" id="NODE_0_vl1_circle" r="5.0" stroke-width="10"/>
-            <text class="sld-label" id="NODE_0_vl1_v" x="60.0" y="544.0">392.0 kV</text>
-            <text class="sld-label" id="NODE_0_vl1_angle" x="60.0" y="559.0">-2.3 °</text>
+        <g id="NODE_vl1_0">
+            <circle class="sld-vl300to500-0" cx="70.0" cy="519.0" id="NODE_vl1_0_circle" r="5.0" stroke-width="10"/>
+            <text class="sld-label" id="NODE_vl1_0_v" x="60.0" y="544.0">392.0 kV</text>
+            <text class="sld-label" id="NODE_vl1_0_angle" x="60.0" y="559.0">-2.3 °</text>
         </g>
-        <g id="NODE_1_vl1">
-            <circle class="sld-vl300to500-1" cx="140.0" cy="519.0" id="NODE_1_vl1_circle" r="5.0" stroke-width="10"/>
-            <text class="sld-label" id="NODE_1_vl1_v" x="130.0" y="544.0">403.0 kV</text>
-            <text class="sld-label" id="NODE_1_vl1_angle" x="130.0" y="559.0">-1.7 °</text>
+        <g id="NODE_vl1_2">
+            <circle class="sld-vl300to500-1" cx="140.0" cy="519.0" id="NODE_vl1_2_circle" r="5.0" stroke-width="10"/>
+            <text class="sld-label" id="NODE_vl1_2_v" x="130.0" y="544.0">403.0 kV</text>
+            <text class="sld-label" id="NODE_vl1_2_angle" x="130.0" y="559.0">-1.7 °</text>
         </g>
     </g>
 </svg>

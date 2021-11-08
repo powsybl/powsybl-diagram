@@ -7,6 +7,7 @@
 package com.powsybl.sld.library;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.Objects;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Thomas Adam <tadam at silicom>
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Component {
 
     private final String type;
