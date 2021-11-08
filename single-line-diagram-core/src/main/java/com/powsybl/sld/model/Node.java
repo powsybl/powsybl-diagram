@@ -53,7 +53,6 @@ public class Node implements BaseNode {
 
     private Double rotationAngle;
 
-    // TODO: why is open attribute at the Node level rather than SwitchNode?
     private boolean open = false;
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
