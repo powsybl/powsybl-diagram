@@ -67,12 +67,14 @@ public class ExternCell extends AbstractBusCell {
     @Override
     public void setDirection(Direction direction) {
         super.setDirection(direction);
-        getNodes().stream().filter(f -> f.getType() == FEEDER).map(FeederNode.class::cast).forEach(fn -> {
-            if (fn.getOrientation() == null || !fn.getOrientation().isHorizontal()) {
-                fn.setOrientation(direction.toOrientation());
-                fn.setDirection(direction);
-            }
-        });
+        getNodes().stream().filter(f -> f.getType() == FEEDER)
+                .map(FeederNode.class::cast)
+                .forEach(fn -> {
+                    if (fn.getOrientation() == null || !fn.getOrientation().isHorizontal()) {
+                        fn.setOrientation(direction.toOrientation());
+                        fn.setDirection(direction);
+                    }
+                });
     }
 
 }

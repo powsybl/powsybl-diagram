@@ -27,8 +27,7 @@ public class PositionFromExtension implements PositionFinder {
     private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
 
     /**
-     * Builds the layout of the bus nodes, and organises cells (order and
-     * directions)
+     * Builds the layout of the bus nodes, and organises cells (order and directions)
      */
 
     @Override
@@ -36,9 +35,11 @@ public class PositionFromExtension implements PositionFinder {
         Map<BusNode, Integer> busToNb = new HashMap<>();
         int i = 1;
         for (BusNode busNode : busNodes.stream()
-                .sorted((bn1, bn2) -> bn1.getBusbarIndex() == bn2.getBusbarIndex()
-                        ? bn1.getSectionIndex() - bn2.getSectionIndex()
-                        : bn1.getBusbarIndex() - bn2.getBusbarIndex())
+                .sorted((bn1, bn2) ->
+                        bn1.getBusbarIndex() == bn2.getBusbarIndex() ?
+                                bn1.getSectionIndex() - bn2.getSectionIndex() :
+                                bn1.getBusbarIndex() - bn2.getBusbarIndex()
+                )
                 .collect(Collectors.toList())) {
             busToNb.put(busNode, i++);
         }
@@ -49,8 +50,8 @@ public class PositionFromExtension implements PositionFinder {
     public LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets) {
         gatherLayoutExtensionInformation(graph);
 
-        List<LBSCluster> lbsClusters = LBSCluster
-                .createLBSClusters(legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
+        List<LBSCluster> lbsClusters = LBSCluster.createLBSClusters(
+                legBusSets.stream().sorted(sortLBS).collect(Collectors.toList()));
 
         LBSCluster lbsCluster = lbsClusters.get(0);
 
@@ -76,12 +77,16 @@ public class PositionFromExtension implements PositionFinder {
         });
 
         List<ExternCell> problematicCells = graph.getCells().stream()
-                .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN)).map(ExternCell.class::cast)
+                .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN))
+                .map(ExternCell.class::cast)
                 .filter(cell -> cell.getOrder().isEmpty()).collect(Collectors.toList());
         if (!problematicCells.isEmpty()) {
             LOGGER.warn("Unable to build the layout only with Extension\nproblematic cells :");
-            problematicCells.forEach(cell -> LOGGER.info("Cell Nb : {}, Order : {}, Type : {}", cell.getNumber(),
-                    cell.getOrder(), cell.getType()));
+            problematicCells.forEach(cell -> LOGGER
+                    .info("Cell Nb : {}, Order : {}, Type : {}",
+                            cell.getNumber(),
+                            cell.getOrder(),
+                            cell.getType()));
         }
     }
 
@@ -90,8 +95,8 @@ public class PositionFromExtension implements PositionFinder {
         public int compare(LegBusSet lbs1, LegBusSet lbs2) {
             for (BusNode busNode : lbs1.getBusNodeSet()) {
                 Optional<Integer> optionalSectionIndex2 = lbs2.getBusNodeSet().stream()
-                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex()).findFirst()
-                        .map(BusNode::getSectionIndex);
+                        .filter(busNode2 -> busNode2.getBusbarIndex() == busNode.getBusbarIndex())
+                        .findFirst().map(BusNode::getSectionIndex);
                 if (optionalSectionIndex2.isPresent() && optionalSectionIndex2.get() != busNode.getSectionIndex()) {
                     return busNode.getSectionIndex() - optionalSectionIndex2.get();
                 }
@@ -118,7 +123,8 @@ public class PositionFromExtension implements PositionFinder {
         }
 
         private int getMaxPos(Set<BusNode> busNodes, Function<BusNode, Integer> fun) {
-            return busNodes.stream().map(fun).max(Integer::compareTo).orElse(0);
+            return busNodes.stream()
+                    .map(fun).max(Integer::compareTo).orElse(0);
         }
 
         private Optional<Integer> externCellOrderNb(LegBusSet lbs) {
