@@ -24,15 +24,15 @@ public class FeederNode extends Node {
 
     private final FeederType feederType;
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
-            VoltageLevelGraph graph, FeederType feederType, Orientation orientation) {
+    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph,
+                         FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
         setOrientation(orientation);
     }
 
     protected FeederNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
-            FeederType feederType) {
+                         FeederType feederType) {
         this(id, name, equipmentId, componentType, false, graph, feederType, null);
     }
 

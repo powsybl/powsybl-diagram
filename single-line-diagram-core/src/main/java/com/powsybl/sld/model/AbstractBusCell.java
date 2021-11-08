@@ -56,7 +56,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public List<BusNode> getBusNodes() {
-        return nodes.stream().filter(n -> n.getType() == Node.NodeType.BUS).map(BusNode.class::cast)
+        return nodes.stream()
+                .filter(n -> n.getType() == Node.NodeType.BUS)
+                .map(BusNode.class::cast)
                 .collect(Collectors.toList());
     }
 
