@@ -544,7 +544,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (DiagramLabelProvider.NodeLabel nodeLabel : nodeLabels) {
             LabelPosition labelPosition = nodeLabel.getPosition();
             String svgId = getNodeLabelId(prefixId, node, labelPosition);
-            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserId()));
+            labelsMetadata.add(new GraphMetadata.NodeLabelMetadata(svgId, labelPosition.getPositionName(), nodeLabel.getUserDefinedId()));
         }
         return labelsMetadata;
     }
@@ -994,7 +994,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserId()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
 
         // we draw the arrow only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
@@ -1400,7 +1400,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             root.appendChild(gNode);
 
-            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, node.getUserId()));
+            metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, node.getUserDefinedId()));
 
             xShift += 2 * CIRCLE_RADIUS_NODE_INFOS_SIZE + 50;
         }

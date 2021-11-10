@@ -18,13 +18,17 @@ public class ElectricalNodeInfo {
 
     private final double angle;
 
-    private String userId;
+    private final String userDefinedId;
 
-    public ElectricalNodeInfo(String busId, double v, double angle, String userId) {
+    public ElectricalNodeInfo(String busId, double v, double angle) {
+        this(busId, v, angle, null);
+    }
+
+    public ElectricalNodeInfo(String busId, double v, double angle, String userDefinedId) {
         this.busId = busId;
         this.v = v;
         this.angle = angle;
-        this.userId = userId;
+        this.userDefinedId = userDefinedId;
     }
 
     public double getV() {
@@ -35,8 +39,8 @@ public class ElectricalNodeInfo {
         return angle;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserDefinedId() {
+        return userDefinedId;
     }
 
     public String getBusId() {

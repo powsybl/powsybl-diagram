@@ -74,7 +74,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         List<FeederInfo> measures = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {
-            measures = buildFeederInfos(injection, null);
+            measures = buildFeederInfos(injection);
         }
         return measures;
     }
@@ -84,7 +84,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            measures = buildFeederInfos(branch, side, null);
+            measures = buildFeederInfos(branch, side);
         }
         return measures;
     }
@@ -94,7 +94,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
-            feederInfos = buildFeederInfos(transformer, side, null);
+            feederInfos = buildFeederInfos(transformer, side);
         }
         return feederInfos;
     }
@@ -104,7 +104,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
-            measures = buildFeederInfos(transformer, side, null);
+            measures = buildFeederInfos(transformer, side);
         }
         return measures;
     }
@@ -115,9 +115,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
         List<NodeLabel> nodeLabels = new ArrayList<>();
         if (node instanceof FeederNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node), null));
+            nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node)));
         } else if (node instanceof BusNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node), null));
+            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node)));
         }
 
         return nodeLabels;
@@ -154,7 +154,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     public List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
         return vl.getBusView().getBusStream()
-                .map(b -> new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle(), null))
+                .map(b -> new ElectricalNodeInfo(b.getId(), b.getV(), b.getAngle()))
                 .collect(Collectors.toList());
     }
 
@@ -233,21 +233,21 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
-    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side, String userId) {
+    private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP(), userId),
-                new FeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ(), userId));
+                new FeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
     }
 
-    private List<FeederInfo> buildFeederInfos(Injection injection, String userId) {
+    private List<FeederInfo> buildFeederInfos(Injection injection) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, injection.getTerminal().getP(), userId),
-                new FeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ(), userId));
+                new FeederInfo(ARROW_ACTIVE, injection.getTerminal().getP()),
+                new FeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ()));
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side, String userId) {
+    private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), userId),
-                new FeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), userId));
+                new FeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP()),
+                new FeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
     }
 }

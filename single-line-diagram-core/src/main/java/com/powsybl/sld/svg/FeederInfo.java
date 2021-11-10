@@ -29,26 +29,34 @@ public class FeederInfo {
     private final Direction arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
-    private final String userId;
+    private final String userDefinedId;
 
-    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel, String userId) {
+    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+        this(componentType, arrowDirection, leftLabel, rightLabel, null);
+    }
+
+    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
-        this.userId = userId;
+        this.userDefinedId = userDefinedId;
     }
 
-    public FeederInfo(String componentType, double value, String userId) {
-        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)), userId);
+    public FeederInfo(String componentType, double value) {
+        this(componentType, value, null);
+    }
+
+    public FeederInfo(String componentType, double value, String userDefinedId) {
+        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)), userDefinedId);
     }
 
     public boolean isEmpty() {
         return getDirection().isEmpty() && getLeftLabel().isEmpty() || getRightLabel().isEmpty();
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserDefinedId() {
+        return userDefinedId;
     }
 
     public String getComponentType() {
