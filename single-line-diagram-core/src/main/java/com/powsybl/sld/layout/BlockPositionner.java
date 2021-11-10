@@ -37,9 +37,10 @@ class BlockPositionner {
 
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT),
                     Side.RIGHT, nonFlatCellsToClose);
-            SortedSet<BusCell> verticalCells = new TreeSet<>(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
+            List<BusCell> verticalCells = new ArrayList<>();
             verticalCells.addAll(ss.getVerticalInternCells());
             verticalCells.addAll(ss.getExternCells());
+            Collections.sort(verticalCells, Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
             hPos = placeVerticalCells(hPos, verticalCells);
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT,
                     nonFlatCellsToClose);
