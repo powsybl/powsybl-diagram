@@ -285,7 +285,7 @@ public class Subsection {
                     List<FeederNode> shuntSideFeederNodes = shNode.getAdjacentNodes().stream().flatMap(node -> {
                         List<Node> gtResult = new ArrayList<>();
                         if (GraphTraversal.run(node, node1 -> node1.getType() == Node.NodeType.FEEDER,
-                                node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
+                            node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
                             return gtResult.stream().filter(n -> n.getType() == Node.NodeType.FEEDER)
                                     .map(FeederNode.class::cast);
                         } else {
