@@ -22,12 +22,16 @@ public interface DiagramLabelProvider {
     class NodeLabel {
         private final String label;
         private final LabelPosition position;
-        private final String userId;
+        private final String userDefinedId;
 
-        public NodeLabel(String label, LabelPosition labelPosition, String userId) {
+        public NodeLabel(String label, LabelPosition labelPosition) {
+            this(label, labelPosition, null);
+        }
+
+        public NodeLabel(String label, LabelPosition labelPosition, String userDefinedId) {
             this.label = label;
             this.position = labelPosition;
-            this.userId = userId;
+            this.userDefinedId = userDefinedId;
         }
 
         public String getLabel() {
@@ -38,8 +42,8 @@ public interface DiagramLabelProvider {
             return position;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getUserDefinedId() {
+            return userDefinedId;
         }
     }
 
