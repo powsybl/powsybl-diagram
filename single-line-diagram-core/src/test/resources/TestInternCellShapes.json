@@ -330,7 +330,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "MIDDLE",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -420,7 +419,6 @@
     "type" : "INTERN",
     "number" : 1,
     "direction" : "TOP",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -509,7 +507,6 @@
     "type" : "INTERN",
     "number" : 2,
     "direction" : "TOP",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -598,7 +595,6 @@
     "type" : "INTERN",
     "number" : 3,
     "direction" : "MIDDLE",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {
@@ -688,7 +684,6 @@
     "type" : "INTERN",
     "number" : 4,
     "direction" : "TOP",
-    "order" : -1,
     "rootBlock" : {
       "type" : "LEGPARALLEL",
       "cardinalities" : [ {

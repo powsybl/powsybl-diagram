@@ -953,7 +953,6 @@
       "type" : "INTERN",
       "number" : 0,
       "direction" : "MIDDLE",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1043,7 +1042,6 @@
       "type" : "INTERN",
       "number" : 1,
       "direction" : "MIDDLE",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3168,7 +3166,6 @@
       "type" : "INTERN",
       "number" : 0,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {

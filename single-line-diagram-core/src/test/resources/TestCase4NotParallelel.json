@@ -302,7 +302,6 @@
     "type" : "INTERN",
     "number" : 0,
     "direction" : "MIDDLE",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {

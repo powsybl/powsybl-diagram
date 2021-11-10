@@ -63,6 +63,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
 
         // write Json and compare to reference
+        toSVG(g, "/TestCase3TripleCoupling.svg");
         assertEquals(toString("/TestCase3TripleCoupling.json"), toJson(g, "/TestCase3TripleCoupling.json"));
     }
 
