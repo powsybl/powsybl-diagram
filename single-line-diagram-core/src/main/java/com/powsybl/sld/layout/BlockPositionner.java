@@ -35,12 +35,14 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
-            SortedSet<BusCell> verticalCells = new TreeSet<>(Comparator.comparingInt(BusCell::getOrder));
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT),
+                    Side.RIGHT, nonFlatCellsToClose);
+            SortedSet<BusCell> verticalCells = new TreeSet<>(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
             verticalCells.addAll(ss.getVerticalInternCells());
             verticalCells.addAll(ss.getExternCells());
             hPos = placeVerticalCells(hPos, verticalCells);
-            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
+            hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT,
+                    nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;
             }

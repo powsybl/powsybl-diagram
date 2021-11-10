@@ -25,7 +25,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
 
-    private int order = -1;
+    private Integer order = null;
 
     private Direction direction = Direction.UNDEFINED;
 
@@ -56,9 +56,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public List<BusNode> getBusNodes() {
-        return nodes.stream()
-                .filter(n -> n.getType() == Node.NodeType.BUS)
-                .map(BusNode.class::cast)
+        return nodes.stream().filter(n -> n.getType() == Node.NodeType.BUS).map(BusNode.class::cast)
                 .collect(Collectors.toList());
     }
 
@@ -68,12 +66,12 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public int getOrder() {
-        return order;
+    public Optional<Integer> getOrder() {
+        return Optional.ofNullable(order);
     }
 
     @Override
-    public void setOrder(int order) {
+    public void setOrder(Integer order) {
         this.order = order;
     }
 
@@ -102,7 +100,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         super.writeJsonContent(generator);
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", getDirection().name());
-            generator.writeNumberField("order", getOrder());
+            if (getOrder().isPresent()) {
+                generator.writeNumberField("order", getOrder().get());
+            }
         }
     }
 

@@ -40,9 +40,9 @@ public interface BusCell extends Cell {
 
     int newHPosition(int hPosition);
 
-    int getOrder();
+    Optional<Integer> getOrder();
 
-    void setOrder(int order);
+    void setOrder(Integer order);
 
     void averageOrder();
 
