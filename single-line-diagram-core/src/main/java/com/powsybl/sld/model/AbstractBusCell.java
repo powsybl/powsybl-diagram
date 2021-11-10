@@ -100,8 +100,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         super.writeJsonContent(generator);
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", getDirection().name());
-            if (getOrder().isPresent()) {
-                generator.writeNumberField("order", getOrder().get());
+            Optional<Integer> oOrder = getOrder();
+            if (oOrder.isPresent()) {
+                generator.writeNumberField("order", oOrder.get());
             }
         }
     }
