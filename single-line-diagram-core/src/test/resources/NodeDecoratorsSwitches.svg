@@ -380,7 +380,6 @@ polyline {fill: none}
                 <circle cx="5" cy="15" r="5"/>
                 <circle cx="11" cy="15" r="5"/>
                 <circle cx="8" cy="19" r="5"/>
-                <text class="sld-label" id="T3_12_T3_12_NW_LABEL" x="-5.0" y="-5.0">T3_12</text>
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
@@ -654,7 +653,6 @@ polyline {fill: none}
                 <circle cx="5" cy="15" r="5"/>
                 <circle cx="11" cy="15" r="5"/>
                 <circle cx="8" cy="19" r="5"/>
-                <text class="sld-label" id="T3_12_T3_12_NW_LABEL" x="-5.0" y="-5.0">T3_12</text>
             </g>
         </g>
         <g class="sld-wire sld-constant-color" id="idL11">

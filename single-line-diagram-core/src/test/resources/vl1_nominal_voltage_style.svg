@@ -62,7 +62,6 @@ polyline {fill: none}
             <circle class="sld-vl180to300" cx="5" cy="15" r="5"/>
             <circle class="sld-vl50to70" cx="11" cy="15" r="5"/>
             <circle class="sld-vl300to500" cx="8" cy="19" r="5"/>
-            <text class="sld-label" id="3WT_3WT_NW_LABEL" x="-5.0" y="-5.0">3WT</text>
         </g>
         <g class="sld-constant-color sld-vl300to500" id="id3WT_95_TWO" transform="translate(-1.0,-1.0)">
             <text class="sld-label" id="3WT_TWO_3WT_TWO__LABEL" x="-5.0" y="-5.0">3WT_1</text>
@@ -72,7 +71,6 @@ polyline {fill: none}
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_1" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
-            <text class="sld-label" id="INTERNAL_vl1_1_INTERNAL_vl1_1_NW_LABEL" x="-5.0" y="-5.0">1</text>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed sld-vl300to500" id="idd" transform="translate(-5.0,-5.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -84,7 +82,6 @@ polyline {fill: none}
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_4" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
-            <text class="sld-label" id="INTERNAL_vl1_4_INTERNAL_vl1_4_NW_LABEL" x="-5.0" y="-5.0">4</text>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed sld-vl300to500" id="idd2WT_95_1" transform="translate(-5.0,-5.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -96,7 +93,6 @@ polyline {fill: none}
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_6" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
-            <text class="sld-label" id="INTERNAL_vl1_6_INTERNAL_vl1_6_NW_LABEL" x="-5.0" y="-5.0">6</text>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed sld-vl300to500" id="idd3WT_95_1" transform="translate(-5.0,-5.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

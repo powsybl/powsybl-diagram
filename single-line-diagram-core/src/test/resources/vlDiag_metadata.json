@@ -715,10 +715,7 @@
     "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf6",
-    "labels" : [ {
-      "id" : "trf6_trf6_NW_LABEL",
-      "positionName" : "trf6_NW_LABEL"
-    } ]
+    "labels" : [ ]
   }, {
     "id" : "iddgen1",
     "vid" : "vl1",
@@ -737,10 +734,7 @@
     "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf7",
-    "labels" : [ {
-      "id" : "trf7_trf7_NW_LABEL",
-      "positionName" : "trf7_NW_LABEL"
-    } ]
+    "labels" : [ ]
   }, {
     "id" : "idtrf8",
     "vid" : "vl1",
@@ -749,10 +743,7 @@
     "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf8",
-    "labels" : [ {
-      "id" : "trf8_trf8_NW_LABEL",
-      "positionName" : "trf8_NW_LABEL"
-    } ]
+    "labels" : [ ]
   }, {
     "id" : "iddgen2",
     "vid" : "vl1",
