@@ -115,11 +115,11 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
         List<NodeLabel> nodeLabels = new ArrayList<>();
         if (node instanceof FeederNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getFeederLabelPosition(node)));
+            node.getLabel().ifPresent(label -> nodeLabels.add(new NodeLabel(label, getFeederLabelPosition(node), null)));
         } else if (node instanceof BusNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node), null));
+            node.getLabel().ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(node), null)));
         } else if (node instanceof FictitiousNode) {
-            nodeLabels.add(new NodeLabel(node.getLabel(), getBusLabelPosition(node), null));
+            node.getLabel().ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(node), null)));
         }
 
         return nodeLabels;
@@ -145,7 +145,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                 default:
                     break;
             }
-        } else if (node instanceof Middle3WTNode) {
+        } else if (node instanceof Middle3WTNode && node.getGraph() != null) {
             addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
         }
 

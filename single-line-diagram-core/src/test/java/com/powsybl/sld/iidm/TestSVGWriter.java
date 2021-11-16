@@ -826,9 +826,6 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         };
 
         DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider();
-        getLayoutParameters()
-                .setTooltipEnabled(true)
-                .setAvoidSVGComponentsDuplication(true);
         assertEquals(toString("/label_on_all_nodes.svg"),
                 toSVG(g1, "/label_on_all_nodes.svg", getLayoutParameters(), sameNodeLabelProvider, styleProvider));
     }

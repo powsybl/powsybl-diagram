@@ -242,6 +242,7 @@ polyline {fill: none}
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
             <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
+            <text class="sld-label" id="vl1_trf2_vl1_trf2_NW_LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
         <g class="sld-breaker sld-constant-color sld-closed" id="idvl1_95_btrf2" transform="translate(430.0,190.0)">
             <title>vl1_btrf2</title>

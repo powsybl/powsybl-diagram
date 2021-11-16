@@ -345,6 +345,7 @@ polyline {fill: none}
                 <circle class="sld-vl180to300" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl50to70" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl300to500" cx="8" cy="19" r="5"/>
+                <text class="sld-label" id="trf6_trf6_NW_LABEL" x="-5.0" y="-5.0">trf6</text>
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
@@ -500,6 +501,7 @@ polyline {fill: none}
                 <circle class="sld-vl180to300" cx="5" cy="15" r="5"/>
                 <circle class="sld-vl50to70" cx="11" cy="15" r="5"/>
                 <circle class="sld-vl300to500" cx="8" cy="19" r="5"/>
+                <text class="sld-label" id="trf8_trf8_NW_LABEL" x="-5.0" y="-5.0">trf8</text>
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
@@ -655,6 +657,7 @@ polyline {fill: none}
                 <circle class="sld-vl50to70" cx="5" cy="15" r="5" transform="rotate(180.0,8.0,12.0)"/>
                 <circle class="sld-vl180to300" cx="11" cy="15" r="5" transform="rotate(180.0,8.0,12.0)"/>
                 <circle class="sld-vl300to500" cx="8" cy="19" r="5" transform="rotate(180.0,8.0,12.0)"/>
+                <text class="sld-label" id="trf7_trf7_NW_LABEL" x="-5.0" y="-5.0">trf7</text>
             </g>
         </g>
         <g class="cell idEXTERN_32_12" id="idEXTERN_32_12">

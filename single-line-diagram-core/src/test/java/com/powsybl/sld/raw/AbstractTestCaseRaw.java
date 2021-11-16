@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
-    private LayoutParameters layoutParameters;
+    private final LayoutParameters layoutParameters;
 
     protected AbstractTestCaseRaw() {
         layoutParameters = createDefaultLayoutParameters();
@@ -34,10 +34,14 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return layoutParameters;
     }
 
+    protected RawDiagramLabelProvider getRawLabelProvider(Graph graph) {
+        Stream<Node> nodeStream = getNodeStream(graph);
+        return new RawDiagramLabelProvider(nodeStream);
+    }
+
     @Override
     public void toSVG(Graph graph, String filename) {
-        Stream<Node> nodeStream = getNodeStream(graph);
-        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), getRawLabelProvider(graph), new DefaultDiagramStyleProvider());
     }
 
     private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface
@@ -59,7 +63,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition, null));
+                n.getLabel().ifPresent(label -> labels.add(new DiagramLabelProvider.NodeLabel(label, labelPosition, null)));
                 nodeLabels.put(n, labels);
             });
         }

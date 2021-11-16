@@ -51,6 +51,7 @@ polyline {fill: none}
             <circle class="sld-vl300to500" cx="5" cy="15" r="5"/>
             <circle class="sld-vl180to300" cx="11" cy="15" r="5"/>
             <circle class="sld-vl50to70" cx="8" cy="19" r="5"/>
+            <text class="sld-label" id="3WT_3WT_NW_LABEL" x="-5.0" y="-5.0">3WT</text>
         </g>
         <g class="sld-constant-color sld-vl50to70" id="id3WT_95_ONE" transform="translate(-1.0,-1.0)">
             <text class="sld-label" id="3WT_ONE_3WT_ONE__LABEL" x="-5.0" y="-5.0">3WT_3</text>
@@ -60,6 +61,7 @@ polyline {fill: none}
         </g>
         <g class="sld-node sld-constant-color sld-hidden-node sld-vl50to70" id="idINTERNAL_95_vl3_95_2" transform="translate(-5.0,-5.0)">
             <circle cx="4" cy="4" r="4"/>
+            <text class="sld-label" id="INTERNAL_vl3_2_INTERNAL_vl3_2_NW_LABEL" x="-5.0" y="-5.0">2</text>
         </g>
         <g class="sld-disconnector sld-constant-color sld-closed sld-vl50to70" id="idd3WT_95_3" transform="translate(-5.0,-5.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

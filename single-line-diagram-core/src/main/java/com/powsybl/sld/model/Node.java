@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -116,13 +117,14 @@ public class Node implements BaseNode {
         return equipmentId;
     }
 
-    public String getLabel() {
+    public Optional<String> getLabel() {
+        String result = null;
         if (label != null) {
-            return label;
+            result = label;
         } else if (graph != null) {
-            return graph.isUseName() ? name : equipmentId;
+            result = graph.isUseName() ? name : equipmentId;
         }
-        return null;
+        return Optional.ofNullable(result);
     }
 
     public void setLabel(String label) {
