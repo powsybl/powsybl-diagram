@@ -20,6 +20,8 @@ import com.powsybl.sld.svg.DiagramStyleProvider;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -75,12 +77,15 @@ public abstract class AbstractTestCase {
     }
 
     private void writeToFileInHomeDir(String filename, StringWriter content) {
-        File homeFolder = new File(System.getProperty("user.home"));
-        File file = new File(homeFolder, filename);
-        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
-            fw.write(content.toString());
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        Path homePath = Paths.get(System.getProperty("user.home"), ".powsybl");
+        File homeFolder = homePath.toFile();
+        if (homeFolder.exists() || homeFolder.mkdir()) {
+            File file = new File(homeFolder, filename);
+            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
+                fw.write(content.toString());
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
         }
     }
 
