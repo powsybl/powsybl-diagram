@@ -236,7 +236,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, metadata, initProvider, styleProvider);
@@ -428,7 +428,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawMultiTerminalNodes(prefixId, root, graph, metadata, styleProvider);
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
     }
 
     /*
@@ -554,7 +554,7 @@ public class DefaultSVGWriter implements SVGWriter {
      */
     protected void drawNodes(String prefixId,
                              Element root,
-                             VoltageLevelGraph graph,
+                             BaseGraph graph,
                              GraphMetadata metadata,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
@@ -568,10 +568,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
             incorporateComponents(prefixId, node, g, styleProvider);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node);
-            if (!node.isFictitious() || node instanceof Middle3WTNode) {
-                drawNodeLabel(prefixId, g, node, nodeLabels);
-                drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
-            }
+            drawNodeLabel(prefixId, g, node, nodeLabels);
+            drawNodeDecorators(prefixId, g, node, initProvider, styleProvider);
 
             root.appendChild(g);
 
@@ -580,7 +578,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, VoltageLevelGraph graph, BusCell.Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
+    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, BusCell.Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -589,8 +587,9 @@ public class DefaultSVGWriter implements SVGWriter {
             }
         }
 
+        String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph != null ? graph.getVoltageLevelInfos().getId() : "", nextVId,
+                new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
         if (metadata.getComponentMetadata(node.getComponentType()) == null) {
@@ -1308,31 +1307,6 @@ public class DefaultSVGWriter implements SVGWriter {
         AnchorPointProvider anchorPointProvider = (type, id) -> componentLibrary.getAnchorPoints(type);
 
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
-    }
-
-    /*
-     * Drawing the multi-terminal nodes
-     */
-    protected void drawMultiTerminalNodes(String prefixId,
-                                          Element root,
-                                          BaseGraph graph,
-                                          GraphMetadata metadata,
-                                          DiagramStyleProvider styleProvider) {
-        graph.getMultiTermNodes().forEach(node -> {
-
-            String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
-            Element g = root.getOwnerDocument().createElement(GROUP);
-            g.setAttribute("id", nodeId);
-
-            g.setAttribute(CLASS, String.join(" ",
-                    styleProvider.getSvgNodeStyles(node, componentLibrary, layoutParameters.isShowInternalNodes())));
-
-            incorporateComponents(prefixId, node, g, styleProvider);
-
-            root.appendChild(g);
-
-            setMetadata(prefixId, metadata, node, nodeId, null, BusCell.Direction.UNDEFINED, Collections.emptyList());
-        });
     }
 
     /*
