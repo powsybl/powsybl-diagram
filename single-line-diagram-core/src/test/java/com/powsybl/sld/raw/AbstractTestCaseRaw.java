@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
-    private LayoutParameters layoutParameters;
+    private final LayoutParameters layoutParameters;
 
     protected AbstractTestCaseRaw() {
         layoutParameters = createDefaultLayoutParameters();
@@ -34,10 +34,14 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         return layoutParameters;
     }
 
+    protected RawDiagramLabelProvider getRawLabelProvider(Graph graph) {
+        Stream<Node> nodeStream = getNodeStream(graph);
+        return new RawDiagramLabelProvider(nodeStream);
+    }
+
     @Override
     public void toSVG(Graph graph, String filename) {
-        Stream<Node> nodeStream = getNodeStream(graph);
-        toSVG(graph, filename, getLayoutParameters(), new RawDiagramLabelProvider(nodeStream), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), getRawLabelProvider(graph), new DefaultDiagramStyleProvider());
     }
 
     private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface
@@ -52,15 +56,15 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {
-        private final Map<Node, List<NodeLabel>> busLabels;
+        private final Map<Node, List<NodeLabel>> nodeLabels;
 
         public RawDiagramLabelProvider(Stream<Node> nodeStream) {
-            this.busLabels = new HashMap<>();
+            this.nodeLabels = new HashMap<>();
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
             nodeStream.forEach(n -> {
                 List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                labels.add(new DiagramLabelProvider.NodeLabel(n.getLabel(), labelPosition));
-                busLabels.put(n, labels);
+                n.getLabel().ifPresent(label -> labels.add(new DiagramLabelProvider.NodeLabel(label, labelPosition, null)));
+                nodeLabels.put(n, labels);
             });
         }
 
@@ -73,7 +77,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
         @Override
         public List<NodeLabel> getNodeLabels(Node node) {
-            return busLabels.get(node);
+            List<NodeLabel> labels = nodeLabels.get(node);
+            return labels != null ? labels : Collections.emptyList();
         }
 
         @Override

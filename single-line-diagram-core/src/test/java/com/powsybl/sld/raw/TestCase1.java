@@ -10,6 +10,7 @@ import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,6 +49,7 @@ public class TestCase1 extends AbstractTestCaseRaw {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
-        assertEquals(toString("/TestCase1.json"), toJson(g, "/TestCase1.json"));
+        assertEquals(toString("/TestCase1.svg"),
+                toSVG(g, "/TestCase1.svg", getLayoutParameters(), getRawLabelProvider(g), new DefaultDiagramStyleProvider()));
     }
 }
