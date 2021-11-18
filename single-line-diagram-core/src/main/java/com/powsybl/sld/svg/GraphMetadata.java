@@ -124,23 +124,23 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String positionName;
 
-        private final String userId;
+        private final String userDefinedId;
 
         @JsonCreator
         public NodeLabelMetadata(@JsonProperty("id") String id,
                                  @JsonProperty("positionName") String positionName,
-                                 @JsonProperty("userId") String userId) {
+                                 @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
             this.positionName = Objects.requireNonNull(positionName);
-            this.userId = userId;
+            this.userDefinedId = userDefinedId;
         }
 
         public String getId() {
             return id;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getUserDefinedId() {
+            return userDefinedId;
         }
 
         public String getPositionName() {
@@ -233,13 +233,13 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String feederNodeId;
 
-        private final String userId;
+        private final String userDefinedId;
 
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("userId") String userId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
             this.feederNodeId = Objects.requireNonNull(feederNodeId);
-            this.userId = userId;
+            this.userDefinedId = userDefinedId;
         }
 
         public String getId() {
@@ -250,8 +250,8 @@ public class GraphMetadata implements AnchorPointProvider {
             return feederNodeId;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getUserDefinedId() {
+            return userDefinedId;
         }
     }
 
@@ -260,20 +260,20 @@ public class GraphMetadata implements AnchorPointProvider {
 
         private final String id;
 
-        private final String userId;
+        private final String userDefinedId;
 
         @JsonCreator
-        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id, @JsonProperty("userId") String userId) {
+        public ElectricalNodeInfoMetadata(@JsonProperty("id") String id, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
-            this.userId = userId;
+            this.userDefinedId = userDefinedId;
         }
 
         public String getId() {
             return id;
         }
 
-        public String getUserId() {
-            return userId;
+        public String getUserDefinedId() {
+            return userDefinedId;
         }
     }
 

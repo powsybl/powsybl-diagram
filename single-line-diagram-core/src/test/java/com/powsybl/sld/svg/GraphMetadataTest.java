@@ -93,7 +93,7 @@ public class GraphMetadataTest {
         assertEquals("vid2", metadata2.getNodeMetadata("id2").getVId());
         assertNotNull(metadata2.getNodeMetadata("id1").getLabels());
         assertEquals("id", metadata2.getNodeMetadata("id1").getLabels().get(0).getId());
-        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).getUserId());
+        assertEquals("user_id", metadata2.getNodeMetadata("id1").getLabels().get(0).getUserDefinedId());
         assertEquals("position_name", metadata2.getNodeMetadata("id1").getLabels().get(0).getPositionName());
         assertNotNull(metadata2.getNodeMetadata("id2"));
         assertEquals(1, metadata2.getWireMetadata().size());
@@ -104,10 +104,10 @@ public class GraphMetadataTest {
         assertFalse(metadata2.getWireMetadata("id3").isStraight());
         assertNotNull(metadata2.getFeederInfoMetadata("id1"));
         assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getFeederNodeId());
-        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserId());
+        assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
-        assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserId());
+        assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
 
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);

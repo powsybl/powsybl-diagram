@@ -14,9 +14,9 @@ import com.powsybl.iidm.network.Connectable;
  */
 public interface BranchStatus<C extends Connectable<C>> extends Extension<C> {
 
-    static final String NAME = "branchStatus";
+    String NAME = "branchStatus";
 
-    public enum Status {
+    enum Status {
         IN_OPERATION,
         PLANNED_OUTAGE,
         FORCED_OUTAGE
@@ -29,5 +29,5 @@ public interface BranchStatus<C extends Connectable<C>> extends Extension<C> {
 
     Status getStatus();
 
-    BranchStatus setStatus(Status status);
+    BranchStatus<C> setStatus(Status status);
 }
