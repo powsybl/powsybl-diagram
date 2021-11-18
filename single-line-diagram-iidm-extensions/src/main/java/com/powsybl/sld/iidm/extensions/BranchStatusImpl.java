@@ -27,7 +27,7 @@ public class BranchStatusImpl<C extends Connectable<C>> extends AbstractExtensio
         return status;
     }
 
-    public BranchStatus setStatus(Status branchStatus) {
+    public BranchStatus<C> setStatus(Status branchStatus) {
         Objects.requireNonNull(branchStatus);
         this.status = branchStatus;
         return this;
