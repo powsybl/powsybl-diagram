@@ -126,7 +126,7 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
-
+.sld-frame {fill: lightgrey}
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
