@@ -1321,9 +1321,9 @@ public class DefaultSVGWriter implements SVGWriter {
         circle.setAttribute("cy", String.valueOf(yShift));
         circle.setAttribute("r", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
         circle.setAttribute("stroke-width", String.valueOf(CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        if (!styles.isEmpty()) {
-            circle.setAttribute(CLASS, String.join(" ", styles));
-        }
+        List<String> classStyles = new ArrayList<>(styles);
+        classStyles.add(NODE_INFOS);
+        circle.setAttribute(CLASS, String.join(" ", classStyles));
         g.appendChild(circle);
 
         // v
