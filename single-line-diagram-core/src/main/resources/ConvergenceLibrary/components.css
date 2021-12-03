@@ -33,8 +33,4 @@
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
-.sld-label {font: 8px "Verdana"}
-.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
-.sld-flash {stroke: none; fill: black}
-.sld-lock {stroke: none; fill: black}
-.sld-frame {fill: lightgrey}
+.sld-frame {fill: var(--sld-background-color, transparent)}
