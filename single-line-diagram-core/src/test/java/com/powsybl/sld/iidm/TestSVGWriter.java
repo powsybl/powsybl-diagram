@@ -50,6 +50,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     private SubstationGraph substG;
     private DiagramLabelProvider initValueProvider;
     private DiagramLabelProvider noFeederInfoProvider;
+    private DiagramLabelProvider manyFeederInfoProvider;
+
     private ZoneGraph zGraph;
 
     private void createVoltageLevelGraphs() {
@@ -688,6 +690,31 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 return new ArrayList<>();
             }
         };
+
+        // many feeder values provider example for the test :
+        //
+        manyFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
+
+            @Override
+            public List<FeederInfo> getFeederInfos(FeederNode node) {
+                List<FeederInfo> feederInfos = Arrays.asList(
+                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
+                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null),
+                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "30", null),
+                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "40", null),
+                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "50", null));
+                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
+                if (!feederArrowSymmetry) {
+                    Collections.reverse(feederInfos);
+                }
+                return feederInfos;
+            }
+
+            @Override
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+                return new ArrayList<>();
+            }
+        };
     }
 
     @Test
@@ -742,6 +769,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         // SVG file generation for substation and comparison to reference but with no feeder values
         assertEquals(toString("/substation_no_feeder_values.svg"),
             toSVG(substG, "/substation_no_feeder_values.svg", noFeederInfoProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    public void testSubstationManyFeederInfos() {
+        // SVG file generation for substation and comparison to reference but with many feeder values
+        assertEquals(toString("/vl1_many_feeder_values.svg"),
+            toSVG(g1, "/vl1_many_feeder_values.svg", manyFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
