@@ -1,10 +1,12 @@
+/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
+

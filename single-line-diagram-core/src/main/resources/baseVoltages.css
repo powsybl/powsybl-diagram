@@ -1,8 +1,9 @@
-.sld-constant-color {stroke: lightgrey}
-.sld-vl300to500 {stroke: #ff0000}
-.sld-vl180to300 {stroke: #228b22}
-.sld-vl120to180 {stroke: #01afaf}
-.sld-vl70to120 {stroke: #cc5500}
-.sld-vl50to70 {stroke: #a020f0}
-.sld-vl30to50 {stroke: #ff8290}
-.sld-vl0to30 {stroke: #abae28}
+/* ----------------------------------------------------------------------- */
+/* File: baseVoltages.css ------------------------------------------------ */
+.sld-vl300to500 {--sld-vl-color: #ff0000}
+.sld-vl180to300 {--sld-vl-color: #228b22}
+.sld-vl120to180 {--sld-vl-color: #01afaf}
+.sld-vl70to120 {--sld-vl-color: #cc5500}
+.sld-vl50to70 {--sld-vl-color: #a020f0}
+.sld-vl30to50 {--sld-vl-color: #ff8290}
+.sld-vl0to30 {--sld-vl-color: #abae28}

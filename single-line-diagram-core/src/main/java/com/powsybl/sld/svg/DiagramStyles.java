@@ -34,9 +34,8 @@ public final class DiagramStyles {
     public static final String FEEDER_DISCONNECTED_CONNECTED = STYLE_PREFIX + "feeder-disconnected-connected";
     public static final String BOTTOM_FEEDER = STYLE_PREFIX + "bottom-feeder";
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";
-    public static final String CONSTANT_COLOR_CLASS = STYLE_PREFIX + "constant-color";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
-
+    public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {
