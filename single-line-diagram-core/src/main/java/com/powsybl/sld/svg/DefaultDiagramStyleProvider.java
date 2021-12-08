@@ -113,6 +113,6 @@ public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        return Collections.emptyList();
+        return Collections.singletonList(NODE_INFOS);
     }
 }
