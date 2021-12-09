@@ -58,7 +58,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId, boolean useName) {
         draw(network, id, svgFile, componentLibrary, layoutParameters,
-                new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(),
+                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId, useName);
     }
 
@@ -95,7 +95,7 @@ public final class SingleLineDiagram {
 
     public static void drawVoltageLevel(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
                                         DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId, boolean useName) {
-        drawVoltageLevel(network, id, svgFile, componentLibrary, layoutParameters, new PositionVoltageLevelLayoutFactory(), initProvider, styleProvider, prefixId, useName);
+        drawVoltageLevel(network, id, svgFile, componentLibrary, layoutParameters, new SmartVoltageLevelLayoutFactory(network), initProvider, styleProvider, prefixId, useName);
     }
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
@@ -125,7 +125,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
                                       DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId, boolean useName) {
         drawSubstation(network, id, svgFile, componentLibrary, layoutParameters,
-                new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(),
+                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId, useName);
     }
 
