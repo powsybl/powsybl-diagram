@@ -32,19 +32,6 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     protected Substation substation;
     protected GraphBuilder graphBuilder;
 
-    protected static String normalizeLineSeparator(String str) {
-        return str.replace("\r\n", "\n")
-                .replace("\r", "\n");
-    }
-
-    VoltageLevel getVl() {
-        return vl;
-    }
-
-    Substation getSubstation() {
-        return substation;
-    }
-
     @Override
     public void toSVG(Graph g, String filename) {
         toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
