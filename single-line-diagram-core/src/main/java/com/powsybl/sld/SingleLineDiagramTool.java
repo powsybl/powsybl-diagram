@@ -116,6 +116,7 @@ public class SingleLineDiagramTool implements Tool {
         try {
             SingleLineDiagram.draw(network, vlOrSubstationId, svgFile,
                     generationConfig.componentLibrary, generationConfig.parameters,
+                    generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
                     new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
                     new DefaultDiagramStyleProvider(), "", true);
         } catch (Exception e) {
