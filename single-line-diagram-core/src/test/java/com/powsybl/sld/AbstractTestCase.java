@@ -38,9 +38,9 @@ public abstract class AbstractTestCase {
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
-    protected LayoutParameters layoutParameters = createDefaultLayoutParameters();
+    protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
-    protected static LayoutParameters createDefaultLayoutParameters() {
+    private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
             .setVerticalSpaceBus(25)
             .setHorizontalBusPadding(20)

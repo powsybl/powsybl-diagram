@@ -651,8 +651,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         createZoneGraph();
 
         // Layout parameters :
-        layoutParameters = createDefaultLayoutParameters()
-            .setShowGrid(false); // grid is only for SVG generated with a CellDetector
+        layoutParameters.setShowGrid(false); // grid is only for SVG generated with a CellDetector
 
         // initValueProvider example for the test :
         //

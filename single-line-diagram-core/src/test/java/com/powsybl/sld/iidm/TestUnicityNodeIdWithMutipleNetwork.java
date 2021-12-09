@@ -30,7 +30,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters = new LayoutParameters().setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
 
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");
