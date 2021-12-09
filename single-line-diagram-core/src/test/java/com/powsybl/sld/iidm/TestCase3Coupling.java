@@ -10,7 +10,6 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
@@ -34,11 +33,6 @@ import static org.junit.Assert.assertEquals;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase3Coupling extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
 
     @Before
     public void setUp() {
@@ -65,7 +59,7 @@ public class TestCase3Coupling extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3Coupling.json"));

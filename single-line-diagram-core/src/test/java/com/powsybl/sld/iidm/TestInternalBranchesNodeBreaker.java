@@ -20,11 +20,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
 
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
-
     @Before
     public void setUp() {
         network = CreateNetworksUtil.createNodeBreakerNetworkWithInternalBranches("TestInternalBranchesNodeBreaker", "test");
@@ -44,11 +39,11 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
 
     }
 
@@ -57,7 +52,9 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
 
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run horizontal substation layout
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
         assertEquals(toString("/InternalBranchesNodeBreakerH.json"), toJson(g, "/InternalBranchesNodeBreakerH.json"));
     }
 
@@ -66,7 +63,9 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
 
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
         assertEquals(toString("/InternalBranchesNodeBreakerV.json"), toJson(g, "/InternalBranchesNodeBreakerV.json"));
     }
 }

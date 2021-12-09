@@ -47,11 +47,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     public void toSVG(Graph g, String filename) {
-        toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {

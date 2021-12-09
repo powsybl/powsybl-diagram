@@ -60,7 +60,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase3TripleCoupling.json"), toJson(g, "/TestCase3TripleCoupling.json"));
@@ -81,7 +81,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
         String reference = toString("/TestCase3TripleCoupling.json");

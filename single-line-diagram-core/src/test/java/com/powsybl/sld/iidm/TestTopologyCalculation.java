@@ -40,11 +40,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestTopologyCalculation extends AbstractTestCaseIidm {
 
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return null;
-    }
-
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");

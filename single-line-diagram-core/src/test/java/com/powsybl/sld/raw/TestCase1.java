@@ -48,8 +48,8 @@ public class TestCase1 extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getLayoutParameters(), getRawLabelProvider(g), new DefaultDiagramStyleProvider()));
+                toSVG(g, "/TestCase1.svg", getRawLabelProvider(g), new DefaultDiagramStyleProvider()));
     }
 }

@@ -48,9 +48,10 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, null);
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        layoutParameters.setAdaptCellHeightToContent(true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
         assertEquals(toString("/TestFeederOnBus.json"), toJson(g, "/TestFeederOnBus.json"));
     }
 
@@ -63,9 +64,10 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs, busDisconnector);
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        layoutParameters.setAdaptCellHeightToContent(true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
         assertEquals(toString("/TestFeederOnBusDisconnector.json"), toJson(g, "/TestFeederOnBusDisconnector.json"));
     }
 }

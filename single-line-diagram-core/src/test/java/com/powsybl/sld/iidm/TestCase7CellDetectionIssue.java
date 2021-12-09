@@ -10,7 +10,6 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,11 +31,6 @@ import static org.junit.Assert.assertEquals;
 public class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
 
     private VoltageLevel vl;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return null;
-    }
 
     @Before
     public void setUp() {

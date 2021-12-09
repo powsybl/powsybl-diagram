@@ -61,7 +61,7 @@ public class TestCase5H extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
         assertEquals(toString("/TestCase5H.json"), toJson(g, "/TestCase5H.json"));
     }
 }

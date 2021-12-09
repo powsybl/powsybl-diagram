@@ -31,13 +31,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    @Override
-    public LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters().setShowInternalNodes(false);
-    }
-
     @Before
     public void setUp() {
+        layoutParameters.setShowInternalNodes(false);
         network = CreateNetworksUtil.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
         graphBuilder = new NetworkGraphBuilder(network);
     }
@@ -48,9 +44,11 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph("S1", true);
 
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run horizontal substation layout
+        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -65,11 +63,11 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-            toSVG(g, "/NodeDecoratorsSwitches.svg", getLayoutParameters(), new TestDiagramLabelProvider(network), getDefaultDiagramStyleProvider()));
+            toSVG(g, "/NodeDecoratorsSwitches.svg", new TestDiagramLabelProvider(network), getDefaultDiagramStyleProvider()));
     }
 
     private class TestDiagramLabelProvider extends DefaultDiagramLabelProvider {
@@ -77,7 +75,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
         public TestDiagramLabelProvider(Network network) {
-            super(network, componentLibrary, getLayoutParameters());
+            super(network, componentLibrary, layoutParameters);
         }
 
         @Override

@@ -12,7 +12,6 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
@@ -40,11 +39,6 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl3;
     private FileSystem fileSystem;
     private Path tmpDir;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return null;
-    }
 
     @Before
     public void setUp() throws IOException {

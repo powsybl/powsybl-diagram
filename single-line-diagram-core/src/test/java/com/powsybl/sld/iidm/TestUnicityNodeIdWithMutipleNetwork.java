@@ -30,13 +30,10 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
     private Substation substation2;
     private VoltageLevel vl2;
 
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return new LayoutParameters().setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
-    }
-
     @Before
     public void setUp() {
+        layoutParameters = new LayoutParameters().setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -61,20 +58,20 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        // Generating json for voltage level in first network
+        // Generating graph for voltage level in first network
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
         new ImplicitCellDetector().detectCells(graph1);
         new BlockOrganizer().organize(graph1);
-        new PositionVoltageLevelLayout(graph1).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(graph1).run(layoutParameters);
 
         String refJson1 = toString("/TestUnicityNodeIdNetWork1.json");
         assertEquals(refJson1, toJson(graph1, "/TestUnicityNodeIdNetWork1.json"));
 
-        // Generating json for voltage level in second network
+        // Generating graph for voltage level in second network
         VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), false, true);
         new ImplicitCellDetector().detectCells(graph2);
         new BlockOrganizer().organize(graph2);
-        new PositionVoltageLevelLayout(graph2).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(graph2).run(layoutParameters);
 
         network = network2; // overwrite network with network2 for debug purposes (svg generated for debug in toJson if writeFile=true takes network as reference)
         String refJson2 = toString("/TestUnicityNodeIdNetWork2.json");

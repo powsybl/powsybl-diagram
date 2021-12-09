@@ -11,7 +11,6 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
@@ -37,11 +36,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase1inverted extends AbstractTestCaseIidm {
 
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
-
     @Before
     public void setUp() {
         network = Network.create("testCase1", "test");
@@ -66,7 +60,7 @@ public class TestCase1inverted extends AbstractTestCaseIidm {
         new BlockOrganizer().organize(g);
 
         // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase1inverted.json"), toJson(g, "/TestCase1inverted.json"));
