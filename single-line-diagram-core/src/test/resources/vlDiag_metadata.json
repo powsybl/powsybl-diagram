@@ -1549,6 +1549,7 @@
     "addNodesInfos" : false,
     "feederArrowSymmetry" : false,
     "cssLocation" : "EXTERNAL_IMPORTED",
-    "svgWidthAndHeightAdded" : false
+    "svgWidthAndHeightAdded" : false,
+    "useName" : false
   }
 }

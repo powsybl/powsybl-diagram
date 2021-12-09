@@ -124,13 +124,7 @@ public class Node implements BaseNode {
     }
 
     public Optional<String> getLabel() {
-        String result = null;
-        if (label != null) {
-            result = label;
-        } else if (graph != null) {
-            result = graph.isUseName() ? name : equipmentId;
-        }
-        return Optional.ofNullable(result);
+        return Optional.ofNullable(label);
     }
 
     public void setLabel(String label) {

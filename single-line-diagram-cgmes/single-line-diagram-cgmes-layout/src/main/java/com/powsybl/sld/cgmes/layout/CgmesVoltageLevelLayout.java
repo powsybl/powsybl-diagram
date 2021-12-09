@@ -41,7 +41,7 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout implements Volt
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), diagramName);
-        setNodeCoordinates(vl, graph, diagramName);
+        setNodeCoordinates(vl, graph, diagramName, layoutParam.isUseName());
         graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
         if (layoutParam.getScaleFactor() != 1) {
             graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));

@@ -51,7 +51,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
@@ -72,7 +72,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         network.getSwitch("d3").setOpen(true);
 
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

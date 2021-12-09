@@ -636,7 +636,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double yPos = graph.getY() - 20.;
 
-        String graphName = graph.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
+        String graphName = layoutParameters.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
         Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
         label.setAttribute(CLASS, DiagramStyles.GRAPH_LABEL_STYLE_CLASS);
         gLabel.appendChild(label);

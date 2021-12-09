@@ -79,7 +79,7 @@ public class ZoneGraphTest {
     @Test
     public void test() {
         List<String> zone = Arrays.asList(SUBSTATION_ID_1, SUBSTATION_ID_2);
-        ZoneGraph graph = new NetworkGraphBuilder(createNetwork()).buildZoneGraph(zone, false);
+        ZoneGraph graph = new NetworkGraphBuilder(createNetwork()).buildZoneGraph(zone);
         assertEquals(2, graph.getNodes().size());
         assertEquals(SUBSTATION_ID_1, graph.getNodes().get(0).getSubstationId());
         assertEquals(SUBSTATION_ID_2, graph.getNodes().get(1).getSubstationId());

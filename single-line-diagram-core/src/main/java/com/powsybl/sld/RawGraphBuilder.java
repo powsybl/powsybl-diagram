@@ -55,7 +55,7 @@ public class RawGraphBuilder implements GraphBuilder {
 
         public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
             this.voltageLevelInfos = voltageLevelInfos;
-            graph = VoltageLevelGraph.create(voltageLevelInfos, false, forVoltageLevelDiagram);
+            graph = VoltageLevelGraph.create(voltageLevelInfos, forVoltageLevelDiagram);
         }
 
         public VoltageLevelGraph getGraph() {
@@ -253,20 +253,18 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     public VoltageLevelGraph buildVoltageLevelGraph(String id,
-                                                    boolean useName,
                                                     boolean forVoltageLevelDiagram) {
         return vlBuilders.get(id).getGraph();
     }
 
-    public SubstationGraph buildSubstationGraph(String id,
-                                                boolean useName) {
+    public SubstationGraph buildSubstationGraph(String id) {
         SubstationGraph ssGraph = ssBuilders.get(id).getSsGraph();
         ssGraph.getNodes().sort(Comparator.comparingDouble(g -> -g.getVoltageLevelInfos().getNominalVoltage()));
         return ssGraph;
     }
 
     //TODO: buildZoneGraph
-    public ZoneGraph buildZoneGraph(List<String> substationIds, boolean useName) {
+    public ZoneGraph buildZoneGraph(List<String> substationIds) {
         return null;
     }
 }

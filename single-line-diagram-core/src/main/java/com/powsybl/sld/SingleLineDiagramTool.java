@@ -118,7 +118,7 @@ public class SingleLineDiagramTool implements Tool {
                     generationConfig.componentLibrary, generationConfig.parameters,
                     generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
                     new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
-                    new DefaultDiagramStyleProvider(), "", true);
+                    new DefaultDiagramStyleProvider(), "");
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }

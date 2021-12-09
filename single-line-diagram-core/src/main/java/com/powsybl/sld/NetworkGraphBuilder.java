@@ -68,7 +68,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return !isInternalToSubstation(branch);
     }
 
-    public VoltageLevelGraph buildVoltageLevelGraph(String id, boolean useName, boolean forVoltageLevelDiagram) {
+    @Override
+    public VoltageLevelGraph buildVoltageLevelGraph(String id, boolean forVoltageLevelDiagram) {
         // get the voltageLevel from id
         VoltageLevel vl = network.getVoltageLevel(id);
         if (vl == null) {
@@ -76,7 +77,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), useName, forVoltageLevelDiagram);
+        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), forVoltageLevelDiagram);
         buildGraph(graph, vl);
 
         return graph;
@@ -122,7 +123,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     }
 
-    public SubstationGraph buildSubstationGraph(String id, boolean useName) {
+    public SubstationGraph buildSubstationGraph(String id) {
         // get the substation from id
         Substation substation = network.getSubstation(id);
         if (substation == null) {
@@ -131,18 +132,18 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         // build the substation graph from the substation
         SubstationGraph graph = SubstationGraph.create(substation.getId());
-        buildSubstationGraph(graph, substation, useName);
+        buildSubstationGraph(graph, substation);
 
         return graph;
     }
 
-    private void buildSubstationGraph(SubstationGraph graph, Substation substation, boolean useName) {
+    private void buildSubstationGraph(SubstationGraph graph, Substation substation) {
         // building the graph for each voltageLevel (ordered by descending voltageLevel nominalV)
         substation.getVoltageLevelStream()
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed())
                 .forEach(v -> {
-                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), useName, false);
+                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), false);
                     buildGraph(vlGraph, v);
                     graph.addNode(vlGraph);
                 });
@@ -703,7 +704,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     @Override
-    public ZoneGraph buildZoneGraph(List<String> substationIds, boolean useName) {
+    public ZoneGraph buildZoneGraph(List<String> substationIds) {
         Objects.requireNonNull(substationIds);
 
         List<Substation> zone = substationIds.stream().map(substationId -> {
@@ -715,12 +716,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }).collect(Collectors.toList());
 
         ZoneGraph graph = ZoneGraph.create(substationIds);
-        buildZoneGraph(graph, zone, useName);
+        buildZoneGraph(graph, zone);
 
         return graph;
     }
 
-    private void buildZoneGraph(ZoneGraph graph, List<Substation> zone, boolean useName) {
+    private void buildZoneGraph(ZoneGraph graph, List<Substation> zone) {
         if (zone.isEmpty()) {
             LOGGER.warn("No substations in the zone: skipping graph building");
             return;
@@ -729,7 +730,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         GraphBuilder graphBuilder = new NetworkGraphBuilder(network);
         zone.forEach(substation -> {
             LOGGER.info("Adding substation {} to zone graph", substation.getId());
-            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), useName);
+            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId());
             graph.addNode(sGraph);
         });
         // Add snake edges between different substations in the same zone

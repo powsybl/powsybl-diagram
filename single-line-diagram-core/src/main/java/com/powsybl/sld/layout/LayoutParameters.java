@@ -74,6 +74,8 @@ public class LayoutParameters {
 
     private boolean svgWidthAndHeightAdded = false;
 
+    private boolean useName = false;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -112,7 +114,8 @@ public class LayoutParameters {
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
                             @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
                             @JsonProperty("cssLocation") CssLocation cssLocation,
-                            @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded) {
+                            @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded,
+                            @JsonProperty("useName") boolean useName) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -144,6 +147,7 @@ public class LayoutParameters {
         this.feederArrowSymmetry = feederArrowSymmetry;
         this.cssLocation = cssLocation;
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
+        this.useName = useName;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -180,6 +184,7 @@ public class LayoutParameters {
         feederArrowSymmetry = other.feederArrowSymmetry;
         cssLocation = other.cssLocation;
         svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
+        useName = other.useName;
     }
 
     public double getVerticalSpaceBus() {
@@ -472,6 +477,15 @@ public class LayoutParameters {
     @JsonIgnore
     public double getBusPadding() {
         return getCellWidth() / 4;
+    }
+
+    public boolean isUseName() {
+        return useName;
+    }
+
+    public LayoutParameters setUseName(boolean useName) {
+        this.useName = useName;
+        return this;
     }
 
     public enum CssLocation {

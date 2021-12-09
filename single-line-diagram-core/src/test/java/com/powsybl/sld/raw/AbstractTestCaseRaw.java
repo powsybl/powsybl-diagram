@@ -36,7 +36,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     protected RawDiagramLabelProvider getRawLabelProvider(Graph graph) {
         Stream<Node> nodeStream = getNodeStream(graph);
-        return new RawDiagramLabelProvider(nodeStream);
+        return new RawDiagramLabelProvider(nodeStream, layoutParameters);
     }
 
     @Override
@@ -57,15 +57,18 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {
         private final Map<Node, List<NodeLabel>> nodeLabels;
+        private final LayoutParameters layoutParameters;
 
-        public RawDiagramLabelProvider(Stream<Node> nodeStream) {
+        public RawDiagramLabelProvider(Stream<Node> nodeStream, LayoutParameters layoutParameters) {
             this.nodeLabels = new HashMap<>();
+            this.layoutParameters = layoutParameters;
             LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
-            nodeStream.forEach(n -> {
-                List<DiagramLabelProvider.NodeLabel> labels = new ArrayList<>();
-                n.getLabel().ifPresent(label -> labels.add(new DiagramLabelProvider.NodeLabel(label, labelPosition, null)));
-                nodeLabels.put(n, labels);
-            });
+            nodeStream.forEach(n -> getLabelOrNameOrId(n).ifPresent(text ->
+                    nodeLabels.put(n, Collections.singletonList(new DiagramLabelProvider.NodeLabel(text, labelPosition)))));
+        }
+
+        private Optional<String> getLabelOrNameOrId(Node node) {
+            return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? node.getName() : node.getId()));
         }
 
         @Override
@@ -77,8 +80,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
         @Override
         public List<NodeLabel> getNodeLabels(Node node) {
-            List<NodeLabel> labels = nodeLabels.get(node);
-            return labels != null ? labels : Collections.emptyList();
+            return nodeLabels.getOrDefault(node, Collections.emptyList());
         }
 
         @Override

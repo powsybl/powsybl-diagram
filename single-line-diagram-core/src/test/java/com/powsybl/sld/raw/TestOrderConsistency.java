@@ -87,7 +87,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
 
     @Test
     public void testClustMiddleLeft() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionByClustering()).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
@@ -96,7 +96,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
 
     @Test
     public void testClustNoMiddleLeft() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionByClustering()).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
@@ -105,7 +105,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
 
     @Test
     public void testExtMiddleLeft() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension()).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());
@@ -114,7 +114,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
 
     @Test
     public void testExtNoMiddleLeft() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension()).organize(g);
         new PositionVoltageLevelLayout(g).run(getLayoutParameters());

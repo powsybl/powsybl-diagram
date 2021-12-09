@@ -35,7 +35,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testVLGraph() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true);
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
@@ -55,7 +55,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testSubstationGraphH() {
         // build substation graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/InternalBranchesNodeBreakerH.json"), toJson(g, "/InternalBranchesNodeBreakerH.json"));
@@ -64,7 +64,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testSubstationGraphV() {
         // build substation graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
         assertEquals(toString("/InternalBranchesNodeBreakerV.json"), toJson(g, "/InternalBranchesNodeBreakerV.json"));

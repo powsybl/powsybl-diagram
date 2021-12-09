@@ -231,7 +231,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
@@ -243,7 +243,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl2() {
         // build voltage level 2 graph
-        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
         new ImplicitCellDetector().detectCells(g2);
         new BlockOrganizer().organize(g2);
         new PositionVoltageLevelLayout(g2).run(getLayoutParameters());
@@ -255,7 +255,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl3() {
         // build voltage level 3 graph
-        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
         new ImplicitCellDetector().detectCells(g3);
         new BlockOrganizer().organize(g3);
         new PositionVoltageLevelLayout(g3).run(getLayoutParameters());
@@ -272,7 +272,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         getLayoutParameters().setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
-        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         compareMetadata(graph, "/vlDiag_metadata.json",
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
@@ -288,7 +288,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAddNodesInfos(true);
 
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
@@ -311,7 +311,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         new ImplicitCellDetector().detectCells(g1);
         new BlockOrganizer().organize(g1);
         new PositionVoltageLevelLayout(g1).run(getLayoutParameters());

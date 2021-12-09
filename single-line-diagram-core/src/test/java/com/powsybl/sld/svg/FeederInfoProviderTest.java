@@ -107,7 +107,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     @Test
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
         toSVG(g, "test.svg");
 
