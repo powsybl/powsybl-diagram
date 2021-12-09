@@ -10,10 +10,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,18 +58,16 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
     public void test() {
         // Generating graph for voltage level in first network
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
-        new ImplicitCellDetector().detectCells(graph1);
-        new BlockOrganizer().organize(graph1);
-        new PositionVoltageLevelLayout(graph1).run(layoutParameters);
+
+        new PositionVoltageLevelLayoutFactory().create(graph1).run(layoutParameters);
 
         String refJson1 = toString("/TestUnicityNodeIdNetWork1.json");
         assertEquals(refJson1, toJson(graph1, "/TestUnicityNodeIdNetWork1.json"));
 
         // Generating graph for voltage level in second network
         VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), false, true);
-        new ImplicitCellDetector().detectCells(graph2);
-        new BlockOrganizer().organize(graph2);
-        new PositionVoltageLevelLayout(graph2).run(layoutParameters);
+
+        new PositionVoltageLevelLayoutFactory().create(graph2).run(layoutParameters);
 
         network = network2; // overwrite network with network2 for debug purposes (svg generated for debug in toJson if writeFile=true takes network as reference)
         String refJson2 = toString("/TestUnicityNodeIdNetWork2.json");
