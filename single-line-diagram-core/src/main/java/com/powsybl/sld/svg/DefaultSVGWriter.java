@@ -191,7 +191,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        Document document,
                                        DiagramLabelProvider initProvider,
                                        DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 
@@ -383,7 +383,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        Document document,
                                        DiagramLabelProvider initProvider,
                                        DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 
@@ -1267,7 +1267,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                      Document document,
                                      DiagramLabelProvider initProvider,
                                      DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 

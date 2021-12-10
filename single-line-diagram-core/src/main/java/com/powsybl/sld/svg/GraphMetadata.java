@@ -293,8 +293,8 @@ public class GraphMetadata implements AnchorPointProvider {
 
     private final Map<String, ElectricalNodeInfoMetadata> electricalNodeInfoMetadataMap = new HashMap<>();
 
-    public GraphMetadata() {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), new LayoutParameters());
+    public GraphMetadata(LayoutParameters layoutParameters) {
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters);
     }
 
     @JsonCreator

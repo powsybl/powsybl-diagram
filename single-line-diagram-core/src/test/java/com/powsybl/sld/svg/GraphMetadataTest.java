@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.json.JsonUtil;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
@@ -55,7 +56,7 @@ public class GraphMetadataTest {
 
     @Test
     public void test() throws IOException {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addComponent(new Component(
             BREAKER,
             "br1",
@@ -144,7 +145,7 @@ public class GraphMetadataTest {
 
     @Test
     public void testGraphMetadataWithLine() throws IOException {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("bid1", "vid1", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("lid1", "vid1", null, LINE, null, false, BusCell.Direction.UNDEFINED, false, null, Collections.emptyList()));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("wid1", "bid1", "lid1", false, false));

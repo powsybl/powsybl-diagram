@@ -25,7 +25,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
     @Override
     protected LayoutParameters getLayoutParameters() {
-        return new LayoutParameters().setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        return createDefaultLayoutParameters();
     }
 
     @Before
