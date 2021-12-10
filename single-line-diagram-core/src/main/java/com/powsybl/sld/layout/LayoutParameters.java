@@ -50,7 +50,7 @@ public class LayoutParameters {
 
     private boolean avoidSVGComponentsDuplication = false;
 
-    private boolean adaptCellHeightToContent = false;
+    private boolean adaptCellHeightToContent = true;
     private double maxComponentHeight = 12;
     private double minSpaceBetweenComponents = 15;
     private double minExternCellHeight = 80;
@@ -66,7 +66,7 @@ public class LayoutParameters {
 
     private boolean feederArrowSymmetry = false;
 
-    private CssLocation cssLocation = CssLocation.EXTERNAL_IMPORTED;
+    private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
 
     private Padding voltageLevelPadding = new Padding(20, 60, 20, 60);
 
