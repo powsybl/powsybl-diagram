@@ -48,17 +48,17 @@ and additionally for this example three other ones: two for the `Network` test c
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-config-test</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -77,7 +77,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>2.4.0</version>
+    <version>2.6.0</version>
 </dependency>
 ```
 
