@@ -168,13 +168,7 @@ public abstract class AbstractCgmesLayout {
     }
 
     protected void setFeederNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
-        String componentType = node.getComponentType();
-        if (node instanceof Feeder2WTNode || node instanceof Feeder2WTLegNode) {
-            componentType = TWO_WINDINGS_TRANSFORMER;
-        } else if (node instanceof Feeder3WTLegNode) {
-            componentType = THREE_WINDINGS_TRANSFORMER;
-        }
-        switch (componentType) {
+        switch (node.getComponentType()) {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;
                 Load load = vl.getConnectable(loadNode.getId(), Load.class);
@@ -202,22 +196,24 @@ public abstract class AbstractCgmesLayout {
                 break;
             case TWO_WINDINGS_TRANSFORMER:
             case PHASE_SHIFT_TRANSFORMER:
+            case TWO_WINDINGS_TRANSFORMER_LEG:
                 FeederNode transformerNode = (FeederNode) node;
                 TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(), TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
-                    setTransformersLabel(transformerNode, useNames, transformer.getName(), transformer.getId());
+                    setTransformersLabel(transformerNode, useNames, transformer.getNameOrId(), transformer.getId());
                 }
                 setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, false, diagramName);
                 break;
             case THREE_WINDINGS_TRANSFORMER:
+            case THREE_WINDINGS_TRANSFORMER_LEG:
                 FeederNode transformer3wNode = (FeederNode) node;
                 ThreeWindingsTransformer transformer3w = vl.getConnectable(transformer3wNode.getEquipmentId(), ThreeWindingsTransformer.class);
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
                 if (transformer3w != null) {
                     transformer3wDiagramData = transformer3w.getExtension(ThreeWindingsTransformerDiagramData.class);
-                    setTransformersLabel(transformer3wNode, useNames, transformer3w.getName(), transformer3w.getId());
+                    setTransformersLabel(transformer3wNode, useNames, transformer3w.getNameOrId(), transformer3w.getId());
                 }
                 setThreeWindingsTransformerNodeCoordinates(transformer3wNode, transformer3wDiagramData, diagramName);
                 break;

@@ -77,7 +77,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV()), forVoltageLevelDiagram);
+        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), forVoltageLevelDiagram);
         buildGraph(graph, vl);
 
         return graph;
@@ -143,7 +143,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed())
                 .forEach(v -> {
-                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getName(), v.getNominalV()), false);
+                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()), false);
                     buildGraph(vlGraph, v);
                     graph.addNode(vlGraph);
                 });
