@@ -70,7 +70,7 @@ public abstract class AbstractCgmesLayout {
     protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName, boolean useNames) {
         isNodeBreaker = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind());
         // skip line nodes: I need the coordinates of the adjacent node to know which side of the line belongs to this voltage level
-        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, graph, node, diagramName, useNames));
+        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, node, diagramName, useNames));
         // set line nodes coordinates: I use the coordinates of the adjacent node to know which side of the line belongs to this voltage level
         graph.getNodes().stream().filter(this::isLineNode).forEach(node -> setLineNodeCoordinates(vl, node, diagramName));
     }
@@ -79,7 +79,7 @@ public abstract class AbstractCgmesLayout {
         return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName, boolean useNames) {
+    protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getType()) {
             case BUS:
@@ -103,7 +103,7 @@ public abstract class AbstractCgmesLayout {
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
                 break;
             case FEEDER:
-                setFeederNodeCoordinates(vl, graph, node, diagramName, useNames);
+                setFeederNodeCoordinates(vl, node, diagramName, useNames);
                 break;
             default:
                 processDefaultNodeCase(vl, node, diagramName);
@@ -167,7 +167,7 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setFeederNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName, boolean useNames) {
+    protected void setFeederNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
         String componentType = node.getComponentType();
         if (node instanceof Feeder2WTNode || node instanceof Feeder2WTLegNode) {
             componentType = TWO_WINDINGS_TRANSFORMER;
