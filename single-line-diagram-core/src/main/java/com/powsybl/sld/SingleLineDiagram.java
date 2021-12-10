@@ -79,7 +79,7 @@ public final class SingleLineDiagram {
         } else if (identifiable.getType() == SUBSTATION) {
             drawSubstation(network, id, svgFile, layoutParameters, componentLibrary, sLayoutFactory, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else {
-            throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network");
+            throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
     }
 
@@ -204,7 +204,7 @@ public final class SingleLineDiagram {
         } else if (identifiable.getType() == SUBSTATION) {
             drawSubstation(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary, sLayoutFactory, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else {
-            throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network");
+            throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network '" + network.getId() + "'");
         }
     }
 

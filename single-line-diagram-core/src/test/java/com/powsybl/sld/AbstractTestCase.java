@@ -19,6 +19,7 @@ import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
+import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -78,7 +79,19 @@ public abstract class AbstractTestCase {
         return getClass().getSimpleName();
     }
 
-    private void writeToFileInDebugDir(String filename, StringWriter content) {
+    protected void writeDebugFilesFromJson(String refMetdataName, StringWriter writer, StringWriter metadataWriter) {
+        if (debugJsonFiles && metadataWriter != null) {
+            writeToFileInDebugDir(refMetdataName, metadataWriter);
+        }
+        if (overrideTestReferences && metadataWriter != null) {
+            overrideTestReference(refMetdataName, metadataWriter);
+        }
+        if (debugSvgFiles && writer != null) {
+            writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
+        }
+    }
+
+    protected void writeToFileInDebugDir(String filename, StringWriter content) {
         File debugFolder = new File(System.getProperty("user.home"), ".powsybl");
         if (debugFolder.exists() || debugFolder.mkdir()) {
             File file = new File(debugFolder, filename);
@@ -90,7 +103,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    private void overrideTestReference(String filename, StringWriter content) {
+    protected void overrideTestReference(String filename, StringWriter content) {
         File testReference = new File("src/test/resources", filename);
         if (!testReference.exists()) {
             return;
@@ -110,7 +123,7 @@ public abstract class AbstractTestCase {
      *
      * See https://stackoverflow.com/questions/55853220/handling-change-in-newlines-by-xml-transformation-for-cdata-from-java-8-to-java
      */
-    private static String fixSvg(String svg) {
+    protected static String fixSvg(String svg) {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
@@ -159,8 +172,8 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             voltageLevelLayoutFactory.create(graph).run(getLayoutParameters());
-            SingleLineDiagram.draw(graph, new DefaultSVGWriter(componentLibrary, getLayoutParameters()),
-                    labelProvider, styleProvider, writer, metadataWriter, "");
+            SingleLineDiagram.draw(graph, writer, metadataWriter, getLayoutParameters(), componentLibrary,
+                    labelProvider, styleProvider, "");
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -187,8 +200,8 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             sLayoutFactory.create(graph, vlLayoutFactory).run(getLayoutParameters());
-            SingleLineDiagram.draw(graph, new DefaultSVGWriter(componentLibrary, getLayoutParameters()),
-                    labelProvider, styleProvider, writer, metadataWriter, "");
+            SingleLineDiagram.draw(graph, writer, metadataWriter, getLayoutParameters(), componentLibrary,
+                    labelProvider, styleProvider, "");
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);
@@ -234,8 +247,13 @@ public abstract class AbstractTestCase {
     }
 
     public String toString(String resourceName) {
+        InputStream resourceAsStream = Objects.requireNonNull(getClass().getResourceAsStream(resourceName));
+        return toString(resourceAsStream);
+    }
+
+    public String toString(InputStream resourceAsStream) {
         try {
-            return normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(resourceName)), StandardCharsets.UTF_8));
+            return normalizeLineSeparator(new String(ByteStreams.toByteArray(resourceAsStream), StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
