@@ -41,6 +41,10 @@ public final class SingleLineDiagram {
     private SingleLineDiagram() {
     }
 
+    public static void draw(Network network, String id, String svgFile) {
+        draw(network, id, Path.of(svgFile));
+    }
+
     public static void draw(Network network, String id, Path svgFile) {
         draw(network, id, svgFile, new LayoutParameters());
     }
