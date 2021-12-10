@@ -115,7 +115,7 @@ public class SingleLineDiagramTool implements Tool {
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
             SingleLineDiagram.draw(network, vlOrSubstationId, svgFile,
-                    generationConfig.componentLibrary, generationConfig.parameters,
+                    generationConfig.parameters, generationConfig.componentLibrary,
                     generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
                     new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
                     new DefaultDiagramStyleProvider(), "");

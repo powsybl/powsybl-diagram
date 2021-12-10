@@ -41,28 +41,28 @@ public final class SingleLineDiagram {
     }
 
     public static void draw(Network network, String id, Path svgFile) {
-        draw(network, id, svgFile, new ConvergenceComponentLibrary());
+        draw(network, id, svgFile, new LayoutParameters());
     }
 
-    public static void draw(Network network, String id, Path svgFile, ComponentLibrary componentLibrary) {
-        draw(network, id, svgFile, componentLibrary, new LayoutParameters());
+    public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters) {
+        draw(network, id, svgFile, layoutParameters, new ConvergenceComponentLibrary());
     }
 
-    public static void draw(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        draw(network, id, svgFile, componentLibrary, layoutParameters,
+    public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
+        draw(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new DefaultDiagramStyleProvider(),
                 "");
     }
 
-    public static void draw(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
-        draw(network, id, svgFile, componentLibrary, layoutParameters,
+        draw(network, id, svgFile, layoutParameters, componentLibrary,
                 new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId);
     }
 
-    public static void draw(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(network);
@@ -70,66 +70,66 @@ public final class SingleLineDiagram {
 
         Identifiable<?> identifiable = network.getIdentifiable(id);
         if (identifiable.getType() == VOLTAGE_LEVEL) {
-            drawVoltageLevel(network, id, svgFile, componentLibrary, layoutParameters, vLayoutFactory, initProvider, styleProvider, prefixId);
+            drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else if (identifiable.getType() == SUBSTATION) {
-            drawSubstation(network, id, svgFile, componentLibrary, layoutParameters, sLayoutFactory, vLayoutFactory, initProvider, styleProvider, prefixId);
+            drawSubstation(network, id, svgFile, layoutParameters, componentLibrary, sLayoutFactory, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else {
             throw new PowsyblException("Given id '" + id + "' is not a substation or voltage level id in given network");
         }
     }
 
     public static void drawVoltageLevel(Network network, String id, Path svgFile) {
-        drawVoltageLevel(network, id, svgFile, new ConvergenceComponentLibrary());
+        drawVoltageLevel(network, id, svgFile, new LayoutParameters());
     }
 
-    public static void drawVoltageLevel(Network network, String id, Path svgFile, ComponentLibrary componentLibrary) {
-        drawVoltageLevel(network, id, svgFile, componentLibrary, new LayoutParameters());
+    public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters) {
+        drawVoltageLevel(network, id, svgFile, layoutParameters, new ConvergenceComponentLibrary());
     }
 
-    public static void drawVoltageLevel(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        drawVoltageLevel(network, id, svgFile, componentLibrary, layoutParameters,
+    public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
+        drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new DefaultDiagramStyleProvider(),
                 "");
     }
 
-    public static void drawVoltageLevel(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                         DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
-        drawVoltageLevel(network, id, svgFile, componentLibrary, layoutParameters, new SmartVoltageLevelLayoutFactory(network), initProvider, styleProvider, prefixId);
+        drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, new SmartVoltageLevelLayoutFactory(network), initProvider, styleProvider, prefixId);
     }
 
-    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                          VoltageLevelLayoutFactory vLayoutFactory, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(vLayoutFactory);
 
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId, true);
         vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
-        draw(voltageLevelGraph, svgFile, componentLibrary, layoutParameters, initProvider, styleProvider, prefixId);
+        draw(voltageLevelGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 
     public static void drawSubstation(Network network, String id, Path svgFile) {
-        drawSubstation(network, id, svgFile, new ConvergenceComponentLibrary());
+        drawSubstation(network, id, svgFile, new LayoutParameters());
     }
 
-    public static void drawSubstation(Network network, String id, Path svgFile, ComponentLibrary componentLibrary) {
-        drawSubstation(network, id, svgFile, componentLibrary, new LayoutParameters());
+    public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters) {
+        drawSubstation(network, id, svgFile, layoutParameters, new ConvergenceComponentLibrary());
     }
 
-    public static void drawSubstation(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
-        drawSubstation(network, id, svgFile, componentLibrary, layoutParameters,
-                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new DefaultDiagramStyleProvider(),
-                "");
+    public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
+        drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
+                        new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
+                        new DefaultDiagramStyleProvider(),
+                        "");
     }
 
-    public static void drawSubstation(Network network, String id, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                       DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
-        drawSubstation(network, id, svgFile, componentLibrary, layoutParameters,
-                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
-                initProvider, styleProvider, prefixId);
+        drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
+                        new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
+                        initProvider, styleProvider, prefixId);
     }
 
-    private static void drawSubstation(Network network, String substationId, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    private static void drawSubstation(Network network, String substationId, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                        SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory,
                                        DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(sLayoutFactory);
@@ -137,10 +137,10 @@ public final class SingleLineDiagram {
 
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
         sLayoutFactory.create(substationGraph, vLayoutFactory).run(layoutParameters);
-        draw(substationGraph, svgFile, componentLibrary, layoutParameters, initProvider, styleProvider, prefixId);
+        draw(substationGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 
-    public static void draw(Graph graph, Path svgFile, ComponentLibrary componentLibrary, LayoutParameters layoutParameters,
+    public static void draw(Graph graph, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(graph);
         Objects.requireNonNull(componentLibrary);
