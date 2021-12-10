@@ -81,31 +81,13 @@ After adding the single line diagram core module dependency:
 </dependency>
 ```
 
-We can generate a SVG for the voltage level `N`:
+We can now generate a SVG for the voltage level `N` with the following simple unique code line:
 ```java
-// "Convergence" style component library
-ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-
-// fully automatic layout
-VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
-
-// create diagram for the voltage level N
-VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
-
-// create default parameters for the SVG layout
-// then activating height compaction and inclusion of CSS styles in the SVG
-LayoutParameters layoutParameters = new LayoutParameters()
-    .setAdaptCellHeightToContent(true)
-    .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
-
-// generate SVG
-voltageLevelDiagram.writeSvg("",
-    new DefaultSVGWriter(componentLibrary, layoutParameters),
-    new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-    new NominalVoltageDiagramStyleProvider(network),
-    Paths.get("/tmp/n.svg"));
+SingleLineDiagram.draw(network, "N", "/tmp/n.svg");
 ```
 
-We obtain the following SVG:
+We obtain the SVG below.
 
 ![Diagram demo](.github/example_n.svg)
+
+Note that a JSON file named `n_metadata.json` is also generated in the same folder, containing all the metadata needed to interact with the diagram if needed.
