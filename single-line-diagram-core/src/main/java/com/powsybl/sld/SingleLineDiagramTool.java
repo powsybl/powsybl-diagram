@@ -16,7 +16,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolOptions;
@@ -118,7 +118,7 @@ public class SingleLineDiagramTool implements Tool {
                     generationConfig.parameters, generationConfig.componentLibrary,
                     generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
                     new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
-                    new DefaultDiagramStyleProvider(), "");
+                    new TopologicalStyleProvider(network), "");
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }

@@ -41,7 +41,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public void toSVG(Graph graph, String filename) {
-        toSVG(graph, filename, getLayoutParameters(), getRawLabelProvider(graph), new DefaultDiagramStyleProvider());
+        toSVG(graph, filename, getLayoutParameters(), getRawLabelProvider(graph), new BasicStyleProvider());
     }
 
     private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface

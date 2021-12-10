@@ -16,6 +16,7 @@ import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         draw(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new DefaultDiagramStyleProvider(),
+                new TopologicalStyleProvider(network),
                 "");
     }
 
@@ -89,7 +90,7 @@ public final class SingleLineDiagram {
     public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary,
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new DefaultDiagramStyleProvider(),
+                new TopologicalStyleProvider(network),
                 "");
     }
 
@@ -118,7 +119,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary) {
         drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
                         new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                        new DefaultDiagramStyleProvider(),
+                        new TopologicalStyleProvider(network),
                         "");
     }
 

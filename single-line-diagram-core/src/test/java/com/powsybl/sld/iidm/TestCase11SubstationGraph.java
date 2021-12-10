@@ -12,7 +12,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -244,7 +244,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
-                new DefaultDiagramStyleProvider());
+                new BasicStyleProvider());
     }
 
     @Test
