@@ -312,7 +312,6 @@
       "open" : false,
       "label" : "G",
       "feederType" : "INJECTION",
-      "order" : -1,
       "direction" : "TOP"
     }, {
       "type" : "FICTITIOUS",
@@ -526,7 +525,6 @@
       "open" : false,
       "label" : "L1",
       "feederType" : "INJECTION",
-      "order" : -1,
       "direction" : "TOP"
     }, {
       "type" : "FEEDER",
@@ -540,7 +538,6 @@
       "open" : false,
       "label" : "L11",
       "feederType" : "BRANCH",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
@@ -560,7 +557,6 @@
       "open" : false,
       "label" : "L11",
       "feederType" : "BRANCH",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
@@ -580,7 +576,6 @@
       "open" : false,
       "label" : "L12",
       "feederType" : "BRANCH",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
@@ -600,7 +595,6 @@
       "open" : false,
       "label" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
@@ -620,7 +614,6 @@
       "open" : false,
       "label" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
@@ -640,7 +633,6 @@
       "open" : false,
       "label" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
@@ -660,7 +652,6 @@
       "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
@@ -680,7 +671,6 @@
       "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
@@ -781,7 +771,6 @@
       "type" : "EXTERN",
       "number" : 1,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -871,7 +860,6 @@
       "type" : "EXTERN",
       "number" : 2,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -961,7 +949,6 @@
       "type" : "EXTERN",
       "number" : 3,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1051,7 +1038,6 @@
       "type" : "EXTERN",
       "number" : 4,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1141,7 +1127,6 @@
       "type" : "EXTERN",
       "number" : 5,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1231,7 +1216,6 @@
       "type" : "EXTERN",
       "number" : 6,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1321,7 +1305,6 @@
       "type" : "EXTERN",
       "number" : 7,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1411,7 +1394,6 @@
       "type" : "EXTERN",
       "number" : 8,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1501,7 +1483,6 @@
       "type" : "EXTERN",
       "number" : 9,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1591,7 +1572,6 @@
       "type" : "EXTERN",
       "number" : 10,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2088,7 +2068,6 @@
       "open" : false,
       "label" : "L12",
       "feederType" : "BRANCH",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
@@ -2108,7 +2087,6 @@
       "open" : false,
       "label" : "L2",
       "feederType" : "INJECTION",
-      "order" : -1,
       "direction" : "TOP"
     }, {
       "type" : "FEEDER",
@@ -2122,7 +2100,6 @@
       "open" : false,
       "label" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
@@ -2142,7 +2119,6 @@
       "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
-      "order" : -1,
       "direction" : "TOP",
       "side" : "THREE",
       "otherSideVoltageLevelInfos" : {
@@ -2155,7 +2131,6 @@
       "type" : "EXTERN",
       "number" : 0,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2245,7 +2220,6 @@
       "type" : "EXTERN",
       "number" : 1,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2335,7 +2309,6 @@
       "type" : "EXTERN",
       "number" : 2,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2425,7 +2398,6 @@
       "type" : "EXTERN",
       "number" : 3,
       "direction" : "TOP",
-      "order" : -1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
