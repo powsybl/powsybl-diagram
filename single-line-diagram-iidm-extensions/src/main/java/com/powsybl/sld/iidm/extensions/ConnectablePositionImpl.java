@@ -8,9 +8,9 @@ package com.powsybl.sld.iidm.extensions;
 
 import com.powsybl.commons.extensions.AbstractExtension;
 import com.powsybl.iidm.network.Connectable;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition.Feeder;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -22,14 +22,26 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
 
         private String name;
 
-        private int order;
+        private Integer order;
 
         private Direction direction;
 
-        public FeederImpl(String name, int order, Direction direction) {
+        public FeederImpl(String name) {
+            this(name, null, null);
+        }
+
+        public FeederImpl(String name, int order) {
+            this(name, order, null);
+        }
+
+        public FeederImpl(String name, Direction direction) {
+            this(name, null, direction);
+        }
+
+        public FeederImpl(String name, Integer order, Direction direction) {
             this.name = Objects.requireNonNull(name);
             this.order = order;
-            this.direction = Objects.requireNonNull(direction);
+            this.direction = Objects.requireNonNullElse(direction, Direction.UNDEFINED);
         }
 
         @Override
@@ -44,8 +56,8 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
         }
 
         @Override
-        public int getOrder() {
-            return order;
+        public Optional<Integer> getOrder() {
+            return Optional.ofNullable(order);
         }
 
         @Override

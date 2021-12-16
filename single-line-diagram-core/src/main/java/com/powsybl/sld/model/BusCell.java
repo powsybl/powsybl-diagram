@@ -42,7 +42,7 @@ public interface BusCell extends Cell {
 
     Optional<Integer> getOrder();
 
-    void setOrder(Integer order);
+    void setOrder(int order);
 
     void averageOrder();
 

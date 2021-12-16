@@ -66,7 +66,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public void setOrder(Integer order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 

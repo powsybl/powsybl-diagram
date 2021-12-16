@@ -85,7 +85,7 @@ public class PositionFromExtension implements PositionFinder {
             problematicCells.forEach(cell -> LOGGER
                     .info("Cell Nb : {}, Order : {}, Type : {}",
                             cell.getNumber(),
-                            cell.getOrder(),
+                            cell.getOrder().orElse(null),
                             cell.getType()));
         }
     }
