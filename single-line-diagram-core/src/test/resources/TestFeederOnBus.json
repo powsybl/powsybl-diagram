@@ -64,7 +64,6 @@
     "open" : false,
     "label" : "line",
     "feederType" : "BRANCH",
-    "order" : -1,
     "direction" : "TOP",
     "side" : "ONE",
     "otherSideVoltageLevelInfos" : {

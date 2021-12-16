@@ -35,7 +35,6 @@
     "y" : 0.0,
     "open" : false,
     "feederType" : "FICTITIOUS",
-    "order" : -1,
     "direction" : "TOP"
   }, {
     "type" : "SWITCH",

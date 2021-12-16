@@ -11,6 +11,7 @@ import com.powsybl.commons.PowsyblException;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
@@ -56,7 +57,10 @@ public class FeederNode extends Node {
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
         generator.writeStringField("feederType", feederType.name());
-        generator.writeNumberField("order", getOrder().orElse(-1));
+        Optional<Integer> order = getOrder();
+        if (order.isPresent()) {
+            generator.writeNumberField("order", order.get());
+        }
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", getDirection().name());
         }
