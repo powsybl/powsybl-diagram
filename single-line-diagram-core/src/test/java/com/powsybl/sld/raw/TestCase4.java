@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +82,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase4NotParallelel.json"), toJson(g, "/TestCase4NotParallelel.json"));
     }
 }

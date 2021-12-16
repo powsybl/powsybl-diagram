@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
         assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) g.getCells().iterator().next()).getShape());
     }
 }

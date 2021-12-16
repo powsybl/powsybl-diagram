@@ -212,7 +212,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), false);
 
         // Run horizontal substation layout
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        substationGraphLayout(g);
 
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }

@@ -8,8 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
@@ -46,7 +44,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph("S1", true);
 
         // Run horizontal substation layout
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        substationGraphLayout(g);
 
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
             toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
@@ -58,7 +56,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),

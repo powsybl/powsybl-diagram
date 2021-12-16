@@ -11,7 +11,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +53,7 @@ public class TestCase3Coupling extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3Coupling.json"));

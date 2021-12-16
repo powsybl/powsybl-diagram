@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import org.junit.Before;
@@ -45,7 +44,7 @@ public class TestCase1 extends AbstractTestCaseRaw {
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase1.svg"),
                 toSVG(g, "/TestCase1.svg", getRawLabelProvider(g), new DefaultDiagramStyleProvider()));
     }

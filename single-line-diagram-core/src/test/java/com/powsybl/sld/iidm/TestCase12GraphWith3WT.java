@@ -227,7 +227,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g1).run(layoutParameters);
+        voltageLevelGraphLayout(g1);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL1.json"), toJson(g1, "/TestCase12GraphVL1.json"));
@@ -238,7 +238,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // build voltage level 2 graph
         VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g2).run(layoutParameters);
+        voltageLevelGraphLayout(g2);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL2.json"), toJson(g2, "/TestCase12GraphVL2.json"));
@@ -249,7 +249,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // build voltage level 3 graph
         VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g3).run(layoutParameters);
+        voltageLevelGraphLayout(g3);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL3.json"), toJson(g3, "/TestCase12GraphVL3.json"));
@@ -281,7 +281,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g1).run(layoutParameters);
+        voltageLevelGraphLayout(g1);
 
         DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
 
@@ -303,7 +303,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g1).run(layoutParameters);
+        voltageLevelGraphLayout(g1);
 
         DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
 

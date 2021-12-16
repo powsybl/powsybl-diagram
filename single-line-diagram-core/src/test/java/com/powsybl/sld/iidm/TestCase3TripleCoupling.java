@@ -7,7 +7,6 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase3TripleCoupling.json"), toJson(g, "/TestCase3TripleCoupling.json"));
@@ -67,7 +66,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
         String reference = toString("/TestCase3TripleCoupling.json");

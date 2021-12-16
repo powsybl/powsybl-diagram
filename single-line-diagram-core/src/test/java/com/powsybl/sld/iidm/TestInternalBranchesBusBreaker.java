@@ -10,7 +10,6 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.commons.config.ModuleConfigRepository;
 import com.powsybl.commons.config.PlatformConfig;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
@@ -49,7 +48,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
 
         // Run layout
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
         assertEquals(toString("/InternalBranchesBusBreaker.svg"),
@@ -62,7 +61,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId(), true);
 
         // Run horizontal substation layout
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        substationGraphLayout(g);
 
         assertEquals(toString("/InternalBranchesBusBreakerH.json"), toJson(g, "/InternalBranchesBusBreakerH.json"));
     }

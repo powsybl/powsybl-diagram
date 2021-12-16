@@ -7,7 +7,9 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
@@ -227,5 +229,13 @@ public abstract class AbstractTestCase {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
+        new PositionVoltageLevelLayoutFactory().create(voltageLevelGraph).run(layoutParameters);
+    }
+
+    protected void substationGraphLayout(SubstationGraph substationGraph) {
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
     }
 }

@@ -7,7 +7,6 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.*;
@@ -292,7 +291,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
     @Test
     public void testH() {
         SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst", false);
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        substationGraphLayout(g);
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }
 

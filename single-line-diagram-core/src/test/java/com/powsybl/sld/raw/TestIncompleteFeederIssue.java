@@ -7,7 +7,6 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.SwitchNode;
@@ -57,7 +56,7 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
         vlBuilder.connectNode(d2, fict2);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
 
-        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
+        voltageLevelGraphLayout(g);
         assertEquals(toString("/TestIncompleteFeederIssue.json"), toJson(g, "/TestIncompleteFeederIssue.json"));
     }
 }
