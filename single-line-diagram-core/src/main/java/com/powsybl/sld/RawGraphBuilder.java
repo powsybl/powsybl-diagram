@@ -89,10 +89,10 @@ public class RawGraphBuilder implements GraphBuilder {
             return sw;
         }
 
-        public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open, int order, BusCell.Direction direction) {
+        public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open, Integer order, BusCell.Direction direction) {
             SwitchNode sw = new SwitchNode(id, id, sk.name(), fictitious, graph, sk, open);
             graph.addNode(sw);
-            if (direction != null) {
+            if (direction != null || order != null) {
                 addExtension(sw, order, direction);
             }
             return sw;
@@ -114,9 +114,11 @@ public class RawGraphBuilder implements GraphBuilder {
             return fictitiousNode;
         }
 
-        public void addExtension(Node fn, int order, BusCell.Direction direction) {
-            fn.setOrder(order);
-            fn.setDirection(direction);
+        public void addExtension(Node fn, Integer order, BusCell.Direction direction) {
+            if (order != null) {
+                fn.setOrder(order);
+            }
+            fn.setDirection(direction == null ? BusCell.Direction.UNDEFINED : direction);
         }
 
         private void commonFeederSetting(FeederNode node, String id, int order, BusCell.Direction direction) {

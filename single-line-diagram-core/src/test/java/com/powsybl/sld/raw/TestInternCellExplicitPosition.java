@@ -53,7 +53,7 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
         SwitchNode dc21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc21", false, false);
         SwitchNode dc22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc22", false, false);
         SwitchNode bc2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc2", false, false, 4,
-                Direction.TOP);
+                null);
         vlBuilder.connectNode(bbs1, dc21);
         vlBuilder.connectNode(bc2, dc21);
         vlBuilder.connectNode(bc2, dc22);
