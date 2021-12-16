@@ -59,7 +59,7 @@ public class Node implements BaseNode {
 
     private String label;
 
-    private Optional<Integer> order = Optional.empty();
+    private Integer order;
 
     private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
 
@@ -238,11 +238,11 @@ public class Node implements BaseNode {
     }
 
     public Optional<Integer> getOrder() {
-        return order;
+        return Optional.ofNullable(order);
     }
 
     public void setOrder(int order) {
-        this.order = Optional.of(order);
+        this.order = order;
     }
 
     public BusCell.Direction getDirection() {
