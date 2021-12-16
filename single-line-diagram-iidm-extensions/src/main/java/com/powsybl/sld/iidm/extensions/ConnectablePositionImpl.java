@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractExtension<C>
         implements ConnectablePosition<C> {
 
-    public static class FeederImpl implements Feeder {
+    public static class InfoImpl implements Info {
 
         private String name;
 
@@ -26,19 +26,19 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
 
         private Direction direction;
 
-        public FeederImpl(String name) {
+        public InfoImpl(String name) {
             this(name, null, null);
         }
 
-        public FeederImpl(String name, int order) {
+        public InfoImpl(String name, int order) {
             this(name, order, null);
         }
 
-        public FeederImpl(String name, Direction direction) {
+        public InfoImpl(String name, Direction direction) {
             this(name, null, direction);
         }
 
-        public FeederImpl(String name, Integer order, Direction direction) {
+        public InfoImpl(String name, Integer order, Direction direction) {
             this.name = Objects.requireNonNull(name);
             this.order = order;
             this.direction = Objects.requireNonNullElse(direction, Direction.UNDEFINED);
@@ -50,7 +50,7 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
         }
 
         @Override
-        public Feeder setName(String name) {
+        public Info setName(String name) {
             this.name = Objects.requireNonNull(name);
             return this;
         }
@@ -61,13 +61,13 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
         }
 
         @Override
-        public Feeder setOrder(int order) {
+        public Info setOrder(int order) {
             this.order = order;
             return this;
         }
 
         @Override
-        public Feeder removeOrder() {
+        public Info removeOrder() {
             this.order = null;
             return this;
         }
@@ -78,43 +78,43 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
         }
 
         @Override
-        public Feeder setDirection(Direction direction) {
+        public Info setDirection(Direction direction) {
             this.direction = Objects.requireNonNull(direction);
             return this;
         }
     }
 
-    private FeederImpl feeder;
-    private FeederImpl feeder1;
-    private FeederImpl feeder2;
-    private FeederImpl feeder3;
+    private final InfoImpl info;
+    private final InfoImpl info1;
+    private final InfoImpl info2;
+    private final InfoImpl info3;
 
-    public ConnectablePositionImpl(C connectable, FeederImpl feeder, FeederImpl feeder1, FeederImpl feeder2, FeederImpl feeder3) {
+    public ConnectablePositionImpl(C connectable, InfoImpl info, InfoImpl info1, InfoImpl info2, InfoImpl info3) {
         super(connectable);
-        ConnectablePosition.check(feeder, feeder1, feeder2, feeder3);
-        this.feeder = feeder;
-        this.feeder1 = feeder1;
-        this.feeder2 = feeder2;
-        this.feeder3 = feeder3;
+        ConnectablePosition.check(info, info1, info2, info3);
+        this.info = info;
+        this.info1 = info1;
+        this.info2 = info2;
+        this.info3 = info3;
     }
 
     @Override
-    public FeederImpl getFeeder() {
-        return feeder;
+    public InfoImpl getInfo() {
+        return info;
     }
 
     @Override
-    public FeederImpl getFeeder1() {
-        return feeder1;
+    public InfoImpl getInfo1() {
+        return info1;
     }
 
     @Override
-    public FeederImpl getFeeder2() {
-        return feeder2;
+    public InfoImpl getInfo2() {
+        return info2;
     }
 
     @Override
-    public FeederImpl getFeeder3() {
-        return feeder3;
+    public InfoImpl getInfo3() {
+        return info3;
     }
 }

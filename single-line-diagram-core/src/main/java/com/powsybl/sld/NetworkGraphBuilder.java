@@ -366,31 +366,31 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
-        public ConnectablePosition.Feeder getFeeder(Terminal terminal) {
+        public ConnectablePosition.Info getFeeder(Terminal terminal) {
             Connectable connectable = terminal.getConnectable();
             ConnectablePosition position = (ConnectablePosition) connectable.getExtension(ConnectablePosition.class);
             if (position == null) {
                 return null;
             }
             if (connectable instanceof Injection) {
-                return position.getFeeder();
+                return position.getInfo();
             } else if (connectable instanceof Branch) {
                 Branch branch = (Branch) connectable;
                 if (branch.getTerminal1() == terminal) {
-                    return position.getFeeder1();
+                    return position.getInfo1();
                 } else if (branch.getTerminal2() == terminal) {
-                    return position.getFeeder2();
+                    return position.getInfo2();
                 } else {
                     throw new AssertionError();
                 }
             } else if (connectable instanceof ThreeWindingsTransformer) {
                 ThreeWindingsTransformer twt = (ThreeWindingsTransformer) connectable;
                 if (twt.getLeg1().getTerminal() == terminal) {
-                    return position.getFeeder1();
+                    return position.getInfo1();
                 } else if (twt.getLeg2().getTerminal() == terminal) {
-                    return position.getFeeder2();
+                    return position.getInfo2();
                 } else if (twt.getLeg3().getTerminal() == terminal) {
-                    return position.getFeeder3();
+                    return position.getInfo3();
                 } else {
                     throw new AssertionError();
                 }
@@ -400,11 +400,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
-            ConnectablePosition.Feeder feeder = getFeeder(terminal);
-            if (feeder != null) {
-                feeder.getOrder().ifPresent(node::setOrder);
-                node.setLabel(feeder.getName());
-                BusCell.Direction dir = BusCell.Direction.valueOf(feeder.getDirection().toString());
+            ConnectablePosition.Info info = getFeeder(terminal);
+            if (info != null) {
+                info.getOrder().ifPresent(node::setOrder);
+                node.setLabel(info.getName());
+                BusCell.Direction dir = BusCell.Direction.valueOf(info.getDirection().toString());
                 node.setDirection(dir == UNDEFINED ? TOP : dir);
             }
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), node);
@@ -413,15 +413,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
-            ConnectablePosition.Feeder feeder = getFeeder(terminal);
-            if (feeder != null) {
-                middleNode.setDirection(BusCell.Direction.valueOf(feeder.getDirection().toString()));
-                feeder.getOrder().ifPresent(order -> {
+            ConnectablePosition.Info info = getFeeder(terminal);
+            if (info != null) {
+                middleNode.setDirection(BusCell.Direction.valueOf(info.getDirection().toString()));
+                info.getOrder().ifPresent(order -> {
                     firstOtherLegNode.setOrder(order);
                     secondOtherLegNode.setOrder(order + 1);
                 });
-                firstOtherLegNode.setLabel(feeder.getName());
-                secondOtherLegNode.setLabel(feeder.getName());
+                firstOtherLegNode.setLabel(info.getName());
+                secondOtherLegNode.setLabel(info.getName());
             }
 
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);
@@ -700,6 +700,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
         return new SwitchNode(aSwitch.getId(), aSwitch.getName(), componentType, false, graph, sk, aSwitch.isOpen());
+    }
+
+    public void addNodeOrderAndDirection(Node fn, Integer order, BusCell.Direction direction) {
+        if (order != null) {
+            fn.setOrder(order);
+        }
+        fn.setDirection(direction == null ? BusCell.Direction.UNDEFINED : direction);
     }
 
     @Override

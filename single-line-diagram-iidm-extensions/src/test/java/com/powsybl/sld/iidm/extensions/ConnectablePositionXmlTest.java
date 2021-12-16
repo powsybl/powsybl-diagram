@@ -86,7 +86,7 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
         Generator generator = network.getGenerator("G");
         assertNotNull(generator);
         ConnectablePosition<Generator> generationPosition = new ConnectablePositionImpl<>(generator,
-                new ConnectablePositionImpl.FeederImpl("G", 10, ConnectablePosition.Direction.TOP),
+                new ConnectablePositionImpl.InfoImpl("G", 10, ConnectablePosition.Direction.TOP),
                 null,
                 null,
                 null);
@@ -97,8 +97,8 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
         assertNotNull(line);
         ConnectablePosition<Line> linePosition = new ConnectablePositionImpl<>(line,
                 null,
-                new ConnectablePositionImpl.FeederImpl("L", 10, ConnectablePosition.Direction.TOP),
-                new ConnectablePositionImpl.FeederImpl("L", 20, ConnectablePosition.Direction.BOTTOM),
+                new ConnectablePositionImpl.InfoImpl("L", 10, ConnectablePosition.Direction.TOP),
+                new ConnectablePositionImpl.InfoImpl("L", 20, ConnectablePosition.Direction.BOTTOM),
                 null);
         line.addExtension(ConnectablePosition.class, linePosition);
 
@@ -111,24 +111,24 @@ public class ConnectablePositionXmlTest extends AbstractConverterTest {
         assertNotNull(generator);
         ConnectablePosition generatorPosition2 = generator2.getExtension(ConnectablePosition.class);
         assertNotNull(generatorPosition2);
-        assertNotNull(generatorPosition2.getFeeder());
-        assertNull(generatorPosition2.getFeeder1());
-        assertNull(generatorPosition2.getFeeder2());
-        assertNull(generatorPosition2.getFeeder3());
-        assertEquals(generatorPosition2.getFeeder().getOrder(), generationPosition.getFeeder().getOrder());
-        assertEquals(generatorPosition2.getFeeder().getDirection(), generationPosition.getFeeder().getDirection());
+        assertNotNull(generatorPosition2.getInfo());
+        assertNull(generatorPosition2.getInfo1());
+        assertNull(generatorPosition2.getInfo2());
+        assertNull(generatorPosition2.getInfo3());
+        assertEquals(generatorPosition2.getInfo().getOrder(), generationPosition.getInfo().getOrder());
+        assertEquals(generatorPosition2.getInfo().getDirection(), generationPosition.getInfo().getDirection());
 
         Line line2 = network2.getLine("L");
         assertNotNull(line2);
         ConnectablePosition linePosition2 = line2.getExtension(ConnectablePosition.class);
         assertNotNull(linePosition2);
-        assertNull(linePosition2.getFeeder());
-        assertNotNull(linePosition2.getFeeder1());
-        assertNotNull(linePosition2.getFeeder2());
-        assertNull(linePosition2.getFeeder3());
-        assertEquals(linePosition2.getFeeder1().getOrder(), linePosition2.getFeeder1().getOrder());
-        assertEquals(linePosition2.getFeeder1().getDirection(), linePosition2.getFeeder1().getDirection());
-        assertEquals(linePosition2.getFeeder2().getOrder(), linePosition2.getFeeder2().getOrder());
-        assertEquals(linePosition2.getFeeder2().getDirection(), linePosition2.getFeeder2().getDirection());
+        assertNull(linePosition2.getInfo());
+        assertNotNull(linePosition2.getInfo1());
+        assertNotNull(linePosition2.getInfo2());
+        assertNull(linePosition2.getInfo3());
+        assertEquals(linePosition2.getInfo1().getOrder(), linePosition2.getInfo1().getOrder());
+        assertEquals(linePosition2.getInfo1().getDirection(), linePosition2.getInfo1().getDirection());
+        assertEquals(linePosition2.getInfo2().getOrder(), linePosition2.getInfo2().getOrder());
+        assertEquals(linePosition2.getInfo2().getDirection(), linePosition2.getInfo2().getDirection());
     }
 }

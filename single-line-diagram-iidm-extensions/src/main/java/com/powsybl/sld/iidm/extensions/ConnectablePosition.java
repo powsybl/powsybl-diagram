@@ -16,9 +16,9 @@ import java.util.Optional;
  */
 public interface ConnectablePosition<C extends Connectable<C>> extends Extension<C> {
 
-    static final String NAME = "position";
+    String NAME = "position";
 
-    public enum Direction {
+    enum Direction {
         TOP,
         BOTTOM,
         UNDEFINED
@@ -29,49 +29,49 @@ public interface ConnectablePosition<C extends Connectable<C>> extends Extension
         return NAME;
     }
 
-    public interface Feeder {
+    interface Info {
         String getName();
 
-        Feeder setName(String name);
+        Info setName(String name);
 
         Optional<Integer> getOrder();
 
-        Feeder setOrder(int order);
+        Info setOrder(int order);
 
-        Feeder removeOrder();
+        Info removeOrder();
 
         Direction getDirection();
 
-        Feeder setDirection(Direction direction);
+        Info setDirection(Direction direction);
     }
 
-    public Feeder getFeeder();
+    Info getInfo();
 
-    public Feeder getFeeder1();
+    Info getInfo1();
 
-    public Feeder getFeeder2();
+    Info getInfo2();
 
-    public Feeder getFeeder3();
+    Info getInfo3();
 
-    public static void check(Feeder feeder, Feeder feeder1, Feeder feeder2, Feeder feeder3) {
-        if (feeder == null && feeder1 == null && feeder2 == null && feeder3 == null) {
-            throw new IllegalArgumentException("invalid feeder");
+    static void check(Info info, Info info1, Info info2, Info info3) {
+        if (info == null && info1 == null && info2 == null && info3 == null) {
+            throw new IllegalArgumentException("invalid info");
         }
-        if (feeder != null && (feeder1 != null || feeder2 != null || feeder3 != null)) {
-            throw new IllegalArgumentException("feeder and feeder 1|2|3 are exclusives");
+        if (info != null && (info1 != null || info2 != null || info3 != null)) {
+            throw new IllegalArgumentException("info and info 1|2|3 are exclusives");
         }
         boolean error = false;
-        if (feeder1 != null) {
-            if (feeder2 == null && feeder3 != null) {
+        if (info1 != null) {
+            if (info2 == null && info3 != null) {
                 error = true;
             }
         } else {
-            if (feeder2 != null || feeder3 != null) {
+            if (info2 != null || info3 != null) {
                 error = true;
             }
         }
         if (error) {
-            throw new IllegalArgumentException("feeder 1|2|3 have to be set in the right order");
+            throw new IllegalArgumentException("info 1|2|3 have to be set in the right order");
         }
     }
 

@@ -58,33 +58,33 @@ public class ConnectablePositionXmlSerializer<C extends Connectable<C>> implemen
         return "cp";
     }
 
-    private void writePosition(ConnectablePosition.Feeder feeder, Integer i, XmlWriterContext context) throws XMLStreamException {
-        context.getExtensionsWriter().writeEmptyElement(getNamespaceUri(), "feeder" + (i != null ? i : ""));
-        context.getExtensionsWriter().writeAttribute("name", feeder.getName());
-        Optional<Integer> oOrder = feeder.getOrder();
+    private void writePosition(ConnectablePosition.Info info, Integer i, XmlWriterContext context) throws XMLStreamException {
+        context.getExtensionsWriter().writeEmptyElement(getNamespaceUri(), "info" + (i != null ? i : ""));
+        context.getExtensionsWriter().writeAttribute("name", info.getName());
+        Optional<Integer> oOrder = info.getOrder();
         if (oOrder.isPresent()) {
             XmlUtil.writeInt("order", oOrder.get(), context.getExtensionsWriter());
         }
-        context.getExtensionsWriter().writeAttribute("direction", feeder.getDirection().name());
+        context.getExtensionsWriter().writeAttribute("direction", info.getDirection().name());
     }
 
     @Override
     public void write(ConnectablePosition connectablePosition, XmlWriterContext context) throws XMLStreamException {
-        if (connectablePosition.getFeeder() != null) {
-            writePosition(connectablePosition.getFeeder(), null, context);
+        if (connectablePosition.getInfo() != null) {
+            writePosition(connectablePosition.getInfo(), null, context);
         }
-        if (connectablePosition.getFeeder1() != null) {
-            writePosition(connectablePosition.getFeeder1(), 1, context);
+        if (connectablePosition.getInfo1() != null) {
+            writePosition(connectablePosition.getInfo1(), 1, context);
         }
-        if (connectablePosition.getFeeder2() != null) {
-            writePosition(connectablePosition.getFeeder2(), 2, context);
+        if (connectablePosition.getInfo2() != null) {
+            writePosition(connectablePosition.getInfo2(), 2, context);
         }
-        if (connectablePosition.getFeeder3() != null) {
-            writePosition(connectablePosition.getFeeder3(), 3, context);
+        if (connectablePosition.getInfo3() != null) {
+            writePosition(connectablePosition.getInfo3(), 3, context);
         }
     }
 
-    private void readPosition(XmlReaderContext context, ConnectablePositionAdder.FeederAdder adder) {
+    private void readPosition(XmlReaderContext context, ConnectablePositionAdder.InfoAdder adder) {
         String name = context.getReader().getAttributeValue(null, "name");
         Optional.ofNullable(XmlUtil.readOptionalIntegerAttribute(context.getReader(), "order")).
                 ifPresent(adder::withOrder);
@@ -98,20 +98,20 @@ public class ConnectablePositionXmlSerializer<C extends Connectable<C>> implemen
         XmlUtil.readUntilEndElement(getExtensionName(), context.getReader(), () -> {
 
             switch (context.getReader().getLocalName()) {
-                case "feeder":
-                    readPosition(context, adder.newFeeder());
+                case "info":
+                    readPosition(context, adder.newInfo());
                     break;
 
-                case "feeder1":
-                    readPosition(context, adder.newFeeder1());
+                case "info1":
+                    readPosition(context, adder.newInfo1());
                     break;
 
-                case "feeder2":
-                    readPosition(context, adder.newFeeder2());
+                case "info2":
+                    readPosition(context, adder.newInfo2());
                     break;
 
-                case "feeder3":
-                    readPosition(context, adder.newFeeder3());
+                case "info3":
+                    readPosition(context, adder.newInfo3());
                     break;
 
                 default:

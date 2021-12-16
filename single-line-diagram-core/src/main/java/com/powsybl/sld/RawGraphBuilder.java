@@ -93,7 +93,7 @@ public class RawGraphBuilder implements GraphBuilder {
             SwitchNode sw = new SwitchNode(id, id, sk.name(), fictitious, graph, sk, open);
             graph.addNode(sw);
             if (direction != null || order != null) {
-                addExtension(sw, order, direction);
+                addNodeOrderAndDirection(sw, order, direction);
             }
             return sw;
         }
@@ -114,7 +114,7 @@ public class RawGraphBuilder implements GraphBuilder {
             return fictitiousNode;
         }
 
-        public void addExtension(Node fn, Integer order, BusCell.Direction direction) {
+        public void addNodeOrderAndDirection(Node fn, Integer order, BusCell.Direction direction) {
             if (order != null) {
                 fn.setOrder(order);
             }
@@ -125,7 +125,7 @@ public class RawGraphBuilder implements GraphBuilder {
             node.setLabel(id);
             graph.addNode(node);
             if (direction != null) {
-                addExtension(node, order, direction);
+                addNodeOrderAndDirection(node, order, direction);
             }
         }
 

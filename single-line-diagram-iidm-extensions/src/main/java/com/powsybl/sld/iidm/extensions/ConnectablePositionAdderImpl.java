@@ -16,33 +16,33 @@ public class ConnectablePositionAdderImpl<C extends Connectable<C>>
         extends AbstractExtensionAdder<C, ConnectablePosition<C>>
         implements ConnectablePositionAdder<C> {
 
-    private ConnectablePositionImpl.FeederImpl feeder;
-    private ConnectablePositionImpl.FeederImpl feeder1;
-    private ConnectablePositionImpl.FeederImpl feeder2;
-    private ConnectablePositionImpl.FeederImpl feeder3;
+    private ConnectablePositionImpl.InfoImpl info;
+    private ConnectablePositionImpl.InfoImpl info1;
+    private ConnectablePositionImpl.InfoImpl info2;
+    private ConnectablePositionImpl.InfoImpl info3;
 
     ConnectablePositionAdderImpl(C connectable) {
         super(connectable);
     }
 
-    private abstract static class AbstractFeederImplAdder<C extends Connectable<C>> implements FeederAdder<C> {
+    private abstract static class AbstractInfoImplAdder<C extends Connectable<C>> implements InfoAdder<C> {
         protected String name;
 
         protected Integer order;
 
         protected ConnectablePosition.Direction direction;
 
-        public FeederAdder<C> withName(String name) {
+        public InfoAdder<C> withName(String name) {
             this.name = name;
             return this;
         }
 
-        public FeederAdder<C> withOrder(int order) {
+        public InfoAdder<C> withOrder(int order) {
             this.order = order;
             return this;
         }
 
-        public FeederAdder<C> withDirection(ConnectablePosition.Direction direction) {
+        public InfoAdder<C> withDirection(ConnectablePosition.Direction direction) {
             this.direction = direction;
             return this;
         }
@@ -51,48 +51,48 @@ public class ConnectablePositionAdderImpl<C extends Connectable<C>>
 
     @Override
     public ConnectablePositionImpl<C> createExtension(C extendable) {
-        return new ConnectablePositionImpl<>(extendable, feeder, feeder1, feeder2, feeder3);
+        return new ConnectablePositionImpl<>(extendable, info, info1, info2, info3);
     }
 
     @Override
-    public FeederAdder<C> newFeeder() {
-        return new AbstractFeederImplAdder<C>() {
+    public InfoAdder<C> newInfo() {
+        return new AbstractInfoImplAdder<C>() {
             @Override
             public ConnectablePositionAdder<C> add() {
-                ConnectablePositionAdderImpl.this.feeder = new ConnectablePositionImpl.FeederImpl(name, order, direction);
+                ConnectablePositionAdderImpl.this.info = new ConnectablePositionImpl.InfoImpl(name, order, direction);
                 return ConnectablePositionAdderImpl.this;
             }
         };
     }
 
     @Override
-    public FeederAdder<C> newFeeder1() {
-        return new AbstractFeederImplAdder<C>() {
+    public InfoAdder<C> newInfo1() {
+        return new AbstractInfoImplAdder<C>() {
             @Override
             public ConnectablePositionAdder<C> add() {
-                ConnectablePositionAdderImpl.this.feeder1 = new ConnectablePositionImpl.FeederImpl(name, order, direction);
+                ConnectablePositionAdderImpl.this.info1 = new ConnectablePositionImpl.InfoImpl(name, order, direction);
                 return ConnectablePositionAdderImpl.this;
             }
         };
     }
 
     @Override
-    public FeederAdder<C> newFeeder2() {
-        return new AbstractFeederImplAdder<C>() {
+    public InfoAdder<C> newInfo2() {
+        return new AbstractInfoImplAdder<C>() {
             @Override
             public ConnectablePositionAdder<C> add() {
-                ConnectablePositionAdderImpl.this.feeder2 = new ConnectablePositionImpl.FeederImpl(name, order, direction);
+                ConnectablePositionAdderImpl.this.info2 = new ConnectablePositionImpl.InfoImpl(name, order, direction);
                 return ConnectablePositionAdderImpl.this;
             }
         };
     }
 
     @Override
-    public FeederAdder<C> newFeeder3() {
-        return new AbstractFeederImplAdder<C>() {
+    public InfoAdder<C> newInfo3() {
+        return new AbstractInfoImplAdder<C>() {
             @Override
             public ConnectablePositionAdder<C> add() {
-                ConnectablePositionAdderImpl.this.feeder3 = new ConnectablePositionImpl.FeederImpl(name, order, direction);
+                ConnectablePositionAdderImpl.this.info3 = new ConnectablePositionImpl.InfoImpl(name, order, direction);
                 return ConnectablePositionAdderImpl.this;
             }
         };

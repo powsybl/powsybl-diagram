@@ -246,11 +246,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     }
 
     private static void addFeederPosition(Extendable<?> extendable, String feederName, Integer feederOrder, ConnectablePosition.Direction direction) {
-        ConnectablePositionAdder.FeederAdder feederAdder = extendable.newExtension(ConnectablePositionAdder.class).newFeeder();
+        ConnectablePositionAdder.InfoAdder infoAdder = extendable.newExtension(ConnectablePositionAdder.class).newInfo();
         if (feederOrder != null) {
-            feederAdder.withOrder(feederOrder);
+            infoAdder.withOrder(feederOrder);
         }
-        feederAdder.withDirection(direction).withName(feederName).add()
+        infoAdder.withDirection(direction).withName(feederName).add()
                 .add();
     }
 
@@ -258,16 +258,16 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                                               String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
                                               String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
         ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
-        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        ConnectablePositionAdder.InfoAdder infoAdder1 = extensionAdder.newInfo1();
         if (feederOrder1 != null) {
-            feederAdder1.withOrder(feederOrder1);
+            infoAdder1.withOrder(feederOrder1);
         }
-        feederAdder1.withName(feederName1).withDirection(direction1).add();
-        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        infoAdder1.withName(feederName1).withDirection(direction1).add();
+        ConnectablePositionAdder.InfoAdder infoAdder2 = extensionAdder.newInfo2();
         if (feederOrder2 != null) {
-            feederAdder2.withOrder(feederOrder2);
+            infoAdder2.withOrder(feederOrder2);
         }
-        feederAdder2.withName(feederName2).withDirection(direction2).add();
+        infoAdder2.withName(feederName2).withDirection(direction2).add();
         extensionAdder.add();
     }
 
@@ -276,21 +276,21 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                                                 String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2,
                                                 String feederName3, Integer feederOrder3, ConnectablePosition.Direction direction3) {
         ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
-        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        ConnectablePositionAdder.InfoAdder infoAdder1 = extensionAdder.newInfo1();
         if (feederOrder1 != null) {
-            feederAdder1.withOrder(feederOrder1);
+            infoAdder1.withOrder(feederOrder1);
         }
-        feederAdder1.withName(feederName1).withDirection(direction1).add();
-        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        infoAdder1.withName(feederName1).withDirection(direction1).add();
+        ConnectablePositionAdder.InfoAdder infoAdder2 = extensionAdder.newInfo2();
         if (feederOrder2 != null) {
-            feederAdder2.withOrder(feederOrder2);
+            infoAdder2.withOrder(feederOrder2);
         }
-        feederAdder2.withName(feederName2).withDirection(direction2).add();
-        ConnectablePositionAdder.FeederAdder feederAdder3 = extensionAdder.newFeeder3();
+        infoAdder2.withName(feederName2).withDirection(direction2).add();
+        ConnectablePositionAdder.InfoAdder infoAdder3 = extensionAdder.newInfo3();
         if (feederOrder3 != null) {
-            feederAdder3.withOrder(feederOrder3);
+            infoAdder3.withOrder(feederOrder3);
         }
-        feederAdder3.withName(feederName3).withDirection(direction3).add();
+        infoAdder3.withName(feederName3).withDirection(direction3).add();
         extensionAdder.add();
     }
 }

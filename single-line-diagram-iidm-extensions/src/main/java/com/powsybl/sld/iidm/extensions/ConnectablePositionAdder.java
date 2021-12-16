@@ -20,24 +20,24 @@ public interface ConnectablePositionAdder<C extends Connectable<C>>
         return ConnectablePosition.class;
     }
 
-    interface FeederAdder<C extends Connectable<C>> {
+    interface InfoAdder<C extends Connectable<C>> {
 
-        public FeederAdder<C> withName(String name);
+        public InfoAdder<C> withName(String name);
 
-        public FeederAdder<C> withOrder(int order);
+        public InfoAdder<C> withOrder(int order);
 
-        public FeederAdder<C> withDirection(Direction direction);
+        public InfoAdder<C> withDirection(Direction direction);
 
         public ConnectablePositionAdder<C> add();
 
     }
 
-    FeederAdder<C> newFeeder();
+    InfoAdder<C> newInfo();
 
-    FeederAdder<C> newFeeder1();
+    InfoAdder<C> newInfo1();
 
-    FeederAdder<C> newFeeder2();
+    InfoAdder<C> newInfo2();
 
-    FeederAdder<C> newFeeder3();
+    InfoAdder<C> newInfo3();
 
 }
