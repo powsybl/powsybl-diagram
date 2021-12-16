@@ -34,18 +34,11 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     public void averageOrder() {
-        int sumOrder = 0;
-        int nbFeeder = 0;
-        for (Node node : getNodes()) {
-            Optional<Integer> oOrder = node.getOrder();
-            if (oOrder.isPresent()) {
-                sumOrder += oOrder.get();
-                nbFeeder++;
-            }
-        }
-        if (nbFeeder != 0) {
-            setOrder(sumOrder / nbFeeder);
-        }
+        getNodes().stream().map(Node::getOrder)
+                .filter(Optional::isPresent)
+                .mapToInt(Optional::get)
+                .average()
+                .ifPresent(average -> setOrder((int) average));
     }
 
     @Override
