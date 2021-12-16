@@ -25,7 +25,8 @@ public class Subsection {
     private BusNode[] busNodes;
     private Set<InternCellSide> internCellSides = new LinkedHashSet<>();
     private List<ExternCell> externCells = new LinkedList<>();
-    private static Comparator<ExternCell> compareOrder = Comparator.comparingInt(ExternCell::getOrder);
+    private static Comparator<ExternCell> compareOrder = Comparator
+            .comparingInt(extCell -> extCell.getOrder().orElse(-1));
 
     Subsection(int size) {
         this.size = size;
@@ -318,8 +319,8 @@ public class Subsection {
         subsections.forEach(ss -> {
             List<ExternCell> eCells = ss.getExternCells();
             for (int i = 1; i < eCells.size(); i++) {
-                int prevIndex = eCells.get(i - 1).getOrder();
-                if (eCells.get(i).getOrder() <= prevIndex) {
+                int prevIndex = eCells.get(i - 1).getOrder().orElse(-1);
+                if (eCells.get(i).getOrder().orElse(-1) <= prevIndex) {
                     eCells.get(i).setOrder(prevIndex + 1);
                 }
             }

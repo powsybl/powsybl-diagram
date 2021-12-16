@@ -60,12 +60,12 @@ final class CreateNetworksUtil {
         createSwitch(vl1, "BR1", "BR1", SwitchKind.BREAKER, false, false, false, 120, 121);
         createSwitch(vl1, "D20", "D20", SwitchKind.DISCONNECTOR, false, false, false, 121, 20);
 
-        createLoad(vl1, "L1", "L1", "L1", -1, ConnectablePosition.Direction.TOP, 12, 1, 1);
+        createLoad(vl1, "L1", "L1", "L1", null, ConnectablePosition.Direction.TOP, 12, 1, 1);
 
         createSwitch(vl1, "D11", "D11", SwitchKind.DISCONNECTOR, false, false, false, 10, 11);
         createSwitch(vl1, "BR12", "BR12", SwitchKind.BREAKER, false, false, false, 11, 12);
 
-        createGenerator(vl1, "G", "G", "G", -1, ConnectablePosition.Direction.TOP, 22, 50, 100, false, 100, 400);
+        createGenerator(vl1, "G", "G", "G", null, ConnectablePosition.Direction.TOP, 22, 50, 100, false, 100, 400);
 
         createSwitch(vl1, "D21", "D21", SwitchKind.DISCONNECTOR, false, false, false, 20, 21);
         createSwitch(vl1, "BR22", "BR22", SwitchKind.BREAKER, false, false, false, 21, 22);
@@ -78,14 +78,14 @@ final class CreateNetworksUtil {
 
         createLine(network, "L11", "L11", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
                 14, 24, vl1.getId(), vl1.getId(),
-                "L11", -1, ConnectablePosition.Direction.TOP,
-                "L11", -1, ConnectablePosition.Direction.TOP);
+                "L11", null, ConnectablePosition.Direction.TOP,
+                "L11", null, ConnectablePosition.Direction.TOP);
 
         VoltageLevel vl2 = createVoltageLevel(substation, "VL2", "VL2", TopologyKind.NODE_BREAKER, 400, 9);
 
         createBusBarSection(vl2, "BBS2", "BBS2", 30, 1, 1);
 
-        createLoad(vl2, "L2", "L2", "L2", -1, ConnectablePosition.Direction.TOP, 32, 1, 1);
+        createLoad(vl2, "L2", "L2", "L2", null, ConnectablePosition.Direction.TOP, 32, 1, 1);
 
         createSwitch(vl2, "D31", "D31", SwitchKind.DISCONNECTOR, false, false, false, 30, 31);
         createSwitch(vl2, "BR32", "BR32", SwitchKind.BREAKER, false, false, false, 31, 32);
@@ -98,8 +98,8 @@ final class CreateNetworksUtil {
 
         createLine(network, "L12", "L12", 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,
                 16, 34, vl1.getId(), vl2.getId(),
-                "L12", -1, ConnectablePosition.Direction.TOP,
-                "L12", -1, ConnectablePosition.Direction.TOP);
+                "L12", null, ConnectablePosition.Direction.TOP,
+                "L12", null, ConnectablePosition.Direction.TOP);
 
         createSwitch(vl1, "D17", "D17", SwitchKind.DISCONNECTOR, false, false, false, 10, 17);
         createSwitch(vl1, "BR18", "BR18", SwitchKind.BREAKER, false, false, false, 17, 18);
@@ -109,8 +109,8 @@ final class CreateNetworksUtil {
 
         createTwoWindingsTransformer(substation, "T11", "T11", 250, 100, 52, 12, 65, 90,
                 18, 26, vl1.getId(), vl1.getId(),
-                "T11", -1, ConnectablePosition.Direction.TOP,
-                "T11", -1, ConnectablePosition.Direction.TOP);
+                "T11", null, ConnectablePosition.Direction.TOP,
+                "T11", null, ConnectablePosition.Direction.TOP);
 
         TwoWindingsTransformer twoWindingsTransformer = network.getTwoWindingsTransformer("T11");
         twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setP(375);
@@ -126,8 +126,8 @@ final class CreateNetworksUtil {
 
         createTwoWindingsTransformer(substation, "T12", "T12", 250, 100, 52, 12, 65, 90,
                 28, 36, vl1.getId(), vl2.getId(),
-                "T12", -1, ConnectablePosition.Direction.TOP,
-                "T12", -1, ConnectablePosition.Direction.TOP);
+                "T12", null, ConnectablePosition.Direction.TOP,
+                "T12", null, ConnectablePosition.Direction.TOP);
 
         twoWindingsTransformer = network.getTwoWindingsTransformer("T12");
         twoWindingsTransformer.getTerminal(TwoWindingsTransformer.Side.ONE).setP(375);
@@ -148,9 +148,9 @@ final class CreateNetworksUtil {
                 45, 47, 49, 35, 32, 39., 25, 15,
                 5, 7, 9,
                 190, 290, 38,
-                "T3_12", -1, ConnectablePosition.Direction.TOP,
-                "T3_12", -1, ConnectablePosition.Direction.TOP,
-                "T3_12", -1, ConnectablePosition.Direction.TOP);
+                "T3_12", null, ConnectablePosition.Direction.TOP,
+                "T3_12", null, ConnectablePosition.Direction.TOP,
+                "T3_12", null, ConnectablePosition.Direction.TOP);
 
         return network;
     }

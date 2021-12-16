@@ -15,6 +15,7 @@ import com.powsybl.iidm.network.Connectable;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.InputStream;
+import java.util.Optional;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -60,7 +61,10 @@ public class ConnectablePositionXmlSerializer<C extends Connectable<C>> implemen
     private void writePosition(ConnectablePosition.Feeder feeder, Integer i, XmlWriterContext context) throws XMLStreamException {
         context.getExtensionsWriter().writeEmptyElement(getNamespaceUri(), "feeder" + (i != null ? i : ""));
         context.getExtensionsWriter().writeAttribute("name", feeder.getName());
-        XmlUtil.writeInt("order", feeder.getOrder(), context.getExtensionsWriter());
+        Optional<Integer> oOrder = feeder.getOrder();
+        if (oOrder.isPresent()) {
+            XmlUtil.writeInt("order", oOrder.get(), context.getExtensionsWriter());
+        }
         context.getExtensionsWriter().writeAttribute("direction", feeder.getDirection().name());
     }
 
@@ -82,9 +86,10 @@ public class ConnectablePositionXmlSerializer<C extends Connectable<C>> implemen
 
     private void readPosition(XmlReaderContext context, ConnectablePositionAdder.FeederAdder adder) {
         String name = context.getReader().getAttributeValue(null, "name");
-        int order = XmlUtil.readIntAttribute(context.getReader(), "order");
+        Optional.ofNullable(XmlUtil.readOptionalIntegerAttribute(context.getReader(), "order")).
+                ifPresent(adder::withOrder);
         ConnectablePosition.Direction direction = ConnectablePosition.Direction.valueOf(context.getReader().getAttributeValue(null, "direction"));
-        adder.withName(name).withOrder(order).withDirection(direction).add();
+        adder.withName(name).withDirection(direction).add();
     }
 
     @Override

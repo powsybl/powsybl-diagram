@@ -899,7 +899,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 2,
-      "order" : 0,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -960,7 +959,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 3,
-      "order" : 1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1021,7 +1019,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 4,
-      "order" : 4,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1082,7 +1079,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 5,
-      "order" : 5,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1143,7 +1139,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 6,
-      "order" : 7,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1204,7 +1199,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 7,
-      "order" : 8,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1265,7 +1259,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 8,
-      "order" : 11,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1326,7 +1319,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 9,
-      "order" : 9,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1387,7 +1379,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 10,
-      "order" : 2,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1448,7 +1439,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 11,
-      "order" : 3,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1509,7 +1499,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 12,
-      "order" : 6,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1570,7 +1559,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 13,
-      "order" : 12,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -1631,7 +1619,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 14,
-      "order" : 10,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2502,7 +2489,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 1,
-      "order" : 0,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2563,7 +2549,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 2,
-      "order" : 1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2624,7 +2609,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 3,
-      "order" : 3,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2685,7 +2669,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 4,
-      "order" : 4,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2746,7 +2729,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 5,
-      "order" : 2,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2807,7 +2789,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 6,
-      "order" : 7,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2868,7 +2849,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 7,
-      "order" : 8,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2929,7 +2909,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 8,
-      "order" : 5,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -2990,7 +2969,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 9,
-      "order" : 6,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3472,7 +3450,6 @@
     "cells" : [ {
       "type" : "EXTERN",
       "number" : 0,
-      "order" : 0,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3533,7 +3510,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 1,
-      "order" : 1,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3594,7 +3570,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 2,
-      "order" : 2,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3655,7 +3630,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 3,
-      "order" : 3,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -3716,7 +3690,6 @@
     }, {
       "type" : "EXTERN",
       "number" : 4,
-      "order" : 4,
       "rootBlock" : {
         "type" : "SERIAL",
         "cardinalities" : [ {

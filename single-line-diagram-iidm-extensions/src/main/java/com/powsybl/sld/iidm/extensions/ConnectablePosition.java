@@ -9,6 +9,8 @@ package com.powsybl.sld.iidm.extensions;
 import com.powsybl.commons.extensions.Extension;
 import com.powsybl.iidm.network.Connectable;
 
+import java.util.Optional;
+
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
@@ -32,9 +34,11 @@ public interface ConnectablePosition<C extends Connectable<C>> extends Extension
 
         Feeder setName(String name);
 
-        int getOrder();
+        Optional<Integer> getOrder();
 
         Feeder setOrder(int order);
+
+        Feeder removeOrder();
 
         Direction getDirection();
 

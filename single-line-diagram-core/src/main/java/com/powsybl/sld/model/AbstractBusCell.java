@@ -12,6 +12,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +24,9 @@ import java.util.stream.Collectors;
 public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
+
+    private Integer order = null;
+
     private Direction direction = Direction.UNDEFINED;
 
     protected AbstractBusCell(VoltageLevelGraph graph, CellType type) {
@@ -46,6 +50,21 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     @Override
     public List<LegPrimaryBlock> getLegPrimaryBlocks() {
         return new ArrayList<>(legPrimaryBlocks);
+    }
+
+    @Override
+    public Optional<Integer> getOrder() {
+        return Optional.ofNullable(order);
+    }
+
+    @Override
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    @Override
+    public void removeOrder() {
+        this.order = null;
     }
 
     @Override
@@ -73,6 +92,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         super.writeJsonContent(generator);
         if (graph.isGenerateCoordsInJson()) {
             generator.writeStringField("direction", getDirection().name());
+            if (order != null) {
+                generator.writeNumberField("order", order);
+            }
         }
     }
 

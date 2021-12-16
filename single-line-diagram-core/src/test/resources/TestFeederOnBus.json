@@ -64,7 +64,6 @@
     "open" : false,
     "label" : "line",
     "feederType" : "BRANCH",
-    "order" : -1,
     "direction" : "TOP",
     "side" : "ONE",
     "otherSideVoltageLevelInfos" : {
@@ -77,7 +76,6 @@
     "type" : "EXTERN",
     "number" : 0,
     "direction" : "TOP",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {

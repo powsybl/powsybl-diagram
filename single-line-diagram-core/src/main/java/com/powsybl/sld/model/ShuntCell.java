@@ -63,7 +63,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public void alignExternCells() {
-        if (cells.get(Side.LEFT).getOrder() > cells.get(Side.RIGHT).getOrder()) {
+        if (cells.get(Side.LEFT).getOrder().orElse(-1) > cells.get(Side.RIGHT).getOrder().orElse(-1)) {
             reverse();
         }
     }

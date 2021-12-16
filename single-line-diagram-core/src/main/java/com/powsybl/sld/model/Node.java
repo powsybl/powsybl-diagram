@@ -59,6 +59,12 @@ public class Node implements BaseNode {
 
     private String label;
 
+    private Integer order;
+
+    private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
+
+    private Orientation orientation;
+
     /**
      * Constructor
      */
@@ -229,6 +235,37 @@ public class Node implements BaseNode {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    public Optional<Integer> getOrder() {
+        return Optional.ofNullable(order);
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public void removeOrder() {
+        this.order = null;
+    }
+
+    public BusCell.Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(BusCell.Direction direction) {
+        this.direction = direction;
+        if (orientation == null || orientation.isHorizontal()) {
+            this.orientation = direction.toOrientation();
+        }
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
     }
 
     /**

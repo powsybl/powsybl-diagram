@@ -27,7 +27,7 @@ public interface BusCell extends Cell {
                 case MIDDLE:
                     return Orientation.MIDDLE;
                 default:
-                    return null;
+                    return Orientation.UNDEFINED;
             }
         }
     }
@@ -39,6 +39,12 @@ public interface BusCell extends Cell {
     List<LegPrimaryBlock> getLegPrimaryBlocks();
 
     int newHPosition(int hPosition);
+
+    Optional<Integer> getOrder();
+
+    void setOrder(int order);
+
+    void removeOrder();
 
     Direction getDirection();
 

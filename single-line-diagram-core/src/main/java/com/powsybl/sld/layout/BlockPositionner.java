@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell.Direction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,9 +36,11 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getVerticalInternCells()));
-            hPos = placeVerticalCells(hPos, new ArrayList<>(ss.getExternCells().stream()
-                    .sorted(Comparator.comparingInt(ExternCell::getOrder)).collect(Collectors.toList())));
+            List<BusCell> verticalCells = new ArrayList<>();
+            verticalCells.addAll(ss.getVerticalInternCells());
+            verticalCells.addAll(ss.getExternCells());
+            Collections.sort(verticalCells, Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
+            hPos = placeVerticalCells(hPos, verticalCells);
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
                 hPos++;
@@ -202,7 +205,9 @@ class BlockPositionner {
                 final int j = i % 2;
                 final int newV = i / 2;
                 lane.cells.forEach(c -> {
-                    c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    if (c.getDirection() == Direction.UNDEFINED) {
+                        c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    }
                     if (!c.checkisShape(InternCell.Shape.UNILEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);
                     }

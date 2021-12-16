@@ -98,7 +98,7 @@ public class Position {
     }
 
     public Position(int h, int v) {
-        this(h, v, 0, 0, null);
+        this(h, v, 0, 0, Orientation.UNDEFINED);
     }
 
     public Orientation getOrientation() {
@@ -142,7 +142,7 @@ public class Position {
         generator.writeNumberField("v", get(V));
         generator.writeNumberField("hSpan", getSpan(H));
         generator.writeNumberField("vSpan", getSpan(V));
-        if (orientation != null && writeOrientation) {
+        if (orientation != Orientation.UNDEFINED && writeOrientation) {
             generator.writeStringField("orientation", orientation.name());
         }
         generator.writeEndObject();

@@ -35,7 +35,6 @@
     "y" : 0.0,
     "open" : false,
     "feederType" : "FICTITIOUS",
-    "order" : -1,
     "direction" : "TOP"
   }, {
     "type" : "SWITCH",
@@ -94,7 +93,6 @@
     "type" : "EXTERN",
     "number" : 0,
     "direction" : "TOP",
-    "order" : -1,
     "rootBlock" : {
       "type" : "SERIAL",
       "cardinalities" : [ {

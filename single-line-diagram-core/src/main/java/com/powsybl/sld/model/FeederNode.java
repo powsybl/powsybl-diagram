@@ -11,6 +11,7 @@ import com.powsybl.commons.PowsyblException;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
@@ -24,17 +25,11 @@ public class FeederNode extends Node {
 
     private final FeederType feederType;
 
-    private int order = -1;
-
-    private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
-
-    private Orientation orientation;
-
     protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph,
                          FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
-        this.orientation = orientation;
+        setOrientation(orientation);
     }
 
     protected FeederNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
@@ -58,40 +53,16 @@ public class FeederNode extends Node {
         super.setCell(cell);
     }
 
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public BusCell.Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(BusCell.Direction direction) {
-        this.direction = direction;
-        if (orientation == null || orientation.isHorizontal()) {
-            this.orientation = direction.toOrientation();
-        }
-    }
-
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
     @Override
     protected void writeJsonContent(JsonGenerator generator) throws IOException {
         super.writeJsonContent(generator);
         generator.writeStringField("feederType", feederType.name());
-        generator.writeNumberField("order", order);
+        Optional<Integer> order = getOrder();
+        if (order.isPresent()) {
+            generator.writeNumberField("order", order.get());
+        }
         if (graph.isGenerateCoordsInJson()) {
-            generator.writeStringField("direction", direction.name());
+            generator.writeStringField("direction", getDirection().name());
         }
     }
 }

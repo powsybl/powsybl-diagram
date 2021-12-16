@@ -28,7 +28,7 @@ public class ConnectablePositionAdderImpl<C extends Connectable<C>>
     private abstract static class AbstractFeederImplAdder<C extends Connectable<C>> implements FeederAdder<C> {
         protected String name;
 
-        protected int order;
+        protected Integer order;
 
         protected ConnectablePosition.Direction direction;
 

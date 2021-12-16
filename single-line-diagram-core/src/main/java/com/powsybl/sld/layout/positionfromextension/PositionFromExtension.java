@@ -8,6 +8,9 @@ package com.powsybl.sld.layout.positionfromextension;
 
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BusCell.Direction;
+import com.powsybl.sld.model.Cell.CellType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,28 +64,32 @@ public class PositionFromExtension implements PositionFinder {
     }
 
     private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
-        graph.getNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.FEEDER)
-                .map(FeederNode.class::cast)
-                .forEach(feederNode -> {
-                    ExternCell cell = (ExternCell) feederNode.getCell();
-                    cell.setDirection(
-                            feederNode.getDirection() == BusCell.Direction.UNDEFINED ? DEFAULTDIRECTION : feederNode.getDirection());
-                    cell.setOrder(feederNode.getOrder());
-                });
-        graph.getCells().stream().filter(cell -> cell.getType() == Cell.CellType.EXTERN).map(ExternCell.class::cast)
-                .forEach(ExternCell::orderFromFeederOrders);
+        graph.getNodes().stream().filter(node -> node.getDirection() != Direction.UNDEFINED).forEach(node -> {
+            BusCell cell = (BusCell) node.getCell();
+            cell.setDirection(node.getDirection());
+            node.getOrder().ifPresent(cell::setOrder);
+        });
+        graph.getCells().stream().filter(cell -> cell.getType().isBusCell()).map(BusCell.class::cast).forEach(bc -> {
+            bc.getNodes().stream().map(Node::getOrder)
+                    .filter(Optional::isPresent)
+                    .mapToInt(Optional::get)
+                    .average()
+                    .ifPresent(a -> bc.setOrder((int) Math.floor(a)));
+            if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == CellType.EXTERN) {
+                bc.setDirection(DEFAULTDIRECTION);
+            }
+        });
 
         List<ExternCell> problematicCells = graph.getCells().stream()
                 .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN))
                 .map(ExternCell.class::cast)
-                .filter(cell -> cell.getOrder() == -1).collect(Collectors.toList());
+                .filter(cell -> cell.getOrder().isEmpty()).collect(Collectors.toList());
         if (!problematicCells.isEmpty()) {
             LOGGER.warn("Unable to build the layout only with Extension\nproblematic cells :");
             problematicCells.forEach(cell -> LOGGER
                     .info("Cell Nb : {}, Order : {}, Type : {}",
                             cell.getNumber(),
-                            cell.getOrder(),
+                            cell.getOrder().orElse(null),
                             cell.getType()));
         }
     }
@@ -125,7 +132,7 @@ public class PositionFromExtension implements PositionFinder {
         }
 
         private Optional<Integer> externCellOrderNb(LegBusSet lbs) {
-            return lbs.getExternCells().stream().findAny().map(ExternCell::getOrder);
+            return lbs.getExternCells().stream().findAny().map(exCell -> exCell.getOrder().orElse(-1));
         }
 
     };

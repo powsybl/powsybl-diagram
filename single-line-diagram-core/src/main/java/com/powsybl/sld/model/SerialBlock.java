@@ -48,7 +48,7 @@ public class SerialBlock extends AbstractComposedBlock {
     @Override
     public int getOrder() {
         return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
-                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder() : 0;
+                ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder().orElse(-1) : 0;
     }
 
     private void postConstruct() {

@@ -402,7 +402,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected void addFeeder(FeederNode node, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
-                node.setOrder(feeder.getOrder());
+                feeder.getOrder().ifPresent(node::setOrder);
                 node.setLabel(feeder.getName());
                 BusCell.Direction dir = BusCell.Direction.valueOf(feeder.getDirection().toString());
                 node.setDirection(dir == UNDEFINED ? TOP : dir);
@@ -415,15 +415,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
-                BusCell.Direction direction = BusCell.Direction.valueOf(feeder.getDirection().toString());
-
-                firstOtherLegNode.setOrder(feeder.getOrder());
+                middleNode.setDirection(BusCell.Direction.valueOf(feeder.getDirection().toString()));
+                feeder.getOrder().ifPresent(order -> {
+                    firstOtherLegNode.setOrder(order);
+                    secondOtherLegNode.setOrder(order + 1);
+                });
                 firstOtherLegNode.setLabel(feeder.getName());
-                firstOtherLegNode.setDirection(direction);
-
-                secondOtherLegNode.setOrder(feeder.getOrder() + 1);
                 secondOtherLegNode.setLabel(feeder.getName());
-                secondOtherLegNode.setDirection(direction);
             }
 
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);

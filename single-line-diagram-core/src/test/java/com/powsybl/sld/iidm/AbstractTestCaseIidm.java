@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.GraphBuilder;
@@ -108,7 +109,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .add();
     }
 
-    protected static void createLoad(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
+    protected static void createLoad(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                      ConnectablePosition.Direction direction, int node, double p0, double q0) {
         Load load = vl.newLoad()
                 .setId(id)
@@ -117,16 +118,10 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setP0(p0)
                 .setQ0(q0)
                 .add();
-        load.newExtension(ConnectablePositionAdder.class)
-                .newFeeder()
-                        .withDirection(direction)
-                        .withName(feederName)
-                        .withOrder(feederOrder)
-                        .add()
-                .add();
+        addFeederPosition(load, feederName, feederOrder, direction);
     }
 
-    protected static void createGenerator(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
+    protected static void createGenerator(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                           ConnectablePosition.Direction direction, int node,
                                           double minP, double maxP, boolean voltageRegulator,
                                           double targetP, double targetQ) {
@@ -140,16 +135,10 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setTargetP(targetP)
                 .setTargetQ(targetQ)
                 .add();
-        gen.newExtension(ConnectablePositionAdder.class)
-                .newFeeder()
-                        .withName(feederName)
-                        .withOrder(feederOrder)
-                        .withDirection(direction)
-                        .add()
-                .add();
+        addFeederPosition(gen, feederName, feederOrder, direction);
     }
 
-    protected static void createShunt(VoltageLevel vl, String id, String name, String feederName, int feederOrder,
+    protected static void createShunt(VoltageLevel vl, String id, String name, String feederName, Integer feederOrder,
                                       ConnectablePosition.Direction direction, int node,
                                       double bPerSection, int maximumSectionCount, int currentSectionCount) {
         ShuntCompensator shunt = vl.newShuntCompensator()
@@ -162,13 +151,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                     .setMaximumSectionCount(maximumSectionCount)
                 .add()
                 .add();
-        shunt.newExtension(ConnectablePositionAdder.class)
-                .newFeeder()
-                        .withName(feederName)
-                        .withOrder(feederOrder)
-                        .withDirection(direction)
-                        .add()
-                .add();
+        addFeederPosition(shunt, feederName, feederOrder, direction);
     }
 
     protected static void createTwoWindingsTransformer(Substation s, String id, String name,
@@ -176,8 +159,8 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                                                        double ratedU1, double ratedU2,
                                                        int node1, int node2,
                                                        String idVoltageLevel1, String idVoltageLevel2,
-                                                       String feederName1, int feederOrder1, ConnectablePosition.Direction direction1,
-                                                       String feederName2, int feederOrder2, ConnectablePosition.Direction direction2) {
+                                                       String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                       String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
         TwoWindingsTransformer t = s.newTwoWindingsTransformer()
                 .setId(id)
                 .setName(name)
@@ -192,16 +175,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setNode2(node2)
                 .setVoltageLevel2(idVoltageLevel2)
                 .add();
-        t.newExtension(ConnectablePositionAdder.class)
-                .newFeeder1()
-                        .withName(feederName1)
-                        .withOrder(feederOrder1)
-                        .withDirection(direction1).add()
-                .newFeeder2()
-                        .withName(feederName2)
-                        .withOrder(feederOrder2)
-                        .withDirection(direction2).add()
-                .add();
+        addTwoFeedersPosition(t, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2);
     }
 
     protected static void createThreeWindingsTransformer(Substation s, String id, String name,
@@ -211,9 +185,9 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                                                          double g1, double b1,
                                                          double ratedU1, double ratedU2, double ratedU3,
                                                          int node1, int node2, int node3,
-                                                         String feederName1, int feederOrder1, ConnectablePosition.Direction direction1,
-                                                         String feederName2, int feederOrder2, ConnectablePosition.Direction direction2,
-                                                         String feederName3, int feederOrder3, ConnectablePosition.Direction direction3) {
+                                                         String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                         String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2,
+                                                         String feederName3, Integer feederOrder3, ConnectablePosition.Direction direction3) {
         ThreeWindingsTransformer t = s.newThreeWindingsTransformer()
                 .setId(id)
                 .setName(name)
@@ -242,20 +216,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .add()
                 .add();
 
-        t.newExtension(ConnectablePositionAdder.class)
-                .newFeeder1()
-                        .withName(feederName1)
-                        .withOrder(feederOrder1)
-                        .withDirection(direction1).add()
-                .newFeeder2()
-                        .withName(feederName2)
-                        .withOrder(feederOrder2)
-                        .withDirection(direction2).add()
-                .newFeeder3()
-                        .withName(feederName3)
-                        .withOrder(feederOrder3)
-                        .withDirection(direction3).add()
-                .add();
+        addThreeFeedersPosition(t, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2, feederName3, feederOrder3, direction3);
     }
 
     protected static void createLine(Network network,
@@ -265,8 +226,8 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                                      double g2, double b2,
                                      int node1, int node2,
                                      String idVoltageLevel1, String idVoltageLevel2,
-                                     String feederName1, int feederOrder1, ConnectablePosition.Direction direction1,
-                                     String feederName2, int feederOrder2, ConnectablePosition.Direction direction2) {
+                                     String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                     String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
         Line line = network.newLine()
                 .setId(id)
                 .setName(name)
@@ -281,18 +242,55 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
                 .setNode2(node2)
                 .setVoltageLevel2(idVoltageLevel2)
                 .add();
-        line.newExtension(ConnectablePositionAdder.class)
-                .newFeeder1()
-                        .withName(feederName1)
-                        .withOrder(feederOrder1)
-                        .withDirection(direction1)
-                        .add()
-                .newFeeder2()
-                        .withName(feederName2)
-                        .withOrder(feederOrder2)
-                        .withDirection(direction2)
-                        .add()
+        addTwoFeedersPosition(line, feederName1, feederOrder1, direction1, feederName2, feederOrder2, direction2);
+    }
+
+    private static void addFeederPosition(Extendable<?> extendable, String feederName, Integer feederOrder, ConnectablePosition.Direction direction) {
+        ConnectablePositionAdder.FeederAdder feederAdder = extendable.newExtension(ConnectablePositionAdder.class).newFeeder();
+        if (feederOrder != null) {
+            feederAdder.withOrder(feederOrder);
+        }
+        feederAdder.withDirection(direction).withName(feederName).add()
                 .add();
     }
 
+    private static void addTwoFeedersPosition(Extendable<?> extendable,
+                                              String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                              String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2) {
+        ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
+        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        if (feederOrder1 != null) {
+            feederAdder1.withOrder(feederOrder1);
+        }
+        feederAdder1.withName(feederName1).withDirection(direction1).add();
+        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        if (feederOrder2 != null) {
+            feederAdder2.withOrder(feederOrder2);
+        }
+        feederAdder2.withName(feederName2).withDirection(direction2).add();
+        extensionAdder.add();
+    }
+
+    private static void addThreeFeedersPosition(Extendable<?> extendable,
+                                                String feederName1, Integer feederOrder1, ConnectablePosition.Direction direction1,
+                                                String feederName2, Integer feederOrder2, ConnectablePosition.Direction direction2,
+                                                String feederName3, Integer feederOrder3, ConnectablePosition.Direction direction3) {
+        ConnectablePositionAdder extensionAdder = extendable.newExtension(ConnectablePositionAdder.class);
+        ConnectablePositionAdder.FeederAdder feederAdder1 = extensionAdder.newFeeder1();
+        if (feederOrder1 != null) {
+            feederAdder1.withOrder(feederOrder1);
+        }
+        feederAdder1.withName(feederName1).withDirection(direction1).add();
+        ConnectablePositionAdder.FeederAdder feederAdder2 = extensionAdder.newFeeder2();
+        if (feederOrder2 != null) {
+            feederAdder2.withOrder(feederOrder2);
+        }
+        feederAdder2.withName(feederName2).withDirection(direction2).add();
+        ConnectablePositionAdder.FeederAdder feederAdder3 = extensionAdder.newFeeder3();
+        if (feederOrder3 != null) {
+            feederAdder3.withOrder(feederOrder3);
+        }
+        feederAdder3.withName(feederName3).withDirection(direction3).add();
+        extensionAdder.add();
+    }
 }
