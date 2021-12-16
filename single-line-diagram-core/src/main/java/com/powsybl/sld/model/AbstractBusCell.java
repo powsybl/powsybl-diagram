@@ -71,6 +71,11 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
+    public void removeOrder() {
+        this.order = null;
+    }
+
+    @Override
     public Direction getDirection() {
         return direction;
     }

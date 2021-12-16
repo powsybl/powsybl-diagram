@@ -245,6 +245,10 @@ public class Node implements BaseNode {
         this.order = order;
     }
 
+    public void removeOrder() {
+        this.order = null;
+    }
+
     public BusCell.Direction getDirection() {
         return direction;
     }

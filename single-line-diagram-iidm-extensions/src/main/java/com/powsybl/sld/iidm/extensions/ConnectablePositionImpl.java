@@ -67,6 +67,12 @@ public class ConnectablePositionImpl<C extends Connectable<C>> extends AbstractE
         }
 
         @Override
+        public Feeder removeOrder() {
+            this.order = null;
+            return this;
+        }
+
+        @Override
         public Direction getDirection() {
             return direction;
         }

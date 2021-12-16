@@ -38,6 +38,8 @@ public interface ConnectablePosition<C extends Connectable<C>> extends Extension
 
         Feeder setOrder(int order);
 
+        Feeder removeOrder();
+
         Direction getDirection();
 
         Feeder setDirection(Direction direction);
