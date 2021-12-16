@@ -33,14 +33,6 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         super(graph, type);
     }
 
-    public void averageOrder() {
-        getNodes().stream().map(Node::getOrder)
-                .filter(Optional::isPresent)
-                .mapToInt(Optional::get)
-                .average()
-                .ifPresent(average -> setOrder((int) average));
-    }
-
     @Override
     public void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus) {
         setRootBlock(rootBlock);

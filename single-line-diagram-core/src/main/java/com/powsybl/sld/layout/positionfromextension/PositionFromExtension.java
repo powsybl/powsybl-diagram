@@ -70,7 +70,11 @@ public class PositionFromExtension implements PositionFinder {
             node.getOrder().ifPresent(cell::setOrder);
         });
         graph.getCells().stream().filter(cell -> cell.getType().isBusCell()).map(BusCell.class::cast).forEach(bc -> {
-            bc.averageOrder();
+            bc.getNodes().stream().map(Node::getOrder)
+                    .filter(Optional::isPresent)
+                    .mapToInt(Optional::get)
+                    .average()
+                    .ifPresent(a -> bc.setOrder((int) Math.floor(a)));
             if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == CellType.EXTERN) {
                 bc.setDirection(DEFAULTDIRECTION);
             }

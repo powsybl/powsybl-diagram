@@ -46,8 +46,6 @@ public interface BusCell extends Cell {
 
     void removeOrder();
 
-    void averageOrder();
-
     Direction getDirection();
 
     void setDirection(Direction direction);
