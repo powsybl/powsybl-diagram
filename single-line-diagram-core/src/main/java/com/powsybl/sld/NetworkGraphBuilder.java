@@ -415,18 +415,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
-                BusCell.Direction direction = BusCell.Direction.valueOf(feeder.getDirection().toString());
-
+                middleNode.setDirection(BusCell.Direction.valueOf(feeder.getDirection().toString()));
                 feeder.getOrder().ifPresent(order -> {
                     firstOtherLegNode.setOrder(order);
                     secondOtherLegNode.setOrder(order + 1);
                 });
-
                 firstOtherLegNode.setLabel(feeder.getName());
-                firstOtherLegNode.setDirection(direction);
-
                 secondOtherLegNode.setLabel(feeder.getName());
-                secondOtherLegNode.setDirection(direction);
             }
 
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);
