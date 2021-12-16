@@ -829,4 +829,16 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         assertEquals(toString("/label_on_all_nodes.svg"),
                 toSVG(g1, "/label_on_all_nodes.svg", getLayoutParameters(), sameNodeLabelProvider, styleProvider));
     }
+
+    @Test
+    public void testWithGreyFrameBackground() {
+        DiagramStyleProvider styleProvider = new DefaultDiagramStyleProvider() {
+            @Override
+            public List<String> getCssFilenames() {
+                return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithGreyFrameBackground.css");
+            }
+        };
+        assertEquals(toString("/with_frame_background.svg"),
+                toSVG(g1, "/with_frame_background.svg", getLayoutParameters(), initValueProvider, styleProvider));
+    }
 }

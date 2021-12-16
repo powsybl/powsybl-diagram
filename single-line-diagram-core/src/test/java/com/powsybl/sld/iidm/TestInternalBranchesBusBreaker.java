@@ -6,12 +6,19 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.commons.config.BaseVoltagesConfig;
+import com.powsybl.commons.config.ModuleConfigRepository;
+import com.powsybl.commons.config.PlatformConfig;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,6 +30,13 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
     @Override
     protected LayoutParameters getLayoutParameters() {
         return createDefaultLayoutParameters();
+    }
+
+    @Override
+    public DiagramStyleProvider getDefaultDiagramStyleProvider() {
+        // bypassing the config-test platform config to test the embedded base-voltages.yml file
+        BaseVoltagesConfig baseVoltagesConfig = BaseVoltagesConfig.fromPlatformConfig(new PlatformConfig((ModuleConfigRepository) null, Path.of("./")));
+        return new NominalVoltageDiagramStyleProvider(baseVoltagesConfig, network);
     }
 
     @Before

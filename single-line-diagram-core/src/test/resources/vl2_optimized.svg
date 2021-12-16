@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="620.0" viewBox="0 0 280.0 620.0" width="280.0" xmlns="http://www.w3.org/2000/svg">
     <style><![CDATA[
+/* ----------------------------------------------------------------------- */
+/* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
 .sld-in .sld-arrow-out {visibility: hidden}
 .sld-closed .sld-sw-open {visibility: hidden}
 .sld-open .sld-sw-closed {visibility: hidden}
 .sld-hidden-node {visibility: hidden}
-polyline {fill: none}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
-.sld-constant-color {stroke: blue; fill: none}
-.sld-wire.sld-constant-color {stroke: #c80000}
-.sld-node.sld-constant-color {stroke: none; fill: black}
-.sld-bus-connection.sld-constant-color {stroke: black}
-.sld-busbar-section.sld-constant-color {stroke: black}
-.sld-disconnector.sld-constant-color {stroke: black}
-.sld-label {stroke: none; fill: black}
-.sld-frame {fill: lightgrey}
-.sld-busbar-section {stroke-width: 3}
-.sld-breaker {stroke-width: 2; fill:white}
-.sld-disconnector {stroke-width: 3}
-.sld-bus-connection {stroke-width: 4}
-.sld-vsc {font-size: 7.43px}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+/* Stroke black */
+.sld-disconnector {stroke-width: 3; stroke: black; fill: none}
+/* Stroke blue */
+.sld-breaker {stroke-width: 2; stroke: blue; fill:white}
+/* Stroke --sld-vl-color with fallback black */
+.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4; fill: none}
+.sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
+/* Stroke --sld-vl-color with fallback red */
+.sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
+/* Stroke --sld-vl-color with fallback blue */
+.sld-load-break-switch {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-load {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-generator {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-two-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-three-wt {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-winding {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+/* Stroke none & fill: --sld-vl-color */
+.sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+/* Stroke none & fill: black */
+.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
+.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
+.sld-node {stroke: none; fill: black}
+.sld-flash {stroke: none; fill: black}
+.sld-lock {stroke: none; fill: black}
+/* Specific */
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
-.sld-label {font: 8px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
-.sld-flash {stroke: none; fill: black}
-.sld-lock {stroke: none; fill: black}
+.sld-frame {fill: var(--sld-background-color, transparent)}
 
 ]]></style>
     <defs>
@@ -93,11 +110,11 @@ polyline {fill: none}
     </defs>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
-        <g class="sld-busbar-section sld-constant-color" id="idvl2_95_bbs1" transform="translate(40.0,320.0)">
+        <g class="sld-busbar-section" id="idvl2_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl2_bbs1_vl2_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
             <polyline points="90.0,106.0,90.0,190.0"/>
         </g>
         <g class="sld-arrow-p sld-out" id="idvl2_95_gen1_ARROW_ACTIVE" transform="translate(85.0,121.0)">
@@ -110,13 +127,13 @@ polyline {fill: none}
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_bgen1_95_vl2_95_dgen1">
             <polyline points="90.0,210.0,90.0,320.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
             <polyline points="90.0,320.0,102.5,320.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="140.0,512.0,140.0,430.0"/>
         </g>
         <g class="sld-arrow-q sld-in" id="idvl2_95_trf1_ARROW_REACTIVE" transform="translate(135.0,487.0)">
@@ -129,13 +146,13 @@ polyline {fill: none}
             <use class="sld-arrow-out" href="#ARROW_ACTIVE-UP" transform="rotate(180.0,5.0,5.0)"/>
             <text class="sld-label" x="15.0" y="5.0">10</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_btrf1_95_vl2_95_dtrf1">
             <polyline points="140.0,410.0,140.0,320.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
             <polyline points="140.0,320.0,152.5,320.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2">
             <polyline points="170.0,100.0,170.0,160.0,193.0,160.0"/>
         </g>
         <g class="sld-arrow-p sld-out" id="idvl2_95_trf2_95_one_ARROW_ACTIVE" transform="translate(165.0,115.0)">
@@ -148,7 +165,7 @@ polyline {fill: none}
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_two_95_vl2_95_trf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_two_95_vl2_95_trf2">
             <polyline points="230.0,100.0,230.0,160.0,207.0,160.0"/>
         </g>
         <g class="sld-arrow-p sld-out" id="idvl2_95_trf2_95_two_ARROW_ACTIVE" transform="translate(225.0,115.0)">
@@ -161,56 +178,56 @@ polyline {fill: none}
             <use class="sld-arrow-out" href="#ARROW_REACTIVE-UP"/>
             <text class="sld-label" x="15.0" y="5.0">20</text>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_vl2_95_btrf2">
             <polyline points="200.0,172.0,200.0,190.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_btrf2_95_vl2_95_dtrf2">
             <polyline points="200.0,210.0,200.0,320.0"/>
         </g>
-        <g class="sld-wire sld-constant-color" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
+        <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
             <polyline points="200.0,320.0,240.0,320.0"/>
         </g>
-        <g class="sld-generator sld-constant-color" id="idvl2_95_gen1" transform="translate(84.0,94.0)">
+        <g class="sld-generator" id="idvl2_95_gen1" transform="translate(84.0,94.0)">
             <use href="#GENERATOR"/>
             <text class="sld-label" id="vl2_gen1_vl2_gen1__LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_bgen1" transform="translate(80.0,190.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_bgen1" transform="translate(80.0,190.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dgen1" transform="translate(86.0,316.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dgen1" transform="translate(86.0,316.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-two-wt sld-constant-color" id="idvl2_95_trf1" transform="translate(135.0,512.5)">
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
-            <use href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
+        <g class="sld-two-wt" id="idvl2_95_trf1" transform="translate(135.0,512.5)">
+            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
+            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
             <text class="sld-label" id="vl2_trf1_vl2_trf1__LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf1" transform="translate(130.0,410.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_btrf1" transform="translate(130.0,410.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf1" transform="translate(136.0,316.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dtrf1" transform="translate(136.0,316.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
-        <g class="sld-constant-color" id="idvl2_95_trf2_95_one" transform="translate(170.0,100.0)">
+        <g class="" id="idvl2_95_trf2_95_one" transform="translate(170.0,100.0)">
             <text class="sld-label" id="vl2_trf2_one_vl2_trf2_one__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
-        <g class="sld-constant-color" id="idvl2_95_trf2_95_two" transform="translate(230.0,100.0)">
+        <g class="" id="idvl2_95_trf2_95_two" transform="translate(230.0,100.0)">
             <text class="sld-label" id="vl2_trf2_two_vl2_trf2_two__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
-        <g class="sld-three-wt sld-constant-color" id="idvl2_95_trf2" transform="translate(192.0,148.0)">
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
-            <use href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
+        <g class="sld-three-wt" id="idvl2_95_trf2" transform="translate(192.0,148.0)">
+            <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
+            <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
+            <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
         </g>
-        <g class="sld-breaker sld-constant-color sld-closed" id="idvl2_95_btrf2" transform="translate(190.0,190.0)">
+        <g class="sld-breaker sld-closed" id="idvl2_95_btrf2" transform="translate(190.0,190.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
             <use class="sld-sw-open" href="#BREAKER-OPEN"/>
         </g>
-        <g class="sld-disconnector sld-constant-color sld-closed" id="idvl2_95_dtrf2" transform="translate(196.0,316.0)">
+        <g class="sld-disconnector sld-closed" id="idvl2_95_dtrf2" transform="translate(196.0,316.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>

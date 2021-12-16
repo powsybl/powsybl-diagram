@@ -15,6 +15,8 @@ import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
 
+import static com.powsybl.sld.svg.DiagramStyles.NODE_INFOS;
+
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -298,7 +300,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
                     if (feederNode.getEquipmentId().equals(t.getConnectable().getId())) {
                         Optional<String> voltageLevelStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), feederNode);
                         if (voltageLevelStyle.isPresent()) {
-                            return Collections.singletonList(voltageLevelStyle.get());
+                            return Arrays.asList(voltageLevelStyle.get(), NODE_INFOS);
                         }
                     }
                 }
@@ -309,7 +311,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDia
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "baseVoltageConstantColors.css");
+        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css");
     }
 
 }
