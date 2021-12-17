@@ -11,7 +11,6 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +25,6 @@ import static org.junit.Assert.assertTrue;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestSerialBlock extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
 
     @Before
     public void setUp() {
@@ -98,7 +92,7 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(getLayoutParameters());
+        sb.coordHorizontalCase(layoutParameters);
 
         assertEquals(10, sb.getLowerBlock().getCoord().get(X), 0);
         assertEquals(20, sb.getLowerBlock().getCoord().get(Y), 0);

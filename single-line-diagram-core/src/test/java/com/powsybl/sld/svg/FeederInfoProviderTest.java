@@ -11,7 +11,6 @@ import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
@@ -32,16 +31,9 @@ import static org.junit.Assert.*;
  */
 public class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
-    private LayoutParameters layoutParameters;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
     @Before
     public void setUp() {
-        layoutParameters = createDefaultLayoutParameters().setFeederArrowSymmetry(true);
+        layoutParameters.setFeederArrowSymmetry(true);
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
@@ -107,6 +99,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     @Test
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
+        layoutParameters.setFeederArrowSymmetry(true);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
         toSVG(g, "test.svg");

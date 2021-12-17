@@ -7,9 +7,6 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,9 +45,8 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, null);
         vlBuilder.connectNode(bbs, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));
+        layoutParameters.setAdaptCellHeightToContent(true);
+        voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBus.json"), toJson(g, "/TestFeederOnBus.json"));
     }
 
@@ -63,9 +59,8 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs, busDisconnector);
         vlBuilder.connectNode(busDisconnector, feederLineNode);
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters().setAdaptCellHeightToContent(true));
+        layoutParameters.setAdaptCellHeightToContent(true);
+        voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBusDisconnector.json"), toJson(g, "/TestFeederOnBusDisconnector.json"));
     }
 }

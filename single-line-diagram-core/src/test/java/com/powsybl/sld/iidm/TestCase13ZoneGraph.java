@@ -23,13 +23,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
 
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
-
     @Before
     public void setUp() {
+        layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
         network = ZoneGraphTest.createNetwork();
     }
 

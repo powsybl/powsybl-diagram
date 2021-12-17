@@ -23,16 +23,6 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
-    private final LayoutParameters layoutParameters;
-
-    protected AbstractTestCaseRaw() {
-        layoutParameters = createDefaultLayoutParameters();
-    }
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
 
     protected RawDiagramLabelProvider getRawLabelProvider(Graph graph) {
         Stream<Node> nodeStream = getNodeStream(graph);
@@ -41,7 +31,7 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
 
     @Override
     public void toSVG(Graph graph, String filename) {
-        toSVG(graph, filename, getLayoutParameters(), getRawLabelProvider(graph), new BasicStyleProvider());
+        toSVG(graph, filename, getRawLabelProvider(graph), new BasicStyleProvider());
     }
 
     private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface

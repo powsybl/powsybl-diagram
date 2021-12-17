@@ -7,7 +7,8 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
@@ -19,11 +20,6 @@ import static org.junit.Assert.assertEquals;
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
 public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
 
     @Before
     public void setUp() {
@@ -37,18 +33,12 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true);
 
-        // detect cells
-        new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
-        new BlockOrganizer().organize(g);
-
-        // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        // Run layout
+        voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
         assertEquals(toString("/InternalBranchesNodeBreaker.svg"),
-                toSVG(g, "/InternalBranchesNodeBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+                toSVG(g, "/InternalBranchesNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
 
     }
 
@@ -57,7 +47,9 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run horizontal substation layout
+        substationGraphLayout(g);
+
         assertEquals(toString("/InternalBranchesNodeBreakerH.json"), toJson(g, "/InternalBranchesNodeBreakerH.json"));
     }
 
@@ -66,7 +58,9 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
         assertEquals(toString("/InternalBranchesNodeBreakerV.json"), toJson(g, "/InternalBranchesNodeBreakerV.json"));
     }
 }

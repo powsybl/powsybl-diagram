@@ -14,7 +14,6 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.VoltageLevelGraph;
@@ -28,17 +27,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm {
 
-    private LayoutParameters layoutParameters;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
     @Before
     public void setUp() {
-        layoutParameters = createDefaultLayoutParameters()
-            .setExternCellHeight(200);
+        layoutParameters.setExternCellHeight(200);
 
         network = Network.create("testCaseGraphAdaptCellHeightToContent", "test");
         graphBuilder = new NetworkGraphBuilder(network);
@@ -95,13 +86,12 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
     @Test
     public void testHeightFixed() {
         // layout parameters with extern cell height fixed
-        getLayoutParameters()
-            .setAdaptCellHeightToContent(false);
+        layoutParameters.setAdaptCellHeightToContent(false);
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         assertEquals(toString("/TestCaseGraphExternCellHeightFixed.json"), toJson(g, "/TestCaseGraphExternCellHeightFixed.json"));
     }
@@ -109,13 +99,12 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
     @Test
     public void testAdaptHeight() {
         // layout parameters with adapt cell height to content
-        getLayoutParameters()
-            .setAdaptCellHeightToContent(true);
+        layoutParameters.setAdaptCellHeightToContent(true);
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new ImplicitCellDetector(false, true, false).detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true).organize(g);
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         assertEquals(toString("/TestCaseGraphAdaptCellHeightToContent.json"), toJson(g, "/TestCaseGraphAdaptCellHeightToContent.json"));
     }

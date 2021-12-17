@@ -24,17 +24,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
-    protected LayoutParameters layoutParameters;
-
-    @Override
-    public LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
     @Before
     public void setUp() {
-        layoutParameters = createDefaultLayoutParameters();
-
         network = Network.create("testCase11", "test");
         graphBuilder = new NetworkGraphBuilder(network);
 
@@ -219,8 +210,9 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        // write Json and compare to reference (with horizontal substation layout)
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run horizontal substation layout
+        substationGraphLayout(g);
+
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }
 
@@ -229,8 +221,9 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
-        // write Json and compare to reference (with vertical substation layout)
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }
 
@@ -243,7 +236,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         compareMetadata(substationGraph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new BasicStyleProvider());
     }
 
@@ -256,7 +249,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         compareMetadata(graph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
-                new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }
 
@@ -265,7 +258,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // write Json and compare to reference (with smart substation layout)
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
         new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.NONE).create(g, new PositionVoltageLevelLayoutFactory()).run(
-            getLayoutParameters());
+                layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmart.json"), toJson(g, "/TestCase11SubstationGraphSmart.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
@@ -277,7 +270,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testSmartHorizontalCompaction() {
         // write Json and compare to reference (with smart substation layout and horizontal compaction)
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
-        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.HORIZONTAL).create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.HORIZONTAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmartHorizontal.json"), toJson(g, "/TestCase11SubstationGraphSmartHorizontal.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());
@@ -289,7 +282,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testSmartVerticalCompaction() {
         // write Json and compare to reference (with smart substation layout and vertical compaction)
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
-        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.VERTICAL).create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        new ForceSubstationLayoutFactory(ForceSubstationLayoutFactory.CompactionType.VERTICAL).create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphSmartVertical.json"), toJson(g, "/TestCase11SubstationGraphSmartVertical.json", false));
         assertEquals(substation.getId(), g.getSubstationId());
         assertEquals(substation.getVoltageLevelStream().count(), g.getNodes().size());

@@ -11,7 +11,6 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.LayoutParameters;
 
 /**
  * <PRE>
@@ -30,11 +29,6 @@ import com.powsybl.sld.layout.LayoutParameters;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class TestCase10TestBreakerToBus extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return null;
-    }
 
     @Override
     public void setUp() {

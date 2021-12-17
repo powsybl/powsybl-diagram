@@ -168,7 +168,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
      * @return the voltage level style if any
      */
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos vlInfo, Node node) {
-        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE);
+        return baseVoltagesConfig.getBaseVoltageName(vlInfo.getNominalVoltage(), BASE_VOLTAGE_PROFILE)
+                .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
     }
 
     private Node getWindingNode(Middle3WTNode node, String subComponentName) {

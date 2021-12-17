@@ -13,7 +13,6 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.LayoutParameters;
 import org.apache.commons.io.output.NullWriter;
 import org.junit.After;
 import org.junit.Before;
@@ -37,11 +36,6 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
     private FileSystem fileSystem;
     private Path tmpDir;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
 
     @After
     public void tearDown() throws Exception {

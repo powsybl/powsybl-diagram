@@ -7,9 +7,11 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
@@ -39,9 +41,9 @@ public abstract class AbstractTestCase {
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
-    protected abstract LayoutParameters getLayoutParameters();
+    protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
-    protected static LayoutParameters createDefaultLayoutParameters() {
+    private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
             .setAdaptCellHeightToContent(false)
             .setVerticalSpaceBus(25)
@@ -125,11 +127,7 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph,
-                        String filename,
-                        LayoutParameters layoutParameters,
-                        DiagramLabelProvider labelProvider,
-                        DiagramStyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             SingleLineDiagram.draw(graph, writer, new NullWriter(), layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
@@ -156,8 +154,8 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(getLayoutParameters());
-            SingleLineDiagram.draw(graph, writer, metadataWriter, getLayoutParameters(), componentLibrary,
+            voltageLevelLayoutFactory.create(graph).run(layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
 
             if (debugJsonFiles) {
@@ -181,11 +179,14 @@ public abstract class AbstractTestCase {
     public void compareMetadata(SubstationGraph graph, String refMetdataName,
                                 SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vlLayoutFactory,
                                 DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+
+        InputStream isRefMetadata = Objects.requireNonNull(getClass().getResourceAsStream(refMetdataName));
+
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            sLayoutFactory.create(graph, vlLayoutFactory).run(getLayoutParameters());
-            SingleLineDiagram.draw(graph, writer, metadataWriter, getLayoutParameters(), componentLibrary,
+            sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
+            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
 
             if (debugJsonFiles) {
@@ -198,7 +199,7 @@ public abstract class AbstractTestCase {
                 writeToFileInDebugDir(refMetdataName.replace(".json", ".svg"), writer);
             }
 
-            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(getClass().getResourceAsStream(refMetdataName)), StandardCharsets.UTF_8));
+            String refMetadata = normalizeLineSeparator(new String(ByteStreams.toByteArray(isRefMetadata), StandardCharsets.UTF_8));
             String metadata = normalizeLineSeparator(metadataWriter.toString());
             assertEquals(refMetadata, metadata);
         } catch (IOException e) {
@@ -242,5 +243,13 @@ public abstract class AbstractTestCase {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
+        new PositionVoltageLevelLayoutFactory().create(voltageLevelGraph).run(layoutParameters);
+    }
+
+    protected void substationGraphLayout(SubstationGraph substationGraph) {
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
     }
 }

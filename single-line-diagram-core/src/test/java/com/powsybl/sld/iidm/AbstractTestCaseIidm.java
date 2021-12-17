@@ -13,8 +13,12 @@ import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.svg.BasicStyleProvider;
+import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
@@ -32,26 +36,13 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     protected Substation substation;
     protected GraphBuilder graphBuilder;
 
-    protected static String normalizeLineSeparator(String str) {
-        return str.replace("\r\n", "\n")
-                .replace("\r", "\n");
-    }
-
-    VoltageLevel getVl() {
-        return vl;
-    }
-
-    Substation getSubstation() {
-        return substation;
-    }
-
     @Override
     public void toSVG(Graph g, String filename) {
-        toSVG(g, filename, getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+        toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
@@ -292,5 +283,15 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
         }
         feederAdder3.withName(feederName3).withDirection(direction3).add();
         extensionAdder.add();
+    }
+
+    @Override
+    protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
+        new SmartVoltageLevelLayoutFactory(network).create(voltageLevelGraph).run(layoutParameters);
+    }
+
+    @Override
+    protected void substationGraphLayout(SubstationGraph substationGraph) {
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
     }
 }
