@@ -51,7 +51,7 @@ public class TestCase1 extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
 
         // Run layout
         voltageLevelGraphLayout(g);

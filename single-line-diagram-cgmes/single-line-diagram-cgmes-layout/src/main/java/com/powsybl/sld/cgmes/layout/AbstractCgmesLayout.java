@@ -67,10 +67,10 @@ public abstract class AbstractCgmesLayout {
         return true;
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName) {
+    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, String diagramName, boolean useNames) {
         isNodeBreaker = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind());
         // skip line nodes: I need the coordinates of the adjacent node to know which side of the line belongs to this voltage level
-        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, graph, node, diagramName));
+        graph.getNodes().stream().filter(node -> !isLineNode(node)).forEach(node -> setNodeCoordinates(vl, node, diagramName, useNames));
         // set line nodes coordinates: I use the coordinates of the adjacent node to know which side of the line belongs to this voltage level
         graph.getNodes().stream().filter(this::isLineNode).forEach(node -> setLineNodeCoordinates(vl, node, diagramName));
     }
@@ -79,7 +79,7 @@ public abstract class AbstractCgmesLayout {
         return Arrays.asList(LINE, DANGLING_LINE, VSC_CONVERTER_STATION).contains(node.getComponentType());
     }
 
-    protected void setNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName) {
+    protected void setNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
         LOG.info("Setting coordinates of node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         switch (node.getType()) {
             case BUS:
@@ -103,7 +103,7 @@ public abstract class AbstractCgmesLayout {
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
                 break;
             case FEEDER:
-                setFeederNodeCoordinates(vl, graph, node, diagramName);
+                setFeederNodeCoordinates(vl, node, diagramName, useNames);
                 break;
             default:
                 processDefaultNodeCase(vl, node, diagramName);
@@ -167,14 +167,8 @@ public abstract class AbstractCgmesLayout {
         }
     }
 
-    protected void setFeederNodeCoordinates(VoltageLevel vl, VoltageLevelGraph graph, Node node, String diagramName) {
-        String componentType = node.getComponentType();
-        if (node instanceof Feeder2WTNode || node instanceof Feeder2WTLegNode) {
-            componentType = TWO_WINDINGS_TRANSFORMER;
-        } else if (node instanceof Feeder3WTLegNode) {
-            componentType = THREE_WINDINGS_TRANSFORMER;
-        }
-        switch (componentType) {
+    protected void setFeederNodeCoordinates(VoltageLevel vl, Node node, String diagramName, boolean useNames) {
+        switch (node.getComponentType()) {
             case LOAD:
                 FeederNode loadNode = (FeederNode) node;
                 Load load = vl.getConnectable(loadNode.getId(), Load.class);
@@ -202,22 +196,24 @@ public abstract class AbstractCgmesLayout {
                 break;
             case TWO_WINDINGS_TRANSFORMER:
             case PHASE_SHIFT_TRANSFORMER:
+            case TWO_WINDINGS_TRANSFORMER_LEG:
                 FeederNode transformerNode = (FeederNode) node;
                 TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(), TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;
                 if (transformer != null) {
                     transformerDiagramData = transformer.getExtension(CouplingDeviceDiagramData.class);
-                    setTransformersLabel(transformerNode, graph.isUseName(), transformer.getName(), transformer.getId());
+                    setTransformersLabel(transformerNode, useNames, transformer.getNameOrId(), transformer.getId());
                 }
                 setCouplingDeviceNodeCoordinates(transformerNode, transformerDiagramData, false, diagramName);
                 break;
             case THREE_WINDINGS_TRANSFORMER:
+            case THREE_WINDINGS_TRANSFORMER_LEG:
                 FeederNode transformer3wNode = (FeederNode) node;
                 ThreeWindingsTransformer transformer3w = vl.getConnectable(transformer3wNode.getEquipmentId(), ThreeWindingsTransformer.class);
                 ThreeWindingsTransformerDiagramData transformer3wDiagramData = null;
                 if (transformer3w != null) {
                     transformer3wDiagramData = transformer3w.getExtension(ThreeWindingsTransformerDiagramData.class);
-                    setTransformersLabel(transformer3wNode, graph.isUseName(), transformer3w.getName(), transformer3w.getId());
+                    setTransformersLabel(transformer3wNode, useNames, transformer3w.getNameOrId(), transformer3w.getId());
                 }
                 setThreeWindingsTransformerNodeCoordinates(transformer3wNode, transformer3wDiagramData, diagramName);
                 break;

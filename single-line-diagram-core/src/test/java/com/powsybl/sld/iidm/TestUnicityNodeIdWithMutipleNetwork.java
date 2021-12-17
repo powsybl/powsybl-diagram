@@ -29,7 +29,9 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
+        layoutParameters
+                .setAdaptCellHeightToContent(false)
+                .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
 
         // Create first network with a substation and a voltageLevel
         network = Network.create("n1", "test");
@@ -55,16 +57,16 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        // Generating graph for voltage level in first network
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
+        // Generating json for voltage level in first network
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
 
         voltageLevelGraphLayout(graph1);
 
         String refJson1 = toString("/TestUnicityNodeIdNetWork1.json");
         assertEquals(refJson1, toJson(graph1, "/TestUnicityNodeIdNetWork1.json"));
 
-        // Generating graph for voltage level in second network
-        VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), false, true);
+        // Generating json for voltage level in second network
+        VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), true);
 
         voltageLevelGraphLayout(graph2);
 

@@ -49,7 +49,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout implements Substa
         LOG.info("Applying CGMES-DL layout to network {}, substation {}, diagram name {}", network.getId(), graph.getSubstationId(), diagramName);
         for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName);
+            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
         }
         for (VoltageLevelGraph vlGraph : graph.getNodes()) {
             vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));

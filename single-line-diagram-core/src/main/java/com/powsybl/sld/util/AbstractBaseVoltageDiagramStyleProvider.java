@@ -10,7 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;
@@ -22,7 +22,7 @@ import static com.powsybl.sld.svg.DiagramStyles.NODE_INFOS;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public abstract class AbstractBaseVoltageDiagramStyleProvider extends DefaultDiagramStyleProvider {
+public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyleProvider {
 
     protected static final String BASE_VOLTAGE_PROFILE = "Default";
 

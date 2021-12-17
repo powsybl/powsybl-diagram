@@ -9,7 +9,6 @@ package com.powsybl.sld.svg;
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
@@ -99,16 +98,19 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        Network network2 = Network.create("testCase2", "test2");
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         layoutParameters.setFeederArrowSymmetry(true);
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
-        VoltageLevelDiagram vlDiagram = VoltageLevelDiagram.build(graphBuilder, vl.getId(), new SmartVoltageLevelLayoutFactory(network), false);
-        VoltageLevelGraph g = vlDiagram.getGraph();
-        List<FeederInfo> feederInfos = initProvider.getFeederInfos((FeederNode) g.getNode("svc"));
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
+        toSVG(g, "test.svg");
+
+        Network network2 = Network.create("testCase2", "test2");
+        DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
+        List<FeederInfo> feederInfos = wrongLabelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertTrue(feederInfos.isEmpty());
-        DefaultDiagramLabelProvider initProvider1 = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
-        List<FeederInfo> feederInfos1 = initProvider1.getFeederInfos((FeederNode) g.getNode("svc"));
+
+        DefaultDiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
+        List<FeederInfo> feederInfos1 = labelProvider.getFeederInfos((FeederNode) g.getNode("svc"));
         assertEquals(2, feederInfos1.size());
         assertEquals(ARROW_ACTIVE, feederInfos1.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfos1.get(1).getComponentType());
@@ -118,7 +120,8 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos1.get(1).getLeftLabel().isPresent());
         assertTrue(feederInfos1.get(0).getDirection().isPresent());
         assertTrue(feederInfos1.get(1).getDirection().isPresent());
-        List<FeederInfo> feederInfos2 = initProvider1.getFeederInfos((FeederNode) g.getNode("vsc"));
+
+        List<FeederInfo> feederInfos2 = labelProvider.getFeederInfos((FeederNode) g.getNode("vsc"));
         assertEquals(2, feederInfos2.size());
         assertEquals(ARROW_ACTIVE, feederInfos2.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfos2.get(1).getComponentType());
@@ -128,7 +131,8 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos2.get(1).getLeftLabel().isPresent());
         assertTrue(feederInfos2.get(0).getDirection().isPresent());
         assertTrue(feederInfos2.get(1).getDirection().isPresent());
-        List<FeederInfo> feederInfos3 = initProvider1.getFeederInfos((FeederNode) g.getNode("C1"));
+
+        List<FeederInfo> feederInfos3 = labelProvider.getFeederInfos((FeederNode) g.getNode("C1"));
         assertEquals(2, feederInfos3.size());
         assertEquals(ARROW_ACTIVE, feederInfos3.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfos3.get(1).getComponentType());
@@ -138,7 +142,8 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos3.get(1).getLeftLabel().isPresent());
         assertTrue(feederInfos3.get(0).getDirection().isPresent());
         assertTrue(feederInfos3.get(1).getDirection().isPresent());
-        List<FeederInfo> feederInfos4 = initProvider1.getFeederInfos((FeederNode) g.getNode("dl1"));
+
+        List<FeederInfo> feederInfos4 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(2, feederInfos4.size());
         assertEquals(ARROW_ACTIVE, feederInfos4.get(0).getComponentType());
         assertEquals(ARROW_REACTIVE, feederInfos4.get(1).getComponentType());
@@ -148,9 +153,10 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos4.get(1).getLeftLabel().isPresent());
         assertTrue(feederInfos4.get(0).getDirection().isPresent());
         assertTrue(feederInfos4.get(1).getDirection().isPresent());
+
         // Reverse order
         layoutParameters.setFeederArrowSymmetry(false);
-        List<FeederInfo> feederInfos5 = initProvider1.getFeederInfos((FeederNode) g.getNode("dl1"));
+        List<FeederInfo> feederInfos5 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(ARROW_REACTIVE, feederInfos5.get(0).getComponentType());
         assertEquals(ARROW_ACTIVE, feederInfos5.get(1).getComponentType());
     }

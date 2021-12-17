@@ -3046,13 +3046,13 @@
     "externCellHeight" : 250.0,
     "internCellHeight" : 40.0,
     "stackHeight" : 30.0,
-    "showGrid" : false,
+    "showGrid" : true,
     "tooltipEnabled" : false,
-    "showInternalNodes" : false,
+    "showInternalNodes" : true,
     "scaleFactor" : 1.0,
     "drawStraightWires" : false,
-    "horizontalSnakeLinePadding" : 20.0,
-    "verticalSnakeLinePadding" : 25.0,
+    "horizontalSnakeLinePadding" : 30.0,
+    "verticalSnakeLinePadding" : 30.0,
     "arrowDistance" : 20.0,
     "minSpaceForFeederArrows" : 50.0,
     "diagramName" : null,
@@ -3067,7 +3067,8 @@
     "highlightLineState" : true,
     "addNodesInfos" : false,
     "feederArrowSymmetry" : false,
-    "cssLocation" : "EXTERNAL_IMPORTED",
-    "svgWidthAndHeightAdded" : false
+    "cssLocation" : "INSERTED_IN_SVG",
+    "svgWidthAndHeightAdded" : true,
+    "useName" : true
   }
 }

@@ -60,7 +60,7 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestInternCellExplicitPosition.json"), toJson(g, "/TestInternCellExplicitPosition.json"));
     }

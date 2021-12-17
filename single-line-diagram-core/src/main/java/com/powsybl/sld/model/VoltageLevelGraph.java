@@ -40,8 +40,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final VoltageLevelInfos voltageLevelInfos;
 
-    private final boolean useName;
-
     private final List<Node> nodes = new ArrayList<>();
 
     private final List<Edge> edges = new ArrayList<>();
@@ -74,24 +72,18 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> externCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean useName, boolean forVoltageLevelDiagram) {
+    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
-        this.useName = useName;
         this.forVoltageLevelDiagram = forVoltageLevelDiagram;
     }
 
-    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos,
-                                           boolean useName, boolean forVoltageLevelDiagram) {
-        return new VoltageLevelGraph(voltageLevelInfos, useName, forVoltageLevelDiagram);
+    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
+        return new VoltageLevelGraph(voltageLevelInfos, forVoltageLevelDiagram);
     }
 
     @Override
     public String getId() {
         return voltageLevelInfos.getId();
-    }
-
-    public boolean isUseName() {
-        return useName;
     }
 
     public boolean isForVoltageLevelDiagram() {

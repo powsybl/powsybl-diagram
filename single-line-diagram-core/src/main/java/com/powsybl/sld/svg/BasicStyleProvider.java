@@ -21,7 +21,7 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class DefaultDiagramStyleProvider implements DiagramStyleProvider {
+public class BasicStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {

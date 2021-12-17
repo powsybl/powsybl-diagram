@@ -32,7 +32,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     @Test
     public void test() {
         List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
-        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         // write Json and compare to reference
         assertEquals(toString("/TestCase13ZoneGraph.json"), toJson(g, "/TestCase13ZoneGraph.json"));
     }
@@ -40,7 +40,7 @@ public class TestCase13ZoneGraph extends AbstractTestCaseIidm {
     @Test
     public void test2() {
         List<String> zone = Arrays.asList(ZoneGraphTest.SUBSTATION_ID_1, ZoneGraphTest.SUBSTATION_ID_2);
-        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
+        ZoneGraph g = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         // write Json and compare to reference
         assertEquals(toString("/TestCase13ZoneGraphNoCoords.json"), toJson(g, "/TestCase13ZoneGraphNoCoords.json", false));
     }

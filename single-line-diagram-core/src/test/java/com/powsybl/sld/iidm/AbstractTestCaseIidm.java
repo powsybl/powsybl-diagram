@@ -16,10 +16,10 @@ import com.powsybl.sld.iidm.extensions.ConnectablePositionAdder;
 import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.Graph;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 
@@ -46,7 +46,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new DefaultDiagramStyleProvider();
+        return new BasicStyleProvider();
     }
 
     protected static Substation createSubstation(Network n, String id, String name, Country country) {

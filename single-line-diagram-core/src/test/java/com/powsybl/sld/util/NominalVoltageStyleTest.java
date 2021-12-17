@@ -105,9 +105,9 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     @Test
     public void testAttributes() {
         // construction des graphes
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
+        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
 
         Node node1 = graph1.getNode("bbs1");
         List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, componentLibrary, false);
@@ -147,19 +147,19 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     @Test
     public void testVl1() {
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl2() {
-        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
         assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl3() {
-        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
         assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 

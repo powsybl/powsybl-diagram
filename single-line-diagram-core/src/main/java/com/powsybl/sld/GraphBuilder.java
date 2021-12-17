@@ -18,12 +18,10 @@ import com.powsybl.sld.model.ZoneGraph;
 public interface GraphBuilder {
 
     VoltageLevelGraph buildVoltageLevelGraph(String id,
-                                             boolean useName,
                                              boolean forVoltageLevelDiagram);
 
-    SubstationGraph buildSubstationGraph(String id,
-                                         boolean useName);
+    SubstationGraph buildSubstationGraph(String id);
 
-    ZoneGraph buildZoneGraph(List<String> substationIds, boolean useName);
+    ZoneGraph buildZoneGraph(List<String> substationIds);
 
 }

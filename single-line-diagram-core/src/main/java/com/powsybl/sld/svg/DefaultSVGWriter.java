@@ -191,7 +191,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        Document document,
                                        DiagramLabelProvider initProvider,
                                        DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 
@@ -383,7 +383,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                        Document document,
                                        DiagramLabelProvider initProvider,
                                        DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 
@@ -636,7 +636,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double yPos = graph.getY() - 20.;
 
-        String graphName = graph.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
+        String graphName = layoutParameters.isUseName() ? graph.getVoltageLevelInfos().getName() : graph.getVoltageLevelInfos().getId();
         Element label = createLabelElement(graphName, graph.getX(), yPos, 0, gLabel);
         label.setAttribute(CLASS, DiagramStyles.GRAPH_LABEL_STYLE_CLASS);
         gLabel.appendChild(label);
@@ -1267,7 +1267,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                      Document document,
                                      DiagramLabelProvider initProvider,
                                      DiagramStyleProvider styleProvider) {
-        GraphMetadata metadata = new GraphMetadata();
+        GraphMetadata metadata = new GraphMetadata(layoutParameters);
 
         Element root = document.createElement(GROUP);
 

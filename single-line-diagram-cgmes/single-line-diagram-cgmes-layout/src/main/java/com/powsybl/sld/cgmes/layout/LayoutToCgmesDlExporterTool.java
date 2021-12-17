@@ -120,7 +120,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
         Network network = Importers.loadNetwork(inputFile);
 
         context.getOutputStream().println("Generating layout for the network ...");
-        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters(), true);
+        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters().setUseName(true));
 
         String diagramName = toolOptions.getValue(DIAGRAM_NAME).orElse(null);
         lTranslator.convertLayout(network, diagramName);

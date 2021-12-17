@@ -37,8 +37,7 @@ public class TestParallelFeedersOrders extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
-
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
     }

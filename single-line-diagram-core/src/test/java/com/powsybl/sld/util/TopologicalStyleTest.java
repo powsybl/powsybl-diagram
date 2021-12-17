@@ -92,9 +92,9 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     @Test
     public void test() throws IOException {
         // construction des graphes
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
+        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
 
         TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(network);
 

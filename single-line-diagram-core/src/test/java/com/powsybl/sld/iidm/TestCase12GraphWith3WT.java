@@ -8,7 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.VoltageLevelDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
@@ -225,7 +224,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
 
         voltageLevelGraphLayout(g1);
 
@@ -236,7 +235,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl2() {
         // build voltage level 2 graph
-        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
+        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
 
         voltageLevelGraphLayout(g2);
 
@@ -247,7 +246,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl3() {
         // build voltage level 3 graph
-        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
+        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
 
         voltageLevelGraphLayout(g3);
 
@@ -263,9 +262,9 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
                 .setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
-        VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
-                new PositionVoltageLevelLayoutFactory(), false);
-        compareMetadata(diagram, "/vlDiag_metadata.json",
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        compareMetadata(graph, "/vlDiag_metadata.json",
+                new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }
@@ -279,7 +278,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAddNodesInfos(true);
 
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
 
         voltageLevelGraphLayout(g1);
 
@@ -301,7 +300,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
+        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
 
         voltageLevelGraphLayout(g1);
 

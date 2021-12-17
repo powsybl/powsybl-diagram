@@ -9,7 +9,6 @@ package com.powsybl.sld;
 import com.google.auto.service.AutoService;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.import_.Importers;
-import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -17,7 +16,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DefaultDiagramStyleProvider;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
 import com.powsybl.tools.ToolOptions;
@@ -87,9 +86,9 @@ public class SingleLineDiagramTool implements Tool {
         };
     }
 
-    private Path getSvgFile(Path outputDir, Identifiable identifiable) {
+    private Path getSvgFile(Path outputDir, String id) {
         try {
-            return outputDir.resolve(URLEncoder.encode(identifiable.getId(), StandardCharsets.UTF_8.name()) + ".svg");
+            return outputDir.resolve(URLEncoder.encode(id, StandardCharsets.UTF_8.name()) + ".svg");
         } catch (UnsupportedEncodingException e) {
             throw new PowsyblException(e);
         }
@@ -110,66 +109,41 @@ public class SingleLineDiagramTool implements Tool {
         }
     }
 
-    private void generateVoltageLevelSvg(ToolRunningContext context, Path outputDir, SvgGenerationConfig generationConfig,
-                                         VoltageLevel vl, GraphBuilder graphBuilder, Network network) {
-        Path svgFile = getSvgFile(outputDir, vl);
-        context.getOutputStream().println("Generating '" + svgFile + "' (" + vl.getNominalV() + ")");
-        try {
-            VoltageLevelDiagram.build(graphBuilder, vl.getId(), generationConfig.voltageLevelLayoutFactory, true)
-                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
-                            new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
-                            new DefaultDiagramStyleProvider(),
-                            svgFile);
-        } catch (Exception e) {
-            e.printStackTrace(context.getErrorStream());
-        }
-    }
-
-    private void generateSubstationSvg(ToolRunningContext context, Path outputDir, SvgGenerationConfig generationConfig,
-                                       Substation s, GraphBuilder graphBuilder, Network network) {
-        Path svgFile = getSvgFile(outputDir, s);
+    private void generateSvg(ToolRunningContext context, Path outputDir, SvgGenerationConfig generationConfig,
+                             String vlOrSubstationId, Network network) {
+        Path svgFile = getSvgFile(outputDir, vlOrSubstationId);
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
-            SubstationDiagram.build(graphBuilder, s.getId(), generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory, true)
-                    .writeSvg("", generationConfig.componentLibrary, generationConfig.parameters,
-                            new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
-                            new DefaultDiagramStyleProvider(),
-                            svgFile);
+            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile,
+                    generationConfig.parameters, generationConfig.componentLibrary,
+                    generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
+                    new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
+                    new TopologicalStyleProvider(network), "");
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }
     }
 
-    private void generateSome(ToolRunningContext context, Path outputDir, List<String> ids, GraphBuilder graphBuilder, Network network, SvgGenerationConfig generationConfig) {
+    private void generateSome(ToolRunningContext context, Path outputDir, List<String> ids, Network network, SvgGenerationConfig generationConfig) {
         for (String id : ids) {
-            VoltageLevel vl = network.getVoltageLevel(id);
-            if (vl == null) {
-                Substation s = network.getSubstation(id);
-                if (s == null) {
-                    throw new PowsyblException("No voltage level or substation with id : '" + id + "'");
-                } else {  // id is a substation id
-                    generateSubstationSvg(context, outputDir, generationConfig, s, graphBuilder, network);
-                }
-            } else {  // id is a voltage level id
-                generateVoltageLevelSvg(context, outputDir, generationConfig, vl, graphBuilder, network);
-            }
+            generateSvg(context, outputDir, generationConfig, id, network);
         }
     }
 
     private void generateAll(ToolRunningContext context, boolean allVoltageLevels, boolean allSubstations,
-                             Path outputDir, GraphBuilder graphBuilder, Network network, SvgGenerationConfig generationConfig) {
+                             Path outputDir, Network network, SvgGenerationConfig generationConfig) {
         // by default, export all voltage levels if no id given and no
         // additional option (all-voltage-levels or all-substations) given
         if (allVoltageLevels || !allSubstations) {
             // export all voltage levels
             for (VoltageLevel vl : network.getVoltageLevels()) {
-                generateVoltageLevelSvg(context, outputDir, generationConfig, vl, graphBuilder, network);
+                generateSvg(context, outputDir, generationConfig, vl.getId(), network);
             }
         }
         if (allSubstations) {
             // export all substations
             for (Substation s : network.getSubstations()) {
-                generateSubstationSvg(context, outputDir, generationConfig, s, graphBuilder, network);
+                generateSvg(context, outputDir, generationConfig, s.getId(), network);
             }
         }
     }
@@ -185,14 +159,13 @@ public class SingleLineDiagramTool implements Tool {
         if (network == null) {
             throw new PowsyblException("File '" + inputFile + "' is not importable");
         }
-        GraphBuilder graphBuilder = new NetworkGraphBuilder(network);
         SvgGenerationConfig generationConfig = new SvgGenerationConfig(network);
         if (ids.isEmpty()) {
             boolean allVoltageLevels = toolOptions.hasOption(ALL_VOLTAGE_LEVELS);
             boolean allSubstations = toolOptions.hasOption(ALL_SUBSTATIONS);
-            generateAll(context, allVoltageLevels, allSubstations, outputDir, graphBuilder, network, generationConfig);
+            generateAll(context, allVoltageLevels, allSubstations, outputDir, network, generationConfig);
         } else {
-            generateSome(context, outputDir, ids, graphBuilder, network, generationConfig);
+            generateSome(context, outputDir, ids, network, generationConfig);
         }
     }
 }

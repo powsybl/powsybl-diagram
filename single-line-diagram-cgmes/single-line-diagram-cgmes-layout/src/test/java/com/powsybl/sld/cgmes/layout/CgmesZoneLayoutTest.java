@@ -195,7 +195,7 @@ public class CgmesZoneLayoutTest {
         Network network = createNetwork();
         addDiagramData(network);
         List<String> zone = Arrays.asList(SUBSTATION_1_ID, SUBSTATION_2_ID);
-        ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone, false);
+        ZoneGraph graph = new NetworkGraphBuilder(network).buildZoneGraph(zone);
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_ID);

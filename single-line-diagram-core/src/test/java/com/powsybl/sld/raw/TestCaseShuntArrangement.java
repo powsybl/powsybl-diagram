@@ -166,7 +166,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
 
     @Test
     public void test1() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true, true, false).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
@@ -175,7 +175,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
 
     @Test
     public void test2() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false, true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer(new PositionFromExtension(), true, true, true).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);

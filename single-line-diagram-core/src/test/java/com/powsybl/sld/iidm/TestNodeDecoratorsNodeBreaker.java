@@ -41,7 +41,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
     public void testBranchStatusDecorators() {
 
         // build substation graph
-        SubstationGraph g = graphBuilder.buildSubstationGraph("S1", true);
+        SubstationGraph g = graphBuilder.buildSubstationGraph("S1");
 
         // Run horizontal substation layout
         substationGraphLayout(g);
@@ -53,7 +53,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testSwitchDecorators() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true);
 
         // Run layout
         voltageLevelGraphLayout(g);
