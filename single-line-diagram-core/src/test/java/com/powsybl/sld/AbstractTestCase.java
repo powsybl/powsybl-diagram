@@ -15,8 +15,6 @@ import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.ZoneGraph;
-import com.powsybl.sld.svg.DefaultSVGWriter;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import org.apache.commons.io.output.NullWriter;
@@ -133,8 +131,8 @@ public abstract class AbstractTestCase {
                         DiagramLabelProvider labelProvider,
                         DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
-            DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters);
-            writeGraph(svgWriter, graph, labelProvider, styleProvider, writer);
+            SingleLineDiagram.draw(graph, writer, new NullWriter(), layoutParameters, componentLibrary,
+                    labelProvider, styleProvider, "");
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -146,19 +144,6 @@ public abstract class AbstractTestCase {
             return fixSvg(normalizeLineSeparator(writer.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
-        }
-    }
-
-    private static void writeGraph(DefaultSVGWriter svgWriter, Graph graph, DiagramLabelProvider initValueProvider, DiagramStyleProvider styleProvider, StringWriter writer) {
-        // TODO: put in SVGWriter interface
-        if (graph instanceof VoltageLevelGraph) {
-            svgWriter.write("", (VoltageLevelGraph) graph, initValueProvider, styleProvider, writer);
-        } else if (graph instanceof SubstationGraph) {
-            svgWriter.write("", (SubstationGraph) graph, initValueProvider, styleProvider, writer);
-        } else if (graph instanceof ZoneGraph) {
-            svgWriter.write("", (ZoneGraph) graph, initValueProvider, styleProvider, writer);
-        } else {
-            throw new AssertionError();
         }
     }
 
