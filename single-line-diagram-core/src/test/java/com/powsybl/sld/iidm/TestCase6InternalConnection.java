@@ -6,12 +6,11 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Country;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.SwitchKind;
+import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +29,6 @@ import static org.junit.Assert.assertEquals;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class TestCase6InternalConnection extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters();
-    }
 
     @Before
     public void setUp() {
@@ -58,14 +52,8 @@ public class TestCase6InternalConnection extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), false, true);
 
-        // detect cells
-        new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
-        new BlockOrganizer().organize(g);
-
-        // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        // Run layout
+        voltageLevelGraphLayout(g);
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase6InternalConnection.json"), toJson(g, "/TestCase6InternalConnection.json"));

@@ -10,7 +10,6 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
@@ -38,19 +37,11 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
-    private LayoutParameters layoutParameters;
     private NominalVoltageDiagramStyleProvider styleProvider;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
 
     @Before
     public void setUp() {
-
-        layoutParameters = createDefaultLayoutParameters()
-            .setCellWidth(80)
+        layoutParameters.setCellWidth(80)
             .setShowInternalNodes(false);
 
         network = Network.create("testCase1", "test");
@@ -101,7 +92,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
         public NoFeederInfoProvider() {
-            super(network, componentLibrary, getLayoutParameters());
+            super(network, componentLibrary, layoutParameters);
         }
 
         @Override
@@ -157,19 +148,19 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/vl1_nominal_voltage_style.svg"), toSVG(graph1, "/vl1_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl2() {
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/vl2_nominal_voltage_style.svg"), toSVG(graph2, "/vl2_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 
     @Test
     public void testVl3() {
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
-        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", getLayoutParameters(), new NoFeederInfoProvider(), styleProvider));
+        assertEquals(toString("/vl3_nominal_voltage_style.svg"), toSVG(graph3, "/vl3_nominal_voltage_style.svg", new NoFeederInfoProvider(), styleProvider));
     }
 
 }

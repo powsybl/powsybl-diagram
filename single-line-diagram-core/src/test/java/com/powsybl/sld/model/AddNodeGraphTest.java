@@ -10,7 +10,6 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +23,6 @@ import static org.junit.Assert.*;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class AddNodeGraphTest extends AbstractTestCaseIidm {
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return null;
-    }
 
     @Before
     public void setUp() {

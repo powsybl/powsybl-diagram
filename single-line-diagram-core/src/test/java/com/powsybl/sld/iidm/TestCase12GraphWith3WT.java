@@ -31,17 +31,10 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     private VoltageLevel vl1;
     private VoltageLevel vl2;
     private VoltageLevel vl3;
-    private LayoutParameters layoutParameters;
-
-    @Override
-    protected LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
 
     @Before
     public void setUp() {
-        layoutParameters = createDefaultLayoutParameters()
-            .setCellWidth(80)
+        layoutParameters.setCellWidth(80)
             .setShowInternalNodes(false);
 
         network = Network.create("testCase11", "test");
@@ -233,9 +226,8 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testVl1() {
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        new ImplicitCellDetector().detectCells(g1);
-        new BlockOrganizer().organize(g1);
-        new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
+
+        voltageLevelGraphLayout(g1);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL1.json"), toJson(g1, "/TestCase12GraphVL1.json"));
@@ -245,9 +237,8 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testVl2() {
         // build voltage level 2 graph
         VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), false, true);
-        new ImplicitCellDetector().detectCells(g2);
-        new BlockOrganizer().organize(g2);
-        new PositionVoltageLevelLayout(g2).run(getLayoutParameters());
+
+        voltageLevelGraphLayout(g2);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL2.json"), toJson(g2, "/TestCase12GraphVL2.json"));
@@ -257,9 +248,8 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testVl3() {
         // build voltage level 3 graph
         VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), false, true);
-        new ImplicitCellDetector().detectCells(g3);
-        new BlockOrganizer().organize(g3);
-        new PositionVoltageLevelLayout(g3).run(getLayoutParameters());
+
+        voltageLevelGraphLayout(g3);
 
         // write JSON and compare to reference (horizontal layout)
         assertEquals(toString("/TestCase12GraphVL3.json"), toJson(g3, "/TestCase12GraphVL3.json"));
@@ -269,14 +259,14 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testMetadata() {
 
         // Optimize SVG by avoiding duplication
-        getLayoutParameters().setAvoidSVGComponentsDuplication(true);
-        getLayoutParameters().setAddNodesInfos(true);
+        layoutParameters.setAvoidSVGComponentsDuplication(true)
+                .setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
         VoltageLevelDiagram diagram = VoltageLevelDiagram.build(graphBuilder, vl1.getId(),
                 new PositionVoltageLevelLayoutFactory(), false);
-        compareMetadata(diagram, getLayoutParameters(), "/vlDiag_metadata.json",
-                new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters()),
+        compareMetadata(diagram, "/vlDiag_metadata.json",
+                new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }
 
@@ -284,46 +274,44 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     public void testNodesInfosNominalVoltageStyle() {
         separateBusVoltages();
 
-        getLayoutParameters()
+        layoutParameters
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
         // build voltage level 1 graph
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        new ImplicitCellDetector().detectCells(g1);
-        new BlockOrganizer().organize(g1);
-        new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
+
+        voltageLevelGraphLayout(g1);
 
         DiagramStyleProvider vNomStyleProvider = new NominalVoltageDiagramStyleProvider(network);
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
 
         // write SVGs and compare to reference
         assertEquals(toString("/TestCase12GraphWithNodesInfosNominalVoltage.svg"),
-            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", getLayoutParameters(), initProvider, vNomStyleProvider));
+            toSVG(g1, "/TestCase12GraphWithNodesInfosNominalVoltage.svg", initProvider, vNomStyleProvider));
     }
 
     @Test
     public void testNodesInfosTopologicalStyle() {
         separateBusVoltages();
 
-        getLayoutParameters()
+        layoutParameters
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
         VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), false, true);
-        new ImplicitCellDetector().detectCells(g1);
-        new BlockOrganizer().organize(g1);
-        new PositionVoltageLevelLayout(g1).run(getLayoutParameters());
+
+        voltageLevelGraphLayout(g1);
 
         DiagramStyleProvider topoStyleProvider = new TopologicalStyleProvider(network);
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, getLayoutParameters());
+        DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters);
 
         assertEquals(toString("/TestCase12GraphWithNodesInfosTopological.svg"),
-                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", getLayoutParameters(), initProvider, topoStyleProvider));
+                toSVG(g1, "/TestCase12GraphWithNodesInfosTopological.svg", initProvider, topoStyleProvider));
     }
 
 }

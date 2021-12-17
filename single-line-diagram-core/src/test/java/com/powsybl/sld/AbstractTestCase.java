@@ -7,7 +7,9 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.Graph;
@@ -38,9 +40,9 @@ public abstract class AbstractTestCase {
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
-    protected abstract LayoutParameters getLayoutParameters();
+    protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
-    protected static LayoutParameters createDefaultLayoutParameters() {
+    private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
             .setVerticalSpaceBus(25)
             .setHorizontalBusPadding(20)
@@ -110,14 +112,10 @@ public abstract class AbstractTestCase {
         return SVG_FIX_PATTERN.matcher(Objects.requireNonNull(svg)).replaceAll(">$1</");
     }
 
-    public String toSVG(Graph graph,
-                        String filename,
-                        LayoutParameters layoutParameters,
-                        DiagramLabelProvider initValueProvider,
-                        DiagramStyleProvider styleProvider) {
+    public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
             DefaultSVGWriter svgWriter = new DefaultSVGWriter(componentLibrary, layoutParameters);
-            writeGraph(svgWriter, graph, initValueProvider, styleProvider, writer);
+            writeGraph(svgWriter, graph, labelProvider, styleProvider, writer);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -145,15 +143,13 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareMetadata(VoltageLevelDiagram diagram, LayoutParameters layoutParameters,
-                                String refMetdataName,
-                                DiagramLabelProvider initValueProvider,
-                                DiagramStyleProvider styleProvider) {
+    public void compareMetadata(VoltageLevelDiagram diagram, String refMetdataName,
+                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
             diagram.writeSvg("",
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
-                    initValueProvider, styleProvider,
+                    labelProvider, styleProvider,
                     writer, metadataWriter);
 
             if (debugJsonFiles) {
@@ -174,15 +170,13 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public void compareMetadata(SubstationDiagram diagram, LayoutParameters layoutParameters,
-                                String refMetdataName,
-                                DiagramLabelProvider initValueProvider,
-                                DiagramStyleProvider styleProvider) {
+    public void compareMetadata(SubstationDiagram diagram, String refMetdataName,
+                                DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
             diagram.writeSvg("",
                     new DefaultSVGWriter(componentLibrary, layoutParameters),
-                    initValueProvider,
+                    labelProvider,
                     styleProvider,
                     writer, metadataWriter);
 
@@ -235,5 +229,13 @@ public abstract class AbstractTestCase {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
+        new PositionVoltageLevelLayoutFactory().create(voltageLevelGraph).run(layoutParameters);
+    }
+
+    protected void substationGraphLayout(SubstationGraph substationGraph) {
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
     }
 }

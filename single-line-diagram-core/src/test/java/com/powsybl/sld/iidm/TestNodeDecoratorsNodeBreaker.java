@@ -8,7 +8,6 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.NetworkGraphBuilder;
-import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
@@ -31,13 +30,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
 
-    @Override
-    public LayoutParameters getLayoutParameters() {
-        return createDefaultLayoutParameters().setShowInternalNodes(false);
-    }
-
     @Before
     public void setUp() {
+        layoutParameters.setShowInternalNodes(false);
         network = CreateNetworksUtil.createNodeBreakerNetworkWithBranchStatus("TestNodeDecorators", "test");
         graphBuilder = new NetworkGraphBuilder(network);
     }
@@ -48,9 +43,11 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph("S1", true);
 
-        new HorizontalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(getLayoutParameters());
+        // Run horizontal substation layout
+        substationGraphLayout(g);
+
         assertEquals(toString("/NodeDecoratorsBranchStatusNodeBreaker.svg"),
-            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getLayoutParameters(), getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+            toSVG(g, "/NodeDecoratorsBranchStatusNodeBreaker.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
     }
 
     @Test
@@ -58,18 +55,12 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true, true);
 
-        // detect cells
-        new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
-        new BlockOrganizer().organize(g);
-
-        // calculate coordinates
-        new PositionVoltageLevelLayout(g).run(getLayoutParameters());
+        // Run layout
+        voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
         assertEquals(toString("/NodeDecoratorsSwitches.svg"),
-            toSVG(g, "/NodeDecoratorsSwitches.svg", getLayoutParameters(), new TestDiagramLabelProvider(network), getDefaultDiagramStyleProvider()));
+            toSVG(g, "/NodeDecoratorsSwitches.svg", new TestDiagramLabelProvider(network), getDefaultDiagramStyleProvider()));
     }
 
     private class TestDiagramLabelProvider extends DefaultDiagramLabelProvider {
@@ -77,7 +68,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
         public TestDiagramLabelProvider(Network network) {
-            super(network, componentLibrary, getLayoutParameters());
+            super(network, componentLibrary, layoutParameters);
         }
 
         @Override

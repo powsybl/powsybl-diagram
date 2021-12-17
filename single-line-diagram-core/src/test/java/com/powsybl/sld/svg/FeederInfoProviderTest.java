@@ -8,11 +8,10 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
-import com.powsybl.sld.GraphBuilder;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.VoltageLevelDiagram;
+import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
@@ -31,15 +30,11 @@ import static org.junit.Assert.*;
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederInfoProviderTest {
-
-    private Network network;
-    private Substation substation;
-    private VoltageLevel vl;
-    private GraphBuilder graphBuilder;
+public class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
+        layoutParameters.setFeederArrowSymmetry(true);
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
@@ -106,7 +101,7 @@ public class FeederInfoProviderTest {
     public void test() {
         Network network2 = Network.create("testCase2", "test2");
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        LayoutParameters layoutParameters = new LayoutParameters().setFeederArrowSymmetry(true);
+        layoutParameters.setFeederArrowSymmetry(true);
         DefaultDiagramLabelProvider initProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);
         VoltageLevelDiagram vlDiagram = VoltageLevelDiagram.build(graphBuilder, vl.getId(), new SmartVoltageLevelLayoutFactory(network), false);
         VoltageLevelGraph g = vlDiagram.getGraph();
