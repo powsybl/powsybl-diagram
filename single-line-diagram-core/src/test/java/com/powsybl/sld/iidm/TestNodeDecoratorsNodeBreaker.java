@@ -84,7 +84,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
             ComponentSize size = componentLibrary.getSize(node.getComponentType());
             double yShift = -size.getHeight() / 2;
             double xShift = size.getWidth() / 2 + SWITCH_DECORATOR_OFFSET;
-            return new LabelPosition(node.getId() + "_DECORATOR", xShift, yShift, false, 0);
+            return new LabelPosition("DECORATOR", xShift, yShift, false, 0);
         }
     }
 }

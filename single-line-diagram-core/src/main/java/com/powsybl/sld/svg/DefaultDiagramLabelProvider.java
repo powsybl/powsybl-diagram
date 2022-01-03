@@ -117,7 +117,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         if (node instanceof FeederNode) {
             getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getFeederLabelPosition(node), null)));
         } else if (node instanceof BusNode) {
-            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(node), null)));
+            getLabelOrNameOrId(node).ifPresent(label -> nodeLabels.add(new NodeLabel(label, getBusLabelPosition(), null)));
         }
 
         return nodeLabels;
@@ -193,7 +193,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
         }
 
-        return new LabelPosition(node.getId() + "_" + positionName + "_DECORATOR",
+        return new LabelPosition( positionName + "_DECORATOR",
                 (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
@@ -207,7 +207,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
         }
 
-        return new LabelPosition(node.getId() + "_" + positionName + "_DECORATOR",
+        return new LabelPosition(positionName + "_DECORATOR",
                 0, yShift, true, 0);
     }
 
@@ -229,12 +229,12 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             }
         }
 
-        return new LabelPosition(node.getId() + "_" + positionName + "_LABEL",
+        return new LabelPosition(positionName + "_LABEL",
                 layoutParameters.isLabelCentered() ? 0 : -LABEL_OFFSET, yShift, layoutParameters.isLabelCentered(), (int) angle);
     }
 
-    private LabelPosition getBusLabelPosition(Node node) {
-        return new LabelPosition(node.getId() + "_NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
+    private LabelPosition getBusLabelPosition() {
+        return new LabelPosition("NW_LABEL", -LABEL_OFFSET, -LABEL_OFFSET, false, 0);
     }
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
