@@ -6,14 +6,14 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import java.util.Objects;
-
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.ZoneLayout;
 import com.powsybl.sld.layout.ZoneLayoutFactory;
 import com.powsybl.sld.model.ZoneGraph;
+
+import java.util.Objects;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -27,7 +27,7 @@ public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
     }
 
     @Override
-    public ZoneLayout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
+    public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
         return new CgmesZoneLayout(graph, network);
     }
 

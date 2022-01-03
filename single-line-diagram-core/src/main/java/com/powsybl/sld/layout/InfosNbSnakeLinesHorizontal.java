@@ -27,7 +27,7 @@ public final class InfosNbSnakeLinesHorizontal {
 
     static InfosNbSnakeLinesHorizontal create(SubstationGraph substationGraph) {
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
-        Map<String, Integer> nbSnakeLinesVerticalBetween = substationGraph.getNodeStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
+        Map<String, Integer> nbSnakeLinesVerticalBetween = substationGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
         return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesVerticalBetween);
     }
 

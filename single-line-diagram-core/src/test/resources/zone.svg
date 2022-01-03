@@ -52,6 +52,9 @@
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
+        <g id="LABEL_VL_VoltageLevel11">
+            <text class="sld-graph-label" x="40.0" y="20.0">VoltageLevel11</text>
+        </g>
         <g class="sld-busbar-section" id="idBus11" transform="translate(70.0,200.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
             <text class="sld-label" id="Bus11_Bus11_NW_LABEL" x="-5.0" y="-5.0">Bus11</text>
@@ -90,6 +93,9 @@
         </g>
         <g class="" id="idTransformer_95_ONE" transform="translate(90.0,300.0)">
             <text class="sld-label" id="Transformer_ONE_Transformer_ONE__LABEL" x="-5.0" y="-5.0">Transformer</text>
+        </g>
+        <g id="LABEL_VL_VoltageLevel12">
+            <text class="sld-graph-label" x="40.0" y="370.0">VoltageLevel12</text>
         </g>
         <g class="sld-busbar-section" id="idBus12" transform="translate(70.0,500.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
@@ -137,6 +143,9 @@
             <circle class="sld-winding" cx="5" cy="10" r="5"/>
             <circle class="sld-winding" cx="5" cy="5" r="5"/>
         </g>
+        <g id="LABEL_VL_VoltageLevel21">
+            <text class="sld-graph-label" x="140.0" y="920.0">VoltageLevel21</text>
+        </g>
         <g class="sld-busbar-section" id="idBus21" transform="translate(170.0,1100.0)">
             <line x1="0" x2="40.0" y1="0" y2="0"/>
             <text class="sld-label" id="Bus21_Bus21_NW_LABEL" x="-5.0" y="-5.0">Bus21</text>
@@ -178,15 +187,6 @@
         </g>
         <g class="sld-wire" id="idLine">
             <polyline points="90.0,650.0,90.0,800.0,190.0,800.0,190.0,950.0"/>
-        </g>
-        <g id="LABEL_VL_VoltageLevel11">
-            <text class="sld-graph-label" x="40.0" y="20.0">VoltageLevel11</text>
-        </g>
-        <g id="LABEL_VL_VoltageLevel12">
-            <text class="sld-graph-label" x="40.0" y="370.0">VoltageLevel12</text>
-        </g>
-        <g id="LABEL_VL_VoltageLevel21">
-            <text class="sld-graph-label" x="140.0" y="920.0">VoltageLevel21</text>
         </g>
     </g>
 </svg>

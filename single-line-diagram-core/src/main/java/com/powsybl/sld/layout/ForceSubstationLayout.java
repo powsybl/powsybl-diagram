@@ -44,15 +44,15 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
         // Memorizing the voltage levels coordinates calculated by the force layout algorithm
         Map<VoltageLevelGraph, Coord> coordsVoltageLevels = new HashMap<>();
-        for (VoltageLevelGraph voltageLevelGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph voltageLevelGraph : getGraph().getVoltageLevels()) {
             Vector position = forceLayout.getStablePosition(voltageLevelGraph);
             coordsVoltageLevels.put(voltageLevelGraph, new Coord(position.getX(), position.getY()));
         }
 
         // Creating and applying the voltage levels layout with these coordinates
-        Map<VoltageLevelGraph, VoltageLevelLayout> graphsLayouts = new HashMap<>();
+        Map<VoltageLevelGraph, Layout> graphsLayouts = new HashMap<>();
         coordsVoltageLevels.entrySet().stream().forEach(e -> {
-            VoltageLevelLayout vlLayout = vLayoutFactory.create(e.getKey());
+            Layout vlLayout = vLayoutFactory.create(e.getKey());
             graphsLayouts.put(e.getKey(), vlLayout);
             vlLayout.run(layoutParameters);
         });
@@ -102,8 +102,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             }
         }
 
-        double substationWidth = getGraph().getNodeStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
-        double substationHeight = getGraph().getNodeStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight()).max().orElse(0);
+        double substationWidth = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
+        double substationHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight()).max().orElse(0);
         getGraph().setSize(substationWidth, substationHeight);
 
         infosNbSnakeLines = InfosNbSnakeLinesForce.create(getGraph(), compactionType);
@@ -111,7 +111,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
 
         adaptPaddingToSnakeLines(layoutParameters);
@@ -155,12 +155,12 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
             }
         }
 
-        double substationWidth = getGraph().getNodeStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
-        double substationHeight = getGraph().getNodeStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight() + getSnakeLineHeight(g, BusCell.Direction.BOTTOM, layoutParameters)).max().orElse(0);
+        double substationWidth = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getX() - vlPadding.getLeft() + g.getWidth()).max().orElse(0);
+        double substationHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getY() - vlPadding.getTop() + g.getHeight() + getSnakeLineHeight(g, BusCell.Direction.BOTTOM, layoutParameters)).max().orElse(0);
         getGraph().setSize(substationWidth, substationHeight);
 
         infosNbSnakeLines.reset();
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
@@ -235,7 +235,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                     return node.getDiagramY() - vlPadding.getTop() - decalV;
                 } else {
                     String vlAboveId = vls.get(iVl - 1);
-                    VoltageLevelGraph vlAbove = getGraph().getNodeStream().filter(voltageLevelGraph -> voltageLevelGraph.getId().equals(vlAboveId)).findFirst().orElseThrow();
+                    VoltageLevelGraph vlAbove = getGraph().getVoltageLevelStream().filter(voltageLevelGraph -> voltageLevelGraph.getId().equals(vlAboveId)).findFirst().orElseThrow();
                     return vlAbove.getY() - vlPadding.getTop() + vlAbove.getHeight() + decalV;
                 }
             } else {

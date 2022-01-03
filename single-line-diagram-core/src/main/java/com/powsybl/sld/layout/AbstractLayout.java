@@ -15,7 +15,7 @@ import java.util.*;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractLayout {
+public abstract class AbstractLayout implements Layout {
 
     public abstract AbstractBaseGraph getGraph();
 

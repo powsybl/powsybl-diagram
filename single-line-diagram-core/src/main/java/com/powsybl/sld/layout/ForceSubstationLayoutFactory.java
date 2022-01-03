@@ -26,7 +26,7 @@ public class ForceSubstationLayoutFactory implements SubstationLayoutFactory {
     }
 
     @Override
-    public SubstationLayout create(SubstationGraph substationGraph, VoltageLevelLayoutFactory vLayoutFactory) {
+    public Layout create(SubstationGraph substationGraph, VoltageLevelLayoutFactory vLayoutFactory) {
         return new ForceSubstationLayout(substationGraph, vLayoutFactory, compactionType);
     }
 }

@@ -343,10 +343,10 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, network).run(layoutParameters);
-        checkGraph(graph.getNode(voltageLevel.getId()));
-        checkCoordinates(graph.getNode(voltageLevel.getId()));
-        checkGraphVl2(graph.getNode(voltageLevel2.getId()));
-        checkCoordinatesVl2(graph.getNode(voltageLevel2.getId()));
+        checkGraph(graph.getVoltageLevel(voltageLevel.getId()));
+        checkCoordinates(graph.getVoltageLevel(voltageLevel.getId()));
+        checkGraphVl2(graph.getVoltageLevel(voltageLevel2.getId()));
+        checkCoordinatesVl2(graph.getVoltageLevel(voltageLevel2.getId()));
         checkSubstationTwt(graph, 2);
     }
 
@@ -497,12 +497,12 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);
         new CgmesSubstationLayout(graph, networkWith3WT).run(layoutParameters);
-        checkGraph(graph.getNode(voltageLevel21.getId()));
-        checkCoordinates(graph.getNode(voltageLevel21.getId()));
-        checkGraphVl2(graph.getNode(voltageLevel22.getId()));
-        checkCoordinatesVl2(graph.getNode(voltageLevel22.getId()));
-        checkGraphVl3(graph.getNode(voltageLevel23.getId()));
-        checkCoordinatesVl3(graph.getNode(voltageLevel23.getId()));
+        checkGraph(graph.getVoltageLevel(voltageLevel21.getId()));
+        checkCoordinates(graph.getVoltageLevel(voltageLevel21.getId()));
+        checkGraphVl2(graph.getVoltageLevel(voltageLevel22.getId()));
+        checkCoordinatesVl2(graph.getVoltageLevel(voltageLevel22.getId()));
+        checkGraphVl3(graph.getVoltageLevel(voltageLevel23.getId()));
+        checkCoordinatesVl3(graph.getVoltageLevel(voltageLevel23.getId()));
         checkSubstationTwt(graph, 3);
     }
 

@@ -6,58 +6,14 @@
  */
 package com.powsybl.sld.svg;
 
-import java.io.Writer;
-import java.nio.file.Path;
+import com.powsybl.sld.model.Graph;
 
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import java.io.Writer;
 
 /**
  * @author Gilles Brada <gilles.brada at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public interface SVGWriter {
-
-    GraphMetadata write(String prefixId,
-                        VoltageLevelGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Path svgFile);
-
-    GraphMetadata write(String prefixId,
-                        VoltageLevelGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Writer writer);
-
-    GraphMetadata write(String prefixId,
-                        SubstationGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Path svgFile);
-
-    GraphMetadata write(String prefixId,
-                        SubstationGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Writer writer);
-
-    GraphMetadata write(String prefixId,
-                        ZoneGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Path svgFile);
-
-    GraphMetadata write(String prefixId,
-                        ZoneGraph graph,
-                        DiagramLabelProvider initProvider,
-                        DiagramStyleProvider styleProvider,
-                        Writer writer);
-
-    LayoutParameters getLayoutParameters();
-
-    ComponentLibrary getComponentLibrary();
+    GraphMetadata write(String prefixId, Graph graph, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, Writer writer);
 }

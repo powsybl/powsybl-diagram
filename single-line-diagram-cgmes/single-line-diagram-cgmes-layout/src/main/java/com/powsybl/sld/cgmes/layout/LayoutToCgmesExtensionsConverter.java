@@ -88,13 +88,13 @@ public class LayoutToCgmesExtensionsConverter {
         //apply the specified layout
         NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(network);
         SubstationGraph sgraph = graphBuilder.buildSubstationGraph(substationId);
-        SubstationLayout sLayout = sFactory.create(sgraph, vFactory);
+        Layout sLayout = sFactory.create(sgraph, vFactory);
         sLayout.run(lparams);
 
         LayoutInfo subsBoundary = new LayoutInfo(0.0, 0.0);
         Substation substation = network.getSubstation(substationId);
         substation.getVoltageLevelStream().forEach(voltageLevel -> {
-            VoltageLevelGraph vlGraph = sgraph.getNode(voltageLevel.getId());
+            VoltageLevelGraph vlGraph = sgraph.getVoltageLevel(voltageLevel.getId());
 
             // remove fictitious nodes&switches (no CGMES DL data available for them)
             vlGraph.removeUnnecessaryFictitiousNodes();

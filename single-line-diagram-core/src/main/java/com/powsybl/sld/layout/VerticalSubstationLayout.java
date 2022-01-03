@@ -41,9 +41,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         double substationWidth = 0;
         double y = diagramPadding.getTop();
 
-        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             // Calculate the objects coordinates inside the voltageLevel graph
-            VoltageLevelLayout vLayout = vLayoutFactory.create(vlGraph);
+            Layout vLayout = vLayoutFactory.create(vlGraph);
             vLayout.run(layoutParameters);
 
             vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
@@ -60,7 +60,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
 
         adaptPaddingToSnakeLines(layoutParameters);
@@ -74,9 +74,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
         double xVoltageLevels = widthSnakeLinesLeft + diagramPadding.getLeft() + voltageLevelPadding.getLeft();
         double y = diagramPadding.getTop()
-            + getGraph().getNodeStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), BusCell.Direction.TOP, layoutParameters)).orElse(0.);
+            + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), BusCell.Direction.TOP, layoutParameters)).orElse(0.);
 
-        for (VoltageLevelGraph vlGraph : getGraph().getNodes()) {
+        for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
             y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BusCell.Direction.BOTTOM, layoutParameters);
         }
@@ -87,7 +87,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         getGraph().setSize(substationWidth, substationHeight);
 
         infosNbSnakeLines.reset();
-        getGraph().getNodes().forEach(g -> manageSnakeLines(g, layoutParameters));
+        getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
@@ -199,7 +199,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         if (dNode1 == BusCell.Direction.BOTTOM) {
             return node.getDiagramY() + decalV;
         } else {
-            List<VoltageLevelGraph> vls = getGraph().getNodes();
+            List<VoltageLevelGraph> vls = getGraph().getVoltageLevels();
             int iVl = vls.indexOf(node.getGraph());
             if (iVl == 0) {
                 return node.getDiagramY() - decalV;

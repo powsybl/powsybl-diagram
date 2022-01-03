@@ -82,6 +82,9 @@
             <line x1="680.0" x2="880.0" y1="440.0" y2="440.0"/>
             <line x1="680.0" x2="880.0" y1="520.0" y2="520.0"/>
         </g>
+        <g id="LABEL_VL_VL1">
+            <text class="sld-graph-label" x="40.0" y="180.0">VL1</text>
+        </g>
         <g class="sld-busbar-section" id="idBBS11" transform="translate(52.5,480.0)">
             <line x1="0" x2="575.0" y1="0" y2="0"/>
             <text class="sld-label" id="BBS11_BBS11_NW_LABEL" x="-5.0" y="-5.0">BBS11</text>
@@ -611,6 +614,9 @@
             <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
             <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
+        <g id="LABEL_VL_VL2">
+            <text class="sld-graph-label" x="680.0" y="180.0">VL2</text>
+        </g>
         <g class="sld-busbar-section" id="idBBS2" transform="translate(692.5,480.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="BBS2_BBS2_NW_LABEL" x="-5.0" y="-5.0">BBS2</text>
@@ -829,12 +835,6 @@
             <circle class="sld-winding" cx="5" cy="15" r="5"/>
             <circle class="sld-winding" cx="11" cy="15" r="5"/>
             <circle class="sld-winding" cx="8" cy="19" r="5"/>
-        </g>
-        <g id="LABEL_VL_VL1">
-            <text class="sld-graph-label" x="40.0" y="180.0">VL1</text>
-        </g>
-        <g id="LABEL_VL_VL2">
-            <text class="sld-graph-label" x="680.0" y="180.0">VL2</text>
         </g>
     </g>
 </svg>

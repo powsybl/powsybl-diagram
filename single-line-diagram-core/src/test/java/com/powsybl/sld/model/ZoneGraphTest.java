@@ -80,9 +80,9 @@ public class ZoneGraphTest {
     public void test() {
         List<String> zone = Arrays.asList(SUBSTATION_ID_1, SUBSTATION_ID_2);
         ZoneGraph graph = new NetworkGraphBuilder(createNetwork()).buildZoneGraph(zone);
-        assertEquals(2, graph.getNodes().size());
-        assertEquals(SUBSTATION_ID_1, graph.getNodes().get(0).getSubstationId());
-        assertEquals(SUBSTATION_ID_2, graph.getNodes().get(1).getSubstationId());
+        assertEquals(2, graph.getSubstations().size());
+        assertEquals(SUBSTATION_ID_1, graph.getSubstations().get(0).getSubstationId());
+        assertEquals(SUBSTATION_ID_2, graph.getSubstations().get(1).getSubstationId());
         assertEquals(1, graph.getLineEdges().size());
         BranchEdge edge = graph.getLineEdges().get(0);
         assertEquals(LINE_ID, edge.getId());
@@ -93,9 +93,9 @@ public class ZoneGraphTest {
     }
 
     private String getLineNodeId(ZoneGraph graph, String substationId, String voltageLevelId, Branch.Side side) {
-        SubstationGraph substationGraph1 = graph.getNode(substationId);
+        SubstationGraph substationGraph1 = graph.getSubstationGraph(substationId);
         assertNotNull(substationGraph1);
-        VoltageLevelGraph voltageLevelGraph1 = substationGraph1.getNode(voltageLevelId);
+        VoltageLevelGraph voltageLevelGraph1 = substationGraph1.getVoltageLevel(voltageLevelId);
         assertNotNull(voltageLevelGraph1);
         Node lineNode = voltageLevelGraph1.getNode(LINE_ID + "_" + side);
         assertNotNull(lineNode);

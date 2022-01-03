@@ -15,7 +15,6 @@ import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.slf4j.Logger;
@@ -290,23 +289,9 @@ public final class SingleLineDiagram {
         LOGGER.info("Writing SVG and JSON metadata files...");
 
         // write SVG file
-        GraphMetadata metadata = writeGraph(prefixId, svgWriter, graph, initProvider, styleProvider, writerForSvg);
+        GraphMetadata metadata = svgWriter.write(prefixId, graph, initProvider, styleProvider, writerForSvg);
 
         // write metadata JSON file
         metadata.writeJson(metadataWriter);
-    }
-
-    private static GraphMetadata writeGraph(String prefixId, DefaultSVGWriter svgWriter, Graph graph,
-                                            DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider,
-                                            Writer writer) {
-        if (graph instanceof VoltageLevelGraph) {
-            return svgWriter.write(prefixId, (VoltageLevelGraph) graph, labelProvider, styleProvider, writer);
-        } else if (graph instanceof SubstationGraph) {
-            return svgWriter.write(prefixId, (SubstationGraph) graph, labelProvider, styleProvider, writer);
-        } else if (graph instanceof ZoneGraph) {
-            return svgWriter.write(prefixId, (ZoneGraph) graph, labelProvider, styleProvider, writer);
-        } else {
-            throw new AssertionError();
-        }
     }
 }

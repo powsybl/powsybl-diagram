@@ -191,9 +191,24 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     @Override
-    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVoltageLevel(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
         return voltageLevelId.equals(voltageLevelInfos.getId()) ? this : null;
+    }
+
+    @Override
+    public List<VoltageLevelGraph> getVoltageLevels() {
+        return Collections.singletonList(this);
+    }
+
+    @Override
+    public Stream<VoltageLevelGraph> getVoltageLevelStream() {
+        return Stream.of(this);
+    }
+
+    @Override
+    public Stream<Node> getAllNodesStream() {
+        return nodes.stream();
     }
 
     /**
