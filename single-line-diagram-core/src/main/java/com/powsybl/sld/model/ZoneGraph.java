@@ -10,6 +10,8 @@ import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
@@ -17,8 +19,8 @@ import java.util.*;
 public class ZoneGraph extends AbstractLineGraph {
 
     private final List<String> zone;
-    private final List<SubstationGraph> nodes = new ArrayList<>();
-    private final Map<String, SubstationGraph> nodesById = new HashMap<>();
+    private final List<SubstationGraph> substations = new ArrayList<>();
+    private final Map<String, SubstationGraph> substationsById = new HashMap<>();
     private final Map<String, BranchEdge> edgesById = new HashMap<>();
 
     protected ZoneGraph(List<String> zone) {
@@ -34,9 +36,9 @@ public class ZoneGraph extends AbstractLineGraph {
         return String.join("_", zone);
     }
 
-    public void addNode(SubstationGraph sGraph) {
-        nodes.add(sGraph);
-        nodesById.put(sGraph.getSubstationId(), sGraph);
+    public void addSubstation(SubstationGraph sGraph) {
+        substations.add(sGraph);
+        substationsById.put(sGraph.getSubstationId(), sGraph);
     }
 
     @Override
@@ -50,19 +52,34 @@ public class ZoneGraph extends AbstractLineGraph {
         return zone;
     }
 
-    public List<SubstationGraph> getNodes() {
-        return nodes;
+    public List<SubstationGraph> getSubstations() {
+        return substations;
     }
 
     @Override
-    public VoltageLevelGraph getVLGraph(String voltageLevelId) {
+    public VoltageLevelGraph getVoltageLevel(String voltageLevelId) {
         Objects.requireNonNull(voltageLevelId);
-        return nodes.stream().flatMap(SubstationGraph::getNodeStream).filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
+        return getVoltageLevelStream().filter(g -> voltageLevelId.equals(g.getVoltageLevelInfos().getId())).findFirst().orElse(null);
     }
 
-    public SubstationGraph getNode(String id) {
+    @Override
+    public Stream<VoltageLevelGraph> getVoltageLevelStream() {
+        return substations.stream().flatMap(SubstationGraph::getVoltageLevelStream);
+    }
+
+    @Override
+    public List<VoltageLevelGraph> getVoltageLevels() {
+        return getVoltageLevelStream().collect(Collectors.toList());
+    }
+
+    @Override
+    public Stream<Node> getAllNodesStream() {
+        return getVoltageLevelStream().flatMap(Graph::getAllNodesStream);
+    }
+
+    public SubstationGraph getSubstationGraph(String id) {
         Objects.requireNonNull(id);
-        return nodesById.get(id);
+        return substationsById.get(id);
     }
 
     public BranchEdge getLineEdge(String lineId) {
@@ -73,7 +90,7 @@ public class ZoneGraph extends AbstractLineGraph {
     public void writeJson(JsonGenerator generator) throws IOException {
         generator.writeStartObject();
         generator.writeArrayFieldStart("substations");
-        for (SubstationGraph substationGraph : nodes) {
+        for (SubstationGraph substationGraph : substations) {
             substationGraph.setGenerateCoordsInJson(isGenerateCoordsInJson());
             substationGraph.writeJson(generator);
         }

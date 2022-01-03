@@ -14,14 +14,15 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.ZoneLayout;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.BranchEdge;
+import com.powsybl.sld.model.Point;
+import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.ZoneGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -36,13 +37,12 @@ public class CgmesZoneLayout extends AbstractCgmesLayout implements ZoneLayout {
 
     public CgmesZoneLayout(ZoneGraph graph, Network network) {
         this.network = Objects.requireNonNull(network);
-        Objects.requireNonNull(graph);
-        vlGraphs = graph.getNodes().stream().map(SubstationGraph::getNodes).flatMap(Collection::stream).collect(Collectors.toList());
+        this.graph = Objects.requireNonNull(graph);
+        vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             removeFictitiousNodes(vlGraph, network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId()));
         }
         fixTransformersLabel = true;
-        this.graph = graph;
     }
 
     @Override

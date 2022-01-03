@@ -8,6 +8,8 @@ package com.powsybl.sld.model;
 
 import java.io.Writer;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
@@ -15,7 +17,13 @@ import java.nio.file.Path;
 public interface Graph {
     String getId();
 
-    VoltageLevelGraph getVLGraph(String voltageLevelId);
+    VoltageLevelGraph getVoltageLevel(String voltageLevelId);
+
+    List<VoltageLevelGraph> getVoltageLevels();
+
+    Stream<VoltageLevelGraph> getVoltageLevelStream();
+
+    Stream<Node> getAllNodesStream();
 
     void setGenerateCoordsInJson(boolean generateCoordsInJson);
 

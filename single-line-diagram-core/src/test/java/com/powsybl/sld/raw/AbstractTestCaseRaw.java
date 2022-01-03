@@ -25,24 +25,12 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     protected RawGraphBuilder rawGraphBuilder = new RawGraphBuilder();
 
     protected RawDiagramLabelProvider getRawLabelProvider(Graph graph) {
-        Stream<Node> nodeStream = getNodeStream(graph);
-        return new RawDiagramLabelProvider(nodeStream, layoutParameters);
+        return new RawDiagramLabelProvider(graph.getAllNodesStream(), layoutParameters);
     }
 
     @Override
     public void toSVG(Graph graph, String filename) {
         toSVG(graph, filename, getRawLabelProvider(graph), new BasicStyleProvider());
-    }
-
-    private static Stream<Node> getNodeStream(Graph graph) { //TODO: put in Graph interface
-        if (graph instanceof VoltageLevelGraph) {
-            return ((VoltageLevelGraph) graph).getNodes().stream();
-        } else if (graph instanceof SubstationGraph) {
-            return ((SubstationGraph) graph).getNodes().stream().flatMap(g -> g.getNodes().stream());
-        } else if (graph instanceof ZoneGraph) {
-            return ((ZoneGraph) graph).getNodes().stream().flatMap(g -> g.getNodes().stream()).flatMap(g -> g.getNodes().stream());
-        }
-        throw new AssertionError();
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {

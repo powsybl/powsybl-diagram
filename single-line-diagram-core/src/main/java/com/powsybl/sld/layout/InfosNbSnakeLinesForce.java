@@ -31,13 +31,13 @@ public final class InfosNbSnakeLinesForce {
     }
 
     static InfosNbSnakeLinesForce create(SubstationGraph substationGraph, ForceSubstationLayoutFactory.CompactionType compactionType) {
-        List<String> vlYSorted = substationGraph.getNodeStream().sorted(Comparator.comparingDouble(VoltageLevelGraph::getY)).map(VoltageLevelGraph::getId).collect(Collectors.toList());
-        Stream<String> vlXSorted = substationGraph.getNodeStream().sorted(Comparator.comparingDouble(VoltageLevelGraph::getX)).map(VoltageLevelGraph::getId);
+        List<String> vlYSorted = substationGraph.getVoltageLevelStream().sorted(Comparator.comparingDouble(VoltageLevelGraph::getY)).map(VoltageLevelGraph::getId).collect(Collectors.toList());
+        Stream<String> vlXSorted = substationGraph.getVoltageLevelStream().sorted(Comparator.comparingDouble(VoltageLevelGraph::getX)).map(VoltageLevelGraph::getId);
         Map<String, Integer> nbSnakeLinesLeft = vlXSorted.collect(Collectors.toMap(Function.identity(), v -> 0));
-        int[] nbSnakeLinesHorizontalBetween = new int[(int) substationGraph.getNodeStream().count() + 1];
+        int[] nbSnakeLinesHorizontalBetween = new int[(int) substationGraph.getVoltageLevelStream().count() + 1];
         Map<String, Map<BusCell.Direction, Integer>> nbSnakeLinesTopBottom = compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL
             ? new HashMap<>()
-            : substationGraph.getNodeStream().map(VoltageLevelGraph::getId).collect(
+            : substationGraph.getVoltageLevelStream().map(VoltageLevelGraph::getId).collect(
                 Collectors.toMap(Function.identity(), v0 -> EnumSet.allOf(BusCell.Direction.class).stream().collect(
                     Collectors.toMap(Function.identity(), v1 -> 0))));
         return new InfosNbSnakeLinesForce(nbSnakeLinesLeft, vlYSorted, nbSnakeLinesHorizontalBetween, nbSnakeLinesTopBottom, compactionType);

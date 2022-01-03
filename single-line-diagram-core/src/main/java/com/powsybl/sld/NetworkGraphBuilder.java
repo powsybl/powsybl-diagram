@@ -145,13 +145,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .forEach(v -> {
                     VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()), false);
                     buildGraph(vlGraph, v);
-                    graph.addNode(vlGraph);
+                    graph.addVoltageLevel(vlGraph);
                 });
 
         // Add snake edges between different voltageLevels in the same substation
         addSnakeEdges(graph, substation);
 
-        LOGGER.info("Number of voltage levels: {} ", graph.getNodes().size());
+        LOGGER.info("Number of voltage levels: {} ", graph.getVoltageLevels().size());
     }
 
     private void addSnakeEdges(SubstationGraph graph, Substation substation) {
@@ -613,8 +613,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 VoltageLevel vl1 = t1.getVoltageLevel();
                 VoltageLevel vl2 = t2.getVoltageLevel();
 
-                VoltageLevelGraph g1 = graph.getVLGraph(vl1.getId());
-                VoltageLevelGraph g2 = graph.getVLGraph(vl2.getId());
+                VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
+                VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
 
                 Node n1 = g1.getNode(line.getId() + "_" + line.getSide(t1).name());
                 Node n2 = g2.getNode(line.getId() + "_" + line.getSide(t2).name());
@@ -635,8 +635,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vl1 = t1.getVoltageLevel();
             VoltageLevel vl2 = t2.getVoltageLevel();
 
-            VoltageLevelGraph g1 = graph.getVLGraph(vl1.getId());
-            VoltageLevelGraph g2 = graph.getVLGraph(vl2.getId());
+            VoltageLevelGraph g1 = graph.getVoltageLevel(vl1.getId());
+            VoltageLevelGraph g2 = graph.getVoltageLevel(vl2.getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
@@ -664,9 +664,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vl2 = t2.getVoltageLevel();
             VoltageLevel vl3 = t3.getVoltageLevel();
 
-            VoltageLevelGraph g1 = graph.getVLGraph(t1.getVoltageLevel().getId());
-            VoltageLevelGraph g2 = graph.getVLGraph(t2.getVoltageLevel().getId());
-            VoltageLevelGraph g3 = graph.getVLGraph(t3.getVoltageLevel().getId());
+            VoltageLevelGraph g1 = graph.getVoltageLevel(t1.getVoltageLevel().getId());
+            VoltageLevelGraph g2 = graph.getVoltageLevel(t2.getVoltageLevel().getId());
+            VoltageLevelGraph g3 = graph.getVoltageLevel(t3.getVoltageLevel().getId());
 
             Node n1 = g1.getNode(id1);
             Node n2 = g2.getNode(id2);
@@ -731,7 +731,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         zone.forEach(substation -> {
             LOGGER.info("Adding substation {} to zone graph", substation.getId());
             SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId());
-            graph.addNode(sGraph);
+            graph.addSubstation(sGraph);
         });
         // Add snake edges between different substations in the same zone
         addLineEdges(graph, zone.stream().flatMap(Substation::getVoltageLevelStream)
