@@ -1680,6 +1680,8 @@
       "equipmentId" : "T11",
       "componentType" : "TWO_WINDINGS_TRANSFORMER",
       "fictitious" : true,
+      "x" : 140.0,
+      "y" : 462.5,
       "open" : false,
       "voltageLevelInfosLeg1" : {
         "id" : "VL1",
@@ -2342,6 +2344,8 @@
     "equipmentId" : "T12",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 80.0,
+    "y" : 462.5,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
@@ -2360,6 +2364,8 @@
     "equipmentId" : "T3_12",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 735.0,
+    "y" : 905.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",

@@ -50,9 +50,9 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         }
 
         // Creating and applying the voltage levels layout with these coordinates
-        Map<VoltageLevelGraph, VoltageLevelLayout> graphsLayouts = new HashMap<>();
+        Map<VoltageLevelGraph, Layout> graphsLayouts = new HashMap<>();
         coordsVoltageLevels.entrySet().stream().forEach(e -> {
-            VoltageLevelLayout vlLayout = vLayoutFactory.create(e.getKey());
+            Layout vlLayout = vLayoutFactory.create(e.getKey());
             graphsLayouts.put(e.getKey(), vlLayout);
             vlLayout.run(layoutParameters);
         });

@@ -280,7 +280,7 @@ public class Node implements BaseNode {
                 || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
     }
 
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeStringField("id", id);
         if (name != null) {
@@ -289,7 +289,7 @@ public class Node implements BaseNode {
         generator.writeStringField("equipmentId", equipmentId);
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
-        if (graph != null && graph.isGenerateCoordsInJson()) {
+        if (isGenerateCoordsInJson) {
             generator.writeNumberField("x", getX());
             generator.writeNumberField("y", getY());
         }
@@ -302,9 +302,9 @@ public class Node implements BaseNode {
         }
     }
 
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStartObject();
-        writeJsonContent(generator);
+        writeJsonContent(generator, isGenerateCoordsInJson);
         generator.writeEndObject();
     }
 

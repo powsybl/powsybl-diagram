@@ -50,7 +50,7 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
     protected void writeBranchFields(JsonGenerator generator) throws IOException {
         generator.writeArrayFieldStart("multitermNodes");
         for (Node multitermNode : multiTermNodes) {
-            multitermNode.writeJson(generator);
+            multitermNode.writeJson(generator, isGenerateCoordsInJson());
         }
         generator.writeEndArray();
         generator.writeArrayFieldStart("twtEdges");

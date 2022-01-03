@@ -5078,6 +5078,8 @@
     "equipmentId" : "trf1",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 580.0,
+    "y" : 200.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5096,6 +5098,8 @@
     "equipmentId" : "trf2",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 850.0,
+    "y" : 537.5,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5114,6 +5118,8 @@
     "equipmentId" : "trf3",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 805.0,
+    "y" : 935.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5132,6 +5138,8 @@
     "equipmentId" : "trf4",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 820.0,
+    "y" : 552.5,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5150,6 +5158,8 @@
     "equipmentId" : "trf5",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 1500.0,
+    "y" : 540.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5168,6 +5178,8 @@
     "equipmentId" : "trf6",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 1245.0,
+    "y" : 80.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5191,6 +5203,8 @@
     "equipmentId" : "trf7",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 1195.0,
+    "y" : 50.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5214,6 +5228,8 @@
     "equipmentId" : "trf8",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
+    "x" : 1295.0,
+    "y" : 1055.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
