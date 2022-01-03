@@ -112,7 +112,7 @@
     <g>
         <g class="sld-busbar-section" id="idvl2_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
-            <text class="sld-label" id="vl2_bbs1_vl2_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>
+            <text class="sld-label" id="vl2_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_gen1_95_vl2_95_bgen1">
             <polyline points="90.0,106.0,90.0,190.0"/>
@@ -189,7 +189,7 @@
         </g>
         <g class="sld-generator" id="idvl2_95_gen1" transform="translate(84.0,94.0)">
             <use href="#GENERATOR"/>
-            <text class="sld-label" id="vl2_gen1_vl2_gen1__LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
+            <text class="sld-label" id="vl2_gen1__LABEL" x="-5.0" y="-5.0">vl2_gen1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl2_95_bgen1" transform="translate(80.0,190.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
@@ -202,7 +202,7 @@
         <g class="sld-two-wt" id="idvl2_95_trf1" transform="translate(135.0,512.5)">
             <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1"/>
             <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2"/>
-            <text class="sld-label" id="vl2_trf1_vl2_trf1__LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
+            <text class="sld-label" id="vl2_trf1__LABEL" x="-5.0" y="-5.0">vl2_trf1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl2_95_btrf1" transform="translate(130.0,410.0)">
             <use class="sld-sw-closed" href="#BREAKER-CLOSED"/>
@@ -213,10 +213,10 @@
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
         <g class="" id="idvl2_95_trf2_95_one" transform="translate(170.0,100.0)">
-            <text class="sld-label" id="vl2_trf2_one_vl2_trf2_one__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
+            <text class="sld-label" id="vl2_trf2_one__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
         <g class="" id="idvl2_95_trf2_95_two" transform="translate(230.0,100.0)">
-            <text class="sld-label" id="vl2_trf2_two_vl2_trf2_two__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
+            <text class="sld-label" id="vl2_trf2_two__LABEL" x="-5.0" y="-5.0">vl2_trf2</text>
         </g>
         <g class="sld-three-wt" id="idvl2_95_trf2" transform="translate(192.0,148.0)">
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
