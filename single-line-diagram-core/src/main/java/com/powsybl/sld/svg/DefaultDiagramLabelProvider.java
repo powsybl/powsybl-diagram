@@ -193,7 +193,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             positionName = direction == BusCell.Direction.TOP ? "N" : "S";
         }
 
-        return new LabelPosition( positionName + "_DECORATOR",
+        return new LabelPosition(positionName + "_DECORATOR",
                 (int) (componentLibrary.getSize(componentType).getWidth() / 2 + DECORATOR_OFFSET), yShift, true, 0);
     }
 
