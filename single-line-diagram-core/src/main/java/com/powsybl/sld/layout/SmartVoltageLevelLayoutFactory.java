@@ -24,7 +24,7 @@ public class SmartVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory
     }
 
     @Override
-    public VoltageLevelLayout create(VoltageLevelGraph graph) {
+    public Layout create(VoltageLevelGraph graph) {
         return VoltageLevelLayoutFactorySmartSelector.findBest(network.getVoltageLevel(graph.getVoltageLevelInfos().getId()))
                 .orElseThrow(() -> new PowsyblException("Voltage level layout factory not found"))
                 .createFactory(network)
