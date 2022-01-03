@@ -47,8 +47,8 @@ public class SwitchNode extends Node {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
+    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+        super.writeJsonContent(generator, isGenerateCoordsInJson);
         generator.writeStringField("kind", kind.name());
     }
 }

@@ -37,8 +37,8 @@ public class MiddleTwtNode extends FictitiousNode {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
+    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+        super.writeJsonContent(generator, isGenerateCoordsInJson);
         int side = 1;
         for (VoltageLevelInfos voltageLevelInfos : voltageLevelInfosLeg) {
             generator.writeFieldName("voltageLevelInfosLeg" + (side++));
