@@ -102,10 +102,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
         List<Point> polyline;
-        if (node1.getGraph() == node2.getGraph()) { // in the same VL (so far always horizontal layout)
-            String graphId = node1.getGraph().getId();
+        if (node1.getVoltageLevelGraph() == node2.getVoltageLevelGraph()) { // in the same VL (so far always horizontal layout)
+            String graphId = node1.getVoltageLevelGraph().getId();
 
-            InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(node1.getGraph());
+            InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(node1.getVoltageLevelGraph());
 
             // Reset the horizontal layout numbers to current graph numbers
             int currentNbBottom = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, BusCell.Direction.BOTTOM);
@@ -142,7 +142,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
 
         // increment not needed for 3WT for the common node
-        String vl1 = node1.getGraph().getVoltageLevelInfos().getId();
+        String vl1 = node1.getVoltageLevelGraph().getVoltageLevelInfos().getId();
         int nbSnakeLines1 = increment
             ? infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
             : infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(vl1, dNode1);
@@ -161,7 +161,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                 polyline.add(new Point(x1, ySnakeLine));
             }
         } else {
-            String vl2 = node2.getGraph().getVoltageLevelInfos().getId();
+            String vl2 = node2.getVoltageLevelGraph().getVoltageLevelInfos().getId();
             int nbSnakeLines2 = infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
             double decal2V = getVerticalShift(layoutParam, dNode2, nbSnakeLines2);
 
@@ -191,7 +191,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
     private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
         double shiftLeftRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().compute(side, (k, v) -> v + 1) - 1, 0) * layoutParam.getHorizontalSnakeLinePadding();
-        return node.getGraph().getX() - layoutParam.getVoltageLevelPadding().getLeft()
+        return node.getVoltageLevelGraph().getX() - layoutParam.getVoltageLevelPadding().getLeft()
             + (side == Side.LEFT ? -shiftLeftRight : shiftLeftRight + maxVoltageLevelWidth);
     }
 
@@ -200,7 +200,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             return node.getDiagramY() + decalV;
         } else {
             List<VoltageLevelGraph> vls = getGraph().getVoltageLevels();
-            int iVl = vls.indexOf(node.getGraph());
+            int iVl = vls.indexOf(node.getVoltageLevelGraph());
             if (iVl == 0) {
                 return node.getDiagramY() - decalV;
             } else {
@@ -215,7 +215,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     private boolean facingNodes(Node node1, Node node2) {
         BusCell.Direction dNode1 = getNodeDirection(node1, 1);
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
-        return (dNode1 == BusCell.Direction.BOTTOM && dNode2 == BusCell.Direction.TOP && getGraph().graphAdjacents(node1.getGraph(), node2.getGraph()))
-            || (dNode1 == BusCell.Direction.TOP && dNode2 == BusCell.Direction.BOTTOM && getGraph().graphAdjacents(node2.getGraph(), node1.getGraph()));
+        return (dNode1 == BusCell.Direction.BOTTOM && dNode2 == BusCell.Direction.TOP && getGraph().graphAdjacents(node1.getVoltageLevelGraph(), node2.getVoltageLevelGraph()))
+            || (dNode1 == BusCell.Direction.TOP && dNode2 == BusCell.Direction.BOTTOM && getGraph().graphAdjacents(node2.getVoltageLevelGraph(), node1.getVoltageLevelGraph()));
     }
 }

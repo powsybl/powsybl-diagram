@@ -101,11 +101,11 @@ public class SubstationGraph extends AbstractBaseGraph {
             // edges are added between its adjacent nodes
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
 
-            graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(1).getGraph());
+            graph.addEdge(adjacentNodes.get(0).getVoltageLevelGraph(), adjacentNodes.get(1).getVoltageLevelGraph());
 
             if (adjacentNodes.size() == 3) {
-                graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(2).getGraph());
-                graph.addEdge(adjacentNodes.get(1).getGraph(), adjacentNodes.get(2).getGraph());
+                graph.addEdge(adjacentNodes.get(0).getVoltageLevelGraph(), adjacentNodes.get(2).getVoltageLevelGraph());
+                graph.addEdge(adjacentNodes.get(1).getVoltageLevelGraph(), adjacentNodes.get(2).getVoltageLevelGraph());
             }
         }
 

@@ -88,7 +88,7 @@ public class Node implements BaseNode {
         this.cell = cell;
     }
 
-    public VoltageLevelGraph getGraph() {
+    public VoltageLevelGraph getVoltageLevelGraph() {
         return graph;
     }
 
