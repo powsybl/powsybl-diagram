@@ -53,8 +53,8 @@ public class FeederWithSideNode extends FeederNode {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
+    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+        super.writeJsonContent(generator, isGenerateCoordsInJson);
         generator.writeStringField("side", side.name());
         if (otherSideVoltageLevelInfos != null) {
             generator.writeFieldName("otherSideVoltageLevelInfos");
