@@ -610,8 +610,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
 
         generator.writeArrayFieldStart("nodes");
-        for (Node node : nodes.stream().sorted(Comparator.comparing(Node::getId)).collect(Collectors.toList())) {
-            node.writeJson(generator, isGenerateCoordsInJson());
+        Iterator<Node> nodesIt = nodes.stream().sorted(Comparator.comparing(Node::getId)).iterator();
+        while (nodesIt.hasNext()) {
+            nodesIt.next().writeJson(generator, isGenerateCoordsInJson());
         }
         generator.writeEndArray();
 
