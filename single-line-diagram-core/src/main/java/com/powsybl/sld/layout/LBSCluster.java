@@ -73,7 +73,7 @@ public class LBSCluster {
         }
     }
 
-    VoltageLevelGraph getGraph() {
+    VoltageLevelGraph getVoltageLevelGraph() {
         return horizontalBusLanes.get(0).getBusNodes().get(0).getVoltageLevelGraph();
     }
 
