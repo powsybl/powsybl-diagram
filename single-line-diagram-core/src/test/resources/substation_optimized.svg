@@ -121,6 +121,9 @@
     </defs>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
+        <g id="LABEL_VL_vl1">
+            <text class="sld-graph-label" x="40.0" y="20.0">vl1</text>
+        </g>
         <g class="sld-busbar-section" id="idvl1_95_bbs1" transform="translate(40.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl1_bbs1_vl1_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl1_bbs1</text>
@@ -244,6 +247,9 @@
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
+        <g id="LABEL_VL_vl2">
+            <text class="sld-graph-label" x="590.0" y="20.0">vl2</text>
+        </g>
         <g class="sld-busbar-section" id="idvl2_95_bbs1" transform="translate(590.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl2_bbs1_vl2_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl2_bbs1</text>
@@ -339,6 +345,9 @@
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
+        <g id="LABEL_VL_vl3">
+            <text class="sld-graph-label" x="890.0" y="20.0">vl3</text>
+        </g>
         <g class="sld-busbar-section" id="idvl3_95_bbs1" transform="translate(890.0,340.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
             <text class="sld-label" id="vl3_bbs1_vl3_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
@@ -427,15 +436,6 @@
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>
-        </g>
-        <g id="LABEL_VL_vl1">
-            <text class="sld-graph-label" x="40.0" y="20.0">vl1</text>
-        </g>
-        <g id="LABEL_VL_vl2">
-            <text class="sld-graph-label" x="590.0" y="20.0">vl2</text>
-        </g>
-        <g id="LABEL_VL_vl3">
-            <text class="sld-graph-label" x="890.0" y="20.0">vl3</text>
         </g>
     </g>
 </svg>
