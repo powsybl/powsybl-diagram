@@ -54,7 +54,7 @@
     <g>
         <g class="sld-busbar-section" id="idvl3_95_bbs1" transform="translate(40.0,320.0)">
             <line x1="0" x2="200.0" y1="0" y2="0"/>
-            <text class="sld-label" id="vl3_bbs1_vl3_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
+            <text class="sld-label" id="vl3_bbs1_NW_LABEL" x="-5.0" y="-5.0">vl3_bbs1</text>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_capa1_95_vl3_95_bcapa1">
             <polyline points="80.0,106.0,80.0,190.0"/>
@@ -115,7 +115,7 @@
             <line x1="0" x2="12" y1="4.5" y2="4.5"/>
             <line x1="0" x2="12" y1="7.5" y2="7.5"/>
             <line x1="6" x2="6" y1="7.5" y2="12"/>
-            <text class="sld-label" id="vl3_capa1_vl3_capa1__LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
+            <text class="sld-label" id="vl3_capa1__LABEL" x="-5.0" y="-5.0">vl3_capa1</text>
         </g>
         <g class="sld-breaker sld-closed" id="idvl3_95_bcapa1" transform="translate(70.0,190.0)">
             <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -126,10 +126,10 @@
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="" id="idvl3_95_trf2_95_one" transform="translate(150.0,100.0)">
-            <text class="sld-label" id="vl3_trf2_one_vl3_trf2_one__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
+            <text class="sld-label" id="vl3_trf2_one__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="" id="idvl3_95_trf2_95_two" transform="translate(230.0,100.0)">
-            <text class="sld-label" id="vl3_trf2_two_vl3_trf2_two__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
+            <text class="sld-label" id="vl3_trf2_two__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
         <g class="sld-three-wt" id="idvl3_95_trf2" transform="translate(182.0,148.0)">
             <circle class="sld-winding" cx="5" cy="15" r="5"/>

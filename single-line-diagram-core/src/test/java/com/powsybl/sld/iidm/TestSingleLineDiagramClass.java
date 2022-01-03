@@ -76,7 +76,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     public void testSvgVl1() throws IOException {
         String expected = toString("/TestSldClassVl.svg");
         String expectedMetadata = toString("/TestSldClassVlMetadata.json");
-        assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg"));
+        assertEquals(expected, toDefaultSVG(network, vl.getId(), "/TestSldClassVl.svg", "/TestSldClassVlMetadata.json"));
 
         Writer writerForSvg = new StringWriter();
         SingleLineDiagram.drawVoltageLevel(network, vl.getId(), writerForSvg, new NullWriter());
@@ -109,7 +109,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     public void testSvgSubs() throws IOException {
         String expected = fixSvg(toString("/TestSldClassSubstation.svg"));
         String expectedMetadata = toString("/TestSldClassSubstationMetadata.json");
-        assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg"));
+        assertEquals(expected, toDefaultSVG(network, substation.getId(), "/TestSldClassSubstation.svg", "/TestSldClassSubstationMetadata.json"));
 
         PowsyblException e1 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "d1", new NullWriter(), new NullWriter()));
         assertEquals("Given id 'd1' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e1.getMessage());
@@ -132,15 +132,17 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         assertEquals("Given id 'bbs2' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e2.getMessage());
     }
 
-    private String toDefaultSVG(Network network, String id, String filename) {
-        try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(network, id, writer, new NullWriter());
+    private String toDefaultSVG(Network network, String id, String filename, String jsonFilename) {
+        try (StringWriter writer = new StringWriter();
+             StringWriter metadataWriter = new StringWriter()) {
+            SingleLineDiagram.draw(network, id, writer, metadataWriter);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
             }
             if (overrideTestReferences) {
                 overrideTestReference(filename, writer);
+                overrideTestReference(jsonFilename, metadataWriter);
             }
 
             return fixSvg(normalizeLineSeparator(writer.toString()));

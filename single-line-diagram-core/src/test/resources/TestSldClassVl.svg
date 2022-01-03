@@ -132,7 +132,7 @@
     <g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs1" transform="translate(52.5,252.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs1_bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
+            <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
             <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d1" transform="translate(111.0,218.0)">
@@ -145,7 +145,7 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="l_l_N_LABEL" x="-5.0" y="-5.0">l</text>
+                <text class="sld-label" id="l_N_LABEL" x="-5.0" y="-5.0">l</text>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_d1">
                 <polyline points="115.0,252.0,115.0,252.0"/>
@@ -191,7 +191,7 @@
             <g class="sld-two-wt sld-bottom-feeder" id="idtrf_95_ONE" transform="translate(60.0,416.5)">
                 <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-vl180to300-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="trf_ONE_trf_ONE_S_LABEL" x="-5.0" y="20.0">trf</text>
+                <text class="sld-label" id="trf_ONE_S_LABEL" x="-5.0" y="20.0">trf</text>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_d2">
                 <polyline points="65.0,252.0,65.0,252.0"/>
