@@ -9,42 +9,36 @@
     "nodes" : [ {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dgen1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dgen2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dline11_2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dload1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dload2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dsect11",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -52,7 +46,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dsect12",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -60,7 +53,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dsect21",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -68,7 +60,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dsect22",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -76,147 +67,126 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf11",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf12",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf13",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf14",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf15",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf16",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf17",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_dtrf18",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_gen1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_gen2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_line1_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_load1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_load2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf1_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf2_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf3_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf4_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf5_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf6_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf7_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl1_trf8_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
@@ -1921,21 +1891,18 @@
     "nodes" : [ {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dgen4",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dload3",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dscpl1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -1943,7 +1910,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dscpl2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "rotationAngle" : 90.0,
@@ -1951,112 +1917,96 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf21",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf22",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf23",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf24",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf26",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf27",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_dtrf28",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_gen4",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_load3",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf1_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf2_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf3_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf4_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf6_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf7_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl2_trf8_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
@@ -3193,70 +3143,60 @@
     "nodes" : [ {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_dload4",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_dtrf25",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_dtrf36",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_dtrf37",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_dtrf38",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_load4",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_trf5_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_trf6_THREE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_trf7_THREE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_vl3_trf8_THREE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "open" : false

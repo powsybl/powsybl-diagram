@@ -316,7 +316,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D10",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -326,7 +325,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D11",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -335,7 +333,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D13",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -344,7 +341,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D15",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -353,7 +349,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D17",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -362,7 +357,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D19",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -371,7 +365,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D20",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
@@ -381,7 +374,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D21",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -390,7 +382,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D23",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
@@ -399,7 +390,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D25",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -408,7 +398,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D27",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
@@ -417,7 +406,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D29",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
@@ -426,7 +414,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_G",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -435,7 +422,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L1",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -444,7 +430,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L11_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -453,7 +438,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L11_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
@@ -462,7 +446,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L12_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -471,7 +454,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T11_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -480,7 +462,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T11_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -489,7 +470,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T12_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
@@ -498,7 +478,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T3_12_ONE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -507,7 +486,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T3_12_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
@@ -1989,7 +1967,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D31",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
@@ -1998,7 +1975,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D33",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -2007,7 +1983,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D35",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -2016,7 +1991,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D37",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -2025,7 +1999,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_L12_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -2034,7 +2007,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_L2",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
@@ -2043,7 +2015,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_T12_TWO",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -2052,7 +2023,6 @@
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_T3_12_THREE",
-      "equipmentId" : null,
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,

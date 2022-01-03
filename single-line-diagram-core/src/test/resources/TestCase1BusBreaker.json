@@ -9,7 +9,6 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_l",
-    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
@@ -18,7 +17,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_sw",
-    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
@@ -27,7 +25,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_sw",
-    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
@@ -36,7 +33,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l_1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -45,7 +41,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l_2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -54,7 +49,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_sw",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -64,7 +58,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_sw",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,

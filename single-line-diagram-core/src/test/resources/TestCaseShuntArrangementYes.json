@@ -9,7 +9,6 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 11.1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
@@ -18,7 +17,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 11.2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 350.0,
@@ -27,7 +25,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 14.1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 450.0,
@@ -36,7 +33,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 14.2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 500.0,
@@ -45,7 +41,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 8.1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -54,7 +49,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 8.2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
@@ -63,7 +57,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_commonFG",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 550.0,
@@ -72,7 +65,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dA",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -81,7 +73,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_f",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -90,7 +81,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_fB",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
@@ -99,7 +89,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fC",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 425.0,
@@ -108,7 +97,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_fD",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -117,7 +105,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_fE",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 625.0,
@@ -126,7 +113,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_fF",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 550.0,
@@ -135,7 +121,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fLoadG",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 525.0,
@@ -144,7 +129,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fShuntA",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -153,7 +137,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fShuntB",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
@@ -162,7 +145,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fg1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
@@ -171,7 +153,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_fg2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
@@ -180,7 +161,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_gen1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
@@ -189,7 +169,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_gen2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
@@ -198,7 +177,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -207,7 +185,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadA",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -216,7 +193,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadB",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
@@ -225,7 +201,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadC",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 425.0,
@@ -234,7 +209,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadD",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -243,7 +217,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadE",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 625.0,
@@ -252,7 +225,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadF",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 575.0,
@@ -261,7 +233,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_loadG",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 525.0,

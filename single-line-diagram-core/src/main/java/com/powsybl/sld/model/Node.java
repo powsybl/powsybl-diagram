@@ -286,7 +286,9 @@ public class Node implements BaseNode {
         if (name != null) {
             generator.writeStringField("name", name);
         }
-        generator.writeStringField("equipmentId", equipmentId);
+        if (equipmentId != null) {
+            generator.writeStringField("equipmentId", equipmentId);
+        }
         generator.writeStringField("componentType", componentType);
         generator.writeBooleanField("fictitious", fictitious);
         if (isGenerateCoordsInJson) {
