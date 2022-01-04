@@ -97,7 +97,7 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true,
+    "allowRotation" : false,
     "subComponents" : [ {
       "name" : "GENERATOR",
       "fileName" : "generator.svg"
@@ -113,14 +113,6 @@
       "x" : 0.0,
       "y" : 8.0,
       "orientation" : "VERTICAL"
-    }, {
-      "x" : -8.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 8.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
     } ],
     "size" : {
       "width" : 10.0,
@@ -386,11 +378,6 @@
     "styleClass" : "sld-lock"
   }, {
     "type" : "ARROW_ACTIVE",
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    } ],
     "size" : {
       "width" : 10.0,
       "height" : 10.0
@@ -408,11 +395,6 @@
     "styleClass" : "sld-arrow-p"
   }, {
     "type" : "ARROW_REACTIVE",
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    } ],
     "size" : {
       "width" : 10.0,
       "height" : 10.0
