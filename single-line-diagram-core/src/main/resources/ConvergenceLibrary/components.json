@@ -335,6 +335,10 @@
       "name" : "WINDING2",
       "fileName" : "phase-shifter-winding2.svg",
       "styleClass" : "sld-winding"
+    }, {
+      "name" : "ARROW",
+      "fileName" : "phase-shifter-arrow.svg",
+      "styleClass" : "sld-pst-arrow"
     } ],
     "styleClass" : "sld-pst"
   }, {
