@@ -50,6 +50,7 @@
 .sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst-arrow {stroke: black; fill: none}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
