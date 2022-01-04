@@ -307,16 +307,16 @@
     "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -8.5,
+      "y" : -7.5,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 6.5,
+      "y" : 7.5,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
       "width" : 14.0,
-      "height" : 17.0
+      "height" : 15.0
     },
     "allowRotation" : true,
     "subComponents" : [ {
