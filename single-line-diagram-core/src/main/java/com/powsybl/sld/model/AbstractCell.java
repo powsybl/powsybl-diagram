@@ -80,17 +80,17 @@ public abstract class AbstractCell implements Cell {
         return number;
     }
 
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeNumberField("number", number);
     }
 
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStartObject();
-        writeJsonContent(generator);
+        writeJsonContent(generator, isGenerateCoordsInJson);
         if (rootBlock != null) {
             generator.writeFieldName("rootBlock");
-            rootBlock.writeJson(generator);
+            rootBlock.writeJson(generator, isGenerateCoordsInJson);
         }
         generator.writeEndObject();
     }

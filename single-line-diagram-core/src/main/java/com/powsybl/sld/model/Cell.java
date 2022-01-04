@@ -53,7 +53,7 @@ public interface Cell {
 
     double calculateHeight(LayoutParameters layoutParam);
 
-    void writeJson(JsonGenerator generator) throws IOException;
+    void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException;
 
     String getId();
 

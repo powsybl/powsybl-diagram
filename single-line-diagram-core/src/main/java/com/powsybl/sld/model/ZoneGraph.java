@@ -87,17 +87,16 @@ public class ZoneGraph extends AbstractLineGraph {
         return edgesById.get(lineId);
     }
 
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStartObject();
         generator.writeArrayFieldStart("substations");
         for (SubstationGraph substationGraph : substations) {
-            substationGraph.setGenerateCoordsInJson(isGenerateCoordsInJson());
-            substationGraph.writeJson(generator);
+            substationGraph.writeJson(generator, isGenerateCoordsInJson);
         }
         generator.writeEndArray();
         generator.writeArrayFieldStart("lineEdges");
         for (BranchEdge edge : getLineEdges()) {
-            edge.writeJson(generator, isGenerateCoordsInJson());
+            edge.writeJson(generator, isGenerateCoordsInJson);
         }
         generator.writeEndArray();
         generator.writeEndObject();

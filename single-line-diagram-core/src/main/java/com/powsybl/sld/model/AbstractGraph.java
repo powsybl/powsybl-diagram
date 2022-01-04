@@ -22,18 +22,13 @@ import java.util.Objects;
  */
 public abstract class AbstractGraph implements Graph {
 
-    private boolean generateCoordsInJson = true;
+    private boolean coordinatesSerialized = true;
     private double width;
     private double height;
 
     @Override
-    public void setGenerateCoordsInJson(boolean generateCoordsInJson) {
-        this.generateCoordsInJson = generateCoordsInJson;
-    }
-
-    @Override
-    public boolean isGenerateCoordsInJson() {
-        return generateCoordsInJson;
+    public void setCoordinatesSerialized(boolean coordinatesSerialized) {
+        this.coordinatesSerialized = coordinatesSerialized;
     }
 
     @Override
@@ -51,13 +46,13 @@ public abstract class AbstractGraph implements Graph {
         try (JsonGenerator generator = new JsonFactory()
             .createGenerator(writer)
             .useDefaultPrettyPrinter()) {
-            writeJson(generator);
+            writeJson(generator, coordinatesSerialized);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
 
-    protected abstract void writeJson(JsonGenerator generator) throws IOException;
+    protected abstract void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException;
 
     @Override
     public double getWidth() {

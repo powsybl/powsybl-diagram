@@ -46,13 +46,13 @@ public class BranchEdge extends Edge {
         writeJson(generator, false);
     }
 
-    void writeJson(JsonGenerator generator, boolean generateCoordsInJson) throws IOException {
+    void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("id", id);
         generator.writeArrayFieldStart("nodes");
         super.writeJson(generator);
         generator.writeEndArray();
-        if (generateCoordsInJson) {
+        if (isGenerateCoordsInJson) {
             generator.writeArrayFieldStart("snakeLine");
             for (Point point : getSnakeLine()) {
                 generator.writeNumber(point.getX());

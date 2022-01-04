@@ -217,10 +217,10 @@ public abstract class AbstractBlock implements Block {
         return this.type;
     }
 
-    protected abstract void writeJsonContent(JsonGenerator generator) throws IOException;
+    protected abstract void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException;
 
     @Override
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("type", type.name());
         generator.writeArrayFieldStart("cardinalities");
@@ -231,13 +231,13 @@ public abstract class AbstractBlock implements Block {
         }
         generator.writeEndArray();
         generator.writeFieldName("position");
-        position.writeJsonContent(generator, getVoltageLevelGraph().isGenerateCoordsInJson());
+        position.writeJsonContent(generator, isGenerateCoordsInJson);
 
-        if (getVoltageLevelGraph().isGenerateCoordsInJson()) {
+        if (isGenerateCoordsInJson) {
             generator.writeFieldName("coord");
             coord.writeJsonContent(generator);
         }
-        writeJsonContent(generator);
+        writeJsonContent(generator, isGenerateCoordsInJson);
         generator.writeEndObject();
     }
 
