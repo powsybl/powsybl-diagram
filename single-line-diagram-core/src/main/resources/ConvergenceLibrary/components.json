@@ -330,11 +330,11 @@
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "phase-shifter-winding1.svg",
-      "styleClass" : null
+      "styleClass" : "sld-winding"
     }, {
       "name" : "WINDING2",
       "fileName" : "phase-shifter-winding2.svg",
-      "styleClass" : null
+      "styleClass" : "sld-winding"
     } ],
     "styleClass" : "sld-pst"
   }, {
