@@ -19,12 +19,7 @@ public class Feeder2WTLegNode extends FeederTwtLegNode {
                 FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static Feeder2WTLegNode createForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side,
-                                                                VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return new Feeder2WTLegNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, graph, side, otherSideVoltageLevelInfos);
-    }
-
-    public static Feeder2WTLegNode createForSubstationDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
+    public static Feeder2WTLegNode create(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
         return new Feeder2WTLegNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, graph, side, graph.getVoltageLevelInfos());
     }
 

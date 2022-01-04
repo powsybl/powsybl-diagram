@@ -164,7 +164,7 @@ public class RawGraphBuilder implements GraphBuilder {
 
         public Feeder2WTLegNode createFeeder2wtLegNode(String id, FeederWithSideNode.Side side,
                                                        int order, BusCell.Direction direction) {
-            Feeder2WTLegNode f2WTe = Feeder2WTLegNode.createForSubstationDiagram(graph, id + "_" + side, id, id, side);
+            Feeder2WTLegNode f2WTe = Feeder2WTLegNode.create(graph, id + "_" + side, id, id, side);
             commonFeederSetting(f2WTe, id, order, direction);
             return f2WTe;
         }

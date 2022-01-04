@@ -240,7 +240,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 }
             } else {
                 if (!branch.hasPhaseTapChanger()) {
-                    return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                    return Feeder2WTLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
                 } else {
                     return Feeder2WTLegNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
                 }
