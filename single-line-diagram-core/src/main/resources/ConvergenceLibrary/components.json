@@ -307,20 +307,12 @@
     "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -7.0,
+      "y" : -8.5,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 9.0,
+      "y" : 6.5,
       "orientation" : "VERTICAL"
-    }, {
-      "x" : -7.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 9.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
     } ],
     "size" : {
       "width" : 14.0,
