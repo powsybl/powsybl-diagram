@@ -21,7 +21,7 @@ import java.util.Objects;
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  * @author Thomas Adam <tadam at silicom>
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Component {
 
     private final String type;
@@ -48,15 +48,11 @@ public class Component {
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.id = id;
-        this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNull(anchorPoints));
-        this.size = Objects.requireNonNull(size);
+        this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
+        this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
         this.allowRotation = allowRotation;
-        if (subComponents != null) {
-            this.subComponents = Collections.unmodifiableList(subComponents);
-        } else {
-            this.subComponents = null;
-        }
+        this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 
     public String getType() {
