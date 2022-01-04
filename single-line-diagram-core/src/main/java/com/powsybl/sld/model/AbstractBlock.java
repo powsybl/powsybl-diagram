@@ -182,7 +182,7 @@ public abstract class AbstractBlock implements Block {
     private double getRootBlockSpan(LayoutParameters layoutParam) {
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
     }
 
     private double getRootYCoord(double spanY, LayoutParameters layoutParam) {
@@ -231,9 +231,9 @@ public abstract class AbstractBlock implements Block {
         }
         generator.writeEndArray();
         generator.writeFieldName("position");
-        position.writeJsonContent(generator, getGraph().isGenerateCoordsInJson());
+        position.writeJsonContent(generator, getVoltageLevelGraph().isGenerateCoordsInJson());
 
-        if (getGraph().isGenerateCoordsInJson()) {
+        if (getVoltageLevelGraph().isGenerateCoordsInJson()) {
             generator.writeFieldName("coord");
             coord.writeJsonContent(generator);
         }
