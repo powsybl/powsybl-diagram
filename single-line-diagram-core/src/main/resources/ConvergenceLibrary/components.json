@@ -307,34 +307,30 @@
     "id" : null,
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -7.0,
+      "y" : -7.5,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 9.0,
+      "y" : 7.5,
       "orientation" : "VERTICAL"
-    }, {
-      "x" : -7.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 9.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
     } ],
     "size" : {
       "width" : 14.0,
-      "height" : 17.0
+      "height" : 15.0
     },
     "allowRotation" : true,
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "phase-shifter-winding1.svg",
-      "styleClass" : null
+      "styleClass" : "sld-winding"
     }, {
       "name" : "WINDING2",
       "fileName" : "phase-shifter-winding2.svg",
-      "styleClass" : null
+      "styleClass" : "sld-winding"
+    }, {
+      "name" : "ARROW",
+      "fileName" : "phase-shifter-arrow.svg",
+      "styleClass" : "sld-pst-arrow"
     } ],
     "styleClass" : "sld-pst"
   }, {
