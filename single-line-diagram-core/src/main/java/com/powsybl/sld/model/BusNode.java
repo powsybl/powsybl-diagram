@@ -41,7 +41,7 @@ public class BusNode extends Node {
     }
 
     public static BusNode createFictitious(VoltageLevelGraph graph, String id) {
-        return new BusNode(id, id, true, graph);
+        return new BusNode(id, null, true, graph);
     }
 
     public void calculateCoord(LayoutParameters layoutParameters) {
