@@ -98,7 +98,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeFieldName("nodes");
         generator.writeStartArray();
         for (int i = 1; i <= nodes.size(); ++i) {

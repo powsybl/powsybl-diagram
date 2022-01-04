@@ -47,20 +47,20 @@ public abstract class AbstractBaseGraph extends AbstractLineGraph implements Bas
         multiTermNodes.add(node);
     }
 
-    protected void writeBranchFields(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+    protected void writeBranchFields(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeArrayFieldStart("multitermNodes");
         for (Node multitermNode : multiTermNodes) {
-            multitermNode.writeJson(generator, isGenerateCoordsInJson);
+            multitermNode.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
         generator.writeArrayFieldStart("twtEdges");
         for (BranchEdge edge : twtEdges) {
-            edge.writeJson(generator, isGenerateCoordsInJson);
+            edge.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
         generator.writeArrayFieldStart("lineEdges");
         for (BranchEdge edge : getLineEdges()) {
-            edge.writeJson(generator, isGenerateCoordsInJson);
+            edge.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
     }

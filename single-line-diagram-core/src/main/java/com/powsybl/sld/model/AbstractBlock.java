@@ -217,10 +217,10 @@ public abstract class AbstractBlock implements Block {
         return this.type;
     }
 
-    protected abstract void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException;
+    protected abstract void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     @Override
-    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("type", type.name());
         generator.writeArrayFieldStart("cardinalities");
@@ -231,13 +231,13 @@ public abstract class AbstractBlock implements Block {
         }
         generator.writeEndArray();
         generator.writeFieldName("position");
-        position.writeJsonContent(generator, isGenerateCoordsInJson);
+        position.writeJsonContent(generator, includeCoordinates);
 
-        if (isGenerateCoordsInJson) {
+        if (includeCoordinates) {
             generator.writeFieldName("coord");
             coord.writeJsonContent(generator);
         }
-        writeJsonContent(generator, isGenerateCoordsInJson);
+        writeJsonContent(generator, includeCoordinates);
         generator.writeEndObject();
     }
 

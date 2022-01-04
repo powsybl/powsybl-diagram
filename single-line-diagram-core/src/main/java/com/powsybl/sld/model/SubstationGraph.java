@@ -118,16 +118,16 @@ public class SubstationGraph extends AbstractBaseGraph {
     }
 
     @Override
-    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
         for (VoltageLevelGraph graph : voltageLevels) {
-            graph.writeJson(generator, isGenerateCoordsInJson);
+            graph.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
 
-        writeBranchFields(generator, isGenerateCoordsInJson);
+        writeBranchFields(generator, includeCoordinates);
 
         generator.writeEndObject();
     }

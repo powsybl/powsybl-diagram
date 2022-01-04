@@ -52,7 +52,7 @@ public abstract class AbstractGraph implements Graph {
         }
     }
 
-    protected abstract void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException;
+    protected abstract void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     @Override
     public double getWidth() {

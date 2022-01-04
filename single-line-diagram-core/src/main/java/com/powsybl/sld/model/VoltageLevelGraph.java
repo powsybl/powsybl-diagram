@@ -598,13 +598,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     @Override
-    public void writeJson(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
 
         generator.writeFieldName("voltageLevelInfos");
         voltageLevelInfos.writeJsonContent(generator);
 
-        if (isGenerateCoordsInJson) {
+        if (includeCoordinates) {
             generator.writeNumberField("x", getX());
             generator.writeNumberField("y", getY());
         }
@@ -612,13 +612,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         generator.writeArrayFieldStart("nodes");
         Iterator<Node> nodesIt = nodes.stream().sorted(Comparator.comparing(Node::getId)).iterator();
         while (nodesIt.hasNext()) {
-            nodesIt.next().writeJson(generator, isGenerateCoordsInJson);
+            nodesIt.next().writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
 
         generator.writeArrayFieldStart("cells");
         for (Cell cell : cells) {
-            cell.writeJson(generator, isGenerateCoordsInJson);
+            cell.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
 
@@ -628,7 +628,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
         generator.writeEndArray();
 
-        writeBranchFields(generator, isGenerateCoordsInJson);
+        writeBranchFields(generator, includeCoordinates);
 
         generator.writeEndObject();
     }

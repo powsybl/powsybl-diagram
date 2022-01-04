@@ -98,8 +98,8 @@ public class BusNode extends Node {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
-        super.writeJsonContent(generator, isGenerateCoordsInJson);
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        super.writeJsonContent(generator, includeCoordinates);
         generator.writeNumberField("pxWidth", pxWidth);
         generator.writeNumberField("busbarIndex", busbarIndex);
         generator.writeNumberField("sectionIndex", sectionIndex);
