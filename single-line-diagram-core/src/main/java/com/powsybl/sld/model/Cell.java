@@ -59,5 +59,5 @@ public interface Cell {
 
     String getFullId();
 
-    VoltageLevelGraph getGraph();
+    VoltageLevelGraph getVoltageLevelGraph();
 }

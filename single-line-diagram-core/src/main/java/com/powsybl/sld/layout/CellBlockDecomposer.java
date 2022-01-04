@@ -49,7 +49,7 @@ final class CellBlockDecomposer {
     private static void determineBusCellBlocks(BusCell busCell, boolean exceptionIfPatternNotHandled) {
         if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
             SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
-            busCell.getGraph().extendSwitchBetweenBus(switchNode);
+            busCell.getVoltageLevelGraph().extendSwitchBetweenBus(switchNode);
             List<Node> adj = switchNode.getAdjacentNodes();
             busCell.addNodes(adj);
             busCell.addNodes(adj.stream()

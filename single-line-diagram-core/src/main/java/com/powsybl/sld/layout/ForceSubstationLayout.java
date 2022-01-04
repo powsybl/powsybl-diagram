@@ -186,7 +186,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
 
         // increment not needed for 3WT for the common node
-        String vl1 = node1.getGraph().getVoltageLevelInfos().getId();
+        String vl1 = node1.getVoltageLevelGraph().getVoltageLevelInfos().getId();
         int nbSnakeLinesH1 = increment
             ? infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl1, dNode1)
             : infosNbSnakeLines.getNbSnakeLinesTopBottom(vl1, dNode1);
@@ -205,14 +205,14 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
                 polyline.add(new Point(x1, ySnakeLine));
             }
         } else {
-            String vl2 = node2.getGraph().getVoltageLevelInfos().getId();
+            String vl2 = node2.getVoltageLevelGraph().getVoltageLevelInfos().getId();
             int nbSnakeLinesH2 = infosNbSnakeLines.incrementAndGetNbSnakeLinesTopBottom(vl2, dNode2);
             double decal2V = Math.max(nbSnakeLinesH2 - 1, 0) * layoutParam.getVerticalSnakeLinePadding();
 
             double ySnakeLine1 = getYSnakeLine(node1, dNode1, decal1V, layoutParam);
             double ySnakeLine2 = getYSnakeLine(node2, dNode2, decal2V, layoutParam);
 
-            VoltageLevelGraph rightestVl = node1.getGraph().getX() > node2.getGraph().getX() ? node1.getGraph() : node2.getGraph();
+            VoltageLevelGraph rightestVl = node1.getVoltageLevelGraph().getX() > node2.getVoltageLevelGraph().getX() ? node1.getVoltageLevelGraph() : node2.getVoltageLevelGraph();
             int nbSnakeLinesV = infosNbSnakeLines.incrementAndGetNbSnakeLinesLeft(rightestVl.getId());
             double decalH = Math.max(nbSnakeLinesV - 1, 0) * layoutParam.getHorizontalSnakeLinePadding();
             double xSnakeLine = rightestVl.getX() - decalH;
@@ -230,7 +230,7 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
         } else {
             if (compactionType != ForceSubstationLayoutFactory.CompactionType.VERTICAL) {
                 List<String> vls = infosNbSnakeLines.getYSortedVls();
-                int iVl = vls.indexOf(node.getGraph().getId());
+                int iVl = vls.indexOf(node.getVoltageLevelGraph().getId());
                 if (iVl == 0) {
                     return node.getDiagramY() - vlPadding.getTop() - decalV;
                 } else {
@@ -256,8 +256,8 @@ public class ForceSubstationLayout extends AbstractSubstationLayout {
 
     private boolean adjacentGraphs(Node nodeA, Node nodeB) {
         List<String> ySortedVl = infosNbSnakeLines.getYSortedVls();
-        int i1 = ySortedVl.indexOf(nodeA.getGraph().getId());
-        int i2 = ySortedVl.indexOf(nodeB.getGraph().getId());
+        int i1 = ySortedVl.indexOf(nodeA.getVoltageLevelGraph().getId());
+        int i2 = ySortedVl.indexOf(nodeB.getVoltageLevelGraph().getId());
         return i2 - i1 == 1;
     }
 }

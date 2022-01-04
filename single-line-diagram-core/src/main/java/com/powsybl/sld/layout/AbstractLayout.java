@@ -100,7 +100,7 @@ public abstract class AbstractLayout implements Layout {
                 nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
             }
 
-            VoltageLevelGraph rightestVoltageLevel = node1.getGraph().getX() > node2.getGraph().getX() ? node1.getGraph() : node2.getGraph();
+            VoltageLevelGraph rightestVoltageLevel = node1.getVoltageLevelGraph().getX() > node2.getVoltageLevelGraph().getX() ? node1.getVoltageLevelGraph() : node2.getVoltageLevelGraph();
             double xMaxGraph = rightestVoltageLevel.getX();
             String idMaxGraph = rightestVoltageLevel.getId();
 
