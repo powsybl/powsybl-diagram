@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import java.util.Objects;
 
+import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
 import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
 
 /**
@@ -15,14 +16,16 @@ import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER
  */
 public class Middle2WTNode extends MiddleTwtNode {
 
-    public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelGraph graph) {
+    public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelGraph graph, String componentType) {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2)},
-            TWO_WINDINGS_TRANSFORMER, graph);
+            componentType, graph);
     }
 
-    public static Middle2WTNode create(String id, String name, BaseGraph graph, Feeder2WTLegNode legNode1, Feeder2WTLegNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2) {
-        Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, null);
+    public static Middle2WTNode create(String id, String name, BaseGraph graph, Feeder2WTLegNode legNode1, Feeder2WTLegNode legNode2,
+                                       VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
+        String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
+        Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, null, componentType);
         graph.addTwtEdge(legNode1, middleNode);
         graph.addTwtEdge(legNode2, middleNode);
         return middleNode;

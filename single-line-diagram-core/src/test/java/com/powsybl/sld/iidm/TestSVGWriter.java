@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.iidm;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -23,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.powsybl.sld.library.ComponentTypeName.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -541,7 +539,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addVoltageLevel(g1ForSubstation);
         substG.addVoltageLevel(g2ForSubstation);
         substG.addVoltageLevel(g3ForSubstation);
-        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(405., 590.);
         BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
@@ -622,7 +620,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         s1Graph.addVoltageLevel(vl12Graph);
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
-        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null);
+        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(90, 350);
         BranchEdge edge1 = s1Graph.addTwtEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(90., 300., 90., 320., 90., 350.));

@@ -222,7 +222,7 @@ public class RawGraphBuilder implements GraphBuilder {
             Feeder2WTLegNode feeder2WTNode2 = vl2.createFeeder2wtLegNode(id, TWO, order2, direction2);
             f2WTNodes.put(vl1, feeder2WtNode1);
             f2WTNodes.put(vl2, feeder2WTNode2);
-            substationGraph.addMultiTermNode(Middle2WTNode.create(id, id, substationGraph, feeder2WtNode1, feeder2WTNode2, vl1.voltageLevelInfos, vl2.voltageLevelInfos));
+            substationGraph.addMultiTermNode(Middle2WTNode.create(id, id, substationGraph, feeder2WtNode1, feeder2WTNode2, vl1.voltageLevelInfos, vl2.voltageLevelInfos, false));
             return f2WTNodes;
         }
 
