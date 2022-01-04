@@ -196,11 +196,11 @@ public abstract class AbstractBlock implements Block {
         }
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                return cell.getGraph().getLastBusY(layoutParam) + dyToBus;
+                return cell.getVoltageLevelGraph().getLastBusY(layoutParam) + dyToBus;
             case TOP:
-                return cell.getGraph().getFirstBusY(layoutParam) - dyToBus;
+                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) - dyToBus;
             case MIDDLE:
-                return cell.getGraph().getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }

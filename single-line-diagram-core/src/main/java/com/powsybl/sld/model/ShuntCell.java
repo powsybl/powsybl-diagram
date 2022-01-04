@@ -27,7 +27,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public static ShuntCell create(ExternCell cell1, ExternCell cell2, List<Node> nodes) {
-        ShuntCell shuntCell = new ShuntCell(cell1.getGraph());
+        ShuntCell shuntCell = new ShuntCell(cell1.getVoltageLevelGraph());
         if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
             shuntCell.cells.put(Side.LEFT, cell1);
             shuntCell.cells.put(Side.RIGHT, cell2);

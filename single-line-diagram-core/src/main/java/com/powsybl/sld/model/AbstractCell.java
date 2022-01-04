@@ -108,7 +108,7 @@ public abstract class AbstractCell implements Cell {
         return type + " " + nodes;
     }
 
-    public VoltageLevelGraph getGraph() {
+    public VoltageLevelGraph getVoltageLevelGraph() {
         return graph;
     }
 
