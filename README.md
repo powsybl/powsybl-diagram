@@ -4,7 +4,6 @@
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-single-line-diagram&metric=coverage)](https://sonarcloud.io/component_measures?id=com.powsybl%3Apowsybl-single-line-diagram&metric=coverage)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-single-line-diagram&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.powsybl%3Apowsybl-single-line-diagram)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/powsybl)
 [![Slack](https://img.shields.io/badge/slack-powsybl-blueviolet.svg?logo=slack)](https://join.slack.com/t/powsybl/shared_invite/zt-rzvbuzjk-nxi0boim1RKPS5PjieI0rA)
 
 PowSyBl (**Pow**er **Sy**stem **Bl**ocks) is an open source framework written in Java, that makes it easy to write complex
@@ -48,17 +47,17 @@ and additionally for this example three other ones: two for the `Network` test c
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-config-test</artifactId>
-    <version>4.4.0</version>
+    <version>4.7.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -77,35 +76,17 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>2.4.0</version>
+    <version>2.6.0</version>
 </dependency>
 ```
 
-We can generate a SVG for the voltage level `N`:
+We can now generate a SVG for the voltage level `N` with the following simple unique code line:
 ```java
-// "Convergence" style component library
-ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-
-// fully automatic layout
-VoltageLevelLayoutFactory voltageLevelLayoutFactory = new PositionVoltageLevelLayoutFactory(new PositionByClustering());
-
-// create diagram for the voltage level N
-VoltageLevelDiagram voltageLevelDiagram = VoltageLevelDiagram.build(new NetworkGraphBuilder(network), "N", voltageLevelLayoutFactory, false);
-
-// create default parameters for the SVG layout
-// then activating height compaction and inclusion of CSS styles in the SVG
-LayoutParameters layoutParameters = new LayoutParameters()
-    .setAdaptCellHeightToContent(true)
-    .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG);
-
-// generate SVG
-voltageLevelDiagram.writeSvg("",
-    new DefaultSVGWriter(componentLibrary, layoutParameters),
-    new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-    new NominalVoltageDiagramStyleProvider(network),
-    Paths.get("/tmp/n.svg"));
+SingleLineDiagram.draw(network, "N", "/tmp/n.svg");
 ```
 
-We obtain the following SVG:
+We obtain the SVG below.
 
 ![Diagram demo](.github/example_n.svg)
+
+Note that a JSON file named `n_metadata.json` is also generated in the same folder, containing all the metadata needed to interact with the diagram.
