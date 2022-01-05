@@ -53,11 +53,11 @@ public interface Cell {
 
     double calculateHeight(LayoutParameters layoutParam);
 
-    void writeJson(JsonGenerator generator) throws IOException;
+    void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     String getId();
 
     String getFullId();
 
-    VoltageLevelGraph getGraph();
+    VoltageLevelGraph getVoltageLevelGraph();
 }

@@ -88,9 +88,9 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
-        super.writeJsonContent(generator);
-        if (graph.isGenerateCoordsInJson()) {
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        super.writeJsonContent(generator, includeCoordinates);
+        if (includeCoordinates) {
             generator.writeStringField("direction", getDirection().name());
             if (order != null) {
                 generator.writeNumberField("order", order);

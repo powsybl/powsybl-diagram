@@ -233,13 +233,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
 
             if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
-                if (branch.getPhaseTapChanger() == null) {
+                if (!branch.hasPhaseTapChanger()) {
                     return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
                     return Feeder2WTNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 }
             } else {
-                return Feeder2WTLegNode.createForSubstationDiagram(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                if (!branch.hasPhaseTapChanger()) {
+                    return Feeder2WTLegNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                } else {
+                    return Feeder2WTLegNode.createWithPhaseShifter(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()));
+                }
             }
         }
 
@@ -645,8 +649,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
-            graph.addMultiTermNode(Middle2WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
-                (Feeder2WTLegNode) n1, (Feeder2WTLegNode) n2, voltageLevelInfos1, voltageLevelInfos2));
+            Middle2WTNode node = Middle2WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
+                    (Feeder2WTLegNode) n1, (Feeder2WTLegNode) n2, voltageLevelInfos1, voltageLevelInfos2,
+                    transfo.hasPhaseTapChanger());
+            graph.addMultiTermNode(node);
         });
     }
 

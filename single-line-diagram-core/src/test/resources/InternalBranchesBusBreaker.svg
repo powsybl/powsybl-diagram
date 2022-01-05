@@ -47,6 +47,7 @@
 .sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-pst-arrow {stroke: black; fill: none}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
@@ -123,7 +124,7 @@
             <g class="sld-bus-connection sld-vl300to500" id="idBUSCO_95_BR1" transform="translate(111.0,356.0)">
                 <circle cx="4" cy="4" r="2"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idBR1" transform="translate(80.0,310.0)">
+            <g class="sld-breaker sld-open sld-vl300to500" id="idBR1" transform="translate(80.0,310.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
@@ -539,14 +540,15 @@
             <polyline points="215.0,665.0,215.0,725.0,515.0,725.0,515.0,665.0"/>
         </g>
         <g class="sld-wire sld-vl300to500" id="idEDGE_95_T11_95_ONE">
-            <polyline points="265.0,80.0,265.0,20.0,407.0,20.0"/>
+            <polyline points="265.0,80.0,265.0,20.0,407.5,20.0"/>
         </g>
         <g class="sld-wire sld-vl300to500" id="idEDGE_95_T11_95_TWO">
-            <polyline points="565.0,80.0,565.0,20.0,423.0,20.0"/>
+            <polyline points="565.0,80.0,565.0,20.0,422.5,20.0"/>
         </g>
-        <g class="sld-two-wt" id="idT11" transform="translate(410.0,12.5)">
-            <circle class="sld-vl300to500 sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
-            <circle class="sld-vl300to500 sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
+        <g class="sld-pst" id="idT11" transform="translate(408.0,12.5)">
+            <path class="sld-vl300to500 sld-pst-arrow" d="M14,0 0,14 M11,0 14,0 14,3" transform="rotate(90.0,7.0,7.5)"/>
+            <circle class="sld-vl300to500 sld-winding" cx="7" cy="10" r="5" transform="rotate(90.0,7.0,7.5)"/>
+            <circle class="sld-vl300to500 sld-winding" cx="7" cy="5" r="5" transform="rotate(90.0,7.0,7.5)"/>
         </g>
     </g>
 </svg>

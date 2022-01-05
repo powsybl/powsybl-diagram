@@ -198,6 +198,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             case TWO_WINDINGS_TRANSFORMER:
             case PHASE_SHIFT_TRANSFORMER:
             case TWO_WINDINGS_TRANSFORMER_LEG:
+            case PHASE_SHIFT_TRANSFORMER_LEG:
                 FeederNode transformerNode = (FeederNode) node;
                 TwoWindingsTransformer transformer = vl.getConnectable(transformerNode.getEquipmentId(), TwoWindingsTransformer.class);
                 CouplingDeviceDiagramData<TwoWindingsTransformer> transformerDiagramData = null;

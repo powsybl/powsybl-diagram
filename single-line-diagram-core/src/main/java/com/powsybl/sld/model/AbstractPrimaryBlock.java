@@ -59,8 +59,8 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    public VoltageLevelGraph getGraph() {
-        return nodes.get(0).getGraph();
+    public VoltageLevelGraph getVoltageLevelGraph() {
+        return nodes.get(0).getVoltageLevelGraph();
     }
 
     @Override
@@ -98,7 +98,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeFieldName("nodes");
         generator.writeStartArray();
         for (int i = 1; i <= nodes.size(); ++i) {

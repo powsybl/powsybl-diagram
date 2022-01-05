@@ -25,9 +25,7 @@ public interface Graph {
 
     Stream<Node> getAllNodesStream();
 
-    void setGenerateCoordsInJson(boolean generateCoordsInJson);
-
-    boolean isGenerateCoordsInJson();
+    void setCoordinatesSerialized(boolean coordinatesSerialized);
 
     double getWidth();
 

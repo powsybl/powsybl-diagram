@@ -18,7 +18,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vlUnstack_l",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,

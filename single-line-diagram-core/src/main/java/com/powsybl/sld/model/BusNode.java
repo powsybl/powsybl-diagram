@@ -41,14 +41,14 @@ public class BusNode extends Node {
     }
 
     public static BusNode createFictitious(VoltageLevelGraph graph, String id) {
-        return new BusNode(id, id, true, graph);
+        return new BusNode(id, null, true, graph);
     }
 
     public void calculateCoord(LayoutParameters layoutParameters) {
         double elementaryWidth = layoutParameters.getCellWidth() / 2;
         double busPadding = layoutParameters.getBusPadding();
         setCoordinates(position.get(H) * elementaryWidth + busPadding,
-            getGraph().getFirstBusY(layoutParameters) + position.get(V) * layoutParameters.getVerticalSpaceBus());
+            getVoltageLevelGraph().getFirstBusY(layoutParameters) + position.get(V) * layoutParameters.getVerticalSpaceBus());
         setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
     }
 
@@ -98,8 +98,8 @@ public class BusNode extends Node {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
-        super.writeJsonContent(generator, isGenerateCoordsInJson);
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        super.writeJsonContent(generator, includeCoordinates);
         generator.writeNumberField("pxWidth", pxWidth);
         generator.writeNumberField("busbarIndex", busbarIndex);
         generator.writeNumberField("sectionIndex", sectionIndex);

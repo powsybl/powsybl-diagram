@@ -80,17 +80,17 @@ public abstract class AbstractCell implements Cell {
         return number;
     }
 
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStringField("type", type.name());
         generator.writeNumberField("number", number);
     }
 
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
-        writeJsonContent(generator);
+        writeJsonContent(generator, includeCoordinates);
         if (rootBlock != null) {
             generator.writeFieldName("rootBlock");
-            rootBlock.writeJson(generator);
+            rootBlock.writeJson(generator, includeCoordinates);
         }
         generator.writeEndObject();
     }
@@ -108,7 +108,7 @@ public abstract class AbstractCell implements Cell {
         return type + " " + nodes;
     }
 
-    public VoltageLevelGraph getGraph() {
+    public VoltageLevelGraph getVoltageLevelGraph() {
         return graph;
     }
 

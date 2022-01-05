@@ -1035,8 +1035,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
-        VoltageLevelGraph g1 = n1.getGraph();
-        VoltageLevelGraph g2 = n2.getGraph();
+        VoltageLevelGraph g1 = n1.getVoltageLevelGraph();
+        VoltageLevelGraph g2 = n2.getVoltageLevelGraph();
 
         int n = pol.size();
 

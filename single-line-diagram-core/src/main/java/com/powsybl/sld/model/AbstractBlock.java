@@ -182,7 +182,7 @@ public abstract class AbstractBlock implements Block {
     private double getRootBlockSpan(LayoutParameters layoutParam) {
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
     }
 
     private double getRootYCoord(double spanY, LayoutParameters layoutParam) {
@@ -196,11 +196,11 @@ public abstract class AbstractBlock implements Block {
         }
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                return cell.getGraph().getLastBusY(layoutParam) + dyToBus;
+                return cell.getVoltageLevelGraph().getLastBusY(layoutParam) + dyToBus;
             case TOP:
-                return cell.getGraph().getFirstBusY(layoutParam) - dyToBus;
+                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) - dyToBus;
             case MIDDLE:
-                return cell.getGraph().getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }
@@ -217,10 +217,10 @@ public abstract class AbstractBlock implements Block {
         return this.type;
     }
 
-    protected abstract void writeJsonContent(JsonGenerator generator) throws IOException;
+    protected abstract void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     @Override
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("type", type.name());
         generator.writeArrayFieldStart("cardinalities");
@@ -231,13 +231,13 @@ public abstract class AbstractBlock implements Block {
         }
         generator.writeEndArray();
         generator.writeFieldName("position");
-        position.writeJsonContent(generator, getGraph().isGenerateCoordsInJson());
+        position.writeJsonContent(generator, includeCoordinates);
 
-        if (getGraph().isGenerateCoordsInJson()) {
+        if (includeCoordinates) {
             generator.writeFieldName("coord");
             coord.writeJsonContent(generator);
         }
-        writeJsonContent(generator);
+        writeJsonContent(generator, includeCoordinates);
         generator.writeEndObject();
     }
 

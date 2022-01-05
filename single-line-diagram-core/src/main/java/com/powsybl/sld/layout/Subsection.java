@@ -82,7 +82,7 @@ public class Subsection {
 
     static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
-        Optional<VoltageLevelGraph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getGraph);
+        Optional<VoltageLevelGraph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getVoltageLevelGraph);
         if (!oVLGraph.isPresent()) {
             return subsections;
         }

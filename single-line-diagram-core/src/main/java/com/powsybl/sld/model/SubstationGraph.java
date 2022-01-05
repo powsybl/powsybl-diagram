@@ -101,11 +101,11 @@ public class SubstationGraph extends AbstractBaseGraph {
             // edges are added between its adjacent nodes
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
 
-            graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(1).getGraph());
+            graph.addEdge(adjacentNodes.get(0).getVoltageLevelGraph(), adjacentNodes.get(1).getVoltageLevelGraph());
 
             if (adjacentNodes.size() == 3) {
-                graph.addEdge(adjacentNodes.get(0).getGraph(), adjacentNodes.get(2).getGraph());
-                graph.addEdge(adjacentNodes.get(1).getGraph(), adjacentNodes.get(2).getGraph());
+                graph.addEdge(adjacentNodes.get(0).getVoltageLevelGraph(), adjacentNodes.get(2).getVoltageLevelGraph());
+                graph.addEdge(adjacentNodes.get(1).getVoltageLevelGraph(), adjacentNodes.get(2).getVoltageLevelGraph());
             }
         }
 
@@ -118,17 +118,16 @@ public class SubstationGraph extends AbstractBaseGraph {
     }
 
     @Override
-    public void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("substationId", substationId);
         generator.writeArrayFieldStart("voltageLevels");
         for (VoltageLevelGraph graph : voltageLevels) {
-            graph.setGenerateCoordsInJson(isGenerateCoordsInJson());
-            graph.writeJson(generator);
+            graph.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
 
-        writeBranchFields(generator);
+        writeBranchFields(generator, includeCoordinates);
 
         generator.writeEndObject();
     }
