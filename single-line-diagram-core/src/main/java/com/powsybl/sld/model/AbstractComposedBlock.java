@@ -107,11 +107,11 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator) throws IOException {
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeFieldName("subBlocks");
         generator.writeStartArray();
         for (Block subBlock : subBlocks) {
-            subBlock.writeJson(generator);
+            subBlock.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
     }

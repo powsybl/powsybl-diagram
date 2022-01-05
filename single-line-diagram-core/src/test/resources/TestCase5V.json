@@ -18,7 +18,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 3.1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -27,7 +26,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_Shunt 3.2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -36,7 +34,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_da",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -45,7 +42,6 @@
   }, {
     "type" : "SHUNT",
     "id" : "INTERNAL_vl_la",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -54,7 +50,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_lb",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,

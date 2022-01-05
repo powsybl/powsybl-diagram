@@ -207,8 +207,8 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public String toJson(Graph graph, String filename, boolean genCoords) {
-        graph.setGenerateCoordsInJson(genCoords);
+    public String toJson(Graph graph, String filename, boolean includeCoordinates) {
+        graph.setCoordinatesSerialized(includeCoordinates);
         return toJson(graph, filename);
     }
 

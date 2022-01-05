@@ -107,6 +107,6 @@ public interface Block {
 
     Type getType();
 
-    void writeJson(JsonGenerator generator) throws IOException;
+    void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
 }

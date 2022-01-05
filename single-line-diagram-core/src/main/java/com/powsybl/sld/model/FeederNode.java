@@ -54,14 +54,14 @@ public class FeederNode extends Node {
     }
 
     @Override
-    protected void writeJsonContent(JsonGenerator generator, boolean isGenerateCoordsInJson) throws IOException {
-        super.writeJsonContent(generator, isGenerateCoordsInJson);
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        super.writeJsonContent(generator, includeCoordinates);
         generator.writeStringField("feederType", feederType.name());
         Optional<Integer> order = getOrder();
         if (order.isPresent()) {
             generator.writeNumberField("order", order.get());
         }
-        if (isGenerateCoordsInJson) {
+        if (includeCoordinates) {
             generator.writeStringField("direction", getDirection().name());
         }
     }

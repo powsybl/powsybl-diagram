@@ -9,7 +9,6 @@
   "nodes" : [ {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_flatDisconector_0",
-    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 150.0,
@@ -18,7 +17,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_flatDisconector_1",
-    "equipmentId" : null,
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 200.0,
@@ -27,7 +25,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dCrossOverBk1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -37,7 +34,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dCrossOverBk2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -47,7 +43,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dF1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
@@ -56,7 +51,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dFlatBk1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
@@ -66,7 +60,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dFlatBk2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
@@ -76,7 +69,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dVerticalBk1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -86,7 +78,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dVerticalBk2",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -96,7 +87,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_flatDisconector_0",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
@@ -106,7 +96,6 @@
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_flatDisconector_1",
-    "equipmentId" : null,
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
