@@ -260,8 +260,8 @@ public class DefaultSVGWriter implements SVGWriter {
         BusNode busbarSectionNode = (BusNode) graph.getNode(id);
         List<AnchorPoint> anchors = new ArrayList<>();
         anchors.add(new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL));
-        IntStream.range(0, busbarSectionNode.getPosition().getSpan(H) / 2) // cells
-            .mapToDouble(i -> i * layoutParameters.getCellWidth() + layoutParameters.getBusPadding())   // middle point in cells relative to bus
+        IntStream.range(0, busbarSectionNode.getPosition().getSpan(H)) // cells
+            .mapToDouble(i -> i * layoutParameters.getCellWidth() / 2 + layoutParameters.getBusPadding())
             .mapToObj(x -> new AnchorPoint(x, 0, AnchorOrientation.VERTICAL))
             .forEach(anchors::add);
         anchors.add(new AnchorPoint(busbarSectionNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL));
