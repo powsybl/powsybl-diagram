@@ -941,21 +941,23 @@ public class DefaultSVGWriter implements SVGWriter {
 
             List<Point> pol = new ArrayList<>();
             if (!edge.isZeroLength()) {
-                Element g = root.getOwnerDocument().createElement(GROUP);
-                g.setAttribute("id", wireId);
-                List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
-                g.setAttribute(CLASS, String.join(" ", wireStyles));
-
-                root.appendChild(g);
-
-                Element polyline = root.getOwnerDocument().createElement(POLYLINE);
-                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
-
                 // Determine points of the polyline
+                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2());
                 pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires());
 
-                polyline.setAttribute(POINTS, pointsListToString(pol));
-                g.appendChild(polyline);
+                if (!pol.isEmpty()) {
+                    Element g = root.getOwnerDocument().createElement(GROUP);
+
+                    g.setAttribute("id", wireId);
+                    List<String> wireStyles = styleProvider.getSvgWireStyles(edge, layoutParameters.isHighlightLineState());
+                    g.setAttribute(CLASS, String.join(" ", wireStyles));
+
+                    Element polyline = root.getOwnerDocument().createElement(POLYLINE);
+                    polyline.setAttribute(POINTS, pointsListToString(pol));
+
+                    g.appendChild(polyline);
+                    root.appendChild(g);
+                }
             }
 
             metadata.addWireMetadata(new GraphMetadata.WireMetadata(wireId,
