@@ -90,7 +90,7 @@
             <polyline points="80.0,210.0,80.0,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
-            <polyline points="80.0,320.0,102.5,320.0"/>
+            <polyline points="80.0,320.0,77.5,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,512.0,120.0,430.0"/>
@@ -109,7 +109,7 @@
             <polyline points="120.0,410.0,120.0,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
-            <polyline points="120.0,320.0,102.5,320.0"/>
+            <polyline points="120.0,320.0,127.5,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2">
             <polyline points="400.0,100.0,400.0,160.0,433.0,160.0"/>

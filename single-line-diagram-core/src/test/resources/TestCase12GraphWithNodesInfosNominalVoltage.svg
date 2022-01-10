@@ -113,9 +113,6 @@
             <g class="sld-node sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_dsect12" transform="translate(836.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs1_95_dsect11">
-                <polyline points="740.0,252.0,760.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dsect11">
                 <polyline points="790.0,252.0,760.0,252.0"/>
             </g>
@@ -144,9 +141,6 @@
             </g>
             <g class="sld-node sld-hidden-node sld-vl300to500" id="idINTERNAL_95_vl1_95_dsect22" transform="translate(836.0,273.0)">
                 <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs3_95_dsect21">
-                <polyline points="740.0,277.0,760.0,277.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dsect21">
                 <polyline points="790.0,277.0,760.0,277.0"/>
@@ -182,9 +176,6 @@
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="load1_N_LABEL" x="-5.0" y="-5.0">load1</text>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs1_95_dload1">
-                <polyline points="80.0,252.0,80.0,252.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_dload1">
                 <polyline points="80.0,252.0,80.0,222.0"/>
@@ -229,9 +220,6 @@
                 <circle class="sld-vl180to300 sld-winding" cx="5" cy="5" r="5"/>
                 <text class="sld-label" id="trf1_ONE_N_LABEL" x="-5.0" y="-5.0">trf1</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs1_95_dtrf11">
-                <polyline points="160.0,252.0,160.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf11_95_INTERNAL_95_vl1_95_dtrf11">
                 <polyline points="160.0,252.0,160.0,222.0"/>
             </g>
@@ -275,9 +263,6 @@
                 <circle class="sld-vl50to70 sld-winding" cx="5" cy="5" r="5"/>
                 <text class="sld-label" id="trf5_ONE_N_LABEL" x="-5.0" y="-5.0">trf5</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs1_95_dtrf15">
-                <polyline points="400.0,252.0,400.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf15_95_INTERNAL_95_vl1_95_dtrf15">
                 <polyline points="400.0,252.0,400.0,222.0"/>
             </g>
@@ -318,9 +303,6 @@
             </g>
             <g class="sld-top-feeder sld-vl300to500" id="idtrf6_95_THREE" transform="translate(560.0,80.0)">
                 <text class="sld-label" id="trf6_THREE_N_LABEL" x="-5.0" y="-5.0">trf61</text>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs1_95_dtrf16">
-                <polyline points="480.0,252.0,520.0,252.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf16_95_INTERNAL_95_vl1_95_dtrf16">
                 <polyline points="520.0,252.0,520.0,222.0"/>
@@ -384,9 +366,6 @@
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="load2_N_LABEL" x="-5.0" y="-5.0">load2</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs2_95_dload2">
-                <polyline points="880.0,252.0,880.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_dload2">
                 <polyline points="880.0,252.0,880.0,222.0"/>
             </g>
@@ -430,9 +409,6 @@
                 <circle class="sld-vl180to300 sld-winding" cx="5" cy="5" r="5"/>
                 <text class="sld-label" id="trf2_ONE_N_LABEL" x="-5.0" y="-5.0">trf2</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs2_95_dtrf12">
-                <polyline points="1200.0,252.0,1200.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf12_95_INTERNAL_95_vl1_95_dtrf12">
                 <polyline points="1200.0,252.0,1200.0,222.0"/>
             </g>
@@ -473,9 +449,6 @@
             </g>
             <g class="sld-top-feeder sld-vl300to500" id="idtrf8_95_THREE" transform="translate(1040.0,80.0)">
                 <text class="sld-label" id="trf8_THREE_N_LABEL" x="-5.0" y="-5.0">trf81</text>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs2_95_dtrf18">
-                <polyline points="960.0,252.0,1000.0,252.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf18_95_INTERNAL_95_vl1_95_dtrf18">
                 <polyline points="1000.0,252.0,1000.0,222.0"/>
@@ -539,9 +512,6 @@
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
                 <text class="sld-label" id="gen1_S_LABEL" x="-5.0" y="17.0">gen1</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs3_95_dgen1">
-                <polyline points="240.0,277.0,240.0,277.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dgen1_95_INTERNAL_95_vl1_95_dgen1">
                 <polyline points="240.0,277.0,240.0,307.0"/>
             </g>
@@ -585,9 +555,6 @@
                 <circle class="sld-vl180to300 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <text class="sld-label" id="trf3_ONE_S_LABEL" x="-5.0" y="20.0">trf3</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs3_95_dtrf13">
-                <polyline points="320.0,277.0,320.0,277.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf13_95_INTERNAL_95_vl1_95_dtrf13">
                 <polyline points="320.0,277.0,320.0,307.0"/>
             </g>
@@ -628,9 +595,6 @@
             </g>
             <g class="sld-bottom-feeder sld-vl300to500" id="idtrf7_95_THREE" transform="translate(720.0,449.0)">
                 <text class="sld-label" id="trf7_THREE_S_LABEL" x="-5.0" y="5.0">trf71</text>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs3_95_dtrf17">
-                <polyline points="640.0,277.0,680.0,277.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf17_95_INTERNAL_95_vl1_95_dtrf17">
                 <polyline points="680.0,277.0,680.0,307.0"/>
@@ -694,9 +658,6 @@
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
                 <text class="sld-label" id="gen2_S_LABEL" x="-5.0" y="17.0">gen2</text>
             </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs4_95_dgen2">
-                <polyline points="1280.0,277.0,1280.0,277.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dgen2_95_INTERNAL_95_vl1_95_dgen2">
                 <polyline points="1280.0,277.0,1280.0,307.0"/>
             </g>
@@ -739,9 +700,6 @@
                 <circle class="sld-vl300to500 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-vl180to300 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <text class="sld-label" id="trf4_ONE_S_LABEL" x="-5.0" y="20.0">trf4</text>
-            </g>
-            <g class="sld-wire sld-vl300to500" id="_95_vl1_95_bbs4_95_dtrf14">
-                <polyline points="1120.0,277.0,1120.0,277.0"/>
             </g>
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_dtrf14">
                 <polyline points="1120.0,277.0,1120.0,307.0"/>

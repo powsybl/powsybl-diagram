@@ -101,9 +101,6 @@
             <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D20" transform="translate(61.0,436.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D10">
-                <polyline points="115.0,480.0,115.0,480.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D10_95_INTERNAL_95_VL1_95_D10">
                 <polyline points="115.0,480.0,115.0,440.0"/>
             </g>
@@ -115,9 +112,6 @@
             </g>
             <g class="sld-wire" id="_95_VL1_95_D20_95_INTERNAL_95_VL1_95_D20">
                 <polyline points="65.0,505.0,65.0,440.0"/>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_D20_95_BBS12">
-                <polyline points="65.0,505.0,65.0,505.0"/>
             </g>
             <g class="sld-disconnector sld-closed" id="idD10" transform="translate(111.0,476.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -144,9 +138,6 @@
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="L1_N_LABEL" x="-5.0" y="-5.0">L1</text>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D11">
-                <polyline points="165.0,480.0,165.0,480.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D11_95_INTERNAL_95_VL1_95_D11">
                 <polyline points="165.0,480.0,165.0,450.0"/>
@@ -192,9 +183,6 @@
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(5.0,56.0)"/>
                 </g>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D13">
-                <polyline points="215.0,480.0,215.0,480.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D13_95_INTERNAL_95_VL1_95_D13">
                 <polyline points="215.0,480.0,215.0,450.0"/>
             </g>
@@ -238,9 +226,6 @@
                 <g class="sld-flash">
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D15">
-                <polyline points="265.0,480.0,265.0,480.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D15_95_INTERNAL_95_VL1_95_D15">
                 <polyline points="265.0,480.0,265.0,450.0"/>
@@ -286,9 +271,6 @@
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(5.0,56.0)"/>
                 </g>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D17">
-                <polyline points="315.0,480.0,315.0,480.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D17_95_INTERNAL_95_VL1_95_D17">
                 <polyline points="315.0,480.0,315.0,450.0"/>
             </g>
@@ -332,9 +314,6 @@
                 <g class="sld-flash">
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS11_95_D19">
-                <polyline points="365.0,480.0,365.0,480.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D19_95_INTERNAL_95_VL1_95_D19">
                 <polyline points="365.0,480.0,365.0,450.0"/>
@@ -380,9 +359,6 @@
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
                 <text class="sld-label" id="G_N_LABEL" x="-5.0" y="-5.0">G</text>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS12_95_D21">
-                <polyline points="415.0,505.0,415.0,505.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D21_95_INTERNAL_95_VL1_95_D21">
                 <polyline points="415.0,505.0,415.0,450.0"/>
             </g>
@@ -426,9 +402,6 @@
                 <g class="sld-lock">
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(5.0,56.0)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS12_95_D23">
-                <polyline points="465.0,505.0,465.0,505.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D23_95_INTERNAL_95_VL1_95_D23">
                 <polyline points="465.0,505.0,465.0,450.0"/>
@@ -474,9 +447,6 @@
                     <path d="M 6,0.168 C 4.36,0.178 2.77,1.63 2.75,4.04 H 2.31 c -0.66,0 -1.19,0.53 -1.19,1.19 v 5.37 c 0,0.6 0.53,1.2 1.19,1.2 h 7.4 c 0.69,0 1.19,-0.6 1.19,-1.2 V 5.23 C 10.9,4.57 10.4,4.04 9.71,4.04 H 9.31 C 9.21,1.6 7.66,0.158 6,0.168 Z M 6,1.41 c 0.97,0 2.02,0.7 2.04,2.63 H 3.99 c 0,-1.89 1.05,-2.63 2.04,-2.63 z m 0,4.38 c 0.58,0 1.04,0.46 1.04,1.02 0,0.41 -0.25,0.72 -0.58,0.88 L 6.91,9.68 H 5 L 5.49,7.69 C 5.17,7.5 5,7.18 5,6.81 5,6.25 5.45,5.79 6,5.79 Z" transform="translate(5.0,56.0)"/>
                 </g>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS12_95_D25">
-                <polyline points="515.0,505.0,515.0,505.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D25_95_INTERNAL_95_VL1_95_D25">
                 <polyline points="515.0,505.0,515.0,450.0"/>
             </g>
@@ -521,9 +491,6 @@
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS12_95_D27">
-                <polyline points="565.0,505.0,565.0,505.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL1_95_D27_95_INTERNAL_95_VL1_95_D27">
                 <polyline points="565.0,505.0,565.0,450.0"/>
             </g>
@@ -567,9 +534,6 @@
                 <g class="sld-flash">
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL1_95_BBS12_95_D29">
-                <polyline points="615.0,505.0,615.0,505.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D29_95_INTERNAL_95_VL1_95_D29">
                 <polyline points="615.0,505.0,615.0,450.0"/>
@@ -635,9 +599,6 @@
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="L2_N_LABEL" x="-5.0" y="-5.0">L2</text>
             </g>
-            <g class="sld-wire" id="_95_VL2_95_BBS2_95_D31">
-                <polyline points="705.0,480.0,705.0,480.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL2_95_D31_95_INTERNAL_95_VL2_95_D31">
                 <polyline points="705.0,480.0,705.0,450.0"/>
             </g>
@@ -681,9 +642,6 @@
                 <g class="sld-flash">
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL2_95_BBS2_95_D33">
-                <polyline points="755.0,480.0,755.0,480.0"/>
             </g>
             <g class="sld-wire" id="_95_VL2_95_D33_95_INTERNAL_95_VL2_95_D33">
                 <polyline points="755.0,480.0,755.0,450.0"/>
@@ -729,9 +687,6 @@
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
             </g>
-            <g class="sld-wire" id="_95_VL2_95_BBS2_95_D35">
-                <polyline points="805.0,480.0,805.0,480.0"/>
-            </g>
             <g class="sld-wire" id="_95_VL2_95_D35_95_INTERNAL_95_VL2_95_D35">
                 <polyline points="805.0,480.0,805.0,450.0"/>
             </g>
@@ -775,9 +730,6 @@
                 <g class="sld-flash">
                     <path d="M 5.5,14.5 8.5,6.36 4.32,5.83 4.2,0.3 1.3,8.47 5.4,8.99 Z" transform="translate(5.0,54.5)"/>
                 </g>
-            </g>
-            <g class="sld-wire" id="_95_VL2_95_BBS2_95_D37">
-                <polyline points="855.0,480.0,855.0,480.0"/>
             </g>
             <g class="sld-wire" id="_95_VL2_95_D37_95_INTERNAL_95_VL2_95_D37">
                 <polyline points="855.0,480.0,855.0,450.0"/>
