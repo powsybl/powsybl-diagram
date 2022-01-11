@@ -29,11 +29,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
@@ -918,7 +916,7 @@ public class DefaultSVGWriter implements SVGWriter {
             List<Point> pol = new ArrayList<>();
             if (!edge.isZeroLength()) {
                 // Determine points of the polyline
-                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(componentLibrary, edge.getNode1(), edge.getNode2());
+                WireConnection anchorPoints = WireConnection.searchBestAnchorPoints(componentLibrary, edge.getNode1(), edge.getNode2());
                 pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires());
 
                 if (!pol.isEmpty()) {
@@ -1007,35 +1005,26 @@ public class DefaultSVGWriter implements SVGWriter {
      * if a node is outside any graph
      */
     private void adaptCoordSnakeLine(BranchEdge edge, List<Point> pol) {
-        Node n1 = edge.getNode1();
+        // Note that edge.getNode2() might be outside the voltageLevelGraph (multiTermNode between voltage levels),
+        // whereas edge.getNode1() is supposed to always be a FeederNode in a voltageLevelGraph
         Node n2 = edge.getNode2();
-
-        VoltageLevelGraph g1 = n1.getVoltageLevelGraph();
-        VoltageLevelGraph g2 = n2.getVoltageLevelGraph();
-
-        int n = pol.size();
+        if (n2.getVoltageLevelGraph() != null) {
+            // Snakeline between two feeder nodes, no need to adapt
+            return;
+        }
 
         // Getting the right polyline point from where we need to compute the best anchor point
-        Point point;
-        Point prevPoint;
-        if (g2 == null) {
-            point = pol.get(Math.max(n - 2, 0));
-            prevPoint = pol.get(n - 1);
-        } else {
-            point = pol.get(1);
-            prevPoint = pol.get(0);
-        }
+        Point multiTermPoint = pol.get(pol.size() - 1);
+        Point pointBeforeNode = pol.get(Math.max(pol.size() - 2, 0));;
 
-        WireConnection wireC = WireConnection.searchBetterAnchorPoints(componentLibrary, g1 == null ? n1 : n2, point);
+        AnchorPoint bestAnchorPoint = WireConnection.getBestAnchorPoint(componentLibrary, n2, pointBeforeNode);
 
-        // Replacing the right points coordinates in the original polyline
-        double xOld = prevPoint.getX();
-        prevPoint.shift(wireC.getAnchorPoint1());
-        if (xOld == point.getX()) {
-            point.setX(prevPoint.getX());
-        } else {
-            point.setY(prevPoint.getY());
+        if (multiTermPoint.getX() == pointBeforeNode.getX()) {
+            pointBeforeNode.shiftX(bestAnchorPoint.getX()); // vertical line remains vertical
+        } else if (multiTermPoint.getY() == pointBeforeNode.getY()) {
+            pointBeforeNode.shiftY(bestAnchorPoint.getY()); // horizontal line remains horizontal
         }
+        multiTermPoint.shift(bestAnchorPoint);
     }
 
     protected String pointsListToString(List<Point> polyline) {
