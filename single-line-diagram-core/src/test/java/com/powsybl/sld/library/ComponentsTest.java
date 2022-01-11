@@ -29,7 +29,6 @@ public class ComponentsTest {
                 "{",
                 "\"components\" : [ {",
                     "\"type\" : \"BREAKER\",",
-                    "\"id\" : null,",
                     "\"anchorPoints\" : [ {",
                         "\"x\" : 9.0,",
                         "\"y\" : 0.0,",

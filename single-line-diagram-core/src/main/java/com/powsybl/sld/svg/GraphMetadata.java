@@ -279,8 +279,6 @@ public class GraphMetadata {
 
     private final Map<String, Component> componentByType = new HashMap<>();
 
-    private final Map<String, Component> componentById = new HashMap<>();
-
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
 
     private final Map<String, WireMetadata> wireMetadataMap = new HashMap<>();
@@ -377,9 +375,6 @@ public class GraphMetadata {
     public void addComponent(Component component) {
         Objects.requireNonNull(component);
         componentByType.put(component.getType(), component);
-        if (component.getId() != null) {
-            componentById.put(component.getId(), component);
-        }
     }
 
     public Component getComponentMetadata(String componentType) {
