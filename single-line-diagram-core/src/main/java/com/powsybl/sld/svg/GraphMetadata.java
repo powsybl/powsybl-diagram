@@ -28,7 +28,7 @@ import java.util.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class GraphMetadata implements AnchorPointProvider {
+public class GraphMetadata {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
@@ -386,15 +386,8 @@ public class GraphMetadata implements AnchorPointProvider {
         return componentType != null ? componentByType.get(componentType) : null;
     }
 
-    @Override
-    public List<AnchorPoint> getAnchorPoints(String type, String id) {
-        Component component = null;
-        if (id != null) {
-            component = componentById.get(id);
-        }
-        if (component == null) {
-            component = getComponentMetadata(type);
-        }
+    public List<AnchorPoint> getAnchorPoints(String type) {
+        Component component = getComponentMetadata(type);
         return component != null ? component.getAnchorPoints()
                                          : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }

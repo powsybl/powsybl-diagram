@@ -110,9 +110,9 @@ public class GraphMetadataTest {
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
         assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
 
-        assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
-        assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);
-        assertEquals(4, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getY(), 0);
+        assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER).get(0).getOrientation());
+        assertEquals(5, metadata2.getAnchorPoints(BREAKER).get(0).getX(), 0);
+        assertEquals(4, metadata2.getAnchorPoints(BREAKER).get(0).getY(), 0);
 
         Path meta = tmpDir.resolve("meta.json");
         metadata.writeJson(meta);
