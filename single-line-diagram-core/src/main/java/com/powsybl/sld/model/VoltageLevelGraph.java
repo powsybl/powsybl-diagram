@@ -307,8 +307,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
      * Some special cases:
-     *  - feeders connected directly to a bus need 3 additional nodes (1 fictitious disconnector, 2 internal nodes) to obey the Leg/Body/Feeder structure
-     *  - feeders connected to a bus through a disconnector need 2 additional internal nodes to obey the Leg/Body/Feeder structure
+     *  - feeders connected directly to a bus need 3 additional nodes (1 BusConnection, 2 InternalNode) to obey the Leg/Body/Feeder structure
+     *  - feeders connected to a bus through a disconnector need 2 additional InternalNode to obey the Leg/Body/Feeder structure
      *  - 3WT do not need any fictitious node inserted here as they already have the fictitious Middle3WTNode
      */
     public void insertFictitiousNodesAtFeeders() {
@@ -318,7 +318,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             List<Node> adjacentNodes = feederNode.getAdjacentNodes();
             if (isConnectedToBus(feederNode)) {
                 // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
-                //  - 1 fictitious disconnector on the bus
+                //  - 1 bus connection
                 //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
                 addTripleNode(feederNode, nodesToAdd);
             } else if (isConnectedToBusDisconnector(feederNode)) {
