@@ -115,7 +115,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    public abstract void toSVG(Graph g, String filename);
+    public abstract String toSVG(Graph g, String filename);
 
     /**
      * Between Java 9 and 14 an extra new lines is added before and after CDATA element. To support both Java 11 and 17

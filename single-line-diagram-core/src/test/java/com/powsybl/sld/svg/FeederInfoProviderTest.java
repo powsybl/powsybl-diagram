@@ -102,7 +102,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         layoutParameters.setFeederArrowSymmetry(true);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
-        toSVG(g, "test.svg");
+        assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg"));
 
         Network network2 = Network.create("testCase2", "test2");
         DefaultDiagramLabelProvider wrongLabelProvider = new DefaultDiagramLabelProvider(network2, componentLibrary, layoutParameters);

@@ -37,8 +37,8 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     protected GraphBuilder graphBuilder;
 
     @Override
-    public void toSVG(Graph g, String filename) {
-        toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
+    public String toSVG(Graph g, String filename) {
+        return toSVG(g, filename, getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider());
     }
 
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
