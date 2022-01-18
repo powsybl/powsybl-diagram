@@ -88,13 +88,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-vsc sld-top-feeder" id="idvsc" transform="translate(157.0,76.0)">
-                <text id="idvsc_text64" transform="matrix(0.71088144,0.00488841,-0.01073887,1.4066305,0,0)" x="-5.2795143" y="6.6008096">
-
-                    <tspan id="tspan1256" x="-5.2795143" y="6.6008096">AC / DC </tspan>
-
-                    <tspan id="tspan1258" x="-5.2795143" y="15.890142"/>
-
-                </text>
+                <text x="-5.3" y="6.6">AC / DC</text>
                 <text class="sld-label" id="vsc_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
             <g class="sld-wire" id="_95_vl_95_bbs_95_d">
