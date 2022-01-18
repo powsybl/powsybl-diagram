@@ -409,10 +409,12 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
                     BUSBAR_SECTION, busNode.getRotationAngle(),
                     false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
-            metadata.addComponent(new Component(BUSBAR_SECTION,
-                    null, null,
-                componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                true, null));
+            if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
+                metadata.addComponent(new Component(BUSBAR_SECTION,
+                        null, null,
+                        componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
+                        true, null));
+            }
 
             remainingNodesToDraw.remove(busNode);
         }
