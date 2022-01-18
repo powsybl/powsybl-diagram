@@ -320,7 +320,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
                 //  - 1 fictitious disconnector on the bus
                 //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
+                addTripleNode(feederNode, nodesToAdd);
             } else if (isConnectedToBusDisconnector(feederNode)) {
                 // Feeders linked directly to a bus disconnector need 2 internal nodes to be properly displayed, in order
                 // to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
@@ -343,8 +343,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private boolean isConnectedToBus(Node node) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        return adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
+        return node.getAdjacentNodes().stream().anyMatch(BusNode.class::isInstance);
     }
 
     private boolean isConnectedToBusDisconnector(Node node) {
@@ -360,9 +359,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
     }
 
-    private void addTripleNode(Node busNode, Node feederNode, List<Node> nodesToAdd) {
-        removeEdge(busNode, feederNode);
-
+    private void addTripleNode(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
         BusConnection fNodeToBus = new BusConnection(feederNode.getId(), VoltageLevelGraph.this);
         InternalNode fNodeToSw1 = new InternalNode(feederNode.getId() + "_1", VoltageLevelGraph.this);
@@ -374,7 +371,14 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodesToAdd.add(fNodeToSw2);
 
         // Add edges right away
-        addEdge(busNode, fNodeToBus);
+        for (Node adjacentNode : feederNode.getAdjacentNodes()) {
+            if (adjacentNode instanceof BusNode) {
+                addEdge(adjacentNode, fNodeToBus);
+            } else {
+                addEdge(adjacentNode, fNodeToSw1);
+            }
+            removeEdge(adjacentNode, feederNode);
+        }
         addEdge(fNodeToBus, fNodeToSw1);
         addEdge(fNodeToSw1, fNodeToSw2);
         addEdge(fNodeToSw2, feederNode);
