@@ -1017,7 +1017,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Getting the right polyline point from where we need to compute the best anchor point
         Point multiTermPoint = pol.get(pol.size() - 1);
-        Point pointBeforeNode = pol.get(Math.max(pol.size() - 2, 0));;
+        Point pointBeforeNode = pol.get(Math.max(pol.size() - 2, 0));
 
         AnchorPoint bestAnchorPoint = WireConnection.getBestAnchorPoint(componentLibrary, n2, pointBeforeNode);
 

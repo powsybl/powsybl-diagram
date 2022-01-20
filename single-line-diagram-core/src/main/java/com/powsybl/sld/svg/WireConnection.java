@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class WireConnection {
+public final class WireConnection {
 
     private final AnchorPoint anchorPoint1;
 
@@ -51,10 +51,12 @@ public class WireConnection {
 
     private static List<AnchorPoint> getBusNodeAnchorPoint(BusNode busNode, Node otherNode) {
         Cell cell = otherNode.getCell();
-        if (!(cell instanceof AbstractBusCell) // should not happen: otherNode linked to busNode should always be an AbstractBusCell
-                || ((AbstractBusCell) cell).getDirection() == BusCell.Direction.UNDEFINED) { // should not happen
-            return Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
-        } else if (((AbstractBusCell) cell).getDirection() == BusCell.Direction.MIDDLE) {
+        BusCell.Direction direction = cell instanceof BusCell ? ((BusCell) cell).getDirection() : BusCell.Direction.UNDEFINED;
+        boolean undefinedMiddleDirection = direction == BusCell.Direction.UNDEFINED
+                && otherNode.getDiagramCoordinates().getY() == busNode.getDiagramCoordinates().getY()
+                && (otherNode.getDiagramCoordinates().getX() < busNode.getDiagramCoordinates().getX()
+                || otherNode.getDiagramCoordinates().getX() > busNode.getDiagramCoordinates().getX() + busNode.getPxWidth());
+        if (direction == BusCell.Direction.MIDDLE || undefinedMiddleDirection) {
             return Arrays.asList(
                     new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
                     new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)

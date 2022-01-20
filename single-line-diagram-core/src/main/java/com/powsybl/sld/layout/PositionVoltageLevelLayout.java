@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
