@@ -3249,6 +3249,6 @@
     "cssLocation" : "EXTERNAL_IMPORTED",
     "svgWidthAndHeightAdded" : false,
     "useName" : false,
-    "feederInfosIntraMargin" : 20.0
+    "feederInfosIntraMargin" : 10.0
   }
 }

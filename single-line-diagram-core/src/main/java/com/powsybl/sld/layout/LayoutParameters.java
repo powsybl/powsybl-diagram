@@ -76,7 +76,7 @@ public class LayoutParameters {
 
     private boolean useName = false;
 
-    private double feederInfosIntraMargin = 20;
+    private double feederInfosIntraMargin = 10;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;

@@ -3052,6 +3052,6 @@
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : true,
     "useName" : true,
-    "feederInfosIntraMargin" : 20.0
+    "feederInfosIntraMargin" : 10.0
   }
 }

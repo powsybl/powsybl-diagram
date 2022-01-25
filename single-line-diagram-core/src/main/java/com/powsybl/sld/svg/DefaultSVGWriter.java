@@ -851,15 +851,15 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        int iFeederInfo = 0;
+        double shiftFeederInfo2 = 0;
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
-            // Compute shifting even if not displayed to ensure aligned feeder info
-            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
-            double shiftFeederInfo = iFeederInfo++ * 2 * height;
             if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
+                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo2, metadata);
                 addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
+            // Compute shifting even if not displayed to ensure aligned feeder info
+            double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
+            shiftFeederInfo2 += layoutParameters.getFeederInfosIntraMargin() + height;
         }
     }
 

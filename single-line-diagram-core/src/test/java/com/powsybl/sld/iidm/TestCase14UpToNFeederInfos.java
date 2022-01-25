@@ -70,7 +70,7 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
                         new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
                         new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null),
                         new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "30", null),
-                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "40", null),
+                        new FeederInfo(ARROW_ACTIVE, null, null, "40", null), // Not displayed
                         new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "50", null));
                 boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
@@ -91,7 +91,8 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
 
-        layoutParameters.setSpaceForFeederInfos(120);
+        layoutParameters.setSpaceForFeederInfos(100)
+                .setFeederInfosIntraMargin(5);
 
         // Run layout
         voltageLevelGraphLayout(g);
