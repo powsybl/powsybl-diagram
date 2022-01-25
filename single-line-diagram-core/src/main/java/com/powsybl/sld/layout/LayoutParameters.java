@@ -45,8 +45,8 @@ public class LayoutParameters {
 
     private double horizontalSnakeLinePadding = 20;
     private double verticalSnakeLinePadding = 25;
-    private double arrowDistance = 20;
-    private double minSpaceForFeederArrows = 50;
+    private double feederInfosOuterMargin = 20;
+    private double spaceForFeederInfos = 50;
 
     private boolean avoidSVGComponentsDuplication = false;
 
@@ -64,7 +64,7 @@ public class LayoutParameters {
 
     private boolean addNodesInfos = false;
 
-    private boolean feederArrowSymmetry = false;
+    private boolean feederInfoSymmetry = false;
 
     private CssLocation cssLocation = CssLocation.INSERTED_IN_SVG;
 
@@ -75,6 +75,8 @@ public class LayoutParameters {
     private boolean svgWidthAndHeightAdded = false;
 
     private boolean useName = false;
+
+    private double feederInfosIntraMargin = 20;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -99,8 +101,8 @@ public class LayoutParameters {
                             @JsonProperty("drawStraightWires") boolean drawStraightWires,
                             @JsonProperty("horizontalSnakeLinePadding") double horizontalSnakeLinePadding,
                             @JsonProperty("verticalSnakeLinePadding") double verticalSnakeLinePadding,
-                            @JsonProperty("arrowDistance") double arrowDistance,
-                            @JsonProperty("minSpaceForFeederArrows") double minSpaceForFeederArrows,
+                            @JsonProperty("feederInfosOuterMargin") double feederInfosOuterMargin,
+                            @JsonProperty("spaceForFeederInfos") double spaceForFeederInfos,
                             @JsonProperty("diagramName") String diagramName,
                             @JsonProperty("avoidSVGComponentsDuplication") boolean avoidSVGComponentsDuplication,
                             @JsonProperty("adaptCellHeightToContent") boolean adaptCellHeightToContent,
@@ -112,10 +114,11 @@ public class LayoutParameters {
                             @JsonProperty("angleLabelShift") double angleLabelShift,
                             @JsonProperty("highlightLineState") boolean highlightLineState,
                             @JsonProperty("addNodesInfos") boolean addNodesInfos,
-                            @JsonProperty("feederArrowSymmetry") boolean feederArrowSymmetry,
+                            @JsonProperty("feederInfoSymmetry") boolean feederInfoSymmetry,
                             @JsonProperty("cssLocation") CssLocation cssLocation,
                             @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded,
-                            @JsonProperty("useName") boolean useName) {
+                            @JsonProperty("useName") boolean useName,
+                            @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -131,8 +134,8 @@ public class LayoutParameters {
         this.drawStraightWires = drawStraightWires;
         this.horizontalSnakeLinePadding = horizontalSnakeLinePadding;
         this.verticalSnakeLinePadding = verticalSnakeLinePadding;
-        this.arrowDistance = arrowDistance;
-        this.minSpaceForFeederArrows = minSpaceForFeederArrows;
+        this.feederInfosOuterMargin = feederInfosOuterMargin;
+        this.spaceForFeederInfos = spaceForFeederInfos;
         this.diagramName = diagramName;
         this.avoidSVGComponentsDuplication = avoidSVGComponentsDuplication;
         this.adaptCellHeightToContent = adaptCellHeightToContent;
@@ -144,10 +147,11 @@ public class LayoutParameters {
         this.angleLabelShift = angleLabelShift;
         this.highlightLineState = highlightLineState;
         this.addNodesInfos = addNodesInfos;
-        this.feederArrowSymmetry = feederArrowSymmetry;
+        this.feederInfoSymmetry = feederInfoSymmetry;
         this.cssLocation = cssLocation;
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
         this.useName = useName;
+        this.feederInfosIntraMargin = feederInfosIntraMargin;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -167,8 +171,8 @@ public class LayoutParameters {
         drawStraightWires = other.drawStraightWires;
         horizontalSnakeLinePadding = other.horizontalSnakeLinePadding;
         verticalSnakeLinePadding = other.verticalSnakeLinePadding;
-        arrowDistance = other.arrowDistance;
-        minSpaceForFeederArrows = other.minSpaceForFeederArrows;
+        feederInfosOuterMargin = other.feederInfosOuterMargin;
+        spaceForFeederInfos = other.spaceForFeederInfos;
         diagramName = other.diagramName;
         avoidSVGComponentsDuplication = other.avoidSVGComponentsDuplication;
         adaptCellHeightToContent = other.adaptCellHeightToContent;
@@ -181,10 +185,11 @@ public class LayoutParameters {
         labelCentered = other.labelCentered;
         highlightLineState = other.highlightLineState;
         addNodesInfos = other.addNodesInfos;
-        feederArrowSymmetry = other.feederArrowSymmetry;
+        feederInfoSymmetry = other.feederInfoSymmetry;
         cssLocation = other.cssLocation;
         svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
         useName = other.useName;
+        feederInfosIntraMargin = other.feederInfosIntraMargin;
     }
 
     public double getVerticalSpaceBus() {
@@ -304,12 +309,12 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getArrowDistance() {
-        return arrowDistance;
+    public double getFeederInfosOuterMargin() {
+        return feederInfosOuterMargin;
     }
 
-    public LayoutParameters setArrowDistance(double arrowDistance) {
-        this.arrowDistance = arrowDistance;
+    public LayoutParameters setFeederInfosOuterMargin(double feederInfosOuterMargin) {
+        this.feederInfosOuterMargin = feederInfosOuterMargin;
         return this;
     }
 
@@ -420,21 +425,21 @@ public class LayoutParameters {
         return this;
     }
 
-    public double getMinSpaceForFeederArrows() {
-        return minSpaceForFeederArrows;
+    public double getSpaceForFeederInfos() {
+        return spaceForFeederInfos;
     }
 
-    public LayoutParameters setMinSpaceForFeederArrows(double minSpaceForFeederArrows) {
-        this.minSpaceForFeederArrows = minSpaceForFeederArrows;
+    public LayoutParameters setSpaceForFeederInfos(double spaceForFeederInfos) {
+        this.spaceForFeederInfos = spaceForFeederInfos;
         return this;
     }
 
-    public boolean isFeederArrowSymmetry() {
-        return feederArrowSymmetry;
+    public boolean isFeederInfoSymmetry() {
+        return feederInfoSymmetry;
     }
 
-    public LayoutParameters setFeederArrowSymmetry(boolean feederArrowSymmetry) {
-        this.feederArrowSymmetry = feederArrowSymmetry;
+    public LayoutParameters setFeederInfoSymmetry(boolean feederInfoSymmetry) {
+        this.feederInfoSymmetry = feederInfoSymmetry;
         return this;
     }
 
@@ -485,6 +490,15 @@ public class LayoutParameters {
 
     public LayoutParameters setUseName(boolean useName) {
         this.useName = useName;
+        return this;
+    }
+
+    public double getFeederInfosIntraMargin() {
+        return feederInfosIntraMargin;
+    }
+
+    public LayoutParameters setFeederInfosIntraMargin(double feederInfosIntraMargin) {
+        this.feederInfosIntraMargin = feederInfosIntraMargin;
         return this;
     }
 

@@ -788,8 +788,8 @@ public class DefaultSVGWriter implements SVGWriter {
             // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 feeder infos,
             // we compute the distance between feeder anchor and first feeder info so that the two feeder infos are centered.
             double distFeederAnchorToFirstFeederInfoCenter =
-                distancePoints >= 2 * layoutParameters.getArrowDistance() + 2 * componentSize.getHeight()
-                    ? layoutParameters.getArrowDistance()
+                distancePoints >= 2 * layoutParameters.getFeederInfosOuterMargin() + 2 * componentSize.getHeight()
+                    ? layoutParameters.getFeederInfosOuterMargin()
                     : (distancePoints - 2 * componentSize.getHeight()) / 2;
             double x = pointA.getX() + cosAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);
             double y = pointA.getY() + sinAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);

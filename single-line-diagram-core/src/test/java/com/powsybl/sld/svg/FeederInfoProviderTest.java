@@ -33,7 +33,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        layoutParameters.setFeederArrowSymmetry(true);
+        layoutParameters.setFeederInfoSymmetry(true);
         network = Network.create("testCase1", "test");
         graphBuilder = new NetworkGraphBuilder(network);
         substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
@@ -99,7 +99,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     @Test
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
-        layoutParameters.setFeederArrowSymmetry(true);
+        layoutParameters.setFeederInfoSymmetry(true);
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
         toSVG(g, "test.svg");
@@ -155,7 +155,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertTrue(feederInfos4.get(1).getDirection().isPresent());
 
         // Reverse order
-        layoutParameters.setFeederArrowSymmetry(false);
+        layoutParameters.setFeederInfoSymmetry(false);
         List<FeederInfo> feederInfos5 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(ARROW_REACTIVE, feederInfos5.get(0).getComponentType());
         assertEquals(ARROW_ACTIVE, feederInfos5.get(1).getComponentType());

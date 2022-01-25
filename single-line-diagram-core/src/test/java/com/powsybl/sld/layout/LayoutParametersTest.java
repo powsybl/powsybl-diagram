@@ -34,7 +34,7 @@ public class LayoutParametersTest {
                 .setDrawStraightWires(true)
                 .setHorizontalSnakeLinePadding(25)
                 .setVerticalSnakeLinePadding(40)
-                .setArrowDistance(25)
+                .setFeederInfosOuterMargin(25)
                 .setDiagramName("diag")
                 .setAvoidSVGComponentsDuplication(true)
                 .setAdaptCellHeightToContent(true)
@@ -47,10 +47,13 @@ public class LayoutParametersTest {
                 .setHighlightLineState(false)
                 .setTooltipEnabled(true)
                 .setAddNodesInfos(true)
-                .setMinSpaceForFeederArrows(70)
-                .setFeederArrowSymmetry(true)
+                .setSpaceForFeederInfos(70)
+                .setFeederInfoSymmetry(true)
                 .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT)
-                .setSvgWidthAndHeightAdded(true);
+                .setSvgWidthAndHeightAdded(true)
+                .setUseName(true)
+                .setFeederInfosIntraMargin(21);
+
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
         assertEquals(layoutParameters.getVoltageLevelPadding().getLeft(), layoutParameters2.getVoltageLevelPadding().getLeft(), 0);
@@ -73,7 +76,7 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isDrawStraightWires(), layoutParameters2.isDrawStraightWires());
         assertEquals(layoutParameters.getHorizontalSnakeLinePadding(), layoutParameters2.getHorizontalSnakeLinePadding(), 0);
         assertEquals(layoutParameters.getVerticalSnakeLinePadding(), layoutParameters2.getVerticalSnakeLinePadding(), 0);
-        assertEquals(layoutParameters.getArrowDistance(), layoutParameters2.getArrowDistance(), 0);
+        assertEquals(layoutParameters.getFeederInfosOuterMargin(), layoutParameters2.getFeederInfosOuterMargin(), 0);
         assertEquals(layoutParameters.getDiagramName(), layoutParameters2.getDiagramName());
         assertEquals(layoutParameters.isAvoidSVGComponentsDuplication(), layoutParameters2.isAvoidSVGComponentsDuplication());
         assertEquals(layoutParameters.isAdaptCellHeightToContent(), layoutParameters2.isAdaptCellHeightToContent());
@@ -86,9 +89,11 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isHighlightLineState(), layoutParameters2.isHighlightLineState());
         assertEquals(layoutParameters.isTooltipEnabled(), layoutParameters2.isTooltipEnabled());
         assertEquals(layoutParameters.isAddNodesInfos(), layoutParameters2.isAddNodesInfos());
-        assertEquals(layoutParameters.getMinSpaceForFeederArrows(), layoutParameters2.getMinSpaceForFeederArrows(), 0);
-        assertEquals(layoutParameters.isFeederArrowSymmetry(), layoutParameters2.isFeederArrowSymmetry());
+        assertEquals(layoutParameters.getSpaceForFeederInfos(), layoutParameters2.getSpaceForFeederInfos(), 0);
+        assertEquals(layoutParameters.isFeederInfoSymmetry(), layoutParameters2.isFeederInfoSymmetry());
         assertEquals(layoutParameters.getCssLocation(), layoutParameters2.getCssLocation());
         assertEquals(layoutParameters.isSvgWidthAndHeightAdded(), layoutParameters2.isSvgWidthAndHeightAdded());
+        assertEquals(layoutParameters.isUseName(), layoutParameters2.isUseName());
+        assertEquals(layoutParameters.getFeederInfosIntraMargin(), layoutParameters2.getFeederInfosIntraMargin(), 0);
     }
 }
