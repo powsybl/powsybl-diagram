@@ -617,17 +617,17 @@ public class DefaultSVGWriter implements SVGWriter {
         insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
     }
 
-    protected void insertArrowSVGIntoDocumentSVG(String arrowType, String prefixId, Element g, double angle) {
+    protected void insertFeederInfoSVGIntoDocumentSVG(String feederInfoType, String prefixId, Element g, double angle) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setArrowAttributes(arrowType, prefixId, g, e, subComponent, angle);
-        insertSVGIntoDocumentSVG("", arrowType, g, elementAttributesSetter);
+                = (e, subComponent) -> setFeederInfoAttributes(feederInfoType, prefixId, g, e, subComponent, angle);
+        insertSVGIntoDocumentSVG("", feederInfoType, g, elementAttributesSetter);
     }
 
-    private void setArrowAttributes(String arrowType, String prefixId, Element g, Element e, String subComponent, double angle) {
+    private void setFeederInfoAttributes(String feederInfoType, String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
-        componentLibrary.getSubComponentStyleClass(arrowType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
+        componentLibrary.getSubComponentStyleClass(feederInfoType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
-            ComponentSize componentSize = componentLibrary.getSize(arrowType);
+            ComponentSize componentSize = componentLibrary.getSize(feederInfoType);
             double cx = componentSize.getWidth() / 2;
             double cy = componentSize.getHeight() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
@@ -761,13 +761,13 @@ public class DefaultSVGWriter implements SVGWriter {
         return new double[]{translateX, translateY};
     }
 
-    protected void transformArrow(List<Point> points, ComponentSize componentSize, double shift, Element g) {
+    protected void transformFeederInfo(List<Point> points, ComponentSize componentSize, double shift, Element g) {
         Point pointA = points.get(0);
         Point pointB = points.get(1);
         double distancePoints = pointA.distance(pointB);
 
         // Case of wires with non-direct straight lines: if wire distance between first 2 points is too small to display
-        // the arrow, checks if the distance between the 2nd and the 3rd points is big enough
+        // the feeder info, checks if the distance between the 2nd and the 3rd points is big enough
         if (points.size() > 2 && distancePoints < 3 * componentSize.getHeight()) {
             double distancePoints23 = points.get(1).distance(points.get(2));
             if (distancePoints23 > 3 * componentSize.getHeight()) {
@@ -785,20 +785,20 @@ public class DefaultSVGWriter implements SVGWriter {
             double cosAngle = dx / distancePoints;
             double sinAngle = dy / distancePoints;
 
-            // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 arrows,
-            // we compute the distance between feeder anchor and first arrow so that the two arrows are centered.
-            double distFeederAnchorToFirstArrowCenter =
+            // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 feeder infos,
+            // we compute the distance between feeder anchor and first feeder info so that the two feeder infos are centered.
+            double distFeederAnchorToFirstFeederInfoCenter =
                 distancePoints >= 2 * layoutParameters.getArrowDistance() + 2 * componentSize.getHeight()
                     ? layoutParameters.getArrowDistance()
                     : (distancePoints - 2 * componentSize.getHeight()) / 2;
-            double x = pointA.getX() + cosAngle * (distFeederAnchorToFirstArrowCenter + shift);
-            double y = pointA.getY() + sinAngle * (distFeederAnchorToFirstArrowCenter + shift);
+            double x = pointA.getX() + cosAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);
+            double y = pointA.getY() + sinAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);
 
-            double arrowRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
-            if (arrowRotationAngle < -Math.PI / 2) {
-                arrowRotationAngle += Math.PI;
+            double feederInfoRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
+            if (feederInfoRotationAngle < -Math.PI / 2) {
+                feederInfoRotationAngle += Math.PI;
             }
-            g.setAttribute(TRANSFORM, getTransformString(x, y, arrowRotationAngle, componentSize));
+            g.setAttribute(TRANSFORM, getTransformString(x, y, feederInfoRotationAngle, componentSize));
         }
 
     }
@@ -851,13 +851,13 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        int iArrow = 0;
+        int iFeederInfo = 0;
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
-            // Compute shifting even if not displayed to ensure aligned arrows
+            // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
-            double shiftArrow = iArrow++ * 2 * height;
+            double shiftFeederInfo = iFeederInfo++ * 2 * height;
             if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftArrow, metadata);
+                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
                 addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
         }
@@ -886,17 +886,17 @@ public class DefaultSVGWriter implements SVGWriter {
         List<String> styles = new ArrayList<>(3);
         componentLibrary.getComponentStyleClass(feederInfo.getComponentType()).ifPresent(styles::add);
 
-        transformArrow(points, size, shift, g);
+        transformFeederInfo(points, size, shift, g);
 
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
 
-        // we draw the arrow only if direction is present
+        // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertArrowSVGIntoDocumentSVG(feederInfo.getComponentType(), prefixId, g, rotationAngle);
+            insertFeederInfoSVGIntoDocumentSVG(feederInfo.getComponentType(), prefixId, g, rotationAngle);
             styles.add(direction == Direction.OUT ? OUT_CLASS : IN_CLASS);
         });
 
