@@ -773,6 +773,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testSubstationManyFeederInfos() {
+        // FIXME : change MinSpaceForFeederArrows seems to have no impact
+        layoutParameters.setMinSpaceForFeederArrows(120);
         // SVG file generation for substation and comparison to reference but with many feeder values
         assertEquals(toString("/vl1_many_feeder_values.svg"),
             toSVG(g1, "/vl1_many_feeder_values.svg", manyFeederInfoProvider, new BasicStyleProvider()));
