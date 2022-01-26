@@ -785,14 +785,8 @@ public class DefaultSVGWriter implements SVGWriter {
             double cosAngle = dx / distancePoints;
             double sinAngle = dy / distancePoints;
 
-            // If not enough space to have layoutParameters.getArrowDistance() at both sides of the 2 feeder infos,
-            // we compute the distance between feeder anchor and first feeder info so that the two feeder infos are centered.
-            double distFeederAnchorToFirstFeederInfoCenter =
-                distancePoints >= 2 * layoutParameters.getFeederInfosOuterMargin() + 2 * componentSize.getHeight()
-                    ? layoutParameters.getFeederInfosOuterMargin()
-                    : (distancePoints - 2 * componentSize.getHeight()) / 2;
-            double x = pointA.getX() + cosAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);
-            double y = pointA.getY() + sinAngle * (distFeederAnchorToFirstFeederInfoCenter + shift);
+            double x = pointA.getX() + cosAngle * (layoutParameters.getFeederInfosOuterMargin() + shift);
+            double y = pointA.getY() + sinAngle * (layoutParameters.getFeederInfosOuterMargin() + shift);
 
             double feederInfoRotationAngle = Math.atan(dy / dx) - Math.PI / 2;
             if (feederInfoRotationAngle < -Math.PI / 2) {
@@ -851,15 +845,15 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
-        double shiftFeederInfo2 = 0;
+        double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo2, metadata);
+                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
                 addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
-            shiftFeederInfo2 += layoutParameters.getFeederInfosIntraMargin() + height;
+            shiftFeederInfo += layoutParameters.getFeederInfosIntraMargin() + height;
         }
     }
 

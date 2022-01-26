@@ -166,12 +166,12 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_l_95_l">
                 <polyline points="115.0,142.0,115.0,84.5"/>
             </g>
-            <g class="sld-arrow-p sld-in" id="idl_ARROW_ACTIVE" transform="translate(110.0,98.25)">
+            <g class="sld-arrow-p sld-in" id="idl_ARROW_ACTIVE" transform="translate(110.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(110.0,118.25)">
+            <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(110.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
@@ -264,12 +264,12 @@
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_INTERNAL_95_vl2_95_g_95_g">
                 <polyline points="205.0,362.0,205.0,418.0"/>
             </g>
-            <g class="sld-arrow-q sld-in" id="idg_ARROW_REACTIVE" transform="translate(200.0,395.0)">
+            <g class="sld-arrow-q sld-in" id="idg_ARROW_REACTIVE" transform="translate(200.0,393.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-p sld-in" id="idg_ARROW_ACTIVE" transform="translate(200.0,375.0)">
+            <g class="sld-arrow-p sld-in" id="idg_ARROW_ACTIVE" transform="translate(200.0,373.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>

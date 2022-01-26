@@ -93,13 +93,13 @@
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_l_95_l">
                 <polyline points="65.0,142.0,65.0,84.5"/>
             </g>
-            <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,98.25)">
+            <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">tata</text>
                 <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0"/>
             </g>
-            <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,118.25)">
+            <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">tutu</text>
