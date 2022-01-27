@@ -660,7 +660,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
                 List<FeederInfo> feederInfos = Arrays.asList(
                         new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
                         new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null));
-                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederArrowSymmetry();
+                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
                 }
@@ -732,7 +732,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     @Test
     public void testSubstationArrowSymmetry() {
         // SVG file generation for substation with symmetric feeder arrow and comparison to reference
-        layoutParameters.setFeederArrowSymmetry(true);
+        layoutParameters.setFeederInfoSymmetry(true);
         assertEquals(toString("/substation_feeder_arrow_symmetry.svg"),
             toSVG(substG, "/substation_feeder_arrow_symmetry.svg", initValueProvider, new BasicStyleProvider()));
     }
