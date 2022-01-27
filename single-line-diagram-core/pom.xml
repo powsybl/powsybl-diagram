@@ -80,18 +80,6 @@
             <artifactId>powsybl-iidm-converter-api</artifactId>
         </dependency>
 
-        <!-- runtime dependencies -->
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-iidm-impl</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-iidm-xml-converter</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -112,6 +100,11 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-config-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-iidm-impl</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
