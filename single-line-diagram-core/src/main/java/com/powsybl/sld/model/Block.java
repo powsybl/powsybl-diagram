@@ -78,7 +78,7 @@ public interface Block {
      */
     void calculateCoord(LayoutParameters layoutParam);
 
-    void calculateRootCoord(LayoutParameters layoutParam);
+    void calculateRootCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam);
 
     double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParam);
 

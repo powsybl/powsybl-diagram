@@ -57,8 +57,8 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(VoltageLevelGraph graph, boolean exceptionIfPatternNotHandled) {
-        super(graph, CellType.INTERN);
+    public InternCell(int cellNumber, boolean exceptionIfPatternNotHandled) {
+        super(cellNumber, CellType.INTERN);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
         shape = Shape.UNDEFINED;
@@ -235,11 +235,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam) {
+    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
         if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
-            body.calculateRootCoord(layoutParam);
+            body.calculateRootCoord(vlGraph, layoutParam);
         }
-        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
+        legs.values().forEach(lb -> lb.calculateRootCoord(vlGraph, layoutParam));
     }
 
     public LegBlock getSideToLeg(Side side) {

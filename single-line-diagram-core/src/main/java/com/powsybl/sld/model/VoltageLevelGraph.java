@@ -92,7 +92,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return forVoltageLevelDiagram;
     }
 
-    public int getNextCellIndex() {
+    public int getNextCellNumber() {
         return cellCounter++;
     }
 
@@ -330,7 +330,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             } else if (!isFeeder3WT(feederNode)) {
                 // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
-                InternalNode nf = new InternalNode(feederNode.getId(), feederNode.graph);
+                InternalNode nf = new InternalNode(feederNode.getId(), feederNode.getVoltageLevelGraph());
                 nodesToAdd.add(nf);
                 // Create all new edges and remove old ones
                 for (Node neighbor : adjacentNodes) {

@@ -95,10 +95,10 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || cell.getType() == Cell.CellType.INTERN)
-                .forEach(cell -> cell.calculateCoord(layoutParam));
+                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
-                .forEach(cell -> cell.calculateCoord(layoutParam));
+                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
     }
 
     /**

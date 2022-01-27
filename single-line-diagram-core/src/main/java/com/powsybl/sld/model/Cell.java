@@ -49,7 +49,7 @@ public interface Cell {
 
     int getNumber();
 
-    void calculateCoord(LayoutParameters layoutParam);
+    void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam);
 
     double calculateHeight(LayoutParameters layoutParam);
 
@@ -59,5 +59,4 @@ public interface Cell {
 
     String getFullId();
 
-    VoltageLevelGraph getVoltageLevelGraph();
 }

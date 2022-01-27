@@ -26,8 +26,8 @@ public class ExternCell extends AbstractBusCell {
 
     private ShuntCell shuntCell = null;
 
-    public ExternCell(VoltageLevelGraph graph) {
-        super(graph, EXTERN);
+    public ExternCell(int cellNumber) {
+        super(cellNumber, EXTERN);
     }
 
     public void organizeBlockDirections() {

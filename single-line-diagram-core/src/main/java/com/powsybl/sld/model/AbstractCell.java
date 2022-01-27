@@ -23,18 +23,15 @@ import java.util.stream.Collectors;
  */
 
 public abstract class AbstractCell implements Cell {
-    final VoltageLevelGraph graph;
     private CellType type;
     private int number;
     protected final List<Node> nodes = new ArrayList<>();
 
     private Block rootBlock;
 
-    AbstractCell(VoltageLevelGraph graph, CellType type) {
-        this.graph = Objects.requireNonNull(graph);
+    AbstractCell(int cellNumber, CellType type) {
         this.type = Objects.requireNonNull(type);
-        number = graph.getNextCellIndex();
-        graph.addCell(this);
+        number = cellNumber;
     }
 
     public void addNodes(List<Node> nodesToAdd) {
@@ -106,10 +103,6 @@ public abstract class AbstractCell implements Cell {
     @Override
     public String toString() {
         return type + " " + nodes;
-    }
-
-    public VoltageLevelGraph getVoltageLevelGraph() {
-        return graph;
     }
 
     @Override

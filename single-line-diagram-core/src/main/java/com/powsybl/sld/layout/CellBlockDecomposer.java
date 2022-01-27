@@ -38,18 +38,18 @@ final class CellBlockDecomposer {
      * @param cell Cell we are working on
      */
 
-    static void determineBlocks(Cell cell, boolean exceptionIfPatternNotHandled) {
+    static void determineBlocks(VoltageLevelGraph vlGraph, Cell cell, boolean exceptionIfPatternNotHandled) {
         if (cell.getType() == Cell.CellType.SHUNT) {
             determineShuntCellBlocks((ShuntCell) cell);
         } else {
-            determineBusCellBlocks((BusCell) cell, exceptionIfPatternNotHandled);
+            determineBusCellBlocks(vlGraph, (BusCell) cell, exceptionIfPatternNotHandled);
         }
     }
 
-    private static void determineBusCellBlocks(BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    private static void determineBusCellBlocks(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
         if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
             SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
-            busCell.getVoltageLevelGraph().extendSwitchBetweenBus(switchNode);
+            vlGraph.extendSwitchBetweenBus(switchNode);
             List<Node> adj = switchNode.getAdjacentNodes();
             busCell.addNodes(adj);
             busCell.addNodes(adj.stream()

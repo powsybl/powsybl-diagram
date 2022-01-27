@@ -159,7 +159,7 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void calculateRootCoord(LayoutParameters layoutParam) {
+    public void calculateRootCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
 
         double spanX = position.getSpan(H) / 2. * layoutParam.getCellWidth();
         coord.setSpan(X, spanX);
@@ -167,7 +167,7 @@ public abstract class AbstractBlock implements Block {
 
         double spanY = getRootSpanYCoord(layoutParam);
         coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(spanY, layoutParam));
+        coord.set(Y, getRootYCoord(vlGraph, spanY, layoutParam));
 
         calculateCoord(layoutParam);
     }
@@ -188,7 +188,7 @@ public abstract class AbstractBlock implements Block {
         return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
     }
 
-    private double getRootYCoord(double spanY, LayoutParameters layoutParam) {
+    private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {
         double dyToBus = 0;
         if (cell.getType() == INTERN) {
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
@@ -199,11 +199,11 @@ public abstract class AbstractBlock implements Block {
         }
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                return cell.getVoltageLevelGraph().getLastBusY(layoutParam) + dyToBus;
+                return vlGraph.getLastBusY(layoutParam) + dyToBus;
             case TOP:
-                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) - dyToBus;
+                return vlGraph.getFirstBusY(layoutParam) - dyToBus;
             case MIDDLE:
-                return cell.getVoltageLevelGraph().getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return vlGraph.getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }

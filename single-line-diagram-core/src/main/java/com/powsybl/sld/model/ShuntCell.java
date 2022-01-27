@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 public final class ShuntCell extends AbstractCell {
     private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
 
-    private ShuntCell(VoltageLevelGraph graph) {
-        super(graph, CellType.SHUNT);
+    private ShuntCell(int cellNumber) {
+        super(cellNumber, CellType.SHUNT);
     }
 
-    public static ShuntCell create(ExternCell cell1, ExternCell cell2, List<Node> nodes) {
-        ShuntCell shuntCell = new ShuntCell(cell1.getVoltageLevelGraph());
+    public static ShuntCell create(int cellNumber, ExternCell cell1, ExternCell cell2, List<Node> nodes) {
+        ShuntCell shuntCell = new ShuntCell(cellNumber);
         if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
             shuntCell.cells.put(Side.LEFT, cell1);
             shuntCell.cells.put(Side.RIGHT, cell2);
@@ -45,16 +45,7 @@ public final class ShuntCell extends AbstractCell {
         return shuntCell;
     }
 
-    @Override
-    public void addNodes(List<Node> nodesToAdd) {
-        InternalNode iNode1 = graph.insertInternalNode(nodesToAdd.get(0), nodesToAdd.get(1), "Shunt " + getNumber() + ".1");
-        InternalNode iNode2 = graph.insertInternalNode(nodesToAdd.get(nodesToAdd.size() - 1), nodesToAdd.get(nodesToAdd.size() - 2), "Shunt " + getNumber() + ".2");
-        nodesToAdd.add(1, iNode1);
-        nodesToAdd.add(nodesToAdd.size() - 1, iNode2);
-        super.addNodes(nodesToAdd);
-    }
-
-    public void calculateCoord(LayoutParameters layoutParam) {
+    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
         if (getRootBlock() instanceof BodyPrimaryBlock) {
             Position lPos = getSidePosition(Side.LEFT);
             ((BodyPrimaryBlock) getRootBlock())
