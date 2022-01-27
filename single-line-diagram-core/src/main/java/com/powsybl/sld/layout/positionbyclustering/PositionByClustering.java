@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 import com.powsybl.sld.model.BusCell.Direction;
 
+import static com.powsybl.sld.coordinate.Side.*;
 import static com.powsybl.sld.model.BusCell.Direction.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
-import static com.powsybl.sld.model.Side.*;
 
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.Block.Extremity.*;
-import static com.powsybl.sld.model.Coord.Dimension.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

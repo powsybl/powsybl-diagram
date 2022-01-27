@@ -4,9 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.coordinate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
 
 import java.io.IOException;
 import java.util.EnumMap;
@@ -14,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static com.powsybl.sld.model.Coord.Dimension.*;
 
 /**
  * class use to store relatives coordinates of a nodeBus

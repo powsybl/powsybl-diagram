@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.AnchorPointProvider;
 import com.powsybl.sld.model.BaseNode;
-import com.powsybl.sld.model.Point;
 
 import java.util.ArrayList;
 import java.util.Collections;

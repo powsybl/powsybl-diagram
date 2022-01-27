@@ -6,14 +6,15 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.model.*;
+
+import static com.powsybl.sld.coordinate.Side.LEFT;
+import static com.powsybl.sld.coordinate.Side.RIGHT;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static com.powsybl.sld.model.Side.LEFT;
-import static com.powsybl.sld.model.Side.RIGHT;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

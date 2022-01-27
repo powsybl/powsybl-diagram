@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.coordinate.Point;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene

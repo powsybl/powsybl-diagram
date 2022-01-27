@@ -7,13 +7,16 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.coordinate.Orientation;
+import com.powsybl.sld.coordinate.Position;
+import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.LayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 
-import static com.powsybl.sld.model.Position.Dimension.*;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

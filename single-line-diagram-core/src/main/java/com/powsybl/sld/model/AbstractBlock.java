@@ -7,20 +7,23 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.coordinate.Coord;
+import com.powsybl.sld.coordinate.Orientation;
+import com.powsybl.sld.coordinate.Position;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 
 import java.io.IOException;
 import java.util.*;
 
+import static com.powsybl.sld.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.Block.Extremity.END;
 import static com.powsybl.sld.model.Block.Extremity.START;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.Coord.Dimension.X;
-import static com.powsybl.sld.model.Coord.Dimension.Y;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
-import static com.powsybl.sld.model.Position.Dimension.H;
-import static com.powsybl.sld.model.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.model.*;
 
 import java.util.*;

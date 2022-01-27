@@ -11,9 +11,9 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.Block.Type.BODYPARALLEL;
-import static com.powsybl.sld.model.Coord.Dimension.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

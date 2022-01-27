@@ -9,10 +9,12 @@ package com.powsybl.sld.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.coordinate.Side.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
-import static com.powsybl.sld.model.Side.*;
+
+import com.powsybl.sld.coordinate.Position;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

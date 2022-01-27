@@ -7,6 +7,9 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.coordinate.Coord;
+import com.powsybl.sld.coordinate.Orientation;
+import com.powsybl.sld.coordinate.Position;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;

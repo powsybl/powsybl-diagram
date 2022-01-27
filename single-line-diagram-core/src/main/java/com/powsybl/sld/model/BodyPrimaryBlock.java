@@ -11,14 +11,14 @@ import com.powsybl.sld.layout.LayoutParameters;
 import java.util.List;
 import java.util.Set;
 
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.coordinate.Orientation.*;
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.Coord.Dimension.*;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.Node.NodeType.*;
-import static com.powsybl.sld.model.Orientation.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

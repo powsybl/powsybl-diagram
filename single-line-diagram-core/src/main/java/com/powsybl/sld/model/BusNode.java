@@ -8,13 +8,14 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.coordinate.Position;
 import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.model.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

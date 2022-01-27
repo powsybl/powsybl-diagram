@@ -8,6 +8,8 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.coordinate.Point;
+import com.powsybl.sld.coordinate.Position;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;

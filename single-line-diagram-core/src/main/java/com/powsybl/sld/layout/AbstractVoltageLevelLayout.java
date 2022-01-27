@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Point;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.model.Node;
 
 import java.util.List;
