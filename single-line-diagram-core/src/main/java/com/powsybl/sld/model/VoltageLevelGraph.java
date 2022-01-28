@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -64,11 +63,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
     // false if substation diagram
-
-    Function<Node, BusCell.Direction> nodeDirection = node ->
-            (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-
-    protected static final int VALUE_SHIFT_FEEDER = 8;
 
     // by direction, max calculated height of the extern cells
     // (filled and used only when using the adapt cell height to content option)
