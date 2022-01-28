@@ -29,9 +29,10 @@ public abstract class AbstractCell implements Cell {
 
     private Block rootBlock;
 
-    AbstractCell(int cellNumber, CellType type) {
+    AbstractCell(int cellNumber, CellType type, List<Node> nodes) {
         this.type = Objects.requireNonNull(type);
         number = cellNumber;
+        setNodes(nodes);
     }
 
     public void addNodes(List<Node> nodesToAdd) {
@@ -46,15 +47,12 @@ public abstract class AbstractCell implements Cell {
         nodes.removeAll(nodeToRemove);
     }
 
-    public void setNodes(List<Node> nodes) {
+    private void setNodes(List<Node> nodes) {
         this.nodes.addAll(nodes);
-        // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN cells)
+        // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN
+        // cells)
         // is the cell of the EXTERN cell
-        if (type != CellType.SHUNT) {
-            nodes.forEach(node -> node.setCell(this));
-        } else {
-            nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
-        }
+        nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
     }
 
     public void setType(CellType type) {

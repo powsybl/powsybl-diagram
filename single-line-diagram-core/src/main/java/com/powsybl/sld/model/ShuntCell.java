@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 public final class ShuntCell extends AbstractCell {
     private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
 
-    private ShuntCell(int cellNumber) {
-        super(cellNumber, CellType.SHUNT);
+    private ShuntCell(int cellNumber, List<Node> nodes) {
+        super(cellNumber, CellType.SHUNT, nodes);
     }
 
     public static ShuntCell create(int cellNumber, ExternCell cell1, ExternCell cell2, List<Node> nodes) {
-        ShuntCell shuntCell = new ShuntCell(cellNumber);
+        ShuntCell shuntCell = new ShuntCell(cellNumber, nodes);
         if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
             shuntCell.cells.put(Side.LEFT, cell1);
             shuntCell.cells.put(Side.RIGHT, cell2);
@@ -41,7 +41,6 @@ public final class ShuntCell extends AbstractCell {
         }
         cell1.setShuntCell(shuntCell);
         cell2.setShuntCell(shuntCell);
-        shuntCell.addNodes(nodes);
         return shuntCell;
     }
 

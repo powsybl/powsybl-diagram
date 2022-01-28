@@ -57,8 +57,8 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(int cellNumber, boolean exceptionIfPatternNotHandled) {
-        super(cellNumber, CellType.INTERN);
+    public InternCell(int cellNumber, List<Node> nodes, boolean exceptionIfPatternNotHandled) {
+        super(cellNumber, CellType.INTERN, nodes);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
         shape = Shape.UNDEFINED;
@@ -144,7 +144,8 @@ public class InternCell extends AbstractBusCell {
         if (shape != Shape.MAYBEFLAT) {
             return;
         }
-        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
+        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1
+                && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
             setFlat();
             getRootBlock().setOrientation(Orientation.RIGHT);
         } else {

@@ -14,6 +14,8 @@ import static com.powsybl.sld.coordinate.Side.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
 
+import java.util.List;
+
 import com.powsybl.sld.coordinate.Position;
 
 /**
@@ -26,8 +28,8 @@ public class ExternCell extends AbstractBusCell {
 
     private ShuntCell shuntCell = null;
 
-    public ExternCell(int cellNumber) {
-        super(cellNumber, EXTERN);
+    public ExternCell(int cellNumber, List<Node> nodes) {
+        super(cellNumber, EXTERN, nodes);
     }
 
     public void organizeBlockDirections() {
