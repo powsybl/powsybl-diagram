@@ -29,8 +29,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private Direction direction = Direction.UNDEFINED;
 
-    protected AbstractBusCell(int cellIndex, CellType type) {
-        super(cellIndex, type);
+    protected AbstractBusCell(int cellIndex, CellType type, List<Node> nodes) {
+        super(cellIndex, type, nodes);
     }
 
     @Override

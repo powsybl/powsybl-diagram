@@ -33,8 +33,6 @@ public interface Cell {
 
     void removeAllNodes(List<Node> nodeToRemove);
 
-    void setNodes(List<Node> nodes);
-
     void setType(CellType type);
 
     CellType getType();
