@@ -18,11 +18,11 @@ import java.util.*;
  */
 public abstract class AbstractLayout implements Layout {
 
-    public abstract AbstractBaseGraph getGraph();
+    public abstract BaseGraph getGraph();
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
-    protected void manageSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
+    protected void manageSnakeLines(BaseGraph graph, LayoutParameters layoutParameters) {
         for (Node multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();

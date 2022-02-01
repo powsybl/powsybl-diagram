@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public abstract class AbstractBaseGraph extends AbstractLineGraph implements BaseGraph {
+public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGraph {
 
     private static final String EDGE_PREFIX = "EDGE_";
 

@@ -15,6 +15,8 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,6 +27,19 @@ public abstract class AbstractGraph implements Graph {
     private boolean coordinatesSerialized = true;
     private double width;
     private double height;
+    private final List<BranchEdge> lineEdges = new ArrayList<>();
+
+    @Override
+    public BranchEdge addLineEdge(String lineId, Node node1, Node node2) {
+        BranchEdge edge = new BranchEdge(lineId, node1, node2);
+        lineEdges.add(edge);
+        return edge;
+    }
+
+    @Override
+    public List<BranchEdge> getLineEdges() {
+        return new ArrayList<>(lineEdges);
+    }
 
     @Override
     public void setCoordinatesSerialized(boolean coordinatesSerialized) {
@@ -44,8 +59,8 @@ public abstract class AbstractGraph implements Graph {
     public void writeJson(Writer writer) {
         Objects.requireNonNull(writer);
         try (JsonGenerator generator = new JsonFactory()
-            .createGenerator(writer)
-            .useDefaultPrettyPrinter()) {
+                .createGenerator(writer)
+                .useDefaultPrettyPrinter()) {
             writeJson(generator, coordinatesSerialized);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
