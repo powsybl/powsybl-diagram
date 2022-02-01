@@ -23,7 +23,7 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
 
     protected List<BranchEdge> twtEdges = new ArrayList<>();
 
-    protected List<Node> multiTermNodes = new ArrayList<>();
+    protected List<MiddleTwtNode> multiTermNodes = new ArrayList<>();
 
     @Override
     public List<BranchEdge> getTwtEdges() {
@@ -31,7 +31,7 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
     }
 
     @Override
-    public List<Node> getMultiTermNodes() {
+    public List<MiddleTwtNode> getMultiTermNodes() {
         return multiTermNodes;
     }
 
@@ -44,13 +44,13 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
     }
 
     @Override
-    public void addMultiTermNode(Node node) {
+    public void addMultiTermNode(MiddleTwtNode node) {
         multiTermNodes.add(node);
     }
 
     protected void writeBranchFields(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeArrayFieldStart("multitermNodes");
-        for (Node multitermNode : multiTermNodes) {
+        for (MiddleTwtNode multitermNode : multiTermNodes) {
             multitermNode.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
@@ -68,7 +68,7 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
 
     public void handleMultiTermsNodeRotation() {
         // node outside any graph
-        for (Node node : getMultiTermNodes()) {
+        for (MiddleTwtNode node : getMultiTermNodes()) {
             if (node.getAdjacentEdges().size() == 2) {  // 2 windings transformer
                 handle2wtNodeRotation(node);
             } else {  // 3 windings transformer
