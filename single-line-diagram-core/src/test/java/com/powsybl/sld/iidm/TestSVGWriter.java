@@ -149,7 +149,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         g1.addNode(vl1Trf2Two);
-        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g1);
+        Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl1Trf2Fict.setX(400);
         vl1Trf2Fict.setY(140);
         g1.addNode(vl1Trf2Fict);
@@ -235,7 +235,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         g2.addNode(vl2Trf2Two);
-        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g2);
+        Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl2Trf2Fict.setX(160);
         vl2Trf2Fict.setY(140);
         g2.addNode(vl2Trf2Fict);
@@ -302,7 +302,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         g3.addNode(vl3Trf2Two);
-        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, g3);
+        Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3);
         vl3Trf2Fict.setX(150);
         vl3Trf2Fict.setY(140);
         g3.addNode(vl3Trf2Fict);
@@ -541,7 +541,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addVoltageLevel(g1ForSubstation);
         substG.addVoltageLevel(g2ForSubstation);
         substG.addVoltageLevel(g3ForSubstation);
-        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, null, TWO_WINDINGS_TRANSFORMER);
+        Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(405., 590.);
         BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
@@ -549,7 +549,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         edge2.setSnakeLine(Point.createPointsList(690., 540., 690., 590., 405., 590.));
         substG.addMultiTermNode(nMulti1);
 
-        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, null);
+        Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos);
         nMulti3.setCoordinates(750., 90.);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
@@ -622,7 +622,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         s1Graph.addVoltageLevel(vl12Graph);
         twtSide1Node.setLabel(TRANSFORMER_ID);
         twtSide2Node.setLabel(TRANSFORMER_ID);
-        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, null, TWO_WINDINGS_TRANSFORMER);
+        Middle2WTNode nMulti1 = new Middle2WTNode(twtSide1Node.getEquipmentId(), twtSide1Node.getEquipmentId(), vl12Infos, vl11Infos, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(90, 350);
         BranchEdge edge1 = s1Graph.addTwtEdge(twtSide1Node, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(90., 300., 90., 320., 90., 350.));

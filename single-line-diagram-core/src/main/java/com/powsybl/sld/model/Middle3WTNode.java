@@ -15,16 +15,16 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  */
 public class Middle3WTNode extends MiddleTwtNode {
 
-    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, VoltageLevelGraph graph) {
+    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3) {
         super(id, name,
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
-            THREE_WINDINGS_TRANSFORMER, graph);
+            THREE_WINDINGS_TRANSFORMER);
     }
 
     public static Middle3WTNode create(String id, String name, BaseGraph ssGraph,
                                        Feeder3WTLegNode legNode1, Feeder3WTLegNode legNode2, Feeder3WTLegNode legNode3,
                                        VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3) {
-        Middle3WTNode middleNode = new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3, null);
+        Middle3WTNode middleNode = new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3);
         ssGraph.addTwtEdge(legNode1, middleNode);
         ssGraph.addTwtEdge(legNode2, middleNode);
         ssGraph.addTwtEdge(legNode3, middleNode);

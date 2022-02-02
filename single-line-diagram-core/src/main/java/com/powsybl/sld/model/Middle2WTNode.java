@@ -16,16 +16,20 @@ import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER
  */
 public class Middle2WTNode extends MiddleTwtNode {
 
-    public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelGraph graph, String componentType) {
+    public Middle2WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1,
+            VoltageLevelInfos voltageLevelInfosLeg2, String componentType) {
         super(id, name,
-            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2)},
-            componentType, graph);
+                new VoltageLevelInfos[] {
+                        Objects.requireNonNull(voltageLevelInfosLeg1),
+                        Objects.requireNonNull(voltageLevelInfosLeg2) },
+                componentType);
     }
 
-    public static Middle2WTNode create(String id, String name, BaseGraph graph, Feeder2WTLegNode legNode1, Feeder2WTLegNode legNode2,
-                                       VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
+    public static Middle2WTNode create(String id, String name, BaseGraph graph, Feeder2WTLegNode legNode1,
+            Feeder2WTLegNode legNode2,
+            VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
         String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
-        Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, null, componentType);
+        Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
         graph.addTwtEdge(legNode1, middleNode);
         graph.addTwtEdge(legNode2, middleNode);
         return middleNode;
