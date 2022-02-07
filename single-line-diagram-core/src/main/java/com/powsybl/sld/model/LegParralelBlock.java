@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.model;
 
-import com.powsybl.sld.coordinate.Position;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Position;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

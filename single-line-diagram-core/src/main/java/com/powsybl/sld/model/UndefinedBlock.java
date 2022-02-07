@@ -9,7 +9,7 @@ package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 
 import java.util.List;
 import java.util.Objects;

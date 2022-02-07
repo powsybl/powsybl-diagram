@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.layout.positionfromextension;
 
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.coordinate.Side;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

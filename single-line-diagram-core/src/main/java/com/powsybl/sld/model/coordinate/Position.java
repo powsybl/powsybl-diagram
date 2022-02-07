@@ -4,11 +4,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.coordinate;
+package com.powsybl.sld.model.coordinate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.io.IOException;
 import java.util.EnumMap;

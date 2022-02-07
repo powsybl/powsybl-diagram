@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.layout.positionbyclustering;
 
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;

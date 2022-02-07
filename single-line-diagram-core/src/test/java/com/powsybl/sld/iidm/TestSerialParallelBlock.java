@@ -15,8 +15,8 @@ import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static org.junit.Assert.*;
 
 /**

@@ -7,11 +7,11 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.coordinate.Orientation;
-import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -23,9 +23,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.H;
-import static com.powsybl.sld.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * This class builds the connectivity among the elements of a voltageLevel

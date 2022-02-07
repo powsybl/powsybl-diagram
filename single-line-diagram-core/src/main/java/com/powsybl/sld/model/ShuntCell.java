@@ -7,11 +7,11 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.coordinate.Position;
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Side;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.util.*;
 import java.util.stream.Collectors;

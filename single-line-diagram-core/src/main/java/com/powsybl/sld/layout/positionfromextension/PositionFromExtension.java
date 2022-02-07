@@ -6,11 +6,11 @@
  */
 package com.powsybl.sld.layout.positionfromextension;
 
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
 import com.powsybl.sld.model.Cell.CellType;
+import com.powsybl.sld.model.coordinate.Side;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

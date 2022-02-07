@@ -14,12 +14,12 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import java.util.List;
 import java.util.Set;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.X;
-import static com.powsybl.sld.coordinate.Position.Dimension.H;
-import static com.powsybl.sld.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.Block.Extremity.START;
 import static com.powsybl.sld.model.Block.Type.FEEDERPRIMARY;
 import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>

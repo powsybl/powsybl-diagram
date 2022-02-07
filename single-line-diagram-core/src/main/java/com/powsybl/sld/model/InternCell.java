@@ -7,14 +7,15 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.coordinate.Orientation;
-import com.powsybl.sld.coordinate.Position;
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Side;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.util.*;
 

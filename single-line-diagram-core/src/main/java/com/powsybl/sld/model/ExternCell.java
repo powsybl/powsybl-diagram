@@ -9,14 +9,14 @@ package com.powsybl.sld.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.coordinate.Side.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Side.*;
 
 import java.util.List;
 
-import com.powsybl.sld.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Position;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

@@ -6,15 +6,16 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.coordinate.Coord;
-import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.force.layout.ForceLayout;
 import com.powsybl.sld.force.layout.Vector;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Coord;
+import com.powsybl.sld.model.coordinate.Point;
+
 import org.jgrapht.Graph;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.X;
-import static com.powsybl.sld.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
 
 import java.util.*;
 import java.util.stream.Collectors;
