@@ -12,6 +12,7 @@ import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
+import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -620,15 +621,14 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertFeederInfoSVGIntoDocumentSVG(String feederInfoType, String prefixId, Element g, double angle) {
-        BiConsumer<Element, String> elementAttributesSetter = (e, subComponent) -> setFeederInfoAttributes(feederInfoType,
-                prefixId, g, e, subComponent, angle);
+        BiConsumer<Element, String> elementAttributesSetter
+                = (e, subComponent) -> setFeederInfoAttributes(feederInfoType, prefixId, g, e, subComponent, angle);
         insertSVGIntoDocumentSVG("", feederInfoType, g, elementAttributesSetter);
     }
 
     private void setFeederInfoAttributes(String feederInfoType, String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
-        componentLibrary.getSubComponentStyleClass(feederInfoType, subComponent)
-                .ifPresent(style -> e.setAttribute(CLASS, style));
+        componentLibrary.getSubComponentStyleClass(feederInfoType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
             ComponentSize componentSize = componentLibrary.getSize(feederInfoType);
             double cx = componentSize.getWidth() / 2;
@@ -888,7 +888,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
