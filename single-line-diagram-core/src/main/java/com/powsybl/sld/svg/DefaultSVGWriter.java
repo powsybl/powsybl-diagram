@@ -250,8 +250,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, anchorPointProvider);
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider,
-                graph.getMultiTermNodes().stream().map(Node.class::cast).collect(Collectors.toList()));
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
         if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, metadata, initProvider, styleProvider);
@@ -328,8 +327,7 @@ public class DefaultSVGWriter implements SVGWriter {
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider, (type, id) -> componentLibrary.getAnchorPoints(type));
 
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
-        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider,
-                graph.getMultiTermNodes().stream().map(Node.class::cast).collect(Collectors.toList()));
+        drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
     }
 
     /*
@@ -459,7 +457,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              GraphMetadata metadata,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             Collection<Node> nodes) {
+                             Collection<? extends Node> nodes) {
 
         for (Node node : nodes) {
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());

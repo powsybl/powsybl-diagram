@@ -54,7 +54,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final Map<String, Node> nodesById = new HashMap<>();
 
-    private final Map<Node, Cell> nodeToCell = new HashMap();
+    private final Map<Node, Cell> nodeToCell = new HashMap<>();
 
     private int maxHorizontalBusPosition = 0;
     private int maxVerticalBusPosition = 0;
