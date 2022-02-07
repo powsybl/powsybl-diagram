@@ -10,9 +10,10 @@ import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
-import com.powsybl.sld.coordinate.Point;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Point;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 

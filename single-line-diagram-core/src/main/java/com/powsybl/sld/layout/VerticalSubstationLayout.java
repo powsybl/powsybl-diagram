@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.coordinate.Point;
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.ArrayList;
 import java.util.List;

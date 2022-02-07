@@ -6,15 +6,15 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.coordinate.Position;
-import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
+import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

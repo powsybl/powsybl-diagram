@@ -9,9 +9,9 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.Block.Type.SERIAL;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.util.*;
 
