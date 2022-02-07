@@ -13,11 +13,11 @@ import com.powsybl.sld.force.layout.Vector;
 import com.powsybl.sld.model.*;
 import org.jgrapht.Graph;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.X;
-import static com.powsybl.sld.coordinate.Coord.Dimension.Y;
-
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.powsybl.sld.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.coordinate.Coord.Dimension.Y;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>

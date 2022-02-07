@@ -8,14 +8,14 @@ package com.powsybl.sld.coordinate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.*;
-
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
 
 /**
  * class use to store relatives coordinates of a nodeBus

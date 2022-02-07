@@ -9,11 +9,11 @@ package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
 
-import static com.powsybl.sld.coordinate.Coord.Dimension.*;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import static com.powsybl.sld.coordinate.Coord.Dimension.*;
 
 /**
  * A block group that cannot be correctly decomposed anymore.

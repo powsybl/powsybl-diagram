@@ -49,8 +49,7 @@ public abstract class AbstractCell implements Cell {
 
     private void setNodes(List<Node> nodes) {
         this.nodes.addAll(nodes);
-        // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN
-        // cells)
+        // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN cells)
         // is the cell of the EXTERN cell
         nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
     }

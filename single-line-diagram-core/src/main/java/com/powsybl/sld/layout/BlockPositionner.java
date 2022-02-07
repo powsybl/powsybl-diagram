@@ -11,10 +11,10 @@ import com.powsybl.sld.coordinate.Side;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
-
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

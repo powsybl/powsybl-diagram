@@ -14,9 +14,9 @@ import com.powsybl.sld.layout.LayoutParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.powsybl.sld.coordinate.Position.Dimension.*;
-
 import java.util.*;
+
+import static com.powsybl.sld.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -144,8 +144,7 @@ public class InternCell extends AbstractBusCell {
         if (shape != Shape.MAYBEFLAT) {
             return;
         }
-        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1
-                && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
+        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
             setFlat();
             getRootBlock().setOrientation(Orientation.RIGHT);
         } else {

@@ -28,8 +28,7 @@ public class PositionFromExtension implements PositionFinder {
     private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
 
     /**
-     * Builds the layout of the bus nodes, and organises cells (order and
-     * directions)
+     * Builds the layout of the bus nodes, and organises cells (order and directions)
      */
 
     @Override
@@ -37,9 +36,11 @@ public class PositionFromExtension implements PositionFinder {
         Map<BusNode, Integer> busToNb = new HashMap<>();
         int i = 1;
         for (BusNode busNode : busNodes.stream()
-                .sorted((bn1, bn2) -> bn1.getBusbarIndex() == bn2.getBusbarIndex()
-                        ? bn1.getSectionIndex() - bn2.getSectionIndex()
-                        : bn1.getBusbarIndex() - bn2.getBusbarIndex())
+                .sorted((bn1, bn2) ->
+                        bn1.getBusbarIndex() == bn2.getBusbarIndex() ?
+                                bn1.getSectionIndex() - bn2.getSectionIndex() :
+                                bn1.getBusbarIndex() - bn2.getBusbarIndex()
+                )
                 .collect(Collectors.toList())) {
             busToNb.put(busNode, i++);
         }

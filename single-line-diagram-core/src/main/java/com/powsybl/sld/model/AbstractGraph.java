@@ -59,8 +59,8 @@ public abstract class AbstractGraph implements Graph {
     public void writeJson(Writer writer) {
         Objects.requireNonNull(writer);
         try (JsonGenerator generator = new JsonFactory()
-                .createGenerator(writer)
-                .useDefaultPrettyPrinter()) {
+            .createGenerator(writer)
+            .useDefaultPrettyPrinter()) {
             writeJson(generator, coordinatesSerialized);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
