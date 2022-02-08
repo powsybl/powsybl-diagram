@@ -50,5 +50,11 @@ public class SwitchNode extends Node {
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         super.writeJsonContent(generator, includeCoordinates);
         generator.writeStringField("kind", kind.name());
+        if (this.getOrder().isPresent()) {
+            generator.writeNumberField("order", this.getOrder().get());
+        }
+        if (this.getDirection() != null && this.getDirection() != BusCell.Direction.UNDEFINED) {
+            generator.writeStringField("direction", this.getDirection().name());
+        }
     }
 }
