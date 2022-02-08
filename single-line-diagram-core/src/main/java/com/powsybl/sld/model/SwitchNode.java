@@ -11,6 +11,7 @@ import com.powsybl.commons.PowsyblException;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -50,11 +51,12 @@ public class SwitchNode extends Node {
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         super.writeJsonContent(generator, includeCoordinates);
         generator.writeStringField("kind", kind.name());
-        if (this.getOrder().isPresent()) {
-            generator.writeNumberField("order", this.getOrder().get());
+        Optional<Integer> optOrder = getOrder();
+        if (optOrder.isPresent()) {
+            generator.writeNumberField("order", optOrder.get());
         }
-        if (this.getDirection() != null && this.getDirection() != BusCell.Direction.UNDEFINED) {
-            generator.writeStringField("direction", this.getDirection().name());
+        if (getDirection() != null && this.getDirection() != BusCell.Direction.UNDEFINED) {
+            generator.writeStringField("direction", getDirection().name());
         }
     }
 }
