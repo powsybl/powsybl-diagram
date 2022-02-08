@@ -96,7 +96,7 @@ public class SubstationGraph extends AbstractBaseGraph {
             graph.addVertex(voltageLevelGraph);
         }
 
-        for (Node multiNode : getMultiTermNodes()) {
+        for (MiddleTwtNode multiNode : getMultiTermNodes()) {
             // the multiTermNode itself is not in the graph created
             // edges are added between its adjacent nodes
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();

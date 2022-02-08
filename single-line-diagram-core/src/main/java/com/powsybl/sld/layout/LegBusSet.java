@@ -7,6 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

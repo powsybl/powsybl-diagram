@@ -9,6 +9,7 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.MiddleTwtNode;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
@@ -65,7 +66,7 @@ public class CgmesSubstationLayout extends AbstractCgmesLayout {
     }
 
     private void setMultiNodesCoord() {
-        for (Node multiNode : graph.getMultiTermNodes()) {
+        for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             multiNode.setCoordinates(adjacentNodes.get(0).getCoordinates());
         }

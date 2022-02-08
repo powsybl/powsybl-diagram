@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;

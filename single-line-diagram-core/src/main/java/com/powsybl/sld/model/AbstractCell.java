@@ -23,18 +23,16 @@ import java.util.stream.Collectors;
  */
 
 public abstract class AbstractCell implements Cell {
-    final VoltageLevelGraph graph;
     private CellType type;
     private int number;
     protected final List<Node> nodes = new ArrayList<>();
 
     private Block rootBlock;
 
-    AbstractCell(VoltageLevelGraph graph, CellType type) {
-        this.graph = Objects.requireNonNull(graph);
+    AbstractCell(int cellNumber, CellType type, List<Node> nodes) {
         this.type = Objects.requireNonNull(type);
-        number = graph.getNextCellIndex();
-        graph.addCell(this);
+        number = cellNumber;
+        setNodes(nodes);
     }
 
     public void addNodes(List<Node> nodesToAdd) {
@@ -49,15 +47,11 @@ public abstract class AbstractCell implements Cell {
         nodes.removeAll(nodeToRemove);
     }
 
-    public void setNodes(List<Node> nodes) {
+    private void setNodes(List<Node> nodes) {
         this.nodes.addAll(nodes);
         // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN cells)
         // is the cell of the EXTERN cell
-        if (type != CellType.SHUNT) {
-            nodes.forEach(node -> node.setCell(this));
-        } else {
-            nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
-        }
+        nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
     }
 
     public void setType(CellType type) {
@@ -106,10 +100,6 @@ public abstract class AbstractCell implements Cell {
     @Override
     public String toString() {
         return type + " " + nodes;
-    }
-
-    public VoltageLevelGraph getVoltageLevelGraph() {
-        return graph;
     }
 
     @Override

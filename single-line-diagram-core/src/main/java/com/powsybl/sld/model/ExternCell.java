@@ -6,13 +6,16 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.model.coordinate.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Side.*;
 import static com.powsybl.sld.model.Node.NodeType.*;
-import static com.powsybl.sld.model.Position.Dimension.*;
-import static com.powsybl.sld.model.Side.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -24,8 +27,8 @@ public class ExternCell extends AbstractBusCell {
 
     private ShuntCell shuntCell = null;
 
-    public ExternCell(VoltageLevelGraph graph) {
-        super(graph, EXTERN);
+    public ExternCell(int cellNumber, List<Node> nodes) {
+        super(cellNumber, EXTERN, nodes);
     }
 
     public void organizeBlockDirections() {

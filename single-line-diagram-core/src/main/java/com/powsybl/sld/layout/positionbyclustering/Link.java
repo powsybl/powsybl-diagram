@@ -8,6 +8,7 @@ package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 
 import javax.annotation.Nonnull;
 import java.util.*;
