@@ -10,6 +10,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
 import com.powsybl.sld.model.Cell.CellType;
+import com.powsybl.sld.model.coordinate.Side;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,8 +65,8 @@ public class PositionFromExtension implements PositionFinder {
     }
 
     private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
-        graph.getNodes().stream().filter(node -> node.getDirection() != Direction.UNDEFINED).forEach(node -> {
-            BusCell cell = (BusCell) node.getCell();
+        graph.getNodes().stream().filter(node -> node.getDirection() != Direction.UNDEFINED && graph.getCell(node).isPresent()).forEach(node -> {
+            BusCell cell = (BusCell) graph.getCell(node).get();
             cell.setDirection(node.getDirection());
             node.getOrder().ifPresent(cell::setOrder);
         });

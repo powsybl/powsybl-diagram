@@ -25,6 +25,10 @@ public interface Graph {
 
     Stream<Node> getAllNodesStream();
 
+    BranchEdge addLineEdge(String lineId, Node n1, Node n2);
+
+    List<BranchEdge> getLineEdges();
+
     void setCoordinatesSerialized(boolean coordinatesSerialized);
 
     double getWidth();

@@ -9,20 +9,23 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
+
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.Position.Dimension.H;
-import static com.powsybl.sld.model.Position.Dimension.V;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * This class builds the connectivity among the elements of a voltageLevel
@@ -51,10 +54,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final Map<String, Node> nodesById = new HashMap<>();
 
+    private final Map<Node, Cell> nodeToCell = new HashMap<>();
+
     private int maxHorizontalBusPosition = 0;
     private int maxVerticalBusPosition = 0;
-
-    private Map<Integer, Map<Integer, BusNode>> vPosToHPosToNodeBus;
 
     private int cellCounter = 0;
 
@@ -62,11 +65,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
     // false if substation diagram
-
-    Function<Node, BusCell.Direction> nodeDirection = node ->
-            (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
-
-    protected static final int VALUE_SHIFT_FEEDER = 8;
 
     // by direction, max calculated height of the extern cells
     // (filled and used only when using the adapt cell height to content option)
@@ -90,7 +88,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return forVoltageLevelDiagram;
     }
 
-    public int getNextCellIndex() {
+    public int getNextCellNumber() {
         return cellCounter++;
     }
 
@@ -135,8 +133,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             remainingNodeCountByType.put(nodeType, 0);
         }
         for (Node node : nodes) {
-            Cell cell = node.getCell();
-            if (cell != null) {
+            Optional<Cell> oCell = getCell(node);
+            if (oCell.isPresent()) {
+                Cell cell = oCell.get();
                 if (cellsLog.add(cell)) {
                     cellCountByType.put(cell.getType(), cellCountByType.get(cell.getType()) + 1);
                 }
@@ -292,17 +291,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .map(BusCell.class::cast);
     }
 
-    private void buildVPosToHposToNodeBus() {
-        vPosToHPosToNodeBus = new HashMap<>();
-        getNodeBuses()
-                .forEach(nodeBus -> {
-                    int vPos = nodeBus.getBusbarIndex();
-                    int hPos = nodeBus.getSectionIndex();
-                    vPosToHPosToNodeBus.putIfAbsent(vPos, new HashMap<>());
-                    vPosToHPosToNodeBus.get(vPos).put(hPos, nodeBus);
-                });
-    }
-
     /**
      * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
@@ -328,7 +316,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             } else if (!isFeeder3WT(feederNode)) {
                 // Three-winding transformers do not need to be extended in voltage level diagrams, as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
-                InternalNode nf = new InternalNode(feederNode.getId(), feederNode.graph);
+                InternalNode nf = new InternalNode(feederNode.getId(), feederNode.getVoltageLevelGraph());
                 nodesToAdd.add(nf);
                 // Create all new edges and remove old ones
                 for (Node neighbor : adjacentNodes) {
@@ -522,25 +510,15 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .forEach(n -> replaceNode(n, FeederNode.createFictitious(this, n.getId(), Orientation.UP)));
     }
 
-    public BusNode getVHNodeBus(int v, int h) {
-        if (vPosToHPosToNodeBus == null) {
-            buildVPosToHposToNodeBus();
-        }
-        if (!vPosToHPosToNodeBus.containsKey(v)) {
-            return null;
-        }
-        if (!vPosToHPosToNodeBus.get(v).containsKey(h)) {
-            return null;
-        }
-        return vPosToHPosToNodeBus.get(v).get(h);
-    }
-
     public void addCell(Cell c) {
         cells.add(c);
+        c.getNodes().stream().filter(n -> n.getType() != NodeType.BUS).forEach(n -> nodeToCell.put(n, c));
     }
 
     public void removeCell(Cell c) {
         cells.remove(c);
+        c.getNodes().stream().filter(n -> n.getType() != NodeType.BUS && nodeToCell.get(n) == c)
+                .forEach(nodeToCell::remove);
     }
 
     public List<BusNode> getNodeBuses() {
@@ -575,6 +553,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Set<Cell> getCells() {
         return new TreeSet<>(cells);
+    }
+
+    public Optional<Cell> getCell(Node node) {
+        return Optional.ofNullable(nodeToCell.get(node));
     }
 
     public VoltageLevelInfos getVoltageLevelInfos() {
@@ -682,14 +664,15 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void handleMultiTermsNodeRotation() {
         super.handleMultiTermsNodeRotation();
         for (Node node : nodes) {
-            if ((node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER))
-                && node.getCell() != null
-                && ((ExternCell) node.getCell()).getDirection() == BusCell.Direction.BOTTOM) {
-                // permutation if cell direction is BOTTOM,
-                // because in the svg component library, circle for winding1 is below circle for winding2
-                node.setRotationAngle(180.);
+            if (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
+                    || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
+                    || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)) {
+                Optional<Cell> oCell = getCell(node);
+                if (oCell.isPresent() && ((ExternCell) oCell.get()).getDirection() == BusCell.Direction.BOTTOM) {
+                    // permutation if cell direction is BOTTOM,
+                    // because in the svg component library, circle for winding1 is below circle for winding2
+                    node.setRotationAngle(180.);
+                }
             }
         }
     }

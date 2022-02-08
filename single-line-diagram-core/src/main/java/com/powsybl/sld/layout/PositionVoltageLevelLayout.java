@@ -95,10 +95,10 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || cell.getType() == Cell.CellType.INTERN)
-                .forEach(cell -> cell.calculateCoord(layoutParam));
+                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
-                .forEach(cell -> cell.calculateCoord(layoutParam));
+                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
     }
 
     /**
@@ -129,6 +129,6 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     public static double getFeederSpan(LayoutParameters layoutParam) {
         // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
         // + half the height of the feeder component + half the height of that node component
-        return layoutParam.getMinSpaceForFeederArrows() + layoutParam.getMaxComponentHeight();
+        return layoutParam.getSpaceForFeederInfos() + layoutParam.getMaxComponentHeight();
     }
 }

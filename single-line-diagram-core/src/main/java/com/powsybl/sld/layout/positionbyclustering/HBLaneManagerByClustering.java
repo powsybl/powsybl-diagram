@@ -11,7 +11,7 @@ import com.powsybl.sld.layout.HorizontalBusLaneManager;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.InternCell;
-import com.powsybl.sld.model.Side;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -18,7 +18,7 @@ import com.powsybl.sld.model.BusCell.Direction;
 
 import static com.powsybl.sld.model.BusCell.Direction.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
-import static com.powsybl.sld.model.Side.*;
+import static com.powsybl.sld.model.coordinate.Side.*;
 
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:

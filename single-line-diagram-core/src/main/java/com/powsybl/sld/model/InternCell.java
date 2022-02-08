@@ -8,12 +8,16 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Side;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -54,8 +58,8 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(VoltageLevelGraph graph, boolean exceptionIfPatternNotHandled) {
-        super(graph, CellType.INTERN);
+    public InternCell(int cellNumber, List<Node> nodes, boolean exceptionIfPatternNotHandled) {
+        super(cellNumber, CellType.INTERN, nodes);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
         shape = Shape.UNDEFINED;
@@ -232,11 +236,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam) {
+    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
         if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
-            body.calculateRootCoord(layoutParam);
+            body.calculateRootCoord(vlGraph, layoutParam);
         }
-        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam));
+        legs.values().forEach(lb -> lb.calculateRootCoord(vlGraph, layoutParam));
     }
 
     public LegBlock getSideToLeg(Side side) {
