@@ -8,7 +8,7 @@ package com.powsybl.sld.library;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.powsybl.sld.model.Point;
+import com.powsybl.sld.model.coordinate.Point;
 
 import java.util.Objects;
 

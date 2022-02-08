@@ -10,6 +10,7 @@ import com.powsybl.sld.layout.HorizontalBusLane;
 import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.layout.LegBusSet;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;

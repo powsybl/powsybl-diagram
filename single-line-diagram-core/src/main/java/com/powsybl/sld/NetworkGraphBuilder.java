@@ -607,7 +607,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void addLineEdges(LineGraph graph, List<Line> lines) {
+    private void addLineEdges(Graph graph, List<Line> lines) {
         Set<String> linesIds = new HashSet<>();
         lines.forEach(line -> {
             if (!linesIds.contains(line.getId())) {

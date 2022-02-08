@@ -7,13 +7,14 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.Side.LEFT;
-import static com.powsybl.sld.model.Side.RIGHT;
+import static com.powsybl.sld.model.coordinate.Side.LEFT;
+import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

@@ -9,13 +9,16 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.force.layout.ForceLayout;
 import com.powsybl.sld.force.layout.Vector;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Coord;
+import com.powsybl.sld.model.coordinate.Point;
+
 import org.jgrapht.Graph;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.Coord.Dimension.X;
-import static com.powsybl.sld.model.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>

@@ -29,8 +29,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private Direction direction = Direction.UNDEFINED;
 
-    protected AbstractBusCell(VoltageLevelGraph graph, CellType type) {
-        super(graph, type);
+    protected AbstractBusCell(int cellIndex, CellType type, List<Node> nodes) {
+        super(cellIndex, type, nodes);
     }
 
     @Override
@@ -78,8 +78,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam) {
-        getRootBlock().calculateRootCoord(layoutParam);
+    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
+        getRootBlock().calculateRootCoord(vlGraph, layoutParam);
     }
 
     @Override
