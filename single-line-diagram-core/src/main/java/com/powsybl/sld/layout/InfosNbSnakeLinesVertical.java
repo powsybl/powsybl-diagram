@@ -7,9 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.Side;
 import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.function.Function;

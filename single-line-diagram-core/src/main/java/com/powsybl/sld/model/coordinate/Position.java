@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.coordinate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -72,7 +72,7 @@ public class Position {
             segments.forEach(seg -> seg.setValue(0));
         }
 
-        void glue(Stream<Segment> segStream) {
+        public void glue(Stream<Segment> segStream) {
             List<Segment> segments = segStream.collect(Collectors.toList());
             setSpan(segments.stream().mapToInt(Segment::getSpan).sum());
             int cumulSpan = 0;

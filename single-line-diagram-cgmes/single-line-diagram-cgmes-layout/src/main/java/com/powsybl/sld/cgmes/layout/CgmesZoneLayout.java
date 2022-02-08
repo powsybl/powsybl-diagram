@@ -14,9 +14,10 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.BranchEdge;
-import com.powsybl.sld.model.Point;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.coordinate.Point;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

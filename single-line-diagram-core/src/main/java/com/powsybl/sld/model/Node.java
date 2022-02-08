@@ -7,6 +7,8 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class Node implements BaseNode {
         OTHER
     }
 
-    protected final VoltageLevelGraph graph;
+    protected final VoltageLevelGraph voltageLevelGraph;
 
     private NodeType type;
 
@@ -77,7 +79,7 @@ public class Node implements BaseNode {
         this.fictitious = fictitious;
         // graph can be null here : for example, in a substation diagram, a fictitious node is created outside
         // any graph, in order to link the different windings together
-        this.graph = graph;
+        this.voltageLevelGraph = graph;
     }
 
     public Cell getCell() {
@@ -89,7 +91,7 @@ public class Node implements BaseNode {
     }
 
     public VoltageLevelGraph getVoltageLevelGraph() {
-        return graph;
+        return voltageLevelGraph;
     }
 
     @Override
@@ -155,7 +157,7 @@ public class Node implements BaseNode {
 
     @Override
     public Point getDiagramCoordinates() {
-        return graph != null ? position.getShiftedPoint(graph.getCoord()) : position;
+        return voltageLevelGraph != null ? position.getShiftedPoint(voltageLevelGraph.getCoord()) : position;
     }
 
     public Point getCoordinates() {
@@ -191,7 +193,7 @@ public class Node implements BaseNode {
      * @return abscissa within diagram
      */
     public double getDiagramX() {
-        return graph != null ? position.getX() + graph.getX() : position.getX();
+        return voltageLevelGraph != null ? position.getX() + voltageLevelGraph.getX() : position.getX();
     }
 
     /**
@@ -199,7 +201,7 @@ public class Node implements BaseNode {
      * @return ordinate within diagram
      */
     public double getDiagramY() {
-        return graph != null ? position.getY() + graph.getY() : position.getY();
+        return voltageLevelGraph != null ? position.getY() + voltageLevelGraph.getY() : position.getY();
     }
 
     public void setX(double x) {
@@ -328,8 +330,8 @@ public class Node implements BaseNode {
      * could be override in case of node that represents an external voltage level.
      */
     public VoltageLevelInfos getVoltageLevelInfos() {
-        if (graph != null) {
-            return graph.getVoltageLevelInfos();
+        if (voltageLevelGraph != null) {
+            return voltageLevelGraph.getVoltageLevelInfos();
         }
         return null;
     }

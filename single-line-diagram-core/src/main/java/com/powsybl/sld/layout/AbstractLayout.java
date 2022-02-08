@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Point;
 
 import java.util.*;
 
@@ -17,12 +18,12 @@ import java.util.*;
  */
 public abstract class AbstractLayout implements Layout {
 
-    public abstract AbstractBaseGraph getGraph();
+    public abstract BaseGraph getGraph();
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);
 
-    protected void manageSnakeLines(AbstractBaseGraph graph, LayoutParameters layoutParameters) {
-        for (Node multiNode : graph.getMultiTermNodes()) {
+    protected void manageSnakeLines(BaseGraph graph, LayoutParameters layoutParameters) {
+        for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
             if (adjacentNodes.size() == 2) {

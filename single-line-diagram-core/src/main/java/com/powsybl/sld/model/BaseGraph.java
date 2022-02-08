@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-public interface BaseGraph extends LineGraph {
+public interface BaseGraph extends Graph {
 
     BranchEdge addTwtEdge(FeederTwtLegNode legNode, MiddleTwtNode twtNode);
 
     List<BranchEdge> getTwtEdges();
 
-    List<Node> getMultiTermNodes();
+    List<MiddleTwtNode> getMultiTermNodes();
 
-    void addMultiTermNode(Node node);
+    void addMultiTermNode(MiddleTwtNode node);
 }

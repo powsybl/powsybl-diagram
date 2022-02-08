@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.Side;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
 import java.util.stream.Collectors;

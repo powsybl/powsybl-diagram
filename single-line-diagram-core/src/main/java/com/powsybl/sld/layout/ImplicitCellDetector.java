@@ -62,13 +62,16 @@ public class ImplicitCellDetector implements CellDetector {
         exclusionTypes.add(Node.NodeType.FEEDER);
         List<Node.NodeType> stopTypes = new ArrayList<>();
         stopTypes.add(Node.NodeType.BUS);
-        detectCell(graph, stopTypes, exclusionTypes, true, allocatedNodes);
+        List<List<Node>> internCellsNodes = detectCell(graph, stopTypes, exclusionTypes, allocatedNodes);
+        internCellsNodes.stream()
+                .map(nodes -> new InternCell(graph.getNextCellNumber(), nodes, exceptionIfPatternNotHandled))
+                .forEach(graph::addCell);
 
         // ****************EXTERN AND SHUNT CELLS******
         stopTypes.add(Node.NodeType.FEEDER);
-        detectCell(graph, stopTypes, new ArrayList<>(), false, allocatedNodes);
+        List<List<Node>> externCellsNodes = detectCell(graph, stopTypes, new ArrayList<>(), allocatedNodes);
+        externCellsNodes.forEach(nodes -> graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes)));
         for (ExternCell cell : graph.getCells().stream()
-
                 .filter(cell -> cell instanceof ExternCell)
                 .map(ExternCell.class::cast)
                 .collect(Collectors.toList())) {
@@ -108,11 +111,11 @@ public class ImplicitCellDetector implements CellDetector {
      * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
      **/
-    private void detectCell(VoltageLevelGraph graph,
-                            List<Node.NodeType> typeStops,
-                            List<Node.NodeType> exclusionTypes,
-                            boolean isCellIntern,
-                            List<Node> allocatedNodes) {
+    private List<List<Node>> detectCell(VoltageLevelGraph graph,
+            List<Node.NodeType> typeStops,
+            List<Node.NodeType> exclusionTypes,
+            List<Node> allocatedNodes) {
+        List<List<Node>> cellsNodes = new ArrayList<>();
         graph.getNodeBuses().forEach(bus -> bus.getAdjacentNodes().forEach(adj -> {
             List<Node> cellNodes = new ArrayList<>();
             List<Node> outsideNodes = new ArrayList<>(allocatedNodes);
@@ -121,13 +124,13 @@ public class ImplicitCellDetector implements CellDetector {
                     adj, node -> typeStops.contains(node.getType()), node -> exclusionTypes.contains(node.getType()),
                     cellNodes, outsideNodes)) {
                 cellNodes.add(0, bus);
-                Cell cell = isCellIntern ? new InternCell(graph, exceptionIfPatternNotHandled) : new ExternCell(graph);
-                cell.setNodes(cellNodes);
+                cellsNodes.add(cellNodes);
                 allocatedNodes.addAll(cellNodes.stream()
                         .filter(node -> node.getType() != Node.NodeType.BUS)
                         .collect(Collectors.toList()));
             }
         }));
+        return cellsNodes;
     }
 
     /**
@@ -202,9 +205,9 @@ public class ImplicitCellDetector implements CellDetector {
                         .filter(m -> !m.getType().equals(Node.NodeType.BUS))
                         .collect(Collectors.toList()));
                 n.setType(Node.NodeType.SHUNT);
-                ExternCell newExternCell = new ExternCell(graph);
                 cellNodesExtern1.add(n);
-                newExternCell.setNodes(cellNodesExtern1);
+                ExternCell newExternCell = new ExternCell(graph.getNextCellNumber(), cellNodesExtern1);
+                graph.addCell(newExternCell);
 
                 //create the shunt cell
 
@@ -222,15 +225,28 @@ public class ImplicitCellDetector implements CellDetector {
                                 cellNodesExtern2::contains))
                         .collect(Collectors.toList()));
 
-                ExternCell newExternCell2 = new ExternCell(graph);
-                newExternCell2.setNodes(cellNodesExtern2);
+                ExternCell newExternCell2 = new ExternCell(graph.getNextCellNumber(), cellNodesExtern2);
+                graph.addCell(newExternCell2);
 
-                ShuntCell.create(newExternCell, newExternCell2, shuntNodes);
+                createShuntCell(graph, newExternCell, newExternCell2, shuntNodes);
 
                 graph.removeCell(cell);
                 break;
             }
         }
+    }
+
+    private void createShuntCell(VoltageLevelGraph vlGraph, ExternCell externCell1, ExternCell externCell2,
+            List<Node> shuntNodes) {
+        int cellNumber = vlGraph.getNextCellNumber();
+        InternalNode iNode1 = vlGraph.insertInternalNode(shuntNodes.get(0), shuntNodes.get(1),
+                "Shunt " + cellNumber + ".1");
+        InternalNode iNode2 = vlGraph.insertInternalNode(shuntNodes.get(shuntNodes.size() - 1),
+                shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
+        shuntNodes.add(1, iNode1);
+        shuntNodes.add(shuntNodes.size() - 1, iNode2);
+        vlGraph.addCell(ShuntCell.create(cellNumber, externCell1, externCell2, shuntNodes));
+
     }
 
     private List<Node> checkCandidateShuntNode(Node n, List<Node> externalNodes) {
@@ -302,4 +318,3 @@ public class ImplicitCellDetector implements CellDetector {
         return shuntCellNodes;
     }
 }
-

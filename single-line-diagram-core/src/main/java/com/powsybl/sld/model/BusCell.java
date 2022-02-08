@@ -8,6 +8,8 @@ package com.powsybl.sld.model;
 
 import java.util.*;
 
+import com.powsybl.sld.model.coordinate.Orientation;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene

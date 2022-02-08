@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static com.powsybl.sld.model.Coord.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 
 /**
  * A block group that cannot be correctly decomposed anymore.

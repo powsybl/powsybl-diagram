@@ -9,6 +9,7 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
@@ -32,7 +33,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
@@ -447,7 +448,7 @@ public class DefaultSVGWriter implements SVGWriter {
         return labelsMetadata;
     }
 
-   /*
+    /*
      * Drawing the voltageLevel graph nodes
      */
     protected void drawNodes(String prefixId,
@@ -456,7 +457,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              GraphMetadata metadata,
                              DiagramLabelProvider initProvider,
                              DiagramStyleProvider styleProvider,
-                             Collection<Node> nodes) {
+                             Collection<? extends Node> nodes) {
 
         for (Node node : nodes) {
             String nodeId = DiagramStyles.escapeId(prefixId + node.getId());
