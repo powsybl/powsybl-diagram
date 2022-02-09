@@ -55,13 +55,14 @@ public abstract class AbstractTestCase {
             .setShowGrid(true)
             .setShowInternalNodes(true)
             .setScaleFactor(1)
-            .setArrowDistance(20)
+            .setFeederInfosOuterMargin(20)
             .setDrawStraightWires(false)
             .setHorizontalSnakeLinePadding(30)
             .setVerticalSnakeLinePadding(30)
             .setCssLocation(LayoutParameters.CssLocation.INSERTED_IN_SVG)
             .setSvgWidthAndHeightAdded(true)
-            .setUseName(true);
+            .setUseName(true)
+            .setFeederInfosIntraMargin(10);
     }
 
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {

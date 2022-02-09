@@ -1540,8 +1540,8 @@
     "drawStraightWires" : false,
     "horizontalSnakeLinePadding" : 30.0,
     "verticalSnakeLinePadding" : 30.0,
-    "arrowDistance" : 20.0,
-    "minSpaceForFeederArrows" : 50.0,
+    "feederInfosOuterMargin" : 20.0,
+    "spaceForFeederInfos" : 50.0,
     "diagramName" : null,
     "avoidSVGComponentsDuplication" : true,
     "adaptCellHeightToContent" : false,
@@ -1553,9 +1553,10 @@
     "angleLabelShift" : 15.0,
     "highlightLineState" : true,
     "addNodesInfos" : true,
-    "feederArrowSymmetry" : false,
+    "feederInfoSymmetry" : false,
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : true,
-    "useName" : true
+    "useName" : true,
+    "feederInfosIntraMargin" : 10.0
   }
 }

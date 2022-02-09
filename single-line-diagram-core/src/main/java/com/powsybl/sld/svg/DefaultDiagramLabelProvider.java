@@ -64,7 +64,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             default:
                 break;
         }
-        if (node.getDirection() == BusCell.Direction.BOTTOM && !layoutParameters.isFeederArrowSymmetry()) {
+        if (node.getDirection() == BusCell.Direction.BOTTOM && !layoutParameters.isFeederInfoSymmetry()) {
             Collections.reverse(feederInfos);
         }
         return feederInfos;

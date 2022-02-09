@@ -70,14 +70,14 @@ public class BlockOrganizer {
                 .filter(cell -> cell.getType().isBusCell())
                 .map(BusCell.class::cast)
                 .forEach(cell -> {
-                    CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled);
+                    CellBlockDecomposer.determineBlocks(graph, cell, exceptionIfPatternNotHandled);
                     if (cell.getType() == INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }
                 });
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == SHUNT)
-                .forEach(cell -> CellBlockDecomposer.determineBlocks(cell, exceptionIfPatternNotHandled));
+                .forEach(cell -> CellBlockDecomposer.determineBlocks(graph, cell, exceptionIfPatternNotHandled));
 
         if (stack) {
             determineStackableBlocks(graph);
