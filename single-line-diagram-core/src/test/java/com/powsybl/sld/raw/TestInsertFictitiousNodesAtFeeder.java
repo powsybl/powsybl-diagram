@@ -8,6 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,6 +49,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBus.json"), toJson(g, "/TestFeederOnBus.json"));
+        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(g), new BasicStyleProvider()));
     }
 
     @Test
@@ -62,5 +64,6 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBusDisconnector.json"), toJson(g, "/TestFeederOnBusDisconnector.json"));
+        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(g), new BasicStyleProvider()));
     }
 }

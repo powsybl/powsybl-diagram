@@ -12,7 +12,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 200.0,
+    "y" : 58.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -21,7 +21,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 240.0,
+    "y" : 98.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -30,7 +30,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 200.0,
+    "y" : 58.0,
     "rotationAngle" : 90.0,
     "open" : false
   }, {
@@ -41,7 +41,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 100.0,
-    "y" : 240.0,
+    "y" : 98.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -53,7 +53,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 100.0,
-    "y" : 160.0,
+    "y" : 18.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -65,7 +65,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 100.0,
-    "y" : 200.0,
+    "y" : 58.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -77,7 +77,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 50.0,
-    "y" : 200.0,
+    "y" : 58.0,
     "rotationAngle" : 90.0,
     "open" : false,
     "kind" : "BREAKER"
@@ -89,7 +89,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 280.0,
+    "y" : 138.0,
     "open" : false,
     "pxWidth" : 125.0,
     "busbarIndex" : 1,
@@ -108,7 +108,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 305.0,
+    "y" : 163.0,
     "open" : false,
     "pxWidth" : 125.0,
     "busbarIndex" : 2,
@@ -127,7 +127,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 280.0,
+    "y" : 138.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -138,7 +138,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 305.0,
+    "y" : 163.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],
@@ -181,7 +181,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 280.0,
+          "y" : 138.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -202,7 +202,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 200.0,
+          "y" : 58.0,
           "xSpan" : 50.0,
           "ySpan" : 120.0
         },
@@ -223,7 +223,7 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 200.0,
+          "y" : 58.0,
           "xSpan" : 50.0,
           "ySpan" : 120.0
         },
@@ -243,7 +243,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 160.0,
+            "y" : 18.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
@@ -264,7 +264,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 200.0,
+            "y" : 58.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
@@ -285,7 +285,7 @@
           },
           "coord" : {
             "x" : 75.0,
-            "y" : 240.0,
+            "y" : 98.0,
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
@@ -307,7 +307,7 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 280.0,
+          "y" : 138.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

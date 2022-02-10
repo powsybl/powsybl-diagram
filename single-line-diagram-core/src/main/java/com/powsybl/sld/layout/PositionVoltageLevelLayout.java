@@ -109,6 +109,13 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     private void calculateExternCellHeight(LayoutParameters layoutParam) {
         Map<BusCell.Direction, Double> maxCellHeight = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0.));
         if (layoutParam.isAdaptCellHeightToContent()) {
+            Map<BusCell.Direction, Double> maxInternCellHeight = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0.));
+            // Initialize map with intern cells height
+            // in order to keep intern cells visible if there are no extern cells
+            getGraph().getCells().stream()
+                    .filter(cell -> cell.getType() == Cell.CellType.INTERN)
+                    .forEach(cell -> maxInternCellHeight.compute(((BusCell) cell).getDirection(), (k, v) -> Math.max(v, cell.calculateHeight(layoutParam))));
+
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
             getGraph().getCells().stream()
@@ -116,8 +123,26 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 .forEach(cell -> maxCellHeight.compute(((BusCell) cell).getDirection(), (k, v) -> Math.max(v, cell.calculateHeight(layoutParam))));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
-            maxCellHeight.compute(BusCell.Direction.TOP, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam));
-            maxCellHeight.compute(BusCell.Direction.BOTTOM, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam));
+            maxCellHeight.compute(BusCell.Direction.TOP, (k, v) -> {
+                double vIntern = maxInternCellHeight.get(BusCell.Direction.TOP);
+                if (v == 0. && vIntern == 0) {
+                    return 0.;
+                } else if (v == 0.) {
+                    return vIntern;
+                } else {
+                    return Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam);
+                }
+            });
+            maxCellHeight.compute(BusCell.Direction.BOTTOM, (k, v) -> {
+                double vIntern = maxInternCellHeight.get(BusCell.Direction.BOTTOM);
+                if (v == 0. && vIntern == 0) {
+                    return 0.;
+                } else if (v == 0.) {
+                    return vIntern;
+                } else {
+                    return Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam);
+                }
+            });
         } else {
             maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight());
             maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight());
