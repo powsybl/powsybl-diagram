@@ -123,7 +123,9 @@
     "y" : 345.0,
     "rotationAngle" : 90.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "BREAKER",
+    "order" : 2,
+    "direction" : "BOTTOM"
   }, {
     "type" : "SWITCH",
     "id" : "bc2",
@@ -135,7 +137,8 @@
     "y" : 240.0,
     "rotationAngle" : 90.0,
     "open" : false,
-    "kind" : "BREAKER"
+    "kind" : "BREAKER",
+    "order" : 4
   }, {
     "type" : "SWITCH",
     "id" : "bl1",
