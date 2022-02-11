@@ -91,9 +91,6 @@
                 <text x="-5.3" y="6.6">AC / DC</text>
                 <text class="sld-label" id="vsc_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_bbs_95_d">
-                <polyline points="165.0,360.0,190.0,360.0"/>
-            </g>
             <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_vsc_95_1">
                 <polyline points="190.0,360.0,190.0,330.0"/>
             </g>
@@ -155,9 +152,6 @@
                 <line x1="6" x2="6" y1="7.5" y2="12"/>
                 <text class="sld-label" id="C1_N_LABEL" x="-5.0" y="-5.0">Filter 1</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_bbs2_95_BUSCO_95_b2">
-                <polyline points="65.0,360.0,65.0,360.0"/>
-            </g>
             <g class="sld-wire" id="_95_vl_95_BUSCO_95_b2_95_INTERNAL_95_vl_95_b2">
                 <polyline points="65.0,356.0,65.0,330.0"/>
             </g>
@@ -197,9 +191,6 @@
             </g>
             <g class="sld-bottom-feeder" id="iddl1" transform="translate(115.0,640.0)">
                 <text class="sld-label" id="dl1_S_LABEL" x="-5.0" y="5.0">Dangling line 1</text>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_bbs2_95_BUSCO_95_b3">
-                <polyline points="115.0,360.0,115.0,360.0"/>
             </g>
             <g class="sld-wire" id="_95_vl_95_BUSCO_95_b3_95_INTERNAL_95_vl_95_b3">
                 <polyline points="115.0,364.0,115.0,390.0"/>
