@@ -6,23 +6,20 @@
  */
 package com.powsybl.sld.util;
 
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.Edge;
+import com.powsybl.sld.model.SubstationGraph;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -37,8 +34,6 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     VoltageLevel vl1;
     VoltageLevel vl2;
     VoltageLevel vl3;
-    private FileSystem fileSystem;
-    private Path tmpDir;
 
     @Before
     public void setUp() throws IOException {
@@ -84,14 +79,16 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         createSwitch(vl2, "b3WT_2", "b3WT_2", SwitchKind.BREAKER, true, true, true, 3, 4);
         createSwitch(vl3, "d3WT_3", "d3WT_3", SwitchKind.DISCONNECTOR, false, false, true, 0, 2);
         createSwitch(vl3, "b3WT_3", "b3WT_3", SwitchKind.BREAKER, true, false, true, 1, 2);
+    }
 
-        fileSystem = Jimfs.newFileSystem(Configuration.unix());
-        tmpDir = Files.createDirectory(fileSystem.getPath("/tmp"));
+    @Override
+    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
+        return new TopologicalStyleProvider(network);
     }
 
     @Test
     public void test() throws IOException {
-        // construction des graphes
+        // building graphs
         VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
         VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
         VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
@@ -140,6 +137,12 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
+    }
 
+    @Test
+    public void testSubstation() {
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        substationGraphLayout(graph);
+        assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));
     }
 }
