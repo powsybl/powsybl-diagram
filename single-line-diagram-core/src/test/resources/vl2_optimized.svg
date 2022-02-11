@@ -132,7 +132,7 @@
             <polyline points="90.0,210.0,90.0,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
-            <polyline points="90.0,320.0,102.5,320.0"/>
+            <polyline points="90.0,320.0,77.5,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="140.0,512.0,140.0,430.0"/>
@@ -151,7 +151,7 @@
             <polyline points="140.0,410.0,140.0,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
-            <polyline points="140.0,320.0,152.5,320.0"/>
+            <polyline points="140.0,320.0,127.5,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_trf2">
             <polyline points="170.0,100.0,170.0,160.0,193.0,160.0"/>
@@ -186,7 +186,7 @@
             <polyline points="200.0,210.0,200.0,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
-            <polyline points="200.0,320.0,240.0,320.0"/>
+            <polyline points="200.0,320.0,177.5,320.0"/>
         </g>
         <g class="sld-generator" id="idvl2_95_gen1" transform="translate(84.0,94.0)">
             <use href="#GENERATOR"/>

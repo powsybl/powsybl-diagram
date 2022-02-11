@@ -151,9 +151,6 @@
                 <line x1="16" x2="0" y1="0" y2="9"/>
                 <text class="sld-label" id="l_N_LABEL" x="-5.0" y="-5.0">l</text>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_d1">
-                <polyline points="115.0,252.0,115.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_d1_95_INTERNAL_95_vl1_95_d1">
                 <polyline points="115.0,252.0,115.0,222.0"/>
             </g>
@@ -194,9 +191,6 @@
             </g>
             <g class="sld-bottom-feeder sld-vl300to500-0" id="idtrf_95_ONE" transform="translate(65.0,424.0)">
                 <text class="sld-label" id="trf_ONE_S_LABEL" x="-5.0" y="5.0">trf</text>
-            </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_d2">
-                <polyline points="65.0,252.0,65.0,252.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_d2_95_INTERNAL_95_vl1_95_d2">
                 <polyline points="65.0,252.0,65.0,282.0"/>
@@ -249,9 +243,6 @@
                 <path d="M6,6 A 6 40 0 0 0 10,6"/>
                 <text class="sld-label" id="g_S_LABEL" x="-5.0" y="17.0">g</text>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_bbs2_95_d3">
-                <polyline points="205.0,252.0,205.0,252.0"/>
-            </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_d3_95_INTERNAL_95_vl2_95_d3">
                 <polyline points="205.0,252.0,205.0,282.0"/>
             </g>
@@ -292,9 +283,6 @@
             </g>
             <g class="sld-top-feeder sld-vl180to300-0" id="idtrf_95_TWO" transform="translate(255.0,80.0)">
                 <text class="sld-label" id="trf_TWO_N_LABEL" x="-5.0" y="-5.0">trf</text>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_bbs2_95_d4">
-                <polyline points="255.0,252.0,255.0,252.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_vl2_95_d4_95_INTERNAL_95_vl2_95_d4">
                 <polyline points="255.0,252.0,255.0,222.0"/>

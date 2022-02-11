@@ -11,7 +11,15 @@
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
+      "x" : 37.5,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
       "x" : 62.5,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 87.5,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
