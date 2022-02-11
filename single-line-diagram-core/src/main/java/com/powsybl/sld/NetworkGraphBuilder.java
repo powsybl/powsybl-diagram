@@ -265,7 +265,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 Middle3WTNode middleNode = new Middle3WTNode(transformer.getId(), transformer.getNameOrId(),
                     voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
                     voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
-                    voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE));
+                    voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE), true);
 
                 FeederWithSideNode.Side firstOtherLegSide;
                 FeederWithSideNode.Side secondOtherLegSide;
@@ -683,7 +683,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
 
             graph.addMultiTermNode(Middle3WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
-                (Feeder3WTLegNode) n1, (Feeder3WTLegNode) n2, (Feeder3WTLegNode) n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3));
+                (Feeder3WTLegNode) n1, (Feeder3WTLegNode) n2, (Feeder3WTLegNode) n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3, false));
         });
     }
 

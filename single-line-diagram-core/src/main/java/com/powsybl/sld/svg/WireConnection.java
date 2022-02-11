@@ -44,14 +44,16 @@ public class WireConnection {
 
     public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
                                                           BaseNode node1,
-                                                          BaseNode node2) {
+                                                          BaseNode node2, Point vlGraphCoord) {
         Objects.requireNonNull(anchorPointProvider);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
+        Point shiftPoint = vlGraphCoord != null ? vlGraphCoord : new Point(0., 0.);
 
         List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
         List<AnchorPoint> anchorPoints2 = getAnchorPoints(anchorPointProvider, node2);
-        return searchBetterAnchorPoints(node1.getDiagramCoordinates(), node2.getDiagramCoordinates(), anchorPoints1, anchorPoints2);
+        return searchBetterAnchorPoints(node1.getCoordinates().getShiftedPoint(shiftPoint),
+            node2.getCoordinates().getShiftedPoint(shiftPoint), anchorPoints1, anchorPoints2);
     }
 
     public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
@@ -98,10 +100,10 @@ public class WireConnection {
     /*
      * Calculating the polyline points for the voltageLevel graph edge
      */
-    public List<Point> calculatePolylinePoints(BaseNode node1, BaseNode node2, boolean straight) {
+    public List<Point> calculatePolylinePoints(Point vlGraphCoord, BaseNode node1, BaseNode node2, boolean straight) {
 
-        Point point1 = node1.getDiagramCoordinates().getShiftedPoint(getAnchorPoint1());
-        Point point2 = node2.getDiagramCoordinates().getShiftedPoint(getAnchorPoint2());
+        Point point1 = node1.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint1());
+        Point point2 = node2.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint2());
         if (point1.getX() == point2.getX() && point1.getY() == point2.getY()) {
             return Collections.emptyList();
         }
