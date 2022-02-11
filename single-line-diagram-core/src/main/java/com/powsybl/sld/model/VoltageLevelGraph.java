@@ -295,8 +295,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * Insert fictitious node(s) before feeders in order for the feeder to be properly displayed:
      * feeders need at least one inserted fictitious node to have enough space to display the feeder arrows.
      * Some special cases:
-     *  - feeders connected directly to a bus need 3 additional nodes (1 fictitious disconnector, 2 internal nodes) to obey the Leg/Body/Feeder structure
-     *  - feeders connected to a bus through a disconnector need 2 additional internal nodes to obey the Leg/Body/Feeder structure
+     *  - feeders connected directly to a bus need 3 additional nodes (1 BusConnection, 2 InternalNode) to obey the Leg/Body/Feeder structure
+     *  - feeders connected to a bus through a disconnector need 2 additional InternalNode to obey the Leg/Body/Feeder structure
      *  - 3WT do not need any fictitious node inserted here as they already have the fictitious Middle3WTNode
      */
     public void insertFictitiousNodesAtFeeders() {
@@ -304,17 +304,17 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         for (Node feederNode : feederNodes) {
             List<Node> adjacentNodes = feederNode.getAdjacentNodes();
-            if (isFeederConnectedToBus(feederNode)) {
+            if (isConnectedToBus(feederNode)) {
                 // Feeders linked directly to a bus need 3 fictitious nodes to be properly displayed:
-                //  - 1 fictitious disconnector on the bus
+                //  - 1 bus connection
                 //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                addTripleNode(adjacentNodes.get(0), feederNode, nodesToAdd);
-            } else if (isFeederConnectedToBusDisconnector(feederNode)) {
+                addTripleNode(feederNode, nodesToAdd);
+            } else if (isConnectedToBusDisconnector(feederNode)) {
                 // Feeders linked directly to a bus disconnector need 2 internal nodes to be properly displayed, in order
                 // to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                insertTwoInternalNodes(adjacentNodes.get(0), feederNode, nodesToAdd);
+                insertTwoInternalNodes(feederNode, nodesToAdd);
             } else if (!isFeeder3WT(feederNode)) {
-                // Three-winding transformers do not need to be extended as the Middle3WTNode is already itself an internal node
+                // Three-winding transformers do not need to be extended in voltage level diagrams, as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
                 InternalNode nf = new InternalNode(feederNode.getId(), feederNode.getVoltageLevelGraph());
                 nodesToAdd.add(nf);
@@ -330,17 +330,16 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodesToAdd.forEach(this::addNode);
     }
 
-    private boolean isFeederConnectedToBus(Node feederNode) {
-        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
-        return adjacentNodes.size() == 1 && adjacentNodes.get(0).getType() == Node.NodeType.BUS;
+    private boolean isConnectedToBus(Node node) {
+        return node.getAdjacentNodes().stream().anyMatch(BusNode.class::isInstance);
     }
 
-    private boolean isFeederConnectedToBusDisconnector(Node feederNode) {
-        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
-        return adjacentNodes.size() == 1
-            && adjacentNodes.get(0).getType() == Node.NodeType.SWITCH
-            && ((SwitchNode) adjacentNodes.get(0)).getKind() == SwitchNode.SwitchKind.DISCONNECTOR
-            && adjacentNodes.get(0).getAdjacentNodes().stream().anyMatch(n -> n.getType() == Node.NodeType.BUS);
+    private boolean isConnectedToBusDisconnector(Node node) {
+        return node.getAdjacentNodes().stream()
+                .filter(SwitchNode.class::isInstance)
+                .map(SwitchNode.class::cast)
+                .filter(sn -> sn.getKind() == SwitchNode.SwitchKind.DISCONNECTOR)
+                .anyMatch(sn -> sn.getAdjacentNodes().stream().anyMatch(n -> n.getType() == Node.NodeType.BUS));
     }
 
     private boolean isFeeder3WT(Node feederNode) {
@@ -348,9 +347,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return adjacentNodes.size() == 1 && adjacentNodes.get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
     }
 
-    private void addTripleNode(Node busNode, Node feederNode, List<Node> nodesToAdd) {
-        removeEdge(busNode, feederNode);
-
+    private void addTripleNode(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
         BusConnection fNodeToBus = new BusConnection(feederNode.getId(), VoltageLevelGraph.this);
         InternalNode fNodeToSw1 = new InternalNode(feederNode.getId() + "_1", VoltageLevelGraph.this);
@@ -362,15 +359,20 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodesToAdd.add(fNodeToSw2);
 
         // Add edges right away
-        addEdge(busNode, fNodeToBus);
+        for (Node adjacentNode : feederNode.getAdjacentNodes()) {
+            if (adjacentNode instanceof BusNode) {
+                addEdge(adjacentNode, fNodeToBus);
+            } else {
+                addEdge(adjacentNode, fNodeToSw1);
+            }
+            removeEdge(adjacentNode, feederNode);
+        }
         addEdge(fNodeToBus, fNodeToSw1);
         addEdge(fNodeToSw1, fNodeToSw2);
         addEdge(fNodeToSw2, feederNode);
     }
 
-    private void insertTwoInternalNodes(Node busDisconnectorNode, Node feederNode, List<Node> nodesToAdd) {
-        removeEdge(busDisconnectorNode, feederNode);
-
+    private void insertTwoInternalNodes(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
         InternalNode fNodeToSw1 = new InternalNode(feederNode.getId() + "_1", VoltageLevelGraph.this);
         InternalNode fNodeToSw2 = new InternalNode(feederNode.getId() + "_2", VoltageLevelGraph.this);
@@ -380,7 +382,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodesToAdd.add(fNodeToSw2);
 
         // Add edges right away
-        addEdge(busDisconnectorNode, fNodeToSw1);
+        for (Node adjacentNodes : feederNode.getAdjacentNodes()) {
+            addEdge(adjacentNodes, fNodeToSw1);
+            removeEdge(adjacentNodes, feederNode);
+        }
         addEdge(fNodeToSw1, fNodeToSw2);
         addEdge(fNodeToSw2, feederNode);
     }

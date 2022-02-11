@@ -55,7 +55,7 @@ public class SwitchNode extends Node {
         if (optOrder.isPresent()) {
             generator.writeNumberField("order", optOrder.get());
         }
-        if (getDirection() != null && this.getDirection() != BusCell.Direction.UNDEFINED) {
+        if (getDirection() != null && getDirection() != BusCell.Direction.UNDEFINED) {
             generator.writeStringField("direction", getDirection().name());
         }
     }

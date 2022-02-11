@@ -29,8 +29,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
     }
 
     @Override
-    public void toSVG(Graph graph, String filename) {
-        toSVG(graph, filename, getRawLabelProvider(graph), new BasicStyleProvider());
+    public String toSVG(Graph graph, String filename) {
+        return toSVG(graph, filename, getRawLabelProvider(graph), new BasicStyleProvider());
     }
 
     private static class RawDiagramLabelProvider implements DiagramLabelProvider {

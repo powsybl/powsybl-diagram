@@ -162,7 +162,7 @@
             <polyline points="80.0,230.0,80.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
-            <polyline points="80.0,340.0,102.5,340.0"/>
+            <polyline points="80.0,340.0,77.5,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,540.0,120.0,450.0"/>
@@ -181,7 +181,7 @@
             <polyline points="120.0,430.0,120.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
-            <polyline points="120.0,340.0,102.5,340.0"/>
+            <polyline points="120.0,340.0,127.5,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_btrf2">
             <polyline points="440.0,120.0,440.0,210.0"/>
@@ -272,7 +272,7 @@
             <polyline points="640.0,230.0,640.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dgen1_95_vl2_95_bbs1">
-            <polyline points="640.0,340.0,652.5,340.0"/>
+            <polyline points="640.0,340.0,627.5,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_trf1_95_vl2_95_btrf1">
             <polyline points="690.0,540.0,690.0,450.0"/>
@@ -291,7 +291,7 @@
             <polyline points="690.0,430.0,690.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf1_95_vl2_95_bbs1">
-            <polyline points="690.0,340.0,702.5,340.0"/>
+            <polyline points="690.0,340.0,677.5,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_trf2_95_one_95_vl2_95_btrf2">
             <polyline points="750.0,120.0,750.0,210.0"/>
@@ -310,7 +310,7 @@
             <polyline points="750.0,230.0,750.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl2_95_vl2_95_dtrf2_95_vl2_95_bbs1">
-            <polyline points="750.0,340.0,790.0,340.0"/>
+            <polyline points="750.0,340.0,727.5,340.0"/>
         </g>
         <g class="sld-generator" id="idvl2_95_gen1" transform="translate(634.0,114.0)">
             <use href="#GENERATOR"/>
@@ -370,7 +370,7 @@
             <polyline points="930.0,230.0,930.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_dcapa1_95_vl3_95_bbs1">
-            <polyline points="930.0,340.0,952.5,340.0"/>
+            <polyline points="930.0,340.0,927.5,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_btrf2">
             <polyline points="1040.0,120.0,1040.0,210.0"/>
@@ -389,7 +389,7 @@
             <polyline points="1040.0,230.0,1040.0,340.0"/>
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_dtrf2_95_vl3_95_bbs1">
-            <polyline points="1040.0,340.0,1002.5,340.0"/>
+            <polyline points="1040.0,340.0,1027.5,340.0"/>
         </g>
         <g class="sld-capacitor" id="idvl3_95_capa1" transform="translate(924.0,114.0)">
             <use href="#CAPACITOR"/>

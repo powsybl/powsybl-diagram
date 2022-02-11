@@ -11,7 +11,15 @@
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
+      "x" : 60.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
       "x" : 100.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 140.0,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
@@ -19,7 +27,15 @@
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
+      "x" : 220.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
       "x" : 260.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 300.0,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
@@ -27,7 +43,15 @@
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {
+      "x" : 380.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
       "x" : 420.0,
+      "y" : 0.0,
+      "orientation" : "VERTICAL"
+    }, {
+      "x" : 460.0,
       "y" : 0.0,
       "orientation" : "VERTICAL"
     }, {

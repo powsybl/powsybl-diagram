@@ -102,6 +102,9 @@ public class WireConnection {
 
         Point point1 = node1.getDiagramCoordinates().getShiftedPoint(getAnchorPoint1());
         Point point2 = node2.getDiagramCoordinates().getShiftedPoint(getAnchorPoint2());
+        if (point1.getX() == point2.getX() && point1.getY() == point2.getY()) {
+            return Collections.emptyList();
+        }
 
         List<Point> pol = new ArrayList<>();
         pol.add(point1);
