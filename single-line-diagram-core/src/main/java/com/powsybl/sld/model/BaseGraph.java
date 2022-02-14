@@ -20,4 +20,5 @@ public interface BaseGraph extends Graph {
     List<MiddleTwtNode> getMultiTermNodes();
 
     void addMultiTermNode(MiddleTwtNode node);
+
 }

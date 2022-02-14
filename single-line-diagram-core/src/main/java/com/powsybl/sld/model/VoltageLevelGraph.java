@@ -170,6 +170,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         if (nodes.contains(node)) {
             throw new AssertionError("The node cannot be added, it is already in the graph");
         }
+        super.addNode(this, node);
         nodes.add(node);
         nodesByType.computeIfAbsent(node.getType(), nodeType -> new ArrayList<>()).add(node);
         nodesById.put(node.getId(), node);
@@ -177,6 +178,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void removeNode(Node node) {
         nodes.remove(node);
+        super.removeNode(node);
         nodesByType.computeIfAbsent(node.getType(), nodeType -> new ArrayList<>()).remove(node);
         nodesById.remove(node.getId());
         for (Edge edge : new ArrayList<>(node.getAdjacentEdges())) {
@@ -684,4 +686,5 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public double getLastBusY(LayoutParameters layoutParam) {
         return getFirstBusY(layoutParam) + (getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus();
     }
+
 }

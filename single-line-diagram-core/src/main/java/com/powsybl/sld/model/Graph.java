@@ -23,6 +23,12 @@ public interface Graph {
 
     Stream<VoltageLevelGraph> getVoltageLevelStream();
 
+    VoltageLevelGraph getVlGraph(Node node);
+
+    void addNode(VoltageLevelGraph vlGraph, Node node);
+
+    void removeNode(Node node);
+
     Stream<Node> getAllNodesStream();
 
     BranchEdge addLineEdge(String lineId, Node n1, Node n2);

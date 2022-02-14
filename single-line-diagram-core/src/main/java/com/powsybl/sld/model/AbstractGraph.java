@@ -16,7 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -28,6 +30,7 @@ public abstract class AbstractGraph implements Graph {
     private double width;
     private double height;
     private final List<BranchEdge> lineEdges = new ArrayList<>();
+    private Map<Node, VoltageLevelGraph> nodeToVlGraph = new HashMap<>();
 
     @Override
     public BranchEdge addLineEdge(String lineId, Node node1, Node node2) {
@@ -65,6 +68,21 @@ public abstract class AbstractGraph implements Graph {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    @Override
+    public VoltageLevelGraph getVlGraph(Node node) {
+        return nodeToVlGraph.get(node);
+    }
+
+    @Override
+    public void addNode(VoltageLevelGraph vlGraph, Node node) {
+        nodeToVlGraph.put(node, vlGraph);
+    }
+
+    @Override
+    public void removeNode(Node node) {
+        nodeToVlGraph.remove(node);
     }
 
     protected abstract void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
