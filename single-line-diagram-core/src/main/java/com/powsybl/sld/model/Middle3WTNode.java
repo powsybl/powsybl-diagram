@@ -16,11 +16,9 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
 public class Middle3WTNode extends MiddleTwtNode {
     private boolean embeddedInVlGraph;
 
-    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3,
-        boolean embeddedInVLGraph) {
+    public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
         super(id, name,
-            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
-            THREE_WINDINGS_TRANSFORMER);
+            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)}, THREE_WINDINGS_TRANSFORMER);
         this.embeddedInVlGraph = embeddedInVLGraph;
     }
 

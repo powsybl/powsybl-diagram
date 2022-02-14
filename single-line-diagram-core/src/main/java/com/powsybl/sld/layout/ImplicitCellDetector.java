@@ -256,9 +256,9 @@ public class ImplicitCellDetector implements CellDetector {
         /*
         the node n is candidate to be a SHUNT node if there is
         (i) at least one branch exclusively reaching BUSes
-        (ii) at least one branch exclusively reaching DEPARTs
-        (iii) at least one branch reaching BUSes and DEPARTs (this branch would be a Shunt)
-        In that case, the BUSes branches and DEPARTs Branches constitute an EXTERN Cell,
+        (ii) at least one branch exclusively reaching FEEDERs
+        (iii) at least one branch reaching BUSes and FEEDERs (this branch would be a Shunt)
+        In that case, the BUSes branches and FEEDERs Branches constitute an EXTERN Cell,
         and returned in the cellNodesExtern
          */
 
