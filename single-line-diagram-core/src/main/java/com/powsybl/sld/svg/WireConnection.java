@@ -100,7 +100,7 @@ public class WireConnection {
     /*
      * Calculating the polyline points for the voltageLevel graph edge
      */
-    public List<Point> calculatePolylinePoints(Point vlGraphCoord, BaseNode node1, BaseNode node2, boolean straight) {
+    public List<Point> calculatePolylinePoints(BaseNode node1, BaseNode node2, boolean straight, Point vlGraphCoord) {
 
         Point point1 = node1.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint1());
         Point point2 = node2.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint2());

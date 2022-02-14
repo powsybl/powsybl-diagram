@@ -939,8 +939,9 @@ public class DefaultSVGWriter implements SVGWriter {
             List<Point> pol = new ArrayList<>();
             if (!edge.isZeroLength()) {
                 // Determine points of the polyline
-                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2(), graph.getCoord());
-                pol = anchorPoints.calculatePolylinePoints(graph.getCoord(), edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires());
+                Point vlPoint = graph.getCoord();
+                WireConnection anchorPoints = WireConnection.searchBetterAnchorPoints(anchorPointProvider, edge.getNode1(), edge.getNode2(), vlPoint);
+                pol = anchorPoints.calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires(), vlPoint);
 
                 if (!pol.isEmpty()) {
                     Element g = root.getOwnerDocument().createElement(GROUP);
