@@ -96,7 +96,7 @@ public abstract class AbstractGraph implements Graph {
         this.height = height;
     }
 
-    public void setInnerSize(double innerWidth, double innerHeight) {
+    public void setInnerSize(double innerWidth, double innerHeight) { //TODO: set inner height for substations - what is it?
         this.innerWidth = innerWidth;
         this.innerHeight = innerHeight;
     }

@@ -1177,7 +1177,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void drawNodesInfos(String prefixId, Element root, VoltageLevelGraph graph,
                                 GraphMetadata metadata, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
-
+//TODO: draw nodes infos for all voltage levels
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 

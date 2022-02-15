@@ -557,7 +557,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Point getCoord() {
         return coord;
-    }
+    } //TODO: add in BaseGraph to have it for substations
 
     public void setCoord(double x, double y) {
         coord.setX(x);
