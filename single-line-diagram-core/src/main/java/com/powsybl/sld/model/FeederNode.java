@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.powsybl.sld.library.ComponentTypeName.NODE;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -26,20 +24,16 @@ public class FeederNode extends Node {
 
     private final FeederType feederType;
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph,
+    FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious, VoltageLevelGraph graph,
                          FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious, graph);
         this.feederType = Objects.requireNonNull(feederType);
         setOrientation(orientation);
     }
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
+    FeederNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
                          FeederType feederType) {
         this(id, name, equipmentId, componentType, false, graph, feederType, null);
-    }
-
-    static FeederNode createFictitious(VoltageLevelGraph graph, String id, Orientation orientation) {
-        return new FeederNode(id, id, id, NODE, true, graph, FeederType.FICTITIOUS, orientation);
     }
 
     public FeederType getFeederType() {

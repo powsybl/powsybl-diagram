@@ -44,7 +44,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         String replacingNodeId = "s1vl2_replacingBreaker";
 
         // Creates new node
-        Node replacingNode = new SwitchNode(replacingNodeId, "replacingNode",
+        Node replacingNode = NodeFactory.createSwitchNode(replacingNodeId, "replacingNode",
             ComponentTypeName.BREAKER, false, graph, SwitchNode.SwitchKind.BREAKER, false);
 
         // Replace the origin node with that new node

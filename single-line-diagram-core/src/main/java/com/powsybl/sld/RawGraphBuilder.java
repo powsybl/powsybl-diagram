@@ -71,27 +71,21 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public BusNode createBusBarSection(String id, int busbarIndex, int sectionIndex) {
-            BusNode busNode = BusNode.create(voltageLevelGraph, id, id);
-            voltageLevelGraph.addNode(busNode);
+            BusNode busNode = NodeFactory.createBusNode(voltageLevelGraph, id, id);
             busNode.setBusBarIndexSectionIndex(busbarIndex, sectionIndex);
             return busNode;
         }
 
         public BusNode createBusBarSection(String id) {
-            BusNode busNode = BusNode.create(voltageLevelGraph, id, id);
-            voltageLevelGraph.addNode(busNode);
-            return busNode;
+            return NodeFactory.createBusNode(voltageLevelGraph, id, id);
         }
 
         public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open) {
-            SwitchNode sw = new SwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
-            voltageLevelGraph.addNode(sw);
-            return sw;
+            return NodeFactory.createSwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
         }
 
         public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open, Integer order, BusCell.Direction direction) {
-            SwitchNode sw = new SwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
-            voltageLevelGraph.addNode(sw);
+            SwitchNode sw = NodeFactory.createSwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
             if (direction != null || order != null) {
                 addExtension(sw, order, direction);
             }
@@ -103,15 +97,11 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FictitiousNode createFictitiousNode(int id) {
-            InternalNode fictitiousNode = new InternalNode(id, voltageLevelGraph);
-            voltageLevelGraph.addNode(fictitiousNode);
-            return fictitiousNode;
+            return NodeFactory.createInternalNode(id, voltageLevelGraph);
         }
 
         public FictitiousNode createFictitiousNode(String id) {
-            InternalNode fictitiousNode = new InternalNode(id, voltageLevelGraph);
-            voltageLevelGraph.addNode(fictitiousNode);
-            return fictitiousNode;
+            return NodeFactory.createInternalNode(id, voltageLevelGraph);
         }
 
         public void addExtension(Node fn, Integer order, BusCell.Direction direction) {
@@ -123,7 +113,6 @@ public class RawGraphBuilder implements GraphBuilder {
 
         private void commonFeederSetting(FeederNode node, String id, int order, BusCell.Direction direction) {
             node.setLabel(id);
-            voltageLevelGraph.addNode(node);
             if (direction != null) {
                 addExtension(node, order, direction);
             }
@@ -134,7 +123,7 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FeederNode createLoad(String id, int order, BusCell.Direction direction) {
-            FeederInjectionNode fn = FeederInjectionNode.createLoad(voltageLevelGraph, id, id);
+            FeederNode fn = NodeFactory.createLoad(voltageLevelGraph, id, id);
             commonFeederSetting(fn, id, order, direction);
             return fn;
         }
@@ -144,33 +133,33 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FeederNode createGenerator(String id, int order, BusCell.Direction direction) {
-            FeederInjectionNode fn = FeederInjectionNode.createGenerator(voltageLevelGraph, id, id);
+            FeederNode fn = NodeFactory.createGenerator(voltageLevelGraph, id, id);
             commonFeederSetting(fn, id, order, direction);
             return fn;
         }
 
         public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
-            FeederLineNode fln = FeederLineNode.create(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
+            FeederLineNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(fln, id, order, direction);
             return fln;
         }
 
         public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederWithSideNode.Side side,
                                                  int order, BusCell.Direction direction) {
-            Feeder2WTNode f2WTe = Feeder2WTNode.create(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
+            Feeder2WTNode f2WTe = NodeFactory.createFeeder2WTNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId(otherVlId));
             commonFeederSetting(f2WTe, id, order, direction);
             return f2WTe;
         }
 
         public Feeder2WTLegNode createFeeder2wtLegNode(String id, FeederWithSideNode.Side side,
                                                        int order, BusCell.Direction direction) {
-            Feeder2WTLegNode f2WTe = Feeder2WTLegNode.create(voltageLevelGraph, id + "_" + side, id, id, side);
+            Feeder2WTLegNode f2WTe = NodeFactory.createFeeder2WTLegNode(voltageLevelGraph, id + "_" + side, id, id, side);
             commonFeederSetting(f2WTe, id, order, direction);
             return f2WTe;
         }
 
         public Feeder3WTLegNode createFeeder3wtLegNode(String id, FeederWithSideNode.Side side, int order, BusCell.Direction direction) {
-            Feeder3WTLegNode f3WTe = Feeder3WTLegNode.createForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side);
+            Feeder3WTLegNode f3WTe = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side);
             commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
             return f3WTe;
         }
@@ -242,8 +231,8 @@ public class RawGraphBuilder implements GraphBuilder {
             f3WTNodes.put(vl3, feeder3WTNode3);
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            substationGraph.addMultiTermNode(Middle3WTNode.create(id, id, substationGraph, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
-                    vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos, false));
+            NodeFactory.createMiddle3WTNode(substationGraph, id, id,  feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
+                    vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos, false);
 
             return f3WTNodes;
         }

@@ -50,7 +50,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
         switch (node.getFeederType()) {
             case INJECTION:
-                feederInfos = getInjectionFeederInfos((FeederInjectionNode) node);
+                feederInfos = getInjectionFeederInfos(node);
                 break;
             case BRANCH:
                 feederInfos = getBranchFeederInfos((FeederBranchNode) node);
@@ -70,7 +70,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return feederInfos;
     }
 
-    private List<FeederInfo> getInjectionFeederInfos(FeederInjectionNode node) {
+    private List<FeederInfo> getInjectionFeederInfos(FeederNode node) {
         List<FeederInfo> measures = new ArrayList<>();
         Injection injection = (Injection) network.getIdentifiable(node.getEquipmentId());
         if (injection != null) {

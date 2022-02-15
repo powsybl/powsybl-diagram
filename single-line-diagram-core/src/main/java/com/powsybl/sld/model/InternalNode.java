@@ -23,12 +23,8 @@ public class InternalNode extends FictitiousNode {
         super(prefixId(id, graph), null, equipmentId, NODE, graph);
     }
 
-    public InternalNode(String id, VoltageLevelGraph graph) {
+    InternalNode(String id, VoltageLevelGraph graph) {
         this(id, null, graph);
-    }
-
-    public InternalNode(int id, VoltageLevelGraph graph) {
-        this(String.valueOf(id), String.valueOf(id), graph);
     }
 
     private static String prefixId(String id, VoltageLevelGraph graph) {
