@@ -52,8 +52,8 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             x += voltageLevelPadding.getLeft();
             vlGraph.setCoord(x, yVoltageLevels);
 
-            x += vlGraph.getWidth() + voltageLevelPadding.getRight();
-            substationHeight = Math.max(substationHeight, vlGraph.getHeight());
+            x += vlGraph.getInnerWidth() + voltageLevelPadding.getRight();
+            substationHeight = Math.max(substationHeight, vlGraph.getInnerHeight() + voltageLevelPadding.getTop() + voltageLevelPadding.getBottom());
         }
 
         double substationWidth = x - diagramPadding.getLeft();
@@ -79,9 +79,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double x = diagramPadding.getLeft();
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), yVoltageLevels);
-            x += vlGraph.getWidth();
+            x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines) + voltageLevelPadding.getLeft();
+            vlGraph.setCoord(x, yVoltageLevels);
+            x += vlGraph.getInnerWidth() + voltageLevelPadding.getRight();
         }
 
         double substationWidth = x - diagramPadding.getLeft();

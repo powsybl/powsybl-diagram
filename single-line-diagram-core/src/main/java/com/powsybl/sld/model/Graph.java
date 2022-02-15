@@ -35,6 +35,10 @@ public interface Graph {
 
     double getHeight();
 
+    double getInnerWidth();
+
+    double getInnerHeight();
+
     void writeJson(Path file);
 
     void writeJson(Writer writer);

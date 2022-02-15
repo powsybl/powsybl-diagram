@@ -27,6 +27,8 @@ public abstract class AbstractGraph implements Graph {
     private boolean coordinatesSerialized = true;
     private double width;
     private double height;
+    private double innerWidth;
+    private double innerHeight;
     private final List<BranchEdge> lineEdges = new ArrayList<>();
 
     @Override
@@ -79,8 +81,23 @@ public abstract class AbstractGraph implements Graph {
         return height;
     }
 
+    @Override
+    public double getInnerWidth() {
+        return innerWidth;
+    }
+
+    @Override
+    public double getInnerHeight() {
+        return innerHeight;
+    }
+
     public void setSize(double width, double height) {
         this.width = width;
         this.height = height;
+    }
+
+    public void setInnerSize(double innerWidth, double innerHeight) {
+        this.innerWidth = innerWidth;
+        this.innerHeight = innerHeight;
     }
 }

@@ -42,14 +42,12 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         calculateCellCoord(getGraph(), layoutParam);
 
         setGraphCoord(layoutParam);
-        setGraphSize(layoutParam);
+        setGraphInnerSize(layoutParam);
 
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
+        // The results will be overwritten if voltage level is within a substation diagram
         manageSnakeLines(layoutParam);
-
-        if (getGraph().isForVoltageLevelDiagram()) {
-            adaptPaddingToSnakeLines(layoutParam);
-        }
+        adaptPaddingToSnakeLines(layoutParam);
     }
 
     private void setGraphCoord(LayoutParameters layoutParam) {
@@ -58,7 +56,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         getGraph().setCoord(dPadding.getLeft() + vlPadding.getLeft(), dPadding.getTop() + vlPadding.getTop());
     }
 
-    private void setGraphSize(LayoutParameters layoutParam) {
+    private void setGraphInnerSize(LayoutParameters layoutParam) {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
@@ -66,20 +64,22 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             + 2 * layoutParam.getStackHeight() + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
             + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
 
-        LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
-        double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
-        double height = heightWithoutPadding + padding.getTop() + padding.getBottom();
-
-        getGraph().setSize(width, height);
+        getGraph().setInnerSize(widthWithoutPadding, heightWithoutPadding);
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParam) {
         VoltageLevelGraph graph = getGraph();
+
+        LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
+        double widthWithPadding = graph.getInnerWidth() + padding.getLeft() + padding.getRight();
+        double heightWithPadding = graph.getInnerHeight() + padding.getTop() + padding.getBottom();
+
         double widthSnakeLinesLeft = getWidthVerticalSnakeLines(graph.getId(), layoutParam, infosNbSnakeLines);
         double heightSnakeLinesTop = getHeightSnakeLines(layoutParam, BusCell.Direction.TOP, infosNbSnakeLines);
         double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
-        double width = graph.getWidth() + widthSnakeLinesLeft;
-        double height = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
+        double width = widthWithPadding + widthSnakeLinesLeft;
+        double height = heightWithPadding + heightSnakeLinesTop + heightSnakeLinesBottom;
+
         graph.setSize(width, height);
         graph.setCoord(graph.getX() + widthSnakeLinesLeft, graph.getY() + heightSnakeLinesTop);
 

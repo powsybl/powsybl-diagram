@@ -48,10 +48,11 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             Layout vLayout = vLayoutFactory.create(vlGraph);
             vLayout.run(layoutParameters);
 
-            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
+            y += voltageLevelPadding.getTop();
+            vlGraph.setCoord(xVoltageLevels, y);
 
-            substationWidth = Math.max(substationWidth, vlGraph.getWidth());
-            y += vlGraph.getHeight();
+            substationWidth = Math.max(substationWidth, vlGraph.getInnerWidth() + voltageLevelPadding.getLeft() + voltageLevelPadding.getRight());
+            y += vlGraph.getInnerHeight() + voltageLevelPadding.getBottom();
         }
 
         double substationHeight = y - diagramPadding.getTop();
@@ -79,8 +80,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), BusCell.Direction.TOP, layoutParameters)).orElse(0.);
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
-            vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
-            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BusCell.Direction.BOTTOM, layoutParameters);
+            y += voltageLevelPadding.getTop();
+            vlGraph.setCoord(xVoltageLevels, y);
+            y += vlGraph.getInnerHeight() + voltageLevelPadding.getBottom() + getHeightHorizontalSnakeLines(vlGraph.getId(), BusCell.Direction.BOTTOM, layoutParameters);
         }
 
         double widthSnakeLinesRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
@@ -208,7 +210,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             } else {
                 VoltageLevelGraph vlAbove = vls.get(iVl - 1);
                 return vlAbove.getY()
-                    + vlAbove.getHeight() - layoutParam.getVoltageLevelPadding().getTop() - layoutParam.getVoltageLevelPadding().getBottom()
+                    + vlAbove.getInnerHeight()
                     + decalV;
             }
         }

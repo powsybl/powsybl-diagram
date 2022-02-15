@@ -55,7 +55,7 @@ public class RawGraphBuilder implements GraphBuilder {
 
         public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
             this.voltageLevelInfos = voltageLevelInfos;
-            voltageLevelGraph = VoltageLevelGraph.create(voltageLevelInfos, forVoltageLevelDiagram);
+            voltageLevelGraph = VoltageLevelGraph.create(voltageLevelInfos);
         }
 
         public VoltageLevelGraph getGraph() {

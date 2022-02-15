@@ -36,8 +36,6 @@ public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-        if (getGraph().isForVoltageLevelDiagram()) {
-            manageSnakeLines(getGraph(), layoutParameters);
-        }
+        manageSnakeLines(getGraph(), layoutParameters);
     }
 }

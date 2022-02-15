@@ -63,29 +63,21 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private final Point coord = new Point(0, 0);
 
-    private final boolean forVoltageLevelDiagram;  // true if voltageLevel diagram
-    // false if substation diagram
-
     // by direction, max calculated height of the extern cells
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> externCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
+    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
-        this.forVoltageLevelDiagram = forVoltageLevelDiagram;
     }
 
-    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
-        return new VoltageLevelGraph(voltageLevelInfos, forVoltageLevelDiagram);
+    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos) {
+        return new VoltageLevelGraph(voltageLevelInfos);
     }
 
     @Override
     public String getId() {
         return voltageLevelInfos.getId();
-    }
-
-    public boolean isForVoltageLevelDiagram() {
-        return forVoltageLevelDiagram;
     }
 
     public int getNextCellNumber() {

@@ -77,21 +77,21 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), forVoltageLevelDiagram);
-        buildGraph(graph, vl);
+        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()));
+        buildGraph(graph, vl, forVoltageLevelDiagram);
 
         return graph;
     }
 
-    private void buildGraph(VoltageLevelGraph graph, VoltageLevel vl) {
+    private void buildGraph(VoltageLevelGraph graph, VoltageLevel vl, boolean forVoltageLevelDiagram) {
         LOGGER.info("Building '{}' graph...", vl.getId());
 
         switch (vl.getTopologyKind()) {
             case BUS_BREAKER:
-                buildBusBreakerGraph(graph, vl);
+                buildBusBreakerGraph(graph, vl, forVoltageLevelDiagram);
                 break;
             case NODE_BREAKER:
-                buildNodeBreakerGraph(graph, vl);
+                buildNodeBreakerGraph(graph, vl, forVoltageLevelDiagram);
                 break;
             default:
                 throw new AssertionError("Unknown topology kind: " + vl.getTopologyKind());
@@ -143,8 +143,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed())
                 .forEach(v -> {
-                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()), false);
-                    buildGraph(vlGraph, v);
+                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()));
+                    buildGraph(vlGraph, v, false);
                     graph.addVoltageLevel(vlGraph);
                 });
 
@@ -173,9 +173,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
+        private final boolean forVoltageLevelDiagram;
 
-        protected AbstractGraphBuilder(VoltageLevelGraph graph) {
+        protected AbstractGraphBuilder(VoltageLevelGraph graph, boolean forVoltageLevelDiagram) {
             this.graph = graph;
+            this.forVoltageLevelDiagram = forVoltageLevelDiagram;
         }
 
         protected abstract void addFeeder(FeederNode node, Terminal terminal);
@@ -232,7 +234,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
             VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
 
-            if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
+            if (forVoltageLevelDiagram && isNotInternalToVoltageLevel(branch)) {
                 if (!branch.hasPhaseTapChanger()) {
                     return Feeder2WTNode.create(graph, id, name, equipmentId, FeederWithSideNode.Side.valueOf(side.name()), otherSideVoltageLevelInfos);
                 } else {
@@ -250,7 +252,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         private void addFeeder3wtNode(VoltageLevelGraph graph,
                                       ThreeWindingsTransformer transformer,
                                       ThreeWindingsTransformer.Side side) {
-            if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(transformer)) {
+            if (forVoltageLevelDiagram && isNotInternalToVoltageLevel(transformer)) {
                 // in a voltageLevel diagram we represent 3 windings transformers by a double feeder cell:
                 //   - a transformer middle node at double feeder fork
                 //   - a feeder for first other leg
@@ -366,8 +368,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
-        NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
-            super(graph);
+        NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber, boolean forVoltageLevelDiagram) {
+            super(graph, forVoltageLevelDiagram);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
 
@@ -457,8 +459,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private int order = 1;
 
-        BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
-            super(graph);
+        BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId, boolean forVoltageLevelDiagram) {
+            super(graph, forVoltageLevelDiagram);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
 
@@ -496,7 +498,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
+    private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl, boolean forVoltageLevelDiagram) {
         Map<String, Node> nodesByBusId = new HashMap<>();
 
         int v = 1;
@@ -508,7 +510,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // visit equipments
-        vl.visitEquipments(new BusBreakerGraphBuilder(graph, nodesByBusId));
+        vl.visitEquipments(new BusBreakerGraphBuilder(graph, nodesByBusId, forVoltageLevelDiagram));
 
         // switches
         for (Switch sw : vl.getBusBreakerView().getSwitches()) {
@@ -522,11 +524,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
+    private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl, boolean forVoltageLevelDiagram) {
         Map<Integer, Node> nodesByNumber = new HashMap<>();
 
         // visit equipments
-        vl.visitEquipments(new NodeBreakerGraphBuilder(graph, nodesByNumber));
+        vl.visitEquipments(new NodeBreakerGraphBuilder(graph, nodesByNumber, forVoltageLevelDiagram));
 
         // switches
         for (Switch sw : vl.getNodeBreakerView().getSwitches()) {

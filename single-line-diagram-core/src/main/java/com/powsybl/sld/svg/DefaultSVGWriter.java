@@ -224,11 +224,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                     DiagramLabelProvider initProvider,
                                     DiagramStyleProvider styleProvider) {
 
-        if (!graph.isForVoltageLevelDiagram()) {
-            drawGraphLabel(prefixId, root, graph, metadata);
-        }
-
-        AnchorPointProvider anchorPointProvider =
+       AnchorPointProvider anchorPointProvider =
             (type, id) -> type.equals(BUSBAR_SECTION) ? getBusbarAnchors(id, graph) : componentLibrary.getAnchorPoints(type);
 
         // Handle multi-term nodes rotation
@@ -252,7 +248,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // Drawing the nodes outside the voltageLevel graphs (multi-terminal nodes)
         drawNodes(prefixId, root, graph, metadata, initProvider, styleProvider, graph.getMultiTermNodes());
 
-        if (graph.isForVoltageLevelDiagram() && layoutParameters.isAddNodesInfos()) {
+        if (layoutParameters.isAddNodesInfos()) {
             drawNodesInfos(prefixId, root, graph, metadata, initProvider, styleProvider);
         }
     }
@@ -317,6 +313,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                   DiagramStyleProvider styleProvider) {
         // Drawing the voltageLevel graphs
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
+            drawGraphLabel(prefixId, root, vlGraph, metadata);
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
 
