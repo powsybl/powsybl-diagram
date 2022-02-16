@@ -427,7 +427,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                         InternalNode internalNode1 = new InternalNode(busToBusId + "_1", this);
                         InternalNode internalNode2 = new InternalNode(busToBusId + "_2", this);
                         BusConnection fSwToBus2 = new BusConnection(busToBusId + "_2", this);
-                        addNode(fSwToBus1);
+                        addNode(fSwToBus2);
                         addEdge(n1, fSwToBus1);
                         addEdge(fSwToBus1, internalNode1);
                         addEdge(internalNode1, internalNode2);
