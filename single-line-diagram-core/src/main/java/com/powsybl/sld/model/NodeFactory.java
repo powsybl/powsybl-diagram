@@ -168,7 +168,7 @@ public final class NodeFactory {
     }
 
     public static InternalNode createInternalNode(int id, VoltageLevelGraph graph) {
-        InternalNode in = createInternalNode(String.valueOf(id), graph);
+        InternalNode in = new InternalNode(String.valueOf(id), String.valueOf(id), graph);
         return in;
     }
 

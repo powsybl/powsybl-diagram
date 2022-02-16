@@ -19,7 +19,7 @@ public class InternalNode extends FictitiousNode {
 
     private static final String ID_PREFIX = "INTERNAL_";
 
-    private InternalNode(String id, String equipmentId, VoltageLevelGraph graph) {
+    InternalNode(String id, String equipmentId, VoltageLevelGraph graph) {
         super(prefixId(id, graph), null, equipmentId, NODE, graph);
     }
 
