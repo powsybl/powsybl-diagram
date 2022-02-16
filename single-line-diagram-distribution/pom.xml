@@ -49,11 +49,6 @@
             <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>powsybl-single-line-diagram-force-layout</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <profiles>
