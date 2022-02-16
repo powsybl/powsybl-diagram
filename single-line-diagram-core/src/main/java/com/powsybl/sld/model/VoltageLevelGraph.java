@@ -180,7 +180,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodes.remove(node);
         super.removeNode(node);
         nodesByType.computeIfAbsent(node.getType(), nodeType -> new ArrayList<>()).remove(node);
-        nodesById.remove(node.getId());
+        nodesById.remove(node.getId(), node);
         for (Edge edge : new ArrayList<>(node.getAdjacentEdges())) {
             removeEdge(edge);
         }
