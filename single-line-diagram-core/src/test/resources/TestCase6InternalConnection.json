@@ -40,6 +40,24 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_bbs1.1-bbs1.2_1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 280.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_bbs1.1-bbs1.2_2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 280.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_d1",
     "componentType" : "NODE",
     "fictitious" : true,
