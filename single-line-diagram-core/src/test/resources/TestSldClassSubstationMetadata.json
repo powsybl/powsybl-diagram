@@ -1,32 +1,6 @@
 {
   "components" : [ {
     "type" : "BUSBAR_SECTION",
-    "id" : "idbbs2",
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 12.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 37.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 62.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 87.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 75.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    } ],
     "size" : {
       "width" : 0.0,
       "height" : 0.0

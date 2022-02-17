@@ -26,8 +26,6 @@ public class Component {
 
     private final String type;
 
-    private final String id;
-
     private final List<AnchorPoint> anchorPoints;
 
     private final ComponentSize size;
@@ -40,14 +38,12 @@ public class Component {
 
     @JsonCreator
     public Component(@JsonProperty("type") String type,
-                     @JsonProperty("id") String id,
                      @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
                      @JsonProperty("size") ComponentSize size,
                      @JsonProperty("style") String styleClass,
                      @JsonProperty("allowRotation") boolean allowRotation,
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
-        this.id = id;
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
@@ -57,10 +53,6 @@ public class Component {
 
     public String getType() {
         return type;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public ComponentSize getSize() {

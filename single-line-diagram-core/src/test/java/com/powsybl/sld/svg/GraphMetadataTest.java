@@ -57,10 +57,7 @@ public class GraphMetadataTest {
     @Test
     public void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
-        metadata.addComponent(new Component(
-            BREAKER,
-            "br1",
-            ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
+        metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
             new ComponentSize(10, 12), "breaker", true, null));
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
@@ -110,9 +107,9 @@ public class GraphMetadataTest {
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
         assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
 
-        assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getOrientation());
-        assertEquals(5, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getX(), 0);
-        assertEquals(4, metadata2.getAnchorPoints(BREAKER, "br1").get(0).getY(), 0);
+        assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER).get(0).getOrientation());
+        assertEquals(5, metadata2.getAnchorPoints(BREAKER).get(0).getX(), 0);
+        assertEquals(4, metadata2.getAnchorPoints(BREAKER).get(0).getY(), 0);
 
         Path meta = tmpDir.resolve("meta.json");
         metadata.writeJson(meta);
