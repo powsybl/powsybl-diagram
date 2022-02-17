@@ -18,4 +18,12 @@ public class Feeder2WTLegNode extends FeederTwtLegNode {
         super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos,
                 FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
+
+    public static Feeder2WTLegNode create(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
+        return new Feeder2WTLegNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, graph, side, graph.getVoltageLevelInfos());
+    }
+
+    public static Feeder2WTLegNode createWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
+        return new Feeder2WTLegNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, graph, side, graph.getVoltageLevelInfos());
+    }
 }

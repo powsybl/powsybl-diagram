@@ -22,6 +22,16 @@ public class Middle3WTNode extends MiddleTwtNode {
         this.embeddedInVlGraph = embeddedInVLGraph;
     }
 
+    public static Middle3WTNode create(String id, String name, BaseGraph ssGraph,
+                                       Feeder3WTLegNode legNode1, Feeder3WTLegNode legNode2, Feeder3WTLegNode legNode3,
+                                       VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3, boolean embeddedInVLGraph) {
+        Middle3WTNode middleNode = new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3, embeddedInVLGraph);
+        ssGraph.addTwtEdge(legNode1, middleNode);
+        ssGraph.addTwtEdge(legNode2, middleNode);
+        ssGraph.addTwtEdge(legNode3, middleNode);
+        return middleNode;
+    }
+
     public VoltageLevelInfos getVoltageLevelInfosLeg1() {
         return getVoltageLevelInfos(FeederWithSideNode.Side.ONE);
     }
