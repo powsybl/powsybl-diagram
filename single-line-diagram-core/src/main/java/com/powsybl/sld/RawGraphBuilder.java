@@ -243,7 +243,7 @@ public class RawGraphBuilder implements GraphBuilder {
 
             // creation of the middle node and the edges linking the transformer leg nodes to this middle node
             substationGraph.addMultiTermNode(Middle3WTNode.create(id, id, substationGraph, feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
-                    vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos));
+                    vl1.voltageLevelInfos, vl2.voltageLevelInfos, vl3.voltageLevelInfos, false));
 
             return f3WTNodes;
         }
