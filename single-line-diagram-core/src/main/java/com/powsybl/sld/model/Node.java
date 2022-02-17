@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class Node implements BaseNode {
+public class Node {
 
     public enum NodeType {
         BUS,
@@ -94,12 +94,10 @@ public class Node implements BaseNode {
         return voltageLevelGraph;
     }
 
-    @Override
     public String getComponentType() {
         return componentType;
     }
 
-    @Override
     public Double getRotationAngle() {
         return rotationAngle;
     }
@@ -112,7 +110,6 @@ public class Node implements BaseNode {
         this.type = type;
     }
 
-    @Override
     public String getId() {
         return id;
     }
@@ -155,7 +152,6 @@ public class Node implements BaseNode {
         return getAdjacentNodes().stream().filter(n -> cell.getNodes().contains(n));
     }
 
-    @Override
     public Point getDiagramCoordinates() {
         return voltageLevelGraph != null ? position.getShiftedPoint(voltageLevelGraph.getCoord()) : position;
     }
@@ -216,7 +212,6 @@ public class Node implements BaseNode {
         return this.type;
     }
 
-    @Override
     public boolean isRotated() {
         return rotationAngle != null;
     }

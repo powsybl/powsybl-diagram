@@ -1,56 +1,6 @@
 {
   "components" : [ {
     "type" : "BUSBAR_SECTION",
-    "id" : "idbbs7",
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 12.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 37.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 62.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 87.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 112.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 137.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 162.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 187.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 212.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 237.5,
-      "y" : 0.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 225.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    } ],
     "size" : {
       "width" : 0.0,
       "height" : 0.0

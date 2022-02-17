@@ -8,6 +8,22 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
+    "id" : "BUSCO_bbs1.1-bbs1.2_1",
+    "componentType" : "BUS_CONNECTION",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 280.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "BUSCO_bbs1.1-bbs1.2_2",
+    "componentType" : "BUS_CONNECTION",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 280.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
     "id" : "BUSCO_ds2_0",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
@@ -21,6 +37,24 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 305.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_bbs1.1-bbs1.2_1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 50.0,
+    "y" : 280.0,
+    "rotationAngle" : 90.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_bbs1.1-bbs1.2_2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 100.0,
+    "y" : 280.0,
+    "rotationAngle" : 90.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",

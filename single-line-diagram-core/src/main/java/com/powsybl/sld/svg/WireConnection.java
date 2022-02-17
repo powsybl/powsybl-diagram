@@ -8,14 +8,11 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
-import com.powsybl.sld.library.AnchorPointProvider;
-import com.powsybl.sld.model.BaseNode;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -24,56 +21,74 @@ import java.util.stream.Collectors;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class WireConnection {
+public final class WireConnection {
 
-    private AnchorPoint anchorPoint1;
+    private final AnchorPoint anchorPoint1;
 
-    private AnchorPoint anchorPoint2;
+    private final AnchorPoint anchorPoint2;
 
-    WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
+    private WireConnection(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2) {
         this.anchorPoint1 = Objects.requireNonNull(anchorPoint1);
         this.anchorPoint2 = Objects.requireNonNull(anchorPoint2);
     }
 
-    public static List<AnchorPoint> getAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node) {
-        return anchorPointProvider.getAnchorPoints(node.getComponentType(), node.getId())
+    public static List<AnchorPoint> getAnchorPoints(ComponentLibrary componentLibrary, Node node) {
+        return componentLibrary.getAnchorPoints(node.getComponentType())
                 .stream()
                 .map(anchorPoint -> node.isRotated() ? anchorPoint.createRotatedAnchorPoint(node.getRotationAngle()) : anchorPoint)
                 .collect(Collectors.toList());
     }
 
-    public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node1, BaseNode node2) {
-        Objects.requireNonNull(anchorPointProvider);
+    public static WireConnection searchBestAnchorPoints(ComponentLibrary componentLibrary, Node node1, Node node2) {
+        Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
 
-        List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
-        List<AnchorPoint> anchorPoints2 = getAnchorPoints(anchorPointProvider, node2);
-        return searchBetterAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
+        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
+        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
+        return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
-    public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
-                                                          BaseNode node1, Point coord2) {
-        Objects.requireNonNull(anchorPointProvider);
-        Objects.requireNonNull(node1);
+    private static List<AnchorPoint> getBusNodeAnchorPoint(BusNode busNode, Node otherNode) {
+        Cell cell = otherNode.getCell();
+        BusCell.Direction direction = cell instanceof BusCell ? ((BusCell) cell).getDirection() : BusCell.Direction.UNDEFINED;
+        boolean undefinedMiddleDirection = direction == BusCell.Direction.UNDEFINED
+                && otherNode.getDiagramCoordinates().getY() == busNode.getDiagramCoordinates().getY()
+                && (otherNode.getDiagramCoordinates().getX() < busNode.getDiagramCoordinates().getX()
+                || otherNode.getDiagramCoordinates().getX() > busNode.getDiagramCoordinates().getX() + busNode.getPxWidth());
+        if (direction == BusCell.Direction.MIDDLE || undefinedMiddleDirection) {
+            return Arrays.asList(
+                    new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
+                    new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)
+            );
+        } else {
+            return Collections.singletonList(
+                    new AnchorPoint(otherNode.getX() - busNode.getX(), 0, AnchorOrientation.VERTICAL));
+        }
+    }
 
-        List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
+    public static AnchorPoint getBestAnchorPoint(ComponentLibrary componentLibrary, Node node, Point point) {
+        Objects.requireNonNull(componentLibrary);
+        Objects.requireNonNull(node);
+        Objects.requireNonNull(point);
+
+        List<AnchorPoint> anchorPoints1 = getAnchorPoints(componentLibrary, node);
         List<AnchorPoint> anchorPoints2 = Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
-        return searchBetterAnchorPoints(node1.getDiagramCoordinates(), coord2, anchorPoints1, anchorPoints2);
+        return searchBestAnchorPoints(node.getDiagramCoordinates(), point, anchorPoints1, anchorPoints2).getAnchorPoint1();
     }
 
-    private static WireConnection searchBetterAnchorPoints(Point coord1, Point coord2,
-                                                           List<AnchorPoint> anchorPoints1,
-                                                           List<AnchorPoint> anchorPoints2) {
+    private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,
+                                                         List<AnchorPoint> anchorPoints1,
+                                                         List<AnchorPoint> anchorPoints2) {
         AnchorPoint betterAnchorPoint1 = anchorPoints1.get(0);
         AnchorPoint betterAnchorPoint2 = anchorPoints2.get(0);
 
         double currentDistance = coord1.getShiftedPoint(betterAnchorPoint1).distanceSquare(
             coord2.getShiftedPoint(betterAnchorPoint2));
         for (AnchorPoint anchorPoint1 : anchorPoints1) {
+            Point shiftedCoord1 = coord1.getShiftedPoint(anchorPoint1);
             for (AnchorPoint anchorPoint2 : anchorPoints2) {
-                double distance = coord1.getShiftedPoint(anchorPoint1).distanceSquare(
-                    coord2.getShiftedPoint(anchorPoint2));
+                double distance = shiftedCoord1.distanceSquare(coord2.getShiftedPoint(anchorPoint2));
                 if (distance < currentDistance) {
                     betterAnchorPoint1 = anchorPoint1;
                     betterAnchorPoint2 = anchorPoint2;
@@ -96,7 +111,7 @@ public class WireConnection {
     /*
      * Calculating the polyline points for the voltageLevel graph edge
      */
-    public List<Point> calculatePolylinePoints(BaseNode node1, BaseNode node2, boolean straight, Point vlGraphCoord) {
+    public List<Point> calculatePolylinePoints(Node node1, Node node2, boolean straight, Point vlGraphCoord) {
 
         Point point1 = node1.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint1());
         Point point2 = node2.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint2());

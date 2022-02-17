@@ -39,9 +39,6 @@
         <g class="sld-wire" id="_95_vl1_95_vl1_95_bload1_95_vl1_95_dload1">
             <polyline points="80.0,210.0,80.0,320.0"/>
         </g>
-        <g class="sld-wire" id="_95_vl1_95_vl1_95_dload1_95_vl1_95_bbs1">
-            <polyline points="80.0,320.0,77.5,320.0"/>
-        </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf1_95_vl1_95_btrf1">
             <polyline points="120.0,512.0,120.0,430.0"/>
         </g>
@@ -57,9 +54,6 @@
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf1_95_vl1_95_dtrf1">
             <polyline points="120.0,410.0,120.0,320.0"/>
-        </g>
-        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf1_95_vl1_95_bbs1">
-            <polyline points="120.0,320.0,127.5,320.0"/>
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_trf2_95_one_95_vl1_95_trf2">
             <polyline points="400.0,100.0,400.0,160.0,433.0,160.0"/>
@@ -92,9 +86,6 @@
         </g>
         <g class="sld-wire" id="_95_vl1_95_vl1_95_btrf2_95_vl1_95_dtrf2">
             <polyline points="440.0,210.0,440.0,320.0"/>
-        </g>
-        <g class="sld-wire" id="_95_vl1_95_vl1_95_dtrf2_95_vl1_95_bbs2">
-            <polyline points="440.0,320.0,432.5,320.0"/>
         </g>
         <g class="sld-disconnector sld-closed" id="idvl1_95_d1" transform="translate(256.0,316.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

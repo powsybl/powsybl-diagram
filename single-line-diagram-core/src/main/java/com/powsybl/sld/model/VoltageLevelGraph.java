@@ -423,9 +423,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                         removeEdge(n1, n2);
                         String busToBusId = n1.getId() + "-" + n2.getId();
                         BusConnection fSwToBus1 = new BusConnection(busToBusId + "_1", this);
+                        addNode(fSwToBus1);
                         InternalNode internalNode1 = new InternalNode(busToBusId + "_1", this);
+                        addNode(internalNode1);
                         InternalNode internalNode2 = new InternalNode(busToBusId + "_2", this);
+                        addNode(internalNode2);
                         BusConnection fSwToBus2 = new BusConnection(busToBusId + "_2", this);
+                        addNode(fSwToBus2);
                         addEdge(n1, fSwToBus1);
                         addEdge(fSwToBus1, internalNode1);
                         addEdge(internalNode1, internalNode2);
