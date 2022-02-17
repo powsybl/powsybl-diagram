@@ -42,18 +42,14 @@ public class WireConnection {
                 .collect(Collectors.toList());
     }
 
-    public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
-                                                          BaseNode node1,
-                                                          BaseNode node2, Point vlGraphCoord) {
+    public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider, BaseNode node1, BaseNode node2) {
         Objects.requireNonNull(anchorPointProvider);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
-        Point shiftPoint = vlGraphCoord != null ? vlGraphCoord : new Point(0., 0.);
 
         List<AnchorPoint> anchorPoints1 = getAnchorPoints(anchorPointProvider, node1);
         List<AnchorPoint> anchorPoints2 = getAnchorPoints(anchorPointProvider, node2);
-        return searchBetterAnchorPoints(node1.getCoordinates().getShiftedPoint(shiftPoint),
-            node2.getCoordinates().getShiftedPoint(shiftPoint), anchorPoints1, anchorPoints2);
+        return searchBetterAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
     public static WireConnection searchBetterAnchorPoints(AnchorPointProvider anchorPointProvider,
