@@ -191,12 +191,9 @@ public final class NodeFactory {
         return m2wn;
     }
 
-    public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
+    public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
         Middle3WTNode m3wn = new Middle3WTNode(id, name, voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, embeddedInVLGraph);
-        baseGraph.addMultiTermNode(m3wn);
-        if (baseGraph instanceof VoltageLevelGraph) {
-            ((VoltageLevelGraph) baseGraph).addNode(m3wn);
-        }
+        baseGraph.addNode(m3wn);
         return m3wn;
     }
 
@@ -206,9 +203,9 @@ public final class NodeFactory {
         baseGraph.addTwtEdge(legNode2, m3wn);
         baseGraph.addTwtEdge(legNode3, m3wn);
         baseGraph.addMultiTermNode(m3wn);
-        if (baseGraph instanceof VoltageLevelGraph) {
-            ((VoltageLevelGraph) baseGraph).addNode(m3wn);
-        }
+        // if (baseGraph instanceof VoltageLevelGraph) {
+        //     ((VoltageLevelGraph) baseGraph).addNode(m3wn);
+        // }
         return m3wn;
     }
 
