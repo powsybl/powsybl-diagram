@@ -147,7 +147,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                 default:
                     break;
             }
-        } else if (node instanceof Middle3WTNode && node.getVoltageLevelGraph() != null) {
+        } else if (node instanceof Middle3WTNode && ((Middle3WTNode) node).isEmbeddedInVlGraph()) {
             addBranchStatusDecorator(nodeDecorators, node, network.getThreeWindingsTransformer(node.getEquipmentId()));
         }
 

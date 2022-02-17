@@ -46,7 +46,7 @@ public final class WireConnection {
 
         List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
         List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
-        return searchBestAnchorPoints(node1.getDiagramCoordinates(), node2.getDiagramCoordinates(), anchorPoints1, anchorPoints2);
+        return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
     private static List<AnchorPoint> getBusNodeAnchorPoint(BusNode busNode, Node otherNode) {
@@ -111,10 +111,10 @@ public final class WireConnection {
     /*
      * Calculating the polyline points for the voltageLevel graph edge
      */
-    public List<Point> calculatePolylinePoints(Node node1, Node node2, boolean straight) {
+    public List<Point> calculatePolylinePoints(Node node1, Node node2, boolean straight, Point vlGraphCoord) {
 
-        Point point1 = node1.getDiagramCoordinates().getShiftedPoint(getAnchorPoint1());
-        Point point2 = node2.getDiagramCoordinates().getShiftedPoint(getAnchorPoint2());
+        Point point1 = node1.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint1());
+        Point point2 = node2.getCoordinates().getShiftedPoint(vlGraphCoord).getShiftedPoint(getAnchorPoint2());
         if (point1.getX() == point2.getX() && point1.getY() == point2.getY()) {
             return Collections.emptyList();
         }
