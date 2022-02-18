@@ -28,7 +28,7 @@ import java.util.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class GraphMetadata implements AnchorPointProvider {
+public class GraphMetadata {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class NodeMetadata {
@@ -279,8 +279,6 @@ public class GraphMetadata implements AnchorPointProvider {
 
     private final Map<String, Component> componentByType = new HashMap<>();
 
-    private final Map<String, Component> componentById = new HashMap<>();
-
     private final Map<String, NodeMetadata> nodeMetadataMap = new HashMap<>();
 
     private final Map<String, WireMetadata> wireMetadataMap = new HashMap<>();
@@ -377,24 +375,14 @@ public class GraphMetadata implements AnchorPointProvider {
     public void addComponent(Component component) {
         Objects.requireNonNull(component);
         componentByType.put(component.getType(), component);
-        if (component.getId() != null) {
-            componentById.put(component.getId(), component);
-        }
     }
 
     public Component getComponentMetadata(String componentType) {
         return componentType != null ? componentByType.get(componentType) : null;
     }
 
-    @Override
-    public List<AnchorPoint> getAnchorPoints(String type, String id) {
-        Component component = null;
-        if (id != null) {
-            component = componentById.get(id);
-        }
-        if (component == null) {
-            component = getComponentMetadata(type);
-        }
+    public List<AnchorPoint> getAnchorPoints(String type) {
+        Component component = getComponentMetadata(type);
         return component != null ? component.getAnchorPoints()
                                          : Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
     }

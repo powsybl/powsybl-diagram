@@ -177,6 +177,9 @@
             <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dsect12" transform="translate(836.0,248.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bbs1_95_dsect11">
+                <polyline points="740.0,252.0,760.0,252.0"/>
+            </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dsect11">
                 <polyline points="790.0,252.0,760.0,252.0"/>
             </g>
@@ -205,6 +208,9 @@
             </g>
             <g class="sld-node sld-hidden-node sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dsect22" transform="translate(836.0,273.0)">
                 <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_bbs3_95_dsect21">
+                <polyline points="740.0,277.0,760.0,277.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-1" id="_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dsect21">
                 <polyline points="790.0,277.0,760.0,277.0"/>

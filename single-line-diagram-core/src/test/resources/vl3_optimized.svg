@@ -124,9 +124,6 @@
         <g class="sld-wire" id="_95_vl3_95_vl3_95_bcapa1_95_vl3_95_dcapa1">
             <polyline points="80.0,210.0,80.0,320.0"/>
         </g>
-        <g class="sld-wire" id="_95_vl3_95_vl3_95_dcapa1_95_vl3_95_bbs1">
-            <polyline points="80.0,320.0,77.5,320.0"/>
-        </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_trf2_95_one_95_vl3_95_trf2">
             <polyline points="150.0,100.0,150.0,160.0,183.0,160.0"/>
         </g>
@@ -158,9 +155,6 @@
         </g>
         <g class="sld-wire" id="_95_vl3_95_vl3_95_btrf2_95_vl3_95_dtrf2">
             <polyline points="190.0,210.0,190.0,320.0"/>
-        </g>
-        <g class="sld-wire" id="_95_vl3_95_vl3_95_dtrf2_95_vl3_95_bbs1">
-            <polyline points="190.0,320.0,177.5,320.0"/>
         </g>
         <g class="sld-capacitor" id="idvl3_95_capa1" transform="translate(74.0,94.0)">
             <use href="#CAPACITOR"/>
