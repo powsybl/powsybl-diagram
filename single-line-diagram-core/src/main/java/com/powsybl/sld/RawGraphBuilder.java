@@ -21,22 +21,21 @@ public class RawGraphBuilder implements GraphBuilder {
     private final Map<String, VoltageLevelBuilder> vlBuilders = new TreeMap<>();
     private final Map<String, SubstationBuilder> ssBuilders = new TreeMap<>();
 
-    public VoltageLevelBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
-        VoltageLevelBuilder vlBuilder = new VoltageLevelBuilder(voltageLevelInfos, forVoltageLevelDiagram);
+    public VoltageLevelBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, SubstationBuilder parentBuilder) {
+        VoltageLevelBuilder vlBuilder = new VoltageLevelBuilder(voltageLevelInfos, parentBuilder);
+        if (parentBuilder != null) {
+            parentBuilder.addVlBuilder(vlBuilder);
+        }
         vlBuilders.put(voltageLevelInfos.getId(), vlBuilder);
         return vlBuilder;
     }
 
-    public VoltageLevelBuilder createVoltageLevelBuilder(String vlId, double vlNominalV, boolean forVoltageLevelDiagram) {
-        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), forVoltageLevelDiagram);
-    }
-
-    public VoltageLevelBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos) {
-        return createVoltageLevelBuilder(voltageLevelInfos, true);
+    public VoltageLevelBuilder createVoltageLevelBuilder(String vlId, double vlNominalV, SubstationBuilder parentBuilder) {
+        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), parentBuilder);
     }
 
     public VoltageLevelBuilder createVoltageLevelBuilder(String vlId, double vlNominalV) {
-        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV));
+        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), null);
     }
 
     public VoltageLevelInfos getVoltageLevelInfosFromId(String id) {
@@ -53,9 +52,9 @@ public class RawGraphBuilder implements GraphBuilder {
 
         private SubstationBuilder substationBuilder;
 
-        public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
+        public VoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, SubstationBuilder parentBuilder) {
             this.voltageLevelInfos = voltageLevelInfos;
-            voltageLevelGraph = VoltageLevelGraph.create(voltageLevelInfos, forVoltageLevelDiagram);
+            voltageLevelGraph = VoltageLevelGraph.create(voltageLevelInfos, parentBuilder == null ? null : parentBuilder.getGraph());
         }
 
         public VoltageLevelGraph getGraph() {
@@ -242,12 +241,20 @@ public class RawGraphBuilder implements GraphBuilder {
         }
     }
 
+    @Override
     public VoltageLevelGraph buildVoltageLevelGraph(String id,
-                                                    boolean forVoltageLevelDiagram) {
+                                                    Graph parentGraph) {
         return vlBuilders.get(id).getGraph();
     }
 
-    public SubstationGraph buildSubstationGraph(String id) {
+    @Override
+    public VoltageLevelGraph buildOrphanVoltageLevelGraph(String id) {
+        return buildVoltageLevelGraph(id, null);
+    }
+
+    // TODO: implement use of zoneGraph
+    @Override
+    public SubstationGraph buildSubstationGraph(String id, ZoneGraph zoneGraph) {
         SubstationBuilder sGraphBuilder = ssBuilders.get(id);
         SubstationGraph ssGraph = sGraphBuilder.getGraph();
         sGraphBuilder.voltageLevelBuilders.stream()
@@ -256,6 +263,12 @@ public class RawGraphBuilder implements GraphBuilder {
             .forEach(ssGraph::addVoltageLevel);
         return ssGraph;
     }
+
+    @Override
+    public SubstationGraph buildOrphanSubstationGraph(String id) {
+        return buildSubstationGraph(id, null);
+    }
+
 
     //TODO: buildZoneGraph
     public ZoneGraph buildZoneGraph(List<String> substationIds) {

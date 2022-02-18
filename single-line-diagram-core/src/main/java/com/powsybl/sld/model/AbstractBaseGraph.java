@@ -25,6 +25,10 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
 
     protected List<MiddleTwtNode> multiTermNodes = new ArrayList<>();
 
+    AbstractBaseGraph(Graph parentGraph) {
+        super(parentGraph);
+    }
+
     @Override
     public List<BranchEdge> getTwtEdges() {
         return new ArrayList<>(twtEdges);

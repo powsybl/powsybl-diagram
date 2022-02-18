@@ -224,7 +224,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl1() {
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph g1 = graphBuilder.buildOrphanVoltageLevelGraph(vl1.getId());
 
         voltageLevelGraphLayout(g1);
 
@@ -235,7 +235,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl2() {
         // build voltage level 2 graph
-        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
+        VoltageLevelGraph g2 = graphBuilder.buildOrphanVoltageLevelGraph(vl2.getId());
 
         voltageLevelGraphLayout(g2);
 
@@ -246,7 +246,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
     @Test
     public void testVl3() {
         // build voltage level 3 graph
-        VoltageLevelGraph g3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
+        VoltageLevelGraph g3 = graphBuilder.buildOrphanVoltageLevelGraph(vl3.getId());
 
         voltageLevelGraphLayout(g3);
 
@@ -262,7 +262,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
                 .setAddNodesInfos(true);
 
         // compare metadata of voltage level diagram with reference
-        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph graph = graphBuilder.buildOrphanVoltageLevelGraph(vl1.getId());
         compareMetadata(graph, "/vlDiag_metadata.json",
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
@@ -278,7 +278,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAddNodesInfos(true);
 
         // build voltage level 1 graph
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph g1 = graphBuilder.buildOrphanVoltageLevelGraph(vl1.getId());
 
         voltageLevelGraphLayout(g1);
 
@@ -300,7 +300,7 @@ public class TestCase12GraphWith3WT extends AbstractTestCaseIidm {
             .setAdaptCellHeightToContent(true)
             .setAddNodesInfos(true);
 
-        VoltageLevelGraph g1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
+        VoltageLevelGraph g1 = graphBuilder.buildOrphanVoltageLevelGraph(vl1.getId());
 
         voltageLevelGraphLayout(g1);
 

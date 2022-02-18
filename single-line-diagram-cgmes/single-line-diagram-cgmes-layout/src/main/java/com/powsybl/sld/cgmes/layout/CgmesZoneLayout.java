@@ -61,7 +61,7 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
             setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            VoltageLevel vl = network.getVoltageLevel(edge.getNode1().getVoltageLevelGraph().getVoltageLevelInfos().getId());
+            VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
             setLineCoordinates(vl, edge, diagramName);
         }
         // shift coordinates

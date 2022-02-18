@@ -29,7 +29,7 @@ public class TestNodeDecoratorsBusBreaker extends AbstractTestCaseIidm {
     @Test
     public void testBranchStatusDecorators() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
         // Run layout
         voltageLevelGraphLayout(g);

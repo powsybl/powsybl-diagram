@@ -69,7 +69,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     @Override
-    public VoltageLevelGraph buildVoltageLevelGraph(String id, boolean forVoltageLevelDiagram) {
+    public VoltageLevelGraph buildVoltageLevelGraph(String id, Graph parentGraph) {
         // get the voltageLevel from id
         VoltageLevel vl = network.getVoltageLevel(id);
         if (vl == null) {
@@ -77,10 +77,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the graph from the voltage level
-        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), forVoltageLevelDiagram);
+        VoltageLevelGraph graph = VoltageLevelGraph.create(new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV()), parentGraph);
         buildGraph(graph, vl);
 
         return graph;
+    }
+
+    @Override
+    public VoltageLevelGraph buildOrphanVoltageLevelGraph(String id) {
+        return buildVoltageLevelGraph(id, null);
     }
 
     private void buildGraph(VoltageLevelGraph graph, VoltageLevel vl) {
@@ -123,7 +128,8 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     }
 
-    public SubstationGraph buildSubstationGraph(String id) {
+    @Override
+    public SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph) {
         // get the substation from id
         Substation substation = network.getSubstation(id);
         if (substation == null) {
@@ -131,10 +137,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // build the substation graph from the substation
-        SubstationGraph graph = SubstationGraph.create(substation.getId());
+        SubstationGraph graph = SubstationGraph.create(substation.getId(), parentGraph);
         buildSubstationGraph(graph, substation);
 
         return graph;
+    }
+
+    @Override
+    public SubstationGraph buildOrphanSubstationGraph(String id) {
+        return buildSubstationGraph(id, null);
     }
 
     private void buildSubstationGraph(SubstationGraph graph, Substation substation) {
@@ -143,7 +154,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .sorted(Comparator.comparing(VoltageLevel::getNominalV)
                         .reversed())
                 .forEach(v -> {
-                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()), false);
+                    VoltageLevelGraph vlGraph = VoltageLevelGraph.create(new VoltageLevelInfos(v.getId(), v.getNameOrId(), v.getNominalV()), graph);
                     buildGraph(vlGraph, v);
                     graph.addVoltageLevel(vlGraph);
                 });
@@ -712,7 +723,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         return graph;
     }
 
-    private void buildZoneGraph(ZoneGraph graph, List<Substation> zone) {
+    private void buildZoneGraph(ZoneGraph zoneGraph, List<Substation> zone) {
         if (zone.isEmpty()) {
             LOGGER.warn("No substations in the zone: skipping graph building");
             return;
@@ -721,11 +732,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         GraphBuilder graphBuilder = new NetworkGraphBuilder(network);
         zone.forEach(substation -> {
             LOGGER.info("Adding substation {} to zone graph", substation.getId());
-            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId());
-            graph.addSubstation(sGraph);
+            SubstationGraph sGraph = graphBuilder.buildSubstationGraph(substation.getId(), zoneGraph);
+            zoneGraph.addSubstation(sGraph);
         });
         // Add snake edges between different substations in the same zone
-        addLineEdges(graph, zone.stream().flatMap(Substation::getVoltageLevelStream)
+        addLineEdges(zoneGraph, zone.stream().flatMap(Substation::getVoltageLevelStream)
                 .flatMap(voltageLevel -> voltageLevel.getConnectableStream(Line.class))
                 .filter(NetworkGraphBuilder::isNotInternalToSubstation)
                 .collect(Collectors.toList()));

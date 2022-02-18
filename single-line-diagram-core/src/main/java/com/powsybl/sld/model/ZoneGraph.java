@@ -24,6 +24,7 @@ public class ZoneGraph extends AbstractGraph {
     private final Map<String, BranchEdge> edgesById = new HashMap<>();
 
     protected ZoneGraph(List<String> zone) {
+        super(null);
         this.zone = Objects.requireNonNull(zone);
     }
 

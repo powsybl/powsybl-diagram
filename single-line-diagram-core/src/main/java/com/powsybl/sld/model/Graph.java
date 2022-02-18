@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -23,7 +24,9 @@ public interface Graph {
 
     Stream<VoltageLevelGraph> getVoltageLevelStream();
 
-    VoltageLevelGraph getVlGraph(Node node);
+    VoltageLevelGraph getVoltageLevelGraph(Node node);
+
+    Map<Node, VoltageLevelGraph> getNodeToVlGraph();
 
     void addNode(VoltageLevelGraph vlGraph, Node node);
 

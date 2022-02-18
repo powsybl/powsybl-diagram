@@ -42,7 +42,7 @@ public class TestCase1 extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase1.svg"),
                 toSVG(g, "/TestCase1.svg", getRawLabelProvider(g), new BasicStyleProvider()));

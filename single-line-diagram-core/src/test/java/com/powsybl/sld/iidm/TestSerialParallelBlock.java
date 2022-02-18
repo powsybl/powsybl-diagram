@@ -43,7 +43,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);

@@ -54,7 +54,7 @@ public class TestCase2StackedCell extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
 
         // Run layout
         voltageLevelGraphLayout(g);

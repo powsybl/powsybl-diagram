@@ -70,13 +70,18 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<BusCell.Direction, Double> externCellHeight = new EnumMap<>(BusCell.Direction.class);
 
-    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
+    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
+        super(parentGraph);
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
-        this.forVoltageLevelDiagram = forVoltageLevelDiagram;
+        this.forVoltageLevelDiagram = parentGraph == null;
     }
 
-    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
-        return new VoltageLevelGraph(voltageLevelInfos, forVoltageLevelDiagram);
+    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
+        return new VoltageLevelGraph(voltageLevelInfos, parentGraph);
+    }
+
+    public static VoltageLevelGraph createForVoltageLevelGraphDiagram(VoltageLevelInfos voltageLevelInfos) {
+        return new VoltageLevelGraph(voltageLevelInfos, null);
     }
 
     @Override

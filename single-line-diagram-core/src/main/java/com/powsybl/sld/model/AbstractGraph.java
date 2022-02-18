@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.commons.PowsyblException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -30,7 +31,14 @@ public abstract class AbstractGraph implements Graph {
     private double width;
     private double height;
     private final List<BranchEdge> lineEdges = new ArrayList<>();
-    private Map<Node, VoltageLevelGraph> nodeToVlGraph = new HashMap<>();
+    private final Map<Node, VoltageLevelGraph> nodeToVlGraph;
+
+    AbstractGraph(Graph parentGraph) {
+        if (parentGraph instanceof VoltageLevelGraph) {
+            throw new PowsyblException("a voltageLevelGraph can not be a parent Graph");
+        }
+        this.nodeToVlGraph = parentGraph == null ? new HashMap<>() : parentGraph.getNodeToVlGraph();
+    }
 
     @Override
     public BranchEdge addLineEdge(String lineId, Node node1, Node node2) {
@@ -71,7 +79,12 @@ public abstract class AbstractGraph implements Graph {
     }
 
     @Override
-    public VoltageLevelGraph getVlGraph(Node node) {
+    public Map<Node, VoltageLevelGraph> getNodeToVlGraph() {
+        return nodeToVlGraph;
+    }
+
+    @Override
+    public VoltageLevelGraph getVoltageLevelGraph(Node node) {
         return nodeToVlGraph.get(node);
     }
 

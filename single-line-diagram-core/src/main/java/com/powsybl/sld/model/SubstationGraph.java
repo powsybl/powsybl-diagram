@@ -7,8 +7,8 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import org.jgrapht.Graph;
 import org.jgrapht.graph.Pseudograph;
+import org.jgrapht.Graph;
 
 import java.io.IOException;
 import java.util.*;
@@ -32,13 +32,19 @@ public class SubstationGraph extends AbstractBaseGraph {
     /**
      * Constructor
      */
-    protected SubstationGraph(String id) {
+    protected SubstationGraph(String id, com.powsybl.sld.model.Graph parentGraph) {
+        super(parentGraph);
         this.substationId = Objects.requireNonNull(id);
+    }
+
+    public static SubstationGraph create(String id, com.powsybl.sld.model.Graph parentGraph) {
+        Objects.requireNonNull(id);
+        return new SubstationGraph(id, parentGraph);
     }
 
     public static SubstationGraph create(String id) {
         Objects.requireNonNull(id);
-        return new SubstationGraph(id);
+        return new SubstationGraph(id, null);
     }
 
     public void addVoltageLevel(VoltageLevelGraph node) {

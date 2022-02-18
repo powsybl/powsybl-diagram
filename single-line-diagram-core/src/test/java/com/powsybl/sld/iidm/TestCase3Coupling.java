@@ -50,7 +50,7 @@ public class TestCase3Coupling extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
 
         // Run layout
         voltageLevelGraphLayout(g);

@@ -25,8 +25,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
     @Before
     public void setUp() {
         RawGraphBuilder.SubstationBuilder ssb1 = rawGraphBuilder.createSubstationBuilder("subst");
-        RawGraphBuilder.VoltageLevelBuilder vlb1 = rawGraphBuilder.createVoltageLevelBuilder("vl1", 380, false);
-        ssb1.addVlBuilder(vlb1);
+        RawGraphBuilder.VoltageLevelBuilder vlb1 = rawGraphBuilder.createVoltageLevelBuilder("vl1", 380., ssb1);
 
         BusNode bbs1 = vlb1.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlb1.createBusBarSection("bbs2", 1, 2);
@@ -77,8 +76,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb1.connectNode(dgen2, bgen2);
         vlb1.connectNode(gen2, bgen2);
 
-        RawGraphBuilder.VoltageLevelBuilder vlb2 = rawGraphBuilder.createVoltageLevelBuilder("vl2", 225, false);
-        ssb1.addVlBuilder(vlb2);
+        RawGraphBuilder.VoltageLevelBuilder vlb2 = rawGraphBuilder.createVoltageLevelBuilder("vl2", 225, ssb1);
 
         BusNode bbs5 = vlb2.createBusBarSection("bbs5", 1, 1);
         BusNode bbs6 = vlb2.createBusBarSection("bbs6", 2, 1);
@@ -106,8 +104,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
         vlb2.connectNode(bgen4, dgen4);
 
         // third voltage level
-        RawGraphBuilder.VoltageLevelBuilder vlb3 = rawGraphBuilder.createVoltageLevelBuilder("vl3", 225, false);
-        ssb1.addVlBuilder(vlb3);
+        RawGraphBuilder.VoltageLevelBuilder vlb3 = rawGraphBuilder.createVoltageLevelBuilder("vl3", 225, ssb1);
 
         BusNode bbs7 = vlb3.createBusBarSection("bbs7", 1, 1);
 
@@ -268,8 +265,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
        */
 
         RawGraphBuilder.SubstationBuilder ssb2 = rawGraphBuilder.createSubstationBuilder("subst2");
-        RawGraphBuilder.VoltageLevelBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, false);
-        ssb2.addVlBuilder(vlsubst2);
+        RawGraphBuilder.VoltageLevelBuilder vlsubst2 = rawGraphBuilder.createVoltageLevelBuilder("vlSubst2", 380, ssb2);
 
         BusNode bbs12 = vlsubst2.createBusBarSection("bbs1_2", 1, 1);
 
@@ -290,14 +286,14 @@ public class TestCase11SubstationGraph extends AbstractTestCaseRaw {
 
     @Test
     public void testH() {
-        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst");
+        SubstationGraph g = rawGraphBuilder.buildOrphanSubstationGraph("subst");
         substationGraphLayout(g);
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
     }
 
     @Test
     public void testV() {
-        SubstationGraph g = rawGraphBuilder.buildSubstationGraph("subst");
+        SubstationGraph g = rawGraphBuilder.buildOrphanSubstationGraph("subst");
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }

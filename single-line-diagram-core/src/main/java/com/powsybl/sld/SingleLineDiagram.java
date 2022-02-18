@@ -111,7 +111,7 @@ public final class SingleLineDiagram {
                                          VoltageLevelLayoutFactory vLayoutFactory, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(vLayoutFactory);
 
-        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId, true);
+        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildOrphanVoltageLevelGraph(voltageLevelId);
         vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
@@ -148,7 +148,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(sLayoutFactory);
         Objects.requireNonNull(vLayoutFactory);
 
-        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
+        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildOrphanSubstationGraph(substationId);
         sLayoutFactory.create(substationGraph, vLayoutFactory).run(layoutParameters);
         draw(substationGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
@@ -232,7 +232,7 @@ public final class SingleLineDiagram {
                                          VoltageLevelLayoutFactory vLayoutFactory, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(vLayoutFactory);
 
-        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId, true);
+        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildOrphanVoltageLevelGraph(voltageLevelId);
         vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, writerForSvg, metadataWriter, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
@@ -265,7 +265,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(sLayoutFactory);
         Objects.requireNonNull(vLayoutFactory);
 
-        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
+        SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildOrphanSubstationGraph(substationId);
         sLayoutFactory.create(substationGraph, vLayoutFactory).run(layoutParameters);
         draw(substationGraph, writerForSvg, metadataWriter, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }

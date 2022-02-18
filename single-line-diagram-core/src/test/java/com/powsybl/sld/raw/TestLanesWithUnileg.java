@@ -55,7 +55,7 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/testLanesWithUnileg.json"), toJson(g, "/testLanesWithUnileg.json"));
     }

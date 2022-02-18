@@ -57,7 +57,7 @@ public class TestCase5V extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase5V.json"), toJson(g, "/TestCase5V.json"));
     }

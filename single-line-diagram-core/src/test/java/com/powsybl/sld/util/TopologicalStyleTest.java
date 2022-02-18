@@ -89,9 +89,9 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     @Test
     public void test() throws IOException {
         // building graphs
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
-        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
-        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
+        VoltageLevelGraph graph1 = graphBuilder.buildOrphanVoltageLevelGraph(vl1.getId());
+        VoltageLevelGraph graph2 = graphBuilder.buildOrphanVoltageLevelGraph(vl2.getId());
+        VoltageLevelGraph graph3 = graphBuilder.buildOrphanVoltageLevelGraph(vl3.getId());
 
         TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(network);
 
@@ -141,7 +141,7 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
 
     @Test
     public void testSubstation() {
-        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
+        SubstationGraph graph = graphBuilder.buildOrphanSubstationGraph(substation.getId());
         substationGraphLayout(graph);
         assertEquals(toString("/topological_style_substation.svg"), toSVG(graph, "/topological_style_substation.svg"));
     }

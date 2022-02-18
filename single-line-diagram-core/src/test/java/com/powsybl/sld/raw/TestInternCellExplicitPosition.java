@@ -20,8 +20,7 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl",
-                380);
+        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         FeederNode load1 = vlBuilder.createLoad("l1", 3, BusCell.Direction.TOP);
         SwitchNode dl1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dl1", false, false);
@@ -60,7 +59,7 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", false);
+        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestInternCellExplicitPosition.json"), toJson(g, "/TestInternCellExplicitPosition.json"));
     }

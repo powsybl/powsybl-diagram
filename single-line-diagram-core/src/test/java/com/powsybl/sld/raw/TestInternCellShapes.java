@@ -72,7 +72,7 @@ public class TestInternCellShapes extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestInternCellShapes.json"), toJson(g, "/TestInternCellShapes.json"));
     }
