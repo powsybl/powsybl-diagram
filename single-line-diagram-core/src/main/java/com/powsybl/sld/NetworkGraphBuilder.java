@@ -543,7 +543,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
         if (!nodesByNumber.containsKey(n)) {
-            InternalNode node = NodeFactory.createInternalNode(n, graph);
+            InternalNode node = NodeFactory.createInternalNode(graph, n);
             nodesByNumber.put(n, node);
         }
     }
@@ -691,7 +691,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 throw new AssertionError();
         }
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
-        return NodeFactory.createSwitchNode(aSwitch.getId(), aSwitch.getName(), componentType, false, graph, sk, aSwitch.isOpen());
+        return NodeFactory.createSwitchNode(graph, aSwitch.getId(), aSwitch.getName(), componentType, false, sk, aSwitch.isOpen());
     }
 
     @Override

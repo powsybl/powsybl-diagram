@@ -81,11 +81,11 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open) {
-            return NodeFactory.createSwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
+            return NodeFactory.createSwitchNode(voltageLevelGraph, id, id, sk.name(), fictitious, sk, open);
         }
 
         public SwitchNode createSwitchNode(SwitchNode.SwitchKind sk, String id, boolean fictitious, boolean open, Integer order, BusCell.Direction direction) {
-            SwitchNode sw = NodeFactory.createSwitchNode(id, id, sk.name(), fictitious, voltageLevelGraph, sk, open);
+            SwitchNode sw = NodeFactory.createSwitchNode(voltageLevelGraph, id, id, sk.name(), fictitious, sk, open);
             if (direction != null || order != null) {
                 addExtension(sw, order, direction);
             }
@@ -97,11 +97,11 @@ public class RawGraphBuilder implements GraphBuilder {
         }
 
         public FictitiousNode createFictitiousNode(int id) {
-            return NodeFactory.createInternalNode(id, voltageLevelGraph);
+            return NodeFactory.createInternalNode(voltageLevelGraph, id);
         }
 
         public FictitiousNode createFictitiousNode(String id) {
-            return NodeFactory.createInternalNode(id, voltageLevelGraph);
+            return NodeFactory.createInternalNode(voltageLevelGraph, id);
         }
 
         public void addExtension(Node fn, Integer order, BusCell.Direction direction) {
