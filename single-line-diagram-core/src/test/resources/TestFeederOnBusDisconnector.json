@@ -12,7 +12,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 60.0,
+    "y" : 30.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -20,7 +20,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 140.0,
+    "y" : 110.0,
     "open" : false
   }, {
     "type" : "BUS",
@@ -30,7 +30,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 30.0,
+    "y" : 0.0,
     "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
@@ -49,7 +49,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 30.0,
+    "y" : 0.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -60,7 +60,7 @@
     "componentType" : "LINE",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 202.0,
+    "y" : 172.0,
     "open" : false,
     "label" : "line",
     "feederType" : "BRANCH",
@@ -94,7 +94,7 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 100.0,
+        "y" : 70.0,
         "xSpan" : 50.0,
         "ySpan" : 80.0
       },
@@ -114,7 +114,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 60.0,
+          "y" : 30.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -135,7 +135,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 100.0,
+          "y" : 70.0,
           "xSpan" : 50.0,
           "ySpan" : 80.0
         },
@@ -156,7 +156,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 140.0,
+          "y" : 110.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },

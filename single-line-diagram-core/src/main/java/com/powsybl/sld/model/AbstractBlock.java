@@ -185,7 +185,7 @@ public abstract class AbstractBlock implements Block {
     private double getRootBlockSpan(LayoutParameters layoutParam) {
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - layoutParam.getStackHeight() - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
     }
 
     private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {

@@ -62,7 +62,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
         double heightWithoutPadding = graph.getExternCellHeight(BusCell.Direction.TOP)
-            + 2 * layoutParam.getStackHeight() + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
+            + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
             + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
@@ -128,14 +128,14 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 if (v == null && vIntern == null) {
                     return 0.;
                 } else if (v == null) {
-                    return vIntern;
+                    return vIntern + layoutParam.getStackHeight();
                 } else {
-                    return Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam);
+                    return Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam) + layoutParam.getStackHeight();
                 }
             }));
         } else {
-            maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight());
-            maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight());
+            maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
+            maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
         }
 
         getGraph().setMaxCellHeight(maxCellHeight);

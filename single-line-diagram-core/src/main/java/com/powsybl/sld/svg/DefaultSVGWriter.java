@@ -333,18 +333,24 @@ public class DefaultSVGWriter implements SVGWriter {
                     graph.getX() + iCell * layoutParameters.getCellWidth()));
         }
 
-        // StackHeight Horizontal lines
-        gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight()));
-        gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
-
-        // internCellHeight Horizontal lines
-        gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getInternCellHeight()));
-        gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
-
+        // TOP - Horizontal lines
+        if (graph.getExternCellHeight(BusCell.Direction.TOP) > 0.) {
+            // StackHeight
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight()));
+            // internCellHeight
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getInternCellHeight()));
+        }
+        // BOTTOM - Horizontal lines
+        if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
+            // StackHeight
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+            // internCellHeight
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+        }
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
                 graph.getVoltageLevelInfos().getId(),
                 null,
@@ -366,8 +372,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
         return drawGridLine(document,
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight() - graph.getExternCellHeight(BusCell.Direction.TOP),
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) - graph.getExternCellHeight(BusCell.Direction.TOP),
+                x, graph.getY() + graph.getFirstBusY(layoutParameters) + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
                         + layoutParameters.getVerticalSpaceBus() * maxV);
     }
 
