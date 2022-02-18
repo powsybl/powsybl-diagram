@@ -269,7 +269,6 @@ public class RawGraphBuilder implements GraphBuilder {
         return buildSubstationGraph(id, null);
     }
 
-
     //TODO: buildZoneGraph
     public ZoneGraph buildZoneGraph(List<String> substationIds) {
         return null;
