@@ -337,19 +337,19 @@ public class DefaultSVGWriter implements SVGWriter {
         if (graph.getExternCellHeight(BusCell.Direction.TOP) > 0.) {
             // StackHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getStackHeight()));
+                    graph.getY() + graph.getFirstBusY() - layoutParameters.getStackHeight()));
             // internCellHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY(layoutParameters) - layoutParameters.getInternCellHeight()));
+                    graph.getY() + graph.getFirstBusY() - layoutParameters.getInternCellHeight()));
         }
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
             // StackHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+                    graph.getY() + graph.getFirstBusY() + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
             // internCellHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY(layoutParameters) + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+                    graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
         }
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
                 graph.getVoltageLevelInfos().getId(),
@@ -372,8 +372,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
         return drawGridLine(document,
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) - graph.getExternCellHeight(BusCell.Direction.TOP),
-                x, graph.getY() + graph.getFirstBusY(layoutParameters) + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
+                x, graph.getY() + graph.getFirstBusY() - graph.getExternCellHeight(BusCell.Direction.TOP),
+                x, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
                         + layoutParameters.getVerticalSpaceBus() * maxV);
     }
 

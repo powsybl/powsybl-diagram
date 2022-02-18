@@ -201,9 +201,9 @@ public abstract class AbstractBlock implements Block {
             case BOTTOM:
                 return vlGraph.getLastBusY(layoutParam) + dyToBus;
             case TOP:
-                return vlGraph.getFirstBusY(layoutParam) - dyToBus;
+                return vlGraph.getFirstBusY() - dyToBus;
             case MIDDLE:
-                return vlGraph.getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return vlGraph.getFirstBusY() + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }
