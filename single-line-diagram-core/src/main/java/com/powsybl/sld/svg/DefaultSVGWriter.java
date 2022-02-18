@@ -341,6 +341,9 @@ public class DefaultSVGWriter implements SVGWriter {
             // internCellHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
                     graph.getY() + graph.getFirstBusY() - layoutParameters.getInternCellHeight()));
+            // FeederSpan
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + layoutParameters.getFeederSpan()));
         }
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
@@ -350,6 +353,9 @@ public class DefaultSVGWriter implements SVGWriter {
             // internCellHeight
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
                     graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+            // FeederSpan
+            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
+                    graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV));
         }
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
