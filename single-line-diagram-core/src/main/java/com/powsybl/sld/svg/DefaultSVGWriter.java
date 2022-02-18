@@ -209,7 +209,7 @@ public class DefaultSVGWriter implements SVGWriter {
         if (layoutParameters.isShowGrid()) {
             for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
                 if (vlGraph.isPositionNodeBusesCalculated()) {
-                    root.appendChild(drawGrid(prefixId, vlGraph, document, metadata));
+                    drawGrid(prefixId, vlGraph, document, metadata, root);
                 }
             }
         }
@@ -317,7 +317,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the grid lines (if required)
      */
-    protected Element drawGrid(String prefixId, VoltageLevelGraph graph, Document document, GraphMetadata metadata) {
+    protected void drawGrid(String prefixId, VoltageLevelGraph graph, Document document, GraphMetadata metadata, Element root) {
         int maxH = graph.getMaxH();
         int maxV = graph.getMaxV();
 
@@ -362,7 +362,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 null,
                 Collections.emptyList()));
 
-        return gridRoot;
+        root.appendChild(gridRoot);
     }
 
     protected Element drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y) {
