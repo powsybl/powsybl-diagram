@@ -67,8 +67,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     // false if substation diagram
 
     // by direction, max calculated height of the extern cells
+    // If no extern cell found taking into account intern cells too
     // (filled and used only when using the adapt cell height to content option)
-    private Map<BusCell.Direction, Double> externCellHeight = new EnumMap<>(BusCell.Direction.class);
+    private Map<BusCell.Direction, Double> maxCellHeight = new EnumMap<>(BusCell.Direction.class);
 
     protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
@@ -641,11 +642,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public Double getExternCellHeight(BusCell.Direction direction) {
-        return !externCellHeight.isEmpty() ? externCellHeight.get(direction) : -1.;
+        return !maxCellHeight.isEmpty() ? maxCellHeight.get(direction) : -1.;
     }
 
-    public void setExternCellHeight(Map<BusCell.Direction, Double> externCellHeight) {
-        this.externCellHeight = externCellHeight;
+    public void setMaxCellHeight(Map<BusCell.Direction, Double> maxCellHeight) {
+        this.maxCellHeight = maxCellHeight;
     }
 
     public int getMaxHorizontalBusPosition() {
