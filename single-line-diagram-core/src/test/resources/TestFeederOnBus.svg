@@ -73,9 +73,6 @@
             <g class="sld-top-feeder" id="idline_95_ONE" transform="translate(65.0,80.0)">
                 <text class="sld-label" id="line_ONE_default" text-anchor="middle" x="0.0" y="-5.0">line</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_bbs_95_BUSCO_95_line_95_ONE">
-                <polyline points="65.0,252.0,65.0,252.0"/>
-            </g>
             <g class="sld-wire" id="_95_vl_95_BUSCO_95_line_95_ONE_95_INTERNAL_95_vl_95_line_95_ONE_95_1">
                 <polyline points="65.0,248.0,65.0,222.0"/>
             </g>

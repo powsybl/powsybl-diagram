@@ -79,9 +79,6 @@
             <g class="sld-node" id="idINTERNAL_95_vl_95_d2" transform="translate(61.0,134.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_bbs1_95_d1">
-                <polyline points="165.0,218.0,165.0,218.0"/>
-            </g>
             <g class="sld-wire" id="_95_vl_95_d1_95_INTERNAL_95_vl_95_f1">
                 <polyline points="165.0,218.0,165.0,178.0"/>
             </g>
@@ -111,9 +108,6 @@
             </g>
             <g class="sld-wire" id="_95_vl_95_d2_95_INTERNAL_95_vl_95_d2">
                 <polyline points="65.0,243.0,65.0,138.0"/>
-            </g>
-            <g class="sld-wire" id="_95_vl_95_d2_95_bbs2">
-                <polyline points="65.0,243.0,65.0,243.0"/>
             </g>
             <g class="sld-disconnector sld-closed" id="idd1" transform="translate(161.0,214.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
