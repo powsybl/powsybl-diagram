@@ -351,6 +351,7 @@ public class DefaultSVGWriter implements SVGWriter {
             gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
                     graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
         }
+
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
                 graph.getVoltageLevelInfos().getId(),
                 null,

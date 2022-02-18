@@ -8,7 +8,6 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
@@ -185,7 +184,7 @@ public abstract class AbstractBlock implements Block {
     private double getRootBlockSpan(LayoutParameters layoutParam) {
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - layoutParam.getStackHeight() - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - layoutParam.getStackHeight() - layoutParam.getFeederSpan();
     }
 
     private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {

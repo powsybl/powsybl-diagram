@@ -130,7 +130,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 } else if (v == null) {
                     return vIntern + layoutParam.getStackHeight();
                 } else {
-                    return Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam) + layoutParam.getStackHeight();
+                    return Math.max(v, layoutParam.getMinExternCellHeight()) + layoutParam.getFeederSpan() + layoutParam.getStackHeight();
                 }
             }));
         } else {
@@ -139,11 +139,5 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         }
 
         getGraph().setMaxCellHeight(maxCellHeight);
-    }
-
-    public static double getFeederSpan(LayoutParameters layoutParam) {
-        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
-        // + half the height of the feeder component + half the height of that node component
-        return layoutParam.getSpaceForFeederInfos() + layoutParam.getMaxComponentHeight();
     }
 }
