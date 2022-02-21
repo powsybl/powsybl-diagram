@@ -8,7 +8,6 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
@@ -185,7 +184,7 @@ public abstract class AbstractBlock implements Block {
     private double getRootBlockSpan(LayoutParameters layoutParam) {
         // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
         // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - layoutParam.getStackHeight() - layoutParam.getFeederSpan();
     }
 
     private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {
@@ -201,9 +200,9 @@ public abstract class AbstractBlock implements Block {
             case BOTTOM:
                 return vlGraph.getLastBusY(layoutParam) + dyToBus;
             case TOP:
-                return vlGraph.getFirstBusY(layoutParam) - dyToBus;
+                return vlGraph.getFirstBusY() - dyToBus;
             case MIDDLE:
-                return vlGraph.getFirstBusY(layoutParam) + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return vlGraph.getFirstBusY() + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }

@@ -12,10 +12,9 @@ import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -37,7 +36,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     @Override
     public void run(LayoutParameters layoutParam) {
         LOGGER.info("Running voltage level layout");
-        calculateExternCellHeight(layoutParam);
+        calculateMaxCellHeight(layoutParam);
         calculateBusNodeCoord(getGraph(), layoutParam);
         calculateCellCoord(getGraph(), layoutParam);
 
@@ -63,7 +62,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
         double heightWithoutPadding = graph.getExternCellHeight(BusCell.Direction.TOP)
-            + 2 * layoutParam.getStackHeight() + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
+            + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
             + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
@@ -102,33 +101,43 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     /**
-     * Calculating the maximum height of all the extern cells in each direction (top and bottom). This height does not
-     * include the constant stack height.
+     * Calculating the maximum height of all the extern cells in each direction (top and bottom).
+     * If no extern cell found taking into account intern cells too.
+     * This height does include the constant stack height.
      * @param layoutParam the layout parameters
      */
-    private void calculateExternCellHeight(LayoutParameters layoutParam) {
-        Map<BusCell.Direction, Double> maxCellHeight = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0.));
+    private void calculateMaxCellHeight(LayoutParameters layoutParam) {
+        Map<BusCell.Direction, Double> maxCellHeight = new EnumMap<>(BusCell.Direction.class);
         if (layoutParam.isAdaptCellHeightToContent()) {
+            Map<BusCell.Direction, Double> maxInternCellHeight = new EnumMap<>(BusCell.Direction.class);
+            // Initialize map with intern cells height
+            // in order to keep intern cells visible if there are no extern cells
+            getGraph().getCells().stream()
+                    .filter(cell -> cell.getType() == Cell.CellType.INTERN)
+                    .forEach(cell -> maxInternCellHeight.merge(((BusCell) cell).getDirection(), cell.calculateHeight(layoutParam), Math::max));
+
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
             getGraph().getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
-                .forEach(cell -> maxCellHeight.compute(((BusCell) cell).getDirection(), (k, v) -> Math.max(v, cell.calculateHeight(layoutParam))));
+                .forEach(cell -> maxCellHeight.merge(((BusCell) cell).getDirection(), cell.calculateHeight(layoutParam), Math::max));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
-            maxCellHeight.compute(BusCell.Direction.TOP, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam));
-            maxCellHeight.compute(BusCell.Direction.BOTTOM, (k, v) -> Math.max(v, layoutParam.getMinExternCellHeight()) + getFeederSpan(layoutParam));
+            EnumSet.allOf(BusCell.Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {
+                Double vIntern = maxInternCellHeight.get(d);
+                if (v == null && vIntern == null) {
+                    return 0.;
+                } else if (v == null) {
+                    return vIntern + layoutParam.getStackHeight();
+                } else {
+                    return Math.max(v, layoutParam.getMinExternCellHeight()) + layoutParam.getFeederSpan() + layoutParam.getStackHeight();
+                }
+            }));
         } else {
-            maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight());
-            maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight());
+            maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
+            maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
         }
 
-        getGraph().setExternCellHeight(maxCellHeight);
-    }
-
-    public static double getFeederSpan(LayoutParameters layoutParam) {
-        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
-        // + half the height of the feeder component + half the height of that node component
-        return layoutParam.getSpaceForFeederInfos() + layoutParam.getMaxComponentHeight();
+        getGraph().setMaxCellHeight(maxCellHeight);
     }
 }

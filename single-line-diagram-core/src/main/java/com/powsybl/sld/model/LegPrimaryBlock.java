@@ -113,7 +113,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         getLegNode().setX(getCoord().get(X));
         if (getCell().getType() == INTERN && ((InternCell) getCell()).checkisShape(UNILEG)) {
             getLegNode().setY(getOrientation() == UP
-                ? getVoltageLevelGraph().getFirstBusY(layoutParam) - layoutParam.getInternCellHeight()
+                ? getVoltageLevelGraph().getFirstBusY() - layoutParam.getInternCellHeight()
                 : getVoltageLevelGraph().getLastBusY(layoutParam) + layoutParam.getInternCellHeight());
         }
     }
