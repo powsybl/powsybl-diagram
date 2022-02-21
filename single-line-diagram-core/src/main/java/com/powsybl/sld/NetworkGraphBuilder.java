@@ -588,7 +588,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .map(FictitiousNode.class::cast)
                 .findFirst()
                 .orElseThrow(() -> new PowsyblException("Empty node set"));
-        graph.replaceNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
+        graph.substituteNode(biggestFn, NodeFactory.createFictitiousBusNode(graph, biggestFn.getId() + "FictitiousBus"));
     }
 
     /**

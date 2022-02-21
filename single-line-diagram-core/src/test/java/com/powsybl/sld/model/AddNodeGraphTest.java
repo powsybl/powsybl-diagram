@@ -50,7 +50,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         // Replace the origin node with that new node
         Node originNode = graph.getNode(originNodeId);
         List<Node> originAdjacentNodes = originNode.getAdjacentNodes();
-        graph.replaceNode(originNode, replacingNode);
+        graph.substituteNode(originNode, replacingNode);
 
         // Checks the replacement correctness
         assertNull(graph.getNode(originNodeId));
@@ -72,7 +72,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         String replacingNodeId = "S1VL2_TWT_BREAKER";
         Node originNode = graph.getNode(originNodeId);
         Node replacingNode = graph.getNode(replacingNodeId);
-        graph.replaceNode(originNode, replacingNode);
+        graph.substituteNode(originNode, replacingNode);
 
         assertNull(graph.getNode(originNodeId));
         assertEquals(originNbNodes - 1, graph.getNodes().size());

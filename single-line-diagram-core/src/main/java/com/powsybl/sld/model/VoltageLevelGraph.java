@@ -479,20 +479,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         removeNode(nodeOrigin);
     }
 
-    /**
-     * Replace a node with another node which is not yet in the graph.
-     * Use {@link #substituteNode} instead if the node newNode is already in the graph.
-     *
-     * @param nodeOrigin: node which will be replaced
-     * @param newNode:    node which will replace the first one
-     */
-    public void replaceNode(Node nodeOrigin, Node newNode) {
-        substituteNode(nodeOrigin, newNode);
-        if (!nodes.contains(newNode)) {
-            addNode(newNode);     // TODO : to be removed once Node is decoupled ... and maybe the full method replaceNode. substituteNode is enough
-        }
-    }
-
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
@@ -507,7 +493,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
                 .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
-                .forEach(n -> replaceNode(n, NodeFactory.createFictitiousFeederNode(this, n.getId(), Orientation.UP)));
+                .forEach(n -> substituteNode(n, NodeFactory.createFictitiousFeederNode(this, n.getId(), Orientation.UP)));
     }
 
     public void addCell(Cell c) {
