@@ -40,7 +40,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
-        Node nodeForStyle = graph.getVoltageLevelInfos(edge.getNode1()) != null ? edge.getNode1() : edge.getNode2();
+        Node nodeForStyle = edge.getNode1() instanceof MiddleTwtNode ? edge.getNode2() : edge.getNode1();
         return getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(nodeForStyle), nodeForStyle);
     }
 
