@@ -365,24 +365,24 @@ public class DefaultSVGWriter implements SVGWriter {
         root.appendChild(gridRoot);
     }
 
-    protected void drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y, Element gridRoot) {
-        drawGridLine(document, graph.getX(), y, maxH / 2. * layoutParameters.getCellWidth() + graph.getX(), y, gridRoot);
+    protected void drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y, Element root) {
+        drawGridLine(document, graph.getX(), y, maxH / 2. * layoutParameters.getCellWidth() + graph.getX(), y, root);
     }
 
-    protected void drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x, Element gridRoot) {
+    protected void drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x, Element root) {
         drawGridLine(document,
                 x, graph.getY() + graph.getFirstBusY() - graph.getExternCellHeight(BusCell.Direction.TOP),
                 x, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
-                        + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
+                        + layoutParameters.getVerticalSpaceBus() * maxV, root);
     }
 
-    protected void drawGridLine(Document document, double x1, double y1, double x2, double y2, Element gridRoot) {
+    protected void drawGridLine(Document document, double x1, double y1, double x2, double y2, Element root) {
         Element line = document.createElement("line");
         line.setAttribute("x1", Double.toString(x1));
         line.setAttribute("x2", Double.toString(x2));
         line.setAttribute("y1", Double.toString(y1));
         line.setAttribute("y2", Double.toString(y2));
-        gridRoot.appendChild(line);
+        root.appendChild(line);
     }
 
     /*
