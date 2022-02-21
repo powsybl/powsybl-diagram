@@ -180,7 +180,7 @@ class BlockPositionner {
         }
 
         private int getHfromSide(InternCell cell, Side side) {
-            if (cell.checkisShape(InternCell.Shape.UNILEG)) {
+            if (cell.checkIsShape(InternCell.Shape.UNILEG)) {
                 return cell.getSideHPos(Side.UNDEFINED);
             }
             return cell.getSideHPos(side);
@@ -210,7 +210,7 @@ class BlockPositionner {
                     if (c.getDirection() == Direction.UNDEFINED) {
                         c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
                     }
-                    if (!c.checkisShape(InternCell.Shape.UNILEG)) {
+                    if (!c.checkIsShape(InternCell.Shape.UNILEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);
                     }
                 });

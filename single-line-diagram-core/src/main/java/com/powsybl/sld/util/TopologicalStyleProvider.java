@@ -37,26 +37,26 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     }
 
     @Override
-    protected Optional<String> getEdgeStyle(Edge edge) {
+    protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
         if (edge instanceof BranchEdge && (node1 instanceof FeederLineNode || node2 instanceof FeederLineNode)) {
-            return getLineEdgeStyle((BranchEdge) edge);
+            return getLineEdgeStyle(graph, (BranchEdge) edge);
         } else {
             if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
-                return node2.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node2.getVoltageLevelInfos(), node2) : Optional.empty();
+                return graph.getVoltageLevelInfos(node2) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node2), node2) : Optional.empty();
             }
             if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
-                return node1.getVoltageLevelInfos() != null ? getVoltageLevelNodeStyle(node1.getVoltageLevelInfos(), node1) : Optional.empty();
+                return graph.getVoltageLevelInfos(node1) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node1), node1) : Optional.empty();
             }
-            return super.getEdgeStyle(edge);
+            return super.getEdgeStyle(graph, edge);
         }
     }
 
-    private Optional<String> getLineEdgeStyle(BranchEdge edge) {
-        Optional<String> edgeStyle = getVoltageLevelNodeStyle(edge.getNode1().getVoltageLevelInfos(), edge.getNode1());
+    private Optional<String> getLineEdgeStyle(Graph graph, BranchEdge edge) {
+        Optional<String> edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode1()), edge.getNode1());
         if (edgeStyle.isPresent() && edgeStyle.get().equals(DiagramStyles.DISCONNECTED_STYLE_CLASS)) {
-            edgeStyle = getVoltageLevelNodeStyle(edge.getNode2().getVoltageLevelInfos(), edge.getNode2());
+            edgeStyle = getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(edge.getNode2()), edge.getNode2());
         }
         return edgeStyle;
     }

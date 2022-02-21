@@ -34,11 +34,6 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         subBlocks.forEach(b -> b.setParentBlock(this));
     }
 
-    @Override
-    public VoltageLevelGraph getVoltageLevelGraph() {
-        return subBlocks.get(0).getVoltageLevelGraph();
-    }
-
     public List<Block> getSubBlocks() {
         return subBlocks;
     }

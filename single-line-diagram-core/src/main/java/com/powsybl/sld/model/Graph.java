@@ -26,6 +26,11 @@ public interface Graph {
 
     VoltageLevelGraph getVoltageLevelGraph(Node node);
 
+    default VoltageLevelInfos getVoltageLevelInfos(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return vlGraph == null ? null : vlGraph.getVoltageLevelInfos();
+    }
+
     Map<Node, VoltageLevelGraph> getNodeToVlGraph();
 
     void addNode(VoltageLevelGraph vlGraph, Node node);

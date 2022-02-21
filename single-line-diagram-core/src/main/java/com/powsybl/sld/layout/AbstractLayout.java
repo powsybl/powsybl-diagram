@@ -65,7 +65,7 @@ public abstract class AbstractLayout implements Layout {
      * Calculate polyline points of a snakeLine
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
-    protected static List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
+    protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
                                                                                boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
         List<Point> pol = new ArrayList<>();
         pol.add(node1.getDiagramCoordinates());
@@ -74,11 +74,14 @@ public abstract class AbstractLayout implements Layout {
         return pol;
     }
 
-    private static void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
+    private void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
                                         InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
                                         List<Point> pol) {
         BusCell.Direction dNode1 = getNodeDirection(node1, 1);
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
+
+        VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
+        VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
 
         Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
 
@@ -101,7 +104,7 @@ public abstract class AbstractLayout implements Layout {
                 nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
             }
 
-            VoltageLevelGraph rightestVoltageLevel = node1.getVoltageLevelGraph().getX() > node2.getVoltageLevelGraph().getX() ? node1.getVoltageLevelGraph() : node2.getVoltageLevelGraph();
+            VoltageLevelGraph rightestVoltageLevel = vlGraph1.getX() > vlGraph2.getX() ? vlGraph1 : vlGraph2;
             double xMaxGraph = rightestVoltageLevel.getX();
             String idMaxGraph = rightestVoltageLevel.getId();
 

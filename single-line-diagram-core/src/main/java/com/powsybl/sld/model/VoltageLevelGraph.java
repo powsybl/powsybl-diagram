@@ -323,7 +323,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             } else if (!isFeeder3WT(feederNode)) {
                 // Three-winding transformers do not need to be extended in voltage level diagrams, as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
-                InternalNode nf = NodeFactory.createInternalNode(feederNode.getVoltageLevelGraph(), feederNode.getId());
+                InternalNode nf = NodeFactory.createInternalNode(this, feederNode.getId());
                 // Create all new edges and remove old ones
                 for (Node neighbor : adjacentNodes) {
                     addEdge(neighbor, nf);
@@ -463,7 +463,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     /**
      * Substitute a node with another node already in the graph.
-     * Use {@link #replaceNode} instead if the node newNode is not already in the graph.
      *
      * @param nodeOrigin: node which will be substituted
      * @param newNode:    node which will substitute the first one

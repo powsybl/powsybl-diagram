@@ -153,7 +153,7 @@ public class InternCell extends AbstractBusCell {
         }
     }
 
-    public boolean checkisShape(Shape... shape) {
+    public boolean checkIsShape(Shape... shape) {
         return this.shape.checkIsShape(shape);
     }
 

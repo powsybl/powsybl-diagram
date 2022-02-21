@@ -59,11 +59,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     }
 
     @Override
-    public VoltageLevelGraph getVoltageLevelGraph() {
-        return nodes.get(0).getVoltageLevelGraph();
-    }
-
-    @Override
     public boolean isEmbeddingNodeType(Node.NodeType type) {
         return nodes.stream().anyMatch(n -> n.getType() == type);
     }

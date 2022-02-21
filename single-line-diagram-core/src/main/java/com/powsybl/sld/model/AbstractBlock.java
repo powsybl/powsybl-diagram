@@ -165,27 +165,23 @@ public abstract class AbstractBlock implements Block {
         coord.setSpan(X, spanX);
         coord.set(X, hToX(layoutParam, position.get(H)) + spanX / 2);
 
-        double spanY = getRootSpanYCoord(layoutParam);
+        double spanY = getRootSpanYCoord(layoutParam, vlGraph);
         coord.setSpan(Y, spanY);
         coord.set(Y, getRootYCoord(vlGraph, spanY, layoutParam));
 
         calculateCoord(layoutParam);
     }
 
-    private double getRootSpanYCoord(LayoutParameters layoutParam) {
+    private double getRootSpanYCoord(LayoutParameters layoutParam, VoltageLevelGraph vlGraph) {
         double ySpan;
         if (cell.getType() == INTERN) {
             ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
         } else {
-            ySpan = getRootBlockSpan(layoutParam);
+            // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
+            // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
+            ySpan = vlGraph.getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
         }
         return ySpan;
-    }
-
-    private double getRootBlockSpan(LayoutParameters layoutParam) {
-        // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
-        // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-        return getVoltageLevelGraph().getExternCellHeight(((BusCell) cell).getDirection()) - PositionVoltageLevelLayout.getFeederSpan(layoutParam);
     }
 
     private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {

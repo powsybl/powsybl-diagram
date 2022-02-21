@@ -35,6 +35,7 @@ public class FeederWithSideNode extends FeederNode {
 
     protected final Side side;
 
+    protected final VoltageLevelInfos myVoltageLevelInfos;
     protected final VoltageLevelInfos otherSideVoltageLevelInfos;
 
     protected FeederWithSideNode(String id, String name, String equipmentId, String componentType,
@@ -42,6 +43,7 @@ public class FeederWithSideNode extends FeederNode {
         super(id, name, equipmentId, componentType, graph, feederType);
         this.side = Objects.requireNonNull(side);
         this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;
+        this.myVoltageLevelInfos = graph.getVoltageLevelInfos();
     }
 
     public Side getSide() {
@@ -50,6 +52,10 @@ public class FeederWithSideNode extends FeederNode {
 
     public VoltageLevelInfos getOtherSideVoltageLevelInfos() {
         return otherSideVoltageLevelInfos;
+    }
+
+    public VoltageLevelInfos getVoltageLevelInfos() {
+        return myVoltageLevelInfos;
     }
 
     @Override

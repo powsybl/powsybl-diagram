@@ -22,7 +22,6 @@ public class MiddleTwtNode extends FictitiousNode {
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
     }
 
-    @Override
     public VoltageLevelInfos getVoltageLevelInfos() {
         return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
     }
