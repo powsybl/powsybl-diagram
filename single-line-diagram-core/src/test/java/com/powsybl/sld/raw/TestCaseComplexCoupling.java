@@ -55,7 +55,6 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/TestCaseComplexCoupling.json"), toJson(g, "/TestCaseComplexCoupling.json"));
         assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(g), new BasicStyleProvider()));
     }
 }

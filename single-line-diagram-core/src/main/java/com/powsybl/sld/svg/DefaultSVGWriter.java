@@ -329,33 +329,26 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // vertical lines
         for (int iCell = 0; iCell < maxH / 2 + 1; iCell++) {
-            gridRoot.appendChild(drawGridVerticalLine(document, graph, maxV,
-                    graph.getX() + iCell * layoutParameters.getCellWidth()));
+            drawGridVerticalLine(document, graph, maxV, graph.getX() + iCell * layoutParameters.getCellWidth(), gridRoot);
         }
 
         // TOP - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.TOP) > 0.) {
             // StackHeight
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY() - layoutParameters.getStackHeight()));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() - layoutParameters.getStackHeight(), gridRoot);
             // internCellHeight
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY() - layoutParameters.getInternCellHeight()));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() - layoutParameters.getInternCellHeight(), gridRoot);
             // FeederSpan
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + layoutParameters.getFeederSpan()));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + layoutParameters.getFeederSpan(), gridRoot);
         }
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
             // StackHeight
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY() + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
             // internCellHeight
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
             // FeederSpan
-            gridRoot.appendChild(drawGridHorizontalLine(document, graph, maxH,
-                    graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV));
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
         }
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
@@ -372,25 +365,24 @@ public class DefaultSVGWriter implements SVGWriter {
         root.appendChild(gridRoot);
     }
 
-    protected Element drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y) {
-        return drawGridLine(document,
-                graph.getX(), y, maxH / 2. * layoutParameters.getCellWidth() + graph.getX(), y);
+    protected void drawGridHorizontalLine(Document document, VoltageLevelGraph graph, int maxH, double y, Element gridRoot) {
+        drawGridLine(document, graph.getX(), y, maxH / 2. * layoutParameters.getCellWidth() + graph.getX(), y, gridRoot);
     }
 
-    protected Element drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x) {
-        return drawGridLine(document,
+    protected void drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x, Element gridRoot) {
+        drawGridLine(document,
                 x, graph.getY() + graph.getFirstBusY() - graph.getExternCellHeight(BusCell.Direction.TOP),
                 x, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
-                        + layoutParameters.getVerticalSpaceBus() * maxV);
+                        + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
     }
 
-    protected Element drawGridLine(Document document, double x1, double y1, double x2, double y2) {
+    protected void drawGridLine(Document document, double x1, double y1, double x2, double y2, Element gridRoot) {
         Element line = document.createElement("line");
         line.setAttribute("x1", Double.toString(x1));
         line.setAttribute("x2", Double.toString(x2));
         line.setAttribute("y1", Double.toString(y1));
         line.setAttribute("y2", Double.toString(y2));
-        return line;
+        gridRoot.appendChild(line);
     }
 
     /*

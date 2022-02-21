@@ -103,7 +103,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     /**
      * Calculating the maximum height of all the extern cells in each direction (top and bottom).
      * If no extern cell found taking into account intern cells too.
-     * This height does not include the constant stack height.
+     * This height does include the constant stack height.
      * @param layoutParam the layout parameters
      */
     private void calculateMaxCellHeight(LayoutParameters layoutParam) {
