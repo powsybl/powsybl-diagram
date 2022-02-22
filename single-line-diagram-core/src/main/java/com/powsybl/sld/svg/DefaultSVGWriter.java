@@ -60,6 +60,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
+    protected static final String WIDTH = "width";
+    protected static final String HEIGHT = "height";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -101,8 +103,8 @@ public class DefaultSVGWriter implements SVGWriter {
     private void setDocumentSize(Graph graph, Document document) {
         document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
         if (layoutParameters.isSvgWidthAndHeightAdded()) {
-            document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
-            document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(WIDTH, Double.toString(getDiagramWidth(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(HEIGHT, Double.toString(getDiagramHeight(graph, layoutParameters)));
         }
     }
 
@@ -174,8 +176,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addFrame(Document document) {
         Element rect = document.createElement("rect");
-        rect.setAttribute("width", "100%");
-        rect.setAttribute("height", "100%");
+        rect.setAttribute(WIDTH, "100%");
+        rect.setAttribute(HEIGHT, "100%");
         rect.setAttribute(CLASS, FRAME_CLASS);
         document.adoptNode(rect);
         document.getDocumentElement().appendChild(rect);
@@ -924,8 +926,8 @@ public class DefaultSVGWriter implements SVGWriter {
         double height = 5;
 
         Element rect = g.getOwnerDocument().createElement("rect");
-        rect.setAttribute("width", String.valueOf(width));
-        rect.setAttribute("height", String.valueOf(height));
+        rect.setAttribute(WIDTH, String.valueOf(width));
+        rect.setAttribute(HEIGHT, String.valueOf(height));
         rect.setAttribute("rx", String.valueOf(1));
         rect.setAttribute("ry", String.valueOf(1));
         rect.setAttribute(CLASS, String.join(" ", styles));
