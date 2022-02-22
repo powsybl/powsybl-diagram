@@ -87,7 +87,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     private void calculateBusNodeCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
-        graph.getNodeBuses().forEach(nb -> nb.calculateCoord(layoutParam, graph.getFirstBusY(layoutParam)));
+        graph.getNodeBuses().forEach(nb -> nb.calculateCoord(layoutParam, graph.getFirstBusY()));
     }
 
     private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {

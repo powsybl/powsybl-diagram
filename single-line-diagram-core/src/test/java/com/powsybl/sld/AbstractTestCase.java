@@ -36,7 +36,7 @@ public abstract class AbstractTestCase {
     private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = true;
+    protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();

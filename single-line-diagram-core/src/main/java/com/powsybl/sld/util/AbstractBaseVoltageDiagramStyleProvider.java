@@ -10,6 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -205,28 +206,28 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
         FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
         FeederWithSideNode nodeWinding = nodeWinding1;
-        VoltageLevelGraph vlg1 = graph.getVoltageLevelGraph(nodeWinding1);
-        VoltageLevelGraph vlg2 = graph.getVoltageLevelGraph(nodeWinding2);
+        Point p1 = graph.getShiftedPoint(nodeWinding1);
+        Point p2 = graph.getShiftedPoint(nodeWinding2);
 
         if (subComponentName.equals(WINDING1)) {
             if (!node.isRotated()) {
-                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = p1.getY() > p2.getY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = p1.getX() > p2.getX() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = p1.getY() > p2.getY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = p1.getX() > p2.getX() ? nodeWinding1 : nodeWinding2;
             }
         } else if (subComponentName.equals(WINDING2)) {
             if (!node.isRotated()) {
-                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = p1.getY() > p2.getY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = p1.getX() > p2.getX() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = p1.getY() > p2.getY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = p1.getX() > p2.getX() ? nodeWinding2 : nodeWinding1;
             }
         }
 
