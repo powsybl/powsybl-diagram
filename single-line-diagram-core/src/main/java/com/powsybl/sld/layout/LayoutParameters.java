@@ -547,4 +547,11 @@ public class LayoutParameters {
             return bottom;
         }
     }
+
+    @JsonIgnore
+    public double getFeederSpan() {
+        // The space needed between the feeder and the node connected to it corresponds to the space for feeder arrows
+        // + half the height of the feeder component + half the height of that node component
+        return getSpaceForFeederInfos() + getMaxComponentHeight();
+    }
 }

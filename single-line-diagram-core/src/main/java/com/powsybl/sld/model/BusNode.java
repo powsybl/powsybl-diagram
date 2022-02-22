@@ -47,7 +47,11 @@ public class BusNode extends Node {
         double elementaryWidth = layoutParameters.getCellWidth() / 2;
         double busPadding = layoutParameters.getBusPadding();
         setCoordinates(position.get(H) * elementaryWidth + busPadding,
+<<<<<<< HEAD
             firstBusY + position.get(V) * layoutParameters.getVerticalSpaceBus());
+=======
+            getVoltageLevelGraph().getFirstBusY() + position.get(V) * layoutParameters.getVerticalSpaceBus());
+>>>>>>> main
         setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
     }
 

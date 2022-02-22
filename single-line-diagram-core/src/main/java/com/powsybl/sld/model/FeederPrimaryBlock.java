@@ -9,7 +9,6 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 
 import java.util.List;
 import java.util.Set;
@@ -81,7 +80,7 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     @Override
     public void coordVerticalCase(LayoutParameters layoutParam) {
-        double yFeeder = getConnectedNode().getY() + getOrientation().progressionSign() * PositionVoltageLevelLayout.getFeederSpan(layoutParam);
+        double yFeeder = getConnectedNode().getY() + getOrientation().progressionSign() * layoutParam.getFeederSpan();
         getFeederNode().setCoordinates(getCoord().get(X), yFeeder);
     }
 

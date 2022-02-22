@@ -10,6 +10,7 @@ import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,8 +50,15 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
+<<<<<<< HEAD
         VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+=======
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+
+        layoutParameters.setAdaptCellHeightToContent(true);
+>>>>>>> main
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestCaseComplexCoupling.json"), toJson(g, "/TestCaseComplexCoupling.json"));
+
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(g), new BasicStyleProvider()));
     }
 }
