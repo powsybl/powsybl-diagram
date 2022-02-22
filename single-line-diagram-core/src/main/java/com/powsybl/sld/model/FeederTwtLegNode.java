@@ -11,9 +11,9 @@ package com.powsybl.sld.model;
  */
 public class FeederTwtLegNode extends FeederWithSideNode {
     protected FeederTwtLegNode(String id, String name, String equipmentId, String componentType,
-                               VoltageLevelGraph graph, Side side, VoltageLevelInfos otherSideVoltageLevelInfos,
+                               Side side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos,
                                FeederType feederType) {
-        super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, feederType);
+        super(id, name, equipmentId, componentType, side, myVoltageLevelInfos, otherSideVoltageLevelInfos, feederType);
     }
 
     @Override

@@ -53,9 +53,9 @@ public final class WireConnection {
         Cell cell = otherNode.getCell();
         BusCell.Direction direction = cell instanceof BusCell ? ((BusCell) cell).getDirection() : BusCell.Direction.UNDEFINED;
         boolean undefinedMiddleDirection = direction == BusCell.Direction.UNDEFINED
-                && otherNode.getDiagramCoordinates().getY() == busNode.getDiagramCoordinates().getY()
-                && (otherNode.getDiagramCoordinates().getX() < busNode.getDiagramCoordinates().getX()
-                || otherNode.getDiagramCoordinates().getX() > busNode.getDiagramCoordinates().getX() + busNode.getPxWidth());
+                && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
+                && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
+                || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
         if (direction == BusCell.Direction.MIDDLE || undefinedMiddleDirection) {
             return Arrays.asList(
                     new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
@@ -67,14 +67,14 @@ public final class WireConnection {
         }
     }
 
-    public static AnchorPoint getBestAnchorPoint(ComponentLibrary componentLibrary, Node node, Point point) {
+    public static AnchorPoint getBestAnchorPoint(ComponentLibrary componentLibrary, Graph graph, Node node, Point point) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node);
         Objects.requireNonNull(point);
 
         List<AnchorPoint> anchorPoints1 = getAnchorPoints(componentLibrary, node);
         List<AnchorPoint> anchorPoints2 = Collections.singletonList(new AnchorPoint(0, 0, AnchorOrientation.NONE));
-        return searchBestAnchorPoints(node.getDiagramCoordinates(), point, anchorPoints1, anchorPoints2).getAnchorPoint1();
+        return searchBestAnchorPoints(graph.getShiftedPoint(node), point, anchorPoints1, anchorPoints2).getAnchorPoint1();
     }
 
     private static WireConnection searchBestAnchorPoints(Point coord1, Point coord2,

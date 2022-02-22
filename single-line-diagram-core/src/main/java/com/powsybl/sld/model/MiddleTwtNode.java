@@ -18,7 +18,7 @@ public class MiddleTwtNode extends FictitiousNode {
     private final VoltageLevelInfos[] voltageLevelInfosLeg;
 
     protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
-        super(id, name, id, componentType, null);
+        super(id, name, id, componentType);
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
     }
 

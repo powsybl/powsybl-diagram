@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import com.powsybl.sld.model.coordinate.Point;
+
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
@@ -29,6 +31,11 @@ public interface Graph {
     default VoltageLevelInfos getVoltageLevelInfos(Node node) {
         VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
         return vlGraph == null ? null : vlGraph.getVoltageLevelInfos();
+    }
+
+    default Point getShiftedPoint(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return vlGraph == null ? node.getCoordinates() : node.getCoordinates().getShiftedPoint(vlGraph.getCoord());
     }
 
     Map<Node, VoltageLevelGraph> getNodeToVlGraph();

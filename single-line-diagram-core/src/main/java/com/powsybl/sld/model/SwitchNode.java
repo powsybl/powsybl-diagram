@@ -29,8 +29,8 @@ public class SwitchNode extends Node {
 
     private final SwitchKind kind;
 
-    public SwitchNode(String id, String name, String componentType, boolean fictitious, VoltageLevelGraph graph, SwitchKind kind, boolean open) {
-        super(NodeType.SWITCH, id, name, id, componentType, fictitious, graph);
+    public SwitchNode(String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
+        super(NodeType.SWITCH, id, name, id, componentType, fictitious);
         this.kind = Objects.requireNonNull(kind);
         setOpen(open);
     }

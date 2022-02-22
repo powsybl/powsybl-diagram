@@ -399,7 +399,7 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute("id", nodeId);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph, busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
 
-            drawBus(busNode, g);
+            drawBus(graph, busNode, g);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode);
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, graph, busNode, initProvider, styleProvider, graph.getCoord());
@@ -539,7 +539,7 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar sections
      */
-    protected Element drawBus(BusNode node, Element g) {
+    protected Element drawBus(VoltageLevelGraph graph, BusNode node, Element g) {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
@@ -553,7 +553,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         g.appendChild(line);
 
-        g.setAttribute(TRANSFORM, TRANSLATE + "(" + node.getDiagramX() + "," + node.getDiagramY() + ")");
+        g.setAttribute(TRANSFORM, String.format("%s(%s,%s)", TRANSLATE, graph.getX() + node.getX(), graph.getY() + node.getY()));
 
         return line;
     }
@@ -821,12 +821,13 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void insertFeederInfos(String prefixId,
                                       List<Point> points,
                                       Element root,
+                                      VoltageLevelGraph graph,
                                       FeederNode feederNode,
                                       GraphMetadata metadata,
                                       DiagramLabelProvider initProvider) {
         if (points.isEmpty()) {
-            points.add(new Point(feederNode.getDiagramCoordinates()));
-            points.add(new Point(feederNode.getDiagramCoordinates()));
+            points.add(graph.getShiftedPoint(feederNode));
+            points.add(graph.getShiftedPoint(feederNode));
         }
 
         double shiftFeederInfo = 0;
@@ -947,11 +948,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertFeederInfos(prefixId, pol, root, (FeederNode) edge.getNode1(), metadata, initProvider);
+                    insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertFeederInfos(prefixId, pol, root, (FeederNode) edge.getNode2(), metadata, initProvider);
+                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider);
             }
         }
     }
@@ -994,7 +995,7 @@ public class DefaultSVGWriter implements SVGWriter {
             // Note that edge.getNode2() might be outside the voltageLevelGraph (multiTermNode between voltage levels),
             // whereas edge.getNode1() is supposed to always be a FeederNode in a voltageLevelGraph
             // Snakeline between two feeder nodes, no need to adapt
-            adaptCoordSnakeLine(edge, pol);
+            adaptCoordSnakeLine(edge, pol, graph);
         }
 
         Element polyline = root.getOwnerDocument().createElement(POLYLINE);
@@ -1012,12 +1013,12 @@ public class DefaultSVGWriter implements SVGWriter {
      * Adaptation of the previously calculated snakeLine points, in order to use the anchor points
      * if a node is outside any graph
      */
-    private void adaptCoordSnakeLine(BranchEdge edge, List<Point> pol) {
+    private void adaptCoordSnakeLine(BranchEdge edge, List<Point> pol, Graph graph) {
         // Getting the right polyline point from where we need to compute the best anchor point
         Point multiTermPoint = pol.get(pol.size() - 1);
         Point pointBeforeNode = pol.get(Math.max(pol.size() - 2, 0));
 
-        AnchorPoint bestAnchorPoint = WireConnection.getBestAnchorPoint(componentLibrary, edge.getNode2(), pointBeforeNode);
+        AnchorPoint bestAnchorPoint = WireConnection.getBestAnchorPoint(componentLibrary, graph, edge.getNode2(), pointBeforeNode);
 
         if (multiTermPoint.getX() == pointBeforeNode.getX()) {
             pointBeforeNode.shiftX(bestAnchorPoint.getX()); // vertical line remains vertical

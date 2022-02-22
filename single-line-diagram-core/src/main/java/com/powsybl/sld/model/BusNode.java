@@ -12,7 +12,6 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
@@ -32,17 +31,16 @@ public class BusNode extends Node {
 
     private Position position = new Position(-1, -1);
 
-    protected BusNode(String id, String name, boolean fictitious, VoltageLevelGraph graph) {
-        super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious, graph);
+    protected BusNode(String id, String name, boolean fictitious) {
+        super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious);
     }
 
-    public static BusNode create(VoltageLevelGraph graph, String id, String name) {
-        Objects.requireNonNull(graph);
-        return new BusNode(id, name, false, graph);
+    public static BusNode create(String id, String name) {
+        return new BusNode(id, name, false);
     }
 
-    public static BusNode createFictitious(VoltageLevelGraph graph, String id) {
-        return new BusNode(id, null, true, graph);
+    public static BusNode createFictitious(String id) {
+        return new BusNode(id, null, true);
     }
 
     public void calculateCoord(LayoutParameters layoutParameters, double firstBusY) {

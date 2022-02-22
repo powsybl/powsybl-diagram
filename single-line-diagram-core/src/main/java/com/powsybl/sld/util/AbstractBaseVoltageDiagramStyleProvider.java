@@ -41,7 +41,10 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         Node nodeForStyle = edge.getNode1() instanceof MiddleTwtNode ? edge.getNode2() : edge.getNode1();
-        return getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(nodeForStyle), nodeForStyle);
+        VoltageLevelInfos vLevelInfos =  nodeForStyle instanceof FeederTwtLegNode
+                                            ? ((FeederTwtLegNode) nodeForStyle).getVoltageLevelInfos()
+                                            : graph.getVoltageLevelInfos(nodeForStyle);
+        return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
     }
 
     @Override
@@ -146,9 +149,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             // node outside any voltageLevel graph (multi-terminal node)
             Node windingNode = null;
             if (node instanceof Middle2WTNode) {
-                windingNode = getWindingNode((Middle2WTNode) node, subComponentName);
+                windingNode = getWindingNode(graph, (Middle2WTNode) node, subComponentName);
             } else if (node instanceof Middle3WTNode) {
-                windingNode = getWindingNode((Middle3WTNode) node, subComponentName);
+                windingNode = getWindingNode(graph, (Middle3WTNode) node, subComponentName);
             }
             if (windingNode != null) {
                 getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(windingNode), windingNode).ifPresent(styles::add);
@@ -170,9 +173,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
                 .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
     }
 
-    private Node getWindingNode(Middle3WTNode node, String subComponentName) {
+    private Node getWindingNode(Graph graph, Middle3WTNode node, String subComponentName) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getDiagramX));
+        adjacentNodes.sort(Comparator.comparingDouble(n -> graph.getShiftedPoint(n).getX()));
         Node n1 = adjacentNodes.get(0);
         Node n2 = adjacentNodes.get(1);
         Node n3 = adjacentNodes.get(2);
@@ -194,34 +197,36 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return n;
     }
 
-    private Node getWindingNode(Middle2WTNode node, String subComponentName) {
+    private Node getWindingNode(Graph graph, Middle2WTNode node, String subComponentName) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getDiagramX));
+        adjacentNodes.sort(Comparator.comparingDouble(n -> graph.getShiftedPoint(n).getX()));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
         FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
         FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
         FeederWithSideNode nodeWinding = nodeWinding1;
+        VoltageLevelGraph vlg1 = graph.getVoltageLevelGraph(nodeWinding1);
+        VoltageLevelGraph vlg2 = graph.getVoltageLevelGraph(nodeWinding2);
 
         if (subComponentName.equals(WINDING1)) {
             if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
             }
         } else if (subComponentName.equals(WINDING2)) {
             if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding2 : nodeWinding1;
             } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
+                nodeWinding = vlg1.getY() + nodeWinding1.getY() > vlg2.getY() + nodeWinding2.getY() ? nodeWinding1 : nodeWinding2;
             } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
+                nodeWinding = vlg1.getX() + nodeWinding1.getX() > vlg2.getX() + nodeWinding2.getX() ? nodeWinding2 : nodeWinding1;
             }
         }
 

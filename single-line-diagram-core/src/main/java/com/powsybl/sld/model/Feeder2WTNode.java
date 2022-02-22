@@ -6,24 +6,13 @@
  */
 package com.powsybl.sld.model;
 
-import static com.powsybl.sld.library.ComponentTypeName.PHASE_SHIFT_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Feeder2WTNode extends FeederBranchNode {
 
-    protected Feeder2WTNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph, Side side,
-                            VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos);
-    }
-
-    public static Feeder2WTNode create(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return new Feeder2WTNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, graph, side, otherSideVoltageLevelInfos);
-    }
-
-    public static Feeder2WTNode createWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return new Feeder2WTNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER, graph, side, otherSideVoltageLevelInfos);
+    protected Feeder2WTNode(String id, String name, String equipmentId, String componentType, Side side,
+                            VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, equipmentId, componentType, side, myVoltageLevelInfos, otherSideVoltageLevelInfos);
     }
 }

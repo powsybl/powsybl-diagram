@@ -26,7 +26,7 @@ public class Middle2WTNode extends MiddleTwtNode {
                                        VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
         String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
         Middle2WTNode middleNode = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
-        graph.addTwtEdge(legNode1, middleNode);
+        graph.addTwtEdge(legNode1, middleNode); // TODO: to remove
         graph.addTwtEdge(legNode2, middleNode);
         return middleNode;
     }

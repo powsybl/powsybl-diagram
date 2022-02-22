@@ -11,8 +11,8 @@ package com.powsybl.sld.model;
  */
 public class FeederBranchNode extends FeederWithSideNode {
 
-    protected FeederBranchNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph,
-                               Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, FeederType.BRANCH);
+    protected FeederBranchNode(String id, String name, String equipmentId, String componentType,
+                               Side side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(id, name, equipmentId, componentType, side, myVoltageLevelInfos, otherSideVoltageLevelInfos, FeederType.BRANCH);
     }
 }

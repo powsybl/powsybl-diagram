@@ -14,8 +14,8 @@ package com.powsybl.sld.model;
  */
 public class FictitiousNode extends Node {
 
-    protected FictitiousNode(String id, String name, String equipmentId, String componentType, VoltageLevelGraph graph) {
-        super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true, graph);
+    protected FictitiousNode(String id, String name, String equipmentId, String componentType) {
+        super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true);
     }
 
     public int getCardinality() {

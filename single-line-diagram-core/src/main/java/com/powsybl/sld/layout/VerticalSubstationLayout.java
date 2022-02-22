@@ -132,9 +132,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
         } else {
             polyline = new ArrayList<>();
-            polyline.add(node1.getDiagramCoordinates());
+            polyline.add(getGraph().getShiftedPoint(node1));
             addMiddlePoints(layoutParam, node1, node2, increment, polyline);
-            polyline.add(node2.getDiagramCoordinates());
+            polyline.add(getGraph().getShiftedPoint(node2));
             return polyline;
         }
     }
@@ -150,17 +150,17 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             : infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(vl1, dNode1);
         double decal1V = getVerticalShift(layoutParam, dNode1, nbSnakeLines1);
 
-        double x1 = node1.getDiagramX();
-        double x2 = node2.getDiagramX();
+        Point p1 = getGraph().getShiftedPoint(node1);
+        Point p2 = getGraph().getShiftedPoint(node2);
 
         if (facingNodes(node1, node2)) {
             // if the two nodes are facing each other, no need to add more than 2 points (and one point is enough if same abscissa)
-            double ySnakeLine = Math.min(node1.getDiagramY(), node2.getDiagramY()) + decal1V;
-            if (x1 != x2) {
-                polyline.add(new Point(x1, ySnakeLine));
-                polyline.add(new Point(x2, ySnakeLine));
+            double ySnakeLine = Math.min(p1.getY(), p2.getY()) + decal1V;
+            if (p1.getX() != p2.getX()) {
+                polyline.add(new Point(p1.getX(), ySnakeLine));
+                polyline.add(new Point(p2.getX(), ySnakeLine));
             } else {
-                polyline.add(new Point(x1, ySnakeLine));
+                polyline.add(new Point(p1.getX(), ySnakeLine));
             }
         } else {
             String vl2 = getGraph().getVoltageLevelInfos(node2).getId();
@@ -172,10 +172,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
             Side side = getSide(dNode1, increment);
             double xSnakeLine = getXSnakeLine(node1, side, layoutParam);
-            polyline.addAll(Point.createPointsList(x1, ySnakeLine1,
+            polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
                 xSnakeLine, ySnakeLine1,
                 xSnakeLine, ySnakeLine2,
-                x2, ySnakeLine2));
+                p2.getX(), ySnakeLine2));
         }
     }
 
@@ -198,13 +198,14 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
+        double y = getGraph().getShiftedPoint(node).getY();
         if (dNode1 == BusCell.Direction.BOTTOM) {
-            return node.getDiagramY() + decalV;
+            return y + decalV;
         } else {
             List<VoltageLevelGraph> vls = getGraph().getVoltageLevels();
             int iVl = vls.indexOf(getGraph().getVoltageLevelGraph(node));
             if (iVl == 0) {
-                return node.getDiagramY() - decalV;
+                return y - decalV;
             } else {
                 VoltageLevelGraph vlAbove = vls.get(iVl - 1);
                 return vlAbove.getY()

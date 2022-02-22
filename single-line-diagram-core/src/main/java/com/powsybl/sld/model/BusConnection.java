@@ -17,8 +17,8 @@ public class BusConnection extends FictitiousNode {
 
     private static final String ID_PREFIX = "BUSCO_";
 
-    public BusConnection(String id, VoltageLevelGraph graph) {
-        super(prefixId(id), null, null, BUS_CONNECTION, graph);
+    public BusConnection(String id) {
+        super(prefixId(id), null, null, BUS_CONNECTION);
     }
 
     private static String prefixId(String id) {

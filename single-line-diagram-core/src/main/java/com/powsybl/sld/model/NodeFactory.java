@@ -23,19 +23,19 @@ public final class NodeFactory {
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
-        BusNode bn = new BusNode(id, name, false, graph);
+        BusNode bn = new BusNode(id, name, false);
         graph.addNode(bn);
         return bn;
     }
 
     public static BusNode createFictitiousBusNode(VoltageLevelGraph graph, String id) {
-        BusNode bn = new BusNode(id, null, true, graph);
+        BusNode bn = new BusNode(id, null, true);
         graph.addNode(bn);
         return bn;
     }
 
     public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, boolean fictitious, FeederType feederType, Orientation orientation) {
-        FeederNode fn = new FeederNode(id, name, equipmentId, componentType, fictitious, graph, feederType, orientation);
+        FeederNode fn = new FeederNode(id, name, equipmentId, componentType, fictitious, feederType, orientation);
         graph.addNode(fn);
         return fn;
     }
@@ -49,7 +49,7 @@ public final class NodeFactory {
     }
 
     public static FeederNode createFeederInjectionNode(String id, String name, String componentType, VoltageLevelGraph graph) {
-        FeederInjectionNode fin = new FeederInjectionNode(id, name, componentType, graph);
+        FeederInjectionNode fin = new FeederInjectionNode(id, name, componentType);
         graph.addNode(fin);
         return fin;
     }
@@ -83,97 +83,103 @@ public final class NodeFactory {
     }
 
     public static FeederWithSideNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        FeederWithSideNode fwsn = new FeederWithSideNode(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, feederType);
+        FeederWithSideNode fwsn = new FeederWithSideNode(id, name, equipmentId, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos, feederType);
         graph.addNode(fwsn);
         return fwsn;
     }
 
     public static FeederBranchNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        FeederBranchNode fbn = new FeederBranchNode(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos);
+        FeederBranchNode fbn = new FeederBranchNode(id, name, equipmentId, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         graph.addNode(fbn);
         return fbn;
     }
 
     public static Feeder2WTNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos);
+        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         graph.addNode(f2wtN);
         return f2wtN;
     }
 
     public static Feeder2WTNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, graph, side, otherSideVoltageLevelInfos);
+        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
+        graph.addNode(f2wtN);
+        return f2wtN;
+    }
+
+    public static Feeder2WTNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
+        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER, side, graph.getVoltageLevelInfos(), graph.getVoltageLevelInfos());
         graph.addNode(f2wtN);
         return f2wtN;
     }
 
     public static Feeder2WTNode createFeeder2WTNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER, graph, side, otherSideVoltageLevelInfos);
+        Feeder2WTNode f2wtN = new Feeder2WTNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         graph.addNode(f2wtN);
         return f2wtN;
     }
 
     public static FeederLineNode createFeederLineNode(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        FeederLineNode fln = new FeederLineNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
+        FeederLineNode fln = new FeederLineNode(id, name, equipmentId, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         graph.addNode(fln);
         return fln;
     }
 
     public static FeederTwtLegNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        FeederTwtLegNode fTwln = new FeederTwtLegNode(id, name, equipmentId, componentType, graph, side, otherSideVoltageLevelInfos, feederType);
+        FeederTwtLegNode fTwln = new FeederTwtLegNode(id, name, equipmentId, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos, feederType);
         graph.addNode(fTwln);
         return fTwln;
     }
 
     public static Feeder2WTLegNode createFeeder2WTLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
-        Feeder2WTLegNode f2WtLN = new Feeder2WTLegNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, graph, side, graph.getVoltageLevelInfos());
+        Feeder2WTLegNode f2WtLN = new Feeder2WTLegNode(id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), graph.getVoltageLevelInfos());
+        graph.addNode(f2WtLN);
+        return f2WtLN;
+    }
+
+    public static Feeder2WTLegNode createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
+        Feeder2WTLegNode f2WtLN = new Feeder2WTLegNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), graph.getVoltageLevelInfos());
         graph.addNode(f2WtLN);
         return f2WtLN;
     }
 
     public static Feeder3WTLegNode createFeeder3WTLegNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        Feeder3WTLegNode f3WtLN = new Feeder3WTLegNode(id, name, equipmentId, graph, side, otherSideVoltageLevelInfos);
+        Feeder3WTLegNode f3WtLN = new Feeder3WTLegNode(id, name, equipmentId, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
         graph.addNode(f3WtLN);
         return f3WtLN;
     }
 
     public static Feeder3WTLegNode createFeeder3WTLegNodeForSubstationDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
-        Feeder3WTLegNode f3WtLN = new Feeder3WTLegNode(id, name, equipmentId, graph, side, graph.getVoltageLevelInfos());
+        Feeder3WTLegNode f3WtLN = new Feeder3WTLegNode(id, name, equipmentId, side, graph.getVoltageLevelInfos(), graph.getVoltageLevelInfos());
         graph.addNode(f3WtLN);
         return f3WtLN;
     }
 
-    public static Feeder2WTLegNode createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side) {
-        Feeder2WTLegNode f2WtLN = new Feeder2WTLegNode(id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, graph, side, graph.getVoltageLevelInfos());
-        graph.addNode(f2WtLN);
-        return f2WtLN;
-    }
-
     public static FictitiousNode createFictitiousNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType) {
-        FictitiousNode fn = new FictitiousNode(id, name, equipmentId, componentType, graph);
+        FictitiousNode fn = new FictitiousNode(id, name, equipmentId, componentType);
         graph.addNode(fn);
         return fn;
     }
 
     public static BusConnection createBusConnection(VoltageLevelGraph graph, String id) {
-        BusConnection bc = new BusConnection(id, graph);
+        BusConnection bc = new BusConnection(id);
         graph.addNode(bc);
         return bc;
     }
 
     public static InternalNode createInternalNode(VoltageLevelGraph graph, String id) {
-        InternalNode in = new InternalNode(id, graph);
+        InternalNode in = new InternalNode(id, graph.getVoltageLevelInfos().getId());
         graph.addNode(in);
         return in;
     }
 
     public static InternalNode createInternalNode(VoltageLevelGraph graph, int id) {
-        InternalNode in = new InternalNode(id, graph);
+        InternalNode in = new InternalNode(id, graph.getVoltageLevelInfos().getId());
         graph.addNode(in);
         return in;
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
-        SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, graph, kind, open);
+        SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
         graph.addNode(sn);
         return sn;
     }
