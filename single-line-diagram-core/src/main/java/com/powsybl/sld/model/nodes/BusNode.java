@@ -4,10 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 
@@ -31,16 +30,8 @@ public class BusNode extends Node {
 
     private Position position = new Position(-1, -1);
 
-    protected BusNode(String id, String name, boolean fictitious) {
+    public BusNode(String id, String name, boolean fictitious) {
         super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious);
-    }
-
-    public static BusNode create(String id, String name) {
-        return new BusNode(id, name, false);
-    }
-
-    public static BusNode createFictitious(String id) {
-        return new BusNode(id, null, true);
     }
 
     public void calculateCoord(LayoutParameters layoutParameters, double firstBusY) {
@@ -49,14 +40,6 @@ public class BusNode extends Node {
         setCoordinates(position.get(H) * elementaryWidth + busPadding,
             firstBusY + position.get(V) * layoutParameters.getVerticalSpaceBus());
         setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
-    }
-
-    @Override
-    public void setCell(Cell cell) {
-        if (!(cell instanceof BusCell)) {
-            throw new PowsyblException("The Cell of a BusNode shall be a BusCell");
-        }
-        super.setCell(cell);
     }
 
     public double getPxWidth() {

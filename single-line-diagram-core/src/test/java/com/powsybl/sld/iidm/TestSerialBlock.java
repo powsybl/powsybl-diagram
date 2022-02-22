@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -53,12 +54,12 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         Cell cell = g.getCells().iterator().next();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.isEmbeddingNodeType(BUS));
+        assertTrue(sb.isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(BUS));
+        assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
         assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(0).getEndingNode().getId());

@@ -7,11 +7,15 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * <PRE>
@@ -32,7 +36,7 @@ public class TestCase1 extends AbstractTestCaseRaw {
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);

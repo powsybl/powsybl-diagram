@@ -6,9 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.Objects;
 import java.util.Random;

@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,9 +50,6 @@ public abstract class AbstractCell implements Cell {
 
     private void setNodes(List<Node> nodes) {
         this.nodes.addAll(nodes);
-        // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN cells)
-        // is the cell of the EXTERN cell
-        nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
     }
 
     public void setType(CellType type) {

@@ -10,9 +10,13 @@ import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
@@ -39,6 +43,10 @@ public interface Graph {
     }
 
     Map<Node, VoltageLevelGraph> getNodeToVlGraph();
+
+    Optional<Cell> getCell(Node node);
+
+    Direction getDirection(Node node);
 
     void addNode(VoltageLevelGraph vlGraph, Node node);
 

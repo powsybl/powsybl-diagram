@@ -8,10 +8,14 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * <PRE>
@@ -28,7 +32,7 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
         vlBuilder.connectNode(bbs, load);
     }
 

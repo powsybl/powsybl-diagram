@@ -8,6 +8,10 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 import java.util.function.Function;

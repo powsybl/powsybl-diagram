@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.powsybl.sld.library.ComponentTypeName;
 
@@ -13,7 +13,7 @@ import com.powsybl.sld.library.ComponentTypeName;
  */
 public class FeederInjectionNode extends FeederNode {
 
-    protected FeederInjectionNode(String id, String name, String componentType) {
+    public FeederInjectionNode(String id, String name, String componentType) {
         super(id, name, id, componentType, FeederType.INJECTION);
     }
 

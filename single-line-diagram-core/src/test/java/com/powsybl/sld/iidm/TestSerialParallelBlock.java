@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static org.junit.Assert.*;
 
 /**
@@ -53,12 +54,12 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         Cell cell = g.getCells().iterator().next();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(Node.NodeType.SWITCH));
+        assertTrue(sb.isEmbeddingNodeType(BUS));
+        assertTrue(sb.isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(BUS));
+        assertTrue(sb.getSubBlocks().get(1).isEmbeddingNodeType(SWITCH));
 
         assertSame(Block.Type.LEGPRIMARY, sb.getLowerBlock().getType());
         LegPrimaryBlock subSB = (LegPrimaryBlock) sb.getLowerBlock();

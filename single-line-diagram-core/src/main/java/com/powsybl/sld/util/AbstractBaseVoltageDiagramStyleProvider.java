@@ -11,6 +11,17 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Feeder2WTNode;
+import com.powsybl.sld.model.nodes.FeederLineNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederTwtLegNode;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.FeederWithSideNode;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 

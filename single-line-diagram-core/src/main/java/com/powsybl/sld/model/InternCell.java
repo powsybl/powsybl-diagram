@@ -8,9 +8,12 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

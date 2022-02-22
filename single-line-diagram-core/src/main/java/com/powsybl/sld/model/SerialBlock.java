@@ -8,6 +8,9 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import static com.powsybl.sld.model.Block.Type.SERIAL;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;

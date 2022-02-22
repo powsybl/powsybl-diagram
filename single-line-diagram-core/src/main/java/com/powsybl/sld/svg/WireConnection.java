@@ -11,6 +11,9 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,24 +42,23 @@ public final class WireConnection {
                 .collect(Collectors.toList());
     }
 
-    public static WireConnection searchBestAnchorPoints(ComponentLibrary componentLibrary, Node node1, Node node2) {
+    public static WireConnection searchBestAnchorPoints(ComponentLibrary componentLibrary, VoltageLevelGraph graph, Node node1, Node node2) {
         Objects.requireNonNull(componentLibrary);
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
 
-        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
-        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint((BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
+        List<AnchorPoint> anchorPoints1 = node1 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node1, node2) : getAnchorPoints(componentLibrary, node1);
+        List<AnchorPoint> anchorPoints2 = node2 instanceof BusNode ? getBusNodeAnchorPoint(graph, (BusNode) node2, node1) : getAnchorPoints(componentLibrary, node2);
         return searchBestAnchorPoints(node1.getCoordinates(), node2.getCoordinates(), anchorPoints1, anchorPoints2);
     }
 
-    private static List<AnchorPoint> getBusNodeAnchorPoint(BusNode busNode, Node otherNode) {
-        Cell cell = otherNode.getCell();
-        BusCell.Direction direction = cell instanceof BusCell ? ((BusCell) cell).getDirection() : BusCell.Direction.UNDEFINED;
-        boolean undefinedMiddleDirection = direction == BusCell.Direction.UNDEFINED
+    private static List<AnchorPoint> getBusNodeAnchorPoint(VoltageLevelGraph graph, BusNode busNode, Node otherNode) {
+        Direction direction = graph.getDirection(otherNode);
+        boolean undefinedMiddleDirection = direction == Direction.UNDEFINED
                 && otherNode.getCoordinates().getY() == busNode.getCoordinates().getY()
                 && (otherNode.getCoordinates().getX() < busNode.getCoordinates().getX()
                 || otherNode.getCoordinates().getX() > busNode.getCoordinates().getX() + busNode.getPxWidth());
-        if (direction == BusCell.Direction.MIDDLE || undefinedMiddleDirection) {
+        if (direction == Direction.MIDDLE || undefinedMiddleDirection) {
             return Arrays.asList(
                     new AnchorPoint(0, 0, AnchorOrientation.HORIZONTAL),
                     new AnchorPoint(busNode.getPxWidth(), 0, AnchorOrientation.HORIZONTAL)

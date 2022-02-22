@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -14,7 +14,7 @@ package com.powsybl.sld.model;
  */
 public class FictitiousNode extends Node {
 
-    protected FictitiousNode(String id, String name, String equipmentId, String componentType) {
+    public FictitiousNode(String id, String name, String equipmentId, String componentType) {
         super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true);
     }
 

@@ -4,11 +4,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -49,8 +49,6 @@ public class Node {
 
     private final Point position = new Point(-1, -1);
 
-    private Cell cell;
-
     private Double rotationAngle;
 
     private boolean open = false;
@@ -61,7 +59,7 @@ public class Node {
 
     private Integer order;
 
-    private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
+    private Direction direction = Direction.UNDEFINED;
 
     private Orientation orientation;
 
@@ -75,14 +73,6 @@ public class Node {
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
-    }
-
-    public Cell getCell() {
-        return cell;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
     }
 
     public String getComponentType() {
@@ -135,12 +125,8 @@ public class Node {
         adjacentEdges.add(e);
     }
 
-    void removeAdjacentEdge(Edge e) {
+    public void removeAdjacentEdge(Edge e) {
         adjacentEdges.remove(e);
-    }
-
-    public Stream<Node> getListNodeAdjInCell(Cell cell) {
-        return getAdjacentNodes().stream().filter(n -> cell.getNodes().contains(n));
     }
 
     public Point getCoordinates() {
@@ -211,11 +197,11 @@ public class Node {
         this.order = null;
     }
 
-    public BusCell.Direction getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(BusCell.Direction direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
         if (orientation == null || orientation.isHorizontal()) {
             this.orientation = direction.toOrientation();

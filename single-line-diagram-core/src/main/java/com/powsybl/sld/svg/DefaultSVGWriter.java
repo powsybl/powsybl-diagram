@@ -8,10 +8,19 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FeederWithSideNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
+import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
@@ -29,10 +38,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import static com.powsybl.sld.svg.DiagramStyles.*;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -83,7 +92,7 @@ public class DefaultSVGWriter implements SVGWriter {
         setDocumentSize(graph, document);
 
         Set<String> listUsedComponentSVG = new HashSet<>();
-        addStyle(document, styleProvider, labelProvider, graph.getAllNodesStream(), listUsedComponentSVG);
+        addStyle(document, styleProvider, labelProvider, graph, listUsedComponentSVG);
         if (graph instanceof BaseGraph) {
             ((BaseGraph) graph).getMultiTermNodes().forEach(n -> listUsedComponentSVG.add(n.getComponentType()));
         }
@@ -119,11 +128,11 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void addStyle(Document document, DiagramStyleProvider styleProvider, DiagramLabelProvider labelProvider,
-                            Stream<Node> nodes, Set<String> listUsedComponentSVG) {
+                            Graph graph, Set<String> listUsedComponentSVG) {
 
-        nodes.forEach(n -> {
+        graph.getAllNodesStream().forEach(n -> {
             listUsedComponentSVG.add(n.getComponentType());
-            List<DiagramLabelProvider.NodeDecorator> nodeDecorators = labelProvider.getNodeDecorators(n);
+            List<DiagramLabelProvider.NodeDecorator> nodeDecorators = labelProvider.getNodeDecorators(n, graph.getDirection(n));
             if (nodeDecorators != null) {
                 nodeDecorators.forEach(nodeDecorator -> listUsedComponentSVG.add(nodeDecorator.getType()));
             }
@@ -333,7 +342,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         // TOP - Horizontal lines
-        if (graph.getExternCellHeight(BusCell.Direction.TOP) > 0.) {
+        if (graph.getExternCellHeight(TOP) > 0.) {
             // StackHeight
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() - layoutParameters.getStackHeight(), gridRoot);
             // internCellHeight
@@ -342,13 +351,13 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + layoutParameters.getFeederSpan(), gridRoot);
         }
         // BOTTOM - Horizontal lines
-        if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
+        if (graph.getExternCellHeight(BOTTOM) > 0.) {
             // StackHeight
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + layoutParameters.getStackHeight() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
             // internCellHeight
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + layoutParameters.getInternCellHeight() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
             // FeederSpan
-            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
+            drawGridHorizontalLine(document, graph, maxH, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BOTTOM) - layoutParameters.getFeederSpan() + layoutParameters.getVerticalSpaceBus() * maxV, gridRoot);
         }
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
@@ -357,7 +366,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 null,
                 null,
                 false,
-                BusCell.Direction.UNDEFINED,
+                UNDEFINED,
                 false,
                 null,
                 Collections.emptyList()));
@@ -371,8 +380,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void drawGridVerticalLine(Document document, VoltageLevelGraph graph, int maxV, double x, Element root) {
         drawGridLine(document,
-                x, graph.getY() + graph.getFirstBusY() - graph.getExternCellHeight(BusCell.Direction.TOP),
-                x, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BusCell.Direction.BOTTOM)
+                x, graph.getY() + graph.getFirstBusY() - graph.getExternCellHeight(TOP),
+                x, graph.getY() + graph.getFirstBusY() + graph.getExternCellHeight(BOTTOM)
                         + layoutParameters.getVerticalSpaceBus() * maxV, root);
     }
 
@@ -405,7 +414,7 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph, busNode, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             drawBus(graph, busNode, g);
-            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode);
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, graph, busNode, initProvider, styleProvider, graph.getCoord());
 
@@ -414,7 +423,7 @@ public class DefaultSVGWriter implements SVGWriter {
             metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
                     BUSBAR_SECTION, busNode.getRotationAngle(),
-                    false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
+                    false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
@@ -455,18 +464,18 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
             incorporateComponents(prefixId, graph, node, shift, g, styleProvider);
-            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node);
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node, graph.getDirection(node));
             drawNodeLabel(prefixId, g, node, nodeLabels);
             drawNodeDecorators(prefixId, g, graph, node, initProvider, styleProvider, shift);
 
             root.appendChild(g);
 
-            BusCell.Direction direction = (node instanceof FeederNode && node.getCell() != null) ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.UNDEFINED;
+            Direction direction = node instanceof FeederNode ? graph.getDirection(node) : Direction.UNDEFINED;
             setMetadata(prefixId, metadata, node, nodeId, graph, direction, nodeLabels);
         }
     }
 
-    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, BusCell.Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
+    protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
         if (node instanceof FeederWithSideNode) {
             VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
@@ -504,7 +513,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void drawNodeDecorators(String prefixId, Element root, Graph graph, Node node, DiagramLabelProvider labelProvider,
                                       DiagramStyleProvider styleProvider, Point vlPoint) {
-        for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node)) {
+        for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));
             insertDecoratorSVGIntoDocumentSVG(prefixId, nodeDecorator, g, graph, node, styleProvider);
@@ -535,7 +544,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 null,
                 null,
                 false,
-                BusCell.Direction.UNDEFINED,
+                UNDEFINED,
                 true,
                 null,
                 Collections.emptyList()));
@@ -880,7 +889,7 @@ public class DefaultSVGWriter implements SVGWriter {
         feederInfo.getDirection().ifPresent(direction -> {
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
             insertFeederInfoSVGIntoDocumentSVG(feederInfo.getComponentType(), prefixId, g, rotationAngle);
-            styles.add(direction == Direction.OUT ? OUT_CLASS : IN_CLASS);
+            styles.add(direction == LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
         });
 
         // we draw the right label only if present
@@ -927,7 +936,7 @@ public class DefaultSVGWriter implements SVGWriter {
             if (!edge.isZeroLength()) {
                 // Determine points of the polyline
                 Point shift = graph.getCoord();
-                pol = WireConnection.searchBestAnchorPoints(componentLibrary, edge.getNode1(), edge.getNode2())
+                pol = WireConnection.searchBestAnchorPoints(componentLibrary, graph, edge.getNode1(), edge.getNode2())
                         .calculatePolylinePoints(edge.getNode1(), edge.getNode2(), layoutParameters.isDrawStraightWires(), shift);
 
                 if (!pol.isEmpty()) {

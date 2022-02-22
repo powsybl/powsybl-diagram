@@ -4,10 +4,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Orientation;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class FeederNode extends Node {
 
     private final FeederType feederType;
 
-    protected FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
+    public FeederNode(String id, String name, String equipmentId, String componentType, boolean fictitious,
                          FeederType feederType, Orientation orientation) {
         super(NodeType.FEEDER, id, name, equipmentId, componentType, fictitious);
         this.feederType = Objects.requireNonNull(feederType);
@@ -44,14 +43,6 @@ public class FeederNode extends Node {
 
     public FeederType getFeederType() {
         return feederType;
-    }
-
-    @Override
-    public void setCell(Cell cell) {
-        if (!(cell instanceof ExternCell)) {
-            throw new PowsyblException("The Cell of a feeder node shall be an ExternCell");
-        }
-        super.setCell(cell);
     }
 
     @Override

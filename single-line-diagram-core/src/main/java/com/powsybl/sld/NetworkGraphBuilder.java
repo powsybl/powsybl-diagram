@@ -13,6 +13,8 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.slf4j.Logger;
@@ -22,8 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.BusCell.Direction.TOP;
-import static com.powsybl.sld.model.BusCell.Direction.UNDEFINED;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -419,7 +420,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             if (feeder != null) {
                 feeder.getOrder().ifPresent(node::setOrder);
                 node.setLabel(feeder.getName());
-                BusCell.Direction dir = BusCell.Direction.valueOf(feeder.getDirection().toString());
+                Direction dir = Direction.valueOf(feeder.getDirection().toString());
                 node.setDirection(dir == UNDEFINED ? TOP : dir);
             }
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), node);
@@ -429,7 +430,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
-                middleNode.setDirection(BusCell.Direction.valueOf(feeder.getDirection().toString()));
+                middleNode.setDirection(Direction.valueOf(feeder.getDirection().toString()));
                 feeder.getOrder().ifPresent(order -> {
                     firstOtherLegNode.setOrder(order);
                     secondOtherLegNode.setOrder(order + 1);
@@ -474,13 +475,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         protected void addFeeder(FeederNode node, Terminal terminal) {
             node.setOrder(order++);
-            node.setDirection(order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+            node.setDirection(order % 2 == 0 ? Direction.TOP : Direction.BOTTOM);
             connectToBus(node, terminal);
         }
 
         @Override
         protected void add3wtFeeder(Middle3WTNode middleNode, Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode, Terminal terminal) {
-            BusCell.Direction direction = order % 2 == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM;
+            Direction direction = order % 2 == 0 ? Direction.TOP : Direction.BOTTOM;
 
             firstOtherLegNode.setOrder(order++);
             firstOtherLegNode.setDirection(direction);
@@ -645,10 +646,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
             VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
             VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
 
-            Middle2WTNode node = Middle2WTNode.create(transfo.getId(), transfo.getNameOrId(), graph,
+            NodeFactory.createMiddle2WTNode(graph, transfo.getId(), transfo.getNameOrId(),
                     (Feeder2WTLegNode) n1, (Feeder2WTLegNode) n2, voltageLevelInfos1, voltageLevelInfos2,
                     transfo.hasPhaseTapChanger());
-            graph.addMultiTermNode(node);
         });
     }
 

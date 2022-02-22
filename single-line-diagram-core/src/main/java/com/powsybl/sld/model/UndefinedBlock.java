@@ -8,6 +8,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 import java.util.Objects;

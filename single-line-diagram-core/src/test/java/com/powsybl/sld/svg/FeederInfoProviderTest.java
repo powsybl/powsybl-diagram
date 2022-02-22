@@ -14,8 +14,9 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.FeederNode;
+
 import org.junit.Before;
 import org.junit.Test;
 

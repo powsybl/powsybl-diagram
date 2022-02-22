@@ -13,10 +13,16 @@ import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -43,7 +49,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs21, ss2);
         vlBuilder.connectNode(bbs22, ss2);
 
-        FeederNode load1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
+        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP);
         SwitchNode d11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d11", false, false);
         SwitchNode d12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d12", false, false);
         FictitiousNode f1 = vlBuilder.createFictitiousNode("f1");
@@ -55,7 +61,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(f1, b1);
         vlBuilder.connectNode(b1, load1);
 
-        FeederNode loadMiddle = vlBuilder.createLoad("l", 1, BusCell.Direction.TOP);
+        FeederNode loadMiddle = vlBuilder.createLoad("l", 1, TOP);
         SwitchNode dMiddle1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         SwitchNode dMiddle2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         FictitiousNode fMiddle = vlBuilder.createFictitiousNode("f");
@@ -72,7 +78,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         vlBuilder.connectNode(fMiddle, bMiddle);
         vlBuilder.connectNode(bMiddle, loadMiddle);
 
-        FeederNode load2 = vlBuilder.createLoad("l2", 2, BusCell.Direction.TOP);
+        FeederNode load2 = vlBuilder.createLoad("l2", 2, TOP);
         SwitchNode d21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d21", false, false);
         SwitchNode d22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d22", false, false);
         FictitiousNode f2 = vlBuilder.createFictitiousNode("f2");

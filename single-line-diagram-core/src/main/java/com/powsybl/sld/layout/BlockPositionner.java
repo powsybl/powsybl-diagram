@@ -7,14 +7,15 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.BusCell.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -207,8 +208,8 @@ class BlockPositionner {
                 final int j = i % 2;
                 final int newV = i / 2;
                 lane.cells.forEach(c -> {
-                    if (c.getDirection() == Direction.UNDEFINED) {
-                        c.setDirection(j == 0 ? BusCell.Direction.TOP : BusCell.Direction.BOTTOM);
+                    if (c.getDirection() == UNDEFINED) {
+                        c.setDirection(j == 0 ? TOP : BOTTOM);
                     }
                     if (!c.checkIsShape(InternCell.Shape.UNILEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);

@@ -8,9 +8,11 @@ package com.powsybl.sld.layout.positionfromextension;
 
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.BusCell.Direction;
 import com.powsybl.sld.model.Cell.CellType;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public class PositionFromExtension implements PositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
-    private static final BusCell.Direction DEFAULTDIRECTION = BusCell.Direction.TOP;
+    private static final Direction DEFAULTDIRECTION = Direction.TOP;
     private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
 
     /**

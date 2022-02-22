@@ -6,9 +6,10 @@
  */
 package com.powsybl.sld.model;
 
-import com.powsybl.sld.model.FeederWithSideNode.Side;
-import com.powsybl.sld.model.SwitchNode.SwitchKind;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.FeederWithSideNode.Side;
+import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 import com.powsybl.sld.library.ComponentTypeName;
@@ -82,7 +83,7 @@ public final class NodeFactory {
         return createFeederInjectionNode(id, name, ComponentTypeName.DANGLING_LINE, graph);
     }
 
-    public static FeederWithSideNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
+    public static FeederWithSideNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, FeederWithSideNode.Side side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         FeederWithSideNode fwsn = new FeederWithSideNode(id, name, equipmentId, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos, feederType);
         graph.addNode(fwsn);
         return fwsn;
@@ -191,7 +192,10 @@ public final class NodeFactory {
     }
 
     public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, Feeder2WTLegNode legNode1, Feeder2WTLegNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
-        Middle2WTNode m2wn = Middle2WTNode.create(id, name, baseGraph, legNode1, legNode2, vlInfos1, vlInfos2, hasPhaseTapChanger);
+        String componentType = hasPhaseTapChanger ? PHASE_SHIFT_TRANSFORMER : TWO_WINDINGS_TRANSFORMER;
+        Middle2WTNode m2wn = new Middle2WTNode(id, name, vlInfos1, vlInfos2, componentType);
+        baseGraph.addTwtEdge(legNode1, m2wn);
+        baseGraph.addTwtEdge(legNode2, m2wn);
         baseGraph.addMultiTermNode(m2wn);
         return m2wn;
     }

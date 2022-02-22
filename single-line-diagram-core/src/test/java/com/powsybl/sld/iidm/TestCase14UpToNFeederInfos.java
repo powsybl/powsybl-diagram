@@ -12,9 +12,9 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
@@ -67,12 +67,12 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
-                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null),
-                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "30", null),
+                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
+                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null),
+                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "30", null),
                         new FeederInfo(ARROW_ACTIVE, null, null, "40", null), // Not displayed
-                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "50", null));
-                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederInfoSymmetry();
+                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
                 }
@@ -80,7 +80,7 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };

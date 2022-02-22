@@ -8,6 +8,8 @@ package com.powsybl.sld.model;
 
 import java.util.List;
 
+import com.powsybl.sld.model.nodes.Node;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */

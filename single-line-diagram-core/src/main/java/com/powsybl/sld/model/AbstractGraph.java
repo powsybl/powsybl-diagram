@@ -9,6 +9,9 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -21,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -86,6 +90,18 @@ public abstract class AbstractGraph implements Graph {
     @Override
     public VoltageLevelGraph getVoltageLevelGraph(Node node) {
         return nodeToVlGraph.get(node);
+    }
+
+    @Override
+    public Optional<Cell> getCell(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return vlGraph == null ? Optional.empty() : vlGraph.getCell(node);
+    }
+
+    @Override
+    public Direction getDirection(Node node) {
+        Optional<Cell> oCell = getCell(node);
+        return oCell.isPresent() ? ((BusCell) oCell.get()).getDirection() : Direction.UNDEFINED;
     }
 
     @Override

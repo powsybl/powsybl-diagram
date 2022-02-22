@@ -7,10 +7,16 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * <pre>
@@ -33,14 +39,14 @@ public class TestCase5V extends AbstractTestCaseRaw {
     public void setUp() {
         com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
-        FeederNode la = vlBuilder.createLoad("la", 20, BusCell.Direction.TOP);
+        FeederNode la = vlBuilder.createLoad("la", 20, TOP);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
         SwitchNode da = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da", false, false);
         vlBuilder.connectNode(la, ba);
         vlBuilder.connectNode(ba, da);
         vlBuilder.connectNode(da, bbs);
 
-        FeederNode lb = vlBuilder.createLoad("lb", 10, BusCell.Direction.TOP);
+        FeederNode lb = vlBuilder.createLoad("lb", 10, TOP);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
         FictitiousNode fn = vlBuilder.createFictitiousNode(3);

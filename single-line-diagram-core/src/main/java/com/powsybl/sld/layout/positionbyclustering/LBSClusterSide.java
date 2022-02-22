@@ -11,6 +11,7 @@ import com.powsybl.sld.layout.LBSCluster;
 import com.powsybl.sld.layout.LegBusSet;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -8,6 +8,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.Node;
+
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 import java.util.List;
 
@@ -70,7 +73,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, BusCell.Direction.TOP, infosNbSnakeLines);
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -85,7 +88,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         }
 
         double substationWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM,  infosNbSnakeLines);
         double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
         getGraph().setSize(substationWidth, substationHeight);

@@ -13,6 +13,9 @@ import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.*;
 
 import java.util.*;
@@ -52,17 +55,17 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
             return Arrays.asList(
-                    new FeederInfo(ARROW_ACTIVE, Direction.OUT, "", "tata", null),
-                    new FeederInfo(ARROW_REACTIVE, Direction.IN, "", "tutu", null));
+                    new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
+                    new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
         }
 
         @Override
-        public List<NodeLabel> getNodeLabels(Node node) {
+        public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
             return nodeLabels.getOrDefault(node, Collections.emptyList());
         }
 
         @Override
-        public List<NodeDecorator> getNodeDecorators(Node node) {
+        public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
             return new ArrayList<>();
         }
     }

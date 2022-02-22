@@ -7,11 +7,11 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.BranchEdge;
-import com.powsybl.sld.model.Edge;
 import com.powsybl.sld.model.Graph;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.net.URL;
 import java.util.List;

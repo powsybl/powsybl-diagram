@@ -5,10 +5,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package com.powsybl.sld.model;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.*;
-
-import com.powsybl.sld.model.coordinate.Orientation;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -16,23 +16,6 @@ import com.powsybl.sld.model.coordinate.Orientation;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public interface BusCell extends Cell {
-
-    enum Direction {
-        TOP, BOTTOM, MIDDLE, UNDEFINED;
-
-        public Orientation toOrientation() {
-            switch (this) {
-                case TOP:
-                    return Orientation.UP;
-                case BOTTOM:
-                    return Orientation.DOWN;
-                case MIDDLE:
-                    return Orientation.MIDDLE;
-                default:
-                    return Orientation.UNDEFINED;
-            }
-        }
-    }
 
     List<BusNode> getBusNodes();
 

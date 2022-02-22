@@ -13,6 +13,8 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Node;
 
 import org.joda.time.DateTime;
 import org.junit.Test;

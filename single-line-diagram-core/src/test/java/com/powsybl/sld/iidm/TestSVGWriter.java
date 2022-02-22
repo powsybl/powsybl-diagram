@@ -11,8 +11,21 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Feeder2WTLegNode;
+import com.powsybl.sld.model.nodes.Feeder2WTNode;
+import com.powsybl.sld.model.nodes.Feeder3WTLegNode;
+import com.powsybl.sld.model.nodes.FeederBranchNode;
+import com.powsybl.sld.model.nodes.FeederLineNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Middle2WTNode;
+import com.powsybl.sld.model.nodes.Middle3WTNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +36,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -98,7 +112,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         FeederNode vl1Load1 = NodeFactory.createLoad(g1, "vl1_load1", "vl1_load1");
         vl1Load1.setOrder(0);
-        vl1Load1.setDirection(BusCell.Direction.TOP);
+        vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
         vl1Load1.setY(80);
         SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1, "vl1_bload1", "vl1_bload1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -113,7 +127,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder2WTNode vl1Trf1 = NodeFactory.createFeeder2WTNode(g1, "vl1_trf1", "vl1_trf1", "vl1_trf1", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf1.setOrder(1);
-        vl1Trf1.setDirection(BusCell.Direction.BOTTOM);
+        vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
         vl1Trf1.setY(500);
         SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1, "vl1_btrf1", "vl1_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -128,12 +142,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl1Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl2", "vl2", 225));
         vl1Trf2One.setOrder(2);
-        vl1Trf2One.setDirection(BusCell.Direction.TOP);
+        vl1Trf2One.setDirection(TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
         Feeder3WTLegNode vl1Trf2Two =  NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl1Trf2Two.setOrder(3);
-        vl1Trf2Two.setDirection(BusCell.Direction.TOP);
+        vl1Trf2Two.setDirection(TOP);
         vl1Trf2Two.setX(440);
         vl1Trf2Two.setY(80);
         Middle3WTNode vl1Trf2Fict = new Middle3WTNode("vl1_trf2", "vl1_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
@@ -173,7 +187,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         FeederNode vl2Gen1 = NodeFactory.createGenerator(g2, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
-        vl2Gen1.setDirection(BusCell.Direction.TOP);
+        vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
         vl2Gen1.setY(80);
         SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2, "vl2_bgen1", "vl2_bgen1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -188,7 +202,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder2WTNode vl2Trf1 = NodeFactory.createFeeder2WTNode(g2, "vl2_trf1", "vl2_trf1", "vl2_trf1", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf1.setOrder(1);
-        vl2Trf1.setDirection(BusCell.Direction.BOTTOM);
+        vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
         vl2Trf1.setY(500);
         SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2, "vl2_btrf1", "vl2_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -203,12 +217,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl2Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
         vl2Trf2One.setOrder(2);
-        vl2Trf2One.setDirection(BusCell.Direction.TOP);
+        vl2Trf2One.setDirection(TOP);
         vl2Trf2One.setX(130);
         vl2Trf2One.setY(80);
         Feeder3WTLegNode vl2Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g2, "vl2_trf2_two", "vl2_trf2", "vl2_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl2Trf2Two.setOrder(3);
-        vl2Trf2Two.setDirection(BusCell.Direction.TOP);
+        vl2Trf2Two.setDirection(TOP);
         vl2Trf2Two.setX(190);
         vl2Trf2Two.setY(80);
         Middle3WTNode vl2Trf2Fict = new Middle3WTNode("vl2_trf2", "vl2_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
@@ -247,7 +261,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);
-        vl3Capa1.setDirection(BusCell.Direction.TOP);
+        vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
         vl3Capa1.setY(80);
         SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3, "vl3_bcapa1", "vl3_bcapa1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -262,12 +276,12 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl3Trf2One = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.ONE, new VoltageLevelInfos("vl1", "vl1", 400));
         vl3Trf2One.setOrder(1);
-        vl3Trf2One.setDirection(BusCell.Direction.TOP);
+        vl3Trf2One.setDirection(TOP);
         vl3Trf2One.setX(110);
         vl3Trf2One.setY(80);
         Feeder3WTLegNode vl3Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g3, "vl3_trf2_two", "vl3_trf2", "vl3_trf2", FeederBranchNode.Side.TWO, new VoltageLevelInfos("vl2", "vl2", 225));
         vl3Trf2Two.setOrder(2);
-        vl3Trf2Two.setDirection(BusCell.Direction.TOP);
+        vl3Trf2Two.setDirection(TOP);
         vl3Trf2Two.setX(190);
         vl3Trf2Two.setY(80);
         Middle3WTNode vl3Trf2Fict = new Middle3WTNode("vl3_trf2", "vl3_trf2", voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, true);
@@ -331,7 +345,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         FeederNode vl1Load1 = NodeFactory.createLoad(g1ForSubstation, "vl1_load1", "vl1_load1");
         vl1Load1.setOrder(0);
-        vl1Load1.setDirection(BusCell.Direction.TOP);
+        vl1Load1.setDirection(TOP);
         vl1Load1.setX(40);
         vl1Load1.setY(80);
         SwitchNode vl1Bload1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_bload1", "vl1_bload1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -346,7 +360,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder2WTLegNode vl1Trf1 = NodeFactory.createFeeder2WTLegNode(g1ForSubstation, "vl1_trf1", "vl1_trf1", "vl1_trf1", FeederBranchNode.Side.ONE);
         vl1Trf1.setOrder(1);
-        vl1Trf1.setDirection(BusCell.Direction.BOTTOM);
+        vl1Trf1.setDirection(BOTTOM);
         vl1Trf1.setX(80);
         vl1Trf1.setY(500);
         SwitchNode vl1Btrf1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf1", "vl1_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -361,7 +375,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl1Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g1ForSubstation, "vl1_trf2_one", "vl1_trf2", "vl1_trf2", Feeder3WTLegNode.Side.ONE);
         vl1Trf2.setOrder(2);
-        vl1Trf2.setDirection(BusCell.Direction.TOP);
+        vl1Trf2.setDirection(TOP);
         vl1Trf2.setX(400);
         vl1Trf2.setY(80);
         SwitchNode vl1Btrf2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_btrf2", "vl1_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -388,7 +402,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl2Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         FeederNode vl2Gen1 = NodeFactory.createGenerator(g2ForSubstation, "vl2_gen1", "vl2_gen1");
         vl2Gen1.setOrder(0);
-        vl2Gen1.setDirection(BusCell.Direction.TOP);
+        vl2Gen1.setDirection(TOP);
         vl2Gen1.setX(50);
         vl2Gen1.setY(80);
         SwitchNode vl2Bgen1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_bgen1", "vl2_bgen1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -403,7 +417,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder2WTLegNode vl2Trf1 = NodeFactory.createFeeder2WTLegNode(g2ForSubstation, "vl2_trf1", "vl2_trf1", "vl2_trf1", FeederBranchNode.Side.ONE);
         vl2Trf1.setOrder(1);
-        vl2Trf1.setDirection(BusCell.Direction.BOTTOM);
+        vl2Trf1.setDirection(BOTTOM);
         vl2Trf1.setX(100);
         vl2Trf1.setY(500);
         SwitchNode vl2Btrf1 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf1", "vl2_btrf1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -418,7 +432,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl2Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g2ForSubstation, "vl2_trf2_one", "vl2_trf2", "vl2_trf2", Feeder3WTLegNode.Side.TWO);
         vl2Trf2.setOrder(2);
-        vl2Trf2.setDirection(BusCell.Direction.TOP);
+        vl2Trf2.setDirection(TOP);
         vl2Trf2.setX(160);
         vl2Trf2.setY(80);
         SwitchNode vl2Btrf2 = NodeFactory.createSwitchNode(g2ForSubstation, "vl2_btrf2", "vl2_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -444,7 +458,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl3Bbs1.setPosition(new Position(0, 1, 6, 0, null));
         FeederNode vl3Capa1 = NodeFactory.createCapacitor(g3ForSubstation, "vl3_capa1", "vl3_capa1");
         vl3Capa1.setOrder(0);
-        vl3Capa1.setDirection(BusCell.Direction.TOP);
+        vl3Capa1.setDirection(TOP);
         vl3Capa1.setX(40);
         vl3Capa1.setY(80);
         SwitchNode vl3Bcapa1 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_bcapa1", "vl3_bcapa1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -459,7 +473,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Feeder3WTLegNode vl3Trf2 = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(g3ForSubstation, "vl3_trf2_one", "vl3_trf2", "vl3_trf2", Feeder3WTLegNode.Side.THREE);
         vl3Trf2.setOrder(1);
-        vl3Trf2.setDirection(BusCell.Direction.TOP);
+        vl3Trf2.setDirection(TOP);
         vl3Trf2.setX(150);
         vl3Trf2.setY(80);
         SwitchNode vl3Btrf2 = NodeFactory.createSwitchNode(g3ForSubstation, "vl3_btrf2", "vl3_btrf2", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
@@ -588,9 +602,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, Direction.OUT, null, "10", null),
-                        new FeederInfo(ARROW_REACTIVE, Direction.IN, null, "20", null));
-                boolean feederArrowSymmetry = node.getDirection() == BusCell.Direction.TOP || layoutParameters.isFeederInfoSymmetry();
+                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
+                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
+                boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
                 }
@@ -598,7 +612,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };
@@ -614,7 +628,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };
@@ -737,13 +751,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         //
         DiagramLabelProvider sameNodeLabelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
-            public List<NodeLabel> getNodeLabels(Node node) {
+            public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
                 LabelPosition labelPosition = new LabelPosition("default", 0, -5, true, 0);
                 return Collections.singletonList(new DiagramLabelProvider.NodeLabel("Tests", labelPosition, null));
             }
 
             @Override
-            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node) {
+            public List<DiagramLabelProvider.NodeDecorator> getNodeDecorators(Node node, Direction direction) {
                 return new ArrayList<>();
             }
         };

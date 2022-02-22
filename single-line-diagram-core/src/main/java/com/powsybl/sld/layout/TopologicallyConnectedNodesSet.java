@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.util.Collection;
 import java.util.HashSet;

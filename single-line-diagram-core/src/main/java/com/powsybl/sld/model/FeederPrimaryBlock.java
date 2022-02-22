@@ -9,13 +9,15 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.START;
 import static com.powsybl.sld.model.Block.Type.FEEDERPRIMARY;
-import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;

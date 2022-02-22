@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,9 +62,9 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
-        double heightWithoutPadding = graph.getExternCellHeight(BusCell.Direction.TOP)
+        double heightWithoutPadding = graph.getExternCellHeight(Direction.TOP)
             + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
-            + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
+            + graph.getExternCellHeight(Direction.BOTTOM);
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
         double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
@@ -75,8 +76,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParam) {
         VoltageLevelGraph graph = getGraph();
         double widthSnakeLinesLeft = getWidthVerticalSnakeLines(graph.getId(), layoutParam, infosNbSnakeLines);
-        double heightSnakeLinesTop = getHeightSnakeLines(layoutParam, BusCell.Direction.TOP, infosNbSnakeLines);
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParam, Direction.TOP, infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, Direction.BOTTOM,  infosNbSnakeLines);
         double width = graph.getWidth() + widthSnakeLinesLeft;
         double height = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
         graph.setSize(width, height);
@@ -107,9 +108,9 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
      * @param layoutParam the layout parameters
      */
     private void calculateMaxCellHeight(LayoutParameters layoutParam) {
-        Map<BusCell.Direction, Double> maxCellHeight = new EnumMap<>(BusCell.Direction.class);
+        Map<Direction, Double> maxCellHeight = new EnumMap<>(Direction.class);
         if (layoutParam.isAdaptCellHeightToContent()) {
-            Map<BusCell.Direction, Double> maxInternCellHeight = new EnumMap<>(BusCell.Direction.class);
+            Map<Direction, Double> maxInternCellHeight = new EnumMap<>(Direction.class);
             // Initialize map with intern cells height
             // in order to keep intern cells visible if there are no extern cells
             getGraph().getCells().stream()
@@ -123,7 +124,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 .forEach(cell -> maxCellHeight.merge(((BusCell) cell).getDirection(), cell.calculateHeight(layoutParam), Math::max));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
-            EnumSet.allOf(BusCell.Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {
+            EnumSet.allOf(Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {
                 Double vIntern = maxInternCellHeight.get(d);
                 if (v == null && vIntern == null) {
                     return 0.;
@@ -134,8 +135,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 }
             }));
         } else {
-            maxCellHeight.put(BusCell.Direction.TOP, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
-            maxCellHeight.put(BusCell.Direction.BOTTOM, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
+            maxCellHeight.put(Direction.TOP, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
+            maxCellHeight.put(Direction.BOTTOM, layoutParam.getExternCellHeight() + layoutParam.getStackHeight());
         }
 
         getGraph().setMaxCellHeight(maxCellHeight);

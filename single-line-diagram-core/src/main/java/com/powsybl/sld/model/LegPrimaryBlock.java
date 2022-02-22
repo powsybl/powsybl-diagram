@@ -9,6 +9,10 @@ package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +23,7 @@ import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.*;
 import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.InternCell.Shape.*;
-import static com.powsybl.sld.model.Node.NodeType.*;
-import static com.powsybl.sld.model.Node.NodeType.SHUNT;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
@@ -48,7 +51,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return nodes.size() == 3
                 && nodes.get(0).getType() == BUS
                 && checkMiddleNode(nodes.get(1))
-                && (nodes.get(2).getType() == FICTITIOUS || nodes.get(2).getType() == SHUNT);
+                && (nodes.get(2).getType() == FICTITIOUS || nodes.get(2).getType() == Node.NodeType.SHUNT);
     }
 
     private boolean checkMiddleNode(Node node) {

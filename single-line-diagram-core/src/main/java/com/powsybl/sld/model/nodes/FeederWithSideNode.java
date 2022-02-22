@@ -4,9 +4,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.VoltageLevelInfos;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class FeederWithSideNode extends FeederNode {
     protected final VoltageLevelInfos myVoltageLevelInfos;
     protected final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    protected FeederWithSideNode(String id, String name, String equipmentId, String componentType,
+    public FeederWithSideNode(String id, String name, String equipmentId, String componentType,
                                  Side side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         super(id, name, equipmentId, componentType, feederType);
         this.side = Objects.requireNonNull(side);

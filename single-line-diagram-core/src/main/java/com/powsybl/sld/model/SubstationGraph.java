@@ -7,6 +7,10 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.model.nodes.Node;
+
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.Graph;
 

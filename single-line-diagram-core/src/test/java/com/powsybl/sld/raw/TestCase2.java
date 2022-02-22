@@ -11,10 +11,16 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 
 /**
  * <pre>
@@ -46,7 +52,7 @@ public class TestCase2 extends AbstractTestCaseRaw {
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         FictitiousNode f = vlBuilder.createFictitiousNode(2);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        FeederNode load = vlBuilder.createLoad("l", 0, BusCell.Direction.TOP);
+        FeederNode load = vlBuilder.createLoad("l", 0, TOP);
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(d1, f);
         vlBuilder.connectNode(bbs2, d2);

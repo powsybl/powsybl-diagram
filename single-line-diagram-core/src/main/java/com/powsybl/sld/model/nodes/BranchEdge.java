@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.coordinate.Point;
@@ -43,11 +43,11 @@ public class BranchEdge extends Edge {
     }
 
     @Override
-    void writeJson(JsonGenerator generator) throws IOException {
+    public void writeJson(JsonGenerator generator) throws IOException {
         writeJson(generator, false);
     }
 
-    void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+    public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         generator.writeStringField("id", id);
         generator.writeArrayFieldStart("nodes");

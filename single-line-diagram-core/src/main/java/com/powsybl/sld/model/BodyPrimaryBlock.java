@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 import java.util.Set;
@@ -15,7 +16,7 @@ import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
 import static com.powsybl.sld.model.Cell.CellType.INTERN;
 import static com.powsybl.sld.model.InternCell.Shape.FLAT;
-import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;

@@ -10,6 +10,11 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.net.URL;
 import java.util.*;
@@ -58,9 +63,11 @@ public class BasicStyleProvider implements DiagramStyleProvider {
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
 
-        if (node instanceof FeederNode && node.getCell() != null) {
-            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
-            styles.add(direction == BusCell.Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+        if (graph != null) {
+            Direction direction = graph.getDirection(node);
+            if (node instanceof FeederNode && direction != Direction.UNDEFINED) {
+                styles.add(direction == Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+            }
         }
         if (!showInternalNodes && isEquivalentToInternalNode(node)) {
             styles.add(HIDDEN_NODE_CLASS);

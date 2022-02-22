@@ -9,9 +9,10 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.LabelPosition;
@@ -72,7 +73,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         }
 
         @Override
-        public List<NodeDecorator> getNodeDecorators(Node node) {
+        public List<NodeDecorator> getNodeDecorators(Node node, Direction direction) {
             Objects.requireNonNull(node);
             if (node instanceof SwitchNode) {
                 return Collections.singletonList(new NodeDecorator("LOCK", getSwitchDecoratorPosition((SwitchNode) node)));

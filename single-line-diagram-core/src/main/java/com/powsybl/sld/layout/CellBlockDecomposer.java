@@ -8,6 +8,10 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -220,8 +224,7 @@ final class CellBlockDecomposer {
     private static void rElaboratePrimaryBlocks(BusCell busCell, Node firstNode,
                                                 Set<Node> alreadyTreated, List<Block> blocks) {
 
-        firstNode.getListNodeAdjInCell(busCell).forEach(node2 -> {
-
+        firstNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(node2 -> {
             if (!alreadyTreated.contains(node2)) {
 
                 List<Node> primaryPattern = new ArrayList<>();

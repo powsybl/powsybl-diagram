@@ -9,9 +9,13 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -76,11 +80,11 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
 
         double xVoltageLevels = widthSnakeLinesLeft + diagramPadding.getLeft() + voltageLevelPadding.getLeft();
         double y = diagramPadding.getTop()
-            + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), BusCell.Direction.TOP, layoutParameters)).orElse(0.);
+            + getGraph().getVoltageLevelStream().findFirst().map(vlg -> getHeightHorizontalSnakeLines(vlg.getId(), TOP, layoutParameters)).orElse(0.);
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
-            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BusCell.Direction.BOTTOM, layoutParameters);
+            y += vlGraph.getHeight() + getHeightHorizontalSnakeLines(vlGraph.getId(), BOTTOM, layoutParameters);
         }
 
         double widthSnakeLinesRight = Math.max(infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.RIGHT) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
@@ -93,7 +97,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
-    private double getHeightHorizontalSnakeLines(String vlGraphId, BusCell.Direction direction, LayoutParameters layoutParameters) {
+    private double getHeightHorizontalSnakeLines(String vlGraphId, Direction direction, LayoutParameters layoutParameters) {
         return Math.max(infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(vlGraphId, direction) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
     }
 
@@ -110,22 +114,22 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(getGraph().getVoltageLevelGraph(node1));
 
             // Reset the horizontal layout numbers to current graph numbers
-            int currentNbBottom = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, BusCell.Direction.BOTTOM);
-            int currentNbTop = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, BusCell.Direction.TOP);
+            int currentNbBottom = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, BOTTOM);
+            int currentNbTop = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, TOP);
             int currentNbLeft = infosNbSnakeLines.getNbSnakeLinesLeftRight().get(Side.LEFT);
-            infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(BusCell.Direction.BOTTOM, currentNbBottom);
-            infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(BusCell.Direction.TOP, currentNbTop);
+            infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(BOTTOM, currentNbBottom);
+            infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(TOP, currentNbTop);
             infosNbSnakeLinesH.getNbSnakeLinesVerticalBetween().put(graphId, currentNbLeft);
 
             // Calculate the snakeline as an horizontal layout
             polyline = calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLinesH);
 
             // Update the vertical layout maps
-            Integer updatedNbLinesBottom = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BusCell.Direction.BOTTOM);
-            Integer updatedNbLinesTop = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BusCell.Direction.TOP);
+            Integer updatedNbLinesBottom = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BOTTOM);
+            Integer updatedNbLinesTop = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(TOP);
             Integer updatedNbLinesLeft = infosNbSnakeLinesH.getNbSnakeLinesVerticalBetween().get(graphId);
-            infosNbSnakeLines.setNbSnakeLinesTopBottom(graphId, BusCell.Direction.BOTTOM, updatedNbLinesBottom);
-            infosNbSnakeLines.setNbSnakeLinesTopBottom(graphId, BusCell.Direction.TOP, updatedNbLinesTop);
+            infosNbSnakeLines.setNbSnakeLinesTopBottom(graphId, BOTTOM, updatedNbLinesBottom);
+            infosNbSnakeLines.setNbSnakeLinesTopBottom(graphId, TOP, updatedNbLinesTop);
             infosNbSnakeLines.getNbSnakeLinesLeftRight().put(Side.LEFT, updatedNbLinesLeft);
 
             return polyline;
@@ -140,8 +144,8 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     }
 
     protected void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2, boolean increment, List<Point> polyline) {
-        BusCell.Direction dNode1 = getNodeDirection(node1, 1);
-        BusCell.Direction dNode2 = getNodeDirection(node2, 2);
+        Direction dNode1 = getNodeDirection(node1, 1);
+        Direction dNode2 = getNodeDirection(node2, 2);
 
         // increment not needed for 3WT for the common node
         String vl1 = getGraph().getVoltageLevelInfos(node1).getId();
@@ -179,16 +183,16 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         }
     }
 
-    private double getVerticalShift(LayoutParameters layoutParam, BusCell.Direction dNode1, int nbSnakeLines1) {
+    private double getVerticalShift(LayoutParameters layoutParam, Direction dNode1, int nbSnakeLines1) {
         return (nbSnakeLines1 - 1) * layoutParam.getVerticalSnakeLinePadding()
-            + (dNode1 == BusCell.Direction.TOP ? layoutParam.getVoltageLevelPadding().getTop() : layoutParam.getVoltageLevelPadding().getBottom());
+            + (dNode1 == Direction.TOP ? layoutParam.getVoltageLevelPadding().getTop() : layoutParam.getVoltageLevelPadding().getBottom());
     }
 
     /**
      * Dispatching the snake lines to the right and to the left
      */
-    private Side getSide(BusCell.Direction dNode1, boolean increment) {
-        return ((increment && dNode1 == BusCell.Direction.BOTTOM) || (!increment && dNode1 == BusCell.Direction.TOP)) ? Side.RIGHT : Side.LEFT;
+    private Side getSide(Direction dNode1, boolean increment) {
+        return ((increment && dNode1 == BOTTOM) || (!increment && dNode1 == TOP)) ? Side.RIGHT : Side.LEFT;
     }
 
     private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
@@ -197,9 +201,9 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             + (side == Side.LEFT ? -shiftLeftRight : shiftLeftRight + maxVoltageLevelWidth);
     }
 
-    private double getYSnakeLine(Node node, BusCell.Direction dNode1, double decalV, LayoutParameters layoutParam) {
+    private double getYSnakeLine(Node node, Direction dNode1, double decalV, LayoutParameters layoutParam) {
         double y = getGraph().getShiftedPoint(node).getY();
-        if (dNode1 == BusCell.Direction.BOTTOM) {
+        if (dNode1 == BOTTOM) {
             return y + decalV;
         } else {
             List<VoltageLevelGraph> vls = getGraph().getVoltageLevels();
@@ -216,11 +220,11 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private boolean facingNodes(Node node1, Node node2) {
-        BusCell.Direction dNode1 = getNodeDirection(node1, 1);
-        BusCell.Direction dNode2 = getNodeDirection(node2, 2);
+        Direction dNode1 = getNodeDirection(node1, 1);
+        Direction dNode2 = getNodeDirection(node2, 2);
         VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
         VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
-        return (dNode1 == BusCell.Direction.BOTTOM && dNode2 == BusCell.Direction.TOP && getGraph().graphAdjacents(vlGraph1, vlGraph2))
-            || (dNode1 == BusCell.Direction.TOP && dNode2 == BusCell.Direction.BOTTOM && getGraph().graphAdjacents(vlGraph2, vlGraph1));
+        return (dNode1 == BOTTOM && dNode2 == TOP && getGraph().graphAdjacents(vlGraph1, vlGraph2))
+            || (dNode1 == TOP && dNode2 == BOTTOM && getGraph().graphAdjacents(vlGraph2, vlGraph1));
     }
 }

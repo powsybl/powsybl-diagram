@@ -10,6 +10,9 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;

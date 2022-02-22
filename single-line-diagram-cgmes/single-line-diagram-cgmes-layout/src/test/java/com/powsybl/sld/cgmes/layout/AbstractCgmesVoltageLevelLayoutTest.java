@@ -14,7 +14,7 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.nodes.Node;
 
 /**
  *

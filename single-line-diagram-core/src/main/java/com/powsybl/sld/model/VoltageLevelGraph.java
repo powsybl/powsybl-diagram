@@ -9,9 +9,17 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
@@ -69,7 +77,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     // by direction, max calculated height of the extern cells
     // If no extern cell found taking into account intern cells too
     // (filled and used only when using the adapt cell height to content option)
-    private Map<BusCell.Direction, Double> maxCellHeight = new EnumMap<>(BusCell.Direction.class);
+    private Map<Direction, Double> maxCellHeight = new EnumMap<>(Direction.class);
 
     protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
         super(parentGraph);
@@ -541,6 +549,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return new TreeSet<>(cells);
     }
 
+    @Override
     public Optional<Cell> getCell(Node node) {
         return Optional.ofNullable(nodeToCell.get(node));
     }
@@ -622,11 +631,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .max().orElse(0);
     }
 
-    public Double getExternCellHeight(BusCell.Direction direction) {
+    public Double getExternCellHeight(Direction direction) {
         return !maxCellHeight.isEmpty() ? maxCellHeight.get(direction) : -1.;
     }
 
-    public void setMaxCellHeight(Map<BusCell.Direction, Double> maxCellHeight) {
+    public void setMaxCellHeight(Map<Direction, Double> maxCellHeight) {
         this.maxCellHeight = maxCellHeight;
     }
 
@@ -654,7 +663,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
                     || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)) {
                 Optional<Cell> oCell = getCell(node);
-                if (oCell.isPresent() && ((ExternCell) oCell.get()).getDirection() == BusCell.Direction.BOTTOM) {
+                if (oCell.isPresent() && ((ExternCell) oCell.get()).getDirection() == Direction.BOTTOM) {
                     // permutation if cell direction is BOTTOM,
                     // because in the svg component library, circle for winding1 is below circle for winding2
                     node.setRotationAngle(180.);
@@ -664,7 +673,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public double getFirstBusY() {
-        return getExternCellHeight(BusCell.Direction.TOP);
+        return getExternCellHeight(Direction.TOP);
     }
 
     public double getLastBusY(LayoutParameters layoutParam) {

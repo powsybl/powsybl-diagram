@@ -7,10 +7,16 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * <pre>
@@ -46,7 +52,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs11, ss1);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs2.1", 2, 1);
 
-        FeederNode la = vlBuilder.createLoad("la", 10, BusCell.Direction.TOP);
+        FeederNode la = vlBuilder.createLoad("la", 10, TOP);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
         FictitiousNode fa = vlBuilder.createFictitiousNode(4);
         SwitchNode da1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da1", false, false);
@@ -62,7 +68,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
         SwitchNode db2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db2", false, false);
         FictitiousNode fb = vlBuilder.createFictitiousNode(6);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
-        FeederNode lb = vlBuilder.createLoad("lb", 20, BusCell.Direction.BOTTOM);
+        FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM);
         vlBuilder.connectNode(lb, bb);
         vlBuilder.connectNode(bb, fb);
         vlBuilder.connectNode(fb, db1);
@@ -72,7 +78,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
 
         SwitchNode dc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dc1", false, false);
         SwitchNode bc = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bc", false, false);
-        FeederNode gc = vlBuilder.createGenerator("gc", 30, BusCell.Direction.TOP);
+        FeederNode gc = vlBuilder.createGenerator("gc", 30, TOP);
         vlBuilder.connectNode(gc, bc);
         vlBuilder.connectNode(dc1, bbs12);
         vlBuilder.connectNode(bc, dc1);

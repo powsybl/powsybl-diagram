@@ -8,6 +8,9 @@ package com.powsybl.sld.model;
 
 import java.util.List;
 
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene

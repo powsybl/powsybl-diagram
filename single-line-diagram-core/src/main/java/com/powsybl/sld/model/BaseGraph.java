@@ -8,6 +8,10 @@ package com.powsybl.sld.model;
 
 import java.util.List;
 
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.FeederTwtLegNode;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
