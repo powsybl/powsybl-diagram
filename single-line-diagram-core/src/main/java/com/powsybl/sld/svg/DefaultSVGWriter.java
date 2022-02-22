@@ -422,6 +422,8 @@ public class DefaultSVGWriter implements SVGWriter {
                         true, null));
             }
 
+            insertBusInfo(busNode, graph.getCoord(), initProvider, styleProvider, root);
+
             remainingNodesToDraw.remove(busNode);
         }
     }
@@ -783,7 +785,6 @@ public class DefaultSVGWriter implements SVGWriter {
             }
             g.setAttribute(TRANSFORM, getTransformString(x, y, feederInfoRotationAngle, componentSize));
         }
-
     }
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
@@ -896,6 +897,41 @@ public class DefaultSVGWriter implements SVGWriter {
         });
 
         g.setAttribute(CLASS, String.join(" ", styles));
+        root.appendChild(g);
+    }
+
+    protected void insertBusInfo(BusNode busNode,
+                                 Point shift,
+                                 DiagramLabelProvider initProvider,
+                                 DiagramStyleProvider styleProvider,
+                                 Element root) {
+        Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
+        if (busInfo.isPresent()) {
+            List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
+            drawBusInfo(busNode, shift, styles, root);
+        }
+    }
+
+    private void drawBusInfo(BusNode busNode,
+                             Point shift,
+                             List<String> styles,
+                             Element root) {
+
+        Element g = root.getOwnerDocument().createElement(GROUP);
+        transformComponent(busNode, shift, g);
+
+        double width = 10;
+        double height = 5;
+
+        Element rect = g.getOwnerDocument().createElement("rect");
+        rect.setAttribute("width", String.valueOf(width));
+        rect.setAttribute("height", String.valueOf(height));
+        rect.setAttribute("rx", String.valueOf(1));
+        rect.setAttribute("ry", String.valueOf(1));
+        rect.setAttribute(CLASS, String.join(" ", styles));
+        rect.setAttribute(TRANSFORM, TRANSLATE + "(" + 0 + "," + -height / 2 + ")");
+        g.appendChild(rect);
+
         root.appendChild(g);
     }
 
