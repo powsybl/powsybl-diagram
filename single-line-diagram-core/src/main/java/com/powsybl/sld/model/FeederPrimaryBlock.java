@@ -8,6 +8,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
@@ -27,8 +28,8 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  */
 public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
-    public FeederPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(FEEDERPRIMARY, nodes, cell);
+    public FeederPrimaryBlock(List<Node> nodes) {
+        super(FEEDERPRIMARY, nodes);
         if (getExtremityNode(START).getType() == FEEDER) {
             super.reverseBlock();
         }
@@ -76,12 +77,12 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam) {
+    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         // Will never happen
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         double yFeeder = getConnectedNode().getY() + getOrientation().progressionSign() * layoutParam.getFeederSpan();
         getFeederNode().setCoordinates(getCoord().get(X), yFeeder);
     }

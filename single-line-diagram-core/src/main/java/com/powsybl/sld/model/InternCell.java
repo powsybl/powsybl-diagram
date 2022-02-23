@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -239,11 +240,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
+    public void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
         if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
-            body.calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight);
+            body.calculateRootCoord(layoutParam, layoutContext);
         }
-        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight));
+        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam, layoutContext));
     }
 
     public LegBlock getSideToLeg(Side side) {

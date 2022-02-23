@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -75,9 +76,13 @@ public interface Block {
      * Calculates all the blocks dimensions and find the order of the layout.block inside
      * the cell
      */
-    void calculateCoord(LayoutParameters layoutParam);
+    void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
 
-    void calculateRootCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight);
+    void calculateRootCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
+
+    void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext);
+
+    void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext);
 
     double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParam);
 
@@ -87,19 +92,11 @@ public interface Block {
         return 0;
     }
 
-    void coordVerticalCase(LayoutParameters layoutParam);
-
-    void coordHorizontalCase(LayoutParameters layoutParam);
-
     void setCardinality(Extremity extremity, int i);
 
     int getCardinality(Extremity extremity);
 
     int getCardinality(Node commonNode);
-
-    void setCell(Cell cell);
-
-    Cell getCell();
 
     void setOrientation(Orientation orientation);
 

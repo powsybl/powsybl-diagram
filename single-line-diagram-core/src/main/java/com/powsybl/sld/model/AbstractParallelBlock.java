@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -35,7 +36,6 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock {
                 this.subBlocks.add(child);
             }
         });
-        setCell(cell);
 
         Node node0s = subBlocks.get(0).getExtremityNode(START);
         Node node0e = subBlocks.get(0).getExtremityNode(END);
@@ -51,8 +51,8 @@ abstract class AbstractParallelBlock extends AbstractComposedBlock {
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
-        translatePosInCoord(layoutParam, Y, X, H, 1);
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
+        translatePosInCoord(layoutParam, layoutContext, Y, X, H, 1);
     }
 
     @Override

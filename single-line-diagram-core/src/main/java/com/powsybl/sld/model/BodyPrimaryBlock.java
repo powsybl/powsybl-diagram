@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -14,8 +15,6 @@ import java.util.Set;
 
 import static com.powsybl.sld.model.Block.Extremity.*;
 import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
-import static com.powsybl.sld.model.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
@@ -28,12 +27,18 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 public class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
-    public BodyPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(BODYPRIMARY, nodes, cell);
+    public BodyPrimaryBlock(List<Node> nodes) {
+        super(BODYPRIMARY, nodes);
     }
 
     public BodyPrimaryBlock(BodyPrimaryBlock bodyPrimaryBlock) {
-        this(bodyPrimaryBlock.getNodes(), bodyPrimaryBlock.getCell());
+        this(bodyPrimaryBlock.getNodes());
+    }
+
+    public static BodyPrimaryBlock createBodyPrimaryBlockForShuntCell(List<Node> nodes) {
+        BodyPrimaryBlock bpy = new BodyPrimaryBlock(nodes);
+        bpy.setOrientation(RIGHT);
+        return bpy;
     }
 
     @Override
@@ -61,7 +66,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         int sign = getOrientation() == UP ? 1 : -1;
         double y0 = getCoord().get(Y) + sign * getCoord().getSpan(Y) / 2;
         double yPxStep = calcYPxStep(sign);
@@ -74,10 +79,9 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam) {
+    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         double x0 = getCoord().get(X) - getCoord().getSpan(X) / 2;
-        if (getCell().getType() == INTERN
-                && ((InternCell) getCell()).getShape().checkIsNotShape(FLAT)) {
+        if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
             x0 += layoutParam.getCellWidth() / 2;
         }
         double xPxStep = getCoord().getSpan(X) / (nodes.size() - 1);

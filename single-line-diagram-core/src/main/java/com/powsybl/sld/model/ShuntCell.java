@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
@@ -48,7 +49,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
+    public void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
         if (getRootBlock() instanceof BodyPrimaryBlock) {
             Position lPos = getSidePosition(Side.LEFT);
             ((BodyPrimaryBlock) getRootBlock())

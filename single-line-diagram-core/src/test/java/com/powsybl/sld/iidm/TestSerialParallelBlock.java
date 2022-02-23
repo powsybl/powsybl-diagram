@@ -11,6 +11,7 @@ import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,7 +96,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(layoutParameters);
+        sb.coordHorizontalCase(layoutParameters, LayoutContext.create(0., 0., 0., null));
 
         assertEquals(10, sb.getCoord().get(X), 0);
         assertEquals(20, sb.getCoord().get(Y), 0);

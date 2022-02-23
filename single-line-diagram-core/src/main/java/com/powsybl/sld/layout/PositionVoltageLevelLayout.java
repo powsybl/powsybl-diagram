@@ -8,9 +8,12 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.InternCell;
 import com.powsybl.sld.model.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.InternCell.Shape;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,11 +100,19 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || cell.getType() == Cell.CellType.INTERN)
                 .map(BusCell.class::cast)
-                .forEach(cell -> cell.calculateCoord(layoutParam, graph.getFirstBusY(), graph.getLastBusY(layoutParam), graph.getExternCellHeight(cell.getDirection())));
+                .forEach(cell -> {
+                    LayoutContext layoutContext = LayoutContext.create(graph.getFirstBusY(), graph.getLastBusY(layoutParam), graph.getExternCellHeight(cell.getDirection()), cell.getDirection());
+                    if (cell.getType() == Cell.CellType.INTERN) {
+                        layoutContext.setInternCell(true);
+                        layoutContext.setFlat(((InternCell) cell).getShape() == Shape.FLAT);
+                        layoutContext.setUnileg(((InternCell) cell).getShape() == Shape.UNILEG);
+                    }
+                    cell.calculateCoord(layoutParam, layoutContext);
+                });
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
                 .map(ShuntCell.class::cast)
-                .forEach(cell -> cell.calculateCoord(layoutParam, 0., 0., 0.));
+                .forEach(cell -> cell.calculateCoord(layoutParam, null));
     }
 
     /**

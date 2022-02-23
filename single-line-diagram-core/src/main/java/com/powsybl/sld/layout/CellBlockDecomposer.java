@@ -44,7 +44,7 @@ final class CellBlockDecomposer {
 
     static void determineBlocks(VoltageLevelGraph vlGraph, Cell cell, boolean exceptionIfPatternNotHandled) {
         if (cell.getType() == Cell.CellType.SHUNT) {
-            determineShuntCellBlocks((ShuntCell) cell);
+            cell.setRootBlock(BodyPrimaryBlock.createBodyPrimaryBlockForShuntCell(cell.getNodes()));
         } else {
             determineBusCellBlocks(vlGraph, (BusCell) cell, exceptionIfPatternNotHandled);
         }
@@ -62,11 +62,6 @@ final class CellBlockDecomposer {
                     .collect(Collectors.toList()));
         }
         determineComplexCell(busCell, exceptionIfPatternNotHandled);
-    }
-
-    private static void determineShuntCellBlocks(ShuntCell shuntCell) {
-        BodyPrimaryBlock bpy = new BodyPrimaryBlock(shuntCell.getNodes(), shuntCell);
-        shuntCell.setRootBlock(bpy);
     }
 
     private static void determineComplexCell(BusCell busCell, boolean exceptionIfPatternNotHandled) {
@@ -101,7 +96,7 @@ final class CellBlockDecomposer {
                     throw new PowsyblException("Blocks detection impossible for cell " + busCell);
                 } else {
                     LOGGER.error("{} busCell, cannot merge any additional blocks, {} blocks remains", busCell.getType(), blocks.size());
-                    Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks), busCell);
+                    Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks));
                     blocks.clear();
                     blocks.add(undefinedBlock);
                     break;
@@ -125,7 +120,7 @@ final class CellBlockDecomposer {
             List<Block> blockToRemove = new ArrayList<>();
             boolean chainIdentified = false;
             Block b1 = blocks.get(i);
-            SerialBlock serialBlock = new SerialBlock(b1, cell);
+            SerialBlock serialBlock = new SerialBlock(b1);
             for (int j = i + 1; j < blocks.size(); j++) {
                 Block b2 = blocks.get(j);
                 if (serialBlock.addSubBlock(b2)) {
@@ -246,7 +241,7 @@ final class CellBlockDecomposer {
                 }
 
                 // Create a PrimaryBlock from that pattern
-                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern, busCell);
+                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern);
                 blocks.add(primaryBlock);
 
                 // Update already treated nodes

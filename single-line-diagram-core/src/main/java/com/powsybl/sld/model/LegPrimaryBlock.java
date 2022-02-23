@@ -8,6 +8,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -37,8 +38,8 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
-    public LegPrimaryBlock(List<Node> nodes, Cell cell) {
-        super(LEGPRIMARY, nodes, cell);
+    public LegPrimaryBlock(List<Node> nodes) {
+        super(LEGPRIMARY, nodes);
         if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
         }
@@ -104,17 +105,17 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam) {
+    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         getNodeOnBus().setCoordinates(getCoord().get(X) + getCoord().getSpan(X) / 2, getBusNode().getY());
         getLegNode().setY(getBusNode().getY());
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         getNodeOnBus().setCoordinates(getCoord().get(X), getBusNode().getY());
 
         getLegNode().setX(getCoord().get(X));
-        if (getCell().getType() == INTERN && ((InternCell) getCell()).checkIsShape(UNILEG)) {
+        if (layoutContext.isInternCell() && layoutContext.isUnileg()) {
             getLegNode().setY(getCoord().get(Y) + (getOrientation() == UP ? -1 : 1) * layoutParam.getInternCellHeight());
         }
     }

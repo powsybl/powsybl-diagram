@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -18,8 +19,6 @@ import java.util.*;
 
 import static com.powsybl.sld.model.Block.Extremity.END;
 import static com.powsybl.sld.model.Block.Extremity.START;
-import static com.powsybl.sld.model.Cell.CellType.INTERN;
-import static com.powsybl.sld.model.InternCell.Shape.FLAT;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
@@ -38,8 +37,6 @@ public abstract class AbstractBlock implements Block {
     private Map<Extremity, Integer> cardinality;
 
     private Block parentBlock;
-
-    private Cell cell;
 
     private Position position;
 
@@ -105,22 +102,6 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public Cell getCell() {
-        return cell;
-    }
-
-    @Override
-    public void setCell(Cell cell) {
-        this.cell = cell;
-        if (cell == null) {
-            return;
-        }
-        if (cell.getType() == Cell.CellType.SHUNT) {
-            setOrientation(Orientation.RIGHT);
-        }
-    }
-
-    @Override
     public Position getPosition() {
         return position;
     }
@@ -146,11 +127,11 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam) {
+    public void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
         if (getPosition().getOrientation().isVertical()) {
-            coordVerticalCase(layoutParam);
+            coordVerticalCase(layoutParam, layoutContext);
         } else {
-            coordHorizontalCase(layoutParam);
+            coordHorizontalCase(layoutParam, layoutContext);
         }
     }
 
@@ -159,22 +140,22 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void calculateRootCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
+    public void calculateRootCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
 
         double spanX = position.getSpan(H) / 2. * layoutParam.getCellWidth();
         coord.setSpan(X, spanX);
         coord.set(X, hToX(layoutParam, position.get(H)) + spanX / 2);
 
-        double spanY = getRootSpanYCoord(layoutParam, externCellHeight);
+        double spanY = getRootSpanYCoord(layoutParam, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
         coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(layoutParam, spanY, firstBusY, lastBusY));
+        coord.set(Y, getRootYCoord(layoutParam, spanY, layoutContext));
 
-        calculateCoord(layoutParam);
+        calculateCoord(layoutParam, layoutContext);
     }
 
-    private double getRootSpanYCoord(LayoutParameters layoutParam, double externCellHeight) {
+    private double getRootSpanYCoord(LayoutParameters layoutParam, double externCellHeight, boolean isInternCell) {
         double ySpan;
-        if (cell.getType() == INTERN) {
+        if (isInternCell) {
             ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
         } else {
             // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
@@ -184,22 +165,20 @@ public abstract class AbstractBlock implements Block {
         return ySpan;
     }
 
-    private double getRootYCoord(LayoutParameters layoutParam, double spanY, double firstBusY, double lastBusY) {
+    private double getRootYCoord(LayoutParameters layoutParam, double spanY, LayoutContext layoutContext) {
         double dyToBus = 0;
-        if (cell.getType() == INTERN) {
-            if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
-                dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
-            }
+        if (layoutContext.isInternCell() && !layoutContext.isFlat()) {
+            dyToBus = spanY / 2 + layoutParam.getInternCellHeight() * (1 + position.get(V)) / 2.;
         } else {
             dyToBus = spanY / 2 + layoutParam.getStackHeight();
         }
-        switch (((BusCell) cell).getDirection()) {
+        switch (layoutContext.getDirection()) {
             case BOTTOM:
-                return lastBusY + dyToBus;
+                return layoutContext.getLastBusY() + dyToBus;
             case TOP:
-                return firstBusY - dyToBus;
+                return layoutContext.getFirstBusY() - dyToBus;
             case MIDDLE:
-                return firstBusY + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return layoutContext.getFirstBusY() + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }

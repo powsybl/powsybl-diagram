@@ -7,6 +7,7 @@
 
 package com.powsybl.sld.model;
 
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -30,11 +31,6 @@ public class UndefinedBlock extends AbstractComposedBlock {
         this.subBlocks = Objects.requireNonNull(subBlocks);
     }
 
-    public UndefinedBlock(List<Block> subBlocks, Cell cell) {
-        this(subBlocks);
-        setCell(cell);
-    }
-
     @Override
     public void sizing() {
         for (Block block : subBlocks) {
@@ -48,15 +44,15 @@ public class UndefinedBlock extends AbstractComposedBlock {
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         replicateCoordInSubblocks(X);
         replicateCoordInSubblocks(Y);
-        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam));
+        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam, layoutContext));
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam) {
-        coordVerticalCase(layoutParam);
+    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
+        coordVerticalCase(layoutParam, layoutContext);
     }
 
     @Override

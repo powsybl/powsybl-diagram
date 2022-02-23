@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -98,11 +99,11 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         });
     }
 
-    void translatePosInCoord(LayoutParameters layoutParameters, Coord.Dimension cDimSteady,
+    void translatePosInCoord(LayoutParameters layoutParameters, LayoutContext layoutContext, Coord.Dimension cDimSteady,
                              Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
         replicateCoordInSubblocks(cDimSteady);
         distributeCoordInSubblocs(pDim, cDimVariable, sign);
-        subBlocks.forEach(sub -> sub.calculateCoord(layoutParameters));
+        subBlocks.forEach(sub -> sub.calculateCoord(layoutParameters, layoutContext));
     }
 
     @Override

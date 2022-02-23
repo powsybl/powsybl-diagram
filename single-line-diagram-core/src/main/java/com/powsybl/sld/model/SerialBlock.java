@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
@@ -33,19 +34,18 @@ public class SerialBlock extends AbstractComposedBlock {
      * Upper - (as a consequence) can embed a BusNode only if Lower as one
      */
 
-    public SerialBlock(List<Block> blocks, Cell cell) {
+    public SerialBlock(List<Block> blocks) {
         super(SERIAL, blocks);
         if (blocks.size() == 1 && blocks.get(0).getType() == SERIAL) {
             subBlocks = ((SerialBlock) blocks.get(0)).getSubBlocks();
         } else {
             subBlocks = new ArrayList<>(blocks);
         }
-        setCell(cell);
         postConstruct();
     }
 
-    public SerialBlock(Block block, Cell cell) {
-        this(Collections.singletonList(block), cell);
+    public SerialBlock(Block block) {
+        this(Collections.singletonList(block));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SerialBlock extends AbstractComposedBlock {
         if (subBlocksCopy.size() == 1) {
             return subBlocksCopy.get(0);
         } else {
-            return new SerialBlock(subBlocksCopy, getCell());
+            return new SerialBlock(subBlocksCopy);
         }
     }
 
@@ -166,14 +166,14 @@ public class SerialBlock extends AbstractComposedBlock {
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam) {
-        translatePosInCoord(layoutParam, X, Y, V, getOrientation().progressionSign());
+    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
+        translatePosInCoord(layoutParam, layoutContext, X, Y, V, getOrientation().progressionSign());
         getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam) {
-        translatePosInCoord(layoutParam, Y, X, H, getOrientation().progressionSign());
+    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
+        translatePosInCoord(layoutParam, layoutContext, Y, X, H, getOrientation().progressionSign());
         getChainingNodes().forEach(n -> n.setY(getCoord().get(Y)));
     }
 

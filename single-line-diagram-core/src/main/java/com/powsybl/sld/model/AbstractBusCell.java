@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -81,8 +82,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
-        getRootBlock().calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight);
+    public void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
+        getRootBlock().calculateRootCoord(layoutParam, layoutContext);
     }
 
     @Override

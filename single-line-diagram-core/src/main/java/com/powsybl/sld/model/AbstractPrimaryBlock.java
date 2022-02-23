@@ -36,7 +36,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
      * @param nodes nodes
      */
 
-    AbstractPrimaryBlock(Type type, List<Node> nodes, Cell cell) {
+    AbstractPrimaryBlock(Type type, List<Node> nodes) {
         super(type);
         if (nodes.isEmpty()) {
             throw new PowsyblException("Empty node list");
@@ -44,19 +44,18 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         this.nodes = new ArrayList<>(nodes);
         setCardinality(Extremity.START, 1);
         setCardinality(Extremity.END, 1);
-        setCell(cell);
     }
 
-    public static PrimaryBlock createPrimaryBlock(List<Node> primaryPattern, Cell cell) {
+    public static PrimaryBlock createPrimaryBlock(List<Node> primaryPattern) {
         Node.NodeType firstNodeType = primaryPattern.get(0).getType();
         Node.NodeType lastNodeType = primaryPattern.get(primaryPattern.size() - 1).getType();
         if (firstNodeType == Node.NodeType.BUS || lastNodeType == Node.NodeType.BUS) {
-            return new LegPrimaryBlock(primaryPattern, cell);
+            return new LegPrimaryBlock(primaryPattern);
         }
         if (firstNodeType == Node.NodeType.FEEDER || lastNodeType == Node.NodeType.FEEDER) {
-            return new FeederPrimaryBlock(primaryPattern, cell);
+            return new FeederPrimaryBlock(primaryPattern);
         }
-        return new BodyPrimaryBlock(primaryPattern, cell);
+        return new BodyPrimaryBlock(primaryPattern);
     }
 
     @Override
