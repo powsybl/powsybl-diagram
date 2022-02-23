@@ -239,11 +239,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     @Override
-    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
+    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
         if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
-            body.calculateRootCoord(vlGraph, layoutParam);
+            body.calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight);
         }
-        legs.values().forEach(lb -> lb.calculateRootCoord(vlGraph, layoutParam));
+        legs.values().forEach(lb -> lb.calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight));
     }
 
     public LegBlock getSideToLeg(Side side) {

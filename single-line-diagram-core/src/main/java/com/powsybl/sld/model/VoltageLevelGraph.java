@@ -632,7 +632,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public Double getExternCellHeight(Direction direction) {
-        return !maxCellHeight.isEmpty() ? maxCellHeight.get(direction) : -1.;
+        if (maxCellHeight.isEmpty() || direction == Direction.MIDDLE || direction == Direction.UNDEFINED) {
+            return 0.;
+        }
+        return maxCellHeight.get(direction);
     }
 
     public void setMaxCellHeight(Map<Direction, Double> maxCellHeight) {

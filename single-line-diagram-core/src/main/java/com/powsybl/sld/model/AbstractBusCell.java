@@ -81,8 +81,8 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
-        getRootBlock().calculateRootCoord(vlGraph, layoutParam);
+    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
+        getRootBlock().calculateRootCoord(layoutParam, firstBusY, lastBusY, externCellHeight);
     }
 
     @Override

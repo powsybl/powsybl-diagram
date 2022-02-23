@@ -159,32 +159,32 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void calculateRootCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
+    public void calculateRootCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
 
         double spanX = position.getSpan(H) / 2. * layoutParam.getCellWidth();
         coord.setSpan(X, spanX);
         coord.set(X, hToX(layoutParam, position.get(H)) + spanX / 2);
 
-        double spanY = getRootSpanYCoord(layoutParam, vlGraph);
+        double spanY = getRootSpanYCoord(layoutParam, externCellHeight);
         coord.setSpan(Y, spanY);
-        coord.set(Y, getRootYCoord(vlGraph, spanY, layoutParam));
+        coord.set(Y, getRootYCoord(layoutParam, spanY, firstBusY, lastBusY));
 
         calculateCoord(layoutParam);
     }
 
-    private double getRootSpanYCoord(LayoutParameters layoutParam, VoltageLevelGraph vlGraph) {
+    private double getRootSpanYCoord(LayoutParameters layoutParam, double externCellHeight) {
         double ySpan;
         if (cell.getType() == INTERN) {
             ySpan = position.getSpan(V) / 2. * layoutParam.getInternCellHeight();
         } else {
             // The Y span of root block does not consider the space needed for the FeederPrimaryBlock (feeder span)
             // nor the one needed for the LegPrimaryBlock (layoutParam.getStackHeight())
-            ySpan = vlGraph.getExternCellHeight(((BusCell) cell).getDirection()) - layoutParam.getStackHeight() - layoutParam.getFeederSpan();
+            ySpan = externCellHeight - layoutParam.getStackHeight() - layoutParam.getFeederSpan();
         }
         return ySpan;
     }
 
-    private double getRootYCoord(VoltageLevelGraph vlGraph, double spanY, LayoutParameters layoutParam) {
+    private double getRootYCoord(LayoutParameters layoutParam, double spanY, double firstBusY, double lastBusY) {
         double dyToBus = 0;
         if (cell.getType() == INTERN) {
             if (((InternCell) cell).getShape().checkIsNotShape(FLAT)) {
@@ -195,11 +195,11 @@ public abstract class AbstractBlock implements Block {
         }
         switch (((BusCell) cell).getDirection()) {
             case BOTTOM:
-                return vlGraph.getLastBusY(layoutParam) + dyToBus;
+                return lastBusY + dyToBus;
             case TOP:
-                return vlGraph.getFirstBusY() - dyToBus;
+                return firstBusY - dyToBus;
             case MIDDLE:
-                return vlGraph.getFirstBusY() + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
+                return firstBusY + (getPosition().get(V) - 1) * layoutParam.getVerticalSpaceBus();
             default:
                 return 0;
         }

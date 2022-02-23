@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.BusCell;
 import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.slf4j.Logger;
@@ -95,10 +96,12 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || cell.getType() == Cell.CellType.INTERN)
-                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
+                .map(BusCell.class::cast)
+                .forEach(cell -> cell.calculateCoord(layoutParam, graph.getFirstBusY(), graph.getLastBusY(layoutParam), graph.getExternCellHeight(cell.getDirection())));
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
-                .forEach(cell -> cell.calculateCoord(graph, layoutParam));
+                .map(ShuntCell.class::cast)
+                .forEach(cell -> cell.calculateCoord(layoutParam, 0., 0., 0.));
     }
 
     /**

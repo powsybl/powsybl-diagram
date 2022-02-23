@@ -47,7 +47,8 @@ public final class ShuntCell extends AbstractCell {
         return shuntCell;
     }
 
-    public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
+    @Override
+    public void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight) {
         if (getRootBlock() instanceof BodyPrimaryBlock) {
             Position lPos = getSidePosition(Side.LEFT);
             ((BodyPrimaryBlock) getRootBlock())

@@ -48,7 +48,7 @@ public interface Cell {
 
     int getNumber();
 
-    void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam);
+    void calculateCoord(LayoutParameters layoutParam, double firstBusY, double lastBusY, double externCellHeight);
 
     double calculateHeight(LayoutParameters layoutParam);
 
