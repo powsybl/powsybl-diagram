@@ -67,6 +67,7 @@ public class GraphMetadataTest {
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "user_id"));
         metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata("id6", "busNodeId1", "user_id"));
 
         ObjectMapper objectMapper = JsonUtil.createObjectMapper();
         String json = objectMapper.writerWithDefaultPrettyPrinter()
@@ -106,6 +107,10 @@ public class GraphMetadataTest {
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
         assertEquals("user_id", metadata2.getElectricalNodeInfoMetadata("id1").getUserDefinedId());
+
+        assertNotNull(metadata2.getBusInfoMetadata("id6"));
+        assertEquals("busNodeId1", metadata2.getBusInfoMetadata("id6").getBusNodeId());
+        assertEquals("user_id", metadata2.getBusInfoMetadata("id6").getUserDefinedId());
 
         assertEquals(AnchorOrientation.NONE, metadata2.getAnchorPoints(BREAKER).get(0).getOrientation());
         assertEquals(5, metadata2.getAnchorPoints(BREAKER).get(0).getX(), 0);
