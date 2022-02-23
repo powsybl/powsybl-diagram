@@ -424,7 +424,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         true, null));
             }
 
-            insertBusInfo(busNode, graph.getCoord(), initProvider, styleProvider, root);
+            insertBusInfo(prefixId, graph.getCoord(), root, busNode, metadata, initProvider, styleProvider);
 
             remainingNodesToDraw.remove(busNode);
         }
@@ -841,7 +841,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
                 drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
-                addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
+                addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -849,13 +849,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void addFeederInfoComponentMetadata(GraphMetadata metadata, String componentType) {
+    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType, boolean allowRotation) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    true, null));
+                    allowRotation, null));
         }
     }
 
@@ -902,38 +902,44 @@ public class DefaultSVGWriter implements SVGWriter {
         root.appendChild(g);
     }
 
-    protected void insertBusInfo(BusNode busNode,
-                                 Point shift,
+    protected void insertBusInfo(String prefixId,
+                                 Point point,
+                                 Element root,
+                                 BusNode busNode,
+                                 GraphMetadata metadata,
                                  DiagramLabelProvider initProvider,
-                                 DiagramStyleProvider styleProvider,
-                                 Element root) {
+                                 DiagramStyleProvider styleProvider) {
         Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
-        if (busInfo.isPresent()) {
-            List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
-            drawBusInfo(busNode, shift, styles, root);
-        }
+        busInfo.ifPresent(info -> {
+            drawBusInfo(prefixId, busNode, point, root, busInfo.get(), styleProvider, metadata);
+            addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
+        });
     }
 
-    private void drawBusInfo(BusNode busNode,
-                             Point shift,
-                             List<String> styles,
-                             Element root) {
-
+    private void drawBusInfo(String prefixId,
+                             BusNode busNode,
+                             Point point,
+                             Element root,
+                             BusInfo busInfo,
+                             DiagramStyleProvider styleProvider,
+                             GraphMetadata metadata) {
         Element g = root.getOwnerDocument().createElement(GROUP);
-        transformComponent(busNode, shift, g);
-
-        double width = 10;
-        double height = 5;
-
-        Element rect = g.getOwnerDocument().createElement("rect");
-        rect.setAttribute(WIDTH, String.valueOf(width));
-        rect.setAttribute(HEIGHT, String.valueOf(height));
-        rect.setAttribute("rx", String.valueOf(1));
-        rect.setAttribute("ry", String.valueOf(1));
-        rect.setAttribute(CLASS, String.join(" ", styles));
-        rect.setAttribute(TRANSFORM, TRANSLATE + "(" + 0 + "," + -height / 2 + ")");
-        g.appendChild(rect);
-
+        // Position
+        ComponentSize componentSize = componentLibrary.getSize(busInfo.getComponentType());
+        double shY = componentSize.getHeight() / 2;
+        Point origin = new Point(point.getX(), point.getY() - shY);
+        transformComponent(busNode, origin, g);
+        // Styles
+        List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
+        componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
+        g.setAttribute(CLASS, String.join(" ", styles));
+        // Identity
+        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        g.setAttribute("id", svgId);
+        // Metadata
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
+        // Append to SVG
+        insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
         root.appendChild(g);
     }
 

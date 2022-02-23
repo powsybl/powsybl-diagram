@@ -13,17 +13,24 @@ package com.powsybl.sld.svg;
  */
 public class BusInfo {
 
+    private final String componentType;
+
     private final String userDefinedId;
 
-    public BusInfo() {
-        this(null);
+    public BusInfo(String componentType) {
+        this(componentType, null);
     }
 
-    public BusInfo(String userDefinedId) {
+    public BusInfo(String componentType, String userDefinedId) {
         this.userDefinedId = userDefinedId;
+        this.componentType = componentType;
     }
 
     public String getUserDefinedId() {
         return userDefinedId;
+    }
+
+    public String getComponentType() {
+        return componentType;
     }
 }

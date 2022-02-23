@@ -1456,6 +1456,7 @@
   }, {
     "id" : "NODE_vl1_2"
   } ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,

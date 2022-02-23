@@ -38,6 +38,7 @@
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
 .sld-label {stroke: none; fill: black; font: 8px "Verdana"}
 .sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}

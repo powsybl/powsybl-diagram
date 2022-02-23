@@ -256,6 +256,35 @@ public class GraphMetadata {
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class BusInfoMetadata {
+
+        private final String id;
+
+        private final String busNodeId;
+
+        private final String userDefinedId;
+
+        @JsonCreator
+        public BusInfoMetadata(@JsonProperty("id") String id, @JsonProperty("busNodeId") String busNodeId, @JsonProperty("userDefinedId") String userDefinedId) {
+            this.id = Objects.requireNonNull(id);
+            this.busNodeId = Objects.requireNonNull(busNodeId);
+            this.userDefinedId = userDefinedId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getBusNodeId() {
+            return busNodeId;
+        }
+
+        public String getUserDefinedId() {
+            return userDefinedId;
+        }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class ElectricalNodeInfoMetadata {
 
         private final String id;
@@ -291,8 +320,10 @@ public class GraphMetadata {
 
     private final Map<String, ElectricalNodeInfoMetadata> electricalNodeInfoMetadataMap = new HashMap<>();
 
+    private final Map<String, BusInfoMetadata> busInfoMetadataMap = new HashMap<>();
+
     public GraphMetadata(LayoutParameters layoutParameters) {
-        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters);
+        this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), layoutParameters);
     }
 
     @JsonCreator
@@ -301,7 +332,8 @@ public class GraphMetadata {
                          @JsonProperty("wires") List<WireMetadata> wireMetadataList,
                          @JsonProperty("lines") List<LineMetadata> lineMetadataList,
                          @JsonProperty("feederInfos") List<FeederInfoMetadata> feederInfoMetadataList,
-                         @JsonProperty("electricalNodeInfos") List<ElectricalNodeInfoMetadata> electricalNodeInfoMetadataMap,
+                         @JsonProperty("electricalNodeInfos") List<ElectricalNodeInfoMetadata> electricalNodeInfoMetadataList,
+                         @JsonProperty("busInfos") List<BusInfoMetadata> busInfoMetadataList,
                          @JsonProperty("layoutParams") LayoutParameters layoutParams) {
         for (Component component : componentList) {
             addComponent(component);
@@ -318,8 +350,11 @@ public class GraphMetadata {
         for (FeederInfoMetadata feederInfoMetadata : feederInfoMetadataList) {
             addFeederInfoMetadata(feederInfoMetadata);
         }
-        for (ElectricalNodeInfoMetadata electricalNodeInfoMetadata : electricalNodeInfoMetadataMap) {
+        for (ElectricalNodeInfoMetadata electricalNodeInfoMetadata : electricalNodeInfoMetadataList) {
             addElectricalNodeInfoMetadata(electricalNodeInfoMetadata);
+        }
+        for (BusInfoMetadata busInfoMetadata : busInfoMetadataList) {
+            addBusInfoMetadata(busInfoMetadata);
         }
         layoutParameters = layoutParams;
     }
@@ -450,6 +485,21 @@ public class GraphMetadata {
     @JsonProperty("feederInfos")
     public List<FeederInfoMetadata> getFeederInfoMetadata() {
         return ImmutableList.copyOf(feederInfoMetadataMap.values());
+    }
+
+    public void addBusInfoMetadata(BusInfoMetadata metadata) {
+        Objects.requireNonNull(metadata);
+        busInfoMetadataMap.put(metadata.getId(), metadata);
+    }
+
+    public BusInfoMetadata getBusInfoMetadata(String id) {
+        Objects.requireNonNull(id);
+        return busInfoMetadataMap.get(id);
+    }
+
+    @JsonProperty("busInfos")
+    public List<BusInfoMetadata> getBusInfoMetadata() {
+        return ImmutableList.copyOf(busInfoMetadataMap.values());
     }
 
     public void addElectricalNodeInfoMetadata(ElectricalNodeInfoMetadata metadata) {

@@ -13,6 +13,7 @@ import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.*;
@@ -93,7 +94,7 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                return Optional.of(new BusInfo("userDefinedId"));
+                return Optional.of(new BusInfo(ComponentTypeName.LACK_VOLTAGE));
             }
         };
     }

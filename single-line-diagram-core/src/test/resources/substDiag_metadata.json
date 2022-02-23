@@ -2979,6 +2979,7 @@
     "feederNodeId" : "trf4_ONE"
   } ],
   "electricalNodeInfos" : [ ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,

@@ -532,6 +532,7 @@
     "feederNodeId" : "trf_TWO"
   } ],
   "electricalNodeInfos" : [ ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,
