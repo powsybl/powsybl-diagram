@@ -133,7 +133,7 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void IdNotFoundTest() {
+    public void testIdNotFound() {
         Path svgPath = tmpDir.resolve("result.svg");
         PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
         assertEquals("Network element 'foo' not found", exception.getMessage());
