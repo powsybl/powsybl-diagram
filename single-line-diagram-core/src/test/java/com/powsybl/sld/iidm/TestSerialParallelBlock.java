@@ -12,7 +12,7 @@ import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;

@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.model.nodes;
 
-import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>

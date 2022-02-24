@@ -7,7 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.RawGraphBuilder;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.SwitchNode;

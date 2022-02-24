@@ -7,7 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.FeederNode;
 

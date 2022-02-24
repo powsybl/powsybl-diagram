@@ -7,11 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.cells.InternCell.Shape;
 
 import org.slf4j.Logger;

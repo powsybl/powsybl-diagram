@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
 

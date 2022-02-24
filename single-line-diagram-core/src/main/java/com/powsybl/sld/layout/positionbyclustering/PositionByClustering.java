@@ -7,10 +7,9 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
 import org.slf4j.Logger;

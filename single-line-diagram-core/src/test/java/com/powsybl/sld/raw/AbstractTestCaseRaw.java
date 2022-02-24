@@ -12,7 +12,7 @@ import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 import com.powsybl.sld.AbstractTestCase;
 import com.powsybl.sld.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;

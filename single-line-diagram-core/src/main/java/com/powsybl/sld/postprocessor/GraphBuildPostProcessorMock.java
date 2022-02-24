@@ -8,7 +8,7 @@
 package com.powsybl.sld.postprocessor;
 
 import com.google.auto.service.AutoService;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.util.Objects;
 

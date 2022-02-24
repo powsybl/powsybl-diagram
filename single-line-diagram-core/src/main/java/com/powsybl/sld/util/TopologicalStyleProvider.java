@@ -10,12 +10,9 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.Edge;
-import com.powsybl.sld.model.nodes.FeederLineNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.DiagramStyles;
 
 import java.util.*;

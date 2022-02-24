@@ -8,10 +8,7 @@ package com.powsybl.sld;
 
 import java.util.List;
 
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.graphs.*;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>

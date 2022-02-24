@@ -13,8 +13,7 @@ import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 

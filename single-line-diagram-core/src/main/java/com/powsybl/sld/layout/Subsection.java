@@ -6,16 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 import java.util.function.Function;

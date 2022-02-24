@@ -8,7 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import java.util.Objects;
 
-import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 

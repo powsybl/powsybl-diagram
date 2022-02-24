@@ -9,8 +9,8 @@ package com.powsybl.sld.iidm;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 

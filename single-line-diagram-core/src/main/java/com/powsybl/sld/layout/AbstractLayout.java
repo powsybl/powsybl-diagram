@@ -7,14 +7,10 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.Edge;
-import com.powsybl.sld.model.nodes.MiddleTwtNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.coordinate.Direction;
 
 import java.util.*;

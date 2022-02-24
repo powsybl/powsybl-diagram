@@ -6,9 +6,10 @@
  */
 package com.powsybl.sld;
 
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.*;
+
 
 import static com.powsybl.sld.model.nodes.FeederWithSideNode.Side.*;
 

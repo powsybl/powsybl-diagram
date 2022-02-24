@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 

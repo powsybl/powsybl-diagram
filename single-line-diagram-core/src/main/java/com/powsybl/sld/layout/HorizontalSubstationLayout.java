@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 
 import static com.powsybl.sld.model.coordinate.Direction.*;

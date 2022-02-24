@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
@@ -12,7 +12,6 @@ import com.powsybl.sld.model.nodes.MiddleTwtNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import org.jgrapht.graph.Pseudograph;
-import org.jgrapht.Graph;
 
 import java.io.IOException;
 import java.util.*;
@@ -36,12 +35,12 @@ public class SubstationGraph extends AbstractBaseGraph {
     /**
      * Constructor
      */
-    protected SubstationGraph(String id, com.powsybl.sld.model.Graph parentGraph) {
+    protected SubstationGraph(String id, Graph parentGraph) {
         super(parentGraph);
         this.substationId = Objects.requireNonNull(id);
     }
 
-    public static SubstationGraph create(String id, com.powsybl.sld.model.Graph parentGraph) {
+    public static SubstationGraph create(String id, Graph parentGraph) {
         Objects.requireNonNull(id);
         return new SubstationGraph(id, parentGraph);
     }
@@ -99,8 +98,8 @@ public class SubstationGraph extends AbstractBaseGraph {
         return substationId;
     }
 
-    public Graph<VoltageLevelGraph, Object> toJgrapht() {
-        Graph<VoltageLevelGraph, Object> graph = new Pseudograph<>(Object.class);
+    public org.jgrapht.Graph<VoltageLevelGraph, Object> toJgrapht() {
+        org.jgrapht.Graph<VoltageLevelGraph, Object> graph = new Pseudograph<>(Object.class);
 
         for (VoltageLevelGraph voltageLevelGraph : getVoltageLevels()) {
             graph.addVertex(voltageLevelGraph);

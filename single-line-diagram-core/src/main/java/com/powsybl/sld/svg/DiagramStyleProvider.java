@@ -7,8 +7,8 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.Node;

@@ -6,12 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.*;

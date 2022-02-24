@@ -7,18 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.blocks.AbstractPrimaryBlock;
-import com.powsybl.sld.model.blocks.Block;
-import com.powsybl.sld.model.blocks.BodyParallelBlock;
-import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
-import com.powsybl.sld.model.blocks.LegParralelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.PrimaryBlock;
-import com.powsybl.sld.model.blocks.SerialBlock;
-import com.powsybl.sld.model.blocks.UndefinedBlock;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;

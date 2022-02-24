@@ -11,16 +11,9 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BranchStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.Feeder2WTLegNode;
-import com.powsybl.sld.model.nodes.Feeder3WTLegNode;
-import com.powsybl.sld.model.nodes.FeederBranchNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FeederType;
-import com.powsybl.sld.model.nodes.Middle3WTNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 import java.util.stream.Collectors;

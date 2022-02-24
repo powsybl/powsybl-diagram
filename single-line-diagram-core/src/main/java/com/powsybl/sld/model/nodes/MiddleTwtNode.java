@@ -7,7 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.model.VoltageLevelInfos;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 import java.io.IOException;
 import java.util.Objects;

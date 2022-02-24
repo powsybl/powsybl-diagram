@@ -9,12 +9,10 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.Edge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.net.URL;
 import java.util.*;

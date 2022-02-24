@@ -4,25 +4,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.coordinate.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.nodes.BusConnection;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.Edge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.InternalNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.cells.*;
 
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;

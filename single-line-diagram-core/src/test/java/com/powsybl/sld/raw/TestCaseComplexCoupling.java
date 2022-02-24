@@ -6,10 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
 import org.junit.Test;

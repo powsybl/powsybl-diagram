@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
 /**
  *

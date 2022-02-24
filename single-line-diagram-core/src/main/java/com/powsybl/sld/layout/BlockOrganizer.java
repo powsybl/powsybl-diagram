@@ -8,12 +8,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
-import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
