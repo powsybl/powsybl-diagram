@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
@@ -36,7 +36,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
      * @param nodes nodes
      */
 
-    AbstractPrimaryBlock(Type type, List<Node> nodes) {
+    protected AbstractPrimaryBlock(Type type, List<Node> nodes) {
         super(type);
         if (nodes.isEmpty()) {
             throw new PowsyblException("Empty node list");

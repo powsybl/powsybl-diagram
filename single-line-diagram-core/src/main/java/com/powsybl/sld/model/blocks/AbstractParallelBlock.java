@@ -4,17 +4,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.Cell;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static com.powsybl.sld.model.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 

@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
@@ -13,7 +13,7 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import static com.powsybl.sld.model.Block.Type.SERIAL;
+import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
@@ -107,7 +107,7 @@ public class SerialBlock extends AbstractComposedBlock {
         return false;
     }
 
-    Optional<Extremity> whichExtremity(Block block) {
+    public Optional<Extremity> whichExtremity(Block block) {
         if (block.equals(subBlocks.get(0))) {
             return Optional.of(Extremity.START);
         }
@@ -117,7 +117,7 @@ public class SerialBlock extends AbstractComposedBlock {
         return Optional.empty();
     }
 
-    Block extractBody(Collection<Block> blocks) {
+    public Block extractBody(Collection<Block> blocks) {
         List<Block> subBlocksCopy = new ArrayList<>(subBlocks);
         subBlocksCopy.removeAll(blocks);
         if (subBlocksCopy.size() == 1) {

@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;

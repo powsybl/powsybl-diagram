@@ -9,6 +9,8 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;

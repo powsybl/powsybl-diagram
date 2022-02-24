@@ -9,6 +9,7 @@ package com.powsybl.sld.model;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;

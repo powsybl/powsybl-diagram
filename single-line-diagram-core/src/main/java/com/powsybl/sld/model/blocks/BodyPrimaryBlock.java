@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
@@ -13,9 +13,9 @@ import com.powsybl.sld.model.nodes.Node;
 import java.util.List;
 import java.util.Set;
 
-import static com.powsybl.sld.model.Block.Extremity.*;
-import static com.powsybl.sld.model.Block.Type.BODYPRIMARY;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Type.BODYPRIMARY;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
@@ -93,7 +93,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         }
     }
 
-    void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
+    public void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
         double x0 = hToX(layoutParameters, hLeft);
         double y0 = getExtremityNode(START).getY();
         double x1 = hToX(layoutParameters, hRight);

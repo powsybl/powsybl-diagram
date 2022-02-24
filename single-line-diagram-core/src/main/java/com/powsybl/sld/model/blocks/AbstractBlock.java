@@ -4,7 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutContext;
@@ -17,8 +17,8 @@ import com.powsybl.sld.model.nodes.Node;
 import java.io.IOException;
 import java.util.*;
 
-import static com.powsybl.sld.model.Block.Extremity.END;
-import static com.powsybl.sld.model.Block.Extremity.START;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;

@@ -9,6 +9,11 @@ package com.powsybl.sld.model;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.LegBlock;
+import com.powsybl.sld.model.blocks.LegParralelBlock;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
@@ -135,7 +140,7 @@ public class InternCell extends AbstractBusCell {
             Block parentBlock = lpb.getParentBlock();
             if (parentBlock instanceof LegParralelBlock) {
                 candidateLegs.add((LegBlock) parentBlock);
-                plbCopy.removeAll(((LegParralelBlock) parentBlock).subBlocks);
+                plbCopy.removeAll(((LegParralelBlock) parentBlock).getSubBlocks());
             } else {
                 candidateLegs.add(lpb);
                 plbCopy.remove(lpb);

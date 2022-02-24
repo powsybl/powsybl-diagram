@@ -5,7 +5,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
@@ -20,10 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static com.powsybl.sld.model.Block.Extremity.*;
-import static com.powsybl.sld.model.Block.Type.*;
-import static com.powsybl.sld.model.Cell.CellType.*;
-import static com.powsybl.sld.model.InternCell.Shape.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.blocks.Block.Type.*;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
