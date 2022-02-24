@@ -19,6 +19,9 @@ import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.InternalNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.coordinate.Direction;
 
 import org.jgrapht.graph.Pseudograph;

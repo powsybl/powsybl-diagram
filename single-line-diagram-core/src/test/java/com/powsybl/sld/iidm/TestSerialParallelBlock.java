@@ -17,6 +17,7 @@ import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.cells.Cell;
 
 import org.junit.Before;
 import org.junit.Test;

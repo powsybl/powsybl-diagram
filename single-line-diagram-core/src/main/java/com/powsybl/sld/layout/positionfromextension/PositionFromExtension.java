@@ -8,7 +8,10 @@ package com.powsybl.sld.layout.positionfromextension;
 
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.Cell.CellType;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.Cell.CellType;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;

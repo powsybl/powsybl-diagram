@@ -17,6 +17,8 @@ import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.PrimaryBlock;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.blocks.UndefinedBlock;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;

@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 
 /**

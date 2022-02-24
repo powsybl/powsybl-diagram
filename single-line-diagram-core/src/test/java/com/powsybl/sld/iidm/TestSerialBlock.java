@@ -15,6 +15,7 @@ import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.cells.Cell;
 
 import org.junit.Before;
 import org.junit.Test;

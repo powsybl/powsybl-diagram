@@ -8,6 +8,8 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;

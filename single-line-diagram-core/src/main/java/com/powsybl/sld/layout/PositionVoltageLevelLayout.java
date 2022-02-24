@@ -6,13 +6,13 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.Cell;
-import com.powsybl.sld.model.InternCell;
-import com.powsybl.sld.model.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.InternCell.Shape;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.cells.InternCell.Shape;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

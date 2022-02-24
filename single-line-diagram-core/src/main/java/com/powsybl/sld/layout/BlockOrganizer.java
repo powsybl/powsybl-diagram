@@ -10,14 +10,18 @@ import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.Cell.CellType.*;
 import static com.powsybl.sld.model.blocks.Block.Extremity.*;
+import static com.powsybl.sld.model.cells.Cell.CellType.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

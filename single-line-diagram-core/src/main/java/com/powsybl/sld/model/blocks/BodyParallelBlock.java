@@ -8,7 +8,7 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.Cell;
+import com.powsybl.sld.model.cells.Cell;
 
 import java.util.Comparator;
 import java.util.List;

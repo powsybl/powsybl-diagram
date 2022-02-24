@@ -20,6 +20,7 @@ import com.powsybl.sld.model.nodes.FeederWithSideNode;
 import com.powsybl.sld.model.nodes.Middle3WTNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;

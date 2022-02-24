@@ -4,18 +4,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model;
+package com.powsybl.sld.model.cells;
 
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.coordinate.Direction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.cells.Cell.CellType.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Side.*;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
@@ -26,7 +24,6 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class ExternCell extends AbstractBusCell {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExternCell.class);
 
     private ShuntCell shuntCell = null;
 
