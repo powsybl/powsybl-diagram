@@ -132,6 +132,13 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
         assertEquals("Given id 'bbs2' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e2.getMessage());
     }
 
+    @Test
+    public void IdNotFoundTest() {
+        Path svgPath = tmpDir.resolve("result.svg");
+        PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
+        assertEquals("Network element 'foo' not found", exception.getMessage());
+    }
+
     private String toDefaultSVG(Network network, String id, String filename, String jsonFilename) {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {

@@ -74,6 +74,9 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(id);
 
         Identifiable<?> identifiable = network.getIdentifiable(id);
+        if (identifiable == null) {
+            throw new PowsyblException("Network element '" + id + "' not found");
+        }
         if (identifiable.getType() == VOLTAGE_LEVEL) {
             drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else if (identifiable.getType() == SUBSTATION) {
