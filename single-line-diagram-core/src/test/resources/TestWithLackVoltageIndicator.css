@@ -1,0 +1,5 @@
+/* ----------------------------------------------------------------------- */
+/* File : TestWithLackVoltageIndicator.css ------------------------------- */
+.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-lack-voltage .sld-label {dominant-baseline: middle}
+.sld-lack-voltage .sld-label {dominant-baseline: middle}

@@ -6,8 +6,15 @@
  */
 package com.powsybl.sld.svg;
 
+import java.util.Optional;
+
 /**
- * Class used to describe an information element which is displayed at busbar section.
+ * Class used to describe an information element which is displayed at busbar section, which contains one or more of the following:
+ * <ul>
+ * <li>a string on its right</li>
+ * <li>a string on its left</li>
+ * </ul>
+ * Each of these two element part is optional
  *
  * @author Thomas Adam <tadam at silicom.fr>
  */
@@ -17,20 +24,34 @@ public class BusInfo {
 
     private final String userDefinedId;
 
-    public BusInfo(String componentType) {
-        this(componentType, null);
+    private final String leftLabel;
+
+    private final String rightLabel;
+
+    public BusInfo(String componentType, String leftLabel, String rightLabel) {
+        this(componentType, leftLabel, rightLabel, null);
     }
 
-    public BusInfo(String componentType, String userDefinedId) {
-        this.userDefinedId = userDefinedId;
+    public BusInfo(String componentType, String leftLabel, String rightLabel, String userDefinedId) {
         this.componentType = componentType;
+        this.leftLabel = leftLabel;
+        this.rightLabel = rightLabel;
+        this.userDefinedId = userDefinedId;
+    }
+
+    public String getComponentType() {
+        return componentType;
     }
 
     public String getUserDefinedId() {
         return userDefinedId;
     }
 
-    public String getComponentType() {
-        return componentType;
+    public Optional<String> getLeftLabel() {
+        return Optional.ofNullable(leftLabel);
+    }
+
+    public Optional<String> getRightLabel() {
+        return Optional.ofNullable(rightLabel);
     }
 }

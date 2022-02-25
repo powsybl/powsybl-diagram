@@ -576,6 +576,7 @@
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : false,
     "useName" : false,
-    "feederInfosIntraMargin" : 10.0
+    "feederInfosIntraMargin" : 10.0,
+    "busInfoMargin" : 0.0
   }
 }

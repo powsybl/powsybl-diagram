@@ -13,6 +13,11 @@
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 /* ----------------------------------------------------------------------- */
+/* File : TestWithLackVoltageIndicator.css ------------------------------- */
+.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-lack-voltage .sld-label {dominant-baseline: middle}
+.sld-lack-voltage .sld-label {dominant-baseline: middle}
+/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -73,6 +78,8 @@
         </g>
         <g class="sld-busbar-section sld-lack-voltage" id="idbbs1_LACK_VOLTAGE" transform="translate(52.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
+            <text class="sld-label" x="25.0" y="5.0">Right</text>
+            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
         <g class="sld-busbar-section" id="idbbs21" transform="translate(52.5,277.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -80,6 +87,8 @@
         </g>
         <g class="sld-busbar-section sld-lack-voltage" id="idbbs21_LACK_VOLTAGE" transform="translate(52.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
+            <text class="sld-label" x="25.0" y="5.0">Right</text>
+            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
         <g class="sld-busbar-section" id="idbbs22" transform="translate(152.5,277.0)">
             <line x1="0" x2="75.0" y1="0" y2="0"/>
@@ -87,6 +96,8 @@
         </g>
         <g class="sld-busbar-section sld-lack-voltage" id="idbbs22_LACK_VOLTAGE" transform="translate(152.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
+            <text class="sld-label" x="25.0" y="5.0">Right</text>
+            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
         <g class="sld-busbar-section" id="idbbs13" transform="translate(252.5,252.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
@@ -94,6 +105,8 @@
         </g>
         <g class="sld-busbar-section sld-lack-voltage" id="idbbs13_LACK_VOLTAGE" transform="translate(252.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
+            <text class="sld-label" x="25.0" y="5.0">Right</text>
+            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
         <g class="sld-busbar-section" id="idbbs23" transform="translate(252.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
@@ -101,6 +114,8 @@
         </g>
         <g class="sld-busbar-section sld-lack-voltage" id="idbbs23_LACK_VOLTAGE" transform="translate(252.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
+            <text class="sld-label" x="25.0" y="5.0">Right</text>
+            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
             <g class="sld-node" id="idINTERNAL_95_vl1_95_3" transform="translate(111.0,218.0)">

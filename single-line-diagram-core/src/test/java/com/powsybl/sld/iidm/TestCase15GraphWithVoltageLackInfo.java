@@ -26,10 +26,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -94,7 +91,7 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                return Optional.of(new BusInfo(ComponentTypeName.LACK_VOLTAGE));
+                return Optional.of(new BusInfo(ComponentTypeName.LACK_VOLTAGE, "Left", "Right"));
             }
         };
     }
@@ -112,16 +109,30 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         DiagramStyleProvider styleProvider = null;
-
         switch (styleProviderType) {
             case BASIC:
-                styleProvider = new BasicStyleProvider();
+                styleProvider = new BasicStyleProvider() {
+                    @Override
+                    public List<String> getCssFilenames() {
+                        return Arrays.asList("tautologies.css", "TestWithLackVoltageIndicator.css");
+                    }
+                };
                 break;
             case TOPOLOGICAL:
-                styleProvider = new TopologicalStyleProvider(network);
+                styleProvider = new TopologicalStyleProvider(network) {
+                    @Override
+                    public List<String> getCssFilenames() {
+                        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css", "TestWithLackVoltageIndicator.css");
+                    }
+                };
                 break;
             case NOMINAL:
-                styleProvider = new NominalVoltageDiagramStyleProvider(network);
+                styleProvider = new NominalVoltageDiagramStyleProvider(network) {
+                    @Override
+                    public List<String> getCssFilenames() {
+                        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithLackVoltageIndicator.css");
+                    }
+                };
                 break;
             default:
                 Assert.fail("StyleProviderType[" + styleProviderType + "] need to be managed here");

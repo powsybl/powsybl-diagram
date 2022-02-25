@@ -413,7 +413,7 @@
   }, {
     "type" : "LACK_VOLTAGE",
     "size" : {
-      "width" : 10.0,
+      "width" : 20.0,
       "height" : 10.0
     },
     "allowRotation" : false,

@@ -424,7 +424,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         true, null));
             }
 
-            insertBusInfo(prefixId, graph.getCoord(), root, busNode, metadata, initProvider, styleProvider);
+            insertBusInfo(prefixId, graph.getCoord(), layoutParameters.getBusInfoMargin(), root, busNode, metadata, initProvider, styleProvider);
 
             remainingNodesToDraw.remove(busNode);
         }
@@ -484,13 +484,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
-        if (metadata.getComponentMetadata(node.getComponentType()) == null) {
-            metadata.addComponent(new Component(node.getComponentType(),
-                    componentLibrary.getAnchorPoints(node.getComponentType()),
-                componentLibrary.getSize(node.getComponentType()),
-                componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
-                true, null));
-        }
+
+        addInfoComponentMetadata(metadata, node.getComponentType(), true);
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
@@ -903,7 +898,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertBusInfo(String prefixId,
-                                 Point point,
+                                 Point vlShift,
+                                 double shiftX,
                                  Element root,
                                  BusNode busNode,
                                  GraphMetadata metadata,
@@ -911,23 +907,23 @@ public class DefaultSVGWriter implements SVGWriter {
                                  DiagramStyleProvider styleProvider) {
         Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
-            drawBusInfo(prefixId, busNode, point, root, busInfo.get(), styleProvider, metadata);
+            drawBusInfo(prefixId, busNode, vlShift, shiftX, root, busInfo.get(), styleProvider, metadata);
             addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
         });
     }
 
     private void drawBusInfo(String prefixId,
                              BusNode busNode,
-                             Point point,
+                             Point vlShift,
+                             double shiftX,
                              Element root,
                              BusInfo busInfo,
                              DiagramStyleProvider styleProvider,
                              GraphMetadata metadata) {
         Element g = root.getOwnerDocument().createElement(GROUP);
         // Position
-        ComponentSize componentSize = componentLibrary.getSize(busInfo.getComponentType());
-        double shY = componentSize.getHeight() / 2;
-        Point origin = new Point(point.getX(), point.getY() - shY);
+        ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
+        Point origin = new Point(vlShift.getX() + shiftX, vlShift.getY() - size.getHeight() / 2);
         transformComponent(busNode, origin, g);
         // Styles
         List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
@@ -938,8 +934,21 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", svgId);
         // Metadata
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
-        // Append to SVG
+        // Append indicator to SVG
         insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
+        double shX = size.getWidth() + LABEL_OFFSET + shiftX;
+        double shY = size.getHeight() / 2;
+        // We draw the right label only if present
+        busInfo.getRightLabel().ifPresent(s -> {
+            Element labelRight = createLabelElement(s, shX, shY, 0, g);
+            g.appendChild(labelRight);
+        });
+        // We draw the left label only if present
+        busInfo.getLeftLabel().ifPresent(s -> {
+            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
+            labelLeft.setAttribute(STYLE, "text-anchor:end");
+            g.appendChild(labelLeft);
+        });
         root.appendChild(g);
     }
 
