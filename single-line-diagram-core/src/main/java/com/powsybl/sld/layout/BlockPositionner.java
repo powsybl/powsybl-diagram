@@ -54,6 +54,10 @@ class BlockPositionner {
             }
             hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
+            if (voltageLackInformationOnBus) {
+                // A cell is 2 units wide
+                hPos += 2;
+            }
             prevHPos = hPos;
             prevSs = ss;
         }

@@ -16,6 +16,7 @@ import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
@@ -91,14 +92,23 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                return Optional.of(new BusInfo(ComponentTypeName.LACK_VOLTAGE, "Left", "Right"));
+                BusInfo result;
+                if (node.getBusbarIndex() % 2 != 0) {
+                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, "Left", null,
+                            Side.RIGHT, null);
+                } else {
+                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, null, "Right",
+                            Side.LEFT, null);
+                }
+                return Optional.of(result);
             }
         };
     }
 
     @Test
     public void test() throws IOException {
-        layoutParameters.setAdaptCellHeightToContent(true);
+        layoutParameters.setAdaptCellHeightToContent(true)
+                .setBusInfoMargin(5);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);

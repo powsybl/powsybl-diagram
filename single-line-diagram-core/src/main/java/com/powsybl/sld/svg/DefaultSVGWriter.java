@@ -11,6 +11,7 @@ import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
@@ -923,7 +924,11 @@ public class DefaultSVGWriter implements SVGWriter {
         Element g = root.getOwnerDocument().createElement(GROUP);
         // Position
         ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
-        Point origin = new Point(vlShift.getX() + shiftX, vlShift.getY() - size.getHeight() / 2);
+        double vlShiftX = vlShift.getX() + shiftX;
+        if (busInfo.getAnchor() == Side.RIGHT) {
+            vlShiftX = vlShift.getX() + busNode.getPxWidth() - shiftX - size.getWidth();
+        }
+        Point origin = new Point(vlShiftX, vlShift.getY() - size.getHeight() / 2);
         transformComponent(busNode, origin, g);
         // Styles
         List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());

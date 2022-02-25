@@ -6,6 +6,8 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.model.coordinate.Side;
+
 import java.util.Optional;
 
 /**
@@ -28,14 +30,17 @@ public class BusInfo {
 
     private final String rightLabel;
 
+    private final Side anchor;
+
     public BusInfo(String componentType, String leftLabel, String rightLabel) {
-        this(componentType, leftLabel, rightLabel, null);
+        this(componentType, leftLabel, rightLabel, Side.LEFT, null);
     }
 
-    public BusInfo(String componentType, String leftLabel, String rightLabel, String userDefinedId) {
+    public BusInfo(String componentType, String leftLabel, String rightLabel, Side anchor, String userDefinedId) {
         this.componentType = componentType;
         this.leftLabel = leftLabel;
         this.rightLabel = rightLabel;
+        this.anchor = anchor;
         this.userDefinedId = userDefinedId;
     }
 
@@ -53,5 +58,9 @@ public class BusInfo {
 
     public Optional<String> getRightLabel() {
         return Optional.ofNullable(rightLabel);
+    }
+
+    public Side getAnchor() {
+        return anchor;
     }
 }
