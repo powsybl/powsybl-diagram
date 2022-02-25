@@ -97,8 +97,7 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
                     result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, "Left", null,
                             Side.RIGHT, null);
                 } else {
-                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, null, "Right",
-                            Side.LEFT, null);
+                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, null, "Right");
                 }
                 return Optional.of(result);
             }
