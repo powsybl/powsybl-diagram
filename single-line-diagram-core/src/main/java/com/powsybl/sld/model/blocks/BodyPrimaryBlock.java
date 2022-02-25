@@ -93,6 +93,11 @@ public final class BodyPrimaryBlock extends AbstractPrimaryBlock {
         }
     }
 
+    @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
     public void coordShuntCase(LayoutParameters layoutParameters, int hLeft, int hRight) {
         double x0 = hToX(layoutParameters, hLeft);
         double y0 = getExtremityNode(START).getY();

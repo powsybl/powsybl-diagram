@@ -72,6 +72,8 @@ public interface Block {
      */
     void sizing();
 
+    void accept(BlockVisitor blockVisitor);
+
     /**
      * Calculates all the blocks dimensions and find the order of the layout.block inside
      * the cell

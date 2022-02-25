@@ -96,6 +96,11 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
+    @Override
     public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
         // LegPrimaryBlock has a 0 vertical span (see sizing above) and its height should not be included in external
         // cell height. Indeed, its height is fixed and corresponds to the layoutParameters.getStackSize().

@@ -55,6 +55,11 @@ public class SerialBlock extends AbstractComposedBlock {
                 ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder().orElse(-1) : 0;
     }
 
+    @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
     private void postConstruct() {
         if (subBlocks.size() != 1) {
             for (int i = 0; i < subBlocks.size() - 1; i++) {

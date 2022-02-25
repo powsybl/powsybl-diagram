@@ -65,6 +65,11 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     }
 
     @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
+    @Override
     public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         // case HORIZONTAL cannot happen
     }

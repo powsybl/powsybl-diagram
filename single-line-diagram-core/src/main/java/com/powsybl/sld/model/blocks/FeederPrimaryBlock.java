@@ -65,6 +65,11 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
     }
 
     @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
+    @Override
     public int getOrder() {
         return getFeederNode().getOrder().orElse(-1);
     }

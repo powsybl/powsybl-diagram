@@ -41,6 +41,11 @@ public class BodyParallelBlock extends AbstractParallelBlock {
     }
 
     @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
+    @Override
     public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         translatePosInCoord(layoutParam, layoutContext, X, Y, V, 1);
     }

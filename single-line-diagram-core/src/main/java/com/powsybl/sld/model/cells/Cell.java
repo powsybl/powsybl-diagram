@@ -45,8 +45,6 @@ public interface Cell {
 
     void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
 
-    double calculateHeight(LayoutParameters layoutParam);
-
     void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 
     String getId();

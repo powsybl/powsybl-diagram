@@ -44,6 +44,11 @@ public class UndefinedBlock extends AbstractComposedBlock {
     }
 
     @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
+    }
+
+    @Override
     public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
         replicateCoordInSubblocks(X);
         replicateCoordInSubblocks(Y);
