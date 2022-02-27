@@ -183,6 +183,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         nodesById.put(node.getId(), node);
     }
 
+    @Override
     public void removeNode(Node node) {
         nodes.remove(node);
         super.removeNode(node);

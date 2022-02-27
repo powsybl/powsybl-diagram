@@ -172,11 +172,11 @@ public class InternCell extends AbstractBusCell {
 
     public void reverseCell() {
         body.reverseBlock();
-        if (legs.get(Side.LEFT) != null) {
-            LegBlock tmp = legs.get(Side.LEFT);
-            legs.put(Side.LEFT, legs.get(Side.RIGHT));
-            legs.put(Side.RIGHT, tmp);
-        }
+        legs.computeIfPresent(Side.LEFT, (leftSide, leftLeg) -> {
+            LegBlock rightLeg = legs.get(Side.RIGHT);
+            legs.put(Side.RIGHT, leftLeg);
+            return rightLeg;
+        });
     }
 
     public int getSideHPos(Side side) {

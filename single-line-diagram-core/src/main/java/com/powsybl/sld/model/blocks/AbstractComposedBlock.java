@@ -71,6 +71,7 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
         setOrientation(orientation, true);
     }
 
+    @Override
     public void setOrientation(Orientation orientation, boolean recursively) {
         super.setOrientation(orientation);
         if (recursively) {

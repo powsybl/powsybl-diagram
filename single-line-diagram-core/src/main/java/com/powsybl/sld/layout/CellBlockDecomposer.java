@@ -92,7 +92,7 @@ final class CellBlockDecomposer {
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
             boolean merged = searchParallelMerge(blocks, busCell);
-            merged |= searchSerialMerge(blocks, busCell);
+            merged |= searchSerialMerge(blocks);
             if (!merged) {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("Blocks detection impossible for cell " + busCell);
@@ -112,9 +112,8 @@ final class CellBlockDecomposer {
      * Search possibility to merge two blocks into a chain layout.block and do the merging
      *
      * @param blocks list of blocks we can merge
-     * @param cell   current cell
      */
-    private static boolean searchSerialMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchSerialMerge(List<Block> blocks) {
         int i = 0;
         boolean identifiedMerge = false;
 
@@ -171,9 +170,9 @@ final class CellBlockDecomposer {
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
             Block parallelBlock;
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                parallelBlock = new BodyParallelBlock(blocksBundle, cell, true);
+                parallelBlock = new BodyParallelBlock(blocksBundle, true);
             } else {
-                parallelBlock = new LegParralelBlock(blocksBundle, cell, true);
+                parallelBlock = new LegParralelBlock(blocksBundle, true);
             }
             blocks.add(parallelBlock);
         }

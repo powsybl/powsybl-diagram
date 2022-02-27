@@ -410,7 +410,7 @@ public class DefaultSVGWriter implements SVGWriter {
             drawBus(graph, busNode, g);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode, graph.getDirection(busNode));
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
-            drawNodeDecorators(prefixId, g, graph, busNode, initProvider, styleProvider, graph.getCoord());
+            drawNodeDecorators(prefixId, g, graph, busNode, initProvider, styleProvider);
 
             root.appendChild(g);
 
@@ -460,7 +460,7 @@ public class DefaultSVGWriter implements SVGWriter {
             incorporateComponents(prefixId, graph, node, shift, g, styleProvider);
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node, graph.getDirection(node));
             drawNodeLabel(prefixId, g, node, nodeLabels);
-            drawNodeDecorators(prefixId, g, graph, node, initProvider, styleProvider, shift);
+            drawNodeDecorators(prefixId, g, graph, node, initProvider, styleProvider);
 
             root.appendChild(g);
 
@@ -506,7 +506,7 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void drawNodeDecorators(String prefixId, Element root, Graph graph, Node node, DiagramLabelProvider labelProvider,
-                                      DiagramStyleProvider styleProvider, Point vlPoint) {
+                                      DiagramStyleProvider styleProvider) {
         for (DiagramLabelProvider.NodeDecorator nodeDecorator : labelProvider.getNodeDecorators(node, graph.getDirection(node))) {
             Element g = root.getOwnerDocument().createElement(GROUP);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeDecoratorStyles(nodeDecorator, node, componentLibrary)));

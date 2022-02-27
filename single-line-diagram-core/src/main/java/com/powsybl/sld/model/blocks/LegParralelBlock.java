@@ -8,7 +8,6 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.BusNode;
 
@@ -24,8 +23,8 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 public class LegParralelBlock extends AbstractParallelBlock implements LegBlock {
 
-    public LegParralelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(Type.LEGPARALLEL, subBlocks, cell, allowMerge);
+    public LegParralelBlock(List<Block> subBlocks, boolean allowMerge) {
+        super(Type.LEGPARALLEL, subBlocks, allowMerge);
     }
 
     @Override

@@ -8,7 +8,6 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 abstract class AbstractParallelBlock extends AbstractComposedBlock {
 
-    AbstractParallelBlock(Type type, List<Block> subBlocks, Cell cell, boolean allowMerge) {
+    AbstractParallelBlock(Type type, List<Block> subBlocks, boolean allowMerge) {
         super(type, subBlocks);
         this.subBlocks = new ArrayList<>();
         subBlocks.forEach(child -> {

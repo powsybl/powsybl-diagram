@@ -8,7 +8,6 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.cells.Cell;
 
 import java.util.Comparator;
 import java.util.List;
@@ -24,8 +23,8 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 public class BodyParallelBlock extends AbstractParallelBlock {
 
-    public BodyParallelBlock(List<Block> subBlocks, Cell cell, boolean allowMerge) {
-        super(BODYPARALLEL, subBlocks, cell, allowMerge);
+    public BodyParallelBlock(List<Block> subBlocks, boolean allowMerge) {
+        super(BODYPARALLEL, subBlocks, allowMerge);
     }
 
     @Override

@@ -183,10 +183,10 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     private NodeDecorator getBranchStatusDecorator(Node node, Direction direction, String decoratorType) {
         return (node instanceof Middle3WTNode) ?
                 new NodeDecorator(decoratorType, getMiddle3WTDecoratorPosition((Middle3WTNode) node, direction)) :
-                new NodeDecorator(decoratorType, getFeederDecoratorPosition(node, direction, decoratorType));
+                new NodeDecorator(decoratorType, getFeederDecoratorPosition(direction, decoratorType));
     }
 
-    private LabelPosition getFeederDecoratorPosition(Node node, Direction direction, String componentType) {
+    private LabelPosition getFeederDecoratorPosition(Direction direction, String componentType) {
         double yShift = -DECORATOR_OFFSET;
         String positionName = "";
         if (direction != UNDEFINED) {
