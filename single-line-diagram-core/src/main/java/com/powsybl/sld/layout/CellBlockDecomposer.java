@@ -91,7 +91,7 @@ final class CellBlockDecomposer {
 
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
-            boolean merged = searchParallelMerge(blocks, busCell);
+            boolean merged = searchParallelMerge(blocks);
             merged |= searchSerialMerge(blocks);
             if (!merged) {
                 if (exceptionIfPatternNotHandled) {
@@ -145,9 +145,8 @@ final class CellBlockDecomposer {
      * Search possibility to merge some blocks into a parallel layout.block and do the merging
      *
      * @param blocks list of blocks we can merge
-     * @param cell   current cell
      */
-    private static boolean searchParallelMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchParallelMerge(List<Block> blocks) {
         List<List<Block>> blocksBundlesToMerge = new ArrayList<>();
         Node commonNode;
         int i = 0;
