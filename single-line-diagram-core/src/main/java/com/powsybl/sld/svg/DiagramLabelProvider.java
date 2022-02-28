@@ -80,6 +80,22 @@ public interface DiagramLabelProvider {
 
     List<NodeLabel> getNodeLabels(Node node);
 
+    default String getTooltip(Node node) {
+        return "";
+    }
+
+    default String getTooltip(NodeDecorator decorator) {
+        return "";
+    }
+
+    default String getTooltip(FeederInfo feederInfo) {
+        return "";
+    }
+
+    default String getTooltip(BusInfo busInfo) {
+        return "";
+    }
+
     List<NodeDecorator> getNodeDecorators(Node node);
 
     default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
