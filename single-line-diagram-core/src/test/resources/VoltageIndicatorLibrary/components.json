@@ -1,0 +1,15 @@
+{
+  "components" : [ {
+    "type" : "LACK_VOLTAGE",
+    "size" : {
+      "width" : 20.0,
+      "height" : 10.0
+    },
+    "allowRotation" : false,
+    "subComponents" : [ {
+      "name" : "LACK_VOLTAGE",
+      "fileName" : "lack-voltage.svg"
+    } ],
+    "styleClass" : "sld-lack-voltage"
+  } ]
+}

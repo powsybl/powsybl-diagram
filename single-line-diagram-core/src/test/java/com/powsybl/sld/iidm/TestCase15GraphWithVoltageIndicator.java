@@ -14,17 +14,15 @@ import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,31 +32,9 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-@RunWith(Parameterized.class)
-public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
-
-    enum StyleProviderType { BASIC, TOPOLOGICAL, NOMINAL };
-
-    @Parameterized.Parameters(name = "StyleProvider {1}")
-    public static Collection<Object[]> params() {
-        return Arrays.asList(
-                // Filename, StyleProvider
-                new Object[] {"/TestCase15GraphWithVoltageLackInfo.svg", StyleProviderType.BASIC},
-                new Object[] {"/TestCase15GraphWithVoltageLackInfoTopological.svg", StyleProviderType.TOPOLOGICAL},
-                new Object[] {"/TestCase15GraphWithVoltageLackInfoNominal.svg", StyleProviderType.NOMINAL}
-        );
-    }
+public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     private DiagramLabelProvider withBusInfoProvider;
-
-    private final String filename;
-
-    private final StyleProviderType styleProviderType;
-
-    public TestCase15GraphWithVoltageLackInfo(String filename, StyleProviderType styleProviderType) {
-        this.filename = filename;
-        this.styleProviderType = styleProviderType;
-    }
 
     @Before
     public void setUp() throws IOException {
@@ -104,8 +80,27 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
         };
     }
 
+    @Override
+    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new ResourcesComponentLibrary("Nom", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
+    }
+
     @Test
-    public void test() throws IOException {
+    public void testBasic() throws IOException {
+        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithVoltageLackInfo.svg");
+    }
+
+    @Test
+    public void testTopological() throws IOException {
+        runTest(new TopologicalStyleProvider(network), "/TestCase15GraphWithVoltageLackInfoTopological.svg");
+    }
+
+    @Test
+    public void testNominal() throws IOException {
+        runTest(new NominalVoltageDiagramStyleProvider(network), "/TestCase15GraphWithVoltageLackInfoNominal.svg");
+    }
+
+    private void runTest(DiagramStyleProvider styleProvider, String filename) {
         layoutParameters.setAdaptCellHeightToContent(true)
                 .setBusInfoMargin(5);
 
@@ -117,37 +112,7 @@ public class TestCase15GraphWithVoltageLackInfo extends AbstractTestCaseIidm {
         new BlockOrganizer(new PositionFromExtension(), true, true, true, true).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
-        DiagramStyleProvider styleProvider = null;
-        switch (styleProviderType) {
-            case BASIC:
-                styleProvider = new BasicStyleProvider() {
-                    @Override
-                    public List<String> getCssFilenames() {
-                        return Arrays.asList("tautologies.css", "TestWithLackVoltageIndicator.css");
-                    }
-                };
-                break;
-            case TOPOLOGICAL:
-                styleProvider = new TopologicalStyleProvider(network) {
-                    @Override
-                    public List<String> getCssFilenames() {
-                        return Arrays.asList("tautologies.css", "topologicalBaseVoltages.css", "highlightLineStates.css", "TestWithLackVoltageIndicator.css");
-                    }
-                };
-                break;
-            case NOMINAL:
-                styleProvider = new NominalVoltageDiagramStyleProvider(network) {
-                    @Override
-                    public List<String> getCssFilenames() {
-                        return Arrays.asList("tautologies.css", "baseVoltages.css", "highlightLineStates.css", "TestWithLackVoltageIndicator.css");
-                    }
-                };
-                break;
-            default:
-                Assert.fail("StyleProviderType[" + styleProviderType + "] need to be managed here");
-        }
-
         // write SVG and compare to reference
-        assertEquals(toString(this.filename), toSVG(g, this.filename, withBusInfoProvider, styleProvider));
+        assertEquals(toString(filename), toSVG(g, filename, withBusInfoProvider, styleProvider));
     }
 }

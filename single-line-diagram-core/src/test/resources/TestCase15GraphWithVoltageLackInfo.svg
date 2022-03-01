@@ -13,11 +13,6 @@
 .sld-arrow-p .sld-label {dominant-baseline: middle}
 .sld-arrow-q .sld-label {dominant-baseline: middle}
 /* ----------------------------------------------------------------------- */
-/* File : TestWithLackVoltageIndicator.css ------------------------------- */
-.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
-.sld-lack-voltage .sld-label {dominant-baseline: middle}
-.sld-lack-voltage .sld-label {dominant-baseline: middle}
-/* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 /* Stroke black */
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
@@ -43,7 +38,6 @@
 .sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
-.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
 .sld-label {stroke: none; fill: black; font: 8px "Verdana"}
 .sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
@@ -55,6 +49,10 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* ----------------------------------------------------------------------- */
+/* File : components.css ------------------------------------------------- */
+.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-lack-voltage .sld-label {dominant-baseline: middle}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
