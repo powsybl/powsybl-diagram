@@ -931,8 +931,12 @@ public class DefaultSVGWriter implements SVGWriter {
         Point origin = new Point(vlShiftX, vlShift.getY() - size.getHeight() / 2);
         transformComponent(busNode, origin, g);
         // Styles
-        List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
+        List<String> styles = new ArrayList<>();
+        if (busInfo.isPowered()) {
+            styles.addAll(styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes()));
+        }
         componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
+        styles.add(busInfo.isPowered() ? POWERED_CLASS : UNPOWERED_CLASS);
         g.setAttribute(CLASS, String.join(" ", styles));
         // Identity
         String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();

@@ -32,12 +32,15 @@ public class BusInfo {
 
     private final Side anchor;
 
-    public BusInfo(String componentType, String topLabel, String bottomLabel) {
-        this(componentType, topLabel, bottomLabel, Side.LEFT, null);
+    private final boolean powered;
+
+    public BusInfo(String componentType, boolean powered, String topLabel, String bottomLabel) {
+        this(componentType, powered, topLabel, bottomLabel, Side.LEFT, null);
     }
 
-    public BusInfo(String componentType, String topLabel, String bottomLabel, Side anchor, String userDefinedId) {
+    public BusInfo(String componentType, boolean powered, String topLabel, String bottomLabel, Side anchor, String userDefinedId) {
         this.componentType = componentType;
+        this.powered = powered;
         this.topLabel = topLabel;
         this.bottomLabel = bottomLabel;
         this.anchor = anchor;
@@ -46,6 +49,10 @@ public class BusInfo {
 
     public String getComponentType() {
         return componentType;
+    }
+
+    public boolean isPowered() {
+        return powered;
     }
 
     public String getUserDefinedId() {

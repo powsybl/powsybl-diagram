@@ -7,8 +7,13 @@
     },
     "allowRotation" : false,
     "subComponents" : [ {
-      "name" : "VOLTAGE_INDICATOR",
-      "fileName" : "voltage-indicator.svg"
+      "name" : "UNPOWERED",
+      "fileName" : "voltage-indicator.svg",
+      "styleClass" : "sld-unpowered"
+    } , {
+      "name" : "POWERED",
+      "fileName" : "voltage-indicator.svg",
+      "styleClass" : "sld-powered"
     } ],
     "styleClass" : "sld-voltage-indicator"
   } ]

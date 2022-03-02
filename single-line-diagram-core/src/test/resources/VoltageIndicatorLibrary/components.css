@@ -1,4 +1,7 @@
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
-.sld-voltage-indicator {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-voltage-indicator .sld-label {dominant-baseline: middle}
+.sld-voltage-indicator .sld-unpowered {stroke: none; fill: grey}
+.sld-voltage-indicator .sld-powered {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-powered .sld-unpowered {visibility: hidden}
+.sld-unpowered .sld-powered {visibility: hidden}
