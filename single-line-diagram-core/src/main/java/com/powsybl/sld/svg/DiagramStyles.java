@@ -36,8 +36,6 @@ public final class DiagramStyles {
     public static final String TOP_FEEDER = STYLE_PREFIX + "top-feeder";
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
-    public static final String POWERED_CLASS = STYLE_PREFIX + "powered";
-    public static final String UNPOWERED_CLASS = STYLE_PREFIX + "unpowered";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

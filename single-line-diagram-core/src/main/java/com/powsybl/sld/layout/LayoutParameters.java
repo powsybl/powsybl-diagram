@@ -80,7 +80,7 @@ public class LayoutParameters {
 
     /**
      * Can be used as horizontal shifting value for busInfo indicator.
-     * Shifting to the left with negative value and the right with positive value.
+     * Could be negative value.
      */
     private double busInfoMargin = 0.0;
 

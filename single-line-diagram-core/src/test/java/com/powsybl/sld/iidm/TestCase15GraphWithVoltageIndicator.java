@@ -19,7 +19,6 @@ import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.svg.*;
-import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +32,20 @@ import static org.junit.Assert.assertEquals;
  * @author Thomas Adam <tadam at silicom.fr>
  */
 public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
+
+    private static class BusVoltageInfo extends BusInfo {
+
+        private final boolean powered;
+
+        BusVoltageInfo(boolean powered, String labelTop, String labelBottom, Side side) {
+            super(ComponentTypeName.VOLTAGE_INDICATOR, labelTop, labelBottom, side, null);
+            this.powered = powered;
+        }
+
+        public boolean isPowered() {
+            return powered;
+        }
+    }
 
     private DiagramLabelProvider withBusInfoProvider;
 
@@ -70,10 +83,9 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 Objects.requireNonNull(node);
                 BusInfo result;
                 if (node.getBusbarIndex() % 2 != 0) {
-                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, true, "Top", null,
-                            Side.RIGHT, null);
+                    result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
                 } else {
-                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, false, null, "Bottom");
+                    result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
                 }
                 return Optional.of(result);
             }
@@ -87,17 +99,24 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     public void testBasic() {
-        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithVoltageIndicator.svg");
+        DiagramStyleProvider styleProvider = new BasicStyleProvider() {
+            @Override
+            public Optional<String> getBusInfoStyle(BusInfo info) {
+                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            }
+        };
+        runTest(styleProvider,  "/TestCase15GraphWithVoltageIndicator.svg");
     }
 
     @Test
     public void testTopological() {
-        runTest(new TopologicalStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorTopological.svg");
-    }
-
-    @Test
-    public void testNominal() {
-        runTest(new NominalVoltageDiagramStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorNominal.svg");
+        DiagramStyleProvider styleProvider = new TopologicalStyleProvider(network) {
+            @Override
+            public Optional<String> getBusInfoStyle(BusInfo info) {
+                return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
+            }
+        };
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg");
     }
 
     private void runTest(DiagramStyleProvider styleProvider, String filename) {

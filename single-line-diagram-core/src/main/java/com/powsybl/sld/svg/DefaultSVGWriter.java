@@ -908,7 +908,7 @@ public class DefaultSVGWriter implements SVGWriter {
                                  DiagramStyleProvider styleProvider) {
         Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
-            drawBusInfo(prefixId, busNode, vlShift, shiftX, root, busInfo.get(), styleProvider, metadata);
+            drawBusInfo(prefixId, busNode, vlShift, shiftX, root, info, styleProvider, metadata);
             addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
         });
     }
@@ -922,6 +922,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              DiagramStyleProvider styleProvider,
                              GraphMetadata metadata) {
         Element g = root.getOwnerDocument().createElement(GROUP);
+
         // Position
         ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
         double vlShiftX = vlShift.getX() + shiftX;
@@ -930,27 +931,30 @@ public class DefaultSVGWriter implements SVGWriter {
         }
         Point origin = new Point(vlShiftX, vlShift.getY() - size.getHeight() / 2);
         transformComponent(busNode, origin, g);
+
         // Styles
-        List<String> styles = new ArrayList<>();
-        if (busInfo.isPowered()) {
-            styles.addAll(styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes()));
-        }
+        List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
         componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
-        styles.add(busInfo.isPowered() ? POWERED_CLASS : UNPOWERED_CLASS);
+        styleProvider.getBusInfoStyle(busInfo).ifPresent(styles::add);
         g.setAttribute(CLASS, String.join(" ", styles));
+
         // Identity
         String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
         g.setAttribute("id", svgId);
+
         // Metadata
-        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId(), busInfo.isPowered()));
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
+
         // Append indicator to SVG
         insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
         double shY = size.getHeight() + LABEL_OFFSET;
+
         // We draw the bottom label only if present
         busInfo.getBottomLabel().ifPresent(s -> {
             Element labelBottom = createLabelElement(s, 0, shY, 0, g);
             g.appendChild(labelBottom);
         });
+
         // We draw the top label only if present
         busInfo.getTopLabel().ifPresent(s -> {
             Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g);
