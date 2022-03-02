@@ -34,7 +34,7 @@ public class BlockOrganizer {
 
     private final boolean exceptionIfPatternNotHandled;
 
-    private final boolean voltageLackInformationOnBus;
+    private final boolean voltageIndicatorOnBus;
 
     public BlockOrganizer() {
         this(new PositionFromExtension(), true);
@@ -60,12 +60,12 @@ public class BlockOrganizer {
         this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, false);
     }
 
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean voltageLackInformationOnBus) {
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean voltageIndicatorOnBus) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
         this.handleShunt = handleShunt;
-        this.voltageLackInformationOnBus = voltageLackInformationOnBus;
+        this.voltageIndicatorOnBus = voltageIndicatorOnBus;
     }
 
     /**
@@ -99,7 +99,7 @@ public class BlockOrganizer {
 
         graph.getCells().forEach(Cell::blockSizing);
 
-        new BlockPositionner().determineBlockPositions(graph, subsections, voltageLackInformationOnBus);
+        new BlockPositionner().determineBlockPositions(graph, subsections, voltageIndicatorOnBus);
     }
 
     /**
