@@ -32,7 +32,6 @@ public final class ComponentTypeName {
     public static final String DANGLING_LINE = "DANGLING_LINE";
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
-    public static final String VOLTAGE_INDICATOR = "VOLTAGE_INDICATOR";
 
     private ComponentTypeName() {
         throw new AssertionError();

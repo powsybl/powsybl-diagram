@@ -38,12 +38,12 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         private final boolean powered;
 
         BusVoltageInfo(boolean powered) {
-            super(ComponentTypeName.VOLTAGE_INDICATOR);
+            super("VOLTAGE_INDICATOR");
             this.powered = powered;
         }
 
         BusVoltageInfo(boolean powered, String labelTop, String labelBottom, Side side) {
-            super(ComponentTypeName.VOLTAGE_INDICATOR, labelTop, labelBottom, side, null);
+            super("VOLTAGE_INDICATOR", labelTop, labelBottom, side, null);
             this.powered = powered;
         }
 
