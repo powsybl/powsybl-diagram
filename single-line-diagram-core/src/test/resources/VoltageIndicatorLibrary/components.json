@@ -1,15 +1,15 @@
 {
   "components" : [ {
-    "type" : "LACK_VOLTAGE",
+    "type" : "VOLTAGE_INDICATOR",
     "size" : {
       "width" : 20.0,
       "height" : 10.0
     },
     "allowRotation" : false,
     "subComponents" : [ {
-      "name" : "LACK_VOLTAGE",
-      "fileName" : "lack-voltage.svg"
+      "name" : "VOLTAGE_INDICATOR",
+      "fileName" : "voltage-indicator.svg"
     } ],
-    "styleClass" : "sld-lack-voltage"
+    "styleClass" : "sld-voltage-indicator"
   } ]
 }

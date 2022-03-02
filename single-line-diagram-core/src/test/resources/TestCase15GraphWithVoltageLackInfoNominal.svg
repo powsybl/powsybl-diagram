@@ -65,8 +65,8 @@
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
-.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
-.sld-lack-voltage .sld-label {dominant-baseline: middle}
+.sld-voltage-indicator {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-voltage-indicator .sld-label {dominant-baseline: middle}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -91,7 +91,7 @@
             <line x1="0" x2="275.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-lack-voltage" id="idbbs1_LACK_VOLTAGE" transform="translate(302.5,247.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-voltage-indicator" id="idbbs1_VOLTAGE_INDICATOR" transform="translate(302.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
             <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
@@ -99,7 +99,7 @@
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs21_NW_LABEL" x="-5.0" y="-5.0">bbs21</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-lack-voltage" id="idbbs21_LACK_VOLTAGE" transform="translate(57.5,272.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-voltage-indicator" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(57.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
             <text class="sld-label" x="30.0" y="5.0">Right</text>
         </g>
@@ -107,7 +107,7 @@
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs22_NW_LABEL" x="-5.0" y="-5.0">bbs22</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-lack-voltage" id="idbbs22_LACK_VOLTAGE" transform="translate(207.5,272.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-voltage-indicator" id="idbbs22_VOLTAGE_INDICATOR" transform="translate(207.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
             <text class="sld-label" x="30.0" y="5.0">Right</text>
         </g>
@@ -115,7 +115,7 @@
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs13_NW_LABEL" x="-5.0" y="-5.0">bbs13</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-lack-voltage" id="idbbs13_LACK_VOLTAGE" transform="translate(502.5,247.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-voltage-indicator" id="idbbs13_VOLTAGE_INDICATOR" transform="translate(502.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
             <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
         </g>
@@ -123,7 +123,7 @@
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs23_NW_LABEL" x="-5.0" y="-5.0">bbs23</text>
         </g>
-        <g class="sld-busbar-section sld-vl300to500 sld-lack-voltage" id="idbbs23_LACK_VOLTAGE" transform="translate(357.5,272.0)">
+        <g class="sld-busbar-section sld-vl300to500 sld-voltage-indicator" id="idbbs23_VOLTAGE_INDICATOR" transform="translate(357.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
             <text class="sld-label" x="30.0" y="5.0">Right</text>
         </g>

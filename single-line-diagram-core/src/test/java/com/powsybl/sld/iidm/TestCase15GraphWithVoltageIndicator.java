@@ -70,10 +70,10 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 Objects.requireNonNull(node);
                 BusInfo result;
                 if (node.getBusbarIndex() % 2 != 0) {
-                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, "Left", null,
+                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, "Left", null,
                             Side.RIGHT, null);
                 } else {
-                    result = new BusInfo(ComponentTypeName.LACK_VOLTAGE, null, "Right");
+                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, null, "Right");
                 }
                 return Optional.of(result);
             }

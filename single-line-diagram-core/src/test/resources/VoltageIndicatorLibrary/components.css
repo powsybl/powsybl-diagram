@@ -1,4 +1,4 @@
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
-.sld-lack-voltage {stroke: none; fill: var(--sld-vl-color, black)}
-.sld-lack-voltage .sld-label {dominant-baseline: middle}
+.sld-voltage-indicator {stroke: none; fill: var(--sld-vl-color, black)}
+.sld-voltage-indicator .sld-label {dominant-baseline: middle}
