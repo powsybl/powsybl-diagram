@@ -941,18 +941,16 @@ public class DefaultSVGWriter implements SVGWriter {
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
         // Append indicator to SVG
         insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
-        double shX = size.getWidth() + LABEL_OFFSET + shiftX;
-        double shY = size.getHeight() / 2;
-        // We draw the right label only if present
-        busInfo.getRightLabel().ifPresent(s -> {
-            Element labelRight = createLabelElement(s, shX, shY, 0, g);
-            g.appendChild(labelRight);
+        double shY = size.getHeight() + LABEL_OFFSET;
+        // We draw the bottom label only if present
+        busInfo.getBottomLabel().ifPresent(s -> {
+            Element labelBottom = createLabelElement(s, 0, shY, 0, g);
+            g.appendChild(labelBottom);
         });
-        // We draw the left label only if present
-        busInfo.getLeftLabel().ifPresent(s -> {
-            Element labelLeft = createLabelElement(s, -LABEL_OFFSET, shY, 0, g);
-            labelLeft.setAttribute(STYLE, "text-anchor:end");
-            g.appendChild(labelLeft);
+        // We draw the top label only if present
+        busInfo.getTopLabel().ifPresent(s -> {
+            Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g);
+            g.appendChild(labelTop);
         });
         root.appendChild(g);
     }

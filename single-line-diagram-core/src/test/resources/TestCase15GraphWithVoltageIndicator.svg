@@ -79,7 +79,7 @@
         </g>
         <g class="sld-busbar-section sld-voltage-indicator" id="idbbs1_VOLTAGE_INDICATOR" transform="translate(302.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
+            <text class="sld-label" x="0.0" y="-5.0">Top</text>
         </g>
         <g class="sld-busbar-section" id="idbbs21" transform="translate(52.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
@@ -87,7 +87,7 @@
         </g>
         <g class="sld-busbar-section sld-voltage-indicator" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(57.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="30.0" y="5.0">Right</text>
+            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
         </g>
         <g class="sld-busbar-section" id="idbbs22" transform="translate(202.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
@@ -95,7 +95,7 @@
         </g>
         <g class="sld-busbar-section sld-voltage-indicator" id="idbbs22_VOLTAGE_INDICATOR" transform="translate(207.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="30.0" y="5.0">Right</text>
+            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
         </g>
         <g class="sld-busbar-section" id="idbbs13" transform="translate(352.5,252.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -103,7 +103,7 @@
         </g>
         <g class="sld-busbar-section sld-voltage-indicator" id="idbbs13_VOLTAGE_INDICATOR" transform="translate(502.5,247.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" style="text-anchor:end" x="-5.0" y="5.0">Left</text>
+            <text class="sld-label" x="0.0" y="-5.0">Top</text>
         </g>
         <g class="sld-busbar-section" id="idbbs23" transform="translate(352.5,277.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
@@ -111,7 +111,7 @@
         </g>
         <g class="sld-busbar-section sld-voltage-indicator" id="idbbs23_VOLTAGE_INDICATOR" transform="translate(357.5,272.0)">
             <rect height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="30.0" y="5.0">Right</text>
+            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
             <g class="sld-node" id="idINTERNAL_95_vl1_95_3" transform="translate(111.0,218.0)">

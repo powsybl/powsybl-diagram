@@ -26,20 +26,20 @@ public class BusInfo {
 
     private final String userDefinedId;
 
-    private final String leftLabel;
+    private final String topLabel;
 
-    private final String rightLabel;
+    private final String bottomLabel;
 
     private final Side anchor;
 
-    public BusInfo(String componentType, String leftLabel, String rightLabel) {
-        this(componentType, leftLabel, rightLabel, Side.LEFT, null);
+    public BusInfo(String componentType, String topLabel, String bottomLabel) {
+        this(componentType, topLabel, bottomLabel, Side.LEFT, null);
     }
 
-    public BusInfo(String componentType, String leftLabel, String rightLabel, Side anchor, String userDefinedId) {
+    public BusInfo(String componentType, String topLabel, String bottomLabel, Side anchor, String userDefinedId) {
         this.componentType = componentType;
-        this.leftLabel = leftLabel;
-        this.rightLabel = rightLabel;
+        this.topLabel = topLabel;
+        this.bottomLabel = bottomLabel;
         this.anchor = anchor;
         this.userDefinedId = userDefinedId;
     }
@@ -52,12 +52,12 @@ public class BusInfo {
         return userDefinedId;
     }
 
-    public Optional<String> getLeftLabel() {
-        return Optional.ofNullable(leftLabel);
+    public Optional<String> getTopLabel() {
+        return Optional.ofNullable(topLabel);
     }
 
-    public Optional<String> getRightLabel() {
-        return Optional.ofNullable(rightLabel);
+    public Optional<String> getBottomLabel() {
+        return Optional.ofNullable(bottomLabel);
     }
 
     public Side getAnchor() {

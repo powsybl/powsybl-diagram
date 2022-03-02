@@ -70,10 +70,10 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 Objects.requireNonNull(node);
                 BusInfo result;
                 if (node.getBusbarIndex() % 2 != 0) {
-                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, "Left", null,
+                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, "Top", null,
                             Side.RIGHT, null);
                 } else {
-                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, null, "Right");
+                    result = new BusInfo(ComponentTypeName.VOLTAGE_INDICATOR, null, "Bottom");
                 }
                 return Optional.of(result);
             }
@@ -82,22 +82,22 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("Nom", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
+        return new ResourcesComponentLibrary("VoltageIndicator", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
     }
 
     @Test
     public void testBasic() throws IOException {
-        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithVoltageLackInfo.svg");
+        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithVoltageIndicator.svg");
     }
 
     @Test
     public void testTopological() throws IOException {
-        runTest(new TopologicalStyleProvider(network), "/TestCase15GraphWithVoltageLackInfoTopological.svg");
+        runTest(new TopologicalStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorTopological.svg");
     }
 
     @Test
     public void testNominal() throws IOException {
-        runTest(new NominalVoltageDiagramStyleProvider(network), "/TestCase15GraphWithVoltageLackInfoNominal.svg");
+        runTest(new NominalVoltageDiagramStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorNominal.svg");
     }
 
     private void runTest(DiagramStyleProvider styleProvider, String filename) {
