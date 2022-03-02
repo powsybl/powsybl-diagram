@@ -264,11 +264,14 @@ public class GraphMetadata {
 
         private final String userDefinedId;
 
+        private final boolean powered;
+
         @JsonCreator
-        public BusInfoMetadata(@JsonProperty("id") String id, @JsonProperty("busNodeId") String busNodeId, @JsonProperty("userDefinedId") String userDefinedId) {
+        public BusInfoMetadata(@JsonProperty("id") String id, @JsonProperty("busNodeId") String busNodeId, @JsonProperty("userDefinedId") String userDefinedId, @JsonProperty("powered") boolean powered) {
             this.id = Objects.requireNonNull(id);
             this.busNodeId = Objects.requireNonNull(busNodeId);
             this.userDefinedId = userDefinedId;
+            this.powered = powered;
         }
 
         public String getId() {
@@ -281,6 +284,10 @@ public class GraphMetadata {
 
         public String getUserDefinedId() {
             return userDefinedId;
+        }
+
+        public boolean isPowered() {
+            return powered;
         }
     }
 

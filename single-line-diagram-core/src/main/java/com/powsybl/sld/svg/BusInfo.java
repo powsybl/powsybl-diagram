@@ -13,10 +13,12 @@ import java.util.Optional;
 /**
  * Class used to describe an information element which is displayed at busbar section, which contains one or more of the following:
  * <ul>
- * <li>a string on its right</li>
- * <li>a string on its left</li>
+ * <li>a string on its top</li>
+ * <li>a string on its bottom</li>
+ * <li>a side to anchor indicator</li>
+ * <li>an state power</li>
  * </ul>
- * Each of these two element part is optional
+ * Each of these two labels part is optional
  *
  * @author Thomas Adam <tadam at silicom.fr>
  */

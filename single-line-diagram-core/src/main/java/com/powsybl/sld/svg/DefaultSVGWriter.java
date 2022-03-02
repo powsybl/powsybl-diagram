@@ -942,7 +942,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
         g.setAttribute("id", svgId);
         // Metadata
-        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId(), busInfo.isPowered()));
         // Append indicator to SVG
         insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
         double shY = size.getHeight() + LABEL_OFFSET;

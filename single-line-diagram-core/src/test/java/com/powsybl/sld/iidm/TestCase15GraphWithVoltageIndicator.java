@@ -86,17 +86,17 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testBasic() throws IOException {
+    public void testBasic() {
         runTest(new BasicStyleProvider(),  "/TestCase15GraphWithVoltageIndicator.svg");
     }
 
     @Test
-    public void testTopological() throws IOException {
+    public void testTopological() {
         runTest(new TopologicalStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorTopological.svg");
     }
 
     @Test
-    public void testNominal() throws IOException {
+    public void testNominal() {
         runTest(new NominalVoltageDiagramStyleProvider(network), "/TestCase15GraphWithVoltageIndicatorNominal.svg");
     }
 
