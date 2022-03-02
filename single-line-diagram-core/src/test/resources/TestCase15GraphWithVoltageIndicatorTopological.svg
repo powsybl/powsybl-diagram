@@ -169,7 +169,6 @@
         <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-unpowered" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(57.5,272.0)">
             <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
             <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs22" transform="translate(202.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>

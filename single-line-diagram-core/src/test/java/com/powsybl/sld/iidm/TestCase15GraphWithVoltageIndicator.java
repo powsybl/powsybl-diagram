@@ -37,6 +37,11 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         private final boolean powered;
 
+        BusVoltageInfo(boolean powered) {
+            super(ComponentTypeName.VOLTAGE_INDICATOR);
+            this.powered = powered;
+        }
+
         BusVoltageInfo(boolean powered, String labelTop, String labelBottom, Side side) {
             super(ComponentTypeName.VOLTAGE_INDICATOR, labelTop, labelBottom, side, null);
             this.powered = powered;
@@ -81,13 +86,21 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
-                BusInfo result;
-                if (node.getBusbarIndex() % 2 != 0) {
-                    result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
-                } else {
-                    result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                BusInfo result = null;
+                switch (node.getId()) {
+                    case "bbs21":
+                        result = new BusVoltageInfo(false);
+                        break;
+                    case "bbs1":
+                    case "bbs13":
+                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                        break;
+                    case "bbs22":
+                    case "bbs23":
+                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                        break;
                 }
-                return Optional.of(result);
+                return Optional.ofNullable(result);
             }
         };
     }
