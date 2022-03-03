@@ -156,46 +156,46 @@
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs1" transform="translate(52.5,252.0)">
             <line x1="0" x2="275.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-powered" id="idbbs1_VOLTAGE_INDICATOR" transform="translate(302.5,247.0)">
-            <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
-            <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="0.0" y="-5.0">Top</text>
+            <g class="sld-voltage-indicator sld-powered" id="idbbs1_VOLTAGE_INDICATOR" transform="translate(250.0,-5.0)">
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <text class="sld-label" x="0.0" y="-5.0">Top</text>
+            </g>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs21" transform="translate(52.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs21_NW_LABEL" x="-5.0" y="-5.0">bbs21</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-unpowered" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(57.5,272.0)">
-            <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
-            <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+            <g class="sld-voltage-indicator sld-unpowered" id="idbbs21_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+            </g>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs22" transform="translate(202.5,277.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs22_NW_LABEL" x="-5.0" y="-5.0">bbs22</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-unpowered" id="idbbs22_VOLTAGE_INDICATOR" transform="translate(207.5,272.0)">
-            <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
-            <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
+            <g class="sld-voltage-indicator sld-unpowered" id="idbbs22_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <text class="sld-label" x="0.0" y="15.0">Bottom</text>
+            </g>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs13" transform="translate(352.5,252.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs13_NW_LABEL" x="-5.0" y="-5.0">bbs13</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-powered" id="idbbs13_VOLTAGE_INDICATOR" transform="translate(502.5,247.0)">
-            <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
-            <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="0.0" y="-5.0">Top</text>
+            <g class="sld-voltage-indicator sld-powered" id="idbbs13_VOLTAGE_INDICATOR" transform="translate(150.0,-5.0)">
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <text class="sld-label" x="0.0" y="-5.0">Top</text>
+            </g>
         </g>
         <g class="sld-busbar-section sld-vl300to500-0" id="idbbs23" transform="translate(352.5,277.0)">
             <line x1="0" x2="175.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs23_NW_LABEL" x="-5.0" y="-5.0">bbs23</text>
-        </g>
-        <g class="sld-busbar-section sld-vl300to500-0 sld-voltage-indicator sld-unpowered" id="idbbs23_VOLTAGE_INDICATOR" transform="translate(357.5,272.0)">
-            <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
-            <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
-            <text class="sld-label" x="0.0" y="15.0">Bottom</text>
+            <g class="sld-voltage-indicator sld-unpowered" id="idbbs23_VOLTAGE_INDICATOR" transform="translate(5.0,-5.0)">
+                <rect class="sld-powered" height="10" rx="1" ry="1" width="20"/>
+                <rect class="sld-unpowered" height="10" rx="1" ry="1" width="20"/>
+                <text class="sld-label" x="0.0" y="15.0">Bottom</text>
+            </g>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
             <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_3" transform="translate(111.0,218.0)">

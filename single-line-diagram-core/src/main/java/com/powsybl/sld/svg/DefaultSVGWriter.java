@@ -412,6 +412,8 @@ public class DefaultSVGWriter implements SVGWriter {
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, busNode, initProvider, styleProvider);
 
+            insertBusInfo(prefixId, g, busNode, metadata, initProvider, styleProvider);
+
             root.appendChild(g);
 
             metadata.addNodeMetadata(
@@ -424,8 +426,6 @@ public class DefaultSVGWriter implements SVGWriter {
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
                         true, null));
             }
-
-            insertBusInfo(prefixId, graph.getCoord(), layoutParameters.getBusInfoMargin(), root, busNode, metadata, initProvider, styleProvider);
 
             remainingNodesToDraw.remove(busNode);
         }
@@ -899,8 +899,6 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void insertBusInfo(String prefixId,
-                                 Point vlShift,
-                                 double shiftX,
                                  Element root,
                                  BusNode busNode,
                                  GraphMetadata metadata,
@@ -908,14 +906,13 @@ public class DefaultSVGWriter implements SVGWriter {
                                  DiagramStyleProvider styleProvider) {
         Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
-            drawBusInfo(prefixId, busNode, vlShift, shiftX, root, info, styleProvider, metadata);
+            drawBusInfo(prefixId, busNode, layoutParameters.getBusInfoMargin(), root, info, styleProvider, metadata);
             addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
         });
     }
 
     private void drawBusInfo(String prefixId,
                              BusNode busNode,
-                             Point vlShift,
                              double shiftX,
                              Element root,
                              BusInfo busInfo,
@@ -925,15 +922,15 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // Position
         ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
-        double vlShiftX = vlShift.getX() + shiftX;
+        double dx = shiftX;
+        double dy = -size.getHeight() / 2;
         if (busInfo.getAnchor() == Side.RIGHT) {
-            vlShiftX = vlShift.getX() + busNode.getPxWidth() - shiftX - size.getWidth();
+            dx = busNode.getPxWidth() - shiftX - size.getWidth();
         }
-        Point origin = new Point(vlShiftX, vlShift.getY() - size.getHeight() / 2);
-        transformComponent(busNode, origin, g);
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
 
         // Styles
-        List<String> styles = styleProvider.getSvgNodeStyles(busNode, componentLibrary, layoutParameters.isShowInternalNodes());
+        List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
         styleProvider.getBusInfoStyle(busInfo).ifPresent(styles::add);
         g.setAttribute(CLASS, String.join(" ", styles));
