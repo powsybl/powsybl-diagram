@@ -344,6 +344,7 @@ public class DefaultSVGWriter implements SVGWriter {
             // FeederSpan
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + layoutParameters.getFeederSpan(), gridRoot);
         }
+
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
             // StackHeight

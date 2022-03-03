@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 class BlockPositionner {
 
-    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, boolean indicatorOnBus) {
+    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, boolean addCellForBusInfo) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
@@ -37,7 +37,7 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
-            if (indicatorOnBus) {
+            if (addCellForBusInfo) {
                 // Adding cell on busbar left side
                 hPos += 2; // A cell is 2 units wide
             }
@@ -54,7 +54,7 @@ class BlockPositionner {
             }
             hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
-            if (indicatorOnBus) {
+            if (addCellForBusInfo) {
                 // Adding cell on busbar right side
                 hPos += 2; // A cell is 2 units wide
             }

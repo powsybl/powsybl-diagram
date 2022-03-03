@@ -35,8 +35,8 @@ public class PositionVoltageLevelLayoutFactoryTest {
         factory.setHandleShunts(true);
         assertTrue(factory.isHandleShunts());
 
-        assertFalse(factory.isIndicatorOnBus());
-        factory.setIndicatorOnBus(true);
-        assertTrue(factory.isIndicatorOnBus());
+        assertFalse(factory.isAddCellForBusInfo());
+        factory.setAddCellForBusInfo(true);
+        assertTrue(factory.isAddCellForBusInfo());
     }
 }

@@ -30,7 +30,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private boolean handleShunts = false;
 
-    private boolean indicatorOnBus = false;
+    private boolean addCellForBusInfo = false;
 
     public PositionVoltageLevelLayoutFactory() {
         this(new PositionFromExtension());
@@ -85,12 +85,12 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         return this;
     }
 
-    public boolean isIndicatorOnBus() {
-        return indicatorOnBus;
+    public boolean isAddCellForBusInfo() {
+        return addCellForBusInfo;
     }
 
-    public PositionVoltageLevelLayoutFactory setIndicatorOnBus(boolean indicatorOnBus) {
-        this.indicatorOnBus = indicatorOnBus;
+    public PositionVoltageLevelLayoutFactory setAddCellForBusInfo(boolean addCellForBusInfo) {
+        this.addCellForBusInfo = addCellForBusInfo;
         return this;
     }
 
@@ -101,7 +101,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
                 .detectCells(graph);
 
         // build blocks from cells
-        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, indicatorOnBus).organize(graph);
+        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, addCellForBusInfo).organize(graph);
 
         return new PositionVoltageLevelLayout(graph);
     }

@@ -34,7 +34,7 @@ public class BlockOrganizer {
 
     private final boolean exceptionIfPatternNotHandled;
 
-    private final boolean indicatorOnBus;
+    private final boolean addCellForBusInfo;
 
     public BlockOrganizer() {
         this(new PositionFromExtension(), true);
@@ -60,12 +60,12 @@ public class BlockOrganizer {
         this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, false);
     }
 
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean indicatorOnBus) {
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean addCellForBusInfo) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
         this.handleShunt = handleShunt;
-        this.indicatorOnBus = indicatorOnBus;
+        this.addCellForBusInfo = addCellForBusInfo;
     }
 
     /**
@@ -99,7 +99,7 @@ public class BlockOrganizer {
 
         graph.getCells().forEach(Cell::blockSizing);
 
-        new BlockPositionner().determineBlockPositions(graph, subsections, indicatorOnBus);
+        new BlockPositionner().determineBlockPositions(graph, subsections, addCellForBusInfo);
     }
 
     /**
