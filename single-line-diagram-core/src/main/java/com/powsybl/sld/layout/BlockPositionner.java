@@ -34,8 +34,27 @@ class BlockPositionner {
 
         Subsection prevSs = new Subsection(maxV);
         for (Subsection ss : subsections) {
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
+            List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, ss);
+            List<BusNode> busNodesToOpen = getBusNodesToOpen(prevSs, ss);
+
+            if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == RIGHT)) {
+                // Adding one cell on previous subsection right side
+                hPos += 2; // A cell is 2 units wide
+            }
+
+            for (BusNode busNode : busNodesToClose) {
+                closeBusNode(busNode, hPos - hSpace);
+            }
+
+            for (BusNode busNode : busNodesToOpen) {
+                openBusNode(busNode, hPos);
+            }
+
+            if (busNodesToOpen.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == LEFT)) {
+                // Adding one cell on current subsection left side
+                hPos += 2; // A cell is 2 units wide
+            }
+
 
             if (addCellForBusInfo) {
                 // Adding cell on busbar left side
@@ -54,30 +73,54 @@ class BlockPositionner {
             }
             hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
-            if (addCellForBusInfo) {
-                // Adding cell on busbar right side
-                hPos += 2; // A cell is 2 units wide
-            }
             prevHPos = hPos;
             prevSs = ss;
         }
-        updateNodeBuses(prevSs, new Subsection(maxV), hPos, hSpace, Side.RIGHT); // close nodeBuses
+
+        List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, new Subsection(maxV));
+        if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == RIGHT)) {
+            // Adding one cell on previous subsection right side
+            hPos += 2; // A cell is 2 units wide
+        }
+
+        for (BusNode busNode : busNodesToClose) {
+            closeBusNode(busNode, hPos - hSpace);
+        }
+
         manageInternCellOverlaps(graph);
     }
 
-    private void updateNodeBuses(Subsection prevSS, Subsection ss, int hPos, int hSpace, Side ssSide) {
+    private List<BusNode> getBusNodesToClose(Subsection prevSS, Subsection ss) {
+        List<BusNode> busNodesToClose = new ArrayList<>();
         for (int v = 0; v < prevSS.getSize(); v++) {
             BusNode prevBusNode = prevSS.getBusNode(v);
             BusNode actualBusNode = ss.getBusNode(v);
-            if (ssSide == Side.RIGHT && prevBusNode != null
-                    && (actualBusNode == null || prevBusNode != actualBusNode)) {
-                Position p = prevBusNode.getPosition();
-                p.setSpan(H, hPos - Math.max(p.get(H), 0) - hSpace);
-            } else if (ssSide == Side.LEFT && actualBusNode != null &&
-                    (prevBusNode == null || prevBusNode != actualBusNode)) {
-                actualBusNode.getPosition().set(H, hPos);
+            if (prevBusNode != null && (actualBusNode == null || prevBusNode != actualBusNode)) {
+               busNodesToClose.add(prevBusNode);
             }
         }
+        return busNodesToClose;
+    }
+
+    private List<BusNode> getBusNodesToOpen(Subsection prevSS, Subsection ss) {
+        List<BusNode> busNodesToOpen = new ArrayList<>();
+        for (int v = 0; v < prevSS.getSize(); v++) {
+            BusNode prevBusNode = prevSS.getBusNode(v);
+            BusNode actualBusNode = ss.getBusNode(v);
+            if (actualBusNode != null && (prevBusNode == null || prevBusNode != actualBusNode)) {
+                busNodesToOpen.add(actualBusNode);
+            }
+        }
+        return busNodesToOpen;
+    }
+
+    private void closeBusNode(BusNode busNode, int hPositionRight) {
+        int positionLeft = Math.max(busNode.getPosition().get(H), 0);
+        busNode.getPosition().setSpan(H, hPositionRight - positionLeft);
+    }
+
+    private void openBusNode(BusNode busNode, int hPositionLeft) {
+        busNode.getPosition().set(H, hPositionLeft);
     }
 
     private int placeVerticalCells(int hPos, Collection<BusCell> busCells) {
