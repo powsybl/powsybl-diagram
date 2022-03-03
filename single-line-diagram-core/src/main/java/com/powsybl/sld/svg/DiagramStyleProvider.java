@@ -14,6 +14,7 @@ import com.powsybl.sld.model.Node;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -38,4 +39,8 @@ public interface DiagramStyleProvider {
     List<URL> getCssUrls();
 
     List<String> getBusStyles(String busId, VoltageLevelGraph graph);
+
+    default Optional<String> getBusInfoStyle(BusInfo info) {
+        return Optional.empty();
+    }
 }

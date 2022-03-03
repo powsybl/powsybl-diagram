@@ -1456,6 +1456,7 @@
   }, {
     "id" : "NODE_vl1_2"
   } ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,
@@ -1499,6 +1500,7 @@
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : true,
     "useName" : true,
-    "feederInfosIntraMargin" : 10.0
+    "feederInfosIntraMargin" : 10.0,
+    "busInfoMargin" : 0.0
   }
 }

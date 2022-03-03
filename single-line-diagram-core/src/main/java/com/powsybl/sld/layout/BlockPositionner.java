@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 class BlockPositionner {
 
-    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections) {
+    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, boolean addCellForBusInfo) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
@@ -37,11 +37,16 @@ class BlockPositionner {
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
             updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
 
+            if (addCellForBusInfo) {
+                // Adding cell on busbar left side
+                hPos += 2; // A cell is 2 units wide
+            }
+
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
             List<BusCell> verticalCells = new ArrayList<>();
             verticalCells.addAll(ss.getVerticalInternCells());
             verticalCells.addAll(ss.getExternCells());
-            Collections.sort(verticalCells, Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
+            verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
             hPos = placeVerticalCells(hPos, verticalCells);
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
@@ -49,6 +54,10 @@ class BlockPositionner {
             }
             hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
+            if (addCellForBusInfo) {
+                // Adding cell on busbar right side
+                hPos += 2; // A cell is 2 units wide
+            }
             prevHPos = hPos;
             prevSs = ss;
         }

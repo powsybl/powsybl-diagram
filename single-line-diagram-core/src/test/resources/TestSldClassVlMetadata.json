@@ -284,6 +284,7 @@
     "feederNodeId" : "trf_ONE"
   } ],
   "electricalNodeInfos" : [ ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,
@@ -327,6 +328,7 @@
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : false,
     "useName" : false,
-    "feederInfosIntraMargin" : 10.0
+    "feederInfosIntraMargin" : 10.0,
+    "busInfoMargin" : 0.0
   }
 }

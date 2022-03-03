@@ -6,12 +6,14 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -83,5 +85,9 @@ public interface DiagramLabelProvider {
 
     default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         return Collections.emptyList();
+    }
+
+    default Optional<BusInfo> getBusInfo(BusNode node) {
+        return Optional.empty();
     }
 }

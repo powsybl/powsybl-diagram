@@ -34,6 +34,8 @@ public class BlockOrganizer {
 
     private final boolean exceptionIfPatternNotHandled;
 
+    private final boolean addCellForBusInfo;
+
     public BlockOrganizer() {
         this(new PositionFromExtension(), true);
     }
@@ -51,14 +53,19 @@ public class BlockOrganizer {
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, false);
+        this(positionFinder, stack, exceptionIfPatternNotHandled, false, false);
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt) {
+        this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, false);
+    }
+
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean addCellForBusInfo) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
         this.handleShunt = handleShunt;
+        this.addCellForBusInfo = addCellForBusInfo;
     }
 
     /**
@@ -92,7 +99,7 @@ public class BlockOrganizer {
 
         graph.getCells().forEach(Cell::blockSizing);
 
-        new BlockPositionner().determineBlockPositions(graph, subsections);
+        new BlockPositionner().determineBlockPositions(graph, subsections, addCellForBusInfo);
     }
 
     /**

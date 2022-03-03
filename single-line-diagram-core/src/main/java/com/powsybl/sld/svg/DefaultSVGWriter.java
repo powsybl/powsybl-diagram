@@ -11,6 +11,7 @@ import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
@@ -60,6 +61,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
+    protected static final String WIDTH = "width";
+    protected static final String HEIGHT = "height";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -101,8 +104,8 @@ public class DefaultSVGWriter implements SVGWriter {
     private void setDocumentSize(Graph graph, Document document) {
         document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
         if (layoutParameters.isSvgWidthAndHeightAdded()) {
-            document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
-            document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(WIDTH, Double.toString(getDiagramWidth(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(HEIGHT, Double.toString(getDiagramHeight(graph, layoutParameters)));
         }
     }
 
@@ -174,8 +177,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addFrame(Document document) {
         Element rect = document.createElement("rect");
-        rect.setAttribute("width", "100%");
-        rect.setAttribute("height", "100%");
+        rect.setAttribute(WIDTH, "100%");
+        rect.setAttribute(HEIGHT, "100%");
         rect.setAttribute(CLASS, FRAME_CLASS);
         document.adoptNode(rect);
         document.getDocumentElement().appendChild(rect);
@@ -341,6 +344,7 @@ public class DefaultSVGWriter implements SVGWriter {
             // FeederSpan
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + layoutParameters.getFeederSpan(), gridRoot);
         }
+
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BusCell.Direction.BOTTOM) > 0.) {
             // StackHeight
@@ -408,6 +412,8 @@ public class DefaultSVGWriter implements SVGWriter {
             List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(busNode);
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, busNode, initProvider, styleProvider);
+
+            insertBusInfo(prefixId, g, busNode, metadata, initProvider, styleProvider);
 
             root.appendChild(g);
 
@@ -480,13 +486,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
-        if (metadata.getComponentMetadata(node.getComponentType()) == null) {
-            metadata.addComponent(new Component(node.getComponentType(),
-                    componentLibrary.getAnchorPoints(node.getComponentType()),
-                componentLibrary.getSize(node.getComponentType()),
-                componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
-                true, null));
-        }
+
+        addInfoComponentMetadata(metadata, node.getComponentType(), true);
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
@@ -783,7 +784,6 @@ public class DefaultSVGWriter implements SVGWriter {
             }
             g.setAttribute(TRANSFORM, getTransformString(x, y, feederInfoRotationAngle, componentSize));
         }
-
     }
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
@@ -838,7 +838,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
                 drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
-                addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
+                addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -846,13 +846,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void addFeederInfoComponentMetadata(GraphMetadata metadata, String componentType) {
+    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType, boolean allowRotation) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    true, null));
+                    allowRotation, null));
         }
     }
 
@@ -896,6 +896,68 @@ public class DefaultSVGWriter implements SVGWriter {
         });
 
         g.setAttribute(CLASS, String.join(" ", styles));
+        root.appendChild(g);
+    }
+
+    protected void insertBusInfo(String prefixId,
+                                 Element root,
+                                 BusNode busNode,
+                                 GraphMetadata metadata,
+                                 DiagramLabelProvider initProvider,
+                                 DiagramStyleProvider styleProvider) {
+        Optional<BusInfo> busInfo = initProvider.getBusInfo(busNode);
+        busInfo.ifPresent(info -> {
+            drawBusInfo(prefixId, busNode, layoutParameters.getBusInfoMargin(), root, info, styleProvider, metadata);
+            addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
+        });
+    }
+
+    private void drawBusInfo(String prefixId,
+                             BusNode busNode,
+                             double shiftX,
+                             Element root,
+                             BusInfo busInfo,
+                             DiagramStyleProvider styleProvider,
+                             GraphMetadata metadata) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
+
+        // Position
+        ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
+        double dx = shiftX;
+        double dy = -size.getHeight() / 2;
+        if (busInfo.getAnchor() == Side.RIGHT) {
+            dx = busNode.getPxWidth() - shiftX - size.getWidth();
+        }
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
+
+        // Styles
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
+        styleProvider.getBusInfoStyle(busInfo).ifPresent(styles::add);
+        g.setAttribute(CLASS, String.join(" ", styles));
+
+        // Identity
+        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        g.setAttribute("id", svgId);
+
+        // Metadata
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
+
+        // Append indicator to SVG
+        insertComponentSVGIntoDocumentSVG(prefixId, busInfo.getComponentType(), g, busNode, styleProvider);
+        double shY = size.getHeight() + LABEL_OFFSET;
+
+        // We draw the bottom label only if present
+        busInfo.getBottomLabel().ifPresent(s -> {
+            Element labelBottom = createLabelElement(s, 0, shY, 0, g);
+            g.appendChild(labelBottom);
+        });
+
+        // We draw the top label only if present
+        busInfo.getTopLabel().ifPresent(s -> {
+            Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g);
+            g.appendChild(labelTop);
+        });
         root.appendChild(g);
     }
 
