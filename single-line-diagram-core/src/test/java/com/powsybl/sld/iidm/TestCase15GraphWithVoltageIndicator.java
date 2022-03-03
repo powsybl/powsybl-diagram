@@ -13,7 +13,6 @@ import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
