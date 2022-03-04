@@ -104,11 +104,12 @@ public class ImplicitCellDetector implements CellDetector {
     }
 
     /**
+     * @param graph          is the voltage level graph
      * @param typeStops      is the types of node that stops the exploration
      * @param exclusionTypes is the types when reached considers the exploration unsuccessful
-     * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
-     **/
+     * @return the list of nodes for each detected cell
+     */
     private List<Set<Node>> detectCell(VoltageLevelGraph graph,
             List<Node.NodeType> typeStops,
             List<Node.NodeType> exclusionTypes,
