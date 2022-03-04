@@ -36,14 +36,17 @@ public abstract class AbstractCell implements Cell {
         setNodes(nodes);
     }
 
+    @Override
     public void addNodes(List<Node> nodesToAdd) {
         nodes.addAll(nodesToAdd);
     }
 
+    @Override
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
     }
 
+    @Override
     public void removeAllNodes(List<Node> nodeToRemove) {
         nodes.removeAll(nodeToRemove);
     }
@@ -55,22 +58,27 @@ public abstract class AbstractCell implements Cell {
         nodes.stream().filter(node -> node.getType() != Node.NodeType.SHUNT).forEach(node -> node.setCell(this));
     }
 
+    @Override
     public void setType(CellType type) {
         this.type = type;
     }
 
+    @Override
     public CellType getType() {
         return this.type;
     }
 
+    @Override
     public Block getRootBlock() {
         return rootBlock;
     }
 
+    @Override
     public void setRootBlock(Block rootBlock) {
         this.rootBlock = rootBlock;
     }
 
+    @Override
     public int getNumber() {
         return number;
     }
@@ -80,6 +88,7 @@ public abstract class AbstractCell implements Cell {
         generator.writeNumberField("number", number);
     }
 
+    @Override
     public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         writeJsonContent(generator, includeCoordinates);
@@ -90,10 +99,12 @@ public abstract class AbstractCell implements Cell {
         generator.writeEndObject();
     }
 
+    @Override
     public String getId() {
         return type + " " + number;
     }
 
+    @Override
     public String getFullId() {
         return type + nodes.stream().map(Node::getId).sorted().collect(Collectors.toList()).toString();
     }
