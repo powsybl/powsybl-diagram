@@ -112,7 +112,7 @@ class Link implements Comparable<Link> {
     }
 
     private List<ShuntCell> extractShuntCells(List<ExternCell> externCells) {
-        return externCells.stream().map(ExternCell::getShuntCell).collect(Collectors.toList());
+        return externCells.stream().map(ExternCell::getShuntCells).flatMap(List::stream).collect(Collectors.toList());
     }
 
     private int shuntAttractivity(List<ExternCell> cells, LBSClusterSide lbsClusterSide) {

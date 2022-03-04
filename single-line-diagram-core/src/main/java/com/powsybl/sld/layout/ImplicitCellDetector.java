@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,50 +185,47 @@ public class ImplicitCellDetector implements CellDetector {
     }
 
     /**
-     * @param cell the nodes of a cell that is suppected to be a shunt
+     * @param cell the nodes of a cell that is suspected to be a shunt
      **/
-    private void detectAndTypeShunt(VoltageLevelGraph graph, Cell cell) {
+    private void detectAndTypeShunt(VoltageLevelGraph graph, ExternCell cell) {
 
         List<Node> externalNodes = graph.getNodes()
                 .stream()
                 .filter(node -> !cell.getNodes().contains(node))
                 .collect(Collectors.toList());
 
-        for (Node n : cell.getNodes().stream()
-                .filter(n -> n.getAdjacentNodes().size() > 2).collect(Collectors.toList())) {
+        for (Node n : cell.getNodes()) {
+
             // optimisation : a Shunt node has necessarily 3 ore more adjacent nodes
+            if (n.getAdjacentNodes().size() < 3) {
+                continue;
+            }
 
             List<Node> cellNodesExtern1 = checkCandidateShuntNode(n, externalNodes);
             if (cellNodesExtern1 != null) {
-                // create the 1st new external cell
-                cell.removeAllNodes(cellNodesExtern1.stream()
-                        .filter(m -> !m.getType().equals(Node.NodeType.BUS))
-                        .collect(Collectors.toList()));
-                n.setType(Node.NodeType.SHUNT);
-                cellNodesExtern1.add(n);
-                ExternCell newExternCell = new ExternCell(graph.getNextCellNumber(), cellNodesExtern1);
-                graph.addCell(newExternCell);
+                List<Node> remainingNodes = cell.getNodes();
 
-                //create the shunt cell
+                List<ShuntCell> shuntCellsCreated = new ArrayList<>(cell.getShuntCells());
+                splitCell(graph, cell, cellNodesExtern1, n, remainingNodes, externalNodes, shuntCellsCreated);
 
-                List<Node> shuntNodes = createShuntCellNodes(n, newExternCell);
-
-                // create the 2nd external cell
-                List<Node> cellNodesExtern2 = cell.getNodes().stream()
-                        .filter(node -> (!cellNodesExtern1.contains(node) || node.getType() == Node.NodeType.BUS)
-                                && (!shuntNodes.contains(node) || node.getType() == Node.NodeType.SHUNT))
+                // create the last external cell with what remains.
+                // it will be split again if not pure extern cell
+                List<Node> remainingNodesExternCell = new ArrayList<>(remainingNodes);
+                List<Node> singleBusesShunts = remainingNodesExternCell.stream()
+                        .filter(node -> node.getType() == Node.NodeType.BUS || node.getType() == Node.NodeType.SHUNT)
+                        .filter(node -> node.getAdjacentNodes().stream().noneMatch(remainingNodesExternCell::contains))
                         .collect(Collectors.toList());
+                remainingNodesExternCell.removeAll(singleBusesShunts);
 
-                cellNodesExtern2.removeAll(cellNodesExtern2.stream()
-                        .filter(node -> node.getType() == Node.NodeType.BUS
-                                && node.getAdjacentNodes().stream().noneMatch(
-                                cellNodesExtern2::contains))
-                        .collect(Collectors.toList()));
-
-                ExternCell newExternCell2 = new ExternCell(graph.getNextCellNumber(), cellNodesExtern2);
+                ExternCell newExternCell2 = new ExternCell(graph.getNextCellNumber(), remainingNodesExternCell);
                 graph.addCell(newExternCell2);
+                shuntCellsCreated.stream()
+                        .filter(sc -> newExternCell2.getNodes().contains(sc.getSideShuntNode(Side.RIGHT)))
+                        .forEach(newExternCell2::addShuntCell);
 
-                createShuntCell(graph, newExternCell, newExternCell2, shuntNodes);
+                if (!isPureExternCell(graph, newExternCell2)) {
+                    detectAndTypeShunt(graph, newExternCell2);
+                }
 
                 graph.removeCell(cell);
                 break;
@@ -235,8 +233,42 @@ public class ImplicitCellDetector implements CellDetector {
         }
     }
 
-    private void createShuntCell(VoltageLevelGraph vlGraph, ExternCell externCell1, ExternCell externCell2,
-            List<Node> shuntNodes) {
+    private void splitCell(VoltageLevelGraph graph, ExternCell cell, List<Node> cellNodesExtern1, Node n,
+                           List<Node> cellNodes, List<Node> externalNodes, List<ShuntCell> shuntCellsCreated) {
+        // create the 1st new pure external cell
+        cellNodesExtern1.stream()
+                .filter(m -> !m.getType().equals(Node.NodeType.BUS))
+                .forEach(cellNodes::remove);
+        n.setType(Node.NodeType.SHUNT);
+        cellNodesExtern1.add(n);
+        ExternCell newExternCell = new ExternCell(graph.getNextCellNumber(), cellNodesExtern1);
+        shuntCellsCreated.stream()
+                .filter(shuntCell -> newExternCell.getNodes().contains(shuntCell.getSideShuntNode(Side.RIGHT)))
+                .forEach(newExternCell::addShuntCell);
+        graph.addCell(newExternCell);
+
+        //create the shunt cells
+        List<List<Node>> shuntsNodes = createShuntCellNodes(n, newExternCell, cell.getNodes());
+        shuntsNodes.stream().flatMap(Collection::stream)
+                .filter(m -> !m.getType().equals(Node.NodeType.SHUNT))
+                .forEach(cellNodes::remove);
+        shuntsNodes.stream()
+                .map(shuntNodes -> createShuntCell(graph, shuntNodes))
+                .forEach(shuntCell -> {
+                    newExternCell.addShuntCell(shuntCell);
+                    shuntCellsCreated.add(shuntCell);
+                });
+
+        for (List<Node> shuntNodes : shuntsNodes) {
+            Node shuntNode = shuntNodes.get(shuntNodes.size() - 1);
+            List<Node> cellNodesExtern2 = checkCandidateShuntNode(shuntNode, externalNodes);
+            if (cellNodesExtern2 != null) {
+                splitCell(graph, cell, cellNodesExtern2, shuntNode, cellNodes, externalNodes, shuntCellsCreated);
+            }
+        }
+    }
+
+    private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
         int cellNumber = vlGraph.getNextCellNumber();
         InternalNode iNode1 = vlGraph.insertInternalNode(shuntNodes.get(0), shuntNodes.get(1),
                 "Shunt " + cellNumber + ".1");
@@ -244,8 +276,9 @@ public class ImplicitCellDetector implements CellDetector {
                 shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
         shuntNodes.add(1, iNode1);
         shuntNodes.add(shuntNodes.size() - 1, iNode2);
-        vlGraph.addCell(ShuntCell.create(cellNumber, externCell1, externCell2, shuntNodes));
-
+        ShuntCell shuntCell = ShuntCell.create(cellNumber, shuntNodes);
+        vlGraph.addCell(shuntCell);
+        return shuntCell;
     }
 
     private List<Node> checkCandidateShuntNode(Node n, List<Node> externalNodes) {
@@ -275,45 +308,48 @@ public class ImplicitCellDetector implements CellDetector {
             if (!visitedNodes.contains(adj)) {
                 Set<Node> resultNodes = GraphTraversal.run(adj, node -> kindToFilter.contains(node.getType()), visitedNodes);
 
-                List<Node.NodeType> types = resultNodes.stream() // what are the types of terminal node of the branch
+                Set<Node.NodeType> types = resultNodes.stream() // what are the types of terminal node of the branch
                         .map(Node::getType)
-                        .distinct().filter(kindToFilter::contains)
-                        .collect(Collectors.toList());
+                        .filter(kindToFilter::contains)
+                        .collect(Collectors.toSet());
 
                 if (types.size() > 1) {
                     hasMixBranch = true;
                 } else if (types.size() == 1) {
-                    hasBusBranch |= types.get(0).equals(Node.NodeType.BUS);
-                    hasFeederBranch |= types.get(0).equals(Node.NodeType.FEEDER);
+                    hasBusBranch |= types.contains(Node.NodeType.BUS);
+                    hasFeederBranch |= types.contains(Node.NodeType.FEEDER);
 
-                    if (types.get(0).equals(Node.NodeType.BUS) || types.get(0).equals(Node.NodeType.FEEDER)) {
+                    if (types.contains(Node.NodeType.BUS) || types.contains(Node.NodeType.FEEDER)) {
                         cellNodesExtern.addAll(resultNodes);
                     }
                 }
-                visitedNodes.addAll(resultNodes.stream()
+                resultNodes.stream()
                         .filter(m -> m.getType() != Node.NodeType.BUS)
-                        .collect(Collectors.toList()));
-
+                        .forEach(visitedNodes::add);
             }
         }
         return (hasBusBranch && hasFeederBranch && hasMixBranch) ? cellNodesExtern : null;
     }
 
-    private List<Node> createShuntCellNodes(Node n, ExternCell cellExtern1) {
-        List<Node> shuntCellNodes = new ArrayList<>();
-        shuntCellNodes.add(n);
-        Node currentNode = n.getAdjacentNodes().stream()
+    private List<List<Node>> createShuntCellNodes(Node n, ExternCell cellExtern1, List<Node> cellNodes) {
+        List<List<Node>> shuntCellsNodes = new ArrayList<>();
+        n.getAdjacentNodes().stream()
                 .filter(node -> !cellExtern1.getNodes().contains(node))
-                .findAny().orElse(null);
-        if (currentNode != null) {
-            while (currentNode.getAdjacentNodes().size() == 2) {
-                shuntCellNodes.add(currentNode);
-                currentNode = shuntCellNodes.contains(currentNode.getAdjacentNodes().get(0))
-                        ? currentNode.getAdjacentNodes().get(1) : currentNode.getAdjacentNodes().get(0);
-            }
-            shuntCellNodes.add(currentNode);
-            currentNode.setType(Node.NodeType.SHUNT);
-        }
-        return shuntCellNodes;
+                .filter(node -> node.getType() != Node.NodeType.SHUNT)
+                .filter(node -> node.getCell().getType() != Cell.CellType.SHUNT)
+                .forEach(node -> {
+                    List<Node> shuntCellNodes = new ArrayList<>();
+                    shuntCellsNodes.add(shuntCellNodes);
+                    shuntCellNodes.add(n);
+                    Node currentNode = node;
+                    while (currentNode.getAdjacentNodes().size() == 2 && cellNodes.contains(currentNode)) {
+                        shuntCellNodes.add(currentNode);
+                        currentNode = shuntCellNodes.contains(currentNode.getAdjacentNodes().get(0))
+                                ? currentNode.getAdjacentNodes().get(1) : currentNode.getAdjacentNodes().get(0);
+                    }
+                    shuntCellNodes.add(currentNode);
+                    currentNode.setType(Node.NodeType.SHUNT);
+                });
+        return shuntCellsNodes;
     }
 }

@@ -29,20 +29,8 @@ public final class ShuntCell extends AbstractCell {
         super(cellNumber, CellType.SHUNT, nodes);
     }
 
-    public static ShuntCell create(int cellNumber, ExternCell cell1, ExternCell cell2, List<Node> nodes) {
-        ShuntCell shuntCell = new ShuntCell(cellNumber, nodes);
-        if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
-            shuntCell.sideCells.put(Side.LEFT, cell1);
-            shuntCell.sideCells.put(Side.RIGHT, cell2);
-        } else if (cell2.getNodes().contains(nodes.get(0)) && cell1.getNodes().contains(nodes.get(nodes.size() - 1))) {
-            shuntCell.sideCells.put(Side.LEFT, cell2);
-            shuntCell.sideCells.put(Side.RIGHT, cell1);
-        } else {
-            throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
-        }
-        cell1.setShuntCell(shuntCell);
-        cell2.setShuntCell(shuntCell);
-        return shuntCell;
+    public static ShuntCell create(int cellNumber, List<Node> nodes) {
+        return new ShuntCell(cellNumber, nodes);
     }
 
     public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
