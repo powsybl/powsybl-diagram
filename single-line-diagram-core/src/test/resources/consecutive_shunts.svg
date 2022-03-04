@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg height="720.0" viewBox="0 0 980.0 720.0" width="980.0" xmlns="http://www.w3.org/2000/svg">
-    <style>
-        <![CDATA[
+    <style><![CDATA[
 /* ----------------------------------------------------------------------- */
 /* File: tautologies.css ------------------------------------------------- */
 .sld-out .sld-arrow-in {visibility: hidden}
@@ -129,8 +128,7 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 
-]]>
-    </style>
+]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
     <g>
         <g class="sld-grid" id="GRID_AU">

@@ -8,7 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 11.1",
+    "id" : "INTERNAL_vl_Shunt 10.1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
@@ -16,7 +16,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 11.2",
+    "id" : "INTERNAL_vl_Shunt 10.2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 300.0,
@@ -24,7 +24,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 14.1",
+    "id" : "INTERNAL_vl_Shunt 13.1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 250.0,
@@ -32,7 +32,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 14.2",
+    "id" : "INTERNAL_vl_Shunt 13.2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 400.0,
@@ -40,7 +40,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 8.1",
+    "id" : "INTERNAL_vl_Shunt 7.1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -48,7 +48,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 8.2",
+    "id" : "INTERNAL_vl_Shunt 7.2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -1315,8 +1315,33 @@
       } ]
     }
   }, {
-    "type" : "EXTERN",
+    "type" : "SHUNT",
     "number" : 7,
+    "rootBlock" : {
+      "type" : "BODYPRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 6,
+        "vSpan" : 2,
+        "orientation" : "RIGHT"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ "INTERNAL_vl_fShuntA", "INTERNAL_vl_Shunt 7.1", "bShunt", "INTERNAL_vl_Shunt 7.2", "INTERNAL_vl_fShuntB" ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 8,
     "direction" : "TOP",
     "order" : 2,
     "rootBlock" : {
@@ -1468,31 +1493,6 @@
       } ]
     }
   }, {
-    "type" : "SHUNT",
-    "number" : 8,
-    "rootBlock" : {
-      "type" : "BODYPRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 6,
-        "vSpan" : 2,
-        "orientation" : "RIGHT"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ "INTERNAL_vl_fShuntA", "INTERNAL_vl_Shunt 8.1", "bShunt", "INTERNAL_vl_Shunt 8.2", "INTERNAL_vl_fShuntB" ]
-    }
-  }, {
     "type" : "EXTERN",
     "number" : 9,
     "direction" : "TOP",
@@ -1625,8 +1625,33 @@
       } ]
     }
   }, {
-    "type" : "EXTERN",
+    "type" : "SHUNT",
     "number" : 10,
+    "rootBlock" : {
+      "type" : "BODYPRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 6,
+        "vSpan" : 2,
+        "orientation" : "RIGHT"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ "INTERNAL_vl_fg1", "INTERNAL_vl_Shunt 10.1", "shuntGen", "INTERNAL_vl_Shunt 10.2", "INTERNAL_vl_fg2" ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 11,
     "direction" : "TOP",
     "order" : 6,
     "rootBlock" : {
@@ -1755,31 +1780,6 @@
         },
         "nodes" : [ "INTERNAL_vl_gen2", "gen2" ]
       } ]
-    }
-  }, {
-    "type" : "SHUNT",
-    "number" : 11,
-    "rootBlock" : {
-      "type" : "BODYPRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 6,
-        "vSpan" : 2,
-        "orientation" : "RIGHT"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ "INTERNAL_vl_fg1", "INTERNAL_vl_Shunt 11.1", "shuntGen", "INTERNAL_vl_Shunt 11.2", "INTERNAL_vl_fg2" ]
     }
   }, {
     "type" : "EXTERN",
@@ -1914,8 +1914,33 @@
       } ]
     }
   }, {
-    "type" : "EXTERN",
+    "type" : "SHUNT",
     "number" : 13,
+    "rootBlock" : {
+      "type" : "BODYPRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 6,
+        "vSpan" : 2,
+        "orientation" : "RIGHT"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ "INTERNAL_vl_fC", "INTERNAL_vl_Shunt 13.1", "bSwitchCG", "INTERNAL_vl_Shunt 13.2", "INTERNAL_vl_fLoadG" ]
+    }
+  }, {
+    "type" : "EXTERN",
+    "number" : 14,
     "direction" : "TOP",
     "order" : 8,
     "rootBlock" : {
@@ -2192,31 +2217,6 @@
         } ]
       } ]
     }
-  }, {
-    "type" : "SHUNT",
-    "number" : 14,
-    "rootBlock" : {
-      "type" : "BODYPRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 6,
-        "vSpan" : 2,
-        "orientation" : "RIGHT"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ "INTERNAL_vl_fC", "INTERNAL_vl_Shunt 14.1", "bSwitchCG", "INTERNAL_vl_Shunt 14.2", "INTERNAL_vl_fLoadG" ]
-    }
   } ],
   "edges" : [ {
     "node1" : "bbs1",
@@ -2424,40 +2424,40 @@
     "node2" : "INTERNAL_vl_dA"
   }, {
     "node1" : "INTERNAL_vl_fShuntA",
-    "node2" : "INTERNAL_vl_Shunt 8.1"
+    "node2" : "INTERNAL_vl_Shunt 7.1"
   }, {
     "node1" : "bShunt",
-    "node2" : "INTERNAL_vl_Shunt 8.1"
+    "node2" : "INTERNAL_vl_Shunt 7.1"
   }, {
     "node1" : "INTERNAL_vl_fShuntB",
-    "node2" : "INTERNAL_vl_Shunt 8.2"
+    "node2" : "INTERNAL_vl_Shunt 7.2"
   }, {
     "node1" : "bShunt",
-    "node2" : "INTERNAL_vl_Shunt 8.2"
+    "node2" : "INTERNAL_vl_Shunt 7.2"
   }, {
     "node1" : "INTERNAL_vl_fg1",
-    "node2" : "INTERNAL_vl_Shunt 11.1"
+    "node2" : "INTERNAL_vl_Shunt 10.1"
   }, {
     "node1" : "shuntGen",
-    "node2" : "INTERNAL_vl_Shunt 11.1"
+    "node2" : "INTERNAL_vl_Shunt 10.1"
   }, {
     "node1" : "INTERNAL_vl_fg2",
-    "node2" : "INTERNAL_vl_Shunt 11.2"
+    "node2" : "INTERNAL_vl_Shunt 10.2"
   }, {
     "node1" : "shuntGen",
-    "node2" : "INTERNAL_vl_Shunt 11.2"
+    "node2" : "INTERNAL_vl_Shunt 10.2"
   }, {
     "node1" : "INTERNAL_vl_fC",
-    "node2" : "INTERNAL_vl_Shunt 14.1"
+    "node2" : "INTERNAL_vl_Shunt 13.1"
   }, {
     "node1" : "bSwitchCG",
-    "node2" : "INTERNAL_vl_Shunt 14.1"
+    "node2" : "INTERNAL_vl_Shunt 13.1"
   }, {
     "node1" : "INTERNAL_vl_fLoadG",
-    "node2" : "INTERNAL_vl_Shunt 14.2"
+    "node2" : "INTERNAL_vl_Shunt 13.2"
   }, {
     "node1" : "bSwitchCG",
-    "node2" : "INTERNAL_vl_Shunt 14.2"
+    "node2" : "INTERNAL_vl_Shunt 13.2"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],
