@@ -81,15 +81,6 @@ public final class ShuntCell extends AbstractCell {
         return sideCells.get(side);
     }
 
-    public ExternCell getOtherSideCell(ExternCell cell) {
-        if (cell == sideCells.get(Side.LEFT)) {
-            return sideCells.get(Side.RIGHT);
-        } else if (cell == sideCells.get(Side.RIGHT)) {
-            return sideCells.get(Side.LEFT);
-        }
-        return null;
-    }
-
     public FictitiousNode getSideShuntNode(Side side) {
         if (side == Side.UNDEFINED) {
             return null;

@@ -7,8 +7,6 @@
 package com.powsybl.sld.model;
 
 import com.powsybl.sld.model.coordinate.Position;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
@@ -25,7 +23,6 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public class ExternCell extends AbstractBusCell {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExternCell.class);
 
     private ShuntCell shuntCell = null;
 
