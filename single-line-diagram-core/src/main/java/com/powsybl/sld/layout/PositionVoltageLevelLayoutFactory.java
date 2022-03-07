@@ -8,7 +8,10 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Side;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -30,7 +33,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private boolean handleShunts = false;
 
-    private boolean addCellForBusInfo = false;
+    private Map<String, Side> busInfoMap = new HashMap<>();
 
     public PositionVoltageLevelLayoutFactory() {
         this(new PositionFromExtension());
@@ -85,12 +88,12 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
         return this;
     }
 
-    public boolean isAddCellForBusInfo() {
-        return addCellForBusInfo;
+    public Map<String, Side> getBusInfoMap() {
+        return busInfoMap;
     }
 
-    public PositionVoltageLevelLayoutFactory setAddCellForBusInfo(boolean addCellForBusInfo) {
-        this.addCellForBusInfo = addCellForBusInfo;
+    public PositionVoltageLevelLayoutFactory setBusInfoMap(Map<String, Side> busInfoMap) {
+        this.busInfoMap = busInfoMap;
         return this;
     }
 
@@ -101,7 +104,7 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
                 .detectCells(graph);
 
         // build blocks from cells
-        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, addCellForBusInfo).organize(graph);
+        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap).organize(graph);
 
         return new PositionVoltageLevelLayout(graph);
     }

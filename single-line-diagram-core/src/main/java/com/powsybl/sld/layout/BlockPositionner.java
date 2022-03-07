@@ -8,7 +8,6 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
-import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
@@ -21,7 +20,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  */
 class BlockPositionner {
 
-    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, boolean addCellForBusInfo) {
+    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, Map<String, Side> busInfoMap) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
@@ -37,7 +36,7 @@ class BlockPositionner {
             List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, ss);
             List<BusNode> busNodesToOpen = getBusNodesToOpen(prevSs, ss);
 
-            if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == RIGHT)) {
+            if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.RIGHT)) {
                 // Adding one cell on previous subsection right side
                 hPos += 2; // A cell is 2 units wide
             }
@@ -50,14 +49,8 @@ class BlockPositionner {
                 openBusNode(busNode, hPos);
             }
 
-            if (busNodesToOpen.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == LEFT)) {
+            if (busNodesToOpen.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.LEFT)) {
                 // Adding one cell on current subsection left side
-                hPos += 2; // A cell is 2 units wide
-            }
-
-
-            if (addCellForBusInfo) {
-                // Adding cell on busbar left side
                 hPos += 2; // A cell is 2 units wide
             }
 
@@ -78,7 +71,7 @@ class BlockPositionner {
         }
 
         List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, new Subsection(maxV));
-        if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == RIGHT)) {
+        if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.RIGHT)) {
             // Adding one cell on previous subsection right side
             hPos += 2; // A cell is 2 units wide
         }

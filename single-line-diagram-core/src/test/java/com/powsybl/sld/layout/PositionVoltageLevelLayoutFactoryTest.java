@@ -6,7 +6,11 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.coordinate.Side;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -35,8 +39,10 @@ public class PositionVoltageLevelLayoutFactoryTest {
         factory.setHandleShunts(true);
         assertTrue(factory.isHandleShunts());
 
-        assertFalse(factory.isAddCellForBusInfo());
-        factory.setAddCellForBusInfo(true);
-        assertTrue(factory.isAddCellForBusInfo());
+        assertTrue(factory.getBusInfoMap().isEmpty());
+        Map<String, Side> busInfoMap = new HashMap<>();
+        busInfoMap.put("???", Side.LEFT);
+        factory.setBusInfoMap(busInfoMap);
+        assertFalse(factory.getBusInfoMap().isEmpty());
     }
 }
