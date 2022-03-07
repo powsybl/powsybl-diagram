@@ -89,7 +89,7 @@ class BlockPositionner {
             BusNode prevBusNode = prevSS.getBusNode(v);
             BusNode actualBusNode = ss.getBusNode(v);
             if (prevBusNode != null && (actualBusNode == null || prevBusNode != actualBusNode)) {
-               busNodesToClose.add(prevBusNode);
+                busNodesToClose.add(prevBusNode);
             }
         }
         return busNodesToClose;
