@@ -834,10 +834,11 @@ public class DefaultSVGWriter implements SVGWriter {
             points.add(new Point(feederNode.getDiagramCoordinates()));
         }
 
+        String side = feederNode instanceof FeederWithSideNode ? ((FeederWithSideNode) feederNode).getSide().name() : null;
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
+                drawFeederInfo(prefixId, feederNode.getId(), feederNode.getEquipmentId(), side, points, root, feederInfo, shiftFeederInfo, metadata);
                 addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
@@ -856,7 +857,7 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void drawFeederInfo(String prefixId, String feederNodeId, List<Point> points, Element root,
+    private void drawFeederInfo(String prefixId, String feederNodeId, String equipmentId, String side, List<Point> points, Element root,
                                  FeederInfo feederInfo, double shift, GraphMetadata metadata) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
@@ -873,7 +874,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, equipmentId, side, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
