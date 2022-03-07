@@ -10,9 +10,11 @@ import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -89,5 +91,9 @@ public interface DiagramLabelProvider {
 
     default Optional<BusInfo> getBusInfo(BusNode node) {
         return Optional.empty();
+    }
+
+    default Map<String, Side> getBusInfoSides(VoltageLevelGraph graph) {
+        return Collections.emptyMap();
     }
 }
