@@ -6,11 +6,12 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,11 +34,11 @@ public final class TopologyCalculation {
     public static List<TopologicallyConnectedNodesSet> run(VoltageLevelGraph graph) {
         List<TopologicallyConnectedNodesSet> topologicallyConnectedNodesSets = new ArrayList<>();
         List<Node> nodesToVisit = graph.getNodes();
-        List<Node> visitedNodes = new ArrayList<>();
+        Set<Node> visitedNodes = new HashSet<>();
         Node node = identifyNonOpenNode(nodesToVisit);
         while (node != null) {
             List<SwitchNode> openSwitches = new ArrayList<>();
-            List<Node> connectedNodes = GraphTraversal
+            Set<Node> connectedNodes = GraphTraversal
                     .run(node, n -> extremityCriteria(n, openSwitches), visitedNodes);
             Set<SwitchNode> borderSwitchNodes = openSwitches.stream()
                     .filter(n -> isBorderSwitchNode(n, connectedNodes))
@@ -64,7 +65,7 @@ public final class TopologyCalculation {
         return remainingNodes.stream().filter(n -> !isOpenSwitchNode(n)).findFirst().orElse(null);
     }
 
-    private static boolean isBorderSwitchNode(SwitchNode switchNode, List<Node> connectedNodes) {
+    private static boolean isBorderSwitchNode(SwitchNode switchNode, Set<Node> connectedNodes) {
         return !connectedNodes.containsAll(switchNode.getAdjacentNodes());
     }
 

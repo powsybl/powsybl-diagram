@@ -11,6 +11,7 @@ import com.powsybl.sld.layout.LayoutParameters;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public abstract class AbstractCell implements Cell {
 
     private Block rootBlock;
 
-    AbstractCell(int cellNumber, CellType type, List<Node> nodes) {
+    AbstractCell(int cellNumber, CellType type, Collection<Node> nodes) {
         this.type = Objects.requireNonNull(type);
         number = cellNumber;
         setNodes(nodes);
@@ -47,7 +48,7 @@ public abstract class AbstractCell implements Cell {
         nodes.removeAll(nodeToRemove);
     }
 
-    private void setNodes(List<Node> nodes) {
+    private void setNodes(Collection<Node> nodes) {
         this.nodes.addAll(nodes);
         // the cell of the node of a SHUNT node (which belongs to a SHUNT and an EXTERN cells)
         // is the cell of the EXTERN cell
