@@ -27,7 +27,8 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     @Override
     protected List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                      boolean increment) {
-        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLines);
+        double yMax = getGraph().getVoltageLevels().stream().mapToDouble(g -> g.getY() + g.getInnerHeight(layoutParam)).max().orElse(0.0);
+        return calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLines, yMax);
     }
 
     /**
@@ -62,7 +63,6 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
     @Override
     public void manageSnakeLines(LayoutParameters layoutParameters) {
-
         getGraph().getVoltageLevels().forEach(g -> manageSnakeLines(g, layoutParameters));
         manageSnakeLines(getGraph(), layoutParameters);
 

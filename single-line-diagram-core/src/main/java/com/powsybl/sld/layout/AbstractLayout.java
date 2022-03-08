@@ -66,17 +66,18 @@ public abstract class AbstractLayout implements Layout {
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
     protected static List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
-                                                                               boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+                                                                               boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines, double yMax) {
         List<Point> pol = new ArrayList<>();
         pol.add(node1.getDiagramCoordinates());
-        addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol);
+        addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol, yMax);
         pol.add(node2.getDiagramCoordinates());
         return pol;
     }
 
     private static void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
                                         InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
-                                        List<Point> pol) {
+                                        List<Point> pol,
+                                        double yMax) {
         BusCell.Direction dNode1 = getNodeDirection(node1, 1);
         BusCell.Direction dNode2 = getNodeDirection(node2, 2);
 
@@ -92,7 +93,7 @@ public abstract class AbstractLayout implements Layout {
                 nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
             }
             double decalV = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
-            double yDecal = Math.max(y1 + decalV, y2 + decalV);
+            double yDecal = yMax + decalV; // Math.max(y1 + decalV, y2 + decalV);
             pol.add(new Point(x1, yDecal));
             pol.add(new Point(x2, yDecal));
         } else {
@@ -111,10 +112,10 @@ public abstract class AbstractLayout implements Layout {
             double xBetweenGraph = xMaxGraph - vlPadding.getLeft()
                 - (infosNbSnakeLines.getNbSnakeLinesVerticalBetween().compute(idMaxGraph, (k, v) -> v + 1) - 1) * layoutParam.getHorizontalSnakeLinePadding();
 
-            pol.addAll(Point.createPointsList(x1, y1 + decal1V,
-                xBetweenGraph, y1 + decal1V,
-                xBetweenGraph, y2 + decal2V,
-                x2, y2 + decal2V));
+            pol.addAll(Point.createPointsList(x1, yMax + decal1V, // y1 + decal1V,
+                xBetweenGraph, yMax + decal1V,//y1 + decal1V,
+                xBetweenGraph, yMax + decal2V,//y2 + decal2V,
+                x2, yMax + decal2V)); // y2 + decal2V));
         }
     }
 

@@ -61,9 +61,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
-        double heightWithoutPadding = graph.getExternCellHeight(BusCell.Direction.TOP)
-            + layoutParam.getVerticalSpaceBus() * graph.getMaxV()
-            + graph.getExternCellHeight(BusCell.Direction.BOTTOM);
+        double heightWithoutPadding = graph.getInnerHeight(layoutParam);
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
         double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
@@ -83,6 +81,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         graph.setCoord(graph.getX() + widthSnakeLinesLeft, graph.getY() + heightSnakeLinesTop);
 
         infosNbSnakeLines.reset();
+
         manageSnakeLines(getGraph(), layoutParam);
     }
 
