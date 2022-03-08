@@ -12,10 +12,7 @@ import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Side;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -94,6 +91,8 @@ public interface DiagramLabelProvider {
     }
 
     default Map<String, Side> getBusInfoSides(VoltageLevelGraph graph) {
-        return Collections.emptyMap();
+        Map<String, Side> result = new HashMap<>();
+        graph.getNodeBuses().forEach(busNode -> getBusInfo(busNode).ifPresent(busInfo -> result.put(busNode.getId(), busInfo.getAnchor())));
+        return result;
     }
 }

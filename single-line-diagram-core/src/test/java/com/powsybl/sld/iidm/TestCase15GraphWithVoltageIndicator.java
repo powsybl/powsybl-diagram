@@ -101,18 +101,6 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 }
                 return Optional.ofNullable(result);
             }
-
-            @Override
-            public Map<String, Side> getBusInfoSides(VoltageLevelGraph graph) {
-                // BusInfoMap
-                Map<String, Side> busInfoMap = new HashMap<>();
-                busInfoMap.put("bbs21", Side.LEFT);
-                busInfoMap.put("bbs1", Side.RIGHT);
-                busInfoMap.put("bbs13", Side.RIGHT);
-                busInfoMap.put("bbs22", Side.LEFT);
-                busInfoMap.put("bbs23", Side.LEFT);
-                return busInfoMap;
-            }
         };
     }
 
