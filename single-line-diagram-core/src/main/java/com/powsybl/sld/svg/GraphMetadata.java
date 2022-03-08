@@ -231,14 +231,17 @@ public class GraphMetadata {
 
         private final String id;
 
-        private final String feederNodeId;
+        private final String equipmentId;
+
+        private final String side;
 
         private final String userDefinedId;
 
         @JsonCreator
-        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("feederNodeId") String feederNodeId, @JsonProperty("userDefinedId") String userDefinedId) {
+        public FeederInfoMetadata(@JsonProperty("id") String id, @JsonProperty("equipmentId") String equipmentId, @JsonProperty("side") String side, @JsonProperty("userDefinedId") String userDefinedId) {
             this.id = Objects.requireNonNull(id);
-            this.feederNodeId = Objects.requireNonNull(feederNodeId);
+            this.equipmentId = Objects.requireNonNull(equipmentId);
+            this.side = side;
             this.userDefinedId = userDefinedId;
         }
 
@@ -246,8 +249,12 @@ public class GraphMetadata {
             return id;
         }
 
-        public String getFeederNodeId() {
-            return feederNodeId;
+        public String getEquipmentId() {
+            return equipmentId;
+        }
+
+        public String getSide() {
+            return side;
         }
 
         public String getUserDefinedId() {

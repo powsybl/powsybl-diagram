@@ -65,7 +65,7 @@ public class GraphMetadataTest {
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, null, false, BusCell.Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
-        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "user_id"));
+        metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "user_id"));
         metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata("id1", "user_id"));
         metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata("id6", "busNodeId1", "user_id"));
 
@@ -102,7 +102,8 @@ public class GraphMetadataTest {
         assertEquals("id2", metadata2.getWireMetadata("id3").getNodeId2());
         assertFalse(metadata2.getWireMetadata("id3").isStraight());
         assertNotNull(metadata2.getFeederInfoMetadata("id1"));
-        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getFeederNodeId());
+        assertEquals("id3", metadata2.getFeederInfoMetadata("id1").getEquipmentId());
+        assertEquals("ONE", metadata2.getFeederInfoMetadata("id1").getSide());
         assertEquals("user_id", metadata2.getFeederInfoMetadata("id1").getUserDefinedId());
 
         assertNotNull(metadata2.getElectricalNodeInfoMetadata("id1"));
@@ -142,7 +143,7 @@ public class GraphMetadataTest {
         assertEquals("id1", metadata3.getWireMetadata("id3").getNodeId1());
         assertEquals("id2", metadata3.getWireMetadata("id3").getNodeId2());
         assertFalse(metadata3.getWireMetadata("id3").isStraight());
-        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").getFeederNodeId());
+        assertEquals("id3", metadata3.getFeederInfoMetadata("id1").getEquipmentId());
     }
 
     @Test
