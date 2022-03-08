@@ -691,9 +691,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public double getInnerHeight(LayoutParameters layoutParam) {
-        double ect = getExternCellHeight(BusCell.Direction.TOP);
-        double maxV = 2 * layoutParam.getStackHeight() + layoutParam.getVerticalSpaceBus() * getMaxV();
-        double ecb = getExternCellHeight(BusCell.Direction.BOTTOM);
-        return ect + maxV + ecb;
+        return getExternCellHeight(BusCell.Direction.TOP) + layoutParam.getVerticalSpaceBus() * getMaxV() + getExternCellHeight(BusCell.Direction.BOTTOM);
     }
 }
