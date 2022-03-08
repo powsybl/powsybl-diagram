@@ -58,7 +58,7 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(int cellNumber, List<Node> nodes, boolean exceptionIfPatternNotHandled) {
+    public InternCell(int cellNumber, Collection<Node> nodes, boolean exceptionIfPatternNotHandled) {
         super(cellNumber, CellType.INTERN, nodes);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);
