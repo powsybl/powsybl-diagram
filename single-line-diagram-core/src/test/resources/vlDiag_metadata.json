@@ -1362,94 +1362,116 @@
   "lines" : [ ],
   "feederInfos" : [ {
     "id" : "idgen1_ARROW_REACTIVE",
-    "feederNodeId" : "gen1"
+    "equipmentId" : "gen1"
   }, {
     "id" : "idload1_ARROW_ACTIVE",
-    "feederNodeId" : "load1"
+    "equipmentId" : "load1"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_ACTIVE",
-    "feederNodeId" : "trf8_TWO"
+    "equipmentId" : "trf8",
+    "side" : "TWO"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf4_ONE"
+    "equipmentId" : "trf4",
+    "side" : "ONE"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf1_ONE"
+    "equipmentId" : "trf1",
+    "side" : "ONE"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_ACTIVE",
-    "feederNodeId" : "trf8_THREE"
+    "equipmentId" : "trf8",
+    "side" : "THREE"
   }, {
     "id" : "idload2_ARROW_ACTIVE",
-    "feederNodeId" : "load2"
+    "equipmentId" : "load2"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf3_ONE"
+    "equipmentId" : "trf3",
+    "side" : "ONE"
   }, {
     "id" : "idgen2_ARROW_REACTIVE",
-    "feederNodeId" : "gen2"
+    "equipmentId" : "gen2"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf5_ONE"
+    "equipmentId" : "trf5",
+    "side" : "ONE"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_REACTIVE",
-    "feederNodeId" : "trf6_TWO"
+    "equipmentId" : "trf6",
+    "side" : "TWO"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_REACTIVE",
-    "feederNodeId" : "trf6_THREE"
+    "equipmentId" : "trf6",
+    "side" : "THREE"
   }, {
     "id" : "idload1_ARROW_REACTIVE",
-    "feederNodeId" : "load1"
+    "equipmentId" : "load1"
   }, {
     "id" : "idtrf5_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf5_ONE"
+    "equipmentId" : "trf5",
+    "side" : "ONE"
   }, {
     "id" : "idtrf3_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf3_ONE"
+    "equipmentId" : "trf3",
+    "side" : "ONE"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_ACTIVE",
-    "feederNodeId" : "trf7_TWO"
+    "equipmentId" : "trf7",
+    "side" : "TWO"
   }, {
     "id" : "idtrf7_95_TWO_ARROW_REACTIVE",
-    "feederNodeId" : "trf7_TWO"
+    "equipmentId" : "trf7",
+    "side" : "TWO"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_ACTIVE",
-    "feederNodeId" : "trf7_THREE"
+    "equipmentId" : "trf7",
+    "side" : "THREE"
   }, {
     "id" : "idload2_ARROW_REACTIVE",
-    "feederNodeId" : "load2"
+    "equipmentId" : "load2"
   }, {
     "id" : "idgen1_ARROW_ACTIVE",
-    "feederNodeId" : "gen1"
+    "equipmentId" : "gen1"
   }, {
     "id" : "idtrf7_95_THREE_ARROW_REACTIVE",
-    "feederNodeId" : "trf7_THREE"
+    "equipmentId" : "trf7",
+    "side" : "THREE"
   }, {
     "id" : "idtrf6_95_THREE_ARROW_ACTIVE",
-    "feederNodeId" : "trf6_THREE"
+    "equipmentId" : "trf6",
+    "side" : "THREE"
   }, {
     "id" : "idtrf8_95_TWO_ARROW_REACTIVE",
-    "feederNodeId" : "trf8_TWO"
+    "equipmentId" : "trf8",
+    "side" : "TWO"
   }, {
     "id" : "idtrf1_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf1_ONE"
+    "equipmentId" : "trf1",
+    "side" : "ONE"
   }, {
     "id" : "idgen2_ARROW_ACTIVE",
-    "feederNodeId" : "gen2"
+    "equipmentId" : "gen2"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf2_ONE"
+    "equipmentId" : "trf2",
+    "side" : "ONE"
   }, {
     "id" : "idtrf6_95_TWO_ARROW_ACTIVE",
-    "feederNodeId" : "trf6_TWO"
+    "equipmentId" : "trf6",
+    "side" : "TWO"
   }, {
     "id" : "idtrf8_95_THREE_ARROW_REACTIVE",
-    "feederNodeId" : "trf8_THREE"
+    "equipmentId" : "trf8",
+    "side" : "THREE"
   }, {
     "id" : "idtrf2_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf2_ONE"
+    "equipmentId" : "trf2",
+    "side" : "ONE"
   }, {
     "id" : "idtrf4_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf4_ONE"
+    "equipmentId" : "trf4",
+    "side" : "ONE"
   } ],
   "electricalNodeInfos" : [ {
     "id" : "NODE_vl1_0"
