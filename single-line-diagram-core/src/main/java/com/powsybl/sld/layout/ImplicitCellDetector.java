@@ -201,7 +201,7 @@ public class ImplicitCellDetector implements CellDetector {
 
         Optional<List<Node>> cellNodesExtern = nodes.stream().filter(n -> n.getAdjacentNodes().size() > 2) // optimisation : a Shunt node has necessarily 3 ore more adjacent nodes
                 .map(n -> checkCandidateShuntNode(n, externalNodes))
-                .filter(Objects::nonNull).findFirst();
+                .filter(nodesExternCell -> !nodesExternCell.isEmpty()).findFirst();
 
         if (cellNodesExtern.isPresent()) {
             Set<Node> remainingNodes = new LinkedHashSet<>(nodes);
@@ -209,6 +209,7 @@ public class ImplicitCellDetector implements CellDetector {
             Node shuntNode = cellNodesExtern.get().get(0);
             splitNodes(graph, nodes, shuntNode, cellNodesExtern.get(), remainingNodes, externalNodes, shuntCellsCreated);
 
+            // buses and shunts are kept as they might be shared, but if isolated they should be removed now from remaining nodes
             remainingNodes.removeIf(rn -> isIsolatedBusOrShunt(remainingNodes, rn));
 
             // when created, a shunt cell created is attached to the left to a pure extern cell, hence only the right side is checked
@@ -224,7 +225,7 @@ public class ImplicitCellDetector implements CellDetector {
                 detectAndTypeShunt(graph, remainingNodes, linkedShuntCells);
             }
         } else {
-            // if no shunt node is found (checkCandidateShuntNode always returns null), create a cell anyway with all nodes
+            // if no shunt node is found (checkCandidateShuntNode always returns an empty list), create a cell anyway with all nodes
             graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes, shuntCells));
         }
     }
@@ -270,7 +271,7 @@ public class ImplicitCellDetector implements CellDetector {
         for (List<Node> shuntNodes : shuntsNodes) {
             Node consecutiveShuntNode = shuntNodes.get(shuntNodes.size() - 1);
             List<Node> cellNodesExtern2 = checkCandidateShuntNode(consecutiveShuntNode, externalNodes);
-            if (cellNodesExtern2 != null) {
+            if (!cellNodesExtern2.isEmpty()) {
                 splitNodes(graph, nodes, consecutiveShuntNode, cellNodesExtern2, remainingNodes, externalNodes, shuntCellsCreated);
             }
         }
@@ -347,7 +348,7 @@ public class ImplicitCellDetector implements CellDetector {
             n.setType(Node.NodeType.SHUNT);
             return cellNodesExtern;
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
