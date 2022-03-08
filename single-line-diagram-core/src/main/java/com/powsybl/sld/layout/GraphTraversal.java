@@ -8,8 +8,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,8 @@ public final class GraphTraversal {
     static boolean run(Node node,
                        Predicate<Node> extremityCriteria,
                        Predicate<Node> unsuccessfulCriteria,
-                       List<Node> nodesResult,
-                       List<Node> outsideNodes) {
+                       Set<Node> nodesResult,
+                       Set<Node> outsideNodes) {
 
         if (outsideNodes.contains(node)) {
             return false;
@@ -58,10 +59,10 @@ public final class GraphTraversal {
         return true;
     }
 
-    static List<Node> run(Node node,
+    static Set<Node> run(Node node,
                           Predicate<Node> extremityCriteria,
-                          List<Node> outsideNodes) {
-        List<Node> nodesResult = new ArrayList<>();
+                          Set<Node> outsideNodes) {
+        Set<Node> nodesResult = new LinkedHashSet<>();
         run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
         return nodesResult;
     }

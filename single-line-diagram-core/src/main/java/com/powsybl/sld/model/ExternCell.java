@@ -10,12 +10,14 @@ import com.powsybl.sld.model.coordinate.Position;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Collection;
 
-import static com.powsybl.sld.model.Cell.CellType.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Side.*;
-import static com.powsybl.sld.model.Node.NodeType.*;
+import static com.powsybl.sld.model.Cell.CellType.EXTERN;
+import static com.powsybl.sld.model.Node.NodeType.FEEDER;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
+import static com.powsybl.sld.model.coordinate.Side.LEFT;
+import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -27,7 +29,7 @@ public class ExternCell extends AbstractBusCell {
 
     private ShuntCell shuntCell = null;
 
-    public ExternCell(int cellNumber, List<Node> nodes) {
+    public ExternCell(int cellNumber, Collection<Node> nodes) {
         super(cellNumber, EXTERN, nodes);
     }
 

@@ -10,9 +10,7 @@ import com.powsybl.sld.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -62,14 +60,14 @@ public class ImplicitCellDetector implements CellDetector {
         exclusionTypes.add(Node.NodeType.FEEDER);
         List<Node.NodeType> stopTypes = new ArrayList<>();
         stopTypes.add(Node.NodeType.BUS);
-        List<List<Node>> internCellsNodes = detectCell(graph, stopTypes, exclusionTypes, allocatedNodes);
+        List<Set<Node>> internCellsNodes = detectCell(graph, stopTypes, exclusionTypes, allocatedNodes);
         internCellsNodes.stream()
                 .map(nodes -> new InternCell(graph.getNextCellNumber(), nodes, exceptionIfPatternNotHandled))
                 .forEach(graph::addCell);
 
         // ****************EXTERN AND SHUNT CELLS******
         stopTypes.add(Node.NodeType.FEEDER);
-        List<List<Node>> externCellsNodes = detectCell(graph, stopTypes, new ArrayList<>(), allocatedNodes);
+        List<Set<Node>> externCellsNodes = detectCell(graph, stopTypes, new ArrayList<>(), allocatedNodes);
         externCellsNodes.forEach(nodes -> graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes)));
         for (ExternCell cell : graph.getCells().stream()
                 .filter(cell -> cell instanceof ExternCell)
@@ -111,19 +109,19 @@ public class ImplicitCellDetector implements CellDetector {
      * @param isCellIntern   when the exploration is for the identification of internCell enables to instantiate InternCell class instead of Cell
      * @param allocatedNodes is the list of nodes already allocated to a cell.
      **/
-    private List<List<Node>> detectCell(VoltageLevelGraph graph,
+    private List<Set<Node>> detectCell(VoltageLevelGraph graph,
             List<Node.NodeType> typeStops,
             List<Node.NodeType> exclusionTypes,
             List<Node> allocatedNodes) {
-        List<List<Node>> cellsNodes = new ArrayList<>();
+        List<Set<Node>> cellsNodes = new ArrayList<>();
         graph.getNodeBuses().forEach(bus -> bus.getAdjacentNodes().forEach(adj -> {
-            List<Node> cellNodes = new ArrayList<>();
-            List<Node> outsideNodes = new ArrayList<>(allocatedNodes);
+            Set<Node> cellNodes = new LinkedHashSet<>();
+            cellNodes.add(bus);
+            Set<Node> outsideNodes = new HashSet<>(allocatedNodes);
             outsideNodes.add(bus);
             if (GraphTraversal.run(
                     adj, node -> typeStops.contains(node.getType()), node -> exclusionTypes.contains(node.getType()),
                     cellNodes, outsideNodes)) {
-                cellNodes.add(0, bus);
                 cellsNodes.add(cellNodes);
                 allocatedNodes.addAll(cellNodes.stream()
                         .filter(node -> node.getType() != Node.NodeType.BUS)
@@ -262,7 +260,7 @@ public class ImplicitCellDetector implements CellDetector {
         and returned in the cellNodesExtern
          */
 
-        List<Node> visitedNodes = new ArrayList<>(externalNodes);
+        Set<Node> visitedNodes = new HashSet<>(externalNodes);
         visitedNodes.add(n); //removal of the node to explore branches from it
 
         List<Node> cellNodesExtern = new ArrayList<>();
@@ -274,7 +272,7 @@ public class ImplicitCellDetector implements CellDetector {
         adjList.removeAll(visitedNodes);
         for (Node adj : adjList) {
             if (!visitedNodes.contains(adj)) {
-                List<Node> resultNodes = GraphTraversal.run(adj, node -> kindToFilter.contains(node.getType()), visitedNodes);
+                Set<Node> resultNodes = GraphTraversal.run(adj, node -> kindToFilter.contains(node.getType()), visitedNodes);
 
                 List<Node.NodeType> types = resultNodes.stream() // what are the types of terminal node of the branch
                         .map(Node::getType)

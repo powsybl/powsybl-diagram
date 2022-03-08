@@ -12,6 +12,7 @@ import com.powsybl.sld.model.coordinate.Side;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.model.coordinate.Side.LEFT;
 import static com.powsybl.sld.model.coordinate.Side.RIGHT;
@@ -289,14 +290,14 @@ public class Subsection {
                         .map(FeederNode.class::cast).collect(Collectors.toList());
                 if (feeders.size() > 1) {
                     FictitiousNode shNode = sc.getSideShuntNode(side);
-                    List<Node> outsideNodes = new ArrayList<>();
+                    Set<Node> outsideNodes = new HashSet<>();
                     outsideNodes.add(shNode);
                     List<FeederNode> shuntSideFeederNodes = shNode.getAdjacentNodes().stream().flatMap(node -> {
-                        List<Node> gtResult = new ArrayList<>();
+                        Set<Node> gtResult = new LinkedHashSet<>();
                         if (GraphTraversal.run(node, node1 -> node1.getType() == Node.NodeType.FEEDER, node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
                             return gtResult.stream().filter(n -> n.getType() == Node.NodeType.FEEDER).map(FeederNode.class::cast);
                         } else {
-                            return new ArrayList<FeederNode>().stream();
+                            return Stream.empty();
                         }
                     }).collect(Collectors.toList());
                     feeders.removeAll(shuntSideFeederNodes);
