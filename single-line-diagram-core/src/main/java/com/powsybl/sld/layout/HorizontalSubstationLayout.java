@@ -41,7 +41,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
 
-        double yVoltageLevels = diagramPadding.getTop() + voltageLevelPadding.getTop();
+        double topPadding = diagramPadding.getTop() + voltageLevelPadding.getTop();
         double x = diagramPadding.getLeft();
         double substationHeight = 0;
 
@@ -52,7 +52,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
-            vlGraph.setCoord(x, yVoltageLevels);
+            vlGraph.setCoord(x, computeCoordY(layoutParameters, topPadding, vlGraph));
 
             x += vlGraph.getWidth() + voltageLevelPadding.getRight();
             substationHeight = Math.max(substationHeight, vlGraph.getHeight());
@@ -76,12 +76,12 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
 
-        double yVoltageLevels = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
+        double topPadding = heightSnakeLinesTop + diagramPadding.getTop() + voltageLevelPadding.getTop();
         double x = diagramPadding.getLeft();
 
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             x += getWidthVerticalSnakeLines(vlGraph.getId(), layoutParameters, infosNbSnakeLines);
-            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), yVoltageLevels);
+            vlGraph.setCoord(x + voltageLevelPadding.getLeft(), computeCoordY(layoutParameters, topPadding, vlGraph));
             x += vlGraph.getWidth();
         }
 
@@ -96,4 +96,37 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         manageSnakeLines(getGraph(), layoutParameters);
     }
 
+    double computeCoordY(LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
+        double y;
+        // Find maximum voltage level top height
+        double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(BusCell.Direction.TOP)).max().orElse(0.0);
+        // Get gap between current voltage level and maximum height one
+        double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(BusCell.Direction.TOP);
+
+        switch (layoutParameters.getBusbarsAlignment()) {
+            case FIRST: {
+                // Align on First busbar section
+                y = topPadding + delta;
+                break;
+            }
+            case LAST: {
+                // Align on Last busbar section
+                // Get all busbar section height
+                double bbsHeight = layoutParameters.getVerticalSpaceBus() * vlGraph.getMaxV();
+                y = topPadding + delta - bbsHeight;
+                break;
+            }
+            case MIDDLE: {
+                // Align on middle of all busbar section
+                // Get all busbar section height
+                double bbsHeight = layoutParameters.getVerticalSpaceBus() * vlGraph.getMaxV();
+                y = topPadding + delta - bbsHeight / 2;
+                break;
+            }
+            case UNDEFINED: // None alignment
+            default:
+                y = topPadding;
+        }
+        return y;
+    }
 }
