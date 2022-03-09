@@ -102,6 +102,10 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(BusCell.Direction.TOP)).max().orElse(0.0);
         // Get gap between current voltage level and maximum height one
         double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(BusCell.Direction.TOP);
+        // Find maximum voltage level maxV
+        double maxV = getGraph().getVoltageLevelStream().mapToDouble(VoltageLevelGraph::getMaxV).max().orElse(0.0);
+        // Get all busbar section height
+        double bbsHeight = layoutParameters.getVerticalSpaceBus() * (maxV - vlGraph.getMaxV());
 
         switch (layoutParameters.getBusbarsAlignment()) {
             case FIRST: {
@@ -111,16 +115,12 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
             }
             case LAST: {
                 // Align on Last busbar section
-                // Get all busbar section height
-                double bbsHeight = layoutParameters.getVerticalSpaceBus() * vlGraph.getMaxV();
-                y = topPadding + delta - bbsHeight;
+                y = topPadding + delta + bbsHeight;
                 break;
             }
             case MIDDLE: {
                 // Align on middle of all busbar section
-                // Get all busbar section height
-                double bbsHeight = layoutParameters.getVerticalSpaceBus() * vlGraph.getMaxV();
-                y = topPadding + delta - bbsHeight / 2;
+                y = topPadding + delta + bbsHeight / 2;
                 break;
             }
             case NONE: // None alignment
