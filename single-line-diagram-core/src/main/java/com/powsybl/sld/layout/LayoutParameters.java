@@ -535,7 +535,7 @@ public class LayoutParameters {
     }
 
     public enum Alignment {
-        FIRST, LAST, MIDDLE, UNDEFINED;
+        FIRST, LAST, MIDDLE, NONE;
     }
 
     public enum CssLocation {

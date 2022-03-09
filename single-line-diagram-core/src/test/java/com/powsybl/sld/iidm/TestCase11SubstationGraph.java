@@ -233,8 +233,8 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void testHorizontalUndefinedAlignment() {
-        runHorizontalALignmentTest(LayoutParameters.Alignment.UNDEFINED);
+    public void testHorizontalNoneAlignment() {
+        runHorizontalALignmentTest(LayoutParameters.Alignment.NONE);
     }
 
     private void runHorizontalALignmentTest(LayoutParameters.Alignment alignment) {

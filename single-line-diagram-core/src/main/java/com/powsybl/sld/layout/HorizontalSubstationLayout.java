@@ -123,7 +123,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
                 y = topPadding + delta - bbsHeight / 2;
                 break;
             }
-            case UNDEFINED: // None alignment
+            case NONE: // None alignment
             default:
                 y = topPadding;
         }
