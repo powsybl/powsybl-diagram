@@ -51,7 +51,9 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         }
     }
 
-    private DiagramLabelProvider withBusInfoProvider;
+    private DiagramLabelProvider withFullBusInfoProvider;
+
+    private DiagramLabelProvider withIncompleteBusInfoProvider;
 
     @Before
     public void setUp() throws IOException {
@@ -81,7 +83,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         createSwitch(vl, "link", "link", SwitchKind.BREAKER, false, false, false, 5, 9);
 
-        withBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        withFullBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
             @Override
             public Optional<BusInfo> getBusInfo(BusNode node) {
                 Objects.requireNonNull(node);
@@ -102,11 +104,36 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return Optional.ofNullable(result);
             }
         };
+
+        withIncompleteBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+            @Override
+            public Optional<BusInfo> getBusInfo(BusNode node) {
+                Objects.requireNonNull(node);
+                BusInfo result = null;
+                switch (node.getId()) {
+                    case "bbs21":
+                        result = new BusVoltageInfo(false);
+                        break;
+                    case "bbs13":
+                        result = new BusVoltageInfo(true, "Top", null, Side.RIGHT);
+                        break;
+                    case "bbs23":
+                        result = new BusVoltageInfo(false, null, "Bottom", Side.LEFT);
+                        break;
+                }
+                return Optional.ofNullable(result);
+            }
+        };
     }
 
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
         return new ResourcesComponentLibrary("VoltageIndicator", "/ConvergenceLibrary", "/VoltageIndicatorLibrary");
+    }
+
+    @Test
+    public void testWithoutBusInfo() {
+        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters));
     }
 
     @Test
@@ -117,7 +144,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider,  "/TestCase15GraphWithVoltageIndicator.svg");
+        runTest(styleProvider,  "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
     }
 
     @Test
@@ -128,10 +155,10 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg");
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicatorTopological.svg", withFullBusInfoProvider);
     }
 
-    private void runTest(DiagramStyleProvider styleProvider, String filename) {
+    private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
         layoutParameters.setAdaptCellHeightToContent(true)
                 .setBusInfoMargin(5);
 
@@ -140,10 +167,10 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
         // Run layout
         new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), true, true, true, true).organize(g);
+        new BlockOrganizer(new PositionFromExtension(), true, true, true, labelProvider.getBusInfoSides(g)).organize(g);
         new PositionVoltageLevelLayout(g).run(layoutParameters);
 
         // write SVG and compare to reference
-        assertEquals(toString(filename), toSVG(g, filename, withBusInfoProvider, styleProvider));
+        assertEquals(toString(filename), toSVG(g, filename, labelProvider, styleProvider));
     }
 }

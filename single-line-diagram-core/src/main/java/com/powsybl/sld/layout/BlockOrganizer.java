@@ -9,6 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Side;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class BlockOrganizer {
 
     private final boolean exceptionIfPatternNotHandled;
 
-    private final boolean addCellForBusInfo;
+    private final Map<String, Side> busInfoMap;
 
     public BlockOrganizer() {
         this(new PositionFromExtension(), true);
@@ -53,19 +54,19 @@ public class BlockOrganizer {
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, false, false);
+        this(positionFinder, stack, exceptionIfPatternNotHandled, false, Collections.emptyMap());
     }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, false);
+        this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, Collections.emptyMap());
     }
 
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, boolean addCellForBusInfo) {
+    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, Map<String, Side> busInfoMap) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
         this.handleShunt = handleShunt;
-        this.addCellForBusInfo = addCellForBusInfo;
+        this.busInfoMap = busInfoMap;
     }
 
     /**
@@ -100,7 +101,7 @@ public class BlockOrganizer {
 
         graph.getCells().forEach(Cell::blockSizing);
 
-        new BlockPositionner().determineBlockPositions(graph, subsections, addCellForBusInfo);
+        new BlockPositionner().determineBlockPositions(graph, subsections, busInfoMap);
     }
 
     /**

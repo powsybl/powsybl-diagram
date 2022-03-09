@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg viewBox="0 0 1230.0 845.0" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1230.0 845.0" height="845.0" width="1230.0" xmlns="http://www.w3.org/2000/svg">
     <style>
         <![CDATA[
 /* ----------------------------------------------------------------------- */
@@ -911,10 +911,10 @@
             </g>
         </g>
         <g class="sld-wire sld-vl180to300-0" id="idEDGE_95__95_80016742_45_31b3_45_432a_45_b00a_45_300667a1e572_95_ONE">
-            <polyline points="605.0,130.0,605.0,70.0,770.0,70.0,770.0,402.0"/>
+            <polyline points="605.0,130.0,605.0,70.0,770.0,70.0,770.0,414.5"/>
         </g>
         <g class="sld-wire sld-vl0to30-1" id="idEDGE_95__95_80016742_45_31b3_45_432a_45_b00a_45_300667a1e572_95_TWO">
-            <polyline points="1115.0,690.0,1115.0,750.0,770.0,750.0,770.0,418.0"/>
+            <polyline points="1115.0,690.0,1115.0,775.0,770.0,775.0,770.0,430.5"/>
         </g>
         <g class="sld-wire sld-vl180to300-0" id="idEDGE_95__95_2184f365_45_8cd5_45_4b5d_45_8a28_45_9d68603bb6a4_95_ONE">
             <polyline points="555.0,715.0,555.0,800.0,750.0,800.0,750.0,430.0"/>
@@ -923,12 +923,12 @@
             <polyline points="815.0,130.0,815.0,45.0,750.0,45.0,750.0,415.0"/>
         </g>
         <g class="sld-wire sld-vl300to500-0" id="idEDGE_95__95_e8a7eaec_45_51d6_45_4571_45_b3d9_45_c36d52073c33_95_ONE">
-            <polyline points="315.0,690.0,315.0,800.0,410.0,800.0,410.0,417.5"/>
+            <polyline points="315.0,690.0,315.0,825.0,410.0,825.0,410.0,430.0"/>
         </g>
         <g class="sld-wire sld-vl180to300-0" id="idEDGE_95__95_e8a7eaec_45_51d6_45_4571_45_b3d9_45_c36d52073c33_95_TWO">
-            <polyline points="705.0,130.0,705.0,20.0,410.0,20.0,410.0,402.5"/>
+            <polyline points="705.0,130.0,705.0,20.0,410.0,20.0,410.0,415.0"/>
         </g>
-        <g class="sld-two-wt" id="id_95_80016742_45_31b3_45_432a_45_b00a_45_300667a1e572" transform="translate(765.0,402.5)">
+        <g class="sld-two-wt" id="id_95_80016742_45_31b3_45_432a_45_b00a_45_300667a1e572" transform="translate(765.0,415.0)">
             <circle class="sld-vl180to300-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
             <circle class="sld-vl0to30-1 sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
         </g>
@@ -937,7 +937,7 @@
             <circle class="sld-vl180to300-0 sld-winding" cx="7" cy="10" r="5"/>
             <circle class="sld-vl0to30-0 sld-winding" cx="7" cy="5" r="5"/>
         </g>
-        <g class="sld-pst" id="id_95_e8a7eaec_45_51d6_45_4571_45_b3d9_45_c36d52073c33" transform="translate(403.0,402.5)">
+        <g class="sld-pst" id="id_95_e8a7eaec_45_51d6_45_4571_45_b3d9_45_c36d52073c33" transform="translate(403.0,415.0)">
             <path class="sld-vl300to500-0 sld-pst-arrow" d="M14,0 0,14 M11,0 14,0 14,3"/>
             <circle class="sld-vl300to500-0 sld-winding" cx="7" cy="10" r="5"/>
             <circle class="sld-vl180to300-0 sld-winding" cx="7" cy="5" r="5"/>
