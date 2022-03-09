@@ -78,6 +78,8 @@ public class LayoutParameters {
 
     private double feederInfosIntraMargin = 10;
 
+    private Alignment busbarsAlignment = Alignment.FIRST;
+
     /**
      * Can be used as horizontal shifting value for busInfo indicator.
      * Could be negative value.
@@ -125,7 +127,8 @@ public class LayoutParameters {
                             @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded,
                             @JsonProperty("useName") boolean useName,
                             @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
-                            @JsonProperty("busInfoMargin") double busInfoMargin) {
+                            @JsonProperty("busInfoMargin") double busInfoMargin,
+                            @JsonProperty("busbarsAlignment") Alignment busbarsAlignment) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -160,6 +163,7 @@ public class LayoutParameters {
         this.useName = useName;
         this.feederInfosIntraMargin = feederInfosIntraMargin;
         this.busInfoMargin = busInfoMargin;
+        this.busbarsAlignment = busbarsAlignment;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -199,6 +203,7 @@ public class LayoutParameters {
         useName = other.useName;
         feederInfosIntraMargin = other.feederInfosIntraMargin;
         busInfoMargin = other.busInfoMargin;
+        busbarsAlignment = other.busbarsAlignment;
     }
 
     public double getVerticalSpaceBus() {
@@ -518,6 +523,19 @@ public class LayoutParameters {
     public LayoutParameters setBusInfoMargin(double busInfoMargin) {
         this.busInfoMargin = busInfoMargin;
         return this;
+    }
+
+    public Alignment getBusbarsAlignment() {
+        return busbarsAlignment;
+    }
+
+    public LayoutParameters setBusbarsAlignment(Alignment busbarsAlignment) {
+        this.busbarsAlignment = busbarsAlignment;
+        return this;
+    }
+
+    public enum Alignment {
+        FIRST, LAST, MIDDLE, NONE;
     }
 
     public enum CssLocation {
