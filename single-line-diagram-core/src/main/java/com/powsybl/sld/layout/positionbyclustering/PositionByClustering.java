@@ -151,6 +151,7 @@ public class PositionByClustering implements PositionFinder {
 
         Set<ShuntCell> visitedShuntCells = new HashSet<>();
         graph.getCells().stream().filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast).forEach(shuntCell -> {
+            // starting from each shunt, find the shunt-connected set of extern cells to set the same direction for all of them
             List<ExternCell> externCells = new ArrayList<>();
             shuntTraversal(shuntCell, visitedShuntCells, externCells);
             externCells.stream().map(AbstractBusCell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
