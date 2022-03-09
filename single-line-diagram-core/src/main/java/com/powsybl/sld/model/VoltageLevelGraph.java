@@ -689,4 +689,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public double getLastBusY(LayoutParameters layoutParam) {
         return getFirstBusY() + (getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus();
     }
+
+    public double getInnerHeight(LayoutParameters layoutParam) {
+        return getExternCellHeight(BusCell.Direction.TOP) + layoutParam.getVerticalSpaceBus() * getMaxV() + getExternCellHeight(BusCell.Direction.BOTTOM);
+    }
 }
