@@ -12,7 +12,6 @@ import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.model.Cell.CellType.EXTERN;
@@ -30,10 +29,6 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 public class ExternCell extends AbstractBusCell {
 
     private final List<ShuntCell> shuntCells = new ArrayList<>();
-
-    public ExternCell(int cellNumber, Collection<Node> nodes) {
-        this(cellNumber, nodes, Collections.emptyList());
-    }
 
     public ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
         super(cellNumber, EXTERN, nodes);

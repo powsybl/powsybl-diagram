@@ -71,19 +71,25 @@ public class ImplicitCellDetector implements CellDetector {
         List<Set<Node>> externCellsNodes = detectCell(graph, stopTypes, new ArrayList<>(), allocatedNodes);
 
         for (Set<Node> nodes : externCellsNodes) {
-            if (isPureExternCell(graph, nodes)) {
-                //*****************EXTERN CELL
-                graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes));
-            } else {
-                //*****************SHUNT CELL
-                // if a shunt cell is detected two or more EXTERN cells and one or more SHUNT cells are created
-                detectAndTypeShunt(graph, nodes);
-            }
+            createExternAndShuntCells(graph, nodes);
         }
 
         graph.getCells().forEach(Cell::getFullId);
 
         graph.logCellDetectionStatus();
+    }
+
+    private void createExternAndShuntCells(VoltageLevelGraph graph, Set<Node> nodes) {
+        createExternAndShuntCells(graph, nodes, Collections.emptyList());
+    }
+
+    private void createExternAndShuntCells(VoltageLevelGraph graph, Set<Node> nodes, List<ShuntCell> shuntCells) {
+        if (isPureExternCell(graph, nodes)) {
+            graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes, shuntCells));
+        } else {
+            // if a shunt cell is detected two or more EXTERN cells and one or more SHUNT cells are created
+            detectAndTypeShunt(graph, nodes, shuntCells);
+        }
     }
 
     private void cleaning(VoltageLevelGraph graph) {
@@ -182,20 +188,12 @@ public class ImplicitCellDetector implements CellDetector {
     }
 
     /**
-     * @param nodes the set of nodes among which there is a suspected shunt
-     **/
-    private void detectAndTypeShunt(VoltageLevelGraph graph, Set<Node> nodes) {
-        detectAndTypeShunt(graph, nodes, new ArrayList<>());
-    }
-
-    /**
      * @param nodes the nodes among which there is a suspected shunt
      * @param shuntCells the shunt cells which are linked to the given nodes
      **/
     private void detectAndTypeShunt(VoltageLevelGraph graph, Set<Node> nodes, List<ShuntCell> shuntCells) {
 
-        List<Node> externalNodes = graph.getNodes()
-                .stream()
+        List<Node> externalNodes = graph.getNodes().stream()
                 .filter(node -> !nodes.contains(node))
                 .collect(Collectors.toList());
 
@@ -217,13 +215,9 @@ public class ImplicitCellDetector implements CellDetector {
                     .filter(sc -> remainingNodes.contains(sc.getSideShuntNode(Side.RIGHT)))
                     .collect(Collectors.toList());
 
-            if (isPureExternCell(graph, remainingNodes)) {
-                // create the last external cell with the remaining nodes.
-                graph.addCell(new ExternCell(graph.getNextCellNumber(), remainingNodes, linkedShuntCells));
-            } else {
-                // another shunt should be in the remaining nodes: detects it and create the corresponding cells
-                detectAndTypeShunt(graph, remainingNodes, linkedShuntCells);
-            }
+            // create extern and shunt cells with the remaining nodes
+            createExternAndShuntCells(graph, remainingNodes, linkedShuntCells);
+
         } else {
             // if no shunt node is found (checkCandidateShuntNode always returns an empty list), create a cell anyway with all nodes
             graph.addCell(new ExternCell(graph.getNextCellNumber(), nodes, shuntCells));
