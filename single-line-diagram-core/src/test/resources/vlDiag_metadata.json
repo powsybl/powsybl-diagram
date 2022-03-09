@@ -1523,6 +1523,7 @@
     "svgWidthAndHeightAdded" : true,
     "useName" : true,
     "feederInfosIntraMargin" : 10.0,
-    "busInfoMargin" : 0.0
+    "busInfoMargin" : 0.0,
+    "busbarsAlignment" : "FIRST"
   }
 }
