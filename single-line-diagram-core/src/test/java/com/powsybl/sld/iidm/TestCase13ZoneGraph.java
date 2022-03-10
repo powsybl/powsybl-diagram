@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;

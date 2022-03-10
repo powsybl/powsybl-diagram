@@ -7,7 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.import_.Importers;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;

@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.SwitchNode;
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class TestLanesWithUnileg extends AbstractTestCaseRaw {
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);
         BusNode bbs13 = vlBuilder.createBusBarSection("bbs13", 1, 3);
