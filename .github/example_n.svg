@@ -479,7 +479,10 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
+        <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
+            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_9" transform="translate(211.0,357.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
             <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_8" transform="translate(211.0,303.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -492,23 +495,23 @@
                 <circle class="sld-vl180to300-0 sld-winding" cx="7" cy="5" r="5" transform="rotate(180.0,7.0,7.5)"/>
                 <text class="sld-label" id="CI_TWO_S_LABEL" x="-5.0" y="20.0">CI_TWO</text>
             </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_9" transform="translate(211.0,357.0)">
-                <circle cx="4" cy="4" r="4"/>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BL_95_INTERNAL_95_N_95_9">
+                <polyline points="215.0,344.0,215.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_BN">
+                <polyline points="215.0,361.0,215.0,388.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_INTERNAL_95_N_95_Shunt_32_8_46_1">
+                <polyline points="215.0,361.0,240.0,361.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_8_95_BL">
                 <polyline points="215.0,307.0,215.0,324.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BL_95_INTERNAL_95_N_95_9">
-                <polyline points="215.0,344.0,215.0,361.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_N_95_AD_95_INTERNAL_95_N_95_8">
                 <polyline points="215.0,252.0,215.0,307.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_N_95_AX_95_INTERNAL_95_N_95_8">
                 <polyline points="215.0,277.0,215.0,307.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_BN">
-                <polyline points="215.0,361.0,215.0,388.0"/>
             </g>
             <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BN_95_INTERNAL_95_N_95_CI_95_TWO">
                 <polyline points="215.0,388.0,215.0,415.0"/>
@@ -526,9 +529,6 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_INTERNAL_95_N_95_Shunt_32_10_46_1">
-                <polyline points="215.0,361.0,240.0,361.0"/>
-            </g>
             <g class="sld-breaker sld-closed sld-vl180to300-0" id="idBL" transform="translate(205.0,324.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
@@ -544,6 +544,51 @@
             <g class="sld-disconnector sld-closed sld-vl180to300-0" id="idBN" transform="translate(211.0,384.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
+            </g>
+        </g>
+        <g class="cell idSHUNT_32_8" id="idSHUNT_32_8">
+            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_9" transform="translate(211.0,357.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_Shunt_32_8_46_1" transform="translate(236.0,357.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-node sld-hidden-node sld-vl180to300-1" id="idINTERNAL_95_N_95_Shunt_32_8_46_2" transform="translate(286.0,357.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-node sld-hidden-node sld-vl180to300-1" id="idINTERNAL_95_N_95_3" transform="translate(336.0,357.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BL_95_INTERNAL_95_N_95_9">
+                <polyline points="215.0,344.0,215.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_BN">
+                <polyline points="215.0,361.0,215.0,388.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_INTERNAL_95_N_95_Shunt_32_8_46_1">
+                <polyline points="215.0,361.0,240.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BH_95_INTERNAL_95_N_95_Shunt_32_8_46_1">
+                <polyline points="265.0,361.0,240.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_BH_95_INTERNAL_95_N_95_Shunt_32_8_46_2">
+                <polyline points="265.0,361.0,290.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_INTERNAL_95_N_95_Shunt_32_8_46_2">
+                <polyline points="340.0,361.0,290.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_BB_95_INTERNAL_95_N_95_3">
+                <polyline points="340.0,344.0,340.0,361.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_BD">
+                <polyline points="340.0,361.0,365.0,361.0,365.0,378.0"/>
+            </g>
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_BF">
+                <polyline points="340.0,361.0,315.0,361.0,315.0,388.0"/>
+            </g>
+            <g class="sld-disconnector sld-open sld-disconnected" id="idBH" transform="translate(261.0,357.0)">
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(90.0,4.0,4.0)"/>
+                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(90.0,4.0,4.0)"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
@@ -577,7 +622,7 @@
             <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_BF">
                 <polyline points="340.0,361.0,315.0,361.0,315.0,388.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_INTERNAL_95_N_95_Shunt_32_10_46_2">
+            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_INTERNAL_95_N_95_Shunt_32_8_46_2">
                 <polyline points="340.0,361.0,290.0,361.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_N_95_INTERNAL_95_N_95_2_95_BB">
@@ -640,51 +685,6 @@
             <g class="sld-disconnector sld-closed sld-vl180to300-1" id="idBF" transform="translate(311.0,384.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
-            </g>
-        </g>
-        <g class="cell idSHUNT_32_10" id="idSHUNT_32_10">
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_9" transform="translate(211.0,357.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_N_95_Shunt_32_10_46_1" transform="translate(236.0,357.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-1" id="idINTERNAL_95_N_95_Shunt_32_10_46_2" transform="translate(286.0,357.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-1" id="idINTERNAL_95_N_95_3" transform="translate(336.0,357.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BL_95_INTERNAL_95_N_95_9">
-                <polyline points="215.0,344.0,215.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_BN">
-                <polyline points="215.0,361.0,215.0,388.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_INTERNAL_95_N_95_9_95_INTERNAL_95_N_95_Shunt_32_10_46_1">
-                <polyline points="215.0,361.0,240.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-0" id="_95_N_95_BH_95_INTERNAL_95_N_95_Shunt_32_10_46_1">
-                <polyline points="265.0,361.0,240.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_BH_95_INTERNAL_95_N_95_Shunt_32_10_46_2">
-                <polyline points="265.0,361.0,290.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_INTERNAL_95_N_95_Shunt_32_10_46_2">
-                <polyline points="340.0,361.0,290.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_BB_95_INTERNAL_95_N_95_3">
-                <polyline points="340.0,344.0,340.0,361.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_BD">
-                <polyline points="340.0,361.0,365.0,361.0,365.0,378.0"/>
-            </g>
-            <g class="sld-wire sld-vl180to300-1" id="_95_N_95_INTERNAL_95_N_95_3_95_BF">
-                <polyline points="340.0,361.0,315.0,361.0,315.0,388.0"/>
-            </g>
-            <g class="sld-disconnector sld-open sld-disconnected" id="idBH" transform="translate(261.0,357.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(90.0,4.0,4.0)"/>
-                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(90.0,4.0,4.0)"/>
             </g>
         </g>
     </g>

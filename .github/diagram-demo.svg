@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg viewBox="0 0 1230.0 657.0" height="657.0" width="1230.0" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1230.0 657.0" xmlns="http://www.w3.org/2000/svg">
     <style>
         <![CDATA[
 /* ----------------------------------------------------------------------- */
@@ -670,12 +670,6 @@
             <g class="sld-node sld-hidden-node sld-vl0to30-0" id="idINTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict" transform="translate(936.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-disconnected" id="idINTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict" transform="translate(986.0,326.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-hidden-node sld-disconnected" id="idINTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict" transform="translate(1036.0,326.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
             <g class="sld-node sld-hidden-node sld-vl0to30-1" id="idINTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict" transform="translate(1086.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -683,22 +677,16 @@
                 <polyline points="927.5,330.0,936.0,330.0"/>
             </g>
             <g class="sld-wire sld-vl0to30-0" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict">
-                <polyline points="940.0,330.0,955.0,330.0"/>
+                <polyline points="940.0,330.0,967.5,330.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict">
-                <polyline points="975.0,330.0,990.0,330.0"/>
+            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict_95__95_5a094c9f_45_0af5_45_48dc_45_94e9_45_89c6c220023c">
+                <polyline points="987.5,330.0,1005.0,330.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_5a094c9f_45_0af5_45_48dc_45_94e9_45_89c6c220023c_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict">
-                <polyline points="1005.0,330.0,990.0,330.0"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_5a094c9f_45_0af5_45_48dc_45_94e9_45_89c6c220023c_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict">
-                <polyline points="1025.0,330.0,1040.0,330.0"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict">
-                <polyline points="1055.0,330.0,1040.0,330.0"/>
+            <g class="sld-wire sld-disconnected" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict_95__95_5a094c9f_45_0af5_45_48dc_45_94e9_45_89c6c220023c">
+                <polyline points="1042.5,330.0,1025.0,330.0"/>
             </g>
             <g class="sld-wire sld-vl0to30-1" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95_INTERNAL_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict">
-                <polyline points="1090.0,330.0,1075.0,330.0"/>
+                <polyline points="1090.0,330.0,1062.5,330.0"/>
             </g>
             <g class="sld-wire sld-vl0to30-1" id="_95__95_2a37dc57_45_2faf_45_464a_45_8175_45_bc415f9a635f_95__95_e6d49e32_45_b634_45_4b86_45_a8ca_45_15159f1497b5_95_BUSCO_95__95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict">
                 <polyline points="1102.5,330.0,1094.0,330.0"/>
@@ -706,7 +694,7 @@
             <g class="sld-bus-connection sld-vl0to30-0" id="idBUSCO_95__95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict" transform="translate(936.0,326.0)">
                 <circle cx="4" cy="4" r="2"/>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="id_95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict" transform="translate(955.0,320.0)">
+            <g class="sld-breaker sld-open sld-disconnected" id="id_95_f04ec73d_45_b94a_45_4b7e_45_a3d6_45_b1234fc37385_95_SW_95_fict" transform="translate(967.5,320.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
@@ -714,7 +702,7 @@
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="id_95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict" transform="translate(1055.0,320.0)">
+            <g class="sld-breaker sld-open sld-disconnected" id="id_95_9f984b04_45_1736_45_43d2_45_9122_45_3a17fc8aea5f_95_SW_95_fict" transform="translate(1042.5,320.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
