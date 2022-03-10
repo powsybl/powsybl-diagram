@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.SubstationRawBuilder;
-import com.powsybl.sld.VoltageLevelRawBuilder;
+import com.powsybl.sld.builders.SubstationRawBuilder;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.*;

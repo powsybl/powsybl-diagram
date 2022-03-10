@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.VoltageLevelRawBuilder;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.SwitchNode;

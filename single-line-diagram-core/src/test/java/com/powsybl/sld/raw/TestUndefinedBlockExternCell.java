@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.VoltageLevelRawBuilder;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;

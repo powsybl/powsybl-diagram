@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.VoltageLevelRawBuilder;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;

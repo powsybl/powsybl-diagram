@@ -1,4 +1,4 @@
-package com.powsybl.sld;
+package com.powsybl.sld.builders;
 
 import com.powsybl.sld.model.*;
 

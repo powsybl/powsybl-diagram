@@ -7,7 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.FeederNode;
 import com.powsybl.sld.model.Graph;
