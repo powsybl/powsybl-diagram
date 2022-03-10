@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 
 import java.util.ArrayList;
@@ -45,9 +44,9 @@ public final class TopologyCalculation {
         Set<Node> visitedNodes = new HashSet<>();
         Node node = identifyNonOpenNode(nodesToVisit);
         while (node != null) {
-            List<SwitchNode> openSwitches = new ArrayList<>();
-            Set<Node> connectedNodes = getConnectedNodesWithExtremitySwitches(node, openSwitches, visitedNodes);
-            Set<SwitchNode> borderSwitchNodes = getBorderSwitchNodes(openSwitches, connectedNodes);
+            List<Node> borderNodes = new ArrayList<>();
+            Set<Node> connectedNodes = getConnectedNodesWithExtremityNodes(node, borderNodes, visitedNodes);
+            Set<Node> borderSwitchNodes = getBorderNodes(borderNodes, connectedNodes);
             topologicallyConnectedNodesSets.add(new TopologicallyConnectedNodesSet(new HashSet<>(connectedNodes), borderSwitchNodes));
             connectedNodes.removeAll(borderSwitchNodes);
             visitedNodes.addAll(connectedNodes); //a border switch is part of 2 connectedNodesSets
@@ -67,18 +66,18 @@ public final class TopologyCalculation {
         return findConnectedNodeSets(graph).stream().filter(filter).collect(Collectors.toList());
     }
 
-    private Set<SwitchNode> getBorderSwitchNodes(List<SwitchNode> openSwitches, Set<Node> connectedNodes) {
-        return openSwitches.stream()
-                .filter(n -> isBorderSwitchNode(n, connectedNodes))
+    private Set<Node> getBorderNodes(List<Node> borderNodes, Set<Node> connectedNodes) {
+        return borderNodes.stream()
+                .filter(n -> isBorderNode(n, connectedNodes))
                 .collect(Collectors.toSet());
     }
 
-    private Set<Node> getConnectedNodesWithExtremitySwitches(Node node, List<SwitchNode> openSwitches, Set<Node> visitedNodes) {
+    private Set<Node> getConnectedNodesWithExtremityNodes(Node node, List<Node> borderNodes, Set<Node> visitedNodes) {
         return GraphTraversal
                 .run(node, n -> {
                     boolean isExtremity = extremityCriteria.test(n);
                     if (isExtremity) {
-                        openSwitches.add((SwitchNode) n);
+                        borderNodes.add(n);
                     }
                     return isExtremity;
                 }, visitedNodes);
@@ -88,8 +87,8 @@ public final class TopologyCalculation {
         return remainingNodes.stream().filter(n -> !isOpenSwitchNode(n)).findFirst().orElse(null);
     }
 
-    private static boolean isBorderSwitchNode(SwitchNode switchNode, Set<Node> connectedNodes) {
-        return !connectedNodes.containsAll(switchNode.getAdjacentNodes());
+    private static boolean isBorderNode(Node borderNode, Set<Node> connectedNodes) {
+        return !connectedNodes.containsAll(borderNode.getAdjacentNodes());
     }
 
     private static boolean isOpenSwitchNode(Node node) {

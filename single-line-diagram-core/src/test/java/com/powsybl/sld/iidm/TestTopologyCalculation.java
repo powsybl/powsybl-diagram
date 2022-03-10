@@ -81,8 +81,8 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
                            int expectedNbBorderSwitches) {
         assertEquals(expectedNbTcns, tcnss.size());
         TopologicallyConnectedNodesSet tcns = tcnss.get(exploredIndex);
-        assertEquals(expectedNbNodes, tcns.getNodesSet().size());
-        assertEquals(expectedNbBorderSwitches, tcns.getBorderSwitchNodesSet().size());
+        assertEquals(expectedNbNodes, tcns.getNodes().size());
+        assertEquals(expectedNbBorderSwitches, tcns.getBorderNodes().size());
     }
 
     @Test
@@ -129,10 +129,10 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     }
 
     private boolean feedersSetsOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
-        return topologicallyConnectedNodesSet.getNodesSet().stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER);
+        return topologicallyConnectedNodesSet.getNodes().stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER);
     }
 
     private boolean bordersBreakersOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
-        return topologicallyConnectedNodesSet.getBorderSwitchNodesSet().stream().allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);
+        return topologicallyConnectedNodesSet.getBorderNodes().stream().allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);
     }
 }

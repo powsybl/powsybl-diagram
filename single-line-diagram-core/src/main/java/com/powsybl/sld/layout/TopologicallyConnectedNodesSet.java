@@ -7,33 +7,35 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SwitchNode;
 
 import java.util.Set;
 
 /**
- * Represents a set of nodes for which for any couple of nodes exists at least one path being connected together AND
- * having no open SwitchNode. The nodeSet holds the connected set of nodes. borderSwitchNodesSet holds the SwitchNode
- * that are open and for which 1 adjacent node is in the nodeSet, and the other is not.
+ * Represents a connected set of nodes if considering the borderNodes as disconnected:
+ * for any couple of nodes in <code>nodess</code> there is at least one path connecting them together WITHOUT passing
+ * through any nodes of <code>borderNodes</code>.
+ * The <code>nodes</code> holds the connected set of nodes.
+ * The <code>borderNodes</code> holds the nodes that are at the border of this set, that is for which 1 adjacent node
+ * (at least) is in the nodeSet, and for which 1 other adjacent node (at least) is not.
  *
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public class TopologicallyConnectedNodesSet {
 
-    private final Set<Node> nodesSet;
+    private final Set<Node> nodes;
 
-    private final Set<SwitchNode> borderSwitchNodesSet;
+    private final Set<Node> borderNodes;
 
-    TopologicallyConnectedNodesSet(Set<Node> nodes, Set<SwitchNode> borderSwitchNodes) {
-        this.nodesSet = nodes;
-        this.borderSwitchNodesSet = borderSwitchNodes;
+    TopologicallyConnectedNodesSet(Set<Node> nodes, Set<Node> borderSwitchNodes) {
+        this.nodes = nodes;
+        this.borderNodes = borderSwitchNodes;
     }
 
-    public Set<Node> getNodesSet() {
-        return nodesSet;
+    public Set<Node> getNodes() {
+        return nodes;
     }
 
-    public Set<SwitchNode> getBorderSwitchNodesSet() {
-        return borderSwitchNodesSet;
+    public Set<Node> getBorderNodes() {
+        return borderNodes;
     }
 }
