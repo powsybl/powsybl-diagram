@@ -907,22 +907,20 @@ public class DefaultSVGWriter implements SVGWriter {
                                  GraphMetadata metadata, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
-            drawBusInfo(prefixId, busNode, layoutParameters.getBusInfoMargin(), root, info, labelProvider, styleProvider, metadata);
+            drawBusInfo(prefixId, busNode, root, info, labelProvider, styleProvider, metadata);
             addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
         });
     }
 
-    private void drawBusInfo(String prefixId, BusNode busNode, double shiftX, Element root, BusInfo busInfo,
+    private void drawBusInfo(String prefixId, BusNode busNode, Element root, BusInfo busInfo,
                              DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider, GraphMetadata metadata) {
         Element g = root.getOwnerDocument().createElement(GROUP);
 
         // Position
         ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
-        double dx = shiftX;
+        double shiftX = layoutParameters.getBusInfoMargin();
         double dy = -size.getHeight() / 2;
-        if (busInfo.getAnchor() == Side.RIGHT) {
-            dx = busNode.getPxWidth() - shiftX - size.getWidth();
-        }
+        double dx = busInfo.getAnchor() == Side.RIGHT ? busNode.getPxWidth() - shiftX - size.getWidth() : shiftX;
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
 
         // Styles
