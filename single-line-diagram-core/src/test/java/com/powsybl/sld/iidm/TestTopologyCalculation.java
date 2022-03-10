@@ -13,6 +13,8 @@ import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,29 +89,50 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     public void test() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
-        List<TopologicallyConnectedNodesSet> tcnss = TopologyCalculation.run(g);
+        TopologyCalculation topologyCalculation = new TopologyCalculation();
+        List<TopologicallyConnectedNodesSet> tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
+
         g.getNode("bA1").setOpen(true);
-        tcnss = TopologyCalculation.run(g);
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
+
         g.getNode("bA2").setOpen(true);
-        tcnss = TopologyCalculation.run(g);
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
+
         g.getNode("d1").setOpen(true);
-        tcnss = TopologyCalculation.run(g);
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
+
         g.getNode("b1").setOpen(true);
-        tcnss = TopologyCalculation.run(g);
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 3, 0, 9, 4);
         assertTopo(tcnss, 3, 1, 17, 2);
         assertTopo(tcnss, 3, 2, 3, 2);
+
         g.getNode("dB2").setOpen(true);
-        tcnss = TopologyCalculation.run(g);
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
         assertTopo(tcnss, 4, 0, 9, 4);
         assertTopo(tcnss, 4, 1, 7, 2);
         assertTopo(tcnss, 4, 2, 11, 2);
         assertTopo(tcnss, 4, 3, 3, 2);
+
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g, this::bordersBreakersOnly);
+        assertTopo(tcnss, 1, 0, 3, 2);
+
+        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g, this::feedersSetsOnly);
+        assertTopo(tcnss, 2, 0, 7, 2);
+        assertTopo(tcnss, 2, 1, 3, 2);
+    }
+
+    private boolean feedersSetsOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
+        return topologicallyConnectedNodesSet.getNodesSet().stream().anyMatch(node -> node.getType() == Node.NodeType.FEEDER);
+    }
+
+    private boolean bordersBreakersOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
+        return topologicallyConnectedNodesSet.getBorderSwitchNodesSet().stream().allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);
     }
 }

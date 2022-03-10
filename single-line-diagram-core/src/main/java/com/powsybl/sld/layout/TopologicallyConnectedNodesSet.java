@@ -9,8 +9,6 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.Node;
 import com.powsybl.sld.model.SwitchNode;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,9 +24,9 @@ public class TopologicallyConnectedNodesSet {
 
     private final Set<SwitchNode> borderSwitchNodesSet;
 
-    TopologicallyConnectedNodesSet(Collection<Node> nodes, Collection<SwitchNode> borderSwitchNodes) {
-        nodesSet = new HashSet<>(nodes);
-        borderSwitchNodesSet = new HashSet<>(borderSwitchNodes);
+    TopologicallyConnectedNodesSet(Set<Node> nodes, Set<SwitchNode> borderSwitchNodes) {
+        this.nodesSet = nodes;
+        this.borderSwitchNodesSet = borderSwitchNodes;
     }
 
     public Set<Node> getNodesSet() {
