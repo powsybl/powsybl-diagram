@@ -581,7 +581,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected boolean canInsertComponentSVG(Node node) {
-        return (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
+        return (node.getType() == Node.NodeType.SWITCH)
+                || (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
                 || (node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)

@@ -63,6 +63,8 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-sw-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -127,15 +129,15 @@
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dsect12_95_bbs2">
                 <polyline points="840.0,252.0,860.0,252.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddsect11" transform="translate(756.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddsect11" transform="translate(756.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="iddtrct11" transform="translate(790.0,242.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrct11" transform="translate(790.0,242.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddsect12" transform="translate(836.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddsect12" transform="translate(836.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
@@ -159,15 +161,15 @@
             <g class="sld-wire sld-vl300to500" id="_95_vl1_95_dsect22_95_bbs4">
                 <polyline points="840.0,277.0,860.0,277.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddsect21" transform="translate(756.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddsect21" transform="translate(756.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="iddtrct21" transform="translate(790.0,267.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrct21" transform="translate(790.0,267.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddsect22" transform="translate(836.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddsect22" transform="translate(836.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
@@ -207,11 +209,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddload1" transform="translate(76.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddload1" transform="translate(76.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbload1" transform="translate(70.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbload1" transform="translate(70.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -250,11 +252,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf11" transform="translate(156.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf11" transform="translate(156.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf11" transform="translate(150.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf11" transform="translate(150.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -293,11 +295,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf15" transform="translate(396.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf15" transform="translate(396.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf15" transform="translate(390.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf15" transform="translate(390.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -347,11 +349,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf16" transform="translate(516.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf16" transform="translate(516.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf16" transform="translate(510.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf16" transform="translate(510.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -396,11 +398,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddload2" transform="translate(876.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddload2" transform="translate(876.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbload2" transform="translate(870.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbload2" transform="translate(870.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -439,11 +441,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf12" transform="translate(1196.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf12" transform="translate(1196.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf12" transform="translate(1190.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf12" transform="translate(1190.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -493,11 +495,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf18" transform="translate(996.0,248.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf18" transform="translate(996.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf18" transform="translate(990.0,172.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf18" transform="translate(990.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -542,11 +544,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddgen1" transform="translate(236.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddgen1" transform="translate(236.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbgen1" transform="translate(230.0,337.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbgen1" transform="translate(230.0,337.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -585,11 +587,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf13" transform="translate(316.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf13" transform="translate(316.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf13" transform="translate(310.0,337.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf13" transform="translate(310.0,337.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -639,11 +641,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf17" transform="translate(676.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf17" transform="translate(676.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf17" transform="translate(670.0,337.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf17" transform="translate(670.0,337.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -688,11 +690,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddgen2" transform="translate(1276.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddgen2" transform="translate(1276.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbgen2" transform="translate(1270.0,337.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbgen2" transform="translate(1270.0,337.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -731,11 +733,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="iddtrf14" transform="translate(1116.0,273.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="iddtrf14" transform="translate(1116.0,273.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idbtrf14" transform="translate(1110.0,337.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idbtrf14" transform="translate(1110.0,337.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>

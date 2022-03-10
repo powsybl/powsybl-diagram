@@ -63,6 +63,8 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-sw-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -163,11 +165,11 @@
             <g class="sld-wire sld-vl300to500 sld-feeder-connected-disconnected" id="_95_vl1_95_INTERNAL_95_vl1_95_2WT_95_ONE_95_2WT_95_ONE">
                 <polyline points="160.0,172.0,160.0,110.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="idd2WT_95_1" transform="translate(156.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="idd2WT_95_1" transform="translate(156.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500" id="idb2WT_95_1" transform="translate(150.0,256.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl300to500" id="idb2WT_95_1" transform="translate(150.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -194,11 +196,11 @@
             <g class="sld-wire sld-vl300to500 sld-feeder-disconnected" id="_95_vl1_95_INTERNAL_95_vl1_95_3WT_95_ONE_95_3WT_95_ONE">
                 <polyline points="240.0,172.0,240.0,110.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500" id="idd3WT_95_1" transform="translate(236.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl300to500" id="idd3WT_95_1" transform="translate(236.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-vl300to500" id="idb3WT_95_1" transform="translate(230.0,256.0)">
+            <g class="sld-breaker sld-open sld-sw-fictitious sld-vl300to500" id="idb3WT_95_1" transform="translate(230.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -232,11 +234,11 @@
             <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl2_95_INTERNAL_95_vl2_95_2WT_95_TWO_95_2WT_95_TWO">
                 <polyline points="360.0,172.0,360.0,110.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl180to300" id="idd2WT_95_2" transform="translate(356.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl180to300" id="idd2WT_95_2" transform="translate(356.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-vl180to300" id="idb2WT_95_2" transform="translate(350.0,256.0)">
+            <g class="sld-breaker sld-open sld-sw-fictitious sld-vl180to300" id="idb2WT_95_2" transform="translate(350.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -263,11 +265,11 @@
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_INTERNAL_95_vl2_95_3WT_95_TWO_95_3WT_95_TWO">
                 <polyline points="440.0,172.0,440.0,110.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl180to300" id="idd3WT_95_2" transform="translate(436.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl180to300" id="idd3WT_95_2" transform="translate(436.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl180to300" id="idb3WT_95_2" transform="translate(430.0,256.0)">
+            <g class="sld-breaker sld-closed sld-sw-fictitious sld-vl180to300" id="idb3WT_95_2" transform="translate(430.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -301,11 +303,11 @@
             <g class="sld-wire sld-vl50to70 sld-feeder-disconnected" id="_95_vl3_95_INTERNAL_95_vl3_95_3WT_95_THREE_95_3WT_95_THREE">
                 <polyline points="560.0,172.0,560.0,110.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl50to70" id="idd3WT_95_3" transform="translate(556.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl50to70" id="idd3WT_95_3" transform="translate(556.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-vl50to70" id="idb3WT_95_3" transform="translate(550.0,256.0)">
+            <g class="sld-breaker sld-open sld-sw-fictitious sld-vl50to70" id="idb3WT_95_3" transform="translate(550.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>

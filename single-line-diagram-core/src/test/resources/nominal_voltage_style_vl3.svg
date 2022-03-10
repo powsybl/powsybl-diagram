@@ -63,6 +63,8 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-sw-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -107,11 +109,11 @@
             <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl3_95_3WT_95_3WT_95_TWO">
                 <polyline points="127.0,142.0,160.0,142.0,160.0,80.0"/>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl50to70" id="idd3WT_95_3" transform="translate(116.0,356.0)">
+            <g class="sld-disconnector sld-closed sld-sw-fictitious sld-vl50to70" id="idd3WT_95_3" transform="translate(116.0,356.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-vl50to70" id="idb3WT_95_3" transform="translate(110.0,226.0)">
+            <g class="sld-breaker sld-open sld-sw-fictitious sld-vl50to70" id="idb3WT_95_3" transform="translate(110.0,226.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>

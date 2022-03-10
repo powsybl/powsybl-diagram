@@ -63,6 +63,8 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-sw-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
