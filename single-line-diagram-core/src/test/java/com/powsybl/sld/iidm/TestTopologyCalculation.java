@@ -90,40 +90,40 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
         TopologyCalculation topologyCalculation = new TopologyCalculation();
-        List<TopologicallyConnectedNodesSet> tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        List<TopologicallyConnectedNodesSet> tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
 
         g.getNode("bA1").setOpen(true);
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
 
         g.getNode("bA2").setOpen(true);
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
 
         g.getNode("d1").setOpen(true);
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
 
         g.getNode("b1").setOpen(true);
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 3, 0, 9, 4);
         assertTopo(tcnss, 3, 1, 17, 2);
         assertTopo(tcnss, 3, 2, 3, 2);
 
         g.getNode("dB2").setOpen(true);
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g);
+        tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 4, 0, 9, 4);
         assertTopo(tcnss, 4, 1, 7, 2);
         assertTopo(tcnss, 4, 2, 11, 2);
         assertTopo(tcnss, 4, 3, 3, 2);
 
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g, this::bordersBreakersOnly);
+        tcnss = topologyCalculation.findConnectedNodeSets(g, this::bordersBreakersOnly);
         assertTopo(tcnss, 1, 0, 3, 2);
 
-        tcnss = topologyCalculation.findTopologicallyConnectedNodeSets(g, this::feedersSetsOnly);
+        tcnss = topologyCalculation.findConnectedNodeSets(g, this::feedersSetsOnly);
         assertTopo(tcnss, 2, 0, 7, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
     }

@@ -39,7 +39,7 @@ public final class TopologyCalculation {
      * @param graph the graph to be analysed
      * @return a list of TopologicallyConnectedNodeSets
      */
-    public List<TopologicallyConnectedNodesSet> findTopologicallyConnectedNodeSets(VoltageLevelGraph graph) {
+    public List<TopologicallyConnectedNodesSet> findConnectedNodeSets(VoltageLevelGraph graph) {
         List<TopologicallyConnectedNodesSet> topologicallyConnectedNodesSets = new ArrayList<>();
         List<Node> nodesToVisit = graph.getNodes();
         Set<Node> visitedNodes = new HashSet<>();
@@ -63,8 +63,8 @@ public final class TopologyCalculation {
      * @param filter the filter applied to the all TopologicallyConnectedNodesSet of the given graph
      * @return a list of TopologicallyConnectedNodeSets
      */
-    public List<TopologicallyConnectedNodesSet> findTopologicallyConnectedNodeSets(VoltageLevelGraph graph, Predicate<TopologicallyConnectedNodesSet> filter) {
-        return findTopologicallyConnectedNodeSets(graph).stream().filter(filter).collect(Collectors.toList());
+    public List<TopologicallyConnectedNodesSet> findConnectedNodeSets(VoltageLevelGraph graph, Predicate<TopologicallyConnectedNodesSet> filter) {
+        return findConnectedNodeSets(graph).stream().filter(filter).collect(Collectors.toList());
     }
 
     private Set<SwitchNode> getBorderSwitchNodes(List<SwitchNode> openSwitches, Set<Node> connectedNodes) {
