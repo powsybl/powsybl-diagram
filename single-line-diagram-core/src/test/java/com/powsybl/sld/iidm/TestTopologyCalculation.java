@@ -133,6 +133,9 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     }
 
     private boolean bordersBreakersOnly(TopologicallyConnectedNodesSet topologicallyConnectedNodesSet) {
-        return topologicallyConnectedNodesSet.getBorderNodes().stream().allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);
+        return topologicallyConnectedNodesSet.getBorderNodes().stream()
+                .filter(SwitchNode.class::isInstance)
+                .map(SwitchNode.class::cast)
+                .allMatch(switchNode -> switchNode.getKind() == SwitchNode.SwitchKind.BREAKER);
     }
 }
