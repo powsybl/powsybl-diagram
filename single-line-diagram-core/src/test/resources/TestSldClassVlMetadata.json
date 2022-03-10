@@ -307,7 +307,6 @@
     "internCellHeight" : 40.0,
     "stackHeight" : 30.0,
     "showGrid" : false,
-    "tooltipEnabled" : false,
     "showInternalNodes" : false,
     "scaleFactor" : 1.0,
     "drawStraightWires" : false,

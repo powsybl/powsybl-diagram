@@ -60,7 +60,6 @@ public class LayoutParameters {
     private boolean labelDiagonal = false;
 
     private boolean highlightLineState = true;
-    private boolean tooltipEnabled = false;
 
     private boolean addNodesInfos = false;
 
@@ -103,7 +102,6 @@ public class LayoutParameters {
                             @JsonProperty("internCellHeight") double internCellHeight,
                             @JsonProperty("stackHeight") double stackHeight,
                             @JsonProperty("showGrid") boolean showGrid,
-                            @JsonProperty("tooltipEnabled") boolean tooltipEnabled,
                             @JsonProperty("showInternalNodes") boolean showInternalNodes,
                             @JsonProperty("scaleFactor") double scaleFactor,
                             @JsonProperty("drawStraightWires") boolean drawStraightWires,
@@ -138,7 +136,6 @@ public class LayoutParameters {
         this.internCellHeight = internCellHeight;
         this.stackHeight = stackHeight;
         this.showGrid = showGrid;
-        this.tooltipEnabled = tooltipEnabled;
         this.showInternalNodes = showInternalNodes;
         this.scaleFactor = scaleFactor;
         this.drawStraightWires = drawStraightWires;
@@ -177,7 +174,6 @@ public class LayoutParameters {
         internCellHeight = other.internCellHeight;
         stackHeight = other.stackHeight;
         showGrid = other.showGrid;
-        tooltipEnabled = other.tooltipEnabled;
         showInternalNodes = other.showInternalNodes;
         scaleFactor = other.scaleFactor;
         drawStraightWires = other.drawStraightWires;
@@ -418,15 +414,6 @@ public class LayoutParameters {
 
     public LayoutParameters setHighlightLineState(boolean highlightLineState) {
         this.highlightLineState = highlightLineState;
-        return this;
-    }
-
-    public boolean isTooltipEnabled() {
-        return tooltipEnabled;
-    }
-
-    public LayoutParameters setTooltipEnabled(boolean tooltipEnabled) {
-        this.tooltipEnabled = tooltipEnabled;
         return this;
     }
 
