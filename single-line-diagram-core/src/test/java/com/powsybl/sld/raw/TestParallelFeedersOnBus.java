@@ -6,7 +6,11 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.VoltageLevelRawBuilder;
+import com.powsybl.sld.model.BusNode;
+import com.powsybl.sld.model.FeederNode;
+import com.powsybl.sld.model.SwitchNode;
+import com.powsybl.sld.model.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +23,7 @@ public class TestParallelFeedersOnBus extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load1 = vlBuilder.createLoad("l1");
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);

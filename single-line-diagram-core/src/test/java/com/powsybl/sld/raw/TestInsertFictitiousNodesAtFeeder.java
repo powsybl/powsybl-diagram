@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
     @Test
     public void testFeederOnBus() {
-        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, null);
         vlBuilder.connectNode(bbs, feederLineNode);
@@ -53,7 +53,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
 
     @Test
     public void testFeederOnBusDisconnector() {
-        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 400);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode busDisconnector = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "busDisconnector", false, false);
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, BusCell.Direction.BOTTOM);

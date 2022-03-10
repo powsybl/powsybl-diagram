@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.SwitchNode;
 import com.powsybl.sld.model.VoltageLevelGraph;
@@ -31,7 +32,7 @@ public class TestCase6 extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
 
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs1.1", 1, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs1.2", 1, 2);

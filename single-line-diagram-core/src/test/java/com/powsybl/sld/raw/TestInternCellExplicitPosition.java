@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.BusCell.Direction;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class TestInternCellExplicitPosition extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl",
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl",
                 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         FeederNode load1 = vlBuilder.createLoad("l1", 3, BusCell.Direction.TOP);

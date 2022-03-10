@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.BusNode;
 import com.powsybl.sld.model.FictitiousNode;
 import com.powsybl.sld.model.SwitchNode;
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class TestInternCellShapes extends AbstractTestCaseRaw {
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs11 = vlBuilder.createBusBarSection("bbs11", 1, 1);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs21", 2, 1);
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs12", 1, 2);

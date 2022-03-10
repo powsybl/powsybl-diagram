@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.raw;
 
+import com.powsybl.sld.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         FictitiousNode f0 = vlBuilder.createFictitiousNode("f0");
