@@ -26,7 +26,7 @@ public final class GraphTraversal {
      * @param node                 the entry point for the exploration
      * @param extremityCriteria    criteria applied to node returning if we reach an extremity node (the node is included in the result)
      * @param unsuccessfulCriteria criteria applied to node returning if the traversal is to be invalidated
-     * @param nodesResult          the resulting list of nodes
+     * @param nodesResult          the resulting set of nodes
      * @param outsideNodes         nodes already visited
      * @return true if no unsuccessfulCriteria reached or node outside
      **/
