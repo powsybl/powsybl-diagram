@@ -22,26 +22,15 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
 public final class ShuntCell extends AbstractCell {
-    private Map<Side, ExternCell> cells = new EnumMap<>(Side.class);
+
+    private final Map<Side, ExternCell> sideCells = new EnumMap<>(Side.class);
 
     private ShuntCell(int cellNumber, List<Node> nodes) {
         super(cellNumber, CellType.SHUNT, nodes);
     }
 
-    public static ShuntCell create(int cellNumber, ExternCell cell1, ExternCell cell2, List<Node> nodes) {
-        ShuntCell shuntCell = new ShuntCell(cellNumber, nodes);
-        if (cell1.getNodes().contains(nodes.get(0)) && cell2.getNodes().contains(nodes.get(nodes.size() - 1))) {
-            shuntCell.cells.put(Side.LEFT, cell1);
-            shuntCell.cells.put(Side.RIGHT, cell2);
-        } else if (cell2.getNodes().contains(nodes.get(0)) && cell1.getNodes().contains(nodes.get(nodes.size() - 1))) {
-            shuntCell.cells.put(Side.LEFT, cell2);
-            shuntCell.cells.put(Side.RIGHT, cell1);
-        } else {
-            throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
-        }
-        cell1.setShuntCell(shuntCell);
-        cell2.setShuntCell(shuntCell);
-        return shuntCell;
+    public static ShuntCell create(int cellNumber, List<Node> nodes) {
+        return new ShuntCell(cellNumber, nodes);
     }
 
     public void calculateCoord(VoltageLevelGraph vlGraph, LayoutParameters layoutParam) {
@@ -54,35 +43,30 @@ public final class ShuntCell extends AbstractCell {
         }
     }
 
+    public void putSideCell(Side side, ExternCell externCell) {
+        sideCells.put(side, externCell);
+    }
+
     public void alignExternCells() {
-        if (cells.get(Side.LEFT).getOrder().orElse(-1) > cells.get(Side.RIGHT).getOrder().orElse(-1)) {
+        if (sideCells.get(Side.LEFT).getOrder().orElse(-1) > sideCells.get(Side.RIGHT).getOrder().orElse(-1)) {
             reverse();
         }
     }
 
     public void alignDirections(Side side) {
-        cells.get(side.getFlip()).setDirection(cells.get(side).getDirection());
+        sideCells.get(side.getFlip()).setDirection(sideCells.get(side).getDirection());
     }
 
     private void reverse() {
-        ExternCell cell = cells.get(Side.LEFT);
-        cells.put(Side.LEFT, cells.get(Side.RIGHT));
-        cells.put(Side.RIGHT, cell);
+        ExternCell cell = sideCells.get(Side.LEFT);
+        sideCells.put(Side.LEFT, sideCells.get(Side.RIGHT));
+        sideCells.put(Side.RIGHT, cell);
         Collections.reverse(nodes);
         getRootBlock().reverseBlock();
     }
 
     public ExternCell getSideCell(Side side) {
-        return cells.get(side);
-    }
-
-    public ExternCell getOtherSideCell(ExternCell cell) {
-        if (cell == cells.get(Side.LEFT)) {
-            return cells.get(Side.RIGHT);
-        } else if (cell == cells.get(Side.RIGHT)) {
-            return cells.get(Side.LEFT);
-        }
-        return null;
+        return sideCells.get(side);
     }
 
     public FictitiousNode getSideShuntNode(Side side) {
@@ -93,11 +77,11 @@ public final class ShuntCell extends AbstractCell {
     }
 
     Position getSidePosition(Side side) {
-        return cells.get(side).getRootBlock().getPosition();
+        return sideCells.get(side).getRootBlock().getPosition();
     }
 
-    public List<ExternCell> getCells() {
-        return new ArrayList<>(cells.values());
+    public List<ExternCell> getSideCells() {
+        return new ArrayList<>(sideCells.values());
     }
 
     public int getLength() {
@@ -105,7 +89,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public List<BusNode> getParentBusNodes() {
-        return getCells().stream().flatMap(c -> c.getBusNodes().stream()).collect(Collectors.toList());
+        return getSideCells().stream().flatMap(c -> c.getBusNodes().stream()).collect(Collectors.toList());
     }
 
     @Override

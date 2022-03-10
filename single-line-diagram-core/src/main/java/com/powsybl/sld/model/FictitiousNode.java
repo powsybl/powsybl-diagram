@@ -18,7 +18,7 @@ public class FictitiousNode extends Node {
         super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true, graph);
     }
 
-    public int getCardinality() {
-        return this.getAdjacentNodes().size() - (getType() == NodeType.SHUNT ? 1 : 0);
+    public long getCardinality() {
+        return this.getAdjacentNodes().stream().filter(n -> n.getCell() == null || n.getCell().getType() != Cell.CellType.SHUNT).count();
     }
 }

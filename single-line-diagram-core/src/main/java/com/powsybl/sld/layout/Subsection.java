@@ -237,7 +237,7 @@ public class Subsection {
         subsections.forEach(ss -> shuntCells2Buses.keySet().stream()
                 .filter(sc -> ss.containsAllBusNodes(shuntCells2Buses.get(sc)))
                 .forEach(sc -> {
-                    sc.getCells().forEach(c -> moveExternCellToSubsection(c, ss, subsections, Side.UNDEFINED));
+                    sc.getSideCells().forEach(c -> moveExternCellToSubsection(c, ss, subsections, Side.UNDEFINED));
                     int iLeft = ss.externCells.indexOf(sc.getSideCell(LEFT));
                     int iRight = ss.externCells.indexOf(sc.getSideCell(RIGHT));
                     if (iRight != iLeft + 1) {

@@ -11,13 +11,13 @@ import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
