@@ -604,7 +604,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, componentType, subComponent);
-        insertSVGIntoDocumentSVG(componentType, g, labelProvider.getTooltip(node), elementAttributesSetter);
+        String tooltipContent = layoutParameters.isTooltipEnabled() ? labelProvider.getTooltip(node) : null;
+        insertSVGIntoDocumentSVG(componentType, g, tooltipContent, elementAttributesSetter);
     }
 
     protected void insertFeederInfoSVGIntoDocumentSVG(FeederInfo feederInfo, String prefixId, Element g, double angle) {
