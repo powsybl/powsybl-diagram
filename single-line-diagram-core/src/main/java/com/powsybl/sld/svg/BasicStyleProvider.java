@@ -68,6 +68,9 @@ public class BasicStyleProvider implements DiagramStyleProvider {
         if (node.getType() == Node.NodeType.SWITCH) {
             styles.add(node.isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
         }
+        if (node.isFictitious()) {
+            styles.add(FICTITIOUS_NODE_STYLE_CLASS);
+        }
 
         return styles;
     }

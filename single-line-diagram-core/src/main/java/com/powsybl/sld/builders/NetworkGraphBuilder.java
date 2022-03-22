@@ -702,7 +702,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 throw new AssertionError();
         }
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
-        return new SwitchNode(aSwitch.getId(), aSwitch.getNameOrId(), componentType, false, graph, sk, aSwitch.isOpen());
+        return new SwitchNode(aSwitch.getId(), aSwitch.getNameOrId(), componentType, aSwitch.isFictitious(), graph, sk, aSwitch.isOpen());
     }
 
     @Override
