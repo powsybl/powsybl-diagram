@@ -50,7 +50,9 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-sw-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <defs>
@@ -176,7 +178,7 @@
         <g class="" id="idvl3_95_trf2_95_two" transform="translate(230.0,100.0)">
             <text class="sld-label" id="vl3_trf2_two__LABEL" x="-5.0" y="-5.0">vl3_trf2</text>
         </g>
-        <g class="sld-three-wt" id="idvl3_95_trf2" transform="translate(182.0,148.0)">
+        <g class="sld-three-wt sld-fictitious" id="idvl3_95_trf2" transform="translate(182.0,148.0)">
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING2"/>
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING3"/>

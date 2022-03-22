@@ -50,7 +50,9 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-sw-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -101,10 +103,10 @@
             <text class="sld-label" id="BBS12_NW_LABEL" x="-5.0" y="-5.0">BBS12</text>
         </g>
         <g class="cell idINTERN_32_0" id="idINTERN_32_0">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D10" transform="translate(111.0,436.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D10" transform="translate(111.0,436.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D20" transform="translate(61.0,436.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D20" transform="translate(61.0,436.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_D10_95_INTERNAL_95_VL1_95_D10">
@@ -133,10 +135,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D11" transform="translate(161.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D11" transform="translate(161.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_L1" transform="translate(161.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_L1" transform="translate(161.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idL1" transform="translate(157.0,195.5)">
@@ -177,10 +179,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D13" transform="translate(211.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D13" transform="translate(211.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_L11_95_ONE" transform="translate(211.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_L11_95_ONE" transform="translate(211.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idL11_95_ONE" transform="translate(215.0,200.0)">
@@ -221,10 +223,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D15" transform="translate(261.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D15" transform="translate(261.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_L12_95_ONE" transform="translate(261.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_L12_95_ONE" transform="translate(261.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idL12_95_ONE" transform="translate(265.0,200.0)">
@@ -265,10 +267,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D17" transform="translate(311.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D17" transform="translate(311.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_T11_95_ONE" transform="translate(311.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_T11_95_ONE" transform="translate(311.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT11_95_ONE" transform="translate(315.0,200.0)">
@@ -309,10 +311,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D19" transform="translate(361.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D19" transform="translate(361.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_T3_95_12_95_ONE" transform="translate(361.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_T3_95_12_95_ONE" transform="translate(361.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT3_95_12_95_ONE" transform="translate(365.0,200.0)">
@@ -353,10 +355,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D21" transform="translate(411.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D21" transform="translate(411.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_G" transform="translate(411.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_G" transform="translate(411.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-generator sld-top-feeder" id="idG" transform="translate(409.0,194.0)">
@@ -397,10 +399,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D23" transform="translate(461.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D23" transform="translate(461.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_L11_95_TWO" transform="translate(461.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_L11_95_TWO" transform="translate(461.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idL11_95_TWO" transform="translate(465.0,200.0)">
@@ -441,10 +443,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D25" transform="translate(511.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D25" transform="translate(511.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_T11_95_TWO" transform="translate(511.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_T11_95_TWO" transform="translate(511.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT11_95_TWO" transform="translate(515.0,200.0)">
@@ -485,10 +487,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D27" transform="translate(561.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D27" transform="translate(561.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_T12_95_ONE" transform="translate(561.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_T12_95_ONE" transform="translate(561.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT12_95_ONE" transform="translate(565.0,200.0)">
@@ -529,10 +531,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_10" id="idEXTERN_32_10">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_D29" transform="translate(611.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_D29" transform="translate(611.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL1_95_T3_95_12_95_TWO" transform="translate(611.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL1_95_T3_95_12_95_TWO" transform="translate(611.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT3_95_12_95_TWO" transform="translate(615.0,200.0)">
@@ -581,7 +583,7 @@
         <g class="sld-wire" id="idEDGE_95_T11_95_TWO">
             <polyline points="515.0,200.0,515.0,140.0,423.0,140.0"/>
         </g>
-        <g class="sld-two-wt" id="idT11" transform="translate(410.0,132.5)">
+        <g class="sld-two-wt sld-fictitious" id="idT11" transform="translate(410.0,132.5)">
             <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
             <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
@@ -593,10 +595,10 @@
             <text class="sld-label" id="BBS2_NW_LABEL" x="-5.0" y="-5.0">BBS2</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_D31" transform="translate(701.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_D31" transform="translate(701.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_L2" transform="translate(701.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_L2" transform="translate(701.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idL2" transform="translate(697.0,195.5)">
@@ -637,10 +639,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_D33" transform="translate(751.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_D33" transform="translate(751.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_L12_95_TWO" transform="translate(751.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_L12_95_TWO" transform="translate(751.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idL12_95_TWO" transform="translate(755.0,200.0)">
@@ -681,10 +683,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_D35" transform="translate(801.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_D35" transform="translate(801.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_T12_95_TWO" transform="translate(801.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_T12_95_TWO" transform="translate(801.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT12_95_TWO" transform="translate(805.0,200.0)">
@@ -725,10 +727,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_D37" transform="translate(851.0,446.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_D37" transform="translate(851.0,446.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node" id="idINTERNAL_95_VL2_95_T3_95_12_95_THREE" transform="translate(851.0,258.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious" id="idINTERNAL_95_VL2_95_T3_95_12_95_THREE" transform="translate(851.0,258.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder" id="idT3_95_12_95_THREE" transform="translate(855.0,200.0)">
@@ -786,11 +788,11 @@
         <g class="sld-wire" id="idEDGE_95_T3_95_12_95_THREE">
             <polyline points="855.0,200.0,855.0,50.0,622.0,50.0"/>
         </g>
-        <g class="sld-two-wt" id="idT12" transform="translate(680.0,72.5)">
+        <g class="sld-two-wt sld-fictitious" id="idT12" transform="translate(680.0,72.5)">
             <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
             <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
         </g>
-        <g class="sld-three-wt" id="idT3_95_12" transform="translate(607.0,38.0)">
+        <g class="sld-three-wt sld-fictitious" id="idT3_95_12" transform="translate(607.0,38.0)">
             <circle class="sld-winding" cx="5" cy="15" r="5"/>
             <circle class="sld-winding" cx="11" cy="15" r="5"/>
             <circle class="sld-winding" cx="8" cy="19" r="5"/>

@@ -50,7 +50,9 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-sw-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 /* ----------------------------------------------------------------------- */
 /* File : components.css ------------------------------------------------- */
 .sld-voltage-indicator .sld-label {dominant-baseline: middle}
@@ -93,10 +95,10 @@
             <text class="sld-label" id="bbs23_NW_LABEL" x="-5.0" y="-5.0">bbs23</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_3" transform="translate(61.0,218.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_3" transform="translate(61.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_loadA" transform="translate(61.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadA" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idloadA" transform="translate(57.0,75.5)">
@@ -144,10 +146,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_5" transform="translate(111.0,218.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_5" transform="translate(111.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_loadB" transform="translate(111.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadB" transform="translate(111.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idloadB" transform="translate(107.0,75.5)">
@@ -198,16 +200,16 @@
             </g>
         </g>
         <g class="cell idSHUNT_32_2" id="idSHUNT_32_2">
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_5" transform="translate(111.0,218.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_5" transform="translate(111.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_Shunt_32_2_46_1" transform="translate(136.0,178.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_Shunt_32_2_46_1" transform="translate(136.0,178.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_Shunt_32_2_46_2" transform="translate(186.0,178.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_Shunt_32_2_46_2" transform="translate(186.0,178.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_loadC" transform="translate(236.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadC" transform="translate(236.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-wire" id="_95_vl1_95_INTERNAL_95_vl1_95_5_95_fB">
@@ -256,13 +258,13 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_loadC" transform="translate(236.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadC" transform="translate(236.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_c1" transform="translate(261.0,218.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_c1" transform="translate(261.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl1_95_c2" transform="translate(211.0,218.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_c2" transform="translate(211.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idloadC" transform="translate(232.0,75.5)">
@@ -309,14 +311,14 @@
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="sld-bus-connection" id="idBUSCO_95_c1" transform="translate(261.0,273.0)">
+            <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_c1" transform="translate(261.0,273.0)">
                 <circle cx="4" cy="4" r="2"/>
             </g>
             <g class="sld-breaker sld-closed" id="idc2" transform="translate(205.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
-            <g class="sld-bus-connection" id="idBUSCO_95_c2" transform="translate(211.0,248.0)">
+            <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_c2" transform="translate(211.0,248.0)">
                 <circle cx="4" cy="4" r="2"/>
             </g>
         </g>

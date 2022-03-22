@@ -50,7 +50,9 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-sw-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -345,11 +347,11 @@
         <g class="sld-wire" id="idEDGE_95_vl3_95_trf2_95_one">
             <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
-        <g class="sld-two-wt" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
+        <g class="sld-two-wt sld-fictitious" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
             <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
             <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
-        <g class="sld-three-wt" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
+        <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
             <circle class="sld-winding" cx="5" cy="15" r="5"/>
             <circle class="sld-winding" cx="11" cy="15" r="5"/>
             <circle class="sld-winding" cx="8" cy="19" r="5"/>

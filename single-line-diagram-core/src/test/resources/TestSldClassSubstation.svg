@@ -128,7 +128,9 @@
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-sw-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -141,10 +143,10 @@
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d1" transform="translate(111.0,218.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d1" transform="translate(111.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_l" transform="translate(111.0,138.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_l" transform="translate(111.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder sld-vl300to500-0" id="idl" transform="translate(107.0,75.5)">
@@ -185,10 +187,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d2" transform="translate(61.0,278.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d2" transform="translate(61.0,278.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_trf_95_ONE" transform="translate(61.0,358.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_trf_95_ONE" transform="translate(61.0,358.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-bottom-feeder sld-vl300to500-0" id="idtrf_95_ONE" transform="translate(65.0,424.0)">
@@ -233,10 +235,10 @@
             <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_vl2_95_d3" transform="translate(201.0,278.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_d3" transform="translate(201.0,278.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_vl2_95_g" transform="translate(201.0,358.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_g" transform="translate(201.0,358.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-generator sld-bottom-feeder sld-vl180to300-0" id="idg" transform="translate(199.0,418.0)">
@@ -277,10 +279,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_vl2_95_d4" transform="translate(251.0,218.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_d4" transform="translate(251.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-hidden-node sld-vl180to300-0" id="idINTERNAL_95_vl2_95_trf_95_TWO" transform="translate(251.0,138.0)">
+            <g class="sld-node sld-hidden-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_trf_95_TWO" transform="translate(251.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl180to300-0" id="idtrf_95_TWO" transform="translate(255.0,80.0)">
@@ -323,7 +325,7 @@
         <g class="sld-wire sld-vl180to300-0" id="idEDGE_95_trf_95_TWO">
             <polyline points="255.0,80.0,255.0,20.0,160.0,20.0,160.0,244.0"/>
         </g>
-        <g class="sld-two-wt" id="idtrf" transform="translate(155.0,244.5)">
+        <g class="sld-two-wt sld-fictitious" id="idtrf" transform="translate(155.0,244.5)">
             <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="10" r="5"/>
             <circle class="sld-vl180to300-0 sld-winding" cx="5" cy="5" r="5"/>
         </g>
