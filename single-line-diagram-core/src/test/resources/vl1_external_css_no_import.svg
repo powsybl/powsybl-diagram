@@ -131,7 +131,7 @@
         <g class="" id="idvl1_95_trf2_95_two" transform="translate(480.0,100.0)">
             <text class="sld-label" id="vl1_trf2_two__LABEL" x="-5.0" y="-5.0">vl1_trf2</text>
         </g>
-        <g class="sld-three-wt" id="idvl1_95_trf2" transform="translate(432.0,148.0)">
+        <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(432.0,148.0)">
             <circle class="sld-winding" cx="5" cy="15" r="5"/>
             <circle class="sld-winding" cx="11" cy="15" r="5"/>
             <circle class="sld-winding" cx="8" cy="19" r="5"/>

@@ -581,7 +581,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected boolean canInsertComponentSVG(Node node) {
-        return (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
+        return (node.getType() == Node.NodeType.SWITCH)
+                || (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
                 || (node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
@@ -603,7 +604,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                                      DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, node, styleProvider, elt, componentType, subComponent);
-        insertSVGIntoDocumentSVG(componentType, g, labelProvider.getTooltip(node), elementAttributesSetter);
+        String tooltipContent = layoutParameters.isTooltipEnabled() ? labelProvider.getTooltip(node) : null;
+        insertSVGIntoDocumentSVG(componentType, g, tooltipContent, elementAttributesSetter);
     }
 
     protected void insertFeederInfoSVGIntoDocumentSVG(FeederInfo feederInfo, String prefixId, Element g, double angle) {

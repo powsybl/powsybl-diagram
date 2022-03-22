@@ -127,6 +127,10 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -172,10 +176,10 @@
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d" transform="translate(61.0,356.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d" transform="translate(61.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_l" transform="translate(61.0,168.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_l" transform="translate(61.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder sld-vl300to500-0" id="idl" transform="translate(57.0,105.5)">
@@ -216,10 +220,10 @@
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d2WT_95_1" transform="translate(111.0,356.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d2WT_95_1" transform="translate(111.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_2WT_95_ONE" transform="translate(111.0,168.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_2WT_95_ONE" transform="translate(111.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="id2WT_95_ONE" transform="translate(115.0,110.0)">
@@ -247,20 +251,20 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500-0" id="idd2WT_95_1" transform="translate(111.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="idd2WT_95_1" transform="translate(111.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500-0" id="idb2WT_95_1" transform="translate(105.0,256.0)">
+            <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idb2WT_95_1" transform="translate(105.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d3WT_95_1" transform="translate(161.0,356.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d3WT_95_1" transform="translate(161.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-vl300to500-0" id="idINTERNAL_95_vl1_95_3WT_95_ONE" transform="translate(161.0,168.0)">
+            <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_3WT_95_ONE" transform="translate(161.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl300to500-0" id="id3WT_95_ONE" transform="translate(165.0,110.0)">
@@ -288,11 +292,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl300to500-0" id="idd3WT_95_1" transform="translate(161.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="idd3WT_95_1" transform="translate(161.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl300to500-0" id="idb3WT_95_1" transform="translate(155.0,256.0)">
+            <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="idb3WT_95_1" transform="translate(155.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -305,10 +309,10 @@
             <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-disconnected" id="idINTERNAL_95_vl2_95_d2WT_95_2" transform="translate(251.0,356.0)">
+            <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl2_95_d2WT_95_2" transform="translate(251.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-disconnected" id="idINTERNAL_95_vl2_95_2WT_95_TWO" transform="translate(251.0,168.0)">
+            <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl2_95_2WT_95_TWO" transform="translate(251.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-disconnected" id="id2WT_95_TWO" transform="translate(255.0,110.0)">
@@ -336,20 +340,20 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-disconnected" id="idd2WT_95_2" transform="translate(251.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-fictitious sld-disconnected" id="idd2WT_95_2" transform="translate(251.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idb2WT_95_2" transform="translate(245.0,256.0)">
+            <g class="sld-breaker sld-open sld-fictitious sld-disconnected" id="idb2WT_95_2" transform="translate(245.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
-            <g class="sld-node sld-disconnected" id="idINTERNAL_95_vl2_95_d3WT_95_2" transform="translate(301.0,356.0)">
+            <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl2_95_d3WT_95_2" transform="translate(301.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-disconnected" id="idINTERNAL_95_vl2_95_3WT_95_TWO" transform="translate(301.0,168.0)">
+            <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl2_95_3WT_95_TWO" transform="translate(301.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-disconnected" id="id3WT_95_TWO" transform="translate(305.0,110.0)">
@@ -377,11 +381,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-disconnected" id="idd3WT_95_2" transform="translate(301.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-fictitious sld-disconnected" id="idd3WT_95_2" transform="translate(301.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-open sld-disconnected" id="idb3WT_95_2" transform="translate(295.0,256.0)">
+            <g class="sld-breaker sld-open sld-fictitious sld-disconnected" id="idb3WT_95_2" transform="translate(295.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -394,10 +398,10 @@
             <text class="sld-label" id="bbs3_NW_LABEL" x="-5.0" y="-5.0">bbs3</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node sld-vl50to70-0" id="idINTERNAL_95_vl3_95_d3WT_95_3" transform="translate(391.0,356.0)">
+            <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_d3WT_95_3" transform="translate(391.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-vl50to70-0" id="idINTERNAL_95_vl3_95_3WT_95_THREE" transform="translate(391.0,168.0)">
+            <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_3WT_95_THREE" transform="translate(391.0,168.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-top-feeder sld-vl50to70-0" id="id3WT_95_THREE" transform="translate(395.0,110.0)">
@@ -425,11 +429,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-disconnector sld-closed sld-vl50to70-0" id="idd3WT_95_3" transform="translate(391.0,386.0)">
+            <g class="sld-disconnector sld-closed sld-fictitious sld-vl50to70-0" id="idd3WT_95_3" transform="translate(391.0,386.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
-            <g class="sld-breaker sld-closed sld-vl50to70-0" id="idb3WT_95_3" transform="translate(385.0,256.0)">
+            <g class="sld-breaker sld-closed sld-fictitious sld-vl50to70-0" id="idb3WT_95_3" transform="translate(385.0,256.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
@@ -449,11 +453,11 @@
         <g class="sld-wire sld-vl50to70-0" id="idEDGE_95_3WT_95_THREE">
             <polyline points="395.0,110.0,395.0,20.0,312.0,20.0"/>
         </g>
-        <g class="sld-two-wt" id="id2WT" transform="translate(180.0,42.5)">
+        <g class="sld-two-wt sld-fictitious" id="id2WT" transform="translate(180.0,42.5)">
             <circle class="sld-disconnected sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
             <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
         </g>
-        <g class="sld-three-wt" id="id3WT" transform="translate(297.0,8.0)">
+        <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(297.0,8.0)">
             <circle class="sld-vl300to500-0 sld-winding" cx="5" cy="15" r="5"/>
             <circle class="sld-vl50to70-0 sld-winding" cx="11" cy="15" r="5"/>
             <circle class="sld-disconnected sld-winding" cx="8" cy="19" r="5"/>
