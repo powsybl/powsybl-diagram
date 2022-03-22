@@ -795,7 +795,13 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
     @Test
     public void testTooltip() {
-        DiagramStyleProvider styleProvider = new BasicStyleProvider();
+        layoutParameters.setTooltipEnabled(true);
+        assertEquals(toString("/vl1_tooltip.svg"),
+            toSVG(g1, "/vl1_tooltip.svg", labelProvider, new BasicStyleProvider()));
+    }
+
+    @Test
+    public void testMultiLineTooltip() {
         DiagramLabelProvider labelProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public String getTooltip(Node node) {
@@ -812,8 +818,9 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             }
         };
         layoutParameters.setAvoidSVGComponentsDuplication(true);
-        assertEquals(toString("/vl1_tooltip_opt.svg"),
-            toSVG(g1, "/vl1_tooltip_opt.svg", labelProvider, styleProvider));
+        layoutParameters.setTooltipEnabled(true);
+        assertEquals(toString("/vl1_multiline_tooltip.svg"),
+            toSVG(g1, "/vl1_multiline_tooltip.svg", labelProvider, new BasicStyleProvider()));
     }
 
     @Test
