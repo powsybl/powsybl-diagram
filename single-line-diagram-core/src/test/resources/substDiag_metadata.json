@@ -5,7 +5,6 @@
       "width" : 0.0,
       "height" : 0.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-busbar-section"
   }, {
     "type" : "GENERATOR",
@@ -30,7 +29,6 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-generator"
   }, {
     "type" : "ARROW_REACTIVE",
@@ -38,7 +36,10 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-arrow-q"
   }, {
     "type" : "LOAD",
@@ -55,7 +56,10 @@
       "width" : 16.0,
       "height" : 9.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-load"
   }, {
     "type" : "ARROW_ACTIVE",
@@ -63,7 +67,10 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
@@ -76,7 +83,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-node"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -88,8 +94,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "anchorPoints" : [ {
@@ -100,8 +105,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "anchorPoints" : [ {
@@ -117,7 +121,11 @@
       "width" : 10.0,
       "height" : 15.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
     "styleClass" : "sld-two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
@@ -138,7 +146,11 @@
       "width" : 16.0,
       "height" : 24.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
     "styleClass" : "sld-three-wt"
   }, {
     "type" : "DISCONNECTOR",
@@ -151,7 +163,10 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-disconnector"
   }, {
     "type" : "LINE",
@@ -163,8 +178,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "BREAKER",
     "anchorPoints" : [ {
@@ -180,7 +194,10 @@
       "width" : 20.0,
       "height" : 20.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {
