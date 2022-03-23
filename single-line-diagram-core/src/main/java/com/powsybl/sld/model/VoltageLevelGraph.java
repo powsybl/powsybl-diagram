@@ -676,7 +676,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 if (oCell.isPresent() && ((ExternCell) oCell.get()).getDirection() == BusCell.Direction.BOTTOM) {
                     // permutation if cell direction is BOTTOM,
                     // because in the svg component library, circle for winding1 is below circle for winding2
-                    node.setRotationAngle(180.);
+                    node.setOrientation(Orientation.DOWN);
                 }
             }
         }

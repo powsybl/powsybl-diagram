@@ -67,7 +67,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int v = 0;
         for (Node node : nodes) {
             node.setCoordinates(getCoord().get(X), y0 - yPxStep * v);
-            node.setOrientation(getOrientation());
+            node.setOrientation(UP); // FIXME : To be confirmed - UP need to be replaced by getOrientation()
             v++;
         }
     }
