@@ -35,9 +35,7 @@ public class GraphMetadata {
 
         private final String id;
 
-        private String componentType;
-
-        private Double rotationAngle;
+        private final String componentType;
 
         private final boolean open;
 
@@ -58,7 +56,6 @@ public class GraphMetadata {
                             @JsonProperty("vid") String vId,
                             @JsonProperty("nextVId") String nextVId,
                             @JsonProperty("componentType") String componentType,
-                            @JsonProperty("rotationAngle") Double rotationAngle,
                             @JsonProperty("open") boolean open,
                             @JsonProperty("direction") BusCell.Direction direction,
                             @JsonProperty("vlabel") boolean vLabel,
@@ -68,7 +65,6 @@ public class GraphMetadata {
             this.vId = Objects.requireNonNull(vId);
             this.nextVId = nextVId;
             this.componentType = componentType;
-            this.rotationAngle = rotationAngle;
             this.open = Objects.requireNonNull(open);
             this.direction = direction;
             this.vLabel = vLabel;
@@ -90,10 +86,6 @@ public class GraphMetadata {
 
         public String getComponentType() {
             return componentType;
-        }
-
-        public Double getRotationAngle() {
-            return rotationAngle;
         }
 
         public boolean isOpen() {

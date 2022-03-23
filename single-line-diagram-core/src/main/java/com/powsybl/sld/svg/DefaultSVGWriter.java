@@ -359,7 +359,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
-                null,
                 false,
                 BusCell.Direction.UNDEFINED,
                 false,
@@ -419,7 +418,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
             metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
-                    BUSBAR_SECTION, busNode.getRotationAngle(),
+                    BUSBAR_SECTION,
                     false, BusCell.Direction.UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
@@ -484,7 +483,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
-                        node.getComponentType(), node.getRotationAngle(),
+                        node.getComponentType(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
@@ -532,7 +531,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(idLabelVoltageLevel,
                 graph.getVoltageLevelInfos().getId(),
-                null,
                 null,
                 null,
                 false,
