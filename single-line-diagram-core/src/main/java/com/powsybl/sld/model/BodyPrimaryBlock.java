@@ -67,7 +67,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int v = 0;
         for (Node node : nodes) {
             node.setCoordinates(getCoord().get(X), y0 - yPxStep * v);
-            node.setRotationAngle(null);
+            node.setOrientation(getOrientation());
             v++;
         }
     }
@@ -83,7 +83,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         int h = 0;
         for (Node node : nodes) {
             node.setCoordinates(x0 + xPxStep * h, getCoord().get(Y));
-            node.setRotationAngle(90.);
+            node.setOrientation(LEFT);
             h++;
         }
     }
@@ -102,7 +102,7 @@ public class BodyPrimaryBlock extends AbstractPrimaryBlock {
         for (int i = 2; i < nodes.size() - 2; i++) {
             Node node = nodes.get(i);
             node.setCoordinates(x0 + (i - 1) * dx, y);
-            node.setRotationAngle(90.);
+            node.setOrientation(LEFT);
         }
     }
 

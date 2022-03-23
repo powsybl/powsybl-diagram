@@ -65,7 +65,7 @@ public class Node {
 
     private BusCell.Direction direction = BusCell.Direction.UNDEFINED;
 
-    private Orientation orientation;
+    private Orientation orientation = Orientation.UP;
 
     /**
      * Constructor
@@ -213,7 +213,7 @@ public class Node {
     }
 
     public boolean isRotated() {
-        return rotationAngle != null;
+        return getRotationAngle() != null;
     }
 
     public void setRotationAngle(Double rotationAngle) {
@@ -246,9 +246,6 @@ public class Node {
 
     public void setDirection(BusCell.Direction direction) {
         this.direction = direction;
-        if (orientation == null || orientation.isHorizontal()) {
-            this.orientation = direction.toOrientation();
-        }
     }
 
     public Orientation getOrientation() {
@@ -256,7 +253,17 @@ public class Node {
     }
 
     public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
+        this.orientation = Objects.requireNonNullElse(orientation, Orientation.UP);
+        switch (this.orientation) {
+            case LEFT: setRotationAngle(90.0);
+                break;
+            case DOWN: setRotationAngle(180.0);
+                break;
+            case RIGHT: setRotationAngle(270.0);
+                break;
+            default:
+                setRotationAngle(null);
+        }
     }
 
     /**

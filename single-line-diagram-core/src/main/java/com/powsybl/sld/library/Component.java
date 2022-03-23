@@ -9,10 +9,9 @@ package com.powsybl.sld.library;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.sld.model.coordinate.Orientation;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -24,6 +23,12 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Component {
 
+    public enum Transformation {
+        ROTATION,
+        FLIP,
+        NONE
+    }
+
     private final String type;
 
     private final List<AnchorPoint> anchorPoints;
@@ -32,7 +37,7 @@ public class Component {
 
     private final String styleClass;
 
-    private final boolean allowRotation;
+    private final Map<Orientation, Transformation> transformations;
 
     private final List<SubComponent> subComponents;
 
@@ -41,13 +46,13 @@ public class Component {
                      @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
                      @JsonProperty("size") ComponentSize size,
                      @JsonProperty("style") String styleClass,
-                     @JsonProperty("allowRotation") boolean allowRotation,
+                     @JsonProperty("transformations") Map<Orientation, Transformation> transformations,
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
-        this.allowRotation = allowRotation;
+        this.transformations = transformations;
         this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 
@@ -63,8 +68,8 @@ public class Component {
         return anchorPoints;
     }
 
-    public boolean isAllowRotation() {
-        return allowRotation;
+    public Map<Orientation, Transformation> getTransformations() {
+        return transformations;
     }
 
     public List<SubComponent> getSubComponents() {

@@ -5,7 +5,7 @@
       "width" : 20.0,
       "height" : 10.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "UNPOWERED",
       "fileName" : "voltage-indicator.svg",

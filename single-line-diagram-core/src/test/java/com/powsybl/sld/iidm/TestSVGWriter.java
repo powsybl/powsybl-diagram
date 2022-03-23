@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.svg.*;
@@ -88,7 +89,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1D1.setY(300);
         g1.addNode(vl1D1);
         SwitchNode vl1B1 = new SwitchNode("vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, g1, SwitchNode.SwitchKind.BREAKER, false);
-        vl1B1.setRotationAngle(90.);
+        vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
         g1.addNode(vl1B1);
@@ -353,7 +354,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1D1.setY(300);
         g1ForSubstation.addNode(vl1D1);
         SwitchNode vl1B1 = new SwitchNode("vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, g1ForSubstation, SwitchNode.SwitchKind.BREAKER, false);
-        vl1B1.setRotationAngle(90.);
+        vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
         g1ForSubstation.addNode(vl1B1);

@@ -42,7 +42,7 @@ public class ComponentsTest {
                         "\"width\" : 18.0,",
                         "\"height\" : 19.0",
                 "},",
-                "\"allowRotation\" : true,",
+                "\"transformations\" : {},",
                 "\"subComponents\" : [ {",
                     "\"name\" : \"BREAKER\",",
                     "\"fileName\" : \"breaker.svg\",",
@@ -68,6 +68,6 @@ public class ComponentsTest {
         assertEquals(9, components.getComponents().get(0).getAnchorPoints().get(1).getX(), 0);
         assertEquals(18, components.getComponents().get(0).getAnchorPoints().get(1).getY(), 0);
         assertEquals(AnchorOrientation.HORIZONTAL, components.getComponents().get(0).getAnchorPoints().get(1).getOrientation());
-        assertTrue(components.getComponents().get(0).isAllowRotation());
+        assertTrue(components.getComponents().get(0).getTransformations().isEmpty());
     }
 }

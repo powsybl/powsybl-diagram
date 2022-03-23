@@ -83,7 +83,7 @@ public class ExternCell extends AbstractBusCell {
                 .map(FeederNode.class::cast)
                 .forEach(fn -> {
                     if (fn.getOrientation() == null || !fn.getOrientation().isHorizontal()) {
-                        fn.setOrientation(direction.toOrientation());
+                        //fn.setOrientation(direction.toOrientation());
                         fn.setDirection(direction);
                     }
                 });

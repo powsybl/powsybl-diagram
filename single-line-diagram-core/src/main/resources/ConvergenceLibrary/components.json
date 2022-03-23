@@ -14,7 +14,7 @@
       "width" : 20.0,
       "height" : 20.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "breaker-closed.svg",
@@ -41,7 +41,7 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "load-break-switch-closed.svg",
@@ -68,7 +68,7 @@
       "width" : 16.0,
       "height" : 9.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "LOAD",
       "fileName" : "load.svg"
@@ -97,7 +97,7 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "GENERATOR",
       "fileName" : "generator.svg"
@@ -118,7 +118,7 @@
       "width" : 10.0,
       "height" : 15.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "2-windings-transformer-winding1.svg",
@@ -148,7 +148,7 @@
       "width" : 16.0,
       "height" : 24.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"ROTATION" },
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "3-windings-transformer-winding1.svg",
@@ -178,7 +178,7 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "CAPACITOR",
       "fileName" : "capacitor.svg"
@@ -199,7 +199,7 @@
       "width" : 15.0,
       "height" : 9.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "INDUCTOR",
       "fileName" : "inductor.svg"
@@ -216,7 +216,7 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "disconnector-closed.svg",
@@ -254,7 +254,7 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "BUS_CONNECTION",
       "fileName" : "bus_connection.svg"
@@ -271,7 +271,7 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "NODE",
       "fileName" : "node.svg"
@@ -292,7 +292,7 @@
       "width" : 14.0,
       "height" : 15.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "phase-shifter-winding1.svg",
@@ -322,7 +322,7 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "STATIC_VAR_COMPENSATOR",
       "fileName" : "svc.svg"
@@ -343,7 +343,7 @@
       "width" : 16.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "VSC_CONVERTER_STATION",
       "fileName" : "vsc.svg"
@@ -358,7 +358,7 @@
       "width" : 10.0,
       "height" : 15.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "FLASH",
       "fileName" : "flash.svg"
@@ -370,7 +370,7 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : false,
+    "transformations" : {},
     "subComponents" : [ {
       "name" : "LOCK",
       "fileName" : "lock.svg"
@@ -382,7 +382,7 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",
@@ -399,7 +399,7 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",

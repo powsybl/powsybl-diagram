@@ -9,6 +9,7 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -425,7 +426,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                        true, null));
+                        componentLibrary.getTransformations(BUSBAR_SECTION), null));
             }
 
             remainingNodesToDraw.remove(busNode);
@@ -487,7 +488,7 @@ public class DefaultSVGWriter implements SVGWriter {
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
-        addInfoComponentMetadata(metadata, node.getComponentType(), true);
+        addInfoComponentMetadata(metadata, node.getComponentType());
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
@@ -740,7 +741,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected void transformComponent(Node node, Point shift, Element g) {
         // For a node marked for rotation during the graph building, but with an svg component not allowed
         // to rotate (ex : disconnector in SVG component library), we cancel the rotation
-        if (node.isRotated() && !componentLibrary.isAllowRotation(node.getComponentType())) {
+        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(node.getOrientation());
+        if (node.isRotated() && transformation != Component.Transformation.ROTATION) {
             node.setRotationAngle(null);
         }
 
@@ -842,7 +844,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
                 drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata);
-                addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
+                addInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -850,13 +852,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType, boolean allowRotation) {
+    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    allowRotation, null));
+                    componentLibrary.getTransformations(componentType), null));
         }
     }
 
@@ -882,7 +884,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
-            double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+            double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
             insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
             styles.add(direction == Direction.OUT ? OUT_CLASS : IN_CLASS);
         });
@@ -909,7 +911,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
             drawBusInfo(prefixId, busNode, root, info, styleProvider, metadata);
-            addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
+            addInfoComponentMetadata(metadata, busInfo.get().getComponentType());
         });
     }
 

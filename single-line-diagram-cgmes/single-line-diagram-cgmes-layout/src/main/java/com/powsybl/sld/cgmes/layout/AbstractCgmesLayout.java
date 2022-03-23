@@ -11,6 +11,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.coordinate.Orientation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,7 +134,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setY(diagramDetails.getPoint1().getY());
                 node.setPxWidth(computeBusWidth(diagramDetails));
                 rotatedBus = diagramDetails.getPoint1().getX() == diagramDetails.getPoint2().getX();
-                node.setRotationAngle(rotatedBus ? 90. : null);
+                node.setOrientation(rotatedBus ? Orientation.LEFT : Orientation.UP);
                 setMin(diagramDetails.getPoint1().getX(), diagramDetails.getPoint1().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, bus {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -149,7 +150,15 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setRotationAngle(rotate && (diagramDetails.getRotation() == 90 || diagramDetails.getRotation() == 270) ? diagramDetails.getRotation() : null);
+                node.setOrientation(Orientation.UP);
+                if (rotate) {
+                    if (diagramDetails.getRotation() == 90) {
+                        node.setOrientation(Orientation.LEFT);
+                    }
+                    else if (diagramDetails.getRotation() == 270) {
+                        node.setOrientation(Orientation.RIGHT);
+                    }
+                }
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -237,7 +246,15 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setRotationAngle(rotate && (diagramDetails.getRotation() == 90 || diagramDetails.getRotation() == 270) ? diagramDetails.getRotation() : null);
+                node.setOrientation(Orientation.UP);
+                if (rotate) {
+                    if (diagramDetails.getRotation() == 90) {
+                        node.setOrientation(Orientation.LEFT);
+                    }
+                    else if (diagramDetails.getRotation() == 270) {
+                        node.setOrientation(Orientation.RIGHT);
+                    }
+                }
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, injection {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
@@ -288,7 +305,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 DiagramPoint linePoint = getLinePoint(diagramData, node, diagramName);
                 node.setX(linePoint.getX());
                 node.setY(linePoint.getY());
-                node.setRotationAngle(rotatedBus ? 90. : null);
+                node.setOrientation(rotatedBus ? Orientation.LEFT : Orientation.UP);
                 setMin(linePoint.getX(), linePoint.getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, line {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);

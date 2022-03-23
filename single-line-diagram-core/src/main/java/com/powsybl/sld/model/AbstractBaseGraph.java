@@ -7,6 +7,7 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 
 import java.io.IOException;
@@ -101,17 +102,17 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
             FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
             if (nodeWinding2.getY() > nodeWinding1.getY()) {
                 // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
-                node.setRotationAngle(180.);
+                node.setOrientation(Orientation.DOWN);
             }
         } else {
             // horizontal line supporting the svg component,
             // so we rotate the component by 90 or 270 (the component is vertical in the library)
             if (node1.getSide() == FeederWithSideNode.Side.ONE) {
                 // rotation by 90 to get circle for winding1 at the left side
-                node.setRotationAngle(90.);
+                node.setOrientation(Orientation.LEFT);
             } else {
                 // rotation by 90 to get circle for winding1 at the right side
-                node.setRotationAngle(270.);
+                node.setOrientation(Orientation.RIGHT);
             }
         }
     }
@@ -132,13 +133,13 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
         Point coord3 = pol3.get(pol3.size() - 2);  // abscissa of the third polyline second last point
         if (coord1.getY() == coord3.getY()) {
             if (coord2.getY() < coord1.getY()) {
-                node.setRotationAngle(180.);  // rotation if middle node cell orientation is BOTTOM
+                node.setOrientation(Orientation.DOWN);  // rotation if middle node cell orientation is BOTTOM
             }
         } else {
             if (coord2.getX() == coord1.getX()) {
-                node.setRotationAngle(coord3.getX() > coord1.getX() ? 270. : 90.);
+                node.setOrientation(coord3.getX() > coord1.getX() ? Orientation.RIGHT : Orientation.LEFT);
             } else if (coord2.getX() == coord3.getX()) {
-                node.setRotationAngle(coord1.getX() > coord3.getX() ? 270. : 90.);
+                node.setOrientation(coord1.getX() > coord3.getX() ? Orientation.RIGHT : Orientation.LEFT);
             }
         }
     }
