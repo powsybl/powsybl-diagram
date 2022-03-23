@@ -103,7 +103,7 @@ public abstract class AbstractGraph implements Graph {
     @Override
     public Direction getDirection(Node node) {
         Optional<Cell> oCell = getCell(node);
-        return oCell.isPresent() ? ((BusCell) oCell.get()).getDirection() : Direction.UNDEFINED;
+        return oCell.isPresent() && oCell.get() instanceof BusCell ? ((BusCell) oCell.get()).getDirection() : Direction.UNDEFINED;
     }
 
     @Override

@@ -9,6 +9,7 @@ package com.powsybl.sld;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Identifiable;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
@@ -65,13 +66,21 @@ public final class SingleLineDiagram {
                 initProvider, styleProvider, prefixId);
     }
 
+    private static Identifiable<?> getIdentifiable(Network network, String id) {
+        Identifiable<?> identifiable = network.getIdentifiable(id);
+        if (identifiable == null) {
+            throw new PowsyblException("Network element '" + id + "' not found");
+        }
+        return identifiable;
+    }
+
     public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
-        Identifiable<?> identifiable = network.getIdentifiable(id);
+        Identifiable<?> identifiable = getIdentifiable(network, id);
         if (identifiable.getType() == VOLTAGE_LEVEL) {
             drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else if (identifiable.getType() == SUBSTATION) {
@@ -196,7 +205,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(network);
         Objects.requireNonNull(id);
 
-        Identifiable<?> identifiable = network.getIdentifiable(id);
+        Identifiable<?> identifiable = getIdentifiable(network, id);
         if (identifiable.getType() == VOLTAGE_LEVEL) {
             drawVoltageLevel(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary, vLayoutFactory, initProvider, styleProvider, prefixId);
         } else if (identifiable.getType() == SUBSTATION) {

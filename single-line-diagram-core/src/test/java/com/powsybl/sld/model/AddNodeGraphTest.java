@@ -8,7 +8,7 @@ package com.powsybl.sld.model;
 
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.NodeFactory;

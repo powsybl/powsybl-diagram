@@ -112,6 +112,11 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     @Override
+    public String getTooltip(Node node) {
+        return node.getName();
+    }
+
+    @Override
     public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
         Objects.requireNonNull(node);
 

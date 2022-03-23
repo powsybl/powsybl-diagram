@@ -17,6 +17,7 @@ import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     private Direction direction = Direction.UNDEFINED;
 
-    protected AbstractBusCell(int cellIndex, CellType type, List<Node> nodes) {
+    protected AbstractBusCell(int cellIndex, CellType type, Collection<Node> nodes) {
         super(cellIndex, type, nodes);
     }
 

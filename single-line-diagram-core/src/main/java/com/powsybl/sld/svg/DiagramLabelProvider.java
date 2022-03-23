@@ -6,13 +6,14 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
@@ -80,9 +81,23 @@ public interface DiagramLabelProvider {
 
     List<NodeLabel> getNodeLabels(Node node, Direction direction);
 
+    default String getTooltip(Node node) {
+        return "";
+    }
+
     List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
 
     default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         return Collections.emptyList();
+    }
+
+    default Optional<BusInfo> getBusInfo(BusNode node) {
+        return Optional.empty();
+    }
+
+    default Map<String, Side> getBusInfoSides(VoltageLevelGraph graph) {
+        Map<String, Side> result = new HashMap<>();
+        graph.getNodeBuses().forEach(busNode -> getBusInfo(busNode).ifPresent(busInfo -> result.put(busNode.getId(), busInfo.getAnchor())));
+        return result;
     }
 }

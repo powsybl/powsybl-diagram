@@ -6,8 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.cells.*;
-import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -15,15 +16,16 @@ import com.powsybl.sld.model.nodes.BusNode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 class BlockPositionner {
 
-    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections) {
+    void determineBlockPositions(VoltageLevelGraph graph, List<Subsection> subsections, Map<String, Side> busInfoMap) {
         int hPos = 0;
         int prevHPos = 0;
         int hSpace = 0;
@@ -36,14 +38,32 @@ class BlockPositionner {
 
         Subsection prevSs = new Subsection(maxV);
         for (Subsection ss : subsections) {
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.RIGHT); // close nodeBuses
-            updateNodeBuses(prevSs, ss, hPos, hSpace, Side.LEFT); // open nodeBuses
+            List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, ss);
+            List<BusNode> busNodesToOpen = getBusNodesToOpen(prevSs, ss);
+
+            if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.RIGHT)) {
+                // Adding one cell on previous subsection right side
+                hPos += 2; // A cell is 2 units wide
+            }
+
+            for (BusNode busNode : busNodesToClose) {
+                closeBusNode(busNode, hPos - hSpace);
+            }
+
+            for (BusNode busNode : busNodesToOpen) {
+                openBusNode(busNode, hPos);
+            }
+
+            if (busNodesToOpen.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.LEFT)) {
+                // Adding one cell on current subsection left side
+                hPos += 2; // A cell is 2 units wide
+            }
 
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
             List<BusCell> verticalCells = new ArrayList<>();
             verticalCells.addAll(ss.getVerticalInternCells());
             verticalCells.addAll(ss.getExternCells());
-            Collections.sort(verticalCells, Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
+            verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
             hPos = placeVerticalCells(hPos, verticalCells);
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
@@ -54,23 +74,51 @@ class BlockPositionner {
             prevHPos = hPos;
             prevSs = ss;
         }
-        updateNodeBuses(prevSs, new Subsection(maxV), hPos, hSpace, Side.RIGHT); // close nodeBuses
+
+        List<BusNode> busNodesToClose = getBusNodesToClose(prevSs, new Subsection(maxV));
+        if (busNodesToClose.stream().anyMatch(busNode -> busInfoMap.get(busNode.getId()) == Side.RIGHT)) {
+            // Adding one cell on previous subsection right side
+            hPos += 2; // A cell is 2 units wide
+        }
+
+        for (BusNode busNode : busNodesToClose) {
+            closeBusNode(busNode, hPos - hSpace);
+        }
+
         manageInternCellOverlaps(graph);
     }
 
-    private void updateNodeBuses(Subsection prevSS, Subsection ss, int hPos, int hSpace, Side ssSide) {
+    private List<BusNode> getBusNodesToClose(Subsection prevSS, Subsection ss) {
+        List<BusNode> busNodesToClose = new ArrayList<>();
         for (int v = 0; v < prevSS.getSize(); v++) {
             BusNode prevBusNode = prevSS.getBusNode(v);
             BusNode actualBusNode = ss.getBusNode(v);
-            if (ssSide == Side.RIGHT && prevBusNode != null
-                    && (actualBusNode == null || prevBusNode != actualBusNode)) {
-                Position p = prevBusNode.getPosition();
-                p.setSpan(H, hPos - Math.max(p.get(H), 0) - hSpace);
-            } else if (ssSide == Side.LEFT && actualBusNode != null &&
-                    (prevBusNode == null || prevBusNode != actualBusNode)) {
-                actualBusNode.getPosition().set(H, hPos);
+            if (prevBusNode != null && (actualBusNode == null || prevBusNode != actualBusNode)) {
+                busNodesToClose.add(prevBusNode);
             }
         }
+        return busNodesToClose;
+    }
+
+    private List<BusNode> getBusNodesToOpen(Subsection prevSS, Subsection ss) {
+        List<BusNode> busNodesToOpen = new ArrayList<>();
+        for (int v = 0; v < prevSS.getSize(); v++) {
+            BusNode prevBusNode = prevSS.getBusNode(v);
+            BusNode actualBusNode = ss.getBusNode(v);
+            if (actualBusNode != null && (prevBusNode == null || prevBusNode != actualBusNode)) {
+                busNodesToOpen.add(actualBusNode);
+            }
+        }
+        return busNodesToOpen;
+    }
+
+    private void closeBusNode(BusNode busNode, int hPositionRight) {
+        int positionLeft = Math.max(busNode.getPosition().get(H), 0);
+        busNode.getPosition().setSpan(H, hPositionRight - positionLeft);
+    }
+
+    private void openBusNode(BusNode busNode, int hPositionLeft) {
+        busNode.getPosition().set(H, hPositionLeft);
     }
 
     private int placeVerticalCells(int hPos, Collection<BusCell> busCells) {

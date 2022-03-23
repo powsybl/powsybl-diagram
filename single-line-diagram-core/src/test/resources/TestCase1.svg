@@ -49,6 +49,10 @@
 .sld-arrow-p {fill:black}
 .sld-arrow-q {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
+/* Stroke maroon for fictitious switch */
+.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-disconnector.sld-fictitious {stroke: maroon}
+.sld-load-break-switch.sld-fictitious {stroke: maroon}
 
 ]]></style>
     <rect class="sld-frame" height="100%" width="100%"/>
@@ -68,10 +72,10 @@
             <text class="sld-label" id="bbs_default" text-anchor="middle" x="0.0" y="-5.0">bbs</text>
         </g>
         <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
-            <g class="sld-node" id="idINTERNAL_95_vl_95_d" transform="translate(61.0,326.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_d" transform="translate(61.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load sld-top-feeder" id="idl" transform="translate(57.0,75.5)">

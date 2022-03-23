@@ -40,19 +40,8 @@ final class CellBlockDecomposer {
     /**
      * Search BlockPrimary and build Block hierarchy by merging blocks together; also
      * list blocks connected to busbar
-     *
-     * @param cell Cell we are working on
      */
-
-    static void determineBlocks(VoltageLevelGraph vlGraph, Cell cell, boolean exceptionIfPatternNotHandled) {
-        if (cell.getType() == Cell.CellType.SHUNT) {
-            cell.setRootBlock(BodyPrimaryBlock.createBodyPrimaryBlockForShuntCell(cell.getNodes()));
-        } else {
-            determineBusCellBlocks(vlGraph, (BusCell) cell, exceptionIfPatternNotHandled);
-        }
-    }
-
-    private static void determineBusCellBlocks(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    static void determineBusCellBlocks(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
         if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
             SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
             vlGraph.extendSwitchBetweenBus(switchNode);
@@ -63,12 +52,16 @@ final class CellBlockDecomposer {
                     .filter(node -> node != switchNode)
                     .collect(Collectors.toList()));
         }
-        determineComplexCell(busCell, exceptionIfPatternNotHandled);
+        determineComplexCell(vlGraph, busCell, exceptionIfPatternNotHandled);
     }
 
-    private static void determineComplexCell(BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    static void determineShuntCellBlocks(ShuntCell shuntCell) {
+        shuntCell.setRootBlock(BodyPrimaryBlock.createBodyPrimaryBlockForShuntCell(shuntCell.getNodes()));
+    }
+
+    private static void determineComplexCell(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
         List<Block> blocks = createPrimaryBlock(busCell);
-        mergeBlocks(busCell, blocks, exceptionIfPatternNotHandled);
+        mergeBlocks(vlGraph, busCell, blocks, exceptionIfPatternNotHandled);
     }
 
     private static List<Block> createPrimaryBlock(BusCell busCell) {
@@ -82,7 +75,7 @@ final class CellBlockDecomposer {
         return blocks;
     }
 
-    private static void mergeBlocks(BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
+    private static void mergeBlocks(VoltageLevelGraph vlGraph, BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
         // Search all blocks connected to a busbar inside the primary blocks list
         List<LegPrimaryBlock> primaryLegBlocks = blocks.stream()
                 .filter(b -> b instanceof LegPrimaryBlock)
@@ -92,7 +85,7 @@ final class CellBlockDecomposer {
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
             boolean merged = searchParallelMerge(blocks);
-            merged |= searchSerialMerge(blocks);
+            merged |= searchSerialMerge(vlGraph, blocks);
             if (!merged) {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("Blocks detection impossible for cell " + busCell);
@@ -111,9 +104,10 @@ final class CellBlockDecomposer {
     /**
      * Search possibility to merge two blocks into a chain layout.block and do the merging
      *
+     * @param vlGraph
      * @param blocks list of blocks we can merge
      */
-    private static boolean searchSerialMerge(List<Block> blocks) {
+    private static boolean searchSerialMerge(VoltageLevelGraph vlGraph, List<Block> blocks) {
         int i = 0;
         boolean identifiedMerge = false;
 
@@ -124,7 +118,7 @@ final class CellBlockDecomposer {
             SerialBlock serialBlock = new SerialBlock(b1);
             for (int j = i + 1; j < blocks.size(); j++) {
                 Block b2 = blocks.get(j);
-                if (serialBlock.addSubBlock(b2)) {
+                if (serialBlock.addSubBlock(vlGraph, b2)) {
                     chainIdentified = true;
                     blockToRemove.add(b2);
                 }

@@ -13,6 +13,7 @@ import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,44 +32,52 @@ public abstract class AbstractCell implements Cell {
 
     private Block rootBlock;
 
-    AbstractCell(int cellNumber, CellType type, List<Node> nodes) {
+    AbstractCell(int cellNumber, CellType type, Collection<Node> nodes) {
         this.type = Objects.requireNonNull(type);
         number = cellNumber;
         setNodes(nodes);
     }
 
+    @Override
     public void addNodes(List<Node> nodesToAdd) {
         nodes.addAll(nodesToAdd);
     }
 
+    @Override
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
     }
 
+    @Override
     public void removeAllNodes(List<Node> nodeToRemove) {
         nodes.removeAll(nodeToRemove);
     }
 
-    private void setNodes(List<Node> nodes) {
+    private void setNodes(Collection<Node> nodes) {
         this.nodes.addAll(nodes);
     }
 
+    @Override
     public void setType(CellType type) {
         this.type = type;
     }
 
+    @Override
     public CellType getType() {
         return this.type;
     }
 
+    @Override
     public Block getRootBlock() {
         return rootBlock;
     }
 
+    @Override
     public void setRootBlock(Block rootBlock) {
         this.rootBlock = rootBlock;
     }
 
+    @Override
     public int getNumber() {
         return number;
     }
@@ -78,6 +87,7 @@ public abstract class AbstractCell implements Cell {
         generator.writeNumberField("number", number);
     }
 
+    @Override
     public void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         generator.writeStartObject();
         writeJsonContent(generator, includeCoordinates);
@@ -88,10 +98,12 @@ public abstract class AbstractCell implements Cell {
         generator.writeEndObject();
     }
 
+    @Override
     public String getId() {
         return type + " " + number;
     }
 
+    @Override
     public String getFullId() {
         return type + nodes.stream().map(Node::getId).sorted().collect(Collectors.toList()).toString();
     }

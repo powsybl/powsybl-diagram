@@ -4,9 +4,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld;
+package com.powsybl.sld.builders;
 
-import com.google.common.collect.ImmutableMap;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
 import com.powsybl.iidm.network.*;
@@ -200,12 +199,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(line);
 
             String id = line.getId() + "_" + side.name();
-            String name = line.getName();
+            String name = line.getNameOrId();
             String equipmentId = line.getId();
             FeederWithSideNode.Side s = FeederWithSideNode.Side.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return NodeFactory.createFeederLineNode(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV()));
+            return NodeFactory.createFeederLineNode(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
         }
 
         private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
@@ -213,19 +212,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(injection);
             switch (injection.getType()) {
                 case GENERATOR:
-                    return NodeFactory.createGenerator(graph, injection.getId(), injection.getName());
+                    return NodeFactory.createGenerator(graph, injection.getId(), injection.getNameOrId());
                 case LOAD:
-                    return NodeFactory.createLoad(graph, injection.getId(), injection.getName());
+                    return NodeFactory.createLoad(graph, injection.getId(), injection.getNameOrId());
                 case HVDC_CONVERTER_STATION:
-                    return NodeFactory.createVscConverterStation(graph, injection.getId(), injection.getName());
+                    return NodeFactory.createVscConverterStation(graph, injection.getId(), injection.getNameOrId());
                 case STATIC_VAR_COMPENSATOR:
-                    return NodeFactory.createStaticVarCompensator(graph, injection.getId(), injection.getName());
+                    return NodeFactory.createStaticVarCompensator(graph, injection.getId(), injection.getNameOrId());
                 case SHUNT_COMPENSATOR:
                     // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
-                    return ((ShuntCompensator) injection).getB() >= 0 ? NodeFactory.createCapacitor(graph, injection.getId(), injection.getName())
-                            : NodeFactory.createInductor(graph, injection.getId(), injection.getName());
+                    return ((ShuntCompensator) injection).getB() >= 0 ? NodeFactory.createCapacitor(graph, injection.getId(), injection.getNameOrId())
+                            : NodeFactory.createInductor(graph, injection.getId(), injection.getNameOrId());
                 case DANGLING_LINE:
-                    return NodeFactory.createDanglingLine(graph, injection.getId(), injection.getName());
+                    return NodeFactory.createDanglingLine(graph, injection.getId(), injection.getNameOrId());
                 default:
                     throw new IllegalStateException();
             }
@@ -238,11 +237,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(branch);
 
             String id = branch.getId() + "_" + side.name();
-            String name = branch.getName();
+            String name = branch.getNameOrId();
             String equipmentId = branch.getId();
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = branch.getTerminal(otherSide).getVoltageLevel();
-            VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getName(), vlOtherSide.getNominalV());
+            VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
 
             if (graph.isForVoltageLevelDiagram() && isNotInternalToVoltageLevel(branch)) {
                 if (!branch.hasPhaseTapChanger()) {
@@ -269,7 +268,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 //   - a feeder for second other leg
 
                 Map<FeederWithSideNode.Side, VoltageLevelInfos> voltageLevelInfosBySide
-                        = ImmutableMap.of(FeederWithSideNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1().getTerminal()),
+                        = Map.of(FeederWithSideNode.Side.ONE, createVoltageLevelInfos(transformer.getLeg1().getTerminal()),
                         FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
                         FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
@@ -300,12 +299,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create first other leg feeder node
                 String firstOtherLegNodeId = transformer.getId() + "_" + firstOtherLegSide.name();
-                Feeder3WTLegNode firstOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, firstOtherLegNodeId, transformer.getName(),
+                Feeder3WTLegNode firstOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, firstOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), firstOtherLegSide, voltageLevelInfosBySide.get(firstOtherLegSide));
 
                 // create second other leg feeder node
                 String secondOtherLegNodeId = transformer.getId() + "_" + secondOtherLegSide.name();
-                Feeder3WTLegNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getName(),
+                Feeder3WTLegNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
@@ -313,7 +312,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 // in substation diagram, we only represent the leg node
 
                 String id = transformer.getId() + "_" + side.name();
-                Feeder3WTLegNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getName(), transformer.getId(),
+                Feeder3WTLegNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         FeederWithSideNode.Side.valueOf(side.name()));
 
                 addFeeder(legNode, transformer.getTerminal(side));
@@ -363,7 +362,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         private static VoltageLevelInfos createVoltageLevelInfos(Terminal terminal) {
             VoltageLevel vl = terminal.getVoltageLevel();
-            return new VoltageLevelInfos(vl.getId(), vl.getName(), vl.getNominalV());
+            return new VoltageLevelInfos(vl.getId(), vl.getNameOrId(), vl.getNominalV());
         }
 
         @Override
@@ -373,7 +372,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
+    private static class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
@@ -383,15 +382,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         public ConnectablePosition.Feeder getFeeder(Terminal terminal) {
-            Connectable connectable = terminal.getConnectable();
-            ConnectablePosition position = (ConnectablePosition) connectable.getExtension(ConnectablePosition.class);
+            Connectable<?> connectable = terminal.getConnectable();
+            ConnectablePosition<?> position = (ConnectablePosition<?>) connectable.getExtension(ConnectablePosition.class);
             if (position == null) {
                 return null;
             }
             if (connectable instanceof Injection) {
                 return position.getFeeder();
             } else if (connectable instanceof Branch) {
-                Branch branch = (Branch) connectable;
+                Branch<?> branch = (Branch<?>) connectable;
                 if (branch.getTerminal1() == terminal) {
                     return position.getFeeder1();
                 } else if (branch.getTerminal2() == terminal) {
@@ -449,7 +448,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitBusbarSection(BusbarSection busbarSection) {
             BusbarSectionPosition extension = busbarSection.getExtension(BusbarSectionPosition.class);
-            BusNode node = NodeFactory.createBusNode(graph, busbarSection.getId(), busbarSection.getName());
+            BusNode node = NodeFactory.createBusNode(graph, busbarSection.getId(), busbarSection.getNameOrId());
             if (extension != null) {
                 node.setBusBarIndexSectionIndex(extension.getBusbarIndex(), extension.getSectionIndex());
             }
@@ -457,7 +456,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private class BusBreakerGraphBuilder extends AbstractGraphBuilder {
+    private static class BusBreakerGraphBuilder extends AbstractGraphBuilder {
 
         private final Map<String, Node> nodesByBusId;
 
@@ -502,7 +501,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         int v = 1;
         for (Bus b : vl.getBusBreakerView().getBuses()) {
-            BusNode busNode = NodeFactory.createBusNode(graph, b.getId(), b.getName());
+            BusNode busNode = NodeFactory.createBusNode(graph, b.getId(), b.getNameOrId());
             nodesByBusId.put(b.getId(), busNode);
             busNode.setBusBarIndexSectionIndex(v++, 1);
         }
@@ -554,16 +553,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
-        if (!nodesByNumber.containsKey(n)) {
-            InternalNode node = NodeFactory.createInternalNode(graph, n);
-            nodesByNumber.put(n, node);
-        }
+        nodesByNumber.computeIfAbsent(n, k -> NodeFactory.createInternalNode(graph, k));
     }
 
     /**
      * Check if the graph is connected or not
-     *
-     * @return true if connected, false otherwise
      */
     private void handleConnectedComponents(VoltageLevelGraph graph) {
         List<Set<Node>> connectedSets = new ConnectivityInspector<>(graph.toJgrapht()).connectedSets();
@@ -702,7 +696,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 throw new AssertionError();
         }
         SwitchNode.SwitchKind sk = SwitchNode.SwitchKind.valueOf(aSwitch.getKind().name());
-        return NodeFactory.createSwitchNode(graph, aSwitch.getId(), aSwitch.getName(), componentType, false, sk, aSwitch.isOpen());
+        return NodeFactory.createSwitchNode(graph, aSwitch.getId(), aSwitch.getNameOrId(), componentType, aSwitch.isFictitious(), sk, aSwitch.isOpen());
     }
 
     @Override

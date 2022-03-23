@@ -8,8 +8,9 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public final class GraphTraversal {
      * @param node                 the entry point for the exploration
      * @param extremityCriteria    criteria applied to node returning if we reach an extremity node (the node is included in the result)
      * @param unsuccessfulCriteria criteria applied to node returning if the traversal is to be invalidated
-     * @param nodesResult          the resulting list of nodes
+     * @param nodesResult          the resulting set of nodes
      * @param outsideNodes         nodes already visited
      * @return true if no unsuccessfulCriteria reached or node outside
      **/
@@ -33,8 +34,8 @@ public final class GraphTraversal {
     static boolean run(Node node,
                        Predicate<Node> extremityCriteria,
                        Predicate<Node> unsuccessfulCriteria,
-                       List<Node> nodesResult,
-                       List<Node> outsideNodes) {
+                       Set<Node> nodesResult,
+                       Set<Node> outsideNodes) {
 
         if (outsideNodes.contains(node)) {
             return false;
@@ -58,10 +59,10 @@ public final class GraphTraversal {
         return true;
     }
 
-    static List<Node> run(Node node,
+    static Set<Node> run(Node node,
                           Predicate<Node> extremityCriteria,
-                          List<Node> outsideNodes) {
-        List<Node> nodesResult = new ArrayList<>();
+                          Set<Node> outsideNodes) {
+        Set<Node> nodesResult = new LinkedHashSet<>();
         run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
         return nodesResult;
     }

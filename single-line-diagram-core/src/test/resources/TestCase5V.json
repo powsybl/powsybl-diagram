@@ -17,7 +17,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 3.1",
+    "id" : "INTERNAL_vl_Shunt 1.1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
@@ -25,7 +25,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_Shunt 3.2",
+    "id" : "INTERNAL_vl_Shunt 1.2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -161,7 +161,7 @@
   } ],
   "cells" : [ {
     "type" : "EXTERN",
-    "number" : 1,
+    "number" : 0,
     "direction" : "TOP",
     "order" : 20,
     "rootBlock" : {
@@ -248,6 +248,31 @@
         },
         "nodes" : [ "INTERNAL_vl_la", "la" ]
       } ]
+    }
+  }, {
+    "type" : "SHUNT",
+    "number" : 1,
+    "rootBlock" : {
+      "type" : "BODYPRIMARY",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 6,
+        "vSpan" : 2,
+        "orientation" : "RIGHT"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "nodes" : [ "INTERNAL_vl_3", "INTERNAL_vl_Shunt 1.2", "bs", "INTERNAL_vl_Shunt 1.1", "INTERNAL_vl_la" ]
     }
   }, {
     "type" : "EXTERN",
@@ -339,31 +364,6 @@
         "nodes" : [ "INTERNAL_vl_lb", "lb" ]
       } ]
     }
-  }, {
-    "type" : "SHUNT",
-    "number" : 3,
-    "rootBlock" : {
-      "type" : "BODYPRIMARY",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 6,
-        "vSpan" : 2,
-        "orientation" : "RIGHT"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "nodes" : [ "INTERNAL_vl_3", "INTERNAL_vl_Shunt 3.2", "bs", "INTERNAL_vl_Shunt 3.1", "INTERNAL_vl_la" ]
-    }
   } ],
   "edges" : [ {
     "node1" : "da",
@@ -397,16 +397,16 @@
     "node2" : "INTERNAL_vl_da"
   }, {
     "node1" : "INTERNAL_vl_la",
-    "node2" : "INTERNAL_vl_Shunt 3.1"
+    "node2" : "INTERNAL_vl_Shunt 1.1"
   }, {
     "node1" : "bs",
-    "node2" : "INTERNAL_vl_Shunt 3.1"
+    "node2" : "INTERNAL_vl_Shunt 1.1"
   }, {
     "node1" : "INTERNAL_vl_3",
-    "node2" : "INTERNAL_vl_Shunt 3.2"
+    "node2" : "INTERNAL_vl_Shunt 1.2"
   }, {
     "node1" : "bs",
-    "node2" : "INTERNAL_vl_Shunt 3.2"
+    "node2" : "INTERNAL_vl_Shunt 1.2"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

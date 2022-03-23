@@ -6,20 +6,23 @@
  */
 package com.powsybl.sld.raw;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-
 import com.powsybl.sld.AbstractTestCase;
-import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.builders.RawGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.BasicStyleProvider;
+import com.powsybl.sld.svg.DiagramLabelProvider;
+import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.LabelPosition;
 
 import java.util.*;
 import java.util.stream.Stream;
+
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
+import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

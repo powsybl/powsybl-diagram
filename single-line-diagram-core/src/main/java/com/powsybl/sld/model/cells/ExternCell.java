@@ -6,17 +6,23 @@
  */
 package com.powsybl.sld.model.cells;
 
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.coordinate.Direction;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import static com.powsybl.sld.model.cells.Cell.CellType.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Side.*;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
+import static com.powsybl.sld.model.coordinate.Side.LEFT;
+import static com.powsybl.sld.model.coordinate.Side.RIGHT;
+import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -25,10 +31,11 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.*;
  */
 public class ExternCell extends AbstractBusCell {
 
-    private ShuntCell shuntCell = null;
+    private final List<ShuntCell> shuntCells = new ArrayList<>();
 
-    public ExternCell(int cellNumber, List<Node> nodes) {
+    public ExternCell(int cellNumber, Collection<Node> nodes, List<ShuntCell> shuntCells) {
         super(cellNumber, EXTERN, nodes);
+        shuntCells.forEach(this::addShuntCell);
     }
 
     public void organizeBlockDirections() {
@@ -37,13 +44,10 @@ public class ExternCell extends AbstractBusCell {
 
     @Override
     public int newHPosition(int hPosition) {
-        int minHv;
-        if (isShunted() && shuntCell.getSideCell(RIGHT) == this) {
-            Position leftPos = shuntCell.getSidePosition(LEFT);
-            minHv = Math.max(hPosition, leftPos.get(H) + leftPos.getSpan(H) + shuntCell.getLength());
-        } else {
-            minHv = hPosition;
-        }
+        int minHv = shuntCells.stream().filter(shuntCell -> shuntCell.getSideCell(RIGHT) == this)
+                .mapToInt(shuntCell -> Math.max(hPosition, shuntCell.getSidePosition(LEFT).get(H) + shuntCell.getSidePosition(LEFT).getSpan(H) + shuntCell.getLength()))
+                .max()
+                .orElse(hPosition);
         Position pos = getRootBlock().getPosition();
         pos.set(H, minHv);
         pos.set(V, 0);
@@ -51,15 +55,23 @@ public class ExternCell extends AbstractBusCell {
     }
 
     public boolean isShunted() {
-        return shuntCell != null;
+        return !shuntCells.isEmpty();
     }
 
-    public ShuntCell getShuntCell() {
-        return shuntCell;
+    public List<ShuntCell> getShuntCells() {
+        return shuntCells;
     }
 
-    public void setShuntCell(ShuntCell shuntCell) {
-        this.shuntCell = shuntCell;
+    public void addShuntCell(ShuntCell shuntCell) {
+        List<Node> shuntNodes = shuntCell.getNodes();
+        if (getNodes().contains(shuntNodes.get(0))) {
+            shuntCell.putSideCell(Side.LEFT, this);
+        } else if (getNodes().contains(shuntNodes.get(shuntNodes.size() - 1))) {
+            shuntCell.putSideCell(Side.RIGHT, this);
+        } else {
+            throw new PowsyblException("ShuntCell list of nodes incoherent with the connected externCells");
+        }
+        this.shuntCells.add(shuntCell);
     }
 
     @Override

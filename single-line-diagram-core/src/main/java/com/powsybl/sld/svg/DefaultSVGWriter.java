@@ -7,13 +7,17 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.library.*;
-import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.Component;
+import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
@@ -34,8 +38,8 @@ import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.svg.DiagramStyles.*;
 import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.svg.DiagramStyles.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -63,6 +67,8 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TEXT_ANCHOR = "text-anchor";
     protected static final String MIDDLE = "middle";
     protected static final int CIRCLE_RADIUS_NODE_INFOS_SIZE = 10;
+    protected static final String WIDTH = "width";
+    protected static final String HEIGHT = "height";
 
     protected final ComponentLibrary componentLibrary;
 
@@ -104,8 +110,8 @@ public class DefaultSVGWriter implements SVGWriter {
     private void setDocumentSize(Graph graph, Document document) {
         document.getDocumentElement().setAttribute("viewBox", "0 0 " + getDiagramWidth(graph, layoutParameters) + " " + getDiagramHeight(graph, layoutParameters));
         if (layoutParameters.isSvgWidthAndHeightAdded()) {
-            document.getDocumentElement().setAttribute("width", Double.toString(getDiagramWidth(graph, layoutParameters)));
-            document.getDocumentElement().setAttribute("height", Double.toString(getDiagramHeight(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(WIDTH, Double.toString(getDiagramWidth(graph, layoutParameters)));
+            document.getDocumentElement().setAttribute(HEIGHT, Double.toString(getDiagramHeight(graph, layoutParameters)));
         }
     }
 
@@ -177,8 +183,8 @@ public class DefaultSVGWriter implements SVGWriter {
 
     private void addFrame(Document document) {
         Element rect = document.createElement("rect");
-        rect.setAttribute("width", "100%");
-        rect.setAttribute("height", "100%");
+        rect.setAttribute(WIDTH, "100%");
+        rect.setAttribute(HEIGHT, "100%");
         rect.setAttribute(CLASS, FRAME_CLASS);
         document.adoptNode(rect);
         document.getDocumentElement().appendChild(rect);
@@ -344,6 +350,7 @@ public class DefaultSVGWriter implements SVGWriter {
             // FeederSpan
             drawGridHorizontalLine(document, graph, maxH, graph.getY() + layoutParameters.getFeederSpan(), gridRoot);
         }
+
         // BOTTOM - Horizontal lines
         if (graph.getExternCellHeight(BOTTOM) > 0.) {
             // StackHeight
@@ -412,6 +419,8 @@ public class DefaultSVGWriter implements SVGWriter {
             drawNodeLabel(prefixId, g, busNode, nodeLabels);
             drawNodeDecorators(prefixId, g, graph, busNode, initProvider, styleProvider);
 
+            insertBusInfo(prefixId, g, busNode, metadata, initProvider, styleProvider);
+
             root.appendChild(g);
 
             metadata.addNodeMetadata(
@@ -447,7 +456,7 @@ public class DefaultSVGWriter implements SVGWriter {
                              BaseGraph graph,
                              Point shift,
                              GraphMetadata metadata,
-                             DiagramLabelProvider initProvider,
+                             DiagramLabelProvider labelProvider,
                              DiagramStyleProvider styleProvider,
                              Collection<? extends Node> nodes) {
 
@@ -457,10 +466,10 @@ public class DefaultSVGWriter implements SVGWriter {
             g.setAttribute("id", nodeId);
             g.setAttribute(CLASS, String.join(" ", styleProvider.getSvgNodeStyles(graph.getVoltageLevelGraph(node), node, componentLibrary, layoutParameters.isShowInternalNodes())));
 
-            incorporateComponents(prefixId, graph, node, shift, g, styleProvider);
-            List<DiagramLabelProvider.NodeLabel> nodeLabels = initProvider.getNodeLabels(node, graph.getDirection(node));
+            incorporateComponents(prefixId, graph, node, shift, g, labelProvider, styleProvider);
+            List<DiagramLabelProvider.NodeLabel> nodeLabels = labelProvider.getNodeLabels(node, graph.getDirection(node));
             drawNodeLabel(prefixId, g, node, nodeLabels);
-            drawNodeDecorators(prefixId, g, graph, node, initProvider, styleProvider);
+            drawNodeDecorators(prefixId, g, graph, node, labelProvider, styleProvider);
 
             root.appendChild(g);
 
@@ -483,13 +492,8 @@ public class DefaultSVGWriter implements SVGWriter {
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
                         node.getComponentType(), node.getRotationAngle(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
-        if (metadata.getComponentMetadata(node.getComponentType()) == null) {
-            metadata.addComponent(new Component(node.getComponentType(),
-                    componentLibrary.getAnchorPoints(node.getComponentType()),
-                componentLibrary.getSize(node.getComponentType()),
-                componentLibrary.getComponentStyleClass(node.getComponentType()).orElse(null),
-                true, null));
-        }
+
+        addInfoComponentMetadata(metadata, node.getComponentType(), true);
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
@@ -583,7 +587,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected boolean canInsertComponentSVG(Node node) {
-        return (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
+        return (node.getType() == Node.NodeType.SWITCH)
+                || (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
                 || (node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
@@ -592,53 +597,57 @@ public class DefaultSVGWriter implements SVGWriter {
                 || node.getComponentType().equals(BUS_CONNECTION));
     }
 
-    protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g, DiagramStyleProvider styleProvider) {
+    protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g,
+                                         DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, shift, g);
         if (componentLibrary.getSvgElements(componentType) != null && canInsertComponentSVG(node)) {
-            insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, styleProvider);
+            insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, labelProvider, styleProvider);
         }
     }
 
-    protected void insertComponentSVGIntoDocumentSVG(String prefixId,
-                                                     String componentType,
-                                                     Element g, Graph graph, Node node,
-                                                     DiagramStyleProvider styleProvider) {
+    protected void insertComponentSVGIntoDocumentSVG(String prefixId, String componentType, Element g, Graph graph, Node node,
+                                                     DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setComponentAttributes(prefixId, g, graph, node, styleProvider, elt, componentType, subComponent);
-        insertSVGIntoDocumentSVG(node.getName(), componentType, g, elementAttributesSetter);
+        String tooltipContent = layoutParameters.isTooltipEnabled() ? labelProvider.getTooltip(node) : null;
+        insertSVGIntoDocumentSVG(componentType, g, tooltipContent, elementAttributesSetter);
     }
 
-    protected void insertFeederInfoSVGIntoDocumentSVG(String feederInfoType, String prefixId, Element g, double angle) {
+    protected void insertFeederInfoSVGIntoDocumentSVG(FeederInfo feederInfo, String prefixId, Element g, double angle) {
         BiConsumer<Element, String> elementAttributesSetter
-                = (e, subComponent) -> setFeederInfoAttributes(feederInfoType, prefixId, g, e, subComponent, angle);
-        insertSVGIntoDocumentSVG("", feederInfoType, g, elementAttributesSetter);
+                = (e, subComponent) -> setInfoAttributes(feederInfo.getComponentType(), prefixId, g, e, subComponent, angle);
+        insertSVGIntoDocumentSVG(feederInfo.getComponentType(), g, null, elementAttributesSetter);
     }
 
-    private void setFeederInfoAttributes(String feederInfoType, String prefixId, Element g, Element e, String subComponent, double angle) {
+    protected void insertBusInfoSVGIntoDocumentSVG(BusInfo busInfo, String prefixId, Element g) {
+        BiConsumer<Element, String> elementAttributesSetter
+                = (e, subComponent) -> setInfoAttributes(busInfo.getComponentType(), prefixId, g, e, subComponent, 0.);
+        insertSVGIntoDocumentSVG(busInfo.getComponentType(), g, null, elementAttributesSetter);
+    }
+
+    private void setInfoAttributes(String infoType, String prefixId, Element g, Element e, String subComponent, double angle) {
         replaceId(g, e, prefixId);
-        componentLibrary.getSubComponentStyleClass(feederInfoType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
+        componentLibrary.getSubComponentStyleClass(infoType, subComponent).ifPresent(style -> e.setAttribute(CLASS, style));
         if (Math.abs(angle) > 0) {
-            ComponentSize componentSize = componentLibrary.getSize(feederInfoType);
+            ComponentSize componentSize = componentLibrary.getSize(infoType);
             double cx = componentSize.getWidth() / 2;
             double cy = componentSize.getHeight() / 2;
             e.setAttribute(TRANSFORM, ROTATE + "(" + angle + "," + cx + "," + cy + ")");
         }
     }
 
-    protected void insertDecoratorSVGIntoDocumentSVG(String prefixId,
-                                                     DiagramLabelProvider.NodeDecorator nodeDecorator,
-                                                     Element g, Graph graph, Node node,
-                                                     DiagramStyleProvider styleProvider) {
+    protected void insertDecoratorSVGIntoDocumentSVG(String prefixId, DiagramLabelProvider.NodeDecorator nodeDecorator,
+                                                     Element g, Graph graph, Node node, DiagramStyleProvider styleProvider) {
         BiConsumer<Element, String> elementAttributesSetter
                 = (elt, subComponent) -> setDecoratorAttributes(prefixId, g, graph, node, nodeDecorator, styleProvider, elt, subComponent);
         String nodeDecoratorType = nodeDecorator.getType();
-        insertSVGIntoDocumentSVG(nodeDecoratorType, nodeDecoratorType, g, elementAttributesSetter);
+        insertSVGIntoDocumentSVG(nodeDecoratorType, g, null, elementAttributesSetter);
     }
 
-    protected void insertSVGIntoDocumentSVG(String name, String componentType, Element g,
+    protected void insertSVGIntoDocumentSVG(String componentType, Element g, String tooltip,
                                             BiConsumer<Element, String> elementAttributesSetter) {
-        addToolTip(name, g);
+        addToolTip(g, tooltip);
         Map<String, List<Element>> subComponents = componentLibrary.getSvgElements(componentType);
         subComponents.forEach(layoutParameters.isAvoidSVGComponentsDuplication() ?
             (subComponentName, svgSubComponent) -> insertSubcomponentReference(g, elementAttributesSetter, componentType, subComponentName, subComponents.size()) :
@@ -670,12 +679,11 @@ public class DefaultSVGWriter implements SVGWriter {
         g.appendChild(element);
     }
 
-    private void addToolTip(String tooltip, Element g) {
-        if (layoutParameters.isTooltipEnabled() && !StringUtils.isEmpty(tooltip)) {
+    private void addToolTip(Element g, String tooltip) {
+        if (!StringUtils.isEmpty(tooltip)) {
             Document doc = g.getOwnerDocument();
             Element title = doc.createElement("title");
             title.appendChild(doc.createTextNode(tooltip));
-            doc.adoptNode(title);
             g.appendChild(title);
         }
     }
@@ -786,7 +794,6 @@ public class DefaultSVGWriter implements SVGWriter {
             }
             g.setAttribute(TRANSFORM, getTransformString(x, y, feederInfoRotationAngle, componentSize));
         }
-
     }
 
     private String getTransformString(double centerPosX, double centerPosY, double angle, ComponentSize componentSize) {
@@ -832,17 +839,17 @@ public class DefaultSVGWriter implements SVGWriter {
                                       VoltageLevelGraph graph,
                                       FeederNode feederNode,
                                       GraphMetadata metadata,
-                                      DiagramLabelProvider initProvider) {
+                                      DiagramLabelProvider labelProvider) {
         if (points.isEmpty()) {
             points.add(graph.getShiftedPoint(feederNode));
             points.add(graph.getShiftedPoint(feederNode));
         }
 
         double shiftFeederInfo = 0;
-        for (FeederInfo feederInfo : initProvider.getFeederInfos(feederNode)) {
+        for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode.getId(), points, root, feederInfo, shiftFeederInfo, metadata);
-                addFeederInfoComponentMetadata(metadata, feederInfo.getComponentType());
+                drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata);
+                addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -850,18 +857,18 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void addFeederInfoComponentMetadata(GraphMetadata metadata, String componentType) {
+    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType, boolean allowRotation) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    true, null));
+                    allowRotation, null));
         }
     }
 
-    private void drawFeederInfo(String prefixId, String feederNodeId, List<Point> points, Element root,
-                                 FeederInfo feederInfo, double shift, GraphMetadata metadata) {
+    private void drawFeederInfo(String prefixId, FeederNode feederNode, List<Point> points, Element root,
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
@@ -874,15 +881,16 @@ public class DefaultSVGWriter implements SVGWriter {
 
         transformFeederInfo(points, size, shift, g);
 
-        String svgId = escapeId(feederNodeId) + "_" + feederInfo.getComponentType();
+        String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNodeId, feederInfo.getUserDefinedId()));
+        String side = feederNode instanceof FeederWithSideNode ? ((FeederWithSideNode) feederNode).getSide().name() : null;
+        metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
             double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertFeederInfoSVGIntoDocumentSVG(feederInfo.getComponentType(), prefixId, g, rotationAngle);
+            insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
             styles.add(direction == LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
         });
 
@@ -900,6 +908,57 @@ public class DefaultSVGWriter implements SVGWriter {
         });
 
         g.setAttribute(CLASS, String.join(" ", styles));
+        root.appendChild(g);
+    }
+
+    protected void insertBusInfo(String prefixId, Element root, BusNode busNode,
+                                 GraphMetadata metadata, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
+        Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
+        busInfo.ifPresent(info -> {
+            drawBusInfo(prefixId, busNode, root, info, styleProvider, metadata);
+            addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
+        });
+    }
+
+    private void drawBusInfo(String prefixId, BusNode busNode, Element root, BusInfo busInfo,
+                             DiagramStyleProvider styleProvider, GraphMetadata metadata) {
+        Element g = root.getOwnerDocument().createElement(GROUP);
+
+        // Position
+        ComponentSize size = componentLibrary.getSize(busInfo.getComponentType());
+        double shiftX = layoutParameters.getBusInfoMargin();
+        double dy = -size.getHeight() / 2;
+        double dx = busInfo.getAnchor() == Side.RIGHT ? busNode.getPxWidth() - shiftX - size.getWidth() : shiftX;
+        g.setAttribute(TRANSFORM, TRANSLATE + "(" + dx + "," + dy + ")");
+
+        // Styles
+        List<String> styles = new ArrayList<>();
+        componentLibrary.getComponentStyleClass(busInfo.getComponentType()).ifPresent(styles::add);
+        styleProvider.getBusInfoStyle(busInfo).ifPresent(styles::add);
+        g.setAttribute(CLASS, String.join(" ", styles));
+
+        // Identity
+        String svgId = escapeId(busNode.getId()) + "_" + busInfo.getComponentType();
+        g.setAttribute("id", svgId);
+
+        // Metadata
+        metadata.addBusInfoMetadata(new GraphMetadata.BusInfoMetadata(svgId, busNode.getId(), busInfo.getUserDefinedId()));
+
+        // Append indicator to SVG
+        insertBusInfoSVGIntoDocumentSVG(busInfo, prefixId, g);
+        double shY = size.getHeight() + LABEL_OFFSET;
+
+        // We draw the bottom label only if present
+        busInfo.getBottomLabel().ifPresent(s -> {
+            Element labelBottom = createLabelElement(s, 0, shY, 0, g);
+            g.appendChild(labelBottom);
+        });
+
+        // We draw the top label only if present
+        busInfo.getTopLabel().ifPresent(s -> {
+            Element labelTop = createLabelElement(s, 0, -LABEL_OFFSET, 0, g);
+            g.appendChild(labelTop);
+        });
         root.appendChild(g);
     }
 

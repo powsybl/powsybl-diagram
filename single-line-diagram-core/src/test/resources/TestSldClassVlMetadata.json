@@ -272,18 +272,21 @@
   "lines" : [ ],
   "feederInfos" : [ {
     "id" : "idl_ARROW_ACTIVE",
-    "feederNodeId" : "l"
+    "equipmentId" : "l"
   }, {
     "id" : "idl_ARROW_REACTIVE",
-    "feederNodeId" : "l"
+    "equipmentId" : "l"
   }, {
     "id" : "idtrf_95_ONE_ARROW_ACTIVE",
-    "feederNodeId" : "trf_ONE"
+    "equipmentId" : "trf",
+    "side" : "ONE"
   }, {
     "id" : "idtrf_95_ONE_ARROW_REACTIVE",
-    "feederNodeId" : "trf_ONE"
+    "equipmentId" : "trf",
+    "side" : "ONE"
   } ],
   "electricalNodeInfos" : [ ],
+  "busInfos" : [ ],
   "layoutParams" : {
     "voltageLevelPadding" : {
       "left" : 20.0,
@@ -327,6 +330,8 @@
     "cssLocation" : "INSERTED_IN_SVG",
     "svgWidthAndHeightAdded" : false,
     "useName" : false,
-    "feederInfosIntraMargin" : 10.0
+    "feederInfosIntraMargin" : 10.0,
+    "busInfoMargin" : 0.0,
+    "busbarsAlignment" : "FIRST"
   }
 }

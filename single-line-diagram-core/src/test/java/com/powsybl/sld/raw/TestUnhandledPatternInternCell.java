@@ -6,10 +6,12 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.cells.InternCell;
-import com.powsybl.sld.model.nodes.*;
-
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
 
     @Before
     public void setUp() {
-        com.powsybl.sld.RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 1, 2);
         BusNode bbs3 = vlBuilder.createBusBarSection("bbs3", 1, 3);

@@ -52,7 +52,9 @@ public class LayoutParametersTest {
                 .setCssLocation(LayoutParameters.CssLocation.EXTERNAL_NO_IMPORT)
                 .setSvgWidthAndHeightAdded(true)
                 .setUseName(true)
-                .setFeederInfosIntraMargin(21);
+                .setFeederInfosIntraMargin(21)
+                .setBusInfoMargin(22)
+                .setBusbarsAlignment(LayoutParameters.Alignment.LAST);
 
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
@@ -95,5 +97,7 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.isSvgWidthAndHeightAdded(), layoutParameters2.isSvgWidthAndHeightAdded());
         assertEquals(layoutParameters.isUseName(), layoutParameters2.isUseName());
         assertEquals(layoutParameters.getFeederInfosIntraMargin(), layoutParameters2.getFeederInfosIntraMargin(), 0);
+        assertEquals(layoutParameters.getBusInfoMargin(), layoutParameters2.getBusInfoMargin(), 0);
+        assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());
     }
 }

@@ -9,6 +9,7 @@ package com.powsybl.sld.model.blocks;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
@@ -90,13 +91,13 @@ public class SerialBlock extends AbstractComposedBlock {
         throw new PowsyblException("unconsistent chaining in SerialBlock");
     }
 
-    public boolean addSubBlock(Block block) {
+    public boolean addSubBlock(VoltageLevelGraph vlGraph, Block block) {
         for (Extremity myExtremity : Extremity.values()) {
             if (getExtremityNode(myExtremity) instanceof FictitiousNode) {
                 FictitiousNode commonNode = (FictitiousNode) getExtremityNode(myExtremity);
                 for (Extremity itsExtremity : Extremity.values()) {
                     if (commonNode == block.getExtremityNode(itsExtremity)
-                            && commonNode.getCardinality() == getCardinality(commonNode) + block.getCardinality(commonNode)
+                            && commonNode.getCardinality(vlGraph) == getCardinality(commonNode) + block.getCardinality(commonNode)
                     ) {
                         insertBlock(block, myExtremity);
                         return true;

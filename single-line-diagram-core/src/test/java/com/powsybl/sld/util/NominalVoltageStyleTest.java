@@ -7,11 +7,14 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 import com.powsybl.sld.svg.FeederInfo;
@@ -133,8 +136,9 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         Node fict3WTNode = graph1.getNode("3WT");
         List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, false);
-        assertEquals(1, node3WTStyle.size());
+        assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
+        assertTrue(node3WTStyle.contains("sld-fictitious"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, false);

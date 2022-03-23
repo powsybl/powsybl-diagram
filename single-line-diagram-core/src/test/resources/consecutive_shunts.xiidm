@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iidm:network xmlns:iidm="http://www.powsybl.org/schema/iidm/1_6" xmlns:slt="http://www.powsybl.org/schema/iidm/ext/slack_terminal/1_3" id="ieee14cdf" caseDate="1993-08-19T00:00:00.000Z" forecastDistance="0" sourceFormat="IEEE-CDF">
+    <iidm:substation id="A">
+        <iidm:voltageLevel id="AU" nominalV="115.0" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology>
+                <iidm:busbarSection id="AV" name="AW" node="0"/>
+                <iidm:busbarSection id="AX" name="AY" node="20"/>
+                <iidm:busbarSection id="AZ" name="BA" node="23"/>
+                <iidm:busbarSection id="BB" name="BC" node="24"/>
+                <iidm:busbarSection id="BD" name="BE" node="26"/>
+                <iidm:busbarSection id="BF" name="BG" node="54"/>
+                <iidm:switch id="BH" name="BI" kind="BREAKER" retained="false" open="false" node1="22" node2="38"/>
+                <iidm:switch id="BJ" name="BK" kind="BREAKER" retained="false" open="false" node1="55" node2="16"/>
+                <iidm:switch id="BL" name="BM" kind="BREAKER" retained="false" open="false" node1="0" node2="19"/>
+                <iidm:switch id="BN" name="BO" kind="BREAKER" retained="false" open="false" node1="7" node2="19"/>
+                <iidm:switch id="BP" name="BQ" kind="BREAKER" retained="false" open="false" node1="10" node2="9"/>
+                <iidm:switch id="BR" name="BS" kind="BREAKER" retained="false" open="false" node1="8" node2="19"/>
+                <iidm:switch id="BT" name="BU" kind="BREAKER" retained="false" open="false" node1="44" node2="45"/>
+                <iidm:switch id="BV" name="BW" kind="BREAKER" retained="false" open="false" node1="48" node2="46"/>
+                <iidm:switch id="BX" name="BY" kind="BREAKER" retained="false" open="false" node1="11" node2="5"/>
+                <iidm:switch id="BZ" name="CA" kind="BREAKER" retained="false" open="false" node1="20" node2="50"/>
+                <iidm:switch id="CB" name="CC" kind="BREAKER" retained="false" open="false" node1="33" node2="45"/>
+                <iidm:switch id="CD" name="CE" kind="BREAKER" retained="false" open="false" node1="36" node2="34"/>
+                <iidm:switch id="CF" name="CG" kind="BREAKER" retained="false" open="false" node1="29" node2="28"/>
+                <iidm:switch id="CH" name="CI" kind="BREAKER" retained="false" open="false" node1="12" node2="5"/>
+                <iidm:switch id="CJ" name="CK" kind="BREAKER" retained="false" open="false" node1="21" node2="20"/>
+                <iidm:switch id="CL" name="CM" kind="BREAKER" retained="false" open="false" node1="27" node2="50"/>
+                <iidm:switch id="CN" name="CO" kind="BREAKER" retained="false" open="false" node1="38" node2="45"/>
+                <iidm:switch id="CP" name="CQ" kind="BREAKER" retained="false" open="false" node1="2" node2="1"/>
+                <iidm:switch id="CR" name="CS" kind="BREAKER" retained="false" open="false" node1="32" node2="45"/>
+                <iidm:switch id="CT" name="CU" kind="BREAKER" retained="false" open="false" node1="16" node2="5"/>
+                <iidm:switch id="CV" name="CW" kind="BREAKER" retained="false" open="false" node1="23" node2="22"/>
+                <iidm:switch id="CX" name="CY" kind="BREAKER" retained="false" open="false" node1="54" node2="55"/>
+                <iidm:switch id="CZ" name="DA" kind="BREAKER" retained="false" open="false" node1="47" node2="42"/>
+                <iidm:switch id="DB" name="DC" kind="BREAKER" retained="false" open="false" node1="53" node2="30"/>
+                <iidm:switch id="DD" name="DE" kind="BREAKER" retained="false" open="false" node1="52" node2="51"/>
+                <iidm:switch id="DF" name="DG" kind="BREAKER" retained="false" open="false" node1="11" node2="8"/>
+                <iidm:switch id="DH" name="DI" kind="BREAKER" retained="false" open="true" node1="27" node2="12"/>
+                <iidm:switch id="DJ" name="DK" kind="BREAKER" retained="false" open="true" node1="31" node2="17"/>
+                <iidm:switch id="DL" name="DM" kind="BREAKER" retained="false" open="false" node1="30" node2="50"/>
+                <iidm:switch id="DN" name="DO" kind="BREAKER" retained="false" open="false" node1="53" node2="45"/>
+                <iidm:switch id="DP" name="DQ" kind="BREAKER" retained="false" open="false" node1="39" node2="43"/>
+                <iidm:switch id="DR" name="DS" kind="BREAKER" retained="false" open="false" node1="41" node2="40"/>
+                <iidm:switch id="DT" name="DU" kind="BREAKER" retained="false" open="false" node1="1" node2="0"/>
+                <iidm:switch id="DV" name="DW" kind="BREAKER" retained="false" open="false" node1="34" node2="33"/>
+                <iidm:switch id="DX" name="DY" kind="BREAKER" retained="false" open="false" node1="18" node2="15"/>
+                <iidm:switch id="DZ" name="EA" kind="BREAKER" retained="false" open="false" node1="3" node2="5"/>
+                <iidm:switch id="EB" name="EC" kind="BREAKER" retained="false" open="false" node1="14" node2="4"/>
+                <iidm:switch id="ED" name="EE" kind="BREAKER" retained="false" open="false" node1="46" node2="44"/>
+                <iidm:switch id="EF" name="EG" kind="BREAKER" retained="false" open="false" node1="25" node2="24"/>
+                <iidm:switch id="EH" name="EI" kind="BREAKER" retained="false" open="false" node1="13" node2="19"/>
+                <iidm:switch id="EJ" name="EK" kind="BREAKER" retained="false" open="false" node1="24" node2="13"/>
+                <iidm:switch id="EL" name="EM" kind="BREAKER" retained="false" open="false" node1="28" node2="32"/>
+                <iidm:switch id="EN" name="EO" kind="BREAKER" retained="false" open="false" node1="4" node2="3"/>
+                <iidm:switch id="EP" name="EQ" kind="BREAKER" retained="false" open="false" node1="35" node2="26"/>
+                <iidm:switch id="ER" name="ES" kind="BREAKER" retained="false" open="false" node1="9" node2="7"/>
+                <iidm:switch id="ET" name="EU" kind="BREAKER" retained="false" open="false" node1="40" node2="39"/>
+                <iidm:switch id="EV" name="EW" kind="BREAKER" retained="false" open="false" node1="51" node2="43"/>
+                <iidm:switch id="EX" name="EY" kind="BREAKER" retained="false" open="false" node1="26" node2="43"/>
+                <iidm:switch id="EZ" name="FA" kind="BREAKER" retained="false" open="false" node1="49" node2="47"/>
+                <iidm:switch id="FB" name="FC" kind="BREAKER" retained="false" open="false" node1="52" node2="45"/>
+                <iidm:switch id="FD" name="FE" kind="BREAKER" retained="false" open="false" node1="37" node2="35"/>
+                <iidm:switch id="FF" name="FG" kind="BREAKER" retained="false" open="false" node1="42" node2="43"/>
+                <iidm:switch id="FH" name="FI" kind="BREAKER" retained="false" open="false" node1="15" node2="5"/>
+                <iidm:switch id="FJ" name="FK" kind="BREAKER" retained="false" open="false" node1="6" node2="18"/>
+                <iidm:switch id="FL" name="FM" kind="BREAKER" retained="false" open="false" node1="17" node2="19"/>
+                <iidm:switch id="FN" name="FO" kind="BREAKER" retained="false" open="false" node1="31" node2="43"/>
+                <iidm:internalConnection node1="23" node2="56"/>
+                <iidm:internalConnection node1="54" node2="57"/>
+                <iidm:bus angle="0.0" nodes="20,21,22,23,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,56"/>
+                <iidm:bus angle="0.0" nodes="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,24,25,54,55,57"/>
+            </iidm:nodeBreakerTopology>
+            <iidm:load id="FP" name="FQ" loadType="AUXILIARY" p0="0.0" q0="0.0" node="21" p="0.0" q="0.0"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="X" nominalV="115.0" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology>
+            </iidm:nodeBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="AJ" nominalV="115.0" topologyKind="NODE_BREAKER">
+            <iidm:nodeBreakerTopology>
+            </iidm:nodeBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="FR" name="FS" r="0.0034999999" x="0.081899996" g="0.0" b="0.0" ratedU1="115.0" ratedU2="13.8" node1="57" voltageLevelId1="AU" node2="1" voltageLevelId2="X" p1="-1.5756675199359862E-17" p2="1.5756675199359862E-17"/>
+        <iidm:twoWindingsTransformer id="FT" name="FU" r="0.0034" x="0.081099997" g="0.0" b="0.0" ratedU1="115.0" ratedU2="13.8" node1="49" voltageLevelId1="AU" node2="5" voltageLevelId2="X" p1="0.0"/>
+        <iidm:twoWindingsTransformer id="FV" name="FW" r="0.0018000001" x="0.061399999" g="0.0" b="0.0" ratedU1="115.0" ratedU2="18.0" node1="25" voltageLevelId1="AU" node2="3" voltageLevelId2="AJ" p1="-3.5757482655384846E-17" p2="3.5757482655384846E-17"/>
+        <iidm:twoWindingsTransformer id="FX" name="FY" r="0.0018000001" x="0.052600002" g="0.0" b="0.0" ratedU1="115.0" ratedU2="18.0" node1="56" voltageLevelId1="AU" node2="5" voltageLevelId2="AJ" p1="0.0"/>
+    </iidm:substation>
+</iidm:network>

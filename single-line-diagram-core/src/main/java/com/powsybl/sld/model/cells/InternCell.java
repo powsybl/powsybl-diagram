@@ -9,24 +9,20 @@ package com.powsybl.sld.model.cells;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.blocks.Block;
-import com.powsybl.sld.model.blocks.LegBlock;
-import com.powsybl.sld.model.blocks.LegParralelBlock;
-import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -67,7 +63,7 @@ public class InternCell extends AbstractBusCell {
     private Block body;
     private boolean exceptionIfPatternNotHandled;
 
-    public InternCell(int cellNumber, List<Node> nodes, boolean exceptionIfPatternNotHandled) {
+    public InternCell(int cellNumber, Collection<Node> nodes, boolean exceptionIfPatternNotHandled) {
         super(cellNumber, CellType.INTERN, nodes);
         legs = new EnumMap<>(Side.class);
         setDirection(Direction.UNDEFINED);

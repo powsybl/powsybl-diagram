@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;

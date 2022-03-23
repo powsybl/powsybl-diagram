@@ -6,6 +6,9 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  * @author Nicolas Duchene
@@ -18,7 +21,7 @@ public class FictitiousNode extends Node {
         super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true);
     }
 
-    public int getCardinality() {
-        return this.getAdjacentNodes().size() - (getType() == NodeType.SHUNT ? 1 : 0);
+    public long getCardinality(VoltageLevelGraph vlGraph) {
+        return this.getAdjacentNodes().stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() != Cell.CellType.SHUNT).orElse(true)).count();
     }
 }

@@ -6,12 +6,11 @@
  */
 package com.powsybl.sld.raw;
 
-import com.powsybl.sld.RawGraphBuilder;
+import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +42,7 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        RawGraphBuilder.VoltageLevelBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
+        VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         FictitiousNode fict1 = vlBuilder.createFictitiousNode("fict1");

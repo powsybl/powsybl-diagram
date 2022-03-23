@@ -48,7 +48,7 @@ public final class LegBusSet {
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, ShuntCell cell) {
         this(nodeToNb, cell.getParentBusNodes());
-        externCells.addAll(cell.getCells());
+        externCells.addAll(cell.getSideCells());
     }
 
     private LegBusSet(Map<BusNode, Integer> nodeToNb, InternCell internCell, Side side) {
@@ -177,7 +177,7 @@ public final class LegBusSet {
         sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
                 .forEach(sc -> {
                     pushNewLBS(legBusSets, nodeToNb, sc, Side.UNDEFINED);
-                    externCells.removeAll(sc.getCells());
+                    externCells.removeAll(sc.getSideCells());
                 });
     }
 

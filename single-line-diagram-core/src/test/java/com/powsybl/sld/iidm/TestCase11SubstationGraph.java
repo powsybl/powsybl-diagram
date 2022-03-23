@@ -7,13 +7,14 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -214,6 +215,40 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         substationGraphLayout(g);
 
         assertEquals(toString("/TestCase11SubstationGraphH.json"), toJson(g, "/TestCase11SubstationGraphH.json"));
+    }
+
+    @Test
+    public void testHorizontalFirstAlignment() {
+        runHorizontalALignmentTest(LayoutParameters.Alignment.FIRST);
+    }
+
+    @Test
+    public void testHorizontalLastAlignment() {
+        runHorizontalALignmentTest(LayoutParameters.Alignment.LAST);
+    }
+
+    @Test
+    public void testHorizontalMiddleAlignment() {
+        runHorizontalALignmentTest(LayoutParameters.Alignment.MIDDLE);
+    }
+
+    @Test
+    public void testHorizontalNoneAlignment() {
+        runHorizontalALignmentTest(LayoutParameters.Alignment.NONE);
+    }
+
+    private void runHorizontalALignmentTest(LayoutParameters.Alignment alignment) {
+        layoutParameters.setAdaptCellHeightToContent(true)
+                .setBusbarsAlignment(alignment);
+
+        // build substation graph
+        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+
+        // Run horizontal substation layout
+        substationGraphLayout(g);
+
+        String filename = "/TestCase11SubstationGraphH" + StringUtils.capitalize(alignment.name().toLowerCase()) + ".svg";
+        assertEquals(toString(filename), toSVG(g, filename));
     }
 
     @Test

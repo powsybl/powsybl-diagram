@@ -7,7 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.SwitchNode;

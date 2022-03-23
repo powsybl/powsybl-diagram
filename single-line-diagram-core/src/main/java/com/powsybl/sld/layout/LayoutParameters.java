@@ -78,6 +78,14 @@ public class LayoutParameters {
 
     private double feederInfosIntraMargin = 10;
 
+    private Alignment busbarsAlignment = Alignment.FIRST;
+
+    /**
+     * Can be used as horizontal shifting value for busInfo indicator.
+     * Could be negative value.
+     */
+    private double busInfoMargin = 0.0;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -118,7 +126,9 @@ public class LayoutParameters {
                             @JsonProperty("cssLocation") CssLocation cssLocation,
                             @JsonProperty("svgWidthAndHeightAdded") boolean svgWidthAndHeightAdded,
                             @JsonProperty("useName") boolean useName,
-                            @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin) {
+                            @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
+                            @JsonProperty("busInfoMargin") double busInfoMargin,
+                            @JsonProperty("busbarsAlignment") Alignment busbarsAlignment) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -152,6 +162,8 @@ public class LayoutParameters {
         this.svgWidthAndHeightAdded = svgWidthAndHeightAdded;
         this.useName = useName;
         this.feederInfosIntraMargin = feederInfosIntraMargin;
+        this.busInfoMargin = busInfoMargin;
+        this.busbarsAlignment = busbarsAlignment;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -190,6 +202,8 @@ public class LayoutParameters {
         svgWidthAndHeightAdded = other.svgWidthAndHeightAdded;
         useName = other.useName;
         feederInfosIntraMargin = other.feederInfosIntraMargin;
+        busInfoMargin = other.busInfoMargin;
+        busbarsAlignment = other.busbarsAlignment;
     }
 
     public double getVerticalSpaceBus() {
@@ -500,6 +514,28 @@ public class LayoutParameters {
     public LayoutParameters setFeederInfosIntraMargin(double feederInfosIntraMargin) {
         this.feederInfosIntraMargin = feederInfosIntraMargin;
         return this;
+    }
+
+    public double getBusInfoMargin() {
+        return busInfoMargin;
+    }
+
+    public LayoutParameters setBusInfoMargin(double busInfoMargin) {
+        this.busInfoMargin = busInfoMargin;
+        return this;
+    }
+
+    public Alignment getBusbarsAlignment() {
+        return busbarsAlignment;
+    }
+
+    public LayoutParameters setBusbarsAlignment(Alignment busbarsAlignment) {
+        this.busbarsAlignment = busbarsAlignment;
+        return this;
+    }
+
+    public enum Alignment {
+        FIRST, LAST, MIDDLE, NONE;
     }
 
     public enum CssLocation {

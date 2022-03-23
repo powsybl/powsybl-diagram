@@ -7,7 +7,7 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.graphs.*;
@@ -121,8 +121,9 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
 
         Node fict3WTNode = graph1.getNode("3WT");
         List<String> node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, true);
-        assertEquals(1, node3WTStyle.size());
+        assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
+        assertTrue(node3WTStyle.contains("sld-fictitious"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
         List<String> node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, true);

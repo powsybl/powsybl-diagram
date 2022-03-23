@@ -9,11 +9,14 @@ package com.powsybl.sld.model.graphs;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.coordinate.*;
-import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.model.cells.*;
-
+import com.powsybl.sld.model.nodes.Node.NodeType;
 import org.jgrapht.graph.Pseudograph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -677,4 +680,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return getFirstBusY() + (getMaxVerticalBusPosition() - 1) * layoutParam.getVerticalSpaceBus();
     }
 
+    public double getInnerHeight(LayoutParameters layoutParam) {
+        return getExternCellHeight(Direction.TOP) + layoutParam.getVerticalSpaceBus() * getMaxV() + getExternCellHeight(Direction.BOTTOM);
+    }
 }

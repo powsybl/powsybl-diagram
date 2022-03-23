@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.model.coordinate.Side.*;
 import static com.powsybl.sld.model.cells.Cell.CellType.*;
@@ -134,19 +135,13 @@ public class PositionByClustering implements PositionFinder {
     }
 
     public void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
-        List<ShuntCell> shuntCells = graph.getCells().stream()
-                .filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast)
-                .collect(Collectors.toList());
-        List<ExternCell> shuntRightCells = shuntCells.stream()
-                .map(sc -> sc.getSideCell(RIGHT)).map(ExternCell.class::cast)
-                .collect(Collectors.toList());
 
         int cellPos = 0;
         int cellShuntShift = 0;
 
         for (Subsection ss : subsections) {
             for (ExternCell externCell : ss.getExternCells()) {
-                if (shuntRightCells.contains(externCell)) {
+                if (externCell.getShuntCells().stream().anyMatch(sc -> sc.getSideCell(RIGHT) == externCell)) {
                     cellShuntShift++; // an ExternCell on the right of a Shunt does not take its turn for flipping direction
                 } else {
                     Direction direction = (cellPos + cellShuntShift) % 2 == 0 ? TOP : BOTTOM;
@@ -155,7 +150,34 @@ public class PositionByClustering implements PositionFinder {
                 cellPos++;
             }
         }
-        shuntCells.forEach(sc -> sc.alignDirections(LEFT));
+
+        Set<ShuntCell> visitedShuntCells = new HashSet<>();
+        graph.getCells().stream().filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast).forEach(shuntCell -> {
+            // starting from each shunt, find the shunt-connected set of extern cells to set the same direction for all of them
+            List<ExternCell> externCells = new ArrayList<>();
+            shuntTraversal(shuntCell, visitedShuntCells, externCells);
+            externCells.stream().map(AbstractBusCell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
+                    .ifPresent(d -> externCells.forEach(externCell -> externCell.setDirection(d)));
+        });
+    }
+
+    private void shuntTraversal(ShuntCell shuntCell, Set<ShuntCell> visitedShuntCells, List<ExternCell> externCells) {
+        if (visitedShuntCells.contains(shuntCell)) {
+            return;
+        }
+
+        visitedShuntCells.add(shuntCell);
+
+        ExternCell leftCell = shuntCell.getSideCell(LEFT);
+        ExternCell rightCell = shuntCell.getSideCell(RIGHT);
+        externCells.add(leftCell);
+        externCells.add(rightCell);
+
+        Stream.of(leftCell, rightCell)
+                .map(ExternCell::getShuntCells)
+                .flatMap(Collection::stream)
+                .filter(sc -> sc != shuntCell)
+                .forEach(sc -> shuntTraversal(sc, visitedShuntCells, externCells));
     }
 
 }

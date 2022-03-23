@@ -70,17 +70,18 @@ public abstract class AbstractLayout implements Layout {
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
     protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
-                                                                               boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+                                                                        boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
+                                                                        double yMin, double yMax) {
         List<Point> pol = new ArrayList<>();
         pol.add(getGraph().getShiftedPoint(node1));
-        addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol);
+        addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol, yMin, yMax);
         pol.add(getGraph().getShiftedPoint(node2));
         return pol;
     }
 
     private void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
                                         InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
-                                        List<Point> pol) {
+                                        List<Point> pol, double yMin, double yMax) {
         Direction dNode1 = getNodeDirection(node1, 1);
         Direction dNode2 = getNodeDirection(node2, 2);
 
@@ -91,15 +92,15 @@ public abstract class AbstractLayout implements Layout {
 
         double x1 = node1.getX() + vlGraph1.getX();
         double x2 = node2.getX() + vlGraph2.getX();
-        double y1 = node1.getY() + vlGraph1.getY();
-        double y2 = node2.getY() + vlGraph2.getY();
+        double y1 = dNode1 == Direction.BOTTOM ? yMax : yMin;
+        double y2 = dNode2 == Direction.BOTTOM ? yMax : yMin;
 
         if (dNode1 == dNode2) {
             if (increment) {
                 nbSnakeLinesTopBottom.compute(dNode1, (k, v) -> v + 1);
             }
             double decalV = getVerticalShift(layoutParam, dNode1, nbSnakeLinesTopBottom);
-            double yDecal = Math.max(y1 + decalV, y2 + decalV);
+            double yDecal = y1 + decalV;
             pol.add(new Point(x1, yDecal));
             pol.add(new Point(x2, yDecal));
         } else {

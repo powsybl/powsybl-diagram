@@ -10,7 +10,7 @@ import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.NetworkGraphBuilder;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.SingleLineDiagram;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import org.apache.commons.io.output.NullWriter;
@@ -130,6 +130,13 @@ public class TestSingleLineDiagramClass extends AbstractTestCaseIidm {
 
         PowsyblException e2 = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "bbs2", svgPath));
         assertEquals("Given id 'bbs2' is not a substation or voltage level id in given network 'TestSingleLineDiagramClass'", e2.getMessage());
+    }
+
+    @Test
+    public void testIdNotFound() {
+        Path svgPath = tmpDir.resolve("result.svg");
+        PowsyblException exception = assertThrows(PowsyblException.class, () -> SingleLineDiagram.draw(network, "foo", svgPath));
+        assertEquals("Network element 'foo' not found", exception.getMessage());
     }
 
     private String toDefaultSVG(Network network, String id, String filename, String jsonFilename) {

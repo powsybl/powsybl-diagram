@@ -109,9 +109,10 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
                                                      boolean increment) {
         List<Point> polyline;
         if (getGraph().getVoltageLevelGraph(node1) == getGraph().getVoltageLevelGraph(node2)) { // in the same VL (so far always horizontal layout)
-            String graphId = getGraph().getVoltageLevelGraph(node1).getId();
+            VoltageLevelGraph vlGraph = getGraph().getVoltageLevelGraph(node1);
+            String graphId = vlGraph.getId();
 
-            InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(getGraph().getVoltageLevelGraph(node1));
+            InfosNbSnakeLinesHorizontal infosNbSnakeLinesH = InfosNbSnakeLinesHorizontal.create(vlGraph);
 
             // Reset the horizontal layout numbers to current graph numbers
             int currentNbBottom = infosNbSnakeLines.getNbSnakeLinesHorizontalBetween(graphId, BOTTOM);
@@ -121,8 +122,11 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             infosNbSnakeLinesH.getNbSnakeLinesTopBottom().put(TOP, currentNbTop);
             infosNbSnakeLinesH.getNbSnakeLinesVerticalBetween().put(graphId, currentNbLeft);
 
+            double yMin = vlGraph.getY();
+            double yMax = vlGraph.getY() + vlGraph.getInnerHeight(layoutParam);
+
             // Calculate the snakeline as an horizontal layout
-            polyline = calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLinesH);
+            polyline = calculatePolylineSnakeLineForHorizontalLayout(layoutParam, node1, node2, increment, infosNbSnakeLinesH, yMin, yMax);
 
             // Update the vertical layout maps
             Integer updatedNbLinesBottom = infosNbSnakeLinesH.getNbSnakeLinesTopBottom().get(BOTTOM);
