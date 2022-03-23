@@ -27,7 +27,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;

@@ -9,7 +9,6 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Side;

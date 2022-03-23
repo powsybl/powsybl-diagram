@@ -154,8 +154,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 if (rotate) {
                     if (diagramDetails.getRotation() == 90) {
                         node.setOrientation(Orientation.LEFT);
-                    }
-                    else if (diagramDetails.getRotation() == 270) {
+                    } else if (diagramDetails.getRotation() == 270) {
                         node.setOrientation(Orientation.RIGHT);
                     }
                 }
@@ -250,8 +249,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 if (rotate) {
                     if (diagramDetails.getRotation() == 90) {
                         node.setOrientation(Orientation.LEFT);
-                    }
-                    else if (diagramDetails.getRotation() == 270) {
+                    } else if (diagramDetails.getRotation() == 270) {
                         node.setOrientation(Orientation.RIGHT);
                     }
                 }
