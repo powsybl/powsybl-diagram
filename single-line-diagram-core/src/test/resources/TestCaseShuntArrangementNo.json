@@ -335,7 +335,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 124.66666666666667,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -347,7 +347,7 @@
     "fictitious" : false,
     "x" : 325.0,
     "y" : 174.8,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -803,7 +803,7 @@
     "fictitious" : false,
     "x" : 250.0,
     "y" : 250.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   } ],

@@ -40,4 +40,27 @@ public enum Orientation {
         }
     }
 
+    public Double toRotationAngle() {
+        Double angle;
+        switch (this) {
+            case DOWN: {
+                angle = 180.0;
+                break;
+            }
+            case LEFT: {
+                angle = 90.0;
+                break;
+            }
+            case RIGHT: {
+                angle = 270.0;
+                break;
+            }
+            case UP:
+            default: {
+                angle = null;
+            }
+        }
+        return angle;
+    }
+
 }

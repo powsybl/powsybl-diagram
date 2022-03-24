@@ -45,7 +45,7 @@
     "fictitious" : true,
     "x" : 720.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -54,7 +54,7 @@
     "fictitious" : true,
     "x" : 800.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -63,7 +63,7 @@
     "fictitious" : true,
     "x" : 720.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -72,7 +72,7 @@
     "fictitious" : true,
     "x" : 800.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -515,7 +515,7 @@
     "fictitious" : true,
     "x" : 760.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -527,7 +527,7 @@
     "fictitious" : true,
     "x" : 760.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   }, {

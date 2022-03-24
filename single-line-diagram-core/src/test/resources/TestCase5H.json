@@ -104,7 +104,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 62.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "BREAKER"
   }, {

@@ -53,8 +53,6 @@ public class Node {
 
     private Cell cell;
 
-    private Double rotationAngle;
-
     private boolean open = false;
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
@@ -96,10 +94,6 @@ public class Node {
 
     public String getComponentType() {
         return componentType;
-    }
-
-    public Double getRotationAngle() {
-        return rotationAngle;
     }
 
     public boolean isFictitious() {
@@ -213,11 +207,7 @@ public class Node {
     }
 
     public boolean isRotated() {
-        return getRotationAngle() != null;
-    }
-
-    public void setRotationAngle(Double rotationAngle) {
-        this.rotationAngle = rotationAngle;
+        return orientation != Orientation.UP;
     }
 
     public boolean isOpen() {
@@ -254,16 +244,6 @@ public class Node {
 
     public void setOrientation(Orientation orientation) {
         this.orientation = Objects.requireNonNullElse(orientation, Orientation.UP);
-        switch (this.orientation) {
-            case LEFT: setRotationAngle(90.0);
-                break;
-            case DOWN: setRotationAngle(180.0);
-                break;
-            case RIGHT: setRotationAngle(270.0);
-                break;
-            default:
-                setRotationAngle(null);
-        }
     }
 
     /**
@@ -299,8 +279,8 @@ public class Node {
             generator.writeNumberField("x", getX());
             generator.writeNumberField("y", getY());
         }
-        if (rotationAngle != null) {
-            generator.writeNumberField("rotationAngle", rotationAngle);
+        if (orientation != Orientation.UP) {
+            generator.writeStringField("orientation", orientation.name());
         }
         generator.writeBooleanField("open", open);
         if (label != null) {

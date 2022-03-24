@@ -79,7 +79,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -88,7 +88,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -286,7 +286,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "LEFT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],

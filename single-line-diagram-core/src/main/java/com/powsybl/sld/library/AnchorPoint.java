@@ -8,6 +8,7 @@ package com.powsybl.sld.library;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 
 import java.util.Objects;
@@ -43,25 +44,28 @@ public class AnchorPoint extends Point {
     }
 
     /**
-     * Rotate the anchorPoints
+     * Apply transformation on anchorPoints
      */
-    public AnchorPoint createRotatedAnchorPoint(Double rotationAngle) {
-        if (rotationAngle == 90. || rotationAngle == 270) {
-            switch (orientation) {
-                case VERTICAL:
-                    return new AnchorPoint(getY(), getX(), AnchorOrientation.HORIZONTAL);
-                case HORIZONTAL:
-                    return new AnchorPoint(getY(), getX(), AnchorOrientation.VERTICAL);
-                case NONE:
-                    return this;
-                default:
-                    throw new AssertionError("Unknown anchor orientation " + orientation);
+    public AnchorPoint transformAnchorPoint(Orientation nodeOrientation, Component.Transformation nodeTransformation) {
+        if (nodeTransformation == Component.Transformation.ROTATION) {
+            if (nodeOrientation.isHorizontal()) {
+                switch (this.orientation) {
+                    case VERTICAL:
+                        return new AnchorPoint(getY(), getX(), AnchorOrientation.HORIZONTAL);
+                    case HORIZONTAL:
+                        return new AnchorPoint(getY(), getX(), AnchorOrientation.VERTICAL);
+                    case NONE:
+                        return this;
+                    default:
+                        throw new AssertionError("Unknown anchor orientation " + orientation);
+                }
+            } else if (nodeOrientation == Orientation.DOWN) {
+                return new AnchorPoint(-getX(), -getY(), this.orientation);
+            } else {
+                return new AnchorPoint(getX(), getY(), orientation);
             }
-        } else if (rotationAngle == 180.) {
-            return new AnchorPoint(-getX(), -getY(), orientation);
-        } else {
-            return new AnchorPoint(getX(), getY(), orientation);
         }
+        return this;
     }
 
     @Override

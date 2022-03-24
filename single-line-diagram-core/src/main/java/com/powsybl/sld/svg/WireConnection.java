@@ -8,8 +8,10 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 
 import java.util.*;
@@ -33,9 +35,12 @@ public final class WireConnection {
     }
 
     public static List<AnchorPoint> getAnchorPoints(ComponentLibrary componentLibrary, Node node) {
-        return componentLibrary.getAnchorPoints(node.getComponentType())
+        String componentType = node.getComponentType();
+        Orientation nodeOrientation = node.getOrientation();
+        Component.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
+        return componentLibrary.getAnchorPoints(componentType)
                 .stream()
-                .map(anchorPoint -> node.isRotated() ? anchorPoint.createRotatedAnchorPoint(node.getRotationAngle()) : anchorPoint)
+                .map(anchorPoint -> anchorPoint.transformAnchorPoint(nodeOrientation, transformation))
                 .collect(Collectors.toList());
     }
 

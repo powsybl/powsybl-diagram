@@ -10,6 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -208,21 +209,21 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         if (subComponentName.equals(WINDING1)) {
             if (!node.isRotated()) {
                 nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 90.) {
+            } else if (node.getOrientation() == Orientation.LEFT) {
                 nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 180.) {
+            } else if (node.getOrientation() == Orientation.DOWN) {
                 nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 270.) {
+            } else if (node.getOrientation() == Orientation.RIGHT) {
                 nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
             }
         } else if (subComponentName.equals(WINDING2)) {
             if (!node.isRotated()) {
                 nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 90.) {
+            } else if (node.getOrientation() == Orientation.LEFT) {
                 nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 180.) {
+            } else if (node.getOrientation() == Orientation.DOWN) {
                 nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 270.) {
+            } else if (node.getOrientation() == Orientation.RIGHT) {
                 nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
             }
         }

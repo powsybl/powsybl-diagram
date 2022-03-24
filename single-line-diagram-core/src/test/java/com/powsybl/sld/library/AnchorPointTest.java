@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.library;
 
+import com.powsybl.sld.model.coordinate.Orientation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,13 +22,23 @@ public class AnchorPointTest {
     public void rotationTest() {
         AnchorPoint anchorPoint1 = new AnchorPoint(0, -10, AnchorOrientation.VERTICAL);
         AnchorPoint anchorPoint2 = new AnchorPoint(0, 10, AnchorOrientation.VERTICAL);
-        AnchorPoint rotatedAnchorPoint1 = anchorPoint1.createRotatedAnchorPoint(90d);
+        AnchorPoint rotatedAnchorPoint1 = anchorPoint1.transformAnchorPoint(Orientation.LEFT, Component.Transformation.ROTATION);
         assertEquals(AnchorOrientation.HORIZONTAL, rotatedAnchorPoint1.getOrientation());
         assertEquals(-10, rotatedAnchorPoint1.getX(), 0);
         assertEquals(0, rotatedAnchorPoint1.getY(), 0);
-        AnchorPoint rotatedAnchorPoint2 = anchorPoint2.createRotatedAnchorPoint(90d);
+        AnchorPoint rotatedAnchorPoint2 = anchorPoint2.transformAnchorPoint(Orientation.LEFT, Component.Transformation.ROTATION);
         assertEquals(AnchorOrientation.HORIZONTAL, rotatedAnchorPoint2.getOrientation());
         assertEquals(10, rotatedAnchorPoint2.getX(), 0);
         assertEquals(0, rotatedAnchorPoint2.getY(), 0);
+        AnchorPoint rotatedAnchorPoint3 = anchorPoint2.transformAnchorPoint(Orientation.DOWN, Component.Transformation.ROTATION);
+        assertEquals(AnchorOrientation.VERTICAL, rotatedAnchorPoint3.getOrientation());
+        assertEquals(0, rotatedAnchorPoint3.getX(), 0);
+        assertEquals(-10, rotatedAnchorPoint3.getY(), 0);
+        AnchorPoint rotatedAnchorPoint4 = anchorPoint1.transformAnchorPoint(Orientation.UP, Component.Transformation.ROTATION);
+        assertEquals(AnchorOrientation.VERTICAL, rotatedAnchorPoint4.getOrientation());
+        assertEquals(0, rotatedAnchorPoint4.getX(), 0);
+        assertEquals(-10, rotatedAnchorPoint4.getY(), 0);
+        AnchorPoint rotatedAnchorPoint5 = anchorPoint1.transformAnchorPoint(Orientation.LEFT, Component.Transformation.NONE);
+        assertEquals(anchorPoint1, rotatedAnchorPoint5);
     }
 }

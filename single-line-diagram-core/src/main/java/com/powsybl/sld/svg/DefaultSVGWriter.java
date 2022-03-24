@@ -547,13 +547,8 @@ public class DefaultSVGWriter implements SVGWriter {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
-        if (node.isRotated()) {
-            line.setAttribute("x2", "0");
-            line.setAttribute("y2", String.valueOf(node.getPxWidth()));
-        } else {
-            line.setAttribute("x2", String.valueOf(node.getPxWidth()));
-            line.setAttribute("y2", "0");
-        }
+        line.setAttribute("x2", String.valueOf(node.getPxWidth()));
+        line.setAttribute("y2", "0");
 
         g.appendChild(line);
 
@@ -684,9 +679,15 @@ public class DefaultSVGWriter implements SVGWriter {
                                         Element elt, String componentType, String subComponent) {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(componentType);
-        if (node.isRotated()) {
-            elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+
+        // For a node marked for rotation during the graph building,
+        // but with an svg component not allowed to rotate
+        // (ex : disconnector in SVG component library), we cancel the rotation
+        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(node.getOrientation());
+        if (transformation == Component.Transformation.ROTATION) {
+            elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getOrientation().toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
         }
+
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponent);
         componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
         if (!subComponentStyles.isEmpty()) {
@@ -736,13 +737,6 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void transformComponent(Node node, Point shift, Element g) {
-        // For a node marked for rotation during the graph building, but with an svg component not allowed
-        // to rotate (ex : disconnector in SVG component library), we cancel the rotation
-        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(node.getOrientation());
-        if (node.isRotated() && transformation != Component.Transformation.ROTATION) {
-            node.setRotationAngle(null);
-        }
-
         double[] translate = getNodeTranslate(node, shift);
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + translate[0] + "," + translate[1] + ")");
     }
