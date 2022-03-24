@@ -503,13 +503,15 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void addCell(Cell c) {
         cells.add(c);
-        c.getNodes().stream().filter(n -> n.getType() != NodeType.BUS).forEach(n -> nodeToCell.put(n, c));
+        c.getNodes().stream()
+                .filter(n -> n.getType() != NodeType.BUS)
+                .filter(n -> !(c.getType() == Cell.CellType.SHUNT && n.getType() == NodeType.SHUNT))
+                .forEach(n -> nodeToCell.put(n, c));
     }
 
     public void removeCell(Cell c) {
         cells.remove(c);
-        c.getNodes().stream().filter(n -> n.getType() != NodeType.BUS && nodeToCell.get(n) == c)
-                .forEach(nodeToCell::remove);
+        c.getNodes().forEach(n -> nodeToCell.remove(n, c));
     }
 
     public List<BusNode> getNodeBuses() {
