@@ -196,16 +196,16 @@
                 <polyline points="840.0,252.0,860.0,252.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect11" transform="translate(756.0,248.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
+                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-0" id="iddtrct11" transform="translate(790.0,242.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-0" id="iddsect12" transform="translate(836.0,248.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
+                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
             </g>
         </g>
         <g class="cell idINTERN_32_1" id="idINTERN_32_1">
@@ -228,16 +228,16 @@
                 <polyline points="840.0,277.0,860.0,277.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect21" transform="translate(756.0,273.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
+                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
             </g>
             <g class="sld-breaker sld-closed sld-fictitious sld-vl300to500-1" id="iddtrct21" transform="translate(790.0,267.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl300to500-1" id="iddsect22" transform="translate(836.0,273.0)">
-                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
-                <path class="sld-sw-open" d="M8,0 0,8"/>
+                <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
+                <path class="sld-sw-open" d="M8,0 0,8" transform="rotate(270.0,4.0,4.0)"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">

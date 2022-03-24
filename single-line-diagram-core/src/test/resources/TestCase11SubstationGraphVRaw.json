@@ -15,6 +15,7 @@
       "fictitious" : true,
       "x" : 125.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -23,6 +24,7 @@
       "fictitious" : true,
       "x" : 675.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -55,7 +57,7 @@
       "fictitious" : true,
       "x" : 400.0,
       "y" : 280.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -64,7 +66,7 @@
       "fictitious" : true,
       "x" : 450.0,
       "y" : 280.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -73,7 +75,7 @@
       "fictitious" : true,
       "x" : 400.0,
       "y" : 305.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -82,7 +84,7 @@
       "fictitious" : true,
       "x" : 450.0,
       "y" : 305.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -107,6 +109,7 @@
       "fictitious" : true,
       "x" : 175.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -115,6 +118,7 @@
       "fictitious" : true,
       "x" : 575.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -139,6 +143,7 @@
       "fictitious" : true,
       "x" : 325.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -155,6 +160,7 @@
       "fictitious" : true,
       "x" : 125.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -163,6 +169,7 @@
       "fictitious" : true,
       "x" : 675.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -211,6 +218,7 @@
       "fictitious" : true,
       "x" : 175.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -219,6 +227,7 @@
       "fictitious" : true,
       "x" : 575.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -243,6 +252,7 @@
       "fictitious" : true,
       "x" : 325.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -299,6 +309,7 @@
       "fictitious" : false,
       "x" : 12.5,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "pxWidth" : 375.0,
       "busbarIndex" : 2,
@@ -318,6 +329,7 @@
       "fictitious" : false,
       "x" : 462.5,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "pxWidth" : 225.0,
       "busbarIndex" : 2,
@@ -337,6 +349,7 @@
       "fictitious" : false,
       "x" : 125.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -348,6 +361,7 @@
       "fictitious" : false,
       "x" : 675.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -414,6 +428,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -425,6 +440,7 @@
       "fictitious" : false,
       "x" : 575.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -458,6 +474,7 @@
       "fictitious" : false,
       "x" : 325.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -480,6 +497,7 @@
       "fictitious" : false,
       "x" : 125.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -491,6 +509,7 @@
       "fictitious" : false,
       "x" : 675.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -535,6 +554,7 @@
       "fictitious" : false,
       "x" : 400.0,
       "y" : 280.0,
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -546,6 +566,7 @@
       "fictitious" : false,
       "x" : 450.0,
       "y" : 280.0,
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -557,6 +578,7 @@
       "fictitious" : false,
       "x" : 400.0,
       "y" : 305.0,
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -568,6 +590,7 @@
       "fictitious" : false,
       "x" : 450.0,
       "y" : 305.0,
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -579,7 +602,7 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 280.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -591,7 +614,7 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 305.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -625,6 +648,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -636,6 +660,7 @@
       "fictitious" : false,
       "x" : 575.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -669,6 +694,7 @@
       "fictitious" : false,
       "x" : 325.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -691,6 +717,7 @@
       "fictitious" : false,
       "x" : 125.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "gen1",
       "feederType" : "INJECTION",
@@ -705,6 +732,7 @@
       "fictitious" : false,
       "x" : 675.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "gen2",
       "feederType" : "INJECTION",
@@ -807,6 +835,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf3",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -827,6 +856,7 @@
       "fictitious" : false,
       "x" : 575.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf4",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -887,6 +917,7 @@
       "fictitious" : false,
       "x" : 325.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf71",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -2518,6 +2549,7 @@
       "fictitious" : true,
       "x" : 225.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2534,7 +2566,6 @@
       "fictitious" : true,
       "x" : 75.0,
       "y" : 240.0,
-      "orientation" : "LEFT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2543,7 +2574,6 @@
       "fictitious" : true,
       "x" : 25.0,
       "y" : 240.0,
-      "orientation" : "LEFT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2560,6 +2590,7 @@
       "fictitious" : true,
       "x" : 475.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2568,6 +2599,7 @@
       "fictitious" : true,
       "x" : 525.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2600,6 +2632,7 @@
       "fictitious" : true,
       "x" : 425.0,
       "y" : 335.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2608,6 +2641,7 @@
       "fictitious" : true,
       "x" : 225.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2632,6 +2666,7 @@
       "fictitious" : true,
       "x" : 475.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2640,6 +2675,7 @@
       "fictitious" : true,
       "x" : 525.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -2672,6 +2708,7 @@
       "fictitious" : true,
       "x" : 425.0,
       "y" : 523.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "BUS",
@@ -2720,6 +2757,7 @@
       "fictitious" : false,
       "x" : 225.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -2753,6 +2791,7 @@
       "fictitious" : false,
       "x" : 475.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -2764,6 +2803,7 @@
       "fictitious" : false,
       "x" : 525.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -2808,6 +2848,7 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 429.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -2819,7 +2860,7 @@
       "fictitious" : false,
       "x" : 50.0,
       "y" : 240.0,
-      "orientation" : "LEFT",
+      "orientation" : "RIGHT",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -2831,6 +2872,7 @@
       "fictitious" : false,
       "x" : 225.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -2886,6 +2928,7 @@
       "fictitious" : false,
       "x" : 475.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -2897,6 +2940,7 @@
       "fictitious" : false,
       "x" : 525.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -2941,6 +2985,7 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 305.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -2952,6 +2997,7 @@
       "fictitious" : false,
       "x" : 225.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "gen4",
       "feederType" : "INJECTION",
@@ -3000,6 +3046,7 @@
       "fictitious" : false,
       "x" : 475.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf2",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -3020,6 +3067,7 @@
       "fictitious" : false,
       "x" : 525.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf3",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -3100,6 +3148,7 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 585.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf82",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -4191,6 +4240,7 @@
       "fictitious" : true,
       "x" : 75.0,
       "y" : 310.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -4207,6 +4257,7 @@
       "fictitious" : true,
       "x" : 175.0,
       "y" : 310.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -4231,6 +4282,7 @@
       "fictitious" : true,
       "x" : 75.0,
       "y" : 498.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -4247,6 +4299,7 @@
       "fictitious" : true,
       "x" : 175.0,
       "y" : 498.0,
+      "orientation" : "DOWN",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -4295,6 +4348,7 @@
       "fictitious" : false,
       "x" : 75.0,
       "y" : 404.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -4317,6 +4371,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 404.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "BREAKER"
     }, {
@@ -4350,6 +4405,7 @@
       "fictitious" : false,
       "x" : 75.0,
       "y" : 280.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -4372,6 +4428,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 280.0,
+      "orientation" : "DOWN",
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
@@ -4408,6 +4465,7 @@
       "fictitious" : false,
       "x" : 75.0,
       "y" : 560.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf5",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -4448,6 +4506,7 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 560.0,
+      "orientation" : "DOWN",
       "open" : false,
       "label" : "trf73",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",

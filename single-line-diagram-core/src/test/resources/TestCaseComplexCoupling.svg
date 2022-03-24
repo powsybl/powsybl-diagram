@@ -120,23 +120,23 @@
                 <text class="sld-label" id="d1_default" text-anchor="middle" x="0.0" y="-5.0">d1</text>
             </g>
             <g class="sld-breaker sld-closed" id="idbA" transform="translate(130.0,168.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="bA_default" text-anchor="middle" x="0.0" y="-5.0">bA</text>
             </g>
             <g class="sld-breaker sld-closed" id="idbB" transform="translate(130.0,88.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="bB_default" text-anchor="middle" x="0.0" y="-5.0">bB</text>
             </g>
             <g class="sld-breaker sld-closed" id="idbC" transform="translate(130.0,128.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="bC_default" text-anchor="middle" x="0.0" y="-5.0">bC</text>
             </g>
             <g class="sld-breaker sld-closed" id="idbD" transform="translate(80.0,128.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="bD_default" text-anchor="middle" x="0.0" y="-5.0">bD</text>
             </g>
             <g class="sld-disconnector sld-closed" id="idd2" transform="translate(61.0,239.0)">

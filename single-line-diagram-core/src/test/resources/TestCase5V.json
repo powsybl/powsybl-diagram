@@ -22,6 +22,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 156.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -30,6 +31,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 156.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -105,7 +107,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 156.0,
-    "orientation" : "LEFT",
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {

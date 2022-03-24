@@ -8,6 +8,7 @@ package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.coordinate.Orientation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +96,20 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
             return nodes.get(nodes.size() - 1);
         }
         return null;
+    }
+
+    @Override
+    public void setOrientation(Orientation orientation) {
+        super.setOrientation(orientation);
+        setOrientation(orientation, true);
+    }
+
+    @Override
+    public void setOrientation(Orientation orientation, boolean recursively) {
+        super.setOrientation(orientation);
+        if (recursively) {
+            nodes.forEach(sub -> sub.setOrientation(orientation));
+        }
     }
 
     @Override

@@ -21,7 +21,6 @@
     "fictitious" : true,
     "x" : 25.0,
     "y" : 220.0,
-    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -30,7 +29,7 @@
     "fictitious" : true,
     "x" : 75.0,
     "y" : 345.0,
-    "orientation" : "LEFT",
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -39,7 +38,6 @@
     "fictitious" : true,
     "x" : 225.0,
     "y" : 220.0,
-    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -48,7 +46,7 @@
     "fictitious" : true,
     "x" : 175.0,
     "y" : 345.0,
-    "orientation" : "LEFT",
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -59,7 +57,7 @@
     "fictitious" : false,
     "x" : 50.0,
     "y" : 220.0,
-    "orientation" : "LEFT",
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -71,7 +69,7 @@
     "fictitious" : false,
     "x" : 100.0,
     "y" : 345.0,
-    "orientation" : "LEFT",
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -192,6 +190,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 280.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -214,6 +213,7 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 280.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],

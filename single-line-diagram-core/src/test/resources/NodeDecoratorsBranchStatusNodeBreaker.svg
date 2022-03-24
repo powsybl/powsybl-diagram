@@ -126,8 +126,8 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
             <g class="sld-breaker sld-closed" id="idBR1" transform="translate(80.0,430.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
             </g>
             <g class="sld-disconnector sld-closed" id="idD20" transform="translate(61.0,501.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

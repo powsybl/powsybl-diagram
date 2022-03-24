@@ -13,6 +13,7 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 335.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -29,7 +30,6 @@
     "fictitious" : true,
     "x" : 120.0,
     "y" : 240.0,
-    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -38,7 +38,6 @@
     "fictitious" : true,
     "x" : 40.0,
     "y" : 240.0,
-    "orientation" : "LEFT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -55,6 +54,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 335.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -63,6 +63,7 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 335.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -95,6 +96,7 @@
     "fictitious" : true,
     "x" : 880.0,
     "y" : 335.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -103,6 +105,7 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 523.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -127,6 +130,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 523.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -135,6 +139,7 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 523.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -191,6 +196,7 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 429.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -224,6 +230,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 429.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -235,6 +242,7 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 429.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -279,6 +287,7 @@
     "fictitious" : true,
     "x" : 880.0,
     "y" : 429.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -290,7 +299,7 @@
     "fictitious" : true,
     "x" : 80.0,
     "y" : 240.0,
-    "orientation" : "LEFT",
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -302,6 +311,7 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 305.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -357,6 +367,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 305.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -368,6 +379,7 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 305.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -412,6 +424,7 @@
     "fictitious" : true,
     "x" : 880.0,
     "y" : 305.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -423,6 +436,7 @@
     "fictitious" : false,
     "x" : 360.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "gen4",
     "feederType" : "INJECTION",
@@ -471,6 +485,7 @@
     "fictitious" : false,
     "x" : 1000.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "trf2",
     "feederType" : "BRANCH",
@@ -491,6 +506,7 @@
     "fictitious" : false,
     "x" : 1080.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "trf3",
     "feederType" : "BRANCH",
@@ -661,6 +677,7 @@
     "fictitious" : true,
     "x" : 880.0,
     "y" : 523.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -686,6 +703,7 @@
     "fictitious" : false,
     "x" : 840.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "trf82",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -706,6 +724,7 @@
     "fictitious" : false,
     "x" : 920.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "trf82",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",

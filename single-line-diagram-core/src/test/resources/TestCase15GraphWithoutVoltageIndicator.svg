@@ -253,8 +253,8 @@
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-breaker sld-closed" id="idlink" transform="translate(155.0,172.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
             </g>
         </g>
         <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">

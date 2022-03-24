@@ -125,8 +125,8 @@
                 <circle cx="4" cy="4" r="2"/>
             </g>
             <g class="sld-breaker sld-open sld-vl300to500" id="idBR1" transform="translate(80.0,310.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500" id="idBUSCO_95_BR1" transform="translate(61.0,381.0)">
                 <circle cx="4" cy="4" r="2"/>

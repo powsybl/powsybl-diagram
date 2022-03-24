@@ -341,18 +341,18 @@
                 <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,410.85714285714283"/>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBX" transform="translate(655.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="BX_NW" text-anchor="middle" x="4.0" y="-1.0">BY</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDF" transform="translate(680.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="DF_NW" text-anchor="middle" x="4.0" y="-1.0">DG</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBR" transform="translate(705.0,423.35714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="BR_NW" text-anchor="middle" x="4.0" y="-1.0">BS</text>
             </g>
         </g>
@@ -414,18 +414,18 @@
                 <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,433.35714285714283"/>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFN" transform="translate(317.5,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="FN_NW" text-anchor="middle" x="4.0" y="-1.0">FO</text>
             </g>
             <g class="sld-breaker sld-open sld-disconnected" id="idDJ" transform="translate(455.0,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="DJ_NW" text-anchor="middle" x="4.0" y="-1.0">DK</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFL" transform="translate(592.5,400.85714285714283)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="FL_NW" text-anchor="middle" x="4.0" y="-1.0">FM</text>
             </g>
         </g>
@@ -603,18 +603,18 @@
                 <polyline points="590.0,443.0,640.0,443.0,640.0,433.35714285714283"/>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCL" transform="translate(455.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="CL_NW" text-anchor="middle" x="4.0" y="-1.0">CM</text>
             </g>
             <g class="sld-breaker sld-open sld-disconnected" id="idDH" transform="translate(480.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="DH_NW" text-anchor="middle" x="4.0" y="-1.0">DI</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCH" transform="translate(505.0,392.5)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="CH_NW" text-anchor="middle" x="4.0" y="-1.0">CI</text>
             </g>
         </g>
@@ -796,18 +796,18 @@
                 <polyline points="402.5,453.0,402.5,470.0,365.0,470.0"/>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEV" transform="translate(205.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="EV_NW" text-anchor="middle" x="4.0" y="-1.0">EW</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDD" transform="translate(230.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="DD_NW" text-anchor="middle" x="4.0" y="-1.0">DE</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFB" transform="translate(255.0,424.0)">
-                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+                <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+                <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
                 <text class="sld-label" id="FB_NW" text-anchor="middle" x="4.0" y="-1.0">FC</text>
             </g>
         </g>
