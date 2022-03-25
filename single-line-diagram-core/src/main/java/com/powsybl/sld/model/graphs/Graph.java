@@ -33,15 +33,9 @@ public interface Graph {
 
     VoltageLevelGraph getVoltageLevelGraph(Node node);
 
-    default VoltageLevelInfos getVoltageLevelInfos(Node node) {
-        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
-        return vlGraph == null ? null : vlGraph.getVoltageLevelInfos();
-    }
+    VoltageLevelInfos getVoltageLevelInfos(Node node);
 
-    default Point getShiftedPoint(Node node) {
-        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
-        return vlGraph == null ? node.getCoordinates() : node.getCoordinates().getShiftedPoint(vlGraph.getCoord());
-    }
+    Point getShiftedPoint(Node node);
 
     Map<Node, VoltageLevelGraph> getNodeToVlGraph();
 

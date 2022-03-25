@@ -12,6 +12,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -92,6 +93,18 @@ public abstract class AbstractGraph implements Graph {
     @Override
     public VoltageLevelGraph getVoltageLevelGraph(Node node) {
         return nodeToVlGraph.get(node);
+    }
+
+    @Override
+    public VoltageLevelInfos getVoltageLevelInfos(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return vlGraph == null ? null : vlGraph.getVoltageLevelInfos();
+    }
+
+    @Override
+    public Point getShiftedPoint(Node node) {
+        VoltageLevelGraph vlGraph = getVoltageLevelGraph(node);
+        return vlGraph == null ? node.getCoordinates() : node.getCoordinates().getShiftedPoint(vlGraph.getCoord());
     }
 
     @Override
