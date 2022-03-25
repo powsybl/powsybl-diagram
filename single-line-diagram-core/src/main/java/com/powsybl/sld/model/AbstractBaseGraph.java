@@ -7,12 +7,9 @@
 package com.powsybl.sld.model;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.model.coordinate.Orientation;
-import com.powsybl.sld.model.coordinate.Point;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -65,82 +62,5 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
             edge.writeJson(generator, includeCoordinates);
         }
         generator.writeEndArray();
-    }
-
-    public void handleMultiTermsNodeRotation() {
-        // node outside any graph
-        for (MiddleTwtNode node : getMultiTermNodes()) {
-            if (node.getAdjacentEdges().size() == 2) {  // 2 windings transformer
-                handle2wtNodeRotation(node);
-            } else {  // 3 windings transformer
-                handle3wtNodeRotation(node);
-            }
-        }
-    }
-
-    private void handle2wtNodeRotation(Node node) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
-        FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-        FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-
-        List<Edge> edges = node.getAdjacentEdges();
-        List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-        List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-
-        if (pol1.isEmpty() || pol2.isEmpty()) {
-            return;
-        }
-
-        // get points for the line supporting the svg component
-        double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
-        double x2 = pol2.get(pol2.size() - 2).getX();  // absciss of the second polyline second last point
-
-        if (x1 == x2) {
-            // vertical line supporting the svg component
-            FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-            FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-            if (nodeWinding2.getY() > nodeWinding1.getY()) {
-                // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
-                node.setOrientation(Orientation.DOWN);
-            }
-        } else {
-            // horizontal line supporting the svg component,
-            // so we rotate the component by 90 or 270 (the component is vertical in the library)
-            if (node1.getSide() == FeederWithSideNode.Side.ONE) {
-                // rotation by 90 to get circle for winding1 at the left side
-                node.setOrientation(Orientation.LEFT);
-            } else {
-                // rotation by 90 to get circle for winding1 at the right side
-                node.setOrientation(Orientation.RIGHT);
-            }
-        }
-    }
-
-    private void handle3wtNodeRotation(Node node) {
-
-        List<Edge> edges = node.getAdjacentEdges();
-        List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-        List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-        List<Point> pol3 = ((BranchEdge) edges.get(2)).getSnakeLine();
-        if (pol1.isEmpty() || pol2.isEmpty() || pol3.isEmpty()) {
-            return;
-        }
-
-        // get points for the line supporting the svg component
-        Point coord1 = pol1.get(pol1.size() - 2); // abscissa of the first polyline second last point
-        Point coord2 = pol2.get(pol2.size() - 2);  // abscissa of the second polyline second last point
-        Point coord3 = pol3.get(pol3.size() - 2);  // abscissa of the third polyline second last point
-        if (coord1.getY() == coord3.getY()) {
-            if (coord2.getY() < coord1.getY()) {
-                node.setOrientation(Orientation.DOWN);  // rotation if middle node cell orientation is BOTTOM
-            }
-        } else {
-            if (coord2.getX() == coord1.getX()) {
-                node.setOrientation(coord3.getX() > coord1.getX() ? Orientation.RIGHT : Orientation.LEFT);
-            } else if (coord2.getX() == coord3.getX()) {
-                node.setOrientation(coord1.getX() > coord3.getX() ? Orientation.RIGHT : Orientation.LEFT);
-            }
-        }
     }
 }

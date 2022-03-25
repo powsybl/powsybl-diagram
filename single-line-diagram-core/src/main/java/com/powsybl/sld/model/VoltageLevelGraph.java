@@ -665,23 +665,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         this.maxVerticalBusPosition = maxVerticalBusPosition;
     }
 
-    @Override
-    public void handleMultiTermsNodeRotation() {
-        super.handleMultiTermsNodeRotation();
-        for (Node node : nodes) {
-            if (node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                    || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                    || node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)) {
-                Optional<Cell> oCell = getCell(node);
-                if (oCell.isPresent() && ((ExternCell) oCell.get()).getDirection() == BusCell.Direction.BOTTOM) {
-                    // permutation if cell direction is BOTTOM,
-                    // because in the svg component library, circle for winding1 is below circle for winding2
-                    node.setOrientation(Orientation.DOWN);
-                }
-            }
-        }
-    }
-
     public double getFirstBusY() {
         return getExternCellHeight(BusCell.Direction.TOP);
     }

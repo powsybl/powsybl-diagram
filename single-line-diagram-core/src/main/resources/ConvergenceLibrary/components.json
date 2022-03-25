@@ -292,7 +292,7 @@
       "width" : 14.0,
       "height" : 15.0
     },
-    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN": "ROTATION" },
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "phase-shifter-winding1.svg",

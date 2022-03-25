@@ -231,9 +231,6 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGraphLabel(prefixId, root, graph, metadata);
         }
 
-        // Handle multi-term nodes rotation
-        graph.handleMultiTermsNodeRotation();
-
         Set<Node> remainingNodesToDraw = graph.getNodeSet();
         Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
@@ -308,9 +305,6 @@ public class DefaultSVGWriter implements SVGWriter {
         for (VoltageLevelGraph vlGraph : graph.getVoltageLevels()) {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
-
-        // Handle multi-terminal nodes rotation
-        graph.handleMultiTermsNodeRotation();
 
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider);

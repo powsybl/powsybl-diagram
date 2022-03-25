@@ -5099,6 +5099,7 @@
     "fictitious" : true,
     "x" : 110.0,
     "y" : 890.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5139,6 +5140,7 @@
     "fictitious" : true,
     "x" : 585.0,
     "y" : 905.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5159,6 +5161,7 @@
     "fictitious" : true,
     "x" : 80.0,
     "y" : 1260.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5179,6 +5182,7 @@
     "fictitious" : true,
     "x" : 535.0,
     "y" : 935.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5204,6 +5208,7 @@
     "fictitious" : true,
     "x" : 485.0,
     "y" : 965.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
@@ -5229,6 +5234,7 @@
     "fictitious" : true,
     "x" : 585.0,
     "y" : 1760.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",

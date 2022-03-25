@@ -1666,6 +1666,7 @@
       "fictitious" : true,
       "x" : 80.0,
       "y" : 462.5,
+      "orientation" : "DOWN",
       "open" : false,
       "voltageLevelInfosLeg1" : {
         "id" : "VL1",
@@ -2327,6 +2328,7 @@
     "fictitious" : true,
     "x" : 745.0,
     "y" : 50.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
@@ -2347,6 +2349,7 @@
     "fictitious" : true,
     "x" : 675.0,
     "y" : 875.0,
+    "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",

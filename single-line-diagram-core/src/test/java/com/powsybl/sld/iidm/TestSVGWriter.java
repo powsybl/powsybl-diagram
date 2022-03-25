@@ -544,6 +544,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addVoltageLevel(g3ForSubstation);
         Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(405., 590.);
+        nMulti1.setOrientation(Orientation.LEFT);
         BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
         BranchEdge edge2 = substG.addTwtEdge(vl2Trf1, nMulti1);
