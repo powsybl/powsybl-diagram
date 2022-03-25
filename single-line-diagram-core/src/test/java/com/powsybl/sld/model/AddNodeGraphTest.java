@@ -6,21 +6,22 @@
  */
 package com.powsybl.sld.model;
 
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.test.FourSubstationsNodeBreakerFactory;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.graphs.NodeFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
-
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -48,20 +49,20 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         String replacingNodeId = "s1vl2_replacingBreaker";
 
         // Creates new node
-        Node replacingNode = NodeFactory.createSwitchNode(graph, replacingNodeId, "replacingNode",
+        Node replacingNode = new SwitchNode(replacingNodeId, "replacingNode",
             ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
 
         // Replace the origin node with that new node
         Node originNode = graph.getNode(originNodeId);
         List<Node> originAdjacentNodes = originNode.getAdjacentNodes();
-        graph.substituteNode(originNode, replacingNode);
+        PowsyblException e = assertThrows(PowsyblException.class, () -> graph.substituteNode(originNode, replacingNode));
+        assertEquals("New node [s1vl2_replacingBreaker] is not in current voltage level graph", e.getMessage());
 
-        // Checks the replacement correctness
-        assertNull(graph.getNode(originNodeId));
-        assertNotNull(graph.getNode(replacingNodeId));
+        // Checks the replacement failed
+        assertNotNull(graph.getNode(originNodeId));
+        assertNull(graph.getNode(replacingNodeId));
         assertEquals(originNbNodes, graph.getNodes().size());
         assertEquals(originNbEdges, graph.getEdges().size());
-        assertThat(originAdjacentNodes, is(replacingNode.getAdjacentNodes()));
     }
 
     @Test

@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.cells.BusCell;
@@ -474,6 +475,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * @param newNode:    node which will substitute the first one
      */
     public void substituteNode(Node nodeOrigin, Node newNode) {
+        if (!nodesById.containsKey(newNode.getId())) {
+            throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
+        }
         while (!nodeOrigin.getAdjacentEdges().isEmpty()) {
             Edge edge = nodeOrigin.getAdjacentEdges().get(0);
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
