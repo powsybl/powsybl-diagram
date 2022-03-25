@@ -22,6 +22,8 @@ import com.powsybl.sld.model.cells.Cell;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
@@ -57,8 +59,10 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         new ImplicitCellDetector().detectCells(g);
         new BlockOrganizer().organize(g);
 
-        assertEquals(1, g.getCells().size());
-        Cell cell = g.getCells().iterator().next();
+        assertEquals(1, g.getCellStream().count());
+        Optional<Cell> oCell = g.getCellStream().findFirst();
+        assertTrue(oCell.isPresent());
+        Cell cell = oCell.get();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
         assertTrue(sb.isEmbeddingNodeType(BUS));

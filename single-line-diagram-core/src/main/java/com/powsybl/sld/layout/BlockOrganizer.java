@@ -80,19 +80,13 @@ public class BlockOrganizer {
      */
     public void organize(VoltageLevelGraph graph) {
         LOGGER.info("Organizing graph cells into blocks");
-        graph.getCells().stream()
-                .filter(cell -> cell.getType().isBusCell())
-                .map(BusCell.class::cast)
-                .forEach(cell -> {
-                    CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
-                    if (cell.getType() == INTERN) {
-                        ((InternCell) cell).organizeBlocks();
-                    }
-                });
-        graph.getCells().stream()
-                .filter(cell -> cell.getType() == SHUNT)
-                .map(ShuntCell.class::cast)
-                .forEach(CellBlockDecomposer::determineShuntCellBlocks);
+        graph.getBusCellStream().forEach(cell -> {
+            CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
+            if (cell.getType() == INTERN) {
+                ((InternCell) cell).organizeBlocks();
+            }
+        });
+        graph.getShuntCellStream().forEach(CellBlockDecomposer::determineShuntCellBlocks);
 
         if (stack) {
             determineStackableBlocks(graph);
@@ -101,11 +95,9 @@ public class BlockOrganizer {
         List<Subsection> subsections = positionFinder.buildLayout(graph, handleShunt);
         //TODO introduce a stackable Blocks check after positionFinder (case of externCell jumping over subSections)
 
-        graph.getCells().stream()
-                .filter(cell -> cell.getType() == EXTERN).map(ExternCell.class::cast)
-                .forEach(ExternCell::organizeBlockDirections);
+        graph.getExternCellStream().forEach(ExternCell::organizeBlockDirections);
 
-        graph.getCells().forEach(Cell::blockSizing);
+        graph.getCellStream().forEach(Cell::blockSizing);
 
         new BlockPositionner().determineBlockPositions(graph, subsections, busInfoMap);
     }

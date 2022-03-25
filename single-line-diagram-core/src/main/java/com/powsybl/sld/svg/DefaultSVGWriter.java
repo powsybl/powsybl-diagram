@@ -242,10 +242,9 @@ public class DefaultSVGWriter implements SVGWriter {
         Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
         drawBuses(prefixId, root, graph, metadata, initProvider, styleProvider, remainingNodesToDraw);
-        for (Cell cell : graph.getCells()) {
-            drawCell(prefixId, root, graph, cell, metadata, initProvider, styleProvider,
-                remainingEdgesToDraw, remainingNodesToDraw);
-        }
+        graph.getCellStream().forEach(cell ->
+                drawCell(prefixId, root, graph, cell, metadata, initProvider, styleProvider,
+                        remainingEdgesToDraw, remainingNodesToDraw));
 
         drawEdges(prefixId, root, graph, metadata, initProvider, styleProvider, remainingEdgesToDraw);
 

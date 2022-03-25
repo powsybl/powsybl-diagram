@@ -45,9 +45,7 @@ public interface PositionFinder {
     }
 
     default void forceSameOrientationForShuntedCell(VoltageLevelGraph graph) {
-        graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
-                .forEach(sc -> sc.alignDirections(Side.LEFT));
+        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
     }
 
     default void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {

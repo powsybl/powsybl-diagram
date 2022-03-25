@@ -10,9 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
-import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
@@ -548,8 +546,24 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return new LinkedHashSet<>(edges);
     }
 
-    public Set<Cell> getCells() {
-        return new TreeSet<>(cells);
+    public Stream<Cell> getCellStream() {
+        return cells.stream();
+    }
+
+    public Stream<BusCell> getBusCellStream() {
+        return cells.stream().filter(BusCell.class::isInstance).map(BusCell.class::cast);
+    }
+
+    public Stream<InternCell> getInternCellStream() {
+        return cells.stream().filter(InternCell.class::isInstance).map(InternCell.class::cast);
+    }
+
+    public Stream<ExternCell> getExternCellStream() {
+        return cells.stream().filter(ExternCell.class::isInstance).map(ExternCell.class::cast);
+    }
+
+    public Stream<ShuntCell> getShuntCellStream() {
+        return cells.stream().filter(ShuntCell.class::isInstance).map(ShuntCell.class::cast);
     }
 
     @Override
