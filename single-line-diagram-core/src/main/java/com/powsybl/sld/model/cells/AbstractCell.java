@@ -39,18 +39,8 @@ public abstract class AbstractCell implements Cell {
     }
 
     @Override
-    public void addNodes(List<Node> nodesToAdd) {
-        nodes.addAll(nodesToAdd);
-    }
-
-    @Override
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
-    }
-
-    @Override
-    public void removeAllNodes(List<Node> nodeToRemove) {
-        nodes.removeAll(nodeToRemove);
     }
 
     private void setNodes(Collection<Node> nodes) {

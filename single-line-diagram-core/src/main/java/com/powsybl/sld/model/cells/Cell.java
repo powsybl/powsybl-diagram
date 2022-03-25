@@ -30,11 +30,7 @@ public interface Cell {
         }
     }
 
-    void addNodes(List<Node> nodesToAdd);
-
     List<Node> getNodes();
-
-    void removeAllNodes(List<Node> nodeToRemove);
 
     void setType(CellType type);
 

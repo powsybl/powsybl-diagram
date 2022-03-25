@@ -37,29 +37,15 @@ final class CellBlockDecomposer {
     private CellBlockDecomposer() {
     }
 
-    /**
-     * Search BlockPrimary and build Block hierarchy by merging blocks together; also
-     * list blocks connected to busbar
-     */
-    static void determineBusCellBlocks(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
-        if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
-            SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
-            vlGraph.extendSwitchBetweenBus(switchNode);
-            List<Node> adj = switchNode.getAdjacentNodes();
-            busCell.addNodes(adj);
-            busCell.addNodes(adj.stream()
-                    .flatMap(node -> node.getAdjacentNodes().stream())
-                    .filter(node -> node != switchNode)
-                    .collect(Collectors.toList()));
-        }
-        determineComplexCell(vlGraph, busCell, exceptionIfPatternNotHandled);
-    }
-
     static void determineShuntCellBlocks(ShuntCell shuntCell) {
         shuntCell.setRootBlock(BodyPrimaryBlock.createBodyPrimaryBlockForShuntCell(shuntCell.getNodes()));
     }
 
-    private static void determineComplexCell(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    /**
+     * Search BlockPrimary and build Block hierarchy by merging blocks together; also
+     * list blocks connected to busbar
+     */
+    static void determineComplexCell(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
         List<Block> blocks = createPrimaryBlock(busCell);
         mergeBlocks(vlGraph, busCell, blocks, exceptionIfPatternNotHandled);
     }

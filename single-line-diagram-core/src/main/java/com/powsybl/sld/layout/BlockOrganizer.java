@@ -84,7 +84,7 @@ public class BlockOrganizer {
                 .filter(cell -> cell.getType().isBusCell())
                 .map(BusCell.class::cast)
                 .forEach(cell -> {
-                    CellBlockDecomposer.determineBusCellBlocks(graph, cell, exceptionIfPatternNotHandled);
+                    CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
                     if (cell.getType() == INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }

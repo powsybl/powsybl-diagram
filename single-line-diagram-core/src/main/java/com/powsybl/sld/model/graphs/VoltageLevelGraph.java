@@ -418,10 +418,24 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                                 }));
     }
 
-    public void conditionalExtensionOfNodeConnectedToBus(Predicate<Node> condition) {
+    public void extendNodeConnectedToBus(Predicate<Node> condition) {
+        getNodeBuses().forEach(nodeBus ->
+                nodeBus.getAdjacentNodes().stream()
+                        .filter(condition)
+                        .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
+    }
+
+    public void extendSwitchBetweenBuses() {
         getNodeBuses().forEach(nodeBus -> nodeBus.getAdjacentNodes().stream()
-                .filter(condition)
-                .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
+                .filter(SwitchNode.class::isInstance)
+                .filter(n -> n.getAdjacentNodes().stream().allMatch(BusNode.class::isInstance))
+                .forEach(n -> extendSwitchBetweenBuses((SwitchNode) n)));
+    }
+
+    public void extendSwitchBetweenBuses(SwitchNode nodeSwitch) {
+        List<Node> copyAdj = nodeSwitch.getAdjacentNodes();
+        addDoubleNode((BusNode) copyAdj.get(0), nodeSwitch, "_0");
+        addDoubleNode((BusNode) copyAdj.get(1), nodeSwitch, "_1");
     }
 
     public void extendBusConnectedToBus() {
@@ -442,12 +456,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                         addEdge(n2, fSwToBus2);
                     });
         }
-    }
-
-    public void extendSwitchBetweenBus(SwitchNode nodeSwitch) {
-        List<Node> copyAdj = new ArrayList<>(nodeSwitch.getAdjacentNodes());
-        addDoubleNode((BusNode) copyAdj.get(0), nodeSwitch, "_0");
-        addDoubleNode((BusNode) copyAdj.get(1), nodeSwitch, "_1");
     }
 
     public InternalNode insertInternalNode(Node node1, Node node2, String id) {
