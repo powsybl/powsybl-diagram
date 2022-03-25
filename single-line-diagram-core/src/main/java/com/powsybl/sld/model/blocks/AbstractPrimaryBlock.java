@@ -55,7 +55,7 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         if (firstNodeType == Node.NodeType.FEEDER || lastNodeType == Node.NodeType.FEEDER) {
             return new FeederPrimaryBlock(primaryPattern);
         }
-        return new BodyPrimaryBlock(primaryPattern);
+        return BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern);
     }
 
     @Override

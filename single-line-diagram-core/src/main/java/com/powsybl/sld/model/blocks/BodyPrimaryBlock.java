@@ -25,14 +25,14 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class BodyPrimaryBlock extends AbstractPrimaryBlock {
+public final class BodyPrimaryBlock extends AbstractPrimaryBlock {
 
-    public BodyPrimaryBlock(List<Node> nodes) {
+    private BodyPrimaryBlock(List<Node> nodes) {
         super(BODYPRIMARY, nodes);
     }
 
-    public BodyPrimaryBlock(BodyPrimaryBlock bodyPrimaryBlock) {
-        this(bodyPrimaryBlock.getNodes());
+    public static BodyPrimaryBlock createBodyPrimaryBlockInBusCell(List<Node> nodes) {
+        return new BodyPrimaryBlock(nodes);
     }
 
     public static BodyPrimaryBlock createBodyPrimaryBlockForShuntCell(List<Node> nodes) {
