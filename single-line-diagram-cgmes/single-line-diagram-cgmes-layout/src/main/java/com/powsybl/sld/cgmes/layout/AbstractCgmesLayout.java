@@ -260,7 +260,6 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-
     protected void setThreeWindingsTransformerNodeCoordinates(FeederNode node, ThreeWindingsTransformerDiagramData diagramData, String diagramName) {
         if (diagramData != null) {
             ThreeWindingsTransformerDiagramData.ThreeWindingsTransformerDiagramDataDetails diagramDetails = diagramData.getData(diagramName);
