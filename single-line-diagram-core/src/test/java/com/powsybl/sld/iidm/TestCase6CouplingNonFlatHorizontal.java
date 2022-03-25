@@ -54,7 +54,7 @@ public class TestCase6CouplingNonFlatHorizontal extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
         voltageLevelGraphLayout(g);

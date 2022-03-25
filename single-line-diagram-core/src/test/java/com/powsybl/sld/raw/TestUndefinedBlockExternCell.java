@@ -57,7 +57,7 @@ public class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestUndefinedBlockExternCell.json"), toJson(g, "/TestUndefinedBlockExternCell.json"));
     }

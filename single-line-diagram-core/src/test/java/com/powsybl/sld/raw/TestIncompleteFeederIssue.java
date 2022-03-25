@@ -54,7 +54,7 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
         vlBuilder.connectNode(fict1, b2);
         vlBuilder.connectNode(b2, d2);
         vlBuilder.connectNode(d2, fict2);
-        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestIncompleteFeederIssue.json"), toJson(g, "/TestIncompleteFeederIssue.json"));
     }

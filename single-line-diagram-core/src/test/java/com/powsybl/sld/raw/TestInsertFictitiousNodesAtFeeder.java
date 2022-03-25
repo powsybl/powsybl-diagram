@@ -50,7 +50,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, null);
         vlBuilder.connectNode(bbs, feederLineNode);
-        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(g), new BasicStyleProvider()));
@@ -64,7 +64,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         FeederLineNode feederLineNode = vlBuilder.createFeederLineNode("line", "otherVl", FeederWithSideNode.Side.ONE, 0, BOTTOM);
         vlBuilder.connectNode(bbs, busDisconnector);
         vlBuilder.connectNode(busDisconnector, feederLineNode);
-        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(g), new BasicStyleProvider()));

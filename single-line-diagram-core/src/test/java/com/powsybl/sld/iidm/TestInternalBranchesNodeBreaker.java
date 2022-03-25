@@ -31,7 +31,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testVLGraph() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(network.getVoltageLevel("VL1").getId());
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -45,7 +45,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testSubstationGraphH() {
         // build substation graph
-        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run horizontal substation layout
         substationGraphLayout(g);
@@ -56,7 +56,7 @@ public class TestInternalBranchesNodeBreaker extends AbstractTestCaseIidm {
     @Test
     public void testSubstationGraphV() {
         // build substation graph
-        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);

@@ -209,7 +209,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontal() {
 
         // build substation graph
-        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run horizontal substation layout
         substationGraphLayout(g);
@@ -242,7 +242,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 .setBusbarsAlignment(alignment);
 
         // build substation graph
-        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run horizontal substation layout
         substationGraphLayout(g);
@@ -254,7 +254,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     @Test
     public void testVertical() {
         // build substation graph
-        SubstationGraph g = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
@@ -266,7 +266,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontalDefaultStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
-        SubstationGraph substationGraph = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
         compareMetadata(substationGraph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
@@ -279,7 +279,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testHorizontalNominalStyle() {
         // compare metadata of substation diagram with reference
         // (with horizontal substation layout)
-        SubstationGraph graph = graphBuilder.buildOrphanSubstationGraph(substation.getId());
+        SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
         compareMetadata(graph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),

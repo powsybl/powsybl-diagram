@@ -89,7 +89,7 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         TopologyCalculation topologyCalculation = new TopologyCalculation();
         List<TopologicallyConnectedNodesSet> tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);

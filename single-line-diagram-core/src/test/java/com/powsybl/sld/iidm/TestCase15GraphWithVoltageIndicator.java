@@ -167,7 +167,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 .setBusInfoMargin(5);
 
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
         new ImplicitCellDetector().detectCells(g);

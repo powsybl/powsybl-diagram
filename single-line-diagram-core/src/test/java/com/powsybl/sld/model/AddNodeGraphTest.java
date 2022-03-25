@@ -39,7 +39,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
     public void testNewNode() {
 
         // graph construction
-        VoltageLevelGraph graph = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         int originNbNodes = graph.getNodes().size();
         int originNbEdges = graph.getEdges().size();
@@ -67,7 +67,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
     @Test
     public void testExistingNode() {
         // graph construction
-        VoltageLevelGraph graph = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
         int originNbNodes = graph.getNodes().size();
         int originNbEdges = graph.getEdges().size();
 
@@ -91,7 +91,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
         createSwitch(vl, replacingNodeId, "replacingNode", SwitchKind.BREAKER, false, false, false, 100, 101);
 
         // graph construction
-        VoltageLevelGraph graph = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph graph = graphBuilder.buildVoltageLevelGraph(vl.getId());
         Node replacingNode = graph.getNode(replacingNodeId);
         assertNotNull(replacingNode);
 

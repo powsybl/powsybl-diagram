@@ -15,15 +15,29 @@ import com.powsybl.sld.model.graphs.*;
  */
 public interface GraphBuilder {
 
-    VoltageLevelGraph buildVoltageLevelGraph(String id,
-                                             Graph parentGraph);
+    /**
+     * Build voltage level graph within the given parent graph.
+     */
+    VoltageLevelGraph buildVoltageLevelGraph(String id, Graph parentGraph);
 
-    VoltageLevelGraph buildOrphanVoltageLevelGraph(String id);
+    /**
+     * Build voltage level graph with no parent graph. This means the root graph is the created voltage level graph.
+     */
+    VoltageLevelGraph buildVoltageLevelGraph(String id);
 
+    /**
+     * Build substation graph within the given parent zone graph.
+     */
     SubstationGraph buildSubstationGraph(String id, ZoneGraph parentGraph);
 
-    SubstationGraph buildOrphanSubstationGraph(String id);
+    /**
+     * Build substation graph with no parent graph. This means the root graph is the created substation graph.
+     */
+    SubstationGraph buildSubstationGraph(String id);
 
+    /**
+     * Build the zone graph containing the given substations
+     */
     ZoneGraph buildZoneGraph(List<String> substationIds);
 
 }

@@ -51,7 +51,7 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildOrphanVoltageLevelGraph("vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
 

@@ -58,7 +58,7 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     @Override
-    public VoltageLevelGraph buildOrphanVoltageLevelGraph(String id) {
+    public VoltageLevelGraph buildVoltageLevelGraph(String id) {
         return buildVoltageLevelGraph(id, null);
     }
 
@@ -75,7 +75,7 @@ public class RawGraphBuilder implements GraphBuilder {
     }
 
     @Override
-    public SubstationGraph buildOrphanSubstationGraph(String id) {
+    public SubstationGraph buildSubstationGraph(String id) {
         return buildSubstationGraph(id, null);
     }
 

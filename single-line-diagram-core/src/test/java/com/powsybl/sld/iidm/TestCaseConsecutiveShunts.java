@@ -59,7 +59,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
     public void test() throws IOException {
 
         // build voltage level 1 graph
-        VoltageLevelGraph g = graphBuilder.buildOrphanVoltageLevelGraph(vl.getId());
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         voltageLevelGraphLayout(g);
 
