@@ -150,14 +150,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setOrientation(Orientation.UP);
-                if (rotate) {
-                    if (diagramDetails.getRotation() == 90) {
-                        node.setOrientation(Orientation.LEFT);
-                    } else if (diagramDetails.getRotation() == 270) {
-                        node.setOrientation(Orientation.RIGHT);
-                    }
-                }
+                setOrientation(node, rotate, diagramDetails.getRotation());
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -245,14 +238,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setOrientation(Orientation.UP);
-                if (rotate) {
-                    if (diagramDetails.getRotation() == 90) {
-                        node.setOrientation(Orientation.LEFT);
-                    } else if (diagramDetails.getRotation() == 270) {
-                        node.setOrientation(Orientation.RIGHT);
-                    }
-                }
+                setOrientation(node, rotate, diagramDetails.getRotation());
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, injection {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
@@ -261,6 +247,19 @@ public abstract class AbstractCgmesLayout implements Layout {
             LOG.warn("No CGMES-DL data for {} {} node {}, injection {}", node.getType(), node.getComponentType(), node.getId(), node.getName());
         }
     }
+
+    private void setOrientation(Node node, boolean rotate, double rotationAngle) {
+        if (rotate) {
+            if (rotationAngle == 90) {
+                node.setOrientation(Orientation.LEFT);
+            } else if (rotationAngle == 270) {
+                node.setOrientation(Orientation.RIGHT);
+            }
+        } else {
+            node.setOrientation(Orientation.UP);
+        }
+    }
+
 
     protected void setThreeWindingsTransformerNodeCoordinates(FeederNode node, ThreeWindingsTransformerDiagramData diagramData, String diagramName) {
         if (diagramData != null) {
