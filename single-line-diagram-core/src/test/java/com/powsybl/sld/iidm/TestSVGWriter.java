@@ -15,6 +15,7 @@ import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -730,7 +731,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     public void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
     }
 
     @Test
