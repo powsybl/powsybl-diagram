@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,19 +16,23 @@ public final class LayoutContext {
     private final double lastBusY;
     private final double maxInternCellHeight;
     private final Direction direction;
-    private boolean isInternCell = false;
-    private boolean isFlat = false;
-    private boolean isUnileg = false;
+    private final boolean isInternCell;
+    private final boolean isFlat;
+    private final boolean isUnileg;
 
-    private LayoutContext(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction) {
+    public LayoutContext(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction,
+                         boolean isInternCell, boolean isFlat, boolean isUnileg) {
         this.firstBusY = firstBusY;
         this.lastBusY = lastBusY;
         this.maxInternCellHeight = maxInternCellHeight;
         this.direction = direction;
+        this.isInternCell = isInternCell;
+        this.isFlat = isFlat;
+        this.isUnileg = isUnileg;
     }
 
-    public static LayoutContext create(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction) {
-        return new LayoutContext(firstBusY, lastBusY, maxInternCellHeight, direction);
+    public LayoutContext(double firstBusY, double lastBusY, double maxInternCellHeight, Direction direction) {
+        this(firstBusY, lastBusY, maxInternCellHeight, direction, false, false, false);
     }
 
     public double getFirstBusY() {
@@ -51,23 +55,11 @@ public final class LayoutContext {
         return isInternCell;
     }
 
-    public void setInternCell(boolean isInternCell) {
-        this.isInternCell = isInternCell;
-    }
-
     public boolean isFlat() {
         return isFlat;
     }
 
-    public void setFlat(boolean isFlat) {
-        this.isFlat = isFlat;
-    }
-
     public boolean isUnileg() {
         return isUnileg;
-    }
-
-    public void setUnileg(boolean isUnileg) {
-        this.isUnileg = isUnileg;
     }
 }

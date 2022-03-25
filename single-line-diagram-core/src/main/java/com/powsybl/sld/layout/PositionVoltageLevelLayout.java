@@ -96,19 +96,24 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
                 .filter(cell -> cell.getType() == Cell.CellType.EXTERN
                         || cell.getType() == Cell.CellType.INTERN)
                 .map(BusCell.class::cast)
-                .forEach(cell -> {
-                    LayoutContext layoutContext = LayoutContext.create(graph.getFirstBusY(), graph.getLastBusY(layoutParam), graph.getExternCellHeight(cell.getDirection()), cell.getDirection());
-                    if (cell.getType() == Cell.CellType.INTERN) {
-                        layoutContext.setInternCell(true);
-                        layoutContext.setFlat(((InternCell) cell).getShape() == Shape.FLAT);
-                        layoutContext.setUnileg(((InternCell) cell).getShape() == Shape.UNILEG);
-                    }
-                    cell.calculateCoord(layoutParam, layoutContext);
-                });
+                .forEach(cell -> cell.calculateCoord(layoutParam, createLayoutContext(graph, cell, layoutParam)));
         graph.getCells().stream()
                 .filter(cell -> cell.getType() == Cell.CellType.SHUNT)
                 .map(ShuntCell.class::cast)
                 .forEach(cell -> cell.calculateCoord(layoutParam, null));
+    }
+
+    private LayoutContext createLayoutContext(VoltageLevelGraph graph, BusCell cell, LayoutParameters layoutParam) {
+        double firstBusY = graph.getFirstBusY();
+        double lastBusY = graph.getLastBusY(layoutParam);
+        Double externCellHeight = graph.getExternCellHeight(cell.getDirection());
+        if (cell.getType() != Cell.CellType.INTERN) {
+            return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
+        } else {
+            boolean isFlat = ((InternCell) cell).getShape() == Shape.FLAT;
+            boolean isUnileg = ((InternCell) cell).getShape() == Shape.UNILEG;
+            return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection(), true, isFlat, isUnileg);
+        }
     }
 
     /**

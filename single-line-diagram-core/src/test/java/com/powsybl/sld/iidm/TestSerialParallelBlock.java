@@ -102,7 +102,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(layoutParameters, LayoutContext.create(0., 0., 0., null));
+        sb.coordHorizontalCase(layoutParameters, new LayoutContext(0., 0., 0., null, false, false, false));
 
         assertEquals(10, sb.getCoord().get(X), 0);
         assertEquals(20, sb.getCoord().get(Y), 0);
