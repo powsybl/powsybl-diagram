@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;

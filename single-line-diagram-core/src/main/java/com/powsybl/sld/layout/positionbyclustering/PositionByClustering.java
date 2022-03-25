@@ -7,11 +7,12 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.AbstractBusCell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +20,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.powsybl.sld.model.coordinate.Side.*;
-import static com.powsybl.sld.model.cells.Cell.CellType.*;
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static com.powsybl.sld.model.coordinate.Side.LEFT;
+import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:
