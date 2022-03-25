@@ -10,7 +10,6 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -199,36 +198,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     private Node getWindingNode(Middle2WTNode node, String subComponentName) {
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getDiagramX));
-        FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-        FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-        FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-        FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-        FeederWithSideNode nodeWinding = nodeWinding1;
-
-        if (subComponentName.equals(WINDING1)) {
-            if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getOrientation() == Orientation.LEFT) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getOrientation() == Orientation.DOWN) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getOrientation() == Orientation.RIGHT) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
-            }
-        } else if (subComponentName.equals(WINDING2)) {
-            if (!node.isRotated()) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getOrientation() == Orientation.LEFT) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getOrientation() == Orientation.DOWN) {
-                nodeWinding = nodeWinding1.getDiagramY() > nodeWinding2.getDiagramY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getOrientation() == Orientation.RIGHT) {
-                nodeWinding = nodeWinding1.getDiagramX() > nodeWinding2.getDiagramX() ? nodeWinding2 : nodeWinding1;
-            }
-        }
-
-        return nodeWinding;
+        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
+        return subComponentName.equals(WINDING1) ? adjacentNodes.get(0) : adjacentNodes.get(1);
     }
 
     private VoltageLevelInfos getWindingVoltageLevelInfos(Feeder2WTNode node, String subComponentName) {
