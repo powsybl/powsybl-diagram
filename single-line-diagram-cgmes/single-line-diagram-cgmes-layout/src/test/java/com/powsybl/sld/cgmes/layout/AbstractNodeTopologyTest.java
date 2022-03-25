@@ -8,8 +8,8 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.Node;
 import org.junit.Before;
 import org.junit.Test;
 

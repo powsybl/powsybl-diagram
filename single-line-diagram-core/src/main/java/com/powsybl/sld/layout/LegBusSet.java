@@ -6,8 +6,11 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +79,7 @@ public final class LegBusSet {
     }
 
     Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkisShape(shape))
+        return internCellSides.stream().filter(ics -> ics.getCell().checkIsShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
@@ -124,7 +127,7 @@ public final class LegBusSet {
         externCells.forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
         graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkisShape(InternCell.Shape.UNILEG))
+                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkIsShape(InternCell.Shape.UNILEG))
                 .map(InternCell.class::cast)
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));

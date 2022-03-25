@@ -6,8 +6,13 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,10 +106,9 @@ public class ImplicitCellDetector implements CellDetector {
             graph.substituteSingularFictitiousByFeederNode();
         }
         graph.insertFictitiousNodesAtFeeders();
-        graph.conditionalExtensionOfNodeConnectedToBus(node ->
-                node.getType() == Node.NodeType.SWITCH && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR
-                        || node instanceof Middle2WTNode || node instanceof Middle3WTNode
-        );
+        graph.extendNodeConnectedToBus(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR);
+        graph.extendNodeConnectedToBus(Middle3WTNode.class::isInstance);
+        graph.extendSwitchBetweenBuses();
         graph.extendFirstOutsideNode();
         graph.extendBusConnectedToBus();
     }
@@ -250,9 +254,9 @@ public class ImplicitCellDetector implements CellDetector {
                 .forEach(remainingNodes::remove);
 
         //create the shunt cells
-        List<List<Node>> shuntsNodes = createShuntCellNodes(shuntNode, newExternCell, nodes);
+        List<List<Node>> shuntsNodes = createShuntCellNodes(graph, shuntNode, newExternCell, nodes);
         shuntsNodes.stream().flatMap(Collection::stream)
-                .filter(m -> !m.getType().equals(Node.NodeType.SHUNT))
+                .filter(m -> m.getType() != Node.NodeType.SHUNT)
                 .forEach(remainingNodes::remove);
         shuntsNodes.stream()
                 .map(shuntNodes -> createShuntCell(graph, shuntNodes))
@@ -346,12 +350,12 @@ public class ImplicitCellDetector implements CellDetector {
         }
     }
 
-    private List<List<Node>> createShuntCellNodes(Node n, ExternCell cellExtern1, Set<Node> cellNodes) {
+    private List<List<Node>> createShuntCellNodes(VoltageLevelGraph graph, Node n, ExternCell cellExtern1, Set<Node> cellNodes) {
         List<List<Node>> shuntCellsNodes = new ArrayList<>();
         n.getAdjacentNodes().stream()
                 .filter(node -> !cellExtern1.getNodes().contains(node))
                 .filter(node -> node.getType() != Node.NodeType.SHUNT)
-                .filter(node -> node.getCell() == null || node.getCell().getType() != Cell.CellType.SHUNT)
+                .filter(node -> graph.getCell(node).map(c -> c.getType() != Cell.CellType.SHUNT).orElse(true))
                 .forEach(node -> {
                     List<Node> shuntCellNodes = new ArrayList<>();
                     shuntCellsNodes.add(shuntCellNodes);

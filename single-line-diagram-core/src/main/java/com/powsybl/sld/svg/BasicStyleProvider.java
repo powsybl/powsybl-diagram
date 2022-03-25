@@ -9,7 +9,10 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.net.URL;
 import java.util.*;
@@ -24,12 +27,12 @@ import static com.powsybl.sld.svg.DiagramStyles.*;
 public class BasicStyleProvider implements DiagramStyleProvider {
 
     @Override
-    public List<String> getSvgWireStyles(Edge edge, boolean highlightLineState) {
+    public List<String> getSvgWireStyles(Graph graph, Edge edge, boolean highlightLineState) {
         List<String> styles = new ArrayList<>();
         styles.add(WIRE_STYLE_CLASS);
-        getEdgeStyle(edge).ifPresent(styles::add);
+        getEdgeStyle(graph, edge).ifPresent(styles::add);
         if (highlightLineState) {
-            getHighlightLineStateStyle(edge).ifPresent(styles::add);
+            getHighlightLineStateStyle(graph, edge).ifPresent(styles::add);
         }
         return styles;
     }
@@ -39,7 +42,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
      * @param edge the edge on which the style if any is applied to
      * @return the style if any
      */
-    protected Optional<String> getEdgeStyle(Edge edge) {
+    protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         return Optional.empty();
     }
 
@@ -48,19 +51,21 @@ public class BasicStyleProvider implements DiagramStyleProvider {
      * @param edge the edge on which the style if any is applied to
      * @return the highlight style if any
      */
-    protected Optional<String> getHighlightLineStateStyle(Edge edge) {
+    protected Optional<String> getHighlightLineStateStyle(Graph graph, Edge edge) {
         return Optional.empty();
     }
 
     @Override
-    public List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
+    public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
 
         List<String> styles = new ArrayList<>();
         componentLibrary.getComponentStyleClass(node.getComponentType()).ifPresent(styles::add);
 
-        if (node instanceof FeederNode && node.getCell() != null) {
-            BusCell.Direction direction = ((BusCell) node.getCell()).getDirection();
-            styles.add(direction == BusCell.Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+        if (graph != null) {
+            Direction direction = graph.getDirection(node);
+            if (node instanceof FeederNode && direction != Direction.UNDEFINED) {
+                styles.add(direction == Direction.BOTTOM ? DiagramStyles.BOTTOM_FEEDER : DiagramStyles.TOP_FEEDER);
+            }
         }
         if (!showInternalNodes && isEquivalentToInternalNode(node)) {
             styles.add(HIDDEN_NODE_CLASS);
@@ -94,7 +99,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     }
 
     @Override
-    public List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName) {
+    public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
         return new ArrayList<>();
     }
 

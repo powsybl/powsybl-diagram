@@ -7,7 +7,13 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.blocks.*;
+import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,32 +37,17 @@ final class CellBlockDecomposer {
     private CellBlockDecomposer() {
     }
 
+    static void determineShuntCellBlocks(ShuntCell shuntCell) {
+        shuntCell.setRootBlock(BodyPrimaryBlock.createBodyPrimaryBlockForShuntCell(shuntCell.getNodes()));
+    }
+
     /**
      * Search BlockPrimary and build Block hierarchy by merging blocks together; also
      * list blocks connected to busbar
      */
-    static void determineBusCellBlocks(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
-        if (busCell.getType() == Cell.CellType.INTERN && busCell.getNodes().size() == 3) {
-            SwitchNode switchNode = (SwitchNode) busCell.getNodes().get(1);
-            vlGraph.extendSwitchBetweenBus(switchNode);
-            List<Node> adj = switchNode.getAdjacentNodes();
-            busCell.addNodes(adj);
-            busCell.addNodes(adj.stream()
-                    .flatMap(node -> node.getAdjacentNodes().stream())
-                    .filter(node -> node != switchNode)
-                    .collect(Collectors.toList()));
-        }
-        determineComplexCell(busCell, exceptionIfPatternNotHandled);
-    }
-
-    static void determineShuntCellBlocks(ShuntCell shuntCell) {
-        BodyPrimaryBlock bpy = new BodyPrimaryBlock(shuntCell.getNodes(), shuntCell);
-        shuntCell.setRootBlock(bpy);
-    }
-
-    private static void determineComplexCell(BusCell busCell, boolean exceptionIfPatternNotHandled) {
+    static void determineComplexCell(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
         List<Block> blocks = createPrimaryBlock(busCell);
-        mergeBlocks(busCell, blocks, exceptionIfPatternNotHandled);
+        mergeBlocks(vlGraph, busCell, blocks, exceptionIfPatternNotHandled);
     }
 
     private static List<Block> createPrimaryBlock(BusCell busCell) {
@@ -70,7 +61,7 @@ final class CellBlockDecomposer {
         return blocks;
     }
 
-    private static void mergeBlocks(BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
+    private static void mergeBlocks(VoltageLevelGraph vlGraph, BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
         // Search all blocks connected to a busbar inside the primary blocks list
         List<LegPrimaryBlock> primaryLegBlocks = blocks.stream()
                 .filter(b -> b instanceof LegPrimaryBlock)
@@ -79,14 +70,14 @@ final class CellBlockDecomposer {
 
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
-            boolean merged = searchParallelMerge(blocks, busCell);
-            merged |= searchSerialMerge(blocks, busCell);
+            boolean merged = searchParallelMerge(blocks);
+            merged |= searchSerialMerge(vlGraph, blocks);
             if (!merged) {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("Blocks detection impossible for cell " + busCell);
                 } else {
                     LOGGER.error("{} busCell, cannot merge any additional blocks, {} blocks remains", busCell.getType(), blocks.size());
-                    Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks), busCell);
+                    Block undefinedBlock = new UndefinedBlock(new ArrayList<>(blocks));
                     blocks.clear();
                     blocks.add(undefinedBlock);
                     break;
@@ -99,10 +90,10 @@ final class CellBlockDecomposer {
     /**
      * Search possibility to merge two blocks into a chain layout.block and do the merging
      *
+     * @param vlGraph
      * @param blocks list of blocks we can merge
-     * @param cell   current cell
      */
-    private static boolean searchSerialMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchSerialMerge(VoltageLevelGraph vlGraph, List<Block> blocks) {
         int i = 0;
         boolean identifiedMerge = false;
 
@@ -110,10 +101,10 @@ final class CellBlockDecomposer {
             List<Block> blockToRemove = new ArrayList<>();
             boolean chainIdentified = false;
             Block b1 = blocks.get(i);
-            SerialBlock serialBlock = new SerialBlock(b1, cell);
+            SerialBlock serialBlock = new SerialBlock(b1);
             for (int j = i + 1; j < blocks.size(); j++) {
                 Block b2 = blocks.get(j);
-                if (serialBlock.addSubBlock(b2)) {
+                if (serialBlock.addSubBlock(vlGraph, b2)) {
                     chainIdentified = true;
                     blockToRemove.add(b2);
                 }
@@ -134,9 +125,8 @@ final class CellBlockDecomposer {
      * Search possibility to merge some blocks into a parallel layout.block and do the merging
      *
      * @param blocks list of blocks we can merge
-     * @param cell   current cell
      */
-    private static boolean searchParallelMerge(List<Block> blocks, Cell cell) {
+    private static boolean searchParallelMerge(List<Block> blocks) {
         List<List<Block>> blocksBundlesToMerge = new ArrayList<>();
         Node commonNode;
         int i = 0;
@@ -159,9 +149,9 @@ final class CellBlockDecomposer {
         for (List<Block> blocksBundle : blocksBundlesToMerge) {
             Block parallelBlock;
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
-                parallelBlock = new BodyParallelBlock(blocksBundle, cell, true);
+                parallelBlock = new BodyParallelBlock(blocksBundle, true);
             } else {
-                parallelBlock = new LegParralelBlock(blocksBundle, cell, true);
+                parallelBlock = new LegParralelBlock(blocksBundle, true);
             }
             blocks.add(parallelBlock);
         }
@@ -209,8 +199,7 @@ final class CellBlockDecomposer {
     private static void rElaboratePrimaryBlocks(BusCell busCell, Node firstNode,
                                                 Set<Node> alreadyTreated, List<Block> blocks) {
 
-        firstNode.getListNodeAdjInCell(busCell).forEach(node2 -> {
-
+        firstNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(node2 -> {
             if (!alreadyTreated.contains(node2)) {
 
                 List<Node> primaryPattern = new ArrayList<>();
@@ -232,7 +221,7 @@ final class CellBlockDecomposer {
                 }
 
                 // Create a PrimaryBlock from that pattern
-                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern, busCell);
+                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern);
                 blocks.add(primaryBlock);
 
                 // Update already treated nodes

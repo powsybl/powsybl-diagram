@@ -11,7 +11,7 @@ import com.powsybl.sld.builders.GraphBuilder;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,7 +58,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // Generating json for voltage level in first network
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         voltageLevelGraphLayout(graph1);
 
@@ -66,7 +66,7 @@ public class TestUnicityNodeIdWithMutipleNetwork extends AbstractTestCaseIidm {
         assertEquals(refJson1, toJson(graph1, "/TestUnicityNodeIdNetWork1.json"));
 
         // Generating json for voltage level in second network
-        VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId(), true);
+        VoltageLevelGraph graph2 = graphBuilder2.buildVoltageLevelGraph(vl2.getId());
 
         voltageLevelGraphLayout(graph2);
 

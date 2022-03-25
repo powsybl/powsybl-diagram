@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.util.Objects;
 

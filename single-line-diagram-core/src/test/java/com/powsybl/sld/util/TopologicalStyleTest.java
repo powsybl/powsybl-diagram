@@ -10,10 +10,9 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 import org.junit.Before;
@@ -89,52 +88,52 @@ public class TopologicalStyleTest extends AbstractTestCaseIidm {
     @Test
     public void test() throws IOException {
         // building graphs
-        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId(), true);
-        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId(), true);
-        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId(), true);
+        VoltageLevelGraph graph1 = graphBuilder.buildVoltageLevelGraph(vl1.getId());
+        VoltageLevelGraph graph2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
+        VoltageLevelGraph graph3 = graphBuilder.buildVoltageLevelGraph(vl3.getId());
 
         TopologicalStyleProvider styleProvider = new TopologicalStyleProvider(network);
 
         Node node1 = graph1.getNode("bbs1");
-        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(node1, componentLibrary, true);
+        List<String> nodeStyle1 = styleProvider.getSvgNodeStyles(graph1, node1, componentLibrary, true);
         assertEquals(2, nodeStyle1.size());
         assertTrue(nodeStyle1.contains("sld-busbar-section"));
         assertTrue(nodeStyle1.contains("sld-vl300to500-0"));
 
         Node node2 = graph2.getNode("bbs2");
-        List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(node2, componentLibrary, true);
+        List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(graph2, node2, componentLibrary, true);
         assertEquals(2, nodeStyle2.size());
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
         assertTrue(nodeStyle2.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));
 
         Node node3 = graph3.getNode("bbs3");
-        List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, true);
+        List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, true);
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-vl50to70-0"));
 
         Edge edge = graph1.getEdges().get(12);
 
-        List<String> wireStyles = styleProvider.getSvgWireStyles(edge, false);
+        List<String> wireStyles = styleProvider.getSvgWireStyles(graph1, edge, false);
         assertEquals(2, wireStyles.size());
         assertTrue(wireStyles.contains(DiagramStyles.WIRE_STYLE_CLASS));
         assertTrue(wireStyles.contains("sld-vl300to500-0"));
 
         Node fict3WTNode = graph1.getNode("3WT");
-        List<String> node3WTStyle = styleProvider.getSvgNodeStyles(fict3WTNode, componentLibrary, true);
+        List<String> node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, true);
         assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
         assertTrue(node3WTStyle.contains("sld-fictitious"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        List<String> node2WTStyle = styleProvider.getSvgNodeStyles(f2WTNode, componentLibrary, true);
+        List<String> node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, true);
         assertEquals(1, node2WTStyle.size());
         assertTrue(node2WTStyle.contains("sld-two-wt"));
 
         network.getSwitch("b3WT_3").setOpen(true);
         styleProvider.reset();
 
-        nodeStyle3 = styleProvider.getSvgNodeStyles(node3, componentLibrary, true);
+        nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, true);
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains(DiagramStyles.DISCONNECTED_STYLE_CLASS));

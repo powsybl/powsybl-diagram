@@ -7,8 +7,11 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import java.util.*;
 
@@ -50,12 +53,12 @@ public abstract class AbstractLayout implements Layout {
     protected abstract List<Point> calculatePolylineSnakeLine(LayoutParameters layoutParam, Node node1, Node node2,
                                                               boolean increment);
 
-    protected static BusCell.Direction getNodeDirection(Node node, int nb) {
+    protected Direction getNodeDirection(Node node, int nb) {
         if (node.getType() != Node.NodeType.FEEDER) {
             throw new PowsyblException("Node " + nb + " is not a feeder node");
         }
-        BusCell.Direction dNode = node.getCell() != null ? ((ExternCell) node.getCell()).getDirection() : BusCell.Direction.TOP;
-        if (dNode != BusCell.Direction.TOP && dNode != BusCell.Direction.BOTTOM) {
+        Direction dNode = getGraph().getCell(node).map(c -> ((ExternCell) c).getDirection()).orElse(Direction.TOP);
+        if (dNode != Direction.TOP && dNode != Direction.BOTTOM) {
             throw new PowsyblException("Node " + nb + " cell direction not TOP or BOTTOM");
         }
         return dNode;
@@ -65,30 +68,31 @@ public abstract class AbstractLayout implements Layout {
      * Calculate polyline points of a snakeLine
      * This is a default implementation of 'calculatePolylineSnakeLine' for a horizontal layout
      */
-    protected static List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
-                                                                               boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
-                                                                               double yMin, double yMax) {
+    protected List<Point> calculatePolylineSnakeLineForHorizontalLayout(LayoutParameters layoutParam, Node node1, Node node2,
+                                                                        boolean increment, InfosNbSnakeLinesHorizontal infosNbSnakeLines,
+                                                                        double yMin, double yMax) {
         List<Point> pol = new ArrayList<>();
-        pol.add(node1.getDiagramCoordinates());
+        pol.add(getGraph().getShiftedPoint(node1));
         addMiddlePoints(layoutParam, node1, node2, infosNbSnakeLines, increment, pol, yMin, yMax);
-        pol.add(node2.getDiagramCoordinates());
+        pol.add(getGraph().getShiftedPoint(node2));
         return pol;
     }
 
-    private static void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
+    private void addMiddlePoints(LayoutParameters layoutParam, Node node1, Node node2,
                                         InfosNbSnakeLinesHorizontal infosNbSnakeLines, boolean increment,
-                                        List<Point> pol,
-                                        double yMin,
-                                        double yMax) {
-        BusCell.Direction dNode1 = getNodeDirection(node1, 1);
-        BusCell.Direction dNode2 = getNodeDirection(node2, 2);
+                                        List<Point> pol, double yMin, double yMax) {
+        Direction dNode1 = getNodeDirection(node1, 1);
+        Direction dNode2 = getNodeDirection(node2, 2);
 
-        Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
+        VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
+        VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
 
-        double x1 = node1.getDiagramX();
-        double x2 = node2.getDiagramX();
-        double y1 = dNode1 == BusCell.Direction.BOTTOM ? yMax : yMin;
-        double y2 = dNode2 == BusCell.Direction.BOTTOM ? yMax : yMin;
+        Map<Direction, Integer> nbSnakeLinesTopBottom = infosNbSnakeLines.getNbSnakeLinesTopBottom();
+
+        double x1 = node1.getX() + vlGraph1.getX();
+        double x2 = node2.getX() + vlGraph2.getX();
+        double y1 = dNode1 == Direction.BOTTOM ? yMax : yMin;
+        double y2 = dNode2 == Direction.BOTTOM ? yMax : yMin;
 
         if (dNode1 == dNode2) {
             if (increment) {
@@ -104,7 +108,7 @@ public abstract class AbstractLayout implements Layout {
                 nbSnakeLinesTopBottom.compute(dNode2, (k, v) -> v + 1);
             }
 
-            VoltageLevelGraph rightestVoltageLevel = node1.getVoltageLevelGraph().getX() > node2.getVoltageLevelGraph().getX() ? node1.getVoltageLevelGraph() : node2.getVoltageLevelGraph();
+            VoltageLevelGraph rightestVoltageLevel = vlGraph1.getX() > vlGraph2.getX() ? vlGraph1 : vlGraph2;
             double xMaxGraph = rightestVoltageLevel.getX();
             String idMaxGraph = rightestVoltageLevel.getId();
 
@@ -121,8 +125,8 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private static double getVerticalShift(LayoutParameters layoutParam, BusCell.Direction dNode1, Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom) {
-        if (dNode1 == BusCell.Direction.BOTTOM) {
+    private static double getVerticalShift(LayoutParameters layoutParam, Direction dNode1, Map<Direction, Integer> nbSnakeLinesTopBottom) {
+        if (dNode1 == Direction.BOTTOM) {
             return Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() + layoutParam.getVoltageLevelPadding().getBottom();
         } else {
             return -Math.max(nbSnakeLinesTopBottom.get(dNode1) - 1, 0) * layoutParam.getVerticalSnakeLinePadding() - layoutParam.getVoltageLevelPadding().getTop();
@@ -171,7 +175,7 @@ public abstract class AbstractLayout implements Layout {
         return Math.max(infosNbSnakeLines.getNbSnakeLinesVerticalBetween().get(vlGraphId) - 1, 0) * layoutParameters.getHorizontalSnakeLinePadding();
     }
 
-    protected static double getHeightSnakeLines(LayoutParameters layoutParameters, BusCell.Direction top, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
+    protected static double getHeightSnakeLines(LayoutParameters layoutParameters, Direction top, InfosNbSnakeLinesHorizontal infosNbSnakeLines) {
         return Math.max(infosNbSnakeLines.getNbSnakeLinesTopBottom().get(top) - 1, 0) * layoutParameters.getVerticalSnakeLinePadding();
     }
 }

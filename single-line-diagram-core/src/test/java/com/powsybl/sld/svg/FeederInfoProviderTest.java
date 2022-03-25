@@ -14,8 +14,9 @@ import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.FeederNode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,7 +101,7 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         layoutParameters.setFeederInfoSymmetry(true);
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         new SmartVoltageLevelLayoutFactory(network).create(g).run(layoutParameters); // to have cell orientations (bottom / up)
         assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg"));
 

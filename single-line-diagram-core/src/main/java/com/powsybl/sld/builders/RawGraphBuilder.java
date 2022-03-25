@@ -6,9 +6,12 @@
  */
 package com.powsybl.sld.builders;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.graphs.*;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
@@ -19,22 +22,21 @@ public class RawGraphBuilder implements GraphBuilder {
     private final Map<String, VoltageLevelRawBuilder> vlBuilders = new TreeMap<>();
     private final Map<String, SubstationRawBuilder> ssBuilders = new TreeMap<>();
 
-    public VoltageLevelRawBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, boolean forVoltageLevelDiagram) {
-        VoltageLevelRawBuilder vlBuilder = new VoltageLevelRawBuilder(voltageLevelInfos, forVoltageLevelDiagram, this::getVoltageLevelInfosFromId);
+    public VoltageLevelRawBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos, SubstationRawBuilder parentBuilder) {
+        VoltageLevelRawBuilder vlBuilder = new VoltageLevelRawBuilder(voltageLevelInfos, parentBuilder, this::getVoltageLevelInfosFromId);
+        if (parentBuilder != null) {
+            parentBuilder.addVlBuilder(vlBuilder);
+        }
         vlBuilders.put(voltageLevelInfos.getId(), vlBuilder);
         return vlBuilder;
     }
 
-    public VoltageLevelRawBuilder createVoltageLevelBuilder(String vlId, double vlNominalV, boolean forVoltageLevelDiagram) {
-        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), forVoltageLevelDiagram);
-    }
-
-    public VoltageLevelRawBuilder createVoltageLevelBuilder(VoltageLevelInfos voltageLevelInfos) {
-        return createVoltageLevelBuilder(voltageLevelInfos, true);
+    public VoltageLevelRawBuilder createVoltageLevelBuilder(String vlId, double vlNominalV, SubstationRawBuilder parentBuilder) {
+        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), parentBuilder);
     }
 
     public VoltageLevelRawBuilder createVoltageLevelBuilder(String vlId, double vlNominalV) {
-        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV));
+        return createVoltageLevelBuilder(new VoltageLevelInfos(vlId, vlId, vlNominalV), null);
     }
 
     public VoltageLevelInfos getVoltageLevelInfosFromId(String id) {
@@ -50,19 +52,31 @@ public class RawGraphBuilder implements GraphBuilder {
         return ssb;
     }
 
-    public VoltageLevelGraph buildVoltageLevelGraph(String id,
-                                                    boolean forVoltageLevelDiagram) {
+    @Override
+    public VoltageLevelGraph buildVoltageLevelGraph(String id, Graph parentGraph) {
         return vlBuilders.get(id).getGraph();
     }
 
-    public SubstationGraph buildSubstationGraph(String id) {
+    @Override
+    public VoltageLevelGraph buildVoltageLevelGraph(String id) {
+        return buildVoltageLevelGraph(id, null);
+    }
+
+    // TODO: implement use of zoneGraph
+    @Override
+    public SubstationGraph buildSubstationGraph(String id, ZoneGraph zoneGraph) {
         SubstationRawBuilder sGraphBuilder = ssBuilders.get(id);
         SubstationGraph ssGraph = sGraphBuilder.getGraph();
         sGraphBuilder.voltageLevelBuilders.stream()
-            .map(VoltageLevelRawBuilder::getGraph)
-            .sorted(Comparator.comparingDouble(vlGraph -> -vlGraph.getVoltageLevelInfos().getNominalVoltage()))
-            .forEach(ssGraph::addVoltageLevel);
+                .map(VoltageLevelRawBuilder::getGraph)
+                .sorted(Comparator.comparingDouble(vlGraph -> -vlGraph.getVoltageLevelInfos().getNominalVoltage()))
+                .forEach(ssGraph::addVoltageLevel);
         return ssGraph;
+    }
+
+    @Override
+    public SubstationGraph buildSubstationGraph(String id) {
+        return buildSubstationGraph(id, null);
     }
 
     //TODO: buildZoneGraph

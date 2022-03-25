@@ -6,8 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -63,14 +65,14 @@ public class Subsection {
 
     List<InternCell> getInternCells(InternCell.Shape shape, Side side) {
         return internCellSides.stream()
-                .filter(ics -> ics.getCell().checkisShape(shape) && ics.getSide() == side)
+                .filter(ics -> ics.getCell().checkIsShape(shape) && ics.getSide() == side)
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
     List<InternCell> getVerticalInternCells() {
         return internCellSides.stream()
-                .filter(ics -> ics.getCell().checkisShape(InternCell.Shape.VERTICAL)
-                        || ics.getCell().checkisShape(InternCell.Shape.UNILEG))
+                .filter(ics -> ics.getCell().checkIsShape(InternCell.Shape.VERTICAL)
+                        || ics.getCell().checkIsShape(InternCell.Shape.UNILEG))
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
@@ -84,12 +86,8 @@ public class Subsection {
 
     static List<Subsection> createSubsections(VoltageLevelGraph graph, LBSCluster lbsCluster, boolean handleShunts) {
         List<Subsection> subsections = new ArrayList<>();
-        Optional<VoltageLevelGraph> oVLGraph = lbsCluster.getLbsList().get(0).getBusNodeSet().stream().filter(Objects::nonNull).findAny().map(BusNode::getVoltageLevelGraph);
-        if (!oVLGraph.isPresent()) {
-            return subsections;
-        }
 
-        int vSize = oVLGraph.get().getMaxVerticalBusPosition();
+        int vSize = graph.getMaxVerticalBusPosition();
         Subsection currentSubsection = new Subsection(vSize);
         subsections.add(currentSubsection);
         int i = 0;
@@ -103,13 +101,13 @@ public class Subsection {
             i++;
         }
 
-        internCellCoherence(oVLGraph.get(), lbsCluster.getLbsList(), subsections);
+        internCellCoherence(graph, lbsCluster.getLbsList(), subsections);
 
         graph.getCells().stream()
                 .filter(c -> c.getType() == Cell.CellType.SHUNT)
                 .map(ShuntCell.class::cast).forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
-            shuntCellCoherence(oVLGraph.get(), subsections);
+            shuntCellCoherence(graph, subsections);
         }
 
         return subsections;
@@ -180,7 +178,7 @@ public class Subsection {
         }
         cellToSideSs.forEach((cell, sideSses) -> {
             if (sideSses.size() == 2) {
-                if (!cell.checkisShape(InternCell.Shape.FLAT)) {
+                if (!cell.checkIsShape(InternCell.Shape.FLAT)) {
                     cell.setShape(InternCell.Shape.CROSSOVER);
                 }
                 if (sideSses.get(0).side == RIGHT) {
@@ -198,7 +196,7 @@ public class Subsection {
         new ArrayList<>(subsections).forEach(ss -> {
             List<InternCellSide> cellToRemove = new ArrayList<>();
             ss.internCellSides.stream()
-                    .filter(ics -> ics.getCell().checkisShape(InternCell.Shape.FLAT, InternCell.Shape.CROSSOVER))
+                    .filter(ics -> ics.getCell().checkIsShape(InternCell.Shape.FLAT, InternCell.Shape.CROSSOVER))
                     .forEach(ics -> {
                         List<BusNode> nodes = ics.getCell().getSideBusNodes(ics.getSide());
                         List<Subsection> candidateSss = subsections.stream().filter(ss2 -> ss2.containsAllBusNodes(nodes)).collect(Collectors.toList());

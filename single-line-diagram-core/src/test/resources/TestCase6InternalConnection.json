@@ -489,6 +489,24 @@
     "node1" : "d2",
     "node2" : "bbs2.2"
   }, {
+    "node1" : "bbs2.1",
+    "node2" : "BUSCO_ds2_0"
+  }, {
+    "node1" : "BUSCO_ds2_0",
+    "node2" : "INTERNAL_vl_ds2_0"
+  }, {
+    "node1" : "INTERNAL_vl_ds2_0",
+    "node2" : "ds2"
+  }, {
+    "node1" : "bbs2.2",
+    "node2" : "BUSCO_ds2_1"
+  }, {
+    "node1" : "BUSCO_ds2_1",
+    "node2" : "INTERNAL_vl_ds2_1"
+  }, {
+    "node1" : "INTERNAL_vl_ds2_1",
+    "node2" : "ds2"
+  }, {
     "node1" : "b",
     "node2" : "INTERNAL_vl_d1"
   }, {
@@ -515,24 +533,6 @@
   }, {
     "node1" : "bbs1.2",
     "node2" : "BUSCO_bbs1.1-bbs1.2_2"
-  }, {
-    "node1" : "bbs2.1",
-    "node2" : "BUSCO_ds2_0"
-  }, {
-    "node1" : "BUSCO_ds2_0",
-    "node2" : "INTERNAL_vl_ds2_0"
-  }, {
-    "node1" : "INTERNAL_vl_ds2_0",
-    "node2" : "ds2"
-  }, {
-    "node1" : "bbs2.2",
-    "node2" : "BUSCO_ds2_1"
-  }, {
-    "node1" : "BUSCO_ds2_1",
-    "node2" : "INTERNAL_vl_ds2_1"
-  }, {
-    "node1" : "INTERNAL_vl_ds2_1",
-    "node2" : "ds2"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

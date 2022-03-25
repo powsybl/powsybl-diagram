@@ -9,8 +9,10 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.Node.NodeType;
+import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

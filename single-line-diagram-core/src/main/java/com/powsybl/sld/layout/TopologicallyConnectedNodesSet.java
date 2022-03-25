@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.Set;
 

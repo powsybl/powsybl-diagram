@@ -9,10 +9,11 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.MiddleTwtNode;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.MiddleTwtNode;
+import com.powsybl.sld.model.graphs.SubstationGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

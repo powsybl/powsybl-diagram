@@ -7,10 +7,12 @@
 package com.powsybl.sld.layout.positionfromextension;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.*;
-import com.powsybl.sld.model.BusCell.Direction;
-import com.powsybl.sld.model.Cell.CellType;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +21,14 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
+
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public class PositionFromExtension implements PositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
-    private static final BusCell.Direction DEFAULTDIRECTION = BusCell.Direction.TOP;
+    private static final Direction DEFAULTDIRECTION = Direction.TOP;
     private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
 
     /**
@@ -76,13 +80,13 @@ public class PositionFromExtension implements PositionFinder {
                     .mapToInt(Optional::get)
                     .average()
                     .ifPresent(a -> bc.setOrder((int) Math.floor(a)));
-            if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == CellType.EXTERN) {
+            if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == EXTERN) {
                 bc.setDirection(DEFAULTDIRECTION);
             }
         });
 
         List<ExternCell> problematicCells = graph.getCells().stream()
-                .filter(cell -> cell.getType().equals(Cell.CellType.EXTERN))
+                .filter(cell -> cell.getType().equals(EXTERN))
                 .map(ExternCell.class::cast)
                 .filter(cell -> cell.getOrder().isEmpty()).collect(Collectors.toList());
         if (!problematicCells.isEmpty()) {

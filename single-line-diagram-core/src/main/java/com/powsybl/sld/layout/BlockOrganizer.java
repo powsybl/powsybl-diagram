@@ -6,17 +6,23 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.model.blocks.LegPrimaryBlock;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-import static com.powsybl.sld.model.Block.Extremity.*;
-import static com.powsybl.sld.model.Cell.CellType.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
+import static com.powsybl.sld.model.cells.Cell.CellType.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -78,7 +84,7 @@ public class BlockOrganizer {
                 .filter(cell -> cell.getType().isBusCell())
                 .map(BusCell.class::cast)
                 .forEach(cell -> {
-                    CellBlockDecomposer.determineBusCellBlocks(graph, cell, exceptionIfPatternNotHandled);
+                    CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
                     if (cell.getType() == INTERN) {
                         ((InternCell) cell).organizeBlocks();
                     }

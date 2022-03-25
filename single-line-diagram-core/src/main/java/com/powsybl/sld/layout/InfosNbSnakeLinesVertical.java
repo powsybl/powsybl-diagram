@@ -6,9 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Side;
 
 import java.util.*;
@@ -45,20 +44,20 @@ public class InfosNbSnakeLinesVertical {
         return nbSnakeLinesLeftRight;
     }
 
-    private int getSnakeLinesIndex(BusCell.Direction direction, String vlId) {
+    private int getSnakeLinesIndex(Direction direction, String vlId) {
         int vlIndex = vlYSorted.indexOf(vlId);
-        return direction == BusCell.Direction.BOTTOM ? vlIndex + 1 : vlIndex;
+        return direction == Direction.BOTTOM ? vlIndex + 1 : vlIndex;
     }
 
-    public int getNbSnakeLinesHorizontalBetween(String vlId, BusCell.Direction direction) {
+    public int getNbSnakeLinesHorizontalBetween(String vlId, Direction direction) {
         return nbSnakeLinesHorizontalBetween[getSnakeLinesIndex(direction, vlId)];
     }
 
-    public void setNbSnakeLinesTopBottom(String vlId, BusCell.Direction direction, int nbSnakeLines) {
+    public void setNbSnakeLinesTopBottom(String vlId, Direction direction, int nbSnakeLines) {
         nbSnakeLinesHorizontalBetween[getSnakeLinesIndex(direction, vlId)] = nbSnakeLines;
     }
 
-    public int incrementAndGetNbSnakeLinesTopBottom(String vlId, BusCell.Direction direction) {
+    public int incrementAndGetNbSnakeLinesTopBottom(String vlId, Direction direction) {
         return ++nbSnakeLinesHorizontalBetween[getSnakeLinesIndex(direction, vlId)];
     }
 

@@ -7,8 +7,8 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.model.VoltageLevelGraph;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.util.HashMap;
 import java.util.Map;

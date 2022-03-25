@@ -8,7 +8,7 @@ package com.powsybl.sld.iidm;
 
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.ZoneGraphTest;
 import org.junit.Before;
 import org.junit.Test;
