@@ -19,21 +19,21 @@ public class InternalNode extends FictitiousNode {
 
     private static final String ID_PREFIX = "INTERNAL_";
 
-    private InternalNode(String id, String equipmentId, String vlInfoId) {
-        super(prefixId(id, vlInfoId), null, equipmentId, NODE);
+    private InternalNode(String id, String equipmentId, String voltageLevelId) {
+        super(prefixId(id, voltageLevelId), null, equipmentId, NODE);
     }
 
-    public InternalNode(String id, String vlInfoId) {
-        this(id, null, vlInfoId);
+    public InternalNode(String id, String voltageLevelId) {
+        this(id, null, voltageLevelId);
     }
 
-    public InternalNode(int id, String vlInfoId) {
-        this(String.valueOf(id), String.valueOf(id), vlInfoId);
+    public InternalNode(int id, String voltageLevelId) {
+        this(String.valueOf(id), String.valueOf(id), voltageLevelId);
     }
 
-    private static String prefixId(String id, String vlInfos) {
+    private static String prefixId(String id, String voltageLevelId) {
         // for uniqueness purpose (in substation diagram), we prefix the id of the internal nodes with the voltageLevel id and "_"
-        return ID_PREFIX + vlInfos + "_" + Objects.requireNonNull(id);
+        return ID_PREFIX + voltageLevelId + "_" + Objects.requireNonNull(id);
     }
 
     public static boolean isIidmInternalNode(Node node) {
