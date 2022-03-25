@@ -10,6 +10,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -47,6 +48,11 @@ public final class ShuntCell extends AbstractCell {
         } else {
             throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
         }
+    }
+
+    @Override
+    public Direction getDirection() {
+        return Direction.UNDEFINED;
     }
 
     public void putSideCell(Side side, ExternCell externCell) {

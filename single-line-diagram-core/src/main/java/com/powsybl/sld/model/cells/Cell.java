@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
@@ -52,4 +53,5 @@ public interface Cell {
 
     String getFullId();
 
+    Direction getDirection();
 }

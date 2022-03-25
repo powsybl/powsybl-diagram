@@ -104,6 +104,11 @@ public class GraphMetadata {
             return direction;
         }
 
+        @JsonProperty("direction")
+        public Direction getNullableDirection() {
+            return direction == Direction.UNDEFINED ? null : direction;
+        }
+
         public boolean isVLabel() {
             return vLabel;
         }

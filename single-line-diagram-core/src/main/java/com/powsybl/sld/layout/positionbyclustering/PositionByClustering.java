@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.cells.AbstractBusCell;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -158,7 +158,7 @@ public class PositionByClustering implements PositionFinder {
             // starting from each shunt, find the shunt-connected set of extern cells to set the same direction for all of them
             List<ExternCell> externCells = new ArrayList<>();
             shuntTraversal(shuntCell, visitedShuntCells, externCells);
-            externCells.stream().map(AbstractBusCell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
+            externCells.stream().map(Cell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
                     .ifPresent(d -> externCells.forEach(externCell -> externCell.setDirection(d)));
         });
     }
