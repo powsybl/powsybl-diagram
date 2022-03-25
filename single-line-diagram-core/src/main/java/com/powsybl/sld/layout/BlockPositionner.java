@@ -7,7 +7,6 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.cells.BusCell;
-import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -155,9 +154,7 @@ class BlockPositionner {
     }
 
     private void manageInternCellOverlaps(VoltageLevelGraph graph) {
-        List<InternCell> cellsToHandle = graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN)
-                .map(InternCell.class::cast)
+        List<InternCell> cellsToHandle = graph.getInternCellStream()
                 .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .collect(Collectors.toList());
         InternCellsLanes lane = new InternCellsLanes(cellsToHandle);

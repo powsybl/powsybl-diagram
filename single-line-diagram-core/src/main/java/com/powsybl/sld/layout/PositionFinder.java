@@ -6,7 +6,6 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -45,9 +44,7 @@ public interface PositionFinder {
     }
 
     default void forceSameOrientationForShuntedCell(VoltageLevelGraph graph) {
-        graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast)
-                .forEach(sc -> sc.alignDirections(Side.LEFT));
+        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
     }
 
     default void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {

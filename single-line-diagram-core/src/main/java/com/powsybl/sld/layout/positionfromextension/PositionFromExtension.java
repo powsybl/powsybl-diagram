@@ -74,7 +74,7 @@ public class PositionFromExtension implements PositionFinder {
             cell.setDirection(node.getDirection());
             node.getOrder().ifPresent(cell::setOrder);
         });
-        graph.getCells().stream().filter(cell -> cell.getType().isBusCell()).map(BusCell.class::cast).forEach(bc -> {
+        graph.getBusCellStream().forEach(bc -> {
             bc.getNodes().stream().map(Node::getOrder)
                     .filter(Optional::isPresent)
                     .mapToInt(Optional::get)
@@ -85,9 +85,7 @@ public class PositionFromExtension implements PositionFinder {
             }
         });
 
-        List<ExternCell> problematicCells = graph.getCells().stream()
-                .filter(cell -> cell.getType().equals(EXTERN))
-                .map(ExternCell.class::cast)
+        List<ExternCell> problematicCells = graph.getExternCellStream()
                 .filter(cell -> cell.getOrder().isEmpty()).collect(Collectors.toList());
         if (!problematicCells.isEmpty()) {
             LOGGER.warn("Unable to build the layout only with Extension\nproblematic cells :");

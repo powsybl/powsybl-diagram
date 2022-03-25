@@ -57,6 +57,6 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
         new ImplicitCellDetector().detectCells(g);
 
         // assert cells
-        assertEquals(1, g.getCells().size());
+        assertEquals(1, g.getCellStream().count());
     }
 }

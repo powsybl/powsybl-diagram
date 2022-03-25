@@ -79,7 +79,7 @@ public class ImplicitCellDetector implements CellDetector {
             createExternAndShuntCells(graph, nodes);
         }
 
-        graph.getCells().forEach(Cell::getFullId);
+        graph.getCellStream().forEach(Cell::getFullId);
 
         graph.logCellDetectionStatus();
     }

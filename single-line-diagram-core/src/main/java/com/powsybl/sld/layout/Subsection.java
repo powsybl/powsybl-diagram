@@ -103,9 +103,7 @@ public class Subsection {
 
         internCellCoherence(graph, lbsCluster.getLbsList(), subsections);
 
-        graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT)
-                .map(ShuntCell.class::cast).forEach(ShuntCell::alignExternCells);
+        graph.getShuntCellStream().forEach(ShuntCell::alignExternCells);
         if (handleShunts) {
             shuntCellCoherence(graph, subsections);
         }
@@ -129,10 +127,8 @@ public class Subsection {
     private static void identifyVerticalInternCells(VoltageLevelGraph graph, List<Subsection> subsections) {
         Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
-        graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.INTERN
-                        && ((InternCell) c).checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
-                .map(InternCell.class::cast)
+        graph.getInternCellStream()
+                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
                 .forEach(c ->
                         subsections.stream()
                                 .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))
@@ -214,9 +210,7 @@ public class Subsection {
     }
 
     private static void shuntCellCoherence(VoltageLevelGraph vlGraph, List<Subsection> subsections) {
-        Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT)
-                .map(ShuntCell.class::cast)
+        Map<ShuntCell, List<BusNode>> shuntCells2Buses = vlGraph.getShuntCellStream()
                 .collect(Collectors.toMap(Function.identity(), ShuntCell::getParentBusNodes, (u, v) -> {
                     throw new IllegalStateException(String.format("Duplicate key %s", u));
                 }, LinkedHashMap::new));
