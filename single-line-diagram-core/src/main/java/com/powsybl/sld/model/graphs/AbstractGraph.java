@@ -9,7 +9,6 @@ package com.powsybl.sld.model.graphs;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
@@ -22,12 +21,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -115,7 +109,7 @@ public abstract class AbstractGraph implements Graph {
 
     @Override
     public Direction getDirection(Node node) {
-        return getCell(node).filter(BusCell.class::isInstance).map(c -> ((BusCell) c).getDirection()).orElse(Direction.UNDEFINED);
+        return getCell(node).map(Cell::getDirection).orElse(Direction.UNDEFINED);
     }
 
     @Override

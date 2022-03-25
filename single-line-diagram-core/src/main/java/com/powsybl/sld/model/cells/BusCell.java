@@ -33,8 +33,6 @@ public interface BusCell extends Cell {
 
     void removeOrder();
 
-    Direction getDirection();
-
     void setDirection(Direction direction);
 
 }

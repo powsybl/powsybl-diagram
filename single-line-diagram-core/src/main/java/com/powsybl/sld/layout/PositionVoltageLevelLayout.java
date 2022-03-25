@@ -122,12 +122,12 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             // Initialize map with intern cells height
             // in order to keep intern cells visible if there are no extern cells
             getGraph().getInternCellStream().forEach(cell ->
-                    maxInternCellHeight.merge(((BusCell) cell).getDirection(), cell.calculateHeight(layoutParam), Math::max));
+                    maxInternCellHeight.merge(cell.getDirection(), cell.calculateHeight(layoutParam), Math::max));
 
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
             getGraph().getExternCellStream().forEach(cell ->
-                    maxCellHeight.merge(((BusCell) cell).getDirection(), cell.calculateHeight(layoutParam), Math::max));
+                    maxCellHeight.merge(cell.getDirection(), cell.calculateHeight(layoutParam), Math::max));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
             EnumSet.allOf(Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {

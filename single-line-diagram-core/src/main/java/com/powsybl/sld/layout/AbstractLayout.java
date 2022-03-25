@@ -57,7 +57,7 @@ public abstract class AbstractLayout implements Layout {
         if (node.getType() != Node.NodeType.FEEDER) {
             throw new PowsyblException("Node " + nb + " is not a feeder node");
         }
-        Direction dNode = getGraph().getCell(node).map(c -> ((ExternCell) c).getDirection()).orElse(Direction.TOP);
+        Direction dNode = getGraph().getCell(node).map(Cell::getDirection).orElse(Direction.TOP);
         if (dNode != Direction.TOP && dNode != Direction.BOTTOM) {
             throw new PowsyblException("Node " + nb + " cell direction not TOP or BOTTOM");
         }
