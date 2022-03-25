@@ -107,7 +107,7 @@ public class ImplicitCellDetector implements CellDetector {
         }
         graph.insertFictitiousNodesAtFeeders();
         graph.extendNodeConnectedToBus(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR);
-        graph.extendNodeConnectedToBus(node -> node instanceof Middle3WTNode);
+        graph.extendNodeConnectedToBus(Middle3WTNode.class::isInstance);
         graph.extendSwitchBetweenBuses();
         graph.extendFirstOutsideNode();
         graph.extendBusConnectedToBus();
