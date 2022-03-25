@@ -18,7 +18,7 @@ public class VoltageLevelRawBuilder {
 
     public VoltageLevelRawBuilder(VoltageLevelInfos voltageLevelInfos, SubstationRawBuilder parentBuilder, Function<String, VoltageLevelInfos> getVoltageLevelInfosFromId) {
         this.voltageLevelInfos = voltageLevelInfos;
-        this.voltageLevelGraph = VoltageLevelGraph.create(voltageLevelInfos, parentBuilder == null ? null : parentBuilder.getGraph());
+        this.voltageLevelGraph = new VoltageLevelGraph(voltageLevelInfos, parentBuilder == null ? null : parentBuilder.getGraph());
         this.getVoltageLevelInfosFromId = getVoltageLevelInfosFromId;
     }
 

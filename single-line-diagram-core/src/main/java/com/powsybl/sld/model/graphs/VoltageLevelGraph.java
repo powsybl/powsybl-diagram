@@ -75,18 +75,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     // (filled and used only when using the adapt cell height to content option)
     private Map<Direction, Double> maxCellHeight = new EnumMap<>(Direction.class);
 
-    protected VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
+    public VoltageLevelGraph(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
         super(parentGraph);
         this.voltageLevelInfos = Objects.requireNonNull(voltageLevelInfos);
         this.forVoltageLevelDiagram = parentGraph == null;
-    }
-
-    public static VoltageLevelGraph create(VoltageLevelInfos voltageLevelInfos, Graph parentGraph) {
-        return new VoltageLevelGraph(voltageLevelInfos, parentGraph);
-    }
-
-    public static VoltageLevelGraph createForVoltageLevelGraphDiagram(VoltageLevelInfos voltageLevelInfos) {
-        return new VoltageLevelGraph(voltageLevelInfos, null);
     }
 
     @Override
