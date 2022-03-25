@@ -9,6 +9,7 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
 import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.*;
 import com.powsybl.sld.model.coordinate.Side;
@@ -55,6 +56,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
+    protected static final String SCALE = "scale";
     protected static final double LABEL_OFFSET = 5d;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
@@ -680,12 +682,29 @@ public class DefaultSVGWriter implements SVGWriter {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(componentType);
 
-        // For a node marked for rotation during the graph building,
-        // but with an svg component not allowed to rotate
-        // (ex : disconnector in SVG component library), we cancel the rotation
-        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(node.getOrientation());
-        if (transformation == Component.Transformation.ROTATION) {
-            elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getOrientation().toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+        // Checking if svg component is allowed to be transformed (rotate or flip)
+        // (ex : disconnector in SVG component library not allowed to rotate)
+        Orientation nodeOrientation = node.getOrientation();
+        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        if (transformation != null) {
+            switch (transformation) {
+                case ROTATION: {
+                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                    break;
+                }
+                case FLIP: {
+                    if (nodeOrientation.isVertical()) {
+                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.getHeight() + ")");
+                    } else {
+                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.getWidth() + ", 0)");
+                    }
+                    break;
+                }
+                case NONE:
+                default: {
+                    // No transformation
+                }
+            }
         }
 
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(node, subComponent);
