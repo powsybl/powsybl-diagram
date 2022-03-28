@@ -13,9 +13,7 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
-import com.powsybl.sld.model.Graph;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.*;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.slf4j.Logger;
@@ -120,7 +118,7 @@ public final class SingleLineDiagram {
                                          VoltageLevelLayoutFactory vLayoutFactory, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(vLayoutFactory);
 
-        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId, true);
+        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
         vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
@@ -241,7 +239,7 @@ public final class SingleLineDiagram {
                                          VoltageLevelLayoutFactory vLayoutFactory, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         Objects.requireNonNull(vLayoutFactory);
 
-        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId, true);
+        VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
         vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, writerForSvg, metadataWriter, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }

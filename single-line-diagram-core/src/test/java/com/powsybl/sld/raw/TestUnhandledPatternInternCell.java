@@ -7,11 +7,19 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -44,8 +52,11 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) g.getCells().iterator().next()).getShape());
+        Optional<Cell> firstCell = g.getCellStream().findFirst();
+        assertTrue(firstCell.isPresent());
+        assertTrue(firstCell.get() instanceof InternCell);
+        assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) firstCell.get()).getShape());
     }
 }

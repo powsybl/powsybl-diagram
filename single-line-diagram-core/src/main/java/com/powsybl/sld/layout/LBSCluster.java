@@ -6,8 +6,9 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.nodes.BusNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -72,10 +73,6 @@ public class LBSCluster {
             lane.establishBusPosition(v);
             v++;
         }
-    }
-
-    VoltageLevelGraph getVoltageLevelGraph() {
-        return horizontalBusLanes.get(0).getBusNodes().get(0).getVoltageLevelGraph();
     }
 
     public HorizontalBusLane getHorizontalLaneFromSideBus(BusNode busNode, Side side) {

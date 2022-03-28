@@ -6,11 +6,12 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.sld.model.BusNode;
-import com.powsybl.sld.model.FeederNode;
-import com.powsybl.sld.model.Node;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 
@@ -72,19 +73,19 @@ public interface DiagramLabelProvider {
 
     }
 
-    enum Direction {
+    enum LabelDirection {
         OUT, IN;
     }
 
     List<FeederInfo> getFeederInfos(FeederNode node);
 
-    List<NodeLabel> getNodeLabels(Node node);
+    List<NodeLabel> getNodeLabels(Node node, Direction direction);
 
     default String getTooltip(Node node) {
         return "";
     }
 
-    List<NodeDecorator> getNodeDecorators(Node node);
+    List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
 
     default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
         return Collections.emptyList();

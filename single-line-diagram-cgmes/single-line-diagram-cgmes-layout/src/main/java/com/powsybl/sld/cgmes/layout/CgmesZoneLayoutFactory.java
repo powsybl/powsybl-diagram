@@ -11,7 +11,7 @@ import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.ZoneLayoutFactory;
-import com.powsybl.sld.model.ZoneGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 
 import java.util.Objects;
 

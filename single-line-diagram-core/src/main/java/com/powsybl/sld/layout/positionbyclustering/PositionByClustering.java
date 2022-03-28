@@ -7,7 +7,12 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.*;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +20,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.powsybl.sld.model.BusCell.Direction;
-
-import static com.powsybl.sld.model.BusCell.Direction.*;
-import static com.powsybl.sld.model.Cell.CellType.*;
-import static com.powsybl.sld.model.coordinate.Side.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static com.powsybl.sld.model.coordinate.Side.LEFT;
+import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 /**
  * PositionByClustering finds adequate positions for the busBars with the following principles:
@@ -150,11 +154,11 @@ public class PositionByClustering implements PositionFinder {
         }
 
         Set<ShuntCell> visitedShuntCells = new HashSet<>();
-        graph.getCells().stream().filter(c -> c.getType() == SHUNT).map(ShuntCell.class::cast).forEach(shuntCell -> {
+        graph.getShuntCellStream().forEach(shuntCell -> {
             // starting from each shunt, find the shunt-connected set of extern cells to set the same direction for all of them
             List<ExternCell> externCells = new ArrayList<>();
             shuntTraversal(shuntCell, visitedShuntCells, externCells);
-            externCells.stream().map(AbstractBusCell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
+            externCells.stream().map(Cell::getDirection).filter(d -> d != Direction.UNDEFINED).findFirst()
                     .ifPresent(d -> externCells.forEach(externCell -> externCell.setDirection(d)));
         });
     }

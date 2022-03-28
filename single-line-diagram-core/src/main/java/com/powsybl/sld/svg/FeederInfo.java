@@ -9,7 +9,7 @@ package com.powsybl.sld.svg;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
+import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 
 /**
  * Class used to describe an information element which is displayed below feeders, which contains one or more of the following:
@@ -26,16 +26,16 @@ import com.powsybl.sld.svg.DiagramLabelProvider.Direction;
 public class FeederInfo {
 
     private final String componentType;
-    private final Direction arrowDirection;
+    private final LabelDirection arrowDirection;
     private final String leftLabel;
     private final String rightLabel;
     private final String userDefinedId;
 
-    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel) {
+    public FeederInfo(String componentType, LabelDirection arrowDirection, String leftLabel, String rightLabel) {
         this(componentType, arrowDirection, leftLabel, rightLabel, null);
     }
 
-    public FeederInfo(String componentType, Direction arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
+    public FeederInfo(String componentType, LabelDirection arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
         this.componentType = Objects.requireNonNull(componentType);
         this.arrowDirection = arrowDirection;
         this.leftLabel = leftLabel;
@@ -48,7 +48,7 @@ public class FeederInfo {
     }
 
     public FeederInfo(String componentType, double value, String userDefinedId) {
-        this(componentType, value > 0 ? Direction.OUT : Direction.IN, null, String.valueOf(Math.round(value)), userDefinedId);
+        this(componentType, value > 0 ? LabelDirection.OUT : LabelDirection.IN, null, String.valueOf(Math.round(value)), userDefinedId);
     }
 
     public boolean isEmpty() {
@@ -63,7 +63,7 @@ public class FeederInfo {
         return componentType;
     }
 
-    public Optional<Direction> getDirection() {
+    public Optional<LabelDirection> getDirection() {
         return Optional.ofNullable(arrowDirection);
     }
 

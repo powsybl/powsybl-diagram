@@ -7,10 +7,15 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -25,9 +30,9 @@ public class TestParallelFeedersOrders extends AbstractTestCaseRaw {
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
         FictitiousNode f = vlBuilder.createFictitiousNode("f");
-        FeederNode load1 = vlBuilder.createLoad("l1", 0, BusCell.Direction.TOP);
+        FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP);
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
-        FeederNode load2 = vlBuilder.createLoad("l2", 1, BusCell.Direction.TOP);
+        FeederNode load2 = vlBuilder.createLoad("l2", 1, TOP);
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, b);
         vlBuilder.connectNode(b, f);
@@ -38,7 +43,7 @@ public class TestParallelFeedersOrders extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl", true);
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/testParallelFeedersOrders.json"), toJson(g, "/testParallelFeedersOrders.json"));
     }

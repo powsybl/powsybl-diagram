@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 import com.powsybl.commons.json.JsonUtil;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.*;
-import com.powsybl.sld.model.BusCell;
+import com.powsybl.sld.model.coordinate.Direction;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +43,7 @@ public class GraphMetadata {
 
         private final String nextVId;
 
-        private final BusCell.Direction direction;
+        private final Direction direction;
 
         private final boolean vLabel;
 
@@ -57,7 +57,7 @@ public class GraphMetadata {
                             @JsonProperty("nextVId") String nextVId,
                             @JsonProperty("componentType") String componentType,
                             @JsonProperty("open") boolean open,
-                            @JsonProperty("direction") BusCell.Direction direction,
+                            @JsonProperty("direction") Direction direction,
                             @JsonProperty("vlabel") boolean vLabel,
                             @JsonProperty("equipmentId") String equipmentId,
                             @JsonProperty("labels") List<NodeLabelMetadata> labels) {
@@ -92,8 +92,13 @@ public class GraphMetadata {
             return open;
         }
 
-        public BusCell.Direction getDirection() {
+        public Direction getDirection() {
             return direction;
+        }
+
+        @JsonProperty("direction")
+        public Direction getNullableDirection() {
+            return direction == Direction.UNDEFINED ? null : direction;
         }
 
         public boolean isVLabel() {

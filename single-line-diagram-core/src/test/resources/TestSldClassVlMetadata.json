@@ -123,7 +123,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -143,7 +142,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -151,7 +149,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -159,7 +156,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -180,7 +176,6 @@
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs1",
     "labels" : [ {
@@ -192,7 +187,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "d2",
     "labels" : [ ]
@@ -201,7 +195,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "d1",
     "labels" : [ ]
@@ -210,7 +203,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "b2",
     "labels" : [ ]
@@ -219,7 +211,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "b1",
     "labels" : [ ]

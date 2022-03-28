@@ -318,95 +318,6 @@
   "cells" : [ {
     "type" : "INTERN",
     "number" : 0,
-    "direction" : "MIDDLE",
-    "rootBlock" : {
-      "type" : "SERIAL",
-      "cardinalities" : [ {
-        "START" : 1
-      }, {
-        "END" : 1
-      } ],
-      "position" : {
-        "h" : -1,
-        "v" : -1,
-        "hSpan" : 0,
-        "vSpan" : 0,
-        "orientation" : "RIGHT"
-      },
-      "coord" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "xSpan" : 0.0,
-        "ySpan" : 0.0
-      },
-      "subBlocks" : [ {
-        "type" : "LEGPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 8,
-          "v" : -1,
-          "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 200.0,
-          "y" : 230.0,
-          "xSpan" : 0.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ "bbs12", "BUSCO_flatDisconector_1", "INTERNAL_vl_flatDisconector_1" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 6,
-          "v" : 1,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 175.0,
-          "y" : 280.0,
-          "xSpan" : 50.0,
-          "ySpan" : 40.0
-        },
-        "nodes" : [ "INTERNAL_vl_flatDisconector_0", "flatDisconector", "INTERNAL_vl_flatDisconector_1" ]
-      }, {
-        "type" : "LEGPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 6,
-          "v" : -1,
-          "hSpan" : 0,
-          "vSpan" : 0,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 150.0,
-          "y" : 230.0,
-          "xSpan" : 0.0,
-          "ySpan" : 0.0
-        },
-        "nodes" : [ "bbs11", "BUSCO_flatDisconector_0", "INTERNAL_vl_flatDisconector_0" ]
-      } ]
-    }
-  }, {
-    "type" : "INTERN",
-    "number" : 1,
     "direction" : "TOP",
     "rootBlock" : {
       "type" : "SERIAL",
@@ -494,7 +405,7 @@
     }
   }, {
     "type" : "INTERN",
-    "number" : 2,
+    "number" : 1,
     "direction" : "TOP",
     "rootBlock" : {
       "type" : "SERIAL",
@@ -578,6 +489,95 @@
           "ySpan" : 0.0
         },
         "nodes" : [ "bbs11", "dCrossOverBk1", "INTERNAL_vl_dCrossOverBk1" ]
+      } ]
+    }
+  }, {
+    "type" : "INTERN",
+    "number" : 2,
+    "direction" : "MIDDLE",
+    "rootBlock" : {
+      "type" : "SERIAL",
+      "cardinalities" : [ {
+        "START" : 1
+      }, {
+        "END" : 1
+      } ],
+      "position" : {
+        "h" : -1,
+        "v" : -1,
+        "hSpan" : 0,
+        "vSpan" : 0,
+        "orientation" : "RIGHT"
+      },
+      "coord" : {
+        "x" : -1.0,
+        "y" : -1.0,
+        "xSpan" : 0.0,
+        "ySpan" : 0.0
+      },
+      "subBlocks" : [ {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 8,
+          "v" : -1,
+          "hSpan" : 0,
+          "vSpan" : 0,
+          "orientation" : "RIGHT"
+        },
+        "coord" : {
+          "x" : 200.0,
+          "y" : 230.0,
+          "xSpan" : 0.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs12", "BUSCO_flatDisconector_1", "INTERNAL_vl_flatDisconector_1" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 6,
+          "v" : 1,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "RIGHT"
+        },
+        "coord" : {
+          "x" : 175.0,
+          "y" : 280.0,
+          "xSpan" : 50.0,
+          "ySpan" : 40.0
+        },
+        "nodes" : [ "INTERNAL_vl_flatDisconector_0", "flatDisconector", "INTERNAL_vl_flatDisconector_1" ]
+      }, {
+        "type" : "LEGPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 6,
+          "v" : -1,
+          "hSpan" : 0,
+          "vSpan" : 0,
+          "orientation" : "RIGHT"
+        },
+        "coord" : {
+          "x" : 150.0,
+          "y" : 230.0,
+          "xSpan" : 0.0,
+          "ySpan" : 0.0
+        },
+        "nodes" : [ "bbs11", "BUSCO_flatDisconector_0", "INTERNAL_vl_flatDisconector_0" ]
       } ]
     }
   }, {
@@ -763,6 +763,24 @@
     "node1" : "bbs22",
     "node2" : "dF2"
   }, {
+    "node1" : "bbs11",
+    "node2" : "BUSCO_flatDisconector_0"
+  }, {
+    "node1" : "BUSCO_flatDisconector_0",
+    "node2" : "INTERNAL_vl_flatDisconector_0"
+  }, {
+    "node1" : "INTERNAL_vl_flatDisconector_0",
+    "node2" : "flatDisconector"
+  }, {
+    "node1" : "bbs12",
+    "node2" : "BUSCO_flatDisconector_1"
+  }, {
+    "node1" : "BUSCO_flatDisconector_1",
+    "node2" : "INTERNAL_vl_flatDisconector_1"
+  }, {
+    "node1" : "INTERNAL_vl_flatDisconector_1",
+    "node2" : "flatDisconector"
+  }, {
     "node1" : "verticalBreaker",
     "node2" : "INTERNAL_vl_dVerticalBk1"
   }, {
@@ -804,24 +822,6 @@
   }, {
     "node1" : "dCrossOverBk2",
     "node2" : "INTERNAL_vl_dCrossOverBk2"
-  }, {
-    "node1" : "bbs11",
-    "node2" : "BUSCO_flatDisconector_0"
-  }, {
-    "node1" : "BUSCO_flatDisconector_0",
-    "node2" : "INTERNAL_vl_flatDisconector_0"
-  }, {
-    "node1" : "INTERNAL_vl_flatDisconector_0",
-    "node2" : "flatDisconector"
-  }, {
-    "node1" : "bbs12",
-    "node2" : "BUSCO_flatDisconector_1"
-  }, {
-    "node1" : "BUSCO_flatDisconector_1",
-    "node2" : "INTERNAL_vl_flatDisconector_1"
-  }, {
-    "node1" : "INTERNAL_vl_flatDisconector_1",
-    "node2" : "flatDisconector"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

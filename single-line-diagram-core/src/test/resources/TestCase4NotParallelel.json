@@ -795,12 +795,6 @@
     "node1" : "INTERNAL_vl_gc",
     "node2" : "gc"
   }, {
-    "node1" : "bc",
-    "node2" : "INTERNAL_vl_dc1"
-  }, {
-    "node1" : "dc1",
-    "node2" : "INTERNAL_vl_dc1"
-  }, {
     "node1" : "bbs1.2",
     "node2" : "BUSCO_ss1_0"
   }, {
@@ -818,6 +812,12 @@
   }, {
     "node1" : "INTERNAL_vl_ss1_1",
     "node2" : "ss1"
+  }, {
+    "node1" : "bc",
+    "node2" : "INTERNAL_vl_dc1"
+  }, {
+    "node1" : "dc1",
+    "node2" : "INTERNAL_vl_dc1"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

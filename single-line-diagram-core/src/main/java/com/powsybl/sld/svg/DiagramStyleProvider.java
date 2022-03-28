@@ -7,10 +7,11 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.BranchEdge;
-import com.powsybl.sld.model.Edge;
-import com.powsybl.sld.model.VoltageLevelGraph;
-import com.powsybl.sld.model.Node;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.net.URL;
 import java.util.List;
@@ -22,15 +23,15 @@ import java.util.Optional;
  */
 public interface DiagramStyleProvider {
 
-    List<String> getSvgWireStyles(Edge edge, boolean highlightLineState);
+    List<String> getSvgWireStyles(Graph graph, Edge edge, boolean highlightLineState);
 
-    List<String> getSvgNodeStyles(Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
+    List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes);
 
     List<String> getSvgNodeDecoratorStyles(DiagramLabelProvider.NodeDecorator nodeDecorator, Node node, ComponentLibrary componentLibrary);
 
     List<String> getZoneLineStyles(BranchEdge edge, ComponentLibrary componentLibrary);
 
-    List<String> getSvgNodeSubcomponentStyles(Node node, String subComponentName);
+    List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName);
 
     void reset();
 

@@ -11,12 +11,20 @@ import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.layout.LayoutContext;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.SerialBlock;
+import com.powsybl.sld.model.cells.Cell;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -41,7 +49,7 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
@@ -49,16 +57,18 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         // build blocks
         new BlockOrganizer().organize(g);
 
-        assertEquals(1, g.getCells().size());
-        Cell cell = g.getCells().iterator().next();
+        assertEquals(1, g.getCellStream().count());
+        Optional<Cell> oCell = g.getCellStream().findFirst();
+        assertTrue(oCell.isPresent());
+        Cell cell = oCell.get();
         assertEquals(Block.Type.SERIAL, cell.getRootBlock().getType());
         SerialBlock sb = (SerialBlock) cell.getRootBlock();
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(Node.NodeType.FEEDER));
-        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(Node.NodeType.BUS));
-        assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(Node.NodeType.FEEDER));
+        assertTrue(sb.isEmbeddingNodeType(BUS));
+        assertTrue(sb.isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getLowerBlock().isEmbeddingNodeType(BUS));
+        assertTrue(sb.getUpperBlock().isEmbeddingNodeType(FEEDER));
+        assertTrue(sb.getSubBlocks().get(0).isEmbeddingNodeType(BUS));
+        assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
         assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(0).getEndingNode().getId());
@@ -92,7 +102,7 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(layoutParameters);
+        sb.coordHorizontalCase(layoutParameters,  new LayoutContext(0., 0., 0., null));
 
         assertEquals(10, sb.getLowerBlock().getCoord().get(X), 0);
         assertEquals(20, sb.getLowerBlock().getCoord().get(Y), 0);

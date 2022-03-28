@@ -6,9 +6,8 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.BusCell;
-import com.powsybl.sld.model.SubstationGraph;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.*;
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -22,30 +21,30 @@ import java.util.stream.Stream;
  */
 public final class InfosNbSnakeLinesHorizontal {
 
-    private final Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom;
+    private final Map<Direction, Integer> nbSnakeLinesTopBottom;
     private final Map<String, Integer> nbSnakeLinesVerticalBetween;
 
     static InfosNbSnakeLinesHorizontal create(SubstationGraph substationGraph) {
-        Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
+        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         Map<String, Integer> nbSnakeLinesVerticalBetween = substationGraph.getVoltageLevelStream().collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
         return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesVerticalBetween);
     }
 
     static InfosNbSnakeLinesHorizontal create(VoltageLevelGraph graph) {
         // used only for horizontal layout
-        Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(BusCell.Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
+        Map<Direction, Integer> nbSnakeLinesTopBottom = EnumSet.allOf(Direction.class).stream().collect(Collectors.toMap(Function.identity(), v -> 0));
         Map<String, Integer> nbSnakeLinesBetween = Stream.of(graph).collect(Collectors.toMap(g -> g.getVoltageLevelInfos().getId(), v -> 0));
 
         return new InfosNbSnakeLinesHorizontal(nbSnakeLinesTopBottom, nbSnakeLinesBetween);
     }
 
-    private InfosNbSnakeLinesHorizontal(Map<BusCell.Direction, Integer> nbSnakeLinesTopBottom,
+    private InfosNbSnakeLinesHorizontal(Map<Direction, Integer> nbSnakeLinesTopBottom,
                                         Map<String, Integer> nbSnakeLinesVerticalBetween) {
         this.nbSnakeLinesTopBottom = nbSnakeLinesTopBottom;
         this.nbSnakeLinesVerticalBetween = nbSnakeLinesVerticalBetween;
     }
 
-    public Map<BusCell.Direction, Integer> getNbSnakeLinesTopBottom() {
+    public Map<Direction, Integer> getNbSnakeLinesTopBottom() {
         return nbSnakeLinesTopBottom;
     }
 

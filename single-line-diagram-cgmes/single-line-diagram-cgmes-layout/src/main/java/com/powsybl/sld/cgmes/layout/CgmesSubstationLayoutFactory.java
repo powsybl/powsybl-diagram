@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.Layout;
 import com.powsybl.sld.layout.SubstationLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 
 import java.util.Objects;
 

@@ -205,7 +205,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -226,7 +225,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -234,7 +232,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -242,7 +239,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -250,7 +246,6 @@
     "vid" : "vl3",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dload4",
     "labels" : [ ]
@@ -259,7 +254,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -267,7 +261,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dload3",
     "labels" : [ ]
@@ -276,7 +269,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -284,7 +276,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -292,7 +283,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -300,7 +290,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bline11_2",
     "labels" : [ ]
@@ -309,7 +298,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dload2",
     "labels" : [ ]
@@ -318,7 +306,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dload1",
     "labels" : [ ]
@@ -327,7 +314,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -335,7 +321,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -343,7 +328,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -351,7 +335,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -359,7 +342,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -367,7 +349,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -375,7 +356,6 @@
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs4",
     "labels" : [ {
@@ -387,7 +367,6 @@
     "vid" : "vl2",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs5",
     "labels" : [ {
@@ -399,7 +378,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -407,7 +385,6 @@
     "vid" : "vl2",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs6",
     "labels" : [ {
@@ -419,7 +396,6 @@
     "vid" : "vl3",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs7",
     "labels" : [ {
@@ -431,7 +407,6 @@
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs1",
     "labels" : [ {
@@ -443,7 +418,6 @@
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs2",
     "labels" : [ {
@@ -455,7 +429,6 @@
     "vid" : "vl1",
     "componentType" : "BUSBAR_SECTION",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bbs3",
     "labels" : [ {
@@ -467,7 +440,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -475,7 +447,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dscpl1",
     "labels" : [ ]
@@ -484,7 +455,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -492,7 +462,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dscpl2",
     "labels" : [ ]
@@ -501,7 +470,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -509,7 +477,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf11",
     "labels" : [ ]
@@ -531,7 +498,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -539,7 +505,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -547,7 +512,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf18",
     "labels" : [ ]
@@ -556,7 +520,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf17",
     "labels" : [ ]
@@ -565,7 +528,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -573,7 +535,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf16",
     "labels" : [ ]
@@ -582,7 +543,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf15",
     "labels" : [ ]
@@ -591,7 +551,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf14",
     "labels" : [ ]
@@ -600,7 +559,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf13",
     "labels" : [ ]
@@ -609,7 +567,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf12",
     "labels" : [ ]
@@ -618,7 +575,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -626,7 +582,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -634,7 +589,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -642,7 +596,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -650,7 +603,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -658,7 +610,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -666,7 +617,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -674,7 +624,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "ddcpl1",
     "labels" : [ ]
@@ -696,7 +645,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -704,7 +652,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf22",
     "labels" : [ ]
@@ -713,7 +660,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -721,7 +667,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf21",
     "labels" : [ ]
@@ -743,7 +688,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dsect21",
     "labels" : [ ]
@@ -752,7 +696,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dsect22",
     "labels" : [ ]
@@ -774,7 +717,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf28",
     "labels" : [ ]
@@ -783,7 +725,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf27",
     "labels" : [ ]
@@ -792,7 +733,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf26",
     "labels" : [ ]
@@ -801,7 +741,6 @@
     "vid" : "vl3",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf25",
     "labels" : [ ]
@@ -810,7 +749,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf24",
     "labels" : [ ]
@@ -819,7 +757,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf23",
     "labels" : [ ]
@@ -827,7 +764,6 @@
     "id" : "LABEL_VL_vl1",
     "vid" : "vl1",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : true,
     "labels" : [ ]
   }, {
@@ -835,35 +771,30 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "LABEL_VL_vl3",
     "vid" : "vl3",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : true,
     "labels" : [ ]
   }, {
     "id" : "GRID_vl3",
     "vid" : "vl3",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "LABEL_VL_vl2",
     "vid" : "vl2",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : true,
     "labels" : [ ]
   }, {
     "id" : "GRID_vl2",
     "vid" : "vl2",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -871,7 +802,6 @@
     "vid" : "vl3",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bload4",
     "labels" : [ ]
@@ -879,7 +809,6 @@
     "id" : "GRID_vl1",
     "vid" : "vl1",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -887,7 +816,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -895,7 +823,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bload3",
     "labels" : [ ]
@@ -904,7 +831,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bload2",
     "labels" : [ ]
@@ -913,7 +839,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bload1",
     "labels" : [ ]
@@ -922,7 +847,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -930,7 +854,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -938,7 +861,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -959,7 +881,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -967,7 +888,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -975,7 +895,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -983,7 +902,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -991,7 +909,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -999,7 +916,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dsect12",
     "labels" : [ ]
@@ -1008,7 +924,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dsect11",
     "labels" : [ ]
@@ -1043,7 +958,6 @@
     "vid" : "vl3",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf38",
     "labels" : [ ]
@@ -1052,7 +966,6 @@
     "vid" : "vl3",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf37",
     "labels" : [ ]
@@ -1061,7 +974,6 @@
     "vid" : "vl3",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrf36",
     "labels" : [ ]
@@ -1070,7 +982,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrct21",
     "labels" : [ ]
@@ -1079,7 +990,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf18",
     "labels" : [ ]
@@ -1088,7 +998,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf15",
     "labels" : [ ]
@@ -1097,7 +1006,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf14",
     "labels" : [ ]
@@ -1106,7 +1014,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1114,7 +1021,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf17",
     "labels" : [ ]
@@ -1123,7 +1029,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf16",
     "labels" : [ ]
@@ -1132,7 +1037,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf11",
     "labels" : [ ]
@@ -1141,7 +1045,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf13",
     "labels" : [ ]
@@ -1150,7 +1053,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf12",
     "labels" : [ ]
@@ -1159,7 +1061,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bgen1",
     "labels" : [ ]
@@ -1168,7 +1069,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bgen2",
     "labels" : [ ]
@@ -1226,7 +1126,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "bgen4",
     "labels" : [ ]
@@ -1235,7 +1134,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1269,7 +1167,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1277,7 +1174,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1285,7 +1181,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1293,7 +1188,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1301,7 +1195,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1309,7 +1202,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1317,7 +1209,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1325,7 +1216,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf26",
     "labels" : [ ]
@@ -1334,7 +1224,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dline11_2",
     "labels" : [ ]
@@ -1343,7 +1232,6 @@
     "vid" : "vl3",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf25",
     "labels" : [ ]
@@ -1352,7 +1240,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf28",
     "labels" : [ ]
@@ -1361,7 +1248,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf27",
     "labels" : [ ]
@@ -1370,7 +1256,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1378,7 +1263,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf22",
     "labels" : [ ]
@@ -1387,7 +1271,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf21",
     "labels" : [ ]
@@ -1396,7 +1279,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1417,7 +1299,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf24",
     "labels" : [ ]
@@ -1465,7 +1346,6 @@
     "vid" : "vl2",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf23",
     "labels" : [ ]
@@ -1474,7 +1354,6 @@
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf1",
     "labels" : [ ]
@@ -1483,7 +1362,6 @@
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf2",
     "labels" : [ ]
@@ -1492,7 +1370,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1500,7 +1377,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1508,7 +1384,6 @@
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf3",
     "labels" : [ ]
@@ -1517,7 +1392,6 @@
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1525,7 +1399,6 @@
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf4",
     "labels" : [ ]
@@ -1534,7 +1407,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1542,7 +1414,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1550,7 +1421,6 @@
     "vid" : "vl2",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dgen4",
     "labels" : [ ]
@@ -1559,7 +1429,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1567,7 +1436,6 @@
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf5",
     "labels" : [ ]
@@ -1576,7 +1444,6 @@
     "vid" : "",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf6",
     "labels" : [ ]
@@ -1585,7 +1452,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dgen1",
     "labels" : [ ]
@@ -1594,7 +1460,6 @@
     "vid" : "",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf7",
     "labels" : [ ]
@@ -1603,7 +1468,6 @@
     "vid" : "vl1",
     "componentType" : "DISCONNECTOR",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dgen2",
     "labels" : [ ]
@@ -1612,7 +1476,6 @@
     "vid" : "",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "trf8",
     "labels" : [ ]
@@ -1647,7 +1510,6 @@
     "vid" : "vl3",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf37",
     "labels" : [ ]
@@ -1656,7 +1518,6 @@
     "vid" : "vl3",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf36",
     "labels" : [ ]
@@ -1665,7 +1526,6 @@
     "vid" : "vl3",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "btrf38",
     "labels" : [ ]
@@ -1674,7 +1534,6 @@
     "vid" : "vl3",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1682,7 +1541,6 @@
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "equipmentId" : "dtrct11",
     "labels" : [ ]
@@ -1752,7 +1610,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {
@@ -1760,7 +1617,6 @@
     "vid" : "vl2",
     "componentType" : "NODE",
     "open" : false,
-    "direction" : "UNDEFINED",
     "vlabel" : false,
     "labels" : [ ]
   }, {

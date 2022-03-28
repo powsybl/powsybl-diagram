@@ -6,8 +6,11 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +79,7 @@ public final class LegBusSet {
     }
 
     Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkisShape(shape))
+        return internCellSides.stream().filter(ics -> ics.getCell().checkIsShape(shape))
                 .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
     }
 
@@ -111,9 +114,7 @@ public final class LegBusSet {
     static List<LegBusSet> createLegBusSets(VoltageLevelGraph graph, Map<BusNode, Integer> nodeToNb, boolean handleShunts) {
         List<LegBusSet> legBusSets = new ArrayList<>();
 
-        List<ExternCell> externCells = graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.EXTERN)
-                .map(ExternCell.class::cast)
+        List<ExternCell> externCells = graph.getExternCellStream()
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .collect(Collectors.toList());
 
@@ -123,16 +124,13 @@ public final class LegBusSet {
 
         externCells.forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
-        graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN && ((InternCell) cell).checkisShape(InternCell.Shape.UNILEG))
-                .map(InternCell.class::cast)
+        graph.getInternCellStream()
+                .filter(cell -> cell.checkIsShape(InternCell.Shape.UNILEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
 
-        graph.getCells().stream()
-                .filter(cell -> cell.getType() == Cell.CellType.INTERN
-                        && ((InternCell) cell).checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
-                .map(InternCell.class::cast)
+        graph.getInternCellStream()
+                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
@@ -148,14 +146,9 @@ public final class LegBusSet {
     }
 
     private static void manageShunts(VoltageLevelGraph graph, List<ExternCell> externCells, List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb) {
-        List<ShuntCell> shuntCells = graph.getCells().stream()
-                .filter(c -> c.getType() == Cell.CellType.SHUNT).map(ShuntCell.class::cast).collect(Collectors.toList());
-        List<List<ShuntCell>> sameBusNodesShuntCells = shuntCells.stream()
-                .map(sc -> {
-                    List<ShuntCell> list = new ArrayList<>();
-                    list.add(sc);
-                    return list;
-                }).collect(Collectors.toList());
+        List<List<ShuntCell>> sameBusNodesShuntCells = graph.getShuntCellStream()
+                .map(sc -> new ArrayList<>(Collections.singletonList(sc)))
+                .collect(Collectors.toList());
         int i = 0;
         while (i < sameBusNodesShuntCells.size()) {
             int j = i + 1;

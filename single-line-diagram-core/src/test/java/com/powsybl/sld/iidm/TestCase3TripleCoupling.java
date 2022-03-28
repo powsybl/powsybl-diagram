@@ -7,7 +7,7 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
         voltageLevelGraphLayout(g);
@@ -63,7 +63,7 @@ public class TestCase3TripleCoupling extends TestCase3Coupling {
         network.getSwitch("d3").setOpen(true);
 
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
         voltageLevelGraphLayout(g);

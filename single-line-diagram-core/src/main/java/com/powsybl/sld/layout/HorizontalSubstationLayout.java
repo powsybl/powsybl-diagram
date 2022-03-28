@@ -6,8 +6,12 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.*;
+import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.Node;
+
+import static com.powsybl.sld.model.coordinate.Direction.*;
 
 import java.util.List;
 
@@ -71,7 +75,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     }
 
     private void adaptPaddingToSnakeLines(LayoutParameters layoutParameters) {
-        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, BusCell.Direction.TOP, infosNbSnakeLines);
+        double heightSnakeLinesTop = getHeightSnakeLines(layoutParameters, TOP, infosNbSnakeLines);
 
         LayoutParameters.Padding diagramPadding = layoutParameters.getDiagramPadding();
         LayoutParameters.Padding voltageLevelPadding = layoutParameters.getVoltageLevelPadding();
@@ -86,7 +90,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         }
 
         double substationWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BusCell.Direction.BOTTOM,  infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM,  infosNbSnakeLines);
         double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
         getGraph().setSize(substationWidth, substationHeight);
@@ -99,9 +103,9 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
     double computeCoordY(LayoutParameters layoutParameters, double topPadding, VoltageLevelGraph vlGraph) {
         double y;
         // Find maximum voltage level top height
-        double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(BusCell.Direction.TOP)).max().orElse(0.0);
+        double maxTopExternCellHeight = getGraph().getVoltageLevelStream().mapToDouble(g -> g.getExternCellHeight(Direction.TOP)).max().orElse(0.0);
         // Get gap between current voltage level and maximum height one
-        double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(BusCell.Direction.TOP);
+        double delta = maxTopExternCellHeight - vlGraph.getExternCellHeight(Direction.TOP);
         // Find maximum voltage level maxV
         double maxV = getGraph().getVoltageLevelStream().mapToDouble(VoltageLevelGraph::getMaxV).max().orElse(0.0);
         // Get all busbar section height

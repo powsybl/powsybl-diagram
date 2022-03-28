@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.model.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,12 +51,12 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseIidm {
     @Test
     public void test() {
         // build graph
-        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId(), true);
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // detect cells
         new ImplicitCellDetector().detectCells(g);
 
         // assert cells
-        assertEquals(1, g.getCells().size());
+        assertEquals(1, g.getCellStream().count());
     }
 }

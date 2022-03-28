@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.SubstationGraph;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
