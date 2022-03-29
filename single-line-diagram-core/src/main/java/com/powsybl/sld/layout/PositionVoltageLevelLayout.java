@@ -7,7 +7,9 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.cells.InternCell.Shape;
 
@@ -17,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
+
+import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -63,7 +67,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         VoltageLevelGraph graph = getGraph();
         double elementaryWidth = layoutParam.getCellWidth() / 2; // the elementary step within a voltageLevel Graph is half a cell width
         double widthWithoutPadding = graph.getMaxH() * elementaryWidth;
-        double heightWithoutPadding = graph.getInnerHeight(layoutParam);
+        double heightWithoutPadding = graph.getInnerHeight(layoutParam.getVerticalSpaceBus());
 
         LayoutParameters.Padding padding = layoutParam.getVoltageLevelPadding();
         double width = widthWithoutPadding + padding.getLeft() + padding.getRight();
@@ -88,17 +92,31 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     private void calculateBusNodeCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
-        graph.getNodeBuses().forEach(nb -> nb.calculateCoord(layoutParam, graph.getFirstBusY()));
+        graph.getNodeBuses().forEach(nb -> calculateNodeCoord(nb, layoutParam, graph.getFirstBusY()));
+    }
+
+    private void calculateNodeCoord(BusNode busNode, LayoutParameters layoutParameters, double firstBusY) {
+        double elementaryWidth = layoutParameters.getCellWidth() / 2;
+        double busPadding = layoutParameters.getBusPadding();
+        Position position = busNode.getPosition();
+        busNode.setCoordinates(position.get(H) * elementaryWidth + busPadding,
+            firstBusY + position.get(V) * layoutParameters.getVerticalSpaceBus());
+        busNode.setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
     }
 
     private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
-        graph.getBusCellStream().forEach(cell -> cell.calculateCoord(layoutParam, createLayoutContext(graph, cell, layoutParam)));
-        graph.getShuntCellStream().forEach(cell -> cell.calculateCoord(layoutParam, null));
+        CalculateCellCoordVisitor calculateCellCoordVisitor = new CalculateCellCoordVisitor(layoutParam);
+        graph.getBusCellStream().forEach(cell -> {
+            calculateCellCoordVisitor.setLayoutContext(createLayoutContext(graph, cell, layoutParam));
+            cell.accept(calculateCellCoordVisitor);
+        });
+        calculateCellCoordVisitor.setLayoutContext(null);
+        graph.getShuntCellStream().forEach(cell -> cell.accept(calculateCellCoordVisitor));
     }
 
     private LayoutContext createLayoutContext(VoltageLevelGraph graph, BusCell cell, LayoutParameters layoutParam) {
         double firstBusY = graph.getFirstBusY();
-        double lastBusY = graph.getLastBusY(layoutParam);
+        double lastBusY = graph.getLastBusY(layoutParam.getVerticalSpaceBus());
         Double externCellHeight = graph.getExternCellHeight(cell.getDirection());
         if (cell.getType() != Cell.CellType.INTERN) {
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
@@ -121,13 +139,14 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             Map<Direction, Double> maxInternCellHeight = new EnumMap<>(Direction.class);
             // Initialize map with intern cells height
             // in order to keep intern cells visible if there are no extern cells
+            BlockCalculationVisitors cbv = new BlockCalculationVisitors(layoutParam);
             getGraph().getInternCellStream().forEach(cell ->
-                    maxInternCellHeight.merge(cell.getDirection(), calculateCellHeight(cell, layoutParam), Math::max));
+                    maxInternCellHeight.merge(cell.getDirection(), calculateCellHeight(cbv, cell), Math::max));
 
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
             getGraph().getExternCellStream().forEach(cell ->
-                    maxCellHeight.merge(cell.getDirection(), calculateCellHeight(cell, layoutParam), Math::max));
+                    maxCellHeight.merge(cell.getDirection(), calculateCellHeight(cbv, cell), Math::max));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
             EnumSet.allOf(Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {
@@ -148,8 +167,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         getGraph().setMaxCellHeight(maxCellHeight);
     }
 
-    double calculateCellHeight(BusCell cell, LayoutParameters layoutParameters) {
-        CalculateCellHeightVisitor cch = new CalculateCellHeightVisitor(layoutParameters);
+    double calculateCellHeight(BlockCalculationVisitors cbv, BusCell cell) {
+        BlockCalculationVisitors.CalculateCellHeightVisitor cch = cbv.createCalculateCellHeight();
         cell.getRootBlock().accept(cch);
         return cch.getBlockHeight();
     }

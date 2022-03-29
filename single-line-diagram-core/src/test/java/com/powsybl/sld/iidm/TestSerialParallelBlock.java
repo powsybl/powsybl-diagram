@@ -9,6 +9,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.sld.layout.BlockCalculationVisitors;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutContext;
@@ -18,6 +19,7 @@ import com.powsybl.sld.model.blocks.BodyParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.coordinate.Orientation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -106,7 +108,10 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        sb.coordHorizontalCase(layoutParameters, new LayoutContext(0., 0., 0., null, false, false, false));
+        BlockCalculationVisitors blockCalculationVisitors = new BlockCalculationVisitors(layoutParameters);
+        BlockCalculationVisitors.CalculateCoord cc = blockCalculationVisitors.createCalculateCoord(new LayoutContext(0., 0., 0., null, false, false, false));
+        sb.getPosition().setOrientation(Orientation.LEFT);
+        sb.accept(cc);
 
         assertEquals(10, sb.getCoord().get(X), 0);
         assertEquals(20, sb.getCoord().get(Y), 0);

@@ -6,10 +6,6 @@
  */
 package com.powsybl.sld.model.cells;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
@@ -40,14 +36,8 @@ public final class ShuntCell extends AbstractCell {
     }
 
     @Override
-    public void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        if (getRootBlock() instanceof BodyPrimaryBlock) {
-            Position lPos = getSidePosition(Side.LEFT);
-            ((BodyPrimaryBlock) getRootBlock())
-                    .coordShuntCase(layoutParam, lPos.get(H) + lPos.getSpan(H), getSidePosition(Side.RIGHT).get(H));
-        } else {
-            throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
-        }
+    public void accept(CellVisitor cellVisitor) {
+        cellVisitor.visit(this);
     }
 
     @Override
@@ -88,7 +78,7 @@ public final class ShuntCell extends AbstractCell {
         return (FictitiousNode) (side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1));
     }
 
-    Position getSidePosition(Side side) {
+    public Position getSidePosition(Side side) {
         return sideCells.get(side).getRootBlock().getPosition();
     }
 

@@ -8,8 +8,6 @@
 package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
@@ -18,7 +16,6 @@ import com.powsybl.sld.model.nodes.SwitchNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 import static com.powsybl.sld.model.blocks.Block.Type.*;
@@ -67,7 +64,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return Collections.singletonList(getBusNode());
     }
 
-    private Node getNodeOnBus() {
+    public Node getNodeOnBus() {
         return nodes.get(1);
     }
 
@@ -99,28 +96,4 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     public void accept(BlockVisitor blockVisitor) {
         blockVisitor.visit(this);
     }
-
-    @Override
-    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
-        // LegPrimaryBlock has a 0 vertical span (see sizing above) and its height should not be included in external
-        // cell height. Indeed, its height is fixed and corresponds to the layoutParameters.getStackSize().
-        return 0.;
-    }
-
-    @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        getNodeOnBus().setCoordinates(getCoord().get(X) + getCoord().getSpan(X) / 2, getBusNode().getY());
-        getLegNode().setY(getBusNode().getY());
-    }
-
-    @Override
-    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        getNodeOnBus().setCoordinates(getCoord().get(X), getBusNode().getY());
-
-        getLegNode().setX(getCoord().get(X));
-        if (layoutContext.isInternCell() && layoutContext.isUnileg()) {
-            getLegNode().setY(getCoord().get(Y) + (getOrientation() == UP ? -1 : 1) * layoutParam.getInternCellHeight());
-        }
-    }
-
 }

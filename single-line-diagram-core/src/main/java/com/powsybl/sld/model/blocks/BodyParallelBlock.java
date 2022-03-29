@@ -6,9 +6,6 @@
  */
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,8 +42,4 @@ public class BodyParallelBlock extends AbstractParallelBlock {
         blockVisitor.visit(this);
     }
 
-    @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        translatePosInCoord(layoutParam, layoutContext, X, Y, V, 1);
-    }
 }

@@ -7,8 +7,6 @@
 package com.powsybl.sld.model.blocks;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
@@ -17,7 +15,6 @@ import com.powsybl.sld.model.nodes.Node;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -78,17 +75,6 @@ public interface Block {
      * Calculates all the blocks dimensions and find the order of the layout.block inside
      * the cell
      */
-    void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
-
-    void calculateRootCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
-
-    void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext);
-
-    void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext);
-
-    double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParam);
-
-    double calculateRootHeight(LayoutParameters layoutParam);
 
     default int getOrder() {
         return 0;
