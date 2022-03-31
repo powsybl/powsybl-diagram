@@ -59,7 +59,6 @@ public abstract class AbstractLayout implements Layout {
             return;
         }
         List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
 
@@ -72,20 +71,17 @@ public abstract class AbstractLayout implements Layout {
 
         if (x1 == x2) {
             // vertical line supporting the svg component
-            FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-            FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-            if (nodeWinding2.getY() > nodeWinding1.getY()) {
+            if (node2.getY() > node1.getY()) {
                 // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
                 node.setOrientation(Orientation.DOWN);
             }
         } else {
             // horizontal line supporting the svg component,
-            // so we rotate the component by 90 or 270 (the component is vertical in the library)
-            if (node1.getSide() == FeederWithSideNode.Side.ONE) {
-                // rotation by 90 to get circle for winding1 at the left side
+            if (x1 < x2) {
+                // going from left to right (hence upper winding should be on the left)
                 node.setOrientation(Orientation.LEFT);
             } else {
-                // rotation by 90 to get circle for winding1 at the right side
+                // going from right to left (hence upper winding should be on the right)
                 node.setOrientation(Orientation.RIGHT);
             }
         }

@@ -142,7 +142,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             if (node instanceof Feeder2WTNode) {
                 vlInfo = getWindingVoltageLevelInfos(graph, (Feeder2WTNode) node, subComponentName);
             } else if (node instanceof Middle3WTNode) {
-                vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName, g.getVoltageLevelInfos().getId());
+                vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName);
             }
             if (vlInfo != null) {
                 getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
@@ -202,9 +202,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     }
 
     private Node getWindingNode(Middle2WTNode node, String subComponentName) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
-        return subComponentName.equals(WINDING1) ? adjacentNodes.get(0) : adjacentNodes.get(1);
+        return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
     private VoltageLevelInfos getWindingVoltageLevelInfos(Graph graph, Feeder2WTNode node, String subComponentName) {
@@ -217,60 +215,16 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         }
     }
 
-    private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName, String vlId) {
-        VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
-        VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
-        VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
-
-        VoltageLevelInfos voltageLevelInfos = null;
-
-        // A three windings transformer is represented by 3 circles identified by winding1, winding2 and winding3
-        // winding1 and winding2 are horizontally aligned and winding3 is displayed below the others
-        // But, if node is rotated (by 180 degrees), winding3 is displayed above the others and winding1 and winding2 are permuted
-
+    private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
             case WINDING1:
-                // colorizing winding1
-                if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg1, winding1 corresponds to transformer leg2 or leg3, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg2;
-                } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg2, winding1 corresponds to transformer leg1 or leg3, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg1;
-                } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg3, winding1 corresponds to transformer leg1 or leg2, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg1;
-                }
-                break;
+                return node.getVoltageLevelInfosLeg1();
             case WINDING2:
-                // colorizing winding2
-                if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg1, winding2 corresponds to transformer leg3 or leg2, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg3;
-                } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg2, winding2 corresponds to transformer leg3 or leg1, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg3;
-                } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg3, winding2 corresponds to transformer leg2 or leg1, depending on whether a rotation occurred or not
-                    voltageLevelInfos = voltageLevelInfosLeg2;
-                }
-                break;
+                return node.getVoltageLevelInfosLeg2();
             case WINDING3:
-                // colorizing winding3 : this winding always correspond to the leg of the voltage level displayed
-                if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg1, winding3 corresponds to this transformer leg
-                    voltageLevelInfos = voltageLevelInfosLeg1;
-                } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg2, winding3 corresponds to this transformer leg
-                    voltageLevelInfos = voltageLevelInfosLeg2;
-                } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                    // if voltage level displayed is the transformer leg3, winding3 corresponds to this transformer leg
-                    voltageLevelInfos = voltageLevelInfosLeg3;
-                }
-                break;
+                return node.getVoltageLevelInfosLeg3();
         }
-
-        return voltageLevelInfos;
+        return null;
     }
 
     @Override
