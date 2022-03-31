@@ -31,24 +31,20 @@ public abstract class AbstractLayout implements Layout {
         for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            if (adjacentNodes.size() == 2) {
+            if (adjacentNodes.size() == 2) { // 2 windings transformer
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
                 ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
                 ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
-            } else if (adjacentNodes.size() == 3) {
+                handle2wtNodeRotation(multiNode, pollingSplit);
+            } else if (adjacentNodes.size() == 3) { // 3 windings transformer
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), false);
                 List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
                 for (int i = 0; i < 3; i++) {
                     ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
                 }
-            }
-
-            if (multiNode.getAdjacentEdges().size() == 2) {  // 2 windings transformer
-                handle2wtNodeRotation(multiNode);
-            } else {  // 3 windings transformer
-                handle3wtNodeRotation(multiNode);
+                handle3wtNodeRotation(multiNode, pollingSplit);
             }
         }
 
@@ -58,19 +54,17 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private void handle2wtNodeRotation(Node node) {
+    private void handle2wtNodeRotation(Node node, List<List<Point>> pollingSplit) {
+        if (pollingSplit.stream().anyMatch(List::isEmpty)) {
+            return;
+        }
         List<Node> adjacentNodes = node.getAdjacentNodes();
         adjacentNodes.sort(Comparator.comparingDouble(Node::getX));
         FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
         FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
 
-        List<Edge> edges = node.getAdjacentEdges();
-        List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-        List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-
-        if (pol1.isEmpty() || pol2.isEmpty()) {
-            return;
-        }
+        List<Point> pol1 = pollingSplit.get(0);
+        List<Point> pol2 = pollingSplit.get(1);
 
         // get points for the line supporting the svg component
         double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
@@ -97,15 +91,13 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private void handle3wtNodeRotation(Node node) {
-
-        List<Edge> edges = node.getAdjacentEdges();
-        List<Point> pol1 = ((BranchEdge) edges.get(0)).getSnakeLine();
-        List<Point> pol2 = ((BranchEdge) edges.get(1)).getSnakeLine();
-        List<Point> pol3 = ((BranchEdge) edges.get(2)).getSnakeLine();
-        if (pol1.isEmpty() || pol2.isEmpty() || pol3.isEmpty()) {
+    private void handle3wtNodeRotation(Node node, List<List<Point>> pollingSplit) {
+        if (pollingSplit.stream().anyMatch(List::isEmpty)) {
             return;
         }
+        List<Point> pol1 = pollingSplit.get(0);
+        List<Point> pol2 = pollingSplit.get(1);
+        List<Point> pol3 = pollingSplit.get(2);
 
         // get points for the line supporting the svg component
         Point coord1 = pol1.get(pol1.size() - 2); // abscissa of the first polyline second last point
