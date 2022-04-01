@@ -39,4 +39,4 @@
 .sld-breaker.sld-fictitious {stroke: maroon}
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
-.sld-busbar-section.sld-fictitious {stroke-width: 1}
+.sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}
