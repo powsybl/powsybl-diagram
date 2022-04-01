@@ -1,11 +1,14 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package com.powsybl.sld.model.cells;
 
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
@@ -43,6 +46,20 @@ public final class ShuntCell extends AbstractCell {
     @Override
     public Direction getDirection() {
         return Direction.UNDEFINED;
+    }
+
+    @Override
+    public BodyPrimaryBlock getRootBlock() {
+        return (BodyPrimaryBlock) super.getRootBlock();
+    }
+
+    @Override
+    public void setRootBlock(Block rootBlock) {
+        if (rootBlock instanceof BodyPrimaryBlock) {
+            super.setRootBlock(rootBlock);
+        } else {
+            throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
+        }
     }
 
     public void putSideCell(Side side, ExternCell externCell) {

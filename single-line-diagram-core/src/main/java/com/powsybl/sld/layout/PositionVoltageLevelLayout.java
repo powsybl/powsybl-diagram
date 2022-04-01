@@ -105,13 +105,8 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     private void calculateCellCoord(VoltageLevelGraph graph, LayoutParameters layoutParam) {
-        CalculateCellCoordVisitor calculateCellCoordVisitor = new CalculateCellCoordVisitor(layoutParam);
-        graph.getBusCellStream().forEach(cell -> {
-            calculateCellCoordVisitor.setLayoutContext(createLayoutContext(graph, cell, layoutParam));
-            cell.accept(calculateCellCoordVisitor);
-        });
-        calculateCellCoordVisitor.setLayoutContext(null);
-        graph.getShuntCellStream().forEach(cell -> cell.accept(calculateCellCoordVisitor));
+        graph.getBusCellStream().forEach(cell -> cell.accept(new CalculateCoordCellVisitor(layoutParam, createLayoutContext(graph, cell, layoutParam))));
+        graph.getShuntCellStream().forEach(cell -> cell.accept(new CalculateCoordCellVisitor(layoutParam, null)));
     }
 
     private LayoutContext createLayoutContext(VoltageLevelGraph graph, BusCell cell, LayoutParameters layoutParam) {
@@ -139,14 +134,13 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             Map<Direction, Double> maxInternCellHeight = new EnumMap<>(Direction.class);
             // Initialize map with intern cells height
             // in order to keep intern cells visible if there are no extern cells
-            BlockCalculationVisitors cbv = new BlockCalculationVisitors(layoutParam);
             getGraph().getInternCellStream().forEach(cell ->
-                    maxInternCellHeight.merge(cell.getDirection(), calculateCellHeight(cbv, cell), Math::max));
+                    maxInternCellHeight.merge(cell.getDirection(), calculateCellHeight(layoutParam, cell), Math::max));
 
             // when using the adapt cell height to content option, we have to calculate the
             // maximum height of all the extern cells in each direction (top and bottom)
             getGraph().getExternCellStream().forEach(cell ->
-                    maxCellHeight.merge(cell.getDirection(), calculateCellHeight(cbv, cell), Math::max));
+                    maxCellHeight.merge(cell.getDirection(), calculateCellHeight(layoutParam, cell), Math::max));
 
             // if needed, adjusting the maximum calculated cell height to the minimum extern cell height parameter
             EnumSet.allOf(Direction.class).forEach(d -> maxCellHeight.compute(d, (k, v) -> {
@@ -167,9 +161,9 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         getGraph().setMaxCellHeight(maxCellHeight);
     }
 
-    double calculateCellHeight(BlockCalculationVisitors cbv, BusCell cell) {
-        BlockCalculationVisitors.CalculateCellHeightVisitor cch = cbv.createCalculateCellHeight();
-        cell.getRootBlock().accept(cch);
-        return cch.getBlockHeight();
+    double calculateCellHeight(LayoutParameters layoutParameters, BusCell cell) {
+        CalculateCellHeightBlockVisitor cchbv = CalculateCellHeightBlockVisitor.create(layoutParameters);
+        cell.getRootBlock().accept(cchbv);
+        return cchbv.getBlockHeight();
     }
 }

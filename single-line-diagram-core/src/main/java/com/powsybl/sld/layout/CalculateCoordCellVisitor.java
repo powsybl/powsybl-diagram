@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -14,7 +14,6 @@ import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.commons.PowsyblException;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
@@ -23,18 +22,12 @@ import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class CalculateCellCoordVisitor implements CellVisitor {
-    private LayoutParameters layoutParameters;
-    private LayoutContext layoutContext;
-    BlockCalculationVisitors blockCalculationVisitors;
+public final class CalculateCoordCellVisitor implements CellVisitor {
+    private final LayoutParameters layoutParameters;
+    private final LayoutContext layoutContext;
 
-    CalculateCellCoordVisitor(LayoutParameters layoutParameters) {
+    CalculateCoordCellVisitor(LayoutParameters layoutParameters, LayoutContext layoutContext) {
         this.layoutParameters = layoutParameters;
-        this.layoutContext = null;
-        blockCalculationVisitors = new BlockCalculationVisitors(layoutParameters);
-    }
-
-    void setLayoutContext(LayoutContext layoutContext) {
         this.layoutContext = layoutContext;
     }
 
@@ -53,12 +46,8 @@ public class CalculateCellCoordVisitor implements CellVisitor {
 
     @Override
     public void visit(ShuntCell cell) {
-        if (cell.getRootBlock() instanceof BodyPrimaryBlock) {
-            Position lPos = cell.getSidePosition(Side.LEFT);
-            coordShuntCase((BodyPrimaryBlock) cell.getRootBlock(), lPos.get(H) + lPos.getSpan(H), cell.getSidePosition(Side.RIGHT).get(H));
-        } else {
-            throw new PowsyblException("ShuntCell can only be composed of a single BodyPrimaryBlock");
-        }
+        Position lPos = cell.getSidePosition(Side.LEFT);
+        coordShuntCase(cell.getRootBlock(), lPos.get(H) + lPos.getSpan(H), cell.getSidePosition(Side.RIGHT).get(H));
     }
 
     private void calculateRootCoord(Block block, LayoutContext layoutContext) {
@@ -71,7 +60,7 @@ public class CalculateCellCoordVisitor implements CellVisitor {
         double spanY = getRootSpanYCoord(position, layoutParameters, layoutContext.getMaxInternCellHeight(), layoutContext.isInternCell());
         coord.setSpan(Y, spanY);
         coord.set(Y, getRootYCoord(position, layoutParameters, spanY, layoutContext));
-        BlockCalculationVisitors.CalculateCoord cc = blockCalculationVisitors.createCalculateCoord(layoutContext);
+        CalculateCoordBlockVisitor cc = CalculateCoordBlockVisitor.create(layoutParameters, layoutContext);
         block.accept(cc);
     }
 

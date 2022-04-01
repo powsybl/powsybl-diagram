@@ -9,8 +9,8 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockCalculationVisitors;
 import com.powsybl.sld.layout.BlockOrganizer;
+import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.LayoutContext;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -108,10 +108,9 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         sb.getCoord().set(Y, 20);
         sb.getCoord().setSpan(X, 100);
         sb.getCoord().setSpan(Y, 200);
-        BlockCalculationVisitors blockCalculationVisitors = new BlockCalculationVisitors(layoutParameters);
-        BlockCalculationVisitors.CalculateCoord cc = blockCalculationVisitors.createCalculateCoord(new LayoutContext(0., 0., 0., null, false, false, false));
+        CalculateCoordBlockVisitor ccbv = CalculateCoordBlockVisitor.create(layoutParameters, new LayoutContext(0., 0., 0., null, false, false, false));
         sb.getPosition().setOrientation(Orientation.LEFT);
-        sb.accept(cc);
+        sb.accept(ccbv);
 
         assertEquals(10, sb.getCoord().get(X), 0);
         assertEquals(20, sb.getCoord().get(Y), 0);
