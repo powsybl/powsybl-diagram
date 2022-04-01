@@ -10,6 +10,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,25 +45,25 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         substation = null;
         vl = network.newVoltageLevel()
                 .setId("vl")
-                .setNominalV(300)
+                .setNominalV(50)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
 
         vl1 = network.newVoltageLevel()
                 .setId("vl1")
-                .setNominalV(120)
+                .setNominalV(10)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
 
         vl2 = network.newVoltageLevel()
                 .setId("vl2")
-                .setNominalV(130)
+                .setNominalV(30)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
 
         vl3 = network.newVoltageLevel()
                 .setId("vl3")
-                .setNominalV(50)
+                .setNominalV(10)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
 
@@ -88,7 +89,7 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
     }
 
     @Test
-    public void test() {
+    public void testBasic() {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
@@ -98,5 +99,18 @@ public class TestCaseFictitiousBus extends AbstractTestCaseIidm {
         // write Json and compare to reference
         assertEquals(toString("/TestCaseFictitiousBus.svg"),
                 toSVG(g, "/TestCaseFictitiousBus.svg", getDefaultDiagramLabelProvider(), getDefaultDiagramStyleProvider()));
+    }
+
+    @Test
+    public void testTopological() {
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write Json and compare to reference
+        assertEquals(toString("/TestCaseFictitiousBusTopological.svg"),
+                toSVG(g, "/TestCaseFictitiousBusTopological.svg", getDefaultDiagramLabelProvider(), new TopologicalStyleProvider(network)));
     }
 }
