@@ -31,20 +31,20 @@ public abstract class AbstractLayout implements Layout {
         for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            if (adjacentNodes.size() == 2) { // 2 windings transformer
+            if (multiNode instanceof Middle2WTNode) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
                 ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
                 ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
-                handle2wtNodeRotation(multiNode, pollingSplit);
-            } else if (adjacentNodes.size() == 3) { // 3 windings transformer
+                handle2wtNodeOrientation((Middle2WTNode) multiNode, pollingSplit);
+            } else if (multiNode instanceof Middle3WTNode) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), false);
                 List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
                 for (int i = 0; i < 3; i++) {
                     ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
                 }
-                handle3wtNodeRotation(multiNode, pollingSplit);
+                handle3wtNodeOrientation((Middle3WTNode) multiNode, pollingSplit);
             }
         }
 
@@ -54,54 +54,51 @@ public abstract class AbstractLayout implements Layout {
         }
     }
 
-    private void handle2wtNodeRotation(Node node, List<List<Point>> pollingSplit) {
-        if (pollingSplit.stream().anyMatch(List::isEmpty)) {
-            return;
-        }
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-        FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-
+    private void handle2wtNodeOrientation(Middle2WTNode node, List<List<Point>> pollingSplit) {
         List<Point> pol1 = pollingSplit.get(0);
         List<Point> pol2 = pollingSplit.get(1);
 
-        // get points for the line supporting the svg component
-        double x1 = pol1.get(pol1.size() - 2).getX(); // absciss of the first polyline second last point
-        double x2 = pol2.get(pol2.size() - 2).getX();  // absciss of the second polyline second last point
+        // Orientation.LEFT example:
+        // coord1 o-----OO-----o coord2
+        Point coord1 = pol1.get(pol1.size() - 2); // point linked to winding1
+        Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2
 
-        if (x1 == x2) {
-            // vertical line supporting the svg component
-            if (node2.getY() > node1.getY()) {
-                // permutation here, because in the svg component library, circle for winding1 is below circle for winding2
+        if (coord1.getX() == coord2.getX()) {
+            if (coord2.getY() > coord1.getY()) {
                 node.setOrientation(Orientation.DOWN);
+            } else {
+                node.setOrientation(Orientation.UP);
             }
         } else {
-            // horizontal line supporting the svg component,
-            if (x1 < x2) {
-                // going from left to right (hence upper winding should be on the left)
+            if (coord1.getX() < coord2.getX()) {
                 node.setOrientation(Orientation.LEFT);
             } else {
-                // going from right to left (hence upper winding should be on the right)
                 node.setOrientation(Orientation.RIGHT);
             }
         }
     }
 
-    private void handle3wtNodeRotation(Node node, List<List<Point>> pollingSplit) {
-        if (pollingSplit.stream().anyMatch(List::isEmpty)) {
-            return;
-        }
-        List<Point> pol1 = pollingSplit.get(0);
-        List<Point> pol2 = pollingSplit.get(1);
-        List<Point> pol3 = pollingSplit.get(2);
+    /**
+     * Deduce the node orientation based on the lines coordinates supporting the svg component
+     */
+    private void handle3wtNodeOrientation(Middle3WTNode node, List<List<Point>> snakeLines) {
+        List<Point> pol1 = snakeLines.get(0);
+        List<Point> pol2 = snakeLines.get(1);
+        List<Point> pol3 = snakeLines.get(2);
 
-        // get points for the line supporting the svg component
-        Point coord1 = pol1.get(pol1.size() - 2); // abscissa of the first polyline second last point
-        Point coord2 = pol2.get(pol2.size() - 2);  // abscissa of the second polyline second last point
-        Point coord3 = pol3.get(pol3.size() - 2);  // abscissa of the third polyline second last point
+        // Orientation.UP example:
+        // coord1 o-----OO-----o coord3
+        //              O
+        //              |
+        //              o coord2
+        Point coord1 = pol1.get(pol1.size() - 2);  // point linked to winding1
+        Point coord2 = pol2.get(pol2.size() - 2);  // point linked to winding3
+        Point coord3 = pol3.get(pol3.size() - 2);  // point linked to winding2
         if (coord1.getY() == coord3.getY()) {
             if (coord2.getY() < coord1.getY()) {
-                node.setOrientation(Orientation.DOWN);  // rotation if middle node cell orientation is BOTTOM
+                node.setOrientation(Orientation.DOWN);
+            } else {
+                node.setOrientation(Orientation.UP);
             }
         } else {
             if (coord2.getX() == coord1.getX()) {

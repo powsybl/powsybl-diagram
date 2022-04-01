@@ -272,12 +272,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
                         FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
-                // create middle node
-                Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
-                    voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
-                    voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
-                    voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE), true);
-
                 FeederWithSideNode.Side firstOtherLegSide;
                 FeederWithSideNode.Side secondOtherLegSide;
                 switch (side) {
@@ -307,10 +301,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 Feeder3WTLegNode secondOtherLegNode = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(graph, secondOtherLegNodeId, transformer.getNameOrId(),
                         transformer.getId(), secondOtherLegSide, voltageLevelInfosBySide.get(secondOtherLegSide));
 
+                // create middle node
+                Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
+                        firstOtherLegNode, secondOtherLegNode);
+
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {
-                // in substation diagram, we only represent the leg node
-
+                // in substation diagram, we only represent the leg node within the voltage level (3wt node will be on the snake line)
                 String id = transformer.getId() + "_" + side.name();
                 Feeder3WTLegNode legNode = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(graph, id, transformer.getNameOrId(), transformer.getId(),
                         FeederWithSideNode.Side.valueOf(side.name()));
@@ -439,10 +436,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
 
             nodesByNumber.put(terminal.getNodeBreakerView().getNode(), middleNode);
-
-            // add edges between the middle node and other leg nodes
-            graph.addEdge(middleNode, firstOtherLegNode);
-            graph.addEdge(middleNode, secondOtherLegNode);
         }
 
         @Override
@@ -487,10 +480,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
             secondOtherLegNode.setOrder(order++);
             secondOtherLegNode.setDirection(direction);
-
-            // add edges between the middle node and other leg nodes
-            graph.addEdge(middleNode, firstOtherLegNode);
-            graph.addEdge(middleNode, secondOtherLegNode);
 
             connectToBus(middleNode, terminal);
         }
@@ -648,33 +637,14 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void add3wtEdges(BaseGraph graph, List<ThreeWindingsTransformer> threeWindingsTransformers) {
         threeWindingsTransformers.forEach(transfo -> {
-            Terminal t1 = transfo.getLeg1().getTerminal();
-            Terminal t2 = transfo.getLeg2().getTerminal();
-            Terminal t3 = transfo.getLeg3().getTerminal();
-
-            String id1 = transfo.getId() + "_" + transfo.getSide(t1).name();
-            String id2 = transfo.getId() + "_" + transfo.getSide(t2).name();
-            String id3 = transfo.getId() + "_" + transfo.getSide(t3).name();
-
-            VoltageLevel vl1 = t1.getVoltageLevel();
-            VoltageLevel vl2 = t2.getVoltageLevel();
-            VoltageLevel vl3 = t3.getVoltageLevel();
-
-            VoltageLevelGraph g1 = graph.getVoltageLevel(t1.getVoltageLevel().getId());
-            VoltageLevelGraph g2 = graph.getVoltageLevel(t2.getVoltageLevel().getId());
-            VoltageLevelGraph g3 = graph.getVoltageLevel(t3.getVoltageLevel().getId());
-
-            Node n1 = g1.getNode(id1);
-            Node n2 = g2.getNode(id2);
-            Node n3 = g3.getNode(id3);
-
-            // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-            VoltageLevelInfos voltageLevelInfos1 = new VoltageLevelInfos(vl1.getId(), vl1.getNameOrId(), vl1.getNominalV());
-            VoltageLevelInfos voltageLevelInfos2 = new VoltageLevelInfos(vl2.getId(), vl2.getNameOrId(), vl2.getNominalV());
-            VoltageLevelInfos voltageLevelInfos3 = new VoltageLevelInfos(vl3.getId(), vl3.getNameOrId(), vl3.getNominalV());
+            List<Feeder3WTLegNode> feederNodes = transfo.getLegStream().map(leg -> {
+                String vlId = leg.getTerminal().getVoltageLevel().getId();
+                String idLeg = transfo.getId() + "_" + transfo.getSide(leg.getTerminal()).name();
+                return (Feeder3WTLegNode) graph.getVoltageLevel(vlId).getNode(idLeg);
+            }).collect(Collectors.toList());
 
             NodeFactory.createMiddle3WTNode(graph, transfo.getId(), transfo.getNameOrId(),
-                (Feeder3WTLegNode) n1, (Feeder3WTLegNode) n2, (Feeder3WTLegNode) n3, voltageLevelInfos1, voltageLevelInfos2, voltageLevelInfos3, false);
+                feederNodes.get(0), feederNodes.get(1), feederNodes.get(2));
         });
     }
 
