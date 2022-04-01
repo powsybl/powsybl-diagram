@@ -10,9 +10,7 @@ import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;
 
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
 import static com.powsybl.sld.model.blocks.Block.Type.BODYPRIMARY;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Orientation.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 

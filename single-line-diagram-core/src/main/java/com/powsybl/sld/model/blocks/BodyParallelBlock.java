@@ -10,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.powsybl.sld.model.blocks.Block.Type.BODYPARALLEL;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**

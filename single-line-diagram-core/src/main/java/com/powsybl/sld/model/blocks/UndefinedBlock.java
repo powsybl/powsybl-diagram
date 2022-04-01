@@ -10,8 +10,6 @@ package com.powsybl.sld.model.blocks;
 import java.util.List;
 import java.util.Objects;
 
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
-
 /**
  * A block group that cannot be correctly decomposed anymore.
  * All subBlocks are superposed.
