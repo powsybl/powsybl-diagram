@@ -149,7 +149,7 @@
     "transformations" : {
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION",
-      "DOWN" : "ROTATION"
+      "DOWN" : "FLIP"
     },
     "styleClass" : "sld-three-wt"
   }, {

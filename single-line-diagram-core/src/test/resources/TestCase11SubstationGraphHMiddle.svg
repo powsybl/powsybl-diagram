@@ -1463,9 +1463,9 @@
             <circle class="sld-winding" cx="8" cy="19" r="5"/>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idtrf8" transform="translate(1287.0,827.0)">
-            <circle class="sld-winding" cx="5" cy="15" r="5" transform="rotate(180.0,8.0,12.0)"/>
-            <circle class="sld-winding" cx="11" cy="15" r="5" transform="rotate(180.0,8.0,12.0)"/>
-            <circle class="sld-winding" cx="8" cy="19" r="5" transform="rotate(180.0,8.0,12.0)"/>
+            <circle class="sld-winding" cx="5" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+            <circle class="sld-winding" cx="11" cy="15" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
+            <circle class="sld-winding" cx="8" cy="19" r="5" transform="scale(1, -1) translate(0, -24.0)"/>
         </g>
     </g>
 </svg>

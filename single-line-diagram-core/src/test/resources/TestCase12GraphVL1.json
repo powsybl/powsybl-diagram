@@ -814,19 +814,19 @@
     "y" : 62.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
     },
-    "voltageLevelInfosLeg3" : {
+    "voltageLevelInfosLeg2" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -880,19 +880,19 @@
     "orientation" : "DOWN",
     "open" : false,
     "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
     },
-    "voltageLevelInfosLeg3" : {
+    "voltageLevelInfosLeg2" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -947,19 +947,19 @@
     "y" : 62.0,
     "open" : false,
     "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
     },
-    "voltageLevelInfosLeg3" : {
+    "voltageLevelInfosLeg2" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
     }
   }, {
     "type" : "FEEDER",
@@ -2388,23 +2388,23 @@
     }
   } ],
   "edges" : [ {
-    "node1" : "trf6",
-    "node2" : "trf6_TWO"
+    "node1" : "trf6_TWO",
+    "node2" : "trf6"
   }, {
-    "node1" : "trf6",
-    "node2" : "trf6_THREE"
+    "node1" : "trf6_THREE",
+    "node2" : "trf6"
   }, {
-    "node1" : "trf7",
-    "node2" : "trf7_TWO"
+    "node1" : "trf7_TWO",
+    "node2" : "trf7"
   }, {
-    "node1" : "trf7",
-    "node2" : "trf7_THREE"
+    "node1" : "trf7_THREE",
+    "node2" : "trf7"
   }, {
-    "node1" : "trf8",
-    "node2" : "trf8_TWO"
+    "node1" : "trf8_TWO",
+    "node2" : "trf8"
   }, {
-    "node1" : "trf8",
-    "node2" : "trf8_THREE"
+    "node1" : "trf8_THREE",
+    "node2" : "trf8"
   }, {
     "node1" : "bbs1",
     "node2" : "dsect11"

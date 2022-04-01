@@ -2529,7 +2529,7 @@
     "fictitious" : true,
     "x" : 685.0,
     "y" : 80.0,
-    "orientation" : "RIGHT",
+    "orientation" : "LEFT",
     "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",

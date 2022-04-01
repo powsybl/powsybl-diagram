@@ -554,14 +554,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
     }
   }, {
     "type" : "FEEDER",
@@ -619,14 +619,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
     }
   }, {
     "type" : "FEEDER",
@@ -685,14 +685,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl2",
-      "name" : "vl2",
-      "nominalVoltage" : 225.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl3",
       "name" : "vl3",
       "nominalVoltage" : 63.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl2",
+      "name" : "vl2",
+      "nominalVoltage" : 225.0
     }
   }, {
     "type" : "FEEDER",
@@ -1763,23 +1763,23 @@
     }
   } ],
   "edges" : [ {
-    "node1" : "trf6",
-    "node2" : "trf6_ONE"
+    "node1" : "trf6_ONE",
+    "node2" : "trf6"
   }, {
-    "node1" : "trf6",
-    "node2" : "trf6_THREE"
+    "node1" : "trf6_THREE",
+    "node2" : "trf6"
   }, {
-    "node1" : "trf7",
-    "node2" : "trf7_ONE"
+    "node1" : "trf7_ONE",
+    "node2" : "trf7"
   }, {
-    "node1" : "trf7",
-    "node2" : "trf7_THREE"
+    "node1" : "trf7_THREE",
+    "node2" : "trf7"
   }, {
-    "node1" : "trf8",
-    "node2" : "trf8_ONE"
+    "node1" : "trf8_ONE",
+    "node2" : "trf8"
   }, {
-    "node1" : "trf8",
-    "node2" : "trf8_THREE"
+    "node1" : "trf8_THREE",
+    "node2" : "trf8"
   }, {
     "node1" : "bbs5",
     "node2" : "dscpl1"

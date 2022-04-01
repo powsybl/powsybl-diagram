@@ -306,8 +306,8 @@
             <g class="sld-wire" id="_95_VL1_95_BR20_95_T3_95_12">
                 <polyline points="390.0,256.0,390.0,184.0"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_TWO">
-                <polyline points="397.0,172.0,415.0,172.0,415.0,110.0"/>
+            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_TWO_95_T3_95_12">
+                <polyline points="415.0,110.0,415.0,172.0,397.0,172.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idT3_95_12_95_TWO_ARROW_ACTIVE" transform="translate(410.0,125.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -319,8 +319,8 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
-                <polyline points="383.0,172.0,365.0,172.0,365.0,110.0"/>
+            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+                <polyline points="365.0,110.0,365.0,172.0,383.0,172.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(360.0,125.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -534,8 +534,8 @@
             <g class="sld-wire" id="_95_VL1_95_BR30_95_T3_95_12">
                 <polyline points="690.0,256.0,690.0,184.0"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_ONE">
-                <polyline points="697.0,172.0,715.0,172.0,715.0,110.0"/>
+            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_ONE_95_T3_95_12">
+                <polyline points="715.0,110.0,715.0,172.0,697.0,172.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idT3_95_12_95_ONE_ARROW_ACTIVE" transform="translate(710.0,125.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -547,8 +547,8 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_T3_95_12_95_THREE">
-                <polyline points="683.0,172.0,665.0,172.0,665.0,110.0"/>
+            <g class="sld-wire" id="_95_VL1_95_T3_95_12_95_THREE_95_T3_95_12">
+                <polyline points="665.0,110.0,665.0,172.0,683.0,172.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idT3_95_12_95_THREE_ARROW_ACTIVE" transform="translate(660.0,125.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>

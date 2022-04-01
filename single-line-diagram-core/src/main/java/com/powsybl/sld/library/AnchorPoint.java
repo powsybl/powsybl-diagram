@@ -64,6 +64,10 @@ public class AnchorPoint extends Point {
             } else {
                 return new AnchorPoint(getX(), getY(), orientation);
             }
+        } else if (nodeTransformation == Component.Transformation.FLIP) {
+            if (nodeOrientation == Orientation.DOWN) {
+                return new AnchorPoint(getX(), -getY(), this.orientation);
+            }
         }
         return this;
     }

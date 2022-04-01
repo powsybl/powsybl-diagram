@@ -330,8 +330,8 @@
             <polyline points="560.0,110.0,560.0,20.0,447.0,20.0"/>
         </g>
         <g class="sld-two-wt sld-fictitious" id="id2WT" transform="translate(255.0,42.5)">
-            <circle class="sld-vl180to300 sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
-            <circle class="sld-vl300to500 sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
+            <circle class="sld-vl300to500 sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle class="sld-vl180to300 sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
         </g>
         <g class="sld-three-wt sld-fictitious" id="id3WT" transform="translate(432.0,8.0)">
             <circle class="sld-vl300to500 sld-winding" cx="5" cy="15" r="5"/>

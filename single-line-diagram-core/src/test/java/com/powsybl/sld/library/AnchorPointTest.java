@@ -38,7 +38,11 @@ public class AnchorPointTest {
         assertEquals(AnchorOrientation.VERTICAL, rotatedAnchorPoint4.getOrientation());
         assertEquals(0, rotatedAnchorPoint4.getX(), 0);
         assertEquals(-10, rotatedAnchorPoint4.getY(), 0);
-        AnchorPoint rotatedAnchorPoint5 = anchorPoint1.transformAnchorPoint(Orientation.LEFT, Component.Transformation.NONE);
-        assertEquals(anchorPoint1, rotatedAnchorPoint5);
+        AnchorPoint transformAnchorPoint = anchorPoint1.transformAnchorPoint(Orientation.LEFT, Component.Transformation.NONE);
+        assertEquals(anchorPoint1, transformAnchorPoint);
+        AnchorPoint flipAnchorPoint = anchorPoint1.transformAnchorPoint(Orientation.DOWN, Component.Transformation.FLIP);
+        assertEquals(AnchorOrientation.VERTICAL, flipAnchorPoint.getOrientation());
+        assertEquals(0, flipAnchorPoint.getX(), 0);
+        assertEquals(10, flipAnchorPoint.getY(), 0);
     }
 }

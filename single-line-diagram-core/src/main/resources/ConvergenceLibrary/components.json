@@ -148,7 +148,7 @@
       "width" : 16.0,
       "height" : 24.0
     },
-    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"ROTATION" },
+    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "3-windings-transformer-winding1.svg",

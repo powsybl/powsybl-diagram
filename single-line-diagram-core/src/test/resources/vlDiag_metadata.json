@@ -154,7 +154,7 @@
     "transformations" : {
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION",
-      "DOWN" : "ROTATION"
+      "DOWN" : "FLIP"
     },
     "styleClass" : "sld-three-wt"
   }, {
@@ -860,9 +860,9 @@
     } ]
   } ],
   "wires" : [ {
-    "id" : "_95_vl1_95_trf7_95_trf7_95_THREE",
-    "nodeId1" : "idtrf7",
-    "nodeId2" : "idtrf7_95_THREE",
+    "id" : "_95_vl1_95_trf6_95_THREE_95_trf6",
+    "nodeId1" : "idtrf6_95_THREE",
+    "nodeId2" : "idtrf6",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -914,6 +914,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_trf6_95_TWO_95_trf6",
+    "nodeId1" : "idtrf6_95_TWO",
+    "nodeId2" : "idtrf6",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_bbs1_95_dload1",
     "nodeId1" : "idbbs1",
     "nodeId2" : "iddload1",
@@ -944,12 +950,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_trf6_95_trf6_95_THREE",
-    "nodeId1" : "idtrf6",
-    "nodeId2" : "idtrf6_95_THREE",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_btrf17_95_trf7",
     "nodeId1" : "idbtrf17",
     "nodeId2" : "idtrf7",
@@ -977,6 +977,12 @@
     "id" : "_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_dload2",
     "nodeId1" : "iddload2",
     "nodeId2" : "idINTERNAL_95_vl1_95_dload2",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_trf8_95_THREE_95_trf8",
+    "nodeId1" : "idtrf8_95_THREE",
+    "nodeId2" : "idtrf8",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1025,12 +1031,6 @@
     "id" : "_95_vl1_95_INTERNAL_95_vl1_95_load1_95_load1",
     "nodeId1" : "idINTERNAL_95_vl1_95_load1",
     "nodeId2" : "idload1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_trf6_95_trf6_95_TWO",
-    "nodeId1" : "idtrf6",
-    "nodeId2" : "idtrf6_95_TWO",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1136,12 +1136,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_trf8_95_trf8_95_TWO",
-    "nodeId1" : "idtrf8",
-    "nodeId2" : "idtrf8_95_TWO",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_btrf14_95_INTERNAL_95_vl1_95_dtrf14",
     "nodeId1" : "idbtrf14",
     "nodeId2" : "idINTERNAL_95_vl1_95_dtrf14",
@@ -1184,12 +1178,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_trf7_95_trf7_95_TWO",
-    "nodeId1" : "idtrf7",
-    "nodeId2" : "idtrf7_95_TWO",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_dsect22_95_INTERNAL_95_vl1_95_dsect22",
     "nodeId1" : "iddsect22",
     "nodeId2" : "idINTERNAL_95_vl1_95_dsect22",
@@ -1202,12 +1190,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_trf8_95_trf8_95_THREE",
-    "nodeId1" : "idtrf8",
-    "nodeId2" : "idtrf8_95_THREE",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_dtrf14_95_INTERNAL_95_vl1_95_dtrf14",
     "nodeId1" : "iddtrf14",
     "nodeId2" : "idINTERNAL_95_vl1_95_dtrf14",
@@ -1217,6 +1199,12 @@
     "id" : "_95_vl1_95_btrf12_95_INTERNAL_95_vl1_95_trf2_95_ONE",
     "nodeId1" : "idbtrf12",
     "nodeId2" : "idINTERNAL_95_vl1_95_trf2_95_ONE",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_trf7_95_TWO_95_trf7",
+    "nodeId1" : "idtrf7_95_TWO",
+    "nodeId2" : "idtrf7",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1250,6 +1238,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_trf7_95_THREE_95_trf7",
+    "nodeId1" : "idtrf7_95_THREE",
+    "nodeId2" : "idtrf7",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_dload1",
     "nodeId1" : "iddload1",
     "nodeId2" : "idINTERNAL_95_vl1_95_dload1",
@@ -1277,6 +1271,12 @@
     "id" : "_95_vl1_95_bbs2_95_dtrf18",
     "nodeId1" : "idbbs2",
     "nodeId2" : "iddtrf18",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_trf8_95_TWO_95_trf8",
+    "nodeId1" : "idtrf8_95_TWO",
+    "nodeId2" : "idtrf8",
     "straight" : false,
     "snakeLine" : false
   }, {
