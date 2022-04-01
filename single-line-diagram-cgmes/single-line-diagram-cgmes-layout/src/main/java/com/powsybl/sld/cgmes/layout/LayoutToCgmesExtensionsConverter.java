@@ -12,6 +12,7 @@ import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
 
@@ -61,15 +62,8 @@ public class LayoutToCgmesExtensionsConverter {
     private NodeDiagramData setNodeDiagramPoints(NodeDiagramData diagramData, BusNode busNode, OffsetPoint offsetPoint, String diagramName) {
         double x1 = busNode.getX();
         double y1 = busNode.getY();
-        double x2 = x1;
+        double x2 = x1 + busNode.getPxWidth();
         double y2 = y1;
-        double pxWidth = busNode.getPxWidth();
-        boolean rotatedBus = busNode.isRotated();
-        if (!rotatedBus) {
-            x2 = x1 + pxWidth;
-        } else {
-            y2 = y1 + pxWidth;
-        }
 
         NodeDiagramData.NodeDiagramDataDetails diagramDetails = diagramData.new NodeDiagramDataDetails();
         DiagramPoint p1 = offsetPoint.newDiagramPoint(x1, y1, 1);
@@ -263,11 +257,11 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private double rotationValue(Node node) {
-        return node.isRotated() ? 0.0 : 180.0;
+        return node.getOrientation() == Orientation.UP ? 0.0 : 180.0;
     }
 
     private double switchRotationValue(Node node) {
-        return node.isRotated() ? 90.0 : 0.0;
+        return node.getOrientation().isHorizontal() ? 90.0 : 0.0;
     }
 
     private void convertLayoutSingleDiagram(Network network, Stream<Substation> subsStream, String diagramName) {

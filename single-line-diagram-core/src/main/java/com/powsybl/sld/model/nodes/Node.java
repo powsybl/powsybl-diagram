@@ -163,10 +163,6 @@ public class Node {
         return this.type;
     }
 
-    public boolean isRotated() {
-        return orientation != Orientation.UP;
-    }
-
     public boolean isOpen() {
         return open;
     }
