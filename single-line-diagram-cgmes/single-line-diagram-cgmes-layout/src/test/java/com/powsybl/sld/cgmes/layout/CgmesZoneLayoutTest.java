@@ -11,6 +11,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.nodes.BranchEdge;
@@ -264,11 +265,7 @@ public class CgmesZoneLayoutTest {
     private void checkNodeCoordinates(Node node, double x, double y, boolean rotated) {
         assertEquals(x, node.getX(), 0);
         assertEquals(y, node.getY(), 0);
-        if (rotated) {
-            assertTrue(node.isRotated());
-        } else {
-            assertFalse(node.isRotated());
-        }
+        assertEquals(rotated ? Orientation.LEFT : Orientation.UP, node.getOrientation());
     }
 
     private void checkLinePointCoordinates(Point point, int x, int y) {

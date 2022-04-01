@@ -7,10 +7,10 @@
 package com.powsybl.sld.cgmes.layout;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
@@ -39,20 +39,20 @@ public class NodeTopologyHorizontalBusbarTest extends AbstractNodeTopologyTest {
         assertEquals(20, graph.getNodes().get(0).getX(), 0);
         assertEquals(140, graph.getNodes().get(0).getY(), 0);
         assertEquals(320, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertFalse(graph.getNodes().get(0).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
         assertEquals(190, graph.getNodes().get(1).getX(), 0);
         assertEquals(10, graph.getNodes().get(1).getY(), 0);
         assertEquals(190, graph.getNodes().get(2).getX(), 0);
         assertEquals(370, graph.getNodes().get(2).getY(), 0);
         assertEquals(190, graph.getNodes().get(3).getX(), 0);
         assertEquals(110, graph.getNodes().get(3).getY(), 0);
-        assertFalse(graph.getNodes().get(3).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(3).getOrientation());
         assertEquals(190, graph.getNodes().get(4).getX(), 0);
         assertEquals(70, graph.getNodes().get(4).getY(), 0);
-        assertFalse(graph.getNodes().get(4).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(4).getOrientation());
         assertEquals(190, graph.getNodes().get(5).getX(), 0);
         assertEquals(30, graph.getNodes().get(5).getY(), 0);
-        assertFalse(graph.getNodes().get(5).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(5).getOrientation());
     }
 
 }
