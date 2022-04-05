@@ -43,6 +43,11 @@ public class ExternCell extends AbstractBusCell {
     }
 
     @Override
+    public void accept(CellVisitor cellVisitor) {
+        cellVisitor.visit(this);
+    }
+
+    @Override
     public int newHPosition(int hPosition) {
         int minHv = shuntCells.stream().filter(shuntCell -> shuntCell.getSideCell(RIGHT) == this)
                 .mapToInt(shuntCell -> Math.max(hPosition, shuntCell.getSidePosition(LEFT).get(H) + shuntCell.getSidePosition(LEFT).getSpan(H) + shuntCell.getLength()))

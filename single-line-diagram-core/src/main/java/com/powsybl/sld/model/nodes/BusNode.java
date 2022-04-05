@@ -7,13 +7,11 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 
 import java.io.IOException;
 
 import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -32,14 +30,6 @@ public class BusNode extends Node {
 
     public BusNode(String id, String name, boolean fictitious) {
         super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious);
-    }
-
-    public void calculateCoord(LayoutParameters layoutParameters, double firstBusY) {
-        double elementaryWidth = layoutParameters.getCellWidth() / 2;
-        double busPadding = layoutParameters.getBusPadding();
-        setCoordinates(position.get(H) * elementaryWidth + busPadding,
-            firstBusY + position.get(V) * layoutParameters.getVerticalSpaceBus());
-        setPxWidth(position.getSpan(H) * elementaryWidth - 2 * busPadding);
     }
 
     public double getPxWidth() {
