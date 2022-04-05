@@ -141,7 +141,7 @@ final class CellBlockDecomposer {
             if (blocksBundle.isEmpty()) {
                 i++;
             } else {
-                blocksBundle.add(blocks.get(i));
+                blocksBundle.add(0, blocks.get(i));
                 blocks.removeAll(blocksBundle);
                 blocksBundlesToMerge.add(blocksBundle);
             }
