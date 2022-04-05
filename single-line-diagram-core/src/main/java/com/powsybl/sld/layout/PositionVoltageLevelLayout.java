@@ -97,7 +97,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private void calculateNodeCoord(BusNode busNode, LayoutParameters layoutParameters, double firstBusY) {
         double elementaryWidth = layoutParameters.getCellWidth() / 2;
-        double busPadding = layoutParameters.getBusPadding();
+        double busPadding = busNode.isFictitious() ? elementaryWidth : layoutParameters.getBusPadding();
         Position position = busNode.getPosition();
         busNode.setCoordinates(position.get(H) * elementaryWidth + busPadding,
             firstBusY + position.get(V) * layoutParameters.getVerticalSpaceBus());
