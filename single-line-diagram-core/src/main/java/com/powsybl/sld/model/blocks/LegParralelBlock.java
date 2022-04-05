@@ -6,8 +6,6 @@
  */
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.BusNode;
 
@@ -65,8 +63,7 @@ public class LegParralelBlock extends AbstractParallelBlock implements LegBlock 
     }
 
     @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        // case HORIZONTAL cannot happen
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
     }
-
 }

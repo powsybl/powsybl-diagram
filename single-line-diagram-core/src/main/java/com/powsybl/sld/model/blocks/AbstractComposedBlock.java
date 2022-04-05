@@ -7,9 +7,6 @@
 package com.powsybl.sld.model.blocks;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.coordinate.Coord;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.nodes.Node;
@@ -81,30 +78,6 @@ public abstract class AbstractComposedBlock extends AbstractBlock implements Com
 
     public Stream<Position.Segment> getSegments(Position.Dimension dimension) {
         return subBlocks.stream().map(b -> b.getPosition().getSegment(dimension));
-    }
-
-    void replicateCoordInSubblocks(Coord.Dimension dim) {
-        getCoord().getSegment(dim).replicateMe(subBlocks.stream().map(b -> b.getCoord().getSegment(dim)));
-    }
-
-    void distributeCoordInSubblocs(Position.Dimension pDim, Coord.Dimension cDim, int sign) {
-        double init = getCoord().get(cDim) - sign * getCoord().getSpan(cDim) / 2;
-
-        // Computes the step, avoiding the division by 0 for 0-span composed block (e.g. LegPrimaryBlock + Feeder)
-        int pSpan = getPosition().getSpan(pDim);
-        double step = pSpan == 0 ? 0 : getCoord().getSpan(cDim) / pSpan;
-
-        subBlocks.forEach(sub -> {
-            sub.getCoord().set(cDim, init + sign * step * (sub.getPosition().get(pDim) + (double) sub.getPosition().getSpan(pDim) / 2));
-            sub.getCoord().setSpan(cDim, sub.getPosition().getSpan(pDim) * step);
-        });
-    }
-
-    void translatePosInCoord(LayoutParameters layoutParameters, LayoutContext layoutContext, Coord.Dimension cDimSteady,
-                             Coord.Dimension cDimVariable, Position.Dimension pDim, int sign) {
-        replicateCoordInSubblocks(cDimSteady);
-        distributeCoordInSubblocs(pDim, cDimVariable, sign);
-        subBlocks.forEach(sub -> sub.calculateCoord(layoutParameters, layoutContext));
     }
 
     @Override
