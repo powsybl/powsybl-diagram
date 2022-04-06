@@ -152,9 +152,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             // node outside any voltageLevel graph (multi-terminal node)
             Node windingNode = null;
             if (node instanceof Middle2WTNode) {
-                windingNode = getWindingNode((Middle2WTNode) node, subComponentName);
+                windingNode = getFeederNode((Middle2WTNode) node, subComponentName);
             } else if (node instanceof Middle3WTNode) {
-                windingNode = getWindingNode((Middle3WTNode) node, subComponentName);
+                windingNode = getFeederNode((Middle3WTNode) node, subComponentName);
             }
             if (windingNode != null) {
                 getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(windingNode), windingNode).ifPresent(styles::add);
@@ -176,17 +176,16 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
                 .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
     }
 
-    private Node getWindingNode(Middle3WTNode node, String subComponentName) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
+    private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
-            case WINDING1: return adjacentNodes.get(0);
-            case WINDING2: return adjacentNodes.get(2);
-            case WINDING3: return adjacentNodes.get(1);
+            case WINDING1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
             default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
         }
     }
 
-    private Node getWindingNode(Middle2WTNode node, String subComponentName) {
+    private Node getFeederNode(Middle2WTNode node, String subComponentName) {
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
@@ -202,9 +201,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
-            case WINDING1: return node.getVoltageLevelInfosLeg1();
-            case WINDING2: return node.getVoltageLevelInfosLeg2();
-            case WINDING3: return node.getVoltageLevelInfosLeg3();
+            case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
             default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
         }
     }

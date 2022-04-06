@@ -64,17 +64,9 @@ public abstract class AbstractLayout implements Layout {
         Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2
 
         if (coord1.getX() == coord2.getX()) {
-            if (coord2.getY() > coord1.getY()) {
-                node.setOrientation(Orientation.DOWN);
-            } else {
-                node.setOrientation(Orientation.UP);
-            }
+            node.setOrientation(coord2.getY() > coord1.getY() ? Orientation.DOWN : Orientation.UP);
         } else {
-            if (coord1.getX() < coord2.getX()) {
-                node.setOrientation(Orientation.LEFT);
-            } else {
-                node.setOrientation(Orientation.RIGHT);
-            }
+            node.setOrientation(coord1.getX() < coord2.getX() ? Orientation.LEFT : Orientation.RIGHT);
         }
     }
 
@@ -82,29 +74,42 @@ public abstract class AbstractLayout implements Layout {
      * Deduce the node orientation based on the lines coordinates supporting the svg component
      */
     private void handle3wtNodeOrientation(Middle3WTNode node, List<List<Point>> snakeLines) {
-        List<Point> pol1 = snakeLines.get(0);
-        List<Point> pol2 = snakeLines.get(1);
-        List<Point> pol3 = snakeLines.get(2);
+        List<Point> snakeLineLeg1 = snakeLines.get(0); // snakeline from leg1 feeder node to 3wt
+        List<Point> snakeLineLeg2 = snakeLines.get(1); // snakeline with simply two points going from leg2 feeder node to 3wt
+        List<Point> snakeLineLeg3 = snakeLines.get(2); // snakeline from leg3 feeder node to 3wt
 
         // Orientation.UP example:
-        // coord1 o-----OO-----o coord3
-        //              O
-        //              |
-        //              o coord2
-        Point coord1 = pol1.get(pol1.size() - 2);  // point linked to winding1
-        Point coord2 = pol2.get(pol2.size() - 2);  // point linked to winding3
-        Point coord3 = pol3.get(pol3.size() - 2);  // point linked to winding2
-        if (coord1.getY() == coord3.getY()) {
-            if (coord2.getY() < coord1.getY()) {
-                node.setOrientation(Orientation.DOWN);
+        // line going  _____OO_____ line going
+        //   to leg1        O        to leg3
+        //                  |
+        //                  o leg2
+        Point leg1 = snakeLineLeg1.get(snakeLineLeg1.size() - 2);
+        Point leg2 = snakeLineLeg2.get(snakeLineLeg2.size() - 2);
+        Point leg3 = snakeLineLeg3.get(snakeLineLeg3.size() - 2);
+
+        if (leg1.getY() == leg3.getY()) {
+            // General case
+            node.setOrientation(leg2.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
+            if (leg1.getX() < leg3.getX()) {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
             } else {
-                node.setOrientation(Orientation.UP);
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT);
             }
-        } else {
-            if (coord2.getX() == coord1.getX()) {
-                node.setOrientation(coord3.getX() > coord1.getX() ? Orientation.RIGHT : Orientation.LEFT);
-            } else if (coord2.getX() == coord3.getX()) {
-                node.setOrientation(coord1.getX() > coord3.getX() ? Orientation.RIGHT : Orientation.LEFT);
+        } else if (leg2.getX() == leg1.getX()) {
+            // Specific case of leg1 and leg2 facing feeder nodes with same abscissa
+            node.setOrientation(leg3.getX() > leg1.getX() ? Orientation.RIGHT : Orientation.LEFT);
+            if (leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY()) {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN);
+            } else {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN);
+            }
+        } else if (leg2.getX() == leg3.getX()) {
+            // Specific case of leg2 and leg3 facing feeder nodes with same abscissa
+            node.setOrientation(leg1.getX() > leg3.getX() ? Orientation.RIGHT : Orientation.LEFT);
+            if (leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY()) {
+                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT);
+            } else {
+                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT);
             }
         }
     }

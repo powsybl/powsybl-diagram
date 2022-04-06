@@ -20,12 +20,4 @@ public class Middle2WTNode extends MiddleTwtNode {
             new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2) },
             componentType);
     }
-
-    public VoltageLevelInfos getVoltageLevelInfosLeg1() {
-        return getVoltageLevelInfos(FeederWithSideNode.Side.ONE);
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfosLeg2() {
-        return getVoltageLevelInfos(FeederWithSideNode.Side.TWO);
-    }
 }

@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 public class MiddleTwtNode extends FictitiousNode {
-    private final VoltageLevelInfos[] voltageLevelInfosLeg;
+    protected final VoltageLevelInfos[] voltageLevelInfosLeg;
 
     protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
         super(id, name, id, componentType);

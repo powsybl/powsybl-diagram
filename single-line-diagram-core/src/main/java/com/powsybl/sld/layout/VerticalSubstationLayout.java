@@ -178,7 +178,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
             double ySnakeLine1 = getYSnakeLine(node1, dNode1, decal1V, layoutParam);
             double ySnakeLine2 = getYSnakeLine(node2, dNode2, decal2V, layoutParam);
 
-            Side side = getSide(dNode1, increment);
+            Side side = getSide(increment);
             double xSnakeLine = getXSnakeLine(node1, side, layoutParam);
             polyline.addAll(Point.createPointsList(p1.getX(), ySnakeLine1,
                 xSnakeLine, ySnakeLine1,
@@ -195,8 +195,8 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
     /**
      * Dispatching the snake lines to the right and to the left
      */
-    private Side getSide(Direction dNode1, boolean increment) {
-        return ((increment && dNode1 == BOTTOM) || (!increment && dNode1 == TOP)) ? Side.RIGHT : Side.LEFT;
+    private Side getSide(boolean increment) {
+        return increment ? Side.LEFT : Side.RIGHT;
     }
 
     private double getXSnakeLine(Node node, Side side, LayoutParameters layoutParam) {
