@@ -27,27 +27,22 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-cgmes-dl-conversion</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-cgmes-layout</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
