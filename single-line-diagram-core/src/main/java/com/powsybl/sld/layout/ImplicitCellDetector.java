@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -105,12 +106,15 @@ public class ImplicitCellDetector implements CellDetector {
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
         }
-        graph.insertFictitiousNodesAtFeeders();
-        graph.extendNodeConnectedToBus(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR);
-        graph.extendNodeConnectedToBus(Middle3WTNode.class::isInstance);
+
         graph.extendSwitchBetweenBuses();
-        graph.extendFirstOutsideNode();
         graph.extendBusConnectedToBus();
+
+        Predicate<Node> nodesOnBus = node -> node instanceof BusConnection
+                || node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR;
+        graph.addBusConnections(nodesOnBus);
+        graph.addStackInternalNode(nodesOnBus);
+        graph.insertFictitiousNodesAtFeeders();
     }
 
     /**
