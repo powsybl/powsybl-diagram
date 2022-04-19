@@ -52,7 +52,7 @@ public class Component {
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
-        this.transformations = transformations;
+        this.transformations = Objects.requireNonNullElse(transformations, Collections.emptyMap());
         this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 

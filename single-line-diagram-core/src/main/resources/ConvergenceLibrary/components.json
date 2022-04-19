@@ -216,7 +216,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "disconnector-closed.svg",
