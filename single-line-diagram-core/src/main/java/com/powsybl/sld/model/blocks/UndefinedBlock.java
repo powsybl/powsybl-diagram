@@ -7,15 +7,8 @@
 
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.nodes.Node;
-
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 
 /**
  * A block group that cannot be correctly decomposed anymore.
@@ -44,25 +37,7 @@ public class UndefinedBlock extends AbstractComposedBlock {
     }
 
     @Override
-    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        replicateCoordInSubblocks(X);
-        replicateCoordInSubblocks(Y);
-        subBlocks.forEach(b -> b.coordVerticalCase(layoutParam, layoutContext));
-    }
-
-    @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        coordVerticalCase(layoutParam, layoutContext);
-    }
-
-    @Override
-    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
-        double blockHeight = 0.;
-        for (int i = 0; i < subBlocks.size(); i++) {
-            Block sub = subBlocks.get(i);
-            // Here, the subBlocks are superposed, so we calculate the max height of all these subBlocks
-            blockHeight = Math.max(blockHeight, sub.calculateHeight(encounteredNodes, layoutParameters));
-        }
-        return blockHeight;
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
     }
 }

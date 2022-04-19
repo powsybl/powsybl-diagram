@@ -7,8 +7,6 @@
 package com.powsybl.sld.model.cells;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.Node;
@@ -43,9 +41,7 @@ public interface Cell {
 
     int getNumber();
 
-    void calculateCoord(LayoutParameters layoutParam, LayoutContext layoutContext);
-
-    double calculateHeight(LayoutParameters layoutParam);
+    void accept(CellVisitor cellVisitor);
 
     void writeJson(JsonGenerator generator, boolean includeCoordinates) throws IOException;
 

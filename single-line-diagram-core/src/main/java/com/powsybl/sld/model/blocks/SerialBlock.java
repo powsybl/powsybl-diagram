@@ -7,15 +7,12 @@
 package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 
 import java.util.*;
@@ -53,6 +50,11 @@ public class SerialBlock extends AbstractComposedBlock {
     public int getOrder() {
         return getExtremityNode(Block.Extremity.END).getType() == Node.NodeType.FEEDER ?
                 ((FeederNode) getExtremityNode(Block.Extremity.END)).getOrder().orElse(-1) : 0;
+    }
+
+    @Override
+    public void accept(BlockVisitor blockVisitor) {
+        blockVisitor.visit(this);
     }
 
     private void postConstruct() {
@@ -146,7 +148,7 @@ public class SerialBlock extends AbstractComposedBlock {
         return subBlocks.get(0);
     }
 
-    private List<Node> getChainingNodes() {
+    public List<Node> getChainingNodes() {
         List<Node> result = new ArrayList<>();
         for (int i = 0; i < subBlocks.size() - 1; i++) {
             result.add(subBlocks.get(i).getEndingNode());
@@ -165,28 +167,4 @@ public class SerialBlock extends AbstractComposedBlock {
             getPosition().getSegment(H).glue(getSegments(H));
         }
     }
-
-    @Override
-    public void coordVerticalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        translatePosInCoord(layoutParam, layoutContext, X, Y, V, getOrientation().progressionSign());
-        getChainingNodes().forEach(n -> n.setX(getCoord().get(X)));
-    }
-
-    @Override
-    public void coordHorizontalCase(LayoutParameters layoutParam, LayoutContext layoutContext) {
-        translatePosInCoord(layoutParam, layoutContext, Y, X, H, getOrientation().progressionSign());
-        getChainingNodes().forEach(n -> n.setY(getCoord().get(Y)));
-    }
-
-    @Override
-    public double calculateHeight(Set<Node> encounteredNodes, LayoutParameters layoutParameters) {
-        double blockHeight = 0.;
-        for (int i = 0; i < subBlocks.size(); i++) {
-            Block sub = subBlocks.get(i);
-            // Here, the subBlocks are positioned serially, so we add the height of all these subBlocks
-            blockHeight += sub.calculateHeight(encounteredNodes, layoutParameters);
-        }
-        return blockHeight;
-    }
-
 }

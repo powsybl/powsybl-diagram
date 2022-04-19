@@ -7,7 +7,6 @@
 package com.powsybl.sld.model.cells;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -101,10 +100,5 @@ public abstract class AbstractCell implements Cell {
     @Override
     public String toString() {
         return type + " " + nodes;
-    }
-
-    @Override
-    public double calculateHeight(LayoutParameters layoutParam) {
-        return 0.;
     }
 }

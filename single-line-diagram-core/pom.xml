@@ -63,7 +63,6 @@
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
