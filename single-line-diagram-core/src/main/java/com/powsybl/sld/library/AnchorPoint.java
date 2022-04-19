@@ -51,9 +51,9 @@ public class AnchorPoint extends Point {
             if (nodeOrientation.isHorizontal()) {
                 AnchorOrientation newOrientation = orientation == AnchorOrientation.HORIZONTAL ? AnchorOrientation.VERTICAL : AnchorOrientation.HORIZONTAL;
                 if (nodeOrientation == Orientation.RIGHT) {
-                    return new AnchorPoint(getY(), getX(), newOrientation);
-                } else {
                     return new AnchorPoint(-getY(), -getX(), newOrientation);
+                } else {
+                    return new AnchorPoint(getY(), getX(), newOrientation);
                 }
             } else if (nodeOrientation == Orientation.DOWN) {
                 return new AnchorPoint(-getX(), -getY(), this.orientation);

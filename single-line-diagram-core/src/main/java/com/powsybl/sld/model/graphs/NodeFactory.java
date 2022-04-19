@@ -6,14 +6,13 @@
  */
 package com.powsybl.sld.model.graphs;
 
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.FeederWithSideNode.Side;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import com.powsybl.sld.library.ComponentTypeName;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

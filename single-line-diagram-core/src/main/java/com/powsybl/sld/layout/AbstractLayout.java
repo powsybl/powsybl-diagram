@@ -66,7 +66,7 @@ public abstract class AbstractLayout implements Layout {
         if (coord1.getX() == coord2.getX()) {
             node.setOrientation(coord2.getY() > coord1.getY() ? Orientation.DOWN : Orientation.UP);
         } else {
-            node.setOrientation(coord1.getX() < coord2.getX() ? Orientation.LEFT : Orientation.RIGHT);
+            node.setOrientation(coord1.getX() < coord2.getX() ? Orientation.RIGHT : Orientation.LEFT);
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractLayout implements Layout {
             }
         } else if (leg2.getX() == leg1.getX()) {
             // Specific case of leg1 and leg2 facing feeder nodes with same abscissa
-            node.setOrientation(leg3.getX() > leg1.getX() ? Orientation.RIGHT : Orientation.LEFT);
+            node.setOrientation(leg3.getX() > leg1.getX() ? Orientation.LEFT : Orientation.RIGHT);
             if (leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY()) {
                 node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN);
             } else {
@@ -107,7 +107,7 @@ public abstract class AbstractLayout implements Layout {
             }
         } else if (leg2.getX() == leg3.getX()) {
             // Specific case of leg2 and leg3 facing feeder nodes with same abscissa
-            node.setOrientation(leg1.getX() > leg3.getX() ? Orientation.RIGHT : Orientation.LEFT);
+            node.setOrientation(leg1.getX() > leg3.getX() ? Orientation.LEFT : Orientation.RIGHT);
             if (leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY()) {
                 node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT);
             } else {
