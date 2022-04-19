@@ -453,7 +453,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2.1", "da2", "INTERNAL_vl_4" ]
+          "nodes" : [ "bbs1.1", "da1", "INTERNAL_vl_4" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -474,7 +474,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1.1", "da1", "INTERNAL_vl_4" ]
+          "nodes" : [ "bbs2.1", "da2", "INTERNAL_vl_4" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -585,7 +585,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2.1", "db2", "INTERNAL_vl_6" ]
+          "nodes" : [ "bbs1.2", "db1", "INTERNAL_vl_6" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -606,7 +606,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1.2", "db1", "INTERNAL_vl_6" ]
+          "nodes" : [ "bbs2.1", "db2", "INTERNAL_vl_6" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",

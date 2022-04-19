@@ -713,7 +713,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF1" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -734,7 +734,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF1" ]
       } ]
     }
   } ],

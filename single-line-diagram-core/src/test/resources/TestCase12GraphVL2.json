@@ -554,14 +554,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
     }
   }, {
     "type" : "FEEDER",
@@ -619,14 +619,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
     }
   }, {
     "type" : "FEEDER",
@@ -685,14 +685,14 @@
       "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg2" : {
-      "id" : "vl3",
-      "name" : "vl3",
-      "nominalVoltage" : 63.0
-    },
-    "voltageLevelInfosLeg3" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg3" : {
+      "id" : "vl3",
+      "name" : "vl3",
+      "nominalVoltage" : 63.0
     }
   }, {
     "type" : "FEEDER",

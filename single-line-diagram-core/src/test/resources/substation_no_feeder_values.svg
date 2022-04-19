@@ -103,8 +103,8 @@
             <path class="sld-sw-open" d="M8,0 0,8"/>
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_b1" transform="translate(275.0,330.0)">
-            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-closed" id="idvl1_95_d2" transform="translate(306.0,336.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -268,8 +268,8 @@
             <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
         <g class="sld-two-wt sld-fictitious" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
-            <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(90.0,5.0,7.5)"/>
-            <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(90.0,5.0,7.5)"/>
+            <circle class="sld-winding" cx="5" cy="10" r="5" transform="rotate(270.0,5.0,7.5)"/>
+            <circle class="sld-winding" cx="5" cy="5" r="5" transform="rotate(270.0,5.0,7.5)"/>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
             <circle class="sld-winding" cx="5" cy="15" r="5"/>

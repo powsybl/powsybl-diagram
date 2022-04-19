@@ -67,7 +67,7 @@
     "equipmentId" : "18",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 225.0,
+    "x" : 175.0,
     "y" : 656.0,
     "open" : false
   }, {
@@ -76,7 +76,7 @@
     "equipmentId" : "19",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 175.0,
+    "x" : 225.0,
     "y" : 656.0,
     "open" : false
   }, {
@@ -288,7 +288,7 @@
     "equipmentId" : "b14",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 225.0,
+    "x" : 175.0,
     "y" : 507.5,
     "open" : false,
     "kind" : "BREAKER"
@@ -299,7 +299,7 @@
     "equipmentId" : "b15",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 175.0,
+    "x" : 225.0,
     "y" : 507.5,
     "open" : false,
     "kind" : "BREAKER"
@@ -540,7 +540,7 @@
     "equipmentId" : "d5",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 225.0,
+    "x" : 175.0,
     "y" : 686.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
@@ -551,7 +551,7 @@
     "equipmentId" : "d6",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 175.0,
+    "x" : 225.0,
     "y" : 711.0,
     "open" : true,
     "kind" : "DISCONNECTOR"
@@ -1099,7 +1099,7 @@
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
-            "nodes" : [ "bbs2", "d6", "INTERNAL_vl_19" ]
+            "nodes" : [ "bbs1", "d5", "INTERNAL_vl_18" ]
           }, {
             "type" : "BODYPRIMARY",
             "cardinalities" : [ {
@@ -1120,7 +1120,7 @@
               "xSpan" : 50.0,
               "ySpan" : 297.0
             },
-            "nodes" : [ "INTERNAL_vl_19", "b15", "INTERNAL_vl_20" ]
+            "nodes" : [ "INTERNAL_vl_18", "b14", "INTERNAL_vl_20" ]
           } ]
         }, {
           "type" : "SERIAL",
@@ -1162,7 +1162,7 @@
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
-            "nodes" : [ "bbs1", "d5", "INTERNAL_vl_18" ]
+            "nodes" : [ "bbs2", "d6", "INTERNAL_vl_19" ]
           }, {
             "type" : "BODYPRIMARY",
             "cardinalities" : [ {
@@ -1183,7 +1183,7 @@
               "xSpan" : 50.0,
               "ySpan" : 297.0
             },
-            "nodes" : [ "INTERNAL_vl_18", "b14", "INTERNAL_vl_20" ]
+            "nodes" : [ "INTERNAL_vl_19", "b15", "INTERNAL_vl_20" ]
           } ]
         } ]
       }, {

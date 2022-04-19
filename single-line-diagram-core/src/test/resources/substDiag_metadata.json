@@ -163,10 +163,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "transformations" : {
-      "LEFT" : "ROTATION",
-      "RIGHT" : "ROTATION"
-    },
     "styleClass" : "sld-disconnector"
   }, {
     "type" : "LINE",
