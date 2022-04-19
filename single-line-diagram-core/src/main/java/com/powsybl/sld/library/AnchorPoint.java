@@ -49,15 +49,11 @@ public class AnchorPoint extends Point {
     public AnchorPoint transformAnchorPoint(Orientation nodeOrientation, Component.Transformation nodeTransformation) {
         if (nodeTransformation == Component.Transformation.ROTATION) {
             if (nodeOrientation.isHorizontal()) {
-                switch (this.orientation) {
-                    case VERTICAL:
-                        return new AnchorPoint(getY(), getX(), AnchorOrientation.HORIZONTAL);
-                    case HORIZONTAL:
-                        return new AnchorPoint(getY(), getX(), AnchorOrientation.VERTICAL);
-                    case NONE:
-                        return this;
-                    default:
-                        throw new AssertionError("Unknown anchor orientation " + orientation);
+                AnchorOrientation newOrientation = orientation == AnchorOrientation.HORIZONTAL ? AnchorOrientation.VERTICAL : AnchorOrientation.HORIZONTAL;
+                if (nodeOrientation == Orientation.RIGHT) {
+                    return new AnchorPoint(getY(), getX(), newOrientation);
+                } else {
+                    return new AnchorPoint(-getY(), -getX(), newOrientation);
                 }
             } else if (nodeOrientation == Orientation.DOWN) {
                 return new AnchorPoint(-getX(), -getY(), this.orientation);
