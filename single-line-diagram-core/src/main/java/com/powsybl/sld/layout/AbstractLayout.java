@@ -71,7 +71,9 @@ public abstract class AbstractLayout implements Layout {
     }
 
     /**
-     * Deduce the node orientation based on the lines coordinates supporting the svg component
+     * Deduce the node orientation based on the lines coordinates supporting the svg component.
+     * As we are dealing with straight lines, we always have two out of three snake lines which are in line, the third
+     * one being perpendicular.
      */
     private void handle3wtNodeOrientation(Middle3WTNode node, List<List<Point>> snakeLines) {
         List<Point> snakeLineLeg1 = snakeLines.get(0); // snakeline from leg1 feeder node to 3wt

@@ -272,18 +272,22 @@ public class NetworkGraphBuilder implements GraphBuilder {
                         FeederWithSideNode.Side.TWO, createVoltageLevelInfos(transformer.getLeg2().getTerminal()),
                         FeederWithSideNode.Side.THREE, createVoltageLevelInfos(transformer.getLeg3().getTerminal()));
 
+                FeederWithSideNode.Side vlLegSide;
                 FeederWithSideNode.Side firstOtherLegSide;
                 FeederWithSideNode.Side secondOtherLegSide;
                 switch (side) {
                     case ONE:
+                        vlLegSide = FeederWithSideNode.Side.ONE;
                         firstOtherLegSide = FeederWithSideNode.Side.TWO;
                         secondOtherLegSide = FeederWithSideNode.Side.THREE;
                         break;
                     case TWO:
+                        vlLegSide = FeederWithSideNode.Side.TWO;
                         firstOtherLegSide = FeederWithSideNode.Side.ONE;
                         secondOtherLegSide = FeederWithSideNode.Side.THREE;
                         break;
                     case THREE:
+                        vlLegSide = FeederWithSideNode.Side.THREE;
                         firstOtherLegSide = FeederWithSideNode.Side.ONE;
                         secondOtherLegSide = FeederWithSideNode.Side.TWO;
                         break;
@@ -303,7 +307,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
                 // create middle node
                 Middle3WTNode middleNode = NodeFactory.createMiddle3WTNode(graph, transformer.getId(), transformer.getNameOrId(),
-                        firstOtherLegNode, secondOtherLegNode);
+                        vlLegSide, firstOtherLegNode, secondOtherLegNode,
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.ONE),
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.TWO),
+                        voltageLevelInfosBySide.get(FeederWithSideNode.Side.THREE));
 
                 add3wtFeeder(middleNode, firstOtherLegNode, secondOtherLegNode, transformer.getTerminal(side));
             } else {

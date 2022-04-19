@@ -33,18 +33,26 @@ public class Middle3WTNode extends MiddleTwtNode {
     }
 
     public void setWindingOrder(Winding first, Winding second, Winding third) {
-        windingMap.put(first, FeederWithSideNode.Side.ONE);
-        windingMap.put(second, FeederWithSideNode.Side.TWO);
-        windingMap.put(third, FeederWithSideNode.Side.THREE);
+        setWindingOrder(first, FeederWithSideNode.Side.ONE);
+        setWindingOrder(second, FeederWithSideNode.Side.TWO);
+        setWindingOrder(third, FeederWithSideNode.Side.THREE);
+    }
+
+    public void setWindingOrder(Winding winding, FeederWithSideNode.Side legSide) {
+        windingMap.put(winding, legSide);
     }
 
     public Node getAdjacentNode(Winding winding) {
-        Edge edge = getAdjacentEdges().get(windingMap.get(winding).getIntValue() - 1);
+        Edge edge = getAdjacentEdges().get(windingToLegIndex(winding));
         return edge.getNode1() == this ? edge.getNode2() : edge.getNode1();
     }
 
     public VoltageLevelInfos getVoltageLevelInfos(Winding winding) {
-        return voltageLevelInfosLeg[windingMap.get(winding).ordinal()];
+        return voltageLevelInfosLeg[windingToLegIndex(winding)];
+    }
+
+    private int windingToLegIndex(Winding winding) {
+        return windingMap.getOrDefault(winding, FeederWithSideNode.Side.ONE).getIntValue() - 1;
     }
 
     public enum Winding {
