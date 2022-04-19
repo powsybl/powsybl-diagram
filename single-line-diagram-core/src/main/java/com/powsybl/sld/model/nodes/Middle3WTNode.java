@@ -8,7 +8,7 @@ package com.powsybl.sld.model.nodes;
 
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Middle3WTNode extends MiddleTwtNode {
-    private final Map<Winding, FeederWithSideNode.Side> windingMap = new HashMap<>();
+    private final Map<Winding, FeederWithSideNode.Side> windingMap = new EnumMap<>(Winding.class);
     private final boolean embeddedInVlGraph;
 
     public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
