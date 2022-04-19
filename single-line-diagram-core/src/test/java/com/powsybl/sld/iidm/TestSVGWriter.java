@@ -494,6 +494,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
         nMulti3.setCoordinates(750., 90.);
+        nMulti3.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
         BranchEdge edge22 = substG.addTwtEdge(vl2Trf2, nMulti3);
