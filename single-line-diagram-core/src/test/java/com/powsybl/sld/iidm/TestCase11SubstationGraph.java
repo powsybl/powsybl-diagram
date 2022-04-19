@@ -13,7 +13,9 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.BasicStyleProvider;
+import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
+import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,7 +88,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         // third voltage level
         //
-        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 225, 20);
+        VoltageLevel vl3 = createVoltageLevel(substation, "vl3", "vl3", TopologyKind.NODE_BREAKER, 50, 20);
 
         createBusBarSection(vl3, "bbs7", "bbs7", 0, 1, 1);
 
@@ -152,7 +154,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         createThreeWindingsTransformer(substation, "trf6", "trf6", vl1.getId(), vl2.getId(), vl3.getId(),
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
-                400., 225., 225.,
+                400., 225., 50.,
                 29, 17, 6,
                 "trf61", 5, ConnectablePosition.Direction.TOP,
                 "trf62", 5, ConnectablePosition.Direction.TOP,
@@ -167,7 +169,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         createThreeWindingsTransformer(substation, "trf7", "trf7", vl1.getId(), vl2.getId(), vl3.getId(),
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
-                400., 225., 225.,
+                400., 225., 50.,
                 31, 19, 8,
                 "trf71", 6, ConnectablePosition.Direction.BOTTOM,
                 "trf72", 4, ConnectablePosition.Direction.TOP,
@@ -182,7 +184,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         createThreeWindingsTransformer(substation, "trf8", "trf8", vl1.getId(), vl2.getId(), vl3.getId(),
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
-                400., 225., 225.,
+                400., 225., 50.,
                 33, 21, 10,
                 "trf81", 9, ConnectablePosition.Direction.TOP,
                 "trf82", 6, ConnectablePosition.Direction.BOTTOM,
@@ -203,6 +205,11 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 35, 2, vl1.getId(), vlSubst2.getId(),
                 "line1", 7, ConnectablePosition.Direction.TOP,
                 "line1", 1, ConnectablePosition.Direction.TOP);
+    }
+
+    @Override
+    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
+        return new TopologicalStyleProvider(network);
     }
 
     @Test
@@ -260,6 +267,46 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
+    }
+
+    @Test
+    public void testRight3wtOrientation() {
+        // build substation graph
+        network.getThreeWindingsTransformer("trf7").remove();
+        createThreeWindingsTransformer(substation, "trf7", "trf7", "vl3", "vl2", "vl1",
+                0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
+                50., 225., 400.,
+                8, 19, 31,
+                "trf73", 3, ConnectablePosition.Direction.BOTTOM,
+                "trf72", 4, ConnectablePosition.Direction.TOP,
+                "trf71", 6, ConnectablePosition.Direction.BOTTOM);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase11Right3wtOrientation.json"), toJson(g, "/TestCase11Right3wtOrientation.json"));
+    }
+
+    @Test
+    public void testLeft3wtOrientation() {
+        // build substation graph
+        network.getThreeWindingsTransformer("trf7").remove();
+        createThreeWindingsTransformer(substation, "trf7", "trf7",  "vl2", "vl1", "vl3",
+                0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
+                225., 400., 50.,
+                19, 31, 8,
+                "trf72", 4, ConnectablePosition.Direction.TOP,
+                "trf71", 6, ConnectablePosition.Direction.BOTTOM,
+                "trf73", 3, ConnectablePosition.Direction.BOTTOM);
+
+        SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
+
+        // Run vertical substation layout
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+
+        assertEquals(toString("/TestCase11Left3wtOrientation.json"), toJson(g, "/TestCase11Left3wtOrientation.json"));
     }
 
     @Test
