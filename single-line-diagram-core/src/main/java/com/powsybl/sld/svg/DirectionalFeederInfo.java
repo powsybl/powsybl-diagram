@@ -1,5 +1,7 @@
 package com.powsybl.sld.svg;
 
+import org.apache.commons.math3.util.Precision;
+
 import java.util.Objects;
 
 /**
@@ -22,11 +24,19 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     public DirectionalFeederInfo(String componentType, double value) {
-        this(componentType, value, null);
+        this(componentType, value, 0, null);
     }
 
-    public DirectionalFeederInfo(String componentType, double value, String userDefinedId) {
-        this(componentType, value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN, null, String.valueOf(Math.round(value)), userDefinedId);
+    public DirectionalFeederInfo(String componentType, double value, int precision) {
+        this(componentType, value, precision, null);
+    }
+
+    public DirectionalFeederInfo(String componentType, double value, int precision, String userDefinedId) {
+        this(componentType,
+                value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN,
+                null,
+                precision == 0 || Double.isNaN(value) ? String.valueOf(Math.round(value)) : String.valueOf(Precision.round(value, precision)),
+                userDefinedId);
     }
 
     public DiagramLabelProvider.LabelDirection getDirection() {

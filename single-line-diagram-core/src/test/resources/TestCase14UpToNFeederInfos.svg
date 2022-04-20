@@ -100,12 +100,12 @@
             <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">10</text>
+                <text class="sld-label" x="15.0" y="5.0">10.968</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,114.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">20</text>
+                <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(60.0,129.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
