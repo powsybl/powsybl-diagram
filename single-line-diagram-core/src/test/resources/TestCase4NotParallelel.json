@@ -164,7 +164,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "orientation" : "DOWN",
     "open" : false,
     "pxWidth" : 175.0,
     "busbarIndex" : 2,
