@@ -62,8 +62,13 @@ public class LayoutToCgmesExtensionsConverter {
     private NodeDiagramData setNodeDiagramPoints(NodeDiagramData diagramData, BusNode busNode, OffsetPoint offsetPoint, String diagramName) {
         double x1 = busNode.getX();
         double y1 = busNode.getY();
-        double x2 = x1 + busNode.getPxWidth();
+        double x2 = x1;
         double y2 = y1;
+        if (busNode.getOrientation().isHorizontal()) {
+            x2 += busNode.getPxWidth();
+        } else {
+            y2 += busNode.getPxWidth();
+        }
 
         NodeDiagramData.NodeDiagramDataDetails diagramDetails = diagramData.new NodeDiagramDataDetails();
         DiagramPoint p1 = offsetPoint.newDiagramPoint(x1, y1, 1);

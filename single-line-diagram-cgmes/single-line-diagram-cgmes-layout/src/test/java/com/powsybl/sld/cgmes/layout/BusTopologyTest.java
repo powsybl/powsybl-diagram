@@ -6,50 +6,23 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
-import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
-import static com.powsybl.sld.library.ComponentTypeName.CAPACITOR;
-import static com.powsybl.sld.library.ComponentTypeName.DANGLING_LINE;
-import static com.powsybl.sld.library.ComponentTypeName.GENERATOR;
-import static com.powsybl.sld.library.ComponentTypeName.LOAD;
-import static com.powsybl.sld.library.ComponentTypeName.STATIC_VAR_COMPENSATOR;
-import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER;
-import static com.powsybl.sld.library.ComponentTypeName.TWO_WINDINGS_TRANSFORMER_LEG;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.powsybl.iidm.network.Bus;
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.DanglingLine;
-import com.powsybl.iidm.network.Generator;
-import com.powsybl.iidm.network.Load;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.ShuntCompensator;
-import com.powsybl.iidm.network.StaticVarCompensator;
-import com.powsybl.iidm.network.Substation;
-import com.powsybl.iidm.network.ThreeWindingsTransformer;
-import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.iidm.network.TwoWindingsTransformer;
-import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.graphs.SubstationGraph;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Arrays;
+
+import static com.powsybl.sld.library.ComponentTypeName.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -393,14 +366,19 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(120, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(120, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
+        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
         assertEquals(20, graph.getNodes().get(1).getX(), 0);
         assertEquals(30, graph.getNodes().get(1).getY(), 0);
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(1).getOrientation());
         assertEquals(30, graph.getNodes().get(2).getX(), 0);
         assertEquals(100, graph.getNodes().get(2).getY(), 0);
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(2).getOrientation());
         assertEquals(160, graph.getNodes().get(3).getX(), 0);
         assertEquals(110, graph.getNodes().get(3).getY(), 0);
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(3).getOrientation());
         assertEquals(200, graph.getNodes().get(4).getX(), 0);
         assertEquals(20, graph.getNodes().get(4).getY(), 0);
+        assertEquals(Orientation.UP, graph.getNodes().get(4).getOrientation());
     }
 
     private void checkGraphVl2(VoltageLevelGraph graph) {
@@ -432,10 +410,13 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(240, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(30, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
+        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
         assertEquals(280, graph.getNodes().get(1).getX(), 0);
         assertEquals(20, graph.getNodes().get(1).getY(), 0);
+        assertEquals(Orientation.LEFT, graph.getNodes().get(1).getOrientation());
         assertEquals(200, graph.getNodes().get(2).getX(), 0);
         assertEquals(20, graph.getNodes().get(2).getY(), 0);
+        assertEquals(Orientation.UP, graph.getNodes().get(2).getOrientation());
     }
 
     private void checkGraphVl3(VoltageLevelGraph graph) {
@@ -466,10 +447,12 @@ public class BusTopologyTest extends AbstractCgmesVoltageLevelLayoutTest {
         assertEquals(160, graph.getNodes().get(0).getX(), 0);
         assertEquals(70, graph.getNodes().get(0).getY(), 0);
         assertEquals(80, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(0).getOrientation());
         assertEquals(200, graph.getNodes().get(1).getX(), 0);
         assertEquals(110, graph.getNodes().get(1).getY(), 0);
         assertEquals(200, graph.getNodes().get(2).getX(), 0);
         assertEquals(20, graph.getNodes().get(2).getY(), 0);
+        assertEquals(Orientation.UP, graph.getNodes().get(2).getOrientation());
     }
 
     private void checkSubstationTwt(SubstationGraph graph, int edgesNumber) {

@@ -39,20 +39,20 @@ public class NodeTopologyVerticalBusbarTest extends AbstractNodeTopologyTest {
         assertEquals(210, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(220, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertEquals(Orientation.LEFT, graph.getNodes().get(0).getOrientation());
+        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
         assertEquals(340, graph.getNodes().get(1).getX(), 0);
         assertEquals(190, graph.getNodes().get(1).getY(), 0);
         assertEquals(20, graph.getNodes().get(2).getX(), 0);
         assertEquals(60, graph.getNodes().get(2).getY(), 0);
         assertEquals(240, graph.getNodes().get(3).getX(), 0);
         assertEquals(190, graph.getNodes().get(3).getY(), 0);
-        assertEquals(Orientation.LEFT, graph.getNodes().get(3).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(3).getOrientation());
         assertEquals(280, graph.getNodes().get(4).getX(), 0);
         assertEquals(190, graph.getNodes().get(4).getY(), 0);
-        assertEquals(Orientation.LEFT, graph.getNodes().get(4).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(4).getOrientation());
         assertEquals(320, graph.getNodes().get(5).getX(), 0);
         assertEquals(190, graph.getNodes().get(5).getY(), 0);
-        assertEquals(Orientation.LEFT, graph.getNodes().get(5).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(5).getOrientation());
     }
 
 }

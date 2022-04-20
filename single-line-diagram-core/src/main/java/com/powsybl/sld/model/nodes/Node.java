@@ -59,7 +59,7 @@ public class Node {
 
     private Direction direction = Direction.UNDEFINED;
 
-    private Orientation orientation = Orientation.UP;
+    private Orientation orientation;
 
     /**
      * Constructor
@@ -71,6 +71,7 @@ public class Node {
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
+        setOrientation(defaultOrientation());
     }
 
     public String getComponentType() {
@@ -196,7 +197,11 @@ public class Node {
     }
 
     public void setOrientation(Orientation orientation) {
-        this.orientation = Objects.requireNonNullElse(orientation, Orientation.UP);
+        this.orientation = Objects.requireNonNullElse(orientation, defaultOrientation());
+    }
+
+    protected Orientation defaultOrientation() {
+        return Orientation.UP;
     }
 
     /**
@@ -232,7 +237,7 @@ public class Node {
             generator.writeNumberField("x", getX());
             generator.writeNumberField("y", getY());
         }
-        if (orientation != Orientation.UP) {
+        if (orientation != defaultOrientation()) {
             generator.writeStringField("orientation", orientation.name());
         }
         generator.writeBooleanField("open", open);

@@ -9,6 +9,7 @@ package com.powsybl.sld.model.blocks;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
@@ -103,7 +104,8 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
     public void setOrientation(Orientation orientation, boolean recursively) {
         super.setOrientation(orientation);
         if (recursively) {
-            nodes.forEach(sub -> sub.setOrientation(orientation));
+            nodes.stream().filter(n -> !(n instanceof BusNode))
+                    .forEach(n -> n.setOrientation(orientation));
         }
     }
 

@@ -543,18 +543,19 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar sections
      */
-    protected Element drawBus(VoltageLevelGraph graph, BusNode node, Element g) {
+    protected void drawBus(VoltageLevelGraph graph, BusNode node, Element g) {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
-        line.setAttribute("x2", String.valueOf(node.getPxWidth()));
-        line.setAttribute("y2", "0");
-
+        if (node.getOrientation().isHorizontal()) {
+            line.setAttribute("x2", String.valueOf(node.getPxWidth()));
+            line.setAttribute("y2", "0");
+        } else {
+            line.setAttribute("x2", "0");
+            line.setAttribute("y2", String.valueOf(node.getPxWidth()));
+        }
         g.appendChild(line);
-
         g.setAttribute(TRANSFORM, String.format("%s(%s,%s)", TRANSLATE, graph.getX() + node.getX(), graph.getY() + node.getY()));
-
-        return line;
     }
 
     /*

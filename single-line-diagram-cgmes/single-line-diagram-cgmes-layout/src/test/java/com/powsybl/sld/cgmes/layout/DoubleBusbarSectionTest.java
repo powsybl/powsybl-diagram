@@ -101,12 +101,12 @@ public class DoubleBusbarSectionTest {
         assertEquals(20, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(160, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(0).getOrientation());
 
         assertEquals(20, graph.getNodes().get(1).getX(), 0);
         assertEquals(40, graph.getNodes().get(1).getY(), 0);
         assertEquals(160, ((BusNode) graph.getNodes().get(1)).getPxWidth(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(1).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(1).getOrientation());
 
         assertEquals(80, graph.getNodes().get(2).getX(), 0);
         assertEquals(100, graph.getNodes().get(2).getY(), 0);

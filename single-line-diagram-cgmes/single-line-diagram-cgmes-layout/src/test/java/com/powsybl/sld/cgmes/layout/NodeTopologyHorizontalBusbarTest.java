@@ -39,7 +39,7 @@ public class NodeTopologyHorizontalBusbarTest extends AbstractNodeTopologyTest {
         assertEquals(20, graph.getNodes().get(0).getX(), 0);
         assertEquals(140, graph.getNodes().get(0).getY(), 0);
         assertEquals(320, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertEquals(Orientation.UP, graph.getNodes().get(0).getOrientation());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(0).getOrientation());
         assertEquals(190, graph.getNodes().get(1).getX(), 0);
         assertEquals(10, graph.getNodes().get(1).getY(), 0);
         assertEquals(190, graph.getNodes().get(2).getX(), 0);

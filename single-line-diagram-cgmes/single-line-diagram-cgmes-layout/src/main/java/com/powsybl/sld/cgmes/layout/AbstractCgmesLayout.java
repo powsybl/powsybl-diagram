@@ -135,7 +135,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setY(diagramDetails.getPoint1().getY());
                 node.setPxWidth(computeBusWidth(diagramDetails));
                 rotatedBus = diagramDetails.getPoint1().getX() == diagramDetails.getPoint2().getX();
-                node.setOrientation(rotatedBus ? Orientation.LEFT : Orientation.UP);
+                node.setOrientation(rotatedBus ? Orientation.UP : Orientation.RIGHT);
                 setMin(diagramDetails.getPoint1().getX(), diagramDetails.getPoint1().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, bus {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -250,14 +250,15 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     private void setOrientation(Node node, boolean rotate, double rotationAngle) {
+        boolean isBusNode = node instanceof BusNode;
         if (rotate) {
             if (rotationAngle == 90) {
-                node.setOrientation(Orientation.LEFT);
+                node.setOrientation(isBusNode ? Orientation.UP : Orientation.RIGHT);
             } else if (rotationAngle == 270) {
-                node.setOrientation(Orientation.RIGHT);
+                node.setOrientation(isBusNode ? Orientation.DOWN : Orientation.LEFT);
             }
         } else {
-            node.setOrientation(Orientation.UP);
+            node.setOrientation(isBusNode ? Orientation.RIGHT : Orientation.UP);
         }
     }
 
@@ -302,7 +303,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 DiagramPoint linePoint = getLinePoint(diagramData, node, diagramName);
                 node.setX(linePoint.getX());
                 node.setY(linePoint.getY());
-                node.setOrientation(rotatedBus ? Orientation.LEFT : Orientation.UP);
+                node.setOrientation(rotatedBus ? Orientation.RIGHT : Orientation.UP);
                 setMin(linePoint.getX(), linePoint.getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, line {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
