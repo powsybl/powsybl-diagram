@@ -230,7 +230,7 @@ public final class Networks {
         voltageLevel.getBusBreakerView().newSwitch()
                 .setId("Switch")
                 .setBus1("Bus1")
-                .setBus2("Bus1")
+                .setBus2("Bus2")
                 .setOpen(false)
                 .add();
         return network;
