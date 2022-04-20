@@ -41,7 +41,6 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
             int v = 0;
             for (Node node : block.getNodes()) {
                 node.setCoordinates(block.getCoord().get(X), y0 - yPxStep * v);
-                node.setRotationAngle(null);
                 v++;
             }
         } else {
@@ -53,7 +52,6 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
             int h = 0;
             for (Node node : block.getNodes()) {
                 node.setCoordinates(x0 + xPxStep * h, block.getCoord().get(Y));
-                node.setRotationAngle(90.);
                 h++;
             }
         }

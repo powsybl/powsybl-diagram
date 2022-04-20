@@ -7,6 +7,7 @@
 package com.powsybl.sld.library;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -167,10 +168,10 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
-    public boolean isAllowRotation(String type) {
+    public Map<Orientation, Component.Transformation> getTransformations(String type) {
         Objects.requireNonNull(type);
         Component component = components.get(type);
-        return component == null || component.isAllowRotation();
+        return component != null ? component.getTransformations() : Collections.emptyMap();
     }
 
 }

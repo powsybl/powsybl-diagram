@@ -6,9 +6,11 @@
  */
 package com.powsybl.sld.model.nodes;
 
-import java.util.Objects;
-
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORMER;
 
@@ -16,27 +18,44 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Middle3WTNode extends MiddleTwtNode {
-    private boolean embeddedInVlGraph;
+    private final Map<Winding, FeederWithSideNode.Side> windingMap = new EnumMap<>(Winding.class);
+    private final boolean embeddedInVlGraph;
 
     public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
         super(id, name,
-            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)}, THREE_WINDINGS_TRANSFORMER);
+            new VoltageLevelInfos[]{Objects.requireNonNull(voltageLevelInfosLeg1), Objects.requireNonNull(voltageLevelInfosLeg2), Objects.requireNonNull(voltageLevelInfosLeg3)},
+            THREE_WINDINGS_TRANSFORMER);
         this.embeddedInVlGraph = embeddedInVLGraph;
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfosLeg1() {
-        return getVoltageLevelInfos(FeederWithSideNode.Side.ONE);
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfosLeg2() {
-        return getVoltageLevelInfos(FeederWithSideNode.Side.TWO);
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfosLeg3() {
-        return getVoltageLevelInfos(FeederWithSideNode.Side.THREE);
     }
 
     public boolean isEmbeddedInVlGraph() {
         return embeddedInVlGraph;
+    }
+
+    public void setWindingOrder(Winding first, Winding second, Winding third) {
+        setWindingOrder(first, FeederWithSideNode.Side.ONE);
+        setWindingOrder(second, FeederWithSideNode.Side.TWO);
+        setWindingOrder(third, FeederWithSideNode.Side.THREE);
+    }
+
+    public void setWindingOrder(Winding winding, FeederWithSideNode.Side legSide) {
+        windingMap.put(winding, legSide);
+    }
+
+    public Node getAdjacentNode(Winding winding) {
+        Edge edge = getAdjacentEdges().get(windingToLegIndex(winding));
+        return edge.getNode1() == this ? edge.getNode2() : edge.getNode1();
+    }
+
+    public VoltageLevelInfos getVoltageLevelInfos(Winding winding) {
+        return voltageLevelInfosLeg[windingToLegIndex(winding)];
+    }
+
+    private int windingToLegIndex(Winding winding) {
+        return windingMap.getOrDefault(winding, FeederWithSideNode.Side.ONE).getIntValue() - 1;
+    }
+
+    public enum Winding {
+        UPPER_LEFT, UPPER_RIGHT, DOWN
     }
 }

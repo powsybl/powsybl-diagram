@@ -13,7 +13,7 @@
     "fictitious" : true,
     "x" : 150.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -22,7 +22,7 @@
     "fictitious" : true,
     "x" : 75.0,
     "y" : 240.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -31,7 +31,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -40,7 +40,7 @@
     "fictitious" : true,
     "x" : 200.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -49,7 +49,6 @@
     "fictitious" : true,
     "x" : 25.0,
     "y" : 240.0,
-    "rotationAngle" : 90.0,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -58,7 +57,6 @@
     "fictitious" : true,
     "x" : 225.0,
     "y" : 240.0,
-    "rotationAngle" : 90.0,
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -69,7 +67,7 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -81,7 +79,7 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -93,7 +91,7 @@
     "fictitious" : false,
     "x" : 50.0,
     "y" : 240.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -105,7 +103,7 @@
     "fictitious" : false,
     "x" : 100.0,
     "y" : 240.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -193,6 +191,7 @@
     "fictitious" : false,
     "x" : 100.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -204,6 +203,7 @@
     "fictitious" : false,
     "x" : 200.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {

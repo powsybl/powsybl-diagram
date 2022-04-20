@@ -13,6 +13,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -21,6 +22,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -29,6 +31,7 @@
     "fictitious" : true,
     "x" : 150.0,
     "y" : 305.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -37,6 +40,7 @@
     "fictitious" : true,
     "x" : 200.0,
     "y" : 305.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -93,7 +97,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -102,7 +106,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -111,7 +115,7 @@
     "fictitious" : true,
     "x" : 150.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -120,7 +124,7 @@
     "fictitious" : true,
     "x" : 200.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -348,7 +352,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -360,7 +364,7 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 305.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],
@@ -607,7 +611,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs21", "d12", "INTERNAL_vl2_f1" ]
+          "nodes" : [ "bbs11", "d11", "INTERNAL_vl2_f1" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -628,7 +632,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs11", "d11", "INTERNAL_vl2_f1" ]
+          "nodes" : [ "bbs21", "d12", "INTERNAL_vl2_f1" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -739,7 +743,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs21", "d2", "INTERNAL_vl2_f" ]
+          "nodes" : [ "bbs12", "d1", "INTERNAL_vl2_f" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -760,7 +764,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs12", "d1", "INTERNAL_vl2_f" ]
+          "nodes" : [ "bbs21", "d2", "INTERNAL_vl2_f" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -871,7 +875,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs22", "d22", "INTERNAL_vl2_f2" ]
+          "nodes" : [ "bbs12", "d21", "INTERNAL_vl2_f2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -892,7 +896,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs12", "d21", "INTERNAL_vl2_f2" ]
+          "nodes" : [ "bbs22", "d22", "INTERNAL_vl2_f2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",

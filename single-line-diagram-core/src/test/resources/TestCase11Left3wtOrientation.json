@@ -247,7 +247,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_trf7_ONE",
+      "id" : "INTERNAL_vl1_trf7_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -908,7 +908,7 @@
       }
     }, {
       "type" : "FEEDER",
-      "id" : "trf7_ONE",
+      "id" : "trf7_TWO",
       "name" : "trf7",
       "equipmentId" : "trf7",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -921,7 +921,7 @@
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "order" : 6,
       "direction" : "BOTTOM",
-      "side" : "ONE",
+      "side" : "TWO",
       "otherSideVoltageLevelInfos" : {
         "id" : "vl1",
         "name" : "vl1",
@@ -2092,7 +2092,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf17", "btrf17", "INTERNAL_vl1_trf7_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_dtrf17", "btrf17", "INTERNAL_vl1_trf7_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2113,7 +2113,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "INTERNAL_vl1_trf7_ONE", "trf7_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_trf7_TWO", "trf7_TWO" ]
         } ]
       }
     }, {
@@ -2410,10 +2410,10 @@
       "node2" : "trf6_ONE"
     }, {
       "node1" : "btrf17",
-      "node2" : "INTERNAL_vl1_trf7_ONE"
+      "node2" : "INTERNAL_vl1_trf7_TWO"
     }, {
-      "node1" : "INTERNAL_vl1_trf7_ONE",
-      "node2" : "trf7_ONE"
+      "node1" : "INTERNAL_vl1_trf7_TWO",
+      "node2" : "trf7_TWO"
     }, {
       "node1" : "btrf18",
       "node2" : "INTERNAL_vl1_trf8_ONE"
@@ -2693,7 +2693,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_trf7_TWO",
+      "id" : "INTERNAL_vl2_trf7_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -3119,7 +3119,7 @@
       }
     }, {
       "type" : "FEEDER",
-      "id" : "trf7_TWO",
+      "id" : "trf7_ONE",
       "name" : "trf7",
       "equipmentId" : "trf7",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
@@ -3131,7 +3131,7 @@
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "order" : 4,
       "direction" : "TOP",
-      "side" : "TWO",
+      "side" : "ONE",
       "otherSideVoltageLevelInfos" : {
         "id" : "vl2",
         "name" : "vl2",
@@ -3583,7 +3583,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf27", "btrf27", "INTERNAL_vl2_trf7_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_dtrf27", "btrf27", "INTERNAL_vl2_trf7_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3604,7 +3604,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "INTERNAL_vl2_trf7_TWO", "trf7_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_trf7_ONE", "trf7_ONE" ]
         } ]
       }
     }, {
@@ -4135,10 +4135,10 @@
       "node2" : "trf6_TWO"
     }, {
       "node1" : "btrf27",
-      "node2" : "INTERNAL_vl2_trf7_TWO"
+      "node2" : "INTERNAL_vl2_trf7_ONE"
     }, {
-      "node1" : "INTERNAL_vl2_trf7_TWO",
-      "node2" : "trf7_TWO"
+      "node1" : "INTERNAL_vl2_trf7_ONE",
+      "node2" : "trf7_ONE"
     }, {
       "node1" : "btrf28",
       "node2" : "INTERNAL_vl2_trf8_TWO"
@@ -5210,14 +5210,14 @@
     "orientation" : "LEFT",
     "open" : false,
     "voltageLevelInfosLeg1" : {
-      "id" : "vl1",
-      "name" : "vl1",
-      "nominalVoltage" : 380.0
-    },
-    "voltageLevelInfosLeg2" : {
       "id" : "vl2",
       "name" : "vl2",
       "nominalVoltage" : 225.0
+    },
+    "voltageLevelInfosLeg2" : {
+      "id" : "vl1",
+      "name" : "vl1",
+      "nominalVoltage" : 380.0
     },
     "voltageLevelInfosLeg3" : {
       "id" : "vl3",
@@ -5348,14 +5348,14 @@
       "node1" : "trf7_ONE",
       "node2" : "trf7"
     } ],
-    "snakeLine" : [ 515.0, 785.0, 515.0, 965.0 ]
+    "snakeLine" : [ 515.0, 1025.0, 515.0, 965.0 ]
   }, {
     "id" : "EDGE_trf7_TWO",
     "nodes" : [ {
       "node1" : "trf7_TWO",
       "node2" : "trf7"
     } ],
-    "snakeLine" : [ 515.0, 1025.0, 515.0, 965.0 ]
+    "snakeLine" : [ 515.0, 785.0, 515.0, 965.0 ]
   }, {
     "id" : "EDGE_trf7_THREE",
     "nodes" : [ {

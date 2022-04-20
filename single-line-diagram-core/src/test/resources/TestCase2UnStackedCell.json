@@ -79,7 +79,7 @@
     "equipmentId" : "d1",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 75.0,
+    "x" : 25.0,
     "y" : 280.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
@@ -90,7 +90,7 @@
     "equipmentId" : "d2",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
-    "x" : 25.0,
+    "x" : 75.0,
     "y" : 305.0,
     "open" : false,
     "kind" : "DISCONNECTOR"
@@ -174,7 +174,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "d2", "INTERNAL_vlUnstack_2" ]
+          "nodes" : [ "bbs1", "d1", "INTERNAL_vlUnstack_2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -195,7 +195,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "d1", "INTERNAL_vlUnstack_2" ]
+          "nodes" : [ "bbs2", "d2", "INTERNAL_vlUnstack_2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",

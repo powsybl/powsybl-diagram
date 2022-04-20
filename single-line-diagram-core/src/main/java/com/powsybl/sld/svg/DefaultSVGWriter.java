@@ -13,6 +13,7 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
@@ -61,6 +62,7 @@ public class DefaultSVGWriter implements SVGWriter {
     protected static final String TRANSFORM = "transform";
     protected static final String TRANSLATE = "translate";
     protected static final String ROTATE = "rotate";
+    protected static final String SCALE = "scale";
     protected static final double LABEL_OFFSET = 5d;
     protected static final String POLYLINE = "polyline";
     protected static final String POINTS = "points";
@@ -235,9 +237,6 @@ public class DefaultSVGWriter implements SVGWriter {
             drawGraphLabel(prefixId, root, graph, metadata);
         }
 
-        // Handle multi-term nodes rotation
-        graph.handleMultiTermsNodeRotation();
-
         Set<Node> remainingNodesToDraw = graph.getNodeSet();
         Set<Edge> remainingEdgesToDraw = graph.getEdgeSet();
 
@@ -312,9 +311,6 @@ public class DefaultSVGWriter implements SVGWriter {
             drawVoltageLevel(prefixId, vlGraph, root, metadata, initProvider, styleProvider);
         }
 
-        // Handle multi-terminal nodes rotation
-        graph.handleMultiTermsNodeRotation();
-
         // Drawing the snake lines before multi-terminal nodes to hide the 3WT connections
         drawSnakeLines(prefixId, root, graph, metadata, styleProvider);
 
@@ -362,7 +358,6 @@ public class DefaultSVGWriter implements SVGWriter {
 
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata(gridId,
                 graph.getVoltageLevelInfos().getId(),
-                null,
                 null,
                 null,
                 false,
@@ -423,14 +418,13 @@ public class DefaultSVGWriter implements SVGWriter {
             root.appendChild(g);
 
             metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null,
-                    BUSBAR_SECTION, busNode.getRotationAngle(),
+                new GraphMetadata.NodeMetadata(nodeId, graph.getVoltageLevelInfos().getId(), null, BUSBAR_SECTION,
                     false, UNDEFINED, false, busNode.getEquipmentId(), createNodeLabelMetadata(prefixId, busNode, nodeLabels)));
             if (metadata.getComponentMetadata(BUSBAR_SECTION) == null) {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                        true, null));
+                        componentLibrary.getTransformations(BUSBAR_SECTION), null));
             }
 
             remainingNodesToDraw.remove(busNode);
@@ -489,10 +483,10 @@ public class DefaultSVGWriter implements SVGWriter {
         String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
-                        node.getComponentType(), node.getRotationAngle(),
+                        node.getComponentType(),
                         node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
-        addInfoComponentMetadata(metadata, node.getComponentType(), true);
+        addInfoComponentMetadata(metadata, node.getComponentType());
     }
 
     protected void drawNodeLabel(String prefixId, Element g, Node node, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
@@ -539,7 +533,6 @@ public class DefaultSVGWriter implements SVGWriter {
                 graph.getVoltageLevelInfos().getId(),
                 null,
                 null,
-                null,
                 false,
                 UNDEFINED,
                 true,
@@ -550,23 +543,19 @@ public class DefaultSVGWriter implements SVGWriter {
     /*
      * Drawing the voltageLevel graph busbar sections
      */
-    protected Element drawBus(VoltageLevelGraph graph, BusNode node, Element g) {
+    protected void drawBus(VoltageLevelGraph graph, BusNode node, Element g) {
         Element line = g.getOwnerDocument().createElement("line");
         line.setAttribute("x1", "0");
         line.setAttribute("y1", "0");
-        if (node.isRotated()) {
-            line.setAttribute("x2", "0");
-            line.setAttribute("y2", String.valueOf(node.getPxWidth()));
-        } else {
+        if (node.getOrientation().isHorizontal()) {
             line.setAttribute("x2", String.valueOf(node.getPxWidth()));
             line.setAttribute("y2", "0");
+        } else {
+            line.setAttribute("x2", "0");
+            line.setAttribute("y2", String.valueOf(node.getPxWidth()));
         }
-
         g.appendChild(line);
-
         g.setAttribute(TRANSFORM, String.format("%s(%s,%s)", TRANSLATE, graph.getX() + node.getX(), graph.getY() + node.getY()));
-
-        return line;
     }
 
     /*
@@ -691,9 +680,32 @@ public class DefaultSVGWriter implements SVGWriter {
                                         Element elt, String componentType, String subComponent) {
         replaceId(g, elt, prefixId);
         ComponentSize size = componentLibrary.getSize(componentType);
-        if (node.isRotated()) {
-            elt.setAttribute(TRANSFORM, ROTATE + "(" + node.getRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+
+        // Checking if svg component is allowed to be transformed (rotate or flip)
+        // (ex : disconnector in SVG component library not allowed to rotate)
+        Orientation nodeOrientation = node.getOrientation();
+        Component.Transformation transformation = componentLibrary.getTransformations(node.getComponentType()).get(nodeOrientation);
+        if (transformation != null) {
+            switch (transformation) {
+                case ROTATION: {
+                    elt.setAttribute(TRANSFORM, ROTATE + "(" + nodeOrientation.toRotationAngle() + "," + size.getWidth() / 2 + "," + size.getHeight() / 2 + ")");
+                    break;
+                }
+                case FLIP: {
+                    if (nodeOrientation.isVertical()) {
+                        elt.setAttribute(TRANSFORM, SCALE + "(1, -1)" + " " + TRANSLATE + "(0, " + -size.getHeight() + ")");
+                    } else {
+                        elt.setAttribute(TRANSFORM, SCALE + "(-1, 1)" + " " + TRANSLATE + "(" + -size.getWidth() + ", 0)");
+                    }
+                    break;
+                }
+                case NONE:
+                default: {
+                    // No transformation
+                }
+            }
         }
+
         List<String> subComponentStyles = styleProvider.getSvgNodeSubcomponentStyles(graph, node, subComponent);
         componentLibrary.getSubComponentStyleClass(componentType, subComponent).ifPresent(subComponentStyles::add);
         if (!subComponentStyles.isEmpty()) {
@@ -743,12 +755,6 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     protected void transformComponent(Node node, Point shift, Element g) {
-        // For a node marked for rotation during the graph building, but with an svg component not allowed
-        // to rotate (ex : disconnector in SVG component library), we cancel the rotation
-        if (node.isRotated() && !componentLibrary.isAllowRotation(node.getComponentType())) {
-            node.setRotationAngle(null);
-        }
-
         double[] translate = getNodeTranslate(node, shift);
         g.setAttribute(TRANSFORM, TRANSLATE + "(" + translate[0] + "," + translate[1] + ")");
     }
@@ -848,7 +854,7 @@ public class DefaultSVGWriter implements SVGWriter {
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
             if (!feederInfo.isEmpty()) {
                 drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata);
-                addInfoComponentMetadata(metadata, feederInfo.getComponentType(), true);
+                addInfoComponentMetadata(metadata, feederInfo.getComponentType());
             }
             // Compute shifting even if not displayed to ensure aligned feeder info
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
@@ -856,13 +862,13 @@ public class DefaultSVGWriter implements SVGWriter {
         }
     }
 
-    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType, boolean allowRotation) {
+    private void addInfoComponentMetadata(GraphMetadata metadata, String componentType) {
         if (metadata.getComponentMetadata(componentType) == null) {
             metadata.addComponent(new Component(componentType,
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    allowRotation, null));
+                    componentLibrary.getTransformations(componentType), null));
         }
     }
 
@@ -888,7 +894,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         // we draw the feeder info only if direction is present
         feederInfo.getDirection().ifPresent(direction -> {
-            double rotationAngle =  points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+            double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
             insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
             styles.add(direction == LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
         });
@@ -915,7 +921,7 @@ public class DefaultSVGWriter implements SVGWriter {
         Optional<BusInfo> busInfo = labelProvider.getBusInfo(busNode);
         busInfo.ifPresent(info -> {
             drawBusInfo(prefixId, busNode, root, info, styleProvider, metadata);
-            addInfoComponentMetadata(metadata, busInfo.get().getComponentType(), false);
+            addInfoComponentMetadata(metadata, busInfo.get().getComponentType());
         });
     }
 

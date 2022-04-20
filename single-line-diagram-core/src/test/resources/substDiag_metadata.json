@@ -5,7 +5,6 @@
       "width" : 0.0,
       "height" : 0.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-busbar-section"
   }, {
     "type" : "GENERATOR",
@@ -30,7 +29,6 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-generator"
   }, {
     "type" : "ARROW_REACTIVE",
@@ -38,7 +36,10 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-arrow-q"
   }, {
     "type" : "LOAD",
@@ -55,7 +56,10 @@
       "width" : 16.0,
       "height" : 9.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-load"
   }, {
     "type" : "ARROW_ACTIVE",
@@ -63,7 +67,10 @@
       "width" : 10.0,
       "height" : 10.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
@@ -76,7 +83,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-node"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -88,8 +94,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "anchorPoints" : [ {
@@ -100,8 +105,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "anchorPoints" : [ {
@@ -117,7 +121,11 @@
       "width" : 10.0,
       "height" : 15.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "ROTATION"
+    },
     "styleClass" : "sld-two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
@@ -138,7 +146,11 @@
       "width" : 16.0,
       "height" : 24.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION",
+      "DOWN" : "FLIP"
+    },
     "styleClass" : "sld-three-wt"
   }, {
     "type" : "DISCONNECTOR",
@@ -151,7 +163,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "allowRotation" : true,
     "styleClass" : "sld-disconnector"
   }, {
     "type" : "LINE",
@@ -163,8 +174,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "allowRotation" : true
+    }
   }, {
     "type" : "BREAKER",
     "anchorPoints" : [ {
@@ -180,7 +190,10 @@
       "width" : 20.0,
       "height" : 20.0
     },
-    "allowRotation" : true,
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
     "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {
@@ -606,7 +619,6 @@
     "id" : "idddcpl1",
     "vid" : "vl2",
     "componentType" : "BREAKER",
-    "rotationAngle" : 90.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "ddcpl1",
@@ -965,7 +977,6 @@
     "id" : "iddtrct21",
     "vid" : "vl1",
     "componentType" : "BREAKER",
-    "rotationAngle" : 90.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrct21",
@@ -1338,7 +1349,6 @@
     "id" : "idtrf1",
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 90.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf1",
@@ -1347,7 +1357,6 @@
     "id" : "idtrf2",
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 180.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf2",
@@ -1370,7 +1379,6 @@
     "id" : "idtrf3",
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 90.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf3",
@@ -1423,7 +1431,6 @@
     "id" : "idtrf5",
     "vid" : "",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 180.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf5",
@@ -1464,7 +1471,6 @@
     "id" : "idtrf8",
     "vid" : "",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
-    "rotationAngle" : 180.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "trf8",
@@ -1530,7 +1536,6 @@
     "id" : "iddtrct11",
     "vid" : "vl1",
     "componentType" : "BREAKER",
-    "rotationAngle" : 90.0,
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "dtrct11",

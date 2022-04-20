@@ -74,8 +74,7 @@ public class SubstationRawBuilder {
         f3WTNodes.put(vl3, feeder3WTNode3);
 
         // creation of the middle node and the edges linking the transformer leg nodes to this middle node
-        NodeFactory.createMiddle3WTNode(substationGraph, id, id,  feeder3WTNode1, feeder3WTNode2, feeder3WTNode3,
-                vl1.getVoltageLevelInfos(), vl2.getVoltageLevelInfos(), vl3.getVoltageLevelInfos(), false);
+        NodeFactory.createMiddle3WTNode(substationGraph, id, id,  feeder3WTNode1, feeder3WTNode2, feeder3WTNode3);
 
         return f3WTNodes;
     }

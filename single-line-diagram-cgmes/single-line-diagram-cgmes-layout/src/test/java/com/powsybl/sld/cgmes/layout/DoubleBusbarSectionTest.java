@@ -10,6 +10,7 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
@@ -17,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 /**
  * @author Christian Biasuzzi <christian.biasuzzi@techrain.eu>
@@ -101,31 +101,31 @@ public class DoubleBusbarSectionTest {
         assertEquals(20, graph.getNodes().get(0).getX(), 0);
         assertEquals(10, graph.getNodes().get(0).getY(), 0);
         assertEquals(160, ((BusNode) graph.getNodes().get(0)).getPxWidth(), 0);
-        assertFalse(graph.getNodes().get(0).isRotated());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(0).getOrientation());
 
         assertEquals(20, graph.getNodes().get(1).getX(), 0);
         assertEquals(40, graph.getNodes().get(1).getY(), 0);
         assertEquals(160, ((BusNode) graph.getNodes().get(1)).getPxWidth(), 0);
-        assertFalse(graph.getNodes().get(1).isRotated());
+        assertEquals(Orientation.RIGHT, graph.getNodes().get(1).getOrientation());
 
         assertEquals(80, graph.getNodes().get(2).getX(), 0);
         assertEquals(100, graph.getNodes().get(2).getY(), 0);
 
         assertEquals(75, graph.getNodes().get(3).getX(), 0);
         assertEquals(10, graph.getNodes().get(3).getY(), 0);
-        assertFalse(graph.getNodes().get(3).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(3).getOrientation());
 
         assertEquals(isVoltageLevelDataEnabled ? 80 : -1, graph.getNodes().get(4).getX(), 0);
         assertEquals(isVoltageLevelDataEnabled ? 45 : -1, graph.getNodes().get(4).getY(), 0);
-        assertFalse(graph.getNodes().get(4).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(4).getOrientation());
 
         assertEquals(75, graph.getNodes().get(5).getX(), 0);
         assertEquals(40, graph.getNodes().get(5).getY(), 0);
-        assertFalse(graph.getNodes().get(5).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(5).getOrientation());
 
         assertEquals(80, graph.getNodes().get(6).getX(), 0);
         assertEquals(50, graph.getNodes().get(6).getY(), 0);
-        assertFalse(graph.getNodes().get(6).isRotated());
+        assertEquals(Orientation.UP, graph.getNodes().get(6).getOrientation());
     }
 
     private VoltageLevelGraph processCgmesLayout() {

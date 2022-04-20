@@ -203,8 +203,8 @@
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_b1" transform="translate(275.0,330.0)">
-            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(90.0,10.0,10.0)"/>
-            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(90.0,10.0,10.0)"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(270.0,10.0,10.0)"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(270.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-closed" id="idvl1_95_d2" transform="translate(306.0,336.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
@@ -411,8 +411,8 @@
             <polyline points="1040.0,120.0,1040.0,90.0,757.0,90.0"/>
         </g>
         <g class="sld-two-wt sld-fictitious" id="idvl1_95_trf1" transform="translate(400.0,582.5)">
-            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1" transform="rotate(90.0,5.0,7.5)"/>
-            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(90.0,5.0,7.5)"/>
+            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING1" transform="rotate(270.0,5.0,7.5)"/>
+            <use class="sld-winding" href="#TWO_WINDINGS_TRANSFORMER-WINDING2" transform="rotate(270.0,5.0,7.5)"/>
         </g>
         <g class="sld-three-wt sld-fictitious" id="idvl1_95_trf2" transform="translate(742.0,78.0)">
             <use class="sld-winding" href="#THREE_WINDINGS_TRANSFORMER-WINDING1"/>

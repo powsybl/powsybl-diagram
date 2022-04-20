@@ -7,6 +7,7 @@
 package com.powsybl.sld.library;
 
 import com.google.common.collect.Lists;
+import com.powsybl.sld.model.coordinate.Orientation;
 import org.w3c.dom.Element;
 
 import java.net.URL;
@@ -37,7 +38,7 @@ public interface ComponentLibrary {
 
     ComponentSize getSize(String type);
 
-    boolean isAllowRotation(String type);
+    Map<Orientation, Component.Transformation> getTransformations(String type);
 
     Map<String, ComponentSize> getComponentsSize();
 

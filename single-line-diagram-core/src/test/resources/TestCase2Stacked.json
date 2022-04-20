@@ -174,7 +174,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "d2", "INTERNAL_vl_2" ]
+          "nodes" : [ "bbs1", "d1", "INTERNAL_vl_2" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -195,7 +195,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "d1", "INTERNAL_vl_2" ]
+          "nodes" : [ "bbs2", "d2", "INTERNAL_vl_2" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",

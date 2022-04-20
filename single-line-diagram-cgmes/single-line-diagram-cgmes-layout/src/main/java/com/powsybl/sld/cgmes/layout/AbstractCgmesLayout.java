@@ -9,10 +9,10 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.model.nodes.Node.NodeType;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-
+import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,7 +135,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 node.setY(diagramDetails.getPoint1().getY());
                 node.setPxWidth(computeBusWidth(diagramDetails));
                 rotatedBus = diagramDetails.getPoint1().getX() == diagramDetails.getPoint2().getX();
-                node.setRotationAngle(rotatedBus ? 90. : null);
+                node.setOrientation(rotatedBus ? Orientation.UP : Orientation.RIGHT);
                 setMin(diagramDetails.getPoint1().getX(), diagramDetails.getPoint1().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, bus {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -151,7 +151,7 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setRotationAngle(rotate && (diagramDetails.getRotation() == 90 || diagramDetails.getRotation() == 270) ? diagramDetails.getRotation() : null);
+                setOrientation(node, rotate, diagramDetails.getRotation());
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} node {}, name {}, diagramName {}", node.getType(), node.getId(), node.getName(), diagramName);
@@ -239,13 +239,26 @@ public abstract class AbstractCgmesLayout implements Layout {
             if (diagramDetails != null) {
                 node.setX(diagramDetails.getPoint().getX());
                 node.setY(diagramDetails.getPoint().getY());
-                node.setRotationAngle(rotate && (diagramDetails.getRotation() == 90 || diagramDetails.getRotation() == 270) ? diagramDetails.getRotation() : null);
+                setOrientation(node, rotate, diagramDetails.getRotation());
                 setMin(diagramDetails.getPoint().getX(), diagramDetails.getPoint().getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, injection {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);
             }
         } else {
             LOG.warn("No CGMES-DL data for {} {} node {}, injection {}", node.getType(), node.getComponentType(), node.getId(), node.getName());
+        }
+    }
+
+    private void setOrientation(Node node, boolean rotate, double rotationAngle) {
+        boolean isBusNode = node instanceof BusNode;
+        if (rotate) {
+            if (rotationAngle == 90) {
+                node.setOrientation(isBusNode ? Orientation.UP : Orientation.RIGHT);
+            } else if (rotationAngle == 270) {
+                node.setOrientation(isBusNode ? Orientation.DOWN : Orientation.LEFT);
+            }
+        } else {
+            node.setOrientation(isBusNode ? Orientation.RIGHT : Orientation.UP);
         }
     }
 
@@ -290,7 +303,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 DiagramPoint linePoint = getLinePoint(diagramData, node, diagramName);
                 node.setX(linePoint.getX());
                 node.setY(linePoint.getY());
-                node.setRotationAngle(rotatedBus ? 90. : null);
+                node.setOrientation(rotatedBus ? Orientation.RIGHT : Orientation.UP);
                 setMin(linePoint.getX(), linePoint.getY());
             } else {
                 LOG.warn("No CGMES-DL data for {} {} node {}, line {}, diagramName {}", node.getType(), node.getComponentType(), node.getId(), node.getName(), diagramName);

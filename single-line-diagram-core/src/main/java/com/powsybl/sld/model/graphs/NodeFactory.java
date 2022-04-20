@@ -6,13 +6,13 @@
  */
 package com.powsybl.sld.model.graphs;
 
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.FeederWithSideNode.Side;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import com.powsybl.sld.library.ComponentTypeName;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -201,14 +201,23 @@ public final class NodeFactory {
         return m2wn;
     }
 
-    public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
-        Middle3WTNode m3wn = new Middle3WTNode(id, name, voltageLevelInfosLeg1, voltageLevelInfosLeg2, voltageLevelInfosLeg3, embeddedInVLGraph);
+    public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, FeederWithSideNode.Side vlSide,
+                                                    Feeder3WTLegNode firstOtherLegNode, Feeder3WTLegNode secondOtherLegNode,
+                                                    VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3) {
+        Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, true);
+        m3wn.setWindingOrder(Middle3WTNode.Winding.DOWN, vlSide);
+        m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, firstOtherLegNode.getSide());
+        m3wn.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, secondOtherLegNode.getSide());
         baseGraph.addNode(m3wn);
+        baseGraph.addEdge(firstOtherLegNode, m3wn);
+        baseGraph.addEdge(secondOtherLegNode, m3wn);
         return m3wn;
     }
 
-    public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, Feeder3WTLegNode legNode1, Feeder3WTLegNode legNode2, Feeder3WTLegNode legNode3, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, VoltageLevelInfos vlInfos3, boolean embeddedInVLGraph) {
-        Middle3WTNode m3wn =  new Middle3WTNode(id, name, vlInfos1, vlInfos2, vlInfos3, embeddedInVLGraph);
+    public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, Feeder3WTLegNode legNode1, Feeder3WTLegNode legNode2, Feeder3WTLegNode legNode3) {
+        Middle3WTNode m3wn =  new Middle3WTNode(id, name,
+                legNode1.getVoltageLevelInfos(), legNode2.getVoltageLevelInfos(), legNode3.getVoltageLevelInfos(),
+                false);
         baseGraph.addTwtEdge(legNode1, m3wn);
         baseGraph.addTwtEdge(legNode2, m3wn);
         baseGraph.addTwtEdge(legNode3, m3wn);

@@ -7,11 +7,13 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.cells.*;
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.BaseGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
 
@@ -29,24 +31,88 @@ public abstract class AbstractLayout implements Layout {
         for (MiddleTwtNode multiNode : graph.getMultiTermNodes()) {
             List<Edge> adjacentEdges = multiNode.getAdjacentEdges();
             List<Node> adjacentNodes = multiNode.getAdjacentNodes();
-            if (adjacentNodes.size() == 2) {
+            if (multiNode instanceof Middle2WTNode) {
                 List<Point> pol = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<List<Point>> pollingSplit = splitPolyline2(pol, multiNode);
                 ((BranchEdge) adjacentEdges.get(0)).setSnakeLine(pollingSplit.get(0));
                 ((BranchEdge) adjacentEdges.get(1)).setSnakeLine(pollingSplit.get(1));
-            } else if (adjacentNodes.size() == 3) {
+                handle2wtNodeOrientation((Middle2WTNode) multiNode, pollingSplit);
+            } else if (multiNode instanceof Middle3WTNode) {
                 List<Point> pol1 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true);
                 List<Point> pol2 = calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(1), adjacentNodes.get(2), false);
                 List<List<Point>> pollingSplit = splitPolyline3(pol1, pol2, multiNode);
                 for (int i = 0; i < 3; i++) {
                     ((BranchEdge) adjacentEdges.get(i)).setSnakeLine(pollingSplit.get(i));
                 }
+                handle3wtNodeOrientation((Middle3WTNode) multiNode, pollingSplit);
             }
         }
 
         for (BranchEdge lineEdge : graph.getLineEdges()) {
             List<Node> adjacentNodes = lineEdge.getNodes();
             lineEdge.setSnakeLine(calculatePolylineSnakeLine(layoutParameters, adjacentNodes.get(0), adjacentNodes.get(1), true));
+        }
+    }
+
+    private void handle2wtNodeOrientation(Middle2WTNode node, List<List<Point>> pollingSplit) {
+        List<Point> pol1 = pollingSplit.get(0);
+        List<Point> pol2 = pollingSplit.get(1);
+
+        // Orientation.LEFT example:
+        // coord1 o-----OO-----o coord2
+        Point coord1 = pol1.get(pol1.size() - 2); // point linked to winding1
+        Point coord2 = pol2.get(pol2.size() - 2); // point linked to winding2
+
+        if (coord1.getX() == coord2.getX()) {
+            node.setOrientation(coord2.getY() > coord1.getY() ? Orientation.DOWN : Orientation.UP);
+        } else {
+            node.setOrientation(coord1.getX() < coord2.getX() ? Orientation.RIGHT : Orientation.LEFT);
+        }
+    }
+
+    /**
+     * Deduce the node orientation based on the lines coordinates supporting the svg component.
+     * As we are dealing with straight lines, we always have two out of three snake lines which are in line, the third
+     * one being perpendicular.
+     */
+    private void handle3wtNodeOrientation(Middle3WTNode node, List<List<Point>> snakeLines) {
+        List<Point> snakeLineLeg1 = snakeLines.get(0); // snakeline from leg1 feeder node to 3wt
+        List<Point> snakeLineLeg2 = snakeLines.get(1); // snakeline with simply two points going from leg2 feeder node to 3wt
+        List<Point> snakeLineLeg3 = snakeLines.get(2); // snakeline from leg3 feeder node to 3wt
+
+        // Orientation.UP example:
+        // line going  _____OO_____ line going
+        //   to leg1        O        to leg3
+        //                  |
+        //                  o leg2
+        Point leg1 = snakeLineLeg1.get(snakeLineLeg1.size() - 2);
+        Point leg2 = snakeLineLeg2.get(snakeLineLeg2.size() - 2);
+        Point leg3 = snakeLineLeg3.get(snakeLineLeg3.size() - 2);
+
+        if (leg1.getY() == leg3.getY()) {
+            // General case
+            node.setOrientation(leg2.getY() < leg1.getY() ? Orientation.DOWN : Orientation.UP);
+            if (leg1.getX() < leg3.getX()) {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
+            } else {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT);
+            }
+        } else if (leg2.getX() == leg1.getX()) {
+            // Specific case of leg1 and leg2 facing feeder nodes with same abscissa
+            node.setOrientation(leg3.getX() > leg1.getX() ? Orientation.LEFT : Orientation.RIGHT);
+            if (leg3.getX() > leg1.getX() == leg1.getY() > leg2.getY()) {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.DOWN);
+            } else {
+                node.setWindingOrder(Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN);
+            }
+        } else if (leg2.getX() == leg3.getX()) {
+            // Specific case of leg2 and leg3 facing feeder nodes with same abscissa
+            node.setOrientation(leg1.getX() > leg3.getX() ? Orientation.LEFT : Orientation.RIGHT);
+            if (leg1.getX() > leg3.getX() == leg2.getY() > leg3.getY()) {
+                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.UPPER_RIGHT);
+            } else {
+                node.setWindingOrder(Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT, Middle3WTNode.Winding.UPPER_LEFT);
+            }
         }
     }
 

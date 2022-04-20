@@ -49,8 +49,6 @@ public class Node {
 
     private final Point position = new Point(-1, -1);
 
-    private Double rotationAngle;
-
     private boolean open = false;
 
     private final List<Edge> adjacentEdges = new ArrayList<>();
@@ -73,14 +71,11 @@ public class Node {
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
+        setOrientation(defaultOrientation());
     }
 
     public String getComponentType() {
         return componentType;
-    }
-
-    public Double getRotationAngle() {
-        return rotationAngle;
     }
 
     public boolean isFictitious() {
@@ -169,14 +164,6 @@ public class Node {
         return this.type;
     }
 
-    public boolean isRotated() {
-        return rotationAngle != null;
-    }
-
-    public void setRotationAngle(Double rotationAngle) {
-        this.rotationAngle = rotationAngle;
-    }
-
     public boolean isOpen() {
         return open;
     }
@@ -203,9 +190,6 @@ public class Node {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
-        if (orientation == null || orientation.isHorizontal()) {
-            this.orientation = direction.toOrientation();
-        }
     }
 
     public Orientation getOrientation() {
@@ -213,7 +197,11 @@ public class Node {
     }
 
     public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
+        this.orientation = Objects.requireNonNullElse(orientation, defaultOrientation());
+    }
+
+    protected Orientation defaultOrientation() {
+        return Orientation.UP;
     }
 
     /**
@@ -249,8 +237,8 @@ public class Node {
             generator.writeNumberField("x", getX());
             generator.writeNumberField("y", getY());
         }
-        if (rotationAngle != null) {
-            generator.writeNumberField("rotationAngle", rotationAngle);
+        if (orientation != defaultOrientation()) {
+            generator.writeStringField("orientation", orientation.name());
         }
         generator.writeBooleanField("open", open);
         if (label != null) {

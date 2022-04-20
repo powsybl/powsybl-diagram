@@ -11,11 +11,13 @@ import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.ZoneGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -23,7 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -264,10 +267,10 @@ public class CgmesZoneLayoutTest {
     private void checkNodeCoordinates(Node node, double x, double y, boolean rotated) {
         assertEquals(x, node.getX(), 0);
         assertEquals(y, node.getY(), 0);
-        if (rotated) {
-            assertTrue(node.isRotated());
+        if (node instanceof BusNode)  {
+            assertEquals(rotated ? Orientation.UP : Orientation.RIGHT, node.getOrientation());
         } else {
-            assertFalse(node.isRotated());
+            assertEquals(rotated ? Orientation.RIGHT : Orientation.UP, node.getOrientation());
         }
     }
 

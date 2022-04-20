@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Position;
 
 import java.io.IOException;
@@ -30,6 +31,11 @@ public class BusNode extends Node {
 
     public BusNode(String id, String name, boolean fictitious) {
         super(NodeType.BUS, id, name, id, BUSBAR_SECTION, fictitious);
+    }
+
+    @Override
+    protected Orientation defaultOrientation() {
+        return Orientation.RIGHT;
     }
 
     public double getPxWidth() {

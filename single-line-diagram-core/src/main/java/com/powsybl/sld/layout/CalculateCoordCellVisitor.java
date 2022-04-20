@@ -113,7 +113,6 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         for (int i = 2; i < block.getNodes().size() - 2; i++) {
             Node node = block.getNodes().get(i);
             node.setCoordinates(x0 + (i - 1) * dx, y);
-            node.setRotationAngle(90.);
         }
     }
 

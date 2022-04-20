@@ -10,10 +10,14 @@ import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.model.coordinate.*;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
+import com.powsybl.sld.model.coordinate.Point;
+import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.*;
+import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +27,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -86,7 +91,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1D1.setX(220);
         vl1D1.setY(300);
         SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1, "vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
-        vl1B1.setRotationAngle(90.);
+        vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
         SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1, "vl1_d2", null, ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
@@ -319,7 +324,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1D1.setX(220);
         vl1D1.setY(300);
         SwitchNode vl1B1 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_b1", "vl1_b1", ComponentTypeName.BREAKER, false, SwitchNode.SwitchKind.BREAKER, false);
-        vl1B1.setRotationAngle(90.);
+        vl1B1.setOrientation(Orientation.LEFT);
         vl1B1.setX(245);
         vl1B1.setY(300);
         SwitchNode vl1D2 = NodeFactory.createSwitchNode(g1ForSubstation, "vl1_d2", "vl1_d2", ComponentTypeName.DISCONNECTOR, false, SwitchNode.SwitchKind.DISCONNECTOR, false);
@@ -480,6 +485,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         substG.addVoltageLevel(g3ForSubstation);
         Middle2WTNode nMulti1 = new Middle2WTNode(vl1Trf1.getEquipmentId(), vl1Trf1.getEquipmentId(), vl1Infos, vl2Infos, TWO_WINDINGS_TRANSFORMER);
         nMulti1.setCoordinates(405., 590.);
+        nMulti1.setOrientation(Orientation.LEFT);
         BranchEdge edge1 = substG.addTwtEdge(vl1Trf1, nMulti1);
         edge1.setSnakeLine(Point.createPointsList(120., 540., 120., 590., 405., 590.));
         BranchEdge edge2 = substG.addTwtEdge(vl2Trf1, nMulti1);
@@ -488,6 +494,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
 
         Middle3WTNode nMulti3 = new Middle3WTNode(vl1Trf2.getEquipmentId(), vl1Trf2.getEquipmentId(), vl1Infos, vl2Infos, vl3Infos, false);
         nMulti3.setCoordinates(750., 90.);
+        nMulti3.setWindingOrder(Middle3WTNode.Winding.UPPER_LEFT, Middle3WTNode.Winding.DOWN, Middle3WTNode.Winding.UPPER_RIGHT);
         BranchEdge edge21 = substG.addTwtEdge(vl1Trf2, nMulti3);
         edge21.setSnakeLine(Point.createPointsList(440., 120., 440., 90., 750., 90.));
         BranchEdge edge22 = substG.addTwtEdge(vl2Trf2, nMulti3);
@@ -657,7 +664,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
     public void testSubstation() {
         // SVG file generation for substation and comparison to reference
         assertEquals(toString("/substation.svg"),
-            toSVG(substG, "/substation.svg", labelProvider, new BasicStyleProvider()));
+            toSVG(substG, "/substation.svg", labelProvider, new NominalVoltageDiagramStyleProvider(Network.create("empty", ""))));
     }
 
     @Test

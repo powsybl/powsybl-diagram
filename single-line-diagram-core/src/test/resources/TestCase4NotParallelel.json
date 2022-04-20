@@ -13,6 +13,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -21,6 +22,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -39,6 +41,7 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 335.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -71,6 +74,7 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 523.0,
+    "orientation" : "DOWN",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -79,7 +83,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -88,7 +92,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -110,6 +114,7 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 429.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -211,6 +216,7 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 280.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -222,6 +228,7 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 305.0,
+    "orientation" : "DOWN",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
@@ -272,6 +279,7 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 585.0,
+    "orientation" : "DOWN",
     "open" : false,
     "label" : "lb",
     "feederType" : "INJECTION",
@@ -286,7 +294,7 @@
     "fictitious" : false,
     "x" : 75.0,
     "y" : 280.0,
-    "rotationAngle" : 90.0,
+    "orientation" : "RIGHT",
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],
@@ -444,7 +452,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2.1", "da2", "INTERNAL_vl_4" ]
+          "nodes" : [ "bbs1.1", "da1", "INTERNAL_vl_4" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -465,7 +473,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1.1", "da1", "INTERNAL_vl_4" ]
+          "nodes" : [ "bbs2.1", "da2", "INTERNAL_vl_4" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",
@@ -576,7 +584,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2.1", "db2", "INTERNAL_vl_6" ]
+          "nodes" : [ "bbs1.2", "db1", "INTERNAL_vl_6" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -597,7 +605,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1.2", "db1", "INTERNAL_vl_6" ]
+          "nodes" : [ "bbs2.1", "db2", "INTERNAL_vl_6" ]
         } ]
       }, {
         "type" : "BODYPRIMARY",

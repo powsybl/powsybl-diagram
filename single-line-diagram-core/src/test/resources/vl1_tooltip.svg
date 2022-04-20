@@ -149,8 +149,8 @@
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_b1" transform="translate(275.0,310.0)">
             <title>vl1_b1</title>
-            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
-            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
+            <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(270.0,10.0,10.0)"/>
+            <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(270.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-closed" id="idvl1_95_d2" transform="translate(306.0,316.0)">
             <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

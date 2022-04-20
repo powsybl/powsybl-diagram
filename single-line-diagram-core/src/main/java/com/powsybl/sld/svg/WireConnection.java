@@ -8,12 +8,15 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
+import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.coordinate.Direction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,9 +39,12 @@ public final class WireConnection {
     }
 
     public static List<AnchorPoint> getAnchorPoints(ComponentLibrary componentLibrary, Node node) {
-        return componentLibrary.getAnchorPoints(node.getComponentType())
+        String componentType = node.getComponentType();
+        Orientation nodeOrientation = node.getOrientation();
+        Component.Transformation transformation = componentLibrary.getTransformations(componentType).get(nodeOrientation);
+        return componentLibrary.getAnchorPoints(componentType)
                 .stream()
-                .map(anchorPoint -> node.isRotated() ? anchorPoint.createRotatedAnchorPoint(node.getRotationAngle()) : anchorPoint)
+                .map(anchorPoint -> anchorPoint.transformAnchorPoint(nodeOrientation, transformation))
                 .collect(Collectors.toList());
     }
 

@@ -9,8 +9,9 @@ package com.powsybl.sld.util;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
-import com.powsybl.sld.model.coordinate.Point;
-import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.graphs.Graph;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
@@ -141,7 +142,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             if (node instanceof Feeder2WTNode) {
                 vlInfo = getWindingVoltageLevelInfos(graph, (Feeder2WTNode) node, subComponentName);
             } else if (node instanceof Middle3WTNode) {
-                vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName, g.getVoltageLevelInfos().getId());
+                vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName);
             }
             if (vlInfo != null) {
                 getVoltageLevelNodeStyle(vlInfo, node).ifPresent(styles::add);
@@ -151,9 +152,9 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             // node outside any voltageLevel graph (multi-terminal node)
             Node windingNode = null;
             if (node instanceof Middle2WTNode) {
-                windingNode = getWindingNode(graph, (Middle2WTNode) node, subComponentName);
+                windingNode = getFeederNode((Middle2WTNode) node, subComponentName);
             } else if (node instanceof Middle3WTNode) {
-                windingNode = getWindingNode(graph, (Middle3WTNode) node, subComponentName);
+                windingNode = getFeederNode((Middle3WTNode) node, subComponentName);
             }
             if (windingNode != null) {
                 getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(windingNode), windingNode).ifPresent(styles::add);
@@ -175,64 +176,17 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
                 .map(bvName -> DiagramStyles.STYLE_PREFIX + bvName);
     }
 
-    private Node getWindingNode(Graph graph, Middle3WTNode node, String subComponentName) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(n -> graph.getShiftedPoint(n).getX()));
-        Node n1 = adjacentNodes.get(0);
-        Node n2 = adjacentNodes.get(1);
-        Node n3 = adjacentNodes.get(2);
-
-        Node n = n1;
+    private Node getFeederNode(Middle3WTNode node, String subComponentName) {
         switch (subComponentName) {
-            case WINDING1:
-                n = !node.isRotated() ? n1 : n3;
-                break;
-            case WINDING2:
-                n = !node.isRotated() ? n3 : n1;
-                break;
-            case WINDING3:
-                n = n2;
-                break;
-            default:
+            case WINDING1: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2: return node.getAdjacentNode(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3: return node.getAdjacentNode(Middle3WTNode.Winding.DOWN);
+            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
         }
-
-        return n;
     }
 
-    private Node getWindingNode(Graph graph, Middle2WTNode node, String subComponentName) {
-        List<Node> adjacentNodes = node.getAdjacentNodes();
-        adjacentNodes.sort(Comparator.comparingDouble(n -> graph.getShiftedPoint(n).getX()));
-        FeederWithSideNode node1 = (FeederWithSideNode) adjacentNodes.get(0);
-        FeederWithSideNode node2 = (FeederWithSideNode) adjacentNodes.get(1);
-        FeederWithSideNode nodeWinding1 = node1.getSide() == FeederWithSideNode.Side.ONE ? node1 : node2;
-        FeederWithSideNode nodeWinding2 = node1.getSide() == FeederWithSideNode.Side.TWO ? node1 : node2;
-        FeederWithSideNode nodeWinding = nodeWinding1;
-        Point p1 = graph.getShiftedPoint(nodeWinding1);
-        Point p2 = graph.getShiftedPoint(nodeWinding2);
-
-        if (subComponentName.equals(WINDING1)) {
-            if (!node.isRotated()) {
-                nodeWinding = p1.getY() > p2.getY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = p1.getX() > p2.getX() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = p1.getY() > p2.getY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = p1.getX() > p2.getX() ? nodeWinding1 : nodeWinding2;
-            }
-        } else if (subComponentName.equals(WINDING2)) {
-            if (!node.isRotated()) {
-                nodeWinding = p1.getY() > p2.getY() ? nodeWinding2 : nodeWinding1;
-            } else if (node.getRotationAngle() == 90.) {
-                nodeWinding = p1.getX() > p2.getX() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 180.) {
-                nodeWinding = p1.getY() > p2.getY() ? nodeWinding1 : nodeWinding2;
-            } else if (node.getRotationAngle() == 270.) {
-                nodeWinding = p1.getX() > p2.getX() ? nodeWinding2 : nodeWinding1;
-            }
-        }
-
-        return nodeWinding;
+    private Node getFeederNode(Middle2WTNode node, String subComponentName) {
+        return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
     private VoltageLevelInfos getWindingVoltageLevelInfos(Graph graph, Feeder2WTNode node, String subComponentName) {
@@ -245,56 +199,13 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         }
     }
 
-    private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName, String vlId) {
-        VoltageLevelInfos voltageLevelInfosLeg1 = node.getVoltageLevelInfosLeg1();
-        VoltageLevelInfos voltageLevelInfosLeg2 = node.getVoltageLevelInfosLeg2();
-        VoltageLevelInfos voltageLevelInfosLeg3 = node.getVoltageLevelInfosLeg3();
-
-        VoltageLevelInfos voltageLevelInfos = null;
-
-        // A three windings transformer is represented by 3 circles identified by winding1, winding2 and winding3
-        // winding1 and winding2 are horizontally aligned and winding3 is displayed below the others
-        // But, if node is rotated (by 180 degrees), winding3 is displayed above the others and winding1 and winding2 are permuted
-
-        if (subComponentName.equals(WINDING1)) {
-            // colorizing winding1
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding1 corresponds to transformer leg2 or leg3, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg3;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding1 corresponds to transformer leg1 or leg3, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg1 : voltageLevelInfosLeg3;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding1 corresponds to transformer leg1 or leg2, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg1 : voltageLevelInfosLeg2;
-            }
-        } else if (subComponentName.equals(WINDING2)) {
-            // colorizing winding2
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding2 corresponds to transformer leg3 or leg2, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg3 : voltageLevelInfosLeg2;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding2 corresponds to transformer leg3 or leg1, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg3 : voltageLevelInfosLeg1;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding2 corresponds to transformer leg2 or leg1, depending on whether a rotation occurred or not
-                voltageLevelInfos = !node.isRotated() ? voltageLevelInfosLeg2 : voltageLevelInfosLeg1;
-            }
-        } else if (subComponentName.equals(WINDING3)) {
-            // colorizing winding3 : this winding always correspond to the leg of the voltage level displayed
-            if (voltageLevelInfosLeg1.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg1, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg1;
-            } else if (voltageLevelInfosLeg2.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg2, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg2;
-            } else if (voltageLevelInfosLeg3.getId().equals(vlId)) {
-                // if voltage level displayed is the transformer leg3, winding3 corresponds to this transformer leg
-                voltageLevelInfos = voltageLevelInfosLeg3;
-            }
+    private VoltageLevelInfos getWindingVoltageLevelInfos(Middle3WTNode node, String subComponentName) {
+        switch (subComponentName) {
+            case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
+            case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
+            case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
+            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
         }
-
-        return voltageLevelInfos;
     }
 
     @Override

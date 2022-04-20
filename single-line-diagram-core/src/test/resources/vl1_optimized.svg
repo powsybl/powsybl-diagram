@@ -205,8 +205,8 @@
             <use class="sld-sw-open" href="#DISCONNECTOR-OPEN"/>
         </g>
         <g class="sld-breaker sld-closed" id="idvl1_95_b1" transform="translate(275.0,310.0)">
-            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(90.0,10.0,10.0)"/>
-            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(90.0,10.0,10.0)"/>
+            <use class="sld-sw-closed" href="#BREAKER-CLOSED" transform="rotate(270.0,10.0,10.0)"/>
+            <use class="sld-sw-open" href="#BREAKER-OPEN" transform="rotate(270.0,10.0,10.0)"/>
         </g>
         <g class="sld-disconnector sld-closed" id="idvl1_95_d2" transform="translate(306.0,316.0)">
             <use class="sld-sw-closed" href="#DISCONNECTOR-CLOSED"/>
