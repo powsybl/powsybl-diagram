@@ -13,10 +13,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.BasicStyleProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.FeederInfo;
-import com.powsybl.sld.svg.LabelPosition;
+import com.powsybl.sld.svg.*;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -58,8 +55,8 @@ public abstract class AbstractTestCaseRaw extends AbstractTestCase {
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
             return Arrays.asList(
-                    new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
-                    new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
+                    new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, "", "tata", null),
+                    new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, "", "tutu", null));
         }
 
         @Override

@@ -15,13 +15,12 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyles;
-import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
@@ -98,8 +97,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
         @Override
         public List<FeederInfo> getFeederInfos(FeederNode node) {
-            return Arrays.asList(new FeederInfo(ARROW_ACTIVE, null, null, null, null),
-                    new FeederInfo(ARROW_REACTIVE, null, null, null, null));
+            return Collections.emptyList();
         }
     }
 

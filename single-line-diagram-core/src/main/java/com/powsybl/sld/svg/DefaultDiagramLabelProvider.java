@@ -240,19 +240,19 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
-                new FeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP()),
+                new DirectionalFeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ()));
     }
 
     private List<FeederInfo> buildFeederInfos(Injection injection) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, injection.getTerminal().getP()),
-                new FeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, injection.getTerminal().getP()),
+                new DirectionalFeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ()));
     }
 
     private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side) {
         return Arrays.asList(
-                new FeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP()),
-                new FeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP()),
+                new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ()));
     }
 }

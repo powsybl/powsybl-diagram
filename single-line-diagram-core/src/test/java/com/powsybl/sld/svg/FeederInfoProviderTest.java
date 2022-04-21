@@ -119,8 +119,6 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertTrue(feederInfos1.get(1).getRightLabel().isPresent());
         assertFalse(feederInfos1.get(0).getLeftLabel().isPresent());
         assertFalse(feederInfos1.get(1).getLeftLabel().isPresent());
-        assertTrue(feederInfos1.get(0).getDirection().isPresent());
-        assertTrue(feederInfos1.get(1).getDirection().isPresent());
 
         List<FeederInfo> feederInfos2 = labelProvider.getFeederInfos((FeederNode) g.getNode("vsc"));
         assertEquals(2, feederInfos2.size());
@@ -130,8 +128,6 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertTrue(feederInfos2.get(1).getRightLabel().isPresent());
         assertFalse(feederInfos2.get(0).getLeftLabel().isPresent());
         assertFalse(feederInfos2.get(1).getLeftLabel().isPresent());
-        assertTrue(feederInfos2.get(0).getDirection().isPresent());
-        assertTrue(feederInfos2.get(1).getDirection().isPresent());
 
         List<FeederInfo> feederInfos3 = labelProvider.getFeederInfos((FeederNode) g.getNode("C1"));
         assertEquals(2, feederInfos3.size());
@@ -141,8 +137,6 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertTrue(feederInfos3.get(1).getRightLabel().isPresent());
         assertFalse(feederInfos3.get(0).getLeftLabel().isPresent());
         assertFalse(feederInfos3.get(1).getLeftLabel().isPresent());
-        assertTrue(feederInfos3.get(0).getDirection().isPresent());
-        assertTrue(feederInfos3.get(1).getDirection().isPresent());
 
         List<FeederInfo> feederInfos4 = labelProvider.getFeederInfos((FeederNode) g.getNode("dl1"));
         assertEquals(2, feederInfos4.size());
@@ -152,8 +146,6 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertTrue(feederInfos4.get(1).getRightLabel().isPresent());
         assertFalse(feederInfos4.get(0).getLeftLabel().isPresent());
         assertFalse(feederInfos4.get(1).getLeftLabel().isPresent());
-        assertTrue(feederInfos4.get(0).getDirection().isPresent());
-        assertTrue(feederInfos4.get(1).getDirection().isPresent());
 
         // Reverse order
         layoutParameters.setFeederInfoSymmetry(false);
