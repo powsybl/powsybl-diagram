@@ -19,7 +19,6 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
