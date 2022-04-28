@@ -6,11 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -23,48 +22,58 @@ public final class GraphTraversal {
     }
 
     /**
-     * @param node                 the entry point for the exploration
-     * @param extremityCriteria    criteria applied to node returning if we reach an extremity node (the node is included in the result)
-     * @param unsuccessfulCriteria criteria applied to node returning if the traversal is to be invalidated
-     * @param nodesResult          the resulting set of nodes
-     * @param outsideNodes         nodes already visited
+     * @param node                  the entry point for the exploration
+     * @param extremityCriterion    predicate to know whether node is an extremity node (the node is included in the result)
+     * @param unsuccessfulCriterion predicate to know whether node should invalidate the whole traversal (the node is not included in the result)
+     * @param visitedNodes          the set of nodes visited
+     * @param outsideNodes          nodes which should be considered outside the traversal
      * @return true if no unsuccessfulCriteria reached or node outside
      **/
 
     static boolean run(Node node,
-                       Predicate<Node> extremityCriteria,
-                       Predicate<Node> unsuccessfulCriteria,
-                       Set<Node> nodesResult,
+                       Predicate<Node> extremityCriterion,
+                       Predicate<Node> unsuccessfulCriterion,
+                       List<Node> extremityNodes,
+                       Set<Node> visitedNodes,
                        Set<Node> outsideNodes) {
 
         if (outsideNodes.contains(node)) {
             return false;
         }
-        nodesResult.add(node);
-        List<Node> nodesToVisit = node.getAdjacentNodes().stream()
-                .filter(n -> !outsideNodes.contains(n) && !nodesResult.contains(n))
-                .collect(Collectors.toList());
-        if (nodesToVisit.isEmpty()) {
+        if (visitedNodes.contains(node)) {
             return true;
         }
-        for (Node n : nodesToVisit) {
-            if (unsuccessfulCriteria.test(n)) {
-                return false;
-            } else if (extremityCriteria.test(n)) {
-                nodesResult.add(n);
-            } else if (!run(n, extremityCriteria, unsuccessfulCriteria, nodesResult, outsideNodes)) {
-                return false;
-            }
+        if (unsuccessfulCriterion.test(node)) {
+            // Unsuccessful criterion prevails over the extremity criteria
+            // Unsuccessful nodes are not in the visited nodes
+            return false;
         }
-        return true;
+
+        visitedNodes.add(node);
+        if (extremityCriterion.test(node)) {
+            extremityNodes.add(node);
+            return true;
+        }
+
+        // continue on all adjacent nodes
+        return node.getAdjacentNodes().stream()
+                .allMatch(n -> run(n, extremityCriterion, unsuccessfulCriterion, extremityNodes, visitedNodes, outsideNodes));
     }
 
-    static Set<Node> run(Node node,
-                          Predicate<Node> extremityCriteria,
-                          Set<Node> outsideNodes) {
-        Set<Node> nodesResult = new LinkedHashSet<>();
-        run(node, extremityCriteria, n -> false, nodesResult, outsideNodes);
-        return nodesResult;
-    }
+    public static Map<Node, Set<Node.NodeType>> getAdjacentBranchesTypes(Node node, Predicate<Node> branchEnd, Set<Node> externalNodes) {
+        Map<Node, Set<Node.NodeType>> adjacentExtremityTypes = new HashMap<>();
+        for (Node adj : node.getAdjacentNodes()) {
+            List<Node> extremities = new ArrayList<>();
+            Set<Node> visitedNodes = new LinkedHashSet<>();
+            visitedNodes.add(node); // removal of the node to explore branches from it
+            GraphTraversal.run(adj, branchEnd, n -> false, extremities, visitedNodes, externalNodes);
 
+            // what are the types of terminal node of the branch
+            adjacentExtremityTypes.put(adj, extremities.stream().map(Node::getType).collect(Collectors.toSet()));
+
+            // Remove the bus nodes from visited nodes
+            visitedNodes.removeIf(BusNode.class::isInstance);
+        }
+        return adjacentExtremityTypes;
+    }
 }

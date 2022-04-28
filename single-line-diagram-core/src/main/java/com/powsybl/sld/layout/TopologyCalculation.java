@@ -9,10 +9,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -73,14 +70,9 @@ public final class TopologyCalculation {
     }
 
     private Set<Node> getConnectedNodesWithExtremityNodes(Node node, List<Node> borderNodes, Set<Node> visitedNodes) {
-        return GraphTraversal
-                .run(node, n -> {
-                    boolean isExtremity = extremityCriteria.test(n);
-                    if (isExtremity) {
-                        borderNodes.add(n);
-                    }
-                    return isExtremity;
-                }, visitedNodes);
+        Set<Node> connectedNodes = new LinkedHashSet<>();
+        GraphTraversal.run(node, extremityCriteria, n -> false, borderNodes, connectedNodes, visitedNodes);
+        return connectedNodes;
     }
 
     private static Node identifyNonOpenNode(List<Node> remainingNodes) {

@@ -285,9 +285,9 @@ public class Subsection {
                     Set<Node> outsideNodes = new HashSet<>();
                     outsideNodes.add(shNode);
                     List<FeederNode> shuntSideFeederNodes = shNode.getAdjacentNodes().stream().flatMap(node -> {
-                        Set<Node> gtResult = new LinkedHashSet<>();
-                        if (GraphTraversal.run(node, node1 -> node1.getType() == Node.NodeType.FEEDER, node1 -> node1.getType() == Node.NodeType.BUS, gtResult, outsideNodes)) {
-                            return gtResult.stream().filter(n -> n.getType() == Node.NodeType.FEEDER).map(FeederNode.class::cast);
+                        List<Node> extremities = new ArrayList<>();
+                        if (GraphTraversal.run(node, n -> n.getType() == Node.NodeType.FEEDER, n -> n.getType() == Node.NodeType.BUS, extremities, new HashSet<>(), outsideNodes)) {
+                            return extremities.stream().map(FeederNode.class::cast);
                         } else {
                             return Stream.empty();
                         }

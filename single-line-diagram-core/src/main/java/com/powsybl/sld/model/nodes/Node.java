@@ -71,6 +71,7 @@ public class Node {
         this.equipmentId = equipmentId;
         this.componentType = Objects.requireNonNull(componentType);
         this.fictitious = fictitious;
+        setLabel(id);
         setOrientation(defaultOrientation());
     }
 

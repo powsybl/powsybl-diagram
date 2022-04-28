@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.layout.GraphTraversal;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -683,5 +684,16 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public double getInnerHeight(double verticalSpaceBus) {
         return getExternCellHeight(Direction.TOP) + verticalSpaceBus * getMaxV() + getExternCellHeight(Direction.BOTTOM);
+    }
+
+    public void createFictitiousShuntBuses() {
+        Predicate<Node> branchEnd = n -> n.getType() == NodeType.FEEDER || n.getType() == NodeType.BUS;
+        List<Node> shuntBusNodes = getAllNodesStream().filter(n -> !(n instanceof BusNode) && n.getAdjacentEdges().size() > 2)
+                .filter(node -> {
+                    Map<Node, Set<NodeType>> branchesTypes = GraphTraversal.getAdjacentBranchesTypes(node, branchEnd, Collections.emptySet());
+                    return branchesTypes.values().stream().allMatch(set -> set.size() > 1);
+                })
+                .collect(Collectors.toList());
+        shuntBusNodes.forEach(node -> substituteNode(node, NodeFactory.createFictitiousBusNode(this, node.getId() + "_fBus")));
     }
 }
