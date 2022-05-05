@@ -215,8 +215,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     return NodeFactory.createGenerator(graph, injection.getId(), injection.getNameOrId());
                 case LOAD:
                     return NodeFactory.createLoad(graph, injection.getId(), injection.getNameOrId());
-                case HVDC_CONVERTER_STATION:
-                    return NodeFactory.createVscConverterStation(graph, injection.getId(), injection.getNameOrId());
                 case STATIC_VAR_COMPENSATOR:
                     return NodeFactory.createStaticVarCompensator(graph, injection.getId(), injection.getNameOrId());
                 case SHUNT_COMPENSATOR:
@@ -227,6 +225,23 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     return NodeFactory.createDanglingLine(graph, injection.getId(), injection.getNameOrId());
                 default:
                     throw new IllegalStateException();
+            }
+        }
+
+        private FeederNode createFeederNode(VoltageLevelGraph graph, HvdcConverterStation<?> hvdcStation) {
+            Objects.requireNonNull(graph);
+            Objects.requireNonNull(hvdcStation);
+
+            HvdcLine hvdcLine = hvdcStation.getHvdcLine();
+            if (hvdcLine == null) {
+                return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), null, null, null);
+            } else {
+                var side = hvdcLine.getConverterStation1() == hvdcStation ? FeederWithSideNode.Side.ONE : FeederWithSideNode.Side.TWO;
+                var otherTerminal = hvdcLine.getConverterStation1() == hvdcStation ? hvdcLine.getConverterStation2() : hvdcLine.getConverterStation1();
+                var vlOtherSide = otherTerminal.getTerminal().getVoltageLevel();
+                VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
+
+                return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcLine.getId(), side, otherSideVoltageLevelInfos);
             }
         }
 

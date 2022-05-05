@@ -64,8 +64,11 @@ public final class NodeFactory {
         return createFeederInjectionNode(id, name, ComponentTypeName.LOAD, graph);
     }
 
-    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name) {
-        return createFeederInjectionNode(id, name, ComponentTypeName.VSC_CONVERTER_STATION, graph);
+    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, Side side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        if (side == null || otherSideVoltageLevelInfos == null) {
+            return createFeederInjectionNode(id, name, VSC_CONVERTER_STATION, graph);
+        }
+        return createFeederWithSideNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, side, otherSideVoltageLevelInfos, FeederType.HVDC);
     }
 
     public static FeederNode createStaticVarCompensator(VoltageLevelGraph graph, String id, String name) {

@@ -151,6 +151,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                         addBranchStatusDecorator(nodeDecorators, node, direction, network.getThreeWindingsTransformer(node.getEquipmentId()));
                     }
                     break;
+                case HVDC:
+                    addBranchStatusDecorator(nodeDecorators, node, direction, network.getHvdcLine(node.getEquipmentId()));
+                    break;
                 default:
                     break;
             }
