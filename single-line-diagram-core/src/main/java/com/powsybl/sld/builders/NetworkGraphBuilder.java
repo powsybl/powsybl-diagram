@@ -233,12 +233,12 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Objects.requireNonNull(hvdcStation);
 
             HvdcLine hvdcLine = hvdcStation.getHvdcLine();
-            if (hvdcLine == null) {
+            var optOtherStation = hvdcStation.getOtherConverterStation();
+            if (optOtherStation.isEmpty()) {
                 return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), null, null, null);
             } else {
                 var side = hvdcLine.getConverterStation1() == hvdcStation ? FeederWithSideNode.Side.ONE : FeederWithSideNode.Side.TWO;
-                var otherTerminal = hvdcLine.getConverterStation1() == hvdcStation ? hvdcLine.getConverterStation2() : hvdcLine.getConverterStation1();
-                var vlOtherSide = otherTerminal.getTerminal().getVoltageLevel();
+                var vlOtherSide = optOtherStation.get().getTerminal().getVoltageLevel();
                 VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
 
                 return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcLine.getId(), side, otherSideVoltageLevelInfos);
