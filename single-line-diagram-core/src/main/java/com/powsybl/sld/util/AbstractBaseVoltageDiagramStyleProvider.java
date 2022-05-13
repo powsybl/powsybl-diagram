@@ -210,7 +210,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
-        Bus bus = network.getBusView().getBus(busId);
+        Bus bus = network.getVoltageLevel(graph.getVoltageLevelInfos().getId()).getBusView().getBus(busId);
         if (bus != null) {
             for (Terminal t : bus.getConnectedTerminals()) {
                 for (FeederNode feederNode : graph.getFeederNodes()) {
