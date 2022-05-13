@@ -91,7 +91,7 @@ public abstract class AbstractTestCase {
     }
 
     protected void writeToFileInDebugDir(String filename, StringWriter content) {
-        File debugFolder = new File(System.getProperty("user.home"), ".powsybl/debug");
+        File debugFolder = new File(System.getProperty("user.home"), ".powsybl/debug-sld");
         if (debugFolder.exists() || debugFolder.mkdir()) {
             File file = new File(debugFolder, filename);
             try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
