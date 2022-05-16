@@ -2,6 +2,9 @@ package com.powsybl.sld.svg;
 
 import org.apache.commons.math3.util.Precision;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -35,8 +38,15 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
         this(componentType,
                 value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN,
                 null,
-                precision == 0 || Double.isNaN(value) ? String.valueOf(Math.round(value)) : String.valueOf(Precision.round(value, precision)),
+                format(value, precision),
                 userDefinedId);
+    }
+
+    private static String format(double value, int precision) {
+        // build pattern
+        String pattern = precision == 0 ? "#;#" : "#.0" + "#".repeat(precision - 1);
+        String formattedValue = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(value);
+        return formattedValue.replaceAll("^-(?=0(\\.0*)?$)", ""); // Avoid negative zero
     }
 
     public DiagramLabelProvider.LabelDirection getDirection() {
