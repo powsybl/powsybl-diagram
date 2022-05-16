@@ -103,7 +103,7 @@ public abstract class AbstractTestCase {
         }
         Path debugFile = Path.of(debugFolder.toString(), filename);
         try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
-            bw.write(content.toString());
+            bw.write(normalizeLineSeparator(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -115,7 +115,7 @@ public abstract class AbstractTestCase {
             return;
         }
         try (BufferedWriter bw = Files.newBufferedWriter(testReference, StandardCharsets.UTF_8)) {
-            bw.write(fixSvg(content.toString()));
+            bw.write(normalizeLineSeparator(fixSvg(content.toString())));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
