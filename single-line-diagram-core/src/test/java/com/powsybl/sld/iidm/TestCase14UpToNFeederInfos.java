@@ -16,10 +16,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.svg.BasicStyleProvider;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramLabelProvider;
-import com.powsybl.sld.svg.FeederInfo;
+import com.powsybl.sld.svg.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,11 +64,11 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
-                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null),
-                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "30", null),
-                        new FeederInfo(ARROW_ACTIVE, null, null, "40", null), // Not displayed
-                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10"),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "30", null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);

@@ -112,6 +112,11 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">30</text>
             </g>
+            <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,144.5)">
+                <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
+                <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
+                <text class="sld-label" x="15.0" y="5.0">40</text>
+            </g>
             <g class="sld-arrow-p sld-out" id="idl_ARROW_ACTIVE" transform="translate(60.0,159.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>

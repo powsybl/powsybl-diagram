@@ -596,8 +596,8 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
-                        new FeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10", null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null));
                 boolean feederArrowSymmetry = node.getDirection() == TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
                     Collections.reverse(feederInfos);
@@ -616,9 +616,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         noFeederInfoProvider = new DefaultDiagramLabelProvider(Network.create("empty", ""), componentLibrary, layoutParameters) {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
-                return Arrays.asList(
-                        new FeederInfo(ARROW_ACTIVE, null, null, null, null),
-                        new FeederInfo(ARROW_REACTIVE, null, null, null, null));
+                return Collections.emptyList();
             }
 
             @Override

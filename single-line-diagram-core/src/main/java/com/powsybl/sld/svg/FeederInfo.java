@@ -6,72 +6,18 @@
  */
 package com.powsybl.sld.svg;
 
-import java.util.Objects;
 import java.util.Optional;
 
-import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
-
 /**
- * Class used to describe an information element which is displayed below feeders, which contains one or more of the following:
- * <ul>
- * <li>an arrow whose direction is specified</li>
- * <li>a string on its right</li>
- * <li>a string on its left</li>
- * </ul>
- * Each of these three element part is optional
- *
- * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class FeederInfo {
+public interface FeederInfo {
 
-    private final String componentType;
-    private final LabelDirection arrowDirection;
-    private final String leftLabel;
-    private final String rightLabel;
-    private final String userDefinedId;
+    String getUserDefinedId();
 
-    public FeederInfo(String componentType, LabelDirection arrowDirection, String leftLabel, String rightLabel) {
-        this(componentType, arrowDirection, leftLabel, rightLabel, null);
-    }
+    String getComponentType();
 
-    public FeederInfo(String componentType, LabelDirection arrowDirection, String leftLabel, String rightLabel, String userDefinedId) {
-        this.componentType = Objects.requireNonNull(componentType);
-        this.arrowDirection = arrowDirection;
-        this.leftLabel = leftLabel;
-        this.rightLabel = rightLabel;
-        this.userDefinedId = userDefinedId;
-    }
+    Optional<String> getLeftLabel();
 
-    public FeederInfo(String componentType, double value) {
-        this(componentType, value, null);
-    }
-
-    public FeederInfo(String componentType, double value, String userDefinedId) {
-        this(componentType, value > 0 ? LabelDirection.OUT : LabelDirection.IN, null, String.valueOf(Math.round(value)), userDefinedId);
-    }
-
-    public boolean isEmpty() {
-        return getDirection().isEmpty() && getLeftLabel().isEmpty() || getRightLabel().isEmpty();
-    }
-
-    public String getUserDefinedId() {
-        return userDefinedId;
-    }
-
-    public String getComponentType() {
-        return componentType;
-    }
-
-    public Optional<LabelDirection> getDirection() {
-        return Optional.ofNullable(arrowDirection);
-    }
-
-    public Optional<String> getLeftLabel() {
-        return Optional.ofNullable(leftLabel);
-    }
-
-    public Optional<String> getRightLabel() {
-        return Optional.ofNullable(rightLabel);
-    }
+    Optional<String> getRightLabel();
 }

@@ -19,7 +19,6 @@ import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.*;
-import com.powsybl.sld.svg.DiagramLabelProvider.LabelDirection;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.IOUtils;
@@ -844,7 +843,8 @@ public class DefaultSVGWriter implements SVGWriter {
                                       VoltageLevelGraph graph,
                                       FeederNode feederNode,
                                       GraphMetadata metadata,
-                                      DiagramLabelProvider labelProvider) {
+                                      DiagramLabelProvider labelProvider,
+                                      DiagramStyleProvider styleProvider) {
         if (points.isEmpty()) {
             points.add(graph.getShiftedPoint(feederNode));
             points.add(graph.getShiftedPoint(feederNode));
@@ -852,11 +852,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
         double shiftFeederInfo = 0;
         for (FeederInfo feederInfo : labelProvider.getFeederInfos(feederNode)) {
-            if (!feederInfo.isEmpty()) {
-                drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata);
-                addInfoComponentMetadata(metadata, feederInfo.getComponentType());
-            }
-            // Compute shifting even if not displayed to ensure aligned feeder info
+            drawFeederInfo(prefixId, feederNode, points, root, feederInfo, shiftFeederInfo, metadata, styleProvider);
+            addInfoComponentMetadata(metadata, feederInfo.getComponentType());
+
             double height = componentLibrary.getSize(feederInfo.getComponentType()).getHeight();
             shiftFeederInfo += layoutParameters.getFeederInfosIntraMargin() + height;
         }
@@ -873,7 +871,8 @@ public class DefaultSVGWriter implements SVGWriter {
     }
 
     private void drawFeederInfo(String prefixId, FeederNode feederNode, List<Point> points, Element root,
-                                FeederInfo feederInfo, double shift, GraphMetadata metadata) {
+                                FeederInfo feederInfo, double shift, GraphMetadata metadata,
+                                DiagramStyleProvider styleProvider) {
 
         Element g = root.getOwnerDocument().createElement(GROUP);
         ComponentSize size = componentLibrary.getSize(feederInfo.getComponentType());
@@ -892,12 +891,10 @@ public class DefaultSVGWriter implements SVGWriter {
         String side = feederNode instanceof FeederWithSideNode ? ((FeederWithSideNode) feederNode).getSide().name() : null;
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, feederInfo.getUserDefinedId()));
 
-        // we draw the feeder info only if direction is present
-        feederInfo.getDirection().ifPresent(direction -> {
-            double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
-            insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
-            styles.add(direction == LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
-        });
+        // we draw the feeder info
+        double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
+        insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
+        styleProvider.getFeederInfoStyle(feederInfo).ifPresent(styles::add);
 
         // we draw the right label only if present
         feederInfo.getRightLabel().ifPresent(s -> {
@@ -1020,11 +1017,11 @@ public class DefaultSVGWriter implements SVGWriter {
 
             if (edge.getNode1() instanceof FeederNode) {
                 if (!(edge.getNode2() instanceof FeederNode)) {
-                    insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider);
+                    insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode1(), metadata, initProvider, styleProvider);
                 }
             } else if (edge.getNode2() instanceof FeederNode) {
                 Collections.reverse(pol);
-                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider);
+                insertFeederInfos(prefixId, pol, root, graph, (FeederNode) edge.getNode2(), metadata, initProvider, styleProvider);
             }
         }
     }
