@@ -21,6 +21,8 @@ import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -34,7 +36,7 @@ public abstract class AbstractTestCase {
     private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = false;
+    protected boolean debugSvgFiles = true;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
@@ -91,14 +93,19 @@ public abstract class AbstractTestCase {
     }
 
     protected void writeToFileInDebugDir(String filename, StringWriter content) {
-        File debugFolder = new File(System.getProperty("user.home"), ".powsybl/debug-sld");
-        if (debugFolder.exists() || debugFolder.mkdir()) {
-            File file = new File(debugFolder, filename);
-            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
-                fw.write(content.toString());
+        Path debugFolder = Path.of(System.getProperty("user.home"), ".powsybl", "debug-sld");
+        if (!Files.exists(debugFolder)) {
+            try {
+                Files.createDirectories(debugFolder);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
+        }
+        Path debugFile = Path.of(debugFolder.toString(), filename);
+        try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
+            bw.write(content.toString());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
