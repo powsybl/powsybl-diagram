@@ -36,7 +36,7 @@ public abstract class AbstractTestCase {
     private static final Pattern SVG_FIX_PATTERN = Pattern.compile(">\\s*(<\\!\\[CDATA\\[.*?]]>)\\s*</", Pattern.DOTALL);
 
     protected boolean debugJsonFiles = false;
-    protected boolean debugSvgFiles = true;
+    protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
@@ -110,12 +110,12 @@ public abstract class AbstractTestCase {
     }
 
     protected void overrideTestReference(String filename, StringWriter content) {
-        File testReference = new File("src/test/resources", filename);
-        if (!testReference.exists()) {
+        Path testReference = Path.of("src", "test", "resources", filename);
+        if (!Files.exists(testReference)) {
             return;
         }
-        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
-            fw.write(fixSvg(content.toString()));
+        try (BufferedWriter bw = Files.newBufferedWriter(testReference, StandardCharsets.UTF_8)) {
+            bw.write(fixSvg(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
