@@ -64,10 +64,10 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "10"),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "20", null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, 10.967543, layoutParameters.getFeederInfoPrecision(), null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, layoutParameters.getFeederInfoPrecision(), null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "30", null),
-                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
                 if (!feederArrowSymmetry) {
@@ -89,7 +89,8 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         layoutParameters.setSpaceForFeederInfos(100)
-                .setFeederInfosIntraMargin(5);
+                .setFeederInfosIntraMargin(5)
+                .setFeederInfoPrecision(3);
 
         // Run layout
         voltageLevelGraphLayout(g);

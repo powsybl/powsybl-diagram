@@ -2926,6 +2926,7 @@
     "useName" : true,
     "feederInfosIntraMargin" : 10.0,
     "busInfoMargin" : 0.0,
-    "busbarsAlignment" : "FIRST"
+    "busbarsAlignment" : "FIRST",
+    "feederInfoPrecision" : 0
   }
 }

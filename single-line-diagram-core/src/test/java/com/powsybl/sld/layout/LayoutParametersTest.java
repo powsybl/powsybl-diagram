@@ -54,7 +54,8 @@ public class LayoutParametersTest {
                 .setUseName(true)
                 .setFeederInfosIntraMargin(21)
                 .setBusInfoMargin(22)
-                .setBusbarsAlignment(LayoutParameters.Alignment.LAST);
+                .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
+                .setFeederInfoPrecision(12);
 
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
@@ -99,5 +100,6 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getFeederInfosIntraMargin(), layoutParameters2.getFeederInfosIntraMargin(), 0);
         assertEquals(layoutParameters.getBusInfoMargin(), layoutParameters2.getBusInfoMargin(), 0);
         assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());
+        assertEquals(layoutParameters.getFeederInfoPrecision(), layoutParameters2.getFeederInfoPrecision());
     }
 }

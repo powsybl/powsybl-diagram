@@ -1,5 +1,8 @@
 package com.powsybl.sld.svg;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -22,11 +25,27 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     public DirectionalFeederInfo(String componentType, double value) {
-        this(componentType, value, null);
+        this(componentType, value, 0, null);
     }
 
-    public DirectionalFeederInfo(String componentType, double value, String userDefinedId) {
-        this(componentType, value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN, null, String.valueOf(Math.round(value)), userDefinedId);
+    public DirectionalFeederInfo(String componentType, double value, int precision) {
+        this(componentType, value, precision, null);
+    }
+
+    public DirectionalFeederInfo(String componentType, double value, int precision, String userDefinedId) {
+        this(componentType,
+                value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN,
+                null,
+                format(value, precision),
+                userDefinedId);
+    }
+
+    private static String format(double value, int precision) {
+        DecimalFormat format = new DecimalFormat();
+        format.setMaximumFractionDigits(precision);
+        // Floating representation with point
+        format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        return format.format(value);
     }
 
     public DiagramLabelProvider.LabelDirection getDirection() {

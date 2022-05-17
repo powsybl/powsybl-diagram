@@ -86,6 +86,8 @@ public class LayoutParameters {
      */
     private double busInfoMargin = 0.0;
 
+    private int feederInfoPrecision = 0;
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -128,7 +130,8 @@ public class LayoutParameters {
                             @JsonProperty("useName") boolean useName,
                             @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
                             @JsonProperty("busInfoMargin") double busInfoMargin,
-                            @JsonProperty("busbarsAlignment") Alignment busbarsAlignment) {
+                            @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
+                            @JsonProperty("feederInfoPrecision") int feederInfoPrecision) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -164,6 +167,7 @@ public class LayoutParameters {
         this.feederInfosIntraMargin = feederInfosIntraMargin;
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
+        this.feederInfoPrecision = feederInfoPrecision;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -204,6 +208,7 @@ public class LayoutParameters {
         feederInfosIntraMargin = other.feederInfosIntraMargin;
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
+        feederInfoPrecision = other.feederInfoPrecision;
     }
 
     public double getVerticalSpaceBus() {
@@ -531,6 +536,15 @@ public class LayoutParameters {
 
     public LayoutParameters setBusbarsAlignment(Alignment busbarsAlignment) {
         this.busbarsAlignment = busbarsAlignment;
+        return this;
+    }
+
+    public int getFeederInfoPrecision() {
+        return feederInfoPrecision;
+    }
+
+    public LayoutParameters setFeederInfoPrecision(int feederInfoPrecision) {
+        this.feederInfoPrecision = feederInfoPrecision;
         return this;
     }
 

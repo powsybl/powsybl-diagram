@@ -173,12 +173,12 @@
             <g class="sld-arrow-p sld-in" id="idL1_95_ONE_ARROW_ACTIVE" transform="translate(60.0,95.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idL1_95_ONE_ARROW_REACTIVE" transform="translate(60.0,115.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl50to70-0" id="idBUSCO_95_L1_95_ONE" transform="translate(61.0,356.0)">
                 <circle cx="4" cy="4" r="2"/>
@@ -206,12 +206,12 @@
             <g class="sld-arrow-q sld-in" id="idL2_95_ONE_ARROW_REACTIVE" transform="translate(110.0,615.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-arrow-p sld-in" id="idL2_95_ONE_ARROW_ACTIVE" transform="translate(110.0,595.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl50to70-0" id="idBUSCO_95_L2_95_ONE" transform="translate(111.0,356.0)">
                 <circle cx="4" cy="4" r="2"/>
@@ -239,12 +239,12 @@
             <g class="sld-arrow-p sld-in" id="idL3_95_ONE_ARROW_ACTIVE" transform="translate(160.0,95.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idL3_95_ONE_ARROW_REACTIVE" transform="translate(160.0,115.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">NaN</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl50to70-0" id="idBUSCO_95_L3_95_ONE" transform="translate(161.0,356.0)">
                 <circle cx="4" cy="4" r="2"/>
