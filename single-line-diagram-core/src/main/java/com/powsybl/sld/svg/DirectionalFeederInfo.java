@@ -1,7 +1,5 @@
 package com.powsybl.sld.svg;
 
-import org.apache.commons.math3.util.Precision;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -43,10 +41,11 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     private static String format(double value, int precision) {
-        // build pattern
-        String pattern = precision == 0 ? "#;#" : "#.0" + "#".repeat(precision - 1);
-        String formattedValue = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.ENGLISH)).format(value);
-        return formattedValue.replaceAll("^-(?=0(\\.0*)?$)", ""); // Avoid negative zero
+        DecimalFormat format = new DecimalFormat();
+        format.setMaximumFractionDigits(precision);
+        // Floating representation with point
+        format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        return format.format(value);
     }
 
     public DiagramLabelProvider.LabelDirection getDirection() {

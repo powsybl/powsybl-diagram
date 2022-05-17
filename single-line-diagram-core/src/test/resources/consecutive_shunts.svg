@@ -1168,7 +1168,7 @@
             <g class="sld-arrow-p sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(910.0,103.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idFV_95_ONE_ARROW_REACTIVE" transform="translate(910.0,123.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -1248,7 +1248,7 @@
             <g class="sld-arrow-p sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(660.0,103.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">0</text>
+                <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idFR_95_ONE_ARROW_REACTIVE" transform="translate(660.0,123.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
