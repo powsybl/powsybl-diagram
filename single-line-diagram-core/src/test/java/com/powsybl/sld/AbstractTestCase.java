@@ -94,16 +94,12 @@ public abstract class AbstractTestCase {
 
     protected void writeToFileInDebugDir(String filename, StringWriter content) {
         Path debugFolder = Path.of(System.getProperty("user.home"), ".powsybl", "debug-sld");
-        if (!Files.exists(debugFolder)) {
-            try {
-                Files.createDirectories(debugFolder);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
+        try {
+            Files.createDirectories(debugFolder);
+            Path debugFile = debugFolder.resolve(filename.startsWith("/") ? filename.substring(1) : filename);
+            try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
+                bw.write(normalizeLineSeparator(content.toString()));
             }
-        }
-        Path debugFile = Path.of(debugFolder.toString(), filename);
-        try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
-            bw.write(normalizeLineSeparator(content.toString()));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
