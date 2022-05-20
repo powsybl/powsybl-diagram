@@ -21,6 +21,8 @@ import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -91,24 +93,25 @@ public abstract class AbstractTestCase {
     }
 
     protected void writeToFileInDebugDir(String filename, StringWriter content) {
-        File debugFolder = new File(System.getProperty("user.home"), ".powsybl");
-        if (debugFolder.exists() || debugFolder.mkdir()) {
-            File file = new File(debugFolder, filename);
-            try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
-                fw.write(content.toString());
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
+        Path debugFolder = Path.of(System.getProperty("user.home"), ".powsybl", "debug-sld");
+        try {
+            Files.createDirectories(debugFolder);
+            Path debugFile = debugFolder.resolve(filename.startsWith("/") ? filename.substring(1) : filename);
+            try (BufferedWriter bw = Files.newBufferedWriter(debugFile, StandardCharsets.UTF_8)) {
+                bw.write(normalizeLineSeparator(content.toString()));
             }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 
     protected void overrideTestReference(String filename, StringWriter content) {
-        File testReference = new File("src/test/resources", filename);
-        if (!testReference.exists()) {
+        Path testReference = Path.of("src", "test", "resources", filename);
+        if (!Files.exists(testReference)) {
             return;
         }
-        try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(testReference), StandardCharsets.UTF_8)) {
-            fw.write(fixSvg(content.toString()));
+        try (BufferedWriter bw = Files.newBufferedWriter(testReference, StandardCharsets.UTF_8)) {
+            bw.write(normalizeLineSeparator(fixSvg(content.toString())));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
