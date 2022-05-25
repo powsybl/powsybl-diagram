@@ -37,6 +37,10 @@ public final class DiagramStyles {
     public static final String FRAME_CLASS = STYLE_PREFIX + "frame";
     public static final String NODE_INFOS = STYLE_PREFIX + "node-infos";
     public static final String FICTITIOUS_NODE_STYLE_CLASS = STYLE_PREFIX + "fictitious";
+    public static final String EXTERN_CELL = STYLE_PREFIX + "extern-cell";
+    public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
+    public static final String SHUNT_CELL = STYLE_PREFIX + "shunt-cell";
+    public static final String CELL_SHAPE_PREFIX = STYLE_PREFIX + "cell-shape-";
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {
