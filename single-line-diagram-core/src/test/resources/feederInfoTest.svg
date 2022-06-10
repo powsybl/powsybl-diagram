@@ -174,12 +174,12 @@
             <g class="sld-arrow-p sld-in" id="idC1_ARROW_ACTIVE" transform="translate(60.0,101.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idC1_ARROW_REACTIVE" transform="translate(60.0,121.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_b2" transform="translate(61.0,356.0)">
                 <circle cx="4" cy="4" r="2"/>
