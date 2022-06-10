@@ -97,7 +97,8 @@
 /* Stroke blue */
 .sld-breaker {stroke-width: 2; stroke: blue; fill:white}
 /* Stroke --sld-vl-color with fallback black */
-.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4; fill: none}
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 /* Stroke --sld-vl-color with fallback red */
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
@@ -140,7 +141,7 @@
             <line x1="0" x2="75.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs1_NW_LABEL" x="-5.0" y="-5.0">bbs1</text>
         </g>
-        <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
+        <g class="sld-extern-cell" id="idEXTERN_32_0">
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d1" transform="translate(111.0,218.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -184,7 +185,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
+        <g class="sld-extern-cell" id="idEXTERN_32_1">
             <g class="sld-node sld-hidden-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_d2" transform="translate(61.0,278.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
