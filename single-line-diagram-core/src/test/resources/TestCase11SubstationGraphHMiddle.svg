@@ -97,7 +97,8 @@
 /* Stroke blue */
 .sld-breaker {stroke-width: 2; stroke: blue; fill:white}
 /* Stroke --sld-vl-color with fallback black */
-.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4; fill: none}
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 /* Stroke --sld-vl-color with fallback red */
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
@@ -212,7 +213,7 @@
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs4_NW_LABEL" x="-5.0" y="-5.0">bbs4</text>
         </g>
-        <g class="cell idINTERN_32_0" id="idINTERN_32_0">
+        <g class="sld-intern-cell sld-cell-shape-flat" id="idINTERN_32_0">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dsect11" transform="translate(436.0,428.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -244,7 +245,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
-        <g class="cell idINTERN_32_1" id="idINTERN_32_1">
+        <g class="sld-intern-cell sld-cell-shape-flat" id="idINTERN_32_1">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dsect21" transform="translate(436.0,453.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -276,7 +277,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
+        <g class="sld-extern-cell" id="idEXTERN_32_2">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dload1" transform="translate(61.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -320,7 +321,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
+        <g class="sld-extern-cell" id="idEXTERN_32_3">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf11" transform="translate(111.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -361,7 +362,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
+        <g class="sld-extern-cell" id="idEXTERN_32_4">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf15" transform="translate(261.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -402,7 +403,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
+        <g class="sld-extern-cell" id="idEXTERN_32_5">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf16" transform="translate(311.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -443,7 +444,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
+        <g class="sld-extern-cell" id="idEXTERN_32_6">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dline11_95_2" transform="translate(411.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -484,7 +485,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
+        <g class="sld-extern-cell" id="idEXTERN_32_7">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dload2" transform="translate(511.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -528,7 +529,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
+        <g class="sld-extern-cell" id="idEXTERN_32_8">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf12" transform="translate(661.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -569,7 +570,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
+        <g class="sld-extern-cell" id="idEXTERN_32_9">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_dtrf18" transform="translate(561.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -610,7 +611,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_10" id="idEXTERN_32_10">
+        <g class="sld-extern-cell" id="idEXTERN_32_10">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dgen1" transform="translate(161.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -654,7 +655,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_11" id="idEXTERN_32_11">
+        <g class="sld-extern-cell" id="idEXTERN_32_11">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf13" transform="translate(211.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -695,7 +696,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_12" id="idEXTERN_32_12">
+        <g class="sld-extern-cell" id="idEXTERN_32_12">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf17" transform="translate(361.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -736,7 +737,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_13" id="idEXTERN_32_13">
+        <g class="sld-extern-cell" id="idEXTERN_32_13">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dgen2" transform="translate(711.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -780,7 +781,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_14" id="idEXTERN_32_14">
+        <g class="sld-extern-cell" id="idEXTERN_32_14">
             <g class="sld-node sld-fictitious sld-vl300to500-1" id="idINTERNAL_95_vl1_95_dtrf14" transform="translate(611.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -832,7 +833,7 @@
             <line x1="0" x2="525.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs6_NW_LABEL" x="-5.0" y="-5.0">bbs6</text>
         </g>
-        <g class="cell idINTERN_32_0" id="idINTERN_32_0">
+        <g class="sld-intern-cell sld-cell-shape-vertical" id="idINTERN_32_0">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dscpl1" transform="translate(941.0,388.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -864,7 +865,7 @@
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
+        <g class="sld-extern-cell" id="idEXTERN_32_1">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dload3" transform="translate(991.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -908,7 +909,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
+        <g class="sld-extern-cell" id="idEXTERN_32_2">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf21" transform="translate(1041.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -949,7 +950,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
+        <g class="sld-extern-cell" id="idEXTERN_32_3">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf24" transform="translate(1141.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -990,7 +991,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
+        <g class="sld-extern-cell" id="idEXTERN_32_4">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf27" transform="translate(1191.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1031,7 +1032,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
+        <g class="sld-extern-cell" id="idEXTERN_32_5">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dgen4" transform="translate(1091.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1075,7 +1076,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_6" id="idEXTERN_32_6">
+        <g class="sld-extern-cell" id="idEXTERN_32_6">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf22" transform="translate(1341.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1116,7 +1117,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_7" id="idEXTERN_32_7">
+        <g class="sld-extern-cell" id="idEXTERN_32_7">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf23" transform="translate(1391.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1157,7 +1158,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_8" id="idEXTERN_32_8">
+        <g class="sld-extern-cell" id="idEXTERN_32_8">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf26" transform="translate(1241.0,398.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1198,7 +1199,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_9" id="idEXTERN_32_9">
+        <g class="sld-extern-cell" id="idEXTERN_32_9">
             <g class="sld-node sld-fictitious sld-vl180to300-0" id="idINTERNAL_95_vl2_95_dtrf28" transform="translate(1291.0,483.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1246,7 +1247,7 @@
             <line x1="0" x2="225.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs7_NW_LABEL" x="-5.0" y="-5.0">bbs7</text>
         </g>
-        <g class="cell idEXTERN_32_0" id="idEXTERN_32_0">
+        <g class="sld-extern-cell" id="idEXTERN_32_0">
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dload4" transform="translate(1541.0,410.5)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1290,7 +1291,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
+        <g class="sld-extern-cell" id="idEXTERN_32_1">
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf25" transform="translate(1591.0,470.5)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1331,7 +1332,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
+        <g class="sld-extern-cell" id="idEXTERN_32_2">
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf36" transform="translate(1641.0,410.5)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1372,7 +1373,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
+        <g class="sld-extern-cell" id="idEXTERN_32_3">
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf37" transform="translate(1691.0,470.5)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -1413,7 +1414,7 @@
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_4" id="idEXTERN_32_4">
+        <g class="sld-extern-cell" id="idEXTERN_32_4">
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl3_95_dtrf38" transform="translate(1741.0,410.5)">
                 <circle cx="4" cy="4" r="4"/>
             </g>

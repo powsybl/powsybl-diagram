@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BranchEdge;
@@ -54,4 +55,6 @@ public interface DiagramStyleProvider {
         }
         return Optional.empty();
     }
+
+    List<String> getCellStyles(Cell cell);
 }

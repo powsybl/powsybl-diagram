@@ -229,22 +229,6 @@
   }, {
     "type" : "BUS_CONNECTION",
     "anchorPoints" : [ {
-      "x" : 4.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : -4.0,
-      "y" : 0.0,
-      "orientation" : "HORIZONTAL"
-    }, {
-      "x" : 0.0,
-      "y" : -4.0,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 0.0,
-      "y" : 4.0,
-      "orientation" : "VERTICAL"
-    }, {
       "x" : 0.0,
       "y" : 0.0,
       "orientation" : "VERTICAL"

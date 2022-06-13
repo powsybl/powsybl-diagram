@@ -269,7 +269,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String cellId = DiagramStyles.escapeId(prefixId + cell.getId());
         Element g = root.getOwnerDocument().createElement(GROUP);
         g.setAttribute("id", cellId);
-        g.setAttribute(CLASS, "cell " + cellId);
+        g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
 
         List<Node> nodesToDrawBefore = new ArrayList<>();
         List<Node> nodesToDrawAfter = new ArrayList<>();
