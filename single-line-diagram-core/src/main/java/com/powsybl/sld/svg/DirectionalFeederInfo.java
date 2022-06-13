@@ -33,14 +33,17 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
     }
 
     public DirectionalFeederInfo(String componentType, double value, int precision, String userDefinedId) {
-        this(componentType,
-                value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN,
-                null,
-                format(value, precision),
-                userDefinedId);
+        this(componentType, getArrowDirection(value), null, format(value, precision), userDefinedId);
+    }
+
+    private static DiagramLabelProvider.LabelDirection getArrowDirection(double value) {
+        return value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN;
     }
 
     private static String format(double value, int precision) {
+        if (Double.isNaN(value)) {
+            return "-";
+        }
         DecimalFormat format = new DecimalFormat();
         format.setMaximumFractionDigits(precision);
         // Floating representation with point
