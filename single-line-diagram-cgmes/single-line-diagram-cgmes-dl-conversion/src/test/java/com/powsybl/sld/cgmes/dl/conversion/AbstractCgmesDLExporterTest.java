@@ -16,7 +16,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
@@ -54,14 +53,14 @@ public abstract class AbstractCgmesDLExporterTest {
     @Before
     public void setUp() {
         tripleStore = Mockito.mock(TripleStore.class);
-        Mockito.when(tripleStore.add(Matchers.any(String.class), Matchers.eq(CgmesNamespace.CIM_16_NAMESPACE),
-                                     Matchers.eq("Diagram"), Matchers.any(PropertyBag.class)))
+        Mockito.when(tripleStore.add(Mockito.any(String.class), Mockito.eq(CgmesNamespace.CIM_16_NAMESPACE),
+                        Mockito.eq("Diagram"), Mockito.any(PropertyBag.class)))
                .thenReturn(diagramId);
-        Mockito.when(tripleStore.add(Matchers.any(String.class), Matchers.eq(CgmesNamespace.CIM_16_NAMESPACE),
-                                     Matchers.eq("DiagramObjectStyle"), Matchers.any(PropertyBag.class)))
+        Mockito.when(tripleStore.add(Mockito.any(String.class), Mockito.eq(CgmesNamespace.CIM_16_NAMESPACE),
+                        Mockito.eq("DiagramObjectStyle"), Mockito.any(PropertyBag.class)))
                .thenReturn(diagramObjectStyleId);
-        Mockito.when(tripleStore.add(Matchers.any(String.class), Matchers.eq(CgmesNamespace.CIM_16_NAMESPACE),
-                                     Matchers.eq("DiagramObject"), Matchers.any(PropertyBag.class)))
+        Mockito.when(tripleStore.add(Mockito.any(String.class), Mockito.eq(CgmesNamespace.CIM_16_NAMESPACE),
+                        Mockito.eq("DiagramObject"), Mockito.any(PropertyBag.class)))
                .thenReturn(diagramObjectId);
 
         cgmesDLModel = Mockito.mock(CgmesDLModel.class);

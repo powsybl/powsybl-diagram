@@ -143,12 +143,12 @@
             <g class="sld-arrow-p sld-in" id="idloadA_ARROW_ACTIVE" transform="translate(110.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadA_ARROW_REACTIVE" transform="translate(110.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-disconnector sld-closed" id="idd1" transform="translate(111.0,248.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -197,12 +197,12 @@
             <g class="sld-arrow-p sld-in" id="idloadB_ARROW_ACTIVE" transform="translate(160.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadB_ARROW_REACTIVE" transform="translate(160.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-breaker sld-closed" id="idfB" transform="translate(155.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
@@ -263,12 +263,12 @@
             <g class="sld-arrow-p sld-in" id="idloadC_ARROW_ACTIVE" transform="translate(285.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadC_ARROW_REACTIVE" transform="translate(285.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-breaker sld-closed" id="idlink" transform="translate(205.0,172.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
@@ -303,12 +303,12 @@
             <g class="sld-arrow-p sld-in" id="idloadC_ARROW_ACTIVE" transform="translate(285.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadC_ARROW_REACTIVE" transform="translate(285.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">NaN</text>
+                <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-wire" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2">
                 <polyline points="290.0,142.0,240.0,142.0,240.0,182.0"/>

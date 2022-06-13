@@ -391,11 +391,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private static class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
+    public static class NodeBreakerGraphBuilder extends AbstractGraphBuilder {
 
         private final Map<Integer, Node> nodesByNumber;
 
-        NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
+        protected NodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
             super(graph);
             this.nodesByNumber = Objects.requireNonNull(nodesByNumber);
         }
@@ -471,13 +471,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
-    private static class BusBreakerGraphBuilder extends AbstractGraphBuilder {
+    public static class BusBreakerGraphBuilder extends AbstractGraphBuilder {
 
         private final Map<String, Node> nodesByBusId;
 
         private int order = 1;
 
-        BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
+        protected BusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
             super(graph);
             this.nodesByBusId = Objects.requireNonNull(nodesByBusId);
         }
@@ -507,6 +507,10 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
+    protected BusBreakerGraphBuilder createBusBreakerGraphBuilder(VoltageLevelGraph graph, Map<String, Node> nodesByBusId) {
+        return new BusBreakerGraphBuilder(graph, nodesByBusId);
+    }
+
     private void buildBusBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<String, Node> nodesByBusId = new HashMap<>();
 
@@ -518,7 +522,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
 
         // visit equipments
-        vl.visitEquipments(new BusBreakerGraphBuilder(graph, nodesByBusId));
+        vl.visitEquipments(createBusBreakerGraphBuilder(graph, nodesByBusId));
 
         // switches
         for (Switch sw : vl.getBusBreakerView().getSwitches()) {
@@ -531,11 +535,15 @@ public class NetworkGraphBuilder implements GraphBuilder {
         }
     }
 
+    protected NodeBreakerGraphBuilder createNodeBreakerGraphBuilder(VoltageLevelGraph graph, Map<Integer, Node> nodesByNumber) {
+        return new NodeBreakerGraphBuilder(graph, nodesByNumber);
+    }
+
     private void buildNodeBreakerGraph(VoltageLevelGraph graph, VoltageLevel vl) {
         Map<Integer, Node> nodesByNumber = new HashMap<>();
 
         // visit equipments
-        vl.visitEquipments(new NodeBreakerGraphBuilder(graph, nodesByNumber));
+        vl.visitEquipments(createNodeBreakerGraphBuilder(graph, nodesByNumber));
 
         // switches
         for (Switch sw : vl.getNodeBreakerView().getSwitches()) {
