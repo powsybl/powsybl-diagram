@@ -4,7 +4,7 @@
 .sld-disconnector {stroke-width: 3; stroke: black; fill: none}
 /* Stroke blue */
 .sld-breaker {stroke-width: 2; stroke: blue; fill:white}
-.sld-load-break-switch {stroke: blue; fill: none}
+.sld-load-break-switch {stroke: blue; fill: white}
 /* Stroke --sld-vl-color with fallback black */
 .sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4; fill: none}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
