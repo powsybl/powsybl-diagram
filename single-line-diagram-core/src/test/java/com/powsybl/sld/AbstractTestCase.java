@@ -37,7 +37,7 @@ public abstract class AbstractTestCase {
 
     protected boolean debugJsonFiles = false;
     protected boolean debugSvgFiles = false;
-    protected boolean overrideTestReferences = true;
+    protected boolean overrideTestReferences = false;
 
     protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
