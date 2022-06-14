@@ -9,10 +9,17 @@ package com.powsybl.sld.svg;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.BranchEdge;
+import com.powsybl.sld.model.nodes.Edge;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.net.URL;
 import java.util.*;
@@ -117,6 +124,20 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     public List<URL> getCssUrls() {
         return getCssFilenames().stream().map(n -> getClass().getResource("/" + n))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getCellStyles(Cell cell) {
+        if (cell instanceof ExternCell) {
+            return Collections.singletonList(EXTERN_CELL);
+        }
+        if (cell instanceof InternCell) {
+            return List.of(INTERN_CELL, CELL_SHAPE_PREFIX + ((InternCell) cell).getShape().name().toLowerCase());
+        }
+        if (cell instanceof ShuntCell) {
+            return Collections.singletonList(SHUNT_CELL);
+        }
+        return Collections.emptyList();
     }
 
     @Override
