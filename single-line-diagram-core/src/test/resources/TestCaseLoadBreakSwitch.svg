@@ -98,7 +98,8 @@
 .sld-breaker {stroke-width: 2; stroke: blue; fill:white}
 .sld-load-break-switch {stroke: blue; fill: white}
 /* Stroke --sld-vl-color with fallback black */
-.sld-bus-connection {stroke: var(--sld-vl-color, black); stroke-width: 4; fill: none}
+.sld-bus-connection {fill: var(--sld-vl-color, black)}
+.sld-cell-shape-flat .sld-bus-connection {visibility: hidden}
 .sld-busbar-section {stroke: var(--sld-vl-color, black); stroke-width: 3; fill: none}
 /* Stroke --sld-vl-color with fallback red */
 .sld-wire {stroke: var(--sld-vl-color, #c80000); fill: none}
@@ -159,7 +160,7 @@
             <line x1="0" x2="275.0" y1="0" y2="0"/>
             <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
-        <g class="cell idINTERN_32_0" id="idINTERN_32_0">
+        <g class="sld-intern-cell sld-cell-shape-vertical" id="idINTERN_32_0">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl_95_b1" transform="translate(111.0,316.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -167,7 +168,7 @@
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_BUSCO_95_b1_95_INTERNAL_95_vl_95_b1">
-                <polyline points="115.0,356.0,115.0,320.0"/>
+                <polyline points="115.0,360.0,115.0,320.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_INTERNAL_95_vl_95_b1_95_b1">
                 <polyline points="115.0,320.0,95.0,320.0"/>
@@ -176,20 +177,20 @@
                 <polyline points="65.0,320.0,85.0,320.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_BUSCO_95_b1_95_INTERNAL_95_vl_95_b1">
-                <polyline points="65.0,381.0,65.0,320.0"/>
+                <polyline points="65.0,385.0,65.0,320.0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_b1" transform="translate(111.0,356.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load-break-switch sld-open sld-disconnected" id="idb1" transform="translate(85.0,315.0)">
                 <path class="sld-sw-closed" d="M0,0 V10 H10 V0z M5,2 V8 M0,10 10,0" transform="rotate(90.0,5.0,5.0)"/>
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0" transform="rotate(90.0,5.0,5.0)"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-disconnected" id="idBUSCO_95_b1" transform="translate(61.0,381.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_1" id="idEXTERN_32_1">
+        <g class="sld-extern-cell" id="idEXTERN_32_1">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl_95_d" transform="translate(261.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -203,7 +204,7 @@
                 <text class="sld-label" id="G_N_LABEL" x="-5.0" y="-5.0">G</text>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_BUSCO_95_d_95_INTERNAL_95_vl_95_d">
-                <polyline points="265.0,356.0,265.0,330.0"/>
+                <polyline points="265.0,360.0,265.0,330.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_INTERNAL_95_vl_95_d_95_d">
                 <polyline points="265.0,330.0,265.0,241.0"/>
@@ -225,14 +226,14 @@
                 <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_d" transform="translate(261.0,356.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load-break-switch sld-closed sld-vl300to500-0" id="idd" transform="translate(260.0,231.0)">
                 <path class="sld-sw-closed" d="M0,0 V10 H10 V0z M5,2 V8 M0,10 10,0"/>
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_2" id="idEXTERN_32_2">
+        <g class="sld-extern-cell" id="idEXTERN_32_2">
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl_95_b2" transform="translate(161.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -243,7 +244,7 @@
                 <text class="sld-label" id="T11_ONE_N_LABEL" x="-5.0" y="-5.0">T11</text>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_BUSCO_95_b2_95_INTERNAL_95_vl_95_b2">
-                <polyline points="165.0,356.0,165.0,330.0"/>
+                <polyline points="165.0,360.0,165.0,330.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl_95_INTERNAL_95_vl_95_b2_95_b2">
                 <polyline points="165.0,330.0,165.0,241.0"/>
@@ -265,14 +266,14 @@
                 <text class="sld-label" x="15.0" y="5.0">-</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_b2" transform="translate(161.0,356.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load-break-switch sld-open sld-disconnected" id="idb2" transform="translate(160.0,231.0)">
                 <path class="sld-sw-closed" d="M0,0 V10 H10 V0z M5,2 V8 M0,10 10,0"/>
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_3" id="idEXTERN_32_3">
+        <g class="sld-extern-cell" id="idEXTERN_32_3">
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_l" transform="translate(311.0,599.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -308,17 +309,17 @@
                 <polyline points="315.0,415.0,315.0,504.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_BUSCO_95_b_95_INTERNAL_95_vl_95_b">
-                <polyline points="315.0,389.0,315.0,415.0"/>
+                <polyline points="315.0,385.0,315.0,415.0"/>
             </g>
             <g class="sld-load-break-switch sld-open sld-disconnected" id="idb" transform="translate(310.0,504.0)">
                 <path class="sld-sw-closed" d="M0,0 V10 H10 V0z M5,2 V8 M0,10 10,0"/>
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-disconnected" id="idBUSCO_95_b" transform="translate(311.0,381.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
         </g>
-        <g class="cell idSHUNT_32_4" id="idSHUNT_32_4">
+        <g class="sld-shunt-cell" id="idSHUNT_32_4">
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_5" transform="translate(211.0,505.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -370,7 +371,7 @@
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0" transform="rotate(90.0,5.0,5.0)"/>
             </g>
         </g>
-        <g class="cell idEXTERN_32_5" id="idEXTERN_32_5">
+        <g class="sld-extern-cell" id="idEXTERN_32_5">
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_5" transform="translate(211.0,505.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
@@ -396,7 +397,7 @@
                 <polyline points="215.0,415.0,215.0,457.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_BUSCO_95_b3_95_INTERNAL_95_vl_95_b3">
-                <polyline points="215.0,389.0,215.0,415.0"/>
+                <polyline points="215.0,385.0,215.0,415.0"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_b4_95_INTERNAL_95_vl_95_T11_95_TWO">
                 <polyline points="215.0,561.0,215.0,603.0"/>
@@ -419,7 +420,7 @@
                 <path class="sld-sw-open" d="M0,0 V10 H10 V0z M2,5 H8 M0,10 10,0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-disconnected" id="idBUSCO_95_b3" transform="translate(211.0,381.0)">
-                <circle cx="4" cy="4" r="2"/>
+                <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-load-break-switch sld-open sld-disconnected" id="idb4" transform="translate(210.0,551.0)">
                 <path class="sld-sw-closed" d="M0,0 V10 H10 V0z M5,2 V8 M0,10 10,0"/>
