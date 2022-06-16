@@ -131,7 +131,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     private Optional<String> getLabelOrNameOrId(Node node) {
-        return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? node.getName() : node.getId()));
+        return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? node.getName() : node.getEquipmentId()));
     }
 
     @Override
