@@ -9,7 +9,7 @@ package com.powsybl.sld.model.graphs;
 import java.util.List;
 
 import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederTwtLegNode;
+import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
 
 /**
@@ -17,7 +17,7 @@ import com.powsybl.sld.model.nodes.MiddleTwtNode;
  */
 public interface BaseGraph extends Graph {
 
-    BranchEdge addTwtEdge(FeederTwtLegNode legNode, MiddleTwtNode twtNode);
+    BranchEdge addTwtEdge(FeederNode legNode, MiddleTwtNode twtNode);
 
     List<BranchEdge> getTwtEdges();
 

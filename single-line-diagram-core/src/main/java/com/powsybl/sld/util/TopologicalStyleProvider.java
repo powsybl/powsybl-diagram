@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -41,7 +42,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if (edge instanceof BranchEdge && (node1 instanceof FeederLineNode || node2 instanceof FeederLineNode)) {
+        if (edge instanceof BranchEdge && (ComponentTypeName.LINE.equals(node1.getComponentType()) || ComponentTypeName.LINE.equals(node2.getComponentType()))) {
             return getLineEdgeStyle(graph, (BranchEdge) edge);
         } else {
             if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {

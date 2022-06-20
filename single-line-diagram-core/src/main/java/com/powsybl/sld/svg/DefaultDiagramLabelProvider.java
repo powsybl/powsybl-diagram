@@ -14,6 +14,8 @@ import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -49,19 +51,20 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         Objects.requireNonNull(node);
 
         List<FeederInfo> feederInfos = new ArrayList<>();
+        Feeder feeder = node.getFeeder();
 
-        switch (node.getFeederType()) {
+        switch (feeder.getFeederType()) {
             case INJECTION:
                 feederInfos = getInjectionFeederInfos(node);
                 break;
             case BRANCH:
-                feederInfos = getBranchFeederInfos((FeederBranchNode) node);
+                feederInfos = getBranchFeederInfos(node, (FeederWithSides) feeder);
                 break;
             case TWO_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get2WTFeederInfos((Feeder2WTLegNode) node);
+                feederInfos = get2WTFeederInfos(node, (FeederTwLeg) feeder);
                 break;
             case THREE_WINDINGS_TRANSFORMER_LEG:
-                feederInfos = get3WTFeederInfos((Feeder3WTLegNode) node);
+                feederInfos = get3WTFeederInfos(node, (FeederTwLeg) feeder);
                 break;
             default:
                 break;
@@ -81,31 +84,31 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return measures;
     }
 
-    private List<FeederInfo> getBranchFeederInfos(FeederBranchNode node) {
+    private List<FeederInfo> getBranchFeederInfos(FeederNode node, FeederWithSides feeder) {
         List<FeederInfo> measures = new ArrayList<>();
         Branch branch = network.getBranch(node.getEquipmentId());
         if (branch != null) {
-            Branch.Side side = Branch.Side.valueOf(node.getSide().name());
+            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(branch, side);
         }
         return measures;
     }
 
-    private List<FeederInfo> get3WTFeederInfos(Feeder3WTLegNode node) {
+    private List<FeederInfo> get3WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
         List<FeederInfo> feederInfos = new ArrayList<>();
         ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(node.getSide().name());
+            ThreeWindingsTransformer.Side side = ThreeWindingsTransformer.Side.valueOf(feeder.getSide().name());
             feederInfos = buildFeederInfos(transformer, side);
         }
         return feederInfos;
     }
 
-    private List<FeederInfo> get2WTFeederInfos(Feeder2WTLegNode node) {
+    private List<FeederInfo> get2WTFeederInfos(FeederNode node, FeederTwLeg feeder) {
         List<FeederInfo> measures = new ArrayList<>();
         TwoWindingsTransformer transformer = network.getTwoWindingsTransformer(node.getEquipmentId());
         if (transformer != null) {
-            Branch.Side side = Branch.Side.valueOf(node.getSide().name());
+            Branch.Side side = Branch.Side.valueOf(feeder.getSide().name());
             measures = buildFeederInfos(transformer, side);
         }
         return measures;

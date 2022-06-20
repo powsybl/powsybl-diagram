@@ -4,53 +4,37 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.model.nodes;
+package com.powsybl.sld.model.nodes.feeders;
+
+import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
-
-import java.io.IOException;
-import java.util.Objects;
+import com.powsybl.sld.model.nodes.FeederType;
+import com.powsybl.sld.model.nodes.NodeSide;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class FeederWithSideNode extends FeederNode {
+public class FeederWithSides extends BaseFeeder {
 
-    public enum Side {
-        ONE(1),
-        TWO(2),
-        THREE(3);
-
-        int intValue;
-
-        Side(int intValue) {
-            this.intValue = intValue;
-        }
-
-        public int getIntValue() {
-            return intValue;
-        }
-
-    }
-
-    protected final Side side;
+    protected final NodeSide side;
 
     protected final VoltageLevelInfos myVoltageLevelInfos;
     protected final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    public FeederWithSideNode(String id, String name, String equipmentId, String componentType,
-                                 Side side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        super(id, name, equipmentId, componentType, feederType);
-        this.side = Objects.requireNonNull(side);
-        this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;
+    public FeederWithSides(FeederType feederType, String componentType, NodeSide side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(feederType, componentType);
+        this.side = side;
         this.myVoltageLevelInfos = myVoltageLevelInfos;
+        this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;
     }
 
-    public Side getSide() {
+    public NodeSide getSide() {
         return side;
     }
 
+// TODO: to remove : circular reference to VoltageLevelInfos in package graphs
     public VoltageLevelInfos getOtherSideVoltageLevelInfos() {
         return otherSideVoltageLevelInfos;
     }
@@ -59,9 +43,7 @@ public class FeederWithSideNode extends FeederNode {
         return myVoltageLevelInfos;
     }
 
-    @Override
-    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
-        super.writeJsonContent(generator, includeCoordinates);
+    public void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStringField("side", side.name());
         if (otherSideVoltageLevelInfos != null) {
             generator.writeFieldName("otherSideVoltageLevelInfos");

@@ -18,6 +18,7 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
@@ -472,8 +473,9 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
-        if (node instanceof FeederWithSideNode) {
-            VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
+        if (node instanceof FeederNode && ((FeederNode) node).getFeeder() instanceof FeederWithSides) {
+            FeederWithSides feederWs = (FeederWithSides) ((FeederNode) node).getFeeder();
+            VoltageLevelInfos otherSideVoltageLevelInfos = feederWs.getOtherSideVoltageLevelInfos();
             if (otherSideVoltageLevelInfos != null) {
                 nextVId = otherSideVoltageLevelInfos.getId();
             }
@@ -888,7 +890,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        String side = feederNode instanceof FeederWithSideNode ? ((FeederWithSideNode) feederNode).getSide().name() : null;
+        String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info

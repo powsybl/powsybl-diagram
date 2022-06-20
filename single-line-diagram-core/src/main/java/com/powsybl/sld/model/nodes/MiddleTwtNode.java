@@ -27,7 +27,7 @@ public class MiddleTwtNode extends FictitiousNode {
         return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
     }
 
-    public VoltageLevelInfos getVoltageLevelInfos(FeederWithSideNode.Side side) {
+    public VoltageLevelInfos getVoltageLevelInfos(NodeSide side) {
         Objects.requireNonNull(side);
         int sideIntValue = side.getIntValue();
         if (sideIntValue > voltageLevelInfosLeg.length) {

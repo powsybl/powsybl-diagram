@@ -33,6 +33,10 @@ public final class ComponentTypeName {
     public static final String PHASE_SHIFT_TRANSFORMER = "PHASE_SHIFT_TRANSFORMER";
     public static final String PHASE_SHIFT_TRANSFORMER_LEG = "PHASE_SHIFT_TRANSFORMER_LEG";
 
+    public static boolean is2WTtransformer(String componentName) {
+        return TWO_WINDINGS_TRANSFORMER.equals(componentName) || PHASE_SHIFT_TRANSFORMER.equals(componentName);
+    }
+
     private ComponentTypeName() {
         throw new AssertionError();
     }
