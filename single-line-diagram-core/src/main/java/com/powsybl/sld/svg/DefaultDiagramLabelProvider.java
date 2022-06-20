@@ -143,7 +143,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
 
         List<NodeDecorator> nodeDecorators = new ArrayList<>();
         if (node.getType() == FEEDER) {
-            FeederType feederType = ((FeederNode) node).getFeederType();
+            FeederType feederType = ((FeederNode) node).getFeeder().getFeederType();
             switch (feederType) {
                 case BRANCH:
                 case TWO_WINDINGS_TRANSFORMER_LEG:

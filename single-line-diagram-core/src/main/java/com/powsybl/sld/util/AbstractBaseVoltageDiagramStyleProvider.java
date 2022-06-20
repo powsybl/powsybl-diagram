@@ -93,7 +93,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
                 side = feederWs.getSide();
                 otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
-                if (ComponentTypeName.LINE.equals(feederWs.getComponentType())) {
+                if (ComponentTypeName.LINE.equals(n.getComponentType())) {
                     side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
                     otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
                 }
@@ -127,13 +127,13 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
         Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
-        if (node.getFeederType() == FeederType.BRANCH || node.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+        if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
             Branch branch = network.getBranch(node.getEquipmentId());
             if (branch != null) {
                 res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
                 res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
             }
-        } else if (node.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+        } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
             if (transformer != null) {
                 res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());

@@ -40,22 +40,22 @@ public final class NodeFactory {
         return bn;
     }
 
-    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, boolean fictitious, Feeder feeder, Orientation orientation) {
-        FeederNode fn = new FeederNode(id, name, equipmentId, fictitious, feeder, orientation);
+    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentTypeName, boolean fictitious, Feeder feeder, Orientation orientation) {
+        FeederNode fn = new FeederNode(id, name, equipmentId, componentTypeName, fictitious, feeder, orientation);
         graph.addNode(fn);
         return fn;
     }
 
-    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, Feeder feeder) {
-        return createFeederNode(graph, id, name, equipmentId, false, feeder, null);
+    public static FeederNode createFeederNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, Feeder feeder) {
+        return createFeederNode(graph, id, name, equipmentId, componentType, false, feeder, null);
     }
 
     public static FeederNode createFictitiousFeederNode(VoltageLevelGraph graph, String id, Orientation orientation) {
-        return createFeederNode(graph, id, id, id, true, new BaseFeeder(FeederType.FICTITIOUS, NODE), orientation);
+        return createFeederNode(graph, id, id, id, NODE, true, new BaseFeeder(FeederType.FICTITIOUS), orientation);
     }
 
     public static FeederNode createFeederInjectionNode(VoltageLevelGraph graph, String id, String name, String componentType) {
-        return createFeederNode(graph, id, name, id, false, new BaseFeeder(FeederType.INJECTION, componentType), null);
+        return createFeederNode(graph, id, name, id, componentType, false, new BaseFeeder(FeederType.INJECTION), null);
     }
 
     public static FeederNode createGenerator(VoltageLevelGraph graph, String id, String name) {
@@ -90,11 +90,11 @@ public final class NodeFactory {
     }
 
     public static FeederNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        return createFeederNode(graph, id, name, equipmentId, new FeederWithSides(feederType, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
     public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        return createFeederNode(graph, id, name, equipmentId, new FeederWithSides(FeederType.BRANCH, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(FeederType.BRANCH, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
     public static FeederNode createFeeder2WTNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
@@ -118,7 +118,7 @@ public final class NodeFactory {
     }
 
     public static FeederNode createFeederTwtLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        return createFeederNode(graph, id, name, equipmentId, new FeederTwLeg(feederType, componentType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederTwLeg(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
     }
 
     public static FeederNode createFeeder2WTLegNode(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side) {

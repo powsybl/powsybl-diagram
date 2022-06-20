@@ -18,7 +18,5 @@ public interface Feeder {
 
     FeederType getFeederType();
 
-    String getComponentType();
-
     void writeJsonContent(JsonGenerator generator) throws IOException;
 }

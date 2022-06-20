@@ -23,19 +23,15 @@ public class FeederNode extends Node {
 
     private final Feeder feeder;
 
-    public FeederNode(String id, String name, String equipmentId, boolean fictitious,
+    public FeederNode(String id, String name, String equipmentId, String componentTypeName, boolean fictitious,
                          Feeder feeder, Orientation orientation) {
-        super(NodeType.FEEDER, id, name, equipmentId, feeder.getComponentType(), fictitious);
+        super(NodeType.FEEDER, id, name, equipmentId, componentTypeName, fictitious);
         this.feeder = Objects.requireNonNull(feeder);
         setOrientation(orientation);
     }
 
-    protected FeederNode(String id, String name, String equipmentId, Feeder feeder) {
-        this(id, name, equipmentId, false, feeder, null);
-    }
-
-    public FeederType getFeederType() {
-        return feeder.getFeederType();
+    protected FeederNode(String id, String name, String equipmentId, String componentTypeName, Feeder feeder) {
+        this(id, name, equipmentId, componentTypeName, false, feeder, null);
     }
 
     public Feeder getFeeder() {

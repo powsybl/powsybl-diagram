@@ -23,8 +23,8 @@ public class FeederWithSides extends BaseFeeder {
     protected final VoltageLevelInfos myVoltageLevelInfos;
     protected final VoltageLevelInfos otherSideVoltageLevelInfos;
 
-    public FeederWithSides(FeederType feederType, String componentType, NodeSide side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        super(feederType, componentType);
+    public FeederWithSides(FeederType feederType, NodeSide side, VoltageLevelInfos myVoltageLevelInfos, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        super(feederType);
         this.side = side;
         this.myVoltageLevelInfos = myVoltageLevelInfos;
         this.otherSideVoltageLevelInfos = otherSideVoltageLevelInfos;

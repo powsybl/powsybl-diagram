@@ -20,11 +20,9 @@ import com.powsybl.sld.model.nodes.FeederType;
  */
 public class BaseFeeder implements Feeder {
     FeederType feederType;
-    String componentType;
 
-    public BaseFeeder(FeederType feederType, String componentType) {
+    public BaseFeeder(FeederType feederType) {
         this.feederType = feederType;
-        this.componentType = componentType;
     }
 
     public String getFeederTypeName() {
@@ -33,10 +31,6 @@ public class BaseFeeder implements Feeder {
 
     public FeederType getFeederType() {
         return feederType;
-    }
-
-    public String getComponentType() {
-        return componentType;
     }
 
     public void writeJsonContent(JsonGenerator generator) throws IOException {
