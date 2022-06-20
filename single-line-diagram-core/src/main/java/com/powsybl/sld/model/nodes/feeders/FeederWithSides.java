@@ -43,6 +43,7 @@ public class FeederWithSides extends BaseFeeder {
         return myVoltageLevelInfos;
     }
 
+    @Override
     public void writeJsonContent(JsonGenerator generator) throws IOException {
         generator.writeStringField("side", side.name());
         if (otherSideVoltageLevelInfos != null) {
