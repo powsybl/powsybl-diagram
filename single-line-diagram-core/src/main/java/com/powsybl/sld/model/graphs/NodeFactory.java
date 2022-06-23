@@ -185,8 +185,8 @@ public final class NodeFactory {
     public static Middle3WTNode createMiddle3WTNode(VoltageLevelGraph baseGraph, String id, String name, NodeSide vlSide,
                                                     FeederNode firstOtherLegNode, FeederNode secondOtherLegNode,
                                                     VoltageLevelInfos vlLeg1, VoltageLevelInfos vlLeg2, VoltageLevelInfos vlLeg3) {
-        if (!ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(firstOtherLegNode.getComponentType())
-                || !ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(secondOtherLegNode.getComponentType())) {
+        if (firstOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
+                || secondOtherLegNode.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
         Middle3WTNode m3wn = new Middle3WTNode(id, name, vlLeg1, vlLeg2, vlLeg3, true);
@@ -200,9 +200,9 @@ public final class NodeFactory {
     }
 
     public static Middle3WTNode createMiddle3WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, FeederNode legNode3) {
-        if (!ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(legNode1.getComponentType())
-                || !ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(legNode2.getComponentType())
-                || !ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(legNode3.getComponentType())) {
+        if (legNode1.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
+                || legNode2.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG
+                || legNode3.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
         Middle3WTNode m3wn =  new Middle3WTNode(id, name,
