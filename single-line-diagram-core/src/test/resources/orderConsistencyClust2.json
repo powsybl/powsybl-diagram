@@ -13,8 +13,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ss1_1",
@@ -22,8 +21,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ss2_0",
@@ -31,8 +29,7 @@
     "fictitious" : true,
     "x" : 150.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ss2_1",
@@ -40,8 +37,7 @@
     "fictitious" : true,
     "x" : 200.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_f",
@@ -49,24 +45,21 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_f1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_f2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_l",
@@ -74,24 +67,21 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 523.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_ss1_0",
@@ -99,8 +89,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_ss1_1",
@@ -108,8 +97,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_ss2_0",
@@ -117,8 +105,7 @@
     "fictitious" : true,
     "x" : 150.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_ss2_1",
@@ -126,8 +113,7 @@
     "fictitious" : true,
     "x" : 200.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -171,7 +157,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -190,7 +175,6 @@
     "fictitious" : false,
     "x" : 112.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 125.0,
     "busbarIndex" : 1,
     "sectionIndex" : 3,
@@ -209,7 +193,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 125.0,
     "busbarIndex" : 2,
     "sectionIndex" : 2,
@@ -228,7 +211,6 @@
     "fictitious" : false,
     "x" : 212.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 2,
     "sectionIndex" : 3,
@@ -316,7 +298,6 @@
     "x" : 125.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "l",
     "feederType" : "INJECTION",
     "order" : 1,
@@ -330,7 +311,6 @@
     "fictitious" : false,
     "x" : 25.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l1",
     "feederType" : "INJECTION",
     "order" : 0,
@@ -344,7 +324,6 @@
     "fictitious" : false,
     "x" : 225.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l2",
     "feederType" : "INJECTION",
     "order" : 2,

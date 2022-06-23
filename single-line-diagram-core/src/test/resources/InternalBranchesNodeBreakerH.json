@@ -17,7 +17,6 @@
       "fictitious" : false,
       "x" : 12.5,
       "y" : 280.0,
-      "open" : false,
       "pxWidth" : 575.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
@@ -36,7 +35,6 @@
       "fictitious" : false,
       "x" : 12.5,
       "y" : 305.0,
-      "open" : false,
       "pxWidth" : 575.0,
       "busbarIndex" : 2,
       "sectionIndex" : 1,
@@ -309,7 +307,6 @@
       "fictitious" : false,
       "x" : 375.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "G",
       "feederType" : "INJECTION",
       "direction" : "TOP"
@@ -319,176 +316,154 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 240.0,
-      "open" : false
+      "y" : 240.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D11",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D13",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D15",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D17",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D19",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D20",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 240.0,
-      "open" : false
+      "y" : 240.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D21",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D23",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D25",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D27",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_D29",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL1_T3_12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FEEDER",
       "id" : "L1",
@@ -498,7 +473,6 @@
       "fictitious" : false,
       "x" : 125.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L1",
       "feederType" : "INJECTION",
       "direction" : "TOP"
@@ -511,7 +485,6 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L11",
       "feederType" : "BRANCH",
       "direction" : "TOP",
@@ -530,7 +503,6 @@
       "fictitious" : false,
       "x" : 425.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L11",
       "feederType" : "BRANCH",
       "direction" : "TOP",
@@ -549,7 +521,6 @@
       "fictitious" : false,
       "x" : 225.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L12",
       "feederType" : "BRANCH",
       "direction" : "TOP",
@@ -568,7 +539,6 @@
       "fictitious" : false,
       "x" : 275.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -587,7 +557,6 @@
       "fictitious" : false,
       "x" : 475.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -606,7 +575,6 @@
       "fictitious" : false,
       "x" : 525.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -625,7 +593,6 @@
       "fictitious" : false,
       "x" : 325.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -644,7 +611,6 @@
       "fictitious" : false,
       "x" : 575.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -1813,7 +1779,6 @@
       "x" : 415.0,
       "y" : 140.0,
       "orientation" : "RIGHT",
-      "open" : false,
       "voltageLevelInfosLeg1" : {
         "id" : "VL1",
         "name" : "VL1",
@@ -1865,7 +1830,6 @@
       "fictitious" : false,
       "x" : 12.5,
       "y" : 280.0,
-      "open" : false,
       "pxWidth" : 175.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
@@ -1969,64 +1933,56 @@
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D33",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D35",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_D37",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_L12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_L2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_T12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FICTITIOUS",
       "id" : "INTERNAL_VL2_T3_12_THREE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
       "type" : "FEEDER",
       "id" : "L12_TWO",
@@ -2036,7 +1992,6 @@
       "fictitious" : false,
       "x" : 75.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L12",
       "feederType" : "BRANCH",
       "direction" : "TOP",
@@ -2055,7 +2010,6 @@
       "fictitious" : false,
       "x" : 25.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "L2",
       "feederType" : "INJECTION",
       "direction" : "TOP"
@@ -2068,7 +2022,6 @@
       "fictitious" : false,
       "x" : 125.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -2087,7 +2040,6 @@
       "fictitious" : false,
       "x" : 175.0,
       "y" : 0.0,
-      "open" : false,
       "label" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "direction" : "TOP",
@@ -2530,7 +2482,6 @@
     "x" : 685.0,
     "y" : 80.0,
     "orientation" : "RIGHT",
-    "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
       "name" : "VL1",
@@ -2550,7 +2501,6 @@
     "fictitious" : true,
     "x" : 615.0,
     "y" : 50.0,
-    "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
       "name" : "VL1",

@@ -13,8 +13,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 332.0,
-    "open" : false
+    "y" : 332.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_11",
@@ -22,8 +21,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 278.0,
-    "open" : false
+    "y" : 278.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_12",
@@ -31,8 +29,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 224.0,
-    "open" : false
+    "y" : 224.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_13",
@@ -40,8 +37,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 170.0,
-    "open" : false
+    "y" : 170.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_14",
@@ -49,8 +45,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 116.0,
-    "open" : false
+    "y" : 116.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_16",
@@ -59,8 +54,7 @@
     "fictitious" : true,
     "x" : 375.0,
     "y" : 741.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_18",
@@ -68,8 +62,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 656.0,
-    "open" : false
+    "y" : 656.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_19",
@@ -77,8 +70,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 656.0,
-    "open" : false
+    "y" : 656.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_2",
@@ -86,8 +78,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 646.0,
-    "open" : false
+    "y" : 646.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_20",
@@ -95,8 +86,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 359.0,
-    "open" : false
+    "y" : 359.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_22",
@@ -105,8 +95,7 @@
     "fictitious" : true,
     "x" : 300.0,
     "y" : 741.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_23",
@@ -115,8 +104,7 @@
     "fictitious" : true,
     "x" : 300.0,
     "y" : 795.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_24",
@@ -125,8 +113,7 @@
     "fictitious" : true,
     "x" : 300.0,
     "y" : 849.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_3",
@@ -134,8 +121,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 646.0,
-    "open" : false
+    "y" : 646.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_4",
@@ -143,8 +129,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 656.0,
-    "open" : false
+    "y" : 656.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_5",
@@ -152,8 +137,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 602.0,
-    "open" : false
+    "y" : 602.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_6",
@@ -161,8 +145,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 548.0,
-    "open" : false
+    "y" : 548.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_7",
@@ -170,8 +153,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 494.0,
-    "open" : false
+    "y" : 494.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_8",
@@ -179,8 +161,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 440.0,
-    "open" : false
+    "y" : 440.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_9",
@@ -188,8 +169,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 386.0,
-    "open" : false
+    "y" : 386.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_gen1",
@@ -197,8 +177,7 @@
     "fictitious" : true,
     "x" : 375.0,
     "y" : 903.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_gen2",
@@ -206,24 +185,21 @@
     "fictitious" : true,
     "x" : 300.0,
     "y" : 903.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_load1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_load2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "b1",
@@ -459,7 +435,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 686.0,
-    "open" : false,
     "pxWidth" : 375.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -478,7 +453,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 711.0,
-    "open" : false,
     "pxWidth" : 375.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -577,7 +551,6 @@
     "x" : 375.0,
     "y" : 965.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "gen1",
     "feederType" : "INJECTION",
     "order" : 3,
@@ -592,7 +565,6 @@
     "x" : 300.0,
     "y" : 965.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "gen2",
     "feederType" : "INJECTION",
     "order" : 2,
@@ -606,7 +578,6 @@
     "fictitious" : false,
     "x" : 125.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "load1",
     "feederType" : "INJECTION",
     "order" : 0,
@@ -620,7 +591,6 @@
     "fictitious" : false,
     "x" : 200.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "load2",
     "feederType" : "INJECTION",
     "order" : 1,

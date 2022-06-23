@@ -12,16 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_d2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -43,7 +41,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -62,7 +59,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 75.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,

@@ -49,8 +49,6 @@ public class Node {
 
     private final Point position = new Point(-1, -1);
 
-    private boolean open = false;
-
     private final List<Edge> adjacentEdges = new ArrayList<>();
 
     private String label;
@@ -164,14 +162,6 @@ public class Node {
         return this.type;
     }
 
-    public boolean isOpen() {
-        return open;
-    }
-
-    public void setOpen(boolean open) {
-        this.open = open;
-    }
-
     public Optional<Integer> getOrder() {
         return Optional.ofNullable(order);
     }
@@ -240,7 +230,6 @@ public class Node {
         if (orientation != defaultOrientation()) {
             generator.writeStringField("orientation", orientation.name());
         }
-        generator.writeBooleanField("open", open);
         if (label != null) {
             generator.writeStringField("label", label);
         }

@@ -8,6 +8,7 @@ package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -92,6 +93,6 @@ public final class TopologyCalculation {
     }
 
     private static boolean isOpenSwitchNode(Node node) {
-        return node.getType() == Node.NodeType.SWITCH && node.isOpen();
+        return node.getType() == Node.NodeType.SWITCH && ((SwitchNode) node).isOpen();
     }
 }

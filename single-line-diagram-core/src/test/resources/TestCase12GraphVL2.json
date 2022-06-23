@@ -13,40 +13,35 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dload3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dscpl1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 120.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dscpl2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 40.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf21",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 280.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf22",
@@ -54,8 +49,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf23",
@@ -63,32 +57,28 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf24",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 440.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf26",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 720.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf27",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 560.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_dtrf28",
@@ -96,8 +86,7 @@
     "fictitious" : true,
     "x" : 880.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_gen4",
@@ -105,24 +94,21 @@
     "fictitious" : true,
     "x" : 360.0,
     "y" : 523.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_load3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_trf1_TWO",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 280.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_trf2_TWO",
@@ -130,8 +116,7 @@
     "fictitious" : true,
     "x" : 1000.0,
     "y" : 523.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_trf3_TWO",
@@ -139,16 +124,14 @@
     "fictitious" : true,
     "x" : 1080.0,
     "y" : 523.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl2_trf4_TWO",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 440.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "BUS",
     "id" : "bbs5",
@@ -158,7 +141,6 @@
     "fictitious" : false,
     "x" : 20.0,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 1080.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -177,7 +159,6 @@
     "fictitious" : false,
     "x" : 20.0,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 1080.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -437,7 +418,6 @@
     "x" : 360.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "gen4",
     "feederType" : "INJECTION",
     "order" : 2,
@@ -451,7 +431,6 @@
     "fictitious" : false,
     "x" : 200.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "load3",
     "feederType" : "INJECTION",
     "order" : 0,
@@ -465,7 +444,6 @@
     "fictitious" : false,
     "x" : 280.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf1",
     "feederType" : "BRANCH",
     "order" : 1,
@@ -486,7 +464,6 @@
     "x" : 1000.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "trf2",
     "feederType" : "BRANCH",
     "order" : 7,
@@ -507,7 +484,6 @@
     "x" : 1080.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "trf3",
     "feederType" : "BRANCH",
     "order" : 8,
@@ -527,7 +503,6 @@
     "fictitious" : false,
     "x" : 440.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf4",
     "feederType" : "BRANCH",
     "order" : 3,
@@ -547,7 +522,6 @@
     "fictitious" : true,
     "x" : 720.0,
     "y" : 62.0,
-    "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
@@ -572,7 +546,6 @@
     "fictitious" : false,
     "x" : 680.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf62",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 5,
@@ -592,7 +565,6 @@
     "fictitious" : false,
     "x" : 760.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf62",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 6,
@@ -612,7 +584,6 @@
     "fictitious" : true,
     "x" : 560.0,
     "y" : 62.0,
-    "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
@@ -637,7 +608,6 @@
     "fictitious" : false,
     "x" : 520.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf72",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 4,
@@ -657,7 +627,6 @@
     "fictitious" : false,
     "x" : 600.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "trf72",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 5,
@@ -678,7 +647,6 @@
     "x" : 880.0,
     "y" : 523.0,
     "orientation" : "DOWN",
-    "open" : false,
     "voltageLevelInfosLeg1" : {
       "id" : "vl1",
       "name" : "vl1",
@@ -704,7 +672,6 @@
     "x" : 840.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "trf82",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 6,
@@ -725,7 +692,6 @@
     "x" : 920.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "trf82",
     "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "order" : 7,

@@ -13,8 +13,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ss1_1",
@@ -22,8 +21,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_4",
@@ -31,8 +29,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_6",
@@ -41,32 +38,28 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 335.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dc1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_gc",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_lb",
@@ -74,8 +67,7 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 523.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_ss1_0",
@@ -83,8 +75,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_ss1_1",
@@ -92,8 +83,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "SWITCH",
     "id" : "ba",
@@ -126,7 +116,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -145,7 +134,6 @@
     "fictitious" : false,
     "x" : 112.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 2,
@@ -164,7 +152,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 175.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -251,7 +238,6 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "gc",
     "feederType" : "INJECTION",
     "order" : 30,
@@ -265,7 +251,6 @@
     "fictitious" : false,
     "x" : 25.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "la",
     "feederType" : "INJECTION",
     "order" : 10,
@@ -280,7 +265,6 @@
     "x" : 125.0,
     "y" : 585.0,
     "orientation" : "DOWN",
-    "open" : false,
     "label" : "lb",
     "feederType" : "INJECTION",
     "order" : 20,

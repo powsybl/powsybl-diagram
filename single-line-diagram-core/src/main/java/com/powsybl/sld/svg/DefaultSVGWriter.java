@@ -18,6 +18,7 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
@@ -482,10 +483,11 @@ public class DefaultSVGWriter implements SVGWriter {
         }
 
         String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
+        boolean isOpen = node.getType() == NodeType.SWITCH ? ((SwitchNode) node).isOpen() : false;
         metadata.addNodeMetadata(
                 new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
                         node.getComponentType(),
-                        node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
+                        isOpen, direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
     }

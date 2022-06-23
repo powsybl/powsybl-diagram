@@ -45,10 +45,10 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (edge instanceof BranchEdge && (ComponentTypeName.LINE.equals(node1.getComponentType()) || ComponentTypeName.LINE.equals(node2.getComponentType()))) {
             return getLineEdgeStyle(graph, (BranchEdge) edge);
         } else {
-            if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
+            if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
                 return graph.getVoltageLevelInfos(node2) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node2), node2) : Optional.empty();
             }
-            if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
+            if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
                 return graph.getVoltageLevelInfos(node1) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node1), node1) : Optional.empty();
             }
             return super.getEdgeStyle(graph, edge);
@@ -109,7 +109,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (visitedNodes.contains(node)) {
             return;
         }
-        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+        if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return;
         }
         visitedNodes.add(node);
@@ -120,7 +120,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
-        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+        if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         }
         Optional<String> baseVoltageLevelStyle = super.getVoltageLevelNodeStyle(voltageLevelInfos, node);

@@ -29,6 +29,8 @@ public class SwitchNode extends Node {
         LOAD_BREAK_SWITCH;
     }
 
+    private boolean open = false;
+
     private final SwitchKind kind;
 
     public SwitchNode(String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
@@ -49,9 +51,18 @@ public class SwitchNode extends Node {
         return getAdjacentNodes().get(getAdjacentNodes().get(0).equals(adj) ? 1 : 0);
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
     @Override
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         super.writeJsonContent(generator, includeCoordinates);
+        generator.writeBooleanField("open", open);
         generator.writeStringField("kind", kind.name());
         Optional<Integer> optOrder = getOrder();
         if (optOrder.isPresent()) {

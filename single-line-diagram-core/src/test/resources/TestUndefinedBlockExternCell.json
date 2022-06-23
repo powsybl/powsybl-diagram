@@ -12,40 +12,35 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_f1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_f2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "BUS",
     "id" : "bbs",
@@ -55,7 +50,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 0.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -85,7 +79,6 @@
     "fictitious" : false,
     "x" : 0.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l1",
     "feederType" : "INJECTION",
     "order" : 0,
@@ -99,7 +92,6 @@
     "fictitious" : false,
     "x" : 0.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l2",
     "feederType" : "INJECTION",
     "order" : 1,

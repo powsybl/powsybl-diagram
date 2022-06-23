@@ -13,8 +13,7 @@
     "fictitious" : true,
     "x" : 125.0,
     "y" : 345.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dc12",
@@ -22,56 +21,49 @@
     "fictitious" : true,
     "x" : 75.0,
     "y" : 345.0,
-    "orientation" : "DOWN",
-    "open" : false
+    "orientation" : "DOWN"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dc21",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dc22",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dl1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_dl2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "BUS",
     "id" : "bbs1",
@@ -81,7 +73,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 275.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -100,7 +91,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 275.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -236,7 +226,6 @@
     "fictitious" : false,
     "x" : 175.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l1",
     "feederType" : "INJECTION",
     "order" : 3,
@@ -250,7 +239,6 @@
     "fictitious" : false,
     "x" : 25.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l2",
     "feederType" : "INJECTION",
     "order" : 1,

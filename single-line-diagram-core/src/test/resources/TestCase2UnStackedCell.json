@@ -13,16 +13,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vlUnstack_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -43,7 +41,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -62,7 +59,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 75.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -103,7 +99,6 @@
     "fictitious" : false,
     "x" : 50.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l",
     "feederType" : "INJECTION",
     "order" : 0,

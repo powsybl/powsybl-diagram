@@ -12,16 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -42,7 +40,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -72,7 +69,6 @@
     "fictitious" : false,
     "x" : 25.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l",
     "feederType" : "INJECTION",
     "order" : 0,

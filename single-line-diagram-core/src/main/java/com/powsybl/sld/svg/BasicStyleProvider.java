@@ -20,6 +20,7 @@ import com.powsybl.sld.model.nodes.BranchEdge;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.net.URL;
 import java.util.*;
@@ -78,7 +79,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
             styles.add(HIDDEN_NODE_CLASS);
         }
         if (node.getType() == Node.NodeType.SWITCH) {
-            styles.add(node.isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
+            styles.add(((SwitchNode) node).isOpen() ? DiagramStyles.OPEN_SWITCH_STYLE_CLASS : DiagramStyles.CLOSED_SWITCH_STYLE_CLASS);
         }
         if (node.isFictitious()) {
             styles.add(FICTITIOUS_NODE_STYLE_CLASS);

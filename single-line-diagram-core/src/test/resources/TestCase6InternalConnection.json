@@ -13,8 +13,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_bbs1.1-bbs1.2_2",
@@ -22,8 +21,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ds2_0",
@@ -31,8 +29,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "BUSCO_ds2_1",
@@ -40,8 +37,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_bbs1.1-bbs1.2_1",
@@ -49,8 +45,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_bbs1.1-bbs1.2_2",
@@ -58,24 +53,21 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_d1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_d2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_ds2_0",
@@ -83,8 +75,7 @@
     "fictitious" : true,
     "x" : 50.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_ds2_1",
@@ -92,8 +83,7 @@
     "fictitious" : true,
     "x" : 100.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
     "type" : "SWITCH",
     "id" : "b",
@@ -115,7 +105,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -134,7 +123,6 @@
     "fictitious" : false,
     "x" : 112.5,
     "y" : 280.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 2,
@@ -153,7 +141,6 @@
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -172,7 +159,6 @@
     "fictitious" : false,
     "x" : 112.5,
     "y" : 305.0,
-    "open" : false,
     "pxWidth" : 25.0,
     "busbarIndex" : 2,
     "sectionIndex" : 2,
