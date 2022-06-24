@@ -7,6 +7,7 @@
 package com.powsybl.sld.library;
 
 import com.google.common.collect.Lists;
+import com.powsybl.sld.library.Component.DrawOrder;
 import com.powsybl.sld.model.coordinate.Orientation;
 import org.w3c.dom.Element;
 
@@ -37,6 +38,8 @@ public interface ComponentLibrary {
     Map<String, List<Element>> getSvgElements(String type);
 
     ComponentSize getSize(String type);
+
+    DrawOrder getDrawOrder(String type);
 
     Map<Orientation, Component.Transformation> getTransformations(String type);
 

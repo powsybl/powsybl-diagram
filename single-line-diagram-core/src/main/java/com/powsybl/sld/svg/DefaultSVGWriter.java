@@ -11,6 +11,7 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.Component.DrawOrder;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -281,7 +282,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 // Buses have already been drawn in drawBusNodes
                 continue;
             }
-            if (n instanceof SwitchNode || n instanceof BusConnection || n instanceof Middle3WTNode) {
+            if (componentLibrary.getDrawOrder(n.getComponentType()) == DrawOrder.AFTER) {
                 nodesToDrawAfter.add(n);
             } else {
                 nodesToDrawBefore.add(n);
@@ -425,7 +426,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                        componentLibrary.getTransformations(BUSBAR_SECTION), null));
+                        componentLibrary.getTransformations(BUSBAR_SECTION), null, null));
             }
 
             remainingNodesToDraw.remove(busNode);
@@ -870,7 +871,8 @@ public class DefaultSVGWriter implements SVGWriter {
                     componentLibrary.getAnchorPoints(componentType),
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
-                    componentLibrary.getTransformations(componentType), null));
+                    componentLibrary.getTransformations(componentType),
+                    componentLibrary.getDrawOrder(componentType), null));
         }
     }
 

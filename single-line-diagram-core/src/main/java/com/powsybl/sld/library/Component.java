@@ -29,6 +29,11 @@ public class Component {
         NONE
     }
 
+    public enum DrawOrder {
+        BEFORE,
+        AFTER
+    }
+
     private final String type;
 
     private final List<AnchorPoint> anchorPoints;
@@ -41,18 +46,22 @@ public class Component {
 
     private final List<SubComponent> subComponents;
 
+    private DrawOrder drawOrder;
+
     @JsonCreator
     public Component(@JsonProperty("type") String type,
                      @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
                      @JsonProperty("size") ComponentSize size,
                      @JsonProperty("style") String styleClass,
                      @JsonProperty("transformations") Map<Orientation, Transformation> transformations,
+                     @JsonProperty("drawOrder") DrawOrder drawOrder,
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
         this.transformations = Objects.requireNonNullElse(transformations, Collections.emptyMap());
+        this.drawOrder = drawOrder;
         this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 
@@ -78,5 +87,9 @@ public class Component {
 
     public String getStyleClass() {
         return styleClass;
+    }
+
+    public DrawOrder getDrawOrder() {
+        return drawOrder;
     }
 }

@@ -62,7 +62,7 @@ public class Node {
     /**
      * Constructor
      */
-    protected Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
+    public Node(NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
         this.type = Objects.requireNonNull(type);
         this.id = Objects.requireNonNull(id);
         this.name = name;

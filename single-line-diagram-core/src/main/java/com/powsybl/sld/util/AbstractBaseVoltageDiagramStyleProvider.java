@@ -203,6 +203,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
+    //TODO: getVoltageLEvelInfos from Graph.getvoltagelevelinfs
     private VoltageLevelInfos getWindingVoltageLevelInfos(Graph graph, FeederWithSides feederWs, String subComponentName) {
         if (subComponentName.equals(WINDING1)) {
             return feederWs.getVoltageLevelInfos();

@@ -16,6 +16,7 @@ import com.powsybl.sld.library.AnchorOrientation;
 import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.Component.DrawOrder;
 import com.powsybl.sld.model.coordinate.Direction;
 
 import org.junit.After;
@@ -59,7 +60,7 @@ public class GraphMetadataTest {
     public void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
-            new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
+            new ComponentSize(10, 12), "breaker", Collections.emptyMap(), DrawOrder.AFTER, null));
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
 

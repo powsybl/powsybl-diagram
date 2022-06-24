@@ -9,6 +9,7 @@ package com.powsybl.sld.model.graphs;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.Node.NodeType;
 import com.powsybl.sld.model.nodes.SwitchNode.SwitchKind;
 import com.powsybl.sld.model.nodes.feeders.BaseFeeder;
 import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
@@ -24,7 +25,22 @@ import com.powsybl.commons.PowsyblException;
 
 public final class NodeFactory {
 
+    private static final String BUS_CONNECTION_ID_PREFIX = "BUSCO_";
+
     private NodeFactory() {
+    }
+
+    public static Node createNode(VoltageLevelGraph graph, NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
+        Node node = new Node(type, id, name, equipmentId, componentType, fictitious);
+        graph.addNode(node);
+        return node;
+    }
+
+    public static BusConnection createBusConnection(VoltageLevelGraph graph, String id) {
+        // return createNode(graph, NodeType.FICTITIOUS, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
+        BusConnection busConnection = new BusConnection(id);
+        graph.addNode(busConnection);
+        return busConnection;
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
@@ -66,13 +82,6 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.LOAD);
     }
 
-    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        if (side == null || otherSideVoltageLevelInfos == null) {
-            return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
-        }
-        return createFeederWithSideNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, side, otherSideVoltageLevelInfos, FeederType.HVDC);
-    }
-
     public static FeederNode createStaticVarCompensator(VoltageLevelGraph graph, String id, String name) {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.STATIC_VAR_COMPENSATOR);
     }
@@ -91,6 +100,13 @@ public final class NodeFactory {
 
     public static FeederNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
         return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+    }
+
+    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        if (side == null || otherSideVoltageLevelInfos == null) {
+            return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
+        }
+        return createFeederWithSideNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, side, otherSideVoltageLevelInfos, FeederType.HVDC);
     }
 
     public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
@@ -137,18 +153,6 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FictitiousNode createFictitiousNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType) {
-        FictitiousNode fn = new FictitiousNode(id, name, equipmentId, componentType);
-        graph.addNode(fn);
-        return fn;
-    }
-
-    public static BusConnection createBusConnection(VoltageLevelGraph graph, String id) {
-        BusConnection bc = new BusConnection(id);
-        graph.addNode(bc);
-        return bc;
-    }
-
     public static InternalNode createInternalNode(VoltageLevelGraph graph, String id) {
         InternalNode in = new InternalNode(id, graph.getVoltageLevelInfos().getId());
         graph.addNode(in);
@@ -165,12 +169,6 @@ public final class NodeFactory {
         SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
         graph.addNode(sn);
         return sn;
-    }
-
-    public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, String componentType) {
-        Middle2WTNode m2wn = new Middle2WTNode(id, name, voltageLevelInfosLeg1, voltageLevelInfosLeg2, componentType);
-        baseGraph.addMultiTermNode(m2wn);
-        return m2wn;
     }
 
     public static Middle2WTNode createMiddle2WTNode(BaseGraph baseGraph, String id, String name, FeederNode legNode1, FeederNode legNode2, VoltageLevelInfos vlInfos1, VoltageLevelInfos vlInfos2, boolean hasPhaseTapChanger) {
