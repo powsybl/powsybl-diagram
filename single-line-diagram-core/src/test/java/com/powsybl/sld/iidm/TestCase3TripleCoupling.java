@@ -6,7 +6,11 @@
  */
 package com.powsybl.sld.iidm;
 
+import com.powsybl.iidm.network.Country;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,12 +30,19 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class TestCase3TripleCoupling extends TestCase3Coupling {
+public class TestCase3TripleCoupling extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        // we add two other coupling to TestCase3Coupling setUp
-        super.setUp();
+        network = Network.create("testCase2", "test");
+        graphBuilder = new NetworkGraphBuilder(network);
+        substation = createSubstation(network, "s", "s", Country.FR);
+        vl = createVoltageLevel(substation, "vl", "vl", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
+        createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 2, 3);
+        createBusBarSection(vl, "bbs2", "bbs2", 3, 2, 1);
 
         // second coupling
         createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 0, 4);
