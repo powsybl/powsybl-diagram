@@ -9,11 +9,11 @@ package com.powsybl.sld.builders;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.util.ServiceLoaderCache;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPosition;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.iidm.network.extensions.BusbarSectionPosition;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.model.coordinate.Direction;
-import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.graphs.*;
+import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.postprocessor.GraphBuildPostProcessor;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.slf4j.Logger;
@@ -23,7 +23,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
-import static com.powsybl.sld.model.coordinate.Direction.*;
+import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>

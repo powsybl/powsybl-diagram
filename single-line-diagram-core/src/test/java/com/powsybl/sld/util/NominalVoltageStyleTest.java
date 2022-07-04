@@ -7,15 +7,17 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyles;
+import com.powsybl.sld.svg.FeederInfo;
 import org.junit.Before;
 import org.junit.Test;
 

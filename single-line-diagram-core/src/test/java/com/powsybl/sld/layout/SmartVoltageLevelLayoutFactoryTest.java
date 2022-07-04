@@ -7,7 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
+import com.powsybl.iidm.network.extensions.BusbarSectionPositionAdder;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
