@@ -7,7 +7,6 @@
 package com.powsybl.sld.library;
 
 import com.powsybl.commons.exceptions.UncheckedSaxException;
-import com.powsybl.sld.library.Component.DrawOrder;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.util.DomUtil;
 import org.apache.commons.io.FilenameUtils;
@@ -131,13 +130,6 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
         Objects.requireNonNull(type);
         Component component = components.get(type);
         return component != null ? component.getSize() : new ComponentSize(0, 0);
-    }
-
-    @Override
-    public DrawOrder getDrawOrder(String type) {
-        Objects.requireNonNull(type);
-        Component component = components.get(type);
-        return component != null ? component.getDrawOrder() : DrawOrder.BEFORE;
     }
 
     @Override

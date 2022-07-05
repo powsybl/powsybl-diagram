@@ -29,11 +29,6 @@ public class Component {
         NONE
     }
 
-    public enum DrawOrder {
-        BEFORE,
-        AFTER
-    }
-
     private final String type;
 
     private final List<AnchorPoint> anchorPoints;
@@ -46,8 +41,6 @@ public class Component {
 
     private final List<SubComponent> subComponents;
 
-    private DrawOrder drawOrder;
-
     private boolean canConnectBus;
 
     @JsonCreator
@@ -56,7 +49,6 @@ public class Component {
                      @JsonProperty("size") ComponentSize size,
                      @JsonProperty("style") String styleClass,
                      @JsonProperty("transformations") Map<Orientation, Transformation> transformations,
-                     @JsonProperty("drawOrder") DrawOrder drawOrder,
                      @JsonProperty("canConnectBus") Boolean canConnectBus,
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
@@ -64,7 +56,6 @@ public class Component {
         this.size = Objects.requireNonNullElse(size, new ComponentSize(0, 0));
         this.styleClass = styleClass;
         this.transformations = Objects.requireNonNullElse(transformations, Collections.emptyMap());
-        this.drawOrder = drawOrder;
         this.canConnectBus = Objects.requireNonNullElse(canConnectBus, false);
         this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
@@ -91,10 +82,6 @@ public class Component {
 
     public String getStyleClass() {
         return styleClass;
-    }
-
-    public DrawOrder getDrawOrder() {
-        return drawOrder;
     }
 
     public boolean canConnectBus() {

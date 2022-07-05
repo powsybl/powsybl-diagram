@@ -29,7 +29,6 @@
       "width" : 12.0,
       "height" : 12.0
     },
-    "drawOrder" : "BEFORE",
     "styleClass" : "sld-generator"
   }, {
     "type" : "ARROW_REACTIVE",
@@ -41,8 +40,18 @@
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION"
     },
-    "drawOrder" : "BEFORE",
     "styleClass" : "sld-arrow-q"
+  }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
@@ -62,20 +71,7 @@
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION"
     },
-    "drawOrder" : "BEFORE",
     "styleClass" : "sld-load"
-  }, {
-    "type" : "ARROW_ACTIVE",
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "transformations" : {
-      "LEFT" : "ROTATION",
-      "RIGHT" : "ROTATION"
-    },
-    "drawOrder" : "BEFORE",
-    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
     "anchorPoints" : [ {
@@ -87,7 +83,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "drawOrder" : "BEFORE",
     "styleClass" : "sld-node"
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER_LEG",
@@ -99,8 +94,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "drawOrder" : "BEFORE"
+    }
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER_LEG",
     "anchorPoints" : [ {
@@ -111,8 +105,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "drawOrder" : "BEFORE"
+    }
   }, {
     "type" : "TWO_WINDINGS_TRANSFORMER",
     "anchorPoints" : [ {
@@ -133,7 +126,6 @@
       "RIGHT" : "ROTATION",
       "DOWN" : "ROTATION"
     },
-    "drawOrder" : "BEFORE",
     "styleClass" : "sld-two-wt"
   }, {
     "type" : "THREE_WINDINGS_TRANSFORMER",
@@ -159,7 +151,6 @@
       "RIGHT" : "ROTATION",
       "DOWN" : "FLIP"
     },
-    "drawOrder" : "AFTER",
     "styleClass" : "sld-three-wt"
   }, {
     "type" : "DISCONNECTOR",
@@ -172,7 +163,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "drawOrder" : "AFTER",
     "styleClass" : "sld-disconnector"
   }, {
     "type" : "LINE",
@@ -184,8 +174,7 @@
     "size" : {
       "width" : 0.0,
       "height" : 0.0
-    },
-    "drawOrder" : "BEFORE"
+    }
   }, {
     "type" : "BREAKER",
     "anchorPoints" : [ {
@@ -205,7 +194,6 @@
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION"
     },
-    "drawOrder" : "AFTER",
     "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {

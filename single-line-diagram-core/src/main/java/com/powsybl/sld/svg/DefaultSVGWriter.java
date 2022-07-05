@@ -11,7 +11,6 @@ import com.powsybl.sld.library.AnchorPoint;
 import com.powsybl.sld.library.Component;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentSize;
-import com.powsybl.sld.library.Component.DrawOrder;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -274,30 +273,15 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
 
-        List<Node> nodesToDrawBefore = new ArrayList<>();
-        List<Node> nodesToDrawAfter = new ArrayList<>();
+        List<Node> nodesToDraw =  cell.getNodes().stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
         Collection<Edge> edgesToDraw = new LinkedHashSet<>();
-        for (Node n : cell.getNodes()) {
-            if (n instanceof BusNode) {
-                // Buses have already been drawn in drawBusNodes
-                continue;
-            }
-            if (componentLibrary.getDrawOrder(n.getComponentType()) == DrawOrder.AFTER) {
-                nodesToDrawAfter.add(n);
-            } else {
-                nodesToDrawBefore.add(n);
-            }
+        nodesToDraw.forEach(n -> edgesToDraw.addAll(n.getAdjacentEdges()));
 
-            edgesToDraw.addAll(n.getAdjacentEdges());
-        }
-
-        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDrawBefore);
         drawEdges(prefixId, g, graph, metadata, initProvider, styleProvider, edgesToDraw);
-        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDrawAfter);
+        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDraw);
 
         remainingEdgesToDraw.removeAll(edgesToDraw);
-        nodesToDrawBefore.forEach(remainingNodesToDraw::remove);
-        nodesToDrawAfter.forEach(remainingNodesToDraw::remove);
+        remainingNodesToDraw.removeAll(nodesToDraw);
 
         root.appendChild(g);
     }
@@ -426,7 +410,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                        componentLibrary.getTransformations(BUSBAR_SECTION), null, false, null));
+                        componentLibrary.getTransformations(BUSBAR_SECTION), false, null));
             }
 
             remainingNodesToDraw.remove(busNode);
@@ -872,7 +856,6 @@ public class DefaultSVGWriter implements SVGWriter {
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
                     componentLibrary.getTransformations(componentType),
-                    componentLibrary.getDrawOrder(componentType),
                     componentLibrary.canConnectBus(componentType), null));
         }
     }

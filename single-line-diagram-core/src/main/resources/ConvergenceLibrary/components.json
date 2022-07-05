@@ -15,7 +15,6 @@
       "height" : 20.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "AFTER",
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "breaker-closed.svg",
@@ -43,7 +42,6 @@
       "height" : 10.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "AFTER",
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "load-break-switch-closed.svg",
@@ -71,7 +69,6 @@
       "height" : 9.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "LOAD",
       "fileName" : "load.svg"
@@ -101,7 +98,6 @@
       "height" : 12.0
     },
     "transformations" : {},
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "GENERATOR",
       "fileName" : "generator.svg"
@@ -123,7 +119,6 @@
       "height" : 15.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "2-windings-transformer-winding1.svg",
@@ -154,7 +149,6 @@
       "height" : 24.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN":"FLIP" },
-    "drawOrder" : "AFTER",
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "3-windings-transformer-winding1.svg",
@@ -185,7 +179,6 @@
       "height" : 12.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "CAPACITOR",
       "fileName" : "capacitor.svg"
@@ -207,7 +200,6 @@
       "height" : 9.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "INDUCTOR",
       "fileName" : "inductor.svg"
@@ -224,7 +216,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "drawOrder" : "AFTER",
     "canConnectBus" : "TRUE",
     "subComponents" : [ {
       "name" : "CLOSED",
@@ -248,7 +239,6 @@
       "height" : 8.0
     },
     "transformations" : {},
-    "drawOrder" : "AFTER",
     "canConnectBus" : "TRUE",
     "subComponents" : [ {
       "name" : "BUS_CONNECTION",
@@ -267,7 +257,6 @@
       "height" : 8.0
     },
     "transformations" : {},
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "NODE",
       "fileName" : "node.svg"
@@ -289,7 +278,6 @@
       "height" : 15.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION", "DOWN": "ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "WINDING1",
       "fileName" : "phase-shifter-winding1.svg",
@@ -320,7 +308,6 @@
       "height" : 12.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "STATIC_VAR_COMPENSATOR",
       "fileName" : "svc.svg"
@@ -342,7 +329,6 @@
       "height" : 8.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "VSC_CONVERTER_STATION",
       "fileName" : "vsc.svg"
@@ -358,7 +344,6 @@
       "height" : 15.0
     },
     "transformations" : {},
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "FLASH",
       "fileName" : "flash.svg"
@@ -371,7 +356,6 @@
       "height" : 12.0
     },
     "transformations" : {},
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "LOCK",
       "fileName" : "lock.svg"
@@ -384,7 +368,6 @@
       "height" : 10.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",
@@ -402,7 +385,6 @@
       "height" : 10.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "drawOrder" : "BEFORE",
     "subComponents" : [ {
       "name" : "UP",
       "fileName" : "arrow-up.svg",
