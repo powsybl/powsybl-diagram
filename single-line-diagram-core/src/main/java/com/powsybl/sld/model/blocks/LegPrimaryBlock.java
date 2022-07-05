@@ -8,7 +8,6 @@
 package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
@@ -49,7 +48,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     private boolean checkMiddleNode(Node node) {
-        return node instanceof BusConnection
+        return node.isBusConnector()
             || (node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR);
     }
 

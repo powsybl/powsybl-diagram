@@ -41,6 +41,8 @@ public interface ComponentLibrary {
 
     DrawOrder getDrawOrder(String type);
 
+    boolean canConnectBus(String type);
+
     Map<Orientation, Component.Transformation> getTransformations(String type);
 
     Map<String, ComponentSize> getComponentsSize();

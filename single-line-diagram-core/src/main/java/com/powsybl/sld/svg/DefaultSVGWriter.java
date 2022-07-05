@@ -426,7 +426,7 @@ public class DefaultSVGWriter implements SVGWriter {
                 metadata.addComponent(new Component(BUSBAR_SECTION,
                         null, null,
                         componentLibrary.getComponentStyleClass(BUSBAR_SECTION).orElse(null),
-                        componentLibrary.getTransformations(BUSBAR_SECTION), null, null));
+                        componentLibrary.getTransformations(BUSBAR_SECTION), null, false, null));
             }
 
             remainingNodesToDraw.remove(busNode);
@@ -872,7 +872,8 @@ public class DefaultSVGWriter implements SVGWriter {
                     componentLibrary.getSize(componentType),
                     componentLibrary.getComponentStyleClass(componentType).orElse(null),
                     componentLibrary.getTransformations(componentType),
-                    componentLibrary.getDrawOrder(componentType), null));
+                    componentLibrary.getDrawOrder(componentType),
+                    componentLibrary.canConnectBus(componentType), null));
         }
     }
 

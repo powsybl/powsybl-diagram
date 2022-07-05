@@ -10,7 +10,6 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
 
@@ -203,7 +202,7 @@ final class CellBlockDecomposer {
             if (!alreadyTreated.contains(node2)) {
 
                 List<Node> primaryPattern = new ArrayList<>();
-                if (node2 instanceof BusConnection) {
+                if (node2.isBusConnector()) {
                     // Specific case of bus connection component
                     primaryPattern.add(firstNode);  // BUS|FICTITIOUS
                     primaryPattern.add(node2);      // BUS_CONNECTION

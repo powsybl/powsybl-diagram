@@ -48,6 +48,8 @@ public class Component {
 
     private DrawOrder drawOrder;
 
+    private boolean canConnectBus;
+
     @JsonCreator
     public Component(@JsonProperty("type") String type,
                      @JsonProperty("anchorPoints") List<AnchorPoint> anchorPoints,
@@ -55,6 +57,7 @@ public class Component {
                      @JsonProperty("style") String styleClass,
                      @JsonProperty("transformations") Map<Orientation, Transformation> transformations,
                      @JsonProperty("drawOrder") DrawOrder drawOrder,
+                     @JsonProperty("canConnectBus") Boolean canConnectBus,
                      @JsonProperty("subComponents") List<SubComponent> subComponents) {
         this.type = Objects.requireNonNull(type);
         this.anchorPoints = Collections.unmodifiableList(Objects.requireNonNullElse(anchorPoints, Collections.emptyList()));
@@ -62,6 +65,7 @@ public class Component {
         this.styleClass = styleClass;
         this.transformations = Objects.requireNonNullElse(transformations, Collections.emptyMap());
         this.drawOrder = drawOrder;
+        this.canConnectBus = Objects.requireNonNullElse(canConnectBus, false);
         this.subComponents = Collections.unmodifiableList(Objects.requireNonNullElse(subComponents, Collections.emptyList()));
     }
 
@@ -92,4 +96,9 @@ public class Component {
     public DrawOrder getDrawOrder() {
         return drawOrder;
     }
+
+    public boolean canConnectBus() {
+        return this.canConnectBus;
+    }
+
 }

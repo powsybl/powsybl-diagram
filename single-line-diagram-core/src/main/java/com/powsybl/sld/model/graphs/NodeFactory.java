@@ -17,6 +17,8 @@ import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
+import java.util.Objects;
+
 import com.powsybl.commons.PowsyblException;
 
 /**
@@ -36,10 +38,9 @@ public final class NodeFactory {
         return node;
     }
 
-    public static BusConnection createBusConnection(VoltageLevelGraph graph, String id) {
-        // return createNode(graph, NodeType.FICTITIOUS, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
-        BusConnection busConnection = new BusConnection(id);
-        graph.addNode(busConnection);
+    public static Node createBusConnection(VoltageLevelGraph graph, String id) {
+        Node busConnection = createNode(graph, NodeType.FICTITIOUS, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
+        busConnection.setBusConnector(true);
         return busConnection;
     }
 
