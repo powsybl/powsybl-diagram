@@ -9,12 +9,12 @@ package com.powsybl.sld.cgmes.dl.conversion.exporters;
 import java.util.Arrays;
 import java.util.Collections;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.cgmes.extensions.NetworkDiagramData;
 import org.junit.Before;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;

@@ -6,10 +6,10 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.cgmes.extensions.*;
 import com.powsybl.iidm.network.Branch.Side;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;

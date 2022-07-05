@@ -6,12 +6,12 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.cgmes.extensions.NetworkDiagramData;
 import org.junit.Before;
 import org.mockito.Mockito;
 
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.cgmes.extensions.LineDiagramData;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.triplestore.api.PropertyBags;
 

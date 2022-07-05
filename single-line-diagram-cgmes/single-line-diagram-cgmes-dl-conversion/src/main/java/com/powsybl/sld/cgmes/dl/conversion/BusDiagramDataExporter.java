@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.triplestore.api.TripleStore;

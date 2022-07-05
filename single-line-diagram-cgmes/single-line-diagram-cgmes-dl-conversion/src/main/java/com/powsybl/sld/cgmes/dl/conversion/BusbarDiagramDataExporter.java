@@ -13,7 +13,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.triplestore.api.TripleStore;

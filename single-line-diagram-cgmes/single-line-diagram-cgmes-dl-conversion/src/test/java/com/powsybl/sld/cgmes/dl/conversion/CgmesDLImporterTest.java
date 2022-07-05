@@ -6,8 +6,9 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
+import com.powsybl.cgmes.extensions.*;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
 import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.Before;
 import org.junit.Test;

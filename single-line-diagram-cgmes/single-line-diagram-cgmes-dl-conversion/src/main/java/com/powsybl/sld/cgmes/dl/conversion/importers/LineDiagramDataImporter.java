@@ -10,12 +10,12 @@ import java.util.Objects;
 
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLModel;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.cgmes.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
+import com.powsybl.cgmes.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.LineDiagramData;
 import com.powsybl.iidm.network.DanglingLine;
 import com.powsybl.iidm.network.Line;
 import com.powsybl.iidm.network.Network;

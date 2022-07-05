@@ -12,8 +12,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.ThreeWindingsTransformerDiagramData;
+import com.powsybl.cgmes.extensions.DiagramTerminal;
+import com.powsybl.cgmes.extensions.ThreeWindingsTransformerDiagramData;
 import com.powsybl.iidm.network.ThreeWindingsTransformer;
 import com.powsybl.triplestore.api.TripleStore;
 

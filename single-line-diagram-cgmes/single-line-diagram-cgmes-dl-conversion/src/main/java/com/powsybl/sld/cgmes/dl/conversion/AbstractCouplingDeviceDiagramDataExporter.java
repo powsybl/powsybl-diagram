@@ -6,8 +6,8 @@
  */
 package com.powsybl.sld.cgmes.dl.conversion;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
+import com.powsybl.cgmes.extensions.CouplingDeviceDiagramData;
+import com.powsybl.cgmes.extensions.DiagramTerminal;
 import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

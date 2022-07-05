@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import java.util.Map;
 import java.util.Objects;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
+import com.powsybl.cgmes.extensions.CouplingDeviceDiagramData;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.triplestore.api.TripleStore;
 

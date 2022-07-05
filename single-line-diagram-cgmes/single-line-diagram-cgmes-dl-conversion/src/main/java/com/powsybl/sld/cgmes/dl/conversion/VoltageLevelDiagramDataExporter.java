@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.VoltageLevelDiagramData;
+import com.powsybl.cgmes.extensions.VoltageLevelDiagramData;
 import com.powsybl.triplestore.api.TripleStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

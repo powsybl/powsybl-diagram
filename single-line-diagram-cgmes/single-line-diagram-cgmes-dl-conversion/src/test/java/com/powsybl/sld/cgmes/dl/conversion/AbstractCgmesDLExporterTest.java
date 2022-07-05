@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.DiagramPoint;
 import com.powsybl.cgmes.model.CgmesNamespace;
 import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.commons.datasource.DataSource;

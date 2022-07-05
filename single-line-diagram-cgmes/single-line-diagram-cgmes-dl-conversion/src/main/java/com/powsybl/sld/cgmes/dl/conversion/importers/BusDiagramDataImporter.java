@@ -9,12 +9,12 @@ package com.powsybl.sld.cgmes.dl.conversion.importers;
 import java.util.Objects;
 
 import com.powsybl.iidm.network.Substation;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.cgmes.extensions.NetworkDiagramData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;

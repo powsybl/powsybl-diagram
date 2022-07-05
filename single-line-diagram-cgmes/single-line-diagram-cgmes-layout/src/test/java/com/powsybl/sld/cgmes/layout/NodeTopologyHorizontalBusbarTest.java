@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.layout;
 
 import static org.junit.Assert.assertEquals;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.DiagramPoint;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;

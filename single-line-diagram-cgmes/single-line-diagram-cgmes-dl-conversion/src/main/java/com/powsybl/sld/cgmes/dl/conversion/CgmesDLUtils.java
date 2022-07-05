@@ -7,12 +7,12 @@
 package com.powsybl.sld.cgmes.dl.conversion;
 
 import com.powsybl.cgmes.conversion.CgmesModelExtension;
+import com.powsybl.cgmes.extensions.*;
 import com.powsybl.cgmes.model.CgmesSubset;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Switch;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.math.graph.TraverseResult;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.triplestore.api.TripleStore;
 
 import java.util.HashSet;

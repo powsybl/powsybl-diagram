@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import com.powsybl.iidm.network.BusbarSection;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import org.junit.Test;
 import org.mockito.Mockito;
 

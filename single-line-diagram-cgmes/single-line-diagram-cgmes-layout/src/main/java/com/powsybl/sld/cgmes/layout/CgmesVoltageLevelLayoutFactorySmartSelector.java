@@ -10,10 +10,10 @@ import com.google.auto.service.AutoService;
 import com.powsybl.iidm.network.Connectable;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.cgmes.extensions.CouplingDeviceDiagramData;
+import com.powsybl.cgmes.extensions.InjectionDiagramData;
+import com.powsybl.cgmes.extensions.LineDiagramData;
+import com.powsybl.cgmes.extensions.NodeDiagramData;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactorySmartSelector;
 

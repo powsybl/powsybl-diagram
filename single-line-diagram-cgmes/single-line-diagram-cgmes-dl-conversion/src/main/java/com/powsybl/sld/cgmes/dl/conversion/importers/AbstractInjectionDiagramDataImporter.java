@@ -12,8 +12,8 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.InjectionDiagramData;
+import com.powsybl.cgmes.extensions.DiagramPoint;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.triplestore.api.PropertyBags;
 

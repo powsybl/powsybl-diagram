@@ -6,8 +6,9 @@
  */
 package com.powsybl.sld.cgmes.layout;
 
+import com.powsybl.cgmes.extensions.*;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.Networks;
 import org.junit.Before;
 import org.junit.Test;
 

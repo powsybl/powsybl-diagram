@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Switch;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramTerminal;
-import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
+import com.powsybl.cgmes.extensions.CouplingDeviceDiagramData;
+import com.powsybl.cgmes.extensions.DiagramPoint;
+import com.powsybl.cgmes.extensions.DiagramTerminal;
+import com.powsybl.cgmes.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PropertyBag;
 import com.powsybl.triplestore.api.PropertyBags;
 
