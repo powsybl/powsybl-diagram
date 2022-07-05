@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -93,7 +92,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void removeUnnecessaryFictitiousNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node instanceof InternalNode || node instanceof BusConnection)
+                .filter(node -> node instanceof InternalNode)
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -348,7 +347,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void addTripleNode(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
-        BusConnection fNodeToBus = NodeFactory.createBusConnection(this, feederNode.getId());
+        Node fNodeToBus = NodeFactory.createBusConnection(this, feederNode.getId());
         InternalNode fNodeToSw1 = NodeFactory.createInternalNode(this, feederNode.getId() + "_1");
         InternalNode fNodeToSw2 = NodeFactory.createInternalNode(this, feederNode.getId() + "_2");
 
@@ -407,10 +406,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                                 }));
     }
 
-    public void extendNodeConnectedToBus(Predicate<Node> condition) {
+    public void extendNodeConnectedToBus() {
         getNodeBuses().forEach(nodeBus ->
                 nodeBus.getAdjacentNodes().stream()
-                        .filter(condition)
+                        .filter(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR || node instanceof Middle3WTNode)
                         .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
     }
 
@@ -421,7 +420,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 .forEach(n -> extendSwitchBetweenBuses((SwitchNode) n)));
     }
 
-    public void extendSwitchBetweenBuses(SwitchNode nodeSwitch) {
+    private void extendSwitchBetweenBuses(SwitchNode nodeSwitch) {
         List<Node> copyAdj = nodeSwitch.getAdjacentNodes();
         addDoubleNode((BusNode) copyAdj.get(0), nodeSwitch, "_0");
         addDoubleNode((BusNode) copyAdj.get(1), nodeSwitch, "_1");
@@ -434,10 +433,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                     .forEach(n2 -> {
                         removeEdge(n1, n2);
                         String busToBusId = n1.getId() + "-" + n2.getId();
-                        BusConnection fSwToBus1 = NodeFactory.createBusConnection(this, busToBusId + "_1");
+                        Node fSwToBus1 = NodeFactory.createBusConnection(this, busToBusId + "_1");
                         InternalNode internalNode1 = NodeFactory.createInternalNode(this, busToBusId + "_1");
                         InternalNode internalNode2 = NodeFactory.createInternalNode(this, busToBusId + "_2");
-                        BusConnection fSwToBus2 = NodeFactory.createBusConnection(this, busToBusId + "_2");
+                        Node fSwToBus2 = NodeFactory.createBusConnection(this, busToBusId + "_2");
                         addEdge(n1, fSwToBus1);
                         addEdge(fSwToBus1, internalNode1);
                         addEdge(internalNode1, internalNode2);
@@ -457,7 +456,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
         removeEdge(busNode, node);
-        BusConnection fNodeToBus = NodeFactory.createBusConnection(this, node.getId() + suffix);
+        Node fNodeToBus = NodeFactory.createBusConnection(this, node.getId() + suffix);
         InternalNode fNodeToSw = NodeFactory.createInternalNode(this, node.getId() + suffix);
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw);
