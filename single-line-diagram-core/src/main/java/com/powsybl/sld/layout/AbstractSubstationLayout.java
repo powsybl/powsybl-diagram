@@ -20,6 +20,7 @@ public abstract class AbstractSubstationLayout extends AbstractLayout {
     protected VoltageLevelLayoutFactory vLayoutFactory;
 
     public AbstractSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
+        super(vLayoutFactory.getLayoutParameters());
         this.graph = graph;
         this.vLayoutFactory = Objects.requireNonNull(vLayoutFactory);
     }
@@ -29,7 +30,7 @@ public abstract class AbstractSubstationLayout extends AbstractLayout {
     }
 
     @Override
-    public void run(LayoutParameters layoutParameters) {
+    public void run() {
         // Calculate all the coordinates for the voltageLevel graphs in the substation graph
         calculateCoordVoltageLevels(layoutParameters);
 

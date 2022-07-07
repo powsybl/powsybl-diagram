@@ -15,19 +15,19 @@ import java.util.Objects;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class SmartVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
-
+public class SmartVoltageLevelLayoutFactory extends AbstractVoltageLevelLayoutFactory {
     private final Network network;
 
-    public SmartVoltageLevelLayoutFactory(Network network) {
-        this.network = Objects.requireNonNull(network);
+    public SmartVoltageLevelLayoutFactory(Network network, LayoutParameters layoutParameters) {
+        super(layoutParameters);
+        this.network = network;
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
         return VoltageLevelLayoutFactorySmartSelector.findBest(network.getVoltageLevel(graph.getVoltageLevelInfos().getId()))
                 .orElseThrow(() -> new PowsyblException("Voltage level layout factory not found"))
-                .createFactory(network)
+                .createFactory(network, getLayoutParameters())
                 .create(graph);
     }
 }

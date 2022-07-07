@@ -32,28 +32,28 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
 
-    public PositionVoltageLevelLayout(VoltageLevelGraph graph) {
-        super(graph);
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
+        super(graph, layoutParameters);
     }
 
     /**
      * Calculate real coordinate of busNode and blocks connected to busbar
      */
     @Override
-    public void run(LayoutParameters layoutParam) {
+    public void run() {
         LOGGER.info("Running voltage level layout");
-        calculateMaxCellHeight(layoutParam);
-        calculateBusNodeCoord(getGraph(), layoutParam);
-        calculateCellCoord(getGraph(), layoutParam);
+        calculateMaxCellHeight(layoutParameters);
+        calculateBusNodeCoord(getGraph(), layoutParameters);
+        calculateCellCoord(getGraph(), layoutParameters);
 
-        setGraphCoord(layoutParam);
-        setGraphSize(layoutParam);
+        setGraphCoord(layoutParameters);
+        setGraphSize(layoutParameters);
 
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
-        manageSnakeLines(layoutParam);
+        manageSnakeLines(layoutParameters);
 
         if (getGraph().isForVoltageLevelDiagram()) {
-            adaptPaddingToSnakeLines(layoutParam);
+            adaptPaddingToSnakeLines(layoutParameters);
         }
     }
 

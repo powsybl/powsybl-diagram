@@ -29,7 +29,7 @@ public abstract class AbstractCgmesVoltageLevelLayoutTest {
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_NAME);
-        new CgmesVoltageLevelLayout(graph, vl.getNetwork()).run(layoutParameters);
+        new CgmesVoltageLevelLayout(graph, vl.getNetwork(), layoutParameters).run();
         checkGraph(graph);
         checkCoordinates(graph);
     }

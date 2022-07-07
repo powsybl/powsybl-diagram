@@ -48,7 +48,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     private boolean checkMiddleNode(Node node) {
-        return node.isBusConnector()
+        return node.isCanConnectBus()
             || (node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR);
     }
 

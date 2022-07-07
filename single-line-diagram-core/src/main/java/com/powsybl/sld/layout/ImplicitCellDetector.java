@@ -27,18 +27,14 @@ import java.util.stream.Collectors;
 public class ImplicitCellDetector implements CellDetector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
-    private boolean removeUnnecessaryFictitiousNodes;
-    private boolean substituteSingularFictitiousByFeederNode;
-    private boolean exceptionIfPatternNotHandled;
+    private final boolean exceptionIfPatternNotHandled;
 
-    public ImplicitCellDetector(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode, boolean exceptionIfPatternNotHandled) {
-        this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
-        this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
+    public ImplicitCellDetector(boolean exceptionIfPatternNotHandled) {
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
 
     public ImplicitCellDetector() {
-        this(true, true, false);
+        this(false);
     }
 
 
@@ -56,8 +52,6 @@ public class ImplicitCellDetector implements CellDetector {
      */
     @Override
     public void detectCells(VoltageLevelGraph graph) {
-        cleaning(graph);
-
         LOGGER.info("Detecting cells...");
 
         List<Node> allocatedNodes = new ArrayList<>();
@@ -95,21 +89,6 @@ public class ImplicitCellDetector implements CellDetector {
             // if a shunt cell is detected two or more EXTERN cells and one or more SHUNT cells are created
             detectAndTypeShunt(graph, nodes, shuntCells);
         }
-    }
-
-    private void cleaning(VoltageLevelGraph graph) {
-        graph.substituteFictitiousNodesMirroringBusNodes();
-        if (removeUnnecessaryFictitiousNodes) {
-            graph.removeUnnecessaryFictitiousNodes();
-        }
-        if (substituteSingularFictitiousByFeederNode) {
-            graph.substituteSingularFictitiousByFeederNode();
-        }
-        graph.insertFictitiousNodesAtFeeders();
-        graph.extendNodeConnectedToBus();
-        graph.extendSwitchBetweenBuses();
-        graph.extendFirstOutsideNode();
-        graph.extendBusConnectedToBus();
     }
 
     /**

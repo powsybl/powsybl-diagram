@@ -8,7 +8,6 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.graphs.*;
@@ -68,10 +67,9 @@ public class TestCase2 extends AbstractTestCaseRaw {
 
     @Test
     public void testUnstacked() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack");
-        new ImplicitCellDetector().detectCells(g);
+        VoltageLevelGraph g = buildVLAndDetectCell(rawGraphBuilder, "vlUnstack");
         new BlockOrganizer(new PositionFromExtension(), false).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g, layoutParameters).run();
         assertEquals(toString("/TestCase2UnStackedCell.json"), toJson(g, "/TestCase2UnStackedCell.json"));
     }
 }

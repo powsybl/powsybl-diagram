@@ -98,14 +98,14 @@ public class SingleLineDiagramTool implements Tool {
 
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
 
-        LayoutParameters parameters = new LayoutParameters();
+        LayoutParameters layoutParameters = new LayoutParameters();
 
         VoltageLevelLayoutFactory voltageLevelLayoutFactory;
 
         SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
 
         SvgGenerationConfig(Network network) {
-            voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network);
+            voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network, layoutParameters);
         }
     }
 
@@ -115,9 +115,9 @@ public class SingleLineDiagramTool implements Tool {
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
             SingleLineDiagram.draw(network, vlOrSubstationId, svgFile,
-                    generationConfig.parameters, generationConfig.componentLibrary,
+                    generationConfig.layoutParameters, generationConfig.componentLibrary,
                     generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
-                    new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.parameters),
+                    new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.layoutParameters),
                     new TopologicalStyleProvider(network), "");
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());

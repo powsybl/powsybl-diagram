@@ -14,6 +14,7 @@ import com.powsybl.sld.cgmes.dl.iidm.extensions.CouplingDeviceDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.InjectionDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.NodeDiagramData;
+import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactorySmartSelector;
 
@@ -48,8 +49,7 @@ public class CgmesVoltageLevelLayoutFactorySmartSelector implements VoltageLevel
         return hasOneCgmesExtension(vl);
     }
 
-    @Override
-    public VoltageLevelLayoutFactory createFactory(Network network) {
-        return new CgmesVoltageLevelLayoutFactory(network);
+    public VoltageLevelLayoutFactory createFactory(Network network, LayoutParameters layoutParameters) {
+        return new CgmesVoltageLevelLayoutFactory(network, layoutParameters);
     }
 }

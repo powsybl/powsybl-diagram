@@ -25,24 +25,24 @@ public class CgmesVoltageLevelLayout extends AbstractCgmesLayout {
 
     private final VoltageLevelGraph graph;
 
-    public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network) {
-        this.network = Objects.requireNonNull(network);
+    public CgmesVoltageLevelLayout(VoltageLevelGraph graph, Network network, LayoutParameters layoutParameters) {
+        super(network, layoutParameters);
         Objects.requireNonNull(graph);
-        this.graph = removeFictitiousNodes(graph, network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));
+        this.graph = removeFictitiousNodes(graph, this.network.getVoltageLevel(graph.getVoltageLevelInfos().getId()));
     }
 
     @Override
-    public void run(LayoutParameters layoutParam) {
+    public void run() {
         VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelInfos().getId());
-        String diagramName = layoutParam.getDiagramName();
+        String diagramName = layoutParameters.getDiagramName();
         if (!checkDiagram(diagramName, "voltage level " + vl.getId())) {
             return;
         }
         LOG.info("Applying CGMES-DL layout to network {}, voltage level {}, diagram name {}", network.getId(), graph.getVoltageLevelInfos().getId(), diagramName);
-        setNodeCoordinates(vl, graph, diagramName, layoutParam.isUseName());
-        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
-        if (layoutParam.getScaleFactor() != 1) {
-            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
+        setNodeCoordinates(vl, graph, diagramName, layoutParameters.isUseName());
+        graph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParameters.getScaleFactor()));
+        if (layoutParameters.getScaleFactor() != 1) {
+            graph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParameters.getScaleFactor()));
         }
     }
 }

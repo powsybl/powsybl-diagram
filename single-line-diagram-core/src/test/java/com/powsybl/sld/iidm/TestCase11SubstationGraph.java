@@ -264,7 +264,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory(layoutParameters)).run();
 
         assertEquals(toString("/TestCase11SubstationGraphV.json"), toJson(g, "/TestCase11SubstationGraphV.json"));
     }
@@ -284,7 +284,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory(layoutParameters)).run();
 
         assertEquals(toString("/TestCase11Right3wtOrientation.json"), toJson(g, "/TestCase11Right3wtOrientation.json"));
     }
@@ -304,7 +304,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory(layoutParameters)).run();
 
         assertEquals(toString("/TestCase11Left3wtOrientation.json"), toJson(g, "/TestCase11Left3wtOrientation.json"));
     }
@@ -317,7 +317,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         compareMetadata(substationGraph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(layoutParameters),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new BasicStyleProvider());
     }
@@ -330,7 +330,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
 
         compareMetadata(graph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
-                new PositionVoltageLevelLayoutFactory(),
+                new PositionVoltageLevelLayoutFactory(layoutParameters),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
                 new NominalVoltageDiagramStyleProvider(network));
     }

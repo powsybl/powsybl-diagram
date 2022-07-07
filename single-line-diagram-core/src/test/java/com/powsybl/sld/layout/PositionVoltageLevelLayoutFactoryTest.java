@@ -21,7 +21,7 @@ public class PositionVoltageLevelLayoutFactoryTest {
 
     @Test
     public void test() {
-        PositionVoltageLevelLayoutFactory factory = new PositionVoltageLevelLayoutFactory();
+        PositionVoltageLevelLayoutFactory factory = new PositionVoltageLevelLayoutFactory(new LayoutParameters());
 
         assertTrue(factory.isFeederStacked());
         factory.setFeederStacked(false);

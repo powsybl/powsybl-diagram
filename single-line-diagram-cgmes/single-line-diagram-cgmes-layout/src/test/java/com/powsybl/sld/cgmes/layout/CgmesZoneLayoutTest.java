@@ -206,7 +206,7 @@ public class CgmesZoneLayoutTest {
         LayoutParameters layoutParameters = new LayoutParameters();
         layoutParameters.setScaleFactor(2);
         layoutParameters.setDiagramName(DIAGRAM_ID);
-        new CgmesZoneLayout(graph, network).run(layoutParameters);
+        new CgmesZoneLayout(graph, network, layoutParameters).run();
 
         assertEquals(2, graph.getSubstations().size());
         assertEquals(2, graph.getSubstationGraph(SUBSTATION_1_ID).getVoltageLevels().size());

@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
+public class PositionVoltageLevelLayoutFactory extends AbstractVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
 
     private final PositionFinder positionFinder;
 
@@ -35,11 +35,12 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     private Map<String, Side> busInfoMap = new HashMap<>();
 
-    public PositionVoltageLevelLayoutFactory() {
-        this(new PositionFromExtension());
+    public PositionVoltageLevelLayoutFactory(LayoutParameters layoutParameters) {
+        this(new PositionFromExtension(), layoutParameters);
     }
 
-    public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder) {
+    public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder, LayoutParameters layoutParameters) {
+        super(layoutParameters);
         this.positionFinder = Objects.requireNonNull(positionFinder);
     }
 
@@ -100,12 +101,13 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
     @Override
     public Layout create(VoltageLevelGraph graph) {
         // detect cells
-        new ImplicitCellDetector(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode, exceptionIfPatternNotHandled)
+        PrepareForLayout.run(graph, getLayoutParameters(), removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
+        new ImplicitCellDetector(exceptionIfPatternNotHandled)
                 .detectCells(graph);
 
         // build blocks from cells
         new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap).organize(graph);
 
-        return new PositionVoltageLevelLayout(graph);
+        return new PositionVoltageLevelLayout(graph, getLayoutParameters());
     }
 }

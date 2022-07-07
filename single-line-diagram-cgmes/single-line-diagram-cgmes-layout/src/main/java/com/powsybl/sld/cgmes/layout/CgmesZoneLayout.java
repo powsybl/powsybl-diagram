@@ -34,8 +34,8 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     private final ZoneGraph graph;
     private List<VoltageLevelGraph> vlGraphs;
 
-    public CgmesZoneLayout(ZoneGraph graph, Network network) {
-        this.network = Objects.requireNonNull(network);
+    public CgmesZoneLayout(ZoneGraph graph, Network network, LayoutParameters layoutParameters) {
+        super(network, layoutParameters);
         this.graph = Objects.requireNonNull(graph);
         vlGraphs = graph.getVoltageLevels();
         for (VoltageLevelGraph vlGraph : vlGraphs) {
@@ -45,19 +45,19 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
     }
 
     @Override
-    public void run(LayoutParameters layoutParam) {
+    public void run() {
         if (graph.getZone().isEmpty()) {
             LOG.warn("No substations in the zone: skipping coordinates assignment");
             return;
         }
-        String diagramName = layoutParam.getDiagramName();
+        String diagramName = layoutParameters.getDiagramName();
         if (!checkDiagram(diagramName, "")) {
             return;
         }
         // assign coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
             VoltageLevel vl = network.getVoltageLevel(vlGraph.getVoltageLevelInfos().getId());
-            setNodeCoordinates(vl, vlGraph, diagramName, layoutParam.isUseName());
+            setNodeCoordinates(vl, vlGraph, diagramName, layoutParameters.isUseName());
         }
         for (BranchEdge edge : graph.getLineEdges()) {
             VoltageLevel vl = network.getVoltageLevel(graph.getVoltageLevelGraph(edge.getNode1()).getVoltageLevelInfos().getId());
@@ -65,18 +65,18 @@ public class CgmesZoneLayout extends AbstractCgmesLayout {
         }
         // shift coordinates
         for (VoltageLevelGraph vlGraph : vlGraphs) {
-            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParam.getScaleFactor()));
+            vlGraph.getNodes().forEach(node -> shiftNodeCoordinates(node, layoutParameters.getScaleFactor()));
         }
         for (BranchEdge edge : graph.getLineEdges()) {
-            shiftLineCoordinates(edge, layoutParam.getScaleFactor());
+            shiftLineCoordinates(edge, layoutParameters.getScaleFactor());
         }
         // scale coordinates
-        if (layoutParam.getScaleFactor() != 1) {
+        if (layoutParameters.getScaleFactor() != 1) {
             for (VoltageLevelGraph vlGraph : vlGraphs) {
-                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParam.getScaleFactor()));
+                vlGraph.getNodes().forEach(node -> scaleNodeCoordinates(node, layoutParameters.getScaleFactor()));
             }
             for (BranchEdge edge : graph.getLineEdges()) {
-                scaleLineCoordinates(edge, layoutParam.getScaleFactor());
+                scaleLineCoordinates(edge, layoutParameters.getScaleFactor());
             }
         }
     }

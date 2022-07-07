@@ -15,6 +15,6 @@ public class HorizontalSubstationLayoutFactory implements SubstationLayoutFactor
 
     @Override
     public Layout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new HorizontalSubstationLayout(graph, vLayoutFactory);
+        return new HorizontalSubstationLayout(graph, vLayoutFactory, vLayoutFactory.getLayoutParameters());
     }
 }

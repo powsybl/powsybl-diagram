@@ -11,6 +11,8 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
 
+import java.util.Objects;
+
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
@@ -29,8 +31,7 @@ public class PositionByClusterVoltageLevelLayoutFactorySmartSelector implements 
         return true;
     }
 
-    @Override
-    public VoltageLevelLayoutFactory createFactory(Network network) {
-        return new PositionVoltageLevelLayoutFactory(new PositionByClustering());
+    public VoltageLevelLayoutFactory createFactory(Network network, LayoutParameters layoutParameters) {
+        return new PositionVoltageLevelLayoutFactory(new PositionByClustering(), layoutParameters);
     }
 }

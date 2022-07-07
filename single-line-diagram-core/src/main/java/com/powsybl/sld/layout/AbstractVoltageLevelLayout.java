@@ -20,7 +20,8 @@ public abstract class AbstractVoltageLevelLayout extends AbstractLayout {
     private final VoltageLevelGraph graph;
     protected final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
-    protected AbstractVoltageLevelLayout(VoltageLevelGraph graph) {
+    protected AbstractVoltageLevelLayout(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
+        super(layoutParameters);
         this.graph = graph;
         this.infosNbSnakeLines = InfosNbSnakeLinesHorizontal.create(graph);
     }

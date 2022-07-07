@@ -28,6 +28,6 @@ public class CgmesSubstationLayoutFactory implements SubstationLayoutFactory {
 
     @Override
     public Layout create(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new CgmesSubstationLayout(graph, network);
+        return new CgmesSubstationLayout(graph, network, vLayoutFactory.getLayoutParameters());
     }
 }

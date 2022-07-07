@@ -10,6 +10,7 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PrepareForLayout;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 
@@ -62,9 +63,10 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
     @Test
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector(false, true, false).detectCells(g);
+        PrepareForLayout.run(g, layoutParameters, false, true);
+        new ImplicitCellDetector(false).detectCells(g);
         new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g, layoutParameters).run();
         assertEquals(toString("/testSerialBlocksInternCells.json"), toJson(g, "/testSerialBlocksInternCells.json"));
     }
 }

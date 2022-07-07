@@ -8,7 +8,6 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.layout.PositionVoltageLevelLayout;
 import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -172,19 +171,17 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
 
     @Test
     public void test1() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector().detectCells(g);
+        VoltageLevelGraph g = buildVLAndDetectCell(rawGraphBuilder, "vl");
         new BlockOrganizer(new PositionFromExtension(), true, true, false).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g, layoutParameters).run();
         assertEquals(toString("/TestCaseShuntArrangementNo.json"), toJson(g, "/TestCaseShuntArrangementNo.json"));
     }
 
     @Test
     public void test2() {
-        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector().detectCells(g);
+        VoltageLevelGraph g = buildVLAndDetectCell(rawGraphBuilder, "vl");
         new BlockOrganizer(new PositionFromExtension(), true, true, true).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayout(g, layoutParameters).run();
         assertEquals(toString("/TestCaseShuntArrangementYes.json"), toJson(g, "/TestCaseShuntArrangementYes.json"));
     }
 

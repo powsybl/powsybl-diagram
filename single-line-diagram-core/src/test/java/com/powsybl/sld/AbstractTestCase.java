@@ -7,11 +7,8 @@
 package com.powsybl.sld;
 
 import com.google.common.io.ByteStreams;
-import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
-import com.powsybl.sld.layout.LayoutParameters;
-import com.powsybl.sld.layout.SubstationLayoutFactory;
-import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
-import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.builders.GraphBuilder;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.graphs.*;
@@ -156,7 +153,7 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            voltageLevelLayoutFactory.create(graph).run(layoutParameters);
+            voltageLevelLayoutFactory.create(graph).run();
             SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
 
@@ -187,7 +184,7 @@ public abstract class AbstractTestCase {
         try (StringWriter writer = new StringWriter();
              StringWriter metadataWriter = new StringWriter()) {
 
-            sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
+            sLayoutFactory.create(graph, vlLayoutFactory).run();
             SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
                     labelProvider, styleProvider, "");
 
@@ -247,11 +244,18 @@ public abstract class AbstractTestCase {
         }
     }
 
+    protected VoltageLevelGraph buildVLAndDetectCell(GraphBuilder graphBuilder, String voltageLevelId){
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(voltageLevelId);
+        PrepareForLayout.run(g, layoutParameters);
+        new ImplicitCellDetector().detectCells(g);
+        return g;
+    }
+
     protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
-        new PositionVoltageLevelLayoutFactory().create(voltageLevelGraph).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory(layoutParameters).create(voltageLevelGraph).run();
     }
 
     protected void substationGraphLayout(SubstationGraph substationGraph) {
-        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new PositionVoltageLevelLayoutFactory(layoutParameters)).run();
     }
 }

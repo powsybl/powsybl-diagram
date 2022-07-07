@@ -45,14 +45,16 @@ public class LayoutToCgmesDlExporterTool implements Tool {
     private static final String DEFAULT_VOLTAGE_LAYOUT = "auto-without-extensions";
     private static final String DEFAULT_SUBSTATION_LAYOUT = "horizontal";
     private static final String DIAGRAM_NAME = "diagram-name";
+    private LayoutParameters layoutParameters = new LayoutParameters().setUseName(true);
 
     private final Map<String, VoltageLevelLayoutFactory> voltageLevelsLayouts
-            = ImmutableMap.of("auto-extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension()),
-            DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionByClustering()));
+            = ImmutableMap.of("auto-extensions", new PositionVoltageLevelLayoutFactory(new PositionFromExtension(), layoutParameters),
+            DEFAULT_VOLTAGE_LAYOUT, new PositionVoltageLevelLayoutFactory(new PositionByClustering(), layoutParameters));
 
     private final Map<String, SubstationLayoutFactory> substationsLayouts
             = ImmutableMap.of(DEFAULT_SUBSTATION_LAYOUT, new HorizontalSubstationLayoutFactory(),
             "vertical", new VerticalSubstationLayoutFactory());
+
 
     @Override
     public Command getCommand() {
@@ -120,7 +122,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
         Network network = Importers.loadNetwork(inputFile);
 
         context.getOutputStream().println("Generating layout for the network ...");
-        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters().setUseName(true));
+        LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory);
 
         String diagramName = toolOptions.getValue(DIAGRAM_NAME).orElse(null);
         lTranslator.convertLayout(network, diagramName);

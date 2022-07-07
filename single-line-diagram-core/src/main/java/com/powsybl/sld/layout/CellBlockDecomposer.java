@@ -202,7 +202,7 @@ final class CellBlockDecomposer {
             if (!alreadyTreated.contains(node2)) {
 
                 List<Node> primaryPattern = new ArrayList<>();
-                if (node2.isBusConnector()) {
+                if (node2.isCanConnectBus()) {
                     // Specific case of bus connection component
                     primaryPattern.add(firstNode);  // BUS|FICTITIOUS
                     primaryPattern.add(node2);      // BUS_CONNECTION

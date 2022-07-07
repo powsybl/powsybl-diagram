@@ -15,7 +15,7 @@ import java.util.Random;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class RandomVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
+public class RandomVoltageLevelLayoutFactory extends AbstractVoltageLevelLayoutFactory {
 
     private final double width;
 
@@ -23,13 +23,14 @@ public class RandomVoltageLevelLayoutFactory implements VoltageLevelLayoutFactor
 
     private final Random random = new Random();
 
-    public RandomVoltageLevelLayoutFactory(double width, double height) {
+    public RandomVoltageLevelLayoutFactory(double width, double height, LayoutParameters layoutParameters) {
+        super(layoutParameters);
         this.width = width;
         this.height = height;
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
-        return new RandomVoltageLevelLayout(graph, width, height, random);
+        return new RandomVoltageLevelLayout(graph, width, height, random, getLayoutParameters());
     }
 }

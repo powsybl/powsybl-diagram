@@ -26,15 +26,15 @@ public class RandomVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private final Random random;
 
-    public RandomVoltageLevelLayout(VoltageLevelGraph graph, double width, double height, Random random) {
-        super(graph);
+    public RandomVoltageLevelLayout(VoltageLevelGraph graph, double width, double height, Random random, LayoutParameters layoutParameters) {
+        super(graph, layoutParameters);
         this.width = width;
         this.height = height;
         this.random = Objects.requireNonNull(random);
     }
 
     @Override
-    public void run(LayoutParameters layoutParam) {
+    public void run() {
         for (Node node : getGraph().getNodes()) {
             node.setX(random.nextDouble() * width);
             node.setY(random.nextDouble() * height);

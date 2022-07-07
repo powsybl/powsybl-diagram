@@ -28,7 +28,7 @@ public class CgmesZoneLayoutFactory implements ZoneLayoutFactory {
 
     @Override
     public Layout create(ZoneGraph graph, SubstationLayoutFactory sLayoutFactory, VoltageLevelLayoutFactory vLayoutFactory) {
-        return new CgmesZoneLayout(graph, network);
+        return new CgmesZoneLayout(graph, network, vLayoutFactory.getLayoutParameters());
     }
 
 }
