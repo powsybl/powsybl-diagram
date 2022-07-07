@@ -59,7 +59,7 @@ public class GraphMetadataTest {
     public void test() throws IOException {
         GraphMetadata metadata = new GraphMetadata(new LayoutParameters());
         metadata.addComponent(new Component(BREAKER, ImmutableList.of(new AnchorPoint(5, 4, AnchorOrientation.NONE)),
-            new ComponentSize(10, 12), "breaker", Collections.emptyMap(), false, null));
+            new ComponentSize(10, 12), "breaker", Collections.emptyMap(), null));
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
 

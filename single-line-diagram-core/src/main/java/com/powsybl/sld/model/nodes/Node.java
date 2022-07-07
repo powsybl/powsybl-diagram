@@ -59,7 +59,7 @@ public class Node {
 
     private Orientation orientation;
 
-    private boolean isBusConnector = false;
+    private boolean canConnectBus = false;
 
     /**
      * Constructor
@@ -185,12 +185,12 @@ public class Node {
     }
 
     //TODO: add isBusConnector in writeJsonContent
-    public boolean isBusConnector() {
-        return isBusConnector;
+    public boolean isCanConnectBus() {
+        return canConnectBus;
     }
 
-    public void setBusConnector(boolean isBusConnector) {
-        this.isBusConnector = isBusConnector;
+    public void setCanConnectBus(boolean isBusConnector) {
+        this.canConnectBus = isBusConnector;
     }
 
     public Orientation getOrientation() {

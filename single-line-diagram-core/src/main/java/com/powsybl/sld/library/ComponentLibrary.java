@@ -38,8 +38,6 @@ public interface ComponentLibrary {
 
     ComponentSize getSize(String type);
 
-    boolean canConnectBus(String type);
-
     Map<Orientation, Component.Transformation> getTransformations(String type);
 
     Map<String, ComponentSize> getComponentsSize();

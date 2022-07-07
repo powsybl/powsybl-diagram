@@ -133,13 +133,6 @@ public class ResourcesComponentLibrary implements ComponentLibrary {
     }
 
     @Override
-    public boolean canConnectBus(String type) {
-        Objects.requireNonNull(type);
-        Component component = components.get(type);
-        return component != null && component.canConnectBus();
-    }
-
-    @Override
     public Map<String, ComponentSize> getComponentsSize() {
         Map<String, ComponentSize> res = new HashMap<>();
         components.forEach((key, value) -> res.put(key, value.getSize()));

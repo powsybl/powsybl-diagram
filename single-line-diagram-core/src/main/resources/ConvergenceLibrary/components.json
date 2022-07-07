@@ -216,7 +216,6 @@
       "width" : 8.0,
       "height" : 8.0
     },
-    "canConnectBus" : "TRUE",
     "subComponents" : [ {
       "name" : "CLOSED",
       "fileName" : "disconnector-closed.svg",
@@ -239,7 +238,6 @@
       "height" : 8.0
     },
     "transformations" : {},
-    "canConnectBus" : "TRUE",
     "subComponents" : [ {
       "name" : "BUS_CONNECTION",
       "fileName" : "bus_connection.svg"
