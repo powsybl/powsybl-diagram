@@ -185,12 +185,12 @@ public class Node {
     }
 
     //TODO: add isBusConnector in writeJsonContent
-    public boolean isCanConnectBus() {
+    public boolean canConnectBus() {
         return canConnectBus;
     }
 
-    public void setCanConnectBus(boolean isBusConnector) {
-        this.canConnectBus = isBusConnector;
+    public void setCanConnectBus(boolean canConnectBus) {
+        this.canConnectBus = canConnectBus;
     }
 
     public Orientation getOrientation() {

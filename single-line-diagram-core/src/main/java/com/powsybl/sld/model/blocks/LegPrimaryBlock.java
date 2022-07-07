@@ -10,7 +10,6 @@ package com.powsybl.sld.model.blocks;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,8 +47,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
     }
 
     private boolean checkMiddleNode(Node node) {
-        return node.isCanConnectBus()
-            || (node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR);
+        return node.canConnectBus();
     }
 
     public BusNode getBusNode() {

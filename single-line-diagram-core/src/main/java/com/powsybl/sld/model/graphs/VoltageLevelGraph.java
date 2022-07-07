@@ -310,7 +310,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                 //  - 1 bus connection
                 //  - 2 internal nodes to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
                 addTripleNode(feederNode, nodesToAdd);
-            } else if (isConnectedToBusDisconnector(feederNode)) {
+            } else if (isConnectedToBusBusConnectionCapableNode(feederNode)) {
                 // Feeders linked directly to a bus disconnector need 2 internal nodes to be properly displayed, in order
                 // to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
                 insertTwoInternalNodes(feederNode, nodesToAdd);
@@ -332,11 +332,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return node.getAdjacentNodes().stream().anyMatch(BusNode.class::isInstance);
     }
 
-    private boolean isConnectedToBusDisconnector(Node node) {
+    private boolean isConnectedToBusBusConnectionCapableNode(Node node) {
         return node.getAdjacentNodes().stream()
-                .filter(SwitchNode.class::isInstance)
-                .map(SwitchNode.class::cast)
-                .filter(sn -> sn.getKind() == SwitchNode.SwitchKind.DISCONNECTOR)
+                .filter(Node::canConnectBus)
                 .anyMatch(sn -> sn.getAdjacentNodes().stream().anyMatch(n -> n.getType() == Node.NodeType.BUS));
     }
 
@@ -409,7 +407,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void extendNodeConnectedToBus() {
         getNodeBuses().forEach(nodeBus ->
                 nodeBus.getAdjacentNodes().stream()
-                        .filter(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR || node instanceof Middle3WTNode)
+                        .filter(node -> !node.canConnectBus())
                         .forEach(nodeSwitch -> addDoubleNode(nodeBus, nodeSwitch, "")));
     }
 

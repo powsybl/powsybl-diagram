@@ -1472,6 +1472,7 @@
     "feederInfosIntraMargin" : 10.0,
     "busInfoMargin" : 0.0,
     "busbarsAlignment" : "FIRST",
-    "feederInfoPrecision" : 0
+    "feederInfoPrecision" : 0,
+    "canConnectBusComponents" : [ "DISCONNECTOR", "BUS_CONNECTION" ]
   }
 }
