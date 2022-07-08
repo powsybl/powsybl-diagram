@@ -128,7 +128,7 @@ public class Subsection {
         Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
         graph.getInternCellStream()
-                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
                 .forEach(c ->
                         subsections.stream()
                                 .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))

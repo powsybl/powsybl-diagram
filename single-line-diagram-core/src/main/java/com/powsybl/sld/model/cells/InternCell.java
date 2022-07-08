@@ -82,8 +82,21 @@ public class InternCell extends AbstractBusCell {
             assignLeg(serialRootBlock, candidateLegs.get(1));
             body = serialRootBlock.extractBody(new ArrayList<>(legs.values()));
             body.setOrientation(Orientation.RIGHT);
+
+            // if one bus on each side, the intern cell is either flat or vertical
+            // if more than one bus on one side, the intern cell is
+            //  - either crossover (two sections): detected later in Subsection::identifyCrossOverAndCheckOrientation
+            //  - or vertical (one section): detected later in Subsection::identifyVerticalInternCells
+            if (candidateLegs.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
+                shape = Shape.MAYBEFLAT;
+            }
         } else {
-            if (candidateLegs.size() != 1) {
+            if (candidateLegs.size() == 1) {
+                shape = Shape.UNILEG;
+                LegBlock leg = candidateLegs.get(0);
+                legs.put(Side.UNDEFINED, leg);
+                leg.setOrientation(Orientation.UP);
+            } else {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
@@ -94,14 +107,6 @@ public class InternCell extends AbstractBusCell {
                     leg.setOrientation(Orientation.UP);
                 }
             }
-        }
-        if (candidateLegs.size() == 1) {
-            shape = Shape.UNILEG;
-            LegBlock leg = candidateLegs.get(0);
-            legs.put(Side.UNDEFINED, leg);
-            leg.setOrientation(Orientation.UP);
-        } else if (candidateLegs.size() == 2 && getBusNodes().size() == 2) {
-            shape = Shape.MAYBEFLAT;
         }
     }
 
