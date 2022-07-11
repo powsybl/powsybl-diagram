@@ -9,7 +9,6 @@ package com.powsybl.sld.model.blocks;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
@@ -95,8 +94,9 @@ public class SerialBlock extends AbstractComposedBlock {
 
     public boolean addSubBlock(VoltageLevelGraph vlGraph, Block block) {
         for (Extremity myExtremity : Extremity.values()) {
-            if (getExtremityNode(myExtremity) instanceof FictitiousNode) {
-                FictitiousNode commonNode = (FictitiousNode) getExtremityNode(myExtremity);
+            //TODO: why fictitious attribute is necessary in that case ?
+            if (getExtremityNode(myExtremity).isFictitious()) {
+                Node commonNode =getExtremityNode(myExtremity);
                 for (Extremity itsExtremity : Extremity.values()) {
                     if (commonNode == block.getExtremityNode(itsExtremity)
                             && commonNode.getCardinality(vlGraph) == getCardinality(commonNode) + block.getCardinality(commonNode)

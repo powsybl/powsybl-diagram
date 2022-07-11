@@ -14,11 +14,11 @@ import java.io.IOException;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class MiddleTwtNode extends FictitiousNode {
+public class MiddleTwtNode extends Node {
     protected final VoltageLevelInfos[] voltageLevelInfosLeg;
 
     protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
-        super(id, name, id, componentType);
+        super(NodeType.INTERNAL, id, name, id, componentType, true);
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
     }
 

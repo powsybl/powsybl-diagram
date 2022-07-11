@@ -281,7 +281,7 @@ public class Subsection {
                         .filter(n -> n.getType() == Node.NodeType.FEEDER)
                         .map(FeederNode.class::cast).collect(Collectors.toList());
                 if (feeders.size() > 1) {
-                    FictitiousNode shNode = sc.getSideShuntNode(side);
+                    Node shNode = sc.getSideShuntNode(side);
                     Set<Node> outsideNodes = new HashSet<>();
                     outsideNodes.add(shNode);
                     List<FeederNode> shuntSideFeederNodes = shNode.getAdjacentNodes().stream().flatMap(node -> {

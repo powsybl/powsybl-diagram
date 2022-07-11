@@ -60,11 +60,11 @@ public class VoltageLevelRawBuilder {
         voltageLevelGraph.addEdge(node1, node2);
     }
 
-    public FictitiousNode createFictitiousNode(int id) {
+    public InternalNode createInternalNode(int id) {
         return NodeFactory.createInternalNode(voltageLevelGraph, id);
     }
 
-    public FictitiousNode createFictitiousNode(String id) {
+    public InternalNode createInternalNode(String id) {
         return NodeFactory.createInternalNode(voltageLevelGraph, id);
     }
 

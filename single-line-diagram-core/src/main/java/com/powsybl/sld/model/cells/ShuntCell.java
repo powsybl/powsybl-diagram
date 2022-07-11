@@ -13,7 +13,6 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
@@ -88,11 +87,11 @@ public final class ShuntCell extends AbstractCell {
         return sideCells.get(side);
     }
 
-    public FictitiousNode getSideShuntNode(Side side) {
+    public Node getSideShuntNode(Side side) {
         if (side == Side.UNDEFINED) {
             return null;
         }
-        return (FictitiousNode) (side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1));
+        return side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1);
     }
 
     public Position getSidePosition(Side side) {

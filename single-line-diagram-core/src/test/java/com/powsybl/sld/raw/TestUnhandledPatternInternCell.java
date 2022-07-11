@@ -11,7 +11,7 @@ import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.InternalNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
         SwitchNode d3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d3", false, false);
         SwitchNode b3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
-        FictitiousNode f = vlBuilder.createFictitiousNode("F");
+        InternalNode f = vlBuilder.createInternalNode("F");
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(b1, d1);
         vlBuilder.connectNode(b1, f);

@@ -15,12 +15,12 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class InternalNode extends FictitiousNode {
+public class InternalNode extends Node {
 
     private static final String ID_PREFIX = "INTERNAL_";
 
     private InternalNode(String id, String equipmentId, String voltageLevelId) {
-        super(prefixId(id, voltageLevelId), null, equipmentId, NODE);
+        super(NodeType.INTERNAL, prefixId(id, voltageLevelId), null, equipmentId, NODE, true);
     }
 
     public InternalNode(String id, String voltageLevelId) {
