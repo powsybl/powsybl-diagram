@@ -7,9 +7,11 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Direction;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -193,6 +195,10 @@ public class Node {
         this.canConnectBus = canConnectBus;
     }
 
+    public boolean isConnectedToBus () {
+        return canConnectBus && getAdjacentNodes().stream().map(Node::getType).anyMatch(t ->t ==NodeType.BUS);
+    }
+
     public Orientation getOrientation() {
         return orientation;
     }
@@ -221,6 +227,16 @@ public class Node {
     public boolean similarToAFeederNode(Node n) {
         return (n instanceof FeederNode)
                 || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
+    }
+
+    public int getCardinality(VoltageLevelGraph vlGraph) {
+        List<Node> adjacentNodes = getAdjacentNodes();
+        int cardinality = adjacentNodes.size();
+        if (getType() == NodeType.SHUNT) {
+            long nbAdjacentShuntCells = adjacentNodes.stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() == Cell.CellType.SHUNT).orElse(true)).count();
+            cardinality -= nbAdjacentShuntCells;
+        }
+        return cardinality;
     }
 
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {

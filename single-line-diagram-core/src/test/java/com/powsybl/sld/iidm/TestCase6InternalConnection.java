@@ -54,6 +54,7 @@ public class TestCase6InternalConnection extends AbstractTestCaseIidm {
 
         // Run layout
         voltageLevelGraphLayout(g);
+        toSVG(g, "/TestCase6InternalConnection.svg");
 
         // write Json and compare to reference
         assertEquals(toString("/TestCase6InternalConnection.json"), toJson(g, "/TestCase6InternalConnection.json"));

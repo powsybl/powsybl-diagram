@@ -13,7 +13,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 124.72727272727272
+    "y" : 124.72727272727273
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_11",
@@ -21,7 +21,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 112.18181818181817
+    "y" : 112.18181818181819
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_12",
@@ -161,7 +161,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 149.81818181818184
+    "y" : 149.8181818181818
   }, {
     "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_9",
@@ -741,226 +741,16 @@
           "h" : 0,
           "v" : 0,
           "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 193.72727272727272,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_4", "b2", "INTERNAL_vl_5" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 4,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 181.1818181818182,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_5", "b3", "INTERNAL_vl_6" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 8,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 168.63636363636363,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_6", "b4", "INTERNAL_vl_7" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 12,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 156.0909090909091,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_7", "b5", "INTERNAL_vl_8" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 16,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 143.54545454545456,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_8", "b6", "INTERNAL_vl_9" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 20,
-          "hSpan" : 2,
-          "vSpan" : 4,
+          "vSpan" : 44,
           "orientation" : "UP"
         },
         "coord" : {
           "x" : 125.0,
           "y" : 131.0,
           "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
+          "ySpan" : 138.0
         },
-        "nodes" : [ "INTERNAL_vl_9", "b7", "INTERNAL_vl_10" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 24,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 118.45454545454545,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_10", "b8", "INTERNAL_vl_11" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 28,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 105.9090909090909,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_11", "b9", "INTERNAL_vl_12" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 32,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 93.36363636363637,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_12", "b10", "INTERNAL_vl_13" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 36,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 80.81818181818183,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_13", "b11", "INTERNAL_vl_14" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 40,
-          "hSpan" : 2,
-          "vSpan" : 4,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 68.27272727272728,
-          "xSpan" : 50.0,
-          "ySpan" : 12.545454545454545
-        },
-        "nodes" : [ "INTERNAL_vl_14", "b12", "INTERNAL_vl_load1" ]
+        "nodes" : [ "INTERNAL_vl_4", "b2", "INTERNAL_vl_5", "b3", "INTERNAL_vl_6", "b4", "INTERNAL_vl_7", "b5", "INTERNAL_vl_8", "b6", "INTERNAL_vl_9", "b7", "INTERNAL_vl_10", "b8", "INTERNAL_vl_11", "b9", "INTERNAL_vl_12", "b10", "INTERNAL_vl_13", "b11", "INTERNAL_vl_14", "b12", "INTERNAL_vl_load1" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {

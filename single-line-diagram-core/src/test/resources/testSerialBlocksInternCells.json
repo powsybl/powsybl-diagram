@@ -8,22 +8,6 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_f1",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 150.0,
-    "y" : 280.0,
-    "orientation" : "RIGHT"
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_f2",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 75.0,
-    "y" : 240.0,
-    "orientation" : "RIGHT"
-  }, {
-    "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_sd11",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -59,7 +43,7 @@
     "equipmentId" : "b11",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 125.0,
+    "x" : 133.33333333333334,
     "y" : 280.0,
     "orientation" : "RIGHT",
     "open" : false,
@@ -71,7 +55,7 @@
     "equipmentId" : "b12",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 175.0,
+    "x" : 166.66666666666669,
     "y" : 280.0,
     "orientation" : "RIGHT",
     "open" : false,
@@ -83,7 +67,7 @@
     "equipmentId" : "b21",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 50.0,
+    "x" : 58.333333333333336,
     "y" : 240.0,
     "orientation" : "RIGHT",
     "open" : false,
@@ -95,7 +79,7 @@
     "equipmentId" : "b22",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 100.0,
+    "x" : 91.66666666666667,
     "y" : 240.0,
     "orientation" : "RIGHT",
     "open" : false,
@@ -272,40 +256,19 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 2,
-          "v" : 0,
-          "hSpan" : 2,
+          "h" : 4,
+          "v" : 1,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 175.0,
+          "x" : 150.0,
           "y" : 280.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_f1", "b12", "INTERNAL_vl_sd12" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 280.0,
-          "xSpan" : 50.0,
-          "ySpan" : 40.0
-        },
-        "nodes" : [ "INTERNAL_vl_sd11", "b11", "INTERNAL_vl_f1" ]
+        "nodes" : [ "INTERNAL_vl_sd11", "b11", "b12", "INTERNAL_vl_sd12" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -381,40 +344,19 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 2,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 240.0,
-          "xSpan" : 50.0,
-          "ySpan" : 40.0
-        },
-        "nodes" : [ "INTERNAL_vl_f2", "b22", "INTERNAL_vl_sd22" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 2,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 50.0,
           "y" : 240.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_sd21", "b21", "INTERNAL_vl_f2" ]
+        "nodes" : [ "INTERNAL_vl_sd21", "b21", "b22", "INTERNAL_vl_sd22" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -444,10 +386,7 @@
     "node2" : "sd11"
   }, {
     "node1" : "b11",
-    "node2" : "INTERNAL_vl_f1"
-  }, {
-    "node1" : "b12",
-    "node2" : "INTERNAL_vl_f1"
+    "node2" : "b12"
   }, {
     "node1" : "bbs12",
     "node2" : "sd12"
@@ -456,10 +395,7 @@
     "node2" : "sd21"
   }, {
     "node1" : "b21",
-    "node2" : "INTERNAL_vl_f2"
-  }, {
-    "node1" : "b22",
-    "node2" : "INTERNAL_vl_f2"
+    "node2" : "b22"
   }, {
     "node1" : "bbs22",
     "node2" : "sd22"

@@ -11,15 +11,11 @@ import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -45,17 +41,23 @@ final class CellBlockDecomposer {
      * list blocks connected to busbar
      */
     static void determineComplexCell(VoltageLevelGraph vlGraph, BusCell busCell, boolean exceptionIfPatternNotHandled) {
-        List<Block> blocks = createPrimaryBlock(busCell);
+        List<Block> blocks = createPrimaryBlocks(vlGraph, busCell);
         mergeBlocks(vlGraph, busCell, blocks, exceptionIfPatternNotHandled);
     }
 
-    private static List<Block> createPrimaryBlock(BusCell busCell) {
+    private static List<Block> createPrimaryBlocks(VoltageLevelGraph voltageLevelGraph, BusCell busCell) {
         Set<Node> alreadyTreated = new HashSet<>();
-        List<Block> blocks = new ArrayList<>();
         Node currentNode = busCell.getBusNodes().get(0);
 
         // Search all primary blocks
-        rElaboratePrimaryBlocks(busCell, currentNode, alreadyTreated, blocks);
+        List<Block> blocks = new ArrayList<>();
+        Map<Node, Integer> nodeRemainingSlots = new HashMap<>();
+        busCell.getNodes().stream()
+                .filter(n -> n.getType()!= Node.NodeType.BUS && n.getType()!= Node.NodeType.FEEDER && !n.isConnectedToBus())
+                .forEach(n -> nodeRemainingSlots.put(n, n.getCardinality(voltageLevelGraph)));
+        elaborateLegPrimaryBlock(busCell, nodeRemainingSlots, blocks);
+        elaborateFeederPrimaryBlock(busCell,nodeRemainingSlots,blocks);
+        rElaborateBodyPrimaryBlocks(busCell, blocks.get(0).getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
 
         return blocks;
     }
@@ -182,6 +184,38 @@ final class CellBlockDecomposer {
         }
     }
 
+    private static void addNodeInBlockNodes(Map<Node, Integer> nodeRemainingSlots, List<Node> nodes, Node node, int weight) {
+        nodes.add(node);
+        nodeRemainingSlots.computeIfPresent(node, (n, remainingSlots) -> remainingSlots - weight);
+    }
+    private static void elaborateLegPrimaryBlock (BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
+        busCell.getBusNodes().forEach(busNode -> {
+            busNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(busConnection -> {
+                List<Node> legPrimaryBlockNodes = new ArrayList<>();
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
+                blocks.add(LegPrimaryBlock.createPrimaryBlock(legPrimaryBlockNodes));
+            });
+        });
+    }
+
+    private static void elaborateFeederPrimaryBlock (BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
+        busCell.getNodes().stream().filter(n -> n.getType() == Node.NodeType.FEEDER).forEach(feederNode -> {
+            feederNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(feederConnection -> {
+                List<Node> feederPrimaryBlockNodes = new ArrayList<>();
+                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
+                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
+                blocks.add(FeederPrimaryBlock.createPrimaryBlock(feederPrimaryBlockNodes));
+            });
+        });
+    }
+
+    private static boolean checkRemainingSlots(Map<Node, Integer> nodeRemainingSlots, Node node, int greaterOrEqVal) {
+        return nodeRemainingSlots.containsKey(node) && nodeRemainingSlots.get(node) >= greaterOrEqVal;
+    }
+
+
     /**
      * Search for primary blocks. A {@link PrimaryBlock} is identified when the the following pattern is detected:
      * BUS|FICTITIOUS|FEEDER|SHUNT - n * SWITCH - BUS|FICTITIOUS|FEEDER|SHUNT (with n >= 0).
@@ -191,51 +225,21 @@ final class CellBlockDecomposer {
      * feeder): FICTITIOUS - FEEDER.
      * Otherwise it is instantiated as BodyPrimaryBlock.
      * @param busCell         the busCell on which we elaborate primary blocks
-     * @param firstNode       first node for the primary block (non-switch node)
+     * @param entryNode       first node for the primary block (non-switch node)
      * @param alreadyTreated  set of already treated nodes (we always check the second element of the primary pattern)
      * @param blocks          the list of elaborated primary blocks
      */
-    private static void rElaboratePrimaryBlocks(BusCell busCell, Node firstNode,
-                                                Set<Node> alreadyTreated, List<Block> blocks) {
+    private static void rElaborateBodyPrimaryBlocks(BusCell busCell, Node entryNode,
+                                                    Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
 
-        firstNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(node2 -> {
-            if (!alreadyTreated.contains(node2)) {
-
-                List<Node> primaryPattern = new ArrayList<>();
-                if (node2.canConnectBus()) {
-                    // Specific case of bus connection component
-                    primaryPattern.add(firstNode);  // BUS|FICTITIOUS
-                    primaryPattern.add(node2);      // BUS_CONNECTION
-                    primaryPattern.add(getNextNode(node2, firstNode));  // FICTITIOUS|BUS
-                } else {
-
-                    // Piling up switches starting from node2
-                    List<SwitchNode> switches = new ArrayList<>();
-                    Node firstNonSwitchNode = pileUpSwitches(firstNode, node2, switches);
-
-                    // The generic nodes pattern for a PrimaryBlock
-                    primaryPattern.add(firstNode);   // BUS|FICTITIOUS|FEEDER|SHUNT
-                    primaryPattern.addAll(switches); // n * SWITCH (with n >= 0)
-                    primaryPattern.add(firstNonSwitchNode);    // BUS|FICTITIOUS|FEEDER|SHUNT
-                }
-
-                // Create a PrimaryBlock from that pattern
-                PrimaryBlock primaryBlock = AbstractPrimaryBlock.createPrimaryBlock(primaryPattern);
-                blocks.add(primaryBlock);
-
-                // Update already treated nodes
-                // We also consider firstNode as alreadyTreated: we do not want to come back to it as the search started from it
-                alreadyTreated.addAll(primaryPattern);
-
-                // Continue to search for other blocks
+        if (checkRemainingSlots(nodeRemainingSlots, entryNode, 1)) {
+            entryNode.getAdjacentNodes().stream().filter(node -> busCell.getNodes().contains(node) && checkRemainingSlots(nodeRemainingSlots, node, 1)).forEach(node -> {
+                List<Node> primaryPattern = pileUp2adjNodes(entryNode, node, nodeRemainingSlots);
+                blocks.add(BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern));
                 Node lastNode = primaryPattern.get(primaryPattern.size() - 1);
-                if (lastNode.getType() != Node.NodeType.BUS) {
-                    // If we reach a busbar, we know we do not need to go further:
-                    // we're either in another BusCell or back to the busbar we started the search with
-                    rElaboratePrimaryBlocks(busCell, lastNode, alreadyTreated, blocks);
-                }
-            }
-        });
+                rElaborateBodyPrimaryBlocks(busCell, lastNode, nodeRemainingSlots, blocks);
+            });
+        }
     }
 
     /**
@@ -243,19 +247,22 @@ final class CellBlockDecomposer {
      * when encountering a node which is not a switch and returning that node.
      * @param parentNode Parent node for direction
      * @param node Node on which to start
-     * @param switches The list where to add encountered switches
-     * @return the first non-switch node encountered
+     * @param alreadyTreated list of already treated nodes
+     * @return list of nodes that constitute a BodyPrimaryBlockPattern
      */
-    private static Node pileUpSwitches(Node parentNode, Node node, List<SwitchNode> switches) {
-        Node currentNode = node;
+    private static List<Node> pileUp2adjNodes(Node parentNode, Node node, Map<Node, Integer> nodeRemainingSlots) {
+        List<Node> nodes = new ArrayList<>();
+        addNodeInBlockNodes(nodeRemainingSlots, nodes, parentNode, 1);
         Node parentCurrentNode = parentNode;
-        while (currentNode instanceof SwitchNode) {
-            switches.add((SwitchNode) currentNode);
+        Node currentNode = node;
+        while (currentNode.getAdjacentNodes().size() == 2 && checkRemainingSlots(nodeRemainingSlots, currentNode, 2)) {
+            addNodeInBlockNodes(nodeRemainingSlots, nodes, currentNode, 2);
             Node nextNode = getNextNode(currentNode, parentCurrentNode);
             parentCurrentNode = currentNode;
             currentNode = nextNode;
         }
-        return currentNode;
+        addNodeInBlockNodes(nodeRemainingSlots, nodes, currentNode, 1);
+        return nodes;
     }
 
     private static Node getNextNode(Node currentNode, Node parentCurrentNode) {
