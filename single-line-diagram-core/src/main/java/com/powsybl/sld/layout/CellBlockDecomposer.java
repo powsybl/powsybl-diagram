@@ -195,7 +195,7 @@ final class CellBlockDecomposer {
                 addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
                 addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
                 addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
-                blocks.add(LegPrimaryBlock.createPrimaryBlock(legPrimaryBlockNodes));
+                blocks.add(LegPrimaryBlock.create(legPrimaryBlockNodes));
             });
         });
     }
@@ -206,7 +206,7 @@ final class CellBlockDecomposer {
                 List<Node> feederPrimaryBlockNodes = new ArrayList<>();
                 addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
                 addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
-                blocks.add(FeederPrimaryBlock.createPrimaryBlock(feederPrimaryBlockNodes));
+                blocks.add(FeederPrimaryBlock.create(feederPrimaryBlockNodes));
             });
         });
     }
@@ -226,7 +226,7 @@ final class CellBlockDecomposer {
      * Otherwise it is instantiated as BodyPrimaryBlock.
      * @param busCell         the busCell on which we elaborate primary blocks
      * @param entryNode       first node for the primary block (non-switch node)
-     * @param alreadyTreated  set of already treated nodes (we always check the second element of the primary pattern)
+     * @param nodeRemainingSlots map of the nodes to organize with their number of available belongings to PrimaryBlocks
      * @param blocks          the list of elaborated primary blocks
      */
     private static void rElaborateBodyPrimaryBlocks(BusCell busCell, Node entryNode,
@@ -247,7 +247,7 @@ final class CellBlockDecomposer {
      * when encountering a node which is not a switch and returning that node.
      * @param parentNode Parent node for direction
      * @param node Node on which to start
-     * @param alreadyTreated list of already treated nodes
+     * @param nodeRemainingSlots map of the nodes to organize with their number of available belongings to PrimaryBlocks
      * @return list of nodes that constitute a BodyPrimaryBlockPattern
      */
     private static List<Node> pileUp2adjNodes(Node parentNode, Node node, Map<Node, Integer> nodeRemainingSlots) {
@@ -256,7 +256,7 @@ final class CellBlockDecomposer {
         Node parentCurrentNode = parentNode;
         Node currentNode = node;
         while (currentNode.getAdjacentNodes().size() == 2 && checkRemainingSlots(nodeRemainingSlots, currentNode, 2)) {
-            addNodeInBlockNodes(nodeRemainingSlots, nodes, currentNode, 2);
+            addNodeInBlockNodes(nodeRemainingSlots, nodes, currentNode, 2); // the node is not an extremity of the PrimaryBlock -> 2 slots are taken
             Node nextNode = getNextNode(currentNode, parentCurrentNode);
             parentCurrentNode = currentNode;
             currentNode = nextNode;

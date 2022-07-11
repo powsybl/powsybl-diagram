@@ -11,6 +11,7 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
+import java.beans.FeatureDescriptor;
 import java.util.List;
 
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
@@ -24,7 +25,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
  */
 public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
-    public FeederPrimaryBlock(List<Node> nodes) {
+    private FeederPrimaryBlock(List<Node> nodes) {
         super(FEEDERPRIMARY, nodes);
         if (getExtremityNode(START).getType() == FEEDER) {
             super.reverseBlock();
@@ -32,6 +33,10 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
         if (!checkConsistency()) {
             throw new PowsyblException("FeederPrimaryBlock not consistent");
         }
+    }
+
+    public static FeederPrimaryBlock create (List<Node> nodes) {
+        return new FeederPrimaryBlock(nodes);
     }
 
     private boolean checkConsistency() {

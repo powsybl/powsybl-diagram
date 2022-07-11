@@ -48,18 +48,6 @@ public abstract class AbstractPrimaryBlock extends AbstractBlock implements Prim
         setCardinality(Extremity.END, 1);
     }
 
-    public static PrimaryBlock createPrimaryBlock(List<Node> primaryPattern) {
-        Node.NodeType firstNodeType = primaryPattern.get(0).getType();
-        Node.NodeType lastNodeType = primaryPattern.get(primaryPattern.size() - 1).getType();
-        if (firstNodeType == Node.NodeType.BUS || lastNodeType == Node.NodeType.BUS) {
-            return new LegPrimaryBlock(primaryPattern);
-        }
-        if (firstNodeType == Node.NodeType.FEEDER || lastNodeType == Node.NodeType.FEEDER) {
-            return new FeederPrimaryBlock(primaryPattern);
-        }
-        return BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern);
-    }
-
     @Override
     public boolean isEmbeddingNodeType(Node.NodeType type) {
         return nodes.stream().anyMatch(n -> n.getType() == type);

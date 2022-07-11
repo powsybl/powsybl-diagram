@@ -29,7 +29,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
-    public LegPrimaryBlock(List<Node> nodes) {
+    private LegPrimaryBlock(List<Node> nodes) {
         super(LEGPRIMARY, nodes);
         if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
@@ -37,6 +37,10 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         if (!checkConsistency()) {
             throw new PowsyblException("LegPrimaryBlock not consistent");
         }
+    }
+
+    public static LegPrimaryBlock create (List<Node> nodes) {
+        return new LegPrimaryBlock(nodes);
     }
 
     private boolean checkConsistency() {
