@@ -7,7 +7,7 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -15,7 +15,7 @@
     "y" : 124.66666666666667,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -23,7 +23,7 @@
     "y" : 124.66666666666667,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 5.1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -31,7 +31,7 @@
     "y" : 250.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 5.2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -39,7 +39,7 @@
     "y" : 250.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 8.1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -47,7 +47,7 @@
     "y" : 174.8,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 8.2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -55,28 +55,28 @@
     "y" : 174.8,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_commonFG",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 450.0,
     "y" : 174.8
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dA",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fB",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -90,21 +90,21 @@
     "x" : 225.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fD",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fE",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fF",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -146,70 +146,70 @@
     "x" : 325.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_gen1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_gen2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 325.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadA",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 62.00000000000001
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadB",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 62.00000000000001
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadC",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadD",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadE",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 375.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadF",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 425.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_loadG",
     "componentType" : "NODE",
     "fictitious" : true,

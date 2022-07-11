@@ -7,14 +7,14 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_d1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_d2",
     "componentType" : "NODE",
     "fictitious" : true,

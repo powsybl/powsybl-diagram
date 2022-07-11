@@ -484,7 +484,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
+            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.INTERNAL) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
@@ -494,7 +494,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
-                .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
+                .filter(n -> n.getType() == Node.NodeType.INTERNAL && n.getAdjacentEdges().size() == 1)
                 .forEach(n -> substituteNode(n, NodeFactory.createFictitiousFeederNode(this, n.getId(), Orientation.UP)));
     }
 

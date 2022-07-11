@@ -7,7 +7,7 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_2",
     "equipmentId" : "2",
     "componentType" : "NODE",
@@ -15,7 +15,7 @@
     "x" : 25.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,

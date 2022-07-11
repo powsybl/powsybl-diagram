@@ -595,7 +595,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return;
         }
         FictitiousNode biggestFn = nodes.stream()
-                .filter(node -> node.getType() == Node.NodeType.FICTITIOUS)
+                .filter(node -> node.getType() == Node.NodeType.INTERNAL)
                 .sorted(Comparator.<Node>comparingInt(node -> node.getAdjacentEdges().size())
                         .reversed()
                         .thenComparing(Node::getId)) // for stable fictitious node selection, also sort on id

@@ -31,7 +31,7 @@ public class Node {
     public enum NodeType {
         BUS,
         FEEDER,
-        FICTITIOUS,
+        INTERNAL,
         SWITCH,
         SHUNT,
         OTHER
@@ -186,17 +186,12 @@ public class Node {
         this.direction = direction;
     }
 
-    //TODO: add isBusConnector in writeJsonContent
     public boolean canConnectBus() {
         return canConnectBus;
     }
 
     public void setCanConnectBus(boolean canConnectBus) {
         this.canConnectBus = canConnectBus;
-    }
-
-    public boolean isConnectedToBus () {
-        return canConnectBus && getAdjacentNodes().stream().map(Node::getType).anyMatch(t ->t ==NodeType.BUS);
     }
 
     public Orientation getOrientation() {
@@ -226,7 +221,7 @@ public class Node {
 
     public boolean similarToAFeederNode(Node n) {
         return (n instanceof FeederNode)
-                || (n.getType() == NodeType.FICTITIOUS && n.adjacentEdges.size() == 1);
+                || (n.getType() == NodeType.INTERNAL && n.adjacentEdges.size() == 1);
     }
 
     public int getCardinality(VoltageLevelGraph vlGraph) {

@@ -7,21 +7,21 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dF1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_db11",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 220.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_db12",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -29,14 +29,14 @@
     "y" : 345.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_db31",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
     "y" : 220.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_db32",
     "componentType" : "NODE",
     "fictitious" : true,

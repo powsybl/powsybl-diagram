@@ -15,7 +15,7 @@
     "x" : 25.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -23,7 +23,7 @@
     "y" : 156.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -31,7 +31,7 @@
     "y" : 156.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_da",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -45,7 +45,7 @@
     "x" : 125.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_lb",
     "componentType" : "NODE",
     "fictitious" : true,

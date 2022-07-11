@@ -7,7 +7,7 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_10",
     "equipmentId" : "10",
     "componentType" : "NODE",
@@ -15,7 +15,7 @@
     "x" : 125.0,
     "y" : 124.72727272727273
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_11",
     "equipmentId" : "11",
     "componentType" : "NODE",
@@ -23,7 +23,7 @@
     "x" : 125.0,
     "y" : 112.18181818181819
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_12",
     "equipmentId" : "12",
     "componentType" : "NODE",
@@ -31,7 +31,7 @@
     "x" : 125.0,
     "y" : 99.63636363636364
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_13",
     "equipmentId" : "13",
     "componentType" : "NODE",
@@ -39,7 +39,7 @@
     "x" : 125.0,
     "y" : 87.0909090909091
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_14",
     "equipmentId" : "14",
     "componentType" : "NODE",
@@ -47,7 +47,7 @@
     "x" : 125.0,
     "y" : 74.54545454545455
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_16",
     "equipmentId" : "16",
     "componentType" : "NODE",
@@ -56,7 +56,7 @@
     "y" : 285.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_18",
     "equipmentId" : "18",
     "componentType" : "NODE",
@@ -64,7 +64,7 @@
     "x" : 175.0,
     "y" : 200.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_19",
     "equipmentId" : "19",
     "componentType" : "NODE",
@@ -72,7 +72,7 @@
     "x" : 225.0,
     "y" : 200.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_2",
     "equipmentId" : "2",
     "componentType" : "NODE",
@@ -80,7 +80,7 @@
     "x" : 75.0,
     "y" : 190.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_20",
     "equipmentId" : "20",
     "componentType" : "NODE",
@@ -88,7 +88,7 @@
     "x" : 200.0,
     "y" : 131.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_22",
     "equipmentId" : "22",
     "componentType" : "NODE",
@@ -97,7 +97,7 @@
     "y" : 285.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_23",
     "equipmentId" : "23",
     "componentType" : "NODE",
@@ -106,7 +106,7 @@
     "y" : 331.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_24",
     "equipmentId" : "24",
     "componentType" : "NODE",
@@ -115,7 +115,7 @@
     "y" : 377.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_3",
     "equipmentId" : "3",
     "componentType" : "NODE",
@@ -123,7 +123,7 @@
     "x" : 25.0,
     "y" : 190.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_4",
     "equipmentId" : "4",
     "componentType" : "NODE",
@@ -131,7 +131,7 @@
     "x" : 125.0,
     "y" : 200.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_5",
     "equipmentId" : "5",
     "componentType" : "NODE",
@@ -139,7 +139,7 @@
     "x" : 125.0,
     "y" : 187.45454545454547
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_6",
     "equipmentId" : "6",
     "componentType" : "NODE",
@@ -147,7 +147,7 @@
     "x" : 125.0,
     "y" : 174.9090909090909
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_7",
     "equipmentId" : "7",
     "componentType" : "NODE",
@@ -155,7 +155,7 @@
     "x" : 125.0,
     "y" : 162.36363636363637
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_8",
     "equipmentId" : "8",
     "componentType" : "NODE",
@@ -163,7 +163,7 @@
     "x" : 125.0,
     "y" : 149.8181818181818
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_9",
     "equipmentId" : "9",
     "componentType" : "NODE",
@@ -171,7 +171,7 @@
     "x" : 125.0,
     "y" : 137.27272727272728
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_gen1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -179,7 +179,7 @@
     "y" : 423.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_gen2",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -187,14 +187,14 @@
     "y" : 423.0,
     "orientation" : "DOWN"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_load1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_load2",
     "componentType" : "NODE",
     "fictitious" : true,

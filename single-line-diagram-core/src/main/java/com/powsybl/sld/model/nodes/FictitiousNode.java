@@ -15,6 +15,6 @@ package com.powsybl.sld.model.nodes;
 public class FictitiousNode extends Node {
 
     public FictitiousNode(String id, String name, String equipmentId, String componentType) {
-        super(NodeType.FICTITIOUS, id, name, equipmentId, componentType, true);
+        super(NodeType.INTERNAL, id, name, equipmentId, componentType, true);
     }
 }

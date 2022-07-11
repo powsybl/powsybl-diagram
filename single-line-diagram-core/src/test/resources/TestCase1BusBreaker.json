@@ -7,49 +7,49 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_l",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 280.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_sw",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 280.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_sw",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 305.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l_1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l_2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_sw",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
     "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_sw",
     "componentType" : "NODE",
     "fictitious" : true,

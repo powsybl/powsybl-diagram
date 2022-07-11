@@ -7,7 +7,7 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_ss1_0",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
@@ -15,7 +15,7 @@
     "y" : 280.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_ss1_1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
@@ -23,7 +23,7 @@
     "y" : 280.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_ss2_0",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
@@ -31,7 +31,7 @@
     "y" : 305.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_ss2_1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
@@ -39,49 +39,49 @@
     "y" : 305.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_f",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_f1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_f2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
     "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
     "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_ss1_0",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -89,7 +89,7 @@
     "y" : 280.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_ss1_1",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -97,7 +97,7 @@
     "y" : 280.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_ss2_0",
     "componentType" : "NODE",
     "fictitious" : true,
@@ -105,7 +105,7 @@
     "y" : 305.0,
     "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl2_ss2_1",
     "componentType" : "NODE",
     "fictitious" : true,

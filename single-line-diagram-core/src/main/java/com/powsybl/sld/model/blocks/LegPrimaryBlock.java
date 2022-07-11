@@ -47,7 +47,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return nodes.size() == 3
                 && nodes.get(0).getType() == BUS
                 && checkMiddleNode(nodes.get(1))
-                && (nodes.get(2).getType() == FICTITIOUS || nodes.get(2).getType() == Node.NodeType.SHUNT);
+                && (nodes.get(2).getType() == INTERNAL || nodes.get(2).getType() == Node.NodeType.SHUNT);
     }
 
     private boolean checkMiddleNode(Node node) {

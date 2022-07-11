@@ -311,154 +311,154 @@
       "feederType" : "INJECTION",
       "direction" : "TOP"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D10",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 240.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D11",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D13",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D15",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D17",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D19",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D20",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
       "y" : 240.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D21",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D23",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D25",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D27",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_D29",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
@@ -1770,7 +1770,7 @@
       "node2" : "INTERNAL_VL1_D29"
     } ],
     "multitermNodes" : [ {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "T11",
       "name" : "T11",
       "equipmentId" : "T11",
@@ -1928,56 +1928,56 @@
       "open" : false,
       "kind" : "DISCONNECTOR"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_D31",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_D33",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_D35",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_D37",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_L12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_L2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
       "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T3_12_THREE",
       "componentType" : "NODE",
       "fictitious" : true,
@@ -2473,7 +2473,7 @@
     "lineEdges" : [ ]
   } ],
   "multitermNodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "T12",
     "name" : "T12",
     "equipmentId" : "T12",
@@ -2493,7 +2493,7 @@
       "nominalVoltage" : 400.0
     }
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "T3_12",
     "name" : "T3_12",
     "equipmentId" : "T3_12",

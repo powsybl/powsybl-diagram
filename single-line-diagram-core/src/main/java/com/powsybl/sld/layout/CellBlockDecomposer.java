@@ -53,7 +53,7 @@ final class CellBlockDecomposer {
         List<Block> blocks = new ArrayList<>();
         Map<Node, Integer> nodeRemainingSlots = new HashMap<>();
         busCell.getNodes().stream()
-                .filter(n -> n.getType()!= Node.NodeType.BUS && n.getType()!= Node.NodeType.FEEDER && !n.isConnectedToBus())
+                .filter(n -> n.getType()!= Node.NodeType.BUS && n.getType()!= Node.NodeType.FEEDER)
                 .forEach(n -> nodeRemainingSlots.put(n, n.getCardinality(voltageLevelGraph)));
         elaborateLegPrimaryBlock(busCell, nodeRemainingSlots, blocks);
         elaborateFeederPrimaryBlock(busCell,nodeRemainingSlots,blocks);

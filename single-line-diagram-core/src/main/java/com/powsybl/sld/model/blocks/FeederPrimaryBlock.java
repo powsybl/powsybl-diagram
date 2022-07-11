@@ -11,7 +11,6 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import java.beans.FeatureDescriptor;
 import java.util.List;
 
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
@@ -41,7 +40,7 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     private boolean checkConsistency() {
         return nodes.size() == 2 && nodes.get(1).getType() == FEEDER
-            && (nodes.get(0).getType() == FICTITIOUS || nodes.get(0).getType() == SHUNT);
+            && (nodes.get(0).getType() == INTERNAL || nodes.get(0).getType() == SHUNT);
     }
 
     public FeederNode getFeederNode() {

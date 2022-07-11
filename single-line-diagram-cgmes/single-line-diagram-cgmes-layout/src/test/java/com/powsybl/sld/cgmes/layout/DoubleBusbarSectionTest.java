@@ -82,7 +82,7 @@ public class DoubleBusbarSectionTest {
         assertEquals(Node.NodeType.BUS, graph.getNodes().get(1).getType());
         assertEquals(Node.NodeType.FEEDER, graph.getNodes().get(2).getType());
         assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(3).getType());
-        assertEquals(Node.NodeType.FICTITIOUS, graph.getNodes().get(4).getType());
+        assertEquals(Node.NodeType.INTERNAL, graph.getNodes().get(4).getType());
         assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(5).getType());
         assertEquals(Node.NodeType.SWITCH, graph.getNodes().get(6).getType());
 
