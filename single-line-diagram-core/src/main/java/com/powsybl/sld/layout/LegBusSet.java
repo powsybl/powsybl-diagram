@@ -185,12 +185,12 @@ public final class LegBusSet {
             }
         }
         List<LegBusSet> absorbedLBS = new ArrayList<>();
-        legBusSets.forEach(lbs -> {
+        for (LegBusSet lbs : legBusSets) {
             if (legBusSet.contains(lbs)) {
                 absorbedLBS.add(lbs);
                 legBusSet.absorbs(lbs);
             }
-        });
+        }
         legBusSets.removeAll(absorbedLBS);
         legBusSets.add(legBusSet);
     }
