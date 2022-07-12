@@ -37,19 +37,21 @@
     "x" : 125.0,
     "y" : 250.0
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0
+    "y" : 62.0,
+    "isShunt" : true
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_lb",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.0
+    "y" : 62.0,
+    "isShunt" : true
   }, {
     "type" : "SWITCH",
     "id" : "ba",

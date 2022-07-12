@@ -6,8 +6,13 @@
  */
 package com.powsybl.sld.model.nodes;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
@@ -19,7 +24,9 @@ public class InternalNode extends Node {
 
     private static final String ID_PREFIX = "INTERNAL_";
 
-    private InternalNode(String id, String equipmentId, String voltageLevelId) {
+    private boolean isShunt = false;
+
+    protected InternalNode(String id, String equipmentId, String voltageLevelId) {
         super(NodeType.INTERNAL, prefixId(id, voltageLevelId), null, equipmentId, NODE, true);
     }
 
@@ -36,7 +43,36 @@ public class InternalNode extends Node {
         return ID_PREFIX + voltageLevelId + "_" + Objects.requireNonNull(id);
     }
 
+    public boolean isShunt() {
+        return isShunt;
+    }
+
+    public void setShunt(boolean shunt) {
+        isShunt = shunt;
+    }
+
+    @Override
+    public int getCardinality(VoltageLevelGraph vlGraph) {
+        List<Node> adjacentNodes = getAdjacentNodes();
+        int cardinality = adjacentNodes.size();
+        if (isShunt) {
+            long nbAdjacentShuntCells = adjacentNodes.stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() == Cell.CellType.SHUNT).orElse(true)).count();
+            cardinality -= nbAdjacentShuntCells;
+        }
+        return cardinality;
+    }
+
     public static boolean isIidmInternalNode(Node node) {
         return node instanceof InternalNode && StringUtils.isNumeric(node.getEquipmentId());
     }
+
+    @Override
+    protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
+        super.writeJsonContent(generator, includeCoordinates);
+        if (isShunt) {
+            generator.writeBooleanField("isShunt", true);
+        }
+    }
+
+
 }

@@ -33,7 +33,6 @@ public class Node {
         FEEDER,
         INTERNAL,
         SWITCH,
-        SHUNT,
         OTHER
     }
 
@@ -225,13 +224,7 @@ public class Node {
     }
 
     public int getCardinality(VoltageLevelGraph vlGraph) {
-        List<Node> adjacentNodes = getAdjacentNodes();
-        int cardinality = adjacentNodes.size();
-        if (getType() == NodeType.SHUNT) {
-            long nbAdjacentShuntCells = adjacentNodes.stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() == Cell.CellType.SHUNT).orElse(true)).count();
-            cardinality -= nbAdjacentShuntCells;
-        }
-        return cardinality;
+        return getAdjacentNodes().size();
     }
 
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {

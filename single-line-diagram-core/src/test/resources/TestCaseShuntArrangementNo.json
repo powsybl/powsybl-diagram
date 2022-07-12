@@ -83,12 +83,13 @@
     "x" : 125.0,
     "y" : 250.0
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fC",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 250.0
+    "y" : 250.0,
+    "isShunt" : true
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fD",
@@ -111,40 +112,45 @@
     "x" : 450.0,
     "y" : 250.0
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fLoadG",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 475.0,
-    "y" : 99.60000000000001
+    "y" : 99.60000000000001,
+    "isShunt" : true
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fShuntA",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 124.66666666666667
+    "y" : 124.66666666666667,
+    "isShunt" : true
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fShuntB",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 124.66666666666667
+    "y" : 124.66666666666667,
+    "isShunt" : true
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fg1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
-    "y" : 250.0
+    "y" : 250.0,
+    "isShunt" : true
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_fg2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 325.0,
-    "y" : 250.0
+    "y" : 250.0,
+    "isShunt" : true
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_gen1",

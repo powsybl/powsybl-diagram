@@ -7,13 +7,14 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_3",
     "equipmentId" : "3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0
+    "y" : 250.0,
+    "isShunt" : true
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.1",
@@ -38,12 +39,13 @@
     "x" : 125.0,
     "y" : 250.0
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.0
+    "y" : 62.0,
+    "isShunt" : true
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_lb",
