@@ -7,7 +7,7 @@
 package com.powsybl.sld.cgmes.dl.conversion.exporters;
 
 import com.powsybl.sld.cgmes.dl.conversion.AbstractCgmesDLExporterTest;
-import com.powsybl.cgmes.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.triplestore.api.PropertyBags;
 import org.junit.Before;
 import org.mockito.Mockito;

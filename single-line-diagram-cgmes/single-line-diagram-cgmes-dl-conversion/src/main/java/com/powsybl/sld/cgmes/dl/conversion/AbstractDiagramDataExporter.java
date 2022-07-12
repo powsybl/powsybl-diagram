@@ -15,7 +15,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.powsybl.cgmes.extensions.DiagramPoint;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.DiagramPoint;
 import com.powsybl.cgmes.model.CgmesNamespace;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.triplestore.api.PropertyBag;

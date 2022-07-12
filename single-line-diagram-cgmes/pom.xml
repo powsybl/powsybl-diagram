@@ -25,6 +25,7 @@
 
     <modules>
         <module>single-line-diagram-cgmes-dl-conversion</module>
+        <module>single-line-diagram-cgmes-dl-iidm-extensions</module>
         <module>single-line-diagram-cgmes-layout</module>
     </modules>
 

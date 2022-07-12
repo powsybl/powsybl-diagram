@@ -9,7 +9,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.powsybl.cgmes.extensions.NetworkDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.NetworkDiagramData;
 import com.powsybl.triplestore.api.PrefixNamespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

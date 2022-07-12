@@ -8,7 +8,7 @@ package com.powsybl.sld.cgmes.dl.conversion;
 
 import java.util.Objects;
 
-import com.powsybl.cgmes.extensions.LineDiagramData;
+import com.powsybl.sld.cgmes.dl.iidm.extensions.LineDiagramData;
 import com.powsybl.iidm.network.HvdcLine;
 import com.powsybl.triplestore.api.TripleStore;
 
