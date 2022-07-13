@@ -13,7 +13,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
@@ -32,11 +32,11 @@ public final class ShuntCell extends AbstractCell {
 
     private ShuntCell(int cellNumber, List<Node> nodes) {
         super(cellNumber, CellType.SHUNT, nodes);
-        if (!(nodes.get(0) instanceof InternalNode) || !(nodes.get(nodes.size() - 1) instanceof InternalNode)) {
+        if (!(nodes.get(0) instanceof ConnectivityNode) || !(nodes.get(nodes.size() - 1) instanceof ConnectivityNode)) {
             throw new PowsyblException("the first and last nodes of a shunt cell shall be InternalNode");
         }
-        ((InternalNode) nodes.get(0)).setShunt(true);
-        ((InternalNode) nodes.get(nodes.size() - 1)).setShunt(true);
+        ((ConnectivityNode) nodes.get(0)).setShunt(true);
+        ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);
     }
 
     public static ShuntCell create(int cellNumber, List<Node> nodes) {

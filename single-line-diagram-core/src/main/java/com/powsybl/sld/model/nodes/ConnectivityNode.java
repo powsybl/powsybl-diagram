@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.apache.commons.lang3.StringUtils;
@@ -19,23 +20,16 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
+ * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class InternalNode extends Node {
+public class ConnectivityNode extends Node {
 
     private static final String ID_PREFIX = "INTERNAL_";
 
     private boolean isShunt = false;
 
-    protected InternalNode(String id, String equipmentId, String voltageLevelId) {
-        super(NodeType.INTERNAL, prefixId(id, voltageLevelId), null, equipmentId, NODE, true);
-    }
-
-    public InternalNode(String id, String voltageLevelId) {
-        this(id, null, voltageLevelId);
-    }
-
-    public InternalNode(int id, String voltageLevelId) {
-        this(String.valueOf(id), String.valueOf(id), voltageLevelId);
+    public ConnectivityNode(String id, String name, String equipmentId, String voltageLevelId) {
+        super(NodeType.INTERNAL, prefixId(id, voltageLevelId), name, equipmentId, NODE, true);
     }
 
     private static String prefixId(String id, String voltageLevelId) {
@@ -48,6 +42,9 @@ public class InternalNode extends Node {
     }
 
     public void setShunt(boolean shunt) {
+        if (getAdjacentNodes().size() < 3) {
+            throw new PowsyblException("to be a shunt, a node must have 3+ adjacent nodes");
+        }
         isShunt = shunt;
     }
 
@@ -63,7 +60,7 @@ public class InternalNode extends Node {
     }
 
     public static boolean isIidmInternalNode(Node node) {
-        return node instanceof InternalNode && StringUtils.isNumeric(node.getEquipmentId());
+        return node instanceof ConnectivityNode && StringUtils.isNumeric(node.getEquipmentId());
     }
 
     @Override

@@ -32,8 +32,7 @@ public class Node {
         BUS,
         FEEDER,
         INTERNAL,
-        SWITCH,
-        OTHER
+        SWITCH
     }
 
     private NodeType type;

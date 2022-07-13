@@ -9,7 +9,7 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class TestLanesWithUnileg extends AbstractTestCaseRaw {
         BusNode bbs13 = vlBuilder.createBusBarSection("bbs13", 1, 3);
         BusNode bbs22 = vlBuilder.createBusBarSection("bbs22", 2, 2);
 
-        InternalNode fNode = vlBuilder.createInternalNode("Fictitious_unileg");
+        ConnectivityNode fNode = vlBuilder.createInternalNode("Fictitious_unileg");
         SwitchNode unilegDc1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dF1", false, false);
         SwitchNode unilegDc2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dF2", false, false);
         vlBuilder.connectNode(bbs12, unilegDc1);

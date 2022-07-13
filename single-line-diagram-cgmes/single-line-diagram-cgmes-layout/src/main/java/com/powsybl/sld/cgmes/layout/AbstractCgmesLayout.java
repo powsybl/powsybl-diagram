@@ -125,7 +125,7 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void processDefaultNodeCase(VoltageLevel vl, Node node, String diagramName) {
         // retrieve internal nodes points, if available in VoltageLevel extensions
-        if (InternalNode.isIidmInternalNode(node)) {
+        if (ConnectivityNode.isIidmInternalNode(node)) {
             DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getEquipmentId()));
             if (nodePoint != null) {
                 node.setX(nodePoint.getX());

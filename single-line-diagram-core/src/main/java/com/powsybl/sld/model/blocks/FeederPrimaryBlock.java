@@ -9,7 +9,6 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.InternalNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.List;

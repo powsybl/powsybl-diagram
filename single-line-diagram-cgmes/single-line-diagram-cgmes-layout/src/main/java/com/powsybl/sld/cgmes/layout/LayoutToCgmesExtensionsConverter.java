@@ -102,7 +102,7 @@ public class LayoutToCgmesExtensionsConverter {
 
             //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL
             vlGraph.getNodes().stream()
-                    .filter(InternalNode::isIidmInternalNode)
+                    .filter(ConnectivityNode::isIidmInternalNode)
                     .filter(this::isNodeSurroundedbySwitchesOrFeeders)
                     .forEach(fNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName,
                         Integer.parseInt(fNode.getEquipmentId()), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));

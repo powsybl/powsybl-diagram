@@ -154,16 +154,18 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static InternalNode createInternalNode(VoltageLevelGraph graph, String id) {
-        InternalNode in = new InternalNode(id, graph.getVoltageLevelInfos().getId());
+    public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, String id, String name, String equipmentId) {
+        ConnectivityNode in = new ConnectivityNode(id, name, equipmentId, graph.getVoltageLevelInfos().getId());
         graph.addNode(in);
         return in;
     }
 
-    public static InternalNode createInternalNode(VoltageLevelGraph graph, int id) {
-        InternalNode in = new InternalNode(id, graph.getVoltageLevelInfos().getId());
-        graph.addNode(in);
-        return in;
+        public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, String id) {
+        return createInternalNode(graph, id, null, null);
+    }
+
+    public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, int id) {
+        return createInternalNode(graph, String.valueOf(id), null, String.valueOf(id));
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {

@@ -96,7 +96,7 @@ public class SerialBlock extends AbstractComposedBlock {
         for (Extremity myExtremity : Extremity.values()) {
             //TODO: why fictitious attribute is necessary in that case ?
             if (getExtremityNode(myExtremity).isFictitious()) {
-                Node commonNode =getExtremityNode(myExtremity);
+                Node commonNode = getExtremityNode(myExtremity);
                 for (Extremity itsExtremity : Extremity.values()) {
                     if (commonNode == block.getExtremityNode(itsExtremity)
                             && commonNode.getCardinality(vlGraph) == getCardinality(commonNode) + block.getCardinality(commonNode)

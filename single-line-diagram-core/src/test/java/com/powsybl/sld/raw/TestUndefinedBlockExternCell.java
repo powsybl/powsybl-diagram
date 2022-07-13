@@ -10,7 +10,7 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,16 +38,16 @@ public class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
-        InternalNode f0 = vlBuilder.createInternalNode("f0");
+        ConnectivityNode f0 = vlBuilder.createInternalNode("f0");
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, f0);
 
-        InternalNode f1 = vlBuilder.createInternalNode("f1");
+        ConnectivityNode f1 = vlBuilder.createInternalNode("f1");
         FeederNode l1 = vlBuilder.createLoad("l1", 0, TOP);
         vlBuilder.connectNode(f0, f1);
         vlBuilder.connectNode(f1, l1);
 
-        InternalNode f2 = vlBuilder.createInternalNode("f2");
+        ConnectivityNode f2 = vlBuilder.createInternalNode("f2");
         FeederNode l2 = vlBuilder.createLoad("l2", 1, TOP);
         vlBuilder.connectNode(f1, f2);
         vlBuilder.connectNode(f2, l2);
