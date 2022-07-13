@@ -18,13 +18,13 @@ public final class PrepareForLayout {
     public static void run(VoltageLevelGraph graph, LayoutParameters layoutParameters, boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {
-            graph.removeUnnecessaryFictitiousNodes();
+            graph.removeUnnecessaryConnectivityNodes();
         }
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
         }
         setBusConnectionCapability(graph, layoutParameters);
-        graph.insertFictitiousNodesAtFeeders();
+        graph.insertConnectivityNodesAtFeeders();
         graph.extendNodeConnectedToBus();
         graph.extendSwitchBetweenBuses();
         graph.extendFirstOutsideNode();

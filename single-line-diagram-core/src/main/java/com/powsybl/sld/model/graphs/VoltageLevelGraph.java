@@ -90,7 +90,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return cellCounter++;
     }
 
-    public void removeUnnecessaryFictitiousNodes() {
+    public void removeUnnecessaryConnectivityNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
                 .filter(node -> node instanceof ConnectivityNode)
                 .collect(Collectors.toList());
@@ -300,7 +300,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      *  - feeders connected to a bus through a disconnector need 2 additional InternalNode to obey the Leg/Body/Feeder structure
      *  - 3WT do not need any fictitious node inserted here as they already have the fictitious Middle3WTNode
      */
-    public void insertFictitiousNodesAtFeeders() {
+    public void insertConnectivityNodesAtFeeders() {
         List<Node> nodesToAdd = new ArrayList<>();
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         for (Node feederNode : feederNodes) {
@@ -313,11 +313,11 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             } else if (isConnectedToBusBusConnectionCapableNode(feederNode)) {
                 // Feeders linked directly to a bus disconnector need 2 internal nodes to be properly displayed, in order
                 // to have LegPrimaryBlock + BodyPrimaryBlock + FeederPrimaryBlock
-                insertTwoInternalNodes(feederNode, nodesToAdd);
+                insertTwoConnectivityNodes(feederNode, nodesToAdd);
             } else if (!isFeeder3WT(feederNode)) {
                 // Three-winding transformers do not need to be extended in voltage level diagrams, as the Middle3WTNode is already itself an internal node
                 // Create a new fictitious node
-                ConnectivityNode nf = NodeFactory.createInternalNode(this, feederNode.getId());
+                ConnectivityNode nf = NodeFactory.createConnectivityNode(this, feederNode.getId());
                 // Create all new edges and remove old ones
                 for (Node neighbor : adjacentNodes) {
                     addEdge(neighbor, nf);
@@ -346,8 +346,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     private void addTripleNode(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
         Node fNodeToBus = NodeFactory.createBusConnection(this, feederNode.getId());
-        ConnectivityNode fNodeToSw1 = NodeFactory.createInternalNode(this, feederNode.getId() + "_1");
-        ConnectivityNode fNodeToSw2 = NodeFactory.createInternalNode(this, feederNode.getId() + "_2");
+        ConnectivityNode fNodeToSw1 = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_1");
+        ConnectivityNode fNodeToSw2 = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_2");
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToBus);
@@ -368,10 +368,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         addEdge(fNodeToSw2, feederNode);
     }
 
-    private void insertTwoInternalNodes(Node feederNode, List<Node> nodesToAdd) {
+    private void insertTwoConnectivityNodes(Node feederNode, List<Node> nodesToAdd) {
         // Create nodes
-        ConnectivityNode fNodeToSw1 = NodeFactory.createInternalNode(this, feederNode.getId() + "_1");
-        ConnectivityNode fNodeToSw2 = NodeFactory.createInternalNode(this, feederNode.getId() + "_2");
+        ConnectivityNode fNodeToSw1 = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_1");
+        ConnectivityNode fNodeToSw2 = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_2");
 
         // Nodes will be added afterwards
         nodesToAdd.add(fNodeToSw1);
@@ -398,7 +398,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                                         node.getType() == Node.NodeType.FEEDER)
                                 .forEach(node -> {
                                     removeEdge(node, nodeSwitch);
-                                    ConnectivityNode newNode = NodeFactory.createInternalNode(this, nodeSwitch.getId());
+                                    ConnectivityNode newNode = NodeFactory.createConnectivityNode(this, nodeSwitch.getId());
                                     addEdge(node, newNode);
                                     addEdge(nodeSwitch, newNode);
                                 }));
@@ -432,8 +432,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
                         removeEdge(n1, n2);
                         String busToBusId = n1.getId() + "-" + n2.getId();
                         Node fSwToBus1 = NodeFactory.createBusConnection(this, busToBusId + "_1");
-                        ConnectivityNode connectivityNode1 = NodeFactory.createInternalNode(this, busToBusId + "_1");
-                        ConnectivityNode connectivityNode2 = NodeFactory.createInternalNode(this, busToBusId + "_2");
+                        ConnectivityNode connectivityNode1 = NodeFactory.createConnectivityNode(this, busToBusId + "_1");
+                        ConnectivityNode connectivityNode2 = NodeFactory.createConnectivityNode(this, busToBusId + "_2");
                         Node fSwToBus2 = NodeFactory.createBusConnection(this, busToBusId + "_2");
                         addEdge(n1, fSwToBus1);
                         addEdge(fSwToBus1, connectivityNode1);
@@ -444,9 +444,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         }
     }
 
-    public ConnectivityNode insertInternalNode(Node node1, Node node2, String id) {
+    public ConnectivityNode insertConnectivityNode(Node node1, Node node2, String id) {
         removeEdge(node1, node2);
-        ConnectivityNode iNode = NodeFactory.createInternalNode(this, id);
+        ConnectivityNode iNode = NodeFactory.createConnectivityNode(this, id);
         addEdge(node1, iNode);
         addEdge(node2, iNode);
         return iNode;
@@ -455,7 +455,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     private void addDoubleNode(BusNode busNode, Node node, String suffix) {
         removeEdge(busNode, node);
         Node fNodeToBus = NodeFactory.createBusConnection(this, node.getId() + suffix);
-        ConnectivityNode fNodeToSw = NodeFactory.createInternalNode(this, node.getId() + suffix);
+        ConnectivityNode fNodeToSw = NodeFactory.createConnectivityNode(this, node.getId() + suffix);
         addEdge(busNode, fNodeToBus);
         addEdge(fNodeToBus, fNodeToSw);
         addEdge(fNodeToSw, node);

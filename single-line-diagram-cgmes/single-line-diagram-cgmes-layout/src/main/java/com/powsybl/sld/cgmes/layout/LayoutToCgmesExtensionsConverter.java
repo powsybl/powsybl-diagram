@@ -97,7 +97,7 @@ public class LayoutToCgmesExtensionsConverter {
             VoltageLevelGraph vlGraph = sgraph.getVoltageLevel(voltageLevel.getId());
 
             // remove fictitious nodes&switches (no CGMES DL data available for them)
-            vlGraph.removeUnnecessaryFictitiousNodes();
+            vlGraph.removeUnnecessaryConnectivityNodes();
             AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
 
             //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL

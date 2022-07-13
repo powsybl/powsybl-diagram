@@ -51,7 +51,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         FeederNode load1 = vlBuilder.createLoad("l1", 0, TOP);
         SwitchNode d11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d11", false, false);
         SwitchNode d12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d12", false, false);
-        ConnectivityNode f1 = vlBuilder.createInternalNode("f1");
+        ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
         SwitchNode b1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b1", false, false);
         vlBuilder.connectNode(bbs11, d11);
         vlBuilder.connectNode(d11, f1);
@@ -63,7 +63,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         FeederNode loadMiddle = vlBuilder.createLoad("l", 1, TOP);
         SwitchNode dMiddle1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
         SwitchNode dMiddle2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        ConnectivityNode fMiddle = vlBuilder.createInternalNode("f");
+        ConnectivityNode fMiddle = vlBuilder.createConnectivityNode("f");
         SwitchNode bMiddle = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         if (middleLeft) {
             vlBuilder.connectNode(bbs11, dMiddle1);
@@ -80,7 +80,7 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
         FeederNode load2 = vlBuilder.createLoad("l2", 2, TOP);
         SwitchNode d21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d21", false, false);
         SwitchNode d22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d22", false, false);
-        ConnectivityNode f2 = vlBuilder.createInternalNode("f2");
+        ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
         vlBuilder.connectNode(bbs12, d21);
         vlBuilder.connectNode(d21, f2);

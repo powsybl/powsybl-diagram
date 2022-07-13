@@ -45,10 +45,10 @@ public class TestIncompleteFeederIssue extends AbstractTestCaseRaw {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        ConnectivityNode fict1 = vlBuilder.createInternalNode("fict1");
+        ConnectivityNode fict1 = vlBuilder.createConnectivityNode("fict1");
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
-        ConnectivityNode fict2 = vlBuilder.createInternalNode("fict2");
+        ConnectivityNode fict2 = vlBuilder.createConnectivityNode("fict2");
         vlBuilder.connectNode(bbs, d1);
         vlBuilder.connectNode(d1, fict1);
         vlBuilder.connectNode(fict1, b2);

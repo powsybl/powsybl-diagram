@@ -38,7 +38,7 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
         SwitchNode b2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
         SwitchNode d3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d3", false, false);
         SwitchNode b3 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b2", false, false);
-        ConnectivityNode f = vlBuilder.createInternalNode("F");
+        ConnectivityNode f = vlBuilder.createConnectivityNode("F");
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(b1, d1);
         vlBuilder.connectNode(b1, f);

@@ -40,7 +40,7 @@ public final class NodeFactory {
 
     public static Node createBusConnection(VoltageLevelGraph graph, String id) {
         Node busConnection = createNode(graph, NodeType.INTERNAL, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
-        busConnection.setCanConnectBus(true);
+        busConnection.setCanConnectBus(true); // the BusConnection is the default node inserted when one node is not canConnectBus.
         return busConnection;
     }
 
@@ -154,18 +154,18 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, String id, String name, String equipmentId) {
+    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String name, String equipmentId) {
         ConnectivityNode in = new ConnectivityNode(id, name, equipmentId, graph.getVoltageLevelInfos().getId());
         graph.addNode(in);
         return in;
     }
 
-        public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, String id) {
-        return createInternalNode(graph, id, null, null);
+        public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
+        return createConnectivityNode(graph, id, null, null);
     }
 
-    public static ConnectivityNode createInternalNode(VoltageLevelGraph graph, int id) {
-        return createInternalNode(graph, String.valueOf(id), null, String.valueOf(id));
+    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, int id) {
+        return createConnectivityNode(graph, String.valueOf(id), null, String.valueOf(id));
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {

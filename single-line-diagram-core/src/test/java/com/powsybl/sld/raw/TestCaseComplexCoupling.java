@@ -29,12 +29,12 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        ConnectivityNode f1 = vlBuilder.createInternalNode("f1");
+        ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
         SwitchNode bA = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bA", false, false);
         SwitchNode bB = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bB", false, false);
         SwitchNode bC = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bC", false, false);
         SwitchNode bD = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bD", false, false);
-        ConnectivityNode f2 = vlBuilder.createInternalNode("f2");
+        ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(d1, f1);

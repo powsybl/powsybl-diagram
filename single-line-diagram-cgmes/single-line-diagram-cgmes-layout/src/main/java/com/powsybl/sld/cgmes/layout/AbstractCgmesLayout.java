@@ -62,7 +62,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected VoltageLevelGraph removeFictitiousNodes(VoltageLevelGraph graph, VoltageLevel vl) {
-        graph.removeUnnecessaryFictitiousNodes();
+        graph.removeUnnecessaryConnectivityNodes();
         removeFictitiousSwitchNodes(graph, vl);
         return graph;
     }

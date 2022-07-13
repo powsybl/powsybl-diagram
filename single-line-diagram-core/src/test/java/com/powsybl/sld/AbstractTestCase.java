@@ -36,7 +36,7 @@ public abstract class AbstractTestCase {
     protected boolean debugSvgFiles = false;
     protected boolean overrideTestReferences = false;
 
-    protected final ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
+    protected ResourcesComponentLibrary componentLibrary = getResourcesComponentLibrary();
 
     protected final LayoutParameters layoutParameters = createDefaultLayoutParameters();
 
