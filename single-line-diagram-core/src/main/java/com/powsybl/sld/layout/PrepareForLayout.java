@@ -15,6 +15,10 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
 public final class PrepareForLayout {
 
+    private PrepareForLayout() {
+// utility class, no constructor
+    }
+
     public static void run(VoltageLevelGraph graph, LayoutParameters layoutParameters, boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {

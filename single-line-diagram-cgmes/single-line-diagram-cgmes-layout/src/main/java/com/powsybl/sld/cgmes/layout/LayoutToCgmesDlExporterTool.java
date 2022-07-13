@@ -55,7 +55,6 @@ public class LayoutToCgmesDlExporterTool implements Tool {
             = ImmutableMap.of(DEFAULT_SUBSTATION_LAYOUT, new HorizontalSubstationLayoutFactory(),
             "vertical", new VerticalSubstationLayoutFactory());
 
-
     @Override
     public Command getCommand() {
         return new AbstractSingleLineDiagramCommand() {

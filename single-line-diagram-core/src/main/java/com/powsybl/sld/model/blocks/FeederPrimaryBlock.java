@@ -22,7 +22,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class FeederPrimaryBlock extends AbstractPrimaryBlock {
+public final class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     private FeederPrimaryBlock(List<Node> nodes) {
         super(FEEDERPRIMARY, nodes);
@@ -34,13 +34,13 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
         }
     }
 
-    public static FeederPrimaryBlock create (List<Node> nodes) {
+    public static FeederPrimaryBlock create(List<Node> nodes) {
         return new FeederPrimaryBlock(nodes);
     }
 
     private boolean checkConsistency() {
         return nodes.size() == 2 && nodes.get(1).getType() == FEEDER
-            && (nodes.get(0).getType() == INTERNAL);
+            && nodes.get(0).getType() == INTERNAL;
     }
 
     public FeederNode getFeederNode() {

@@ -247,7 +247,7 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkSwitchNode(Node swNode) {
-        return (swNode != null) && swNode.getType().equals(Node.NodeType.SWITCH);
+        return swNode != null && swNode.getType().equals(Node.NodeType.SWITCH);
     }
 
     private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {

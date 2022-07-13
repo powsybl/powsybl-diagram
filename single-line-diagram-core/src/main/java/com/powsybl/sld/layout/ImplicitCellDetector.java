@@ -337,7 +337,7 @@ public class ImplicitCellDetector implements CellDetector {
                         .forEach(visitedNodes::add);
             }
         }
-        if (hasBusBranch && hasFeederBranch && hasMixBranch ) {
+        if (hasBusBranch && hasFeederBranch && hasMixBranch) {
             candidateShuntNode.setShunt(true);
             return cellNodesExtern;  // reminder : the first node of cellNodesExtern is the candidateShuntNode
         } else {
@@ -371,7 +371,7 @@ public class ImplicitCellDetector implements CellDetector {
                     }
                     if (currentNode instanceof ConnectivityNode) {
                         shuntCellNodes.add(currentNode);
-                        ((ConnectivityNode)currentNode).setShunt(true);
+                        ((ConnectivityNode) currentNode).setShunt(true);
                     } else {
                         shuntCellsNodes.remove(shuntNode);
                     }

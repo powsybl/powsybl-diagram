@@ -564,14 +564,14 @@ public class DefaultSVGWriter implements SVGWriter {
 
     //TODO: to be explained!
     protected boolean canInsertComponentSVG(Node node) {
-        return (node.getType() == Node.NodeType.SWITCH)
+        return node.getType() == Node.NodeType.SWITCH
                 || !node.isFictitious()
-                || (node.isFictitious()
+                || node.isFictitious()
                 && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
                 || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
                 || node.getComponentType().equals(NODE)
-                || node.getComponentType().equals(BUS_CONNECTION));
+                || node.getComponentType().equals(BUS_CONNECTION);
     }
 
     protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g,

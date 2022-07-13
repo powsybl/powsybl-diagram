@@ -53,10 +53,10 @@ final class CellBlockDecomposer {
         List<Block> blocks = new ArrayList<>();
         Map<Node, Integer> nodeRemainingSlots = new HashMap<>();
         busCell.getNodes().stream()
-                .filter(n -> n.getType()!= Node.NodeType.BUS && n.getType()!= Node.NodeType.FEEDER)
+                .filter(n -> n.getType() != Node.NodeType.BUS && n.getType() != Node.NodeType.FEEDER)
                 .forEach(n -> nodeRemainingSlots.put(n, n.getCardinality(voltageLevelGraph)));
         elaborateLegPrimaryBlock(busCell, nodeRemainingSlots, blocks);
-        elaborateFeederPrimaryBlock(busCell,nodeRemainingSlots,blocks);
+        elaborateFeederPrimaryBlock(busCell, nodeRemainingSlots, blocks);
         rElaborateBodyPrimaryBlocks(busCell, blocks.get(0).getEndingNode(), nodeRemainingSlots, blocks); // the first block is a LegPrimaryBlock, the endingNode is a good start
 
         return blocks;
@@ -172,8 +172,8 @@ final class CellBlockDecomposer {
         Node s2 = block2.getExtremityNode(Block.Extremity.START);
         Node e2 = block2.getExtremityNode(Block.Extremity.END);
 
-        if ((s1.checkNodeSimilarity(s2) && e1.checkNodeSimilarity(e2))
-                || (s1.checkNodeSimilarity(e2) && e1.checkNodeSimilarity(s2))) {
+        if (s1.checkNodeSimilarity(s2) && e1.checkNodeSimilarity(e2)
+                || s1.checkNodeSimilarity(e2) && e1.checkNodeSimilarity(s2)) {
             if (s1.equals(s2) || s1.equals(e2)) {
                 return s1;
             } else {
@@ -188,7 +188,8 @@ final class CellBlockDecomposer {
         nodes.add(node);
         nodeRemainingSlots.computeIfPresent(node, (n, remainingSlots) -> remainingSlots - weight);
     }
-    private static void elaborateLegPrimaryBlock (BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
+
+    private static void elaborateLegPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
         busCell.getBusNodes().forEach(busNode -> {
             busNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(busConnection -> {
                 List<Node> legPrimaryBlockNodes = new ArrayList<>();
@@ -200,7 +201,7 @@ final class CellBlockDecomposer {
         });
     }
 
-    private static void elaborateFeederPrimaryBlock (BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
+    private static void elaborateFeederPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
         busCell.getNodes().stream().filter(n -> n.getType() == Node.NodeType.FEEDER).forEach(feederNode -> {
             feederNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(feederConnection -> {
                 List<Node> feederPrimaryBlockNodes = new ArrayList<>();
@@ -214,7 +215,6 @@ final class CellBlockDecomposer {
     private static boolean checkRemainingSlots(Map<Node, Integer> nodeRemainingSlots, Node node, int greaterOrEqVal) {
         return nodeRemainingSlots.containsKey(node) && nodeRemainingSlots.get(node) >= greaterOrEqVal;
     }
-
 
     /**
      * Search for primary blocks. A {@link PrimaryBlock} is identified when the the following pattern is detected:

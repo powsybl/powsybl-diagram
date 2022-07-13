@@ -7,7 +7,6 @@
 package com.powsybl.sld.model.nodes;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -213,13 +212,13 @@ public class Node {
      **/
     public boolean checkNodeSimilarity(Node n) {
         return this.equals(n)
-                || ((similarToAFeederNode(this)) && (similarToAFeederNode(n)))
-                || ((this instanceof BusNode) && (n instanceof BusNode));
+                || similarToAFeederNode(this) && similarToAFeederNode(n)
+                || this instanceof BusNode && n instanceof BusNode;
     }
 
     public boolean similarToAFeederNode(Node n) {
-        return (n instanceof FeederNode)
-                || (n.getType() == NodeType.INTERNAL && n.adjacentEdges.size() == 1);
+        return n instanceof FeederNode
+                || n.getType() == NodeType.INTERNAL && n.adjacentEdges.size() == 1;
     }
 
     public int getCardinality(VoltageLevelGraph vlGraph) {

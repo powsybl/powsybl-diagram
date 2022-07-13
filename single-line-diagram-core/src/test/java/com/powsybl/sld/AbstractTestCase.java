@@ -244,7 +244,7 @@ public abstract class AbstractTestCase {
         }
     }
 
-    protected VoltageLevelGraph buildVLAndDetectCell(GraphBuilder graphBuilder, String voltageLevelId){
+    protected VoltageLevelGraph buildVLAndDetectCell(GraphBuilder graphBuilder, String voltageLevelId) {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(voltageLevelId);
         PrepareForLayout.run(g, layoutParameters);
         new ImplicitCellDetector().detectCells(g);

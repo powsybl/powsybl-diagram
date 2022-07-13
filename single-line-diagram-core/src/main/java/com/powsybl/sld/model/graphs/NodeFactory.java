@@ -160,7 +160,7 @@ public final class NodeFactory {
         return in;
     }
 
-        public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
+    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
         return createConnectivityNode(graph, id, null, null);
     }
 

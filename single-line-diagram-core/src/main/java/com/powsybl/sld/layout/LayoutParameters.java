@@ -173,7 +173,7 @@ public class LayoutParameters {
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
         this.feederInfoPrecision = feederInfoPrecision;
-        this.canConnectBusComponents = new ArrayList<> (canConnectBusComponents);
+        this.canConnectBusComponents = new ArrayList<>(canConnectBusComponents);
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -215,7 +215,7 @@ public class LayoutParameters {
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
         feederInfoPrecision = other.feederInfoPrecision;
-        this.canConnectBusComponents = new ArrayList<> (other.canConnectBusComponents);
+        this.canConnectBusComponents = new ArrayList<>(other.canConnectBusComponents);
     }
 
     public double getVerticalSpaceBus() {

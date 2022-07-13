@@ -25,7 +25,7 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
+public final class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         }
     }
 
-    public static LegPrimaryBlock create (List<Node> nodes) {
+    public static LegPrimaryBlock create(List<Node> nodes) {
         return new LegPrimaryBlock(nodes);
     }
 
@@ -47,7 +47,7 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         return nodes.size() == 3
                 && nodes.get(0).getType() == BUS
                 && checkMiddleNode(nodes.get(1))
-                && (nodes.get(2).getType() == INTERNAL);
+                && nodes.get(2).getType() == INTERNAL;
     }
 
     private boolean checkMiddleNode(Node node) {

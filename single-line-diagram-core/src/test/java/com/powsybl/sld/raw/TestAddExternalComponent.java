@@ -36,7 +36,7 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         Node pacMan = NodeFactory.createNode(vlBuilder.getGraph(), Node.NodeType.INTERNAL, "pacMan", null, null, PACMAN, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);
-        vlBuilder.connectNode(d,b);
+        vlBuilder.connectNode(d, b);
         vlBuilder.connectNode(b, pacMan);
         vlBuilder.connectNode(pacMan, load);
     }
