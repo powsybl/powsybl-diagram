@@ -92,7 +92,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void removeUnnecessaryConnectivityNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node instanceof ConnectivityNode)
+                .filter(ConnectivityNode.class::isInstance)
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -500,12 +500,12 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void addCell(Cell c) {
         cells.add(c);
-        List<Node> nodes = c.getNodes();
+        List<Node> cellNodes = c.getNodes();
         if (c.getType() == Cell.CellType.SHUNT) {
-            nodes.stream().skip(1).limit(nodes.size() - 2) // skip first and last nodes that are part of the ExternalNodes
+            cellNodes.stream().skip(1).limit(((long) cellNodes.size()) - 2) // skip first and last nodes that are part of the ExternalNodes
                     .forEach(n -> nodeToCell.put(n, c));
         } else {
-            nodes.stream().filter(n -> n.getType() != NodeType.BUS)
+            cellNodes.stream().filter(n -> n.getType() != NodeType.BUS)
                     .forEach(n -> nodeToCell.put(n, c));
         }
     }

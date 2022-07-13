@@ -254,9 +254,9 @@ public class ImplicitCellDetector implements CellDetector {
         //look for consecutive shunt nodes
         for (List<Node> shuntNodes : shuntsNodes) {
             ConnectivityNode consecutiveShuntNode = (ConnectivityNode) shuntNodes.get(shuntNodes.size() - 1); //createShuntCellNodes ensure last node is InternalNode
-            List<Node> cellNodesExtern2 = checkCandidateShuntNode((ConnectivityNode) consecutiveShuntNode, externalNodes);
+            List<Node> cellNodesExtern2 = checkCandidateShuntNode(consecutiveShuntNode, externalNodes);
             if (!cellNodesExtern2.isEmpty()) {
-                splitNodes(graph, nodes, (ConnectivityNode) consecutiveShuntNode, cellNodesExtern2, remainingNodes, externalNodes, shuntCellsCreated);
+                splitNodes(graph, nodes, consecutiveShuntNode, cellNodesExtern2, remainingNodes, externalNodes, shuntCellsCreated);
             }
         }
     }
@@ -269,7 +269,7 @@ public class ImplicitCellDetector implements CellDetector {
     /**
      * @param vlGraph the VoltageLevelGraph
      * @param shuntNodes a list of nodes that constitue a ShuntCell : the first and last nodes are shunt nodes and therefore InternalNode
-     * @return
+     * @return a ShuntCell
      */
     private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
         int cellNumber = vlGraph.getNextCellNumber();
@@ -317,7 +317,7 @@ public class ImplicitCellDetector implements CellDetector {
             if (!visitedNodes.contains(adj)) {
                 Set<Node> resultNodes = GraphTraversal.run(adj, filter, visitedNodes);
 
-                boolean hasShunt = resultNodes.stream().anyMatch(node -> isShunt(node));
+                boolean hasShunt = resultNodes.stream().anyMatch(ImplicitCellDetector::isShunt);
                 boolean hasBus = resultNodes.stream().anyMatch(node -> node.getType() == BUS);
                 boolean hasFeeder = resultNodes.stream().anyMatch(node -> node.getType() == FEEDER);
                 int nbTypes = (hasShunt ? 1 : 0) + (hasBus ? 1 : 0) + (hasFeeder ? 1 : 0);
@@ -373,7 +373,7 @@ public class ImplicitCellDetector implements CellDetector {
                         shuntCellNodes.add(currentNode);
                         ((ConnectivityNode) currentNode).setShunt(true);
                     } else {
-                        shuntCellsNodes.remove(shuntNode);
+                        shuntCellsNodes.remove(shuntCellNodes);
                     }
                 });
         return shuntCellsNodes;

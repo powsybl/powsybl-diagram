@@ -46,9 +46,6 @@ final class CellBlockDecomposer {
     }
 
     private static List<Block> createPrimaryBlocks(VoltageLevelGraph voltageLevelGraph, BusCell busCell) {
-        Set<Node> alreadyTreated = new HashSet<>();
-        Node currentNode = busCell.getBusNodes().get(0);
-
         // Search all primary blocks
         List<Block> blocks = new ArrayList<>();
         Map<Node, Integer> nodeRemainingSlots = new HashMap<>();
@@ -91,7 +88,7 @@ final class CellBlockDecomposer {
     /**
      * Search possibility to merge two blocks into a chain layout.block and do the merging
      *
-     * @param vlGraph
+     * @param vlGraph VoltageLevelGraph
      * @param blocks list of blocks we can merge
      */
     private static boolean searchSerialMerge(VoltageLevelGraph vlGraph, List<Block> blocks) {
@@ -190,26 +187,22 @@ final class CellBlockDecomposer {
     }
 
     private static void elaborateLegPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
-        busCell.getBusNodes().forEach(busNode -> {
-            busNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(busConnection -> {
-                List<Node> legPrimaryBlockNodes = new ArrayList<>();
-                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
-                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
-                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
-                blocks.add(LegPrimaryBlock.create(legPrimaryBlockNodes));
-            });
-        });
+        busCell.getBusNodes().forEach(busNode -> busNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(busConnection -> {
+            List<Node> legPrimaryBlockNodes = new ArrayList<>();
+            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
+            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
+            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
+            blocks.add(LegPrimaryBlock.create(legPrimaryBlockNodes));
+        }));
     }
 
     private static void elaborateFeederPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
-        busCell.getNodes().stream().filter(n -> n.getType() == Node.NodeType.FEEDER).forEach(feederNode -> {
-            feederNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(feederConnection -> {
-                List<Node> feederPrimaryBlockNodes = new ArrayList<>();
-                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
-                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
-                blocks.add(FeederPrimaryBlock.create(feederPrimaryBlockNodes));
-            });
-        });
+        busCell.getNodes().stream().filter(n -> n.getType() == Node.NodeType.FEEDER).forEach(feederNode -> feederNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(feederConnection -> {
+            List<Node> feederPrimaryBlockNodes = new ArrayList<>();
+            addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
+            addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
+            blocks.add(FeederPrimaryBlock.create(feederPrimaryBlockNodes));
+        }));
     }
 
     private static boolean checkRemainingSlots(Map<Node, Integer> nodeRemainingSlots, Node node, int greaterOrEqVal) {
