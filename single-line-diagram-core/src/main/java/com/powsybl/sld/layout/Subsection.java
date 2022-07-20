@@ -72,7 +72,7 @@ public class Subsection {
     List<InternCell> getVerticalInternCells() {
         return internCellSides.stream()
                 .filter(ics -> ics.getCell().checkIsShape(InternCell.Shape.VERTICAL)
-                        || ics.getCell().checkIsShape(InternCell.Shape.UNILEG))
+                        || ics.getCell().checkIsShape(InternCell.Shape.ONE_LEG))
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
@@ -118,7 +118,7 @@ public class Subsection {
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
         lbsList.stream()
-                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBEFLAT).stream())
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
                 .distinct()
                 .forEach(InternCell::identifyIfFlat);
         identifyCrossOverAndCheckOrientation(subsections);
@@ -129,7 +129,7 @@ public class Subsection {
         Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
         graph.getInternCellStream()
-                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(c -> c.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .forEach(c ->
                         subsections.stream()
                                 .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))

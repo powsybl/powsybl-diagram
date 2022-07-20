@@ -109,7 +109,7 @@ public class LBSCluster {
         return laneSideBuses(side).stream()
                 .map(busNode -> getLbsSideFromBusNode(busNode, side))
                 .distinct().filter(Objects::nonNull)
-                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBEFLAT).stream())
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
                 .collect(Collectors.toList());
     }
 

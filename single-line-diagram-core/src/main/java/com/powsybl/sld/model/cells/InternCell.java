@@ -40,12 +40,12 @@ public class InternCell extends AbstractBusCell {
         /**
          * Pattern not handled (more than two legs)
          */
-        UNHANDLEDPATTERN,
+        UNHANDLED_PATTERN,
 
         /**
          * Intermediary state: the intern cell is either flat or crossover
          */
-        MAYBEFLAT,
+        MAYBE_FLAT,
 
         /**
          * Final state: the corresponding intern cell is displayed as a single straight line between two busbar sections
@@ -68,7 +68,7 @@ public class InternCell extends AbstractBusCell {
          * Calling it uni-leg might be misleading as it's one LegParallelBlock but two (or more) LegBlocks,
          * drawn as a single line only if stacked.
          */
-        UNILEG;
+        ONE_LEG;
 
         public boolean checkIsShape(Shape... shapes) {
             return Arrays.stream(shapes).anyMatch(s -> s == this);
@@ -115,11 +115,11 @@ public class InternCell extends AbstractBusCell {
             //  - either crossover (two sections): detected later in Subsection::identifyCrossOverAndCheckOrientation
             //  - or vertical (one section): detected later in Subsection::identifyVerticalInternCells
             if (candidateLegs.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
-                shape = Shape.MAYBEFLAT;
+                shape = Shape.MAYBE_FLAT;
             }
         } else {
             if (candidateLegs.size() == 1) {
-                shape = Shape.UNILEG;
+                shape = Shape.ONE_LEG;
                 LegBlock leg = candidateLegs.get(0);
                 legs.put(Side.UNDEFINED, leg);
                 leg.setOrientation(Orientation.UP);
@@ -127,7 +127,7 @@ public class InternCell extends AbstractBusCell {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
-                    shape = Shape.UNHANDLEDPATTERN;
+                    shape = Shape.UNHANDLED_PATTERN;
                     LOGGER.error("InternCell pattern not handled");
                     LegBlock leg = candidateLegs.get(0);
                     legs.put(Side.UNDEFINED, candidateLegs.get(0));
@@ -172,7 +172,7 @@ public class InternCell extends AbstractBusCell {
 
     public void identifyIfFlat() {
         List<BusNode> buses = getBusNodes();
-        if (shape != Shape.MAYBEFLAT) {
+        if (shape != Shape.MAYBE_FLAT) {
             return;
         }
         if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
@@ -207,7 +207,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
+        if (shape.checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
             body.sizing();
         }
     }
@@ -215,7 +215,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public int newHPosition(int hPosition) {
         int h = hPosition;
-        if (shape == Shape.UNILEG) {
+        if (shape == Shape.ONE_LEG) {
             legs.get(Side.UNDEFINED).getPosition().set(H, h);
             h += legs.get(Side.UNDEFINED).getPosition().getSpan(H);
         } else {
