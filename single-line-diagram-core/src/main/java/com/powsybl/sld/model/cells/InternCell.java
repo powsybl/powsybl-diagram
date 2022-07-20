@@ -84,9 +84,9 @@ public class InternCell extends AbstractBusCell {
     private static final Side BODY_SIDE = Side.LEFT;
 
     private Shape shape;
-    private Map<Side, LegBlock> legs;
+    private final Map<Side, LegBlock> legs;
     private Block body;
-    private boolean exceptionIfPatternNotHandled;
+    private final boolean exceptionIfPatternNotHandled;
 
     public InternCell(int cellNumber, Collection<Node> nodes, boolean exceptionIfPatternNotHandled) {
         super(cellNumber, CellType.INTERN, nodes);
