@@ -31,7 +31,42 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 public class InternCell extends AbstractBusCell {
 
     public enum Shape {
-        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER, UNHANDLEDPATTERN;
+        /**
+         * Initial state
+         */
+        UNDEFINED,
+
+        /**
+         * Pattern not handled (more than two legs)
+         */
+        UNHANDLEDPATTERN,
+
+        /**
+         * Intermediary state: the intern cell is either flat or crossover
+         */
+        MAYBEFLAT,
+
+        /**
+         * Final state: the corresponding intern cell is displayed as a single straight line between two busbar sections
+         */
+        FLAT,
+
+        /**
+         * Final state: the corresponding intern cell is connecting two subsections, it hops over a subsections gap and
+         * might hop over some extern cells
+         */
+        CROSSOVER,
+
+        /**
+         * Final state: the corresponding intern cell is in a single subsection
+         */
+        VERTICAL,
+
+        /**
+         * Final state: <i>impaired</i> vertical intern cell, that is, with no equipments.
+         * Calling it uni-leg is misleading as it's drawn as a single line only if stacked.
+         */
+        UNILEG;
 
         public boolean checkIsShape(Shape... shapes) {
             for (Shape s : shapes) {
