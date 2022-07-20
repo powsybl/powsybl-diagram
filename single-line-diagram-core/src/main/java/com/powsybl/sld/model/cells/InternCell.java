@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
@@ -163,20 +164,10 @@ public class InternCell extends AbstractBusCell {
     }
 
     private List<LegBlock> searchLegs() {
-        List<LegBlock> candidateLegs = new ArrayList<>();
-        List<LegPrimaryBlock> plbCopy = new ArrayList<>(getLegPrimaryBlocks());
-        while (!plbCopy.isEmpty()) {
-            LegPrimaryBlock lpb = plbCopy.get(0);
-            Block parentBlock = lpb.getParentBlock();
-            if (parentBlock instanceof LegParralelBlock) {
-                candidateLegs.add((LegBlock) parentBlock);
-                plbCopy.removeAll(((LegParralelBlock) parentBlock).getSubBlocks());
-            } else {
-                candidateLegs.add(lpb);
-                plbCopy.remove(lpb);
-            }
-        }
-        return candidateLegs;
+        return getLegPrimaryBlocks().stream()
+                .map(lpb -> lpb.getParentBlock() instanceof LegParralelBlock ? (LegParralelBlock) lpb.getParentBlock() : lpb)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public void identifyIfFlat() {
