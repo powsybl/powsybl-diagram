@@ -70,21 +70,11 @@ public class InternCell extends AbstractBusCell {
         UNILEG;
 
         public boolean checkIsShape(Shape... shapes) {
-            for (Shape s : shapes) {
-                if (this == s) {
-                    return true;
-                }
-            }
-            return false;
+            return Arrays.stream(shapes).anyMatch(s -> s == this);
         }
 
         public boolean checkIsNotShape(Shape... shapes) {
-            for (Shape s : shapes) {
-                if (this == s) {
-                    return false;
-                }
-            }
-            return true;
+            return Arrays.stream(shapes).noneMatch(s -> s == this);
         }
     }
 
