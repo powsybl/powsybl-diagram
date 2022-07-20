@@ -109,13 +109,14 @@ public class LBSCluster {
         return laneSideBuses(side).stream()
                 .map(busNode -> getLbsSideFromBusNode(busNode, side))
                 .distinct().filter(Objects::nonNull)
-                .flatMap(lbs -> lbs.getCellsSideMapFromShape(InternCell.Shape.MAYBEFLAT).keySet().stream())
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBEFLAT).stream())
                 .collect(Collectors.toList());
     }
 
     public List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return lbsList.stream().flatMap(legBusSet -> legBusSet.getInternCellsFromShape(shape)
-                .stream()).collect(Collectors.toList());
+        return lbsList.stream()
+                .flatMap(legBusSet -> legBusSet.getInternCellsFromShape(shape).stream())
+                .collect(Collectors.toList());
     }
 
     public void sortHorizontalBusLanesByVPos() {

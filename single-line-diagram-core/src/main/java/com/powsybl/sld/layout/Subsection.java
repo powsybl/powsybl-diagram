@@ -118,7 +118,8 @@ public class Subsection {
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
         lbsList.stream()
-                .flatMap(lbs -> lbs.getCellsSideMapFromShape(InternCell.Shape.MAYBEFLAT).keySet().stream()).distinct()
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBEFLAT).stream())
+                .distinct()
                 .forEach(InternCell::identifyIfFlat);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);

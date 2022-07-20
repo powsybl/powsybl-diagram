@@ -80,13 +80,11 @@ public final class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkIsShape(shape))
-                .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
-    }
-
     List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().map(InternCellSide::getCell).distinct().collect(Collectors.toList());
+        return internCellSides.stream().map(InternCellSide::getCell)
+                .filter(cell -> cell.checkIsShape(shape))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public Set<BusNode> getBusNodeSet() {
