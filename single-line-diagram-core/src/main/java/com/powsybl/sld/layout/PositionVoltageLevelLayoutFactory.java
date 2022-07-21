@@ -99,12 +99,15 @@ public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFact
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
-        // detect cells
-        ImplicitCellDetector cellDetector = new ImplicitCellDetector(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode, exceptionIfPatternNotHandled);
+        // For adapting the graph to the diagram layout
+        LayoutGraphAdapter layoutGraphAdapter = new LayoutGraphAdapter(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
 
-        // build blocks from cells
+        // For cell detection
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector(exceptionIfPatternNotHandled);
+
+        // For building blocks from cells
         BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap);
 
-        return new PositionVoltageLevelLayout(graph, cellDetector, blockOrganizer);
+        return new PositionVoltageLevelLayout(graph, layoutGraphAdapter, cellDetector, blockOrganizer);
     }
 }
