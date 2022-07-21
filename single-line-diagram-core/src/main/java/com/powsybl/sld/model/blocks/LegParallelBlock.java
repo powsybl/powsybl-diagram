@@ -19,9 +19,9 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class LegParralelBlock extends AbstractParallelBlock implements LegBlock {
+public class LegParallelBlock extends AbstractParallelBlock implements LegBlock {
 
-    public LegParralelBlock(List<Block> subBlocks, boolean allowMerge) {
+    public LegParallelBlock(List<Block> subBlocks, boolean allowMerge) {
         super(Type.LEGPARALLEL, subBlocks, allowMerge);
     }
 

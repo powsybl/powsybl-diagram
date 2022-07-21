@@ -24,5 +24,5 @@ public interface BlockVisitor {
 
     void visit(SerialBlock block);
 
-    void visit(LegParralelBlock block);
+    void visit(LegParallelBlock block);
 }

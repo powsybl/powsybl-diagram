@@ -163,7 +163,7 @@ public class InternCell extends AbstractBusCell {
 
     private List<LegBlock> searchLegs() {
         return getLegPrimaryBlocks().stream()
-                .map(lpb -> lpb.getParentBlock() instanceof LegParralelBlock ? (LegParralelBlock) lpb.getParentBlock() : lpb)
+                .map(lpb -> lpb.getParentBlock() instanceof LegParallelBlock ? (LegParallelBlock) lpb.getParentBlock() : lpb)
                 .distinct()
                 .collect(Collectors.toList());
     }

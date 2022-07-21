@@ -74,7 +74,7 @@ public final class CalculateCellHeightBlockVisitor implements BlockVisitor {
     }
 
     @Override
-    public void visit(LegParralelBlock block) {
+    public void visit(LegParallelBlock block) {
         calculateSubHeight(block, Math::max);
     }
 
