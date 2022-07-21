@@ -58,4 +58,34 @@ public class TestCase3Coupling extends AbstractTestCaseIidm {
         // write Json and compare to reference
         assertEquals(toString("/TestCase3Coupling.json"), toJson(g, "/TestCase3Coupling.json"));
     }
+
+    @Test
+    public void test3Bars() {
+        createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+        createBusBarSection(vl, "bbs3", "bbs3", 4, 3, 1);
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write Json and compare to reference
+        assertEquals(toString("/TestCase3Coupling3Bars.json"), toJson(g, "/TestCase3Coupling3Bars.json"));
+    }
+
+    @Test
+    public void test3Bars2Sections() {
+        createSwitch(vl, "d3", "d3", SwitchKind.DISCONNECTOR, false, false, false, 2, 4);
+        createBusBarSection(vl, "bbs3", "bbs3", 4, 1, 2);
+
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // Run layout
+        voltageLevelGraphLayout(g);
+
+        // write Json and compare to reference
+        assertEquals(toString("/TestCase3Coupling3Bars2Sections.json"), toJson(g, "/TestCase3Coupling3Bars2Sections.json"));
+    }
 }

@@ -31,7 +31,43 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 public class InternCell extends AbstractBusCell {
 
     public enum Shape {
-        UNDEFINED, UNILEG, FLAT, MAYBEFLAT, VERTICAL, CROSSOVER, UNHANDLEDPATTERN;
+        /**
+         * Initial state
+         */
+        UNDEFINED,
+
+        /**
+         * Pattern not handled (more than two legs)
+         */
+        UNHANDLEDPATTERN,
+
+        /**
+         * Intermediary state: the intern cell is either flat or crossover
+         */
+        MAYBEFLAT,
+
+        /**
+         * Final state: the corresponding intern cell is displayed as a single straight line between two busbar sections
+         */
+        FLAT,
+
+        /**
+         * Final state: the corresponding intern cell is connecting two subsections, it hops over a subsections gap and
+         * might hop over some extern cells
+         */
+        CROSSOVER,
+
+        /**
+         * Final state: the corresponding intern cell is in a single subsection
+         */
+        VERTICAL,
+
+        /**
+         * Final state: <i>impaired</i> vertical intern cell, that is, with no equipments.
+         * Calling it uni-leg might be misleading as it's one LegParallelBlock but two (or more) LegBlocks,
+         * drawn as a single line only if stacked.
+         */
+        UNILEG;
 
         public boolean checkIsShape(Shape... shapes) {
             for (Shape s : shapes) {
@@ -82,8 +118,21 @@ public class InternCell extends AbstractBusCell {
             assignLeg(serialRootBlock, candidateLegs.get(1));
             body = serialRootBlock.extractBody(new ArrayList<>(legs.values()));
             body.setOrientation(Orientation.RIGHT);
+
+            // if one bus on each side, the intern cell is either flat or vertical
+            // if more than one bus on one side, the intern cell is
+            //  - either crossover (two sections): detected later in Subsection::identifyCrossOverAndCheckOrientation
+            //  - or vertical (one section): detected later in Subsection::identifyVerticalInternCells
+            if (candidateLegs.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
+                shape = Shape.MAYBEFLAT;
+            }
         } else {
-            if (candidateLegs.size() != 1) {
+            if (candidateLegs.size() == 1) {
+                shape = Shape.UNILEG;
+                LegBlock leg = candidateLegs.get(0);
+                legs.put(Side.UNDEFINED, leg);
+                leg.setOrientation(Orientation.UP);
+            } else {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
@@ -94,14 +143,6 @@ public class InternCell extends AbstractBusCell {
                     leg.setOrientation(Orientation.UP);
                 }
             }
-        }
-        if (candidateLegs.size() == 1) {
-            shape = Shape.UNILEG;
-            LegBlock leg = candidateLegs.get(0);
-            legs.put(Side.UNDEFINED, leg);
-            leg.setOrientation(Orientation.UP);
-        } else if (candidateLegs.size() == 2 && getBusNodes().size() == 2) {
-            shape = Shape.MAYBEFLAT;
         }
     }
 

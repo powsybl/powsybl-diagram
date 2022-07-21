@@ -128,20 +128,15 @@ public class Subsection {
         Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
         graph.getInternCellStream()
-                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
                 .forEach(c ->
                         subsections.stream()
                                 .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))
-                                .findAny().ifPresent(subsection -> verticalCells.putIfAbsent(c, subsection)));
-
-        subsections.forEach(ss -> {
-            List<InternCellSide> icsToRemove = ss.internCellSides.stream()
-                    .filter(ics -> verticalCells.keySet().contains(ics.getCell())).collect(Collectors.toList());
-            ss.internCellSides.removeAll(icsToRemove);
-        });
+                                .findFirst().ifPresent(subsection -> verticalCells.putIfAbsent(c, subsection)));
 
         verticalCells.forEach((cell, sub) -> {
             cell.setShape(InternCell.Shape.VERTICAL);
+            sub.internCellSides.removeIf(ics -> ics.getCell() == cell);
             sub.internCellSides.add(new InternCellSide(cell, Side.UNDEFINED));
         });
 
