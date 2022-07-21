@@ -255,9 +255,9 @@ public class ImplicitCellDetector implements CellDetector {
 
     private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
         int cellNumber = vlGraph.getNextCellNumber();
-        InternalNode iNode1 = vlGraph.insertInternalNode(shuntNodes.get(0), shuntNodes.get(1),
+        InternalNode iNode1 = vlGraph.insertHookNodesAtBuses(shuntNodes.get(0), shuntNodes.get(1),
                 "Shunt " + cellNumber + ".1");
-        InternalNode iNode2 = vlGraph.insertInternalNode(shuntNodes.get(shuntNodes.size() - 1),
+        InternalNode iNode2 = vlGraph.insertHookNodesAtBuses(shuntNodes.get(shuntNodes.size() - 1),
                 shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
         shuntNodes.add(1, iNode1);
         shuntNodes.add(shuntNodes.size() - 1, iNode2);

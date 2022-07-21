@@ -1,8 +1,11 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.Middle3WTNode;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
+
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class LayoutGraphAdapter {
     private final boolean removeUnnecessaryFictitiousNodes;
@@ -21,11 +24,23 @@ public class LayoutGraphAdapter {
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();
         }
-        graph.insertFictitiousNodesAtFeeders();
-        graph.extendNodeConnectedToBus(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR);
-        graph.extendNodeConnectedToBus(Middle3WTNode.class::isInstance);
-        graph.extendSwitchBetweenBuses();
-        graph.extendFirstOutsideNode();
-        graph.extendBusConnectedToBus();
+
+        graph.extendBusesConnectedToBuses();
+
+        Predicate<Node> nodesOnBus = node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR;
+        Set<Node> nodesOnBusBetweenBuses = getNodesOnBusBetweenBuses(graph, nodesOnBus);
+        nodesOnBus = nodesOnBus.and(node -> !nodesOnBusBetweenBuses.contains(node));
+
+        graph.insertBusConnections(nodesOnBus);
+        graph.insertHookNodesAtBuses();
+        graph.insertHookNodesAtFeeders();
+    }
+
+    private Set<Node> getNodesOnBusBetweenBuses(VoltageLevelGraph graph, Predicate<Node> nodesOnBus) {
+        return graph.getNodeBuses().stream()
+                .flatMap(nodeBus -> nodeBus.getAdjacentNodes().stream())
+                .filter(nodesOnBus)
+                .filter(n -> n.getAdjacentNodes().stream().allMatch(BusNode.class::isInstance))
+                .collect(Collectors.toSet());
     }
 }
