@@ -10,7 +10,7 @@
     "y" : 200.0,
     "nodes" : [ {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dgen1",
+      "id" : "INTERNAL_vl1_bgen1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -19,7 +19,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dgen2",
+      "id" : "INTERNAL_vl1_bgen2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 675.0,
@@ -28,7 +28,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dline11_2",
+      "id" : "INTERNAL_vl1_bline11_2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -36,7 +36,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dload1",
+      "id" : "INTERNAL_vl1_bload1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
@@ -44,7 +44,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dload2",
+      "id" : "INTERNAL_vl1_bload2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -52,43 +52,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dsect11",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 400.0,
-      "y" : 280.0,
-      "orientation" : "RIGHT",
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dsect12",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 450.0,
-      "y" : 280.0,
-      "orientation" : "RIGHT",
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dsect21",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 400.0,
-      "y" : 305.0,
-      "orientation" : "RIGHT",
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dsect22",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 450.0,
-      "y" : 305.0,
-      "orientation" : "RIGHT",
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf11",
+      "id" : "INTERNAL_vl1_btrf11",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -96,7 +60,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf12",
+      "id" : "INTERNAL_vl1_btrf12",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 625.0,
@@ -104,7 +68,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf13",
+      "id" : "INTERNAL_vl1_btrf13",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -113,7 +77,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf14",
+      "id" : "INTERNAL_vl1_btrf14",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
@@ -122,7 +86,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf15",
+      "id" : "INTERNAL_vl1_btrf15",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -130,7 +94,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf16",
+      "id" : "INTERNAL_vl1_btrf16",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -138,7 +102,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf17",
+      "id" : "INTERNAL_vl1_btrf17",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -147,11 +111,47 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl1_dtrf18",
+      "id" : "INTERNAL_vl1_btrf18",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
       "y" : 250.0,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl1_dtrct11",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 400.0,
+      "y" : 280.0,
+      "orientation" : "RIGHT",
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl1_dtrct11",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 450.0,
+      "y" : 280.0,
+      "orientation" : "RIGHT",
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl1_dtrct21",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 400.0,
+      "y" : 305.0,
+      "orientation" : "RIGHT",
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl1_dtrct21",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 450.0,
+      "y" : 305.0,
+      "orientation" : "RIGHT",
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -992,7 +992,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "dsect12", "INTERNAL_vl1_dsect12" ]
+          "nodes" : [ "bbs2", "dsect12", "INTERNAL_vl1_dtrct11" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1013,7 +1013,7 @@
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_vl1_dsect11", "dtrct11", "INTERNAL_vl1_dsect12" ]
+          "nodes" : [ "INTERNAL_vl1_dtrct11", "dtrct11", "INTERNAL_vl1_dtrct11" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -1034,7 +1034,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dsect11", "INTERNAL_vl1_dsect11" ]
+          "nodes" : [ "bbs1", "dsect11", "INTERNAL_vl1_dtrct11" ]
         } ]
       }
     }, {
@@ -1081,7 +1081,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs4", "dsect22", "INTERNAL_vl1_dsect22" ]
+          "nodes" : [ "bbs4", "dsect22", "INTERNAL_vl1_dtrct21" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1102,7 +1102,7 @@
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_vl1_dsect21", "dtrct21", "INTERNAL_vl1_dsect22" ]
+          "nodes" : [ "INTERNAL_vl1_dtrct21", "dtrct21", "INTERNAL_vl1_dtrct21" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -1123,7 +1123,7 @@
             "xSpan" : 0.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs3", "dsect21", "INTERNAL_vl1_dsect21" ]
+          "nodes" : [ "bbs3", "dsect21", "INTERNAL_vl1_dtrct21" ]
         } ]
       }
     }, {
@@ -1171,7 +1171,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dload1", "INTERNAL_vl1_dload1" ]
+          "nodes" : [ "bbs1", "dload1", "INTERNAL_vl1_bload1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1192,7 +1192,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dload1", "bload1", "INTERNAL_vl1_load1" ]
+          "nodes" : [ "INTERNAL_vl1_bload1", "bload1", "INTERNAL_vl1_load1" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1261,7 +1261,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dtrf11", "INTERNAL_vl1_dtrf11" ]
+          "nodes" : [ "bbs1", "dtrf11", "INTERNAL_vl1_btrf11" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1282,7 +1282,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf11", "btrf11", "INTERNAL_vl1_trf1_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf11", "btrf11", "INTERNAL_vl1_trf1_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1351,7 +1351,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dtrf15", "INTERNAL_vl1_dtrf15" ]
+          "nodes" : [ "bbs1", "dtrf15", "INTERNAL_vl1_btrf15" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1372,7 +1372,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf15", "btrf15", "INTERNAL_vl1_trf5_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf15", "btrf15", "INTERNAL_vl1_trf5_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1441,7 +1441,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dtrf16", "INTERNAL_vl1_dtrf16" ]
+          "nodes" : [ "bbs1", "dtrf16", "INTERNAL_vl1_btrf16" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1462,7 +1462,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf16", "btrf16", "INTERNAL_vl1_trf6_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf16", "btrf16", "INTERNAL_vl1_trf6_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1531,7 +1531,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs1", "dline11_2", "INTERNAL_vl1_dline11_2" ]
+          "nodes" : [ "bbs1", "dline11_2", "INTERNAL_vl1_bline11_2" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1552,7 +1552,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dline11_2", "bline11_2", "INTERNAL_vl1_line1_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_bline11_2", "bline11_2", "INTERNAL_vl1_line1_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1621,7 +1621,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "dload2", "INTERNAL_vl1_dload2" ]
+          "nodes" : [ "bbs2", "dload2", "INTERNAL_vl1_bload2" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1642,7 +1642,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dload2", "bload2", "INTERNAL_vl1_load2" ]
+          "nodes" : [ "INTERNAL_vl1_bload2", "bload2", "INTERNAL_vl1_load2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1711,7 +1711,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "dtrf12", "INTERNAL_vl1_dtrf12" ]
+          "nodes" : [ "bbs2", "dtrf12", "INTERNAL_vl1_btrf12" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1732,7 +1732,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf12", "btrf12", "INTERNAL_vl1_trf2_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf12", "btrf12", "INTERNAL_vl1_trf2_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1801,7 +1801,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs2", "dtrf18", "INTERNAL_vl1_dtrf18" ]
+          "nodes" : [ "bbs2", "dtrf18", "INTERNAL_vl1_btrf18" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1822,7 +1822,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf18", "btrf18", "INTERNAL_vl1_trf8_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf18", "btrf18", "INTERNAL_vl1_trf8_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1891,7 +1891,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs3", "dgen1", "INTERNAL_vl1_dgen1" ]
+          "nodes" : [ "bbs3", "dgen1", "INTERNAL_vl1_bgen1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -1912,7 +1912,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dgen1", "bgen1", "INTERNAL_vl1_gen1" ]
+          "nodes" : [ "INTERNAL_vl1_bgen1", "bgen1", "INTERNAL_vl1_gen1" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -1981,7 +1981,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs3", "dtrf13", "INTERNAL_vl1_dtrf13" ]
+          "nodes" : [ "bbs3", "dtrf13", "INTERNAL_vl1_btrf13" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2002,7 +2002,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf13", "btrf13", "INTERNAL_vl1_trf3_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf13", "btrf13", "INTERNAL_vl1_trf3_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2071,7 +2071,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs3", "dtrf17", "INTERNAL_vl1_dtrf17" ]
+          "nodes" : [ "bbs3", "dtrf17", "INTERNAL_vl1_btrf17" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2092,7 +2092,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf17", "btrf17", "INTERNAL_vl1_trf7_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf17", "btrf17", "INTERNAL_vl1_trf7_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2161,7 +2161,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs4", "dgen2", "INTERNAL_vl1_dgen2" ]
+          "nodes" : [ "bbs4", "dgen2", "INTERNAL_vl1_bgen2" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2182,7 +2182,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dgen2", "bgen2", "INTERNAL_vl1_gen2" ]
+          "nodes" : [ "INTERNAL_vl1_bgen2", "bgen2", "INTERNAL_vl1_gen2" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2251,7 +2251,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs4", "dtrf14", "INTERNAL_vl1_dtrf14" ]
+          "nodes" : [ "bbs4", "dtrf14", "INTERNAL_vl1_btrf14" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -2272,7 +2272,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl1_dtrf14", "btrf14", "INTERNAL_vl1_trf4_ONE" ]
+          "nodes" : [ "INTERNAL_vl1_btrf14", "btrf14", "INTERNAL_vl1_trf4_ONE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -2348,6 +2348,108 @@
     }, {
       "node1" : "bbs1",
       "node2" : "dline11_2"
+    }, {
+      "node1" : "dsect11",
+      "node2" : "INTERNAL_vl1_dtrct11"
+    }, {
+      "node1" : "INTERNAL_vl1_dtrct11",
+      "node2" : "dtrct11"
+    }, {
+      "node1" : "dload1",
+      "node2" : "INTERNAL_vl1_bload1"
+    }, {
+      "node1" : "INTERNAL_vl1_bload1",
+      "node2" : "bload1"
+    }, {
+      "node1" : "dtrf11",
+      "node2" : "INTERNAL_vl1_btrf11"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf11",
+      "node2" : "btrf11"
+    }, {
+      "node1" : "dtrf15",
+      "node2" : "INTERNAL_vl1_btrf15"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf15",
+      "node2" : "btrf15"
+    }, {
+      "node1" : "dtrf16",
+      "node2" : "INTERNAL_vl1_btrf16"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf16",
+      "node2" : "btrf16"
+    }, {
+      "node1" : "dline11_2",
+      "node2" : "INTERNAL_vl1_bline11_2"
+    }, {
+      "node1" : "INTERNAL_vl1_bline11_2",
+      "node2" : "bline11_2"
+    }, {
+      "node1" : "dsect12",
+      "node2" : "INTERNAL_vl1_dtrct11"
+    }, {
+      "node1" : "INTERNAL_vl1_dtrct11",
+      "node2" : "dtrct11"
+    }, {
+      "node1" : "dload2",
+      "node2" : "INTERNAL_vl1_bload2"
+    }, {
+      "node1" : "INTERNAL_vl1_bload2",
+      "node2" : "bload2"
+    }, {
+      "node1" : "dtrf12",
+      "node2" : "INTERNAL_vl1_btrf12"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf12",
+      "node2" : "btrf12"
+    }, {
+      "node1" : "dtrf18",
+      "node2" : "INTERNAL_vl1_btrf18"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf18",
+      "node2" : "btrf18"
+    }, {
+      "node1" : "dsect21",
+      "node2" : "INTERNAL_vl1_dtrct21"
+    }, {
+      "node1" : "INTERNAL_vl1_dtrct21",
+      "node2" : "dtrct21"
+    }, {
+      "node1" : "dgen1",
+      "node2" : "INTERNAL_vl1_bgen1"
+    }, {
+      "node1" : "INTERNAL_vl1_bgen1",
+      "node2" : "bgen1"
+    }, {
+      "node1" : "dtrf13",
+      "node2" : "INTERNAL_vl1_btrf13"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf13",
+      "node2" : "btrf13"
+    }, {
+      "node1" : "dtrf17",
+      "node2" : "INTERNAL_vl1_btrf17"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf17",
+      "node2" : "btrf17"
+    }, {
+      "node1" : "dsect22",
+      "node2" : "INTERNAL_vl1_dtrct21"
+    }, {
+      "node1" : "INTERNAL_vl1_dtrct21",
+      "node2" : "dtrct21"
+    }, {
+      "node1" : "dgen2",
+      "node2" : "INTERNAL_vl1_bgen2"
+    }, {
+      "node1" : "INTERNAL_vl1_bgen2",
+      "node2" : "bgen2"
+    }, {
+      "node1" : "dtrf14",
+      "node2" : "INTERNAL_vl1_btrf14"
+    }, {
+      "node1" : "INTERNAL_vl1_btrf14",
+      "node2" : "btrf14"
     }, {
       "node1" : "bload1",
       "node2" : "INTERNAL_vl1_load1"
@@ -2426,108 +2528,6 @@
     }, {
       "node1" : "INTERNAL_vl1_line1_ONE",
       "node2" : "line1_ONE"
-    }, {
-      "node1" : "dtrct11",
-      "node2" : "INTERNAL_vl1_dsect11"
-    }, {
-      "node1" : "dsect11",
-      "node2" : "INTERNAL_vl1_dsect11"
-    }, {
-      "node1" : "bload1",
-      "node2" : "INTERNAL_vl1_dload1"
-    }, {
-      "node1" : "dload1",
-      "node2" : "INTERNAL_vl1_dload1"
-    }, {
-      "node1" : "btrf11",
-      "node2" : "INTERNAL_vl1_dtrf11"
-    }, {
-      "node1" : "dtrf11",
-      "node2" : "INTERNAL_vl1_dtrf11"
-    }, {
-      "node1" : "btrf15",
-      "node2" : "INTERNAL_vl1_dtrf15"
-    }, {
-      "node1" : "dtrf15",
-      "node2" : "INTERNAL_vl1_dtrf15"
-    }, {
-      "node1" : "btrf16",
-      "node2" : "INTERNAL_vl1_dtrf16"
-    }, {
-      "node1" : "dtrf16",
-      "node2" : "INTERNAL_vl1_dtrf16"
-    }, {
-      "node1" : "bline11_2",
-      "node2" : "INTERNAL_vl1_dline11_2"
-    }, {
-      "node1" : "dline11_2",
-      "node2" : "INTERNAL_vl1_dline11_2"
-    }, {
-      "node1" : "dtrct11",
-      "node2" : "INTERNAL_vl1_dsect12"
-    }, {
-      "node1" : "dsect12",
-      "node2" : "INTERNAL_vl1_dsect12"
-    }, {
-      "node1" : "bload2",
-      "node2" : "INTERNAL_vl1_dload2"
-    }, {
-      "node1" : "dload2",
-      "node2" : "INTERNAL_vl1_dload2"
-    }, {
-      "node1" : "btrf12",
-      "node2" : "INTERNAL_vl1_dtrf12"
-    }, {
-      "node1" : "dtrf12",
-      "node2" : "INTERNAL_vl1_dtrf12"
-    }, {
-      "node1" : "btrf18",
-      "node2" : "INTERNAL_vl1_dtrf18"
-    }, {
-      "node1" : "dtrf18",
-      "node2" : "INTERNAL_vl1_dtrf18"
-    }, {
-      "node1" : "dtrct21",
-      "node2" : "INTERNAL_vl1_dsect21"
-    }, {
-      "node1" : "dsect21",
-      "node2" : "INTERNAL_vl1_dsect21"
-    }, {
-      "node1" : "bgen1",
-      "node2" : "INTERNAL_vl1_dgen1"
-    }, {
-      "node1" : "dgen1",
-      "node2" : "INTERNAL_vl1_dgen1"
-    }, {
-      "node1" : "btrf13",
-      "node2" : "INTERNAL_vl1_dtrf13"
-    }, {
-      "node1" : "dtrf13",
-      "node2" : "INTERNAL_vl1_dtrf13"
-    }, {
-      "node1" : "btrf17",
-      "node2" : "INTERNAL_vl1_dtrf17"
-    }, {
-      "node1" : "dtrf17",
-      "node2" : "INTERNAL_vl1_dtrf17"
-    }, {
-      "node1" : "dtrct21",
-      "node2" : "INTERNAL_vl1_dsect22"
-    }, {
-      "node1" : "dsect22",
-      "node2" : "INTERNAL_vl1_dsect22"
-    }, {
-      "node1" : "bgen2",
-      "node2" : "INTERNAL_vl1_dgen2"
-    }, {
-      "node1" : "dgen2",
-      "node2" : "INTERNAL_vl1_dgen2"
-    }, {
-      "node1" : "btrf14",
-      "node2" : "INTERNAL_vl1_dtrf14"
-    }, {
-      "node1" : "dtrf14",
-      "node2" : "INTERNAL_vl1_dtrf14"
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],
@@ -2542,7 +2542,7 @@
     "y" : 1025.0,
     "nodes" : [ {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dgen4",
+      "id" : "INTERNAL_vl2_bgen4",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -2551,7 +2551,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dload3",
+      "id" : "INTERNAL_vl2_bload3",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -2559,23 +2559,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dscpl1",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 75.0,
-      "y" : 240.0,
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dscpl2",
-      "componentType" : "NODE",
-      "fictitious" : true,
-      "x" : 25.0,
-      "y" : 240.0,
-      "open" : false
-    }, {
-      "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf21",
+      "id" : "INTERNAL_vl2_btrf21",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -2583,7 +2567,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf22",
+      "id" : "INTERNAL_vl2_btrf22",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
@@ -2592,7 +2576,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf23",
+      "id" : "INTERNAL_vl2_btrf23",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
@@ -2601,7 +2585,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf24",
+      "id" : "INTERNAL_vl2_btrf24",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
@@ -2609,7 +2593,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf26",
+      "id" : "INTERNAL_vl2_btrf26",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
@@ -2617,7 +2601,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf27",
+      "id" : "INTERNAL_vl2_btrf27",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
@@ -2625,12 +2609,28 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl2_dtrf28",
+      "id" : "INTERNAL_vl2_btrf28",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
       "y" : 335.0,
       "orientation" : "DOWN",
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl2_ddcpl1",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 75.0,
+      "y" : 240.0,
+      "open" : false
+    }, {
+      "type" : "FICTITIOUS",
+      "id" : "INTERNAL_vl2_ddcpl1",
+      "componentType" : "NODE",
+      "fictitious" : true,
+      "x" : 25.0,
+      "y" : 240.0,
       "open" : false
     }, {
       "type" : "FICTITIOUS",
@@ -3202,7 +3202,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dscpl2", "INTERNAL_vl2_dscpl2" ]
+          "nodes" : [ "bbs6", "dscpl2", "INTERNAL_vl2_ddcpl1" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3223,7 +3223,7 @@
             "xSpan" : 50.0,
             "ySpan" : 40.0
           },
-          "nodes" : [ "INTERNAL_vl2_dscpl2", "ddcpl1", "INTERNAL_vl2_dscpl1" ]
+          "nodes" : [ "INTERNAL_vl2_ddcpl1", "ddcpl1", "INTERNAL_vl2_ddcpl1" ]
         }, {
           "type" : "LEGPRIMARY",
           "cardinalities" : [ {
@@ -3244,7 +3244,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs5", "dscpl1", "INTERNAL_vl2_dscpl1" ]
+          "nodes" : [ "bbs5", "dscpl1", "INTERNAL_vl2_ddcpl1" ]
         } ]
       }
     }, {
@@ -3292,7 +3292,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs5", "dload3", "INTERNAL_vl2_dload3" ]
+          "nodes" : [ "bbs5", "dload3", "INTERNAL_vl2_bload3" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3313,7 +3313,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dload3", "bload3", "INTERNAL_vl2_load3" ]
+          "nodes" : [ "INTERNAL_vl2_bload3", "bload3", "INTERNAL_vl2_load3" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3382,7 +3382,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs5", "dtrf21", "INTERNAL_vl2_dtrf21" ]
+          "nodes" : [ "bbs5", "dtrf21", "INTERNAL_vl2_btrf21" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3403,7 +3403,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf21", "btrf21", "INTERNAL_vl2_trf1_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf21", "btrf21", "INTERNAL_vl2_trf1_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3472,7 +3472,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs5", "dtrf24", "INTERNAL_vl2_dtrf24" ]
+          "nodes" : [ "bbs5", "dtrf24", "INTERNAL_vl2_btrf24" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3493,7 +3493,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf24", "btrf24", "INTERNAL_vl2_trf4_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf24", "btrf24", "INTERNAL_vl2_trf4_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3562,7 +3562,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs5", "dtrf27", "INTERNAL_vl2_dtrf27" ]
+          "nodes" : [ "bbs5", "dtrf27", "INTERNAL_vl2_btrf27" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3583,7 +3583,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf27", "btrf27", "INTERNAL_vl2_trf7_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf27", "btrf27", "INTERNAL_vl2_trf7_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3652,7 +3652,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dgen4", "INTERNAL_vl2_dgen4" ]
+          "nodes" : [ "bbs6", "dgen4", "INTERNAL_vl2_bgen4" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3673,7 +3673,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dgen4", "bgen4", "INTERNAL_vl2_gen4" ]
+          "nodes" : [ "INTERNAL_vl2_bgen4", "bgen4", "INTERNAL_vl2_gen4" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3742,7 +3742,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dtrf22", "INTERNAL_vl2_dtrf22" ]
+          "nodes" : [ "bbs6", "dtrf22", "INTERNAL_vl2_btrf22" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3763,7 +3763,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf22", "btrf22", "INTERNAL_vl2_trf2_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf22", "btrf22", "INTERNAL_vl2_trf2_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3832,7 +3832,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dtrf23", "INTERNAL_vl2_dtrf23" ]
+          "nodes" : [ "bbs6", "dtrf23", "INTERNAL_vl2_btrf23" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3853,7 +3853,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf23", "btrf23", "INTERNAL_vl2_trf3_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf23", "btrf23", "INTERNAL_vl2_trf3_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -3922,7 +3922,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dtrf26", "INTERNAL_vl2_dtrf26" ]
+          "nodes" : [ "bbs6", "dtrf26", "INTERNAL_vl2_btrf26" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -3943,7 +3943,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf26", "btrf26", "INTERNAL_vl2_trf6_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf26", "btrf26", "INTERNAL_vl2_trf6_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4012,7 +4012,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs6", "dtrf28", "INTERNAL_vl2_dtrf28" ]
+          "nodes" : [ "bbs6", "dtrf28", "INTERNAL_vl2_btrf28" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4033,7 +4033,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl2_dtrf28", "btrf28", "INTERNAL_vl2_trf8_TWO" ]
+          "nodes" : [ "INTERNAL_vl2_btrf28", "btrf28", "INTERNAL_vl2_trf8_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4092,6 +4092,72 @@
       "node1" : "bbs6",
       "node2" : "dtrf28"
     }, {
+      "node1" : "dscpl1",
+      "node2" : "INTERNAL_vl2_ddcpl1"
+    }, {
+      "node1" : "INTERNAL_vl2_ddcpl1",
+      "node2" : "ddcpl1"
+    }, {
+      "node1" : "dload3",
+      "node2" : "INTERNAL_vl2_bload3"
+    }, {
+      "node1" : "INTERNAL_vl2_bload3",
+      "node2" : "bload3"
+    }, {
+      "node1" : "dtrf21",
+      "node2" : "INTERNAL_vl2_btrf21"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf21",
+      "node2" : "btrf21"
+    }, {
+      "node1" : "dtrf24",
+      "node2" : "INTERNAL_vl2_btrf24"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf24",
+      "node2" : "btrf24"
+    }, {
+      "node1" : "dtrf27",
+      "node2" : "INTERNAL_vl2_btrf27"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf27",
+      "node2" : "btrf27"
+    }, {
+      "node1" : "dscpl2",
+      "node2" : "INTERNAL_vl2_ddcpl1"
+    }, {
+      "node1" : "INTERNAL_vl2_ddcpl1",
+      "node2" : "ddcpl1"
+    }, {
+      "node1" : "dgen4",
+      "node2" : "INTERNAL_vl2_bgen4"
+    }, {
+      "node1" : "INTERNAL_vl2_bgen4",
+      "node2" : "bgen4"
+    }, {
+      "node1" : "dtrf22",
+      "node2" : "INTERNAL_vl2_btrf22"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf22",
+      "node2" : "btrf22"
+    }, {
+      "node1" : "dtrf23",
+      "node2" : "INTERNAL_vl2_btrf23"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf23",
+      "node2" : "btrf23"
+    }, {
+      "node1" : "dtrf26",
+      "node2" : "INTERNAL_vl2_btrf26"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf26",
+      "node2" : "btrf26"
+    }, {
+      "node1" : "dtrf28",
+      "node2" : "INTERNAL_vl2_btrf28"
+    }, {
+      "node1" : "INTERNAL_vl2_btrf28",
+      "node2" : "btrf28"
+    }, {
       "node1" : "bload3",
       "node2" : "INTERNAL_vl2_load3"
     }, {
@@ -4145,72 +4211,6 @@
     }, {
       "node1" : "INTERNAL_vl2_trf8_TWO",
       "node2" : "trf8_TWO"
-    }, {
-      "node1" : "ddcpl1",
-      "node2" : "INTERNAL_vl2_dscpl1"
-    }, {
-      "node1" : "dscpl1",
-      "node2" : "INTERNAL_vl2_dscpl1"
-    }, {
-      "node1" : "bload3",
-      "node2" : "INTERNAL_vl2_dload3"
-    }, {
-      "node1" : "dload3",
-      "node2" : "INTERNAL_vl2_dload3"
-    }, {
-      "node1" : "btrf21",
-      "node2" : "INTERNAL_vl2_dtrf21"
-    }, {
-      "node1" : "dtrf21",
-      "node2" : "INTERNAL_vl2_dtrf21"
-    }, {
-      "node1" : "btrf24",
-      "node2" : "INTERNAL_vl2_dtrf24"
-    }, {
-      "node1" : "dtrf24",
-      "node2" : "INTERNAL_vl2_dtrf24"
-    }, {
-      "node1" : "btrf27",
-      "node2" : "INTERNAL_vl2_dtrf27"
-    }, {
-      "node1" : "dtrf27",
-      "node2" : "INTERNAL_vl2_dtrf27"
-    }, {
-      "node1" : "ddcpl1",
-      "node2" : "INTERNAL_vl2_dscpl2"
-    }, {
-      "node1" : "dscpl2",
-      "node2" : "INTERNAL_vl2_dscpl2"
-    }, {
-      "node1" : "bgen4",
-      "node2" : "INTERNAL_vl2_dgen4"
-    }, {
-      "node1" : "dgen4",
-      "node2" : "INTERNAL_vl2_dgen4"
-    }, {
-      "node1" : "btrf22",
-      "node2" : "INTERNAL_vl2_dtrf22"
-    }, {
-      "node1" : "dtrf22",
-      "node2" : "INTERNAL_vl2_dtrf22"
-    }, {
-      "node1" : "btrf23",
-      "node2" : "INTERNAL_vl2_dtrf23"
-    }, {
-      "node1" : "dtrf23",
-      "node2" : "INTERNAL_vl2_dtrf23"
-    }, {
-      "node1" : "btrf26",
-      "node2" : "INTERNAL_vl2_dtrf26"
-    }, {
-      "node1" : "dtrf26",
-      "node2" : "INTERNAL_vl2_dtrf26"
-    }, {
-      "node1" : "btrf28",
-      "node2" : "INTERNAL_vl2_dtrf28"
-    }, {
-      "node1" : "dtrf28",
-      "node2" : "INTERNAL_vl2_dtrf28"
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],
@@ -4225,7 +4225,7 @@
     "y" : 1820.0,
     "nodes" : [ {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl3_dload4",
+      "id" : "INTERNAL_vl3_bload4",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
@@ -4233,7 +4233,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl3_dtrf25",
+      "id" : "INTERNAL_vl3_btrf25",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
@@ -4242,7 +4242,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl3_dtrf36",
+      "id" : "INTERNAL_vl3_btrf36",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
@@ -4250,7 +4250,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl3_dtrf37",
+      "id" : "INTERNAL_vl3_btrf37",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
@@ -4259,7 +4259,7 @@
       "open" : false
     }, {
       "type" : "FICTITIOUS",
-      "id" : "INTERNAL_vl3_dtrf38",
+      "id" : "INTERNAL_vl3_btrf38",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
@@ -4582,7 +4582,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs7", "dload4", "INTERNAL_vl3_dload4" ]
+          "nodes" : [ "bbs7", "dload4", "INTERNAL_vl3_bload4" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4603,7 +4603,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl3_dload4", "bload4", "INTERNAL_vl3_load4" ]
+          "nodes" : [ "INTERNAL_vl3_bload4", "bload4", "INTERNAL_vl3_load4" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4672,7 +4672,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs7", "dtrf25", "INTERNAL_vl3_dtrf25" ]
+          "nodes" : [ "bbs7", "dtrf25", "INTERNAL_vl3_btrf25" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4693,7 +4693,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl3_dtrf25", "btrf25", "INTERNAL_vl3_trf5_TWO" ]
+          "nodes" : [ "INTERNAL_vl3_btrf25", "btrf25", "INTERNAL_vl3_trf5_TWO" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4762,7 +4762,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs7", "dtrf36", "INTERNAL_vl3_dtrf36" ]
+          "nodes" : [ "bbs7", "dtrf36", "INTERNAL_vl3_btrf36" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4783,7 +4783,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl3_dtrf36", "btrf36", "INTERNAL_vl3_trf6_THREE" ]
+          "nodes" : [ "INTERNAL_vl3_btrf36", "btrf36", "INTERNAL_vl3_trf6_THREE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4852,7 +4852,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs7", "dtrf37", "INTERNAL_vl3_dtrf37" ]
+          "nodes" : [ "bbs7", "dtrf37", "INTERNAL_vl3_btrf37" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4873,7 +4873,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl3_dtrf37", "btrf37", "INTERNAL_vl3_trf7_THREE" ]
+          "nodes" : [ "INTERNAL_vl3_btrf37", "btrf37", "INTERNAL_vl3_trf7_THREE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -4942,7 +4942,7 @@
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
-          "nodes" : [ "bbs7", "dtrf38", "INTERNAL_vl3_dtrf38" ]
+          "nodes" : [ "bbs7", "dtrf38", "INTERNAL_vl3_btrf38" ]
         }, {
           "type" : "BODYPRIMARY",
           "cardinalities" : [ {
@@ -4963,7 +4963,7 @@
             "xSpan" : 50.0,
             "ySpan" : 188.0
           },
-          "nodes" : [ "INTERNAL_vl3_dtrf38", "btrf38", "INTERNAL_vl3_trf8_THREE" ]
+          "nodes" : [ "INTERNAL_vl3_btrf38", "btrf38", "INTERNAL_vl3_trf8_THREE" ]
         }, {
           "type" : "FEEDERPRIMARY",
           "cardinalities" : [ {
@@ -5004,6 +5004,36 @@
       "node1" : "bbs7",
       "node2" : "dtrf38"
     }, {
+      "node1" : "dload4",
+      "node2" : "INTERNAL_vl3_bload4"
+    }, {
+      "node1" : "INTERNAL_vl3_bload4",
+      "node2" : "bload4"
+    }, {
+      "node1" : "dtrf25",
+      "node2" : "INTERNAL_vl3_btrf25"
+    }, {
+      "node1" : "INTERNAL_vl3_btrf25",
+      "node2" : "btrf25"
+    }, {
+      "node1" : "dtrf36",
+      "node2" : "INTERNAL_vl3_btrf36"
+    }, {
+      "node1" : "INTERNAL_vl3_btrf36",
+      "node2" : "btrf36"
+    }, {
+      "node1" : "dtrf37",
+      "node2" : "INTERNAL_vl3_btrf37"
+    }, {
+      "node1" : "INTERNAL_vl3_btrf37",
+      "node2" : "btrf37"
+    }, {
+      "node1" : "dtrf38",
+      "node2" : "INTERNAL_vl3_btrf38"
+    }, {
+      "node1" : "INTERNAL_vl3_btrf38",
+      "node2" : "btrf38"
+    }, {
       "node1" : "bload4",
       "node2" : "INTERNAL_vl3_load4"
     }, {
@@ -5033,36 +5063,6 @@
     }, {
       "node1" : "INTERNAL_vl3_trf8_THREE",
       "node2" : "trf8_THREE"
-    }, {
-      "node1" : "bload4",
-      "node2" : "INTERNAL_vl3_dload4"
-    }, {
-      "node1" : "dload4",
-      "node2" : "INTERNAL_vl3_dload4"
-    }, {
-      "node1" : "btrf25",
-      "node2" : "INTERNAL_vl3_dtrf25"
-    }, {
-      "node1" : "dtrf25",
-      "node2" : "INTERNAL_vl3_dtrf25"
-    }, {
-      "node1" : "btrf36",
-      "node2" : "INTERNAL_vl3_dtrf36"
-    }, {
-      "node1" : "dtrf36",
-      "node2" : "INTERNAL_vl3_dtrf36"
-    }, {
-      "node1" : "btrf37",
-      "node2" : "INTERNAL_vl3_dtrf37"
-    }, {
-      "node1" : "dtrf37",
-      "node2" : "INTERNAL_vl3_dtrf37"
-    }, {
-      "node1" : "btrf38",
-      "node2" : "INTERNAL_vl3_dtrf38"
-    }, {
-      "node1" : "dtrf38",
-      "node2" : "INTERNAL_vl3_dtrf38"
     } ],
     "multitermNodes" : [ ],
     "twtEdges" : [ ],

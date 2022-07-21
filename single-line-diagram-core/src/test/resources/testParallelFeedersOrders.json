@@ -8,7 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d",
+    "id" : "INTERNAL_vl_b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -164,7 +164,7 @@
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "d", "INTERNAL_vl_d" ]
+        "nodes" : [ "bbs", "d", "INTERNAL_vl_b" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -185,7 +185,7 @@
           "xSpan" : 100.0,
           "ySpan" : 94.0
         },
-        "nodes" : [ "INTERNAL_vl_d", "b", "INTERNAL_vl_f" ]
+        "nodes" : [ "INTERNAL_vl_b", "b", "INTERNAL_vl_f" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -346,6 +346,12 @@
     "node1" : "INTERNAL_vl_f",
     "node2" : "b2"
   }, {
+    "node1" : "d",
+    "node2" : "INTERNAL_vl_b"
+  }, {
+    "node1" : "INTERNAL_vl_b",
+    "node2" : "b"
+  }, {
     "node1" : "INTERNAL_vl_f",
     "node2" : "INTERNAL_vl_l1"
   }, {
@@ -357,12 +363,6 @@
   }, {
     "node1" : "INTERNAL_vl_l2",
     "node2" : "l2"
-  }, {
-    "node1" : "b",
-    "node2" : "INTERNAL_vl_d"
-  }, {
-    "node1" : "d",
-    "node2" : "INTERNAL_vl_d"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

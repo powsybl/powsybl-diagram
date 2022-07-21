@@ -81,7 +81,7 @@
             <text class="sld-label" id="bbs2_NW_LABEL" x="-5.0" y="-5.0">bbs2</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_vsc_95_1" transform="translate(186.0,326.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_vsc" transform="translate(186.0,326.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_svc" transform="translate(161.0,138.0)">
@@ -92,20 +92,20 @@
                 <path d="M 0.2556,10.611 11.671,1.448 M 9.329,2.045 11.671,1.448 10.581,3.6046" style="fill:none;stroke:#0000ff;stroke-width:0.5;stroke-linejoin:miter"/>
                 <text class="sld-label" id="svc_N_LABEL" x="-5.0" y="-5.0">svc</text>
             </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_vsc_95_2" transform="translate(211.0,138.0)">
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_vsc" transform="translate(211.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-vsc sld-top-feeder" id="idvsc" transform="translate(207.0,76.0)">
                 <text x="-5.3" y="6.6">AC / DC</text>
                 <text class="sld-label" id="vsc_N_LABEL" x="-5.0" y="-5.0">Converter1</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_vsc_95_1">
+            <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_vsc">
                 <polyline points="190.0,360.0,190.0,330.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_vsc_95_1">
+            <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_vsc">
                 <polyline points="165.0,246.0,165.0,330.0,190.0,330.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_1_95_INTERNAL_95_vl_95_vsc_95_2">
+            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_INTERNAL_95_vl_95_vsc">
                 <polyline points="190.0,330.0,215.0,330.0,215.0,142.0"/>
             </g>
             <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_svc">
@@ -124,7 +124,7 @@
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">50</text>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_2_95_vsc">
+            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_vsc">
                 <polyline points="215.0,142.0,215.0,86.0"/>
             </g>
             <g class="sld-arrow-p sld-out" id="idvsc_ARROW_ACTIVE" transform="translate(210.0,101.0)">

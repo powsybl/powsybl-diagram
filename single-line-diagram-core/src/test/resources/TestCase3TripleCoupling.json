@@ -17,7 +17,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d1",
+    "id" : "INTERNAL_vl_b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -25,7 +25,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d2",
+    "id" : "INTERNAL_vl_b",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -33,7 +33,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d5",
+    "id" : "INTERNAL_vl_b2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
@@ -41,7 +41,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d6",
+    "id" : "INTERNAL_vl_b3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
@@ -49,7 +49,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_d7",
+    "id" : "INTERNAL_vl_b3",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -250,7 +250,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs2", "d2", "INTERNAL_vl_d2" ]
+        "nodes" : [ "bbs2", "d2", "INTERNAL_vl_b" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -271,7 +271,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_d2", "b", "INTERNAL_vl_d1" ]
+        "nodes" : [ "INTERNAL_vl_b", "b", "INTERNAL_vl_b" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -292,7 +292,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1", "d1", "INTERNAL_vl_d1" ]
+        "nodes" : [ "bbs1", "d1", "INTERNAL_vl_b" ]
       } ]
     }
   }, {
@@ -401,7 +401,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_4", "b2", "INTERNAL_vl_d5" ]
+        "nodes" : [ "INTERNAL_vl_4", "b2", "INTERNAL_vl_b2" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -422,7 +422,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs2", "d5", "INTERNAL_vl_d5" ]
+        "nodes" : [ "bbs2", "d5", "INTERNAL_vl_b2" ]
       } ]
     }
   }, {
@@ -468,7 +468,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs2", "d7", "INTERNAL_vl_d7" ]
+        "nodes" : [ "bbs2", "d7", "INTERNAL_vl_b3" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -489,7 +489,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_d7", "b3", "INTERNAL_vl_d6" ]
+        "nodes" : [ "INTERNAL_vl_b3", "b3", "INTERNAL_vl_b3" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -510,7 +510,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs1", "d6", "INTERNAL_vl_d6" ]
+        "nodes" : [ "bbs1", "d6", "INTERNAL_vl_b3" ]
       } ]
     }
   } ],
@@ -545,35 +545,35 @@
     "node1" : "d7",
     "node2" : "bbs2"
   }, {
-    "node1" : "b",
-    "node2" : "INTERNAL_vl_d1"
-  }, {
     "node1" : "d1",
-    "node2" : "INTERNAL_vl_d1"
+    "node2" : "INTERNAL_vl_b"
   }, {
-    "node1" : "b3",
-    "node2" : "INTERNAL_vl_d6"
+    "node1" : "INTERNAL_vl_b",
+    "node2" : "b"
   }, {
     "node1" : "d6",
-    "node2" : "INTERNAL_vl_d6"
+    "node2" : "INTERNAL_vl_b3"
   }, {
-    "node1" : "b",
-    "node2" : "INTERNAL_vl_d2"
+    "node1" : "INTERNAL_vl_b3",
+    "node2" : "b3"
   }, {
     "node1" : "d2",
-    "node2" : "INTERNAL_vl_d2"
+    "node2" : "INTERNAL_vl_b"
   }, {
-    "node1" : "b2",
-    "node2" : "INTERNAL_vl_d5"
+    "node1" : "INTERNAL_vl_b",
+    "node2" : "b"
   }, {
     "node1" : "d5",
-    "node2" : "INTERNAL_vl_d5"
+    "node2" : "INTERNAL_vl_b2"
   }, {
-    "node1" : "b3",
-    "node2" : "INTERNAL_vl_d7"
+    "node1" : "INTERNAL_vl_b2",
+    "node2" : "b2"
   }, {
     "node1" : "d7",
-    "node2" : "INTERNAL_vl_d7"
+    "node2" : "INTERNAL_vl_b3"
+  }, {
+    "node1" : "INTERNAL_vl_b3",
+    "node2" : "b3"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

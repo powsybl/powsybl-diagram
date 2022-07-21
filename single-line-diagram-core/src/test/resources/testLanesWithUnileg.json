@@ -8,15 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dF1",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 125.0,
-    "y" : 240.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_db11",
+    "id" : "INTERNAL_vl_b1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
@@ -24,7 +16,15 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_db12",
+    "id" : "INTERNAL_vl_b1",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 225.0,
+    "y" : 220.0,
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_b2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -33,20 +33,20 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_db31",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 225.0,
-    "y" : 220.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_db32",
+    "id" : "INTERNAL_vl_b2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 175.0,
     "y" : 345.0,
     "orientation" : "DOWN",
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_dF2",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 125.0,
+    "y" : 240.0,
     "open" : false
   }, {
     "type" : "SWITCH",
@@ -260,7 +260,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs13", "db31", "INTERNAL_vl_db31" ]
+        "nodes" : [ "bbs13", "db31", "INTERNAL_vl_b1" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -281,7 +281,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_db11", "b1", "INTERNAL_vl_db31" ]
+        "nodes" : [ "INTERNAL_vl_b1", "b1", "INTERNAL_vl_b1" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -302,7 +302,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs11", "db11", "INTERNAL_vl_db11" ]
+        "nodes" : [ "bbs11", "db11", "INTERNAL_vl_b1" ]
       } ]
     }
   }, {
@@ -348,7 +348,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs13", "db32", "INTERNAL_vl_db32" ]
+        "nodes" : [ "bbs13", "db32", "INTERNAL_vl_b2" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -369,7 +369,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_db12", "b2", "INTERNAL_vl_db32" ]
+        "nodes" : [ "INTERNAL_vl_b2", "b2", "INTERNAL_vl_b2" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -390,7 +390,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs11", "db12", "INTERNAL_vl_db12" ]
+        "nodes" : [ "bbs11", "db12", "INTERNAL_vl_b2" ]
       } ]
     }
   }, {
@@ -437,7 +437,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF2" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -458,7 +458,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF2" ]
       } ]
     }
   } ],
@@ -481,35 +481,35 @@
     "node1" : "db32",
     "node2" : "bbs13"
   }, {
-    "node1" : "b1",
-    "node2" : "INTERNAL_vl_db11"
-  }, {
     "node1" : "db11",
-    "node2" : "INTERNAL_vl_db11"
+    "node2" : "INTERNAL_vl_b1"
   }, {
-    "node1" : "b2",
-    "node2" : "INTERNAL_vl_db12"
+    "node1" : "INTERNAL_vl_b1",
+    "node2" : "b1"
   }, {
     "node1" : "db12",
-    "node2" : "INTERNAL_vl_db12"
+    "node2" : "INTERNAL_vl_b2"
   }, {
-    "node1" : "dF2",
-    "node2" : "INTERNAL_vl_dF1"
+    "node1" : "INTERNAL_vl_b2",
+    "node2" : "b2"
   }, {
     "node1" : "dF1",
-    "node2" : "INTERNAL_vl_dF1"
+    "node2" : "INTERNAL_vl_dF2"
   }, {
-    "node1" : "b1",
-    "node2" : "INTERNAL_vl_db31"
+    "node1" : "INTERNAL_vl_dF2",
+    "node2" : "dF2"
   }, {
     "node1" : "db31",
-    "node2" : "INTERNAL_vl_db31"
+    "node2" : "INTERNAL_vl_b1"
   }, {
-    "node1" : "b2",
-    "node2" : "INTERNAL_vl_db32"
+    "node1" : "INTERNAL_vl_b1",
+    "node2" : "b1"
   }, {
     "node1" : "db32",
-    "node2" : "INTERNAL_vl_db32"
+    "node2" : "INTERNAL_vl_b2"
+  }, {
+    "node1" : "INTERNAL_vl_b2",
+    "node2" : "b2"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

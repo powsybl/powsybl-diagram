@@ -32,7 +32,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_l_1",
+    "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -40,7 +40,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_l_2",
+    "id" : "INTERNAL_vl_l",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -259,7 +259,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "b1", "BUSCO_l", "INTERNAL_vl_l_1" ]
+        "nodes" : [ "b1", "BUSCO_l", "INTERNAL_vl_l" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -280,7 +280,7 @@
           "xSpan" : 50.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "INTERNAL_vl_l_1", "INTERNAL_vl_l_2" ]
+        "nodes" : [ "INTERNAL_vl_l", "INTERNAL_vl_l" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -301,7 +301,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "INTERNAL_vl_l_2", "l" ]
+        "nodes" : [ "INTERNAL_vl_l", "l" ]
       } ]
     }
   } ],
@@ -309,32 +309,32 @@
     "node1" : "b1",
     "node2" : "BUSCO_l"
   }, {
-    "node1" : "BUSCO_l",
-    "node2" : "INTERNAL_vl_l_1"
-  }, {
-    "node1" : "INTERNAL_vl_l_1",
-    "node2" : "INTERNAL_vl_l_2"
-  }, {
-    "node1" : "INTERNAL_vl_l_2",
-    "node2" : "l"
-  }, {
     "node1" : "b1",
     "node2" : "BUSCO_sw"
-  }, {
-    "node1" : "BUSCO_sw",
-    "node2" : "INTERNAL_vl_sw"
-  }, {
-    "node1" : "INTERNAL_vl_sw",
-    "node2" : "sw"
   }, {
     "node1" : "b2",
     "node2" : "BUSCO_sw"
   }, {
+    "node1" : "BUSCO_l",
+    "node2" : "INTERNAL_vl_l"
+  }, {
     "node1" : "BUSCO_sw",
     "node2" : "INTERNAL_vl_sw"
   }, {
     "node1" : "INTERNAL_vl_sw",
     "node2" : "sw"
+  }, {
+    "node1" : "BUSCO_sw",
+    "node2" : "INTERNAL_vl_sw"
+  }, {
+    "node1" : "INTERNAL_vl_sw",
+    "node2" : "sw"
+  }, {
+    "node1" : "INTERNAL_vl_l",
+    "node2" : "INTERNAL_vl_l"
+  }, {
+    "node1" : "INTERNAL_vl_l",
+    "node2" : "l"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

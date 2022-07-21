@@ -16,7 +16,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_l1_1",
+    "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
@@ -24,7 +24,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_l1_2",
+    "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -139,7 +139,7 @@
           "xSpan" : 100.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "BUSCO_l1", "INTERNAL_vl_l1_1" ]
+        "nodes" : [ "bbs", "BUSCO_l1", "INTERNAL_vl_l1" ]
       }, {
         "type" : "BODYPARALLEL",
         "cardinalities" : [ {
@@ -200,7 +200,7 @@
               "xSpan" : 50.0,
               "ySpan" : 188.0
             },
-            "nodes" : [ "INTERNAL_vl_l1_1", "b", "INTERNAL_vl_l2" ]
+            "nodes" : [ "INTERNAL_vl_l1", "b", "INTERNAL_vl_l2" ]
           }, {
             "type" : "FEEDERPRIMARY",
             "cardinalities" : [ {
@@ -263,7 +263,7 @@
               "xSpan" : 50.0,
               "ySpan" : 188.0
             },
-            "nodes" : [ "INTERNAL_vl_l1_1", "INTERNAL_vl_l1_2" ]
+            "nodes" : [ "INTERNAL_vl_l1", "INTERNAL_vl_l1" ]
           }, {
             "type" : "FEEDERPRIMARY",
             "cardinalities" : [ {
@@ -284,7 +284,7 @@
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
-            "nodes" : [ "INTERNAL_vl_l1_2", "l1" ]
+            "nodes" : [ "INTERNAL_vl_l1", "l1" ]
           } ]
         } ]
       } ]
@@ -295,15 +295,15 @@
     "node2" : "BUSCO_l1"
   }, {
     "node1" : "b",
-    "node2" : "INTERNAL_vl_l1_1"
+    "node2" : "INTERNAL_vl_l1"
   }, {
     "node1" : "BUSCO_l1",
-    "node2" : "INTERNAL_vl_l1_1"
+    "node2" : "INTERNAL_vl_l1"
   }, {
-    "node1" : "INTERNAL_vl_l1_1",
-    "node2" : "INTERNAL_vl_l1_2"
+    "node1" : "INTERNAL_vl_l1",
+    "node2" : "INTERNAL_vl_l1"
   }, {
-    "node1" : "INTERNAL_vl_l1_2",
+    "node1" : "INTERNAL_vl_l1",
     "node2" : "l1"
   }, {
     "node1" : "b",
