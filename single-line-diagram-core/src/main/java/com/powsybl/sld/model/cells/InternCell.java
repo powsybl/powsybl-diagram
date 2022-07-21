@@ -170,19 +170,6 @@ public class InternCell extends AbstractBusCell {
                 .collect(Collectors.toList());
     }
 
-    public void identifyIfFlat() {
-        List<BusNode> buses = getBusNodes();
-        if (shape != Shape.MAYBE_FLAT) {
-            return;
-        }
-        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
-            setFlat();
-            getRootBlock().setOrientation(Orientation.RIGHT);
-        } else {
-            shape = Shape.CROSSOVER;
-        }
-    }
-
     public boolean checkIsShape(Shape... shape) {
         return this.shape.checkIsShape(shape);
     }

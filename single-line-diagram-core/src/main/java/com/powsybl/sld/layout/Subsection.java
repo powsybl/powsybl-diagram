@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -117,10 +118,7 @@ public class Subsection {
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
-        lbsList.stream()
-                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
-                .distinct()
-                .forEach(InternCell::identifyIfFlat);
+        identifyFlatInternCells(lbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
     }
@@ -141,6 +139,21 @@ public class Subsection {
             sub.internCellSides.add(new InternCellSide(cell, Side.UNDEFINED));
         });
 
+    }
+
+    private static void identifyFlatInternCells(List<LegBusSet> lbsList) {
+        lbsList.stream()
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
+                .distinct()
+                .forEach(internCell -> {
+                    List<BusNode> buses = internCell.getBusNodes();
+                    if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
+                        internCell.setFlat();
+                        internCell.getRootBlock().setOrientation(Orientation.RIGHT);
+                    } else {
+                        internCell.setShape(InternCell.Shape.CROSSOVER);
+                    }
+                });
     }
 
     private static void identifyCrossOverAndCheckOrientation(List<Subsection> subsections) {
