@@ -31,9 +31,13 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
+    private final CellDetector cellDetector;
+    private final BlockOrganizer blockOrganizer;
 
-    public PositionVoltageLevelLayout(VoltageLevelGraph graph) {
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph, CellDetector cellDetector, BlockOrganizer blockOrganizer) {
         super(graph);
+        this.cellDetector = cellDetector;
+        this.blockOrganizer = blockOrganizer;
     }
 
     /**
@@ -41,6 +45,9 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
      */
     @Override
     public void run(LayoutParameters layoutParam) {
+        cellDetector.detectCells(getGraph());
+        blockOrganizer.organize(getGraph());
+
         LOGGER.info("Running voltage level layout");
         calculateMaxCellHeight(layoutParam);
         calculateBusNodeCoord(getGraph(), layoutParam);

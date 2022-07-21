@@ -170,9 +170,8 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), true, true, true, labelProvider.getBusInfoSides(g)).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension(), true, true, true, labelProvider.getBusInfoSides(g));
+        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString(filename), toSVG(g, filename, labelProvider, styleProvider));

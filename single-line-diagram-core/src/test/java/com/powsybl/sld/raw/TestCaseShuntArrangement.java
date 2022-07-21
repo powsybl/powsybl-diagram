@@ -173,18 +173,16 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
     @Test
     public void test1() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), true, true, false).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension(), true, true, false);
+        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
         assertEquals(toString("/TestCaseShuntArrangementNo.json"), toJson(g, "/TestCaseShuntArrangementNo.json"));
     }
 
     @Test
     public void test2() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), true, true, true).organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension(), true, true, true);
+        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
         assertEquals(toString("/TestCaseShuntArrangementYes.json"), toJson(g, "/TestCaseShuntArrangementYes.json"));
     }
 
