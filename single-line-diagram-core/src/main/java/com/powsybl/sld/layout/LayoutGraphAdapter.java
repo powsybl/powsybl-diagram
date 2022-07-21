@@ -3,6 +3,7 @@ package com.powsybl.sld.layout;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class LayoutGraphAdapter {
         this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
     }
 
-    void run(VoltageLevelGraph graph) {
+    void run(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {
             graph.removeUnnecessaryFictitiousNodes();
@@ -27,19 +28,21 @@ public class LayoutGraphAdapter {
 
         graph.extendBusesConnectedToBuses();
 
-        Predicate<Node> nodesOnBus = node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR;
-        Set<Node> nodesOnBusBetweenBuses = getNodesOnBusBetweenBuses(graph, nodesOnBus);
-        nodesOnBus = nodesOnBus.and(node -> !nodesOnBusBetweenBuses.contains(node));
-
+        Predicate<Node> nodesOnBus = getNodesOnBusPredicate(graph, layoutParameters.getComponentsOnBusbars());
         graph.insertBusConnections(nodesOnBus);
         graph.insertHookNodesAtBuses();
         graph.insertHookNodesAtFeeders();
     }
 
-    private Set<Node> getNodesOnBusBetweenBuses(VoltageLevelGraph graph, Predicate<Node> nodesOnBus) {
+    private Predicate<Node> getNodesOnBusPredicate(VoltageLevelGraph graph, List<String> componentsOnBusbars) {
+        Set<Node> nodesOnBusBetweenBuses = getNodesOnBusBetweenBuses(graph, componentsOnBusbars);
+        return node -> componentsOnBusbars.contains(node.getComponentType()) && !nodesOnBusBetweenBuses.contains(node);
+    }
+
+    private Set<Node> getNodesOnBusBetweenBuses(VoltageLevelGraph graph, List<String> componentsOnBusbars) {
         return graph.getNodeBuses().stream()
                 .flatMap(nodeBus -> nodeBus.getAdjacentNodes().stream())
-                .filter(nodesOnBus)
+                .filter(nodeConnectedToBus -> componentsOnBusbars.contains(nodeConnectedToBus.getComponentType()))
                 .filter(n -> n.getAdjacentNodes().stream().allMatch(BusNode.class::isInstance))
                 .collect(Collectors.toSet());
     }

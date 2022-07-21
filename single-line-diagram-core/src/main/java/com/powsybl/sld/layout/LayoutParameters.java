@@ -10,7 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.ComponentTypeName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -88,6 +91,9 @@ public class LayoutParameters {
 
     private int feederInfoPrecision = 0;
 
+    /** Components which are displayed on busbars */
+    private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR);
+
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
 
@@ -131,7 +137,8 @@ public class LayoutParameters {
                             @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
                             @JsonProperty("busInfoMargin") double busInfoMargin,
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
-                            @JsonProperty("feederInfoPrecision") int feederInfoPrecision) {
+                            @JsonProperty("feederInfoPrecision") int feederInfoPrecision,
+                            @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -168,6 +175,7 @@ public class LayoutParameters {
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
         this.feederInfoPrecision = feederInfoPrecision;
+        this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -545,6 +553,15 @@ public class LayoutParameters {
 
     public LayoutParameters setFeederInfoPrecision(int feederInfoPrecision) {
         this.feederInfoPrecision = feederInfoPrecision;
+        return this;
+    }
+
+    public List<String> getComponentsOnBusbars() {
+        return componentsOnBusbars;
+    }
+
+    public LayoutParameters setComponentsOnBusbars(List<String> componentsOnBusbars) {
+        this.componentsOnBusbars = componentsOnBusbars;
         return this;
     }
 
