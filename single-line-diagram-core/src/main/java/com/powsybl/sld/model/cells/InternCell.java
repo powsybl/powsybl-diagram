@@ -154,13 +154,11 @@ public class InternCell extends AbstractBusCell {
     }
 
     private Side extremityToSide(Block.Extremity extremity) {
-        if (extremity == Block.Extremity.START) {
-            return Side.LEFT;
+        switch (extremity) {
+            case START: return Side.LEFT;
+            case END: return Side.RIGHT;
+            default: return Side.UNDEFINED;
         }
-        if (extremity == Block.Extremity.END) {
-            return Side.RIGHT;
-        }
-        return Side.UNDEFINED;
     }
 
     private List<LegBlock> searchLegs() {
