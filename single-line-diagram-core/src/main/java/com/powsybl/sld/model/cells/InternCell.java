@@ -64,7 +64,8 @@ public class InternCell extends AbstractBusCell {
 
         /**
          * Final state: <i>impaired</i> vertical intern cell, that is, with no equipments.
-         * Calling it uni-leg is misleading as it's drawn as a single line only if stacked.
+         * Calling it uni-leg might be misleading as it's one LegParallelBlock but two (or more) LegBlocks,
+         * drawn as a single line only if stacked.
          */
         UNILEG;
 
