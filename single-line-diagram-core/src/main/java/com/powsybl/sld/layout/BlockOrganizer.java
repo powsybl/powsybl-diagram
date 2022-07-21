@@ -6,23 +6,22 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
-import static com.powsybl.sld.model.cells.Cell.CellType.*;
+import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -42,30 +41,6 @@ public class BlockOrganizer {
     private final boolean exceptionIfPatternNotHandled;
 
     private final Map<String, Side> busInfoMap;
-
-    public BlockOrganizer() {
-        this(new PositionFromExtension(), true);
-    }
-
-    public BlockOrganizer(boolean stack) {
-        this(new PositionByClustering(), stack);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder) {
-        this(positionFinder, true);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack) {
-        this(positionFinder, stack, false);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, false, Collections.emptyMap());
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, Collections.emptyMap());
-    }
 
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, Map<String, Side> busInfoMap) {
         this.positionFinder = Objects.requireNonNull(positionFinder);

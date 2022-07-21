@@ -41,14 +41,18 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     }
 
     /**
-     * Calculate real coordinate of busNode and blocks connected to busbar
+     * Layout the nodes:
+     * - detect the cells (intern / extern / shunt)
+     * - organize the cells into blocks
+     * - calculate real coordinate of busNode and blocks connected to busbar
      */
     @Override
     public void run(LayoutParameters layoutParam) {
+        LOGGER.info("Running voltage level layout");
+
         cellDetector.detectCells(getGraph());
         blockOrganizer.organize(getGraph());
 
-        LOGGER.info("Running voltage level layout");
         calculateMaxCellHeight(layoutParam);
         calculateBusNodeCoord(getGraph(), layoutParam);
         calculateCellCoord(getGraph(), layoutParam);
