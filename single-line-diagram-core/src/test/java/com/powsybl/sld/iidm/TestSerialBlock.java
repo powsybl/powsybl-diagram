@@ -9,10 +9,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutContext;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.SerialBlock;
@@ -53,11 +50,8 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
-        // detect cells
-        new ImplicitCellDetector().detectCells(g);
-
-        // build blocks
-        new BlockOrganizer().organize(g);
+        // layout
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
 
         assertEquals(1, g.getCellStream().count());
         Optional<Cell> oCell = g.getCellStream().findFirst();

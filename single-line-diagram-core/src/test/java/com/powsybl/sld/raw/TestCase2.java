@@ -7,18 +7,17 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.model.graphs.*;
-import com.powsybl.sld.model.nodes.*;
-
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
+import static org.junit.Assert.assertEquals;
 
 /**
  * <pre>
@@ -69,8 +68,10 @@ public class TestCase2 extends AbstractTestCaseRaw {
     @Test
     public void testUnstacked() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vlUnstack");
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension(), false);
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory()
+                .setFeederStacked(false)
+                .create(g)
+                .run(layoutParameters);
         assertEquals(toString("/TestCase2UnStackedCell.json"), toJson(g, "/TestCase2UnStackedCell.json"));
     }
 }

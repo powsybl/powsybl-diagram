@@ -12,10 +12,7 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -170,8 +167,12 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // Run layout
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension(), true, true, true, labelProvider.getBusInfoSides(g));
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory()
+                .setBusInfoMap(labelProvider.getBusInfoSides(g))
+                .setExceptionIfPatternNotHandled(true)
+                .setHandleShunts(true)
+                .create(g)
+                .run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString(filename), toSVG(g, filename, labelProvider, styleProvider));

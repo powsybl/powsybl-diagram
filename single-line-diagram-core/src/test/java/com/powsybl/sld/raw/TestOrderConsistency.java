@@ -7,11 +7,8 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -93,32 +90,28 @@ public class TestOrderConsistency extends AbstractTestCaseRaw {
     @Test
     public void testClustMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1");
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionByClustering());
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory(new PositionByClustering()).create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyClust1.json"), toJson(g, "/orderConsistencyClust1.json"));
     }
 
     @Test
     public void testClustNoMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2");
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionByClustering());
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory(new PositionByClustering()).create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyClust2.json"), toJson(g, "/orderConsistencyClust2.json"));
     }
 
     @Test
     public void testExtMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl1");
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension());
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyExt1.json"), toJson(g, "/orderConsistencyExt1.json"));
     }
 
     @Test
     public void testExtNoMiddleLeft() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl2");
-        BlockOrganizer blockOrganizer = new BlockOrganizer(new PositionFromExtension());
-        new PositionVoltageLevelLayout(g, new ImplicitCellDetector(), blockOrganizer).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
         assertEquals(toString("/orderConsistencyExt2.json"), toJson(g, "/orderConsistencyExt2.json"));
     }
 }
