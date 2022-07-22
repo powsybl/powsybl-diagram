@@ -9,10 +9,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.LayoutContext;
+import com.powsybl.sld.layout.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
@@ -58,8 +55,7 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
 
         // detect cells
-        new ImplicitCellDetector().detectCells(g);
-        new BlockOrganizer().organize(g);
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
 
         assertEquals(1, g.getCellStream().count());
         Optional<Cell> oCell = g.getCellStream().findFirst();
@@ -134,8 +130,8 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
         sb.reverseBlock();
 
-        assertEquals("INTERNAL_vl_da", sb.getEndingNode().getId());
-        assertEquals("INTERNAL_vl_da", subSB.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", subSB.getEndingNode().getId());
         assertEquals("INTERNAL_vl_2", subPB.getSubBlocks().get(1).getEndingNode().getId());
     }
 }

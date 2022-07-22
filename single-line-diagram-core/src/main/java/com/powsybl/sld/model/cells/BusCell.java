@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.model.cells;
 import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -21,9 +22,11 @@ public interface BusCell extends Cell {
 
     List<BusNode> getBusNodes();
 
-    void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus);
+    void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus, List<FeederPrimaryBlock> feederPrimaryBlocks);
 
     List<LegPrimaryBlock> getLegPrimaryBlocks();
+
+    List<FeederPrimaryBlock> getFeederPrimaryBlocks();
 
     int newHPosition(int hPosition);
 

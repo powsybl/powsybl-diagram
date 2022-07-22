@@ -1108,10 +1108,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_10">
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE_95_1" transform="translate(511.0,304.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(511.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE_95_2" transform="translate(511.0,574.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(511.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-bottom-feeder" id="idFX_95_ONE" transform="translate(510.0,632.5)">
@@ -1119,13 +1119,13 @@
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <text class="sld-label" id="FX_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FY</text>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE_95_1">
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
                 <polyline points="515.0,278.0,515.0,308.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_1_95_INTERNAL_95_AU_95_FX_95_ONE_95_2">
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
                 <polyline points="515.0,308.0,515.0,578.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_2_95_FX_95_ONE">
+            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_FX_95_ONE">
                 <polyline points="515.0,578.0,515.0,632.0"/>
             </g>
             <g class="sld-arrow-q sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(510.0,607.0)">
@@ -1226,10 +1226,10 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_13">
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE_95_1" transform="translate(661.0,219.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(661.0,219.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE_95_2" transform="translate(661.0,138.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(661.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder" id="idFR_95_ONE" transform="translate(660.0,72.5)">
@@ -1237,13 +1237,13 @@
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
                 <text class="sld-label" id="FR_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FS</text>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE_95_1">
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
                 <polyline points="665.0,253.0,665.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_1_95_INTERNAL_95_AU_95_FR_95_ONE_95_2">
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
                 <polyline points="665.0,223.0,665.0,142.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_2_95_FR_95_ONE">
+            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_FR_95_ONE">
                 <polyline points="665.0,142.0,665.0,88.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(660.0,103.0)">

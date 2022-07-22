@@ -9,6 +9,7 @@ package com.powsybl.sld.iidm;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.iidm.extensions.BranchStatus;
 import com.powsybl.sld.iidm.extensions.BranchStatusAdder;
+import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 
 import static com.powsybl.sld.iidm.AbstractTestCaseIidm.*;
@@ -16,7 +17,7 @@ import static com.powsybl.sld.iidm.AbstractTestCaseIidm.*;
 /**
  * @author Slimane Amar <slimane.amar at rte-france.com>
  */
-final class CreateNetworksUtil {
+public final class CreateNetworksUtil {
 
     private CreateNetworksUtil() {
     }
@@ -340,4 +341,106 @@ final class CreateNetworksUtil {
 
         return network;
     }
+
+    public static Network createNetworkWithSvcVscScDl() {
+        Network network = Network.create("testCase1", "test");
+        Substation substation = network.newSubstation().setId("s").setCountry(Country.FR).add();
+        VoltageLevel vl = substation.newVoltageLevel().setId("vl").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(380).add();
+        VoltageLevel.NodeBreakerView view = vl.getNodeBreakerView();
+        BusbarSection bbs = view.newBusbarSection().setId("bbs").setNode(0).add();
+        bbs.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(1).withSectionIndex(1);
+        BusbarSection bbs2 = view.newBusbarSection().setId("bbs2").setNode(3).add();
+        bbs2.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(2).withSectionIndex(2);
+        StaticVarCompensator svc = vl.newStaticVarCompensator()
+                .setId("svc")
+                .setName("svc")
+                .setNode(2)
+                .setBmin(0.0002)
+                .setBmax(0.0008)
+                .setRegulationMode(StaticVarCompensator.RegulationMode.VOLTAGE)
+                .setVoltageSetPoint(390)
+                .add();
+        svc.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        VscConverterStation vsc = vl.newVscConverterStation()
+                .setId("vsc")
+                .setName("Converter1")
+                .setNode(1)
+                .setLossFactor(0.011f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+        vsc.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        ShuntCompensator c1 = vl.newShuntCompensator()
+                .setId("C1")
+                .setName("Filter 1")
+                .setNode(4)
+                .setSectionCount(1)
+                .newLinearModel()
+                .setBPerSection(1e-5)
+                .setMaximumSectionCount(1)
+                .add()
+                .add();
+        DanglingLine dl1 = vl.newDanglingLine()
+                .setId("dl1")
+                .setName("Dangling line 1")
+                .setNode(5)
+                .setP0(1)
+                .setQ0(1)
+                .setR(0)
+                .setX(0)
+                .setB(0)
+                .setG(0)
+                .add();
+        dl1.getTerminal()
+                .setP(100.0)
+                .setQ(50.0);
+        view.newDisconnector().setId("d").setNode1(0).setNode2(1).add();
+        view.newBreaker().setId("b").setNode1(1).setNode2(2).add();
+        view.newBreaker().setId("b2").setNode1(3).setNode2(4).add();
+        view.newBreaker().setId("b3").setNode1(3).setNode2(5).add();
+        view.newBreaker().setId("bt").setNode1(0).setNode2(3).add();
+        return network;
+    }
+
+    public static Network createNetworkWithFiveBusesFourLoads() {
+        Network network = createNetworkWithTwoParallelLoads();
+        VoltageLevel vl = network.getVoltageLevel("vl1");
+
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
+        createBusBarSection(vl, "bbs22", "bbs22", 2, 2, 2);
+        createSwitch(vl, "bA", "bA", SwitchKind.BREAKER, false, false, false, 3, 4);
+        createLoad(vl, "loadA", "loadA", "loadA", null, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createSwitch(vl, "dA1", "dA1", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createSwitch(vl, "dA2", "dA2", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
+
+        createSwitch(vl, "bB", "bB", SwitchKind.BREAKER, false, false, false, 5, 6);
+        createLoad(vl, "loadB", "loadB", "loadB", null, ConnectablePosition.Direction.TOP, 6, 10, 10);
+        createSwitch(vl, "dB1", "dB1", SwitchKind.DISCONNECTOR, false, false, false, 2, 5);
+        createSwitch(vl, "dB2", "dB2", SwitchKind.DISCONNECTOR, false, false, false, 0, 5);
+
+        createSwitch(vl, "link", "link", SwitchKind.BREAKER, false, false, false, 5, 9);
+
+        return network;
+    }
+
+    public static Network createNetworkWithTwoParallelLoads() {
+        Network network = Network.create("TestSingleLineDiagramClass", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs13", "bbs13", 7, 1, 3);
+        createBusBarSection(vl, "bbs23", "bbs23", 8, 2, 3);
+        createLoad(vl, "loadC", "loadC", "loadC", null, ConnectablePosition.Direction.TOP, 9, 10, 10);
+        createSwitch(vl, "bCD1", "bCD1", SwitchKind.BREAKER, false, false, false, 8, 9);
+        createSwitch(vl, "bCD2", "bCD2", SwitchKind.BREAKER, false, false, false, 7, 9);
+        createSwitch(vl, "bCD3", "bCD3", SwitchKind.BREAKER, false, false, false, 7, 9);
+        createSwitch(vl, "bD1", "bD1", SwitchKind.BREAKER, false, false, false, 20, 9);
+        createLoad(vl, "loadD", "loadD", "loadD", null, ConnectablePosition.Direction.TOP, 20, 10, 10);
+        return network;
+    }
+
 }

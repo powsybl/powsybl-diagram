@@ -115,13 +115,6 @@
     "styleClass" : "sld-breaker"
   } ],
   "nodes" : [ {
-    "id" : "idINTERNAL_95_vl1_95_d1",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "idl",
     "vid" : "vl1",
     "componentType" : "LOAD",
@@ -134,7 +127,7 @@
       "positionName" : "N_LABEL"
     } ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_d2",
+    "id" : "idINTERNAL_95_vl1_95_b1",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -142,6 +135,13 @@
     "labels" : [ ]
   }, {
     "id" : "idINTERNAL_95_vl1_95_l",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_b2",
     "vid" : "vl1",
     "componentType" : "NODE",
     "open" : false,
@@ -224,9 +224,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_d1_95_INTERNAL_95_vl1_95_d1",
-    "nodeId1" : "idd1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_d1",
+    "id" : "_95_vl1_95_d2_95_INTERNAL_95_vl1_95_b2",
+    "nodeId1" : "idd2",
+    "nodeId2" : "idINTERNAL_95_vl1_95_b2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -242,9 +242,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_b1_95_INTERNAL_95_vl1_95_d1",
-    "nodeId1" : "idb1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_d1",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_b2_95_b2",
+    "nodeId1" : "idINTERNAL_95_vl1_95_b2",
+    "nodeId2" : "idb2",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_d1_95_INTERNAL_95_vl1_95_b1",
+    "nodeId1" : "idd1",
+    "nodeId2" : "idINTERNAL_95_vl1_95_b1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -254,15 +260,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_d2_95_INTERNAL_95_vl1_95_d2",
-    "nodeId1" : "idd2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_d2",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_b2_95_INTERNAL_95_vl1_95_d2",
-    "nodeId1" : "idb2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_d2",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_b1_95_b1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_b1",
+    "nodeId2" : "idb1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -336,6 +336,7 @@
     "feederInfosIntraMargin" : 10.0,
     "busInfoMargin" : 0.0,
     "busbarsAlignment" : "FIRST",
-    "feederInfoPrecision" : 0
+    "feederInfoPrecision" : 0,
+    "componentsOnBusbars" : [ "DISCONNECTOR" ]
   }
 }

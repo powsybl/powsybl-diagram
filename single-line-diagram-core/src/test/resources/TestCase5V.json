@@ -21,7 +21,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
-    "y" : 156.0,
+    "y" : 187.33333333333334,
     "orientation" : "RIGHT",
     "open" : false
   }, {
@@ -30,24 +30,32 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 156.0,
+    "y" : 187.33333333333334,
     "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_da",
+    "id" : "INTERNAL_vl_ba",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 250.0,
     "open" : false
   }, {
-    "type" : "SHUNT",
+    "type" : "FICTITIOUS",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.0,
+    "y" : 62.00000000000001,
+    "open" : false
+  }, {
+    "type" : "SHUNT",
+    "id" : "INTERNAL_vl_la_fork",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 125.0,
+    "y" : 124.66666666666667,
     "open" : false
   }, {
     "type" : "FICTITIOUS",
@@ -65,7 +73,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 156.0,
+    "y" : 187.33333333333334,
     "open" : false,
     "kind" : "BREAKER"
   }, {
@@ -106,7 +114,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 156.0,
+    "y" : 187.33333333333334,
     "orientation" : "RIGHT",
     "open" : false,
     "kind" : "BREAKER"
@@ -140,7 +148,7 @@
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 125.0,
-    "y" : 0.0,
+    "y" : 7.105427357601002E-15,
     "open" : false,
     "label" : "la",
     "feederType" : "INJECTION",
@@ -177,7 +185,7 @@
         "h" : 4,
         "v" : 0,
         "hSpan" : 2,
-        "vSpan" : 4,
+        "vSpan" : 6,
         "orientation" : "UP"
       },
       "coord" : {
@@ -206,7 +214,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs", "da", "INTERNAL_vl_da" ]
+        "nodes" : [ "bbs", "da", "INTERNAL_vl_ba" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -223,11 +231,32 @@
         },
         "coord" : {
           "x" : 125.0,
-          "y" : 156.0,
+          "y" : 187.33333333333334,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 125.33333333333333
         },
-        "nodes" : [ "INTERNAL_vl_da", "ba", "INTERNAL_vl_la" ]
+        "nodes" : [ "INTERNAL_vl_ba", "ba", "INTERNAL_vl_la_fork" ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : 0,
+          "v" : 4,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 125.0,
+          "y" : 93.33333333333334,
+          "xSpan" : 50.0,
+          "ySpan" : 62.666666666666664
+        },
+        "nodes" : [ "INTERNAL_vl_la_fork", "INTERNAL_vl_la" ]
       }, {
         "type" : "FEEDERPRIMARY",
         "cardinalities" : [ {
@@ -237,7 +266,7 @@
         } ],
         "position" : {
           "h" : 0,
-          "v" : 4,
+          "v" : 6,
           "hSpan" : 2,
           "vSpan" : 0,
           "orientation" : "UP"
@@ -274,7 +303,7 @@
         "xSpan" : 0.0,
         "ySpan" : 0.0
       },
-      "nodes" : [ "INTERNAL_vl_3", "INTERNAL_vl_Shunt 1.2", "bs", "INTERNAL_vl_Shunt 1.1", "INTERNAL_vl_la" ]
+      "nodes" : [ "INTERNAL_vl_3", "INTERNAL_vl_Shunt 1.2", "bs", "INTERNAL_vl_Shunt 1.1", "INTERNAL_vl_la_fork" ]
     }
   }, {
     "type" : "EXTERN",
@@ -380,7 +409,16 @@
     "node1" : "db",
     "node2" : "bbs"
   }, {
+    "node1" : "da",
+    "node2" : "INTERNAL_vl_ba"
+  }, {
+    "node1" : "INTERNAL_vl_ba",
+    "node2" : "ba"
+  }, {
     "node1" : "ba",
+    "node2" : "INTERNAL_vl_la_fork"
+  }, {
+    "node1" : "INTERNAL_vl_la_fork",
     "node2" : "INTERNAL_vl_la"
   }, {
     "node1" : "INTERNAL_vl_la",
@@ -392,13 +430,7 @@
     "node1" : "INTERNAL_vl_lb",
     "node2" : "lb"
   }, {
-    "node1" : "ba",
-    "node2" : "INTERNAL_vl_da"
-  }, {
-    "node1" : "da",
-    "node2" : "INTERNAL_vl_da"
-  }, {
-    "node1" : "INTERNAL_vl_la",
+    "node1" : "INTERNAL_vl_la_fork",
     "node2" : "INTERNAL_vl_Shunt 1.1"
   }, {
     "node1" : "bs",

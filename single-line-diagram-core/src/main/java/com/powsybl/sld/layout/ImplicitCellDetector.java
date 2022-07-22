@@ -27,20 +27,11 @@ import java.util.stream.Collectors;
 public class ImplicitCellDetector implements CellDetector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ImplicitCellDetector.class);
-    private boolean removeUnnecessaryFictitiousNodes;
-    private boolean substituteSingularFictitiousByFeederNode;
-    private boolean exceptionIfPatternNotHandled;
+    private final boolean exceptionIfPatternNotHandled;
 
-    public ImplicitCellDetector(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode, boolean exceptionIfPatternNotHandled) {
-        this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
-        this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
+    public ImplicitCellDetector(boolean exceptionIfPatternNotHandled) {
         this.exceptionIfPatternNotHandled = exceptionIfPatternNotHandled;
     }
-
-    public ImplicitCellDetector() {
-        this(true, true, false);
-    }
-
 
     /**
      * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
@@ -56,8 +47,6 @@ public class ImplicitCellDetector implements CellDetector {
      */
     @Override
     public void detectCells(VoltageLevelGraph graph) {
-        cleaning(graph);
-
         LOGGER.info("Detecting cells...");
 
         List<Node> allocatedNodes = new ArrayList<>();
@@ -95,22 +84,6 @@ public class ImplicitCellDetector implements CellDetector {
             // if a shunt cell is detected two or more EXTERN cells and one or more SHUNT cells are created
             detectAndTypeShunt(graph, nodes, shuntCells);
         }
-    }
-
-    private void cleaning(VoltageLevelGraph graph) {
-        graph.substituteFictitiousNodesMirroringBusNodes();
-        if (removeUnnecessaryFictitiousNodes) {
-            graph.removeUnnecessaryFictitiousNodes();
-        }
-        if (substituteSingularFictitiousByFeederNode) {
-            graph.substituteSingularFictitiousByFeederNode();
-        }
-        graph.insertFictitiousNodesAtFeeders();
-        graph.extendNodeConnectedToBus(node -> node instanceof SwitchNode && ((SwitchNode) node).getKind() != SwitchNode.SwitchKind.DISCONNECTOR);
-        graph.extendNodeConnectedToBus(Middle3WTNode.class::isInstance);
-        graph.extendSwitchBetweenBuses();
-        graph.extendFirstOutsideNode();
-        graph.extendBusConnectedToBus();
     }
 
     /**
@@ -282,9 +255,9 @@ public class ImplicitCellDetector implements CellDetector {
 
     private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
         int cellNumber = vlGraph.getNextCellNumber();
-        InternalNode iNode1 = vlGraph.insertInternalNode(shuntNodes.get(0), shuntNodes.get(1),
+        InternalNode iNode1 = vlGraph.insertHookNodesAtBuses(shuntNodes.get(0), shuntNodes.get(1),
                 "Shunt " + cellNumber + ".1");
-        InternalNode iNode2 = vlGraph.insertInternalNode(shuntNodes.get(shuntNodes.size() - 1),
+        InternalNode iNode2 = vlGraph.insertHookNodesAtBuses(shuntNodes.get(shuntNodes.size() - 1),
                 shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
         shuntNodes.add(1, iNode1);
         shuntNodes.add(shuntNodes.size() - 1, iNode2);

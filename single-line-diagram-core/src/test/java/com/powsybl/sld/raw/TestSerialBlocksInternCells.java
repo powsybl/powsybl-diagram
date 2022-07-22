@@ -7,12 +7,11 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.*;
-
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,9 +61,10 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
     @Test
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector(false, true, false).detectCells(g);
-        new BlockOrganizer().organize(g);
-        new PositionVoltageLevelLayout(g).run(layoutParameters);
+        new PositionVoltageLevelLayoutFactory()
+                .setRemoveUnnecessaryFictitiousNodes(false)
+                .create(g)
+                .run(layoutParameters);
         assertEquals(toString("/testSerialBlocksInternCells.json"), toJson(g, "/testSerialBlocksInternCells.json"));
     }
 }

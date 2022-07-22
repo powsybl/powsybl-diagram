@@ -40,7 +40,7 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
     @Test
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
-        new ImplicitCellDetector().detectCells(g);
+        new ImplicitCellDetector(false).detectCells(g);
         assertEquals(1, g.getCellStream().count());
     }
 }

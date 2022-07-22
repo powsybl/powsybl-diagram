@@ -8,7 +8,7 @@
   "y" : 80.0,
   "nodes" : [ {
     "type" : "FICTITIOUS",
-    "id" : "BUSCO_flatDisconector_0",
+    "id" : "BUSCO_flatDisconector",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 150.0,
@@ -17,7 +17,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "BUSCO_flatDisconector_1",
+    "id" : "BUSCO_flatDisconector",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 200.0,
@@ -26,7 +26,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dCrossOverBk1",
+    "id" : "INTERNAL_vl_crossOverBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
@@ -34,7 +34,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dCrossOverBk2",
+    "id" : "INTERNAL_vl_crossOverBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
@@ -42,7 +42,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dF1",
+    "id" : "INTERNAL_vl_dF2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
@@ -50,7 +50,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dFlatBk1",
+    "id" : "INTERNAL_vl_flatBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
@@ -59,7 +59,7 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dFlatBk2",
+    "id" : "INTERNAL_vl_flatBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
@@ -68,7 +68,25 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dVerticalBk1",
+    "id" : "INTERNAL_vl_flatDisconector",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 150.0,
+    "y" : 280.0,
+    "orientation" : "RIGHT",
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_flatDisconector",
+    "componentType" : "NODE",
+    "fictitious" : true,
+    "x" : 200.0,
+    "y" : 280.0,
+    "orientation" : "RIGHT",
+    "open" : false
+  }, {
+    "type" : "FICTITIOUS",
+    "id" : "INTERNAL_vl_verticalBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
@@ -76,29 +94,11 @@
     "open" : false
   }, {
     "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_dVerticalBk2",
+    "id" : "INTERNAL_vl_verticalBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 240.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_flatDisconector_0",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 150.0,
-    "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_flatDisconector_1",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 200.0,
-    "y" : 280.0,
-    "orientation" : "RIGHT",
     "open" : false
   }, {
     "type" : "BUS",
@@ -358,7 +358,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs21", "dVerticalBk2", "INTERNAL_vl_dVerticalBk2" ]
+        "nodes" : [ "bbs21", "dVerticalBk2", "INTERNAL_vl_verticalBreaker" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -379,7 +379,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_dVerticalBk2", "verticalBreaker", "INTERNAL_vl_dVerticalBk1" ]
+        "nodes" : [ "INTERNAL_vl_verticalBreaker", "verticalBreaker", "INTERNAL_vl_verticalBreaker" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -400,7 +400,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs11", "dVerticalBk1", "INTERNAL_vl_dVerticalBk1" ]
+        "nodes" : [ "bbs11", "dVerticalBk1", "INTERNAL_vl_verticalBreaker" ]
       } ]
     }
   }, {
@@ -446,7 +446,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs22", "dCrossOverBk2", "INTERNAL_vl_dCrossOverBk2" ]
+        "nodes" : [ "bbs22", "dCrossOverBk2", "INTERNAL_vl_crossOverBreaker" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -467,7 +467,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_dCrossOverBk1", "crossOverBreaker", "INTERNAL_vl_dCrossOverBk2" ]
+        "nodes" : [ "INTERNAL_vl_crossOverBreaker", "crossOverBreaker", "INTERNAL_vl_crossOverBreaker" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -488,7 +488,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs11", "dCrossOverBk1", "INTERNAL_vl_dCrossOverBk1" ]
+        "nodes" : [ "bbs11", "dCrossOverBk1", "INTERNAL_vl_crossOverBreaker" ]
       } ]
     }
   }, {
@@ -535,7 +535,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs12", "BUSCO_flatDisconector_1", "INTERNAL_vl_flatDisconector_1" ]
+        "nodes" : [ "bbs12", "BUSCO_flatDisconector", "INTERNAL_vl_flatDisconector" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -556,7 +556,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_flatDisconector_0", "flatDisconector", "INTERNAL_vl_flatDisconector_1" ]
+        "nodes" : [ "INTERNAL_vl_flatDisconector", "flatDisconector", "INTERNAL_vl_flatDisconector" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -577,7 +577,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs11", "BUSCO_flatDisconector_0", "INTERNAL_vl_flatDisconector_0" ]
+        "nodes" : [ "bbs11", "BUSCO_flatDisconector", "INTERNAL_vl_flatDisconector" ]
       } ]
     }
   }, {
@@ -624,7 +624,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs22", "dFlatBk2", "INTERNAL_vl_dFlatBk2" ]
+        "nodes" : [ "bbs22", "dFlatBk2", "INTERNAL_vl_flatBreaker" ]
       }, {
         "type" : "BODYPRIMARY",
         "cardinalities" : [ {
@@ -645,7 +645,7 @@
           "xSpan" : 50.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_dFlatBk1", "flatBreaker", "INTERNAL_vl_dFlatBk2" ]
+        "nodes" : [ "INTERNAL_vl_flatBreaker", "flatBreaker", "INTERNAL_vl_flatBreaker" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -666,7 +666,7 @@
           "xSpan" : 0.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs21", "dFlatBk1", "INTERNAL_vl_dFlatBk1" ]
+        "nodes" : [ "bbs21", "dFlatBk1", "INTERNAL_vl_flatBreaker" ]
       } ]
     }
   }, {
@@ -713,7 +713,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs12", "dF1", "INTERNAL_vl_dF2" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -734,7 +734,7 @@
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
-        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF1" ]
+        "nodes" : [ "bbs22", "dF2", "INTERNAL_vl_dF2" ]
       } ]
     }
   } ],
@@ -764,64 +764,64 @@
     "node2" : "dF2"
   }, {
     "node1" : "bbs11",
-    "node2" : "BUSCO_flatDisconector_0"
-  }, {
-    "node1" : "BUSCO_flatDisconector_0",
-    "node2" : "INTERNAL_vl_flatDisconector_0"
-  }, {
-    "node1" : "INTERNAL_vl_flatDisconector_0",
-    "node2" : "flatDisconector"
+    "node2" : "BUSCO_flatDisconector"
   }, {
     "node1" : "bbs12",
-    "node2" : "BUSCO_flatDisconector_1"
-  }, {
-    "node1" : "BUSCO_flatDisconector_1",
-    "node2" : "INTERNAL_vl_flatDisconector_1"
-  }, {
-    "node1" : "INTERNAL_vl_flatDisconector_1",
-    "node2" : "flatDisconector"
-  }, {
-    "node1" : "verticalBreaker",
-    "node2" : "INTERNAL_vl_dVerticalBk1"
+    "node2" : "BUSCO_flatDisconector"
   }, {
     "node1" : "dVerticalBk1",
-    "node2" : "INTERNAL_vl_dVerticalBk1"
+    "node2" : "INTERNAL_vl_verticalBreaker"
   }, {
-    "node1" : "crossOverBreaker",
-    "node2" : "INTERNAL_vl_dCrossOverBk1"
+    "node1" : "INTERNAL_vl_verticalBreaker",
+    "node2" : "verticalBreaker"
   }, {
     "node1" : "dCrossOverBk1",
-    "node2" : "INTERNAL_vl_dCrossOverBk1"
+    "node2" : "INTERNAL_vl_crossOverBreaker"
   }, {
-    "node1" : "flatBreaker",
-    "node2" : "INTERNAL_vl_dFlatBk1"
+    "node1" : "INTERNAL_vl_crossOverBreaker",
+    "node2" : "crossOverBreaker"
+  }, {
+    "node1" : "BUSCO_flatDisconector",
+    "node2" : "INTERNAL_vl_flatDisconector"
+  }, {
+    "node1" : "INTERNAL_vl_flatDisconector",
+    "node2" : "flatDisconector"
   }, {
     "node1" : "dFlatBk1",
-    "node2" : "INTERNAL_vl_dFlatBk1"
+    "node2" : "INTERNAL_vl_flatBreaker"
   }, {
-    "node1" : "verticalBreaker",
-    "node2" : "INTERNAL_vl_dVerticalBk2"
+    "node1" : "INTERNAL_vl_flatBreaker",
+    "node2" : "flatBreaker"
   }, {
     "node1" : "dVerticalBk2",
-    "node2" : "INTERNAL_vl_dVerticalBk2"
+    "node2" : "INTERNAL_vl_verticalBreaker"
   }, {
-    "node1" : "dF2",
-    "node2" : "INTERNAL_vl_dF1"
+    "node1" : "INTERNAL_vl_verticalBreaker",
+    "node2" : "verticalBreaker"
   }, {
     "node1" : "dF1",
-    "node2" : "INTERNAL_vl_dF1"
+    "node2" : "INTERNAL_vl_dF2"
   }, {
-    "node1" : "flatBreaker",
-    "node2" : "INTERNAL_vl_dFlatBk2"
+    "node1" : "INTERNAL_vl_dF2",
+    "node2" : "dF2"
+  }, {
+    "node1" : "BUSCO_flatDisconector",
+    "node2" : "INTERNAL_vl_flatDisconector"
+  }, {
+    "node1" : "INTERNAL_vl_flatDisconector",
+    "node2" : "flatDisconector"
   }, {
     "node1" : "dFlatBk2",
-    "node2" : "INTERNAL_vl_dFlatBk2"
+    "node2" : "INTERNAL_vl_flatBreaker"
   }, {
-    "node1" : "crossOverBreaker",
-    "node2" : "INTERNAL_vl_dCrossOverBk2"
+    "node1" : "INTERNAL_vl_flatBreaker",
+    "node2" : "flatBreaker"
   }, {
     "node1" : "dCrossOverBk2",
-    "node2" : "INTERNAL_vl_dCrossOverBk2"
+    "node2" : "INTERNAL_vl_crossOverBreaker"
+  }, {
+    "node1" : "INTERNAL_vl_crossOverBreaker",
+    "node2" : "crossOverBreaker"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

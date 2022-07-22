@@ -7,20 +7,19 @@
 
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
-import static com.powsybl.sld.model.blocks.Block.Type.*;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
+import static com.powsybl.sld.model.blocks.Block.Type.LEGPRIMARY;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
+import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -36,21 +35,6 @@ public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
         if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
         }
-        if (!checkConsistency()) {
-            throw new PowsyblException("LegPrimaryBlock not consistent");
-        }
-    }
-
-    private boolean checkConsistency() {
-        return nodes.size() == 3
-                && nodes.get(0).getType() == BUS
-                && checkMiddleNode(nodes.get(1))
-                && (nodes.get(2).getType() == FICTITIOUS || nodes.get(2).getType() == Node.NodeType.SHUNT);
-    }
-
-    private boolean checkMiddleNode(Node node) {
-        return node instanceof BusConnection
-            || (node instanceof SwitchNode && ((SwitchNode) node).getKind() == SwitchNode.SwitchKind.DISCONNECTOR);
     }
 
     public BusNode getBusNode() {

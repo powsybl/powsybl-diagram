@@ -6,23 +6,28 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.BusCell;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusConnection;
+import com.powsybl.sld.model.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
-import static com.powsybl.sld.model.cells.Cell.CellType.*;
+import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;
+import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -43,30 +48,6 @@ public class BlockOrganizer {
 
     private final Map<String, Side> busInfoMap;
 
-    public BlockOrganizer() {
-        this(new PositionFromExtension(), true);
-    }
-
-    public BlockOrganizer(boolean stack) {
-        this(new PositionByClustering(), stack);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder) {
-        this(positionFinder, true);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack) {
-        this(positionFinder, stack, false);
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, false, Collections.emptyMap());
-    }
-
-    public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt) {
-        this(positionFinder, stack, exceptionIfPatternNotHandled, handleShunt, Collections.emptyMap());
-    }
-
     public BlockOrganizer(PositionFinder positionFinder, boolean stack, boolean exceptionIfPatternNotHandled, boolean handleShunt, Map<String, Side> busInfoMap) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
         this.stack = stack;
@@ -78,10 +59,11 @@ public class BlockOrganizer {
     /**
      * Organize cells into blocks and call the layout resolvers
      */
-    public void organize(VoltageLevelGraph graph) {
+    public void organize(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
         LOGGER.info("Organizing graph cells into blocks");
         graph.getBusCellStream().forEach(cell -> {
             CellBlockDecomposer.determineComplexCell(graph, cell, exceptionIfPatternNotHandled);
+            checkBlocks(cell, layoutParameters);
             if (cell.getType() == INTERN) {
                 ((InternCell) cell).organizeBlocks();
             }
@@ -100,6 +82,31 @@ public class BlockOrganizer {
         graph.getCellStream().forEach(Cell::blockSizing);
 
         new BlockPositionner().determineBlockPositions(graph, subsections, busInfoMap);
+    }
+
+    private void checkBlocks(BusCell cell, LayoutParameters layoutParameters) {
+        cell.getLegPrimaryBlocks().forEach(lpb -> checkLegPrimaryBlockConsistency(lpb, layoutParameters.getComponentsOnBusbars()));
+        cell.getFeederPrimaryBlocks().forEach(this::checkFeederPrimaryBlockConsistency);
+    }
+
+    private void checkLegPrimaryBlockConsistency(LegPrimaryBlock legPrimaryBlock, List<String> componentsOnBus) {
+        List<Node> nodes = legPrimaryBlock.getNodes();
+        boolean consistent = nodes.size() == 3
+                && nodes.get(0).getType() == Node.NodeType.BUS
+                && nodes.get(1) instanceof BusConnection || componentsOnBus.contains(nodes.get(1).getComponentType())
+                && (nodes.get(2).getType() == Node.NodeType.FICTITIOUS || nodes.get(2).getType() == Node.NodeType.SHUNT);
+        if (!consistent) {
+            throw new PowsyblException("LegPrimaryBlock not consistent");
+        }
+    }
+
+    private void checkFeederPrimaryBlockConsistency(FeederPrimaryBlock lpb) {
+        List<Node> nodes = lpb.getNodes();
+        boolean consistent = nodes.size() == 2 && nodes.get(1).getType() == FEEDER
+                && (nodes.get(0).getType() == FICTITIOUS || nodes.get(0).getType() == SHUNT);
+        if (!consistent) {
+            throw new PowsyblException("FeederPrimaryBlock not consistent");
+        }
     }
 
     /**
