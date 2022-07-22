@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -8,11 +14,17 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class LayoutGraphAdapter {
+/**
+ * Refines the graph so that it becomes consistent with the diagram layout.
+ * In particular for cell detection: it inserts the {@link BusConnection} nodes and {@link InternalNode} hook nodes needed for it.
+ *
+ * @author Florian Dupuy <florian.dupuy at rte-france.com>
+ */
+public class GraphRefiner {
     private final boolean removeUnnecessaryFictitiousNodes;
     private final boolean substituteSingularFictitiousByFeederNode;
 
-    public LayoutGraphAdapter(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
+    public GraphRefiner(boolean removeUnnecessaryFictitiousNodes, boolean substituteSingularFictitiousByFeederNode) {
         this.removeUnnecessaryFictitiousNodes = removeUnnecessaryFictitiousNodes;
         this.substituteSingularFictitiousByFeederNode = substituteSingularFictitiousByFeederNode;
     }

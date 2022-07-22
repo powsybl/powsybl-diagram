@@ -33,11 +33,11 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
     private final CellDetector cellDetector;
     private final BlockOrganizer blockOrganizer;
-    private final LayoutGraphAdapter graphAdapter;
+    private final GraphRefiner graphAdapter;
 
-    public PositionVoltageLevelLayout(VoltageLevelGraph graph, LayoutGraphAdapter layoutGraphAdapter, CellDetector cellDetector, BlockOrganizer blockOrganizer) {
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph, GraphRefiner graphRefiner, CellDetector cellDetector, BlockOrganizer blockOrganizer) {
         super(graph);
-        this.graphAdapter = layoutGraphAdapter;
+        this.graphAdapter = graphRefiner;
         this.cellDetector = cellDetector;
         this.blockOrganizer = blockOrganizer;
     }
