@@ -7,8 +7,6 @@
 
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.commons.PowsyblException;
-import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -22,7 +20,6 @@ import static com.powsybl.sld.model.blocks.Block.Type.LEGPRIMARY;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
-import static com.powsybl.sld.model.nodes.Node.NodeType.FICTITIOUS;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>

@@ -6,22 +6,17 @@
  */
 package com.powsybl.sld.svg;
 
-import com.powsybl.iidm.network.*;
-import com.powsybl.iidm.network.StaticVarCompensator.RegulationMode;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
-import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;

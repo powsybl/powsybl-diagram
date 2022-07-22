@@ -6,27 +6,18 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
-import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
-import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ComponentTypeName;
-import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.FeederInfo;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
-import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
