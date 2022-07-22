@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
 import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
@@ -39,12 +40,12 @@ public class InternCell extends AbstractBusCell {
         /**
          * Pattern not handled (more than two legs)
          */
-        UNHANDLEDPATTERN,
+        UNHANDLED_PATTERN,
 
         /**
          * Intermediary state: the intern cell is either flat or crossover
          */
-        MAYBEFLAT,
+        MAYBE_FLAT,
 
         /**
          * Final state: the corresponding intern cell is displayed as a single straight line between two busbar sections
@@ -67,24 +68,14 @@ public class InternCell extends AbstractBusCell {
          * Calling it uni-leg might be misleading as it's one LegParallelBlock but two (or more) LegBlocks,
          * drawn as a single line only if stacked.
          */
-        UNILEG;
+        ONE_LEG;
 
         public boolean checkIsShape(Shape... shapes) {
-            for (Shape s : shapes) {
-                if (this == s) {
-                    return true;
-                }
-            }
-            return false;
+            return Arrays.stream(shapes).anyMatch(s -> s == this);
         }
 
         public boolean checkIsNotShape(Shape... shapes) {
-            for (Shape s : shapes) {
-                if (this == s) {
-                    return false;
-                }
-            }
-            return true;
+            return Arrays.stream(shapes).noneMatch(s -> s == this);
         }
     }
 
@@ -93,9 +84,9 @@ public class InternCell extends AbstractBusCell {
     private static final Side BODY_SIDE = Side.LEFT;
 
     private Shape shape;
-    private Map<Side, LegBlock> legs;
+    private final Map<Side, LegBlock> legs;
     private Block body;
-    private boolean exceptionIfPatternNotHandled;
+    private final boolean exceptionIfPatternNotHandled;
 
     public InternCell(int cellNumber, Collection<Node> nodes, boolean exceptionIfPatternNotHandled) {
         super(cellNumber, CellType.INTERN, nodes);
@@ -124,11 +115,11 @@ public class InternCell extends AbstractBusCell {
             //  - either crossover (two sections): detected later in Subsection::identifyCrossOverAndCheckOrientation
             //  - or vertical (one section): detected later in Subsection::identifyVerticalInternCells
             if (candidateLegs.stream().map(LegBlock::getBusNodes).allMatch(bn -> bn.size() == 1)) {
-                shape = Shape.MAYBEFLAT;
+                shape = Shape.MAYBE_FLAT;
             }
         } else {
             if (candidateLegs.size() == 1) {
-                shape = Shape.UNILEG;
+                shape = Shape.ONE_LEG;
                 LegBlock leg = candidateLegs.get(0);
                 legs.put(Side.UNDEFINED, leg);
                 leg.setOrientation(Orientation.UP);
@@ -136,7 +127,7 @@ public class InternCell extends AbstractBusCell {
                 if (exceptionIfPatternNotHandled) {
                     throw new PowsyblException("InternCell pattern not recognized");
                 } else {
-                    shape = Shape.UNHANDLEDPATTERN;
+                    shape = Shape.UNHANDLED_PATTERN;
                     LOGGER.error("InternCell pattern not handled");
                     LegBlock leg = candidateLegs.get(0);
                     legs.put(Side.UNDEFINED, candidateLegs.get(0));
@@ -163,43 +154,18 @@ public class InternCell extends AbstractBusCell {
     }
 
     private Side extremityToSide(Block.Extremity extremity) {
-        if (extremity == Block.Extremity.START) {
-            return Side.LEFT;
+        switch (extremity) {
+            case START: return Side.LEFT;
+            case END: return Side.RIGHT;
+            default: return Side.UNDEFINED;
         }
-        if (extremity == Block.Extremity.END) {
-            return Side.RIGHT;
-        }
-        return Side.UNDEFINED;
     }
 
     private List<LegBlock> searchLegs() {
-        List<LegBlock> candidateLegs = new ArrayList<>();
-        List<LegPrimaryBlock> plbCopy = new ArrayList<>(getLegPrimaryBlocks());
-        while (!plbCopy.isEmpty()) {
-            LegPrimaryBlock lpb = plbCopy.get(0);
-            Block parentBlock = lpb.getParentBlock();
-            if (parentBlock instanceof LegParralelBlock) {
-                candidateLegs.add((LegBlock) parentBlock);
-                plbCopy.removeAll(((LegParralelBlock) parentBlock).getSubBlocks());
-            } else {
-                candidateLegs.add(lpb);
-                plbCopy.remove(lpb);
-            }
-        }
-        return candidateLegs;
-    }
-
-    public void identifyIfFlat() {
-        List<BusNode> buses = getBusNodes();
-        if (shape != Shape.MAYBEFLAT) {
-            return;
-        }
-        if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
-            setFlat();
-            getRootBlock().setOrientation(Orientation.RIGHT);
-        } else {
-            shape = Shape.CROSSOVER;
-        }
+        return getLegPrimaryBlocks().stream()
+                .map(lpb -> lpb.getParentBlock() instanceof LegParallelBlock ? (LegParallelBlock) lpb.getParentBlock() : lpb)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public boolean checkIsShape(Shape... shape) {
@@ -226,7 +192,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public void blockSizing() {
         legs.values().forEach(Block::sizing);
-        if (shape.checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
+        if (shape.checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
             body.sizing();
         }
     }
@@ -234,7 +200,7 @@ public class InternCell extends AbstractBusCell {
     @Override
     public int newHPosition(int hPosition) {
         int h = hPosition;
-        if (shape == Shape.UNILEG) {
+        if (shape == Shape.ONE_LEG) {
             legs.get(Side.UNDEFINED).getPosition().set(H, h);
             h += legs.get(Side.UNDEFINED).getPosition().getSpan(H);
         } else {

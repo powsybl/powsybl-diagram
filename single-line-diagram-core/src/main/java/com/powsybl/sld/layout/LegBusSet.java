@@ -80,13 +80,11 @@ public final class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkIsShape(shape))
-                .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
-    }
-
     List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().map(InternCellSide::getCell).distinct().collect(Collectors.toList());
+        return internCellSides.stream().map(InternCellSide::getCell)
+                .filter(cell -> cell.checkIsShape(shape))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public Set<BusNode> getBusNodeSet() {
@@ -127,12 +125,12 @@ public final class LegBusSet {
         externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsShape(InternCell.Shape.UNILEG))
+                .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
                 .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell, Side.UNDEFINED)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));

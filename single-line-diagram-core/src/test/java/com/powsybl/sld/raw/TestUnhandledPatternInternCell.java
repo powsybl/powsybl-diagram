@@ -57,6 +57,6 @@ public class TestUnhandledPatternInternCell extends AbstractTestCaseRaw {
         Optional<Cell> firstCell = g.getCellStream().findFirst();
         assertTrue(firstCell.isPresent());
         assertTrue(firstCell.get() instanceof InternCell);
-        assertEquals(InternCell.Shape.UNHANDLEDPATTERN, ((InternCell) firstCell.get()).getShape());
+        assertEquals(InternCell.Shape.UNHANDLED_PATTERN, ((InternCell) firstCell.get()).getShape());
     }
 }

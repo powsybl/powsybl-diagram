@@ -155,7 +155,7 @@ class BlockPositionner {
 
     private void manageInternCellOverlaps(VoltageLevelGraph graph) {
         List<InternCell> cellsToHandle = graph.getInternCellStream()
-                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(internCell -> internCell.checkIsNotShape(InternCell.Shape.FLAT, InternCell.Shape.UNDEFINED, InternCell.Shape.UNHANDLED_PATTERN))
                 .collect(Collectors.toList());
         InternCellsLanes lane = new InternCellsLanes(cellsToHandle);
         lane.run();
@@ -227,7 +227,7 @@ class BlockPositionner {
         }
 
         private int getHfromSide(InternCell cell, Side side) {
-            if (cell.checkIsShape(InternCell.Shape.UNILEG)) {
+            if (cell.checkIsShape(InternCell.Shape.ONE_LEG)) {
                 return cell.getSideHPos(Side.UNDEFINED);
             }
             return cell.getSideHPos(side);
@@ -257,7 +257,7 @@ class BlockPositionner {
                     if (c.getDirection() == UNDEFINED) {
                         c.setDirection(j == 0 ? TOP : BOTTOM);
                     }
-                    if (!c.checkIsShape(InternCell.Shape.UNILEG)) {
+                    if (!c.checkIsShape(InternCell.Shape.ONE_LEG)) {
                         c.getBodyBlock().getPosition().set(V, newV);
                     }
                 });

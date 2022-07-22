@@ -132,7 +132,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
         } else {
             boolean isFlat = ((InternCell) cell).getShape() == Shape.FLAT;
-            boolean isUnileg = ((InternCell) cell).getShape() == Shape.UNILEG;
+            boolean isUnileg = ((InternCell) cell).getShape() == Shape.ONE_LEG;
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection(), true, isFlat, isUnileg);
         }
     }

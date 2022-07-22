@@ -148,7 +148,7 @@ final class CellBlockDecomposer {
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
                 parallelBlock = new BodyParallelBlock(blocksBundle, true);
             } else {
-                parallelBlock = new LegParralelBlock(blocksBundle, true);
+                parallelBlock = new LegParallelBlock(blocksBundle, true);
             }
             blocks.add(parallelBlock);
         }

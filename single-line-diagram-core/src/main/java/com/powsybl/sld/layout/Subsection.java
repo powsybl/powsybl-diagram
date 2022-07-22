@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout;
 
 import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -72,7 +73,7 @@ public class Subsection {
     List<InternCell> getVerticalInternCells() {
         return internCellSides.stream()
                 .filter(ics -> ics.getCell().checkIsShape(InternCell.Shape.VERTICAL)
-                        || ics.getCell().checkIsShape(InternCell.Shape.UNILEG))
+                        || ics.getCell().checkIsShape(InternCell.Shape.ONE_LEG))
                 .map(InternCellSide::getCell).collect(Collectors.toList());
     }
 
@@ -117,9 +118,7 @@ public class Subsection {
 
     private static void internCellCoherence(VoltageLevelGraph vlGraph, List<LegBusSet> lbsList, List<Subsection> subsections) {
         identifyVerticalInternCells(vlGraph, subsections);
-        lbsList.stream()
-                .flatMap(lbs -> lbs.getCellsSideMapFromShape(InternCell.Shape.MAYBEFLAT).keySet().stream()).distinct()
-                .forEach(InternCell::identifyIfFlat);
+        identifyFlatInternCells(lbsList);
         identifyCrossOverAndCheckOrientation(subsections);
         slipInternCellSideToEdge(subsections);
     }
@@ -128,7 +127,7 @@ public class Subsection {
         Map<InternCell, Subsection> verticalCells = new LinkedHashMap<>();
 
         graph.getInternCellStream()
-                .filter(c -> c.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(c -> c.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .forEach(c ->
                         subsections.stream()
                                 .filter(subsection -> subsection.containsAllBusNodes(c.getBusNodes()))
@@ -140,6 +139,21 @@ public class Subsection {
             sub.internCellSides.add(new InternCellSide(cell, Side.UNDEFINED));
         });
 
+    }
+
+    private static void identifyFlatInternCells(List<LegBusSet> lbsList) {
+        lbsList.stream()
+                .flatMap(lbs -> lbs.getInternCellsFromShape(InternCell.Shape.MAYBE_FLAT).stream())
+                .distinct()
+                .forEach(internCell -> {
+                    List<BusNode> buses = internCell.getBusNodes();
+                    if (Math.abs(buses.get(1).getSectionIndex() - buses.get(0).getSectionIndex()) == 1 && buses.get(1).getBusbarIndex() == buses.get(0).getBusbarIndex()) {
+                        internCell.setFlat();
+                        internCell.getRootBlock().setOrientation(Orientation.RIGHT);
+                    } else {
+                        internCell.setShape(InternCell.Shape.CROSSOVER);
+                    }
+                });
     }
 
     private static void identifyCrossOverAndCheckOrientation(List<Subsection> subsections) {
