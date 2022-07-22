@@ -330,6 +330,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
         // Update edges
         if (node.getType() == NodeType.FEEDER) {
+            // The feeder node might have several adjacent nodes (feeder fork for instance)
             for (Node neighbor : node.getAdjacentNodes()) {
                 addEdge(neighbor, fStackNode);
                 removeEdge(neighbor, node);
@@ -356,15 +357,27 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void insertFeederHookNode(Node feederNode) {
-        // Create a new hook node
-        InternalNode nf = NodeFactory.createInternalNode(this, feederNode.getId());
+        // Create a new hook node to insert before feeder node
+        InternalNode hookNode = NodeFactory.createInternalNode(this, feederNode.getId());
 
-        // Create all new edges and remove old ones
-        for (Node neighbor : feederNode.getAdjacentNodes()) {
-            addEdge(neighbor, nf);
-            removeEdge(neighbor, feederNode);
+        List<Node> adjacentNodes = feederNode.getAdjacentNodes();
+        if (adjacentNodes.size() == 1) {
+            // Update edges: create the 2 new ones and remove the old one
+            Node singleNeighbor = adjacentNodes.get(0);
+            removeEdge(singleNeighbor, feederNode);
+            addEdge(singleNeighbor, hookNode);
+        } else {
+            // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
+            InternalNode forkNode = NodeFactory.createInternalNode(this, feederNode.getId() + "_fork");
+
+            // Create all new edges and remove old ones
+            for (Node neighbor : adjacentNodes) {
+                addEdge(neighbor, forkNode);
+                removeEdge(neighbor, feederNode);
+            }
+            addEdge(forkNode, hookNode);
         }
-        addEdge(nf, feederNode);
+        addEdge(hookNode, feederNode);
     }
 
     public void extendBusesConnectedToBuses() {
