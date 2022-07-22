@@ -62,11 +62,8 @@ final class CellBlockDecomposer {
     }
 
     private static void mergeBlocks(VoltageLevelGraph vlGraph, BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
-        // Search all blocks connected to a busbar inside the primary blocks list
-        List<LegPrimaryBlock> primaryLegBlocks = blocks.stream()
-                .filter(b -> b instanceof LegPrimaryBlock)
-                .map(LegPrimaryBlock.class::cast)
-                .collect(Collectors.toList());
+        List<LegPrimaryBlock> legPrimaryBlocks = blocks.stream().filter(LegPrimaryBlock.class::isInstance).map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
+        List<FeederPrimaryBlock> feederPrimaryBlocks = blocks.stream().filter(FeederPrimaryBlock.class::isInstance).map(FeederPrimaryBlock.class::cast).collect(Collectors.toList());
 
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
@@ -84,7 +81,7 @@ final class CellBlockDecomposer {
                 }
             }
         }
-        busCell.blocksSetting(blocks.get(0), primaryLegBlocks);
+        busCell.blocksSetting(blocks.get(0), legPrimaryBlocks, feederPrimaryBlocks);
     }
 
     /**

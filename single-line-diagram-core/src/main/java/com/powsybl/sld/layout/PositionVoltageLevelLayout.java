@@ -55,7 +55,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
         graphAdapter.run(getGraph(), layoutParam);
         cellDetector.detectCells(getGraph());
-        blockOrganizer.organize(getGraph());
+        blockOrganizer.organize(getGraph(), layoutParam);
 
         calculateMaxCellHeight(layoutParam);
         calculateBusNodeCoord(getGraph(), layoutParam);

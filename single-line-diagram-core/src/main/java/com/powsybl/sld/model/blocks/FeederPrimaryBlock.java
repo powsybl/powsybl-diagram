@@ -29,14 +29,6 @@ public class FeederPrimaryBlock extends AbstractPrimaryBlock {
         if (getExtremityNode(START).getType() == FEEDER) {
             super.reverseBlock();
         }
-        if (!checkConsistency()) {
-            throw new PowsyblException("FeederPrimaryBlock not consistent");
-        }
-    }
-
-    private boolean checkConsistency() {
-        return nodes.size() == 2 && nodes.get(1).getType() == FEEDER
-            && (nodes.get(0).getType() == FICTITIOUS || nodes.get(0).getType() == SHUNT);
     }
 
     public FeederNode getFeederNode() {
