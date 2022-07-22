@@ -405,4 +405,42 @@ public final class CreateNetworksUtil {
         view.newBreaker().setId("bt").setNode1(0).setNode2(3).add();
         return network;
     }
+
+    public static Network createNetworkWithFiveBusesFourLoads() {
+        Network network = createNetworkWithTwoParallelLoads();
+        VoltageLevel vl = network.getVoltageLevel("vl1");
+
+        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
+        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
+        createBusBarSection(vl, "bbs22", "bbs22", 2, 2, 2);
+        createSwitch(vl, "bA", "bA", SwitchKind.BREAKER, false, false, false, 3, 4);
+        createLoad(vl, "loadA", "loadA", "loadA", null, ConnectablePosition.Direction.TOP, 4, 10, 10);
+        createSwitch(vl, "dA1", "dA1", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
+        createSwitch(vl, "dA2", "dA2", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
+
+        createSwitch(vl, "bB", "bB", SwitchKind.BREAKER, false, false, false, 5, 6);
+        createLoad(vl, "loadB", "loadB", "loadB", null, ConnectablePosition.Direction.TOP, 6, 10, 10);
+        createSwitch(vl, "dB1", "dB1", SwitchKind.DISCONNECTOR, false, false, false, 2, 5);
+        createSwitch(vl, "dB2", "dB2", SwitchKind.DISCONNECTOR, false, false, false, 0, 5);
+
+        createSwitch(vl, "link", "link", SwitchKind.BREAKER, false, false, false, 5, 9);
+
+        return network;
+    }
+
+    public static Network createNetworkWithTwoParallelLoads() {
+        Network network = Network.create("TestSingleLineDiagramClass", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs13", "bbs13", 7, 1, 3);
+        createBusBarSection(vl, "bbs23", "bbs23", 8, 2, 3);
+        createLoad(vl, "loadC", "loadC", "loadC", null, ConnectablePosition.Direction.TOP, 9, 10, 10);
+        createSwitch(vl, "bCD1", "bCD1", SwitchKind.BREAKER, false, false, false, 8, 9);
+        createSwitch(vl, "bCD2", "bCD2", SwitchKind.BREAKER, false, false, false, 7, 9);
+        createSwitch(vl, "bCD3", "bCD3", SwitchKind.BREAKER, false, false, false, 7, 9);
+        createSwitch(vl, "bD1", "bD1", SwitchKind.BREAKER, false, false, false, 20, 9);
+        createLoad(vl, "loadD", "loadD", "loadD", null, ConnectablePosition.Direction.TOP, 20, 10, 10);
+        return network;
+    }
+
 }
