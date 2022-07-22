@@ -217,6 +217,7 @@ public class LayoutParameters {
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
         feederInfoPrecision = other.feederInfoPrecision;
+        componentsOnBusbars = new ArrayList<>(other.componentsOnBusbars);
     }
 
     public double getVerticalSpaceBus() {
