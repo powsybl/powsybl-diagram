@@ -403,6 +403,39 @@ public final class CreateNetworksUtil {
         view.newBreaker().setId("b2").setNode1(3).setNode2(4).add();
         view.newBreaker().setId("b3").setNode1(3).setNode2(5).add();
         view.newBreaker().setId("bt").setNode1(0).setNode2(3).add();
+
+        VoltageLevel vl2 = substation.newVoltageLevel().setId("vl2").setTopologyKind(TopologyKind.NODE_BREAKER).setNominalV(380).add();
+        VoltageLevel.NodeBreakerView view2 = vl2.getNodeBreakerView();
+        BusbarSection bbs1Vl2 = view2.newBusbarSection().setId("bbs1Vl2").setNode(0).add();
+        bbs1Vl2.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(1).withSectionIndex(1);
+        BusbarSection bbs2Vl2 = view2.newBusbarSection().setId("bbs2Vl2").setNode(3).add();
+        bbs2Vl2.newExtension(BusbarSectionPositionAdder.class).withBusbarIndex(2).withSectionIndex(2);
+
+        VscConverterStation vsc2 = vl2.newVscConverterStation()
+                .setId("vsc2")
+                .setName("Converter2")
+                .setNode(1)
+                .setLossFactor(0.011f)
+                .setVoltageSetpoint(405.0)
+                .setVoltageRegulatorOn(true)
+                .add();
+        vsc2.getTerminal()
+                .setP(300.0)
+                .setQ(75.0);
+        view2.newDisconnector().setId("d2").setNode1(0).setNode2(1).add();
+
+        network.newHvdcLine()
+            .setId("hvdc")
+            .setName("hvdc")
+            .setR(1)
+            .setNominalV(380)
+            .setMaxP(200)
+            .setActivePowerSetpoint(150)
+            .setConvertersMode(HvdcLine.ConvertersMode.SIDE_1_INVERTER_SIDE_2_RECTIFIER)
+            .setConverterStationId1("vsc")
+            .setConverterStationId2("vsc2")
+            .add();
+
         return network;
     }
 
