@@ -63,6 +63,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             case THREE_WINDINGS_TRANSFORMER_LEG:
                 feederInfos = get3WTFeederInfos((Feeder3WTLegNode) node);
                 break;
+            case HVDC:
+                feederInfos = getHvdcFeederInfos((FeederWithSideNode) node);
+                break;
             default:
                 break;
         }
@@ -107,6 +110,16 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         if (transformer != null) {
             Branch.Side side = Branch.Side.valueOf(node.getSide().name());
             measures = buildFeederInfos(transformer, side);
+        }
+        return measures;
+    }
+
+    private List<FeederInfo> getHvdcFeederInfos(FeederWithSideNode node) {
+        List<FeederInfo> measures = new ArrayList<>();
+        HvdcLine hvdcLine = network.getHvdcLine(node.getEquipmentId());
+        if (hvdcLine != null) {
+            FeederWithSideNode.Side side = node.getSide();
+            measures = buildFeederInfos(hvdcLine, side);
         }
         return measures;
     }
@@ -257,5 +270,13 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return Arrays.asList(
                 new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), layoutParameters.getFeederInfoPrecision()),
                 new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), layoutParameters.getFeederInfoPrecision()));
+    }
+
+    private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, FeederWithSideNode.Side side) {
+        HvdcConverterStation<?> hvdcConverterStation = side == FeederWithSideNode.Side.ONE ? hvdcLine.getConverterStation1()
+                                                                                        : hvdcLine.getConverterStation2();
+        return Arrays.asList(
+            new DirectionalFeederInfo(ARROW_ACTIVE, hvdcConverterStation.getTerminal().getP(), layoutParameters.getFeederInfoPrecision()),
+            new DirectionalFeederInfo(ARROW_REACTIVE, hvdcConverterStation.getTerminal().getQ(), layoutParameters.getFeederInfoPrecision()));
     }
 }

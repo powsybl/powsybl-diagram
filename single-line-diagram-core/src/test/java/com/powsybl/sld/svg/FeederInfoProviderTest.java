@@ -7,6 +7,7 @@
 package com.powsybl.sld.svg;
 
 import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.iidm.CreateNetworksUtil;
@@ -29,17 +30,22 @@ import static org.junit.Assert.*;
  */
 public class FeederInfoProviderTest extends AbstractTestCaseIidm {
 
+    private VoltageLevel vl2;
+
     @Before
     public void setUp() {
         network = CreateNetworksUtil.createNetworkWithSvcVscScDl();
         graphBuilder = new NetworkGraphBuilder(network);
         vl = network.getVoltageLevel("vl");
+        vl2 = network.getVoltageLevel("vl2");
     }
 
     @Test
     public void test() {
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
         layoutParameters.setFeederInfoSymmetry(true);
+
+        // build first voltage level graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
         voltageLevelGraphLayout(g); // to have cell orientations (bottom / up)
         assertEquals(toString("/feederInfoTest.svg"), toSVG(g, "/feederInfoTest.svg"));
@@ -59,14 +65,27 @@ public class FeederInfoProviderTest extends AbstractTestCaseIidm {
         assertFalse(feederInfos1.get(0).getLeftLabel().isPresent());
         assertFalse(feederInfos1.get(1).getLeftLabel().isPresent());
 
-        List<FeederInfo> feederInfos2 = labelProvider.getFeederInfos((FeederNode) g.getNode("vsc"));
-        assertEquals(2, feederInfos2.size());
-        assertEquals(ARROW_ACTIVE, feederInfos2.get(0).getComponentType());
-        assertEquals(ARROW_REACTIVE, feederInfos2.get(1).getComponentType());
-        assertTrue(feederInfos2.get(0).getRightLabel().isPresent());
-        assertTrue(feederInfos2.get(1).getRightLabel().isPresent());
-        assertFalse(feederInfos2.get(0).getLeftLabel().isPresent());
-        assertFalse(feederInfos2.get(1).getLeftLabel().isPresent());
+        List<FeederInfo> feederInfosVsc1 = labelProvider.getFeederInfos((FeederNode) g.getNode("vsc"));
+        assertEquals(2, feederInfosVsc1.size());
+        assertEquals(ARROW_ACTIVE, feederInfosVsc1.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, feederInfosVsc1.get(1).getComponentType());
+        assertTrue(feederInfosVsc1.get(0).getRightLabel().isPresent());
+        assertTrue(feederInfosVsc1.get(1).getRightLabel().isPresent());
+        assertFalse(feederInfosVsc1.get(0).getLeftLabel().isPresent());
+        assertFalse(feederInfosVsc1.get(1).getLeftLabel().isPresent());
+
+        // build second voltage level graph
+        VoltageLevelGraph g2 = graphBuilder.buildVoltageLevelGraph(vl2.getId());
+        voltageLevelGraphLayout(g2); // to have cell orientations (bottom / up)
+
+        List<FeederInfo> feederInfosVsc2 = labelProvider.getFeederInfos((FeederNode) g2.getNode("vsc2"));
+        assertEquals(2, feederInfosVsc2.size());
+        assertEquals(ARROW_ACTIVE, feederInfosVsc2.get(0).getComponentType());
+        assertEquals(ARROW_REACTIVE, feederInfosVsc2.get(1).getComponentType());
+        assertTrue(feederInfosVsc2.get(0).getRightLabel().isPresent());
+        assertTrue(feederInfosVsc2.get(1).getRightLabel().isPresent());
+        assertFalse(feederInfosVsc2.get(0).getLeftLabel().isPresent());
+        assertFalse(feederInfosVsc2.get(1).getLeftLabel().isPresent());
 
         List<FeederInfo> feederInfos3 = labelProvider.getFeederInfos((FeederNode) g.getNode("C1"));
         assertEquals(2, feederInfos3.size());
