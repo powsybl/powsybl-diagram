@@ -58,8 +58,6 @@ public class Node {
 
     private Orientation orientation;
 
-    private boolean canConnectBus = false;
-
     /**
      * Constructor
      */
@@ -181,14 +179,6 @@ public class Node {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
-    }
-
-    public boolean canConnectBus() {
-        return canConnectBus;
-    }
-
-    public void setCanConnectBus(boolean canConnectBus) {
-        this.canConnectBus = canConnectBus;
     }
 
     public Orientation getOrientation() {

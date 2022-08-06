@@ -37,16 +37,18 @@ public class LayoutToCgmesExtensionsConverter {
 
     private static final double OFFSET_MULTIPLIER_X = 2.0;
 
+    private final LayoutParameters lparams;
     private final SubstationLayoutFactory sFactory;
     private final VoltageLevelLayoutFactory vFactory;
 
-    public LayoutToCgmesExtensionsConverter(SubstationLayoutFactory sFactory, VoltageLevelLayoutFactory vFactory) {
+    public LayoutToCgmesExtensionsConverter(SubstationLayoutFactory sFactory, VoltageLevelLayoutFactory vFactory, LayoutParameters lparams) {
         this.sFactory = Objects.requireNonNull(sFactory);
         this.vFactory = Objects.requireNonNull(vFactory);
+        this.lparams = Objects.requireNonNull(lparams);
     }
 
     public LayoutToCgmesExtensionsConverter() {
-        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering(), new LayoutParameters().setUseName(true)));
+        this(new HorizontalSubstationLayoutFactory(), new PositionVoltageLevelLayoutFactory(new PositionByClustering()), new LayoutParameters().setUseName(true));
     }
 
     private boolean isLineNode(Node node) {
@@ -89,7 +91,7 @@ public class LayoutToCgmesExtensionsConverter {
         NetworkGraphBuilder graphBuilder = new NetworkGraphBuilder(network);
         SubstationGraph sgraph = graphBuilder.buildSubstationGraph(substationId);
         Layout sLayout = sFactory.create(sgraph, vFactory);
-        sLayout.run();
+        sLayout.run(lparams);
 
         LayoutInfo subsBoundary = new LayoutInfo(0.0, 0.0);
         Substation substation = network.getSubstation(substationId);

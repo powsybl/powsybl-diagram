@@ -6,27 +6,31 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Country;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.SwitchKind;
+import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
 import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.BodyParallelBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
-
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
 
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 import static com.powsybl.sld.model.nodes.Node.NodeType.*;
 import static org.junit.Assert.*;
 
@@ -53,8 +57,11 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = buildVLAndDetectCell(graphBuilder, vl.getId());
-        new BlockOrganizer().organize(g);
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // detect cells
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
 
         assertEquals(1, g.getCellStream().count());
         Optional<Cell> oCell = g.getCellStream().findFirst();
@@ -129,8 +136,8 @@ public class TestSerialParallelBlock extends AbstractTestCaseIidm {
 
         sb.reverseBlock();
 
-        assertEquals("INTERNAL_vl_da", sb.getEndingNode().getId());
-        assertEquals("INTERNAL_vl_da", subSB.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", subSB.getEndingNode().getId());
         assertEquals("INTERNAL_vl_2", subPB.getSubBlocks().get(1).getEndingNode().getId());
     }
 }

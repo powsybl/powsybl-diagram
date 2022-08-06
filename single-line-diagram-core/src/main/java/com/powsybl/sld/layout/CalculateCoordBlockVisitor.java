@@ -112,7 +112,7 @@ public final class CalculateCoordBlockVisitor implements BlockVisitor {
     }
 
     @Override
-    public void visit(LegParralelBlock block) {
+    public void visit(LegParallelBlock block) {
         if (block.getPosition().getOrientation().isVertical()) {
             translatePosInCoord(block, Y, X, H, 1);
         } else {

@@ -72,7 +72,7 @@ public class TestInternalBranchesBusBreaker extends AbstractTestCaseIidm {
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
 
         // Run vertical substation layout
-        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory(layoutParameters)).run();
+        new VerticalSubstationLayoutFactory().create(g, new PositionVoltageLevelLayoutFactory()).run(layoutParameters);
 
         assertEquals(toString("/InternalBranchesBusBreakerV.json"), toJson(g, "/InternalBranchesBusBreakerV.json"));
     }

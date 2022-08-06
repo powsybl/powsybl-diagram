@@ -10,22 +10,24 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
+import java.util.Objects;
+
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class SmartVoltageLevelLayoutFactory extends AbstractVoltageLevelLayoutFactory {
+public class SmartVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
+
     private final Network network;
 
-    public SmartVoltageLevelLayoutFactory(Network network, LayoutParameters layoutParameters) {
-        super(layoutParameters);
-        this.network = network;
+    public SmartVoltageLevelLayoutFactory(Network network) {
+        this.network = Objects.requireNonNull(network);
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
         return VoltageLevelLayoutFactorySmartSelector.findBest(network.getVoltageLevel(graph.getVoltageLevelInfos().getId()))
                 .orElseThrow(() -> new PowsyblException("Voltage level layout factory not found"))
-                .createFactory(network, getLayoutParameters())
+                .createFactory(network)
                 .create(graph);
     }
 }

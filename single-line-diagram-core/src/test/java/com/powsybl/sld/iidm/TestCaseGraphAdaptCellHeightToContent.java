@@ -12,11 +12,7 @@ import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.ImplicitCellDetector;
-import com.powsybl.sld.layout.PrepareForLayout;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,10 +86,12 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         layoutParameters.setAdaptCellHeightToContent(false);
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-        PrepareForLayout.run(g, layoutParameters, false, true);
-        new ImplicitCellDetector(false).detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), false).organize(g);
-        new PositionVoltageLevelLayout(g, layoutParameters).run();
+
+        new PositionVoltageLevelLayoutFactory()
+                .setFeederStacked(false)
+                .setRemoveUnnecessaryFictitiousNodes(false)
+                .create(g)
+                .run(layoutParameters);
 
         assertEquals(toString("/TestCaseGraphExternCellHeightFixed.json"), toJson(g, "/TestCaseGraphExternCellHeightFixed.json"));
     }
@@ -104,10 +102,11 @@ public class TestCaseGraphAdaptCellHeightToContent extends AbstractTestCaseIidm 
         layoutParameters.setAdaptCellHeightToContent(true);
 
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-        PrepareForLayout.run(g, layoutParameters, false, true);
-        new ImplicitCellDetector(false).detectCells(g);
-        new BlockOrganizer(new PositionFromExtension(), true).organize(g);
-        new PositionVoltageLevelLayout(g, layoutParameters).run();
+
+        new PositionVoltageLevelLayoutFactory()
+                .setRemoveUnnecessaryFictitiousNodes(false)
+                .create(g)
+                .run(layoutParameters);
 
         assertEquals(toString("/TestCaseGraphAdaptCellHeightToContent.json"), toJson(g, "/TestCaseGraphAdaptCellHeightToContent.json"));
     }

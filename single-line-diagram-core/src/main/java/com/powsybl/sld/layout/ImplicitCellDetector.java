@@ -41,7 +41,6 @@ public class ImplicitCellDetector implements CellDetector {
         this(false);
     }
 
-
     /**
      * internCell detection : an internal cell is composed of nodes connecting BUSes without connecting Feeder.
      * detectCell is used to detect cells exploring the graph and scanning exclusionTypes and stopTypes

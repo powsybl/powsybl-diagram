@@ -8,16 +8,14 @@ package com.powsybl.sld.model.cells;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.blocks.Block;
+import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +26,8 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
-    private List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
+    private final List<LegPrimaryBlock> legPrimaryBlocks = new ArrayList<>();
+    private final List<FeederPrimaryBlock> feederPrimaryBlocks = new ArrayList<>();
 
     private Integer order = null;
 
@@ -39,9 +38,10 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
     }
 
     @Override
-    public void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus) {
+    public void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus, List<FeederPrimaryBlock> feederPrimaryBlocks) {
         setRootBlock(rootBlock);
-        this.legPrimaryBlocks = new ArrayList<>(primaryBlocksConnectedToBus);
+        this.legPrimaryBlocks.addAll(primaryBlocksConnectedToBus);
+        this.feederPrimaryBlocks.addAll(feederPrimaryBlocks);
     }
 
     @Override
@@ -54,7 +54,12 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
 
     @Override
     public List<LegPrimaryBlock> getLegPrimaryBlocks() {
-        return new ArrayList<>(legPrimaryBlocks);
+        return Collections.unmodifiableList(legPrimaryBlocks);
+    }
+
+    @Override
+    public List<FeederPrimaryBlock> getFeederPrimaryBlocks() {
+        return Collections.unmodifiableList(feederPrimaryBlocks);
     }
 
     @Override

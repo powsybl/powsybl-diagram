@@ -9,7 +9,6 @@ package com.powsybl.sld.cgmes.layout;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
@@ -19,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
@@ -33,8 +31,6 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCgmesLayout.class);
 
-    protected  LayoutParameters layoutParameters;
-
     protected static final double X_MARGIN = 20;
     protected static final double Y_MARGIN = 10;
     protected static final double LINE_OFFSET = 20;
@@ -46,11 +42,6 @@ public abstract class AbstractCgmesLayout implements Layout {
     protected boolean fixTransformersLabel = false;
 
     protected Network network;
-
-    protected AbstractCgmesLayout(Network network, LayoutParameters layoutParameters) {
-        this.network = Objects.requireNonNull(network);
-        this.layoutParameters = Objects.requireNonNull(layoutParameters);
-    }
 
     protected void setMin(double x, double y) {
         if (minX == 0 || x < minX) {

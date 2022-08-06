@@ -15,7 +15,5 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
  */
 public interface VoltageLevelLayoutFactory {
 
-    LayoutParameters getLayoutParameters();
-
     Layout create(VoltageLevelGraph graph);
 }

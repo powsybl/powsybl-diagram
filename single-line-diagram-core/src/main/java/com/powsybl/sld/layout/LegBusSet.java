@@ -6,12 +6,14 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.cells.*;
+import com.powsybl.sld.model.cells.Cell;
+import com.powsybl.sld.model.cells.ExternCell;
+import com.powsybl.sld.model.cells.InternCell;
+import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,13 +80,11 @@ public final class LegBusSet {
         internCellSides.addAll(lbsToAbsorb.internCellSides);
     }
 
-    Map<InternCell, Side> getCellsSideMapFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().filter(ics -> ics.getCell().checkIsShape(shape))
-                .collect(Collectors.toMap(InternCellSide::getCell, InternCellSide::getSide));
-    }
-
     List<InternCell> getInternCellsFromShape(InternCell.Shape shape) {
-        return internCellSides.stream().map(InternCellSide::getCell).distinct().collect(Collectors.toList());
+        return internCellSides.stream().map(InternCellSide::getCell)
+                .filter(cell -> cell.checkIsShape(shape))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public Set<BusNode> getBusNodeSet() {
@@ -122,15 +122,15 @@ public final class LegBusSet {
             manageShunts(graph, externCells, legBusSets, nodeToNb);
         }
 
-        externCells.forEach(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+        externCells.forEach(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsShape(InternCell.Shape.UNILEG))
+                .filter(cell -> cell.checkIsShape(InternCell.Shape.ONE_LEG))
                 .sorted(Comparator.comparing(Cell::getFullId)) // if order is not yet defined & avoid randomness
-                .forEachOrdered(cell -> pushNewLBS(legBusSets, nodeToNb, cell, Side.UNDEFINED));
+                .forEachOrdered(cell -> pushLBS(legBusSets, new LegBusSet(nodeToNb, cell, Side.UNDEFINED)));
 
         graph.getInternCellStream()
-                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.UNILEG, InternCell.Shape.UNHANDLEDPATTERN))
+                .filter(cell -> cell.checkIsNotShape(InternCell.Shape.ONE_LEG, InternCell.Shape.UNHANDLED_PATTERN))
                 .sorted(Comparator.comparing(cell -> -((InternCell) cell).getBusNodes().size())         // bigger first to identify encompassed InternCell at the end with the smaller one
                         .thenComparing(cell -> ((InternCell) cell).getFullId()))                        // avoid randomness
                 .forEachOrdered(cell -> pushNonUnilegInternCell(legBusSets, nodeToNb, cell));
@@ -166,7 +166,7 @@ public final class LegBusSet {
 
         sameBusNodesShuntCells.stream().filter(scs -> scs.size() > 2).flatMap(List::stream)
                 .forEach(sc -> {
-                    pushNewLBS(legBusSets, nodeToNb, sc, Side.UNDEFINED);
+                    pushLBS(legBusSets, new LegBusSet(nodeToNb, sc));
                     externCells.removeAll(sc.getSideCells());
                 });
     }
@@ -175,16 +175,7 @@ public final class LegBusSet {
         return busNodes1.containsAll(busNodes2) && busNodes2.containsAll(busNodes1);
     }
 
-    private static void pushNewLBS(List<LegBusSet> legBusSets, Map<BusNode, Integer> nodeToNb, Cell cell, Side side) {
-        LegBusSet legBusSet;
-        if (cell.getType() == Cell.CellType.EXTERN) {
-            legBusSet = new LegBusSet(nodeToNb, (ExternCell) cell);
-        } else if (cell.getType() == Cell.CellType.SHUNT) {
-            legBusSet = new LegBusSet(nodeToNb, (ShuntCell) cell);
-        } else {
-            legBusSet = new LegBusSet(nodeToNb, (InternCell) cell, side);
-        }
-
+    public static void pushLBS(List<LegBusSet> legBusSets, LegBusSet legBusSet) {
         for (LegBusSet lbs : legBusSets) {
             if (lbs.contains(legBusSet)) {
                 lbs.absorbs(legBusSet);
@@ -192,12 +183,12 @@ public final class LegBusSet {
             }
         }
         List<LegBusSet> absorbedLBS = new ArrayList<>();
-        legBusSets.forEach(lbs -> {
+        for (LegBusSet lbs : legBusSets) {
             if (legBusSet.contains(lbs)) {
                 absorbedLBS.add(lbs);
                 legBusSet.absorbs(lbs);
             }
-        });
+        }
         legBusSets.removeAll(absorbedLBS);
         legBusSets.add(legBusSet);
     }
@@ -210,7 +201,7 @@ public final class LegBusSet {
                 return;
             }
         }
-        pushNewLBS(legBusSets, nodeToNb, internCell, Side.LEFT);
-        pushNewLBS(legBusSets, nodeToNb, internCell, Side.RIGHT);
+        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.LEFT));
+        pushLBS(legBusSets, new LegBusSet(nodeToNb, internCell, Side.RIGHT));
     }
 }

@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class PositionVoltageLevelLayoutFactory extends AbstractVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
+public class PositionVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory {
 
     private final PositionFinder positionFinder;
 
@@ -35,12 +35,11 @@ public class PositionVoltageLevelLayoutFactory extends AbstractVoltageLevelLayou
 
     private Map<String, Side> busInfoMap = new HashMap<>();
 
-    public PositionVoltageLevelLayoutFactory(LayoutParameters layoutParameters) {
-        this(new PositionFromExtension(), layoutParameters);
+    public PositionVoltageLevelLayoutFactory() {
+        this(new PositionFromExtension());
     }
 
-    public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder, LayoutParameters layoutParameters) {
-        super(layoutParameters);
+    public PositionVoltageLevelLayoutFactory(PositionFinder positionFinder) {
         this.positionFinder = Objects.requireNonNull(positionFinder);
     }
 
@@ -100,14 +99,15 @@ public class PositionVoltageLevelLayoutFactory extends AbstractVoltageLevelLayou
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
-        // detect cells
-        PrepareForLayout.run(graph, getLayoutParameters(), removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
-        new ImplicitCellDetector(exceptionIfPatternNotHandled)
-                .detectCells(graph);
+        // For adapting the graph to the diagram layout
+        GraphRefiner graphRefiner = new GraphRefiner(removeUnnecessaryFictitiousNodes, substituteSingularFictitiousByFeederNode);
 
-        // build blocks from cells
-        new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap).organize(graph);
+        // For cell detection
+        ImplicitCellDetector cellDetector = new ImplicitCellDetector(exceptionIfPatternNotHandled);
 
-        return new PositionVoltageLevelLayout(graph, getLayoutParameters());
+        // For building blocks from cells
+        BlockOrganizer blockOrganizer = new BlockOrganizer(positionFinder, feederStacked, exceptionIfPatternNotHandled, handleShunts, busInfoMap);
+
+        return new PositionVoltageLevelLayout(graph, graphRefiner, cellDetector, blockOrganizer);
     }
 }

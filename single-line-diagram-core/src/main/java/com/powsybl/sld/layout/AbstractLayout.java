@@ -23,12 +23,6 @@ import java.util.*;
  */
 public abstract class AbstractLayout implements Layout {
 
-    protected LayoutParameters layoutParameters;
-
-    AbstractLayout(LayoutParameters layoutParameters) {
-        this.layoutParameters = Objects.requireNonNull(layoutParameters);
-    }
-
     public abstract BaseGraph getGraph();
 
     protected abstract void manageSnakeLines(LayoutParameters layoutParameters);

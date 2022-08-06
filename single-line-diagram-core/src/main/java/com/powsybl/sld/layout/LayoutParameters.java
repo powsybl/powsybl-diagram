@@ -10,11 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.powsybl.sld.library.ComponentSize;
+import com.powsybl.sld.library.ComponentTypeName;
 
-import java.util.*;
-
-import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
-import static com.powsybl.sld.library.ComponentTypeName.DISCONNECTOR;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -90,7 +91,8 @@ public class LayoutParameters {
 
     private int feederInfoPrecision = 0;
 
-    private List<String> canConnectBusComponents = new ArrayList<>(Arrays.asList(DISCONNECTOR, BUS_CONNECTION));
+    /** Components which are displayed on busbars */
+    private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR);
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -136,7 +138,7 @@ public class LayoutParameters {
                             @JsonProperty("busInfoMargin") double busInfoMargin,
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
                             @JsonProperty("feederInfoPrecision") int feederInfoPrecision,
-                            @JsonProperty("canConnectBusComponents") List<String> canConnectBusComponents) {
+                            @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -173,7 +175,7 @@ public class LayoutParameters {
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
         this.feederInfoPrecision = feederInfoPrecision;
-        this.canConnectBusComponents = new ArrayList<>(canConnectBusComponents);
+        this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -215,7 +217,7 @@ public class LayoutParameters {
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
         feederInfoPrecision = other.feederInfoPrecision;
-        this.canConnectBusComponents = new ArrayList<>(other.canConnectBusComponents);
+        componentsOnBusbars = new ArrayList<>(other.componentsOnBusbars);
     }
 
     public double getVerticalSpaceBus() {
@@ -555,8 +557,13 @@ public class LayoutParameters {
         return this;
     }
 
-    public List<String> getCanConnectBusComponents() {
-        return canConnectBusComponents;
+    public List<String> getComponentsOnBusbars() {
+        return componentsOnBusbars;
+    }
+
+    public LayoutParameters setComponentsOnBusbars(List<String> componentsOnBusbars) {
+        this.componentsOnBusbars = componentsOnBusbars;
+        return this;
     }
 
     public enum Alignment {

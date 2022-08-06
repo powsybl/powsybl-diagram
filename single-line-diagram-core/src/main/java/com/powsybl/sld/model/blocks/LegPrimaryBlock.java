@@ -7,7 +7,6 @@
 
 package com.powsybl.sld.model.blocks;
 
-import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.Node;
 
@@ -15,10 +14,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.powsybl.sld.model.blocks.Block.Extremity.*;
-import static com.powsybl.sld.model.blocks.Block.Type.*;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
+import static com.powsybl.sld.model.blocks.Block.Extremity.END;
+import static com.powsybl.sld.model.blocks.Block.Extremity.START;
+import static com.powsybl.sld.model.blocks.Block.Type.LEGPRIMARY;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
+import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -29,29 +30,11 @@ public final class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBl
 
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 
-    private LegPrimaryBlock(List<Node> nodes) {
+    public LegPrimaryBlock(List<Node> nodes) {
         super(LEGPRIMARY, nodes);
         if (getExtremityNode(END).getType() == BUS) {
             super.reverseBlock();
         }
-        if (!checkConsistency()) {
-            throw new PowsyblException("LegPrimaryBlock not consistent");
-        }
-    }
-
-    public static LegPrimaryBlock create(List<Node> nodes) {
-        return new LegPrimaryBlock(nodes);
-    }
-
-    private boolean checkConsistency() {
-        return nodes.size() == 3
-                && nodes.get(0).getType() == BUS
-                && checkMiddleNode(nodes.get(1))
-                && nodes.get(2).getType() == INTERNAL;
-    }
-
-    private boolean checkMiddleNode(Node node) {
-        return node.canConnectBus();
     }
 
     public BusNode getBusNode() {

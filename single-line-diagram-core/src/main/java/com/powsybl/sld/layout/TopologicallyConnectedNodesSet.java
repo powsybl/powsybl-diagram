@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * Represents a connected set of nodes if considering the borderNodes as disconnected:
- * for any couple of nodes in <code>nodess</code> there is at least one path connecting them together WITHOUT passing
+ * for any couple of nodes in <code>nodes</code> there is at least one path connecting them together WITHOUT passing
  * through any nodes of <code>borderNodes</code>.
  * The <code>nodes</code> holds the connected set of nodes.
  * The <code>borderNodes</code> holds the nodes that are at the border of this set, that is for which 1 adjacent node

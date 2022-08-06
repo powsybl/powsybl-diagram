@@ -60,11 +60,8 @@ final class CellBlockDecomposer {
     }
 
     private static void mergeBlocks(VoltageLevelGraph vlGraph, BusCell busCell, List<Block> blocks, boolean exceptionIfPatternNotHandled) {
-        // Search all blocks connected to a busbar inside the primary blocks list
-        List<LegPrimaryBlock> primaryLegBlocks = blocks.stream()
-                .filter(b -> b instanceof LegPrimaryBlock)
-                .map(LegPrimaryBlock.class::cast)
-                .collect(Collectors.toList());
+        List<LegPrimaryBlock> legPrimaryBlocks = blocks.stream().filter(LegPrimaryBlock.class::isInstance).map(LegPrimaryBlock.class::cast).collect(Collectors.toList());
+        List<FeederPrimaryBlock> feederPrimaryBlocks = blocks.stream().filter(FeederPrimaryBlock.class::isInstance).map(FeederPrimaryBlock.class::cast).collect(Collectors.toList());
 
         // Merge blocks to obtain a hierarchy of blocks
         while (blocks.size() != 1) {
@@ -82,7 +79,7 @@ final class CellBlockDecomposer {
                 }
             }
         }
-        busCell.blocksSetting(blocks.get(0), primaryLegBlocks);
+        busCell.blocksSetting(blocks.get(0), legPrimaryBlocks, feederPrimaryBlocks);
     }
 
     /**
@@ -149,7 +146,7 @@ final class CellBlockDecomposer {
             if (blocksBundle.stream().anyMatch(b -> !(b instanceof LegPrimaryBlock))) {
                 parallelBlock = new BodyParallelBlock(blocksBundle, true);
             } else {
-                parallelBlock = new LegParralelBlock(blocksBundle, true);
+                parallelBlock = new LegParallelBlock(blocksBundle, true);
             }
             blocks.add(parallelBlock);
         }
@@ -192,7 +189,7 @@ final class CellBlockDecomposer {
             addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
             addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
             addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
-            blocks.add(LegPrimaryBlock.create(legPrimaryBlockNodes));
+            blocks.add(new LegPrimaryBlock(legPrimaryBlockNodes));
         }));
     }
 
@@ -201,7 +198,7 @@ final class CellBlockDecomposer {
             List<Node> feederPrimaryBlockNodes = new ArrayList<>();
             addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
             addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
-            blocks.add(FeederPrimaryBlock.create(feederPrimaryBlockNodes));
+            blocks.add(new FeederPrimaryBlock(feederPrimaryBlockNodes));
         }));
     }
 

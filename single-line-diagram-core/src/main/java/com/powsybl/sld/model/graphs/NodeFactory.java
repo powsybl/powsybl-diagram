@@ -39,9 +39,7 @@ public final class NodeFactory {
     }
 
     public static Node createBusConnection(VoltageLevelGraph graph, String id) {
-        Node busConnection = createNode(graph, NodeType.INTERNAL, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
-        busConnection.setCanConnectBus(true); // the BusConnection is the default node inserted when one node is not canConnectBus.
-        return busConnection;
+        return createNode(graph, NodeType.INTERNAL, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {

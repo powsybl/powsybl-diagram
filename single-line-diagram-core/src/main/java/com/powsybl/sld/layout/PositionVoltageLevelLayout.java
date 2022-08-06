@@ -31,29 +31,44 @@ import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
 public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionVoltageLevelLayout.class);
+    private final CellDetector cellDetector;
+    private final BlockOrganizer blockOrganizer;
+    private final GraphRefiner graphAdapter;
 
-    public PositionVoltageLevelLayout(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
-        super(graph, layoutParameters);
+    public PositionVoltageLevelLayout(VoltageLevelGraph graph, GraphRefiner graphRefiner, CellDetector cellDetector, BlockOrganizer blockOrganizer) {
+        super(graph);
+        this.graphAdapter = graphRefiner;
+        this.cellDetector = cellDetector;
+        this.blockOrganizer = blockOrganizer;
     }
 
     /**
-     * Calculate real coordinate of busNode and blocks connected to busbar
+     * Layout the nodes:
+     * - adapt the graph to have the expected patterns
+     * - detect the cells (intern / extern / shunt)
+     * - organize the cells into blocks
+     * - calculate real coordinate of busNode and blocks connected to busbar
      */
     @Override
-    public void run() {
+    public void run(LayoutParameters layoutParam) {
         LOGGER.info("Running voltage level layout");
-        calculateMaxCellHeight(layoutParameters);
-        calculateBusNodeCoord(getGraph(), layoutParameters);
-        calculateCellCoord(getGraph(), layoutParameters);
 
-        setGraphCoord(layoutParameters);
-        setGraphSize(layoutParameters);
+        graphAdapter.run(getGraph(), layoutParam);
+        cellDetector.detectCells(getGraph());
+        blockOrganizer.organize(getGraph(), layoutParam);
+
+        calculateMaxCellHeight(layoutParam);
+        calculateBusNodeCoord(getGraph(), layoutParam);
+        calculateCellCoord(getGraph(), layoutParam);
+
+        setGraphCoord(layoutParam);
+        setGraphSize(layoutParam);
 
         // Calculate all the coordinates for the middle nodes and the snake lines in the voltageLevel graph
-        manageSnakeLines(layoutParameters);
+        manageSnakeLines(layoutParam);
 
         if (getGraph().isForVoltageLevelDiagram()) {
-            adaptPaddingToSnakeLines(layoutParameters);
+            adaptPaddingToSnakeLines(layoutParam);
         }
     }
 
@@ -117,7 +132,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection());
         } else {
             boolean isFlat = ((InternCell) cell).getShape() == Shape.FLAT;
-            boolean isUnileg = ((InternCell) cell).getShape() == Shape.UNILEG;
+            boolean isUnileg = ((InternCell) cell).getShape() == Shape.ONE_LEG;
             return new LayoutContext(firstBusY, lastBusY, externCellHeight, cell.getDirection(), true, isFlat, isUnileg);
         }
     }

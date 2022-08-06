@@ -29,7 +29,8 @@ public class PositionByClusterVoltageLevelLayoutFactorySmartSelector implements 
         return true;
     }
 
-    public VoltageLevelLayoutFactory createFactory(Network network, LayoutParameters layoutParameters) {
-        return new PositionVoltageLevelLayoutFactory(new PositionByClustering(), layoutParameters);
+    @Override
+    public VoltageLevelLayoutFactory createFactory(Network network) {
+        return new PositionVoltageLevelLayoutFactory(new PositionByClustering());
     }
 }

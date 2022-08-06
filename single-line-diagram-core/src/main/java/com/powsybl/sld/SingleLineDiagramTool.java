@@ -105,7 +105,7 @@ public class SingleLineDiagramTool implements Tool {
         SubstationLayoutFactory substationLayoutFactory = new HorizontalSubstationLayoutFactory();
 
         SvgGenerationConfig(Network network) {
-            voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network, layoutParameters);
+            voltageLevelLayoutFactory = new SmartVoltageLevelLayoutFactory(network);
         }
     }
 

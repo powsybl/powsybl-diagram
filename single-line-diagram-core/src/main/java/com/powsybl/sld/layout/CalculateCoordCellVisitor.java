@@ -33,7 +33,7 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
 
     @Override
     public void visit(InternCell cell) {
-        if (cell.getShape().checkIsNotShape(Shape.UNILEG, Shape.UNDEFINED, Shape.UNHANDLEDPATTERN)) {
+        if (cell.getShape().checkIsNotShape(Shape.ONE_LEG, Shape.UNDEFINED, Shape.UNHANDLED_PATTERN)) {
             calculateRootCoord(cell.getBodyBlock(), layoutContext);
         }
         cell.getLegs().values().forEach(lb -> calculateRootCoord(lb, layoutContext));

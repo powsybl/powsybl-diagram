@@ -23,7 +23,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
     private final InfosNbSnakeLinesHorizontal infosNbSnakeLines;
 
-    public HorizontalSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory, LayoutParameters layoutParameters) {
+    public HorizontalSubstationLayout(SubstationGraph graph, VoltageLevelLayoutFactory vLayoutFactory) {
         super(graph, vLayoutFactory);
         this.infosNbSnakeLines = InfosNbSnakeLinesHorizontal.create(graph);
     }
@@ -53,7 +53,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
 
             // Calculate the objects coordinates inside the voltageLevel graph
             Layout vLayout = vLayoutFactory.create(vlGraph);
-            vLayout.run();
+            vLayout.run(layoutParameters);
 
             x += voltageLevelPadding.getLeft();
             vlGraph.setCoord(x, computeCoordY(layoutParameters, topPadding, vlGraph));

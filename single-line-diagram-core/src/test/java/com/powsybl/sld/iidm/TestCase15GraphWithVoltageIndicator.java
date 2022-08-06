@@ -6,15 +6,8 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.Country;
-import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.SwitchKind;
-import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
-import com.powsybl.sld.layout.PositionVoltageLevelLayout;
-import com.powsybl.sld.layout.positionfromextension.PositionFromExtension;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.library.ResourcesComponentLibrary;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -60,31 +53,8 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() throws IOException {
-        int order = 0;
-        network = Network.create("TestSingleLineDiagramClass", "test");
+        network = CreateNetworksUtil.createNetworkWithFiveBusesFourLoads();
         graphBuilder = new NetworkGraphBuilder(network);
-        substation = createSubstation(network, "s", "s", Country.FR);
-        vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
-        createBusBarSection(vl, "bbs1", "bbs1", 0, 1, 1);
-        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
-        createBusBarSection(vl, "bbs22", "bbs22", 2, 2, 2);
-        createSwitch(vl, "fA", "fA", SwitchKind.BREAKER, false, false, false, 3, 4);
-        createLoad(vl, "loadA", "loadA", "loadA", order++, ConnectablePosition.Direction.TOP, 4, 10, 10);
-        createSwitch(vl, "d1", "d1", SwitchKind.DISCONNECTOR, false, false, false, 0, 3);
-        createSwitch(vl, "d2", "d2", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
-
-        createSwitch(vl, "fB", "fB", SwitchKind.BREAKER, false, false, false, 5, 6);
-        createLoad(vl, "loadB", "loadB", "loadB", order++, ConnectablePosition.Direction.TOP, 6, 10, 10);
-        createSwitch(vl, "b1", "b1", SwitchKind.DISCONNECTOR, false, false, false, 2, 5);
-        createSwitch(vl, "b2", "b2", SwitchKind.DISCONNECTOR, false, false, false, 0, 5);
-
-        createBusBarSection(vl, "bbs13", "bbs13", 7, 1, 3);
-        createBusBarSection(vl, "bbs23", "bbs23", 8, 2, 3);
-        createLoad(vl, "loadC", "loadC", "loadC", order++, ConnectablePosition.Direction.TOP, 9, 10, 10);
-        createSwitch(vl, "c1", "c1", SwitchKind.BREAKER, false, false, false, 8, 9);
-        createSwitch(vl, "c2", "c2", SwitchKind.BREAKER, false, false, false, 7, 9);
-
-        createSwitch(vl, "link", "link", SwitchKind.BREAKER, false, false, false, 5, 9);
 
         withFullBusInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
             @Override
@@ -165,9 +135,16 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
         layoutParameters.setAdaptCellHeightToContent(true)
                 .setBusInfoMargin(5);
 
-        VoltageLevelGraph g = buildVLAndDetectCell(graphBuilder, vl.getId());
-        new BlockOrganizer(new PositionFromExtension(), true, true, true, labelProvider.getBusInfoSides(g)).organize(g);
-        new PositionVoltageLevelLayout(g, layoutParameters).run();
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");
+
+        // Run layout
+        new PositionVoltageLevelLayoutFactory()
+                .setBusInfoMap(labelProvider.getBusInfoSides(g))
+                .setExceptionIfPatternNotHandled(true)
+                .setHandleShunts(true)
+                .create(g)
+                .run(layoutParameters);
 
         // write SVG and compare to reference
         assertEquals(toString(filename), toSVG(g, filename, labelProvider, styleProvider));

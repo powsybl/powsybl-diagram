@@ -1111,13 +1111,13 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_10">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE_95_1">
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
                 <polyline points="565.0,278.0,565.0,308.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_1_95_INTERNAL_95_AU_95_FX_95_ONE_95_2">
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_INTERNAL_95_AU_95_FX_95_ONE">
                 <polyline points="565.0,308.0,565.0,578.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_2_95_FX_95_ONE">
+            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_FX_95_ONE">
                 <polyline points="565.0,578.0,565.0,632.0"/>
             </g>
             <g class="sld-arrow-q sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(560.0,607.0)">
@@ -1133,10 +1133,10 @@
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_FX_95_ONE" transform="translate(561.0,274.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE_95_1" transform="translate(561.0,304.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(561.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE_95_2" transform="translate(561.0,574.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FX_95_ONE" transform="translate(561.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-bottom-feeder" id="idFX_95_ONE" transform="translate(560.0,632.5)">
@@ -1229,13 +1229,13 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_13">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE_95_1">
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
                 <polyline points="765.0,253.0,765.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_1_95_INTERNAL_95_AU_95_FR_95_ONE_95_2">
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_INTERNAL_95_AU_95_FR_95_ONE">
                 <polyline points="765.0,223.0,765.0,142.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_2_95_FR_95_ONE">
+            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_FR_95_ONE">
                 <polyline points="765.0,142.0,765.0,88.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(760.0,103.0)">
@@ -1251,10 +1251,10 @@
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_FR_95_ONE" transform="translate(761.0,249.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE_95_1" transform="translate(761.0,219.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(761.0,219.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE_95_2" transform="translate(761.0,138.0)">
+            <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FR_95_ONE" transform="translate(761.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
             <g class="sld-two-wt sld-top-feeder" id="idFR_95_ONE" transform="translate(760.0,72.5)">

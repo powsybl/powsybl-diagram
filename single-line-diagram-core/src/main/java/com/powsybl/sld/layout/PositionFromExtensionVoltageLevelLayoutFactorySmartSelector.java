@@ -44,7 +44,7 @@ public class PositionFromExtensionVoltageLevelLayoutFactorySmartSelector impleme
     }
 
     @Override
-    public VoltageLevelLayoutFactory createFactory(Network network, LayoutParameters layoutParameters) {
-        return new PositionVoltageLevelLayoutFactory(layoutParameters);
+    public VoltageLevelLayoutFactory createFactory(Network network) {
+        return new PositionVoltageLevelLayoutFactory();
     }
 }

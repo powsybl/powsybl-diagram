@@ -50,7 +50,7 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         for (VoltageLevelGraph vlGraph : getGraph().getVoltageLevels()) {
             // Calculate the objects coordinates inside the voltageLevel graph
             Layout vLayout = vLayoutFactory.create(vlGraph);
-            vLayout.run();
+            vLayout.run(layoutParameters);
 
             vlGraph.setCoord(xVoltageLevels, y + voltageLevelPadding.getTop());
 

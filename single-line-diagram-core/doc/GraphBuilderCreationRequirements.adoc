@@ -23,11 +23,11 @@ Each node has a `componentTypeName` that is related to a `ComponentLibrary`.
 
 * an easy way to add nodes with components that are not in the NodeFactory is to create a Node with `NodeFactory.createNode`. See `test.raw.TestAddExternalComponent`.
 * Nodes that are to be drawn connected to a BusBar shall have this ability.
-No need to care about that rule as an adapted node (`BusConnection`) will be inserted between the bus and the node if the node is not directly connected to the bus.
+No need to care about that rule as an adapted node (a `Node` with `BUS_CONNECTION` component) will be inserted between the bus and the node if the node is not directly connected to the bus.
 Note that:
 
-** This ability is given to some components in `layout.LayoutParameters.canConnectBusComponents`.
-By default this is set with `BUS_CONNECTION` and `DISCONNECTOR`.
+** This ability is given to some components in `layout.LayoutParameters.componentsOnBusbars`.
+By default this is set with `DISCONNECTOR` (`BUS_CONNECTION` is implicit as it is needed for the algorithm to work).
 ** The `BUS_CONNECTION` component is the one that will be inserted if the component that is connected to the bus has not this ability.
 Therefore, ensure the `ComponentLibrary` contains the `BUS_CONNECTION` component.
 

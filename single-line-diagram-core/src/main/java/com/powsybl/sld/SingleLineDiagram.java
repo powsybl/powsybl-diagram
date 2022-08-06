@@ -62,7 +62,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         draw(network, id, svgFile, layoutParameters, componentLibrary,
-                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network, layoutParameters),
+                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId);
     }
 
@@ -111,7 +111,7 @@ public final class SingleLineDiagram {
 
     public static void drawVoltageLevel(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                         DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
-        drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, new SmartVoltageLevelLayoutFactory(network, layoutParameters), initProvider, styleProvider, prefixId);
+        drawVoltageLevel(network, id, svgFile, layoutParameters, componentLibrary, new SmartVoltageLevelLayoutFactory(network), initProvider, styleProvider, prefixId);
     }
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
@@ -119,7 +119,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(vLayoutFactory);
 
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
-        vLayoutFactory.create(voltageLevelGraph).run();
+        vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 
@@ -145,7 +145,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Path svgFile, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                       DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         drawSubstation(network, id, svgFile, layoutParameters, componentLibrary,
-                        new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network, layoutParameters),
+                        new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                         initProvider, styleProvider, prefixId);
     }
 
@@ -156,7 +156,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(vLayoutFactory);
 
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
-        sLayoutFactory.create(substationGraph, vLayoutFactory).run();
+        sLayoutFactory.create(substationGraph, vLayoutFactory).run(layoutParameters);
         draw(substationGraph, svgFile, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 
@@ -195,7 +195,7 @@ public final class SingleLineDiagram {
     public static void draw(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                             DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         draw(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary,
-                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network, layoutParameters),
+                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId);
     }
 
@@ -232,7 +232,7 @@ public final class SingleLineDiagram {
 
     public static void drawVoltageLevel(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                         DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
-        drawVoltageLevel(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary, new SmartVoltageLevelLayoutFactory(network, layoutParameters), initProvider, styleProvider, prefixId);
+        drawVoltageLevel(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary, new SmartVoltageLevelLayoutFactory(network), initProvider, styleProvider, prefixId);
     }
 
     private static void drawVoltageLevel(Network network, String voltageLevelId, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
@@ -240,7 +240,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(vLayoutFactory);
 
         VoltageLevelGraph voltageLevelGraph = new NetworkGraphBuilder(network).buildVoltageLevelGraph(voltageLevelId);
-        vLayoutFactory.create(voltageLevelGraph).run();
+        vLayoutFactory.create(voltageLevelGraph).run(layoutParameters);
         draw(voltageLevelGraph, writerForSvg, metadataWriter, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 
@@ -262,7 +262,7 @@ public final class SingleLineDiagram {
     public static void drawSubstation(Network network, String id, Writer writerForSvg, Writer metadataWriter, LayoutParameters layoutParameters, ComponentLibrary componentLibrary,
                                       DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider, String prefixId) {
         drawSubstation(network, id, writerForSvg, metadataWriter, layoutParameters, componentLibrary,
-                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network, layoutParameters),
+                new HorizontalSubstationLayoutFactory(), new SmartVoltageLevelLayoutFactory(network),
                 initProvider, styleProvider, prefixId);
     }
 
@@ -273,7 +273,7 @@ public final class SingleLineDiagram {
         Objects.requireNonNull(vLayoutFactory);
 
         SubstationGraph substationGraph = new NetworkGraphBuilder(network).buildSubstationGraph(substationId);
-        sLayoutFactory.create(substationGraph, vLayoutFactory).run();
+        sLayoutFactory.create(substationGraph, vLayoutFactory).run(layoutParameters);
         draw(substationGraph, writerForSvg, metadataWriter, layoutParameters, componentLibrary, initProvider, styleProvider, prefixId);
     }
 

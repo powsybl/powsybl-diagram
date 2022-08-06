@@ -14,6 +14,6 @@ public interface Layout {
     /**
      * Calculate real coordinates of nodes
      */
-    void run();
+    void run(LayoutParameters layoutParameters);
 
 }

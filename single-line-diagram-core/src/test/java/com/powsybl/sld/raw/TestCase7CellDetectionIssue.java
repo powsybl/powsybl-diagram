@@ -7,6 +7,7 @@
 package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
+import com.powsybl.sld.layout.ImplicitCellDetector;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
@@ -38,7 +39,8 @@ public class TestCase7CellDetectionIssue extends AbstractTestCaseRaw {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = buildVLAndDetectCell(rawGraphBuilder, "vl");
+        VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
+        new ImplicitCellDetector(false).detectCells(g);
         assertEquals(1, g.getCellStream().count());
     }
 }

@@ -285,11 +285,11 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
 
     @Override
     protected void voltageLevelGraphLayout(VoltageLevelGraph voltageLevelGraph) {
-        new SmartVoltageLevelLayoutFactory(network, layoutParameters).create(voltageLevelGraph).run();
+        new SmartVoltageLevelLayoutFactory(network).create(voltageLevelGraph).run(layoutParameters);
     }
 
     @Override
     protected void substationGraphLayout(SubstationGraph substationGraph) {
-        new HorizontalSubstationLayoutFactory().create(substationGraph, new SmartVoltageLevelLayoutFactory(network, layoutParameters)).run();
+        new HorizontalSubstationLayoutFactory().create(substationGraph, new SmartVoltageLevelLayoutFactory(network)).run(layoutParameters);
     }
 }

@@ -8,7 +8,6 @@ package com.powsybl.sld.cgmes.layout;
 
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.layout.Layout;
-import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.layout.VoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 
@@ -22,20 +21,12 @@ public class CgmesVoltageLevelLayoutFactory implements VoltageLevelLayoutFactory
 
     private final Network network;
 
-    private final LayoutParameters layoutParameters;
-
-    @Override
-    public LayoutParameters getLayoutParameters() {
-        return layoutParameters;
-    }
-
-    public CgmesVoltageLevelLayoutFactory(Network network, LayoutParameters layoutParameters) {
+    public CgmesVoltageLevelLayoutFactory(Network network) {
         this.network = Objects.requireNonNull(network);
-        this.layoutParameters = Objects.requireNonNull(layoutParameters);
     }
 
     @Override
     public Layout create(VoltageLevelGraph graph) {
-        return new CgmesVoltageLevelLayout(graph, network, getLayoutParameters());
+        return new CgmesVoltageLevelLayout(graph, network);
     }
 }

@@ -56,5 +56,5 @@ public interface VoltageLevelLayoutFactorySmartSelector {
      *
      * @return a {@link VoltageLevelLayoutFactory} instance
      */
-    VoltageLevelLayoutFactory createFactory(Network network, LayoutParameters layoutParameters);
+    VoltageLevelLayoutFactory createFactory(Network network);
 }

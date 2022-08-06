@@ -66,6 +66,9 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
             case THREE_WINDINGS_TRANSFORMER_LEG:
                 feederInfos = get3WTFeederInfos(node, (FeederTwLeg) feeder);
                 break;
+            case HVDC:
+                feederInfos = getHvdcFeederInfos(node, (FeederWithSides) feeder);
+                break;
             default:
                 break;
         }
@@ -114,6 +117,16 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
         return measures;
     }
 
+    private List<FeederInfo> getHvdcFeederInfos(FeederNode node, FeederWithSides feeder) {
+        List<FeederInfo> measures = new ArrayList<>();
+        HvdcLine hvdcLine = network.getHvdcLine(node.getEquipmentId());
+        if (hvdcLine != null) {
+            NodeSide side = feeder.getSide();
+            measures = buildFeederInfos(hvdcLine, side);
+        }
+        return measures;
+    }
+
     @Override
     public String getTooltip(Node node) {
         return node.getName();
@@ -134,7 +147,7 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
     }
 
     private Optional<String> getLabelOrNameOrId(Node node) {
-        return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? node.getName() : node.getId()));
+        return Optional.ofNullable(node.getLabel().orElse(layoutParameters.isUseName() ? node.getName() : node.getEquipmentId()));
     }
 
     @Override
@@ -250,15 +263,23 @@ public class DefaultDiagramLabelProvider implements DiagramLabelProvider {
                 new DirectionalFeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ(), layoutParameters.getFeederInfoPrecision()));
     }
 
-    private List<FeederInfo> buildFeederInfos(Injection injection) {
+    private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
         return Arrays.asList(
                 new DirectionalFeederInfo(ARROW_ACTIVE, injection.getTerminal().getP(), layoutParameters.getFeederInfoPrecision()),
                 new DirectionalFeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ(), layoutParameters.getFeederInfoPrecision()));
     }
 
-    private List<FeederInfo> buildFeederInfos(Branch branch, Branch.Side side) {
+    private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
         return Arrays.asList(
                 new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), layoutParameters.getFeederInfoPrecision()),
                 new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), layoutParameters.getFeederInfoPrecision()));
+    }
+
+    private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
+        HvdcConverterStation<?> hvdcConverterStation = side == NodeSide.ONE ? hvdcLine.getConverterStation1()
+                                                                                        : hvdcLine.getConverterStation2();
+        return Arrays.asList(
+            new DirectionalFeederInfo(ARROW_ACTIVE, hvdcConverterStation.getTerminal().getP(), layoutParameters.getFeederInfoPrecision()),
+            new DirectionalFeederInfo(ARROW_REACTIVE, hvdcConverterStation.getTerminal().getQ(), layoutParameters.getFeederInfoPrecision()));
     }
 }

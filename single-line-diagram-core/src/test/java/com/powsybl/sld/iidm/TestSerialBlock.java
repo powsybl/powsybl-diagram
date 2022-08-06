@@ -6,26 +6,31 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Country;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.SwitchKind;
+import com.powsybl.iidm.network.TopologyKind;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.BlockOrganizer;
 import com.powsybl.sld.layout.CalculateCoordBlockVisitor;
 import com.powsybl.sld.layout.LayoutContext;
-import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.blocks.Block;
 import com.powsybl.sld.model.blocks.SerialBlock;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.coordinate.Orientation;
-
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Optional;
 
-import static com.powsybl.sld.model.coordinate.Coord.Dimension.*;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-import static com.powsybl.sld.model.nodes.Node.NodeType.*;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.X;
+import static com.powsybl.sld.model.coordinate.Coord.Dimension.Y;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
+import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
+import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -49,8 +54,11 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
 
     @Test
     public void test() {
-        VoltageLevelGraph g = buildVLAndDetectCell(graphBuilder, vl.getId());
-        new BlockOrganizer().organize(g);
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        // layout
+        new PositionVoltageLevelLayoutFactory().create(g).run(layoutParameters);
 
         assertEquals(1, g.getCellStream().count());
         Optional<Cell> oCell = g.getCellStream().findFirst();
@@ -66,8 +74,8 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         assertTrue(sb.getSubBlocks().get(2).isEmbeddingNodeType(FEEDER));
 
         assertEquals("bbs", sb.getSubBlocks().get(0).getStartingNode().getId());
-        assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(0).getEndingNode().getId());
-        assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(1).getStartingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getSubBlocks().get(0).getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getSubBlocks().get(1).getStartingNode().getId());
         assertEquals("INTERNAL_vl_la", sb.getSubBlocks().get(1).getEndingNode().getId());
         assertEquals("INTERNAL_vl_la", sb.getSubBlocks().get(2).getStartingNode().getId());
         assertEquals("la", sb.getSubBlocks().get(2).getEndingNode().getId());
@@ -119,11 +127,11 @@ public class TestSerialBlock extends AbstractTestCaseIidm {
         sb.reverseBlock();
 
         // LegPrimaryBlock is NOT reversed (bus is always the starting node)
-        assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getSubBlocks().get(1).getEndingNode().getId());
         assertEquals("bbs", sb.getSubBlocks().get(2).getStartingNode().getId());
 
         // BodyPrimaryBlock is reversed
-        assertEquals("INTERNAL_vl_da", sb.getSubBlocks().get(1).getEndingNode().getId());
+        assertEquals("INTERNAL_vl_ba", sb.getSubBlocks().get(1).getEndingNode().getId());
         assertEquals("INTERNAL_vl_la", sb.getSubBlocks().get(1).getStartingNode().getId());
 
         // FeederPrimaryBlock is NOT reversed (feeder is always the ending node)
