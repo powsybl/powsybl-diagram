@@ -6,9 +6,11 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Network;
+import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.VoltageLevel;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.junit.Before;
