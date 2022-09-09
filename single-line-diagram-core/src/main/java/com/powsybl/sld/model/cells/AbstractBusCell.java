@@ -12,6 +12,7 @@ import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.io.IOException;
@@ -49,6 +50,21 @@ public abstract class AbstractBusCell extends AbstractCell implements BusCell {
         return nodes.stream()
                 .filter(n -> n.getType() == Node.NodeType.BUS)
                 .map(BusNode.class::cast)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FeederNode> getFeederNodes() {
+        return nodes.stream()
+                .filter(n -> n.getType() == Node.NodeType.FEEDER)
+                .map(FeederNode.class::cast)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Node> getInternalAdjacentNodes(Node node) {
+        return node.getAdjacentNodes().stream()
+                .filter(nodes::contains)
                 .collect(Collectors.toList());
     }
 

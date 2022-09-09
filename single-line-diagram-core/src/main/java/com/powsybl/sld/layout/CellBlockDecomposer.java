@@ -10,6 +10,8 @@ import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.blocks.*;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import org.slf4j.Logger;
@@ -184,22 +186,26 @@ final class CellBlockDecomposer {
     }
 
     private static void elaborateLegPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
-        busCell.getBusNodes().forEach(busNode -> busNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(busConnection -> {
-            List<Node> legPrimaryBlockNodes = new ArrayList<>();
-            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
-            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
-            addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
-            blocks.add(new LegPrimaryBlock(legPrimaryBlockNodes));
-        }));
+        for (BusNode busNode : busCell.getBusNodes()) {
+            for (Node busConnection : busCell.getInternalAdjacentNodes(busNode)) {
+                List<Node> legPrimaryBlockNodes = new ArrayList<>();
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busNode, 1);
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, busConnection, 2);
+                addNodeInBlockNodes(nodeRemainingSlots, legPrimaryBlockNodes, getNextNode(busConnection, busNode), 1);
+                blocks.add(new LegPrimaryBlock(legPrimaryBlockNodes));
+            }
+        }
     }
 
     private static void elaborateFeederPrimaryBlock(BusCell busCell, Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
-        busCell.getNodes().stream().filter(n -> n.getType() == Node.NodeType.FEEDER).forEach(feederNode -> feederNode.getAdjacentNodes().stream().filter(n -> busCell.getNodes().contains(n)).forEach(feederConnection -> {
-            List<Node> feederPrimaryBlockNodes = new ArrayList<>();
-            addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
-            addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
-            blocks.add(new FeederPrimaryBlock(feederPrimaryBlockNodes));
-        }));
+        for (FeederNode feederNode : busCell.getFeederNodes()) {
+            for (Node feederConnection : busCell.getInternalAdjacentNodes(feederNode)) {
+                List<Node> feederPrimaryBlockNodes = new ArrayList<>();
+                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederNode, 1);
+                addNodeInBlockNodes(nodeRemainingSlots, feederPrimaryBlockNodes, feederConnection, 1);
+                blocks.add(new FeederPrimaryBlock(feederPrimaryBlockNodes));
+            }
+        }
     }
 
     private static boolean checkRemainingSlots(Map<Node, Integer> nodeRemainingSlots, Node node, int greaterOrEqVal) {
@@ -223,12 +229,14 @@ final class CellBlockDecomposer {
                                                     Map<Node, Integer> nodeRemainingSlots, List<Block> blocks) {
 
         if (checkRemainingSlots(nodeRemainingSlots, entryNode, 1)) {
-            entryNode.getAdjacentNodes().stream().filter(node -> busCell.getNodes().contains(node) && checkRemainingSlots(nodeRemainingSlots, node, 1)).forEach(node -> {
-                List<Node> primaryPattern = pileUp2adjNodes(entryNode, node, nodeRemainingSlots);
-                blocks.add(BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern));
-                Node lastNode = primaryPattern.get(primaryPattern.size() - 1);
-                rElaborateBodyPrimaryBlocks(busCell, lastNode, nodeRemainingSlots, blocks);
-            });
+            for (Node node : busCell.getInternalAdjacentNodes(entryNode)) {
+                if (checkRemainingSlots(nodeRemainingSlots, node, 1)) {
+                    List<Node> primaryPattern = pileUp2adjNodes(entryNode, node, nodeRemainingSlots);
+                    blocks.add(BodyPrimaryBlock.createBodyPrimaryBlockInBusCell(primaryPattern));
+                    Node lastNode = primaryPattern.get(primaryPattern.size() - 1);
+                    rElaborateBodyPrimaryBlocks(busCell, lastNode, nodeRemainingSlots, blocks);
+                }
+            }
         }
     }
 

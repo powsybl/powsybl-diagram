@@ -286,9 +286,7 @@ public class Subsection {
         shCells.forEach(sc -> {
             for (Side side : Side.defined()) {
                 ExternCell cell = sc.getSideCell(side);
-                List<FeederNode> feeders = cell.getNodes().stream()
-                        .filter(n -> n.getType() == Node.NodeType.FEEDER)
-                        .map(FeederNode.class::cast).collect(Collectors.toList());
+                List<FeederNode> feeders = cell.getFeederNodes();
                 if (feeders.size() > 1) {
                     Node shNode = sc.getSideShuntNode(side);
                     Set<Node> outsideNodes = new HashSet<>();

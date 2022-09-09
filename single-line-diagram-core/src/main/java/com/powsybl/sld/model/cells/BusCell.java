@@ -10,6 +10,8 @@ import com.powsybl.sld.model.blocks.FeederPrimaryBlock;
 import com.powsybl.sld.model.blocks.LegPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.FeederNode;
+import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
 
@@ -21,6 +23,10 @@ import java.util.*;
 public interface BusCell extends Cell {
 
     List<BusNode> getBusNodes();
+
+    List<FeederNode> getFeederNodes();
+
+    List<Node> getInternalAdjacentNodes(Node node);
 
     void blocksSetting(Block rootBlock, List<LegPrimaryBlock> primaryBlocksConnectedToBus, List<FeederPrimaryBlock> feederPrimaryBlocks);
 
