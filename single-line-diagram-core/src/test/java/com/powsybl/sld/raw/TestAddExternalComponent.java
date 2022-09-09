@@ -41,11 +41,15 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         vlBuilder.connectNode(pacMan, load);
     }
 
+    @Override
+    protected ResourcesComponentLibrary getResourcesComponentLibrary() {
+        return new ResourcesComponentLibrary("pacman", "/ConvergenceLibrary", "/PacmanLibrary");
+    }
+
     @Test
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        componentLibrary = new ResourcesComponentLibrary("pacman", "/ConvergenceLibrary", "/PacmanLibrary");
         assertEquals(toString("/TestPacman.svg"),
                 toSVG(g, "/TestPacman.svg", getRawLabelProvider(g), new BasicStyleProvider()));
     }
