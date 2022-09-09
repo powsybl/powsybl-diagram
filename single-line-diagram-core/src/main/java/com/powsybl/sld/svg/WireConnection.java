@@ -129,7 +129,7 @@ public final class WireConnection {
 
         List<Point> pol = new ArrayList<>();
         pol.add(point1);
-        if (!straight && point1.getX() != point2.getX() && point1.getY() != point2.getY()) {
+        if (!straight && (point1.getX() != point2.getX() && point1.getY() != point2.getY())) {
             addMiddlePoints(point1, point2, pol);
         }
         pol.add(point2);

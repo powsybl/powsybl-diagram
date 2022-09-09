@@ -79,5 +79,4 @@ public class Component {
     public String getStyleClass() {
         return styleClass;
     }
-
 }
