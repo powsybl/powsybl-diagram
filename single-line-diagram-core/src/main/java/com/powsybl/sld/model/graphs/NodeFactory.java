@@ -29,6 +29,8 @@ public final class NodeFactory {
 
     private static final String BUS_CONNECTION_ID_PREFIX = "BUSCO_";
 
+    private static final String CONNECTIVITY_ID_PREFIX = "INTERNAL_";
+
     private NodeFactory() {
     }
 
@@ -38,8 +40,9 @@ public final class NodeFactory {
         return node;
     }
 
-    public static Node createBusConnection(VoltageLevelGraph graph, String id) {
-        return createNode(graph, NodeType.INTERNAL, BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(id), null, null, BUS_CONNECTION, true);
+    public static Node createBusConnection(VoltageLevelGraph graph, String idNodeConnectedToBusNode) {
+        String idBusConnection = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(idNodeConnectedToBusNode);
+        return createNode(graph, NodeType.INTERNAL, idBusConnection, null, null, BUS_CONNECTION, true);
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
@@ -153,7 +156,9 @@ public final class NodeFactory {
     }
 
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String name, String equipmentId) {
-        ConnectivityNode in = new ConnectivityNode(id, name, equipmentId, graph.getVoltageLevelInfos().getId());
+        // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
+        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
+        ConnectivityNode in = new ConnectivityNode(connectivityNodeId, name, equipmentId);
         graph.addNode(in);
         return in;
     }

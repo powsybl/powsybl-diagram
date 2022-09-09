@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
@@ -24,17 +23,10 @@ import static com.powsybl.sld.library.ComponentTypeName.NODE;
  */
 public class ConnectivityNode extends Node {
 
-    private static final String ID_PREFIX = "INTERNAL_";
-
     private boolean isShunt = false;
 
-    public ConnectivityNode(String id, String name, String equipmentId, String voltageLevelId) {
-        super(NodeType.INTERNAL, prefixId(id, voltageLevelId), name, equipmentId, NODE, true);
-    }
-
-    private static String prefixId(String id, String voltageLevelId) {
-        // for uniqueness purpose (in substation diagram), we prefix the id of the internal nodes with the voltageLevel id and "_"
-        return ID_PREFIX + voltageLevelId + "_" + Objects.requireNonNull(id);
+    public ConnectivityNode(String id, String name, String equipmentId) {
+        super(NodeType.INTERNAL, id, name, equipmentId, NODE, true);
     }
 
     public boolean isShunt() {
