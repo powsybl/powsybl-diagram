@@ -109,10 +109,10 @@ public final class CalculateCoordCellVisitor implements CellVisitor {
         block.getNodes().get(1).setCoordinates(x0, y);
         block.getNodes().get(block.getNodes().size() - 2).setCoordinates(x1, y);
 
-        double dx = (x1 - x0) / (block.getNodes().size() - 4);
+        double dx = (x1 - x0) / (block.getNodes().size() - 3);
         for (int i = 2; i < block.getNodes().size() - 2; i++) {
             Node node = block.getNodes().get(i);
-            node.setCoordinates(x0  + (i - 1.5) * dx, y);
+            node.setCoordinates(x0 + (i - 1) * dx, y);
         }
     }
 
