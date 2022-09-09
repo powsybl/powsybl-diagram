@@ -7,12 +7,15 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
-import com.powsybl.sld.layout.*;
+import com.powsybl.sld.layout.HorizontalSubstationLayoutFactory;
+import com.powsybl.sld.layout.LayoutParameters;
+import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
+import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
-import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.BasicStyleProvider;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
 import com.powsybl.sld.util.TopologicalStyleProvider;

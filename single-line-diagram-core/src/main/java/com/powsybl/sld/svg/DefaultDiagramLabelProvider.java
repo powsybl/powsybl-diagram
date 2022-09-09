@@ -8,7 +8,7 @@ package com.powsybl.sld.svg;
 
 import com.powsybl.commons.extensions.Extendable;
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BranchStatus;
+import com.powsybl.iidm.network.extensions.BranchStatus;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;

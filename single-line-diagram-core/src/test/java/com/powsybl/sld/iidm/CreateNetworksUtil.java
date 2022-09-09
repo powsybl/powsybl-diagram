@@ -7,10 +7,10 @@
 package com.powsybl.sld.iidm;
 
 import com.powsybl.iidm.network.*;
-import com.powsybl.sld.iidm.extensions.BranchStatus;
-import com.powsybl.sld.iidm.extensions.BranchStatusAdder;
-import com.powsybl.sld.iidm.extensions.BusbarSectionPositionAdder;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.iidm.network.extensions.BranchStatus;
+import com.powsybl.iidm.network.extensions.BranchStatusAdder;
+import com.powsybl.iidm.network.extensions.BusbarSectionPositionAdder;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 
 import static com.powsybl.sld.iidm.AbstractTestCaseIidm.*;
 
