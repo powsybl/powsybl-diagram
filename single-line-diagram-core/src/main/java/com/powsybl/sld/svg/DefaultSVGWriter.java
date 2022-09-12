@@ -562,23 +562,11 @@ public class DefaultSVGWriter implements SVGWriter {
         return label;
     }
 
-    //TODO: to be explained!
-    protected boolean canInsertComponentSVG(Node node) {
-        return node.getType() == Node.NodeType.SWITCH
-                || !node.isFictitious()
-                || node.isFictitious()
-                && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                || node.getComponentType().equals(NODE)
-                || node.getComponentType().equals(BUS_CONNECTION);
-    }
-
     protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g,
                                          DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, shift, g);
-        if (componentLibrary.getSvgElements(componentType) != null && canInsertComponentSVG(node)) {
+        if (componentLibrary.getSvgElements(componentType) != null) {
             insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, labelProvider, styleProvider);
         }
     }
