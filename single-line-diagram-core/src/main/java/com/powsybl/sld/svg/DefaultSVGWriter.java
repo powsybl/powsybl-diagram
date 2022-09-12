@@ -470,9 +470,9 @@ public class DefaultSVGWriter implements SVGWriter {
         String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
         boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
-                        node.getComponentType(),
-                        isOpen, direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
+                new GraphMetadata.NodeMetadata(nodeId, id, nextVId, node.getComponentType(), isOpen, direction, false,
+                        node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
+                        createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
     }

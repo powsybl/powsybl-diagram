@@ -116,8 +116,8 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void processDefaultNodeCase(VoltageLevel vl, Node node, String diagramName) {
         // retrieve internal nodes points, if available in VoltageLevel extensions
-        if (ConnectivityNode.isIidmInternalNode(node)) {
-            DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getEquipmentId()));
+        if (node instanceof ConnectivityNumberedNode) {
+            DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, ((ConnectivityNumberedNode) node).getNodeNumber());
             if (nodePoint != null) {
                 node.setX(nodePoint.getX());
                 node.setY(nodePoint.getY());
@@ -145,7 +145,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected void setCouplingDeviceNodeCoordinates(Node node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
+    protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
             CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
@@ -363,12 +363,13 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     public static void removeFictitiousSwitchNodes(VoltageLevelGraph graph, VoltageLevel vl) {
-        List<Node> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.SWITCH)
+        List<SwitchNode> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
+                .filter(SwitchNode.class::isInstance)
+                .map(SwitchNode.class::cast)
                 .filter(node -> isFictitiousSwitchNode(node, vl))
                 .filter(node -> node.getAdjacentNodes().size() == 2)
                 .collect(Collectors.toList());
-        for (Node n : fictitiousSwithcNodesToRemove) {
+        for (SwitchNode n : fictitiousSwithcNodesToRemove) {
             Node node1 = n.getAdjacentNodes().get(0);
             Node node2 = n.getAdjacentNodes().get(1);
             LOG.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());

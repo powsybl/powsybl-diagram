@@ -19,7 +19,7 @@ import java.util.Optional;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class FeederNode extends Node {
+public class FeederNode extends EquipmentNode {
 
     private final Feeder feeder;
 

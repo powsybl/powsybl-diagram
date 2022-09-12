@@ -166,27 +166,27 @@
         </g>
         <g class="sld-busbar-section sld-vl70to120-1" id="idAV" transform="translate(702.5,253.0)">
             <line x1="0" x2="225.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AV_NW" text-anchor="middle" x="4.0" y="-1.0">AW</text>
+            <text class="sld-label" id="AV_NW" text-anchor="middle" x="4.0" y="-1.0">AV</text>
         </g>
         <g class="sld-busbar-section sld-vl70to120-0" id="idAX" transform="translate(202.5,253.0)">
             <line x1="0" x2="325.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AX_NW" text-anchor="middle" x="4.0" y="-1.0">AY</text>
+            <text class="sld-label" id="AX_NW" text-anchor="middle" x="4.0" y="-1.0">AX</text>
         </g>
         <g class="sld-busbar-section sld-vl70to120-0" id="idAZ" transform="translate(202.5,278.0)">
             <line x1="0" x2="325.0" y1="0" y2="0"/>
-            <text class="sld-label" id="AZ_NW" text-anchor="middle" x="4.0" y="-1.0">BA</text>
+            <text class="sld-label" id="AZ_NW" text-anchor="middle" x="4.0" y="-1.0">AZ</text>
         </g>
         <g class="sld-busbar-section sld-vl70to120-1" id="idBB" transform="translate(702.5,278.0)">
             <line x1="0" x2="225.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BB_NW" text-anchor="middle" x="4.0" y="-1.0">BC</text>
+            <text class="sld-label" id="BB_NW" text-anchor="middle" x="4.0" y="-1.0">BB</text>
         </g>
         <g class="sld-busbar-section sld-vl70to120-0" id="idBD" transform="translate(52.5,253.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BD_NW" text-anchor="middle" x="4.0" y="-1.0">BE</text>
+            <text class="sld-label" id="BD_NW" text-anchor="middle" x="4.0" y="-1.0">BD</text>
         </g>
         <g class="sld-busbar-section sld-vl70to120-1" id="idBF" transform="translate(552.5,253.0)">
             <line x1="0" x2="125.0" y1="0" y2="0"/>
-            <text class="sld-label" id="BF_NW" text-anchor="middle" x="4.0" y="-1.0">BG</text>
+            <text class="sld-label" id="BF_NW" text-anchor="middle" x="4.0" y="-1.0">BF</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
@@ -238,7 +238,7 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBL" transform="translate(755.0,355.85714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BL_NW" text-anchor="middle" x="4.0" y="-1.0">BM</text>
+                <text class="sld-label" id="BL_NW" text-anchor="middle" x="4.0" y="-1.0">BL</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_BL" transform="translate(761.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -249,17 +249,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBN" transform="translate(780.0,452.2857142857142)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BN_NW" text-anchor="middle" x="4.0" y="-1.0">BO</text>
+                <text class="sld-label" id="BN_NW" text-anchor="middle" x="4.0" y="-1.0">BN</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idER" transform="translate(780.0,490.8571428571428)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ER_NW" text-anchor="middle" x="4.0" y="-1.0">ES</text>
+                <text class="sld-label" id="ER_NW" text-anchor="middle" x="4.0" y="-1.0">ER</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBP" transform="translate(780.0,529.4285714285713)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BP_NW" text-anchor="middle" x="4.0" y="-1.0">BQ</text>
+                <text class="sld-label" id="BP_NW" text-anchor="middle" x="4.0" y="-1.0">BP</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_10" transform="translate(786.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -271,12 +271,12 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEH" transform="translate(805.0,375.1428571428571)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EH_NW" text-anchor="middle" x="4.0" y="-1.0">EI</text>
+                <text class="sld-label" id="EH_NW" text-anchor="middle" x="4.0" y="-1.0">EH</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEJ" transform="translate(805.0,336.57142857142856)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EJ_NW" text-anchor="middle" x="4.0" y="-1.0">EK</text>
+                <text class="sld-label" id="EJ_NW" text-anchor="middle" x="4.0" y="-1.0">EJ</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_EJ" transform="translate(811.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -338,17 +338,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBX" transform="translate(655.0,423.35714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="BX_NW" text-anchor="middle" x="4.0" y="-1.0">BY</text>
+                <text class="sld-label" id="BX_NW" text-anchor="middle" x="4.0" y="-1.0">BX</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDF" transform="translate(680.0,423.35714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DF_NW" text-anchor="middle" x="4.0" y="-1.0">DG</text>
+                <text class="sld-label" id="DF_NW" text-anchor="middle" x="4.0" y="-1.0">DF</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBR" transform="translate(705.0,423.35714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="BR_NW" text-anchor="middle" x="4.0" y="-1.0">BS</text>
+                <text class="sld-label" id="BR_NW" text-anchor="middle" x="4.0" y="-1.0">BR</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_1_46_1" transform="translate(736.0,429.35714285714283)">
                 <circle cx="4" cy="4" r="4"/>
@@ -411,17 +411,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFN" transform="translate(317.5,400.85714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FN_NW" text-anchor="middle" x="4.0" y="-1.0">FO</text>
+                <text class="sld-label" id="FN_NW" text-anchor="middle" x="4.0" y="-1.0">FN</text>
             </g>
             <g class="sld-breaker sld-open sld-disconnected" id="idDJ" transform="translate(455.0,400.85714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DJ_NW" text-anchor="middle" x="4.0" y="-1.0">DK</text>
+                <text class="sld-label" id="DJ_NW" text-anchor="middle" x="4.0" y="-1.0">DJ</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFL" transform="translate(592.5,400.85714285714283)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FL_NW" text-anchor="middle" x="4.0" y="-1.0">FM</text>
+                <text class="sld-label" id="FL_NW" text-anchor="middle" x="4.0" y="-1.0">FL</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_2_46_1" transform="translate(736.0,406.85714285714283)">
                 <circle cx="4" cy="4" r="4"/>
@@ -490,17 +490,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCT" transform="translate(580.0,399.25)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CT_NW" text-anchor="middle" x="4.0" y="-1.0">CU</text>
+                <text class="sld-label" id="CT_NW" text-anchor="middle" x="4.0" y="-1.0">CT</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idBJ" transform="translate(580.0,365.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BJ_NW" text-anchor="middle" x="4.0" y="-1.0">BK</text>
+                <text class="sld-label" id="BJ_NW" text-anchor="middle" x="4.0" y="-1.0">BJ</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCX" transform="translate(580.0,331.75)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CX_NW" text-anchor="middle" x="4.0" y="-1.0">CY</text>
+                <text class="sld-label" id="CX_NW" text-anchor="middle" x="4.0" y="-1.0">CX</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_CX" transform="translate(586.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -511,17 +511,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDZ" transform="translate(555.0,466.75)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DZ_NW" text-anchor="middle" x="4.0" y="-1.0">EA</text>
+                <text class="sld-label" id="DZ_NW" text-anchor="middle" x="4.0" y="-1.0">DZ</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEN" transform="translate(555.0,500.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EN_NW" text-anchor="middle" x="4.0" y="-1.0">EO</text>
+                <text class="sld-label" id="EN_NW" text-anchor="middle" x="4.0" y="-1.0">EN</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEB" transform="translate(555.0,534.25)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EB_NW" text-anchor="middle" x="4.0" y="-1.0">EC</text>
+                <text class="sld-label" id="EB_NW" text-anchor="middle" x="4.0" y="-1.0">EB</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_14" transform="translate(561.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -533,17 +533,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFH" transform="translate(605.0,466.75)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FH_NW" text-anchor="middle" x="4.0" y="-1.0">FI</text>
+                <text class="sld-label" id="FH_NW" text-anchor="middle" x="4.0" y="-1.0">FH</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDX" transform="translate(605.0,500.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DX_NW" text-anchor="middle" x="4.0" y="-1.0">DY</text>
+                <text class="sld-label" id="DX_NW" text-anchor="middle" x="4.0" y="-1.0">DX</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idFJ" transform="translate(605.0,534.25)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FJ_NW" text-anchor="middle" x="4.0" y="-1.0">FK</text>
+                <text class="sld-label" id="FJ_NW" text-anchor="middle" x="4.0" y="-1.0">FJ</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_6" transform="translate(611.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -600,17 +600,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCL" transform="translate(455.0,392.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="CL_NW" text-anchor="middle" x="4.0" y="-1.0">CM</text>
+                <text class="sld-label" id="CL_NW" text-anchor="middle" x="4.0" y="-1.0">CL</text>
             </g>
             <g class="sld-breaker sld-open sld-disconnected" id="idDH" transform="translate(480.0,392.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DH_NW" text-anchor="middle" x="4.0" y="-1.0">DI</text>
+                <text class="sld-label" id="DH_NW" text-anchor="middle" x="4.0" y="-1.0">DH</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCH" transform="translate(505.0,392.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="CH_NW" text-anchor="middle" x="4.0" y="-1.0">CI</text>
+                <text class="sld-label" id="CH_NW" text-anchor="middle" x="4.0" y="-1.0">CH</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_Shunt_32_4_46_1" transform="translate(536.0,398.5)">
                 <circle cx="4" cy="4" r="4"/>
@@ -683,17 +683,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDP" transform="translate(105.0,433.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DP_NW" text-anchor="middle" x="4.0" y="-1.0">DQ</text>
+                <text class="sld-label" id="DP_NW" text-anchor="middle" x="4.0" y="-1.0">DP</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idET" transform="translate(105.0,478.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ET_NW" text-anchor="middle" x="4.0" y="-1.0">EU</text>
+                <text class="sld-label" id="ET_NW" text-anchor="middle" x="4.0" y="-1.0">ET</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDR" transform="translate(105.0,523.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DR_NW" text-anchor="middle" x="4.0" y="-1.0">DS</text>
+                <text class="sld-label" id="DR_NW" text-anchor="middle" x="4.0" y="-1.0">DR</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_41" transform="translate(111.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -705,7 +705,7 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEX" transform="translate(130.0,343.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EX_NW" text-anchor="middle" x="4.0" y="-1.0">EY</text>
+                <text class="sld-label" id="EX_NW" text-anchor="middle" x="4.0" y="-1.0">EX</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_EX" transform="translate(136.0,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -716,17 +716,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFF" transform="translate(155.0,433.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FF_NW" text-anchor="middle" x="4.0" y="-1.0">FG</text>
+                <text class="sld-label" id="FF_NW" text-anchor="middle" x="4.0" y="-1.0">FF</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCZ" transform="translate(155.0,478.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CZ_NW" text-anchor="middle" x="4.0" y="-1.0">DA</text>
+                <text class="sld-label" id="CZ_NW" text-anchor="middle" x="4.0" y="-1.0">CZ</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEZ" transform="translate(155.0,523.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EZ_NW" text-anchor="middle" x="4.0" y="-1.0">FA</text>
+                <text class="sld-label" id="EZ_NW" text-anchor="middle" x="4.0" y="-1.0">EZ</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FT_95_ONE" transform="translate(161.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -734,7 +734,7 @@
             <g class="sld-two-wt sld-bottom-feeder" id="idFT_95_ONE" transform="translate(160.0,632.5)">
                 <circle class="sld-vl70to120-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="FT_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FU</text>
+                <text class="sld-label" id="FT_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FT_ONE</text>
             </g>
         </g>
         <g class="sld-shunt-cell" id="idSHUNT_32_6">
@@ -793,17 +793,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEV" transform="translate(205.0,424.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="EV_NW" text-anchor="middle" x="4.0" y="-1.0">EW</text>
+                <text class="sld-label" id="EV_NW" text-anchor="middle" x="4.0" y="-1.0">EV</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDD" transform="translate(230.0,424.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="DD_NW" text-anchor="middle" x="4.0" y="-1.0">DE</text>
+                <text class="sld-label" id="DD_NW" text-anchor="middle" x="4.0" y="-1.0">DD</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFB" transform="translate(255.0,424.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15" transform="rotate(90.0,10.0,10.0)"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15" transform="rotate(90.0,10.0,10.0)"/>
-                <text class="sld-label" id="FB_NW" text-anchor="middle" x="4.0" y="-1.0">FC</text>
+                <text class="sld-label" id="FB_NW" text-anchor="middle" x="4.0" y="-1.0">FB</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_Shunt_32_6_46_2" transform="translate(286.0,430.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -908,7 +908,7 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBZ" transform="translate(317.5,325.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BZ_NW" text-anchor="middle" x="4.0" y="-1.0">CA</text>
+                <text class="sld-label" id="BZ_NW" text-anchor="middle" x="4.0" y="-1.0">BZ</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_BZ" transform="translate(323.5,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -919,17 +919,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDL" transform="translate(317.5,379.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DL_NW" text-anchor="middle" x="4.0" y="-1.0">DM</text>
+                <text class="sld-label" id="DL_NW" text-anchor="middle" x="4.0" y="-1.0">DL</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDB" transform="translate(317.5,406.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DB_NW" text-anchor="middle" x="4.0" y="-1.0">DC</text>
+                <text class="sld-label" id="DB_NW" text-anchor="middle" x="4.0" y="-1.0">DB</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDN" transform="translate(317.5,433.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DN_NW" text-anchor="middle" x="4.0" y="-1.0">DO</text>
+                <text class="sld-label" id="DN_NW" text-anchor="middle" x="4.0" y="-1.0">DN</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_45" transform="translate(361.0,466.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -938,17 +938,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBT" transform="translate(305.0,487.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BT_NW" text-anchor="middle" x="4.0" y="-1.0">BU</text>
+                <text class="sld-label" id="BT_NW" text-anchor="middle" x="4.0" y="-1.0">BT</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idED" transform="translate(305.0,514.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="ED_NW" text-anchor="middle" x="4.0" y="-1.0">EE</text>
+                <text class="sld-label" id="ED_NW" text-anchor="middle" x="4.0" y="-1.0">ED</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBV" transform="translate(305.0,541.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BV_NW" text-anchor="middle" x="4.0" y="-1.0">BW</text>
+                <text class="sld-label" id="BV_NW" text-anchor="middle" x="4.0" y="-1.0">BV</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_48" transform="translate(311.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -960,17 +960,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCB" transform="translate(355.0,487.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CB_NW" text-anchor="middle" x="4.0" y="-1.0">CC</text>
+                <text class="sld-label" id="CB_NW" text-anchor="middle" x="4.0" y="-1.0">CB</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idDV" transform="translate(355.0,514.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DV_NW" text-anchor="middle" x="4.0" y="-1.0">DW</text>
+                <text class="sld-label" id="DV_NW" text-anchor="middle" x="4.0" y="-1.0">DV</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCD" transform="translate(355.0,541.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CD_NW" text-anchor="middle" x="4.0" y="-1.0">CE</text>
+                <text class="sld-label" id="CD_NW" text-anchor="middle" x="4.0" y="-1.0">CD</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_36" transform="translate(361.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -982,17 +982,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCN" transform="translate(392.5,419.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CN_NW" text-anchor="middle" x="4.0" y="-1.0">CO</text>
+                <text class="sld-label" id="CN_NW" text-anchor="middle" x="4.0" y="-1.0">CN</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idBH" transform="translate(392.5,379.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="BH_NW" text-anchor="middle" x="4.0" y="-1.0">BI</text>
+                <text class="sld-label" id="BH_NW" text-anchor="middle" x="4.0" y="-1.0">BH</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCV" transform="translate(392.5,338.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CV_NW" text-anchor="middle" x="4.0" y="-1.0">CW</text>
+                <text class="sld-label" id="CV_NW" text-anchor="middle" x="4.0" y="-1.0">CV</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_CV" transform="translate(398.5,304.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1003,17 +1003,17 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCR" transform="translate(405.0,487.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CR_NW" text-anchor="middle" x="4.0" y="-1.0">CS</text>
+                <text class="sld-label" id="CR_NW" text-anchor="middle" x="4.0" y="-1.0">CR</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEL" transform="translate(405.0,514.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EL_NW" text-anchor="middle" x="4.0" y="-1.0">EM</text>
+                <text class="sld-label" id="EL_NW" text-anchor="middle" x="4.0" y="-1.0">EL</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCF" transform="translate(405.0,541.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CF_NW" text-anchor="middle" x="4.0" y="-1.0">CG</text>
+                <text class="sld-label" id="CF_NW" text-anchor="middle" x="4.0" y="-1.0">CF</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_29" transform="translate(411.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1048,12 +1048,12 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idDT" transform="translate(855.0,388.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="DT_NW" text-anchor="middle" x="4.0" y="-1.0">DU</text>
+                <text class="sld-label" id="DT_NW" text-anchor="middle" x="4.0" y="-1.0">DT</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idCP" transform="translate(855.0,478.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CP_NW" text-anchor="middle" x="4.0" y="-1.0">CQ</text>
+                <text class="sld-label" id="CP_NW" text-anchor="middle" x="4.0" y="-1.0">CP</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_2" transform="translate(861.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1095,7 +1095,7 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idCJ" transform="translate(455.0,172.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="CJ_NW" text-anchor="middle" x="4.0" y="-1.0">CK</text>
+                <text class="sld-label" id="CJ_NW" text-anchor="middle" x="4.0" y="-1.0">CJ</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_FP" transform="translate(461.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1104,7 +1104,7 @@
                 <rect height="9" width="16"/>
                 <line x1="0" x2="16" y1="0" y2="9"/>
                 <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="FP_NW" text-anchor="middle" x="4.0" y="-1.0">FQ</text>
+                <text class="sld-label" id="FP_NW" text-anchor="middle" x="4.0" y="-1.0">FP</text>
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_10">
@@ -1139,7 +1139,7 @@
             <g class="sld-two-wt sld-bottom-feeder" id="idFX_95_ONE" transform="translate(510.0,632.5)">
                 <circle class="sld-vl70to120-0 sld-winding" cx="5" cy="10" r="5" transform="rotate(180.0,5.0,7.5)"/>
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5" transform="rotate(180.0,5.0,7.5)"/>
-                <text class="sld-label" id="FX_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FY</text>
+                <text class="sld-label" id="FX_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FX_ONE</text>
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_11">
@@ -1174,7 +1174,7 @@
             <g class="sld-breaker sld-closed sld-vl70to120-1" id="idEF" transform="translate(905.0,172.5)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EF_NW" text-anchor="middle" x="4.0" y="-1.0">EG</text>
+                <text class="sld-label" id="EF_NW" text-anchor="middle" x="4.0" y="-1.0">EF</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_FV_95_ONE" transform="translate(911.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1182,7 +1182,7 @@
             <g class="sld-two-wt sld-top-feeder" id="idFV_95_ONE" transform="translate(910.0,72.5)">
                 <circle class="sld-vl70to120-1 sld-winding" cx="5" cy="10" r="5"/>
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="FV_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FW</text>
+                <text class="sld-label" id="FV_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FV_ONE</text>
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_12">
@@ -1210,12 +1210,12 @@
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idEP" transform="translate(55.0,186.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="EP_NW" text-anchor="middle" x="4.0" y="-1.0">EQ</text>
+                <text class="sld-label" id="EP_NW" text-anchor="middle" x="4.0" y="-1.0">EP</text>
             </g>
             <g class="sld-breaker sld-closed sld-vl70to120-0" id="idFD" transform="translate(55.0,159.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
-                <text class="sld-label" id="FD_NW" text-anchor="middle" x="4.0" y="-1.0">FE</text>
+                <text class="sld-label" id="FD_NW" text-anchor="middle" x="4.0" y="-1.0">FD</text>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_INTERNAL_95_AU_95_37" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1257,7 +1257,7 @@
             <g class="sld-two-wt sld-top-feeder" id="idFR_95_ONE" transform="translate(660.0,72.5)">
                 <circle class="sld-vl70to120-1 sld-winding" cx="5" cy="10" r="5"/>
                 <circle class="sld-disconnected sld-winding" cx="5" cy="5" r="5"/>
-                <text class="sld-label" id="FR_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FS</text>
+                <text class="sld-label" id="FR_ONE_NW" text-anchor="middle" x="4.0" y="-1.0">FR_ONE</text>
             </g>
         </g>
     </g>

@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
-public class SwitchNode extends Node {
+public class SwitchNode extends EquipmentNode {
 
     public enum SwitchKind {
         BREAKER,

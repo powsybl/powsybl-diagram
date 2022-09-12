@@ -34,15 +34,21 @@ public final class NodeFactory {
     private NodeFactory() {
     }
 
-    public static Node createNode(VoltageLevelGraph graph, NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
-        Node node = new Node(type, id, name, equipmentId, componentType, fictitious);
+    public static EquipmentNode createEquipmentNode(VoltageLevelGraph graph, NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
+        EquipmentNode node = new EquipmentNode(type, id, name, equipmentId, componentType, fictitious);
+        graph.addNode(node);
+        return node;
+    }
+
+    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String componentType) {
+        ConnectivityNode node = new ConnectivityNode(id, componentType);
         graph.addNode(node);
         return node;
     }
 
     public static Node createBusConnection(VoltageLevelGraph graph, String idNodeConnectedToBusNode) {
         String idBusConnection = BUS_CONNECTION_ID_PREFIX + Objects.requireNonNull(idNodeConnectedToBusNode);
-        return createNode(graph, NodeType.INTERNAL, idBusConnection, null, null, BUS_CONNECTION, true);
+        return createConnectivityNode(graph, idBusConnection, BUS_CONNECTION);
     }
 
     public static BusNode createBusNode(VoltageLevelGraph graph, String id, String name) {
@@ -155,20 +161,20 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, THREE_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.THREE_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String name, String equipmentId) {
+    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
         // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
         String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
-        ConnectivityNode in = new ConnectivityNode(connectivityNodeId, name, equipmentId);
-        graph.addNode(in);
-        return in;
+        ConnectivityNode cn = new ConnectivityNode(connectivityNodeId, NODE);
+        graph.addNode(cn);
+        return cn;
     }
 
-    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id) {
-        return createConnectivityNode(graph, id, null, null);
-    }
-
-    public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, int id) {
-        return createConnectivityNode(graph, String.valueOf(id), null, String.valueOf(id));
+    public static ConnectivityNode createConnectivityNumberedNode(VoltageLevelGraph graph, String id, int num) {
+        // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
+        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
+        ConnectivityNode cnn = new ConnectivityNumberedNode(connectivityNodeId, NODE, num);
+        graph.addNode(cnn);
+        return cnn;
     }
 
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {

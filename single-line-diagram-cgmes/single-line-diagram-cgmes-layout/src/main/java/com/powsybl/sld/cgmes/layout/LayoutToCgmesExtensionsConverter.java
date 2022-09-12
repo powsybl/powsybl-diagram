@@ -104,10 +104,11 @@ public class LayoutToCgmesExtensionsConverter {
 
             //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL
             vlGraph.getNodes().stream()
-                    .filter(ConnectivityNode::isIidmInternalNode)
+                    .filter(ConnectivityNumberedNode.class::isInstance)
+                    .map(ConnectivityNumberedNode.class::cast)
                     .filter(this::isNodeSurroundedbySwitchesOrFeeders)
                     .forEach(fNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName,
-                        Integer.parseInt(fNode.getEquipmentId()), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));
+                        fNode.getNodeNumber(), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
@@ -252,9 +253,9 @@ public class LayoutToCgmesExtensionsConverter {
         return swNode != null && swNode.getType().equals(Node.NodeType.SWITCH);
     }
 
-    private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
+    private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, MiddleTwtNode node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> (ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType())) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

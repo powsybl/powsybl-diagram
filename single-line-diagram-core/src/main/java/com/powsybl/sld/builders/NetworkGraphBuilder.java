@@ -573,7 +573,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void ensureNodeExists(VoltageLevelGraph graph, int n, Map<Integer, Node> nodesByNumber) {
-        nodesByNumber.computeIfAbsent(n, k -> NodeFactory.createConnectivityNode(graph, k));
+        nodesByNumber.computeIfAbsent(n, k -> NodeFactory.createConnectivityNumberedNode(graph, String.valueOf(k), k));
     }
 
     /**

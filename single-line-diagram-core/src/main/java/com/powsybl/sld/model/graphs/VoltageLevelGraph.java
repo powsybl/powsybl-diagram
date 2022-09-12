@@ -581,10 +581,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         generator.writeEndObject();
     }
 
-    public void resetCoords() {
-        nodes.stream().forEach(Node::resetCoords);
-    }
-
     public int getMaxH() {
         return getNodeBuses().stream()
                 .mapToInt(nodeBus -> nodeBus.getPosition().get(H) + nodeBus.getPosition().getSpan(H))

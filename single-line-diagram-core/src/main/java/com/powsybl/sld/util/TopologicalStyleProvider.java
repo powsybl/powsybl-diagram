@@ -94,7 +94,11 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private String findConnectedStyle(Map<String, String> equipmentIdStyleMap, Map<String, String> nodeIdStyleMap, Node node) {
         Set<Node> connectedNodes = new HashSet<>();
         findConnectedNodes(node, connectedNodes);
-        String connectedStyle = connectedNodes.stream().map(c -> equipmentIdStyleMap.get(c.getEquipmentId())).filter(Objects::nonNull).findFirst().orElse(null);
+        String connectedStyle = connectedNodes.stream()
+                .filter(EquipmentNode.class::isInstance)
+                .map(EquipmentNode.class::cast)
+                .map(c -> equipmentIdStyleMap.get(c.getEquipmentId()))
+                .filter(Objects::nonNull).findFirst().orElse(null);
         connectedNodes.forEach(n -> nodeIdStyleMap.put(n.getId(), connectedStyle));
         return connectedStyle;
     }

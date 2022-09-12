@@ -33,7 +33,7 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load = vlBuilder.createLoad("l", 0, TOP);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
-        Node pacMan = NodeFactory.createNode(vlBuilder.getGraph(), Node.NodeType.INTERNAL, "pacMan", null, null, PACMAN, false);
+        Node pacMan = NodeFactory.createEquipmentNode(vlBuilder.getGraph(), Node.NodeType.INTERNAL, "pacMan", null, null, PACMAN, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, b);
@@ -51,6 +51,6 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestPacman.svg"),
-                toSVG(g, "/TestPacman.svg", getRawLabelProvider(g), new BasicStyleProvider()));
+                toSVG(g, "/TestPacman.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }

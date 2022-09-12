@@ -33,7 +33,7 @@ public final class ShuntCell extends AbstractCell {
     private ShuntCell(int cellNumber, List<Node> nodes) {
         super(cellNumber, CellType.SHUNT, nodes);
         if (!(nodes.get(0) instanceof ConnectivityNode) || !(nodes.get(nodes.size() - 1) instanceof ConnectivityNode)) {
-            throw new PowsyblException("the first and last nodes of a shunt cell shall be InternalNode");
+            throw new PowsyblException("the first and last nodes of a shunt cell shall be ConnectivityNode");
         }
         ((ConnectivityNode) nodes.get(0)).setShunt(true);
         ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);

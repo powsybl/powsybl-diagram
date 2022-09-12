@@ -53,7 +53,7 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(g), new BasicStyleProvider()));
+        assertEquals(toString("/TestFeederOnBus.svg"), toSVG(g, "/TestFeederOnBus.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 
     @Test
@@ -67,6 +67,6 @@ public class TestInsertFictitiousNodesAtFeeder extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(g), new BasicStyleProvider()));
+        assertEquals(toString("/TestFeederOnBusDisconnector.svg"), toSVG(g, "/TestFeederOnBusDisconnector.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }

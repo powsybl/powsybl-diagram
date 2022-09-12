@@ -60,8 +60,8 @@ public class VoltageLevelRawBuilder {
         voltageLevelGraph.addEdge(node1, node2);
     }
 
-    public ConnectivityNode createConnectivityNode(int id) {
-        return NodeFactory.createConnectivityNode(voltageLevelGraph, id);
+    public ConnectivityNode createConnectivityNumberedNode(int id) {
+        return NodeFactory.createConnectivityNumberedNode(voltageLevelGraph, String.valueOf(id), id);
     }
 
     public ConnectivityNode createConnectivityNode(String id) {

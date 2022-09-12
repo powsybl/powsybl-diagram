@@ -10,23 +10,20 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
-
-import static com.powsybl.sld.library.ComponentTypeName.NODE;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class ConnectivityNode extends Node {
+public class ConnectivityNode extends AbstractNode {
 
     private boolean isShunt = false;
 
-    public ConnectivityNode(String id, String name, String equipmentId) {
-        super(NodeType.INTERNAL, id, name, equipmentId, NODE, true);
+    public ConnectivityNode(String id, String componentType) {
+        super(NodeType.INTERNAL, id, componentType, true);
     }
 
     public boolean isShunt() {
@@ -42,17 +39,13 @@ public class ConnectivityNode extends Node {
 
     @Override
     public int getCardinality(VoltageLevelGraph vlGraph) {
-        List<Node> adjacentNodes = getAdjacentNodes();
-        int cardinality = adjacentNodes.size();
-        if (isShunt) {
-            long nbAdjacentShuntCells = adjacentNodes.stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() == Cell.CellType.SHUNT).orElse(true)).count();
-            cardinality -= nbAdjacentShuntCells;
+        if (!isShunt) {
+            return super.getCardinality(vlGraph);
+        } else {
+            List<Node> adjacentNodes = getAdjacentNodes();
+            int nbAdjacentShuntCells = (int) adjacentNodes.stream().filter(n -> vlGraph.getCell(n).map(c -> c.getType() == Cell.CellType.SHUNT).orElse(true)).count();
+            return adjacentNodes.size() - nbAdjacentShuntCells;
         }
-        return cardinality;
-    }
-
-    public static boolean isIidmInternalNode(Node node) {
-        return node instanceof ConnectivityNode && StringUtils.isNumeric(node.getEquipmentId());
     }
 
     @Override
