@@ -11,13 +11,12 @@
     "nodes" : [ {
       "type" : "BUS",
       "id" : "B11",
-      "name" : "B11",
-      "equipmentId" : "B11",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
       "y" : 280.0,
-      "open" : false,
+      "name" : "B11",
+      "equipmentId" : "B11",
       "pxWidth" : 575.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
@@ -30,13 +29,12 @@
     }, {
       "type" : "BUS",
       "id" : "B12",
-      "name" : "B12",
-      "equipmentId" : "B12",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
       "y" : 305.0,
-      "open" : false,
+      "name" : "B12",
+      "equipmentId" : "B12",
       "pxWidth" : 575.0,
       "busbarIndex" : 2,
       "sectionIndex" : 1,
@@ -49,327 +47,291 @@
     }, {
       "type" : "SWITCH",
       "id" : "BR1",
-      "name" : "BR1",
-      "equipmentId" : "BR1",
       "componentType" : "BREAKER",
       "fictitious" : false,
       "x" : 50.0,
       "y" : 240.0,
       "orientation" : "RIGHT",
+      "name" : "BR1",
+      "equipmentId" : "BR1",
       "open" : true,
       "kind" : "BREAKER"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_BR1",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_BR1",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 305.0,
-      "open" : false
+      "y" : 305.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_G",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 305.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_L11_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 280.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_L11_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 305.0,
-      "open" : false
+      "y" : 305.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_L12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 280.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_LD1",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T11_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T11_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 305.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 305.0,
-      "open" : false
+      "y" : 305.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_ONE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 575.0,
       "y" : 305.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
       "id" : "G",
-      "name" : "G",
-      "equipmentId" : "G",
       "componentType" : "GENERATOR",
       "fictitious" : false,
       "x" : 375.0,
       "y" : 585.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "G",
+      "equipmentId" : "G",
       "feederType" : "INJECTION",
       "order" : 6,
       "direction" : "BOTTOM"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
-      "y" : 240.0,
-      "open" : false
+      "y" : 240.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_BR1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 240.0,
-      "open" : false
+      "y" : 240.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 335.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_G",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 375.0,
       "y" : 523.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 335.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 523.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 425.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 335.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_L12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 275.0,
       "y" : 523.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_LD1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_LD1",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 225.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 335.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T11_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 475.0,
       "y" : 523.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 525.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_ONE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 325.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
       "y" : 335.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL1_T3_12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 575.0,
       "y" : 523.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
       "id" : "L11_ONE",
-      "name" : "L11",
-      "equipmentId" : "L11",
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 175.0,
       "y" : 585.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "L11",
+      "equipmentId" : "L11",
       "feederType" : "BRANCH",
       "order" : 2,
       "direction" : "BOTTOM",
@@ -382,13 +344,12 @@
     }, {
       "type" : "FEEDER",
       "id" : "L11_TWO",
-      "name" : "L11",
-      "equipmentId" : "L11",
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 425.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "L11",
+      "equipmentId" : "L11",
       "feederType" : "BRANCH",
       "order" : 7,
       "direction" : "TOP",
@@ -401,14 +362,13 @@
     }, {
       "type" : "FEEDER",
       "id" : "L12_ONE",
-      "name" : "L12",
-      "equipmentId" : "L12",
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 275.0,
       "y" : 585.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "L12",
+      "equipmentId" : "L12",
       "feederType" : "BRANCH",
       "order" : 4,
       "direction" : "BOTTOM",
@@ -421,26 +381,24 @@
     }, {
       "type" : "FEEDER",
       "id" : "LD1",
-      "name" : "LD1",
-      "equipmentId" : "LD1",
       "componentType" : "LOAD",
       "fictitious" : false,
       "x" : 125.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "LD1",
+      "equipmentId" : "LD1",
       "feederType" : "INJECTION",
       "order" : 1,
       "direction" : "TOP"
     }, {
       "type" : "FEEDER",
       "id" : "T11_ONE",
-      "name" : "T11",
-      "equipmentId" : "T11",
       "componentType" : "PHASE_SHIFT_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 225.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "T11",
+      "equipmentId" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "order" : 3,
       "direction" : "TOP",
@@ -453,14 +411,13 @@
     }, {
       "type" : "FEEDER",
       "id" : "T11_TWO",
-      "name" : "T11",
-      "equipmentId" : "T11",
       "componentType" : "PHASE_SHIFT_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 475.0,
       "y" : 585.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "T11",
+      "equipmentId" : "T11",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "order" : 8,
       "direction" : "BOTTOM",
@@ -473,13 +430,12 @@
     }, {
       "type" : "FEEDER",
       "id" : "T12_ONE",
-      "name" : "T12",
-      "equipmentId" : "T12",
       "componentType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 525.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "T12",
+      "equipmentId" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "order" : 9,
       "direction" : "TOP",
@@ -492,13 +448,12 @@
     }, {
       "type" : "FEEDER",
       "id" : "T3_12_ONE",
-      "name" : "T3_12",
-      "equipmentId" : "T3_12",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 325.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "T3_12",
+      "equipmentId" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "order" : 5,
       "direction" : "TOP",
@@ -511,14 +466,13 @@
     }, {
       "type" : "FEEDER",
       "id" : "T3_12_TWO",
-      "name" : "T3_12",
-      "equipmentId" : "T3_12",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 575.0,
       "y" : 585.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "T3_12",
+      "equipmentId" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "order" : 10,
       "direction" : "BOTTOM",
@@ -1658,16 +1612,15 @@
       "node2" : "T3_12_TWO"
     } ],
     "multitermNodes" : [ {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "T11",
-      "name" : "T11",
-      "equipmentId" : "T11",
       "componentType" : "PHASE_SHIFT_TRANSFORMER",
       "fictitious" : true,
       "x" : 80.0,
       "y" : 462.5,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "T11",
+      "equipmentId" : "T11",
       "voltageLevelInfosLeg1" : {
         "id" : "VL1",
         "name" : "VL1",
@@ -1713,13 +1666,12 @@
     "nodes" : [ {
       "type" : "BUS",
       "id" : "B21",
-      "name" : "B21",
-      "equipmentId" : "B21",
       "componentType" : "BUSBAR_SECTION",
       "fictitious" : false,
       "x" : 12.5,
       "y" : 280.0,
-      "open" : false,
+      "name" : "B21",
+      "equipmentId" : "B21",
       "pxWidth" : 175.0,
       "busbarIndex" : 1,
       "sectionIndex" : 1,
@@ -1730,118 +1682,105 @@
         "vSpan" : 0
       }
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_L12_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 280.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_LD2",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T12_TWO",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 280.0,
-      "open" : false
+      "y" : 280.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "BUSCO_T3_12_THREE",
       "componentType" : "BUS_CONNECTION",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 280.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_L12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 310.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_L12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 75.0,
       "y" : 498.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_LD2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_LD2",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 25.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 250.0,
-      "open" : false
+      "y" : 250.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T12_TWO",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 125.0,
-      "y" : 62.0,
-      "open" : false
+      "y" : 62.0
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T3_12_THREE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 310.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
-      "type" : "FICTITIOUS",
+      "type" : "INTERNAL",
       "id" : "INTERNAL_VL2_T3_12_THREE",
       "componentType" : "NODE",
       "fictitious" : true,
       "x" : 175.0,
       "y" : 498.0,
-      "orientation" : "DOWN",
-      "open" : false
+      "orientation" : "DOWN"
     }, {
       "type" : "FEEDER",
       "id" : "L12_TWO",
-      "name" : "L12",
-      "equipmentId" : "L12",
       "componentType" : "LINE",
       "fictitious" : false,
       "x" : 75.0,
       "y" : 560.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "L12",
+      "equipmentId" : "L12",
       "feederType" : "BRANCH",
       "order" : 2,
       "direction" : "BOTTOM",
@@ -1854,26 +1793,24 @@
     }, {
       "type" : "FEEDER",
       "id" : "LD2",
-      "name" : "LD2",
-      "equipmentId" : "LD2",
       "componentType" : "LOAD",
       "fictitious" : false,
       "x" : 25.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "LD2",
+      "equipmentId" : "LD2",
       "feederType" : "INJECTION",
       "order" : 1,
       "direction" : "TOP"
     }, {
       "type" : "FEEDER",
       "id" : "T12_TWO",
-      "name" : "T12",
-      "equipmentId" : "T12",
       "componentType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 125.0,
       "y" : 0.0,
-      "open" : false,
+      "name" : "T12",
+      "equipmentId" : "T12",
       "feederType" : "TWO_WINDINGS_TRANSFORMER_LEG",
       "order" : 3,
       "direction" : "TOP",
@@ -1886,14 +1823,13 @@
     }, {
       "type" : "FEEDER",
       "id" : "T3_12_THREE",
-      "name" : "T3_12",
-      "equipmentId" : "T3_12",
       "componentType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "fictitious" : false,
       "x" : 175.0,
       "y" : 560.0,
       "orientation" : "DOWN",
-      "open" : false,
+      "name" : "T3_12",
+      "equipmentId" : "T3_12",
       "feederType" : "THREE_WINDINGS_TRANSFORMER_LEG",
       "order" : 4,
       "direction" : "BOTTOM",
@@ -2319,16 +2255,15 @@
     "lineEdges" : [ ]
   } ],
   "multitermNodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "T12",
-    "name" : "T12",
-    "equipmentId" : "T12",
     "componentType" : "TWO_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 745.0,
     "y" : 50.0,
     "orientation" : "RIGHT",
-    "open" : false,
+    "name" : "T12",
+    "equipmentId" : "T12",
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
       "name" : "VL1",
@@ -2340,16 +2275,15 @@
       "nominalVoltage" : 400.0
     }
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "T3_12",
-    "name" : "T3_12",
-    "equipmentId" : "T3_12",
     "componentType" : "THREE_WINDINGS_TRANSFORMER",
     "fictitious" : true,
     "x" : 675.0,
     "y" : 875.0,
     "orientation" : "DOWN",
-    "open" : false,
+    "name" : "T3_12",
+    "equipmentId" : "T3_12",
     "voltageLevelInfosLeg1" : {
       "id" : "VL1",
       "name" : "VL1",

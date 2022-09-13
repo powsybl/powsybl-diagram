@@ -9,10 +9,13 @@ package com.powsybl.sld.util;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.*;
 import com.powsybl.sld.library.ComponentLibrary;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 import com.powsybl.sld.model.nodes.*;
+import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
+import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -43,10 +46,13 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
 
     @Override
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
+        VoltageLevelInfos vLevelInfos;
         Node nodeForStyle = edge.getNode1() instanceof MiddleTwtNode ? edge.getNode2() : edge.getNode1();
-        VoltageLevelInfos vLevelInfos =  nodeForStyle instanceof FeederTwtLegNode
-                                            ? ((FeederTwtLegNode) nodeForStyle).getVoltageLevelInfos()
-                                            : graph.getVoltageLevelInfos(nodeForStyle);
+        if (nodeForStyle instanceof FeederNode && ((FeederNode) nodeForStyle).getFeeder() instanceof FeederTwLeg) {
+            vLevelInfos = ((FeederTwLeg) ((FeederNode) nodeForStyle).getFeeder()).getVoltageLevelInfos();
+        } else {
+            vLevelInfos = graph.getVoltageLevelInfos(nodeForStyle);
+        }
         return getVoltageLevelNodeStyle(vLevelInfos, nodeForStyle);
     }
 
@@ -54,7 +60,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     public List<String> getSvgNodeStyles(VoltageLevelGraph graph, Node node, ComponentLibrary componentLibrary, boolean showInternalNodes) {
         List<String> styles = super.getSvgNodeStyles(graph, node, componentLibrary, showInternalNodes);
 
-        if (graph != null && !(node instanceof Middle3WTNode) && !(node instanceof Feeder2WTNode)) {
+        if (graph != null && !(node instanceof Middle3WTNode) && !(ComponentTypeName.is2WTtransformer(node.getComponentType()))) {
             // node inside a voltageLevel graph
             // Middle3WTNode and Feeder2WTNode have style depending on their subcomponents -> see getSvgNodeSubcomponentStyles
             getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(), node).ifPresent(styles::add);
@@ -70,32 +76,40 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         Node n1 = edge.getNode1();
         Node n2 = edge.getNode2();
 
-        if (n1 instanceof FeederWithSideNode || n2 instanceof FeederWithSideNode) {
-            FeederWithSideNode n = n1 instanceof FeederWithSideNode ? (FeederWithSideNode) n1 : (FeederWithSideNode) n2;
-            Map<FeederWithSideNode.Side, Boolean> connectionStatus = connectionStatus(n);
-            FeederWithSideNode.Side side = null;
-            FeederWithSideNode.Side otherSide = null;
+        FeederNode n;
 
-            if (n.getFeederType() == FeederType.BRANCH || n.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
-                side = n.getSide();
-                otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
-                if (n instanceof FeederLineNode) {
+        if (n1 instanceof FeederNode || n2 instanceof FeederNode) {
+            n = (FeederNode) (n1 instanceof FeederNode ? n1 : n2);
+        } else {
+            return Optional.empty();
+        }
+
+        if (n.getFeeder() instanceof FeederWithSides) {
+            FeederWithSides feederWs = (FeederWithSides) n.getFeeder();
+            Map<NodeSide, Boolean> connectionStatus = connectionStatus(n);
+            NodeSide side = null;
+            NodeSide otherSide = null;
+
+            if (feederWs.getFeederType() == FeederType.BRANCH || feederWs.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+                side = feederWs.getSide();
+                otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
+                if (ComponentTypeName.LINE.equals(n.getComponentType())) {
                     side = Boolean.TRUE.equals(connectionStatus.get(side)) ? side : otherSide;
-                    otherSide = side == FeederWithSideNode.Side.ONE ? FeederWithSideNode.Side.TWO : FeederWithSideNode.Side.ONE;
+                    otherSide = side == NodeSide.ONE ? NodeSide.TWO : NodeSide.ONE;
                 }
-            } else if (n.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+            } else if (feederWs.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
                 String idVl = graph.getVoltageLevelInfos(n).getId();
                 ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(n.getEquipmentId());
                 if (transformer != null) {
                     if (transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).getVoltageLevel().getId().equals(idVl)) {
-                        side = FeederWithSideNode.Side.ONE;
+                        side = NodeSide.ONE;
                     } else if (transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).getVoltageLevel().getId().equals(idVl)) {
-                        side = FeederWithSideNode.Side.TWO;
+                        side = NodeSide.TWO;
                     } else {
-                        side = FeederWithSideNode.Side.THREE;
+                        side = NodeSide.THREE;
                     }
                 }
-                otherSide = n.getSide();
+                otherSide = feederWs.getSide();
             }
 
             if (side != null && otherSide != null) {
@@ -111,20 +125,20 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return Optional.empty();
     }
 
-    protected Map<FeederWithSideNode.Side, Boolean> connectionStatus(FeederWithSideNode node) {
-        Map<FeederWithSideNode.Side, Boolean> res = new EnumMap<>(FeederWithSideNode.Side.class);
-        if (node.getFeederType() == FeederType.BRANCH || node.getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
+    protected Map<NodeSide, Boolean> connectionStatus(FeederNode node) {
+        Map<NodeSide, Boolean> res = new EnumMap<>(NodeSide.class);
+        if (node.getFeeder().getFeederType() == FeederType.BRANCH || node.getFeeder().getFeederType() == FeederType.TWO_WINDINGS_TRANSFORMER_LEG) {
             Branch branch = network.getBranch(node.getEquipmentId());
             if (branch != null) {
-                res.put(FeederWithSideNode.Side.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
-                res.put(FeederWithSideNode.Side.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
+                res.put(NodeSide.ONE, branch.getTerminal(Branch.Side.ONE).isConnected());
+                res.put(NodeSide.TWO, branch.getTerminal(Branch.Side.TWO).isConnected());
             }
-        } else if (node.getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
+        } else if (node.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             ThreeWindingsTransformer transformer = network.getThreeWindingsTransformer(node.getEquipmentId());
             if (transformer != null) {
-                res.put(FeederWithSideNode.Side.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
-                res.put(FeederWithSideNode.Side.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
-                res.put(FeederWithSideNode.Side.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
+                res.put(NodeSide.ONE, transformer.getTerminal(ThreeWindingsTransformer.Side.ONE).isConnected());
+                res.put(NodeSide.TWO, transformer.getTerminal(ThreeWindingsTransformer.Side.TWO).isConnected());
+                res.put(NodeSide.THREE, transformer.getTerminal(ThreeWindingsTransformer.Side.THREE).isConnected());
             }
         }
         return res;
@@ -139,8 +153,8 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         if (g != null) {
             // node inside a voltageLevel graph
             VoltageLevelInfos vlInfo = null;
-            if (node instanceof Feeder2WTNode) {
-                vlInfo = getWindingVoltageLevelInfos(graph, (Feeder2WTNode) node, subComponentName);
+            if (ComponentTypeName.is2WTtransformer(node.getComponentType())) {
+                vlInfo = getWindingVoltageLevelInfos((FeederWithSides) ((FeederNode) node).getFeeder(), subComponentName);
             } else if (node instanceof Middle3WTNode) {
                 vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName);
             }
@@ -189,11 +203,11 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
-    private VoltageLevelInfos getWindingVoltageLevelInfos(Graph graph, Feeder2WTNode node, String subComponentName) {
+    private VoltageLevelInfos getWindingVoltageLevelInfos(FeederWithSides feederWs, String subComponentName) {
         if (subComponentName.equals(WINDING1)) {
-            return graph.getVoltageLevelInfos(node);
+            return feederWs.getVoltageLevelInfos();
         } else if (subComponentName.equals(WINDING2)) {
-            return node.getOtherSideVoltageLevelInfos();
+            return feederWs.getOtherSideVoltageLevelInfos();
         } else {
             return null;
         }

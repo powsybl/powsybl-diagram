@@ -7,115 +7,92 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_b11",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_b12",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_b21",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_b22",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 240.0,
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_f1",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 150.0,
-    "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
-  }, {
-    "type" : "FICTITIOUS",
-    "id" : "INTERNAL_vl_f2",
-    "componentType" : "NODE",
-    "fictitious" : true,
-    "x" : 75.0,
-    "y" : 240.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "SWITCH",
     "id" : "b11",
-    "name" : "b11",
-    "equipmentId" : "b11",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 125.0,
+    "x" : 133.33333333333334,
     "y" : 280.0,
     "orientation" : "RIGHT",
+    "name" : "b11",
+    "equipmentId" : "b11",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "b12",
-    "name" : "b12",
-    "equipmentId" : "b12",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 175.0,
+    "x" : 166.66666666666669,
     "y" : 280.0,
     "orientation" : "RIGHT",
+    "name" : "b12",
+    "equipmentId" : "b12",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "b21",
-    "name" : "b21",
-    "equipmentId" : "b21",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 50.0,
+    "x" : 58.333333333333336,
     "y" : 240.0,
     "orientation" : "RIGHT",
+    "name" : "b21",
+    "equipmentId" : "b21",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "b22",
-    "name" : "b22",
-    "equipmentId" : "b22",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 100.0,
+    "x" : 91.66666666666667,
     "y" : 240.0,
     "orientation" : "RIGHT",
+    "name" : "b22",
+    "equipmentId" : "b22",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "BUS",
     "id" : "bbs11",
-    "name" : "bbs11",
-    "equipmentId" : "bbs11",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs11",
+    "equipmentId" : "bbs11",
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -128,13 +105,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs12",
-    "name" : "bbs12",
-    "equipmentId" : "bbs12",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 212.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs12",
+    "equipmentId" : "bbs12",
     "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 2,
@@ -147,13 +123,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs21",
-    "name" : "bbs21",
-    "equipmentId" : "bbs21",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
+    "name" : "bbs21",
+    "equipmentId" : "bbs21",
     "pxWidth" : 75.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -166,13 +141,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs22",
-    "name" : "bbs22",
-    "equipmentId" : "bbs22",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 212.5,
     "y" : 305.0,
-    "open" : false,
+    "name" : "bbs22",
+    "equipmentId" : "bbs22",
     "pxWidth" : 25.0,
     "busbarIndex" : 2,
     "sectionIndex" : 2,
@@ -185,47 +159,47 @@
   }, {
     "type" : "SWITCH",
     "id" : "sd11",
-    "name" : "sd11",
-    "equipmentId" : "sd11",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 100.0,
     "y" : 280.0,
     "orientation" : "RIGHT",
+    "name" : "sd11",
+    "equipmentId" : "sd11",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "sd12",
-    "name" : "sd12",
-    "equipmentId" : "sd12",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 200.0,
     "y" : 280.0,
     "orientation" : "RIGHT",
+    "name" : "sd12",
+    "equipmentId" : "sd12",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "sd21",
-    "name" : "sd21",
-    "equipmentId" : "sd21",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 280.0,
+    "name" : "sd21",
+    "equipmentId" : "sd21",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "sd22",
-    "name" : "sd22",
-    "equipmentId" : "sd22",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 225.0,
     "y" : 305.0,
+    "name" : "sd22",
+    "equipmentId" : "sd22",
     "open" : false,
     "kind" : "DISCONNECTOR"
   } ],
@@ -282,40 +256,19 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 2,
-          "v" : 0,
-          "hSpan" : 2,
+          "h" : 4,
+          "v" : 1,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 175.0,
+          "x" : 150.0,
           "y" : 280.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_f1", "b12", "INTERNAL_vl_b12" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : 0,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 125.0,
-          "y" : 280.0,
-          "xSpan" : 50.0,
-          "ySpan" : 40.0
-        },
-        "nodes" : [ "INTERNAL_vl_b11", "b11", "INTERNAL_vl_f1" ]
+        "nodes" : [ "INTERNAL_vl_b11", "b11", "b12", "INTERNAL_vl_b12" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -391,40 +344,19 @@
           "END" : 1
         } ],
         "position" : {
-          "h" : 2,
-          "v" : 0,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "RIGHT"
-        },
-        "coord" : {
-          "x" : 75.0,
-          "y" : 240.0,
-          "xSpan" : 50.0,
-          "ySpan" : 40.0
-        },
-        "nodes" : [ "INTERNAL_vl_f2", "b22", "INTERNAL_vl_b22" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
-        }, {
-          "END" : 1
-        } ],
-        "position" : {
           "h" : 0,
           "v" : 0,
-          "hSpan" : 2,
+          "hSpan" : 4,
           "vSpan" : 2,
           "orientation" : "RIGHT"
         },
         "coord" : {
-          "x" : 25.0,
+          "x" : 50.0,
           "y" : 240.0,
-          "xSpan" : 50.0,
+          "xSpan" : 100.0,
           "ySpan" : 40.0
         },
-        "nodes" : [ "INTERNAL_vl_b21", "b21", "INTERNAL_vl_f2" ]
+        "nodes" : [ "INTERNAL_vl_b21", "b21", "b22", "INTERNAL_vl_b22" ]
       }, {
         "type" : "LEGPRIMARY",
         "cardinalities" : [ {
@@ -454,10 +386,7 @@
     "node2" : "sd11"
   }, {
     "node1" : "b11",
-    "node2" : "INTERNAL_vl_f1"
-  }, {
-    "node1" : "b12",
-    "node2" : "INTERNAL_vl_f1"
+    "node2" : "b12"
   }, {
     "node1" : "bbs12",
     "node2" : "sd12"
@@ -466,10 +395,7 @@
     "node2" : "sd21"
   }, {
     "node1" : "b21",
-    "node2" : "INTERNAL_vl_f2"
-  }, {
-    "node1" : "b22",
-    "node2" : "INTERNAL_vl_f2"
+    "node2" : "b22"
   }, {
     "node1" : "bbs22",
     "node2" : "sd22"

@@ -12,6 +12,7 @@ import com.powsybl.sld.cgmes.dl.conversion.CgmesDLUtils;
 import com.powsybl.sld.cgmes.dl.iidm.extensions.*;
 import com.powsybl.sld.layout.*;
 import com.powsybl.sld.layout.positionbyclustering.PositionByClustering;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.coordinate.Orientation;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.*;
@@ -98,15 +99,16 @@ public class LayoutToCgmesExtensionsConverter {
             VoltageLevelGraph vlGraph = sgraph.getVoltageLevel(voltageLevel.getId());
 
             // remove fictitious nodes&switches (no CGMES DL data available for them)
-            vlGraph.removeUnnecessaryFictitiousNodes();
+            vlGraph.removeUnnecessaryConnectivityNodes();
             AbstractCgmesLayout.removeFictitiousSwitchNodes(vlGraph, voltageLevel);
 
             //retrieve fictitious nodes surrounded by switches or feeders, to be exported to DL
             vlGraph.getNodes().stream()
-                    .filter(InternalNode::isIidmInternalNode)
+                    .filter(ConnectivityNumberedNode.class::isInstance)
+                    .map(ConnectivityNumberedNode.class::cast)
                     .filter(this::isNodeSurroundedbySwitchesOrFeeders)
                     .forEach(fNode -> VoltageLevelDiagramData.addInternalNodeDiagramPoint(voltageLevel, diagramName,
-                        Integer.parseInt(fNode.getEquipmentId()), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));
+                        fNode.getNodeNumber(), new DiagramPoint(fNode.getX(), fNode.getY(), 0)));
 
             double vlNodeMaxX = vlGraph.getNodes().stream().map(Node::getX).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
             double vlNodeMaxY = vlGraph.getNodes().stream().map(Node::getY).sorted(Collections.reverseOrder()).findFirst().orElse(0.0);
@@ -248,12 +250,12 @@ public class LayoutToCgmesExtensionsConverter {
     }
 
     private boolean checkSwitchNode(Node swNode) {
-        return (swNode != null) && swNode.getType().equals(Node.NodeType.SWITCH);
+        return swNode != null && swNode.getType().equals(Node.NodeType.SWITCH);
     }
 
-    private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, Node node) {
+    private boolean checkNode(ThreeWindingsTransformer threeWindingsTransformer, MiddleTwtNode node) {
         return node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                && node.getAdjacentNodes().stream().allMatch(n -> (n instanceof Feeder3WTLegNode) && n.getEquipmentId().equals(threeWindingsTransformer.getId()));
+                && node.getAdjacentNodes().stream().allMatch(n -> ComponentTypeName.THREE_WINDINGS_TRANSFORMER_LEG.equals(n.getComponentType()) && n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(threeWindingsTransformer.getId()));
     }
 
     private boolean checkNode(TwoWindingsTransformer twoWindingsTransformer, Node node) {

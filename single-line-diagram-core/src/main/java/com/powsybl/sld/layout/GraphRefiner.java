@@ -32,7 +32,7 @@ public class GraphRefiner {
     void run(VoltageLevelGraph graph, LayoutParameters layoutParameters) {
         graph.substituteFictitiousNodesMirroringBusNodes();
         if (removeUnnecessaryFictitiousNodes) {
-            graph.removeUnnecessaryFictitiousNodes();
+            graph.removeUnnecessaryConnectivityNodes();
         }
         if (substituteSingularFictitiousByFeederNode) {
             graph.substituteSingularFictitiousByFeederNode();

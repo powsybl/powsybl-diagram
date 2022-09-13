@@ -42,6 +42,17 @@
     },
     "styleClass" : "sld-arrow-q"
   }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-arrow-p"
+  }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -61,17 +72,6 @@
       "RIGHT" : "ROTATION"
     },
     "styleClass" : "sld-load"
-  }, {
-    "type" : "ARROW_ACTIVE",
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "transformations" : {
-      "LEFT" : "ROTATION",
-      "RIGHT" : "ROTATION"
-    },
-    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
     "anchorPoints" : [ {
@@ -291,19 +291,19 @@
     "equipmentId" : "btrf15",
     "labels" : [ ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_trf4_95_ONE",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "idbtrf14",
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf14",
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_trf4_95_ONE",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idbtrf17",

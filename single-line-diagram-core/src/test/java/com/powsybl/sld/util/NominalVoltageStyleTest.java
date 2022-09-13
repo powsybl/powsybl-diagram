@@ -91,7 +91,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
         public NoFeederInfoProvider() {
-            super(network, componentLibrary, layoutParameters);
+            super(network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters);
         }
 
         @Override

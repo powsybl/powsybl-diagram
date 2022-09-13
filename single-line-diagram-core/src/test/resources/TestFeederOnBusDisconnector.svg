@@ -68,18 +68,9 @@
         </g>
         <g class="sld-busbar-section" id="idbbs" transform="translate(52.5,80.0)">
             <line x1="0" x2="25.0" y1="0" y2="0"/>
-            <text class="sld-label" id="bbs_default" text-anchor="middle" x="0.0" y="-5.0">bbs</text>
+            <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,106.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,186.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-bottom-feeder" id="idline_95_ONE" transform="translate(65.0,252.0)">
-                <text class="sld-label" id="line_ONE_default" text-anchor="middle" x="0.0" y="-5.0">line</text>
-            </g>
             <g class="sld-wire" id="_95_vl_95_busDisconnector_95_INTERNAL_95_vl_95_line_95_ONE">
                 <polyline points="65.0,80.0,65.0,110.0"/>
             </g>
@@ -104,7 +95,15 @@
             <g class="sld-disconnector sld-closed" id="idbusDisconnector" transform="translate(61.0,76.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
-                <text class="sld-label" id="busDisconnector_default" text-anchor="middle" x="0.0" y="-5.0">busDisconnector</text>
+            </g>
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,106.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_line_95_ONE" transform="translate(61.0,186.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-bottom-feeder" id="idline_95_ONE" transform="translate(65.0,252.0)">
+                <text class="sld-label" id="line_ONE_S_LABEL" x="-5.0" y="5.0">line</text>
             </g>
         </g>
     </g>

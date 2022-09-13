@@ -10,30 +10,16 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.graphs.VoltageLevelInfos;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class MiddleTwtNode extends FictitiousNode {
+public class MiddleTwtNode extends EquipmentNode {
     protected final VoltageLevelInfos[] voltageLevelInfosLeg;
 
     protected MiddleTwtNode(String id, String name, VoltageLevelInfos[] voltageLevelInfosLeg, String componentType) {
-        super(id, name, id, componentType);
+        super(NodeType.INTERNAL, id, name, id, componentType, true);
         this.voltageLevelInfosLeg = voltageLevelInfosLeg;
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfos() {
-        return null; // there is not a unique voltage level infos for a middle point so we consider this is undefined
-    }
-
-    public VoltageLevelInfos getVoltageLevelInfos(FeederWithSideNode.Side side) {
-        Objects.requireNonNull(side);
-        int sideIntValue = side.getIntValue();
-        if (sideIntValue > voltageLevelInfosLeg.length) {
-            throw new IllegalStateException();
-        }
-        return voltageLevelInfosLeg[sideIntValue - 1];
     }
 
     @Override

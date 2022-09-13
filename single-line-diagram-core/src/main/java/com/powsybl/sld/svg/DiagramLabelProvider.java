@@ -81,23 +81,13 @@ public interface DiagramLabelProvider {
 
     List<NodeLabel> getNodeLabels(Node node, Direction direction);
 
-    default String getTooltip(Node node) {
-        return "";
-    }
+    String getTooltip(Node node);
 
     List<NodeDecorator> getNodeDecorators(Node node, Direction direction);
 
-    default List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph) {
-        return Collections.emptyList();
-    }
+    List<ElectricalNodeInfo> getElectricalNodesInfos(VoltageLevelGraph graph);
 
-    default Optional<BusInfo> getBusInfo(BusNode node) {
-        return Optional.empty();
-    }
+    Optional<BusInfo> getBusInfo(BusNode node);
 
-    default Map<String, Side> getBusInfoSides(VoltageLevelGraph graph) {
-        Map<String, Side> result = new HashMap<>();
-        graph.getNodeBuses().forEach(busNode -> getBusInfo(busNode).ifPresent(busInfo -> result.put(busNode.getId(), busInfo.getAnchor())));
-        return result;
-    }
+    Map<String, Side> getBusInfoSides(VoltageLevelGraph graph);
 }

@@ -8,14 +8,15 @@ package com.powsybl.sld.model.blocks;
 
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.Node;
 
-import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
-import static com.powsybl.sld.model.coordinate.Position.Dimension.*;
-
 import java.util.*;
+
+import static com.powsybl.sld.model.blocks.Block.Type.SERIAL;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.H;
+import static com.powsybl.sld.model.coordinate.Position.Dimension.V;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -94,16 +95,17 @@ public class SerialBlock extends AbstractComposedBlock {
     }
 
     public boolean addSubBlock(VoltageLevelGraph vlGraph, Block block) {
+        // Looking for a common extremity node between current serial block and given block
         for (Extremity myExtremity : Extremity.values()) {
-            if (getExtremityNode(myExtremity) instanceof FictitiousNode) {
-                FictitiousNode commonNode = (FictitiousNode) getExtremityNode(myExtremity);
-                for (Extremity itsExtremity : Extremity.values()) {
-                    if (commonNode == block.getExtremityNode(itsExtremity)
-                            && commonNode.getCardinality(vlGraph) == getCardinality(commonNode) + block.getCardinality(commonNode)
-                    ) {
-                        insertBlock(block, myExtremity);
-                        return true;
-                    }
+            Node extremityNode = getExtremityNode(myExtremity);
+            if (extremityNode instanceof FeederNode || extremityNode instanceof BusNode) {
+                continue;
+            }
+            for (Extremity itsExtremity : Extremity.values()) {
+                if (extremityNode == block.getExtremityNode(itsExtremity)
+                        && extremityNode.getCardinality(vlGraph) == getCardinality(extremityNode) + block.getCardinality(itsExtremity)) {
+                    insertBlock(block, myExtremity);
+                    return true;
                 }
             }
         }

@@ -8,10 +8,7 @@ package com.powsybl.sld.raw;
 
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +46,7 @@ public class TestCase5V extends AbstractTestCaseRaw {
         FeederNode lb = vlBuilder.createLoad("lb", 10, TOP);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
-        FictitiousNode fn = vlBuilder.createFictitiousNode(3);
+        ConnectivityNode fn = vlBuilder.createConnectivityNumberedNode(3);
         vlBuilder.connectNode(lb, bb);
         vlBuilder.connectNode(bb, fn);
         vlBuilder.connectNode(fn, db);

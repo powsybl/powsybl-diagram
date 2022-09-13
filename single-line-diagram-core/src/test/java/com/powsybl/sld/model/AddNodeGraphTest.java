@@ -14,7 +14,7 @@ import com.powsybl.sld.iidm.AbstractTestCaseIidm;
 import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.InternalNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
@@ -104,7 +104,7 @@ public class AddNodeGraphTest extends AbstractTestCaseIidm {
 
         // substitute fictitious node
         String fictitiousNodeId = "INTERNAL_S1VL2_101";
-        assertTrue(graph.getNode(fictitiousNodeId) instanceof InternalNode);
+        assertTrue(graph.getNode(fictitiousNodeId) instanceof ConnectivityNode);
         graph.substituteSingularFictitiousByFeederNode();
         assertTrue(graph.getNode(fictitiousNodeId) instanceof FeederNode);
 

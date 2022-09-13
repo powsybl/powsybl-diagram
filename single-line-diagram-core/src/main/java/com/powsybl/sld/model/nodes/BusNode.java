@@ -20,7 +20,7 @@ import static com.powsybl.sld.library.ComponentTypeName.BUSBAR_SECTION;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
-public class BusNode extends Node {
+public class BusNode extends EquipmentNode {
 
     private double pxWidth = 1;
 

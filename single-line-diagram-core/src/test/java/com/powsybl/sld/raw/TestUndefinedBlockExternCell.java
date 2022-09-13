@@ -10,7 +10,7 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,16 +38,16 @@ public class TestUndefinedBlockExternCell extends AbstractTestCaseRaw {
         VoltageLevelRawBuilder vlBuilder = rawGraphBuilder.createVoltageLevelBuilder("vl", 380);
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
-        FictitiousNode f0 = vlBuilder.createFictitiousNode("f0");
+        ConnectivityNode f0 = vlBuilder.createConnectivityNode("f0");
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, f0);
 
-        FictitiousNode f1 = vlBuilder.createFictitiousNode("f1");
+        ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
         FeederNode l1 = vlBuilder.createLoad("l1", 0, TOP);
         vlBuilder.connectNode(f0, f1);
         vlBuilder.connectNode(f1, l1);
 
-        FictitiousNode f2 = vlBuilder.createFictitiousNode("f2");
+        ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");
         FeederNode l2 = vlBuilder.createLoad("l2", 1, TOP);
         vlBuilder.connectNode(f1, f2);
         vlBuilder.connectNode(f2, l2);

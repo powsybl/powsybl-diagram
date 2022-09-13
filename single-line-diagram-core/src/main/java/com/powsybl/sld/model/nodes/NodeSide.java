@@ -9,9 +9,19 @@ package com.powsybl.sld.model.nodes;
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class FeederInjectionNode extends FeederNode {
+public enum NodeSide {
+    ONE(1),
+    TWO(2),
+    THREE(3);
 
-    public FeederInjectionNode(String id, String name, String componentType) {
-        super(id, name, id, componentType, FeederType.INJECTION);
+    int intValue;
+
+    NodeSide(int intValue) {
+        this.intValue = intValue;
     }
+
+    public int getIntValue() {
+        return intValue;
+    }
+
 }

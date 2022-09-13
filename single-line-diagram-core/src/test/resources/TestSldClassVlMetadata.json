@@ -18,6 +18,17 @@
     },
     "styleClass" : "sld-arrow-q"
   }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-arrow-p"
+  }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -37,17 +48,6 @@
       "RIGHT" : "ROTATION"
     },
     "styleClass" : "sld-load"
-  }, {
-    "type" : "ARROW_ACTIVE",
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "transformations" : {
-      "LEFT" : "ROTATION",
-      "RIGHT" : "ROTATION"
-    },
-    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
     "anchorPoints" : [ {

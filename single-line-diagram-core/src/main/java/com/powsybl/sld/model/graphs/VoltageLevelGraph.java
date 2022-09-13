@@ -8,6 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.cells.*;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Orientation;
@@ -90,9 +91,9 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return cellCounter++;
     }
 
-    public void removeUnnecessaryFictitiousNodes() {
+    public void removeUnnecessaryConnectivityNodes() {
         List<Node> fictitiousNodesToRemove = nodes.stream()
-                .filter(node -> node instanceof InternalNode || node instanceof BusConnection)
+                .filter(ConnectivityNode.class::isInstance)
                 .collect(Collectors.toList());
         for (Node n : fictitiousNodesToRemove) {
             if (n.getAdjacentEdges().size() == 2) {
@@ -304,7 +305,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void insertBusConnection(BusNode busNode, Node nodeConnectedToBusNode) {
         // Create bus connection
-        BusConnection fNodeToBus = NodeFactory.createBusConnection(this, nodeConnectedToBusNode.getId());
+        Node fNodeToBus = NodeFactory.createBusConnection(this, nodeConnectedToBusNode.getId());
 
         // Update edges
         removeEdge(busNode, nodeConnectedToBusNode);
@@ -326,7 +327,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     private void insertBusHookNode(Node nodeOnBus, Node node) {
         // Create hook node
-        InternalNode fStackNode = NodeFactory.createInternalNode(this, node.getId());
+        Node fStackNode = NodeFactory.createConnectivityNode(this, node.getId());
 
         // Update edges
         if (node.getType() == NodeType.FEEDER) {
@@ -349,16 +350,21 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      */
     public void insertHookNodesAtFeeders() {
         // Each feeder node needs a fictitious node to have enough place for the feeder infos (arrows)
-        // Feeder3WTLegNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
+        // FeederNode linked to Middle3WTNode do not need any fictitious node inserted, because of the fictitious Middle3WTNode
         List<Node> feederNodes = nodesByType.computeIfAbsent(Node.NodeType.FEEDER, nodeType -> new ArrayList<>());
         feederNodes.stream()
-                .filter(feederNode -> !(feederNode instanceof Feeder3WTLegNode) || !(feederNode.getAdjacentNodes().get(0) instanceof Middle3WTNode))
+                .filter(feederNode -> !isInternal3wtFeederNode((FeederNode) feederNode))
                 .forEach(this::insertFeederHookNode);
+    }
+
+    private boolean isInternal3wtFeederNode(FeederNode feederNode) {
+        return feederNode.getFeeder().getFeederType() == FeederType.THREE_WINDINGS_TRANSFORMER_LEG
+                && feederNode.getAdjacentNodes().get(0).getComponentType().equals(ComponentTypeName.THREE_WINDINGS_TRANSFORMER);
     }
 
     private void insertFeederHookNode(Node feederNode) {
         // Create a new hook node to insert before feeder node
-        InternalNode hookNode = NodeFactory.createInternalNode(this, feederNode.getId());
+        Node hookNode = NodeFactory.createConnectivityNode(this, feederNode.getId());
 
         List<Node> adjacentNodes = feederNode.getAdjacentNodes();
         if (adjacentNodes.size() == 1) {
@@ -368,7 +374,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
             addEdge(singleNeighbor, hookNode);
         } else {
             // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
-            InternalNode forkNode = NodeFactory.createInternalNode(this, feederNode.getId() + "_fork");
+            Node forkNode = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_fork");
 
             // Create all new edges and remove old ones
             for (Node neighbor : adjacentNodes) {
@@ -390,16 +396,16 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     private void extendBusConnectedToBus(BusNode n1, Node n2) {
         removeEdge(n1, n2);
         String busToBusId = n1.getId() + "-" + n2.getId();
-        InternalNode internalNode1 = NodeFactory.createInternalNode(this, busToBusId + "_1");
-        InternalNode internalNode2 = NodeFactory.createInternalNode(this, busToBusId + "_2");
-        addEdge(n1, internalNode1);
-        addEdge(internalNode1, internalNode2);
-        addEdge(n2, internalNode2);
+        Node cNode1 = NodeFactory.createConnectivityNode(this, busToBusId + "_1");
+        Node cNode2 = NodeFactory.createConnectivityNode(this, busToBusId + "_2");
+        addEdge(n1, cNode1);
+        addEdge(cNode1, cNode2);
+        addEdge(n2, cNode2);
     }
 
-    public InternalNode insertHookNodesAtBuses(Node node1, Node node2, String id) {
+    public ConnectivityNode insertConnectivityNode(Node node1, Node node2, String id) {
         removeEdge(node1, node2);
-        InternalNode iNode = NodeFactory.createInternalNode(this, id);
+        ConnectivityNode iNode = NodeFactory.createConnectivityNode(this, id);
         addEdge(node1, iNode);
         addEdge(node2, iNode);
         return iNode;
@@ -428,7 +434,7 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     public void substituteFictitiousNodesMirroringBusNodes() {
         getNodeBuses().forEach(busNode -> {
             List<Node> adjs = busNode.getAdjacentNodes();
-            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.FICTITIOUS) {
+            if (adjs.size() == 1 && adjs.get(0).getType() == Node.NodeType.INTERNAL) {
                 Node adj = adjs.get(0);
                 removeEdge(adj, busNode);
                 substituteNode(adj, busNode);
@@ -438,16 +444,20 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public void substituteSingularFictitiousByFeederNode() {
         getNodes().stream()
-                .filter(n -> n.getType() == Node.NodeType.FICTITIOUS && n.getAdjacentEdges().size() == 1)
+                .filter(n -> n.getType() == Node.NodeType.INTERNAL && n.getAdjacentEdges().size() == 1)
                 .forEach(n -> substituteNode(n, NodeFactory.createFictitiousFeederNode(this, n.getId(), Orientation.UP)));
     }
 
     public void addCell(Cell c) {
         cells.add(c);
-        c.getNodes().stream()
-                .filter(n -> n.getType() != NodeType.BUS)
-                .filter(n -> !(c.getType() == Cell.CellType.SHUNT && n.getType() == NodeType.SHUNT))
-                .forEach(n -> nodeToCell.put(n, c));
+        List<Node> cellNodes = c.getNodes();
+        if (c.getType() == Cell.CellType.SHUNT) {
+            cellNodes.stream().skip(1).limit(((long) cellNodes.size()) - 2) // skip first and last nodes that are part of the ExternalNodes
+                    .forEach(n -> nodeToCell.put(n, c));
+        } else {
+            cellNodes.stream().filter(n -> n.getType() != NodeType.BUS)
+                    .forEach(n -> nodeToCell.put(n, c));
+        }
     }
 
     public void removeCell(Cell c) {
@@ -569,10 +579,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         writeBranchFields(generator, includeCoordinates);
 
         generator.writeEndObject();
-    }
-
-    public void resetCoords() {
-        nodes.stream().forEach(Node::resetCoords);
     }
 
     public int getMaxH() {

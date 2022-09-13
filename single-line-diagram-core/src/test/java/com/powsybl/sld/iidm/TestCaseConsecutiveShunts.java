@@ -45,7 +45,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
             public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
                 return node.isFictitious()
                         ? node.getId().matches("INTERNAL_AU_\\d*") ? Collections.singletonList(new NodeLabel(node.getId().replace("INTERNAL_AU_", ""), new LabelPosition("NW", 4, -1, true, 0))) : Collections.emptyList()
-                        : Collections.singletonList(new NodeLabel(node.getName(), new LabelPosition("NW", 4, -1, true, 0)));
+                        : Collections.singletonList(new NodeLabel(node.getId(), new LabelPosition("NW", 4, -1, true, 0)));
             }
         };
     }

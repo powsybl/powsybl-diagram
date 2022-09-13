@@ -7,103 +7,96 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
     "y" : 124.66666666666667,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_Shunt 1.2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 100.0,
     "y" : 124.66666666666667,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_ba",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_bb",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.00000000000001,
-    "open" : false
+    "y" : 62.00000000000001
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_la_fork",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
     "y" : 124.66666666666667,
-    "open" : false
+    "isShunt" : true
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_lb",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 62.00000000000001,
-    "open" : false
+    "y" : 62.00000000000001
   }, {
-    "type" : "SHUNT",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_lb_fork",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
     "y" : 124.66666666666667,
-    "open" : false
+    "isShunt" : true
   }, {
     "type" : "SWITCH",
     "id" : "ba",
-    "name" : "ba",
-    "equipmentId" : "ba",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 187.33333333333334,
+    "name" : "ba",
+    "equipmentId" : "ba",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "bb",
-    "name" : "bb",
-    "equipmentId" : "bb",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 125.0,
     "y" : 187.33333333333334,
+    "name" : "bb",
+    "equipmentId" : "bb",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "BUS",
     "id" : "bbs",
-    "name" : "bbs",
-    "equipmentId" : "bbs",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs",
+    "equipmentId" : "bbs",
     "pxWidth" : 125.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -116,62 +109,60 @@
   }, {
     "type" : "SWITCH",
     "id" : "bs",
-    "name" : "bs",
-    "equipmentId" : "bs",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
     "y" : 124.66666666666667,
     "orientation" : "RIGHT",
+    "name" : "bs",
+    "equipmentId" : "bs",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "da",
-    "name" : "da",
-    "equipmentId" : "da",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 280.0,
+    "name" : "da",
+    "equipmentId" : "da",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "db",
-    "name" : "db",
-    "equipmentId" : "db",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 125.0,
     "y" : 280.0,
+    "name" : "db",
+    "equipmentId" : "db",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "FEEDER",
     "id" : "la",
-    "name" : "la",
-    "equipmentId" : "la",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 7.105427357601002E-15,
-    "open" : false,
     "label" : "la",
+    "name" : "la",
+    "equipmentId" : "la",
     "feederType" : "INJECTION",
     "order" : 10,
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
     "id" : "lb",
-    "name" : "lb",
-    "equipmentId" : "lb",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 125.0,
     "y" : 7.105427357601002E-15,
-    "open" : false,
     "label" : "lb",
+    "name" : "lb",
+    "equipmentId" : "lb",
     "feederType" : "INJECTION",
     "order" : 20,
     "direction" : "TOP"

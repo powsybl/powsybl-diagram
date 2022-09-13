@@ -7,58 +7,53 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_l1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 280.0,
-    "open" : false
+    "y" : 280.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 50.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "b",
-    "name" : "b",
-    "equipmentId" : "b",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 156.0,
+    "name" : "b",
+    "equipmentId" : "b",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "BUS",
     "id" : "bbs",
-    "name" : "bbs",
-    "equipmentId" : "bbs",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs",
+    "equipmentId" : "bbs",
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -71,27 +66,25 @@
   }, {
     "type" : "FEEDER",
     "id" : "l1",
-    "name" : "l1",
-    "equipmentId" : "l1",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 75.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l1",
+    "name" : "l1",
+    "equipmentId" : "l1",
     "feederType" : "INJECTION",
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
     "id" : "l2",
-    "name" : "l2",
-    "equipmentId" : "l2",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l2",
+    "name" : "l2",
+    "equipmentId" : "l2",
     "feederType" : "INJECTION",
     "direction" : "TOP"
   } ],

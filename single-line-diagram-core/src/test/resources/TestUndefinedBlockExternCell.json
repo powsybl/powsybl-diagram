@@ -7,55 +7,49 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f0",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_f2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l1",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 0.0,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "BUS",
     "id" : "bbs",
-    "name" : "bbs",
-    "equipmentId" : "bbs",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs",
+    "equipmentId" : "bbs",
     "pxWidth" : 0.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -68,39 +62,37 @@
   }, {
     "type" : "SWITCH",
     "id" : "d",
-    "name" : "d",
-    "equipmentId" : "d",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 0.0,
     "y" : 280.0,
+    "name" : "d",
+    "equipmentId" : "d",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "FEEDER",
     "id" : "l1",
-    "name" : "l1",
-    "equipmentId" : "l1",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 0.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l1",
+    "name" : "l1",
+    "equipmentId" : "l1",
     "feederType" : "INJECTION",
     "order" : 0,
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
     "id" : "l2",
-    "name" : "l2",
-    "equipmentId" : "l2",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 0.0,
     "y" : 0.0,
-    "open" : false,
     "label" : "l2",
+    "name" : "l2",
+    "equipmentId" : "l2",
     "feederType" : "INJECTION",
     "order" : 1,
     "direction" : "TOP"
@@ -131,7 +123,7 @@
         "ySpan" : 188.0
       },
       "subBlocks" : [ {
-        "type" : "LEGPRIMARY",
+        "type" : "SERIAL",
         "cardinalities" : [ {
           "START" : 1
         }, {
@@ -140,8 +132,8 @@
         "position" : {
           "h" : -1,
           "v" : -1,
-          "hSpan" : 2,
-          "vSpan" : 0,
+          "hSpan" : 4,
+          "vSpan" : 4,
           "orientation" : "UP"
         },
         "coord" : {
@@ -150,49 +142,112 @@
           "xSpan" : 0.0,
           "ySpan" : 188.0
         },
-        "nodes" : [ "bbs", "d", "INTERNAL_vl_f0" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
+        "subBlocks" : [ {
+          "type" : "LEGPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 2,
+            "vSpan" : 0,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 250.0,
+            "xSpan" : 0.0,
+            "ySpan" : 0.0
+          },
+          "nodes" : [ "bbs", "d", "INTERNAL_vl_f0" ]
         }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : -1,
-          "v" : -1,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 0.0,
-          "y" : 156.0,
-          "xSpan" : 0.0,
-          "ySpan" : 188.0
-        },
-        "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
-      }, {
-        "type" : "BODYPRIMARY",
-        "cardinalities" : [ {
-          "START" : 1
+          "type" : "BODYPARALLEL",
+          "cardinalities" : [ {
+            "START" : 2
+          }, {
+            "END" : 2
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 0,
+            "hSpan" : 4,
+            "vSpan" : 2,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 203.0,
+            "xSpan" : 0.0,
+            "ySpan" : 94.0
+          },
+          "subBlocks" : [ {
+            "type" : "BODYPRIMARY",
+            "cardinalities" : [ {
+              "START" : 1
+            }, {
+              "END" : 1
+            } ],
+            "position" : {
+              "h" : 0,
+              "v" : 0,
+              "hSpan" : 2,
+              "vSpan" : 2,
+              "orientation" : "UP"
+            },
+            "coord" : {
+              "x" : 0.0,
+              "y" : 203.0,
+              "xSpan" : 0.0,
+              "ySpan" : 94.0
+            },
+            "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
+          }, {
+            "type" : "BODYPRIMARY",
+            "cardinalities" : [ {
+              "START" : 1
+            }, {
+              "END" : 1
+            } ],
+            "position" : {
+              "h" : 2,
+              "v" : 0,
+              "hSpan" : 2,
+              "vSpan" : 2,
+              "orientation" : "UP"
+            },
+            "coord" : {
+              "x" : 0.0,
+              "y" : 203.0,
+              "xSpan" : 0.0,
+              "ySpan" : 94.0
+            },
+            "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f1" ]
+          } ]
         }, {
-          "END" : 1
-        } ],
-        "position" : {
-          "h" : -1,
-          "v" : -1,
-          "hSpan" : 2,
-          "vSpan" : 2,
-          "orientation" : "UP"
-        },
-        "coord" : {
-          "x" : 0.0,
-          "y" : 156.0,
-          "xSpan" : 0.0,
-          "ySpan" : 188.0
-        },
-        "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_f2" ]
+          "type" : "BODYPRIMARY",
+          "cardinalities" : [ {
+            "START" : 1
+          }, {
+            "END" : 1
+          } ],
+          "position" : {
+            "h" : 0,
+            "v" : 2,
+            "hSpan" : 2,
+            "vSpan" : 2,
+            "orientation" : "UP"
+          },
+          "coord" : {
+            "x" : 0.0,
+            "y" : 109.0,
+            "xSpan" : 0.0,
+            "ySpan" : 94.0
+          },
+          "nodes" : [ "INTERNAL_vl_f1", "INTERNAL_vl_f2" ]
+        } ]
       }, {
         "type" : "SERIAL",
         "cardinalities" : [ {
@@ -319,6 +374,27 @@
           },
           "nodes" : [ "INTERNAL_vl_l1", "l1" ]
         } ]
+      }, {
+        "type" : "BODYPRIMARY",
+        "cardinalities" : [ {
+          "START" : 1
+        }, {
+          "END" : 1
+        } ],
+        "position" : {
+          "h" : -1,
+          "v" : -1,
+          "hSpan" : 2,
+          "vSpan" : 2,
+          "orientation" : "UP"
+        },
+        "coord" : {
+          "x" : 0.0,
+          "y" : 156.0,
+          "xSpan" : 0.0,
+          "ySpan" : 188.0
+        },
+        "nodes" : [ "INTERNAL_vl_f0", "INTERNAL_vl_f2" ]
       } ]
     }
   } ],
