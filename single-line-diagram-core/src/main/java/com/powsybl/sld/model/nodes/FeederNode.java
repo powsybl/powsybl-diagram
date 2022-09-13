@@ -41,7 +41,7 @@ public class FeederNode extends EquipmentNode {
     @Override
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         super.writeJsonContent(generator, includeCoordinates);
-        generator.writeStringField("feederType", feeder.getFeederTypeName());
+        generator.writeStringField("feederType", feeder.getFeederType().name());
         Optional<Integer> order = getOrder();
         if (order.isPresent()) {
             generator.writeNumberField("order", order.get());

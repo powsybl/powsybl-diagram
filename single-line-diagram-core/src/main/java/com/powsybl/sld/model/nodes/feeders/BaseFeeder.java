@@ -7,6 +7,7 @@
 package com.powsybl.sld.model.nodes.feeders;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.Feeder;
@@ -22,11 +23,7 @@ public class BaseFeeder implements Feeder {
     FeederType feederType;
 
     public BaseFeeder(FeederType feederType) {
-        this.feederType = feederType;
-    }
-
-    public String getFeederTypeName() {
-        return feederType.name();
+        this.feederType = Objects.requireNonNull(feederType);
     }
 
     public FeederType getFeederType() {

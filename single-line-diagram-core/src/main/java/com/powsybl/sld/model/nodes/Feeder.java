@@ -14,8 +14,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public interface Feeder {
-    String getFeederTypeName();
-
     FeederType getFeederType();
 
     void writeJsonContent(JsonGenerator generator) throws IOException;
