@@ -34,7 +34,6 @@ public class FeederWithSides extends BaseFeeder {
         return side;
     }
 
-// TODO: to remove : circular reference to VoltageLevelInfos in package graphs
     public VoltageLevelInfos getOtherSideVoltageLevelInfos() {
         return otherSideVoltageLevelInfos;
     }

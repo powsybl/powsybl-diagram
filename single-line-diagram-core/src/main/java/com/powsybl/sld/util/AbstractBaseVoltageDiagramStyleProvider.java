@@ -154,7 +154,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             // node inside a voltageLevel graph
             VoltageLevelInfos vlInfo = null;
             if (ComponentTypeName.is2WTtransformer(node.getComponentType())) {
-                vlInfo = getWindingVoltageLevelInfos(graph, (FeederWithSides) ((FeederNode) node).getFeeder(), subComponentName);
+                vlInfo = getWindingVoltageLevelInfos((FeederWithSides) ((FeederNode) node).getFeeder(), subComponentName);
             } else if (node instanceof Middle3WTNode) {
                 vlInfo = getWindingVoltageLevelInfos((Middle3WTNode) node, subComponentName);
             }
@@ -203,8 +203,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
         return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
     }
 
-    //TODO: getVoltageLEvelInfos from Graph.getvoltagelevelinfs
-    private VoltageLevelInfos getWindingVoltageLevelInfos(Graph graph, FeederWithSides feederWs, String subComponentName) {
+    private VoltageLevelInfos getWindingVoltageLevelInfos(FeederWithSides feederWs, String subComponentName) {
         if (subComponentName.equals(WINDING1)) {
             return feederWs.getVoltageLevelInfos();
         } else if (subComponentName.equals(WINDING2)) {
