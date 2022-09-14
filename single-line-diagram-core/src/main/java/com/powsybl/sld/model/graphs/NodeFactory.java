@@ -169,14 +169,6 @@ public final class NodeFactory {
         return cn;
     }
 
-    public static ConnectivityNode createConnectivityNumberedNode(VoltageLevelGraph graph, String id, int num) {
-        // for uniqueness purpose (in substation diagram), we prefix the id of the connectivity nodes with the voltageLevel id and "_"
-        String connectivityNodeId = CONNECTIVITY_ID_PREFIX + graph.getVoltageLevelInfos().getId() + "_" + Objects.requireNonNull(id);
-        ConnectivityNode cnn = new ConnectivityNumberedNode(connectivityNodeId, NODE, num);
-        graph.addNode(cnn);
-        return cnn;
-    }
-
     public static SwitchNode createSwitchNode(VoltageLevelGraph graph, String id, String name, String componentType, boolean fictitious, SwitchKind kind, boolean open) {
         SwitchNode sn = new SwitchNode(id, name, componentType, fictitious, kind, open);
         graph.addNode(sn);
