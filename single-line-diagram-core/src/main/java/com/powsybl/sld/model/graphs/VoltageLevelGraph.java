@@ -483,6 +483,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         return new ArrayList<>(nodes);
     }
 
+    public Stream<ConnectivityNode> getConnectivityNodeStream() {
+        return nodesByType.computeIfAbsent(NodeType.INTERNAL, nodeType -> new ArrayList<>())
+                .stream()
+                .filter(ConnectivityNode.class::isInstance)
+                .map(ConnectivityNode.class::cast);
+    }
+
     public List<Edge> getEdges() {
         return new ArrayList<>(edges);
     }
