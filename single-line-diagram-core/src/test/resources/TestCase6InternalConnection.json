@@ -495,8 +495,8 @@
     "node1" : "bbs2.1",
     "node2" : "BUSCO_ds2"
   }, {
-    "node1" : "bbs2.2",
-    "node2" : "BUSCO_ds2"
+    "node1" : "BUSCO_ds2",
+    "node2" : "bbs2.2"
   }, {
     "node1" : "d1",
     "node2" : "INTERNAL_vl_b"
@@ -510,17 +510,17 @@
     "node1" : "INTERNAL_vl_ds2",
     "node2" : "ds2"
   }, {
-    "node1" : "d2",
+    "node1" : "b",
     "node2" : "INTERNAL_vl_b"
   }, {
     "node1" : "INTERNAL_vl_b",
-    "node2" : "b"
+    "node2" : "d2"
   }, {
-    "node1" : "BUSCO_ds2",
+    "node1" : "ds2",
     "node2" : "INTERNAL_vl_ds2"
   }, {
     "node1" : "INTERNAL_vl_ds2",
-    "node2" : "ds2"
+    "node2" : "BUSCO_ds2"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

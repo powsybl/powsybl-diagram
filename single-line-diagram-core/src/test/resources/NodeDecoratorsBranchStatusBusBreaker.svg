@@ -91,11 +91,11 @@
             <text class="sld-label" id="B12_NW_LABEL" x="-5.0" y="-5.0">B12</text>
         </g>
         <g class="sld-intern-cell sld-cell-shape-vertical" id="idINTERN_32_0">
-            <g class="sld-wire" id="_95_VL1_95_BUSCO_95_BR1_95_INTERNAL_95_VL1_95_BR1">
-                <polyline points="115.0,360.0,115.0,320.0"/>
+            <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_BUSCO_95_BR1">
+                <polyline points="115.0,320.0,115.0,360.0"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_BR1">
-                <polyline points="115.0,320.0,100.0,320.0"/>
+            <g class="sld-wire" id="_95_VL1_95_BR1_95_INTERNAL_95_VL1_95_BR1">
+                <polyline points="100.0,320.0,115.0,320.0"/>
             </g>
             <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_BR1">
                 <polyline points="65.0,320.0,80.0,320.0"/>

@@ -751,8 +751,8 @@
     "node1" : "bbs11",
     "node2" : "BUSCO_flatDisconector"
   }, {
-    "node1" : "bbs12",
-    "node2" : "BUSCO_flatDisconector"
+    "node1" : "BUSCO_flatDisconector",
+    "node2" : "bbs12"
   }, {
     "node1" : "dVerticalBk1",
     "node2" : "INTERNAL_vl_verticalBreaker"
@@ -790,11 +790,11 @@
     "node1" : "INTERNAL_vl_dF2",
     "node2" : "dF2"
   }, {
-    "node1" : "BUSCO_flatDisconector",
+    "node1" : "flatDisconector",
     "node2" : "INTERNAL_vl_flatDisconector"
   }, {
     "node1" : "INTERNAL_vl_flatDisconector",
-    "node2" : "flatDisconector"
+    "node2" : "BUSCO_flatDisconector"
   }, {
     "node1" : "dFlatBk2",
     "node2" : "INTERNAL_vl_flatBreaker"

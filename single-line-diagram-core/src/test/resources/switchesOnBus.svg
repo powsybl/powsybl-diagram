@@ -88,11 +88,11 @@
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_bt_95_bt">
                 <polyline points="190.0,360.0,175.0,360.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_bt_95_bt">
-                <polyline points="140.0,360.0,155.0,360.0"/>
+            <g class="sld-wire" id="_95_vl_95_bt_95_INTERNAL_95_vl_95_bt">
+                <polyline points="155.0,360.0,140.0,360.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_bbs2_95_BUSCO_95_bt">
-                <polyline points="127.5,360.0,140.0,360.0"/>
+            <g class="sld-wire" id="_95_vl_95_BUSCO_95_bt_95_bbs2">
+                <polyline points="140.0,360.0,127.5,360.0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious" id="idBUSCO_95_bt" transform="translate(186.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -115,8 +115,8 @@
             <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_vsc">
                 <polyline points="240.0,360.0,240.0,330.0"/>
             </g>
-            <g class="sld-wire" id="_95_vl_95_b_95_INTERNAL_95_vl_95_vsc">
-                <polyline points="215.0,246.0,215.0,330.0,240.0,330.0"/>
+            <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_b">
+                <polyline points="240.0,330.0,215.0,330.0,215.0,246.0"/>
             </g>
             <g class="sld-wire" id="_95_vl_95_INTERNAL_95_vl_95_vsc_95_INTERNAL_95_vl_95_vsc">
                 <polyline points="240.0,330.0,265.0,330.0,265.0,142.0"/>

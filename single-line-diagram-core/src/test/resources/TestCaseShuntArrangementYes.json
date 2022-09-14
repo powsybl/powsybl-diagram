@@ -2325,17 +2325,17 @@
     "node1" : "bFeederG",
     "node2" : "INTERNAL_vl_commonFG"
   }, {
-    "node1" : "dA",
+    "node1" : "bA",
     "node2" : "INTERNAL_vl_bA"
   }, {
     "node1" : "INTERNAL_vl_bA",
-    "node2" : "bA"
+    "node2" : "dA"
   }, {
-    "node1" : "INTERNAL_vl_fShuntA",
+    "node1" : "loadA",
     "node2" : "INTERNAL_vl_loadA"
   }, {
     "node1" : "INTERNAL_vl_loadA",
-    "node2" : "loadA"
+    "node2" : "INTERNAL_vl_fShuntA"
   }, {
     "node1" : "b",
     "node2" : "INTERNAL_vl_l"
@@ -2349,83 +2349,83 @@
     "node1" : "INTERNAL_vl_loadB",
     "node2" : "loadB"
   }, {
-    "node1" : "bg1",
+    "node1" : "gen1",
     "node2" : "INTERNAL_vl_gen1"
   }, {
     "node1" : "INTERNAL_vl_gen1",
-    "node2" : "gen1"
+    "node2" : "bg1"
   }, {
-    "node1" : "bC",
+    "node1" : "loadC",
     "node2" : "INTERNAL_vl_loadC"
   }, {
     "node1" : "INTERNAL_vl_loadC",
-    "node2" : "loadC"
+    "node2" : "bC"
   }, {
-    "node1" : "bD",
+    "node1" : "loadD",
     "node2" : "INTERNAL_vl_loadD"
   }, {
     "node1" : "INTERNAL_vl_loadD",
-    "node2" : "loadD"
+    "node2" : "bD"
   }, {
-    "node1" : "bg2",
+    "node1" : "gen2",
     "node2" : "INTERNAL_vl_gen2"
   }, {
     "node1" : "INTERNAL_vl_gen2",
-    "node2" : "gen2"
+    "node2" : "bg2"
   }, {
-    "node1" : "bE",
+    "node1" : "loadE",
     "node2" : "INTERNAL_vl_loadE"
   }, {
     "node1" : "INTERNAL_vl_loadE",
-    "node2" : "loadE"
+    "node2" : "bE"
   }, {
-    "node1" : "INTERNAL_vl_commonFG",
+    "node1" : "loadF",
     "node2" : "INTERNAL_vl_loadF"
   }, {
     "node1" : "INTERNAL_vl_loadF",
-    "node2" : "loadF"
+    "node2" : "INTERNAL_vl_commonFG"
   }, {
-    "node1" : "INTERNAL_vl_fLoadG",
+    "node1" : "loadG",
     "node2" : "INTERNAL_vl_loadG"
   }, {
     "node1" : "INTERNAL_vl_loadG",
-    "node2" : "loadG"
+    "node2" : "INTERNAL_vl_fLoadG"
   }, {
     "node1" : "INTERNAL_vl_fShuntA",
     "node2" : "INTERNAL_vl_Shunt 1.1"
   }, {
-    "node1" : "bShunt",
-    "node2" : "INTERNAL_vl_Shunt 1.1"
+    "node1" : "INTERNAL_vl_Shunt 1.1",
+    "node2" : "bShunt"
   }, {
     "node1" : "INTERNAL_vl_fShuntB",
     "node2" : "INTERNAL_vl_Shunt 1.2"
   }, {
-    "node1" : "bShunt",
-    "node2" : "INTERNAL_vl_Shunt 1.2"
+    "node1" : "INTERNAL_vl_Shunt 1.2",
+    "node2" : "bShunt"
   }, {
     "node1" : "INTERNAL_vl_fg1",
     "node2" : "INTERNAL_vl_Shunt 5.1"
   }, {
-    "node1" : "shuntGen",
-    "node2" : "INTERNAL_vl_Shunt 5.1"
+    "node1" : "INTERNAL_vl_Shunt 5.1",
+    "node2" : "shuntGen"
   }, {
     "node1" : "INTERNAL_vl_fg2",
     "node2" : "INTERNAL_vl_Shunt 5.2"
   }, {
-    "node1" : "shuntGen",
-    "node2" : "INTERNAL_vl_Shunt 5.2"
+    "node1" : "INTERNAL_vl_Shunt 5.2",
+    "node2" : "shuntGen"
   }, {
     "node1" : "INTERNAL_vl_fC",
     "node2" : "INTERNAL_vl_Shunt 8.1"
   }, {
-    "node1" : "bSwitchCG",
-    "node2" : "INTERNAL_vl_Shunt 8.1"
+    "node1" : "INTERNAL_vl_Shunt 8.1",
+    "node2" : "bSwitchCG"
   }, {
     "node1" : "INTERNAL_vl_fLoadG",
     "node2" : "INTERNAL_vl_Shunt 8.2"
   }, {
-    "node1" : "bSwitchCG",
-    "node2" : "INTERNAL_vl_Shunt 8.2"
+    "node1" : "INTERNAL_vl_Shunt 8.2",
+    "node2" : "bSwitchCG"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

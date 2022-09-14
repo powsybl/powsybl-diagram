@@ -50,7 +50,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs1.2", 1, 2);
         SwitchNode ss1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ss1", false, false);
         vlBuilder.connectNode(bbs12, ss1);
-        vlBuilder.connectNode(bbs11, ss1);
+        vlBuilder.connectNode(ss1, bbs11);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs2.1", 2, 1);
 
         FeederNode la = vlBuilder.createLoad("la", 10, TOP);

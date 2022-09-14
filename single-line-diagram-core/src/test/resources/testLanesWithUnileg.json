@@ -490,17 +490,17 @@
     "node1" : "INTERNAL_vl_dF2",
     "node2" : "dF2"
   }, {
-    "node1" : "db31",
+    "node1" : "b1",
     "node2" : "INTERNAL_vl_b1"
   }, {
     "node1" : "INTERNAL_vl_b1",
-    "node2" : "b1"
+    "node2" : "db31"
   }, {
-    "node1" : "db32",
+    "node1" : "b2",
     "node2" : "INTERNAL_vl_b2"
   }, {
     "node1" : "INTERNAL_vl_b2",
-    "node2" : "b2"
+    "node2" : "db32"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

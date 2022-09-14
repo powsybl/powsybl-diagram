@@ -400,29 +400,29 @@
     "node1" : "bbs22",
     "node2" : "sd22"
   }, {
-    "node1" : "sd11",
+    "node1" : "b11",
     "node2" : "INTERNAL_vl_b11"
   }, {
     "node1" : "INTERNAL_vl_b11",
-    "node2" : "b11"
+    "node2" : "sd11"
   }, {
-    "node1" : "sd21",
+    "node1" : "b21",
     "node2" : "INTERNAL_vl_b21"
   }, {
     "node1" : "INTERNAL_vl_b21",
-    "node2" : "b21"
+    "node2" : "sd21"
   }, {
-    "node1" : "sd12",
+    "node1" : "b12",
     "node2" : "INTERNAL_vl_b12"
   }, {
     "node1" : "INTERNAL_vl_b12",
-    "node2" : "b12"
+    "node2" : "sd12"
   }, {
-    "node1" : "sd22",
+    "node1" : "b22",
     "node2" : "INTERNAL_vl_b22"
   }, {
     "node1" : "INTERNAL_vl_b22",
-    "node2" : "b22"
+    "node2" : "sd22"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

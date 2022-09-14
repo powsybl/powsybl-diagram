@@ -604,11 +604,11 @@
     "node1" : "INTERNAL_vl1_loadC",
     "node2" : "loadC"
   }, {
-    "node1" : "bD1",
+    "node1" : "loadD",
     "node2" : "INTERNAL_vl1_loadD"
   }, {
     "node1" : "INTERNAL_vl1_loadD",
-    "node2" : "loadD"
+    "node2" : "bD1"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

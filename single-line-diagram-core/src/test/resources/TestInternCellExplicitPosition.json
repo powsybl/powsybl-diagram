@@ -628,17 +628,17 @@
     "node1" : "INTERNAL_vl_bl1",
     "node2" : "bl1"
   }, {
-    "node1" : "dc11",
+    "node1" : "bc1",
     "node2" : "INTERNAL_vl_bc1"
   }, {
     "node1" : "INTERNAL_vl_bc1",
-    "node2" : "bc1"
+    "node2" : "dc11"
   }, {
-    "node1" : "dc21",
+    "node1" : "bc2",
     "node2" : "INTERNAL_vl_bc2"
   }, {
     "node1" : "INTERNAL_vl_bc2",
-    "node2" : "bc2"
+    "node2" : "dc21"
   }, {
     "node1" : "dl2",
     "node2" : "INTERNAL_vl_bl2"
@@ -646,17 +646,17 @@
     "node1" : "INTERNAL_vl_bl2",
     "node2" : "bl2"
   }, {
-    "node1" : "dc12",
+    "node1" : "bc1",
     "node2" : "INTERNAL_vl_bc1"
   }, {
     "node1" : "INTERNAL_vl_bc1",
-    "node2" : "bc1"
+    "node2" : "dc12"
   }, {
-    "node1" : "dc22",
+    "node1" : "bc2",
     "node2" : "INTERNAL_vl_bc2"
   }, {
     "node1" : "INTERNAL_vl_bc2",
-    "node2" : "bc2"
+    "node2" : "dc22"
   }, {
     "node1" : "bl1",
     "node2" : "INTERNAL_vl_l1"

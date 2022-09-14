@@ -96,11 +96,11 @@
             <g class="sld-wire sld-vl180to300" id="_95_vl2_95_INTERNAL_95_vl2_95_b2WT_95_2_95_b2WT_95_2">
                 <polyline points="80.0,330.0,80.0,246.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300" id="_95_vl2_95_b2WT_95_2_95_INTERNAL_95_vl2_95_2WT_95_TWO">
-                <polyline points="80.0,226.0,80.0,142.0"/>
+            <g class="sld-wire sld-vl180to300" id="_95_vl2_95_INTERNAL_95_vl2_95_2WT_95_TWO_95_b2WT_95_2">
+                <polyline points="80.0,142.0,80.0,226.0"/>
             </g>
-            <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl2_95_INTERNAL_95_vl2_95_2WT_95_TWO_95_2WT_95_TWO">
-                <polyline points="80.0,142.0,80.0,88.0"/>
+            <g class="sld-wire sld-vl180to300 sld-feeder-disconnected-connected" id="_95_vl2_95_2WT_95_TWO_95_INTERNAL_95_vl2_95_2WT_95_TWO">
+                <polyline points="80.0,88.0,80.0,142.0"/>
             </g>
             <g class="sld-disconnector sld-closed sld-fictitious sld-vl180to300" id="idd2WT_95_2" transform="translate(76.0,356.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
