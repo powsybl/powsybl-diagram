@@ -80,7 +80,7 @@ public final class CgmesDLUtils {
             if (sw != null) {
                 encounteredSwitches.add(sw);
             }
-            return TraverseResult.CONTINUE;
+            return TraverseResult.TERMINATE_PATH;
         });
         return encounteredSwitches;
     }

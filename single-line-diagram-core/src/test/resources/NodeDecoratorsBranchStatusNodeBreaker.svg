@@ -111,11 +111,11 @@
             <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_BR1">
                 <polyline points="115.0,440.0,100.0,440.0"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_BR1">
-                <polyline points="65.0,440.0,80.0,440.0"/>
+            <g class="sld-wire" id="_95_VL1_95_BR1_95_INTERNAL_95_VL1_95_BR1">
+                <polyline points="80.0,440.0,65.0,440.0"/>
             </g>
-            <g class="sld-wire" id="_95_VL1_95_D20_95_INTERNAL_95_VL1_95_BR1">
-                <polyline points="65.0,505.0,65.0,440.0"/>
+            <g class="sld-wire" id="_95_VL1_95_INTERNAL_95_VL1_95_BR1_95_D20">
+                <polyline points="65.0,440.0,65.0,505.0"/>
             </g>
             <g class="sld-disconnector sld-closed" id="idD10" transform="translate(111.0,476.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>

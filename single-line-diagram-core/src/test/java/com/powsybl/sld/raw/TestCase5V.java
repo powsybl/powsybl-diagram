@@ -46,7 +46,7 @@ public class TestCase5V extends AbstractTestCaseRaw {
         FeederNode lb = vlBuilder.createLoad("lb", 10, TOP);
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         SwitchNode db = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db", false, false);
-        ConnectivityNode fn = vlBuilder.createConnectivityNumberedNode(3);
+        ConnectivityNode fn = vlBuilder.createConnectivityNode("3");
         vlBuilder.connectNode(lb, bb);
         vlBuilder.connectNode(bb, fn);
         vlBuilder.connectNode(fn, db);

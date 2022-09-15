@@ -548,23 +548,23 @@
     "node1" : "INTERNAL_vl_b3",
     "node2" : "b3"
   }, {
-    "node1" : "d2",
+    "node1" : "b",
     "node2" : "INTERNAL_vl_b"
   }, {
     "node1" : "INTERNAL_vl_b",
-    "node2" : "b"
+    "node2" : "d2"
   }, {
-    "node1" : "d5",
+    "node1" : "b2",
     "node2" : "INTERNAL_vl_b2"
   }, {
     "node1" : "INTERNAL_vl_b2",
-    "node2" : "b2"
+    "node2" : "d5"
   }, {
-    "node1" : "d7",
+    "node1" : "b3",
     "node2" : "INTERNAL_vl_b3"
   }, {
     "node1" : "INTERNAL_vl_b3",
-    "node2" : "b3"
+    "node2" : "d7"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

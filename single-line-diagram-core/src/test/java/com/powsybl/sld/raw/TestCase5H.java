@@ -55,7 +55,7 @@ public class TestCase5H extends AbstractTestCaseRaw {
 
         SwitchNode bs = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bs", false, false);
         vlBuilder.connectNode(la, bs);
-        vlBuilder.connectNode(lb, bs);
+        vlBuilder.connectNode(bs, lb);
 
     }
 

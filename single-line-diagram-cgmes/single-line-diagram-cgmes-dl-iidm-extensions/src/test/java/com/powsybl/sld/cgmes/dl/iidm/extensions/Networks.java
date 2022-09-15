@@ -554,183 +554,92 @@ public final class Networks {
         Network network = NetworkFactory.findDefault().createNetwork("Network", "test");
         network.setCaseDate(DateTime.parse("2020-01-01T00:30:00.000+01:00"));
 
-        Substation substation1 = network.newSubstation()
+        Substation substation = network.newSubstation()
                 .setId("S")
                 .setCountry(Country.FR)
                 .add();
-        VoltageLevel voltageLevel1 = substation1.newVoltageLevel()
+        VoltageLevel voltageLevel1 = substation.newVoltageLevel()
                 .setId("V1")
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
         voltageLevel1.getNodeBreakerView().newBusbarSection()
                 .setId("Busbar1_1")
-                .setNode(11)
+                .setNode(1)
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("D1_0")
                 .setOpen(false)
-                .setNode1(17)
-                .setNode2(18)
+                .setNode1(1)
+                .setNode2(2)
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("D1_1")
                 .setOpen(false)
-                .setNode1(19)
-                .setNode2(20)
+                .setNode1(1)
+                .setNode2(3)
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("D1_2")
                 .setOpen(false)
-                .setNode1(23)
-                .setNode2(24)
+                .setNode1(2)
+                .setNode2(4)
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("D1_3")
                 .setOpen(false)
-                .setNode1(31)
-                .setNode2(32)
+                .setNode1(3)
+                .setNode2(5)
                 .add();
         voltageLevel1.getNodeBreakerView().newDisconnector()
                 .setId("D1_6_BRIDGE")
                 .setOpen(true)
-                .setNode1(15)
-                .setNode2(16)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(11)
-                .setNode2(1)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(17)
-                .setNode2(1)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(19)
-                .setNode2(1)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(18)
-                .setNode2(4)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(20)
-                .setNode2(3)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(23)
-                .setNode2(4)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(31)
-                .setNode2(3)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(24)
-                .setNode2(7)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(32)
-                .setNode2(6)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(15)
-                .setNode2(7)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(16)
-                .setNode2(6)
+                .setNode1(4)
+                .setNode2(5)
                 .add();
 
-        Substation substation2 = network.newSubstation()
-                .setId("S2")
-                .setCountry(Country.FR)
-                .add();
-        VoltageLevel voltageLevel2 = substation2.newVoltageLevel()
+        VoltageLevel voltageLevel2 = substation.newVoltageLevel()
                 .setId("V2")
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
         voltageLevel2.getNodeBreakerView().newBusbarSection()
                 .setId("Busbar2_1")
-                .setNode(7)
+                .setNode(0)
                 .add();
         voltageLevel2.getNodeBreakerView().newBreaker()
                 .setId("Breaker2_0")
                 .setOpen(false)
-                .setNode1(12)
-                .setNode2(13)
+                .setNode1(1)
+                .setNode2(2)
                 .add();
         voltageLevel2.getNodeBreakerView().newDisconnector()
                 .setId("D2_0")
                 .setOpen(false)
-                .setNode1(16)
-                .setNode2(17)
+                .setNode1(0)
+                .setNode2(1)
                 .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(13)
-                .setNode2(6)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(12)
-                .setNode2(3)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(17)
-                .setNode2(3)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(16)
-                .setNode2(0)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(7)
-                .setNode2(0)
-                .add();
-        Substation substation3 = network.newSubstation()
-                .setId("S3")
-                .setCountry(Country.FR)
-                .add();
-        VoltageLevel voltageLevel3 = substation3.newVoltageLevel()
+
+        VoltageLevel voltageLevel3 = substation.newVoltageLevel()
                 .setId("V3")
                 .setNominalV(400)
                 .setTopologyKind(TopologyKind.NODE_BREAKER)
                 .add();
         voltageLevel3.getNodeBreakerView().newBusbarSection()
                 .setId("Busbar3_1")
-                .setNode(16)
+                .setNode(0)
                 .add();
         voltageLevel3.getNodeBreakerView().newBreaker()
                 .setId("Breaker3_0")
                 .setOpen(false)
-                .setNode1(27)
-                .setNode2(28)
+                .setNode1(1)
+                .setNode2(2)
                 .add();
         voltageLevel3.getNodeBreakerView().newDisconnector()
                 .setId("D3_0")
                 .setOpen(false)
-                .setNode1(45)
-                .setNode2(46)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(28)
-                .setNode2(4)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(27)
-                .setNode2(9)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(46)
-                .setNode2(9)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(45)
-                .setNode2(7)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(16)
-                .setNode2(7)
+                .setNode1(0)
+                .setNode2(1)
                 .add();
 
         network.newLine()
@@ -743,8 +652,8 @@ public final class Networks {
                 .setB1(386E-6 / 2)
                 .setG2(2.0)
                 .setB2(386E-6 / 2)
-                .setNode1(34)
-                .setNode2(22)
+                .setNode1(4)
+                .setNode2(2)
                 .add();
         network.newLine()
                 .setId("Line2")
@@ -756,32 +665,8 @@ public final class Networks {
                 .setB1(386E-6 / 2)
                 .setG2(1.0)
                 .setB2(386E-6 / 2)
-                .setNode1(33)
-                .setNode2(51)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(34)
-                .setNode2(7)
-                .add();
-        voltageLevel1.getNodeBreakerView().newInternalConnection()
-                .setNode1(33)
-                .setNode2(6)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(22)
-                .setNode2(6)
-                .add();
-        voltageLevel2.getNodeBreakerView().newInternalConnection()
-                .setNode1(13)
-                .setNode2(6)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(51)
-                .setNode2(4)
-                .add();
-        voltageLevel3.getNodeBreakerView().newInternalConnection()
-                .setNode1(28)
-                .setNode2(4)
+                .setNode1(5)
+                .setNode2(2)
                 .add();
 
         return network;

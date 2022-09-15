@@ -1673,11 +1673,11 @@
       "node1" : "INTERNAL_VL1_BR20",
       "node2" : "BR20"
     }, {
-      "node1" : "D20",
+      "node1" : "BR1",
       "node2" : "INTERNAL_VL1_BR1"
     }, {
       "node1" : "INTERNAL_VL1_BR1",
-      "node2" : "BR1"
+      "node2" : "D20"
     }, {
       "node1" : "D21",
       "node2" : "INTERNAL_VL1_BR22"

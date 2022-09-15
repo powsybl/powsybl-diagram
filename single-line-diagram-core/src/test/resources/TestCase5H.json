@@ -422,20 +422,20 @@
     "node1" : "db",
     "node2" : "bbs"
   }, {
-    "node1" : "da",
+    "node1" : "ba",
     "node2" : "INTERNAL_vl_ba"
   }, {
     "node1" : "INTERNAL_vl_ba",
-    "node2" : "ba"
+    "node2" : "da"
   }, {
-    "node1" : "db",
+    "node1" : "bb",
     "node2" : "INTERNAL_vl_bb"
   }, {
     "node1" : "INTERNAL_vl_bb",
-    "node2" : "bb"
+    "node2" : "db"
   }, {
-    "node1" : "ba",
-    "node2" : "INTERNAL_vl_la_fork"
+    "node1" : "INTERNAL_vl_la_fork",
+    "node2" : "ba"
   }, {
     "node1" : "INTERNAL_vl_la_fork",
     "node2" : "INTERNAL_vl_la"
@@ -443,8 +443,8 @@
     "node1" : "INTERNAL_vl_la",
     "node2" : "la"
   }, {
-    "node1" : "bb",
-    "node2" : "INTERNAL_vl_lb_fork"
+    "node1" : "INTERNAL_vl_lb_fork",
+    "node2" : "bb"
   }, {
     "node1" : "INTERNAL_vl_lb_fork",
     "node2" : "INTERNAL_vl_lb"
@@ -455,14 +455,14 @@
     "node1" : "INTERNAL_vl_la_fork",
     "node2" : "INTERNAL_vl_Shunt 1.1"
   }, {
-    "node1" : "bs",
-    "node2" : "INTERNAL_vl_Shunt 1.1"
-  }, {
-    "node1" : "INTERNAL_vl_lb_fork",
-    "node2" : "INTERNAL_vl_Shunt 1.2"
+    "node1" : "INTERNAL_vl_Shunt 1.1",
+    "node2" : "bs"
   }, {
     "node1" : "bs",
     "node2" : "INTERNAL_vl_Shunt 1.2"
+  }, {
+    "node1" : "INTERNAL_vl_Shunt 1.2",
+    "node2" : "INTERNAL_vl_lb_fork"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

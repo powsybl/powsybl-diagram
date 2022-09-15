@@ -50,12 +50,12 @@ public class TestCase4 extends AbstractTestCaseRaw {
         BusNode bbs12 = vlBuilder.createBusBarSection("bbs1.2", 1, 2);
         SwitchNode ss1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ss1", false, false);
         vlBuilder.connectNode(bbs12, ss1);
-        vlBuilder.connectNode(bbs11, ss1);
+        vlBuilder.connectNode(ss1, bbs11);
         BusNode bbs21 = vlBuilder.createBusBarSection("bbs2.1", 2, 1);
 
         FeederNode la = vlBuilder.createLoad("la", 10, TOP);
         SwitchNode ba = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "ba", false, false);
-        ConnectivityNode fa = vlBuilder.createConnectivityNumberedNode(4);
+        ConnectivityNode fa = vlBuilder.createConnectivityNode("4");
         SwitchNode da1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da1", false, false);
         SwitchNode da2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "da2", false, false);
         vlBuilder.connectNode(la, ba);
@@ -67,7 +67,7 @@ public class TestCase4 extends AbstractTestCaseRaw {
 
         SwitchNode db1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db1", false, false);
         SwitchNode db2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "db2", false, false);
-        ConnectivityNode fb = vlBuilder.createConnectivityNumberedNode(6);
+        ConnectivityNode fb = vlBuilder.createConnectivityNode("6");
         SwitchNode bb = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bb", false, false);
         FeederNode lb = vlBuilder.createLoad("lb", 20, BOTTOM);
         vlBuilder.connectNode(lb, bb);

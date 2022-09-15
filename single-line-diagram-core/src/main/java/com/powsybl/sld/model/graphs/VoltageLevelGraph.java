@@ -231,14 +231,16 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      *
      * @param n1 first node
      * @param n2 second node
+     * @return the removed edge
      */
-    private void removeEdge(Node n1, Node n2) {
+    private Edge removeEdge(Node n1, Node n2) {
         for (Edge edge : n1.getAdjacentEdges()) {
             if (edge.getNode1().equals(n2) || edge.getNode2().equals(n2)) {
                 removeEdge(edge);
-                return;
+                return edge;
             }
         }
+        throw new PowsyblException("Cannot remove edge, the two node are not connected");
     }
 
     private void removeEdge(Edge edge) {
@@ -304,13 +306,19 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     private void insertBusConnection(BusNode busNode, Node nodeConnectedToBusNode) {
-        // Create bus connection
         Node fNodeToBus = NodeFactory.createBusConnection(this, nodeConnectedToBusNode.getId());
+        insertNode(busNode, fNodeToBus, nodeConnectedToBusNode);
+    }
 
-        // Update edges
-        removeEdge(busNode, nodeConnectedToBusNode);
-        addEdge(busNode, fNodeToBus);
-        addEdge(fNodeToBus, nodeConnectedToBusNode);
+    private void insertNode(Node nodeA, Node nodeToInsert, Node nodeB) {
+        Edge removedEdge = removeEdge(nodeA, nodeB);
+        if (removedEdge.getNode1() == nodeA) {
+            addEdge(nodeA, nodeToInsert);
+            addEdge(nodeToInsert, nodeB);
+        } else {
+            addEdge(nodeB, nodeToInsert);
+            addEdge(nodeToInsert, nodeA);
+        }
     }
 
     public void insertHookNodesAtBuses() {
@@ -331,16 +339,12 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
         // Update edges
         if (node.getType() == NodeType.FEEDER) {
-            // The feeder node might have several adjacent nodes (feeder fork for instance)
-            for (Node neighbor : node.getAdjacentNodes()) {
-                addEdge(neighbor, fStackNode);
-                removeEdge(neighbor, node);
-            }
+            // The feeder node might have several adjacent nodes (feeder fork for instance):
+            // for display reasons we want the stack node to carry those adjacent nodes.
+            transferEdges(node, fStackNode);
             addEdge(fStackNode, node);
         } else {
-            removeEdge(nodeOnBus, node);
-            addEdge(nodeOnBus, fStackNode);
-            addEdge(fStackNode, node);
+            insertNode(nodeOnBus, fStackNode, node);
         }
     }
 
@@ -370,30 +374,27 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         if (adjacentNodes.size() == 1) {
             // Update edges: create the 2 new ones and remove the old one
             Node singleNeighbor = adjacentNodes.get(0);
-            removeEdge(singleNeighbor, feederNode);
-            addEdge(singleNeighbor, hookNode);
+            insertNode(singleNeighbor, hookNode, feederNode);
         } else {
             // Create an extra fork node, otherwise the hook-node is a node with several neighbors (fork node)
             Node forkNode = NodeFactory.createConnectivityNode(this, feederNode.getId() + "_fork");
 
-            // Create all new edges and remove old ones
-            for (Node neighbor : adjacentNodes) {
-                addEdge(neighbor, forkNode);
-                removeEdge(neighbor, feederNode);
-            }
+            // Transfer the neighbours of the feeder node to that new forkNode
+            transferEdges(feederNode, forkNode);
+
             addEdge(forkNode, hookNode);
+            addEdge(hookNode, feederNode);
         }
-        addEdge(hookNode, feederNode);
     }
 
     public void extendBusesConnectedToBuses() {
         getNodeBuses().forEach(n1 ->
                 n1.getAdjacentNodes().stream()
-                        .filter(n2 -> n2.getType() == Node.NodeType.BUS)
-                        .forEach(n2 -> extendBusConnectedToBus(n1, n2)));
+                        .filter(BusNode.class::isInstance)
+                        .forEach(n2 -> extendBusConnectedToBus(n1, (BusNode) n2)));
     }
 
-    private void extendBusConnectedToBus(BusNode n1, Node n2) {
+    private void extendBusConnectedToBus(BusNode n1, BusNode n2) {
         removeEdge(n1, n2);
         String busToBusId = n1.getId() + "-" + n2.getId();
         Node cNode1 = NodeFactory.createConnectivityNode(this, busToBusId + "_1");
@@ -404,10 +405,8 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
     }
 
     public ConnectivityNode insertConnectivityNode(Node node1, Node node2, String id) {
-        removeEdge(node1, node2);
         ConnectivityNode iNode = NodeFactory.createConnectivityNode(this, id);
-        addEdge(node1, iNode);
-        addEdge(node2, iNode);
+        insertNode(node1, iNode, node2);
         return iNode;
     }
 
@@ -418,17 +417,20 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
      * @param newNode:    node which will substitute the first one
      */
     public void substituteNode(Node nodeOrigin, Node newNode) {
+        transferEdges(nodeOrigin, newNode);
+        removeNode(nodeOrigin);
+    }
+
+    private void transferEdges(Node nodeOrigin, Node newNode) {
         if (!nodesById.containsKey(newNode.getId())) {
             throw new PowsyblException("New node [" + newNode.getId() + "] is not in current voltage level graph");
         }
-        while (!nodeOrigin.getAdjacentEdges().isEmpty()) {
-            Edge edge = nodeOrigin.getAdjacentEdges().get(0);
+        for (Edge edge : new ArrayList<>(nodeOrigin.getAdjacentEdges())) {
             Node node1 = edge.getNode1() == nodeOrigin ? newNode : edge.getNode1();
             Node node2 = edge.getNode2() == nodeOrigin ? newNode : edge.getNode2();
             addEdge(node1, node2);
             removeEdge(edge);
         }
-        removeNode(nodeOrigin);
     }
 
     public void substituteFictitiousNodesMirroringBusNodes() {
@@ -481,6 +483,13 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public List<Node> getNodes() {
         return new ArrayList<>(nodes);
+    }
+
+    public Stream<ConnectivityNode> getConnectivityNodeStream() {
+        return nodesByType.computeIfAbsent(NodeType.INTERNAL, nodeType -> new ArrayList<>())
+                .stream()
+                .filter(ConnectivityNode.class::isInstance)
+                .map(ConnectivityNode.class::cast);
     }
 
     public List<Edge> getEdges() {

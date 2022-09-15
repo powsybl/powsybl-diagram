@@ -321,14 +321,14 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_5_95_INTERNAL_95_vl1_95_Shunt_32_2_46_1">
                 <polyline points="215.0,250.0,240.0,250.0,240.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_link_95_INTERNAL_95_vl1_95_Shunt_32_2_46_1">
-                <polyline points="280.0,223.0,240.0,223.0"/>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_Shunt_32_2_46_1_95_link">
+                <polyline points="240.0,223.0,280.0,223.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_link_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2">
                 <polyline points="300.0,223.0,340.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_fork_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2">
-                <polyline points="415.0,196.0,340.0,196.0,340.0,223.0"/>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2_95_INTERNAL_95_vl1_95_loadC_95_fork">
+                <polyline points="340.0,223.0,340.0,196.0,415.0,196.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bCD1_95_INTERNAL_95_vl1_95_loadC_95_fork">
                 <polyline points="365.0,213.0,365.0,196.0,415.0,196.0"/>
@@ -378,8 +378,8 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_fork_95_INTERNAL_95_vl1_95_loadC">
                 <polyline points="415.0,196.0,452.5,196.0,452.5,142.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_fork_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2">
-                <polyline points="415.0,196.0,340.0,196.0,340.0,223.0"/>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_Shunt_32_2_46_2_95_INTERNAL_95_vl1_95_loadC_95_fork">
+                <polyline points="340.0,223.0,340.0,196.0,415.0,196.0"/>
             </g>
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_bCD1_95_bCD1">
                 <polyline points="365.0,250.0,365.0,233.0"/>
@@ -399,11 +399,11 @@
             <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_BUSCO_95_bCD3_95_INTERNAL_95_vl1_95_bCD3">
                 <polyline points="465.0,280.0,465.0,250.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_bD1_95_INTERNAL_95_vl1_95_loadD">
-                <polyline points="377.5,159.0,377.5,142.0"/>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadD_95_bD1">
+                <polyline points="377.5,142.0,377.5,159.0"/>
             </g>
-            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_INTERNAL_95_vl1_95_loadD_95_loadD">
-                <polyline points="377.5,142.0,377.5,84.5"/>
+            <g class="sld-wire sld-vl300to500-0" id="_95_vl1_95_loadD_95_INTERNAL_95_vl1_95_loadD">
+                <polyline points="377.5,84.5,377.5,142.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idloadD_ARROW_ACTIVE" transform="translate(372.5,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>

@@ -287,8 +287,8 @@
     "node1" : "bbs",
     "node2" : "BUSCO_l1"
   }, {
-    "node1" : "b",
-    "node2" : "INTERNAL_vl_l1"
+    "node1" : "INTERNAL_vl_l1",
+    "node2" : "b"
   }, {
     "node1" : "BUSCO_l1",
     "node2" : "INTERNAL_vl_l1"

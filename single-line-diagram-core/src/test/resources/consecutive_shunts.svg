@@ -198,11 +198,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EH_95_INTERNAL_95_AU_95_19">
                 <polyline points="815.0,395.1428571428571,815.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,433.35714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,410.85714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_BL_95_BL">
                 <polyline points="765.0,308.0,765.0,355.85714285714283"/>
@@ -216,11 +216,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BP_95_ER">
                 <polyline points="790.0,529.4285714285713,790.0,510.8571428571428"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BP_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10">
-                <polyline points="790.0,549.4285714285713,790.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10_95_BP">
+                <polyline points="790.0,578.0,790.0,549.4285714285713"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10_95_INTERNAL_95_AU_95_10">
-                <polyline points="790.0,578.0,790.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_10_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_10">
+                <polyline points="790.0,640.0,790.0,578.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EH_95_EJ">
                 <polyline points="815.0,375.1428571428571,815.0,356.57142857142856"/>
@@ -295,11 +295,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FH_95_INTERNAL_95_AU_95_5">
                 <polyline points="615.0,466.75,615.0,443.0,590.0,443.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
-                <polyline points="590.0,443.0,640.0,443.0,640.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_2_95_INTERNAL_95_AU_95_5">
+                <polyline points="640.0,433.35714285714283,640.0,443.0,590.0,443.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
-                <polyline points="590.0,443.0,540.0,443.0,540.0,402.5"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_1_95_INTERNAL_95_AU_95_5">
+                <polyline points="540.0,402.5,540.0,443.0,590.0,443.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BX_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
                 <polyline points="655.0,433.35714285714283,640.0,433.35714285714283"/>
@@ -313,8 +313,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BR_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
                 <polyline points="725.0,433.35714285714283,740.0,433.35714285714283"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,433.35714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
                 <polyline points="765.0,375.85714285714283,765.0,423.71428571428567,790.0,423.71428571428567"/>
@@ -325,8 +325,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EH_95_INTERNAL_95_AU_95_19">
                 <polyline points="815.0,395.1428571428571,815.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,410.85714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_5" transform="translate(586.0,439.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -368,11 +368,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FF_95_INTERNAL_95_AU_95_43">
                 <polyline points="165.0,433.0,165.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_2_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,410.85714285714283,190.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,434.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_1_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,434.0,190.0,398.0,140.0,398.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FN_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
                 <polyline points="317.5,410.85714285714283,190.0,410.85714285714283"/>
@@ -386,8 +386,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FL_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
                 <polyline points="612.5,410.85714285714283,740.0,410.85714285714283"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_2_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,410.85714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BL_95_INTERNAL_95_AU_95_19">
                 <polyline points="765.0,375.85714285714283,765.0,423.71428571428567,790.0,423.71428571428567"/>
@@ -398,8 +398,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EH_95_INTERNAL_95_AU_95_19">
                 <polyline points="815.0,395.1428571428571,815.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_19_95_INTERNAL_95_AU_95_Shunt_32_1_46_1">
-                <polyline points="790.0,423.71428571428567,740.0,423.71428571428567,740.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_1_95_INTERNAL_95_AU_95_19">
+                <polyline points="740.0,433.35714285714283,740.0,423.71428571428567,790.0,423.71428571428567"/>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_43" transform="translate(136.0,394.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -441,11 +441,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FH_95_INTERNAL_95_AU_95_5">
                 <polyline points="615.0,466.75,615.0,443.0,590.0,443.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
-                <polyline points="590.0,443.0,640.0,443.0,640.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_2_95_INTERNAL_95_AU_95_5">
+                <polyline points="640.0,433.35714285714283,640.0,443.0,590.0,443.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
-                <polyline points="590.0,443.0,540.0,443.0,540.0,402.5"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_1_95_INTERNAL_95_AU_95_5">
+                <polyline points="540.0,402.5,540.0,443.0,590.0,443.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BJ_95_CT">
                 <polyline points="590.0,385.5,590.0,399.25"/>
@@ -465,11 +465,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EB_95_EN">
                 <polyline points="565.0,534.25,565.0,520.5"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EB_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14">
-                <polyline points="565.0,554.25,565.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14_95_EB">
+                <polyline points="565.0,578.0,565.0,554.25"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14_95_INTERNAL_95_AU_95_14">
-                <polyline points="565.0,578.0,565.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_14_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_14">
+                <polyline points="565.0,640.0,565.0,578.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DX_95_FH">
                 <polyline points="615.0,500.5,615.0,486.75"/>
@@ -477,11 +477,11 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DX_95_FJ">
                 <polyline points="615.0,520.5,615.0,534.25"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FJ_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6">
-                <polyline points="615.0,554.25,615.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6_95_FJ">
+                <polyline points="615.0,578.0,615.0,554.25"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6_95_INTERNAL_95_AU_95_6">
-                <polyline points="615.0,578.0,615.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_6_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_6">
+                <polyline points="615.0,640.0,615.0,578.0"/>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-1" id="idINTERNAL_95_AU_95_5" transform="translate(586.0,439.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -560,8 +560,8 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DL_95_INTERNAL_95_AU_95_50">
                 <polyline points="327.5,379.0,327.5,362.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_50_95_INTERNAL_95_AU_95_Shunt_32_4_46_2">
-                <polyline points="327.5,362.0,440.0,362.0,440.0,402.5"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_2_95_INTERNAL_95_AU_95_50">
+                <polyline points="440.0,402.5,440.0,362.0,327.5,362.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CL_95_INTERNAL_95_AU_95_Shunt_32_4_46_2">
                 <polyline points="455.0,402.5,440.0,402.5"/>
@@ -575,8 +575,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CH_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
                 <polyline points="525.0,402.5,540.0,402.5"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_4_46_1">
-                <polyline points="590.0,443.0,540.0,443.0,540.0,402.5"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_1_95_INTERNAL_95_AU_95_5">
+                <polyline points="540.0,402.5,540.0,443.0,590.0,443.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CT_95_INTERNAL_95_AU_95_5">
                 <polyline points="590.0,419.25,590.0,443.0"/>
@@ -587,8 +587,8 @@
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_FH_95_INTERNAL_95_AU_95_5">
                 <polyline points="615.0,466.75,615.0,443.0,590.0,443.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_5_95_INTERNAL_95_AU_95_Shunt_32_1_46_2">
-                <polyline points="590.0,443.0,640.0,443.0,640.0,433.35714285714283"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_1_46_2_95_INTERNAL_95_AU_95_5">
+                <polyline points="640.0,433.35714285714283,640.0,443.0,590.0,443.0"/>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_50" transform="translate(323.5,358.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -630,11 +630,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FF_95_INTERNAL_95_AU_95_43">
                 <polyline points="165.0,433.0,165.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_2_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,410.85714285714283,190.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,434.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_1_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,434.0,190.0,398.0,140.0,398.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DP_95_ET">
                 <polyline points="115.0,453.0,115.0,478.0"/>
@@ -642,11 +642,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DR_95_ET">
                 <polyline points="115.0,523.0,115.0,498.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DR_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41">
-                <polyline points="115.0,543.0,115.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41_95_DR">
+                <polyline points="115.0,578.0,115.0,543.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41_95_INTERNAL_95_AU_95_41">
-                <polyline points="115.0,578.0,115.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_41_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_41">
+                <polyline points="115.0,640.0,115.0,578.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_EX_95_EX">
                 <polyline points="140.0,308.0,140.0,343.0"/>
@@ -660,11 +660,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CZ_95_EZ">
                 <polyline points="165.0,498.0,165.0,523.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EZ_95_INTERNAL_95_AU_95_FT_95_ONE">
-                <polyline points="165.0,543.0,165.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_EZ">
+                <polyline points="165.0,578.0,165.0,543.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FT_95_ONE_95_FT_95_ONE">
-                <polyline points="165.0,578.0,165.0,632.0"/>
+            <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_FT_95_ONE_95_INTERNAL_95_AU_95_FT_95_ONE">
+                <polyline points="165.0,632.0,165.0,578.0"/>
             </g>
             <g class="sld-arrow-q sld-in" id="idFT_95_ONE_ARROW_REACTIVE" transform="translate(160.0,607.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
@@ -747,11 +747,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FF_95_INTERNAL_95_AU_95_43">
                 <polyline points="165.0,433.0,165.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_2_46_2">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,410.85714285714283"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_2_46_2_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,410.85714285714283,190.0,398.0,140.0,398.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_43_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
-                <polyline points="140.0,398.0,190.0,398.0,190.0,434.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_1_95_INTERNAL_95_AU_95_43">
+                <polyline points="190.0,434.0,190.0,398.0,140.0,398.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EV_95_INTERNAL_95_AU_95_Shunt_32_6_46_1">
                 <polyline points="205.0,434.0,190.0,434.0"/>
@@ -765,8 +765,8 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FB_95_INTERNAL_95_AU_95_Shunt_32_6_46_2">
                 <polyline points="275.0,434.0,290.0,434.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_45_95_INTERNAL_95_AU_95_Shunt_32_6_46_2">
-                <polyline points="365.0,470.0,290.0,470.0,290.0,434.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_2_95_INTERNAL_95_AU_95_45">
+                <polyline points="290.0,434.0,290.0,470.0,365.0,470.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BT_95_INTERNAL_95_AU_95_45">
                 <polyline points="315.0,487.0,315.0,470.0,365.0,470.0"/>
@@ -820,8 +820,8 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_DL_95_INTERNAL_95_AU_95_50">
                 <polyline points="327.5,379.0,327.5,362.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_50_95_INTERNAL_95_AU_95_Shunt_32_4_46_2">
-                <polyline points="327.5,362.0,440.0,362.0,440.0,402.5"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_4_46_2_95_INTERNAL_95_AU_95_50">
+                <polyline points="440.0,402.5,440.0,362.0,327.5,362.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_BZ_95_BZ">
                 <polyline points="327.5,308.0,327.5,325.0"/>
@@ -850,8 +850,8 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CR_95_INTERNAL_95_AU_95_45">
                 <polyline points="415.0,487.0,415.0,470.0,365.0,470.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_45_95_INTERNAL_95_AU_95_Shunt_32_6_46_2">
-                <polyline points="365.0,470.0,290.0,470.0,290.0,434.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_Shunt_32_6_46_2_95_INTERNAL_95_AU_95_45">
+                <polyline points="290.0,434.0,290.0,470.0,365.0,470.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BT_95_ED">
                 <polyline points="315.0,507.0,315.0,514.0"/>
@@ -859,11 +859,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BV_95_ED">
                 <polyline points="315.0,541.0,315.0,534.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BV_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48">
-                <polyline points="315.0,561.0,315.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48_95_BV">
+                <polyline points="315.0,578.0,315.0,561.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48_95_INTERNAL_95_AU_95_48">
-                <polyline points="315.0,578.0,315.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_48_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_48">
+                <polyline points="315.0,640.0,315.0,578.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CB_95_DV">
                 <polyline points="365.0,507.0,365.0,514.0"/>
@@ -871,11 +871,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CD_95_DV">
                 <polyline points="365.0,541.0,365.0,534.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CD_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36">
-                <polyline points="365.0,561.0,365.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36_95_CD">
+                <polyline points="365.0,578.0,365.0,561.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36_95_INTERNAL_95_AU_95_36">
-                <polyline points="365.0,578.0,365.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_36_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_36">
+                <polyline points="365.0,640.0,365.0,578.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BH_95_CN">
                 <polyline points="402.5,399.0,402.5,419.5"/>
@@ -895,11 +895,11 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CF_95_EL">
                 <polyline points="415.0,541.0,415.0,534.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CF_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29">
-                <polyline points="415.0,561.0,415.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29_95_CF">
+                <polyline points="415.0,578.0,415.0,561.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29_95_INTERNAL_95_AU_95_29">
-                <polyline points="415.0,578.0,415.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_29_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_29">
+                <polyline points="415.0,640.0,415.0,578.0"/>
             </g>
             <g class="sld-node sld-fictitious sld-vl70to120-0" id="idINTERNAL_95_AU_95_50" transform="translate(323.5,358.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1024,20 +1024,20 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_8">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_DT_95_INTERNAL_95_AU_95_DT">
-                <polyline points="865.0,253.0,865.0,308.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_DT_95_BUSCO_95_DT">
+                <polyline points="865.0,308.0,865.0,253.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_DT_95_DT">
-                <polyline points="865.0,308.0,865.0,388.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_DT_95_INTERNAL_95_AU_95_DT">
+                <polyline points="865.0,388.0,865.0,308.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CP_95_DT">
                 <polyline points="865.0,478.0,865.0,408.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_CP_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2">
-                <polyline points="865.0,498.0,865.0,578.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2_95_CP">
+                <polyline points="865.0,578.0,865.0,498.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2_95_INTERNAL_95_AU_95_2">
-                <polyline points="865.0,578.0,865.0,640.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_2_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_2">
+                <polyline points="865.0,640.0,865.0,578.0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-1" id="idBUSCO_95_DT" transform="translate(861.0,249.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -1064,17 +1064,17 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_9">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_CJ_95_INTERNAL_95_AU_95_CJ">
-                <polyline points="465.0,253.0,465.0,223.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_CJ_95_BUSCO_95_CJ">
+                <polyline points="465.0,223.0,465.0,253.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_CJ_95_CJ">
-                <polyline points="465.0,223.0,465.0,192.5"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CJ_95_INTERNAL_95_AU_95_CJ">
+                <polyline points="465.0,192.5,465.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_CJ_95_INTERNAL_95_AU_95_FP">
-                <polyline points="465.0,172.5,465.0,142.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FP_95_CJ">
+                <polyline points="465.0,142.0,465.0,172.5"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_FP_95_FP">
-                <polyline points="465.0,142.0,465.0,84.5"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FP_95_INTERNAL_95_AU_95_FP">
+                <polyline points="465.0,84.5,465.0,142.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idFP_ARROW_ACTIVE" transform="translate(460.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -1143,17 +1143,17 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_11">
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_BUSCO_95_EF_95_INTERNAL_95_AU_95_EF">
-                <polyline points="915.0,278.0,915.0,223.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_EF_95_BUSCO_95_EF">
+                <polyline points="915.0,223.0,915.0,278.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_EF_95_EF">
-                <polyline points="915.0,223.0,915.0,192.5"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EF_95_INTERNAL_95_AU_95_EF">
+                <polyline points="915.0,192.5,915.0,223.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_EF_95_INTERNAL_95_AU_95_FV_95_ONE">
-                <polyline points="915.0,172.5,915.0,142.0"/>
+            <g class="sld-wire sld-vl70to120-1" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_EF">
+                <polyline points="915.0,142.0,915.0,172.5"/>
             </g>
-            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FV_95_ONE_95_FV_95_ONE">
-                <polyline points="915.0,142.0,915.0,88.0"/>
+            <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_FV_95_ONE_95_INTERNAL_95_AU_95_FV_95_ONE">
+                <polyline points="915.0,88.0,915.0,142.0"/>
             </g>
             <g class="sld-arrow-p sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(910.0,103.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
@@ -1186,20 +1186,20 @@
             </g>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_12">
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_BUSCO_95_EP_95_INTERNAL_95_AU_95_EP">
-                <polyline points="65.0,253.0,65.0,223.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_EP_95_BUSCO_95_EP">
+                <polyline points="65.0,223.0,65.0,253.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_EP_95_EP">
-                <polyline points="65.0,223.0,65.0,206.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EP_95_INTERNAL_95_AU_95_EP">
+                <polyline points="65.0,206.0,65.0,223.0"/>
             </g>
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_EP_95_FD">
                 <polyline points="65.0,186.0,65.0,179.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FD_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37">
-                <polyline points="65.0,159.0,65.0,142.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37_95_FD">
+                <polyline points="65.0,142.0,65.0,159.0"/>
             </g>
-            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37_95_INTERNAL_95_AU_95_37">
-                <polyline points="65.0,142.0,65.0,80.0"/>
+            <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_INTERNAL_95_AU_95_37_95_INTERNAL_95_AU_95_INTERNAL_95_AU_95_37">
+                <polyline points="65.0,80.0,65.0,142.0"/>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl70to120-0" id="idBUSCO_95_EP" transform="translate(61.0,249.0)">
                 <circle cx="4" cy="4" r="4"/>

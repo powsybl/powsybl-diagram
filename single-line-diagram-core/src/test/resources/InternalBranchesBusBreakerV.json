@@ -1488,8 +1488,8 @@
       "node1" : "B11",
       "node2" : "BUSCO_T3_12_ONE"
     }, {
-      "node1" : "B11",
-      "node2" : "BUSCO_BR1"
+      "node1" : "BUSCO_BR1",
+      "node2" : "B11"
     }, {
       "node1" : "B12",
       "node2" : "BUSCO_G"
@@ -1524,11 +1524,11 @@
       "node1" : "BUSCO_T3_12_ONE",
       "node2" : "INTERNAL_VL1_T3_12_ONE"
     }, {
-      "node1" : "BUSCO_BR1",
+      "node1" : "BR1",
       "node2" : "INTERNAL_VL1_BR1"
     }, {
       "node1" : "INTERNAL_VL1_BR1",
-      "node2" : "BR1"
+      "node2" : "BUSCO_BR1"
     }, {
       "node1" : "BUSCO_G",
       "node2" : "INTERNAL_VL1_G"

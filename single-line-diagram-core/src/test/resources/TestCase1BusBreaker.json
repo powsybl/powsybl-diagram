@@ -302,8 +302,8 @@
     "node1" : "b1",
     "node2" : "BUSCO_sw"
   }, {
-    "node1" : "b2",
-    "node2" : "BUSCO_sw"
+    "node1" : "BUSCO_sw",
+    "node2" : "b2"
   }, {
     "node1" : "BUSCO_l",
     "node2" : "INTERNAL_vl_l"
@@ -314,11 +314,11 @@
     "node1" : "INTERNAL_vl_sw",
     "node2" : "sw"
   }, {
-    "node1" : "BUSCO_sw",
+    "node1" : "sw",
     "node2" : "INTERNAL_vl_sw"
   }, {
     "node1" : "INTERNAL_vl_sw",
-    "node2" : "sw"
+    "node2" : "BUSCO_sw"
   }, {
     "node1" : "INTERNAL_vl_l",
     "node2" : "INTERNAL_vl_l"
