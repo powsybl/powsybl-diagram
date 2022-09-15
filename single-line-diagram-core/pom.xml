@@ -62,11 +62,6 @@
 
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-api</artifactId>
         </dependency>
         <dependency>

@@ -57,7 +57,6 @@
         <module>single-line-diagram-cgmes</module>
         <module>single-line-diagram-core</module>
         <module>single-line-diagram-distribution</module>
-        <module>single-line-diagram-iidm-extensions</module>
     </modules>
 
     <properties>
@@ -116,11 +115,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>powsybl-single-line-diagram-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
