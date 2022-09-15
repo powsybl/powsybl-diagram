@@ -40,10 +40,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>powsybl-single-line-diagram-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>powsybl-single-line-diagram-iidm-extensions</artifactId>
-        </dependency>
     </dependencies>
 
     <profiles>
