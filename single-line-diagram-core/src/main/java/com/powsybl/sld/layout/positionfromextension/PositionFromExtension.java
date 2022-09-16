@@ -36,9 +36,9 @@ public class PositionFromExtension implements PositionFinder {
      */
 
     @Override
-    public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes) {
+    public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells) {
         Map<BusNode, Integer> busToNb = new HashMap<>();
-        setMissingIndices(busNodes);
+        setMissingPositionIndices(busNodes, busCells);
         List<BusNode> busNodesSorted = busNodes.stream()
                 .sorted(Comparator.comparingInt(BusNode::getBusbarIndex).thenComparing(BusNode::getSectionIndex))
                 .collect(Collectors.toList());
@@ -49,18 +49,54 @@ public class PositionFromExtension implements PositionFinder {
         return busToNb;
     }
 
-    private static void setMissingIndices(List<BusNode> busNodes) {
+    /**
+     * Look for missing/incoherent position indices in given bus nodes, and replace them with an appropriate value.
+     * A missing/incoherent position index means a zero or negative value for busbar index and/or section index.
+     * @param busNodes all voltageLevelGraph bus nodes
+     * @param busCells all voltageLevelGraph bus cells
+     */
+    private static void setMissingPositionIndices(List<BusNode> busNodes, List<BusCell> busCells) {
         List<BusNode> missingIndicesBusNodes = busNodes.stream()
                 .filter(busNode -> busNode.getBusbarIndex() <= 0 || busNode.getSectionIndex() <= 0)
                 .collect(Collectors.toList());
         if (!missingIndicesBusNodes.isEmpty()) {
             int maxSectionIndex = busNodes.stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
             for (BusNode busNode : missingIndicesBusNodes) {
-                LOGGER.warn("Incoherent position extension on busbar {} (busbar index: {}, section index: {}): setting busbar index to 1 and section index to {}",
-                        busNode.getId(), busNode.getBusbarIndex(), busNode.getSectionIndex(), maxSectionIndex + 1);
-                busNode.setBusBarIndexSectionIndex(1, ++maxSectionIndex);
+                setMissingPositionIndices(busNode, busNodes, busCells, maxSectionIndex);
+                maxSectionIndex = Math.max(maxSectionIndex, busNode.getSectionIndex());
             }
         }
+    }
+
+    /**
+     * Replace position indices in given bus node with an appropriate value: either with new section index, or with the
+     * same section index as the first busNode which shares a BusCell with.
+     * @param busNode bus node with a missing/incoherent position index/indices
+     * @param busNodes all voltageLevelGraph bus nodes
+     * @param busCells all voltageLevelGraph bus cells
+     * @param maxSectionIndex up-to-date max section index
+     */
+    private static void setMissingPositionIndices(BusNode busNode, List<BusNode> busNodes, List<BusCell> busCells, int maxSectionIndex) {
+        int newSectionIndex = maxSectionIndex + 1;
+        int newBusbarIndex = 1;
+        for (BusCell busCell : busCells) {
+            List<BusNode> cellBusNodes = busCell.getBusNodes();
+            if (cellBusNodes.contains(busNode)) {
+                int section = cellBusNodes.stream().mapToInt(BusNode::getSectionIndex).max().getAsInt();
+                if (section > 0) {
+                    newSectionIndex = section;
+                    newBusbarIndex = 1 + busNodes.stream()
+                            .filter(bn -> bn.getSectionIndex() == section)
+                            .mapToInt(BusNode::getBusbarIndex)
+                            .max().orElse(0);
+                    break;
+                }
+            }
+        }
+
+        LOGGER.warn("Incoherent position extension on busbar {} (busbar index: {}, section index: {}): setting busbar index to {} and section index to {}",
+                busNode.getId(), busNode.getBusbarIndex(), busNode.getSectionIndex(), newBusbarIndex, newSectionIndex);
+        busNode.setBusBarIndexSectionIndex(newBusbarIndex, newSectionIndex);
     }
 
     @Override

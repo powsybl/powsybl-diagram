@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.layout;
 
+import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
@@ -26,7 +27,7 @@ import java.util.Map;
  */
 public interface PositionFinder {
 
-    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes);
+    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
 
     LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets);
 
@@ -34,7 +35,7 @@ public interface PositionFinder {
         if (graph.getNodes().isEmpty()) {
             return new ArrayList<>();
         }
-        Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
+        Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses(), graph.getBusCells());
         List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
         LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
         graph.setMaxBusPosition();
