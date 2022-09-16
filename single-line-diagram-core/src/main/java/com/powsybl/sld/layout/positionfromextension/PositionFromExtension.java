@@ -26,7 +26,7 @@ import static com.powsybl.sld.model.cells.Cell.CellType.EXTERN;
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
-public class PositionFromExtension implements PositionFinder {
+public class PositionFromExtension extends AbstractPositionFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionFromExtension.class);
     private static final Direction DEFAULTDIRECTION = Direction.TOP;
     private static final HorizontalBusLaneManager HBLMANAGER = new HBLaneManagerByExtension();
@@ -69,8 +69,8 @@ public class PositionFromExtension implements PositionFinder {
     }
 
     /**
-     * Replace position indices in given bus node with an appropriate value: either with new section index, or with the
-     * same section index as the first busNode which shares a BusCell with.
+     * Replace position indices in given bus node with an appropriate value: either with the same section index as the
+     * first busNode which shares a BusCell with, or if no such busNode with a new section index.
      * @param busNode bus node with a missing/incoherent position index/indices
      * @param busNodes all voltageLevelGraph bus nodes
      * @param busCells all voltageLevelGraph bus cells

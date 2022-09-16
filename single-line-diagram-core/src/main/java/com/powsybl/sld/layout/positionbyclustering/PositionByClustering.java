@@ -60,7 +60,7 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
 
-public class PositionByClustering implements PositionFinder {
+public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
     private static final HBLaneManagerByClustering HBLMANAGER = new HBLaneManagerByClustering();
