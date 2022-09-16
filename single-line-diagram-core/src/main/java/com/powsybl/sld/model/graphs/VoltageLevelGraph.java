@@ -289,12 +289,6 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
         setMaxVerticalBusPosition(Collections.max(v));
     }
 
-    public Stream<BusCell> getBusCells() {
-        return cells.stream()
-                .filter(cell -> cell instanceof BusCell && !((BusCell) cell).getLegPrimaryBlocks().isEmpty())
-                .map(BusCell.class::cast);
-    }
-
     public void insertBusConnections(Predicate<Node> nodesOnBus) {
         getNodeBuses().forEach(busNode -> insertBusConnections(busNode, nodesOnBus));
     }
@@ -510,6 +504,10 @@ public class VoltageLevelGraph extends AbstractBaseGraph {
 
     public Stream<BusCell> getBusCellStream() {
         return cells.stream().filter(BusCell.class::isInstance).map(BusCell.class::cast);
+    }
+
+    public List<BusCell> getBusCells() {
+        return getBusCellStream().collect(Collectors.toList());
     }
 
     public Stream<InternCell> getInternCellStream() {

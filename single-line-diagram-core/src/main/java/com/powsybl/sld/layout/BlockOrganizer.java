@@ -114,22 +114,26 @@ public class BlockOrganizer {
      */
     private void determineStackableBlocks(VoltageLevelGraph graph) {
         LOGGER.info("Determining stackable Blocks");
-        graph.getBusCells().forEach(cell -> {
-            List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
-            for (int i = 0; i < blocks.size(); i++) {
-                LegPrimaryBlock block1 = blocks.get(i);
-                if (block1.getNodes().size() == 3) {
-                    for (int j = i + 1; j < blocks.size(); j++) {
-                        LegPrimaryBlock block2 = blocks.get(j);
-                        if (block2.getNodes().size() == 3
-                                && block1.getExtremityNode(END).equals(block2.getExtremityNode(END))
-                                && !block1.getExtremityNode(START).equals(block2.getExtremityNode(START))) {
-                            block1.addStackableBlock(block2);
-                            block2.addStackableBlock(block1);
-                        }
+        graph.getBusCellStream()
+                .filter(cell -> !cell.getLegPrimaryBlocks().isEmpty())
+                .forEach(BlockOrganizer::determineStackableBlocks);
+    }
+
+    private static void determineStackableBlocks(BusCell cell) {
+        List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
+        for (int i = 0; i < blocks.size(); i++) {
+            LegPrimaryBlock block1 = blocks.get(i);
+            if (block1.getNodes().size() == 3) {
+                for (int j = i + 1; j < blocks.size(); j++) {
+                    LegPrimaryBlock block2 = blocks.get(j);
+                    if (block2.getNodes().size() == 3
+                            && block1.getExtremityNode(END).equals(block2.getExtremityNode(END))
+                            && !block1.getExtremityNode(START).equals(block2.getExtremityNode(START))) {
+                        block1.addStackableBlock(block2);
+                        block2.addStackableBlock(block1);
                     }
                 }
             }
-        });
+        }
     }
 }
