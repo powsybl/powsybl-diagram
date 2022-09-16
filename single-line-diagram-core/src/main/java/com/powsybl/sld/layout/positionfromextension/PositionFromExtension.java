@@ -38,17 +38,29 @@ public class PositionFromExtension implements PositionFinder {
     @Override
     public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes) {
         Map<BusNode, Integer> busToNb = new HashMap<>();
+        setMissingIndices(busNodes);
+        List<BusNode> busNodesSorted = busNodes.stream()
+                .sorted(Comparator.comparingInt(BusNode::getBusbarIndex).thenComparing(BusNode::getSectionIndex))
+                .collect(Collectors.toList());
         int i = 1;
-        for (BusNode busNode : busNodes.stream()
-                .sorted((bn1, bn2) ->
-                        bn1.getBusbarIndex() == bn2.getBusbarIndex() ?
-                                bn1.getSectionIndex() - bn2.getSectionIndex() :
-                                bn1.getBusbarIndex() - bn2.getBusbarIndex()
-                )
-                .collect(Collectors.toList())) {
+        for (BusNode busNode : busNodesSorted) {
             busToNb.put(busNode, i++);
         }
         return busToNb;
+    }
+
+    private static void setMissingIndices(List<BusNode> busNodes) {
+        List<BusNode> missingIndicesBusNodes = busNodes.stream()
+                .filter(busNode -> busNode.getBusbarIndex() <= 0 || busNode.getSectionIndex() <= 0)
+                .collect(Collectors.toList());
+        if (!missingIndicesBusNodes.isEmpty()) {
+            int maxSectionIndex = busNodes.stream().mapToInt(BusNode::getSectionIndex).max().orElse(0);
+            for (BusNode busNode : missingIndicesBusNodes) {
+                LOGGER.warn("Incoherent position extension on busbar {} (busbar index: {}, section index: {}): setting busbar index to 1 and section index to {}",
+                        busNode.getId(), busNode.getBusbarIndex(), busNode.getSectionIndex(), maxSectionIndex + 1);
+                busNode.setBusBarIndexSectionIndex(1, ++maxSectionIndex);
+            }
+        }
     }
 
     @Override
