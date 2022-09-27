@@ -476,4 +476,24 @@ public final class CreateNetworksUtil {
         return network;
     }
 
+    public static Network createNetworkWithFlatSections() {
+        Network network = Network.create("TestSingleLineDiagramClass", "test");
+        Substation substation = createSubstation(network, "s", "s", Country.FR);
+        VoltageLevel vl = createVoltageLevel(substation, "vl1", "vl1", TopologyKind.NODE_BREAKER, 380, 10);
+        createBusBarSection(vl, "bbs11", "bbs11", 0, 1, 1);
+        createBusBarSection(vl, "bbs21", "bbs21", 1, 2, 1);
+        createBusBarSection(vl, "bbs12", "bbs12", 2, 1, 2);
+        createBusBarSection(vl, "bbs22", "bbs22", 3, 2, 2);
+        createBusBarSection(vl, "bbs13", "bbs13", 4, 1, 3);
+        createBusBarSection(vl, "bbs23", "bbs23", 5, 2, 3);
+        createSwitch(vl, "d112", "d112", SwitchKind.DISCONNECTOR, false, false, false, 0, 2);
+        createSwitch(vl, "d212", "d212", SwitchKind.DISCONNECTOR, false, false, false, 1, 3);
+        createSwitch(vl, "d123a", "d123a", SwitchKind.DISCONNECTOR, false, false, false, 2, 6);
+        createSwitch(vl, "b123", "b123", SwitchKind.BREAKER, false, false, false, 6, 7);
+        createSwitch(vl, "d123b", "d123b", SwitchKind.DISCONNECTOR, false, false, false, 7, 4);
+        createSwitch(vl, "d223a", "d223a", SwitchKind.DISCONNECTOR, false, false, false, 3, 8);
+        createSwitch(vl, "b223", "b223", SwitchKind.BREAKER, false, false, false, 8, 9);
+        createSwitch(vl, "d223b", "d223b", SwitchKind.DISCONNECTOR, false, false, false, 9, 5);
+        return network;
+    }
 }

@@ -59,14 +59,11 @@ class BlockPositionner {
             }
 
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.RIGHT), Side.RIGHT, nonFlatCellsToClose);
-            List<BusCell> verticalCells = new ArrayList<>();
-            verticalCells.addAll(ss.getVerticalInternCells());
-            verticalCells.addAll(ss.getExternCells());
-            verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
-            hPos = placeVerticalCells(hPos, verticalCells);
+            hPos = placeVerticalCells(hPos, getVerticalCells(ss));
             hPos = placeCrossOverInternCells(hPos, ss.getInternCells(InternCell.Shape.CROSSOVER, Side.LEFT), Side.LEFT, nonFlatCellsToClose);
             if (hPos == prevHPos) {
-                hPos++;
+                // Bus minimum width is one cell
+                hPos += 2; // A cell is 2 units wide
             }
             hSpace = placeFlatInternCells(hPos, ss.getInternCells(InternCell.Shape.FLAT, Side.LEFT)) - hPos;
             hPos += hSpace;
@@ -85,6 +82,14 @@ class BlockPositionner {
         }
 
         manageInternCellOverlaps(graph);
+    }
+
+    private static List<BusCell> getVerticalCells(Subsection ss) {
+        List<BusCell> verticalCells = new ArrayList<>();
+        verticalCells.addAll(ss.getVerticalInternCells());
+        verticalCells.addAll(ss.getExternCells());
+        verticalCells.sort(Comparator.comparingInt(bc -> bc.getOrder().orElse(-1)));
+        return verticalCells;
     }
 
     private List<BusNode> getBusNodesToClose(Subsection prevSS, Subsection ss) {
