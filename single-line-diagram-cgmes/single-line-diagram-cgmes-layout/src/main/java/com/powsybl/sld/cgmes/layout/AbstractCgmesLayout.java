@@ -94,7 +94,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                     setBusNodeCoordinates(busNode, busbarDiagramData, diagramName);
                 } else {
                     Bus bus = vl.getBusBreakerView().getBus(busNode.getId());
-                    NodeDiagramData<Bus> busDiagramData =  bus != null ? bus.getExtension(NodeDiagramData.class) : null;
+                    NodeDiagramData<Bus> busDiagramData = bus != null ? bus.getExtension(NodeDiagramData.class) : null;
                     setBusNodeCoordinates(busNode, busDiagramData, diagramName);
                 }
                 break;
@@ -103,7 +103,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 Switch sw = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind()) ?
                             vl.getNodeBreakerView().getSwitch(switchNode.getId()) :
                             vl.getBusBreakerView().getSwitch(switchNode.getId());
-                CouplingDeviceDiagramData<Switch> switchDiagramData =  sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
+                CouplingDeviceDiagramData<Switch> switchDiagramData = sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
                 break;
             case FEEDER:

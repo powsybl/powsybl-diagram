@@ -137,7 +137,7 @@ public class TestSVGWriter extends AbstractTestCaseIidm {
         vl1Trf2One.setDirection(TOP);
         vl1Trf2One.setX(360);
         vl1Trf2One.setY(80);
-        FeederNode vl1Trf2Two =  NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63));
+        FeederNode vl1Trf2Two = NodeFactory.createFeeder3WTLegNodeForVoltageLevelDiagram(g1, "vl1_trf2_two", "vl1_trf2", "vl1_trf2", TWO, new VoltageLevelInfos("vl3", "vl3", 63));
         vl1Trf2Two.setOrder(3);
         vl1Trf2Two.setDirection(TOP);
         vl1Trf2Two.setX(440);

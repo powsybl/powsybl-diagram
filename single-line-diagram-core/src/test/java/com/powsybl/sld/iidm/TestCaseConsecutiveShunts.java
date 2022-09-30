@@ -40,7 +40,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @Override
     protected DiagramLabelProvider getDefaultDiagramLabelProvider() {
-        return  new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        return new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
             @Override
             public List<NodeLabel> getNodeLabels(Node node, Direction direction) {
                 return node.isFictitious()

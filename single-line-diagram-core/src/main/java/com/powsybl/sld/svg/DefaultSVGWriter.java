@@ -273,7 +273,7 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
 
-        List<Node> nodesToDraw =  cell.getNodes().stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
+        List<Node> nodesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
         Collection<Edge> edgesToDraw = new LinkedHashSet<>();
         nodesToDraw.forEach(n -> edgesToDraw.addAll(n.getAdjacentEdges()));
 
@@ -782,7 +782,7 @@ public class DefaultSVGWriter implements SVGWriter {
         if (angle == 0) {
             double translateX = centerPosX - componentSize.getWidth() / 2;
             double translateY = centerPosY - componentSize.getHeight() / 2;
-            return TRANSLATE + "(" +  translateX + "," + translateY + ")";
+            return TRANSLATE + "(" + translateX + "," + translateY + ")";
         } else {
             double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
                 centerPosX, centerPosY);
