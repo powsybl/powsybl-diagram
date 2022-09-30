@@ -207,7 +207,7 @@ public final class NodeFactory {
                 || legNode3.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
-        Middle3WTNode m3wn =  new Middle3WTNode(id, name,
+        Middle3WTNode m3wn = new Middle3WTNode(id, name,
                 ((FeederTwLeg) legNode1.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode2.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(),
