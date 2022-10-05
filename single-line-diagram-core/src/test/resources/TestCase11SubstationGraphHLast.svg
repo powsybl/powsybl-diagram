@@ -481,7 +481,7 @@
             <g class="sld-node sld-fictitious sld-vl300to500-0" id="idINTERNAL_95_vl1_95_line1_95_ONE" transform="translate(411.0,318.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-top-feeder sld-vl300to500-0" id="idline1_95_ONE" transform="translate(415.0,260.0)">
+            <g class="sld-top-feeder" id="idline1_95_ONE" transform="translate(415.0,260.0)">
                 <text class="sld-label" id="line1_ONE_N_LABEL" x="-5.0" y="-5.0">line1</text>
             </g>
         </g>
