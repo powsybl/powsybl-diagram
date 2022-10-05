@@ -63,7 +63,7 @@ public class GraphMetadataTest {
 
         List<GraphMetadata.NodeLabelMetadata> labels = Collections.singletonList(new GraphMetadata.NodeLabelMetadata("id", "position_name", "user_id"));
 
-        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER,  false, Direction.UNDEFINED, false, null, labels));
+        metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id1", "vid1", null, BREAKER, false, Direction.UNDEFINED, false, null, labels));
         metadata.addNodeMetadata(new GraphMetadata.NodeMetadata("id2", "vid2", null, BUSBAR_SECTION, false, Direction.UNDEFINED, false, null, labels));
         metadata.addWireMetadata(new GraphMetadata.WireMetadata("id3", "id1", "id2", false, false));
         metadata.addFeederInfoMetadata(new GraphMetadata.FeederInfoMetadata("id1", "id3", "ONE", "user_id"));
@@ -170,7 +170,7 @@ public class GraphMetadataTest {
         checkMetadata(metadata3);
     }
 
-    private void checkMetadata(GraphMetadata metadata)  {
+    private void checkMetadata(GraphMetadata metadata) {
         assertEquals(4, metadata.getNodeMetadata().size());
         assertNotNull(metadata.getNodeMetadata("bid1"));
         assertEquals("bid1", metadata.getNodeMetadata("bid1").getId());

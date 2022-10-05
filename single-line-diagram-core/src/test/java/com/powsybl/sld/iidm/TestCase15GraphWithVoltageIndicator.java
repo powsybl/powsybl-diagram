@@ -106,7 +106,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
 
     @Test
     public void testWithoutBusInfo() {
-        runTest(new BasicStyleProvider(),  "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters));
+        runTest(new BasicStyleProvider(), "/TestCase15GraphWithoutVoltageIndicator.svg", new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
                 return Optional.of(((BusVoltageInfo) info).isPowered() ? "sld-powered" : "sld-unpowered");
             }
         };
-        runTest(styleProvider,  "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
+        runTest(styleProvider, "/TestCase15GraphWithVoltageIndicator.svg", withIncompleteBusInfoProvider);
     }
 
     @Test

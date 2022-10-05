@@ -212,7 +212,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
     }
 
     private Node getFeederNode(Middle2WTNode node, String subComponentName) {
-        return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ?  0 : 1);
+        return node.getAdjacentNodes().get(subComponentName.equals(WINDING1) ? 0 : 1);
     }
 
     protected VoltageLevelInfos getSubComponentVoltageLevelInfos(FeederWithSides feederWs, String subComponentName) {
