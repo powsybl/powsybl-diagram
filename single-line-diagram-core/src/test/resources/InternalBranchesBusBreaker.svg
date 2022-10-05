@@ -199,7 +199,7 @@
             <g class="sld-node sld-fictitious sld-vl300to500" id="idINTERNAL_95_VL1_95_L11_95_ONE" transform="translate(211.0,599.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl300to500" id="idL11_95_ONE" transform="translate(215.0,665.0)">
+            <g class="sld-bottom-feeder" id="idL11_95_ONE" transform="translate(215.0,665.0)">
                 <text class="sld-label" id="L11_ONE_S_LABEL" x="-5.0" y="5.0">L11</text>
             </g>
         </g>
@@ -265,7 +265,7 @@
             <g class="sld-node sld-fictitious sld-vl300to500" id="idINTERNAL_95_VL1_95_L12_95_ONE" transform="translate(311.0,599.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl300to500" id="idL12_95_ONE" transform="translate(315.0,665.0)">
+            <g class="sld-bottom-feeder" id="idL12_95_ONE" transform="translate(315.0,665.0)">
                 <text class="sld-label" id="L12_ONE_S_LABEL" x="-5.0" y="5.0">L12</text>
             </g>
         </g>
@@ -385,7 +385,7 @@
             <g class="sld-node sld-fictitious sld-vl300to500" id="idINTERNAL_95_VL1_95_L11_95_TWO" transform="translate(511.0,599.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl300to500" id="idL11_95_TWO" transform="translate(515.0,665.0)">
+            <g class="sld-bottom-feeder" id="idL11_95_TWO" transform="translate(515.0,665.0)">
                 <text class="sld-label" id="L11_TWO_S_LABEL" x="-5.0" y="5.0">L11</text>
             </g>
         </g>
