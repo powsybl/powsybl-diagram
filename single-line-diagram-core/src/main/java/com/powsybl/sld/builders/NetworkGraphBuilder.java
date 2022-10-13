@@ -182,6 +182,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 .collect(Collectors.toList()));
     }
 
+    static boolean isCapacitor(ShuntCompensator sc) {
+        switch (sc.getModelType()) {
+            case LINEAR:
+                return ((ShuntCompensatorLinearModel) sc.getModel()).getBPerSection() >= 0;
+            case NON_LINEAR:
+                ShuntCompensatorNonLinearModel model = (ShuntCompensatorNonLinearModel) sc.getModel();
+                double averageB = model.getAllSections().stream().mapToDouble(ShuntCompensatorNonLinearModel.Section::getB).average().orElse(0);
+                return averageB >= 0;
+            default:
+                throw new IllegalStateException("Unknown shunt compensator model type: " + sc.getModelType());
+        }
+    }
+
     private abstract static class AbstractGraphBuilder extends DefaultTopologyVisitor {
 
         protected final VoltageLevelGraph graph;
@@ -206,19 +219,6 @@ public class NetworkGraphBuilder implements GraphBuilder {
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
             return NodeFactory.createFeederLineNode(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
-        }
-
-        private static boolean isCapacitor(ShuntCompensator sc) {
-            switch (sc.getModelType()) {
-                case LINEAR:
-                    return ((ShuntCompensatorLinearModel) sc.getModel()).getBPerSection() >= 0;
-                case NON_LINEAR:
-                    ShuntCompensatorNonLinearModel model = (ShuntCompensatorNonLinearModel) sc.getModel();
-                    double averageB = model.getAllSections().stream().mapToDouble(ShuntCompensatorNonLinearModel.Section::getB).average().orElse(0);
-                    return averageB >= 0;
-                default:
-                    throw new IllegalStateException("Unknown shunt compensator model type: " + sc.getModelType());
-            }
         }
 
         private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
