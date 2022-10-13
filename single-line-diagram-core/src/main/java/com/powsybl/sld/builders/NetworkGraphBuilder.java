@@ -208,6 +208,19 @@ public class NetworkGraphBuilder implements GraphBuilder {
             return NodeFactory.createFeederLineNode(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
         }
 
+        private static boolean isCapacitor(ShuntCompensator sc) {
+            switch (sc.getModelType()) {
+                case LINEAR:
+                    return ((ShuntCompensatorLinearModel) sc.getModel()).getBPerSection() >= 0;
+                case NON_LINEAR:
+                    ShuntCompensatorNonLinearModel model = (ShuntCompensatorNonLinearModel) sc.getModel();
+                    double averageB = model.getAllSections().stream().mapToDouble(ShuntCompensatorNonLinearModel.Section::getB).average().orElse(0);
+                    return averageB >= 0;
+                default:
+                    throw new IllegalStateException("Unknown shunt compensator model type: " + sc.getModelType());
+            }
+        }
+
         private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
             Objects.requireNonNull(graph);
             Objects.requireNonNull(injection);
@@ -219,8 +232,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                 case STATIC_VAR_COMPENSATOR:
                     return NodeFactory.createStaticVarCompensator(graph, injection.getId(), injection.getNameOrId());
                 case SHUNT_COMPENSATOR:
-                    // FIXME(mathbagu): Non linear shunt can be capacitor or inductor depending on the number of section enabled
-                    return ((ShuntCompensator) injection).getB() >= 0 ? NodeFactory.createCapacitor(graph, injection.getId(), injection.getNameOrId())
+                    return isCapacitor((ShuntCompensator) injection) ? NodeFactory.createCapacitor(graph, injection.getId(), injection.getNameOrId())
                             : NodeFactory.createInductor(graph, injection.getId(), injection.getNameOrId());
                 case DANGLING_LINE:
                     return NodeFactory.createDanglingLine(graph, injection.getId(), injection.getNameOrId());
