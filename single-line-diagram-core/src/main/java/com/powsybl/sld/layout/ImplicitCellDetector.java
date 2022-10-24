@@ -279,9 +279,7 @@ public class ImplicitCellDetector implements CellDetector {
         ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(shuntNodes.get(shuntNodes.size() - 1), shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
         shuntNodes.add(shuntNodes.size() - 1, iNode2);
 
-        ShuntCell shuntCell = ShuntCell.create(cellNumber, shuntNodes);
-        vlGraph.addCell(shuntCell);
-        return shuntCell;
+        return ShuntCell.create(cellNumber, shuntNodes, vlGraph);
     }
 
     /**
