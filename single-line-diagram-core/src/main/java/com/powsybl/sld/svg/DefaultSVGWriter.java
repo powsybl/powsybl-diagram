@@ -273,9 +273,11 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
 
-        List<Node> nodesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
-        Collection<Edge> edgesToDraw = new LinkedHashSet<>();
-        nodesToDraw.forEach(n -> edgesToDraw.addAll(n.getAdjacentEdges()));
+        List<Node> cellNodes = cell.getNodes();
+        List<Node> nodesToDraw = cellNodes.stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
+        Collection<Edge> edgesToDraw = nodesToDraw.stream().flatMap(n -> n.getAdjacentEdges().stream())
+                .filter(e -> cellNodes.contains(e.getNode1()) && cellNodes.contains(e.getNode2()))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
 
         drawEdges(prefixId, g, graph, metadata, initProvider, styleProvider, edgesToDraw);
         drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDraw);
