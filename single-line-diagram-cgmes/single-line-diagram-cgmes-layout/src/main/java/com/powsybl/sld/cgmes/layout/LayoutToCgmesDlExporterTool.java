@@ -10,7 +10,6 @@ import com.google.auto.service.AutoService;
 import com.google.common.collect.ImmutableMap;
 import com.powsybl.commons.PowsyblException;
 import com.powsybl.commons.datasource.FileDataSource;
-import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.AbstractSingleLineDiagramCommand;
 import com.powsybl.sld.cgmes.dl.conversion.CgmesDLExporter;
@@ -117,7 +116,7 @@ public class LayoutToCgmesDlExporterTool implements Tool {
         }
 
         context.getOutputStream().println("Loading network '" + inputFile + "'...");
-        Network network = Importers.loadNetwork(inputFile);
+        Network network = Network.read(inputFile);
 
         context.getOutputStream().println("Generating layout for the network ...");
         LayoutToCgmesExtensionsConverter lTranslator = new LayoutToCgmesExtensionsConverter(sFactory, vFactory, new LayoutParameters().setUseName(true));

@@ -6,7 +6,7 @@
  */
 package com.powsybl.sld.iidm;
 
-import com.powsybl.iidm.import_.Importers;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -32,7 +32,7 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
-        network = Importers.loadNetwork("consecutive_shunts.xiidm", getClass().getResourceAsStream("/consecutive_shunts.xiidm"));
+        network = Network.read("consecutive_shunts.xiidm", getClass().getResourceAsStream("/consecutive_shunts.xiidm"));
         vl = network.getVoltageLevel("AU");
         graphBuilder = new NetworkGraphBuilder(network);
         layoutParameters.setAdaptCellHeightToContent(true);
