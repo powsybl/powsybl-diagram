@@ -8,7 +8,6 @@ package com.powsybl.sld;
 
 import com.google.auto.service.AutoService;
 import com.powsybl.commons.PowsyblException;
-import com.powsybl.iidm.import_.Importers;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Substation;
 import com.powsybl.iidm.network.VoltageLevel;
@@ -155,7 +154,7 @@ public class SingleLineDiagramTool implements Tool {
         Path outputDir = toolOptions.getPath(OUTPUT_DIR).orElseThrow(() -> new PowsyblException(OUTPUT_DIR + " option is missing"));
         List<String> ids = toolOptions.getValues(IDS).orElse(Collections.emptyList());
         context.getOutputStream().println("Loading network '" + inputFile + "'...");
-        Network network = Importers.loadNetwork(inputFile);
+        Network network = Network.read(inputFile);
         if (network == null) {
             throw new PowsyblException("File '" + inputFile + "' is not importable");
         }

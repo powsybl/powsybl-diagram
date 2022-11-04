@@ -66,10 +66,6 @@
         </dependency>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-iidm-converter-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.powsybl</groupId>
             <artifactId>powsybl-iidm-extensions</artifactId>
             <version>${powsybl-core.version}</version>
         </dependency>
