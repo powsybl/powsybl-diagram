@@ -209,53 +209,24 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, Branch.Side side) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(line);
-
-            String id = line.getId() + "_" + side.name();
-            String name = line.getNameOrId();
+            String nodeId = line.getId() + "_" + side.name();
+            String equipmentNameOrId = line.getNameOrId();
             String equipmentId = line.getId();
             NodeSide s = NodeSide.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return NodeFactory.createFeederLineNode(graph, id, name, equipmentId, s, new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
+            return NodeFactory.createFeederLineNode(graph, nodeId, equipmentNameOrId, equipmentId, s,
+                    new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
         }
 
-        private FeederNode createFeederNode(VoltageLevelGraph graph, Injection<?> injection) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(injection);
-            switch (injection.getType()) {
-                case GENERATOR:
-                    return NodeFactory.createGenerator(graph, injection.getId(), injection.getNameOrId());
-                case LOAD:
-                    return NodeFactory.createLoad(graph, injection.getId(), injection.getNameOrId());
-                case STATIC_VAR_COMPENSATOR:
-                    return NodeFactory.createStaticVarCompensator(graph, injection.getId(), injection.getNameOrId());
-                case SHUNT_COMPENSATOR:
-                    return isCapacitor((ShuntCompensator) injection) ? NodeFactory.createCapacitor(graph, injection.getId(), injection.getNameOrId())
-                            : NodeFactory.createInductor(graph, injection.getId(), injection.getNameOrId());
-                case DANGLING_LINE:
-                    return NodeFactory.createDanglingLine(graph, injection.getId(), injection.getNameOrId());
-                default:
-                    throw new IllegalStateException();
-            }
-        }
-
-        private FeederNode createFeederNode(VoltageLevelGraph graph, HvdcConverterStation<?> hvdcStation) {
-            Objects.requireNonNull(graph);
-            Objects.requireNonNull(hvdcStation);
-
-            HvdcLine hvdcLine = hvdcStation.getHvdcLine();
-            var optOtherStation = hvdcStation.getOtherConverterStation();
-            if (optOtherStation.isEmpty()) {
-                return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), null, null, null);
-            } else {
-                var side = hvdcLine.getConverterStation1() == hvdcStation ? NodeSide.ONE : NodeSide.TWO;
-                var vlOtherSide = optOtherStation.get().getTerminal().getVoltageLevel();
-                VoltageLevelInfos otherSideVoltageLevelInfos = new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV());
-
-                return NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcLine.getId(), side, otherSideVoltageLevelInfos);
-            }
+        private FeederNode createFeederVscNode(VoltageLevelGraph graph, HvdcConverterStation<?> hvdcStation) {
+            // An injection node is created if only one side of the station in the network
+            return hvdcStation.getOtherConverterStation()
+                    .map(otherStation -> otherStation.getTerminal().getVoltageLevel())
+                    .map(otherVl -> new VoltageLevelInfos(otherVl.getId(), otherVl.getNameOrId(), otherVl.getNominalV()))
+                    .map(otherVlInfo -> NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcStation.getHvdcLine().getId(),
+                            hvdcStation.getHvdcLine().getConverterStation1() == hvdcStation ? NodeSide.ONE : NodeSide.TWO, otherVlInfo))
+                    .orElseGet(() -> NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
         private FeederNode createFeeder2wtNode(VoltageLevelGraph graph,
@@ -353,32 +324,35 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         @Override
         public void visitLoad(Load load) {
-            addFeeder(createFeederNode(graph, load), load.getTerminal());
+            addFeeder(NodeFactory.createLoad(graph, load.getId(), load.getNameOrId()), load.getTerminal());
         }
 
         @Override
         public void visitGenerator(Generator generator) {
-            addFeeder(createFeederNode(graph, generator), generator.getTerminal());
+            addFeeder(NodeFactory.createGenerator(graph, generator.getId(), generator.getNameOrId()), generator.getTerminal());
         }
 
         @Override
         public void visitShuntCompensator(ShuntCompensator sc) {
-            addFeeder(createFeederNode(graph, sc), sc.getTerminal());
+            FeederNode feederNode = isCapacitor(sc)
+                    ? NodeFactory.createCapacitor(graph, sc.getId(), sc.getNameOrId())
+                    : NodeFactory.createInductor(graph, sc.getId(), sc.getNameOrId());
+            addFeeder(feederNode, sc.getTerminal());
         }
 
         @Override
-        public void visitDanglingLine(DanglingLine danglingLine) {
-            addFeeder(createFeederNode(graph, danglingLine), danglingLine.getTerminal());
+        public void visitDanglingLine(DanglingLine dl) {
+            addFeeder(NodeFactory.createDanglingLine(graph, dl.getId(), dl.getNameOrId()), dl.getTerminal());
         }
 
         @Override
         public void visitHvdcConverterStation(HvdcConverterStation<?> converterStation) {
-            addFeeder(createFeederNode(graph, converterStation), converterStation.getTerminal());
+            addFeeder(createFeederVscNode(graph, converterStation), converterStation.getTerminal());
         }
 
         @Override
-        public void visitStaticVarCompensator(StaticVarCompensator staticVarCompensator) {
-            addFeeder(createFeederNode(graph, staticVarCompensator), staticVarCompensator.getTerminal());
+        public void visitStaticVarCompensator(StaticVarCompensator svc) {
+            addFeeder(NodeFactory.createStaticVarCompensator(graph, svc.getId(), svc.getNameOrId()), svc.getTerminal());
         }
 
         @Override
