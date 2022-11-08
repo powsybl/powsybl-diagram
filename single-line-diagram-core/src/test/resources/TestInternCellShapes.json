@@ -7,109 +7,97 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_flatDisconector",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 150.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_flatDisconector",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 200.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_crossOverBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 125.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_crossOverBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 225.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_dF2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 275.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_flatBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_flatBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
     "y" : 305.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_flatDisconector",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 150.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_flatDisconector",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 200.0,
     "y" : 280.0,
-    "orientation" : "RIGHT",
-    "open" : false
+    "orientation" : "RIGHT"
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_verticalBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl_verticalBreaker",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 240.0,
-    "open" : false
+    "y" : 240.0
   }, {
     "type" : "BUS",
     "id" : "bbs11",
-    "name" : "bbs11",
-    "equipmentId" : "bbs11",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs11",
+    "equipmentId" : "bbs11",
     "pxWidth" : 125.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
@@ -122,13 +110,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs12",
-    "name" : "bbs12",
-    "equipmentId" : "bbs12",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 212.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs12",
+    "equipmentId" : "bbs12",
     "pxWidth" : 75.0,
     "busbarIndex" : 1,
     "sectionIndex" : 2,
@@ -141,13 +128,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs21",
-    "name" : "bbs21",
-    "equipmentId" : "bbs21",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
+    "name" : "bbs21",
+    "equipmentId" : "bbs21",
     "pxWidth" : 125.0,
     "busbarIndex" : 2,
     "sectionIndex" : 1,
@@ -160,13 +146,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs22",
-    "name" : "bbs22",
-    "equipmentId" : "bbs22",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 212.5,
     "y" : 305.0,
-    "open" : false,
+    "name" : "bbs22",
+    "equipmentId" : "bbs22",
     "pxWidth" : 75.0,
     "busbarIndex" : 2,
     "sectionIndex" : 2,
@@ -179,139 +164,139 @@
   }, {
     "type" : "SWITCH",
     "id" : "crossOverBreaker",
-    "name" : "crossOverBreaker",
-    "equipmentId" : "crossOverBreaker",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 150.0,
     "y" : 240.0,
     "orientation" : "RIGHT",
+    "name" : "crossOverBreaker",
+    "equipmentId" : "crossOverBreaker",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "dCrossOverBk1",
-    "name" : "dCrossOverBk1",
-    "equipmentId" : "dCrossOverBk1",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 125.0,
     "y" : 280.0,
+    "name" : "dCrossOverBk1",
+    "equipmentId" : "dCrossOverBk1",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dCrossOverBk2",
-    "name" : "dCrossOverBk2",
-    "equipmentId" : "dCrossOverBk2",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 225.0,
     "y" : 305.0,
+    "name" : "dCrossOverBk2",
+    "equipmentId" : "dCrossOverBk2",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dF1",
-    "name" : "dF1",
-    "equipmentId" : "dF1",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 275.0,
     "y" : 280.0,
+    "name" : "dF1",
+    "equipmentId" : "dF1",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dF2",
-    "name" : "dF2",
-    "equipmentId" : "dF2",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 275.0,
     "y" : 305.0,
+    "name" : "dF2",
+    "equipmentId" : "dF2",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dFlatBk1",
-    "name" : "dFlatBk1",
-    "equipmentId" : "dFlatBk1",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 150.0,
     "y" : 305.0,
     "orientation" : "RIGHT",
+    "name" : "dFlatBk1",
+    "equipmentId" : "dFlatBk1",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dFlatBk2",
-    "name" : "dFlatBk2",
-    "equipmentId" : "dFlatBk2",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 200.0,
     "y" : 305.0,
     "orientation" : "RIGHT",
+    "name" : "dFlatBk2",
+    "equipmentId" : "dFlatBk2",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dVerticalBk1",
-    "name" : "dVerticalBk1",
-    "equipmentId" : "dVerticalBk1",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 75.0,
     "y" : 280.0,
+    "name" : "dVerticalBk1",
+    "equipmentId" : "dVerticalBk1",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "dVerticalBk2",
-    "name" : "dVerticalBk2",
-    "equipmentId" : "dVerticalBk2",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 305.0,
+    "name" : "dVerticalBk2",
+    "equipmentId" : "dVerticalBk2",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "flatBreaker",
-    "name" : "flatBreaker",
-    "equipmentId" : "flatBreaker",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 175.0,
     "y" : 305.0,
     "orientation" : "RIGHT",
+    "name" : "flatBreaker",
+    "equipmentId" : "flatBreaker",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "flatDisconector",
-    "name" : "flatDisconector",
-    "equipmentId" : "flatDisconector",
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 175.0,
     "y" : 280.0,
     "orientation" : "RIGHT",
+    "name" : "flatDisconector",
+    "equipmentId" : "flatDisconector",
     "open" : false,
     "kind" : "DISCONNECTOR"
   }, {
     "type" : "SWITCH",
     "id" : "verticalBreaker",
-    "name" : "verticalBreaker",
-    "equipmentId" : "verticalBreaker",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 50.0,
     "y" : 240.0,
     "orientation" : "RIGHT",
+    "name" : "verticalBreaker",
+    "equipmentId" : "verticalBreaker",
     "open" : false,
     "kind" : "BREAKER"
   } ],
@@ -766,8 +751,8 @@
     "node1" : "bbs11",
     "node2" : "BUSCO_flatDisconector"
   }, {
-    "node1" : "bbs12",
-    "node2" : "BUSCO_flatDisconector"
+    "node1" : "BUSCO_flatDisconector",
+    "node2" : "bbs12"
   }, {
     "node1" : "dVerticalBk1",
     "node2" : "INTERNAL_vl_verticalBreaker"
@@ -805,11 +790,11 @@
     "node1" : "INTERNAL_vl_dF2",
     "node2" : "dF2"
   }, {
-    "node1" : "BUSCO_flatDisconector",
+    "node1" : "flatDisconector",
     "node2" : "INTERNAL_vl_flatDisconector"
   }, {
     "node1" : "INTERNAL_vl_flatDisconector",
-    "node2" : "flatDisconector"
+    "node2" : "BUSCO_flatDisconector"
   }, {
     "node1" : "dFlatBk2",
     "node2" : "INTERNAL_vl_flatBreaker"

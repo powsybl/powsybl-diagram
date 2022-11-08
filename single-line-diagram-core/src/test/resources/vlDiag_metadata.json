@@ -42,6 +42,17 @@
     },
     "styleClass" : "sld-arrow-q"
   }, {
+    "type" : "ARROW_ACTIVE",
+    "size" : {
+      "width" : 10.0,
+      "height" : 10.0
+    },
+    "transformations" : {
+      "LEFT" : "ROTATION",
+      "RIGHT" : "ROTATION"
+    },
+    "styleClass" : "sld-arrow-p"
+  }, {
     "type" : "LOAD",
     "anchorPoints" : [ {
       "x" : 0.0,
@@ -61,17 +72,6 @@
       "RIGHT" : "ROTATION"
     },
     "styleClass" : "sld-load"
-  }, {
-    "type" : "ARROW_ACTIVE",
-    "size" : {
-      "width" : 10.0,
-      "height" : 10.0
-    },
-    "transformations" : {
-      "LEFT" : "ROTATION",
-      "RIGHT" : "ROTATION"
-    },
-    "styleClass" : "sld-arrow-p"
   }, {
     "type" : "NODE",
     "anchorPoints" : [ {
@@ -291,19 +291,19 @@
     "equipmentId" : "btrf15",
     "labels" : [ ]
   }, {
-    "id" : "idINTERNAL_95_vl1_95_trf4_95_ONE",
-    "vid" : "vl1",
-    "componentType" : "NODE",
-    "open" : false,
-    "vlabel" : false,
-    "labels" : [ ]
-  }, {
     "id" : "idbtrf14",
     "vid" : "vl1",
     "componentType" : "BREAKER",
     "open" : false,
     "vlabel" : false,
     "equipmentId" : "btrf14",
+    "labels" : [ ]
+  }, {
+    "id" : "idINTERNAL_95_vl1_95_trf4_95_ONE",
+    "vid" : "vl1",
+    "componentType" : "NODE",
+    "open" : false,
+    "vlabel" : false,
     "labels" : [ ]
   }, {
     "id" : "idbtrf17",
@@ -878,15 +878,9 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_bload2_95_INTERNAL_95_vl1_95_load2",
-    "nodeId1" : "idbload2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_load2",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen2_95_gen2",
-    "nodeId1" : "idINTERNAL_95_vl1_95_gen2",
-    "nodeId2" : "idgen2",
+    "id" : "_95_vl1_95_dtrct21_95_INTERNAL_95_vl1_95_dtrct21",
+    "nodeId1" : "iddtrct21",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct21",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -920,15 +914,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_bbs3_95_dtrf13",
-    "nodeId1" : "idbbs3",
-    "nodeId2" : "iddtrf13",
+    "id" : "_95_vl1_95_load2_95_INTERNAL_95_vl1_95_load2",
+    "nodeId1" : "idload2",
+    "nodeId2" : "idINTERNAL_95_vl1_95_load2",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dsect22_95_INTERNAL_95_vl1_95_dtrct21",
-    "nodeId1" : "iddsect22",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct21",
+    "id" : "_95_vl1_95_bbs3_95_dtrf13",
+    "nodeId1" : "idbbs3",
+    "nodeId2" : "iddtrf13",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -941,6 +935,12 @@
     "id" : "_95_vl1_95_bbs1_95_dsect11",
     "nodeId1" : "idbbs1",
     "nodeId2" : "iddsect11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct11_95_dsect12",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct11",
+    "nodeId2" : "iddsect12",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -962,15 +962,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_bload1_95_INTERNAL_95_vl1_95_load1",
-    "nodeId1" : "idbload1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_load1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_trf8_95_THREE_95_trf8",
     "nodeId1" : "idtrf8_95_THREE",
     "nodeId2" : "idtrf8",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_gen1_95_INTERNAL_95_vl1_95_gen1",
+    "nodeId1" : "idgen1",
+    "nodeId2" : "idINTERNAL_95_vl1_95_gen1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -980,21 +980,15 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_bgen2_95_INTERNAL_95_vl1_95_gen2",
-    "nodeId1" : "idbgen2",
-    "nodeId2" : "idINTERNAL_95_vl1_95_gen2",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_dload2_95_INTERNAL_95_vl1_95_bload2",
     "nodeId1" : "iddload2",
     "nodeId2" : "idINTERNAL_95_vl1_95_bload2",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_load1_95_load1",
-    "nodeId1" : "idINTERNAL_95_vl1_95_load1",
-    "nodeId2" : "idload1",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_load2_95_bload2",
+    "nodeId1" : "idINTERNAL_95_vl1_95_load2",
+    "nodeId2" : "idbload2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1016,6 +1010,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_dtrct11_95_INTERNAL_95_vl1_95_dtrct11",
+    "nodeId1" : "iddtrct11",
+    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct11",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_INTERNAL_95_vl1_95_bload2_95_bload2",
     "nodeId1" : "idINTERNAL_95_vl1_95_bload2",
     "nodeId2" : "idbload2",
@@ -1025,6 +1025,12 @@
     "id" : "_95_vl1_95_bbs4_95_dtrf14",
     "nodeId1" : "idbbs4",
     "nodeId2" : "iddtrf14",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen1_95_bgen1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_gen1",
+    "nodeId2" : "idbgen1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1052,12 +1058,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_load2_95_load2",
-    "nodeId1" : "idINTERNAL_95_vl1_95_load2",
-    "nodeId2" : "idload2",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_bbs1_95_dtrf15",
     "nodeId1" : "idbbs1",
     "nodeId2" : "iddtrf15",
@@ -1076,6 +1076,12 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_dtrct21_95_dsect22",
+    "nodeId1" : "idINTERNAL_95_vl1_95_dtrct21",
+    "nodeId2" : "iddsect22",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_bbs1_95_dtrf11",
     "nodeId1" : "idbbs1",
     "nodeId2" : "iddtrf11",
@@ -1088,15 +1094,21 @@
     "straight" : false,
     "snakeLine" : false
   }, {
+    "id" : "_95_vl1_95_load1_95_INTERNAL_95_vl1_95_load1",
+    "nodeId1" : "idload1",
+    "nodeId2" : "idINTERNAL_95_vl1_95_load1",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
     "id" : "_95_vl1_95_INTERNAL_95_vl1_95_trf2_95_ONE_95_trf2_95_ONE",
     "nodeId1" : "idINTERNAL_95_vl1_95_trf2_95_ONE",
     "nodeId2" : "idtrf2_95_ONE",
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen1_95_gen1",
-    "nodeId1" : "idINTERNAL_95_vl1_95_gen1",
-    "nodeId2" : "idgen1",
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_gen2_95_bgen2",
+    "nodeId1" : "idINTERNAL_95_vl1_95_gen2",
+    "nodeId2" : "idbgen2",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1136,12 +1148,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_bgen1_95_INTERNAL_95_vl1_95_gen1",
-    "nodeId1" : "idbgen1",
-    "nodeId2" : "idINTERNAL_95_vl1_95_gen1",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_dload1_95_INTERNAL_95_vl1_95_bload1",
     "nodeId1" : "iddload1",
     "nodeId2" : "idINTERNAL_95_vl1_95_bload1",
@@ -1175,6 +1181,12 @@
     "id" : "_95_vl1_95_trf7_95_TWO_95_trf7",
     "nodeId1" : "idtrf7_95_TWO",
     "nodeId2" : "idtrf7",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_INTERNAL_95_vl1_95_load1_95_bload1",
+    "nodeId1" : "idINTERNAL_95_vl1_95_load1",
+    "nodeId2" : "idbload1",
     "straight" : false,
     "snakeLine" : false
   }, {
@@ -1232,12 +1244,6 @@
     "straight" : false,
     "snakeLine" : false
   }, {
-    "id" : "_95_vl1_95_dsect12_95_INTERNAL_95_vl1_95_dtrct11",
-    "nodeId1" : "iddsect12",
-    "nodeId2" : "idINTERNAL_95_vl1_95_dtrct11",
-    "straight" : false,
-    "snakeLine" : false
-  }, {
     "id" : "_95_vl1_95_btrf15_95_INTERNAL_95_vl1_95_trf5_95_ONE",
     "nodeId1" : "idbtrf15",
     "nodeId2" : "idINTERNAL_95_vl1_95_trf5_95_ONE",
@@ -1277,6 +1283,12 @@
     "id" : "_95_vl1_95_trf8_95_TWO_95_trf8",
     "nodeId1" : "idtrf8_95_TWO",
     "nodeId2" : "idtrf8",
+    "straight" : false,
+    "snakeLine" : false
+  }, {
+    "id" : "_95_vl1_95_gen2_95_INTERNAL_95_vl1_95_gen2",
+    "nodeId1" : "idgen2",
+    "nodeId2" : "idINTERNAL_95_vl1_95_gen2",
     "straight" : false,
     "snakeLine" : false
   } ],

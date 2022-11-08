@@ -21,7 +21,7 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-public class FeederPrimaryBlock extends AbstractPrimaryBlock {
+public final class FeederPrimaryBlock extends AbstractPrimaryBlock {
 
     public FeederPrimaryBlock(List<Node> nodes) {
         super(FEEDERPRIMARY, nodes);

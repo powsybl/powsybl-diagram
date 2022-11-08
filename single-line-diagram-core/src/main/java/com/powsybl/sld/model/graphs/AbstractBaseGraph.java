@@ -8,7 +8,7 @@ package com.powsybl.sld.model.graphs;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.FeederTwtLegNode;
+import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.MiddleTwtNode;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ public abstract class AbstractBaseGraph extends AbstractGraph implements BaseGra
     }
 
     @Override
-    public BranchEdge addTwtEdge(FeederTwtLegNode legNode, MiddleTwtNode twtNode) {
+    public BranchEdge addTwtEdge(FeederNode legNode, MiddleTwtNode twtNode) {
         BranchEdge edge = new BranchEdge(EDGE_PREFIX + legNode.getId(), legNode, twtNode);
         twtNode.addAdjacentEdge(edge);
         twtEdges.add(edge);

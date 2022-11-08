@@ -15,7 +15,6 @@ import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.InternCell;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BusConnection;
 import com.powsybl.sld.model.nodes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.powsybl.sld.library.ComponentTypeName.BUS_CONNECTION;
 import static com.powsybl.sld.model.blocks.Block.Extremity.END;
 import static com.powsybl.sld.model.blocks.Block.Extremity.START;
 import static com.powsybl.sld.model.cells.Cell.CellType.INTERN;
@@ -93,8 +93,8 @@ public class BlockOrganizer {
         List<Node> nodes = legPrimaryBlock.getNodes();
         boolean consistent = nodes.size() == 3
                 && nodes.get(0).getType() == Node.NodeType.BUS
-                && nodes.get(1) instanceof BusConnection || componentsOnBus.contains(nodes.get(1).getComponentType())
-                && (nodes.get(2).getType() == Node.NodeType.FICTITIOUS || nodes.get(2).getType() == Node.NodeType.SHUNT);
+                && nodes.get(1).getComponentType().equals(BUS_CONNECTION) || componentsOnBus.contains(nodes.get(1).getComponentType())
+                && nodes.get(2).getType() == INTERNAL;
         if (!consistent) {
             throw new PowsyblException("LegPrimaryBlock not consistent");
         }
@@ -103,7 +103,7 @@ public class BlockOrganizer {
     private void checkFeederPrimaryBlockConsistency(FeederPrimaryBlock lpb) {
         List<Node> nodes = lpb.getNodes();
         boolean consistent = nodes.size() == 2 && nodes.get(1).getType() == FEEDER
-                && (nodes.get(0).getType() == FICTITIOUS || nodes.get(0).getType() == SHUNT);
+                && nodes.get(0).getType() == INTERNAL;
         if (!consistent) {
             throw new PowsyblException("FeederPrimaryBlock not consistent");
         }
@@ -114,22 +114,26 @@ public class BlockOrganizer {
      */
     private void determineStackableBlocks(VoltageLevelGraph graph) {
         LOGGER.info("Determining stackable Blocks");
-        graph.getBusCells().forEach(cell -> {
-            List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
-            for (int i = 0; i < blocks.size(); i++) {
-                LegPrimaryBlock block1 = blocks.get(i);
-                if (block1.getNodes().size() == 3) {
-                    for (int j = i + 1; j < blocks.size(); j++) {
-                        LegPrimaryBlock block2 = blocks.get(j);
-                        if (block2.getNodes().size() == 3
-                                && block1.getExtremityNode(END).equals(block2.getExtremityNode(END))
-                                && !block1.getExtremityNode(START).equals(block2.getExtremityNode(START))) {
-                            block1.addStackableBlock(block2);
-                            block2.addStackableBlock(block1);
-                        }
+        graph.getBusCellStream()
+                .filter(cell -> !cell.getLegPrimaryBlocks().isEmpty())
+                .forEach(BlockOrganizer::determineStackableBlocks);
+    }
+
+    private static void determineStackableBlocks(BusCell cell) {
+        List<LegPrimaryBlock> blocks = cell.getLegPrimaryBlocks();
+        for (int i = 0; i < blocks.size(); i++) {
+            LegPrimaryBlock block1 = blocks.get(i);
+            if (block1.getNodes().size() == 3) {
+                for (int j = i + 1; j < blocks.size(); j++) {
+                    LegPrimaryBlock block2 = blocks.get(j);
+                    if (block2.getNodes().size() == 3
+                            && block1.getExtremityNode(END).equals(block2.getExtremityNode(END))
+                            && !block1.getExtremityNode(START).equals(block2.getExtremityNode(START))) {
+                        block1.addStackableBlock(block2);
+                        block2.addStackableBlock(block1);
                     }
                 }
             }
-        });
+        }
     }
 }

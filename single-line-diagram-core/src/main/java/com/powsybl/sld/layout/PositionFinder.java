@@ -6,11 +6,10 @@
  */
 package com.powsybl.sld.layout;
 
-import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,28 +25,13 @@ import java.util.Map;
  */
 public interface PositionFinder {
 
-    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes);
+    Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells);
 
     LBSCluster organizeLegBusSets(VoltageLevelGraph graph, List<LegBusSet> legBusSets);
 
-    default List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt) {
-        if (graph.getNodes().isEmpty()) {
-            return new ArrayList<>();
-        }
-        Map<BusNode, Integer> busToNb = indexBusPosition(graph.getNodeBuses());
-        List<LegBusSet> legBusSets = LegBusSet.createLegBusSets(graph, busToNb, handleShunt);
-        LBSCluster lbsCluster = organizeLegBusSets(graph, legBusSets);
-        graph.setMaxBusPosition();
-        List<Subsection> subsections = Subsection.createSubsections(graph, lbsCluster, handleShunt);
-        organizeDirections(graph, subsections);
-        return subsections;
-    }
+    List<Subsection> buildLayout(VoltageLevelGraph graph, boolean handleShunt);
 
-    default void forceSameOrientationForShuntedCell(VoltageLevelGraph graph) {
-        graph.getShuntCellStream().forEach(sc -> sc.alignDirections(Side.LEFT));
-    }
+    void forceSameOrientationForShuntedCell(VoltageLevelGraph graph);
 
-    default void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections) {
-        forceSameOrientationForShuntedCell(graph);
-    }
+    void organizeDirections(VoltageLevelGraph graph, List<Subsection> subsections);
 }

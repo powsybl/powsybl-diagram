@@ -41,7 +41,7 @@ public class TestCase3 extends AbstractTestCaseRaw {
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(d1, b);
         vlBuilder.connectNode(d2, bbs2);
-        vlBuilder.connectNode(d2, b);
+        vlBuilder.connectNode(b, d2);
     }
 
     @Test

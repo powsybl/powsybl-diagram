@@ -26,7 +26,7 @@ import static com.powsybl.sld.model.nodes.Node.NodeType.BUS;
  * @author Nicolas Duchene
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  */
-public class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
+public final class LegPrimaryBlock extends AbstractPrimaryBlock implements LegBlock {
 
     private final List<LegPrimaryBlock> stackableBlocks = new ArrayList<>();
 

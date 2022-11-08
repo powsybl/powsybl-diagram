@@ -21,13 +21,15 @@ import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at rte-france.com>
  * @author Franck Lecuyer <franck.lecuyer@rte-france.com>
  */
-public class SwitchNode extends Node {
+public class SwitchNode extends EquipmentNode {
 
     public enum SwitchKind {
         BREAKER,
         DISCONNECTOR,
         LOAD_BREAK_SWITCH;
     }
+
+    private boolean open = false;
 
     private final SwitchKind kind;
 
@@ -49,9 +51,18 @@ public class SwitchNode extends Node {
         return getAdjacentNodes().get(getAdjacentNodes().get(0).equals(adj) ? 1 : 0);
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
     @Override
     protected void writeJsonContent(JsonGenerator generator, boolean includeCoordinates) throws IOException {
         super.writeJsonContent(generator, includeCoordinates);
+        generator.writeBooleanField("open", open);
         generator.writeStringField("kind", kind.name());
         Optional<Integer> optOrder = getOrder();
         if (optOrder.isPresent()) {

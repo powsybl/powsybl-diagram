@@ -16,6 +16,7 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
@@ -129,42 +130,51 @@ public final class WireConnection {
 
         List<Point> pol = new ArrayList<>();
         pol.add(point1);
-        if (!straight && (point1.getX() != point2.getX() && point1.getY() != point2.getY())) {
-            addMiddlePoints(point1, point2, pol);
+        if (!straight && point1.getX() != point2.getX() && point1.getY() != point2.getY()) {
+            if (invertNodes(node1, node2)) {
+                addMiddlePoints(point2, point1, anchorPoint2, anchorPoint1, pol);
+            } else {
+                addMiddlePoints(point1, point2, anchorPoint1, anchorPoint2, pol);
+            }
         }
         pol.add(point2);
         return pol;
     }
 
-    private void addMiddlePoints(Point point1, Point point2, List<Point> pol) {
-        double x1 = point1.getX();
-        double y1 = point1.getY();
-        double x2 = point2.getX();
-        double y2 = point2.getY();
+    private boolean invertNodes(Node node1, Node node2) {
+        return node2 instanceof ConnectivityNode && ((ConnectivityNode) node2).isShunt()
+                || node1.getOrientation() == Orientation.UP && node2.getOrientation() == Orientation.UP && node2.getY() > node1.getY()
+                || node1.getOrientation() == Orientation.DOWN && node2.getOrientation() == Orientation.DOWN && node2.getY() < node1.getY();
+    }
 
-        switch (anchorPoint1.getOrientation()) {
+    private static void addMiddlePoints(Point pointA, Point pointB, AnchorPoint anchorPointA, AnchorPoint anchorPointB, List<Point> pol) {
+        double xA = pointA.getX();
+        double yA = pointA.getY();
+        double xB = pointB.getX();
+        double yB = pointB.getY();
+
+        switch (anchorPointA.getOrientation()) {
             case VERTICAL:
-                if (anchorPoint2.getOrientation() == AnchorOrientation.VERTICAL) {
-                    double mid = (y1 + y2) / 2;
-                    pol.addAll(Point.createPointsList(x1, mid, x2, mid));
+                if (anchorPointB.getOrientation() == AnchorOrientation.VERTICAL) {
+                    double mid = (yA + yB) / 2;
+                    pol.addAll(Point.createPointsList(xA, mid, xB, mid));
                 } else {
-                    pol.add(new Point(x1, y2));
+                    pol.add(new Point(xA, yB));
                 }
                 break;
             case HORIZONTAL:
-                if (anchorPoint2.getOrientation() == AnchorOrientation.HORIZONTAL) {
-                    double mid = (x1 + x2) / 2;
-                    pol.addAll(Point.createPointsList(mid, y1, mid, y2));
+                if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
+                    double mid = (xA + xB) / 2;
+                    pol.addAll(Point.createPointsList(mid, yA, mid, yB));
                 } else {
-                    pol.add(new Point(x2, y1));
+                    pol.add(new Point(xB, yA));
                 }
                 break;
             case NONE:
-                // Case none-none is not handled, it never happens (even if it happen it will execute another case)
-                if (anchorPoint2.getOrientation() == AnchorOrientation.HORIZONTAL) {
-                    pol.add(new Point(x1, y2));
+                if (anchorPointB.getOrientation() == AnchorOrientation.HORIZONTAL) {
+                    pol.add(new Point(xA, yB));
                 } else {
-                    pol.add(new Point(x2, y1));
+                    pol.add(new Point(xB, yA));
                 }
                 break;
             default:

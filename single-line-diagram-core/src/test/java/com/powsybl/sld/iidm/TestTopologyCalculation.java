@@ -10,8 +10,8 @@ import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.layout.TopologicallyConnectedNodesSet;
 import com.powsybl.sld.layout.TopologyCalculation;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
@@ -94,27 +94,27 @@ public class TestTopologyCalculation extends AbstractTestCaseIidm {
         List<TopologicallyConnectedNodesSet> tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
 
-        g.getNode("bA1").setOpen(true);
+        ((SwitchNode) g.getNode("bA1")).setOpen(true);
         tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 1, 0, 25, 0);
 
-        g.getNode("bA2").setOpen(true);
+        ((SwitchNode) g.getNode("bA2")).setOpen(true);
         tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
 
-        g.getNode("d1").setOpen(true);
+        ((SwitchNode) g.getNode("d1")).setOpen(true);
         tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 2, 0, 24, 2);
         assertTopo(tcnss, 2, 1, 3, 2);
 
-        g.getNode("b1").setOpen(true);
+        ((SwitchNode) g.getNode("b1")).setOpen(true);
         tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 3, 0, 9, 4);
         assertTopo(tcnss, 3, 1, 17, 2);
         assertTopo(tcnss, 3, 2, 3, 2);
 
-        g.getNode("dB2").setOpen(true);
+        ((SwitchNode) g.getNode("dB2")).setOpen(true);
         tcnss = topologyCalculation.findConnectedNodeSets(g);
         assertTopo(tcnss, 4, 0, 9, 4);
         assertTopo(tcnss, 4, 1, 7, 2);

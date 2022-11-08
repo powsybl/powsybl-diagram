@@ -69,7 +69,7 @@ public class TestNodeDecoratorsNodeBreaker extends AbstractTestCaseIidm {
         private static final double SWITCH_DECORATOR_OFFSET = 1d;
 
         public TestDiagramLabelProvider(Network network) {
-            super(network, componentLibrary, layoutParameters);
+            super(network, TestNodeDecoratorsNodeBreaker.this.componentLibrary, TestNodeDecoratorsNodeBreaker.this.layoutParameters);
         }
 
         @Override

@@ -10,8 +10,8 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,10 +42,10 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         SwitchNode bA = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bA", false, false);
         SwitchNode bB = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bB", false, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
-        FictitiousNode f = vlBuilder.createFictitiousNode("f");
-        FictitiousNode fB = vlBuilder.createFictitiousNode("fB");
-        FictitiousNode fShuntA = vlBuilder.createFictitiousNode("fShuntA");
-        FictitiousNode fShuntB = vlBuilder.createFictitiousNode("fShuntB");
+        ConnectivityNode f = vlBuilder.createConnectivityNode("f");
+        ConnectivityNode fB = vlBuilder.createConnectivityNode("fB");
+        ConnectivityNode fShuntA = vlBuilder.createConnectivityNode("fShuntA");
+        ConnectivityNode fShuntB = vlBuilder.createConnectivityNode("fShuntB");
         SwitchNode bShunt = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bShunt", false, false);
 
         vlBuilder.connectNode(bbs1, dA);
@@ -74,7 +74,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         FeederNode gen1 = vlBuilder.createGenerator("gen1", i++, TOP);
         SwitchNode bg1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bg1", false, false);
         vlBuilder.connectNode(gen1, bg1);
-        FictitiousNode fg1 = vlBuilder.createFictitiousNode("fg1");
+        ConnectivityNode fg1 = vlBuilder.createConnectivityNode("fg1");
         vlBuilder.connectNode(fg1, bg1);
         SwitchNode dg11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dg11", false, false);
         vlBuilder.connectNode(dg11, fg1);
@@ -86,7 +86,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         FeederNode loadC = vlBuilder.createLoad("loadC", i++, TOP);
         SwitchNode bC = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bC", false, false);
         vlBuilder.connectNode(loadC, bC);
-        FictitiousNode fC = vlBuilder.createFictitiousNode("fC");
+        ConnectivityNode fC = vlBuilder.createConnectivityNode("fC");
         vlBuilder.connectNode(fC, bC);
         SwitchNode dC1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dC1", false, false);
         vlBuilder.connectNode(dC1, fC);
@@ -98,7 +98,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         FeederNode loadD = vlBuilder.createLoad("loadD", i++, TOP);
         SwitchNode bD = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bD", false, false);
         vlBuilder.connectNode(loadD, bD);
-        FictitiousNode fD = vlBuilder.createFictitiousNode("fD");
+        ConnectivityNode fD = vlBuilder.createConnectivityNode("fD");
         vlBuilder.connectNode(fD, bD);
         SwitchNode dD1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dD1", false, false);
         vlBuilder.connectNode(dD1, fD);
@@ -110,7 +110,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         FeederNode gen2 = vlBuilder.createGenerator("gen2", i++, TOP);
         SwitchNode bg2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bg2", false, false);
         vlBuilder.connectNode(gen2, bg2);
-        FictitiousNode fg2 = vlBuilder.createFictitiousNode("fg2");
+        ConnectivityNode fg2 = vlBuilder.createConnectivityNode("fg2");
         vlBuilder.connectNode(fg2, bg2);
         SwitchNode dg21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dg21", false, false);
         vlBuilder.connectNode(dg21, fg2);
@@ -129,7 +129,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         FeederNode loadE = vlBuilder.createLoad("loadE", i++, TOP);
         SwitchNode bE = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bE", false, false);
         vlBuilder.connectNode(loadE, bE);
-        FictitiousNode fE = vlBuilder.createFictitiousNode("fE");
+        ConnectivityNode fE = vlBuilder.createConnectivityNode("fE");
         vlBuilder.connectNode(fE, bE);
         SwitchNode dE1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dE1", false, false);
         vlBuilder.connectNode(dE1, fE);
@@ -138,13 +138,13 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         vlBuilder.connectNode(dE2, fE);
         vlBuilder.connectNode(dE2, bbs23);
 
-        FictitiousNode commonFG = vlBuilder.createFictitiousNode("commonFG");
+        ConnectivityNode commonFG = vlBuilder.createConnectivityNode("commonFG");
 
         FeederNode loadF = vlBuilder.createLoad("loadF", i++, TOP);
         vlBuilder.connectNode(loadF, commonFG);
         SwitchNode bF = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bF", false, false);
         vlBuilder.connectNode(commonFG, bF);
-        FictitiousNode fF = vlBuilder.createFictitiousNode("fF");
+        ConnectivityNode fF = vlBuilder.createConnectivityNode("fF");
         vlBuilder.connectNode(fF, bF);
         SwitchNode dF1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "dF1", false, false);
         vlBuilder.connectNode(dF1, fF);
@@ -154,7 +154,7 @@ public class TestCaseShuntArrangement extends AbstractTestCaseRaw {
         vlBuilder.connectNode(dF2, bbs23);
 
         FeederNode loadG = vlBuilder.createLoad("loadG", i++, TOP);
-        FictitiousNode fLoadG = vlBuilder.createFictitiousNode("fLoadG");
+        ConnectivityNode fLoadG = vlBuilder.createConnectivityNode("fLoadG");
         vlBuilder.connectNode(loadG, fLoadG);
         SwitchNode bFeederG = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bFeederG", false, false);
         vlBuilder.connectNode(fLoadG, bFeederG);

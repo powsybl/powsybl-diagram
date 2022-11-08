@@ -74,18 +74,6 @@
             <text class="sld-label" id="bbs_NW_LABEL" x="-5.0" y="-5.0">bbs</text>
         </g>
         <g class="sld-extern-cell" id="idEXTERN_32_0">
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_b" transform="translate(61.0,326.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,188.0)">
-                <circle cx="4" cy="4" r="4"/>
-            </g>
-            <g class="sld-load sld-top-feeder" id="idl" transform="translate(57.0,75.5)">
-                <rect height="9" width="16"/>
-                <line x1="0" x2="16" y1="0" y2="9"/>
-                <line x1="16" x2="0" y1="0" y2="9"/>
-                <text class="sld-label" id="l_N_LABEL" x="-5.0" y="-5.0">l</text>
-            </g>
             <g class="sld-wire" id="_95_vl_95_d_95_INTERNAL_95_vl_95_b">
                 <polyline points="65.0,360.0,65.0,330.0"/>
             </g>
@@ -127,9 +115,21 @@
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
                 <path class="sld-sw-open" d="M8,0 0,8"/>
             </g>
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_b" transform="translate(61.0,326.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
             <g class="sld-breaker sld-closed" id="idb" transform="translate(55.0,251.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
                 <path class="sld-sw-open" d="M1,1 V19 H19 V1z M5,10 H15"/>
+            </g>
+            <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl_95_l" transform="translate(61.0,188.0)">
+                <circle cx="4" cy="4" r="4"/>
+            </g>
+            <g class="sld-load sld-top-feeder" id="idl" transform="translate(57.0,75.5)">
+                <rect height="9" width="16"/>
+                <line x1="0" x2="16" y1="0" y2="9"/>
+                <line x1="16" x2="0" y1="0" y2="9"/>
+                <text class="sld-label" id="l_N_LABEL" x="-5.0" y="-5.0">l</text>
             </g>
         </g>
     </g>

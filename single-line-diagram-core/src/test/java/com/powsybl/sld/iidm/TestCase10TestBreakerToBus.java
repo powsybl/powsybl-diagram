@@ -10,7 +10,7 @@ import com.powsybl.iidm.network.Country;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.SwitchKind;
 import com.powsybl.iidm.network.TopologyKind;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 
 /**
  * <PRE>

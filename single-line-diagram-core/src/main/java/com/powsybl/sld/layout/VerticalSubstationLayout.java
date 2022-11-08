@@ -229,6 +229,6 @@ public class VerticalSubstationLayout extends AbstractSubstationLayout {
         VoltageLevelGraph vlGraph1 = getGraph().getVoltageLevelGraph(node1);
         VoltageLevelGraph vlGraph2 = getGraph().getVoltageLevelGraph(node2);
         return (dNode1 == BOTTOM && dNode2 == TOP && getGraph().graphAdjacents(vlGraph1, vlGraph2))
-            || (dNode1 == TOP && dNode2 == BOTTOM && getGraph().graphAdjacents(vlGraph2, vlGraph1));
+                || (dNode1 == TOP && dNode2 == BOTTOM && getGraph().graphAdjacents(vlGraph2, vlGraph1));
     }
 }

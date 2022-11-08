@@ -18,6 +18,8 @@ import com.powsybl.sld.model.coordinate.Point;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.model.nodes.Node;
+import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.svg.GraphMetadata.FeederInfoMetadata;
 import com.powsybl.sld.util.DomUtil;
@@ -271,30 +273,15 @@ public class DefaultSVGWriter implements SVGWriter {
         g.setAttribute("id", cellId);
         g.setAttribute(CLASS, String.join(" ", styleProvider.getCellStyles(cell)));
 
-        List<Node> nodesToDrawBefore = new ArrayList<>();
-        List<Node> nodesToDrawAfter = new ArrayList<>();
+        List<Node> nodesToDraw = cell.getNodes().stream().filter(n -> !(n instanceof BusNode)).collect(Collectors.toList());
         Collection<Edge> edgesToDraw = new LinkedHashSet<>();
-        for (Node n : cell.getNodes()) {
-            if (n instanceof BusNode) {
-                // Buses have already been drawn in drawBusNodes
-                continue;
-            }
-            if (n instanceof SwitchNode || n instanceof BusConnection || n instanceof Middle3WTNode) {
-                nodesToDrawAfter.add(n);
-            } else {
-                nodesToDrawBefore.add(n);
-            }
+        nodesToDraw.forEach(n -> edgesToDraw.addAll(n.getAdjacentEdges()));
 
-            edgesToDraw.addAll(n.getAdjacentEdges());
-        }
-
-        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDrawBefore);
         drawEdges(prefixId, g, graph, metadata, initProvider, styleProvider, edgesToDraw);
-        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDrawAfter);
+        drawNodes(prefixId, g, graph, graph.getCoord(), metadata, initProvider, styleProvider, nodesToDraw);
 
         remainingEdgesToDraw.removeAll(edgesToDraw);
-        nodesToDrawBefore.forEach(remainingNodesToDraw::remove);
-        nodesToDrawAfter.forEach(remainingNodesToDraw::remove);
+        remainingNodesToDraw.removeAll(nodesToDraw);
 
         root.appendChild(g);
     }
@@ -472,18 +459,20 @@ public class DefaultSVGWriter implements SVGWriter {
 
     protected void setMetadata(String prefixId, GraphMetadata metadata, Node node, String nodeId, BaseGraph graph, Direction direction, List<DiagramLabelProvider.NodeLabel> nodeLabels) {
         String nextVId = null;
-        if (node instanceof FeederWithSideNode) {
-            VoltageLevelInfos otherSideVoltageLevelInfos = ((FeederWithSideNode) node).getOtherSideVoltageLevelInfos();
+        if (node instanceof FeederNode && ((FeederNode) node).getFeeder() instanceof FeederWithSides) {
+            FeederWithSides feederWs = (FeederWithSides) ((FeederNode) node).getFeeder();
+            VoltageLevelInfos otherSideVoltageLevelInfos = feederWs.getOtherSideVoltageLevelInfos();
             if (otherSideVoltageLevelInfos != null) {
                 nextVId = otherSideVoltageLevelInfos.getId();
             }
         }
 
         String id = graph instanceof VoltageLevelGraph ? ((VoltageLevelGraph) graph).getVoltageLevelInfos().getId() : "";
+        boolean isOpen = node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen();
         metadata.addNodeMetadata(
-                new GraphMetadata.NodeMetadata(nodeId, id, nextVId,
-                        node.getComponentType(),
-                        node.isOpen(), direction, false, node.getEquipmentId(), createNodeLabelMetadata(prefixId, node, nodeLabels)));
+                new GraphMetadata.NodeMetadata(nodeId, id, nextVId, node.getComponentType(), isOpen, direction, false,
+                        node instanceof EquipmentNode ? ((EquipmentNode) node).getEquipmentId() : null,
+                        createNodeLabelMetadata(prefixId, node, nodeLabels)));
 
         addInfoComponentMetadata(metadata, node.getComponentType());
     }
@@ -573,22 +562,11 @@ public class DefaultSVGWriter implements SVGWriter {
         return label;
     }
 
-    protected boolean canInsertComponentSVG(Node node) {
-        return (node.getType() == Node.NodeType.SWITCH)
-                || (!node.isFictitious() && node.getType() != Node.NodeType.SHUNT)
-                || (node.isFictitious()
-                && node.getComponentType().equals(THREE_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(TWO_WINDINGS_TRANSFORMER)
-                || node.getComponentType().equals(PHASE_SHIFT_TRANSFORMER)
-                || node.getComponentType().equals(NODE)
-                || node.getComponentType().equals(BUS_CONNECTION));
-    }
-
     protected void incorporateComponents(String prefixId, Graph graph, Node node, Point shift, Element g,
                                          DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         String componentType = node.getComponentType();
         transformComponent(node, shift, g);
-        if (componentLibrary.getSvgElements(componentType) != null && canInsertComponentSVG(node)) {
+        if (componentLibrary.getSvgElements(componentType) != null) {
             insertComponentSVGIntoDocumentSVG(prefixId, componentType, g, graph, node, labelProvider, styleProvider);
         }
     }
@@ -804,7 +782,7 @@ public class DefaultSVGWriter implements SVGWriter {
         if (angle == 0) {
             double translateX = centerPosX - componentSize.getWidth() / 2;
             double translateY = centerPosY - componentSize.getHeight() / 2;
-            return TRANSLATE + "(" +  translateX + "," + translateY + ")";
+            return TRANSLATE + "(" + translateX + "," + translateY + ")";
         } else {
             double[] matrix = getTransformMatrix(componentSize.getWidth(), componentSize.getHeight(), angle,
                 centerPosX, centerPosY);
@@ -888,7 +866,7 @@ public class DefaultSVGWriter implements SVGWriter {
         String svgId = escapeId(feederNode.getId()) + "_" + feederInfo.getComponentType();
         g.setAttribute("id", svgId);
 
-        String side = feederNode instanceof FeederWithSideNode ? ((FeederWithSideNode) feederNode).getSide().name() : null;
+        String side = feederNode.getFeeder() instanceof FeederWithSides ? ((FeederWithSides) feederNode.getFeeder()).getSide().name() : null;
         metadata.addFeederInfoMetadata(new FeederInfoMetadata(svgId, feederNode.getEquipmentId(), side, feederInfo.getUserDefinedId()));
 
         // we draw the feeder info

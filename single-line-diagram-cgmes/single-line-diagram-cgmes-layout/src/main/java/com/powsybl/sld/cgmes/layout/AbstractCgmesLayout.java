@@ -16,9 +16,10 @@ import com.powsybl.sld.model.nodes.Node.NodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
 
@@ -53,7 +54,7 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     protected VoltageLevelGraph removeFictitiousNodes(VoltageLevelGraph graph, VoltageLevel vl) {
-        graph.removeUnnecessaryFictitiousNodes();
+        graph.removeUnnecessaryConnectivityNodes();
         removeFictitiousSwitchNodes(graph, vl);
         return graph;
     }
@@ -93,7 +94,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                     setBusNodeCoordinates(busNode, busbarDiagramData, diagramName);
                 } else {
                     Bus bus = vl.getBusBreakerView().getBus(busNode.getId());
-                    NodeDiagramData<Bus> busDiagramData =  bus != null ? bus.getExtension(NodeDiagramData.class) : null;
+                    NodeDiagramData<Bus> busDiagramData = bus != null ? bus.getExtension(NodeDiagramData.class) : null;
                     setBusNodeCoordinates(busNode, busDiagramData, diagramName);
                 }
                 break;
@@ -102,7 +103,7 @@ public abstract class AbstractCgmesLayout implements Layout {
                 Switch sw = TopologyKind.NODE_BREAKER.equals(vl.getTopologyKind()) ?
                             vl.getNodeBreakerView().getSwitch(switchNode.getId()) :
                             vl.getBusBreakerView().getSwitch(switchNode.getId());
-                CouplingDeviceDiagramData<Switch> switchDiagramData =  sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
+                CouplingDeviceDiagramData<Switch> switchDiagramData = sw != null ? sw.getExtension(CouplingDeviceDiagramData.class) : null;
                 setCouplingDeviceNodeCoordinates(switchNode, switchDiagramData, true, diagramName);
                 break;
             case FEEDER:
@@ -116,15 +117,43 @@ public abstract class AbstractCgmesLayout implements Layout {
 
     protected void processDefaultNodeCase(VoltageLevel vl, Node node, String diagramName) {
         // retrieve internal nodes points, if available in VoltageLevel extensions
-        if (InternalNode.isIidmInternalNode(node)) {
-            DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, Integer.parseInt(node.getEquipmentId()));
-            if (nodePoint != null) {
-                node.setX(nodePoint.getX());
-                node.setY(nodePoint.getY());
+        if (node instanceof ConnectivityNode && isNodeBreaker) {
+            Optional<Integer> iidmEquivalentNode = getIidmEquivalentNode(vl, node);
+            if (iidmEquivalentNode.isPresent()) {
+                DiagramPoint nodePoint = VoltageLevelDiagramData.getInternalNodeDiagramPoint(vl, diagramName, iidmEquivalentNode.get());
+                if (nodePoint != null) {
+                    node.setX(nodePoint.getX());
+                    node.setY(nodePoint.getY());
+                    return;
+                }
             }
-        } else {
-            LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
         }
+        LOG.warn("unable to set coordinates for node {}, type {}, component type {}", node.getId(), node.getType(), node.getComponentType());
+    }
+
+    protected static Optional<Integer> getIidmEquivalentNode(VoltageLevel vl, Node node) {
+        VoltageLevel.NodeBreakerView nbv = vl.getNodeBreakerView();
+        Stream<Integer> iidmNodes1 = node.getAdjacentEdges().stream()
+                .filter(edge -> edge.getNode1() == node)
+                .map(Edge::getNode2)
+                .filter(SwitchNode.class::isInstance) // outgoing neighbour switches
+                .map(SwitchNode.class::cast)
+                .map(SwitchNode::getEquipmentId)
+                .map(nbv::getNode1);
+        Stream<Integer> iidmNodes2 = node.getAdjacentEdges().stream()
+                .filter(edge -> edge.getNode2() == node)
+                .map(Edge::getNode1)
+                .filter(SwitchNode.class::isInstance) // incoming neighbour switches
+                .map(SwitchNode.class::cast)
+                .map(SwitchNode::getEquipmentId)
+                .map(nbv::getNode2);
+        Map<Integer, Long> equivalentNodeCandidates = Stream.concat(iidmNodes1, iidmNodes2)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return equivalentNodeCandidates.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .filter(e -> e.getValue() > 1)
+                .map(Map.Entry::getKey);
     }
 
     protected void setBusNodeCoordinates(BusNode node, NodeDiagramData<?> diagramData, String diagramName) {
@@ -145,7 +174,7 @@ public abstract class AbstractCgmesLayout implements Layout {
         }
     }
 
-    protected void setCouplingDeviceNodeCoordinates(Node node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
+    protected void setCouplingDeviceNodeCoordinates(EquipmentNode node, CouplingDeviceDiagramData<?> diagramData, boolean rotate, String diagramName) {
         if (diagramData != null) {
             CouplingDeviceDiagramData.CouplingDeviceDiagramDetails diagramDetails = diagramData.getData(diagramName);
             if (diagramDetails != null) {
@@ -363,12 +392,13 @@ public abstract class AbstractCgmesLayout implements Layout {
     }
 
     public static void removeFictitiousSwitchNodes(VoltageLevelGraph graph, VoltageLevel vl) {
-        List<Node> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
-                .filter(node -> node.getType() == Node.NodeType.SWITCH)
+        List<SwitchNode> fictitiousSwithcNodesToRemove = graph.getNodes().stream()
+                .filter(SwitchNode.class::isInstance)
+                .map(SwitchNode.class::cast)
                 .filter(node -> isFictitiousSwitchNode(node, vl))
                 .filter(node -> node.getAdjacentNodes().size() == 2)
                 .collect(Collectors.toList());
-        for (Node n : fictitiousSwithcNodesToRemove) {
+        for (SwitchNode n : fictitiousSwithcNodesToRemove) {
             Node node1 = n.getAdjacentNodes().get(0);
             Node node2 = n.getAdjacentNodes().get(1);
             LOG.info("Remove fictitious switch node {} between {} and {}", n.getName(), node1.getId(), node2.getId());

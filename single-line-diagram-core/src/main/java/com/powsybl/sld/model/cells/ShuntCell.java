@@ -13,7 +13,7 @@ import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
 
 import java.util.*;
@@ -32,6 +32,11 @@ public final class ShuntCell extends AbstractCell {
 
     private ShuntCell(int cellNumber, List<Node> nodes) {
         super(cellNumber, CellType.SHUNT, nodes);
+        if (!(nodes.get(0) instanceof ConnectivityNode) || !(nodes.get(nodes.size() - 1) instanceof ConnectivityNode)) {
+            throw new PowsyblException("the first and last nodes of a shunt cell shall be ConnectivityNode");
+        }
+        ((ConnectivityNode) nodes.get(0)).setShunt(true);
+        ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);
     }
 
     public static ShuntCell create(int cellNumber, List<Node> nodes) {
@@ -88,11 +93,11 @@ public final class ShuntCell extends AbstractCell {
         return sideCells.get(side);
     }
 
-    public FictitiousNode getSideShuntNode(Side side) {
+    public Node getSideShuntNode(Side side) {
         if (side == Side.UNDEFINED) {
             return null;
         }
-        return (FictitiousNode) (side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1));
+        return side == Side.LEFT ? nodes.get(0) : nodes.get(nodes.size() - 1);
     }
 
     public Position getSidePosition(Side side) {
@@ -103,7 +108,7 @@ public final class ShuntCell extends AbstractCell {
         return new ArrayList<>(sideCells.values());
     }
 
-    public int getLength() {
+    public int getHSpan() {
         return getRootBlock().getPosition().getSpan(H) / 2 - 1;
     }
 

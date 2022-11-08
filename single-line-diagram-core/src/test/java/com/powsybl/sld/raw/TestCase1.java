@@ -50,6 +50,6 @@ public class TestCase1 extends AbstractTestCaseRaw {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
         assertEquals(toString("/TestCase1.svg"),
-                toSVG(g, "/TestCase1.svg", getRawLabelProvider(g), new BasicStyleProvider()));
+                toSVG(g, "/TestCase1.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }

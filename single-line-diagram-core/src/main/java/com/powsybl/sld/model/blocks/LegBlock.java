@@ -9,7 +9,7 @@ package com.powsybl.sld.model.blocks;
 import java.util.List;
 
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.Node;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -18,8 +18,8 @@ import com.powsybl.sld.model.nodes.FictitiousNode;
  */
 public interface LegBlock extends Block {
 
-    default FictitiousNode getLegNode() {
-        return (FictitiousNode) getExtremityNode(Extremity.END);
+    default Node getLegNode() {
+        return getExtremityNode(Extremity.END);
     }
 
     List<BusNode> getBusNodes();

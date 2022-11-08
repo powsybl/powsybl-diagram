@@ -9,7 +9,7 @@ package com.powsybl.sld.raw;
 import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
+import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import org.junit.Before;
@@ -29,12 +29,12 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         BusNode bbs1 = vlBuilder.createBusBarSection("bbs1", 1, 1);
         BusNode bbs2 = vlBuilder.createBusBarSection("bbs2", 2, 1);
         SwitchNode d1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d1", false, false);
-        FictitiousNode f1 = vlBuilder.createFictitiousNode("f1");
+        ConnectivityNode f1 = vlBuilder.createConnectivityNode("f1");
         SwitchNode bA = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bA", false, false);
         SwitchNode bB = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bB", false, false);
         SwitchNode bC = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bC", false, false);
         SwitchNode bD = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "bD", false, false);
-        FictitiousNode f2 = vlBuilder.createFictitiousNode("f2");
+        ConnectivityNode f2 = vlBuilder.createConnectivityNode("f2");
         SwitchNode d2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d2", false, false);
         vlBuilder.connectNode(bbs1, d1);
         vlBuilder.connectNode(d1, f1);
@@ -55,6 +55,6 @@ public class TestCaseComplexCoupling extends AbstractTestCaseRaw {
         layoutParameters.setAdaptCellHeightToContent(true);
         voltageLevelGraphLayout(g);
 
-        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(g), new BasicStyleProvider()));
+        assertEquals(toString("/TestCaseComplexCoupling.svg"), toSVG(g, "/TestCaseComplexCoupling.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }

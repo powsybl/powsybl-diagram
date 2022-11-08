@@ -7,15 +7,17 @@
 package com.powsybl.sld.util;
 
 import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.extensions.ConnectablePosition;
 import com.powsybl.sld.builders.NetworkGraphBuilder;
 import com.powsybl.sld.iidm.AbstractTestCaseIidm;
-import com.powsybl.sld.iidm.extensions.ConnectablePosition;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.Edge;
 import com.powsybl.sld.model.nodes.FeederNode;
 import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.svg.*;
+import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.DiagramStyles;
+import com.powsybl.sld.svg.FeederInfo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -89,7 +91,7 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
 
     private class NoFeederInfoProvider extends DefaultDiagramLabelProvider {
         public NoFeederInfoProvider() {
-            super(network, componentLibrary, layoutParameters);
+            super(network, NominalVoltageStyleTest.this.componentLibrary, NominalVoltageStyleTest.this.layoutParameters);
         }
 
         @Override
@@ -112,13 +114,13 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(nodeStyle1.contains("sld-vl300to500"));
 
         Node node2 = graph2.getNode("bbs2");
-        List<String>  nodeStyle2 = styleProvider.getSvgNodeStyles(graph2, node2, componentLibrary, false);
+        List<String> nodeStyle2 = styleProvider.getSvgNodeStyles(graph2, node2, componentLibrary, false);
         assertEquals(2, nodeStyle2.size());
         assertTrue(nodeStyle2.contains("sld-busbar-section"));
         assertTrue(nodeStyle2.contains("sld-vl180to300"));
 
         Node node3 = graph3.getNode("bbs3");
-        List<String>  nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, false);
+        List<String> nodeStyle3 = styleProvider.getSvgNodeStyles(graph3, node3, componentLibrary, false);
         assertEquals(2, nodeStyle3.size());
         assertTrue(nodeStyle3.contains("sld-busbar-section"));
         assertTrue(nodeStyle3.contains("sld-vl50to70"));
@@ -130,13 +132,13 @@ public class NominalVoltageStyleTest extends AbstractTestCaseIidm {
         assertTrue(wireStyles.contains("sld-vl300to500"));
 
         Node fict3WTNode = graph1.getNode("3WT");
-        List<String>  node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, false);
+        List<String> node3WTStyle = styleProvider.getSvgNodeStyles(graph1, fict3WTNode, componentLibrary, false);
         assertEquals(2, node3WTStyle.size());
         assertTrue(node3WTStyle.contains("sld-three-wt"));
         assertTrue(node3WTStyle.contains("sld-fictitious"));
 
         Node f2WTNode = graph1.getNode("2WT_ONE");
-        List<String>  node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, false);
+        List<String> node2WTStyle = styleProvider.getSvgNodeStyles(graph1, f2WTNode, componentLibrary, false);
         assertEquals(1, node2WTStyle.size());
         assertTrue(node2WTStyle.contains("sld-two-wt"));
 

@@ -7,131 +7,121 @@
   "x" : 40.0,
   "y" : 80.0,
   "nodes" : [ {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_bCD1",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
-    "x" : 75.0,
-    "y" : 305.0,
-    "open" : false
+    "x" : 125.0,
+    "y" : 305.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_bCD2",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 280.0,
-    "open" : false
+    "y" : 280.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "BUSCO_bCD3",
     "componentType" : "BUS_CONNECTION",
     "fictitious" : true,
-    "x" : 125.0,
-    "y" : 280.0,
-    "open" : false
+    "x" : 75.0,
+    "y" : 280.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD1",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 75.0,
-    "y" : 250.0,
-    "open" : false
+    "x" : 125.0,
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0,
-    "open" : false
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_bCD3",
     "componentType" : "NODE",
     "fictitious" : true,
-    "x" : 125.0,
-    "y" : 250.0,
-    "open" : false
+    "x" : 75.0,
+    "y" : 250.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_loadC",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 112.5,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_loadC_fork",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 156.0,
-    "open" : false
+    "y" : 156.0
   }, {
-    "type" : "FICTITIOUS",
+    "type" : "INTERNAL",
     "id" : "INTERNAL_vl1_loadD",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 37.5,
-    "y" : 62.0,
-    "open" : false
+    "y" : 62.0
   }, {
     "type" : "SWITCH",
     "id" : "bCD1",
-    "name" : "bCD1",
-    "equipmentId" : "bCD1",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 75.0,
+    "x" : 125.0,
     "y" : 203.0,
+    "name" : "bCD1",
+    "equipmentId" : "bCD1",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "bCD2",
-    "name" : "bCD2",
-    "equipmentId" : "bCD2",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
     "y" : 203.0,
+    "name" : "bCD2",
+    "equipmentId" : "bCD2",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "bCD3",
-    "name" : "bCD3",
-    "equipmentId" : "bCD3",
     "componentType" : "BREAKER",
     "fictitious" : false,
-    "x" : 125.0,
+    "x" : 75.0,
     "y" : 203.0,
+    "name" : "bCD3",
+    "equipmentId" : "bCD3",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "SWITCH",
     "id" : "bD1",
-    "name" : "bD1",
-    "equipmentId" : "bD1",
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 37.5,
     "y" : 109.0,
+    "name" : "bD1",
+    "equipmentId" : "bD1",
     "open" : false,
     "kind" : "BREAKER"
   }, {
     "type" : "BUS",
     "id" : "bbs13",
-    "name" : "bbs13",
-    "equipmentId" : "bbs13",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 280.0,
-    "open" : false,
+    "name" : "bbs13",
+    "equipmentId" : "bbs13",
     "pxWidth" : 125.0,
     "busbarIndex" : 1,
     "sectionIndex" : 3,
@@ -144,13 +134,12 @@
   }, {
     "type" : "BUS",
     "id" : "bbs23",
-    "name" : "bbs23",
-    "equipmentId" : "bbs23",
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
     "y" : 305.0,
-    "open" : false,
+    "name" : "bbs23",
+    "equipmentId" : "bbs23",
     "pxWidth" : 125.0,
     "busbarIndex" : 2,
     "sectionIndex" : 3,
@@ -163,27 +152,25 @@
   }, {
     "type" : "FEEDER",
     "id" : "loadC",
-    "name" : "loadC",
-    "equipmentId" : "loadC",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 112.5,
     "y" : 0.0,
-    "open" : false,
     "label" : "loadC",
+    "name" : "loadC",
+    "equipmentId" : "loadC",
     "feederType" : "INJECTION",
     "direction" : "TOP"
   }, {
     "type" : "FEEDER",
     "id" : "loadD",
-    "name" : "loadD",
-    "equipmentId" : "loadD",
     "componentType" : "LOAD",
     "fictitious" : false,
     "x" : 37.5,
     "y" : 0.0,
-    "open" : false,
     "label" : "loadD",
+    "name" : "loadD",
+    "equipmentId" : "loadD",
     "feederType" : "INJECTION",
     "direction" : "TOP"
   } ],
@@ -334,7 +321,7 @@
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
-            "nodes" : [ "bbs23", "BUSCO_bCD1", "INTERNAL_vl1_bCD1" ]
+            "nodes" : [ "bbs13", "BUSCO_bCD3", "INTERNAL_vl1_bCD3" ]
           }, {
             "type" : "BODYPRIMARY",
             "cardinalities" : [ {
@@ -355,7 +342,7 @@
               "xSpan" : 50.0,
               "ySpan" : 94.0
             },
-            "nodes" : [ "INTERNAL_vl1_bCD1", "bCD1", "INTERNAL_vl1_loadC_fork" ]
+            "nodes" : [ "INTERNAL_vl1_bCD3", "bCD3", "INTERNAL_vl1_loadC_fork" ]
           } ]
         }, {
           "type" : "SERIAL",
@@ -397,7 +384,7 @@
               "xSpan" : 50.0,
               "ySpan" : 0.0
             },
-            "nodes" : [ "bbs13", "BUSCO_bCD3", "INTERNAL_vl1_bCD3" ]
+            "nodes" : [ "bbs23", "BUSCO_bCD1", "INTERNAL_vl1_bCD1" ]
           }, {
             "type" : "BODYPRIMARY",
             "cardinalities" : [ {
@@ -418,7 +405,7 @@
               "xSpan" : 50.0,
               "ySpan" : 94.0
             },
-            "nodes" : [ "INTERNAL_vl1_bCD3", "bCD3", "INTERNAL_vl1_loadC_fork" ]
+            "nodes" : [ "INTERNAL_vl1_bCD1", "bCD1", "INTERNAL_vl1_loadC_fork" ]
           } ]
         } ]
       }, {
@@ -617,11 +604,11 @@
     "node1" : "INTERNAL_vl1_loadC",
     "node2" : "loadC"
   }, {
-    "node1" : "bD1",
+    "node1" : "loadD",
     "node2" : "INTERNAL_vl1_loadD"
   }, {
     "node1" : "INTERNAL_vl1_loadD",
-    "node2" : "loadD"
+    "node2" : "bD1"
   } ],
   "multitermNodes" : [ ],
   "twtEdges" : [ ],

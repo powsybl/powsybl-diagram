@@ -60,12 +60,8 @@ public class VoltageLevelRawBuilder {
         voltageLevelGraph.addEdge(node1, node2);
     }
 
-    public FictitiousNode createFictitiousNode(int id) {
-        return NodeFactory.createInternalNode(voltageLevelGraph, id);
-    }
-
-    public FictitiousNode createFictitiousNode(String id) {
-        return NodeFactory.createInternalNode(voltageLevelGraph, id);
+    public ConnectivityNode createConnectivityNode(String id) {
+        return NodeFactory.createConnectivityNode(voltageLevelGraph, id);
     }
 
     public void addExtension(Node fn, Integer order, Direction direction) {
@@ -102,28 +98,28 @@ public class VoltageLevelRawBuilder {
         return fn;
     }
 
-    public FeederLineNode createFeederLineNode(String id, String otherVlId, FeederWithSideNode.Side side, int order, Direction direction) {
-        FeederLineNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
+    public FeederNode createFeederLineNode(String id, String otherVlId, NodeSide side, int order, Direction direction) {
+        FeederNode fln = NodeFactory.createFeederLineNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
         commonFeederSetting(fln, id, order, direction);
         return fln;
     }
 
-    public Feeder2WTNode createFeeder2WTNode(String id, String otherVlId, FeederWithSideNode.Side side,
+    public FeederNode createFeeder2WTNode(String id, String otherVlId, NodeSide side,
                                              int order, Direction direction) {
-        Feeder2WTNode f2WTe = NodeFactory.createFeeder2WTNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
+        FeederNode f2WTe = NodeFactory.createFeeder2WTNode(voltageLevelGraph, id + "_" + side, id, id, side, getVoltageLevelInfosFromId.apply(otherVlId));
         commonFeederSetting(f2WTe, id, order, direction);
         return f2WTe;
     }
 
-    public Feeder2WTLegNode createFeeder2wtLegNode(String id, FeederWithSideNode.Side side,
+    public FeederNode createFeeder2wtLegNode(String id, NodeSide side,
                                                    int order, Direction direction) {
-        Feeder2WTLegNode f2WTe = NodeFactory.createFeeder2WTLegNode(voltageLevelGraph, id + "_" + side, id, id, side);
+        FeederNode f2WTe = NodeFactory.createFeeder2WTLegNode(voltageLevelGraph, id + "_" + side, id, id, side);
         commonFeederSetting(f2WTe, id, order, direction);
         return f2WTe;
     }
 
-    public Feeder3WTLegNode createFeeder3wtLegNode(String id, FeederWithSideNode.Side side, int order, Direction direction) {
-        Feeder3WTLegNode f3WTe = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side);
+    public FeederNode createFeeder3wtLegNode(String id, NodeSide side, int order, Direction direction) {
+        FeederNode f3WTe = NodeFactory.createFeeder3WTLegNodeForSubstationDiagram(voltageLevelGraph, id + "_" + side, id, id, side);
         commonFeederSetting(f3WTe, id + side.getIntValue(), order, direction);
         return f3WTe;
     }

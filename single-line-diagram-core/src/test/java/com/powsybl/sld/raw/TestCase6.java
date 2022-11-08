@@ -44,15 +44,15 @@ public class TestCase6 extends AbstractTestCaseRaw {
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs11, d1);
         vlBuilder.connectNode(d1, b);
-        vlBuilder.connectNode(d2, b);
+        vlBuilder.connectNode(b, d2);
         vlBuilder.connectNode(d2, bbs22);
 
         SwitchNode ds1 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ds1", false, false);
         vlBuilder.connectNode(bbs11, ds1);
-        vlBuilder.connectNode(bbs12, ds1);
+        vlBuilder.connectNode(ds1, bbs12);
         SwitchNode ds2 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "ds2", false, false);
         vlBuilder.connectNode(bbs21, ds2);
-        vlBuilder.connectNode(bbs22, ds2);
+        vlBuilder.connectNode(ds2, bbs22);
 
     }
 

@@ -12,6 +12,7 @@ import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.VoltageLevel;
 import com.powsybl.sld.model.nodes.*;
 import com.powsybl.sld.model.nodes.Node.NodeType;
+import com.powsybl.sld.library.ComponentTypeName;
 import com.powsybl.sld.model.graphs.*;
 import com.powsybl.sld.svg.DiagramStyles;
 
@@ -41,13 +42,13 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     protected Optional<String> getEdgeStyle(Graph graph, Edge edge) {
         Node node1 = edge.getNode1();
         Node node2 = edge.getNode2();
-        if (edge instanceof BranchEdge && (node1 instanceof FeederLineNode || node2 instanceof FeederLineNode)) {
+        if (edge instanceof BranchEdge && (ComponentTypeName.LINE.equals(node1.getComponentType()) || ComponentTypeName.LINE.equals(node2.getComponentType()))) {
             return getLineEdgeStyle(graph, (BranchEdge) edge);
         } else {
-            if (node1.getType() == NodeType.SWITCH && node1.isOpen()) {
+            if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
                 return graph.getVoltageLevelInfos(node2) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node2), node2) : Optional.empty();
             }
-            if (node2.getType() == NodeType.SWITCH && node2.isOpen()) {
+            if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
                 return graph.getVoltageLevelInfos(node1) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node1), node1) : Optional.empty();
             }
             return super.getEdgeStyle(graph, edge);
@@ -93,7 +94,11 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
     private String findConnectedStyle(Map<String, String> equipmentIdStyleMap, Map<String, String> nodeIdStyleMap, Node node) {
         Set<Node> connectedNodes = new HashSet<>();
         findConnectedNodes(node, connectedNodes);
-        String connectedStyle = connectedNodes.stream().map(c -> equipmentIdStyleMap.get(c.getEquipmentId())).filter(Objects::nonNull).findFirst().orElse(null);
+        String connectedStyle = connectedNodes.stream()
+                .filter(EquipmentNode.class::isInstance)
+                .map(EquipmentNode.class::cast)
+                .map(c -> equipmentIdStyleMap.get(c.getEquipmentId()))
+                .filter(Objects::nonNull).findFirst().orElse(null);
         connectedNodes.forEach(n -> nodeIdStyleMap.put(n.getId(), connectedStyle));
         return connectedStyle;
     }
@@ -108,7 +113,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
         if (visitedNodes.contains(node)) {
             return;
         }
-        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+        if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return;
         }
         visitedNodes.add(node);
@@ -119,7 +124,7 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
 
     @Override
     public Optional<String> getVoltageLevelNodeStyle(VoltageLevelInfos voltageLevelInfos, Node node) {
-        if (node.getType() == NodeType.SWITCH && node.isOpen()) {
+        if (node.getType() == NodeType.SWITCH && ((SwitchNode) node).isOpen()) {
             return Optional.of(DiagramStyles.DISCONNECTED_STYLE_CLASS);
         }
         Optional<String> baseVoltageLevelStyle = super.getVoltageLevelNodeStyle(voltageLevelInfos, node);

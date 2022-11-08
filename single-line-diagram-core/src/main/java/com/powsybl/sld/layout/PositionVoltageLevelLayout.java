@@ -95,7 +95,7 @@ public class PositionVoltageLevelLayout extends AbstractVoltageLevelLayout {
         VoltageLevelGraph graph = getGraph();
         double widthSnakeLinesLeft = getWidthVerticalSnakeLines(graph.getId(), layoutParam, infosNbSnakeLines);
         double heightSnakeLinesTop = getHeightSnakeLines(layoutParam, Direction.TOP, infosNbSnakeLines);
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, Direction.BOTTOM,  infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParam, Direction.BOTTOM, infosNbSnakeLines);
         double width = graph.getWidth() + widthSnakeLinesLeft;
         double height = graph.getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
         graph.setSize(width, height);

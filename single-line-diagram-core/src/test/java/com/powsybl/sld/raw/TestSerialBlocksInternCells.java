@@ -10,7 +10,6 @@ import com.powsybl.sld.builders.VoltageLevelRawBuilder;
 import com.powsybl.sld.layout.PositionVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
-import com.powsybl.sld.model.nodes.FictitiousNode;
 import com.powsybl.sld.model.nodes.SwitchNode;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,26 +32,22 @@ public class TestSerialBlocksInternCells extends AbstractTestCaseRaw {
         // 1-flat Serial
         SwitchNode sd11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "sd11", false, false);
         SwitchNode b11 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b11", false, false);
-        FictitiousNode f1 = vlBuilder.createFictitiousNode("f1");
         SwitchNode b12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b12", false, false);
         SwitchNode sd12 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "sd12", false, false);
         vlBuilder.connectNode(bbs11, sd11);
         vlBuilder.connectNode(b11, sd11);
-        vlBuilder.connectNode(b11, f1);
-        vlBuilder.connectNode(b12, f1);
+        vlBuilder.connectNode(b11, b12);
         vlBuilder.connectNode(b12, sd12);
         vlBuilder.connectNode(bbs12, sd12);
 
         // 2-CrossOver Serial
         SwitchNode sd21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "sd21", false, false);
         SwitchNode b21 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b21", false, false);
-        FictitiousNode f2 = vlBuilder.createFictitiousNode("f2");
         SwitchNode b22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b22", false, false);
         SwitchNode sd22 = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "sd22", false, false);
         vlBuilder.connectNode(bbs11, sd21);
         vlBuilder.connectNode(b21, sd21);
-        vlBuilder.connectNode(b21, f2);
-        vlBuilder.connectNode(b22, f2);
+        vlBuilder.connectNode(b21, b22);
         vlBuilder.connectNode(b22, sd22);
         vlBuilder.connectNode(bbs22, sd22);
 

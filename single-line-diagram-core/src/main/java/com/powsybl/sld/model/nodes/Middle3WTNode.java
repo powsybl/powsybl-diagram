@@ -18,7 +18,7 @@ import static com.powsybl.sld.library.ComponentTypeName.THREE_WINDINGS_TRANSFORM
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
  */
 public class Middle3WTNode extends MiddleTwtNode {
-    private final Map<Winding, FeederWithSideNode.Side> windingMap = new EnumMap<>(Winding.class);
+    private final Map<Winding, NodeSide> windingMap = new EnumMap<>(Winding.class);
     private final boolean embeddedInVlGraph;
 
     public Middle3WTNode(String id, String name, VoltageLevelInfos voltageLevelInfosLeg1, VoltageLevelInfos voltageLevelInfosLeg2, VoltageLevelInfos voltageLevelInfosLeg3, boolean embeddedInVLGraph) {
@@ -33,12 +33,12 @@ public class Middle3WTNode extends MiddleTwtNode {
     }
 
     public void setWindingOrder(Winding first, Winding second, Winding third) {
-        setWindingOrder(first, FeederWithSideNode.Side.ONE);
-        setWindingOrder(second, FeederWithSideNode.Side.TWO);
-        setWindingOrder(third, FeederWithSideNode.Side.THREE);
+        setWindingOrder(first, NodeSide.ONE);
+        setWindingOrder(second, NodeSide.TWO);
+        setWindingOrder(third, NodeSide.THREE);
     }
 
-    public void setWindingOrder(Winding winding, FeederWithSideNode.Side legSide) {
+    public void setWindingOrder(Winding winding, NodeSide legSide) {
         windingMap.put(winding, legSide);
     }
 
@@ -52,7 +52,7 @@ public class Middle3WTNode extends MiddleTwtNode {
     }
 
     private int windingToLegIndex(Winding winding) {
-        return windingMap.getOrDefault(winding, FeederWithSideNode.Side.ONE).getIntValue() - 1;
+        return windingMap.getOrDefault(winding, NodeSide.ONE).getIntValue() - 1;
     }
 
     public enum Winding {
