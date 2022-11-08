@@ -12,6 +12,7 @@ import com.powsybl.sld.model.blocks.BodyPrimaryBlock;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.coordinate.Position;
 import com.powsybl.sld.model.coordinate.Side;
+import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.BusNode;
 import com.powsybl.sld.model.nodes.ConnectivityNode;
 import com.powsybl.sld.model.nodes.Node;
@@ -39,8 +40,10 @@ public final class ShuntCell extends AbstractCell {
         ((ConnectivityNode) nodes.get(nodes.size() - 1)).setShunt(true);
     }
 
-    public static ShuntCell create(int cellNumber, List<Node> nodes) {
-        return new ShuntCell(cellNumber, nodes);
+    public static ShuntCell create(int cellNumber, List<Node> nodes, VoltageLevelGraph vlGraph) {
+        ShuntCell shuntCell = new ShuntCell(cellNumber, nodes);
+        vlGraph.addCell(shuntCell);
+        return shuntCell;
     }
 
     @Override
