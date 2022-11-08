@@ -181,7 +181,7 @@
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl_95_L1_95_ONE" transform="translate(61.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-top-feeder sld-vl50to70-0" id="idL1_95_ONE" transform="translate(65.0,80.0)">
+            <g class="sld-top-feeder" id="idL1_95_ONE" transform="translate(65.0,80.0)">
                 <text class="sld-label" id="L1_ONE_N_LABEL" x="-5.0" y="-5.0">L1</text>
             </g>
         </g>
@@ -214,7 +214,7 @@
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl_95_L2_95_ONE" transform="translate(111.0,574.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-bottom-feeder sld-vl50to70-0" id="idL2_95_ONE" transform="translate(115.0,640.0)">
+            <g class="sld-bottom-feeder" id="idL2_95_ONE" transform="translate(115.0,640.0)">
                 <text class="sld-label" id="L2_ONE_S_LABEL" x="-5.0" y="5.0">L2</text>
             </g>
         </g>
@@ -247,7 +247,7 @@
             <g class="sld-node sld-fictitious sld-vl50to70-0" id="idINTERNAL_95_vl_95_L3_95_ONE" transform="translate(161.0,138.0)">
                 <circle cx="4" cy="4" r="4"/>
             </g>
-            <g class="sld-top-feeder sld-vl50to70-0" id="idL3_95_ONE" transform="translate(165.0,80.0)">
+            <g class="sld-top-feeder" id="idL3_95_ONE" transform="translate(165.0,80.0)">
                 <text class="sld-label" id="L3_ONE_N_LABEL" x="-5.0" y="-5.0">L3</text>
             </g>
         </g>

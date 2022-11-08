@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  *
  * @author Massimo Ferraro <massimo.ferraro@techrain.eu>
  */
-public class CgmesDLImportPostProcessorTest extends CgmesDLModelTest  {
+public class CgmesDLImportPostProcessorTest extends CgmesDLModelTest {
 
     @Test
     public void process() throws Exception {

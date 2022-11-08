@@ -7,6 +7,7 @@
 package com.powsybl.sld.layout.positionbyclustering;
 
 import com.powsybl.sld.layout.*;
+import com.powsybl.sld.model.cells.BusCell;
 import com.powsybl.sld.model.cells.Cell;
 import com.powsybl.sld.model.cells.ExternCell;
 import com.powsybl.sld.model.cells.ShuntCell;
@@ -59,12 +60,13 @@ import static com.powsybl.sld.model.coordinate.Side.RIGHT;
 
 // WE ASSUME THAT IT IS POSSIBLE TO STACK ALL CELLS AND BE ABLE TO ORGANIZE THE VOLTAGELEVEL ACCORDINGLY
 
-public class PositionByClustering implements PositionFinder {
+public class PositionByClustering extends AbstractPositionFinder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionByClustering.class);
     private static final HBLaneManagerByClustering HBLMANAGER = new HBLaneManagerByClustering();
 
-    public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes) {
+    @Override
+    public Map<BusNode, Integer> indexBusPosition(List<BusNode> busNodes, List<BusCell> busCells) {
         Map<BusNode, Integer> busToNb = new LinkedHashMap<>();
         int i = 1;
         for (BusNode n : busNodes.stream()

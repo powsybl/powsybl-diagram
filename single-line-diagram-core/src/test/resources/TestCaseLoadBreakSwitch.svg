@@ -280,9 +280,6 @@
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_l_95_fork_95_INTERNAL_95_vl_95_l">
                 <polyline points="315.0,540.3333333333333,315.0,603.0"/>
             </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_Shunt_32_4_46_1_95_INTERNAL_95_vl_95_l_95_fork">
-                <polyline points="290.0,524.6666666666666,290.0,540.3333333333333,315.0,540.3333333333333"/>
-            </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_b_95_b">
                 <polyline points="315.0,415.0,315.0,472.6666666666667"/>
             </g>
@@ -326,12 +323,6 @@
             </g>
         </g>
         <g class="sld-shunt-cell" id="idSHUNT_32_4">
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_b3_95_INTERNAL_95_vl_95_5">
-                <polyline points="215.0,467.0,215.0,509.0"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_5_95_b4">
-                <polyline points="215.0,509.0,215.0,551.0"/>
-            </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_5_95_INTERNAL_95_vl_95_Shunt_32_4_46_2">
                 <polyline points="215.0,509.0,240.0,509.0,240.0,524.6666666666666"/>
             </g>
@@ -343,12 +334,6 @@
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_Shunt_32_4_46_1_95_INTERNAL_95_vl_95_l_95_fork">
                 <polyline points="290.0,524.6666666666666,290.0,540.3333333333333,315.0,540.3333333333333"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_b_95_INTERNAL_95_vl_95_l_95_fork">
-                <polyline points="315.0,482.6666666666667,315.0,540.3333333333333"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_l_95_fork_95_INTERNAL_95_vl_95_l">
-                <polyline points="315.0,540.3333333333333,315.0,603.0"/>
             </g>
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_5" transform="translate(211.0,505.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -373,9 +358,6 @@
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_5_95_b4">
                 <polyline points="215.0,509.0,215.0,551.0"/>
-            </g>
-            <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_5_95_INTERNAL_95_vl_95_Shunt_32_4_46_2">
-                <polyline points="215.0,509.0,240.0,509.0,240.0,524.6666666666666"/>
             </g>
             <g class="sld-wire sld-disconnected" id="_95_vl_95_INTERNAL_95_vl_95_b3_95_b3">
                 <polyline points="215.0,415.0,215.0,457.0"/>

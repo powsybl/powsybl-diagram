@@ -90,7 +90,7 @@ public class HorizontalSubstationLayout extends AbstractSubstationLayout {
         }
 
         double substationWidth = x - diagramPadding.getLeft();
-        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM,  infosNbSnakeLines);
+        double heightSnakeLinesBottom = getHeightSnakeLines(layoutParameters, BOTTOM, infosNbSnakeLines);
         double substationHeight = getGraph().getHeight() + heightSnakeLinesTop + heightSnakeLinesBottom;
 
         getGraph().setSize(substationWidth, substationHeight);

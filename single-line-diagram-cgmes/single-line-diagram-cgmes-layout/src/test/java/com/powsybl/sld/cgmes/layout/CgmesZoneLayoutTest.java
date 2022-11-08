@@ -267,7 +267,7 @@ public class CgmesZoneLayoutTest {
     private void checkNodeCoordinates(Node node, double x, double y, boolean rotated) {
         assertEquals(x, node.getX(), 0);
         assertEquals(y, node.getY(), 0);
-        if (node instanceof BusNode)  {
+        if (node instanceof BusNode) {
             assertEquals(rotated ? Orientation.UP : Orientation.RIGHT, node.getOrientation());
         } else {
             assertEquals(rotated ? Orientation.RIGHT : Orientation.UP, node.getOrientation());

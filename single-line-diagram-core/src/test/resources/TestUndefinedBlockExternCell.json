@@ -50,13 +50,13 @@
     "y" : 280.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
-    "pxWidth" : 0.0,
+    "pxWidth" : 25.0,
     "busbarIndex" : 1,
     "sectionIndex" : 1,
     "position" : {
       "h" : 0,
       "v" : 0,
-      "hSpan" : 1,
+      "hSpan" : 2,
       "vSpan" : 0
     }
   }, {

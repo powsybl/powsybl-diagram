@@ -296,7 +296,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     public void testLeft3wtOrientation() {
         // build substation graph
         network.getThreeWindingsTransformer("trf7").remove();
-        createThreeWindingsTransformer(substation, "trf7", "trf7",  "vl2", "vl1", "vl3",
+        createThreeWindingsTransformer(substation, "trf7", "trf7", "vl2", "vl1", "vl3",
                 0.5, 0.5, 0.5, 1., 1., 1., 0.1, 0.1,
                 225., 400., 50.,
                 19, 31, 8,

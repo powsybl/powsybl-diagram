@@ -106,15 +106,13 @@ public final class NodeFactory {
         return createFeederInjectionNode(graph, id, name, ComponentTypeName.DANGLING_LINE);
     }
 
-    public static FeederNode createFeederWithSideNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos, FeederType feederType) {
-        return createFeederNode(graph, id, name, equipmentId, componentType, new FeederWithSides(feederType, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos));
+    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
+        FeederWithSides feeder = new FeederWithSides(FeederType.HVDC, side, graph.getVoltageLevelInfos(), otherSideVoltageLevelInfos);
+        return createFeederNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, feeder);
     }
 
-    public static FeederNode createVscConverterStation(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
-        if (side == null || otherSideVoltageLevelInfos == null) {
-            return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
-        }
-        return createFeederWithSideNode(graph, id, name, equipmentId, ComponentTypeName.VSC_CONVERTER_STATION, side, otherSideVoltageLevelInfos, FeederType.HVDC);
+    public static FeederNode createVscConverterStationInjection(VoltageLevelGraph graph, String id, String name) {
+        return createFeederInjectionNode(graph, id, name, VSC_CONVERTER_STATION);
     }
 
     public static FeederNode createFeederBranchNode(VoltageLevelGraph graph, String id, String name, String equipmentId, String componentType, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {
@@ -207,7 +205,7 @@ public final class NodeFactory {
                 || legNode3.getFeeder().getFeederType() != FeederType.THREE_WINDINGS_TRANSFORMER_LEG) {
             throw new PowsyblException("Middle3WTNode must be created with FeederNode with ComponentTypeName THREE_WINDINGS_TRANSFORMER_LEG");
         }
-        Middle3WTNode m3wn =  new Middle3WTNode(id, name,
+        Middle3WTNode m3wn = new Middle3WTNode(id, name,
                 ((FeederTwLeg) legNode1.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode2.getFeeder()).getVoltageLevelInfos(),
                 ((FeederTwLeg) legNode3.getFeeder()).getVoltageLevelInfos(),
