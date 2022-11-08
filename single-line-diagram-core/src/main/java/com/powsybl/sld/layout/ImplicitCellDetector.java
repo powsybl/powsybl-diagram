@@ -267,20 +267,19 @@ public class ImplicitCellDetector implements CellDetector {
 
     /**
      * @param vlGraph the VoltageLevelGraph
-     * @param shuntNodes a list of nodes that constitue a ShuntCell : the first and last nodes are shunt nodes and therefore InternalNode
+     * @param shuntNodes a list of nodes that constitute a ShuntCell: the first and last nodes are both {@link ConnectivityNode}
      * @return a ShuntCell
      */
     private ShuntCell createShuntCell(VoltageLevelGraph vlGraph, List<Node> shuntNodes) {
         int cellNumber = vlGraph.getNextCellNumber();
-        ConnectivityNode iNode1 = vlGraph.insertConnectivityNode(shuntNodes.get(0), shuntNodes.get(1),
-                "Shunt " + cellNumber + ".1");
-        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(shuntNodes.get(shuntNodes.size() - 1),
-                shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
+
+        ConnectivityNode iNode1 = vlGraph.insertConnectivityNode(shuntNodes.get(0), shuntNodes.get(1), "Shunt " + cellNumber + ".1");
         shuntNodes.add(1, iNode1);
+
+        ConnectivityNode iNode2 = vlGraph.insertConnectivityNode(shuntNodes.get(shuntNodes.size() - 1), shuntNodes.get(shuntNodes.size() - 2), "Shunt " + cellNumber + ".2");
         shuntNodes.add(shuntNodes.size() - 1, iNode2);
-        ShuntCell shuntCell = ShuntCell.create(cellNumber, shuntNodes);
-        vlGraph.addCell(shuntCell);
-        return shuntCell;
+
+        return ShuntCell.create(cellNumber, shuntNodes, vlGraph);
     }
 
     /**
