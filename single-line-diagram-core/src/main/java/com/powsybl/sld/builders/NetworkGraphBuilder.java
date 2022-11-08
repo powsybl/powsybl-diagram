@@ -209,13 +209,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
                                              FeederNode secondOtherLegNode, Terminal terminal);
 
         private FeederNode createFeederLineNode(VoltageLevelGraph graph, Line line, Branch.Side side) {
-            String id = line.getNameOrId() + "_" + side.name();
-            String nameOrId = line.getNameOrId();
+            String nodeId = line.getId() + "_" + side.name();
+            String equipmentNameOrId = line.getNameOrId();
             String equipmentId = line.getId();
             NodeSide s = NodeSide.valueOf(side.name());
             Branch.Side otherSide = side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE;
             VoltageLevel vlOtherSide = line.getTerminal(otherSide).getVoltageLevel();
-            return NodeFactory.createFeederLineNode(graph, id, nameOrId, equipmentId, s,
+            return NodeFactory.createFeederLineNode(graph, nodeId, equipmentNameOrId, equipmentId, s,
                     new VoltageLevelInfos(vlOtherSide.getId(), vlOtherSide.getNameOrId(), vlOtherSide.getNominalV()));
         }
 
@@ -226,7 +226,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .map(otherVl -> new VoltageLevelInfos(otherVl.getId(), otherVl.getNameOrId(), otherVl.getNominalV()))
                     .map(otherVlInfo -> NodeFactory.createVscConverterStation(graph, hvdcStation.getId(), hvdcStation.getNameOrId(), hvdcStation.getHvdcLine().getId(),
                             hvdcStation.getHvdcLine().getConverterStation1() == hvdcStation ? NodeSide.ONE : NodeSide.TWO, otherVlInfo))
-                    .orElse(NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
+                    .orElseGet(() -> NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
         private FeederNode createFeeder2wtNode(VoltageLevelGraph graph,
