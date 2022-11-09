@@ -18,13 +18,12 @@ import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.*;
-import java.util.function.DoubleFunction;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_REACTIVE;
+import static com.powsybl.sld.model.coordinate.Direction.BOTTOM;
 import static com.powsybl.sld.model.nodes.Node.NodeType.FEEDER;
-import static com.powsybl.sld.model.coordinate.Direction.*;
 
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>

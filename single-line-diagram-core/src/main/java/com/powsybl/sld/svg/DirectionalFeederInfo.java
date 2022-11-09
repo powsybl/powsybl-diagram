@@ -1,8 +1,5 @@
 package com.powsybl.sld.svg;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.function.DoubleFunction;
 

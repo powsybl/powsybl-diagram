@@ -14,7 +14,6 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
-import java.util.function.DoubleFunction;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
