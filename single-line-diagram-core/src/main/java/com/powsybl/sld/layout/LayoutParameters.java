@@ -89,10 +89,12 @@ public class LayoutParameters {
      */
     private double busInfoMargin = 0.0;
 
-    private int feederInfoPrecision = 0;
-
     /** Components which are displayed on busbars */
     private List<String> componentsOnBusbars = List.of(ComponentTypeName.DISCONNECTOR);
+    private String languageTag = "en";
+    private int voltageValuePrecision = 1;
+    private int powerValuePrecision = 0;
+    private int angleValuePrecision = 1;
 
     @JsonIgnore
     private Map<String, ComponentSize> componentsSize;
@@ -137,8 +139,11 @@ public class LayoutParameters {
                             @JsonProperty("feederInfosIntraMargin") double feederInfosIntraMargin,
                             @JsonProperty("busInfoMargin") double busInfoMargin,
                             @JsonProperty("busbarsAlignment") Alignment busbarsAlignment,
-                            @JsonProperty("feederInfoPrecision") int feederInfoPrecision,
-                            @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars) {
+                            @JsonProperty("componentsOnBusbars") List<String> componentsOnBusbars,
+                            @JsonProperty("languageTag") String languageTag,
+                            @JsonProperty("voltageValuePrecision") int voltageValuePrecision,
+                            @JsonProperty("powerValuePrecision") int powerValuePrecision,
+                            @JsonProperty("angleValuePrecision") int angleValuePrecision) {
         this.diagramPadding = diagramPadding;
         this.voltageLevelPadding = voltageLevelPadding;
         this.verticalSpaceBus = verticalSpaceBus;
@@ -174,8 +179,11 @@ public class LayoutParameters {
         this.feederInfosIntraMargin = feederInfosIntraMargin;
         this.busInfoMargin = busInfoMargin;
         this.busbarsAlignment = busbarsAlignment;
-        this.feederInfoPrecision = feederInfoPrecision;
         this.componentsOnBusbars = new ArrayList<>(componentsOnBusbars);
+        this.languageTag = languageTag;
+        this.voltageValuePrecision = voltageValuePrecision;
+        this.powerValuePrecision = powerValuePrecision;
+        this.angleValuePrecision = angleValuePrecision;
     }
 
     public LayoutParameters(LayoutParameters other) {
@@ -216,8 +224,11 @@ public class LayoutParameters {
         feederInfosIntraMargin = other.feederInfosIntraMargin;
         busInfoMargin = other.busInfoMargin;
         busbarsAlignment = other.busbarsAlignment;
-        feederInfoPrecision = other.feederInfoPrecision;
         componentsOnBusbars = new ArrayList<>(other.componentsOnBusbars);
+        languageTag = other.languageTag;
+        voltageValuePrecision = other.voltageValuePrecision;
+        powerValuePrecision = other.powerValuePrecision;
+        angleValuePrecision = other.angleValuePrecision;
     }
 
     public double getVerticalSpaceBus() {
@@ -548,21 +559,52 @@ public class LayoutParameters {
         return this;
     }
 
-    public int getFeederInfoPrecision() {
-        return feederInfoPrecision;
-    }
-
-    public LayoutParameters setFeederInfoPrecision(int feederInfoPrecision) {
-        this.feederInfoPrecision = feederInfoPrecision;
-        return this;
-    }
-
     public List<String> getComponentsOnBusbars() {
         return componentsOnBusbars;
     }
 
     public LayoutParameters setComponentsOnBusbars(List<String> componentsOnBusbars) {
         this.componentsOnBusbars = componentsOnBusbars;
+        return this;
+    }
+
+    public String getLanguageTag() {
+        return languageTag;
+    }
+
+    /**
+     * Sets the language tag string. This is used to format the value displayed according to the corresponding standards.
+     * @param languageTag Specified IETF BCP 47 language tag string
+     */
+    public LayoutParameters setLanguageTag(String languageTag) {
+        this.languageTag = languageTag;
+        return this;
+    }
+
+    public int getVoltageValuePrecision() {
+        return voltageValuePrecision;
+    }
+
+    public LayoutParameters setVoltageValuePrecision(int voltageValuePrecision) {
+        this.voltageValuePrecision = voltageValuePrecision;
+        return this;
+    }
+
+    public int getPowerValuePrecision() {
+        return powerValuePrecision;
+    }
+
+    public LayoutParameters setPowerValuePrecision(int powerValuePrecision) {
+        this.powerValuePrecision = powerValuePrecision;
+        return this;
+    }
+
+    public int getAngleValuePrecision() {
+        return angleValuePrecision;
+    }
+
+    public LayoutParameters setAngleValuePrecision(int angleValuePrecision) {
+        this.angleValuePrecision = angleValuePrecision;
         return this;
     }
 

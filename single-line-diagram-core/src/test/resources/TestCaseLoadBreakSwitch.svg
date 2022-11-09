@@ -206,12 +206,12 @@
             <g class="sld-arrow-p sld-in" id="idG_ARROW_ACTIVE" transform="translate(260.0,101.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idG_ARROW_REACTIVE" transform="translate(260.0,121.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_d" transform="translate(261.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -249,12 +249,12 @@
             <g class="sld-arrow-p sld-in" id="idT11_95_ONE_ARROW_ACTIVE" transform="translate(160.0,95.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idT11_95_ONE_ARROW_REACTIVE" transform="translate(160.0,115.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-bus-connection sld-fictitious sld-vl300to500-0" id="idBUSCO_95_b2" transform="translate(161.0,356.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -292,12 +292,12 @@
             <g class="sld-arrow-q sld-in" id="idl_ARROW_REACTIVE" transform="translate(310.0,635.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-p sld-in" id="idl_ARROW_ACTIVE" transform="translate(310.0,615.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_l_95_fork" transform="translate(311.0,536.3333333333333)">
                 <circle cx="4" cy="4" r="4"/>
@@ -374,12 +374,12 @@
             <g class="sld-arrow-q sld-in" id="idT11_95_TWO_ARROW_REACTIVE" transform="translate(210.0,640.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-p sld-in" id="idT11_95_TWO_ARROW_ACTIVE" transform="translate(210.0,620.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-fictitious sld-disconnected" id="idINTERNAL_95_vl_95_5" transform="translate(211.0,505.0)">
                 <circle cx="4" cy="4" r="4"/>

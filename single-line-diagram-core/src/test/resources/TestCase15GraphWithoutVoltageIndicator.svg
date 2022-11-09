@@ -116,12 +116,12 @@
             <g class="sld-arrow-p sld-in" id="idloadA_ARROW_ACTIVE" transform="translate(60.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadA_ARROW_REACTIVE" transform="translate(60.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-disconnector sld-closed" id="iddA1" transform="translate(61.0,276.0)">
                 <path class="sld-sw-closed" d="M0,0 8,8 M8,0 0,8"/>
@@ -167,12 +167,12 @@
             <g class="sld-arrow-p sld-in" id="idloadB_ARROW_ACTIVE" transform="translate(110.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadB_ARROW_REACTIVE" transform="translate(110.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_5" transform="translate(111.0,246.0)">
                 <circle cx="4" cy="4" r="4"/>
@@ -272,12 +272,12 @@
             <g class="sld-arrow-p sld-in" id="idloadD_ARROW_ACTIVE" transform="translate(222.5,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadD_ARROW_REACTIVE" transform="translate(222.5,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-wire" id="_95_vl1_95_INTERNAL_95_vl1_95_loadC_95_loadC">
                 <polyline points="302.5,142.0,302.5,84.5"/>
@@ -285,12 +285,12 @@
             <g class="sld-arrow-p sld-in" id="idloadC_ARROW_ACTIVE" transform="translate(297.5,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idloadC_ARROW_REACTIVE" transform="translate(297.5,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-node sld-fictitious" id="idINTERNAL_95_vl1_95_loadC_95_fork" transform="translate(261.0,192.0)">
                 <circle cx="4" cy="4" r="4"/>

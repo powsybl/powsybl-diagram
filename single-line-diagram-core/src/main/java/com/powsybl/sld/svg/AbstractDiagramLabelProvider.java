@@ -28,10 +28,12 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
 
     private final ComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
+    protected ValueFormatter valueFormatter;
 
     protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
+        this.valueFormatter = new ValueFormatter(layoutParameters);
     }
 
     @Override

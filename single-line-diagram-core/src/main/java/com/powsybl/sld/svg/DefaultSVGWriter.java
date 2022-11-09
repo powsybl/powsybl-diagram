@@ -76,10 +76,12 @@ public class DefaultSVGWriter implements SVGWriter {
     protected final ComponentLibrary componentLibrary;
 
     protected final LayoutParameters layoutParameters;
+    private final ValueFormatter valueFormatter;
 
     public DefaultSVGWriter(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
+        this.valueFormatter = new ValueFormatter(layoutParameters);
     }
 
     /**
@@ -1165,10 +1167,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // v
         Element labelV = g.getOwnerDocument().createElement("text");
         labelV.setAttribute("id", idNode + "_v");
-        String valueV = !Double.isNaN(nodeInfo.getV())
-                ? String.valueOf(Precision.round(nodeInfo.getV(), 1))
-                : "\u2014";  // em dash unicode for undefined value
-        valueV += " kV";
+        String valueV = valueFormatter.formatVoltage(nodeInfo.getV(), "kV");
 
         labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
@@ -1180,10 +1179,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // angle
         Element labelAngle = g.getOwnerDocument().createElement("text");
         labelAngle.setAttribute("id", idNode + "_angle");
-        String valueAngle = !Double.isNaN(nodeInfo.getAngle())
-                ? String.valueOf(Precision.round(nodeInfo.getAngle(), 1))
-                : "\u2014";  // em dash unicode for undefined value
-        valueAngle += " \u00b0";  // degree sign unicode for degree symbol
+        String valueAngle = valueFormatter.formatAngleInDegrees(nodeInfo.getAngle());
 
         labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));

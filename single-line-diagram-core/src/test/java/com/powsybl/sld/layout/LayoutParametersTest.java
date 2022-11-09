@@ -57,8 +57,11 @@ public class LayoutParametersTest {
                 .setFeederInfosIntraMargin(21)
                 .setBusInfoMargin(22)
                 .setBusbarsAlignment(LayoutParameters.Alignment.LAST)
-                .setFeederInfoPrecision(12)
-                .setComponentsOnBusbars(List.of("COMPONENT_ON_BUS"));
+                .setComponentsOnBusbars(List.of("COMPONENT_ON_BUS"))
+                .setLanguageTag("fr")
+                .setVoltageValuePrecision(3)
+                .setPowerValuePrecision(2)
+                .setAngleValuePrecision(0);
 
         LayoutParameters layoutParameters2 = new LayoutParameters(layoutParameters);
 
@@ -103,7 +106,10 @@ public class LayoutParametersTest {
         assertEquals(layoutParameters.getFeederInfosIntraMargin(), layoutParameters2.getFeederInfosIntraMargin(), 0);
         assertEquals(layoutParameters.getBusInfoMargin(), layoutParameters2.getBusInfoMargin(), 0);
         assertEquals(layoutParameters.getBusbarsAlignment(), layoutParameters2.getBusbarsAlignment());
-        assertEquals(layoutParameters.getFeederInfoPrecision(), layoutParameters2.getFeederInfoPrecision());
         assertEquals(layoutParameters.getComponentsOnBusbars(), layoutParameters2.getComponentsOnBusbars());
+        assertEquals(layoutParameters.getLanguageTag(), layoutParameters2.getLanguageTag());
+        assertEquals(layoutParameters.getVoltageValuePrecision(), layoutParameters2.getVoltageValuePrecision());
+        assertEquals(layoutParameters.getPowerValuePrecision(), layoutParameters2.getPowerValuePrecision());
+        assertEquals(layoutParameters.getAngleValuePrecision(), layoutParameters2.getAngleValuePrecision());
     }
 }

@@ -193,12 +193,12 @@
             <g class="sld-arrow-p sld-in" id="idC1_ARROW_ACTIVE" transform="translate(60.0,101.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-arrow-q sld-in" id="idC1_ARROW_REACTIVE" transform="translate(60.0,121.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
-                <text class="sld-label" x="15.0" y="5.0">-</text>
+                <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
             <g class="sld-breaker sld-closed" id="idb2" transform="translate(55.0,350.0)">
                 <path class="sld-sw-closed" d="M1,1 V19 H19 V1z M10,5 V15"/>
