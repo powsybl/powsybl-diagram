@@ -30,16 +30,16 @@
     "type" : "LOAD_BREAK_SWITCH",
     "anchorPoints" : [ {
       "x" : 0.0,
-      "y" : -5.0,
+      "y" : -10.0,
       "orientation" : "VERTICAL"
     }, {
       "x" : 0.0,
-      "y" : 5.0,
+      "y" : 10.0,
       "orientation" : "VERTICAL"
     } ],
     "size" : {
-      "width" : 10.0,
-      "height" : 10.0
+      "width" : 20.0,
+      "height" : 20.0
     },
     "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
     "subComponents" : [ {
