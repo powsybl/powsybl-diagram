@@ -14,6 +14,7 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 
 import java.util.*;
+import java.util.function.DoubleFunction;
 
 import static com.powsybl.sld.model.coordinate.Direction.TOP;
 import static com.powsybl.sld.model.coordinate.Direction.UNDEFINED;
@@ -28,10 +29,12 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
 
     private final ComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
+    protected ValueFormatter valueFormatter;
 
     protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
+        this.valueFormatter = new ValueFormatter(layoutParameters);
     }
 
     @Override

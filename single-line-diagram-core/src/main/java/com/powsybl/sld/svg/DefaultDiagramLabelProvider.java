@@ -18,6 +18,7 @@ import com.powsybl.sld.model.nodes.feeders.FeederTwLeg;
 import com.powsybl.sld.model.nodes.feeders.FeederWithSides;
 
 import java.util.*;
+import java.util.function.DoubleFunction;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.ARROW_ACTIVE;
@@ -185,27 +186,27 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
 
     private List<FeederInfo> buildFeederInfos(ThreeWindingsTransformer transformer, ThreeWindingsTransformer.Side side) {
         return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP(), layoutParameters.getFeederInfoPrecision()),
-                new DirectionalFeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ(), layoutParameters.getFeederInfoPrecision()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, transformer.getTerminal(side).getP(), valueFormatter::formatPower),
+                new DirectionalFeederInfo(ARROW_REACTIVE, transformer.getTerminal(side).getQ(), valueFormatter::formatPower));
     }
 
     private List<FeederInfo> buildFeederInfos(Injection<?> injection) {
         return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, injection.getTerminal().getP(), layoutParameters.getFeederInfoPrecision()),
-                new DirectionalFeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ(), layoutParameters.getFeederInfoPrecision()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, injection.getTerminal().getP(), valueFormatter::formatPower),
+                new DirectionalFeederInfo(ARROW_REACTIVE, injection.getTerminal().getQ(), valueFormatter::formatPower));
     }
 
     private List<FeederInfo> buildFeederInfos(Branch<?> branch, Branch.Side side) {
         return Arrays.asList(
-                new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), layoutParameters.getFeederInfoPrecision()),
-                new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), layoutParameters.getFeederInfoPrecision()));
+                new DirectionalFeederInfo(ARROW_ACTIVE, branch.getTerminal(side).getP(), valueFormatter::formatPower),
+                new DirectionalFeederInfo(ARROW_REACTIVE, branch.getTerminal(side).getQ(), valueFormatter::formatPower));
     }
 
     private List<FeederInfo> buildFeederInfos(HvdcLine hvdcLine, NodeSide side) {
         HvdcConverterStation<?> hvdcConverterStation = side == NodeSide.ONE ? hvdcLine.getConverterStation1()
                                                                                         : hvdcLine.getConverterStation2();
         return Arrays.asList(
-            new DirectionalFeederInfo(ARROW_ACTIVE, hvdcConverterStation.getTerminal().getP(), layoutParameters.getFeederInfoPrecision()),
-            new DirectionalFeederInfo(ARROW_REACTIVE, hvdcConverterStation.getTerminal().getQ(), layoutParameters.getFeederInfoPrecision()));
+            new DirectionalFeederInfo(ARROW_ACTIVE, hvdcConverterStation.getTerminal().getP(), valueFormatter::formatPower),
+            new DirectionalFeederInfo(ARROW_REACTIVE, hvdcConverterStation.getTerminal().getQ(), valueFormatter::formatPower));
     }
 }

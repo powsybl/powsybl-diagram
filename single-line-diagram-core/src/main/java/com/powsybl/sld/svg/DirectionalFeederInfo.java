@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.DoubleFunction;
 
 /**
  * Class used to specify a directional element
@@ -24,31 +25,16 @@ public class DirectionalFeederInfo extends AbstractFeederInfo {
         this.arrowDirection = Objects.requireNonNull(arrowDirection);
     }
 
-    public DirectionalFeederInfo(String componentType, double value) {
-        this(componentType, value, 0, null);
+    public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter) {
+        this(componentType, value, formatter, null);
     }
 
-    public DirectionalFeederInfo(String componentType, double value, int precision) {
-        this(componentType, value, precision, null);
-    }
-
-    public DirectionalFeederInfo(String componentType, double value, int precision, String userDefinedId) {
-        this(componentType, getArrowDirection(value), null, format(value, precision), userDefinedId);
+    public DirectionalFeederInfo(String componentType, double value, DoubleFunction<String> formatter, String userDefinedId) {
+        this(componentType, getArrowDirection(value), null, formatter.apply(value), userDefinedId);
     }
 
     private static DiagramLabelProvider.LabelDirection getArrowDirection(double value) {
         return value > 0 ? DiagramLabelProvider.LabelDirection.OUT : DiagramLabelProvider.LabelDirection.IN;
-    }
-
-    private static String format(double value, int precision) {
-        if (Double.isNaN(value)) {
-            return "-";
-        }
-        DecimalFormat format = new DecimalFormat();
-        format.setMaximumFractionDigits(precision);
-        // Floating representation with point
-        format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-        return format.format(value);
     }
 
     public DiagramLabelProvider.LabelDirection getDirection() {
