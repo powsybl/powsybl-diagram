@@ -112,7 +112,7 @@ public final class ShuntCell extends AbstractCell {
     }
 
     public int getHSpan() {
-        return getRootBlock().getPosition().getSpan(H) / 2 - 1;
+        return getRootBlock().getPosition().getSpan(H) - 4; // as 2 nodes are added in Shunts * 2 1/2 row = 4
     }
 
     public List<BusNode> getParentBusNodes() {
