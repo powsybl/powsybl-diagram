@@ -336,7 +336,10 @@
     "feederInfosIntraMargin" : 10.0,
     "busInfoMargin" : 0.0,
     "busbarsAlignment" : "FIRST",
-    "feederInfoPrecision" : 0,
-    "componentsOnBusbars" : [ "DISCONNECTOR" ]
+    "componentsOnBusbars" : [ "DISCONNECTOR" ],
+    "languageTag" : "en",
+    "voltageValuePrecision" : 1,
+    "powerValuePrecision" : 0,
+    "angleValuePrecision" : 1
   }
 }
