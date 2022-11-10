@@ -42,9 +42,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
-
-    private DiagramLabelProvider manyFeederInfoProvider;
+public class TestFeederInfos extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
@@ -56,17 +54,29 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
         createLoad(vl, "l", "l", "l", 0, ConnectablePosition.Direction.TOP, 2, 10, 10);
         createSwitch(vl, "d", "d", SwitchKind.DISCONNECTOR, false, false, false, 0, 1);
         createSwitch(vl, "b", "b", SwitchKind.BREAKER, false, false, false, 1, 2);
+    }
+
+    @Test
+    public void testManyFeederInfos() {
+        // build graph
+        VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
+
+        layoutParameters.setSpaceForFeederInfos(100)
+                .setFeederInfosIntraMargin(5)
+                .setPowerValuePrecision(3);
+
+        // Run layout
+        voltageLevelGraphLayout(g);
 
         // many feeder values provider example for the test :
-        //
-        manyFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
+        DiagramLabelProvider manyFeederInfoProvider = new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters) {
 
             @Override
             public List<FeederInfo> getFeederInfos(FeederNode node) {
                 List<FeederInfo> feederInfos = Arrays.asList(
-                        new DirectionalFeederInfo(ARROW_ACTIVE, 10.967543, valueFormatter::formatPower, null),
+                        new DirectionalFeederInfo(ARROW_ACTIVE, 1000.967543, valueFormatter::formatPower, null),
                         new DirectionalFeederInfo(ARROW_REACTIVE, Double.NaN, valueFormatter::formatPower, null),
-                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "30", null),
+                        new DirectionalFeederInfo(ARROW_REACTIVE, LabelDirection.IN, null, "3000", null),
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "40", null), // Not displayed
                         new DirectionalFeederInfo(ARROW_ACTIVE, LabelDirection.OUT, null, "50", null));
                 boolean feederArrowSymmetry = node.getDirection() == Direction.TOP || layoutParameters.isFeederInfoSymmetry();
@@ -81,21 +91,25 @@ public class TestCase14UpToNFeederInfos extends AbstractTestCaseIidm {
                 return new ArrayList<>();
             }
         };
+        // write SVG and compare to reference
+        assertEquals(toString("/TestFeederInfos.svg"), toSVG(g, "/TestFeederInfos.svg", manyFeederInfoProvider, new BasicStyleProvider()));
     }
 
     @Test
-    public void test() {
+    public void testFrenchFormatting() {
+        // Add power values to the load
+        network.getLoad("l").getTerminal().setP(1200.29);
+        network.getLoad("l").getTerminal().setQ(-1);
+
+        layoutParameters.setLanguageTag("fr").setPowerValuePrecision(1);
+
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph(vl.getId());
-
-        layoutParameters.setSpaceForFeederInfos(100)
-                .setFeederInfosIntraMargin(5)
-                .setPowerValuePrecision(3);
 
         // Run layout
         voltageLevelGraphLayout(g);
 
         // write SVG and compare to reference
-        assertEquals(toString("/TestCase14UpToNFeederInfos.svg"), toSVG(g, "/TestCase14UpToNFeederInfos.svg", manyFeederInfoProvider, new BasicStyleProvider()));
+        assertEquals(toString("/TestFormattingFeederInfos.svg"), toSVG(g, "/TestFormattingFeederInfos.svg"));
     }
 }
