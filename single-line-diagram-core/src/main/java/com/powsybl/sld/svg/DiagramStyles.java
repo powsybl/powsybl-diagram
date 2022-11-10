@@ -41,6 +41,11 @@ public final class DiagramStyles {
     public static final String INTERN_CELL = STYLE_PREFIX + "intern-cell";
     public static final String SHUNT_CELL = STYLE_PREFIX + "shunt-cell";
     public static final String CELL_SHAPE_PREFIX = STYLE_PREFIX + "cell-shape-";
+    public static final String LEGEND = STYLE_PREFIX + "legend";
+    public static final String VOLTAGE = STYLE_PREFIX + "voltage";
+    public static final String ANGLE = STYLE_PREFIX + "angle";
+    public static final String FEEDER_INFO = STYLE_PREFIX + "feeder-info";
+
     private static final String ID_PREFIX = "id";
 
     private DiagramStyles() {

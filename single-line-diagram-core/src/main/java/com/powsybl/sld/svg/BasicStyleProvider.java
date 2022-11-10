@@ -16,11 +16,7 @@ import com.powsybl.sld.model.cells.ShuntCell;
 import com.powsybl.sld.model.coordinate.Direction;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
-import com.powsybl.sld.model.nodes.BranchEdge;
-import com.powsybl.sld.model.nodes.Edge;
-import com.powsybl.sld.model.nodes.FeederNode;
-import com.powsybl.sld.model.nodes.Node;
-import com.powsybl.sld.model.nodes.SwitchNode;
+import com.powsybl.sld.model.nodes.*;
 
 import java.net.URL;
 import java.util.*;
@@ -144,5 +140,20 @@ public class BasicStyleProvider implements DiagramStyleProvider {
     @Override
     public List<String> getBusStyles(String busId, VoltageLevelGraph graph) {
         return Collections.singletonList(NODE_INFOS);
+    }
+
+    @Override
+    public Optional<String> getBusInfoStyle(BusInfo info) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<String> getFeederInfoStyles(FeederInfo info) {
+        List<String> styles = new ArrayList<>();
+        styles.add(FEEDER_INFO);
+        if (info instanceof DirectionalFeederInfo) {
+            styles.add(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
+        }
+        return styles;
     }
 }
