@@ -40,7 +40,7 @@
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION"
     },
-    "styleClass" : "sld-arrow-q"
+    "styleClass" : "sld-reactive-power"
   }, {
     "type" : "ARROW_ACTIVE",
     "size" : {
@@ -51,7 +51,7 @@
       "LEFT" : "ROTATION",
       "RIGHT" : "ROTATION"
     },
-    "styleClass" : "sld-arrow-p"
+    "styleClass" : "sld-active-power"
   }, {
     "type" : "LOAD",
     "anchorPoints" : [ {

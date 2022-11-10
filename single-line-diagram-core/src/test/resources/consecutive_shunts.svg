@@ -10,8 +10,8 @@
 .sld-hidden-node {visibility: hidden}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
-.sld-arrow-p .sld-label {dominant-baseline: middle}
-.sld-arrow-q .sld-label {dominant-baseline: middle}
+.sld-active-power .sld-label {dominant-baseline: middle}
+.sld-reactive-power .sld-label {dominant-baseline: middle}
 /* ----------------------------------------------------------------------- */
 /* File: topologicalBaseVoltages.css ------------------------------------- */
 .sld-disconnected {--sld-vl-color: #808080}
@@ -118,15 +118,17 @@
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
-.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
-.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
+.sld-angle, .sld-voltage {font: 10px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}
 /* Specific */
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
-.sld-arrow-p {fill:black}
-.sld-arrow-q {fill:blue}
+.sld-feeder-info.sld-active-power {fill:black}
+.sld-feeder-info.sld-reactive-power {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
 .sld-breaker.sld-fictitious {stroke: maroon}
@@ -585,12 +587,12 @@
             <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_FT_95_ONE_95_INTERNAL_95_AU_95_FT_95_ONE">
                 <polyline points="165.0,632.0,165.0,578.0"/>
             </g>
-            <g class="sld-arrow-q sld-in" id="idFT_95_ONE_ARROW_REACTIVE" transform="translate(160.0,607.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_REACTIVE" transform="translate(160.0,607.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-arrow-p sld-in" id="idFT_95_ONE_ARROW_ACTIVE" transform="translate(160.0,587.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idFT_95_ONE_ARROW_ACTIVE" transform="translate(160.0,587.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
@@ -962,12 +964,12 @@
             <g class="sld-wire sld-vl70to120-0" id="_95_AU_95_FP_95_INTERNAL_95_AU_95_FP">
                 <polyline points="515.0,84.5,515.0,142.0"/>
             </g>
-            <g class="sld-arrow-p sld-in" id="idFP_ARROW_ACTIVE" transform="translate(510.0,99.5)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idFP_ARROW_ACTIVE" transform="translate(510.0,99.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
             </g>
-            <g class="sld-arrow-q sld-in" id="idFP_ARROW_REACTIVE" transform="translate(510.0,119.5)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFP_ARROW_REACTIVE" transform="translate(510.0,119.5)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
@@ -1003,12 +1005,12 @@
             <g class="sld-wire sld-vl70to120-0 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FX_95_ONE_95_FX_95_ONE">
                 <polyline points="565.0,578.0,565.0,632.0"/>
             </g>
-            <g class="sld-arrow-q sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(560.0,607.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_REACTIVE" transform="translate(560.0,607.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
             </g>
-            <g class="sld-arrow-p sld-in" id="idFX_95_ONE_ARROW_ACTIVE" transform="translate(560.0,587.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idFX_95_ONE_ARROW_ACTIVE" transform="translate(560.0,587.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10" transform="rotate(180.0,5.0,5.0)"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10" transform="rotate(180.0,5.0,5.0)"/>
                 <text class="sld-label" x="15.0" y="5.0">0</text>
@@ -1041,12 +1043,12 @@
             <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_FV_95_ONE_95_INTERNAL_95_AU_95_FV_95_ONE">
                 <polyline points="1065.0,88.0,1065.0,142.0"/>
             </g>
-            <g class="sld-arrow-p sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(1060.0,103.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_ACTIVE" transform="translate(1060.0,103.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
-            <g class="sld-arrow-q sld-in" id="idFV_95_ONE_ARROW_REACTIVE" transform="translate(1060.0,123.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFV_95_ONE_ARROW_REACTIVE" transform="translate(1060.0,123.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>
@@ -1121,12 +1123,12 @@
             <g class="sld-wire sld-vl70to120-1 sld-feeder-connected-disconnected" id="_95_AU_95_INTERNAL_95_AU_95_FR_95_ONE_95_FR_95_ONE">
                 <polyline points="765.0,142.0,765.0,88.0"/>
             </g>
-            <g class="sld-arrow-p sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(760.0,103.0)">
+            <g class="sld-active-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_ACTIVE" transform="translate(760.0,103.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">-0</text>
             </g>
-            <g class="sld-arrow-q sld-in" id="idFR_95_ONE_ARROW_REACTIVE" transform="translate(760.0,123.0)">
+            <g class="sld-reactive-power sld-feeder-info sld-in" id="idFR_95_ONE_ARROW_REACTIVE" transform="translate(760.0,123.0)">
                 <polygon class="sld-arrow-in" points="0,0 10,0 5,10"/>
                 <polygon class="sld-arrow-out" points="5,0 10,10 0,10"/>
                 <text class="sld-label" x="15.0" y="5.0">—</text>

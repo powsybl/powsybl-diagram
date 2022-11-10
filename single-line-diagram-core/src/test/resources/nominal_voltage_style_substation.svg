@@ -10,8 +10,8 @@
 .sld-hidden-node {visibility: hidden}
 .sld-top-feeder .sld-label {dominant-baseline: auto}
 .sld-bottom-feeder .sld-label {dominant-baseline: hanging}
-.sld-arrow-p .sld-label {dominant-baseline: middle}
-.sld-arrow-q .sld-label {dominant-baseline: middle}
+.sld-active-power .sld-label {dominant-baseline: middle}
+.sld-reactive-power .sld-label {dominant-baseline: middle}
 /* ----------------------------------------------------------------------- */
 /* File: baseVoltages.css ------------------------------------------------ */
 .sld-vl300to500 {--sld-vl-color: #ff0000}
@@ -54,15 +54,17 @@
 /* Stroke none & fill: --sld-vl-color */
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 /* Stroke none & fill: black */
-.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
-.sld-graph-label {stroke: none; fill: black; font: 12px "Verdana"}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
+/* Fonts */
+.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
+.sld-angle, .sld-voltage {font: 10px "Verdana"}
+.sld-graph-label {font: 12px "Verdana"}
 /* Specific */
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
-.sld-arrow-p {fill:black}
-.sld-arrow-q {fill:blue}
+.sld-feeder-info.sld-active-power {fill:black}
+.sld-feeder-info.sld-reactive-power {fill:blue}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
 .sld-breaker.sld-fictitious {stroke: maroon}
