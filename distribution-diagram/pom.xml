@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>powsybl-diagram-util-forcelayout</artifactId>
+            <artifactId>powsybl-diagram-util</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

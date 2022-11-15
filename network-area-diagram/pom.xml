@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>com.powsybl</groupId>
-            <artifactId>powsybl-diagram-util-forcelayout</artifactId>
+            <artifactId>powsybl-diagram-util</artifactId>
         </dependency>
 
         <!-- Compile dependencies -->

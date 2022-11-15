@@ -13,9 +13,9 @@ import com.powsybl.tools.*;
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
 @AutoService(Version.class)
-public class PowsyblDiagramUtilForceLayoutVersion extends AbstractVersion {
+public class PowsyblDiagramUtilVersion extends AbstractVersion {
 
-    public PowsyblDiagramUtilForceLayoutVersion() {
-        super("powsybl-diagram-util-forcelayout", "${project.version}", "${buildNumber}", "${scmBranch}", Long.parseLong("${timestamp}"));
+    public PowsyblDiagramUtilVersion() {
+        super("powsybl-diagram-util", "${project.version}", "${buildNumber}", "${scmBranch}", Long.parseLong("${timestamp}"));
     }
 }
