@@ -6,24 +6,24 @@
  */
 package com.powsybl.nad.layout;
 
-import com.powsybl.iidm.network.*;
+import com.powsybl.iidm.network.Network;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.svg.LabelProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-class ForceLayoutTest extends AbstractTest {
+public class ForceLayoutTest extends AbstractTest {
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters().setTextNodesForceLayout(false));
         setSvgParameters(new SvgParameters()
@@ -42,14 +42,14 @@ class ForceLayoutTest extends AbstractTest {
     }
 
     @Test
-    void testDiamondNoSpringRepulsionFactor() {
+    public void testDiamondNoSpringRepulsionFactor() {
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.0.svg"),
                 generateSvgString(LayoutNetworkFactory.createDiamond(), "/diamond-spring-repulsion-factor-0.0.svg"));
     }
 
     @Test
-    void testDiamondSmallSpringRepulsionFactor() {
+    public void testDiamondSmallSpringRepulsionFactor() {
         getLayoutParameters().setSpringRepulsionFactorForceLayout(0.2);
         assertEquals(
                 toString("/diamond-spring-repulsion-factor-0.2.svg"),

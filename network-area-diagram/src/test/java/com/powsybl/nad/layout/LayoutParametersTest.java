@@ -6,17 +6,17 @@
  */
 package com.powsybl.nad.layout;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class LayoutParametersTest {
+public class LayoutParametersTest {
 
     @Test
-    void test() {
+    public void test() {
         LayoutParameters layoutParameters0 = new LayoutParameters()
                 .setTextNodesForceLayout(true)
                 .setSpringRepulsionFactorForceLayout(1.0)
@@ -25,8 +25,8 @@ class LayoutParametersTest {
         LayoutParameters layoutParameters1 = new LayoutParameters(layoutParameters0);
 
         assertEquals(layoutParameters0.isTextNodesForceLayout(), layoutParameters1.isTextNodesForceLayout());
-        assertEquals(layoutParameters0.getSpringRepulsionFactorForceLayout(), layoutParameters1.getSpringRepulsionFactorForceLayout());
-        assertEquals(layoutParameters0.getTextNodeFixedShift().getX(), layoutParameters1.getTextNodeFixedShift().getX());
-        assertEquals(layoutParameters0.getTextNodeFixedShift().getY(), layoutParameters1.getTextNodeFixedShift().getY());
+        assertEquals(layoutParameters0.getSpringRepulsionFactorForceLayout(), layoutParameters1.getSpringRepulsionFactorForceLayout(), 0);
+        assertEquals(layoutParameters0.getTextNodeFixedShift().getX(), layoutParameters1.getTextNodeFixedShift().getX(), 0);
+        assertEquals(layoutParameters0.getTextNodeFixedShift().getY(), layoutParameters1.getTextNodeFixedShift().getY(), 0);
     }
 }

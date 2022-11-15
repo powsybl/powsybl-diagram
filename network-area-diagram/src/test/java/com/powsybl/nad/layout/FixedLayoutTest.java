@@ -12,20 +12,20 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Point;
 import com.powsybl.nad.svg.NetworkTestFactory;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-class FixedLayoutTest {
+public class FixedLayoutTest {
 
     @Test
-    void testCurrentLimits() {
+    public void testCurrentLimits() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
 
         Map<String, Point> expected = Map.of(
@@ -41,8 +41,8 @@ class FixedLayoutTest {
             Point pexpected = expected.get(k);
             Point pactual = actual.get(k);
             assertNotNull(pactual);
-            assertEquals(pexpected.getX(), pactual.getX());
-            assertEquals(pexpected.getY(), pactual.getY());
+            assertEquals(pexpected.getX(), pactual.getX(), 0);
+            assertEquals(pexpected.getY(), pactual.getY(), 0);
         });
     }
 }

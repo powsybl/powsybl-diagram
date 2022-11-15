@@ -17,17 +17,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class NominalVoltageStyleTest extends AbstractTest {
+public class NominalVoltageStyleTest extends AbstractTest {
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -47,20 +47,20 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    void testIEEE30() {
+    public void testIEEE30() {
         Network network = IeeeCdfNetworkFactory.create30();
         assertEquals(toString("/IEEE_30_bus.svg"), generateSvgString(network, "/IEEE_30_bus.svg"));
     }
 
     @Test
-    void testIEEE14() {
+    public void testIEEE14() {
         Network network = IeeeCdfNetworkFactory.create14();
         LoadFlow.run(network);
         assertEquals(toString("/IEEE_14_bus.svg"), generateSvgString(network, "/IEEE_14_bus.svg"));
     }
 
     @Test
-    void testIEEE14ForceLayoutWithTextNodes() {
+    public void testIEEE14ForceLayoutWithTextNodes() {
         Network network = IeeeCdfNetworkFactory.create14();
         getLayoutParameters().setTextNodesForceLayout(true);
         getSvgParameters().setTextNodeBackground(false);
@@ -68,14 +68,14 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    void testIEEE14FWithSvgPrefix() {
+    public void testIEEE14FWithSvgPrefix() {
         Network network = IeeeCdfNetworkFactory.create14();
         getSvgParameters().setSvgPrefix("test_");
         assertEquals(toString("/IEEE_14_id_prefixed.svg"), generateSvgString(network, "/IEEE_14_id_prefixed.svg"));
     }
 
     @Test
-    void testDisconnection() {
+    public void testDisconnection() {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getLine("L3-4-1").getTerminal1().disconnect();
         network.getTwoWindingsTransformer("T4-7-1").getTerminal1().disconnect();
@@ -85,7 +85,7 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    void testFictitiousVoltageLevel() {
+    public void testFictitiousVoltageLevel() {
         Network network = IeeeCdfNetworkFactory.create14();
         network.getVoltageLevel("VL12").setFictitious(true);
         network.getVoltageLevel("VL14").setFictitious(true);
@@ -93,34 +93,34 @@ class NominalVoltageStyleTest extends AbstractTest {
     }
 
     @Test
-    void testIEEE24() {
+    public void testIEEE24() {
         Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
     }
 
     @Test
-    void testEurope() {
+    public void testEurope() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         LoadFlow.run(network);
         assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
     }
 
     @Test
-    void testEuropeLoopAperture80() {
+    public void testEuropeLoopAperture80() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(80);
         assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
     }
 
     @Test
-    void testEuropeLoopAperture100() {
+    public void testEuropeLoopAperture100() {
         Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
         getSvgParameters().setLoopEdgesAperture(100);
         assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
     }
 
     @Test
-    void testHvdc() {
+    public void testHvdc() {
         Network network = FourSubstationsNodeBreakerFactory.create();
         assertEquals(toString("/hvdc.svg"), generateSvgString(network, "/hvdc.svg"));
     }

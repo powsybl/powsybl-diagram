@@ -11,17 +11,17 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class VoltageLevelDescriptionTest extends AbstractTest {
+public class VoltageLevelDescriptionTest extends AbstractTest {
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -40,21 +40,21 @@ class VoltageLevelDescriptionTest extends AbstractTest {
     }
 
     @Test
-    void testVlId() {
+    public void testVlId() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         getSvgParameters().setIdDisplayed(true);
         assertEquals(toString("/vl_description_id.svg"), generateSvgString(network, "/vl_description_id.svg"));
     }
 
     @Test
-    void testSubstationDescription() {
+    public void testSubstationDescription() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true);
         assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
     }
 
     @Test
-    void testSubstationId() {
+    public void testSubstationId() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         getSvgParameters().setSubstationDescriptionDisplayed(true).setIdDisplayed(true);
         assertEquals(toString("/vl_description_substation_id.svg"), generateSvgString(network, "/vl_description_substation_id.svg"));

@@ -74,7 +74,6 @@
 
         <powsybl-core.version>5.0.0-RC1</powsybl-core.version>
 
-        <junit-jupiter.version>5.8.1</junit-jupiter.version>
         <powsybl-olf.version>0.23.0</powsybl-olf.version>
     </properties>
 
@@ -153,12 +152,6 @@
                 <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

@@ -13,19 +13,19 @@ import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class TopologicalStyleTest extends AbstractTest {
+public class TopologicalStyleTest extends AbstractTest {
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -45,26 +45,26 @@ class TopologicalStyleTest extends AbstractTest {
     }
 
     @Test
-    void testIEEE57() {
+    public void testIEEE57() {
         Network network = IeeeCdfNetworkFactory.create57();
         assertEquals(toString("/IEEE_57_bus.svg"), generateSvgString(network, "/IEEE_57_bus.svg"));
     }
 
     @Test
-    void testIEEE118() {
+    public void testIEEE118() {
         Network network = IeeeCdfNetworkFactory.create118();
         assertEquals(toString("/IEEE_118_bus.svg"), generateSvgString(network, "/IEEE_118_bus.svg"));
     }
 
     @Test
-    void testIEEE118PartialGraph() {
+    public void testIEEE118PartialGraph() {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelDepthFilter(network, "VL54", 2);
         assertEquals(toString("/IEEE_118_bus_partial.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial.svg"));
     }
 
     @Test
-    void testIEEE118PartialNonConnectedGraph() {
+    public void testIEEE118PartialNonConnectedGraph() {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Arrays.asList("VL32", "VL38"), 1);
         assertEquals(toString("/IEEE_118_bus_partial_non_connected.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial_non_connected.svg"));

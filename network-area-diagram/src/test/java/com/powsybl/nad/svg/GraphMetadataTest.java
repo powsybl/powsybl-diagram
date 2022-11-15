@@ -14,10 +14,9 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -28,28 +27,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-class GraphMetadataTest extends AbstractTest {
+public class GraphMetadataTest extends AbstractTest {
 
     private static final String INDENT = "    ";
     private static final String METADATA_START_TOKEN = "<metadata";
     private static final String METADATA_END_TOKEN = "</metadata>";
 
-    protected static FileSystem fileSystem;
-    protected static Path tmpDir;
+    private FileSystem fileSystem;
+    private Path tmpDir;
 
-    @BeforeAll
-    public static void setupAll() throws IOException {
+    @Before
+    public void setup() throws IOException {
         fileSystem = Jimfs.newFileSystem(Configuration.unix());
         tmpDir = Files.createDirectory(fileSystem.getPath("tmp"));
-    }
-
-    @BeforeEach
-    public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
@@ -57,8 +52,8 @@ class GraphMetadataTest extends AbstractTest {
                 .setFixedWidth(800));
     }
 
-    @AfterAll
-    static void tearDownAll() throws IOException {
+    @After
+    public void tearDown() throws IOException {
         fileSystem.close();
     }
 
@@ -73,7 +68,7 @@ class GraphMetadataTest extends AbstractTest {
     }
 
     @Test
-    void test() throws XMLStreamException {
+    public void test() throws XMLStreamException {
         // Referenced svg file
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
@@ -94,7 +89,7 @@ class GraphMetadataTest extends AbstractTest {
     }
 
     @Test
-    void testInvalid() throws XMLStreamException {
+    public void testInvalid() throws XMLStreamException {
         // Referenced svg file
         String reference = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
                 "        <nad:nodes>\n" +

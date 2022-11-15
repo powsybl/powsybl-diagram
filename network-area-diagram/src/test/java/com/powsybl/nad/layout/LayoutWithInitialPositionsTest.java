@@ -19,8 +19,8 @@ import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.svg.SvgParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.StringWriter;
 import java.util.Collections;
@@ -28,14 +28,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 /**
  * @author Luma Zamarreno <zamarrenolm at aia.es>
  */
-class LayoutWithInitialPositionsTest extends AbstractTest {
+public class LayoutWithInitialPositionsTest extends AbstractTest {
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -55,7 +55,7 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
     }
 
     @Test
-    void testDiamond() {
+    public void testDiamond() {
         checkLayoutWithInitialPositions(LayoutNetworkFactory.createDiamond());
     }
 
@@ -88,8 +88,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             Point expected = l.getValue();
             Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
-            assertEquals(expected.getX(), actual.getX());
-            assertEquals(expected.getY(), actual.getY());
+            assertEquals(expected.getX(), actual.getX(), 0);
+            assertEquals(expected.getY(), actual.getY(), 0);
         }
     }
 
@@ -109,8 +109,8 @@ class LayoutWithInitialPositionsTest extends AbstractTest {
             Point actual = allPositions.get(equipmentId);
             assertNotNull(actual);
             if (fixedNodes.contains(equipmentId)) {
-                assertEquals(expected.getX(), actual.getX());
-                assertEquals(expected.getY(), actual.getY());
+                assertEquals(expected.getX(), actual.getX(), 0);
+                assertEquals(expected.getY(), actual.getY(), 0);
             } else {
                 // We expect that the nodes with initial position but that have not been fixed have been moved
                 assertTrue(expected.getX() != actual.getX() || expected.getY() != actual.getY());

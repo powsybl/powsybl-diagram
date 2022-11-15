@@ -15,23 +15,23 @@ import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
  */
-class EdgeInfoLabelTest extends AbstractTest {
+public class EdgeInfoLabelTest extends AbstractTest {
 
     private String internalLabel;
     private String externalLabel;
 
-    @BeforeEach
+    @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
         setSvgParameters(new SvgParameters()
@@ -70,14 +70,14 @@ class EdgeInfoLabelTest extends AbstractTest {
     }
 
     @Test
-    void testMissingLabels() {
+    public void testMissingLabels() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         getSvgParameters().setArrowShift(10);
         assertEquals(toString("/edge_info_missing_label.svg"), generateSvgString(network, "/edge_info_missing_label.svg"));
     }
 
     @Test
-    void testPerpendicularLabels() {
+    public void testPerpendicularLabels() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         internalLabel = "int";
         externalLabel = "ext";
@@ -88,7 +88,7 @@ class EdgeInfoLabelTest extends AbstractTest {
     }
 
     @Test
-    void testParallelLabels() {
+    public void testParallelLabels() {
         Network network = ThreeWindingsTransformerNetworkFactory.create();
         internalLabel = "243";
         externalLabel = "145";
