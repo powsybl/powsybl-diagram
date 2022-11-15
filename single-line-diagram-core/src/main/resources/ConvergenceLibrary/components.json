@@ -375,7 +375,7 @@
       "fileName" : "arrow-down.svg",
       "styleClass" : "sld-arrow-in"
     } ],
-    "styleClass" : "sld-arrow-p"
+    "styleClass" : "sld-active-power"
   }, {
     "type" : "ARROW_REACTIVE",
     "size" : {
@@ -392,6 +392,6 @@
       "fileName" : "arrow-down.svg",
       "styleClass" : "sld-arrow-in"
     } ],
-    "styleClass" : "sld-arrow-q"
+    "styleClass" : "sld-reactive-power"
   } ]
 }

@@ -876,7 +876,7 @@ public class DefaultSVGWriter implements SVGWriter {
         // we draw the feeder info
         double rotationAngle = points.get(0).getY() > points.get(1).getY() ? 180 : 0;
         insertFeederInfoSVGIntoDocumentSVG(feederInfo, prefixId, g, rotationAngle);
-        styleProvider.getFeederInfoStyle(feederInfo).ifPresent(styles::add);
+        styles.addAll(styleProvider.getFeederInfoStyles(feederInfo));
 
         // we draw the right label only if present
         feederInfo.getRightLabel().ifPresent(s -> {
@@ -1171,7 +1171,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelV.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelV.setAttribute("y", String.valueOf(yShift + 2.5 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelV.setAttribute(CLASS, LABEL_STYLE_CLASS);
+        labelV.setAttribute(CLASS, VOLTAGE);
         Text textV = g.getOwnerDocument().createTextNode(valueV);
         labelV.appendChild(textV);
         g.appendChild(labelV);
@@ -1183,7 +1183,7 @@ public class DefaultSVGWriter implements SVGWriter {
 
         labelAngle.setAttribute("x", String.valueOf(xShift - CIRCLE_RADIUS_NODE_INFOS_SIZE));
         labelAngle.setAttribute("y", String.valueOf(yShift + 4 * CIRCLE_RADIUS_NODE_INFOS_SIZE));
-        labelAngle.setAttribute(CLASS, LABEL_STYLE_CLASS);
+        labelAngle.setAttribute(CLASS, ANGLE);
         Text textAngle = g.getOwnerDocument().createTextNode(valueAngle);
         labelAngle.appendChild(textAngle);
         g.appendChild(labelAngle);
@@ -1192,19 +1192,23 @@ public class DefaultSVGWriter implements SVGWriter {
     private void drawNodesInfos(String prefixId, Element root, VoltageLevelGraph graph,
                                 GraphMetadata metadata, DiagramLabelProvider initProvider, DiagramStyleProvider styleProvider) {
 
+        Element nodesInfosNode = root.getOwnerDocument().createElement(GROUP);
+        root.appendChild(nodesInfosNode);
+        nodesInfosNode.setAttribute(CLASS, LEGEND);
+
         double xInitPos = layoutParameters.getDiagramPadding().getLeft() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
         double yPos = graph.getY() - layoutParameters.getVoltageLevelPadding().getTop() + graph.getHeight() + CIRCLE_RADIUS_NODE_INFOS_SIZE;
 
         double xShift = graph.getX() + xInitPos;
         for (ElectricalNodeInfo node : initProvider.getElectricalNodesInfos(graph)) {
             String idNode = prefixId + "NODE_" + node.getBusId();
-            Element gNode = root.getOwnerDocument().createElement(GROUP);
+            Element gNode = nodesInfosNode.getOwnerDocument().createElement(GROUP);
             gNode.setAttribute("id", idNode);
 
             List<String> styles = styleProvider.getBusStyles(node.getBusId(), graph);
             drawNodeInfos(node, xShift, yPos, gNode, idNode, styles);
 
-            root.appendChild(gNode);
+            nodesInfosNode.appendChild(gNode);
 
             metadata.addElectricalNodeInfoMetadata(new GraphMetadata.ElectricalNodeInfoMetadata(idNode, node.getUserDefinedId()));
 

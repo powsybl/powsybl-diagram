@@ -18,9 +18,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import static com.powsybl.sld.svg.DiagramStyles.IN_CLASS;
-import static com.powsybl.sld.svg.DiagramStyles.OUT_CLASS;
-
 /**
  * @author Giovanni Ferrari <giovanni.ferrari at techrain.eu>
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -45,16 +42,9 @@ public interface DiagramStyleProvider {
 
     List<String> getBusStyles(String busId, VoltageLevelGraph graph);
 
-    default Optional<String> getBusInfoStyle(BusInfo info) {
-        return Optional.empty();
-    }
+    Optional<String> getBusInfoStyle(BusInfo info);
 
-    default Optional<String> getFeederInfoStyle(FeederInfo info) {
-        if (info instanceof DirectionalFeederInfo) {
-            return Optional.of(((DirectionalFeederInfo) info).getDirection() == DiagramLabelProvider.LabelDirection.OUT ? OUT_CLASS : IN_CLASS);
-        }
-        return Optional.empty();
-    }
+    List<String> getFeederInfoStyles(FeederInfo info);
 
     List<String> getCellStyles(Cell cell);
 }
