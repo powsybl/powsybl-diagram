@@ -61,9 +61,9 @@
 .sld-flash {stroke: none; fill: black}
 .sld-lock {stroke: none; fill: black}
 /* Fonts */
-.sld-label {stroke: none; fill: black; font: 8px "Verdana"}
-.sld-angle, .sld-voltage {font: 10px "Verdana"}
-.sld-graph-label {font: 12px "Verdana"}
+.sld-label {stroke: none; fill: black; font: 8px serif}
+.sld-angle, .sld-voltage {font: 10px serif}
+.sld-graph-label {font: 12px serif}
 /* Specific */
 .sld-grid {stroke: #003700; stroke-dasharray: 1,10}
 .sld-feeder-info.sld-active-power {fill:black}
