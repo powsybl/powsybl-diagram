@@ -7,16 +7,12 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Identifiable;
-import com.powsybl.nad.model.Node;
+import com.powsybl.nad.model.*;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-
 import java.io.InputStream;
 import java.util.*;
 import java.util.function.UnaryOperator;
@@ -37,12 +33,17 @@ public class GraphMetadata {
     private static final String METADATA_EDGE_ELEMENT_NAME = "edge";
     private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
+    private static final String POSITION_X_ATTRIBUTE = "x";
+    private static final String POSITION_Y_ATTRIBUTE = "y";
+    private static final String POSITION_COORD_FORMAT = "%.4f";
 
     private final Map<String, String> busNodeIdByDiagramId = new LinkedHashMap<>();
 
     private final Map<String, String> nodeIdByDiagramId = new LinkedHashMap<>();
 
     private final Map<String, String> edgeIdByDiagramId = new LinkedHashMap<>();
+
+    private final Map<String, Point> positionByEquipmentId = new HashMap<>();
 
     public static GraphMetadata parseXml(InputStream inputStream) throws XMLStreamException {
         return parseXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -93,16 +94,16 @@ public class GraphMetadata {
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
         // BusNodes
-        writeIdMapping(METADATA_BUS_NODES_ELEMENT_NAME, METADATA_BUS_NODE_ELEMENT_NAME, busNodeIdByDiagramId, writer);
+        writeIdMapping(METADATA_BUS_NODES_ELEMENT_NAME, METADATA_BUS_NODE_ELEMENT_NAME, busNodeIdByDiagramId, Collections.emptyMap(), writer);
         // Nodes
-        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByDiagramId, writer);
+        writeIdMapping(METADATA_NODES_ELEMENT_NAME, METADATA_NODE_ELEMENT_NAME, nodeIdByDiagramId, positionByEquipmentId, writer);
         // Edges
-        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByDiagramId, writer);
+        writeIdMapping(METADATA_EDGES_ELEMENT_NAME, METADATA_EDGE_ELEMENT_NAME, edgeIdByDiagramId, Collections.emptyMap(), writer);
         // End root element
         writer.writeEndElement();
     }
 
-    private void writeIdMapping(String rootElementName, String tagElementName, Map<String, String> ids, XMLStreamWriter writer) throws XMLStreamException {
+    private void writeIdMapping(String rootElementName, String tagElementName, Map<String, String> ids, Map<String, Point> positions, XMLStreamWriter writer) throws XMLStreamException {
         if (ids.entrySet().isEmpty()) {
             writer.writeEmptyElement(METADATA_PREFIX, rootElementName, METADATA_NAMESPACE_URI);
         } else {
@@ -110,10 +111,20 @@ public class GraphMetadata {
             for (Map.Entry<String, String> entry : ids.entrySet()) {
                 writer.writeEmptyElement(METADATA_PREFIX, tagElementName, METADATA_NAMESPACE_URI);
                 writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, entry.getKey());
-                writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, entry.getValue());
+                String equipmentId = entry.getValue();
+                writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, equipmentId);
+                if (positions.containsKey(equipmentId)) {
+                    Point p = positions.get(equipmentId);
+                    writer.writeAttribute(POSITION_X_ATTRIBUTE, formatted(p.getX()));
+                    writer.writeAttribute(POSITION_Y_ATTRIBUTE, formatted(p.getY()));
+                }
             }
             writer.writeEndElement();
         }
+    }
+
+    private static String formatted(double value) {
+        return String.format(POSITION_COORD_FORMAT, value);
     }
 
     public void addBusNode(BusNode node, UnaryOperator<String> diagramIdToSvgId) {
@@ -122,6 +133,7 @@ public class GraphMetadata {
 
     public void addNode(Node node, UnaryOperator<String> diagramIdToSvgId) {
         addIdentifiable(nodeIdByDiagramId, node, diagramIdToSvgId);
+        positionByEquipmentId.put(node.getEquipmentId(), node.getPosition());
     }
 
     public void addEdge(Edge edge, UnaryOperator<String> diagramIdToSvgId) {
