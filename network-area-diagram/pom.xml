@@ -23,26 +23,12 @@
     <description>Generate the SVG corresponding to the electrical nodes graph of the whole network or of a part of the network</description>
     <url>http://www.powsybl.org</url>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>templating-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
+        <!-- Compile dependencies -->
         <dependency>
             <groupId>com.powsybl</groupId>
             <artifactId>powsybl-diagram-util</artifactId>
         </dependency>
-
-        <!-- Compile dependencies -->
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-core</artifactId>

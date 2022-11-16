@@ -34,19 +34,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>templating-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 
     <dependencies>
         <!-- compilation dependencies -->
+        <dependency> <!-- for version class -->
+            <groupId>com.powsybl</groupId>
+            <artifactId>powsybl-diagram-util</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
