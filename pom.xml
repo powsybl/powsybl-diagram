@@ -57,7 +57,7 @@
         <module>distribution-diagram</module>
         <module>network-area-diagram</module>
         <module>single-line-diagram</module>
-        <module>util</module>
+        <module>diagram-util</module>
     </modules>
 
     <properties>
