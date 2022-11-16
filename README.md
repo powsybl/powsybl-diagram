@@ -175,7 +175,7 @@ This leads to following diagram:
 Now let's generate the subgraph with voltage levels at a maximum distance of 2 from `"VL1"` and `"VL25"`:
 
 ```java
-new NetworkAreaDiagram(network, Arrays.asList("VL1", "VL25"), 2).draw(Path.of("/tmp/partial_diagram_1_25.svg"));
+new NetworkAreaDiagram(network, List.of("VL1", "VL25"), 2).draw(Path.of("/tmp/partial_diagram_1_25.svg"));
 ```
 
 This gives us the diagram below. Note that nothing ensures that the parts displayed in resulting diagram are connected.
