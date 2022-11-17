@@ -18,18 +18,18 @@
         <version>9</version>
         <relativePath/>
     </parent>
-    <artifactId>powsybl-single-line-diagram</artifactId>
-    <version>2.14.0-SNAPSHOT</version>
+    <artifactId>powsybl-diagram</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Single line diagram</name>
-    <description>PowSyBl single line diagram parent project</description>
+    <name>PowSyBl Diagram</name>
+    <description>PowSyBl Diagram parent project</description>
     <url>http://www.powsybl.org</url>
 
     <scm>
-        <connection>scm:git:https://github.com/powsybl/powsybl-single-line-diagram.git</connection>
-        <developerConnection>scm:git:https://github.com/powsybl/powsybl-single-line-diagram.git</developerConnection>
-        <url>https://github.com/powsybl/powsybl-single-line-diagram</url>
+        <connection>scm:git:https://github.com/powsybl/powsybl-diagram.git</connection>
+        <developerConnection>scm:git:https://github.com/powsybl/powsybl-diagram.git</developerConnection>
+        <url>https://github.com/powsybl/powsybl-diagram</url>
     </scm>
 
     <developers>
@@ -54,25 +54,27 @@
     </developers>
 
     <modules>
-        <module>single-line-diagram-cgmes</module>
-        <module>single-line-diagram-core</module>
-        <module>single-line-diagram-distribution</module>
+        <module>distribution-diagram</module>
+        <module>network-area-diagram</module>
+        <module>single-line-diagram</module>
+        <module>diagram-util</module>
     </modules>
 
     <properties>
         <java.version>11</java.version>
 
-        <slf4j.version>1.7.22</slf4j.version>
-
         <sonar.coverage.jacoco.xmlReportPaths>
-            ../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
-            ../../single-line-diagram-distribution/target/site/jacoco-aggregate/jacoco.xml,
+            ../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,
+            ../../distribution-diagram/target/site/jacoco-aggregate/jacoco.xml,
         </sonar.coverage.jacoco.xmlReportPaths>
 
         <sonar.exclusions>
             **/generated/**/*
         </sonar.exclusions>
+
         <powsybl-core.version>5.0.0-RC1</powsybl-core.version>
+
+        <powsybl-olf.version>0.23.0</powsybl-olf.version>
     </properties>
 
     <profiles>
@@ -112,6 +114,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-network-area-diagram</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>powsybl-single-line-diagram-core</artifactId>
@@ -128,6 +136,18 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>powsybl-single-line-diagram-cgmes-layout</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-diagram-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
                 <groupId>com.powsybl</groupId>
                 <artifactId>powsybl-single-line-diagram-cgmes-iidm-extensions</artifactId>
                 <version>${project.version}</version>
@@ -135,15 +155,46 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>powsybl-single-line-diagram-cgmes-layout</artifactId>
-                <version>${project.version}</version>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-iidm-impl</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
             </dependency>
-
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-ieee-cdf-converter</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-iidm-test</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-ucte-converter</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-config-test</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-loadflow-api</artifactId>
+                <version>${powsybl-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.powsybl</groupId>
+                <artifactId>powsybl-open-loadflow</artifactId>
+                <version>${powsybl-olf.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
