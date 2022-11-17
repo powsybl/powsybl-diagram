@@ -23,6 +23,8 @@ import java.util.Optional;
  */
 public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
 
+    public static final String LINE_STYLE_SUFFIX = "-line";
+
     public TopologicalStyleProvider(Network network) {
         super(network);
     }
@@ -46,7 +48,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
         List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
         getBaseVoltageStyle(b.getVoltageLevel().getNominalV())
-                .map(baseVoltageStyle -> baseVoltageStyle + "-" + (busNode.getIndex() + 1))
+                .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getIndex())
                 .ifPresent(styles::add);
         return styles;
     }
@@ -57,6 +59,6 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
             return Optional.empty();
         }
         return getBaseVoltageStyle(terminal.getVoltageLevel().getNominalV())
-                .map(baseVoltageStyle -> baseVoltageStyle + "-0");
+                .map(baseVoltageStyle -> baseVoltageStyle + LINE_STYLE_SUFFIX);
     }
 }
