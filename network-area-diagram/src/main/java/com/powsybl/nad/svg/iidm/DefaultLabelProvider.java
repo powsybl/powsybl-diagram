@@ -80,7 +80,7 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
-    public List<String> getVoltageLevelDetails() {
+    public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
         return Collections.emptyList();
     }
 

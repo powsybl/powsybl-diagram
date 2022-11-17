@@ -46,8 +46,13 @@ public class SvgParametersTest {
                 .setIdDisplayed(true)
                 .setSubstationDescriptionDisplayed(true)
                 .setArrowHeight(25)
-                .setDetailedTextNode(false)
-                .setDetailedTextNodeYShift(100);
+                .setBusLegend(false)
+                .setVoltageLevelDetails(true)
+                .setDetailedTextNodeYShift(100)
+                .setLanguageTag("de")
+                .setVoltageValuePrecision(0)
+                .setAngleValuePrecision(2)
+                .setPowerValuePrecision(3);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -82,7 +87,12 @@ public class SvgParametersTest {
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());
         assertEquals(svgParameters0.isSubstationDescriptionDisplayed(), svgParameters1.isSubstationDescriptionDisplayed());
         assertEquals(svgParameters0.getArrowHeight(), svgParameters1.getArrowHeight(), 0);
-        assertEquals(svgParameters0.isDetailedTextNode(), svgParameters1.isDetailedTextNode());
+        assertEquals(svgParameters0.isBusLegend(), svgParameters1.isBusLegend());
+        assertEquals(svgParameters0.isVoltageLevelDetails(), svgParameters1.isVoltageLevelDetails());
         assertEquals(svgParameters0.getDetailedTextNodeYShift(), svgParameters1.getDetailedTextNodeYShift(), 0);
+        assertEquals(svgParameters0.getLanguageTag(), svgParameters1.getLanguageTag());
+        assertEquals(svgParameters0.getVoltageValuePrecision(), svgParameters1.getVoltageValuePrecision());
+        assertEquals(svgParameters0.getAngleValuePrecision(), svgParameters1.getAngleValuePrecision());
+        assertEquals(svgParameters0.getPowerValuePrecision(), svgParameters1.getPowerValuePrecision());
     }
 }

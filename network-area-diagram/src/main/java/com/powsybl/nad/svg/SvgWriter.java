@@ -420,7 +420,7 @@ public class SvgWriter {
         }
 
         List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
-        if (svgParameters.isDetailedTextNode()) {
+        if (content.size() > 1 || svgParameters.isBusLegend() || svgParameters.isVoltageLevelDetails()) {
             writeDetailedTextNode(writer, textNode, vlNode, content);
         } else {
             writeSimpleTextNode(writer, textNode, content);
@@ -441,12 +441,29 @@ public class SvgWriter {
         writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
 
-        for (String line : content) {
+        writeLines(content, writer);
+
+        if (svgParameters.isBusLegend()) {
+            writeBusNodeLegend(writer, vlNode);
+        }
+
+        if (svgParameters.isVoltageLevelDetails()) {
+            writeLines(labelProvider.getVoltageLevelDetails(vlNode), writer);
+        }
+
+        writer.writeEndElement();
+        writer.writeEndElement();
+    }
+
+    private void writeLines(List<String> lines, XMLStreamWriter writer) throws XMLStreamException {
+        for (String line : lines) {
             writer.writeStartElement(DIV_ELEMENT_NAME);
             writer.writeCharacters(line);
             writer.writeEndElement();
         }
+    }
 
+    private void writeBusNodeLegend(XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeStartElement(TABLE_ELEMENT_NAME);
 
         for (BusNode busNode : vlNode.getBusNodes()) {
@@ -462,15 +479,6 @@ public class SvgWriter {
             writer.writeEndElement();
             writer.writeEndElement();
         }
-        writer.writeEndElement();
-
-        for (String detail : labelProvider.getVoltageLevelDetails()) {
-            writer.writeStartElement(DIV_ELEMENT_NAME);
-            writer.writeCharacters(detail);
-            writer.writeEndElement();
-        }
-
-        writer.writeEndElement();
         writer.writeEndElement();
     }
 

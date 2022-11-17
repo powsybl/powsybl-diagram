@@ -26,5 +26,5 @@ public interface LabelProvider {
 
     String getBusDescription(BusNode busNode);
 
-    List<String> getVoltageLevelDetails();
+    List<String> getVoltageLevelDetails(VoltageLevelNode vlNode);
 }

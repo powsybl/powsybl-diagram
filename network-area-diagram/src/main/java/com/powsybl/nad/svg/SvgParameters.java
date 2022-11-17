@@ -44,7 +44,8 @@ public class SvgParameters {
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
     private double arrowHeight = 10;
-    private boolean detailedTextNode = true;
+    private boolean busLegend = true;
+    private boolean voltageLevelDetails = false;
     private double detailedTextNodeYShift = 25;
     private String languageTag = "en";
     private int voltageValuePrecision = 1;
@@ -91,8 +92,13 @@ public class SvgParameters {
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
         this.arrowHeight = other.arrowHeight;
-        this.detailedTextNode = other.detailedTextNode;
+        this.busLegend = other.busLegend;
+        this.voltageLevelDetails = other.voltageLevelDetails;
         this.detailedTextNodeYShift = other.detailedTextNodeYShift;
+        this.languageTag = other.languageTag;
+        this.voltageValuePrecision = other.voltageValuePrecision;
+        this.powerValuePrecision = other.powerValuePrecision;
+        this.angleValuePrecision = other.angleValuePrecision;
     }
 
     public Padding getDiagramPadding() {
@@ -350,12 +356,21 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isDetailedTextNode() {
-        return detailedTextNode;
+    public boolean isBusLegend() {
+        return busLegend;
     }
 
-    public SvgParameters setDetailedTextNode(boolean detailedTextNode) {
-        this.detailedTextNode = detailedTextNode;
+    public SvgParameters setBusLegend(boolean detailedNodeDescription) {
+        this.busLegend = detailedNodeDescription;
+        return this;
+    }
+
+    public boolean isVoltageLevelDetails() {
+        return voltageLevelDetails;
+    }
+
+    public SvgParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
+        this.voltageLevelDetails = voltageLevelDetails;
         return this;
     }
 
