@@ -6,6 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.util.ValueFormatter;
+
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -43,6 +46,10 @@ public class SvgParameters {
     private double arrowHeight = 10;
     private boolean detailedTextNode = true;
     private double detailedTextNodeYShift = 25;
+    private String languageTag = "en";
+    private int voltageValuePrecision = 1;
+    private int powerValuePrecision = 0;
+    private int angleValuePrecision = 1;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -359,5 +366,49 @@ public class SvgParameters {
     public SvgParameters setDetailedTextNodeYShift(double detailedTextNodeYShift) {
         this.detailedTextNodeYShift = detailedTextNodeYShift;
         return this;
+    }
+
+    public String getLanguageTag() {
+        return languageTag;
+    }
+
+    /**
+     * Sets the language tag string. This is used to format the value displayed according to the corresponding standards.
+     * @param languageTag Specified IETF BCP 47 language tag string
+     */
+    public SvgParameters setLanguageTag(String languageTag) {
+        this.languageTag = languageTag;
+        return this;
+    }
+
+    public int getVoltageValuePrecision() {
+        return voltageValuePrecision;
+    }
+
+    public SvgParameters setVoltageValuePrecision(int voltageValuePrecision) {
+        this.voltageValuePrecision = voltageValuePrecision;
+        return this;
+    }
+
+    public int getPowerValuePrecision() {
+        return powerValuePrecision;
+    }
+
+    public SvgParameters setPowerValuePrecision(int powerValuePrecision) {
+        this.powerValuePrecision = powerValuePrecision;
+        return this;
+    }
+
+    public int getAngleValuePrecision() {
+        return angleValuePrecision;
+    }
+
+    public SvgParameters setAngleValuePrecision(int angleValuePrecision) {
+        this.angleValuePrecision = angleValuePrecision;
+        return this;
+    }
+
+    public ValueFormatter createValueFormatter() {
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
     }
 }

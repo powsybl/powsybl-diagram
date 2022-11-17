@@ -238,7 +238,7 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-45.06)" x="19.00">0</text>
+                        <text transform="rotate(-45.06)" x="19.00">-0</text>
                     </g>
                 </g>
             </g>
@@ -484,7 +484,7 @@
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                             <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                         </g>
-                        <text transform="rotate(-15.38)" x="19.00">0</text>
+                        <text transform="rotate(-15.38)" x="19.00">-0</text>
                     </g>
                 </g>
             </g>
