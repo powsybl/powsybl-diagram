@@ -73,8 +73,8 @@
     <g class="nad-branch-edges">
         <g id="4">
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="142.00,-70.46 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(133.38,-61.41)">
+                <polyline class="nad-edge-path" points="140.62,-69.02 37.43,39.35"/>
+                <g class="nad-edge-infos" transform="translate(132.00,-59.96)">
                     <g class="nad-state-out">
                         <g transform="rotate(-136.40)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>
@@ -84,8 +84,8 @@
                 </g>
             </g>
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="-67.15,149.16 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(-58.53,140.10)">
+                <polyline class="nad-edge-path" points="-65.77,147.71 37.43,39.35"/>
+                <g class="nad-edge-infos" transform="translate(-57.15,138.66)">
                     <g class="nad-state-out">
                         <g transform="rotate(43.60)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-2 -1 H2 L0 1z"/>

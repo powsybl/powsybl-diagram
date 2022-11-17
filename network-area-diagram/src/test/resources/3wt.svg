@@ -83,8 +83,8 @@
     <g class="nad-3wt-edges">
         <g id="7" class="nad-vl0to30">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path" points="-180.89,-204.55 49.18,31.35"/>
-            <g class="nad-edge-infos" transform="translate(-158.20,-181.29)">
+            <polyline class="nad-edge-path" points="-179.49,-203.13 49.18,31.35"/>
+            <g class="nad-edge-infos" transform="translate(-156.79,-179.86)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(135.72)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -103,28 +103,28 @@
         </g>
         <g id="8" class="nad-vl120to180">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path" points="-163.72,339.48 65.60,84.29"/>
-            <g class="nad-edge-infos" transform="translate(-142.00,315.30)">
+            <polyline class="nad-edge-path" points="-162.45,337.93 65.60,84.29"/>
+            <g class="nad-edge-infos" transform="translate(-140.72,313.77)">
                 <g class="nad-active nad-state-out">
-                    <g transform="rotate(41.94)">
+                    <g transform="rotate(41.96)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-48.06)" x="19.00">0</text>
+                    <text transform="rotate(-48.04)" x="19.00">0</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
-                    <g transform="rotate(41.94)">
+                    <g transform="rotate(41.96)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-48.06)" x="19.00">0</text>
+                    <text transform="rotate(-48.04)" x="19.00">0</text>
                 </g>
             </g>
         </g>
         <g id="9" class="nad-vl30to50">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path" points="430.38,-57.84 103.24,43.60"/>
-            <g class="nad-edge-infos" transform="translate(399.34,-48.21)">
+            <polyline class="nad-edge-path" points="428.47,-57.25 103.24,43.60"/>
+            <g class="nad-edge-infos" transform="translate(397.43,-47.62)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(-107.23)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>

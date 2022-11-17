@@ -76,7 +76,7 @@
     <g class="nad-branch-edges">
         <g id="5">
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="135.12,-81.73 82.84,-66.34 29.15,-9.96"/>
+                <polyline class="nad-edge-path" points="133.21,-81.17 82.84,-66.34 29.15,-9.96"/>
                 <g class="nad-edge-infos" transform="translate(62.15,-44.62)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
@@ -96,7 +96,7 @@
                 <circle class="nad-winding" cx="15.36" cy="4.52" r="20.00"/>
             </g>
             <g class="nad-vl180to300">
-                <polyline class="nad-edge-path" points="-78.74,142.84 -65.92,89.87 -12.23,33.49"/>
+                <polyline class="nad-edge-path" points="-78.27,140.89 -65.92,89.87 -12.23,33.49"/>
                 <g class="nad-edge-infos" transform="translate(-45.23,68.14)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">
@@ -118,7 +118,7 @@
         </g>
         <g id="6">
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="146.53,-34.99 140.77,-11.17 87.08,45.21"/>
+                <polyline class="nad-edge-path" points="146.06,-33.04 140.77,-11.17 87.08,45.21"/>
                 <g class="nad-edge-infos" transform="translate(120.08,10.55)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
@@ -138,7 +138,7 @@
                 <circle class="nad-winding" cx="73.29" cy="59.69" r="20.00"/>
             </g>
             <g class="nad-vl180to300">
-                <polyline class="nad-edge-path" points="-60.27,160.42 -7.99,145.04 45.70,88.66"/>
+                <polyline class="nad-edge-path" points="-58.36,159.86 -7.99,145.04 45.70,88.66"/>
                 <g class="nad-edge-infos" transform="translate(12.70,123.31)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">
