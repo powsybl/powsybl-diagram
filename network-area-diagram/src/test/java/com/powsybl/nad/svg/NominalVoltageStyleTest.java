@@ -33,7 +33,8 @@ public class NominalVoltageStyleTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedWidth(800)
+                .setEdgeStartShift(2));
     }
 
     @Override
@@ -96,27 +97,6 @@ public class NominalVoltageStyleTest extends AbstractTest {
     public void testIEEE24() {
         Network network = NetworkXml.read(getClass().getResourceAsStream("/IEEE_24_bus.xiidm"));
         assertEquals(toString("/IEEE_24_bus.svg"), generateSvgString(network, "/IEEE_24_bus.svg"));
-    }
-
-    @Test
-    public void testEurope() {
-        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        LoadFlow.run(network);
-        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
-    }
-
-    @Test
-    public void testEuropeLoopAperture80() {
-        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        getSvgParameters().setLoopEdgesAperture(80);
-        assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
-    }
-
-    @Test
-    public void testEuropeLoopAperture100() {
-        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
-        getSvgParameters().setLoopEdgesAperture(100);
-        assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
     }
 
     @Test

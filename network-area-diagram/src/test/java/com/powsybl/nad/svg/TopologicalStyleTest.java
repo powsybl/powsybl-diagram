@@ -8,6 +8,7 @@ package com.powsybl.nad.svg;
 
 import com.powsybl.ieeecdf.converter.IeeeCdfNetworkFactory;
 import com.powsybl.iidm.network.Network;
+import com.powsybl.loadflow.LoadFlow;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.build.iidm.VoltageLevelFilter;
 import com.powsybl.nad.layout.LayoutParameters;
@@ -68,5 +69,26 @@ public class TopologicalStyleTest extends AbstractTest {
         Network network = IeeeCdfNetworkFactory.create118();
         VoltageLevelFilter vlDepthFilter = VoltageLevelFilter.createVoltageLevelsDepthFilter(network, Arrays.asList("VL32", "VL38"), 1);
         assertEquals(toString("/IEEE_118_bus_partial_non_connected.svg"), generateSvgString(network, vlDepthFilter, "/IEEE_118_bus_partial_non_connected.svg"));
+    }
+
+    @Test
+    public void testEurope() {
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        LoadFlow.run(network);
+        assertEquals(toString("/simple-eu.svg"), generateSvgString(network, "/simple-eu.svg"));
+    }
+
+    @Test
+    public void testEuropeLoopAperture80() {
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        getSvgParameters().setLoopEdgesAperture(80);
+        assertEquals(toString("/simple-eu-loop80.svg"), generateSvgString(network, "/simple-eu-loop80.svg"));
+    }
+
+    @Test
+    public void testEuropeLoopAperture100() {
+        Network network = Network.read("simple-eu.uct", getClass().getResourceAsStream("/simple-eu.uct"));
+        getSvgParameters().setLoopEdgesAperture(100);
+        assertEquals(toString("/simple-eu-loop100.svg"), generateSvgString(network, "/simple-eu-loop100.svg"));
     }
 }

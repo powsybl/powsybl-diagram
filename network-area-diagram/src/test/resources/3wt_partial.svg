@@ -75,8 +75,8 @@
     <g class="nad-3wt-edges">
         <g id="3" class="nad-vl0to30">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path" points="-352.96,103.08 -24.91,12.69"/>
-            <g class="nad-edge-infos" transform="translate(-321.62,94.45)">
+            <polyline class="nad-edge-path" points="-351.03,102.55 -24.91,12.69"/>
+            <g class="nad-edge-infos" transform="translate(-319.69,93.92)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(74.59)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>

@@ -76,8 +76,8 @@
         <g id="4" class="nad-hvdc-edge">
             <desc>HVDC</desc>
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="142.00,-70.46 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(119.59,-46.93)">
+                <polyline class="nad-edge-path" points="140.62,-69.02 37.43,39.35"/>
+                <g class="nad-edge-infos" transform="translate(118.21,-45.48)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -95,8 +95,8 @@
                 </g>
             </g>
             <g class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="-67.15,149.16 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(-44.74,125.62)">
+                <polyline class="nad-edge-path" points="-65.77,147.71 37.43,39.35"/>
+                <g class="nad-edge-infos" transform="translate(-43.36,124.17)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
