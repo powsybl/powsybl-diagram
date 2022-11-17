@@ -52,13 +52,13 @@ public class Graph {
     }
 
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,
-                        VoltageLevelNode node2, BusNode busNode2, BranchEdge edge) {
-        addVoltageLevelsEdge(node1, node2, edge);
+                        VoltageLevelNode node2, BusNode busNode2, BranchEdge edge, double weight) {
+        addVoltageLevelsEdge(node1, node2, edge, weight);
         addBusesEdge(busNode1, busNode2, edge);
     }
 
-    public void addEdge(VoltageLevelNode vlNode, BusNode busNode, ThreeWtNode tNode, ThreeWtEdge edge) {
-        addVoltageLevelsEdge(vlNode, tNode, edge);
+    public void addEdge(VoltageLevelNode vlNode, BusNode busNode, ThreeWtNode tNode, ThreeWtEdge edge, double weight) {
+        addVoltageLevelsEdge(vlNode, tNode, edge, weight);
         addBusesEdge(busNode, tNode, edge);
     }
 
@@ -69,12 +69,13 @@ public class Graph {
         textEdges.put(edge, Pair.of(vlNode, textNode));
     }
 
-    private void addVoltageLevelsEdge(Node node1, Node node2, Edge edge) {
+    private void addVoltageLevelsEdge(Node node1, Node node2, Edge edge, double weight) {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
         Objects.requireNonNull(edge);
         edges.put(edge.getEquipmentId(), edge);
         voltageLevelGraph.addEdge(node1, node2, edge);
+        voltageLevelGraph.setEdgeWeight(edge, weight);
     }
 
     private void addBusesEdge(BusNode node1, Node node2, Edge edge) {

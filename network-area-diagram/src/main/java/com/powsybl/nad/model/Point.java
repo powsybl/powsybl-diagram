@@ -73,4 +73,9 @@ public class Point {
     public double getAngle(Point other) {
         return Math.atan2(other.y - y, other.x - x);
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%10.4f, %10.4f)", x, y);
+    }
 }

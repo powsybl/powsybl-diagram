@@ -25,6 +25,11 @@ abstract class AbstractIdentifiable implements Identifiable {
     }
 
     @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
     public String getDiagramId() {
         return diagramId;
     }

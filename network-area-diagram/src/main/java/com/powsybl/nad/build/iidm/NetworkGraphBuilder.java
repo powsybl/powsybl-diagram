@@ -143,9 +143,9 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
         BranchEdge edge = new BranchEdge(idProvider.createId(identifiable), identifiable.getId(), identifiable.getNameOrId(), edgeType);
         if (!terminalsInReversedOrder) {
-            graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge);
+            graph.addEdge(vlNodeA, busNodeA, vlNodeB, busNodeB, edge, getEdgeTypeWeight(edgeType));
         } else {
-            graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge);
+            graph.addEdge(vlNodeB, busNodeB, vlNodeA, busNodeA, edge, getEdgeTypeWeight(edgeType));
         }
     }
 
@@ -154,7 +154,17 @@ public class NetworkGraphBuilder implements GraphBuilder {
         VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(graph, terminal);
         ThreeWtEdge edge = new ThreeWtEdge(idProvider.createId(IidmUtils.get3wtLeg(twt, side)),
                 twt.getId(), twt.getNameOrId(), IidmUtils.getThreeWtEdgeSideFromIidmSide(side), vlNode.isVisible());
-        graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
+        graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge, getEdgeTypeWeight("ThreeWtEdge"));
+    }
+
+    private static final double TRANSFORMER_EDGE_WEIGHT = 1.0;
+    private static final double BRANCH_EDGE_WEIGHT = 1.0;
+
+    private double getEdgeTypeWeight(String edgeType) {
+        if ("TwoWtEdge".equals(edgeType) || "ThreeWtEdge".equals(edgeType)) {
+            return TRANSFORMER_EDGE_WEIGHT;
+        }
+        return BRANCH_EDGE_WEIGHT;
     }
 
     private BusNode getBusNode(Graph graph, Terminal terminal) {
