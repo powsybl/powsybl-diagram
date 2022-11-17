@@ -69,6 +69,17 @@ public class DefaultLabelProvider implements LabelProvider {
     }
 
     @Override
+    public String getBusDescription(BusNode busNode) {
+        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+        return String.format("%.2f kV, %.1f°", b.getV(), b.getAngle());
+    }
+
+    @Override
+    public List<String> getVoltageLevelDetails() {
+        return Collections.emptyList();
+    }
+
+    @Override
     public String getArrowPathDIn() {
         return "M-1 -1 H1 L0 1z";
     }

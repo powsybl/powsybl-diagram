@@ -40,13 +40,14 @@ public class SvgParametersTest {
                 .setLoopDistance(8.)
                 .setLoopEdgesAperture(10.)
                 .setLoopControlDistance(1.)
-                .setTextNodeBackground(false)
                 .setEdgeInfoAlongEdge(false)
                 .setInterAnnulusSpace(0.25)
                 .setSvgPrefix("TestPrefix")
                 .setIdDisplayed(true)
                 .setSubstationDescriptionDisplayed(true)
-                .setArrowHeight(25);
+                .setArrowHeight(25)
+                .setDetailedTextNode(false)
+                .setDetailedTextNodeYShift(100);
 
         SvgParameters svgParameters1 = new SvgParameters(svgParameters0);
 
@@ -75,12 +76,13 @@ public class SvgParametersTest {
         assertEquals(svgParameters0.getLoopDistance(), svgParameters1.getLoopDistance(), 0);
         assertEquals(svgParameters0.getLoopEdgesAperture(), svgParameters1.getLoopEdgesAperture(), 0);
         assertEquals(svgParameters0.getLoopControlDistance(), svgParameters1.getLoopControlDistance(), 0);
-        assertEquals(svgParameters0.isTextNodeBackground(), svgParameters1.isTextNodeBackground());
         assertEquals(svgParameters0.isEdgeInfoAlongEdge(), svgParameters1.isEdgeInfoAlongEdge());
         assertEquals(svgParameters0.getInterAnnulusSpace(), svgParameters1.getInterAnnulusSpace(), 0);
         assertEquals(svgParameters0.getSvgPrefix(), svgParameters1.getSvgPrefix());
         assertEquals(svgParameters0.isIdDisplayed(), svgParameters1.isIdDisplayed());
         assertEquals(svgParameters0.isSubstationDescriptionDisplayed(), svgParameters1.isSubstationDescriptionDisplayed());
         assertEquals(svgParameters0.getArrowHeight(), svgParameters1.getArrowHeight(), 0);
+        assertEquals(svgParameters0.isDetailedTextNode(), svgParameters1.isDetailedTextNode());
+        assertEquals(svgParameters0.getDetailedTextNodeYShift(), svgParameters1.getDetailedTextNodeYShift(), 0);
     }
 }

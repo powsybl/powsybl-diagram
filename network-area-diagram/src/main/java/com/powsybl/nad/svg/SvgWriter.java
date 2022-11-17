@@ -29,16 +29,21 @@ import java.util.stream.Stream;
 public class SvgWriter {
 
     private static final String INDENT = "    ";
-    public static final String NAMESPACE_URI = "http://www.w3.org/2000/svg";
+    public static final String SVG_NAMESPACE_URI = "http://www.w3.org/2000/svg";
+    public static final String XHTML_NAMESPACE_URI = "http://www.w3.org/1999/xhtml";
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
-    private static final String DEFS_ELEMENT_NAME = "defs";
     private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
     private static final String PATH_ELEMENT_NAME = "path";
     private static final String CIRCLE_ELEMENT_NAME = "circle";
     private static final String TEXT_ELEMENT_NAME = "text";
     private static final String TSPAN_ELEMENT_NAME = "tspan";
+    private static final String FOREIGN_OBJECT_ELEMENT_NAME = "foreignObject";
+    private static final String DIV_ELEMENT_NAME = "div";
+    private static final String TABLE_ELEMENT_NAME = "table";
+    private static final String TABLE_ROW_ELEMENT_NAME = "tr";
+    private static final String TABLE_DATA_ELEMENT_NAME = "td";
     private static final String ID_ATTRIBUTE = "id";
     private static final String WIDTH_ATTRIBUTE = "width";
     private static final String HEIGHT_ATTRIBUTE = "height";
@@ -53,11 +58,6 @@ public class SvgWriter {
     private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
     private static final String FILTER_ELEMENT_NAME = "filter";
-    private static final String FE_FLOOD_ELEMENT_NAME = "feFlood";
-    private static final String FE_COMPOSITE_ELEMENT_NAME = "feComposite";
-    private static final String FE_IN_ATTRIBUTE = "in";
-    private static final String FE_OPERATOR_ATTRIBUTE = "operator";
-    public static final String TEXT_BG_FILTER_ID = "textBgFilter";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -105,7 +105,6 @@ public class SvgWriter {
             addSvgRoot(graph, writer);
             addStyle(writer);
             addMetadata(graph, writer);
-            addDefs(writer);
             drawVoltageLevelNodes(graph, writer);
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
@@ -398,7 +397,7 @@ public class SvgWriter {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_NODES_CLASS);
         for (Pair<VoltageLevelNode, TextNode> nodePair : graph.getVoltageLevelTextPairs()) {
-            writeTextNode(writer, nodePair.getSecond(), labelProvider.getVoltageLevelDescription(nodePair.getFirst()));
+            writeTextNode(writer, nodePair.getSecond(), nodePair.getFirst(), labelProvider);
         }
         writer.writeEndElement();
     }
@@ -415,14 +414,68 @@ public class SvgWriter {
         return "translate(" + getFormattedValue(x) + "," + getFormattedValue(y) + ")";
     }
 
-    private void writeTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
+    private void writeTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, LabelProvider labelProvider) throws XMLStreamException {
         if (textNode == null) {
             return;
         }
-        writer.writeStartElement(TEXT_ELEMENT_NAME);
-        if (svgParameters.isTextNodeBackground()) {
-            writer.writeAttribute(FILTER_ELEMENT_NAME, "url(#" + TEXT_BG_FILTER_ID + ")");
+
+        List<String> content = labelProvider.getVoltageLevelDescription(vlNode);
+        if (svgParameters.isDetailedTextNode()) {
+            writeDetailedTextNode(writer, textNode, vlNode, content);
+        } else {
+            writeSimpleTextNode(writer, textNode, content);
         }
+    }
+
+    private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
+        writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
+        writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
+        writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
+
+        // width and height cannot be set to auto, and object is of width and height 0 if not specified
+        // using a fixed size of 1x1 and CSS {overflow: visible} to display it
+        writer.writeAttribute(HEIGHT_ATTRIBUTE, "1");
+        writer.writeAttribute(WIDTH_ATTRIBUTE, "1");
+
+        writer.writeStartElement("", DIV_ELEMENT_NAME, XHTML_NAMESPACE_URI);
+        writer.writeDefaultNamespace(XHTML_NAMESPACE_URI);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.LABEL_BOX_CLASS);
+
+        for (String line : content) {
+            writer.writeStartElement(DIV_ELEMENT_NAME);
+            writer.writeCharacters(line);
+            writer.writeEndElement();
+        }
+
+        writer.writeStartElement(TABLE_ELEMENT_NAME);
+
+        for (BusNode busNode : vlNode.getBusNodes()) {
+            writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
+            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+            writer.writeEmptyElement(DIV_ELEMENT_NAME);
+            List<String> styles = styleProvider.getNodeStyleClasses(busNode);
+            styles.add(StyleProvider.LEGEND_SQUARE_CLASS);
+            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styles));
+            writer.writeEndElement();
+            writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
+            writer.writeCharacters(labelProvider.getBusDescription(busNode));
+            writer.writeEndElement();
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+
+        for (String detail : labelProvider.getVoltageLevelDetails()) {
+            writer.writeStartElement(DIV_ELEMENT_NAME);
+            writer.writeCharacters(detail);
+            writer.writeEndElement();
+        }
+
+        writer.writeEndElement();
+        writer.writeEndElement();
+    }
+
+    private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
+        writer.writeStartElement(TEXT_ELEMENT_NAME);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
@@ -606,14 +659,14 @@ public class SvgWriter {
     }
 
     private void addSvgRoot(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        writer.writeStartElement("", SVG_ROOT_ELEMENT_NAME, NAMESPACE_URI);
+        writer.writeStartElement("", SVG_ROOT_ELEMENT_NAME, SVG_NAMESPACE_URI);
         if (svgParameters.isSvgWidthAndHeightAdded()) {
             double[] diagramDimension = getDiagramDimensions(graph);
             writer.writeAttribute(WIDTH_ATTRIBUTE, getFormattedValue(diagramDimension[0]));
             writer.writeAttribute(HEIGHT_ATTRIBUTE, getFormattedValue(diagramDimension[1]));
         }
         writer.writeAttribute(VIEW_BOX_ATTRIBUTE, getViewBoxValue(graph));
-        writer.writeDefaultNamespace(NAMESPACE_URI);
+        writer.writeDefaultNamespace(SVG_NAMESPACE_URI);
     }
 
     private double[] getDiagramDimensions(Graph graph) {
@@ -682,25 +735,6 @@ public class SvgWriter {
         graph.getEdgesStream().forEach(bn -> metadata.addEdge(bn, this::getPrefixedId));
 
         metadata.writeXml(writer);
-    }
-
-    private void addDefs(XMLStreamWriter writer) throws XMLStreamException {
-        if (svgParameters.isTextNodeBackground()) {
-            writer.writeStartElement(DEFS_ELEMENT_NAME);
-            writer.writeStartElement(FILTER_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, TEXT_BG_FILTER_ID);
-            writer.writeAttribute(X_ATTRIBUTE, String.valueOf(0));
-            writer.writeAttribute(Y_ATTRIBUTE, String.valueOf(0));
-            writer.writeAttribute(WIDTH_ATTRIBUTE, String.valueOf(1));
-            writer.writeAttribute(HEIGHT_ATTRIBUTE, String.valueOf(1));
-            writer.writeEmptyElement(FE_FLOOD_ELEMENT_NAME);
-            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.TEXT_BACKGROUND_CLASS);
-            writer.writeEmptyElement(FE_COMPOSITE_ELEMENT_NAME);
-            writer.writeAttribute(FE_IN_ATTRIBUTE, "SourceGraphic");
-            writer.writeAttribute(FE_OPERATOR_ATTRIBUTE, "over");
-            writer.writeEndElement();
-            writer.writeEndElement();
-        }
     }
 
     private static String getFormattedValue(double value) {

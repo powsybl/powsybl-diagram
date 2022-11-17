@@ -35,13 +35,14 @@ public class SvgParameters {
     private double loopDistance = 120;
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 40;
-    private boolean textNodeBackground = true;
     private boolean edgeInfoAlongEdge = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
     private double arrowHeight = 10;
+    private boolean detailedTextNode = true;
+    private double detailedTextNodeYShift = 25;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -77,13 +78,14 @@ public class SvgParameters {
         this.loopDistance = other.loopDistance;
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
-        this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
         this.arrowHeight = other.arrowHeight;
+        this.detailedTextNode = other.detailedTextNode;
+        this.detailedTextNodeYShift = other.detailedTextNodeYShift;
     }
 
     public Padding getDiagramPadding() {
@@ -287,15 +289,6 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isTextNodeBackground() {
-        return textNodeBackground;
-    }
-
-    public SvgParameters setTextNodeBackground(boolean textNodeBackground) {
-        this.textNodeBackground = textNodeBackground;
-        return this;
-    }
-
     public boolean isEdgeInfoAlongEdge() {
         return edgeInfoAlongEdge;
     }
@@ -347,6 +340,24 @@ public class SvgParameters {
 
     public SvgParameters setArrowHeight(double arrowHeight) {
         this.arrowHeight = arrowHeight;
+        return this;
+    }
+
+    public boolean isDetailedTextNode() {
+        return detailedTextNode;
+    }
+
+    public SvgParameters setDetailedTextNode(boolean detailedTextNode) {
+        this.detailedTextNode = detailedTextNode;
+        return this;
+    }
+
+    public double getDetailedTextNodeYShift() {
+        return detailedTextNodeYShift;
+    }
+
+    public SvgParameters setDetailedTextNodeYShift(double detailedTextNodeYShift) {
+        this.detailedTextNodeYShift = detailedTextNodeYShift;
         return this;
     }
 }
