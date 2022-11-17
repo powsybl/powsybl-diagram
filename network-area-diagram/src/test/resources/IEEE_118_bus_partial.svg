@@ -111,125 +111,127 @@
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-        <nad:busNodes>
-            <nad:busNode diagramId="1" equipmentId="VL42_0"/>
-            <nad:busNode diagramId="3" equipmentId="VL45_0"/>
-            <nad:busNode diagramId="5" equipmentId="VL47_0"/>
-            <nad:busNode diagramId="7" equipmentId="VL48_0"/>
-            <nad:busNode diagramId="9" equipmentId="VL49_0"/>
-            <nad:busNode diagramId="11" equipmentId="VL50_0"/>
-            <nad:busNode diagramId="13" equipmentId="VL51_0"/>
-            <nad:busNode diagramId="15" equipmentId="VL52_0"/>
-            <nad:busNode diagramId="17" equipmentId="VL53_0"/>
-            <nad:busNode diagramId="19" equipmentId="VL54_0"/>
-            <nad:busNode diagramId="21" equipmentId="VL55_0"/>
-            <nad:busNode diagramId="23" equipmentId="VL56_0"/>
-            <nad:busNode diagramId="25" equipmentId="VL57_0"/>
-            <nad:busNode diagramId="27" equipmentId="VL58_0"/>
-            <nad:busNode diagramId="29" equipmentId="VL59_0"/>
-            <nad:busNode diagramId="31" equipmentId="VL60_0"/>
-            <nad:busNode diagramId="33" equipmentId="VL61_0"/>
-            <nad:busNode diagramId="35" equipmentId="VL63_0"/>
-            <nad:busNode diagramId="37" equipmentId="VL66_0"/>
-            <nad:busNode diagramId="39" equipmentId="VL69_0"/>
-            <nad:busNode diagramId="41" equipmentId="VL40_0"/>
-            <nad:busNode diagramId="44" equipmentId="VL41_0"/>
-            <nad:busNode diagramId="49" equipmentId="VL44_0"/>
-            <nad:busNode diagramId="52" equipmentId="VL46_0"/>
-            <nad:busNode diagramId="86" equipmentId="VL62_0"/>
-            <nad:busNode diagramId="90" equipmentId="VL64_0"/>
-            <nad:busNode diagramId="95" equipmentId="VL67_0"/>
-            <nad:busNode diagramId="98" equipmentId="VL65_0"/>
-            <nad:busNode diagramId="101" equipmentId="VL70_0"/>
-            <nad:busNode diagramId="104" equipmentId="VL75_0"/>
-            <nad:busNode diagramId="107" equipmentId="VL77_0"/>
-            <nad:busNode diagramId="110" equipmentId="VL68_0"/>
-        </nad:busNodes>
-        <nad:nodes>
-            <nad:node diagramId="0" equipmentId="VL42"/>
-            <nad:node diagramId="2" equipmentId="VL45"/>
-            <nad:node diagramId="4" equipmentId="VL47"/>
-            <nad:node diagramId="6" equipmentId="VL48"/>
-            <nad:node diagramId="8" equipmentId="VL49"/>
-            <nad:node diagramId="10" equipmentId="VL50"/>
-            <nad:node diagramId="12" equipmentId="VL51"/>
-            <nad:node diagramId="14" equipmentId="VL52"/>
-            <nad:node diagramId="16" equipmentId="VL53"/>
-            <nad:node diagramId="18" equipmentId="VL54"/>
-            <nad:node diagramId="20" equipmentId="VL55"/>
-            <nad:node diagramId="22" equipmentId="VL56"/>
-            <nad:node diagramId="24" equipmentId="VL57"/>
-            <nad:node diagramId="26" equipmentId="VL58"/>
-            <nad:node diagramId="28" equipmentId="VL59"/>
-            <nad:node diagramId="30" equipmentId="VL60"/>
-            <nad:node diagramId="32" equipmentId="VL61"/>
-            <nad:node diagramId="34" equipmentId="VL63"/>
-            <nad:node diagramId="36" equipmentId="VL66"/>
-            <nad:node diagramId="38" equipmentId="VL69"/>
-            <nad:node diagramId="40" equipmentId="VL40"/>
-            <nad:node diagramId="43" equipmentId="VL41"/>
-            <nad:node diagramId="48" equipmentId="VL44"/>
-            <nad:node diagramId="51" equipmentId="VL46"/>
-            <nad:node diagramId="85" equipmentId="VL62"/>
-            <nad:node diagramId="89" equipmentId="VL64"/>
-            <nad:node diagramId="94" equipmentId="VL67"/>
-            <nad:node diagramId="97" equipmentId="VL65"/>
-            <nad:node diagramId="100" equipmentId="VL70"/>
-            <nad:node diagramId="103" equipmentId="VL75"/>
-            <nad:node diagramId="106" equipmentId="VL77"/>
-            <nad:node diagramId="109" equipmentId="VL68"/>
-        </nad:nodes>
-        <nad:edges>
-            <nad:edge diagramId="42" equipmentId="L40-42-1"/>
-            <nad:edge diagramId="45" equipmentId="L41-42-1"/>
-            <nad:edge diagramId="46" equipmentId="L42-49-1"/>
-            <nad:edge diagramId="47" equipmentId="L42-49-2"/>
-            <nad:edge diagramId="50" equipmentId="L44-45-1"/>
-            <nad:edge diagramId="53" equipmentId="L45-46-1"/>
-            <nad:edge diagramId="54" equipmentId="L45-49-1"/>
-            <nad:edge diagramId="55" equipmentId="L46-47-1"/>
-            <nad:edge diagramId="56" equipmentId="L47-49-1"/>
-            <nad:edge diagramId="57" equipmentId="L47-69-1"/>
-            <nad:edge diagramId="58" equipmentId="L46-48-1"/>
-            <nad:edge diagramId="59" equipmentId="L48-49-1"/>
-            <nad:edge diagramId="60" equipmentId="L49-50-1"/>
-            <nad:edge diagramId="61" equipmentId="L49-51-1"/>
-            <nad:edge diagramId="62" equipmentId="L49-54-1"/>
-            <nad:edge diagramId="63" equipmentId="L49-54-2"/>
-            <nad:edge diagramId="64" equipmentId="L49-66-1"/>
-            <nad:edge diagramId="65" equipmentId="L49-66-2"/>
-            <nad:edge diagramId="66" equipmentId="L49-69-1"/>
-            <nad:edge diagramId="67" equipmentId="L50-57-1"/>
-            <nad:edge diagramId="68" equipmentId="L51-52-1"/>
-            <nad:edge diagramId="69" equipmentId="L51-58-1"/>
-            <nad:edge diagramId="70" equipmentId="L52-53-1"/>
-            <nad:edge diagramId="71" equipmentId="L53-54-1"/>
-            <nad:edge diagramId="72" equipmentId="L54-55-1"/>
-            <nad:edge diagramId="73" equipmentId="L54-56-1"/>
-            <nad:edge diagramId="74" equipmentId="L54-59-1"/>
-            <nad:edge diagramId="75" equipmentId="L55-56-1"/>
-            <nad:edge diagramId="76" equipmentId="L55-59-1"/>
-            <nad:edge diagramId="77" equipmentId="L56-57-1"/>
-            <nad:edge diagramId="78" equipmentId="L56-58-1"/>
-            <nad:edge diagramId="79" equipmentId="L56-59-1"/>
-            <nad:edge diagramId="80" equipmentId="L56-59-2"/>
-            <nad:edge diagramId="81" equipmentId="L59-60-1"/>
-            <nad:edge diagramId="82" equipmentId="L59-61-1"/>
-            <nad:edge diagramId="83" equipmentId="T63-59-1"/>
-            <nad:edge diagramId="84" equipmentId="L60-61-1"/>
-            <nad:edge diagramId="87" equipmentId="L60-62-1"/>
-            <nad:edge diagramId="88" equipmentId="L61-62-1"/>
-            <nad:edge diagramId="91" equipmentId="T64-61-1"/>
-            <nad:edge diagramId="92" equipmentId="L63-64-1"/>
-            <nad:edge diagramId="93" equipmentId="L62-66-1"/>
-            <nad:edge diagramId="96" equipmentId="L66-67-1"/>
-            <nad:edge diagramId="99" equipmentId="T65-66-1"/>
-            <nad:edge diagramId="102" equipmentId="L69-70-1"/>
-            <nad:edge diagramId="105" equipmentId="L69-75-1"/>
-            <nad:edge diagramId="108" equipmentId="L69-77-1"/>
-            <nad:edge diagramId="111" equipmentId="T68-69-1"/>
-        </nad:edges>
+    <metadata>
+        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+            <nad:busNodes>
+                <nad:busNode diagramId="1" equipmentId="VL42_0" x="-384.7293" y="205.0539"/>
+                <nad:busNode diagramId="3" equipmentId="VL45_0" x="412.9417" y="570.2294"/>
+                <nad:busNode diagramId="5" equipmentId="VL47_0" x="-23.0114" y="891.2357"/>
+                <nad:busNode diagramId="7" equipmentId="VL48_0" x="639.2036" y="864.6608"/>
+                <nad:busNode diagramId="9" equipmentId="VL49_0" x="141.3269" y="400.6400"/>
+                <nad:busNode diagramId="11" equipmentId="VL50_0" x="890.7170" y="392.9330"/>
+                <nad:busNode diagramId="13" equipmentId="VL51_0" x="778.3845" y="-198.2825"/>
+                <nad:busNode diagramId="15" equipmentId="VL52_0" x="1112.1707" y="-769.4519"/>
+                <nad:busNode diagramId="17" equipmentId="VL53_0" x="777.9498" y="-957.2838"/>
+                <nad:busNode diagramId="19" equipmentId="VL54_0" x="289.0105" y="-494.5588"/>
+                <nad:busNode diagramId="21" equipmentId="VL55_0" x="327.8148" y="-853.4469"/>
+                <nad:busNode diagramId="23" equipmentId="VL56_0" x="612.0238" y="-544.1815"/>
+                <nad:busNode diagramId="25" equipmentId="VL57_0" x="1098.7437" y="20.1987"/>
+                <nad:busNode diagramId="27" equipmentId="VL58_0" x="1078.7716" y="-408.4105"/>
+                <nad:busNode diagramId="29" equipmentId="VL59_0" x="-35.9388" y="-870.6369"/>
+                <nad:busNode diagramId="31" equipmentId="VL60_0" x="-478.4029" y="-719.9394"/>
+                <nad:busNode diagramId="33" equipmentId="VL61_0" x="-609.7002" y="-985.8174"/>
+                <nad:busNode diagramId="35" equipmentId="VL63_0" x="-211.9281" y="-1369.9004"/>
+                <nad:busNode diagramId="37" equipmentId="VL66_0" x="-800.2167" y="310.0302"/>
+                <nad:busNode diagramId="39" equipmentId="VL69_0" x="-71.3563" y="1313.8899"/>
+                <nad:busNode diagramId="41" equipmentId="VL40_0" x="-391.4042" y="-124.6463"/>
+                <nad:busNode diagramId="44" equipmentId="VL41_0" x="-903.7201" y="-19.6480"/>
+                <nad:busNode diagramId="49" equipmentId="VL44_0" x="524.9359" y="229.7447"/>
+                <nad:busNode diagramId="52" equipmentId="VL46_0" x="339.9671" y="951.6544"/>
+                <nad:busNode diagramId="86" equipmentId="VL62_0" x="-811.1807" y="-479.7019"/>
+                <nad:busNode diagramId="90" equipmentId="VL64_0" x="-608.7873" y="-1421.4668"/>
+                <nad:busNode diagramId="95" equipmentId="VL67_0" x="-1080.2461" y="705.2379"/>
+                <nad:busNode diagramId="98" equipmentId="VL65_0" x="-1339.6707" y="317.1943"/>
+                <nad:busNode diagramId="101" equipmentId="VL70_0" x="374.1821" y="1568.8295"/>
+                <nad:busNode diagramId="104" equipmentId="VL75_0" x="-378.0679" y="1738.2143"/>
+                <nad:busNode diagramId="107" equipmentId="VL77_0" x="-539.5309" y="1344.4165"/>
+                <nad:busNode diagramId="110" equipmentId="VL68_0" x="39.3895" y="1818.5228"/>
+            </nad:busNodes>
+            <nad:nodes>
+                <nad:node diagramId="0" equipmentId="VL42" x="-384.7293" y="205.0539"/>
+                <nad:node diagramId="2" equipmentId="VL45" x="412.9417" y="570.2294"/>
+                <nad:node diagramId="4" equipmentId="VL47" x="-23.0114" y="891.2357"/>
+                <nad:node diagramId="6" equipmentId="VL48" x="639.2036" y="864.6608"/>
+                <nad:node diagramId="8" equipmentId="VL49" x="141.3269" y="400.6400"/>
+                <nad:node diagramId="10" equipmentId="VL50" x="890.7170" y="392.9330"/>
+                <nad:node diagramId="12" equipmentId="VL51" x="778.3845" y="-198.2825"/>
+                <nad:node diagramId="14" equipmentId="VL52" x="1112.1707" y="-769.4519"/>
+                <nad:node diagramId="16" equipmentId="VL53" x="777.9498" y="-957.2838"/>
+                <nad:node diagramId="18" equipmentId="VL54" x="289.0105" y="-494.5588"/>
+                <nad:node diagramId="20" equipmentId="VL55" x="327.8148" y="-853.4469"/>
+                <nad:node diagramId="22" equipmentId="VL56" x="612.0238" y="-544.1815"/>
+                <nad:node diagramId="24" equipmentId="VL57" x="1098.7437" y="20.1987"/>
+                <nad:node diagramId="26" equipmentId="VL58" x="1078.7716" y="-408.4105"/>
+                <nad:node diagramId="28" equipmentId="VL59" x="-35.9388" y="-870.6369"/>
+                <nad:node diagramId="30" equipmentId="VL60" x="-478.4029" y="-719.9394"/>
+                <nad:node diagramId="32" equipmentId="VL61" x="-609.7002" y="-985.8174"/>
+                <nad:node diagramId="34" equipmentId="VL63" x="-211.9281" y="-1369.9004"/>
+                <nad:node diagramId="36" equipmentId="VL66" x="-800.2167" y="310.0302"/>
+                <nad:node diagramId="38" equipmentId="VL69" x="-71.3563" y="1313.8899"/>
+                <nad:node diagramId="40" equipmentId="VL40" x="-391.4042" y="-124.6463"/>
+                <nad:node diagramId="43" equipmentId="VL41" x="-903.7201" y="-19.6480"/>
+                <nad:node diagramId="48" equipmentId="VL44" x="524.9359" y="229.7447"/>
+                <nad:node diagramId="51" equipmentId="VL46" x="339.9671" y="951.6544"/>
+                <nad:node diagramId="85" equipmentId="VL62" x="-811.1807" y="-479.7019"/>
+                <nad:node diagramId="89" equipmentId="VL64" x="-608.7873" y="-1421.4668"/>
+                <nad:node diagramId="94" equipmentId="VL67" x="-1080.2461" y="705.2379"/>
+                <nad:node diagramId="97" equipmentId="VL65" x="-1339.6707" y="317.1943"/>
+                <nad:node diagramId="100" equipmentId="VL70" x="374.1821" y="1568.8295"/>
+                <nad:node diagramId="103" equipmentId="VL75" x="-378.0679" y="1738.2143"/>
+                <nad:node diagramId="106" equipmentId="VL77" x="-539.5309" y="1344.4165"/>
+                <nad:node diagramId="109" equipmentId="VL68" x="39.3895" y="1818.5228"/>
+            </nad:nodes>
+            <nad:edges>
+                <nad:edge diagramId="42" equipmentId="L40-42-1"/>
+                <nad:edge diagramId="45" equipmentId="L41-42-1"/>
+                <nad:edge diagramId="46" equipmentId="L42-49-1"/>
+                <nad:edge diagramId="47" equipmentId="L42-49-2"/>
+                <nad:edge diagramId="50" equipmentId="L44-45-1"/>
+                <nad:edge diagramId="53" equipmentId="L45-46-1"/>
+                <nad:edge diagramId="54" equipmentId="L45-49-1"/>
+                <nad:edge diagramId="55" equipmentId="L46-47-1"/>
+                <nad:edge diagramId="56" equipmentId="L47-49-1"/>
+                <nad:edge diagramId="57" equipmentId="L47-69-1"/>
+                <nad:edge diagramId="58" equipmentId="L46-48-1"/>
+                <nad:edge diagramId="59" equipmentId="L48-49-1"/>
+                <nad:edge diagramId="60" equipmentId="L49-50-1"/>
+                <nad:edge diagramId="61" equipmentId="L49-51-1"/>
+                <nad:edge diagramId="62" equipmentId="L49-54-1"/>
+                <nad:edge diagramId="63" equipmentId="L49-54-2"/>
+                <nad:edge diagramId="64" equipmentId="L49-66-1"/>
+                <nad:edge diagramId="65" equipmentId="L49-66-2"/>
+                <nad:edge diagramId="66" equipmentId="L49-69-1"/>
+                <nad:edge diagramId="67" equipmentId="L50-57-1"/>
+                <nad:edge diagramId="68" equipmentId="L51-52-1"/>
+                <nad:edge diagramId="69" equipmentId="L51-58-1"/>
+                <nad:edge diagramId="70" equipmentId="L52-53-1"/>
+                <nad:edge diagramId="71" equipmentId="L53-54-1"/>
+                <nad:edge diagramId="72" equipmentId="L54-55-1"/>
+                <nad:edge diagramId="73" equipmentId="L54-56-1"/>
+                <nad:edge diagramId="74" equipmentId="L54-59-1"/>
+                <nad:edge diagramId="75" equipmentId="L55-56-1"/>
+                <nad:edge diagramId="76" equipmentId="L55-59-1"/>
+                <nad:edge diagramId="77" equipmentId="L56-57-1"/>
+                <nad:edge diagramId="78" equipmentId="L56-58-1"/>
+                <nad:edge diagramId="79" equipmentId="L56-59-1"/>
+                <nad:edge diagramId="80" equipmentId="L56-59-2"/>
+                <nad:edge diagramId="81" equipmentId="L59-60-1"/>
+                <nad:edge diagramId="82" equipmentId="L59-61-1"/>
+                <nad:edge diagramId="83" equipmentId="T63-59-1"/>
+                <nad:edge diagramId="84" equipmentId="L60-61-1"/>
+                <nad:edge diagramId="87" equipmentId="L60-62-1"/>
+                <nad:edge diagramId="88" equipmentId="L61-62-1"/>
+                <nad:edge diagramId="91" equipmentId="T64-61-1"/>
+                <nad:edge diagramId="92" equipmentId="L63-64-1"/>
+                <nad:edge diagramId="93" equipmentId="L62-66-1"/>
+                <nad:edge diagramId="96" equipmentId="L66-67-1"/>
+                <nad:edge diagramId="99" equipmentId="T65-66-1"/>
+                <nad:edge diagramId="102" equipmentId="L69-70-1"/>
+                <nad:edge diagramId="105" equipmentId="L69-75-1"/>
+                <nad:edge diagramId="108" equipmentId="L69-77-1"/>
+                <nad:edge diagramId="111" equipmentId="T68-69-1"/>
+            </nad:edges>
+        </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-384.73,205.05)" id="0">

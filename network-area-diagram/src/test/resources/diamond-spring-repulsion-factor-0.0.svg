@@ -46,59 +46,61 @@
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-        <nad:busNodes>
-            <nad:busNode diagramId="1" equipmentId="A 230_0"/>
-            <nad:busNode diagramId="3" equipmentId="A 400_0"/>
-            <nad:busNode diagramId="5" equipmentId="B 230_0"/>
-            <nad:busNode diagramId="7" equipmentId="C 20_0"/>
-            <nad:busNode diagramId="9" equipmentId="C 230_0"/>
-            <nad:busNode diagramId="11" equipmentId="C 66_0"/>
-            <nad:busNode diagramId="13" equipmentId="D 10_0"/>
-            <nad:busNode diagramId="15" equipmentId="D 66_0"/>
-            <nad:busNode diagramId="17" equipmentId="E 10_0"/>
-            <nad:busNode diagramId="19" equipmentId="F 10_0"/>
-            <nad:busNode diagramId="21" equipmentId="G 10_0"/>
-            <nad:busNode diagramId="23" equipmentId="H 10_0"/>
-            <nad:busNode diagramId="25" equipmentId="I 10_0"/>
-            <nad:busNode diagramId="27" equipmentId="J 10_0"/>
-            <nad:busNode diagramId="29" equipmentId="K 10_0"/>
-        </nad:busNodes>
-        <nad:nodes>
-            <nad:node diagramId="0" equipmentId="A 230"/>
-            <nad:node diagramId="2" equipmentId="A 400"/>
-            <nad:node diagramId="4" equipmentId="B 230"/>
-            <nad:node diagramId="6" equipmentId="C 20"/>
-            <nad:node diagramId="8" equipmentId="C 230"/>
-            <nad:node diagramId="10" equipmentId="C 66"/>
-            <nad:node diagramId="12" equipmentId="D 10"/>
-            <nad:node diagramId="14" equipmentId="D 66"/>
-            <nad:node diagramId="16" equipmentId="E 10"/>
-            <nad:node diagramId="18" equipmentId="F 10"/>
-            <nad:node diagramId="20" equipmentId="G 10"/>
-            <nad:node diagramId="22" equipmentId="H 10"/>
-            <nad:node diagramId="24" equipmentId="I 10"/>
-            <nad:node diagramId="26" equipmentId="J 10"/>
-            <nad:node diagramId="28" equipmentId="K 10"/>
-        </nad:nodes>
-        <nad:edges>
-            <nad:edge diagramId="30" equipmentId="A - B"/>
-            <nad:edge diagramId="31" equipmentId="A 400 230"/>
-            <nad:edge diagramId="32" equipmentId="B - C"/>
-            <nad:edge diagramId="33" equipmentId="C 66 20"/>
-            <nad:edge diagramId="34" equipmentId="C 230 66"/>
-            <nad:edge diagramId="35" equipmentId="C - D"/>
-            <nad:edge diagramId="36" equipmentId="D - E"/>
-            <nad:edge diagramId="37" equipmentId="H - D"/>
-            <nad:edge diagramId="38" equipmentId="K - D"/>
-            <nad:edge diagramId="39" equipmentId="D 66 10"/>
-            <nad:edge diagramId="40" equipmentId="E - F"/>
-            <nad:edge diagramId="41" equipmentId="F - G"/>
-            <nad:edge diagramId="42" equipmentId="F - I"/>
-            <nad:edge diagramId="43" equipmentId="G - H"/>
-            <nad:edge diagramId="44" equipmentId="I - J"/>
-            <nad:edge diagramId="45" equipmentId="J - K"/>
-        </nad:edges>
+    <metadata>
+        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+            <nad:busNodes>
+                <nad:busNode diagramId="1" equipmentId="A 230_0" x="-1079.9574" y="333.7080"/>
+                <nad:busNode diagramId="3" equipmentId="A 400_0" x="-1400.6001" y="110.1496"/>
+                <nad:busNode diagramId="5" equipmentId="B 230_0" x="-652.8434" y="449.8886"/>
+                <nad:busNode diagramId="7" equipmentId="C 20_0" x="1071.4943" y="-357.5646"/>
+                <nad:busNode diagramId="9" equipmentId="C 230_0" x="-133.0354" y="361.8303"/>
+                <nad:busNode diagramId="11" equipmentId="C 66_0" x="696.5698" y="-44.9924"/>
+                <nad:busNode diagramId="13" equipmentId="D 10_0" x="394.7076" y="18.5630"/>
+                <nad:busNode diagramId="15" equipmentId="D 66_0" x="890.0435" y="196.7227"/>
+                <nad:busNode diagramId="17" equipmentId="E 10_0" x="388.3931" y="-480.4557"/>
+                <nad:busNode diagramId="19" equipmentId="F 10_0" x="27.0688" y="-527.5814"/>
+                <nad:busNode diagramId="21" equipmentId="G 10_0" x="-353.2559" y="-627.6656"/>
+                <nad:busNode diagramId="23" equipmentId="H 10_0" x="-201.9872" y="-255.5895"/>
+                <nad:busNode diagramId="25" equipmentId="I 10_0" x="36.9666" y="46.1463"/>
+                <nad:busNode diagramId="27" equipmentId="J 10_0" x="197.1465" y="589.0408"/>
+                <nad:busNode diagramId="29" equipmentId="K 10_0" x="531.1185" y="540.9299"/>
+            </nad:busNodes>
+            <nad:nodes>
+                <nad:node diagramId="0" equipmentId="A 230" x="-1079.9574" y="333.7080"/>
+                <nad:node diagramId="2" equipmentId="A 400" x="-1400.6001" y="110.1496"/>
+                <nad:node diagramId="4" equipmentId="B 230" x="-652.8434" y="449.8886"/>
+                <nad:node diagramId="6" equipmentId="C 20" x="1071.4943" y="-357.5646"/>
+                <nad:node diagramId="8" equipmentId="C 230" x="-133.0354" y="361.8303"/>
+                <nad:node diagramId="10" equipmentId="C 66" x="696.5698" y="-44.9924"/>
+                <nad:node diagramId="12" equipmentId="D 10" x="394.7076" y="18.5630"/>
+                <nad:node diagramId="14" equipmentId="D 66" x="890.0435" y="196.7227"/>
+                <nad:node diagramId="16" equipmentId="E 10" x="388.3931" y="-480.4557"/>
+                <nad:node diagramId="18" equipmentId="F 10" x="27.0688" y="-527.5814"/>
+                <nad:node diagramId="20" equipmentId="G 10" x="-353.2559" y="-627.6656"/>
+                <nad:node diagramId="22" equipmentId="H 10" x="-201.9872" y="-255.5895"/>
+                <nad:node diagramId="24" equipmentId="I 10" x="36.9666" y="46.1463"/>
+                <nad:node diagramId="26" equipmentId="J 10" x="197.1465" y="589.0408"/>
+                <nad:node diagramId="28" equipmentId="K 10" x="531.1185" y="540.9299"/>
+            </nad:nodes>
+            <nad:edges>
+                <nad:edge diagramId="30" equipmentId="A - B"/>
+                <nad:edge diagramId="31" equipmentId="A 400 230"/>
+                <nad:edge diagramId="32" equipmentId="B - C"/>
+                <nad:edge diagramId="33" equipmentId="C 66 20"/>
+                <nad:edge diagramId="34" equipmentId="C 230 66"/>
+                <nad:edge diagramId="35" equipmentId="C - D"/>
+                <nad:edge diagramId="36" equipmentId="D - E"/>
+                <nad:edge diagramId="37" equipmentId="H - D"/>
+                <nad:edge diagramId="38" equipmentId="K - D"/>
+                <nad:edge diagramId="39" equipmentId="D 66 10"/>
+                <nad:edge diagramId="40" equipmentId="E - F"/>
+                <nad:edge diagramId="41" equipmentId="F - G"/>
+                <nad:edge diagramId="42" equipmentId="F - I"/>
+                <nad:edge diagramId="43" equipmentId="G - H"/>
+                <nad:edge diagramId="44" equipmentId="I - J"/>
+                <nad:edge diagramId="45" equipmentId="J - K"/>
+            </nad:edges>
+        </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-1079.96,333.71)" id="0" class="nad-vl180to300">
