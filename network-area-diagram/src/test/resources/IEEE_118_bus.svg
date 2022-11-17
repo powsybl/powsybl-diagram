@@ -3,7 +3,7 @@
     <style><![CDATA[
 .nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
@@ -16,6 +16,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
+.nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -537,12 +540,6 @@
             <nad:edge diagramId="421" equipmentId="L96-97-1"/>
         </nad:edges>
     </metadata>
-    <defs>
-        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
-            <feFlood class="nad-text-background"/>
-            <feComposite in="SourceGraphic" operator="over"/>
-        </filter>
-    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(736.99,-2973.24)" id="0">
             <desc>VL1</desc>
@@ -8784,123 +8781,1539 @@
         <polyline id="234_edge" points="1824.46,-300.03 1894.79,-310.58"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-2988.24" x="836.99">VL1</text>
-        <text filter="url(#textBgFilter)" y="-2933.68" x="-1207.45">VL10</text>
-        <text filter="url(#textBgFilter)" y="-484.66" x="2423.85">VL100</text>
-        <text filter="url(#textBgFilter)" y="-316.89" x="2887.74">VL101</text>
-        <text filter="url(#textBgFilter)" y="-15.61" x="3137.91">VL102</text>
-        <text filter="url(#textBgFilter)" y="-1261.85" x="2417.93">VL103</text>
-        <text filter="url(#textBgFilter)" y="-945.45" x="2490.66">VL104</text>
-        <text filter="url(#textBgFilter)" y="-1245.14" x="2841.45">VL105</text>
-        <text filter="url(#textBgFilter)" y="-850.52" x="2917.56">VL106</text>
-        <text filter="url(#textBgFilter)" y="-1098.37" x="3227.02">VL107</text>
-        <text filter="url(#textBgFilter)" y="-1705.56" x="2996.05">VL108</text>
-        <text filter="url(#textBgFilter)" y="-2021.62" x="2765.31">VL109</text>
-        <text filter="url(#textBgFilter)" y="-2226.79" x="32.84">VL11</text>
-        <text filter="url(#textBgFilter)" y="-1914.10" x="2347.63">VL110</text>
-        <text filter="url(#textBgFilter)" y="-2046.11" x="1958.44">VL111</text>
-        <text filter="url(#textBgFilter)" y="-2387.34" x="2335.01">VL112</text>
-        <text filter="url(#textBgFilter)" y="-1541.69" x="-1285.76">VL113</text>
-        <text filter="url(#textBgFilter)" y="-1838.06" x="-2515.39">VL114</text>
-        <text filter="url(#textBgFilter)" y="-1613.59" x="-2768.05">VL115</text>
-        <text filter="url(#textBgFilter)" y="865.20" x="-970.76">VL116</text>
-        <text filter="url(#textBgFilter)" y="-2144.92" x="883.39">VL117</text>
-        <text filter="url(#textBgFilter)" y="-98.87" x="-568.39">VL118</text>
-        <text filter="url(#textBgFilter)" y="-2300.46" x="427.25">VL12</text>
-        <text filter="url(#textBgFilter)" y="-1635.95" x="86.77">VL13</text>
-        <text filter="url(#textBgFilter)" y="-1672.12" x="461.41">VL14</text>
-        <text filter="url(#textBgFilter)" y="-1158.77" x="5.10">VL15</text>
-        <text filter="url(#textBgFilter)" y="-1883.75" x="-212.60">VL16</text>
-        <text filter="url(#textBgFilter)" y="-1481.12" x="-711.77">VL17</text>
-        <text filter="url(#textBgFilter)" y="-1059.94" x="-448.51">VL18</text>
-        <text filter="url(#textBgFilter)" y="-584.38" x="-310.89">VL19</text>
-        <text filter="url(#textBgFilter)" y="-2631.31" x="895.95">VL2</text>
-        <text filter="url(#textBgFilter)" y="-555.85" x="-902.04">VL20</text>
-        <text filter="url(#textBgFilter)" y="-524.09" x="-1396.32">VL21</text>
-        <text filter="url(#textBgFilter)" y="-586.94" x="-1826.57">VL22</text>
-        <text filter="url(#textBgFilter)" y="-825.71" x="-2101.77">VL23</text>
-        <text filter="url(#textBgFilter)" y="-138.57" x="-2021.97">VL24</text>
-        <text filter="url(#textBgFilter)" y="-1177.58" x="-2050.42">VL25</text>
-        <text filter="url(#textBgFilter)" y="-1109.99" x="-1484.83">VL26</text>
-        <text filter="url(#textBgFilter)" y="-1590.73" x="-2296.03">VL27</text>
-        <text filter="url(#textBgFilter)" y="-2129.64" x="-2182.12">VL28</text>
-        <text filter="url(#textBgFilter)" y="-2231.66" x="-1795.57">VL29</text>
-        <text filter="url(#textBgFilter)" y="-2706.09" x="448.88">VL3</text>
-        <text filter="url(#textBgFilter)" y="-1079.51" x="-867.99">VL30</text>
-        <text filter="url(#textBgFilter)" y="-1866.27" x="-1463.34">VL31</text>
-        <text filter="url(#textBgFilter)" y="-1558.90" x="-1916.14">VL32</text>
-        <text filter="url(#textBgFilter)" y="-471.36" x="240.90">VL33</text>
-        <text filter="url(#textBgFilter)" y="484.20" x="12.18">VL34</text>
-        <text filter="url(#textBgFilter)" y="722.58" x="623.57">VL35</text>
-        <text filter="url(#textBgFilter)" y="842.17" x="265.15">VL36</text>
-        <text filter="url(#textBgFilter)" y="523.50" x="341.65">VL37</text>
-        <text filter="url(#textBgFilter)" y="242.27" x="-415.99">VL38</text>
-        <text filter="url(#textBgFilter)" y="1024.26" x="807.42">VL39</text>
-        <text filter="url(#textBgFilter)" y="-2451.67" x="-356.43">VL4</text>
-        <text filter="url(#textBgFilter)" y="1322.72" x="612.74">VL40</text>
-        <text filter="url(#textBgFilter)" y="1752.75" x="734.21">VL41</text>
-        <text filter="url(#textBgFilter)" y="1686.48" x="249.99">VL42</text>
-        <text filter="url(#textBgFilter)" y="1291.70" x="155.03">VL43</text>
-        <text filter="url(#textBgFilter)" y="2038.81" x="302.50">VL44</text>
-        <text filter="url(#textBgFilter)" y="2128.02" x="-104.25">VL45</text>
-        <text filter="url(#textBgFilter)" y="1785.48" x="-207.65">VL46</text>
-        <text filter="url(#textBgFilter)" y="1427.10" x="-461.68">VL47</text>
-        <text filter="url(#textBgFilter)" y="1957.26" x="-467.75">VL48</text>
-        <text filter="url(#textBgFilter)" y="1788.56" x="-765.91">VL49</text>
-        <text filter="url(#textBgFilter)" y="-2612.43" x="-126.14">VL5</text>
-        <text filter="url(#textBgFilter)" y="2333.42" x="-1116.28">VL50</text>
-        <text filter="url(#textBgFilter)" y="1555.73" x="-1635.70">VL51</text>
-        <text filter="url(#textBgFilter)" y="1436.22" x="-2170.25">VL52</text>
-        <text filter="url(#textBgFilter)" y="1811.24" x="-2350.66">VL53</text>
-        <text filter="url(#textBgFilter)" y="2149.77" x="-1771.19">VL54</text>
-        <text filter="url(#textBgFilter)" y="2617.80" x="-2072.24">VL55</text>
-        <text filter="url(#textBgFilter)" y="2387.77" x="-1947.32">VL56</text>
-        <text filter="url(#textBgFilter)" y="2820.12" x="-1657.65">VL57</text>
-        <text filter="url(#textBgFilter)" y="1858.46" x="-1980.07">VL58</text>
-        <text filter="url(#textBgFilter)" y="2530.40" x="-1584.36">VL59</text>
-        <text filter="url(#textBgFilter)" y="-3093.89" x="-127.75">VL6</text>
-        <text filter="url(#textBgFilter)" y="2983.10" x="-1172.84">VL60</text>
-        <text filter="url(#textBgFilter)" y="2647.22" x="-1137.34">VL61</text>
-        <text filter="url(#textBgFilter)" y="2818.88" x="-756.69">VL62</text>
-        <text filter="url(#textBgFilter)" y="2123.63" x="-1422.71">VL63</text>
-        <text filter="url(#textBgFilter)" y="1909.77" x="-1123.07">VL64</text>
-        <text filter="url(#textBgFilter)" y="1287.47" x="-738.01">VL65</text>
-        <text filter="url(#textBgFilter)" y="2276.00" x="-624.94">VL66</text>
-        <text filter="url(#textBgFilter)" y="2785.21" x="-385.47">VL67</text>
-        <text filter="url(#textBgFilter)" y="824.16" x="-332.82">VL68</text>
-        <text filter="url(#textBgFilter)" y="796.74" x="-637.13">VL69</text>
-        <text filter="url(#textBgFilter)" y="-2965.52" x="219.58">VL7</text>
-        <text filter="url(#textBgFilter)" y="361.64" x="-1469.94">VL70</text>
-        <text filter="url(#textBgFilter)" y="412.94" x="-2162.47">VL71</text>
-        <text filter="url(#textBgFilter)" y="67.57" x="-2381.37">VL72</text>
-        <text filter="url(#textBgFilter)" y="551.35" x="-2619.03">VL73</text>
-        <text filter="url(#textBgFilter)" y="214.09" x="-1191.18">VL74</text>
-        <text filter="url(#textBgFilter)" y="286.84" x="-773.64">VL75</text>
-        <text filter="url(#textBgFilter)" y="-107.40" x="-107.79">VL76</text>
-        <text filter="url(#textBgFilter)" y="146.49" x="283.20">VL77</text>
-        <text filter="url(#textBgFilter)" y="-283.02" x="665.97">VL78</text>
-        <text filter="url(#textBgFilter)" y="-495.58" x="1011.14">VL79</text>
-        <text filter="url(#textBgFilter)" y="-2087.63" x="-722.77">VL8</text>
-        <text filter="url(#textBgFilter)" y="-121.19" x="1215.02">VL80</text>
-        <text filter="url(#textBgFilter)" y="269.23" x="655.40">VL81</text>
-        <text filter="url(#textBgFilter)" y="618.29" x="1285.49">VL82</text>
-        <text filter="url(#textBgFilter)" y="1210.26" x="1820.46">VL83</text>
-        <text filter="url(#textBgFilter)" y="1577.24" x="1972.65">VL84</text>
-        <text filter="url(#textBgFilter)" y="1490.38" x="2354.32">VL85</text>
-        <text filter="url(#textBgFilter)" y="2042.25" x="2397.43">VL86</text>
-        <text filter="url(#textBgFilter)" y="2450.48" x="2381.30">VL87</text>
-        <text filter="url(#textBgFilter)" y="1455.48" x="2751.27">VL88</text>
-        <text filter="url(#textBgFilter)" y="1044.28" x="2779.94">VL89</text>
-        <text filter="url(#textBgFilter)" y="-2561.02" x="-1010.36">VL9</text>
-        <text filter="url(#textBgFilter)" y="977.09" x="3219.18">VL90</text>
-        <text filter="url(#textBgFilter)" y="582.31" x="3212.24">VL91</text>
-        <text filter="url(#textBgFilter)" y="273.03" x="2792.64">VL92</text>
-        <text filter="url(#textBgFilter)" y="447.49" x="2525.16">VL93</text>
-        <text filter="url(#textBgFilter)" y="128.57" x="2298.12">VL94</text>
-        <text filter="url(#textBgFilter)" y="413.77" x="2024.07">VL95</text>
-        <text filter="url(#textBgFilter)" y="270.28" x="1678.37">VL96</text>
-        <text filter="url(#textBgFilter)" y="-3.56" x="1506.49">VL97</text>
-        <text filter="url(#textBgFilter)" y="-591.38" x="1734.60">VL98</text>
-        <text filter="url(#textBgFilter)" y="-310.58" x="1894.79">VL99</text>
+        <foreignObject y="-3013.24" x="836.99" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>153,76 kV, 10,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2958.68" x="-1207.45" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL10</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>144,90 kV, 35,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-509.66" x="2423.85" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL100</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>163,74 kV, 28,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-341.89" x="2887.74" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL101</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,87 kV, 29,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-40.61" x="3137.91" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL102</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,55 kV, 32,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1286.85" x="2417.93" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL103</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,16 kV, 24,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-970.45" x="2490.66" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL104</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,33 kV, 21,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1270.14" x="2841.45" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL105</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,37 kV, 20,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-875.52" x="2917.56" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL106</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,88 kV, 20,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1123.37" x="3227.02" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL107</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>153,27 kV, 17,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1730.56" x="2996.05" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL108</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 19,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2046.62" x="2765.31" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL109</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 18,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2251.79" x="32.84" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL11</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 12,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1939.10" x="2347.63" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL110</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,65 kV, 18,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2071.11" x="1958.44" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL111</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,78 kV, 19,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2412.34" x="2335.01" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL112</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,98 kV, 15,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1566.69" x="-1285.76" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL113</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,87 kV, 13,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1863.06" x="-2515.39" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL114</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,56 kV, 14,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1638.59" x="-2768.05" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL115</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,56 kV, 14,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="840.20" x="-970.76" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL116</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,80 kV, 27,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2169.92" x="883.39" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL117</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,81 kV, 10,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-123.87" x="-568.39" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL118</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>152,79 kV, 21,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2325.46" x="427.25" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL12</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,39 kV, 12,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1660.95" x="86.77" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL13</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,85 kV, 11,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1697.12" x="461.41" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL14</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,42 kV, 11,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1183.77" x="5.10" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL15</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,17 kV, 11,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1908.75" x="-212.60" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL16</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,42 kV, 11,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1506.12" x="-711.77" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL17</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>160,20 kV, 13,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1084.94" x="-448.51" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL18</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,65 kV, 11,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-609.38" x="-310.89" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL19</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,04 kV, 11,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2656.31" x="895.95" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL2</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,33 kV, 11,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-580.85" x="-902.04" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL20</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,24 kV, 11,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-549.09" x="-1396.32" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL21</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,40 kV, 13,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-611.94" x="-1826.57" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL22</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,17 kV, 16,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-850.71" x="-2101.77" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL23</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,00 kV, 21,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-163.57" x="-2021.97" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL24</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,71 kV, 20,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1202.58" x="-2050.42" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL25</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>169,05 kV, 27,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1134.99" x="-1484.83" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL26</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>140,07 kV, 29,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1615.73" x="-2296.03" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL27</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,85 kV, 15,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2154.64" x="-2182.12" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL28</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,88 kV, 13,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2256.66" x="-1795.57" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL29</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,04 kV, 12,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2731.09" x="448.88" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL3</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,85 kV, 11,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1104.51" x="-867.99" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL30</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>133,58 kV, 18,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1891.27" x="-1463.34" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL31</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 12,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-1583.90" x="-1916.14" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL32</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,20 kV, 14,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-496.36" x="240.90" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL33</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,49 kV, 10,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="459.20" x="12.18" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL34</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,75 kV, 11,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="697.58" x="623.57" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL35</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,94 kV, 10,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="817.17" x="265.15" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL36</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,78 kV, 10,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="498.50" x="341.65" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL37</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,71 kV, 11,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="217.27" x="-415.99" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL38</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>132,76 kV, 16,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="999.26" x="807.42" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL39</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,17 kV, 8,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2476.67" x="-356.43" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL4</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>160,68 kV, 15,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1297.72" x="612.74" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL40</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,17 kV, 7,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1727.75" x="734.21" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL41</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 6,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1661.48" x="249.99" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL42</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 8,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1266.70" x="155.03" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL43</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,46 kV, 11,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2013.81" x="302.50" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL44</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 13,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2103.02" x="-104.25" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL45</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,91 kV, 15,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1760.48" x="-207.65" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL46</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,80 kV, 18,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1402.10" x="-461.68" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL47</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>163,74 kV, 20,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1932.26" x="-467.75" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL48</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>164,38 kV, 19,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1763.56" x="-765.91" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL49</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>165,02 kV, 20,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2637.43" x="-126.14" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL5</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,32 kV, 15,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2308.42" x="-1116.28" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL50</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,16 kV, 18,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1530.73" x="-1635.70" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL51</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 16,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1411.22" x="-2170.25" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL52</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,08 kV, 15,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1786.24" x="-2350.66" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL53</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>152,31 kV, 14,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2124.77" x="-1771.19" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL54</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>153,76 kV, 15,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2592.80" x="-2072.24" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL55</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>153,27 kV, 15,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2362.77" x="-1947.32" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL56</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>153,59 kV, 15,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2795.12" x="-1657.65" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL57</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>156,33 kV, 16,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1833.46" x="-1980.07" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL58</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,40 kV, 15,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2505.40" x="-1584.36" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL59</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 19,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-3118.89" x="-127.75" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL6</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,39 kV, 13,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2958.10" x="-1172.84" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL60</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,87 kV, 23,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2622.22" x="-1137.34" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL61</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>160,20 kV, 24,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2793.88" x="-756.69" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL62</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>160,68 kV, 23,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2098.63" x="-1422.71" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL63</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>133,72 kV, 22,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1884.77" x="-1123.07" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL64</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>135,79 kV, 24,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1262.47" x="-738.01" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL65</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>138,69 kV, 27,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2251.00" x="-624.94" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL66</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>169,05 kV, 27,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2760.21" x="-385.47" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL67</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>164,22 kV, 24,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="799.16" x="-332.82" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL68</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>138,41 kV, 27,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="771.74" x="-637.13" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL69</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>166,64 kV, 30,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2990.52" x="219.58" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL7</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,23 kV, 12,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="336.64" x="-1469.94" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL70</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,42 kV, 22,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="387.94" x="-2162.47" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL71</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,91 kV, 22,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="42.57" x="-2381.37" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL72</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,78 kV, 21,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="526.35" x="-2619.03" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL73</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,55 kV, 21,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="189.09" x="-1191.18" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL74</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>154,24 kV, 21,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="261.84" x="-773.64" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL75</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>155,69 kV, 22,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-132.40" x="-107.79" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL76</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>151,82 kV, 21,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="121.49" x="283.20" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL77</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,97 kV, 26,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-308.02" x="665.97" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL78</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,48 kV, 26,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-520.58" x="1011.14" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL79</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>162,45 kV, 26,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2112.63" x="-722.77" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL8</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>140,07 kV, 20,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-146.19" x="1215.02" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL80</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>167,44 kV, 29,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="244.23" x="655.40" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL81</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>137,59 kV, 28,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="593.29" x="1285.49" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL82</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,23 kV, 27,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1185.26" x="1820.46" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL83</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 28,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1552.24" x="1972.65" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL84</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,78 kV, 31,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1465.38" x="2354.32" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL85</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 32,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2017.25" x="2397.43" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL86</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,91 kV, 31,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="2425.48" x="2381.30" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL87</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>350,17 kV, 31,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1430.48" x="2751.27" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL88</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,91 kV, 35,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="1019.28" x="2779.94" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL89</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>161,80 kV, 39,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-2586.02" x="-1010.36" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL9</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>143,93 kV, 28,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="952.09" x="3219.18" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL90</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,59 kV, 33,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="557.31" x="3212.24" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL91</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,78 kV, 33,3°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="248.03" x="2792.64" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL92</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,87 kV, 33,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="422.49" x="2525.16" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL93</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>158,91 kV, 30,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="103.57" x="2298.12" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL94</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,55 kV, 28,6°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="388.77" x="2024.07" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL95</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>157,94 kV, 27,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="245.28" x="1678.37" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL96</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>159,87 kV, 27,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-28.56" x="1506.49" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL97</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>162,77 kV, 27,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-616.38" x="1734.60" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL98</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>164,86 kV, 27,4°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-335.58" x="1894.79" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL99</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl120to180-0 nad-legend-square"/>
+                        </td>
+                        <td>162,61 kV, 27,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
     </g>
 </svg>

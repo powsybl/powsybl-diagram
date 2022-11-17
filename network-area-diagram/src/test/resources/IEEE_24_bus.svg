@@ -3,7 +3,7 @@
     <style><![CDATA[
 .nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
@@ -16,6 +16,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
+.nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -137,12 +140,6 @@
             <nad:edge diagramId="85" equipmentId="L-8-9-1 "/>
         </nad:edges>
     </metadata>
-    <defs>
-        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
-            <feFlood class="nad-text-background"/>
-            <feComposite in="SourceGraphic" operator="over"/>
-        </filter>
-    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-962.13,480.68)" id="0" class="nad-vl120to180">
             <desc>VL1</desc>
@@ -1840,29 +1837,29 @@
         <polyline id="46_edge" points="-447.85,368.44 -377.52,357.89"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="465.68" x="-862.13">VL1</text>
-        <text filter="url(#textBgFilter)" y="677.74" x="-393.64">VL10</text>
-        <text filter="url(#textBgFilter)" y="637.79" x="146.99">VL11</text>
-        <text filter="url(#textBgFilter)" y="313.18" x="-60.17">VL12</text>
-        <text filter="url(#textBgFilter)" y="305.01" x="280.28">VL13</text>
-        <text filter="url(#textBgFilter)" y="412.15" x="744.30">VL14</text>
-        <text filter="url(#textBgFilter)" y="-519.78" x="979.89">VL15</text>
-        <text filter="url(#textBgFilter)" y="-137.70" x="971.96">VL16</text>
-        <text filter="url(#textBgFilter)" y="-72.76" x="1498.65">VL17</text>
-        <text filter="url(#textBgFilter)" y="-394.69" x="1525.03">VL18</text>
-        <text filter="url(#textBgFilter)" y="-679.44" x="605.57">VL19</text>
-        <text filter="url(#textBgFilter)" y="1074.24" x="-877.53">VL2</text>
-        <text filter="url(#textBgFilter)" y="-665.28" x="164.25">VL20</text>
-        <text filter="url(#textBgFilter)" y="-695.93" x="1479.40">VL21</text>
-        <text filter="url(#textBgFilter)" y="-374.50" x="1854.07">VL22</text>
-        <text filter="url(#textBgFilter)" y="-102.40" x="113.35">VL23</text>
-        <text filter="url(#textBgFilter)" y="-333.91" x="384.26">VL24</text>
-        <text filter="url(#textBgFilter)" y="-50.17" x="-339.43">VL3</text>
-        <text filter="url(#textBgFilter)" y="850.30" x="-652.55">VL4</text>
-        <text filter="url(#textBgFilter)" y="683.07" x="-1069.10">VL5</text>
-        <text filter="url(#textBgFilter)" y="1225.96" x="-491.99">VL6</text>
-        <text filter="url(#textBgFilter)" y="-253.11" x="-1077.69">VL7</text>
-        <text filter="url(#textBgFilter)" y="111.31" x="-746.14">VL8</text>
-        <text filter="url(#textBgFilter)" y="357.89" x="-377.52">VL9</text>
+        <text y="465.68" x="-862.13">VL1</text>
+        <text y="677.74" x="-393.64">VL10</text>
+        <text y="637.79" x="146.99">VL11</text>
+        <text y="313.18" x="-60.17">VL12</text>
+        <text y="305.01" x="280.28">VL13</text>
+        <text y="412.15" x="744.30">VL14</text>
+        <text y="-519.78" x="979.89">VL15</text>
+        <text y="-137.70" x="971.96">VL16</text>
+        <text y="-72.76" x="1498.65">VL17</text>
+        <text y="-394.69" x="1525.03">VL18</text>
+        <text y="-679.44" x="605.57">VL19</text>
+        <text y="1074.24" x="-877.53">VL2</text>
+        <text y="-665.28" x="164.25">VL20</text>
+        <text y="-695.93" x="1479.40">VL21</text>
+        <text y="-374.50" x="1854.07">VL22</text>
+        <text y="-102.40" x="113.35">VL23</text>
+        <text y="-333.91" x="384.26">VL24</text>
+        <text y="-50.17" x="-339.43">VL3</text>
+        <text y="850.30" x="-652.55">VL4</text>
+        <text y="683.07" x="-1069.10">VL5</text>
+        <text y="1225.96" x="-491.99">VL6</text>
+        <text y="-253.11" x="-1077.69">VL7</text>
+        <text y="111.31" x="-746.14">VL8</text>
+        <text y="357.89" x="-377.52">VL9</text>
     </g>
 </svg>

@@ -3,7 +3,7 @@
     <style><![CDATA[
 .nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
@@ -16,6 +16,9 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
+.nad-legend-square {width: 20px; height: 20px; background: var(--nad-vl-color, black);}
 .nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -155,12 +158,6 @@
             <nad:edge diagramId="39" equipmentId="NNL2AA1  NNL3AA1  1"/>
         </nad:edges>
     </metadata>
-    <defs>
-        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
-            <feFlood class="nad-text-background"/>
-            <feComposite in="SourceGraphic" operator="over"/>
-        </filter>
-    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-474.24,-207.95)" id="0">
             <desc>BBE1AA1</desc>
@@ -962,15 +959,147 @@
         <polyline id="20_edge" points="281.66,-446.73 351.99,-457.28"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="-222.95" x="-374.24">BBE1AA1</text>
-        <text filter="url(#textBgFilter)" y="216.25" x="-454.05">BBE2AA1</text>
-        <text filter="url(#textBgFilter)" y="259.16" x="805.62">DDE1AA1</text>
-        <text filter="url(#textBgFilter)" y="-14.38" x="550.15">DDE2AA1</text>
-        <text filter="url(#textBgFilter)" y="421.80" x="474.91">DDE3AA1</text>
-        <text filter="url(#textBgFilter)" y="716.65" x="136.39">FFR1AA1</text>
-        <text filter="url(#textBgFilter)" y="611.05" x="-272.12">FFR3AA1</text>
-        <text filter="url(#textBgFilter)" y="-818.45" x="223.07">NNL1AA1</text>
-        <text filter="url(#textBgFilter)" y="-549.70" x="-49.64">NNL2AA1</text>
-        <text filter="url(#textBgFilter)" y="-457.28" x="351.99">NNL3AA1</text>
+        <foreignObject y="-247.95" x="-374.24" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>BBE1AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -2,2°</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-1 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, 0,0°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="191.25" x="-454.05" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>BBE2AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, 1,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="234.16" x="805.62" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>DDE1AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -12,1°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-39.38" x="550.15" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>DDE2AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -10,7°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="396.80" x="474.91" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>DDE3AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -9,9°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="691.65" x="136.39" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>FFR1AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, 0,2°</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-1 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -5,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="586.05" x="-272.12" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>FFR3AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, 0,8°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-843.45" x="223.07" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>NNL1AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -4,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-574.70" x="-49.64" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>NNL2AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -4,2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
+        <foreignObject y="-482.28" x="351.99" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>NNL3AA1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>400,00 kV, -6,5°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
     </g>
 </svg>
