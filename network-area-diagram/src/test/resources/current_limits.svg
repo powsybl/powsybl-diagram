@@ -122,7 +122,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>390,00 kV, NaN°</td>
+                        <td>390,00 kV / NaN°</td>
                     </tr>
                 </table>
             </div>
@@ -135,7 +135,7 @@
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>NaN kV, NaN°</td>
+                        <td>NaN kV / NaN°</td>
                     </tr>
                 </table>
             </div>

@@ -165,13 +165,13 @@
                         <td>
                             <div class="nad-overvoltage nad-legend-square"/>
                         </td>
-                        <td>385,10 kV, NaN°</td>
+                        <td>385,10 kV / NaN°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-legend-square"/>
                         </td>
-                        <td>NaN kV, NaN°</td>
+                        <td>NaN kV / NaN°</td>
                     </tr>
                 </table>
             </div>
@@ -184,7 +184,7 @@
                         <td>
                             <div class="nad-undervoltage nad-legend-square"/>
                         </td>
-                        <td>388,00 kV, NaN°</td>
+                        <td>388,00 kV / NaN°</td>
                     </tr>
                 </table>
             </div>

@@ -71,7 +71,7 @@ public class DefaultLabelProvider implements LabelProvider {
     @Override
     public String getBusDescription(BusNode busNode) {
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
-        return String.format("%.2f kV, %.1f°", b.getV(), b.getAngle());
+        return String.format("%.2f kV / %.1f°", b.getV(), b.getAngle());
     }
 
     @Override

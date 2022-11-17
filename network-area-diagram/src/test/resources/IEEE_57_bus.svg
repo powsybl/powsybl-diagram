@@ -3851,7 +3851,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,04 kV, 0,0°</td>
+                        <td>1,04 kV / 0,0°</td>
                     </tr>
                 </table>
             </div>
@@ -3864,13 +3864,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,05 kV, -12,5°</td>
+                        <td>1,05 kV / -12,5°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,99 kV, -11,4°</td>
+                        <td>0,99 kV / -11,4°</td>
                     </tr>
                 </table>
             </div>
@@ -3883,19 +3883,19 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -11,3°</td>
+                        <td>1,01 kV / -11,3°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -10,2°</td>
+                        <td>0,97 kV / -10,2°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-2 nad-legend-square"/>
                         </td>
-                        <td>1,00 kV, -14,1°</td>
+                        <td>1,00 kV / -14,1°</td>
                     </tr>
                 </table>
             </div>
@@ -3908,7 +3908,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,02 kV, -10,5°</td>
+                        <td>1,02 kV / -10,5°</td>
                     </tr>
                 </table>
             </div>
@@ -3921,13 +3921,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,04 kV, -12,9°</td>
+                        <td>1,04 kV / -12,9°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -9,8°</td>
+                        <td>0,98 kV / -9,8°</td>
                     </tr>
                 </table>
             </div>
@@ -3940,13 +3940,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,05 kV, -11,9°</td>
+                        <td>1,05 kV / -11,9°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -9,3°</td>
+                        <td>0,97 kV / -9,3°</td>
                     </tr>
                 </table>
             </div>
@@ -3959,13 +3959,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,04 kV, -9,3°</td>
+                        <td>1,04 kV / -9,3°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,99 kV, -7,2°</td>
+                        <td>0,99 kV / -7,2°</td>
                     </tr>
                 </table>
             </div>
@@ -3978,7 +3978,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -8,9°</td>
+                        <td>1,01 kV / -8,9°</td>
                     </tr>
                 </table>
             </div>
@@ -3991,7 +3991,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,02 kV, -5,4°</td>
+                        <td>1,02 kV / -5,4°</td>
                     </tr>
                 </table>
             </div>
@@ -4004,7 +4004,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -13,2°</td>
+                        <td>0,97 kV / -13,2°</td>
                     </tr>
                 </table>
             </div>
@@ -4017,7 +4017,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -1,2°</td>
+                        <td>1,01 kV / -1,2°</td>
                     </tr>
                 </table>
             </div>
@@ -4030,13 +4030,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,96 kV, -13,4°</td>
+                        <td>0,96 kV / -13,4°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -12,9°</td>
+                        <td>1,01 kV / -12,9°</td>
                     </tr>
                 </table>
             </div>
@@ -4049,7 +4049,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -12,8°</td>
+                        <td>1,01 kV / -12,8°</td>
                     </tr>
                 </table>
             </div>
@@ -4062,7 +4062,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -12,9°</td>
+                        <td>1,01 kV / -12,9°</td>
                     </tr>
                 </table>
             </div>
@@ -4075,19 +4075,19 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,96 kV, -13,0°</td>
+                        <td>0,96 kV / -13,0°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -18,1°</td>
+                        <td>0,98 kV / -18,1°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-2 nad-legend-square"/>
                         </td>
-                        <td>1,00 kV, -13,3°</td>
+                        <td>1,00 kV / -13,3°</td>
                     </tr>
                 </table>
             </div>
@@ -4100,7 +4100,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -11,5°</td>
+                        <td>0,98 kV / -11,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4113,7 +4113,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,00 kV, -10,5°</td>
+                        <td>1,00 kV / -10,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4126,7 +4126,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,99 kV, -6,0°</td>
+                        <td>0,99 kV / -6,0°</td>
                     </tr>
                 </table>
             </div>
@@ -4139,7 +4139,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,96 kV, -18,7°</td>
+                        <td>0,96 kV / -18,7°</td>
                     </tr>
                 </table>
             </div>
@@ -4152,7 +4152,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,94 kV, -19,3°</td>
+                        <td>0,94 kV / -19,3°</td>
                     </tr>
                 </table>
             </div>
@@ -4165,13 +4165,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,96 kV, -14,1°</td>
+                        <td>0,96 kV / -14,1°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,95 kV, -18,5°</td>
+                        <td>0,95 kV / -18,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4184,7 +4184,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,95 kV, -18,5°</td>
+                        <td>0,95 kV / -18,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4197,7 +4197,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -13,9°</td>
+                        <td>0,97 kV / -13,9°</td>
                     </tr>
                 </table>
             </div>
@@ -4210,7 +4210,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -13,6°</td>
+                        <td>0,98 kV / -13,6°</td>
                     </tr>
                 </table>
             </div>
@@ -4223,7 +4223,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,99 kV, -13,4°</td>
+                        <td>0,99 kV / -13,4°</td>
                     </tr>
                 </table>
             </div>
@@ -4236,7 +4236,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -12,7°</td>
+                        <td>1,01 kV / -12,7°</td>
                     </tr>
                 </table>
             </div>
@@ -4249,13 +4249,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -13,5°</td>
+                        <td>0,98 kV / -13,5°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -16,6°</td>
+                        <td>0,97 kV / -16,6°</td>
                     </tr>
                 </table>
             </div>
@@ -4268,13 +4268,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,00 kV, -11,7°</td>
+                        <td>1,00 kV / -11,7°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -7,3°</td>
+                        <td>0,98 kV / -7,3°</td>
                     </tr>
                 </table>
             </div>
@@ -4287,13 +4287,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -13,6°</td>
+                        <td>0,97 kV / -13,6°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -16,0°</td>
+                        <td>0,97 kV / -16,0°</td>
                     </tr>
                 </table>
             </div>
@@ -4306,7 +4306,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -15,5°</td>
+                        <td>0,97 kV / -15,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4319,7 +4319,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,02 kV, -11,9°</td>
+                        <td>1,02 kV / -11,9°</td>
                     </tr>
                 </table>
             </div>
@@ -4332,7 +4332,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,03 kV, -12,5°</td>
+                        <td>1,03 kV / -12,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4345,7 +4345,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,03 kV, -12,6°</td>
+                        <td>1,03 kV / -12,6°</td>
                     </tr>
                 </table>
             </div>
@@ -4358,7 +4358,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -8,5°</td>
+                        <td>0,98 kV / -8,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4371,7 +4371,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,02 kV, -13,4°</td>
+                        <td>1,02 kV / -13,4°</td>
                     </tr>
                 </table>
             </div>
@@ -4384,7 +4384,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -11,5°</td>
+                        <td>0,98 kV / -11,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4397,7 +4397,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,97 kV, -12,2°</td>
+                        <td>0,97 kV / -12,2°</td>
                     </tr>
                 </table>
             </div>
@@ -4410,7 +4410,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,00 kV, -11,7°</td>
+                        <td>1,00 kV / -11,7°</td>
                     </tr>
                 </table>
             </div>
@@ -4423,7 +4423,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -8,7°</td>
+                        <td>0,98 kV / -8,7°</td>
                     </tr>
                 </table>
             </div>
@@ -4436,13 +4436,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -7,6°</td>
+                        <td>0,98 kV / -7,6°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -9,8°</td>
+                        <td>1,01 kV / -9,8°</td>
                     </tr>
                 </table>
             </div>
@@ -4455,7 +4455,7 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,01 kV, -4,5°</td>
+                        <td>1,01 kV / -4,5°</td>
                     </tr>
                 </table>
             </div>
@@ -4468,13 +4468,13 @@
                         <td>
                             <div class="nad-vl0to30-0 nad-legend-square"/>
                         </td>
-                        <td>1,03 kV, -10,8°</td>
+                        <td>1,03 kV / -10,8°</td>
                     </tr>
                     <tr>
                         <td>
                             <div class="nad-vl0to30-1 nad-legend-square"/>
                         </td>
-                        <td>0,98 kV, -9,6°</td>
+                        <td>0,98 kV / -9,6°</td>
                     </tr>
                 </table>
             </div>
