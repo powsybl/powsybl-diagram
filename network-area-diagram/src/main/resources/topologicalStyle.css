@@ -29,8 +29,8 @@
 .nad-vl0to30-8 {--nad-vl-color: #ddfc88}
 .nad-vl30to50-line {--nad-vl-color: #ef9a9a}
 .nad-vl30to50-0 {--nad-vl-color: #c2185b}
-.nad-vl30to50-1 {--nad-vl-color: #d81b60}
-.nad-vl30to50-2 {--nad-vl-color: #f06292}
+.nad-vl30to50-1 {--nad-vl-color: #f06292}
+.nad-vl30to50-2 {--nad-vl-color: #d81b60}
 .nad-vl30to50-3 {--nad-vl-color: #ec407a}
 .nad-vl30to50-4 {--nad-vl-color: #880e4f}
 .nad-vl30to50-5 {--nad-vl-color: #ad1457}
@@ -48,9 +48,9 @@
 .nad-vl50to70-7 {--nad-vl-color: #ce93d8}
 .nad-vl50to70-8 {--nad-vl-color: #9575cd}
 .nad-vl70to120-line {--nad-vl-color: #e65100}
-.nad-vl70to120-0 {--nad-vl-color: #f57c00}
-.nad-vl70to120-1 {--nad-vl-color: #fb8c00}
-.nad-vl70to120-2 {--nad-vl-color: #ffb74d}
+.nad-vl70to120-0 {--nad-vl-color: #fb8c00}
+.nad-vl70to120-1 {--nad-vl-color: #ffb74d}
+.nad-vl70to120-2 {--nad-vl-color: #f57c00}
 .nad-vl70to120-3 {--nad-vl-color: #ffa726}
 .nad-vl70to120-4 {--nad-vl-color: #ffe0b2}
 .nad-vl70to120-5 {--nad-vl-color: #ef6c00}
@@ -62,9 +62,9 @@
 .nad-vl120to180-1 {--nad-vl-color: #01579b}
 .nad-vl120to180-2 {--nad-vl-color: #b3e5fc}
 .nad-vl120to180-3 {--nad-vl-color: #039be5}
-.nad-vl120to180-4 {--nad-vl-color: #0288d1}
-.nad-vl120to180-5 {--nad-vl-color: #29b6f6}
-.nad-vl120to180-6 {--nad-vl-color: #81d4fa}
+.nad-vl120to180-4 {--nad-vl-color: #81d4fa}
+.nad-vl120to180-5 {--nad-vl-color: #0288d1}
+.nad-vl120to180-6 {--nad-vl-color: #29b6f6}
 .nad-vl120to180-7 {--nad-vl-color: #0277bd}
 .nad-vl120to180-8 {--nad-vl-color: #03a9f4}
 .nad-vl180to300-line {--nad-vl-color: #2e7d32}
@@ -78,14 +78,14 @@
 .nad-vl180to300-7 {--nad-vl-color: #1b5e20}
 .nad-vl180to300-8 {--nad-vl-color: #4caf50}
 .nad-vl300to500-line {--nad-vl-color: #d32f2f}
-.nad-vl300to500-0 {--nad-vl-color: #ff8a80}
-.nad-vl300to500-1 {--nad-vl-color: #e57373}
-.nad-vl300to500-2 {--nad-vl-color: #ffcdd2}
-.nad-vl300to500-3 {--nad-vl-color: #b71c1c}
-.nad-vl300to500-4 {--nad-vl-color: #ef5350}
-.nad-vl300to500-5 {--nad-vl-color: #e53935}
-.nad-vl300to500-6 {--nad-vl-color: #ef9a9a}
-.nad-vl300to500-7 {--nad-vl-color: #f44336}
+.nad-vl300to500-0 {--nad-vl-color: #ef5350}
+.nad-vl300to500-1 {--nad-vl-color: #ef9a9a}
+.nad-vl300to500-2 {--nad-vl-color: #b71c1c}
+.nad-vl300to500-3 {--nad-vl-color: #e57373}
+.nad-vl300to500-4 {--nad-vl-color: #e53935}
+.nad-vl300to500-5 {--nad-vl-color: #ff8a80}
+.nad-vl300to500-6 {--nad-vl-color: #f44336}
+.nad-vl300to500-7 {--nad-vl-color: #ffcdd2}
 .nad-vl300to500-8 {--nad-vl-color: #c62828}
 .nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
