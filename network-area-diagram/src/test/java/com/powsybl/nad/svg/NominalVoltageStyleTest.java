@@ -33,7 +33,8 @@ public class NominalVoltageStyleTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
-                .setFixedWidth(800));
+                .setFixedWidth(800)
+                .setEdgeStartShift(2));
     }
 
     @Override
