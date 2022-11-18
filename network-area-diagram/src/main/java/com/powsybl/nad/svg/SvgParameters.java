@@ -100,6 +100,7 @@ public class SvgParameters {
         this.voltageValuePrecision = other.voltageValuePrecision;
         this.powerValuePrecision = other.powerValuePrecision;
         this.angleValuePrecision = other.angleValuePrecision;
+        this.pstArrowHeadSize = other.pstArrowHeadSize;
     }
 
     public Padding getDiagramPadding() {
