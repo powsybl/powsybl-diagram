@@ -370,7 +370,6 @@
         </g>
         <g id="26">
             <desc>BBE1AA1  BBE3AA1  2</desc>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.68,0.74,-0.74,-0.68,-343.45,-128.61)" class="nad-pst-arrow"/>
             <g class="nad-vl300to500-line">
                 <path class="nad-edge-path" d="M-417.22,-215.40 L-394.91,-218.32 C-355.25,-223.50 -358.79,-156.26 -365.55,-148.90"/>
                 <g class="nad-edge-infos" transform="translate(-394.91,-218.32)">
@@ -411,6 +410,7 @@
                 </g>
                 <circle class="nad-winding" cx="-392.60" cy="-119.43" r="20.00"/>
             </g>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.68,0.74,-0.74,-0.68,-343.45,-128.61)" class="nad-pst-arrow"/>
         </g>
         <g id="27">
             <desc>BBE2AA1  FFR3AA1  1</desc>
@@ -783,7 +783,6 @@
         </g>
         <g id="36">
             <desc>FFR1AA1  FFR2AA1  2</desc>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-61.10,613.77)" class="nad-pst-arrow"/>
             <g class="nad-vl300to500-line">
                 <path class="nad-edge-path" d="M-19.91,719.97 L-41.94,715.40 C-81.11,707.28 -55.69,644.93 -46.88,640.19"/>
                 <g class="nad-edge-infos" transform="translate(-41.94,715.40)">
@@ -824,6 +823,7 @@
                 </g>
                 <circle class="nad-winding" cx="-11.66" cy="621.24" r="20.00"/>
             </g>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-61.10,613.77)" class="nad-pst-arrow"/>
         </g>
         <g id="37">
             <desc>NNL1AA1  NNL2AA1  1</desc>

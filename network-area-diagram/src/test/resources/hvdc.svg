@@ -94,7 +94,6 @@
     <g class="nad-branch-edges">
         <g id="10">
             <desc>TWT</desc>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(1.00,-0.04,0.04,1.00,-401.77,24.64)" class="nad-pst-arrow"/>
             <g class="nad-vl180to300">
                 <polyline class="nad-edge-path" points="-547.03,60.17 -400.64,54.62"/>
                 <g class="nad-edge-infos" transform="translate(-514.56,58.94)">
@@ -135,6 +134,7 @@
                 </g>
                 <circle class="nad-winding" cx="-360.67" cy="53.11" r="20.00"/>
             </g>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(1.00,-0.04,0.04,1.00,-401.77,24.64)" class="nad-pst-arrow"/>
         </g>
         <g id="11" class="nad-hvdc-edge">
             <desc>HVDC1</desc>
