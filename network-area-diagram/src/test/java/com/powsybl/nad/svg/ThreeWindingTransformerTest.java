@@ -26,6 +26,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class ThreeWindingTransformerTest extends AbstractTest {
 
+    private StyleProvider styleProvider;
+
     @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
@@ -37,7 +39,7 @@ public class ThreeWindingTransformerTest extends AbstractTest {
 
     @Override
     protected StyleProvider getStyleProvider(Network network) {
-        return new NominalVoltageStyleProvider(network);
+        return styleProvider != null ? styleProvider : new NominalVoltageStyleProvider(network);
     }
 
     @Override
@@ -57,6 +59,14 @@ public class ThreeWindingTransformerTest extends AbstractTest {
         network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
         network.getLoad("LOAD_33").remove();
         assertEquals(toString("/3wt_disconnected.svg"), generateSvgString(network, "/3wt_disconnected.svg"));
+    }
+
+    @Test
+    public void testDisconnected3wtTopologicalStyle() {
+        Network network = ThreeWindingsTransformerNetworkFactory.create();
+        network.getThreeWindingsTransformer("3WT").getTerminal(ThreeWindingsTransformer.Side.TWO).disconnect();
+        network.getLoad("LOAD_33").remove();
+        assertEquals(toString("/3wt_disconnected_topological.svg"), generateSvgString(network, "/3wt_disconnected_topological.svg"));
     }
 
     @Test

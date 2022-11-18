@@ -25,6 +25,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class TextNodeTest extends AbstractTest {
 
+    private LabelProvider labelProvider;
+
     @Before
     public void setup() {
         setLayoutParameters(new LayoutParameters());
@@ -40,6 +42,9 @@ public class TextNodeTest extends AbstractTest {
 
     @Override
     protected LabelProvider getLabelProvider(Network network) {
+        if (labelProvider != null) {
+            return labelProvider;
+        }
         return new DefaultLabelProvider(network, getSvgParameters()) {
             @Override
             public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
@@ -57,13 +62,15 @@ public class TextNodeTest extends AbstractTest {
     public void testVlId() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
         getSvgParameters().setIdDisplayed(true).setBusLegend(false);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_id.svg"), generateSvgString(network, "/vl_description_id.svg"));
     }
 
     @Test
     public void testSubstationDescription() {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
-        getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false);
+        getSvgParameters().setSubstationDescriptionDisplayed(true).setBusLegend(false).setVoltageLevelDetails(true);
+        labelProvider = new DefaultLabelProvider(network, getSvgParameters());
         assertEquals(toString("/vl_description_substation.svg"), generateSvgString(network, "/vl_description_substation.svg"));
     }
 

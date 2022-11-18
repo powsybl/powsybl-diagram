@@ -31,8 +31,8 @@ import java.util.function.Predicate;
  */
 public abstract class AbstractTest {
 
-    protected boolean debugSvg = true;
-    protected boolean overrideTestReferences = true;
+    protected boolean debugSvg = false;
+    protected boolean overrideTestReferences = false;
 
     private SvgParameters svgParameters;
 

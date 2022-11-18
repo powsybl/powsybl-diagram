@@ -57,7 +57,6 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
-    private static final String FILTER_ELEMENT_NAME = "filter";
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
