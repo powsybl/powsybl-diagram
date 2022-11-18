@@ -25,6 +25,7 @@ public class BranchEdge extends AbstractEdge {
     }
 
     public static final String TWO_WT_EDGE = "TwoWtEdge";
+    public static final String PST_EDGE = "PstEdge";
     public static final String LINE_EDGE = "LineEdge";
     public static final String HVDC_LINE_EDGE = "HvdcLineEdge";
 
@@ -40,6 +41,10 @@ public class BranchEdge extends AbstractEdge {
 
     public String getType() {
         return type;
+    }
+
+    public boolean isTransformerEdge() {
+        return PST_EDGE.equals(type) || TWO_WT_EDGE.equals(type);
     }
 
     public List<Point> getPoints(Side side) {

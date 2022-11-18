@@ -8,6 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -93,6 +94,7 @@
     <g class="nad-branch-edges">
         <g id="10">
             <desc>TWT</desc>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(1.00,-0.04,0.04,1.00,-401.77,24.64)" class="nad-pst-arrow"/>
             <g class="nad-vl180to300">
                 <polyline class="nad-edge-path" points="-547.03,60.17 -400.64,54.62"/>
                 <g class="nad-edge-infos" transform="translate(-514.56,58.94)">

@@ -51,6 +51,7 @@ public class SvgParameters {
     private int voltageValuePrecision = 1;
     private int powerValuePrecision = 0;
     private int angleValuePrecision = 1;
+    private double pstArrowHeadSize = 8;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -425,5 +426,14 @@ public class SvgParameters {
 
     public ValueFormatter createValueFormatter() {
         return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
+    }
+
+    public double getPstArrowHeadSize() {
+        return pstArrowHeadSize;
+    }
+
+    public SvgParameters setPstArrowHeadSize(double pstArrowHeadSize) {
+        this.pstArrowHeadSize = pstArrowHeadSize;
+        return this;
     }
 }

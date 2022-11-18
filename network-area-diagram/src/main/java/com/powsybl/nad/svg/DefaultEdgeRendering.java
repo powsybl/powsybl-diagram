@@ -42,7 +42,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         Point edgeStart2 = computeEdgeStart(node2, direction2, graph.getVoltageLevelNode2(edge), svgParameters);
 
         Point middle = Point.createMiddlePoint(edgeStart1, edgeStart2);
-        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
+        if (edge.isTransformerEdge()) {
             double radius = svgParameters.getTransformerCircleRadius();
             edge.setPoints1(edgeStart1, middle.atDistance(1.5 * radius, direction2));
             edge.setPoints2(edgeStart2, middle.atDistance(1.5 * radius, direction1));
@@ -114,7 +114,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
     private void computeHalfForkCoordinates(Graph graph, SvgParameters svgParameters, VoltageLevelNode node, BranchEdge edge, Point fork, Point middle, BranchEdge.Side side) {
         Node busNodeA = side == BranchEdge.Side.ONE ? graph.getBusGraphNode1(edge) : graph.getBusGraphNode2(edge);
         Point edgeStart = computeEdgeStart(busNodeA, fork, node, svgParameters);
-        Point endFork = edge.getType().equals(BranchEdge.TWO_WT_EDGE)
+        Point endFork = edge.isTransformerEdge()
                 ? middle.atDistance(1.5 * svgParameters.getTransformerCircleRadius(), fork)
                 : middle;
         edge.setPoints(side, edgeStart, fork, endFork);
@@ -138,14 +138,14 @@ public class DefaultEdgeRendering implements EdgeRendering {
         double startAngle = angle + sideSign * svgParameters.getLoopEdgesAperture() / 2;
         double radius = svgParameters.getTransformerCircleRadius();
         double controlsDist = svgParameters.getLoopControlDistance();
-        boolean isTwoWt = edge.getType().equals(BranchEdge.TWO_WT_EDGE);
+        boolean isTransformer = edge.isTransformerEdge();
         double endAngle = angle + sideSign * Math.PI / 2;
 
         Point fork = node.getPosition().atDistance(svgParameters.getEdgesForkLength(), startAngle);
         Point edgeStart = computeEdgeStart(graph.getBusGraphNode(edge, side), fork, node, svgParameters);
         Point control1a = fork.atDistance(controlsDist, startAngle);
-        Point middle1 = isTwoWt ? middle.atDistance(1.5 * radius, endAngle) : middle;
-        Point control1b = middle1.atDistance(isTwoWt ? Math.max(0, controlsDist - 1.5 * radius) : controlsDist, endAngle);
+        Point middle1 = isTransformer ? middle.atDistance(1.5 * radius, endAngle) : middle;
+        Point control1b = middle1.atDistance(isTransformer ? Math.max(0, controlsDist - 1.5 * radius) : controlsDist, endAngle);
 
         edge.setPoints(side, edgeStart, fork, control1a, control1b, middle1);
     }

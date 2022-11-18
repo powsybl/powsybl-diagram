@@ -8,6 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightgrey)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: var(--nad-vl-color, #808080); stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
 .nad-active path {stroke: none; fill: #546e7a}
@@ -369,6 +370,7 @@
         </g>
         <g id="26">
             <desc>BBE1AA1  BBE3AA1  2</desc>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.68,-0.74,0.74,0.68,-605.02,-287.30)" class="nad-pst-arrow"/>
             <g class="nad-vl300to500-line">
                 <path class="nad-edge-path" d="M-530.36,-220.45 L-552.32,-225.34 C-591.37,-234.04 -589.68,-259.64 -582.92,-267.01"/>
                 <g class="nad-edge-infos" transform="translate(-552.32,-225.34)">
@@ -781,6 +783,7 @@
         </g>
         <g id="36">
             <desc>FFR1AA1  FFR2AA1  2</desc>
+            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.88,0.47,-0.47,-0.88,133.88,849.53)" class="nad-pst-arrow"/>
             <g class="nad-vl300to500-line">
                 <path class="nad-edge-path" d="M85.30,761.88 L104.44,773.71 C138.47,794.74 128.47,818.38 119.67,823.11"/>
                 <g class="nad-edge-infos" transform="translate(104.44,773.71)">
