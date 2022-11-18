@@ -3,7 +3,7 @@
     <style><![CDATA[
 .nad-branch-edges .nad-edge-path, .nad-3wt-edges .nad-edge-path {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
 .nad-branch-edges .nad-winding, .nad-3wt-nodes .nad-winding {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
-.nad-text-edges {stroke: black; stroke-width: 2; stroke-dasharray: 3,5}
+.nad-text-edges {stroke: black; stroke-width: 3; stroke-dasharray: 6,7}
 .nad-disconnected .nad-edge-path {stroke-dasharray: 10,10}
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
@@ -16,6 +16,8 @@
 .nad-reactive path {stroke: none; fill: #0277bd}
 .nad-text-background {flood-color: #90a4aeaa}
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
+.nad-text-nodes foreignObject {overflow: visible; color: black}
+.nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
 .nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
@@ -59,12 +61,6 @@
             <nad:edge diagramId="9" equipmentId="3WT"/>
         </nad:edges>
     </metadata>
-    <defs>
-        <filter id="textBgFilter" x="0" y="0" width="1" height="1">
-            <feFlood class="nad-text-background"/>
-            <feComposite in="SourceGraphic" operator="over"/>
-        </filter>
-    </defs>
     <g class="nad-vl-nodes">
         <g transform="translate(-377.54,109.86)" id="0" class="nad-vl0to30">
             <desc>VL_11</desc>
@@ -82,14 +78,14 @@
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-15.41)" x="19.00">0</text>
+                    <text transform="rotate(-15.41)" x="19.00">—</text>
                 </g>
                 <g class="nad-reactive nad-state-out">
                     <g transform="rotate(74.59)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
                         <path class="nad-arrow-out" transform="scale(10.00)" d="M-1 1 H1 L0 -1z"/>
                     </g>
-                    <text transform="rotate(-15.41)" x="19.00">0</text>
+                    <text transform="rotate(-15.41)" x="19.00">—</text>
                 </g>
             </g>
         </g>
@@ -105,6 +101,18 @@
         <polyline id="0_edge" points="-347.87,105.41 -277.54,94.86"/>
     </g>
     <g class="nad-text-nodes">
-        <text filter="url(#textBgFilter)" y="94.86" x="-277.54">VL_11</text>
+        <foreignObject y="69.86" x="-277.54" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>VL_11</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-legend-square"/>
+                        </td>
+                        <td>11.8 kV / -15.2°</td>
+                    </tr>
+                </table>
+            </div>
+        </foreignObject>
     </g>
 </svg>

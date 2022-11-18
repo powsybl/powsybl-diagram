@@ -33,6 +33,7 @@ public class NominalVoltageStyleTest extends AbstractTest {
         setSvgParameters(new SvgParameters()
                 .setInsertNameDesc(true)
                 .setSvgWidthAndHeightAdded(true)
+                .setVoltageLevelDetails(false)
                 .setFixedWidth(800)
                 .setEdgeStartShift(2));
     }
@@ -64,7 +65,6 @@ public class NominalVoltageStyleTest extends AbstractTest {
     public void testIEEE14ForceLayoutWithTextNodes() {
         Network network = IeeeCdfNetworkFactory.create14();
         getLayoutParameters().setTextNodesForceLayout(true);
-        getSvgParameters().setTextNodeBackground(false);
         assertEquals(toString("/IEEE_14_bus_text_nodes.svg"), generateSvgString(network, "/IEEE_14_bus_text_nodes.svg"));
     }
 

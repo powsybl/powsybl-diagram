@@ -180,14 +180,20 @@
     <g class="nad-text-nodes">
         <foreignObject y="-128.93" x="259.59" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
-                <div>vl1</div>
-                <div>s1</div>
+                <div>Voltage level 1</div>
+                <div>0 loads</div>
+                <div>1 generators</div>
+                <div>0 batteries</div>
+                <div>0 dangling lines</div>
             </div>
         </foreignObject>
         <foreignObject y="127.62" x="15.26" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
-                <div>vl2</div>
-                <div>s1</div>
+                <div>Voltage level 2</div>
+                <div>0 loads</div>
+                <div>0 generators</div>
+                <div>0 batteries</div>
+                <div>1 dangling lines</div>
             </div>
         </foreignObject>
     </g>

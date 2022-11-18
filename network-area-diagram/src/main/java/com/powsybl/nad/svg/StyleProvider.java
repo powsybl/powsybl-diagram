@@ -36,6 +36,8 @@ public interface StyleProvider {
     String EDGE_PATH_CLASS = CLASSES_PREFIX + "edge-path";
     String WINDING_CLASS = CLASSES_PREFIX + "winding";
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
+    String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
+    String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
 
     List<String> getCssFilenames();
 

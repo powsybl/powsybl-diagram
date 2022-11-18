@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -33,7 +34,7 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
-        this.valueFormatter = new ValueFormatter(layoutParameters);
+        this.valueFormatter = layoutParameters.createValueFormatter();
     }
 
     @Override

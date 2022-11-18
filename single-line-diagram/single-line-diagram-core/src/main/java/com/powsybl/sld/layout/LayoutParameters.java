@@ -9,13 +9,11 @@ package com.powsybl.sld.layout;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.library.ComponentSize;
 import com.powsybl.sld.library.ComponentTypeName;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -606,6 +604,10 @@ public class LayoutParameters {
     public LayoutParameters setAngleValuePrecision(int angleValuePrecision) {
         this.angleValuePrecision = angleValuePrecision;
         return this;
+    }
+
+    public ValueFormatter createValueFormatter() {
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
     }
 
     public enum Alignment {
