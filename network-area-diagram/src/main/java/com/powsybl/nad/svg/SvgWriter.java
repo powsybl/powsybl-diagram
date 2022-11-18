@@ -127,6 +127,9 @@ public class SvgWriter {
 
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+            if (BranchEdge.PST_EDGE.equals(edge.getType())) {
+                drawPstArrow(writer, edge);
+            }
 
             if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
                 drawConverterStation(writer, edge);
@@ -173,7 +176,7 @@ public class SvgWriter {
 
     private void drawHalfEdge(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         // the half edge is only drawn if visible, but if the edge is a TwoWtEdge, the transformer is still drawn
-        if (!edge.isVisible(side) && !(edge.getType().equals(BranchEdge.TWO_WT_EDGE))) {
+        if (!edge.isVisible(side) && !(edge.isTransformerEdge())) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -191,7 +194,7 @@ public class SvgWriter {
                 drawLoopEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             }
         }
-        if (edge.getType().equals(BranchEdge.TWO_WT_EDGE)) {
+        if (edge.isTransformerEdge()) {
             draw2WtWinding(writer, edge.getPoints(side));
         }
         writer.writeEndElement();
@@ -358,6 +361,28 @@ public class SvgWriter {
         return "scale(" + getFormattedValue(scale) + ")";
     }
 
+    private String getMatrixString(double[] matrix) {
+        return "matrix("
+                + getFormattedValue(matrix[0]) + "," + getFormattedValue(matrix[1]) + ","
+                + getFormattedValue(matrix[2]) + "," + getFormattedValue(matrix[3]) + ","
+                + getFormattedValue(matrix[4]) + "," + getFormattedValue(matrix[5]) + ")";
+    }
+
+    private double[] getTransformMatrix(double width, double height, double angle, Point center) {
+        double centerPosX = center.getX();
+        double centerPosY = center.getY();
+
+        double cosRo = Math.cos(angle);
+        double sinRo = Math.sin(angle);
+        double cdx = width / 2;
+        double cdy = height / 2;
+
+        double e1 = centerPosX - cdx * cosRo + cdy * sinRo;
+        double f1 = centerPosY - cdx * sinRo - cdy * cosRo;
+
+        return new double[]{+cosRo, sinRo, -sinRo, cosRo, e1, f1};
+    }
+
     private Point getArrowCenter(VoltageLevelNode vlNode, BusNode busNode, List<Point> line) {
         double shift = svgParameters.getArrowShift();
         if (line.size() == 2) { // straight line; in case of a forking line it is the middle point which is the starting point
@@ -378,6 +403,28 @@ public class SvgWriter {
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
+    }
+
+    private void drawPstArrow(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        double arrowSize = 3 * svgParameters.getTransformerCircleRadius();
+        double rotationAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+
+        List<Point> points1 = edge.getPoints1();
+        List<Point> points2 = edge.getPoints2();
+        Point middle = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+        double[] matrix = getTransformMatrix(arrowSize, arrowSize, rotationAngle, middle);
+
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, getPstArrowPath(arrowSize));
+        writer.writeAttribute(TRANSFORM_ATTRIBUTE, getMatrixString(matrix));
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.PST_ARROW_CLASS);
+    }
+
+    private String getPstArrowPath(double arrowSize) {
+        String d1 = getFormattedValue(arrowSize); // arrow size
+        String dh = getFormattedValue(svgParameters.getPstArrowHeadSize()); // arrow head size
+        String d2 = getFormattedValue(arrowSize - svgParameters.getPstArrowHeadSize()); // arrow size without the arrow head
+        return String.format("M%s,0 0,%s M%s,0 %s,0 %s,%s", d1, d1, d2, d1, d1, dh);
     }
 
     private void drawVoltageLevelNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {

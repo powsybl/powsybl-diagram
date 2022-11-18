@@ -78,7 +78,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void visitTwoWindingsTransformer(VoltageLevel vl, TwoWindingsTransformer twt, Graph graph) {
-        addEdge(graph, twt, vl, BranchEdge.TWO_WT_EDGE);
+        addEdge(graph, twt, vl, twt.hasPhaseTapChanger() ? BranchEdge.PST_EDGE : BranchEdge.TWO_WT_EDGE);
     }
 
     private void visitThreeWindingsTransformer(VoltageLevel vl, ThreeWindingsTransformer thwt, Graph graph) {

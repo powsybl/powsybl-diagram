@@ -38,6 +38,7 @@ public interface StyleProvider {
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
     String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
     String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
+    String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
 
     List<String> getCssFilenames();
 
