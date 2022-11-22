@@ -59,6 +59,8 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
+    private static final Map<BranchEdge.Side, Integer> SIDE_END =
+            new EnumMap<>(Map.of(BranchEdge.Side.ONE, 1, BranchEdge.Side.TWO, 2));
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -182,6 +184,7 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + SIDE_END.get(side)));
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
@@ -787,11 +790,7 @@ public class SvgWriter {
 
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
-
-        graph.getBusNodesStream().forEach(metadata::addBusNode);
-        graph.getNodesStream().forEach(metadata::addNode);
-        graph.getEdgesStream().forEach(metadata::addEdge);
-
+        metadata.add(graph);
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(this::getPrefixedId, writer);
         writer.writeEndElement();

@@ -10,6 +10,7 @@ package com.powsybl.nad.svg.metadata;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.BusNode;
 import com.powsybl.nad.model.Edge;
+import com.powsybl.nad.model.Graph;
 import com.powsybl.nad.model.Node;
 
 import javax.xml.stream.XMLInputFactory;
@@ -38,6 +39,12 @@ public class DiagramMetadata {
     private final List<NodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
+
+    public void add(Graph graph) {
+        graph.getBusNodesStream().forEach(this::addBusNode);
+        graph.getNodesStream().forEach(this::addNode);
+        graph.getEdgesStream().forEach(e -> addEdge(e, graph));
+    }
 
     public static DiagramMetadata readXml(InputStream inputStream) throws XMLStreamException {
         return readXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -134,7 +141,7 @@ public class DiagramMetadata {
         nodesMetadata.add(new NodeMetadata(node, node.getPosition()));
     }
 
-    public void addEdge(Edge edge) {
-        edgesMetadata.add(new EdgeMetadata(edge));
+    public void addEdge(Edge edge, Graph graph) {
+        edgesMetadata.add(new EdgeMetadata(edge, graph.getNode1(edge).getDiagramId(), graph.getNode2(edge).getDiagramId()));
     }
 }
