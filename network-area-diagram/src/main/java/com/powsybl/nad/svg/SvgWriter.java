@@ -477,6 +477,7 @@ public class SvgWriter {
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
 
@@ -532,6 +533,7 @@ public class SvgWriter {
 
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
