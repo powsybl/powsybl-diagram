@@ -15,6 +15,7 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
+import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +76,7 @@ public class DiagramMetadataTest extends AbstractTest {
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.parseXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readXml(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadata.xml");
         writeMetadata(metadata, outPath);
@@ -105,7 +106,7 @@ public class DiagramMetadataTest extends AbstractTest {
                 "    </metadata>";
         InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
         // Create Metadata from svg file
-        DiagramMetadata metadata = DiagramMetadata.parseXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readXml(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadataInvalid.xml");
         writeMetadata(metadata, outPath);

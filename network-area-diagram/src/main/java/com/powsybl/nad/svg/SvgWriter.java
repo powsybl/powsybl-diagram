@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.jgrapht.alg.util.Pair;
 
