@@ -8,9 +8,6 @@
 package com.powsybl.nad.svg.metadata;
 
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Node;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -20,7 +17,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>

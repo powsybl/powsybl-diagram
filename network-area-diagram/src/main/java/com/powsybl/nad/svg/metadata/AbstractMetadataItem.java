@@ -7,12 +7,9 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import java.util.Optional;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>

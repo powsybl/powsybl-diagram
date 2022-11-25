@@ -7,8 +7,6 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-
 import javax.xml.stream.XMLStreamReader;
 
 /**
