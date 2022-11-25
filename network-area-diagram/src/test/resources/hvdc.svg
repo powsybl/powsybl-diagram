@@ -46,28 +46,30 @@
   40% {stroke: #00BCD4; stroke-width: 15}
 }
 ]]></style>
-    <metadata xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
-        <nad:busNodes>
-            <nad:busNode diagramId="1" equipmentId="S1VL1_0"/>
-            <nad:busNode diagramId="3" equipmentId="S1VL2_0"/>
-            <nad:busNode diagramId="5" equipmentId="S2VL1_0"/>
-            <nad:busNode diagramId="7" equipmentId="S3VL1_0"/>
-            <nad:busNode diagramId="9" equipmentId="S4VL1_0"/>
-        </nad:busNodes>
-        <nad:nodes>
-            <nad:node diagramId="0" equipmentId="S1VL1"/>
-            <nad:node diagramId="2" equipmentId="S1VL2"/>
-            <nad:node diagramId="4" equipmentId="S2VL1"/>
-            <nad:node diagramId="6" equipmentId="S3VL1"/>
-            <nad:node diagramId="8" equipmentId="S4VL1"/>
-        </nad:nodes>
-        <nad:edges>
-            <nad:edge diagramId="10" equipmentId="TWT"/>
-            <nad:edge diagramId="11" equipmentId="HVDC1"/>
-            <nad:edge diagramId="12" equipmentId="HVDC2"/>
-            <nad:edge diagramId="13" equipmentId="LINE_S2S3"/>
-            <nad:edge diagramId="14" equipmentId="LINE_S3S4"/>
-        </nad:edges>
+    <metadata>
+        <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
+            <nad:busNodes>
+                <nad:busNode diagramId="1" equipmentId="S1VL1_0" x="-572.51" y="61.14"/>
+                <nad:busNode diagramId="3" equipmentId="S1VL2_0" x="-168.80" y="45.83"/>
+                <nad:busNode diagramId="5" equipmentId="S2VL1_0" x="73.32" y="-219.74"/>
+                <nad:busNode diagramId="7" equipmentId="S3VL1_0" x="250.50" y="93.81"/>
+                <nad:busNode diagramId="9" equipmentId="S4VL1_0" x="633.74" y="221.41"/>
+            </nad:busNodes>
+            <nad:nodes>
+                <nad:node diagramId="0" equipmentId="S1VL1" x="-572.51" y="61.14"/>
+                <nad:node diagramId="2" equipmentId="S1VL2" x="-168.80" y="45.83"/>
+                <nad:node diagramId="4" equipmentId="S2VL1" x="73.32" y="-219.74"/>
+                <nad:node diagramId="6" equipmentId="S3VL1" x="250.50" y="93.81"/>
+                <nad:node diagramId="8" equipmentId="S4VL1" x="633.74" y="221.41"/>
+            </nad:nodes>
+            <nad:edges>
+                <nad:edge diagramId="10" equipmentId="TWT"/>
+                <nad:edge diagramId="11" equipmentId="HVDC1"/>
+                <nad:edge diagramId="12" equipmentId="HVDC2"/>
+                <nad:edge diagramId="13" equipmentId="LINE_S2S3"/>
+                <nad:edge diagramId="14" equipmentId="LINE_S3S4"/>
+            </nad:edges>
+        </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
         <g transform="translate(-572.51,61.14)" id="0" class="nad-vl180to300">
