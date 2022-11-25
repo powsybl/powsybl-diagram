@@ -7,10 +7,9 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
@@ -24,8 +23,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private final String node1DiagramId;
     private final String node2DiagramId;
 
-    public EdgeMetadata(Identifiable identifiable, String node1DiagramId, String node2DiagramId) {
-        super(identifiable);
+    public EdgeMetadata(String svgId, String equipmentId, String node1DiagramId, String node2DiagramId) {
+        super(svgId, equipmentId);
         this.node1DiagramId = node1DiagramId;
         this.node2DiagramId = node2DiagramId;
     }
@@ -36,10 +35,10 @@ public class EdgeMetadata extends AbstractMetadataItem {
     }
 
     @Override
-    void write(DiagramMetadata.WritingContext ctx) throws XMLStreamException {
-        super.write(ctx);
-        ctx.writer.writeAttribute(NODE1_ATTRIBUTE, node1DiagramId);
-        ctx.writer.writeAttribute(NODE2_ATTRIBUTE, node2DiagramId);
+    void write(XMLStreamWriter writer) throws XMLStreamException {
+        super.write(writer);
+        writer.writeAttribute(NODE1_ATTRIBUTE, node1DiagramId);
+        writer.writeAttribute(NODE2_ATTRIBUTE, node2DiagramId);
     }
 
     static class Reader implements MetadataItemReader<EdgeMetadata> {
@@ -49,10 +48,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
         }
 
         public EdgeMetadata read(XMLStreamReader reader) {
-            Identifiable deserializedIdentifiable = readIdentifiable(reader);
-            String id1 = reader.getAttributeValue(null, NODE1_ATTRIBUTE);
-            String id2 = reader.getAttributeValue(null, NODE2_ATTRIBUTE);
-            return new EdgeMetadata(deserializedIdentifiable, id1, id2);
+            return new EdgeMetadata(readDiagramId(reader), readEquipmentId(reader),
+                    reader.getAttributeValue(null, NODE1_ATTRIBUTE),
+                    reader.getAttributeValue(null, NODE2_ATTRIBUTE));
         }
     }
 }

@@ -8,10 +8,6 @@
 package com.powsybl.nad.svg.metadata;
 
 import com.powsybl.commons.xml.XmlUtil;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Edge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.Node;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -21,7 +17,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 /**
  * @author Thomas Adam <tadam at silicom.fr>
@@ -36,15 +31,9 @@ public class DiagramMetadata {
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
 
-    private final List<NodeMetadata> busNodesMetadata = new ArrayList<>();
+    private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
-
-    public void add(Graph graph) {
-        graph.getBusNodesStream().forEach(this::addBusNode);
-        graph.getNodesStream().forEach(this::addNode);
-        graph.getEdgesStream().forEach(e -> addEdge(e, graph));
-    }
 
     public static DiagramMetadata readXml(InputStream inputStream) throws XMLStreamException {
         return readXml(XMLInputFactory.newDefaultFactory().createXMLStreamReader(inputStream));
@@ -57,7 +46,7 @@ public class DiagramMetadata {
             String token = reader.getLocalName();
             switch (token) {
                 case METADATA_BUS_NODES_ELEMENT_NAME:
-                    readCollection(metadata.busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, NodeMetadata.Reader.forBusNodes(), reader);
+                    readCollection(metadata.busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, new BusNodeMetadata.Reader(), reader);
                     break;
                 case METADATA_NODES_ELEMENT_NAME:
                     readCollection(metadata.nodesMetadata, METADATA_NODES_ELEMENT_NAME, new NodeMetadata.Reader(), reader);
@@ -84,64 +73,40 @@ public class DiagramMetadata {
         });
     }
 
-    static class WritingContext {
-        final XMLStreamWriter writer;
-        final UnaryOperator<String> diagramIdToSvgId;
-        boolean overrideElementName = false;
-        String elementName;
-
-        WritingContext(UnaryOperator<String> diagramIdToSvgId, XMLStreamWriter writer) {
-            this.writer = writer;
-            this.diagramIdToSvgId = diagramIdToSvgId;
-        }
-    }
-
     public void writeXml(XMLStreamWriter writer) throws XMLStreamException {
-        writeXml(new WritingContext(UnaryOperator.identity(), writer));
-    }
+        writer.writeStartElement(METADATA_PREFIX, METADATA_DIAGRAM_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+        writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
 
-    public void writeXml(UnaryOperator<String> diagramIdToSvgId, XMLStreamWriter writer) throws XMLStreamException {
-        writeXml(new WritingContext(diagramIdToSvgId, writer));
-    }
-
-    public void writeXml(WritingContext ctx) throws XMLStreamException {
-        ctx.writer.writeStartElement(METADATA_PREFIX, METADATA_DIAGRAM_ELEMENT_NAME, METADATA_NAMESPACE_URI);
-        ctx.writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
-
-        ctx.overrideElementName = true;
-        ctx.elementName = NodeMetadata.getBusNodeElementName();
-        writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, ctx);
-        ctx.overrideElementName = false;
-
-        writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, ctx);
-        writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, ctx);
-        ctx.writer.writeEndElement();
+        writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, writer);
+        writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, writer);
+        writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, writer);
+        writer.writeEndElement();
     }
 
     private static <M extends AbstractMetadataItem> void writeCollection(
             Collection<M> items,
             String collectionElementName,
-            WritingContext ctx) throws XMLStreamException {
+            XMLStreamWriter writer) throws XMLStreamException {
         if (items.isEmpty()) {
-            ctx.writer.writeEmptyElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
+            writer.writeEmptyElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
         } else {
-            ctx.writer.writeStartElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
+            writer.writeStartElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
             for (M item : items) {
-                item.write(ctx);
+                item.write(writer);
             }
-            ctx.writer.writeEndElement();
+            writer.writeEndElement();
         }
     }
 
-    public void addBusNode(BusNode node) {
-        busNodesMetadata.add(new NodeMetadata(node, node.getPosition()));
+    public void addBusNode(String svgId, String equipmentId) {
+        busNodesMetadata.add(new BusNodeMetadata(svgId, equipmentId));
     }
 
-    public void addNode(Node node) {
-        nodesMetadata.add(new NodeMetadata(node, node.getPosition()));
+    public void addNode(String svgId, String equipmentId, String positionX, String positionY) {
+        nodesMetadata.add(new NodeMetadata(svgId, equipmentId, positionX, positionY));
     }
 
-    public void addEdge(Edge edge, Graph graph) {
-        edgesMetadata.add(new EdgeMetadata(edge, graph.getNode1(edge).getDiagramId(), graph.getNode2(edge).getDiagramId()));
+    public void addEdge(String svgId, String equipmentId, String node1DiagramId, String node2DiagramID) {
+        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1DiagramId, node2DiagramID));
     }
 }

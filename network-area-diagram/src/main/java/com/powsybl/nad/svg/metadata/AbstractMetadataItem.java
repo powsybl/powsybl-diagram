@@ -7,36 +7,31 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.Optional;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public abstract class AbstractMetadataItem {
-    private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
+    private static final String DIAGRAM_ID_ATTRIBUTE = "svgId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
-    private final Identifiable identifiable;
+    private final String svgId;
+    private final String equipmentId;
 
-    protected AbstractMetadataItem(Identifiable identifiable) {
-        this.identifiable = identifiable;
-    }
-
-    public Identifiable getIdentifiable() {
-        return identifiable;
+    protected AbstractMetadataItem(String svgId, String equipmentId) {
+        this.svgId = svgId;
+        this.equipmentId = equipmentId;
     }
 
     abstract String getElementName();
 
-    void write(DiagramMetadata.WritingContext ctx) throws XMLStreamException {
-        String elementName = ctx.overrideElementName ? ctx.elementName : getElementName();
-        ctx.writer.writeEmptyElement(DiagramMetadata.METADATA_PREFIX, elementName, DiagramMetadata.METADATA_NAMESPACE_URI);
-        ctx.writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, ctx.diagramIdToSvgId.apply(identifiable.getDiagramId()));
-        ctx.writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, identifiable.getEquipmentId());
+    void write(XMLStreamWriter writer) throws XMLStreamException {
+        writer.writeEmptyElement(DiagramMetadata.METADATA_PREFIX, getElementName(), DiagramMetadata.METADATA_NAMESPACE_URI);
+        writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, svgId);
+        writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, equipmentId);
     }
 
     interface MetadataItemReader<I extends AbstractMetadataItem> {
@@ -45,35 +40,11 @@ public abstract class AbstractMetadataItem {
         I read(XMLStreamReader reader);
     }
 
-    static Identifiable readIdentifiable(XMLStreamReader reader) {
-        String diagramId = reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
-        String equipmentId = reader.getAttributeValue(null, EQUIPMENT_ID_ATTRIBUTE);
-        return new DeserializedIdentifiable(diagramId, equipmentId);
+    static String readDiagramId(XMLStreamReader reader) {
+        return reader.getAttributeValue(null, DIAGRAM_ID_ATTRIBUTE);
     }
 
-    static class DeserializedIdentifiable implements Identifiable {
-
-        private final String diagramId;
-        private final String equipmentId;
-
-        DeserializedIdentifiable(String diagramId, String equipmentId) {
-            this.diagramId = diagramId;
-            this.equipmentId = equipmentId;
-        }
-
-        @Override
-        public String getDiagramId() {
-            return diagramId;
-        }
-
-        @Override
-        public String getEquipmentId() {
-            return equipmentId;
-        }
-
-        @Override
-        public Optional<String> getName() {
-            return Optional.empty();
-        }
+    static String readEquipmentId(XMLStreamReader reader) {
+        return reader.getAttributeValue(null, EQUIPMENT_ID_ATTRIBUTE);
     }
 }

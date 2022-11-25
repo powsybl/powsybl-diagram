@@ -49,22 +49,22 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode diagramId="1" equipmentId="vl1_0" x="-34.81" y="-139.87"/>
-                <nad:busNode diagramId="2" equipmentId="vl1_1" x="-34.81" y="-139.87"/>
-                <nad:busNode diagramId="4" equipmentId="vl2_0" x="-106.06" y="197.12"/>
-                <nad:busNode diagramId="6" equipmentId="vl3_0" x="232.52" y="76.75"/>
-                <nad:busNode diagramId="7" equipmentId="vl3_1" x="232.52" y="76.75"/>
+                <nad:busNode svgId="1" equipmentId="vl1_0"/>
+                <nad:busNode svgId="2" equipmentId="vl1_1"/>
+                <nad:busNode svgId="4" equipmentId="vl2_0"/>
+                <nad:busNode svgId="6" equipmentId="vl3_0"/>
+                <nad:busNode svgId="7" equipmentId="vl3_1"/>
             </nad:busNodes>
             <nad:nodes>
-                <nad:node diagramId="0" equipmentId="vl1" x="-34.81" y="-139.87"/>
-                <nad:node diagramId="3" equipmentId="vl2" x="-106.06" y="197.12"/>
-                <nad:node diagramId="5" equipmentId="vl3" x="232.52" y="76.75"/>
+                <nad:node svgId="0" equipmentId="vl1" x="-34.81" y="-139.87"/>
+                <nad:node svgId="3" equipmentId="vl2" x="-106.06" y="197.12"/>
+                <nad:node svgId="5" equipmentId="vl3" x="232.52" y="76.75"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge diagramId="8" equipmentId="l1" node1="0" node2="3"/>
-                <nad:edge diagramId="9" equipmentId="l2" node1="0" node2="3"/>
-                <nad:edge diagramId="10" equipmentId="tr1" node1="0" node2="5"/>
-                <nad:edge diagramId="11" equipmentId="tr2" node1="3" node2="5"/>
+                <nad:edge svgId="8" equipmentId="l1" node1="0" node2="3"/>
+                <nad:edge svgId="9" equipmentId="l2" node1="0" node2="3"/>
+                <nad:edge svgId="10" equipmentId="tr1" node1="0" node2="5"/>
+                <nad:edge svgId="11" equipmentId="tr2" node1="3" node2="5"/>
             </nad:edges>
         </nad:nad>
     </metadata>

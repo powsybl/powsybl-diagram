@@ -46,19 +46,17 @@
         </xs:complexType>
     </xs:element>
     <xs:complexType name="busNode">
-        <xs:attribute name="diagramId" use="required" type="nad:nonEmptyString"/>
+        <xs:attribute name="svgId" use="required" type="nad:nonEmptyString"/>
         <xs:attribute name="equipmentId" use="required" type="nad:nonEmptyString"/>
-        <xs:attribute name="x" type="xs:double"/>
-        <xs:attribute name="y" type="xs:double"/>
     </xs:complexType>
     <xs:complexType name="Node">
-        <xs:attribute name="diagramId" use="required" type="nad:nonEmptyString"/>
+        <xs:attribute name="svgId" use="required" type="nad:nonEmptyString"/>
         <xs:attribute name="equipmentId" use="required" type="nad:nonEmptyString"/>
         <xs:attribute name="x" type="xs:double"/>
         <xs:attribute name="y" type="xs:double"/>
     </xs:complexType>
     <xs:complexType name="Edge">
-        <xs:attribute name="diagramId" use="required" type="nad:nonEmptyString"/>
+        <xs:attribute name="svgId" use="required" type="nad:nonEmptyString"/>
         <xs:attribute name="equipmentId" use="required" type="nad:nonEmptyString"/>
     </xs:complexType>
 </xs:schema>
