@@ -23,7 +23,7 @@ public class NodeMetadata extends AbstractMetadataItem {
     private static final String BUS_NODE_ELEMENT_NAME = "busNode";
     private static final String POSITION_X_ATTRIBUTE = "x";
     private static final String POSITION_Y_ATTRIBUTE = "y";
-    private static final String POSITION_COORD_FORMAT = "%.4f";
+    private static final String POSITION_COORD_FORMAT = "%.2f";
 
     public NodeMetadata(Identifiable identifiable, Point position) {
         super(identifiable);

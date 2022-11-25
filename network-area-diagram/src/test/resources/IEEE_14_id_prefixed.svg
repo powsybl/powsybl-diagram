@@ -49,36 +49,36 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode diagramId="test_1" equipmentId="VL1_0" x="517.0088" y="-642.4998"/>
-                <nad:busNode diagramId="test_3" equipmentId="VL10_0" x="-518.5098" y="516.4240"/>
-                <nad:busNode diagramId="test_5" equipmentId="VL11_0" x="-720.9550" y="118.6091"/>
-                <nad:busNode diagramId="test_7" equipmentId="VL12_0" x="-635.6591" y="-662.8291"/>
-                <nad:busNode diagramId="test_9" equipmentId="VL13_0" x="-630.1849" y="-297.8248"/>
-                <nad:busNode diagramId="test_11" equipmentId="VL14_0" x="-308.4750" y="92.1980"/>
-                <nad:busNode diagramId="test_13" equipmentId="VL2_0" x="596.0521" y="-263.3490"/>
-                <nad:busNode diagramId="test_15" equipmentId="VL3_0" x="827.8753" y="25.4153"/>
-                <nad:busNode diagramId="test_17" equipmentId="VL4_0" x="405.9533" y="123.3751"/>
-                <nad:busNode diagramId="test_19" equipmentId="VL5_0" x="225.1358" y="-349.9715"/>
-                <nad:busNode diagramId="test_21" equipmentId="VL6_0" x="-336.0948" y="-378.7472"/>
-                <nad:busNode diagramId="test_23" equipmentId="VL7_0" x="369.0583" y="599.7186"/>
-                <nad:busNode diagramId="test_25" equipmentId="VL8_0" x="568.6298" y="975.4569"/>
-                <nad:busNode diagramId="test_27" equipmentId="VL9_0" x="-23.7644" y="416.6994"/>
+                <nad:busNode diagramId="test_1" equipmentId="VL1_0" x="517.01" y="-642.50"/>
+                <nad:busNode diagramId="test_3" equipmentId="VL10_0" x="-518.51" y="516.42"/>
+                <nad:busNode diagramId="test_5" equipmentId="VL11_0" x="-720.95" y="118.61"/>
+                <nad:busNode diagramId="test_7" equipmentId="VL12_0" x="-635.66" y="-662.83"/>
+                <nad:busNode diagramId="test_9" equipmentId="VL13_0" x="-630.18" y="-297.82"/>
+                <nad:busNode diagramId="test_11" equipmentId="VL14_0" x="-308.48" y="92.20"/>
+                <nad:busNode diagramId="test_13" equipmentId="VL2_0" x="596.05" y="-263.35"/>
+                <nad:busNode diagramId="test_15" equipmentId="VL3_0" x="827.88" y="25.42"/>
+                <nad:busNode diagramId="test_17" equipmentId="VL4_0" x="405.95" y="123.38"/>
+                <nad:busNode diagramId="test_19" equipmentId="VL5_0" x="225.14" y="-349.97"/>
+                <nad:busNode diagramId="test_21" equipmentId="VL6_0" x="-336.09" y="-378.75"/>
+                <nad:busNode diagramId="test_23" equipmentId="VL7_0" x="369.06" y="599.72"/>
+                <nad:busNode diagramId="test_25" equipmentId="VL8_0" x="568.63" y="975.46"/>
+                <nad:busNode diagramId="test_27" equipmentId="VL9_0" x="-23.76" y="416.70"/>
             </nad:busNodes>
             <nad:nodes>
-                <nad:node diagramId="test_0" equipmentId="VL1" x="517.0088" y="-642.4998"/>
-                <nad:node diagramId="test_2" equipmentId="VL10" x="-518.5098" y="516.4240"/>
-                <nad:node diagramId="test_4" equipmentId="VL11" x="-720.9550" y="118.6091"/>
-                <nad:node diagramId="test_6" equipmentId="VL12" x="-635.6591" y="-662.8291"/>
-                <nad:node diagramId="test_8" equipmentId="VL13" x="-630.1849" y="-297.8248"/>
-                <nad:node diagramId="test_10" equipmentId="VL14" x="-308.4750" y="92.1980"/>
-                <nad:node diagramId="test_12" equipmentId="VL2" x="596.0521" y="-263.3490"/>
-                <nad:node diagramId="test_14" equipmentId="VL3" x="827.8753" y="25.4153"/>
-                <nad:node diagramId="test_16" equipmentId="VL4" x="405.9533" y="123.3751"/>
-                <nad:node diagramId="test_18" equipmentId="VL5" x="225.1358" y="-349.9715"/>
-                <nad:node diagramId="test_20" equipmentId="VL6" x="-336.0948" y="-378.7472"/>
-                <nad:node diagramId="test_22" equipmentId="VL7" x="369.0583" y="599.7186"/>
-                <nad:node diagramId="test_24" equipmentId="VL8" x="568.6298" y="975.4569"/>
-                <nad:node diagramId="test_26" equipmentId="VL9" x="-23.7644" y="416.6994"/>
+                <nad:node diagramId="test_0" equipmentId="VL1" x="517.01" y="-642.50"/>
+                <nad:node diagramId="test_2" equipmentId="VL10" x="-518.51" y="516.42"/>
+                <nad:node diagramId="test_4" equipmentId="VL11" x="-720.95" y="118.61"/>
+                <nad:node diagramId="test_6" equipmentId="VL12" x="-635.66" y="-662.83"/>
+                <nad:node diagramId="test_8" equipmentId="VL13" x="-630.18" y="-297.82"/>
+                <nad:node diagramId="test_10" equipmentId="VL14" x="-308.48" y="92.20"/>
+                <nad:node diagramId="test_12" equipmentId="VL2" x="596.05" y="-263.35"/>
+                <nad:node diagramId="test_14" equipmentId="VL3" x="827.88" y="25.42"/>
+                <nad:node diagramId="test_16" equipmentId="VL4" x="405.95" y="123.38"/>
+                <nad:node diagramId="test_18" equipmentId="VL5" x="225.14" y="-349.97"/>
+                <nad:node diagramId="test_20" equipmentId="VL6" x="-336.09" y="-378.75"/>
+                <nad:node diagramId="test_22" equipmentId="VL7" x="369.06" y="599.72"/>
+                <nad:node diagramId="test_24" equipmentId="VL8" x="568.63" y="975.46"/>
+                <nad:node diagramId="test_26" equipmentId="VL9" x="-23.76" y="416.70"/>
             </nad:nodes>
             <nad:edges>
                 <nad:edge diagramId="test_28" equipmentId="L1-2-1"/>

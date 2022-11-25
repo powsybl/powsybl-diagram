@@ -49,18 +49,18 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode diagramId="1" equipmentId="S1VL1_0" x="-572.5148" y="61.1383"/>
-                <nad:busNode diagramId="3" equipmentId="S1VL2_0" x="-168.8019" y="45.8304"/>
-                <nad:busNode diagramId="5" equipmentId="S2VL1_0" x="73.3231" y="-219.7411"/>
-                <nad:busNode diagramId="7" equipmentId="S3VL1_0" x="250.4963" y="93.8148"/>
-                <nad:busNode diagramId="9" equipmentId="S4VL1_0" x="633.7430" y="221.4062"/>
+                <nad:busNode diagramId="1" equipmentId="S1VL1_0" x="-572.51" y="61.14"/>
+                <nad:busNode diagramId="3" equipmentId="S1VL2_0" x="-168.80" y="45.83"/>
+                <nad:busNode diagramId="5" equipmentId="S2VL1_0" x="73.32" y="-219.74"/>
+                <nad:busNode diagramId="7" equipmentId="S3VL1_0" x="250.50" y="93.81"/>
+                <nad:busNode diagramId="9" equipmentId="S4VL1_0" x="633.74" y="221.41"/>
             </nad:busNodes>
             <nad:nodes>
-                <nad:node diagramId="0" equipmentId="S1VL1" x="-572.5148" y="61.1383"/>
-                <nad:node diagramId="2" equipmentId="S1VL2" x="-168.8019" y="45.8304"/>
-                <nad:node diagramId="4" equipmentId="S2VL1" x="73.3231" y="-219.7411"/>
-                <nad:node diagramId="6" equipmentId="S3VL1" x="250.4963" y="93.8148"/>
-                <nad:node diagramId="8" equipmentId="S4VL1" x="633.7430" y="221.4062"/>
+                <nad:node diagramId="0" equipmentId="S1VL1" x="-572.51" y="61.14"/>
+                <nad:node diagramId="2" equipmentId="S1VL2" x="-168.80" y="45.83"/>
+                <nad:node diagramId="4" equipmentId="S2VL1" x="73.32" y="-219.74"/>
+                <nad:node diagramId="6" equipmentId="S3VL1" x="250.50" y="93.81"/>
+                <nad:node diagramId="8" equipmentId="S4VL1" x="633.74" y="221.41"/>
             </nad:nodes>
             <nad:edges>
                 <nad:edge diagramId="10" equipmentId="TWT"/>
