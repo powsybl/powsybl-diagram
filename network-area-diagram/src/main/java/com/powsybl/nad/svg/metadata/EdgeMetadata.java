@@ -7,8 +7,6 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-
 import javax.xml.stream.XMLStreamReader;
 
 /**
@@ -18,8 +16,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
 
     private static final String ELEMENT_NAME = "edge";
 
-    public EdgeMetadata(Identifiable identifiable) {
-        super(identifiable);
+    public EdgeMetadata(String svgId, String equipmentId) {
+        super(svgId, equipmentId);
     }
 
     @Override
@@ -34,10 +32,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
         }
 
         public EdgeMetadata read(XMLStreamReader reader) {
-            Identifiable deserializedIdentifiable = readIdentifiable(reader);
             // Read edge-specific metadata
             // ...
-            return new EdgeMetadata(deserializedIdentifiable);
+            return new EdgeMetadata(readDiagramId(reader), readEquipmentId(reader));
         }
     }
 }

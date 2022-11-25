@@ -7,35 +7,25 @@
  */
 package com.powsybl.nad.svg.metadata;
 
-import com.powsybl.nad.model.Identifiable;
-import com.powsybl.nad.model.Point;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public class NodeMetadata extends AbstractMetadataItem {
-    private final Point position;
-
     private static final String ELEMENT_NAME = "node";
-    private static final String BUS_NODE_ELEMENT_NAME = "busNode";
     private static final String POSITION_X_ATTRIBUTE = "x";
     private static final String POSITION_Y_ATTRIBUTE = "y";
-    private static final String POSITION_COORD_FORMAT = "%.2f";
 
-    public NodeMetadata(Identifiable identifiable, Point position) {
-        super(identifiable);
-        this.position = position;
-    }
+    private final String positionX;
+    private final String positionY;
 
-    public static String getBusNodeElementName() {
-        return BUS_NODE_ELEMENT_NAME;
-    }
-
-    public Point getPosition() {
-        return position;
+    public NodeMetadata(String svgId, String equipmentId, String positionX, String positionY) {
+        super(svgId, equipmentId);
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     @Override
@@ -44,14 +34,10 @@ public class NodeMetadata extends AbstractMetadataItem {
     }
 
     @Override
-    void write(DiagramMetadata.WritingContext ctx) throws XMLStreamException {
-        super.write(ctx);
-        ctx.writer.writeAttribute(POSITION_X_ATTRIBUTE, formatted(position.getX()));
-        ctx.writer.writeAttribute(POSITION_Y_ATTRIBUTE, formatted(position.getY()));
-    }
-
-    private static String formatted(double value) {
-        return String.format(POSITION_COORD_FORMAT, value);
+    void write(XMLStreamWriter writer) throws XMLStreamException {
+        super.write(writer);
+        writer.writeAttribute(POSITION_X_ATTRIBUTE, positionX);
+        writer.writeAttribute(POSITION_Y_ATTRIBUTE, positionY);
     }
 
     static class Reader implements MetadataItemReader<NodeMetadata> {
@@ -59,15 +45,7 @@ public class NodeMetadata extends AbstractMetadataItem {
         private final String elementName;
 
         Reader() {
-            this(ELEMENT_NAME);
-        }
-
-        static Reader forBusNodes() {
-            return new Reader(BUS_NODE_ELEMENT_NAME);
-        }
-
-        private Reader(String elementName) {
-            this.elementName = elementName;
+            this.elementName = ELEMENT_NAME;
         }
 
         @Override
@@ -76,22 +54,9 @@ public class NodeMetadata extends AbstractMetadataItem {
         }
 
         public NodeMetadata read(XMLStreamReader reader) {
-            Identifiable deserializedIdentifiable = readIdentifiable(reader);
-            Point position = readPoint(reader);
-            return new NodeMetadata(deserializedIdentifiable, position);
-        }
-
-        private static Point readPoint(XMLStreamReader reader) {
-            double x = parseDouble(reader.getAttributeValue(null, POSITION_X_ATTRIBUTE));
-            double y = parseDouble(reader.getAttributeValue(null, POSITION_Y_ATTRIBUTE));
-            return new Point(x, y);
-        }
-
-        private static double parseDouble(String s) {
-            if (s == null || s.isEmpty()) {
-                return Double.NaN;
-            }
-            return Double.parseDouble(s);
+            return new NodeMetadata(readDiagramId(reader), readEquipmentId(reader),
+                    reader.getAttributeValue(null, POSITION_X_ATTRIBUTE),
+                    reader.getAttributeValue(null, POSITION_Y_ATTRIBUTE));
         }
     }
 }
