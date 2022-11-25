@@ -21,7 +21,6 @@ public class NodeMetadata extends AbstractMetadataItem {
     private final Point position;
 
     private static final String ELEMENT_NAME = "node";
-    private static final String BUS_NODE_ELEMENT_NAME = "busNode";
     private static final String POSITION_X_ATTRIBUTE = "x";
     private static final String POSITION_Y_ATTRIBUTE = "y";
     private static final String POSITION_COORD_FORMAT = "%.2f";
@@ -29,10 +28,6 @@ public class NodeMetadata extends AbstractMetadataItem {
     public NodeMetadata(Identifiable identifiable, Point position) {
         super(identifiable);
         this.position = position;
-    }
-
-    public static String getBusNodeElementName() {
-        return BUS_NODE_ELEMENT_NAME;
     }
 
     public Point getPosition() {
@@ -61,10 +56,6 @@ public class NodeMetadata extends AbstractMetadataItem {
 
         Reader() {
             this(ELEMENT_NAME);
-        }
-
-        static Reader forBusNodes() {
-            return new Reader(BUS_NODE_ELEMENT_NAME);
         }
 
         private Reader(String elementName) {

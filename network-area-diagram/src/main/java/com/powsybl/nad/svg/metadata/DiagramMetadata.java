@@ -35,7 +35,7 @@ public class DiagramMetadata {
     private static final String METADATA_NODES_ELEMENT_NAME = "nodes";
     private static final String METADATA_EDGES_ELEMENT_NAME = "edges";
 
-    private final List<NodeMetadata> busNodesMetadata = new ArrayList<>();
+    private final List<BusNodeMetadata> busNodesMetadata = new ArrayList<>();
     private final List<NodeMetadata> nodesMetadata = new ArrayList<>();
     private final List<EdgeMetadata> edgesMetadata = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class DiagramMetadata {
             String token = reader.getLocalName();
             switch (token) {
                 case METADATA_BUS_NODES_ELEMENT_NAME:
-                    readCollection(metadata.busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, NodeMetadata.Reader.forBusNodes(), reader);
+                    readCollection(metadata.busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, new BusNodeMetadata.Reader(), reader);
                     break;
                 case METADATA_NODES_ELEMENT_NAME:
                     readCollection(metadata.nodesMetadata, METADATA_NODES_ELEMENT_NAME, new NodeMetadata.Reader(), reader);
@@ -80,8 +80,6 @@ public class DiagramMetadata {
     static class WritingContext {
         final XMLStreamWriter writer;
         final UnaryOperator<String> diagramIdToSvgId;
-        boolean overrideElementName = false;
-        String elementName;
 
         WritingContext(UnaryOperator<String> diagramIdToSvgId, XMLStreamWriter writer) {
             this.writer = writer;
@@ -101,11 +99,7 @@ public class DiagramMetadata {
         ctx.writer.writeStartElement(METADATA_PREFIX, METADATA_DIAGRAM_ELEMENT_NAME, METADATA_NAMESPACE_URI);
         ctx.writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
 
-        ctx.overrideElementName = true;
-        ctx.elementName = NodeMetadata.getBusNodeElementName();
         writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, ctx);
-        ctx.overrideElementName = false;
-
         writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, ctx);
         writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, ctx);
         ctx.writer.writeEndElement();
@@ -127,7 +121,7 @@ public class DiagramMetadata {
     }
 
     public void addBusNode(BusNode node) {
-        busNodesMetadata.add(new NodeMetadata(node, node.getPosition()));
+        busNodesMetadata.add(new BusNodeMetadata(node));
     }
 
     public void addNode(Node node) {

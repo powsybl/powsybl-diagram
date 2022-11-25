@@ -33,8 +33,7 @@ public abstract class AbstractMetadataItem {
     abstract String getElementName();
 
     void write(DiagramMetadata.WritingContext ctx) throws XMLStreamException {
-        String elementName = ctx.overrideElementName ? ctx.elementName : getElementName();
-        ctx.writer.writeEmptyElement(DiagramMetadata.METADATA_PREFIX, elementName, DiagramMetadata.METADATA_NAMESPACE_URI);
+        ctx.writer.writeEmptyElement(DiagramMetadata.METADATA_PREFIX, getElementName(), DiagramMetadata.METADATA_NAMESPACE_URI);
         ctx.writer.writeAttribute(DIAGRAM_ID_ATTRIBUTE, ctx.diagramIdToSvgId.apply(identifiable.getDiagramId()));
         ctx.writer.writeAttribute(EQUIPMENT_ID_ATTRIBUTE, identifiable.getEquipmentId());
     }
