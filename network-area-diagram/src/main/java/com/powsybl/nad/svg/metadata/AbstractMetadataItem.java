@@ -18,7 +18,7 @@ import java.util.Optional;
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
 public abstract class AbstractMetadataItem {
-    private static final String DIAGRAM_ID_ATTRIBUTE = "diagramId";
+    private static final String DIAGRAM_ID_ATTRIBUTE = "svgId";
     private static final String EQUIPMENT_ID_ATTRIBUTE = "equipmentId";
 
     private final String svgId;
