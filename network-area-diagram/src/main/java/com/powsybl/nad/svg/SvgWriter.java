@@ -9,6 +9,7 @@ package com.powsybl.nad.svg;
 import com.powsybl.commons.exceptions.UncheckedXmlStreamException;
 import com.powsybl.commons.xml.XmlUtil;
 import com.powsybl.nad.model.*;
+import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.jgrapht.alg.util.Pair;
 
@@ -33,6 +34,7 @@ public class SvgWriter {
     public static final String XHTML_NAMESPACE_URI = "http://www.w3.org/1999/xhtml";
     private static final String SVG_ROOT_ELEMENT_NAME = "svg";
     private static final String STYLE_ELEMENT_NAME = "style";
+    private static final String METADATA_ELEMENT_NAME = "metadata";
     private static final String GROUP_ELEMENT_NAME = "g";
     private static final String POLYLINE_ELEMENT_NAME = "polyline";
     private static final String PATH_ELEMENT_NAME = "path";
@@ -782,13 +784,15 @@ public class SvgWriter {
     }
 
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
-        GraphMetadata metadata = new GraphMetadata();
+        DiagramMetadata metadata = new DiagramMetadata();
 
-        graph.getBusNodesStream().forEach(bn -> metadata.addBusNode(bn, this::getPrefixedId));
-        graph.getNodesStream().forEach(bn -> metadata.addNode(bn, this::getPrefixedId));
-        graph.getEdgesStream().forEach(bn -> metadata.addEdge(bn, this::getPrefixedId));
+        graph.getBusNodesStream().forEach(metadata::addBusNode);
+        graph.getNodesStream().forEach(metadata::addNode);
+        graph.getEdgesStream().forEach(metadata::addEdge);
 
-        metadata.writeXml(writer);
+        writer.writeStartElement(METADATA_ELEMENT_NAME);
+        metadata.writeXml(this::getPrefixedId, writer);
+        writer.writeEndElement();
     }
 
     private static String getFormattedValue(double value) {
