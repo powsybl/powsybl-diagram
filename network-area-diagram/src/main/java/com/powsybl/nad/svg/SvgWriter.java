@@ -786,12 +786,13 @@ public class SvgWriter {
     private void addMetadata(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
         DiagramMetadata metadata = new DiagramMetadata();
 
-        graph.getBusNodesStream().forEach(metadata::addBusNode);
-        graph.getNodesStream().forEach(metadata::addNode);
-        graph.getEdgesStream().forEach(metadata::addEdge);
+        graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
+        graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
+                getFormattedValue(node.getX()), getFormattedValue(node.getY())));
+        graph.getEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId()));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
-        metadata.writeXml(this::getPrefixedId, writer);
+        metadata.writeXml(writer);
         writer.writeEndElement();
     }
 

@@ -77,58 +77,40 @@ public class DiagramMetadata {
         });
     }
 
-    static class WritingContext {
-        final XMLStreamWriter writer;
-        final UnaryOperator<String> diagramIdToSvgId;
-
-        WritingContext(UnaryOperator<String> diagramIdToSvgId, XMLStreamWriter writer) {
-            this.writer = writer;
-            this.diagramIdToSvgId = diagramIdToSvgId;
-        }
-    }
-
     public void writeXml(XMLStreamWriter writer) throws XMLStreamException {
-        writeXml(new WritingContext(UnaryOperator.identity(), writer));
-    }
+        writer.writeStartElement(METADATA_PREFIX, METADATA_DIAGRAM_ELEMENT_NAME, METADATA_NAMESPACE_URI);
+        writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
 
-    public void writeXml(UnaryOperator<String> diagramIdToSvgId, XMLStreamWriter writer) throws XMLStreamException {
-        writeXml(new WritingContext(diagramIdToSvgId, writer));
-    }
-
-    public void writeXml(WritingContext ctx) throws XMLStreamException {
-        ctx.writer.writeStartElement(METADATA_PREFIX, METADATA_DIAGRAM_ELEMENT_NAME, METADATA_NAMESPACE_URI);
-        ctx.writer.writeNamespace(METADATA_PREFIX, METADATA_NAMESPACE_URI);
-
-        writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, ctx);
-        writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, ctx);
-        writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, ctx);
-        ctx.writer.writeEndElement();
+        writeCollection(busNodesMetadata, METADATA_BUS_NODES_ELEMENT_NAME, writer);
+        writeCollection(nodesMetadata, METADATA_NODES_ELEMENT_NAME, writer);
+        writeCollection(edgesMetadata, METADATA_EDGES_ELEMENT_NAME, writer);
+        writer.writeEndElement();
     }
 
     private static <M extends AbstractMetadataItem> void writeCollection(
             Collection<M> items,
             String collectionElementName,
-            WritingContext ctx) throws XMLStreamException {
+            XMLStreamWriter writer) throws XMLStreamException {
         if (items.isEmpty()) {
-            ctx.writer.writeEmptyElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
+            writer.writeEmptyElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
         } else {
-            ctx.writer.writeStartElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
+            writer.writeStartElement(METADATA_PREFIX, collectionElementName, METADATA_NAMESPACE_URI);
             for (M item : items) {
-                item.write(ctx);
+                item.write(writer);
             }
-            ctx.writer.writeEndElement();
+            writer.writeEndElement();
         }
     }
 
-    public void addBusNode(BusNode node) {
-        busNodesMetadata.add(new BusNodeMetadata(node));
+    public void addBusNode(String svgId, String equipmentId) {
+        busNodesMetadata.add(new BusNodeMetadata(svgId, equipmentId));
     }
 
-    public void addNode(Node node) {
-        nodesMetadata.add(new NodeMetadata(node, node.getPosition()));
+    public void addNode(String svgId, String equipmentId, String positionX, String positionY) {
+        nodesMetadata.add(new NodeMetadata(svgId, equipmentId, positionX, positionY));
     }
 
-    public void addEdge(Edge edge) {
-        edgesMetadata.add(new EdgeMetadata(edge));
+    public void addEdge(String svgId, String equipmentId) {
+        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId));
     }
 }

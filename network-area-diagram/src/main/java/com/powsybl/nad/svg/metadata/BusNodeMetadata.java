@@ -7,8 +7,8 @@ import javax.xml.stream.XMLStreamReader;
 public class BusNodeMetadata extends AbstractMetadataItem {
     private static final String ELEMENT_NAME = "busNode";
 
-    public BusNodeMetadata(Identifiable identifiable) {
-        super(identifiable);
+    public BusNodeMetadata(String svgId, String equipmentId) {
+        super(svgId, equipmentId);
     }
 
     @Override
@@ -23,10 +23,7 @@ public class BusNodeMetadata extends AbstractMetadataItem {
         }
 
         public BusNodeMetadata read(XMLStreamReader reader) {
-            Identifiable deserializedIdentifiable = readIdentifiable(reader);
-            // Read busNode-specific metadata
-            // ...
-            return new BusNodeMetadata(deserializedIdentifiable);
+            return new BusNodeMetadata(readDiagramId(reader), readEquipmentId(reader));
         }
     }
 }
