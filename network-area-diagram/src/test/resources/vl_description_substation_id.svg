@@ -122,7 +122,7 @@
                 <nad:node diagramId="2" equipmentId="vl2" x="-84.74" y="167.62"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge diagramId="4" equipmentId="l1"/>
+                <nad:edge diagramId="4" equipmentId="l1" node1="0" node2="2"/>
             </nad:edges>
         </nad:nad>
     </metadata>
@@ -136,7 +136,7 @@
     </g>
     <g class="nad-branch-edges">
         <g id="4">
-            <g class="nad-vl300to500-line">
+            <g id="4.1" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path" points="140.62,-69.02 37.43,39.35"/>
                 <g class="nad-edge-infos" transform="translate(118.21,-45.48)">
                     <g class="nad-active nad-state-out">
@@ -155,7 +155,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl300to500-line">
+            <g id="4.2" class="nad-vl300to500-line">
                 <polyline class="nad-edge-path" points="-65.77,147.71 37.43,39.35"/>
                 <g class="nad-edge-infos" transform="translate(-43.36,124.17)">
                     <g class="nad-active nad-state-out">
@@ -177,17 +177,17 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_edge" points="189.25,-93.38 259.59,-103.93"/>
-        <polyline id="2_edge" points="-55.07,163.17 15.26,152.62"/>
+        <polyline id="0-textedge" points="189.25,-93.38 259.59,-103.93"/>
+        <polyline id="2-textedge" points="-55.07,163.17 15.26,152.62"/>
     </g>
     <g class="nad-text-nodes">
-        <foreignObject y="-128.93" x="259.59" height="1" width="1">
+        <foreignObject id="0-textnode" y="-128.93" x="259.59" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>vl1</div>
                 <div>s1</div>
             </div>
         </foreignObject>
-        <foreignObject y="127.62" x="15.26" height="1" width="1">
+        <foreignObject id="2-textnode" y="127.62" x="15.26" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>vl2</div>
                 <div>s1</div>

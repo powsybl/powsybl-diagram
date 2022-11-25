@@ -21,13 +21,13 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private static final String NODE1_ATTRIBUTE = "node1";
     private static final String NODE2_ATTRIBUTE = "node2";
 
-    private final String node1;
-    private final String node2;
+    private final String node1DiagramId;
+    private final String node2DiagramId;
 
-    public EdgeMetadata(Identifiable identifiable, String node1, String node2) {
+    public EdgeMetadata(Identifiable identifiable, String node1DiagramId, String node2DiagramId) {
         super(identifiable);
-        this.node1 = node1;
-        this.node2 = node2;
+        this.node1DiagramId = node1DiagramId;
+        this.node2DiagramId = node2DiagramId;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @Override
     void write(DiagramMetadata.WritingContext ctx) throws XMLStreamException {
         super.write(ctx);
-        ctx.writer.writeAttribute(NODE1_ATTRIBUTE, node1);
-        ctx.writer.writeAttribute(NODE2_ATTRIBUTE, node2);
+        ctx.writer.writeAttribute(NODE1_ATTRIBUTE, node1DiagramId);
+        ctx.writer.writeAttribute(NODE2_ATTRIBUTE, node2DiagramId);
     }
 
     static class Reader implements MetadataItemReader<EdgeMetadata> {
