@@ -12,6 +12,7 @@ import com.powsybl.nad.model.Point;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.Locale;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
@@ -51,7 +52,7 @@ public class NodeMetadata extends AbstractMetadataItem {
     }
 
     private static String formatted(double value) {
-        return String.format(POSITION_COORD_FORMAT, value);
+        return String.format(Locale.US, POSITION_COORD_FORMAT, value);
     }
 
     static class Reader implements MetadataItemReader<NodeMetadata> {
