@@ -49,9 +49,9 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode diagramId="1" equipmentId="VL_11_0" x="-377.54" y="109.86"/>
-                <nad:busNode diagramId="5" equipmentId="VL_132_0" x="252.09" y="302.44"/>
-                <nad:busNode diagramId="8" equipmentId="VL_33_0" x="261.19" y="-298.22"/>
+                <nad:busNode diagramId="1" equipmentId="VL_11_0"/>
+                <nad:busNode diagramId="5" equipmentId="VL_132_0"/>
+                <nad:busNode diagramId="8" equipmentId="VL_33_0"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node diagramId="0" equipmentId="VL_11" x="-377.54" y="109.86"/>

@@ -49,20 +49,20 @@
     <metadata>
         <nad:nad xmlns:nad="http://www.powsybl.org/schema/nad-metadata/1_0">
             <nad:busNodes>
-                <nad:busNode diagramId="1" equipmentId="VL1_0" x="979.43" y="495.57"/>
-                <nad:busNode diagramId="3" equipmentId="VL10_0" x="-1039.27" y="14.91"/>
-                <nad:busNode diagramId="5" equipmentId="VL11_0" x="-879.21" y="-478.53"/>
-                <nad:busNode diagramId="7" equipmentId="VL12_0" x="-111.97" y="-704.76"/>
-                <nad:busNode diagramId="9" equipmentId="VL13_0" x="-399.66" y="-132.95"/>
-                <nad:busNode diagramId="11" equipmentId="VL14_0" x="-711.89" y="460.94"/>
-                <nad:busNode diagramId="13" equipmentId="VL2_0" x="889.61" y="18.81"/>
-                <nad:busNode diagramId="15" equipmentId="VL3_0" x="536.13" y="-344.90"/>
-                <nad:busNode diagramId="17" equipmentId="VL4_0" x="358.14" y="151.61"/>
-                <nad:busNode diagramId="19" equipmentId="VL5_0" x="642.46" y="167.97"/>
-                <nad:busNode diagramId="21" equipmentId="VL6_0" x="-200.18" y="-394.87"/>
-                <nad:busNode diagramId="23" equipmentId="VL7_0" x="157.47" y="788.76"/>
-                <nad:busNode diagramId="25" equipmentId="VL8_0" x="468.63" y="1266.46"/>
-                <nad:busNode diagramId="27" equipmentId="VL9_0" x="-308.54" y="477.21"/>
+                <nad:busNode diagramId="1" equipmentId="VL1_0"/>
+                <nad:busNode diagramId="3" equipmentId="VL10_0"/>
+                <nad:busNode diagramId="5" equipmentId="VL11_0"/>
+                <nad:busNode diagramId="7" equipmentId="VL12_0"/>
+                <nad:busNode diagramId="9" equipmentId="VL13_0"/>
+                <nad:busNode diagramId="11" equipmentId="VL14_0"/>
+                <nad:busNode diagramId="13" equipmentId="VL2_0"/>
+                <nad:busNode diagramId="15" equipmentId="VL3_0"/>
+                <nad:busNode diagramId="17" equipmentId="VL4_0"/>
+                <nad:busNode diagramId="19" equipmentId="VL5_0"/>
+                <nad:busNode diagramId="21" equipmentId="VL6_0"/>
+                <nad:busNode diagramId="23" equipmentId="VL7_0"/>
+                <nad:busNode diagramId="25" equipmentId="VL8_0"/>
+                <nad:busNode diagramId="27" equipmentId="VL9_0"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node diagramId="0" equipmentId="VL1" x="979.43" y="495.57"/>
