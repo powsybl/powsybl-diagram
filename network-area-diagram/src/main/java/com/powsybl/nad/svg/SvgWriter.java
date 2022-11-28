@@ -59,8 +59,6 @@ public class SvgWriter {
     private static final String Y_ATTRIBUTE = "y";
     private static final String DY_ATTRIBUTE = "dy";
     private static final String POINTS_ATTRIBUTE = "points";
-    private static final Map<BranchEdge.Side, Integer> SIDE_END =
-            new EnumMap<>(Map.of(BranchEdge.Side.ONE, 1, BranchEdge.Side.TWO, 2));
 
     private final SvgParameters svgParameters;
     private final StyleProvider styleProvider;
@@ -184,7 +182,7 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + SIDE_END.get(side)));
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
