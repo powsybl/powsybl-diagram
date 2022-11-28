@@ -7,7 +7,9 @@
  */
 package com.powsybl.nad.svg.metadata;
 
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
@@ -15,14 +17,28 @@ import javax.xml.stream.XMLStreamReader;
 public class EdgeMetadata extends AbstractMetadataItem {
 
     private static final String ELEMENT_NAME = "edge";
+    private static final String NODE1_ATTRIBUTE = "node1";
+    private static final String NODE2_ATTRIBUTE = "node2";
 
-    public EdgeMetadata(String svgId, String equipmentId) {
+    private final String node1SvgId;
+    private final String node2SvgId;
+
+    public EdgeMetadata(String svgId, String equipmentId, String node1SvgId, String node2SvgId) {
         super(svgId, equipmentId);
+        this.node1SvgId = node1SvgId;
+        this.node2SvgId = node2SvgId;
     }
 
     @Override
     String getElementName() {
         return ELEMENT_NAME;
+    }
+
+    @Override
+    void write(XMLStreamWriter writer) throws XMLStreamException {
+        super.write(writer);
+        writer.writeAttribute(NODE1_ATTRIBUTE, node1SvgId);
+        writer.writeAttribute(NODE2_ATTRIBUTE, node2SvgId);
     }
 
     static class Reader implements MetadataItemReader<EdgeMetadata> {
@@ -32,9 +48,9 @@ public class EdgeMetadata extends AbstractMetadataItem {
         }
 
         public EdgeMetadata read(XMLStreamReader reader) {
-            // Read edge-specific metadata
-            // ...
-            return new EdgeMetadata(readDiagramId(reader), readEquipmentId(reader));
+            return new EdgeMetadata(readDiagramId(reader), readEquipmentId(reader),
+                    reader.getAttributeValue(null, NODE1_ATTRIBUTE),
+                    reader.getAttributeValue(null, NODE2_ATTRIBUTE));
         }
     }
 }
