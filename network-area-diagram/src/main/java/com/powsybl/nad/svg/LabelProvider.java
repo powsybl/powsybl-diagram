@@ -18,6 +18,8 @@ public interface LabelProvider {
 
     List<EdgeInfo> getEdgeInfos(Graph graph, ThreeWtEdge edge);
 
+    public List<EdgeInfo> getEdgeInfos(DanglingLineEdge edge, DanglingLineEdge.Side side);
+
     String getArrowPathDIn();
 
     String getArrowPathDOut();

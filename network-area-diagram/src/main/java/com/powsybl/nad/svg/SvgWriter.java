@@ -110,6 +110,8 @@ public class SvgWriter {
             drawBranchEdges(graph, writer);
             drawThreeWtEdges(graph, writer);
             drawThreeWtNodes(graph, writer);
+            drawBoundaryNodes(graph, writer);
+            drawDanglingLineEdges(graph, writer);
             drawTextEdges(graph, writer);
             drawTextNodes(graph, writer);
             writer.writeEndDocument();
@@ -202,12 +204,49 @@ public class SvgWriter {
         writer.writeEndElement();
     }
 
+    private void drawDanglingLineEdges(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<DanglingLineEdge> danglingLineEdges = graph.getDanglingLineEdges();
+        if (danglingLineEdges.isEmpty()) {
+            return;
+        }
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.DANGLING_LINE_EDGES_CLASS);
+        for (DanglingLineEdge edge : danglingLineEdges) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
+            addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+            insertName(writer, edge::getName);
+            drawDanglingLineHalfEdge(writer, edge, DanglingLineEdge.Side.NETWORK);
+            drawDanglingLineHalfEdge(writer, edge, DanglingLineEdge.Side.BOUNDARY);
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+    }
+
+    private void drawDanglingLineHalfEdge(XMLStreamWriter writer, DanglingLineEdge edge, DanglingLineEdge.Side side) throws XMLStreamException {
+        if (!edge.isVisible(side)) {
+            return;
+        }
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side));
+        // TODO(Luma) addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
+        writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+        writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
+        // TODO(Luma) drawDanglingLineEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+        writer.writeEndElement();
+    }
+
     private String getPolylinePointsString(BranchEdge edge, BranchEdge.Side side) {
         return getPolylinePointsString(edge.getPoints(side));
     }
 
     private String getPolylinePointsString(ThreeWtEdge edge) {
         return getPolylinePointsString(edge.getPoints());
+    }
+
+    private String getPolylinePointsString(DanglingLineEdge edge, DanglingLineEdge.Side side) {
+        return getPolylinePointsString(edge.getPoints(side));
     }
 
     private String getPolylinePointsString(List<Point> points) {
@@ -266,6 +305,29 @@ public class SvgWriter {
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
+    }
+
+    private void drawBoundaryNodes(Graph graph, XMLStreamWriter writer) throws XMLStreamException {
+        List<BoundaryNode> boundaryNodes = graph.getBoundaryNodesStream().collect(Collectors.toList());
+        if (boundaryNodes.isEmpty()) {
+            return;
+        }
+
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BOUNDARY_NODES_CLASS);
+        for (BoundaryNode boundaryNode : boundaryNodes) {
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(boundaryNode));
+            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(boundaryNode.getDiagramId()));
+            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(boundaryNode));
+            insertName(writer, boundaryNode::getName);
+
+            double nodeRadius = getBoundaryCircleRadius();
+            writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+            writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeRadius));
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
     }
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
@@ -825,6 +887,15 @@ public class SvgWriter {
         int nbNeighbours = node.getNbNeighbouringBusNodes();
         double unitaryRadius = SvgWriter.getVoltageLevelCircleRadius(vlNode, svgParameters) / (nbNeighbours + 1);
         return (node.getIndex() + 1) * unitaryRadius - svgParameters.getInterAnnulusSpace() / 2;
+    }
+
+    protected double getBoundaryCircleRadius() {
+        return getBoundaryCircleRadius(svgParameters);
+    }
+
+    protected static double getBoundaryCircleRadius(SvgParameters svgParameters) {
+        // TODO(Luma) allow separate configuration of boundary circle radius
+        return svgParameters.getFictitiousVoltageLevelCircleRadius();
     }
 
     public String getPrefixedId(String id) {

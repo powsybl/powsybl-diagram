@@ -49,6 +49,21 @@ public class DefaultLabelProvider implements LabelProvider {
         return getEdgeInfos(terminal);
     }
 
+    @Override
+    public List<EdgeInfo> getEdgeInfos(DanglingLineEdge edge, DanglingLineEdge.Side side) {
+        DanglingLine dl = network.getDanglingLine(edge.getEquipmentId());
+        if (dl == null) {
+            throw new PowsyblException("Unknown dangling line '" + edge.getEquipmentId() + "'");
+        }
+        if (side == DanglingLineEdge.Side.NETWORK) {
+            Terminal terminal = dl.getTerminal();
+            return getEdgeInfos(terminal);
+        } else {
+            // TODO(Luma) build infos from boundary data
+            return Collections.emptyList();
+        }
+    }
+
     private List<EdgeInfo> getEdgeInfos(Terminal terminal) {
         if (terminal == null) {
             return Collections.emptyList();

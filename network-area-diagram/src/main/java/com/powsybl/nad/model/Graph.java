@@ -41,7 +41,7 @@ public class Graph {
                 busNodes.put(b.getEquipmentId(), b);
             });
         }
-        if (node instanceof ThreeWtNode) {
+        if (node instanceof ThreeWtNode || node instanceof BoundaryNode) {
             busGraph.addVertex(node);
         }
     }
@@ -60,6 +60,11 @@ public class Graph {
     public void addEdge(VoltageLevelNode vlNode, BusNode busNode, ThreeWtNode tNode, ThreeWtEdge edge) {
         addVoltageLevelsEdge(vlNode, tNode, edge);
         addBusesEdge(busNode, tNode, edge);
+    }
+
+    public void addEdge(VoltageLevelNode vlNode, BusNode busNode, BoundaryNode boundaryNode, DanglingLineEdge edge) {
+        addVoltageLevelsEdge(vlNode, boundaryNode, edge);
+        addBusesEdge(busNode, boundaryNode, edge);
     }
 
     public void addEdge(VoltageLevelNode vlNode, TextNode textNode, TextEdge edge) {
@@ -101,6 +106,10 @@ public class Graph {
 
     public Stream<ThreeWtNode> getThreeWtNodesStream() {
         return nodes.values().stream().filter(ThreeWtNode.class::isInstance).map(ThreeWtNode.class::cast);
+    }
+
+    public Stream<BoundaryNode> getBoundaryNodesStream() {
+        return nodes.values().stream().filter(BoundaryNode.class::isInstance).map(BoundaryNode.class::cast);
     }
 
     public Stream<TextNode> getTextNodesStream() {
@@ -195,6 +204,16 @@ public class Graph {
         return getThreeWtEdgesStream().collect(Collectors.toList());
     }
 
+    public Stream<DanglingLineEdge> getDanglingLineEdgesStream() {
+        return voltageLevelGraph.edgeSet().stream()
+                .filter(DanglingLineEdge.class::isInstance)
+                .map(DanglingLineEdge.class::cast);
+    }
+
+    public List<DanglingLineEdge> getDanglingLineEdges() {
+        return getDanglingLineEdgesStream().collect(Collectors.toList());
+    }
+
     public Optional<Node> getNode(String equipmentId) {
         return Optional.ofNullable(nodes.get(equipmentId));
     }
@@ -280,6 +299,14 @@ public class Graph {
 
     public VoltageLevelNode getVoltageLevelNode(ThreeWtEdge edge) {
         return (VoltageLevelNode) voltageLevelGraph.getEdgeSource(edge);
+    }
+
+    public VoltageLevelNode getNetworkNode(DanglingLineEdge edge) {
+        return (VoltageLevelNode) voltageLevelGraph.getEdgeSource(edge);
+    }
+
+    public BoundaryNode getBoundaryNode(DanglingLineEdge edge) {
+        return (BoundaryNode) voltageLevelGraph.getEdgeTarget(edge);
     }
 
     public ThreeWtNode getThreeWtNode(ThreeWtEdge edge) {

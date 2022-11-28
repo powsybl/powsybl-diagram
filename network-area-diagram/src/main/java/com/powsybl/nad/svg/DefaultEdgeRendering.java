@@ -24,6 +24,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
         graph.getMultiBranchEdgesStream().forEach(edges -> computeMultiBranchEdgesCoordinates(graph, edges, svgParameters));
         graph.getLoopBranchEdgesMap().forEach((node, edges) -> loopEdgesLayout(graph, node, edges, svgParameters));
         graph.getThreeWtNodesStream().forEach(threeWtNode -> computeThreeWtEdgeCoordinates(graph, threeWtNode, svgParameters));
+        graph.getDanglingLineEdgesStream().forEach(edge -> computeDanglingLineEdgeCoordinates(graph, edge, svgParameters));
         graph.getTextEdgesMap().forEach((edge, nodes) -> computeTextEdgeLayoutCoordinates(nodes.getFirst(), nodes.getSecond(), edge));
     }
 
@@ -52,6 +53,21 @@ public class DefaultEdgeRendering implements EdgeRendering {
         }
     }
 
+    private void computeDanglingLineEdgeCoordinates(Graph graph, DanglingLineEdge edge, SvgParameters svgParameters) {
+        Node nodeNetwork = graph.getBusGraphNode1(edge);
+        Node nodeBoundary = graph.getBusGraphNode2(edge);
+
+        Point directionNetwork = getDirection(nodeBoundary, () -> graph.getNode2(edge));
+        Point edgeStartNetwork = computeEdgeStart(nodeNetwork, directionNetwork, graph.getNetworkNode(edge), svgParameters);
+
+        Point directionBoundary = getDirection(nodeNetwork, () -> graph.getNode1(edge));
+        Point edgeStartBoundary = computeEdgeStart(nodeBoundary, directionBoundary, graph.getBoundaryNode(edge), svgParameters);
+
+        Point middle = Point.createMiddlePoint(edgeStartNetwork, edgeStartBoundary);
+        edge.setPointsNetwork(edgeStartNetwork, middle);
+        edge.setPointsBoundary(edgeStartBoundary, middle);
+    }
+
     private Point getDirection(Node directionBusGraphNode, Supplier<Node> vlNodeSupplier) {
         if (directionBusGraphNode == BusNode.UNKNOWN) {
             return vlNodeSupplier.get().getPosition();
@@ -70,6 +86,15 @@ public class DefaultEdgeRendering implements EdgeRendering {
         if (node instanceof BusNode && vlNode != null) {
             double busAnnulusOuterRadius = SvgWriter.getBusAnnulusOuterRadius((BusNode) node, vlNode, svgParameters);
             edgeStart = edgeStart.atDistance(busAnnulusOuterRadius - svgParameters.getEdgeStartShift(), direction);
+        }
+        return edgeStart;
+    }
+
+    private Point computeEdgeStart(Node node, Point direction, BoundaryNode boundaryNode, SvgParameters svgParameters) {
+        Point edgeStart = node.getPosition();
+        if (boundaryNode != null) {
+            double radius = SvgWriter.getBoundaryCircleRadius(svgParameters);
+            edgeStart = edgeStart.atDistance(radius - svgParameters.getEdgeStartShift(), direction);
         }
         return edgeStart;
     }

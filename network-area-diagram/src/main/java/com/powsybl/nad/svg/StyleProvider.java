@@ -19,10 +19,12 @@ public interface StyleProvider {
     String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
     String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
     String THREE_WT_NODES_CLASS = CLASSES_PREFIX + "3wt-nodes";
+    String BOUNDARY_NODES_CLASS = CLASSES_PREFIX + "boundary-nodes";
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
+    String DANGLING_LINE_EDGES_CLASS = CLASSES_PREFIX + "dangling-line-edges";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
