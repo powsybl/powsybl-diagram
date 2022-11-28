@@ -20,13 +20,13 @@ public class EdgeMetadata extends AbstractMetadataItem {
     private static final String NODE1_ATTRIBUTE = "node1";
     private static final String NODE2_ATTRIBUTE = "node2";
 
-    private final String node1DiagramId;
-    private final String node2DiagramId;
+    private final String node1SvgId;
+    private final String node2SvgId;
 
-    public EdgeMetadata(String svgId, String equipmentId, String node1DiagramId, String node2DiagramId) {
+    public EdgeMetadata(String svgId, String equipmentId, String node1SvgId, String node2SvgId) {
         super(svgId, equipmentId);
-        this.node1DiagramId = node1DiagramId;
-        this.node2DiagramId = node2DiagramId;
+        this.node1SvgId = node1SvgId;
+        this.node2SvgId = node2SvgId;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class EdgeMetadata extends AbstractMetadataItem {
     @Override
     void write(XMLStreamWriter writer) throws XMLStreamException {
         super.write(writer);
-        writer.writeAttribute(NODE1_ATTRIBUTE, node1DiagramId);
-        writer.writeAttribute(NODE2_ATTRIBUTE, node2DiagramId);
+        writer.writeAttribute(NODE1_ATTRIBUTE, node1SvgId);
+        writer.writeAttribute(NODE2_ATTRIBUTE, node2SvgId);
     }
 
     static class Reader implements MetadataItemReader<EdgeMetadata> {

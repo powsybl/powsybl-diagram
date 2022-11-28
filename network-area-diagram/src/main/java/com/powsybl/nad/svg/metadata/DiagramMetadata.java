@@ -106,7 +106,7 @@ public class DiagramMetadata {
         nodesMetadata.add(new NodeMetadata(svgId, equipmentId, positionX, positionY));
     }
 
-    public void addEdge(String svgId, String equipmentId, String node1DiagramId, String node2DiagramId) {
-        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1DiagramId, node2DiagramId));
+    public void addEdge(String svgId, String equipmentId, String node1SvgId, String node2SvgId) {
+        edgesMetadata.add(new EdgeMetadata(svgId, equipmentId, node1SvgId, node2SvgId));
     }
 }
