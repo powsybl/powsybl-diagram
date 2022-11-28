@@ -172,35 +172,35 @@
                 <nad:node svgId="80" equipmentId="VL66" x="-706.77" y="-708.71"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="22" equipmentId="L17-113-1"/>
-                <nad:edge svgId="23" equipmentId="L32-113-1"/>
-                <nad:edge svgId="24" equipmentId="L32-114-1"/>
-                <nad:edge svgId="27" equipmentId="L114-115-1"/>
-                <nad:edge svgId="30" equipmentId="L22-23-1"/>
-                <nad:edge svgId="33" equipmentId="L23-24-1"/>
-                <nad:edge svgId="36" equipmentId="L23-25-1"/>
-                <nad:edge svgId="37" equipmentId="L23-32-1"/>
-                <nad:edge svgId="38" equipmentId="L25-27-1"/>
-                <nad:edge svgId="41" equipmentId="L27-28-1"/>
-                <nad:edge svgId="42" equipmentId="L27-32-1"/>
-                <nad:edge svgId="43" equipmentId="L27-115-1"/>
-                <nad:edge svgId="46" equipmentId="L8-30-1"/>
-                <nad:edge svgId="49" equipmentId="L26-30-1"/>
-                <nad:edge svgId="50" equipmentId="L30-38-1"/>
-                <nad:edge svgId="51" equipmentId="T30-17-1"/>
-                <nad:edge svgId="52" equipmentId="L17-31-1"/>
-                <nad:edge svgId="55" equipmentId="L29-31-1"/>
-                <nad:edge svgId="56" equipmentId="L31-32-1"/>
-                <nad:edge svgId="59" equipmentId="L35-37-1"/>
-                <nad:edge svgId="62" equipmentId="L33-37-1"/>
-                <nad:edge svgId="65" equipmentId="L34-37-1"/>
-                <nad:edge svgId="68" equipmentId="L37-39-1"/>
-                <nad:edge svgId="71" equipmentId="L37-40-1"/>
-                <nad:edge svgId="72" equipmentId="T38-37-1"/>
-                <nad:edge svgId="73" equipmentId="L38-65-1"/>
-                <nad:edge svgId="76" equipmentId="L64-65-1"/>
-                <nad:edge svgId="79" equipmentId="L65-68-1"/>
-                <nad:edge svgId="82" equipmentId="T65-66-1"/>
+                <nad:edge svgId="22" equipmentId="L17-113-1" node1="20" node2="0"/>
+                <nad:edge svgId="23" equipmentId="L32-113-1" node1="12" node2="0"/>
+                <nad:edge svgId="24" equipmentId="L32-114-1" node1="12" node2="2"/>
+                <nad:edge svgId="27" equipmentId="L114-115-1" node1="2" node2="25"/>
+                <nad:edge svgId="30" equipmentId="L22-23-1" node1="28" node2="4"/>
+                <nad:edge svgId="33" equipmentId="L23-24-1" node1="4" node2="31"/>
+                <nad:edge svgId="36" equipmentId="L23-25-1" node1="4" node2="34"/>
+                <nad:edge svgId="37" equipmentId="L23-32-1" node1="4" node2="12"/>
+                <nad:edge svgId="38" equipmentId="L25-27-1" node1="34" node2="6"/>
+                <nad:edge svgId="41" equipmentId="L27-28-1" node1="6" node2="39"/>
+                <nad:edge svgId="42" equipmentId="L27-32-1" node1="6" node2="12"/>
+                <nad:edge svgId="43" equipmentId="L27-115-1" node1="6" node2="25"/>
+                <nad:edge svgId="46" equipmentId="L8-30-1" node1="44" node2="8"/>
+                <nad:edge svgId="49" equipmentId="L26-30-1" node1="47" node2="8"/>
+                <nad:edge svgId="50" equipmentId="L30-38-1" node1="8" node2="16"/>
+                <nad:edge svgId="51" equipmentId="T30-17-1" node1="8" node2="20"/>
+                <nad:edge svgId="52" equipmentId="L17-31-1" node1="20" node2="10"/>
+                <nad:edge svgId="55" equipmentId="L29-31-1" node1="53" node2="10"/>
+                <nad:edge svgId="56" equipmentId="L31-32-1" node1="10" node2="12"/>
+                <nad:edge svgId="59" equipmentId="L35-37-1" node1="57" node2="14"/>
+                <nad:edge svgId="62" equipmentId="L33-37-1" node1="60" node2="14"/>
+                <nad:edge svgId="65" equipmentId="L34-37-1" node1="63" node2="14"/>
+                <nad:edge svgId="68" equipmentId="L37-39-1" node1="14" node2="66"/>
+                <nad:edge svgId="71" equipmentId="L37-40-1" node1="14" node2="69"/>
+                <nad:edge svgId="72" equipmentId="T38-37-1" node1="16" node2="14"/>
+                <nad:edge svgId="73" equipmentId="L38-65-1" node1="16" node2="18"/>
+                <nad:edge svgId="76" equipmentId="L64-65-1" node1="74" node2="18"/>
+                <nad:edge svgId="79" equipmentId="L65-68-1" node1="18" node2="77"/>
+                <nad:edge svgId="82" equipmentId="T65-66-1" node1="18" node2="80"/>
             </nad:edges>
         </nad:nad>
     </metadata>
@@ -249,7 +249,7 @@
     <g class="nad-branch-edges">
         <g id="22">
             <desc>L17-113-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="22.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-180.33,380.11 -192.18,171.78"/>
                 <g class="nad-edge-infos" transform="translate(-182.17,347.66)">
                     <g class="nad-active nad-state-out">
@@ -271,7 +271,7 @@
         </g>
         <g id="23">
             <desc>L32-113-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="23.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-386.91,829.44 -288.92,630.83"/>
                 <g class="nad-edge-infos" transform="translate(-372.53,800.29)">
                     <g class="nad-active nad-state-out">
@@ -290,7 +290,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="23.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-190.94,432.22 -288.92,630.83"/>
                 <g class="nad-edge-infos" transform="translate(-205.31,461.37)">
                     <g class="nad-active nad-state-out">
@@ -312,7 +312,7 @@
         </g>
         <g id="24">
             <desc>L32-114-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="24.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-410.18,879.26 -520.47,1129.28"/>
                 <g class="nad-edge-infos" transform="translate(-423.30,909.00)">
                     <g class="nad-active nad-state-out">
@@ -331,7 +331,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="24.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-630.77,1379.31 -520.47,1129.28"/>
                 <g class="nad-edge-infos" transform="translate(-617.65,1349.57)">
                     <g class="nad-active nad-state-out">
@@ -353,7 +353,7 @@
         </g>
         <g id="27">
             <desc>L114-115-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="27.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-669.14,1407.94 -816.46,1426.66"/>
                 <g class="nad-edge-infos" transform="translate(-701.39,1412.04)">
                     <g class="nad-active nad-state-out">
@@ -375,7 +375,7 @@
         </g>
         <g id="30">
             <desc>L22-23-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="30.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="107.18,1276.53 191.93,1461.58"/>
                 <g class="nad-edge-infos" transform="translate(120.71,1306.08)">
                     <g class="nad-active nad-state-out">
@@ -397,7 +397,7 @@
         </g>
         <g id="33">
             <desc>L23-24-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="33.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="123.21,1250.49 317.78,1243.13"/>
                 <g class="nad-edge-infos" transform="translate(155.69,1249.26)">
                     <g class="nad-active nad-state-out">
@@ -419,7 +419,7 @@
         </g>
         <g id="36">
             <desc>L23-25-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="36.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="68.37,1254.27 -92.86,1270.43"/>
                 <g class="nad-edge-infos" transform="translate(36.03,1257.51)">
                     <g class="nad-active nad-state-out">
@@ -441,7 +441,7 @@
         </g>
         <g id="37">
             <desc>L23-32-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="37.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="74.29,1234.30 -151.68,1052.81"/>
                 <g class="nad-edge-infos" transform="translate(48.95,1213.95)">
                     <g class="nad-active nad-state-out">
@@ -460,7 +460,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="37.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-377.64,871.32 -151.68,1052.81"/>
                 <g class="nad-edge-infos" transform="translate(-352.30,891.67)">
                     <g class="nad-active nad-state-out">
@@ -482,7 +482,7 @@
         </g>
         <g id="38">
             <desc>L25-27-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="38.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-752.12,1083.54 -529.38,1180.93"/>
                 <g class="nad-edge-infos" transform="translate(-722.34,1096.56)">
                     <g class="nad-active nad-state-out">
@@ -504,7 +504,7 @@
         </g>
         <g id="41">
             <desc>L27-28-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="41.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-803.44,1063.94 -995.33,1000.90"/>
                 <g class="nad-edge-infos" transform="translate(-834.31,1053.80)">
                     <g class="nad-active nad-state-out">
@@ -526,7 +526,7 @@
         </g>
         <g id="42">
             <desc>L27-32-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="42.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-753.50,1058.77 -588.20,963.31"/>
                 <g class="nad-edge-infos" transform="translate(-725.35,1042.52)">
                     <g class="nad-active nad-state-out">
@@ -545,7 +545,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="42.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-422.89,867.85 -588.20,963.31"/>
                 <g class="nad-edge-infos" transform="translate(-451.04,884.10)">
                     <g class="nad-active nad-state-out">
@@ -567,7 +567,7 @@
         </g>
         <g id="43">
             <desc>L27-115-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="43.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-790.89,1096.44 -884.19,1260.69"/>
                 <g class="nad-edge-infos" transform="translate(-806.94,1124.70)">
                     <g class="nad-active nad-state-out">
@@ -589,7 +589,7 @@
         </g>
         <g id="46">
             <desc>L8-30-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="46.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="161.47,-716.79 181.09,-925.10"/>
                 <g class="nad-edge-infos" transform="translate(164.52,-749.14)">
                     <g class="nad-active nad-state-out">
@@ -611,7 +611,7 @@
         </g>
         <g id="49">
             <desc>L26-30-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="49.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="181.89,-704.48 366.84,-825.70"/>
                 <g class="nad-edge-infos" transform="translate(209.07,-722.30)">
                     <g class="nad-active nad-state-out">
@@ -633,7 +633,7 @@
         </g>
         <g id="50">
             <desc>L30-38-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="50.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="179.59,-671.30 276.28,-586.74"/>
                 <g class="nad-edge-infos" transform="translate(204.05,-649.91)">
                     <g class="nad-active nad-state-out">
@@ -652,7 +652,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="50.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="372.96,-502.17 276.28,-586.74"/>
                 <g class="nad-edge-infos" transform="translate(348.50,-523.57)">
                     <g class="nad-active nad-state-out">
@@ -674,7 +674,7 @@
         </g>
         <g id="51">
             <desc>T30-17-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="51.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="145.05,-665.65 -8.24,-402.63"/>
                 <g class="nad-edge-infos" transform="translate(128.68,-637.57)">
                     <g class="nad-active nad-state-out">
@@ -694,13 +694,13 @@
                 </g>
                 <circle class="nad-winding" cx="-18.31" cy="-385.35" r="20.00"/>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="51.2" class="nad-vl120to180-line">
                 <circle class="nad-winding" cx="-28.38" cy="-368.07" r="20.00"/>
             </g>
         </g>
         <g id="52">
             <desc>L17-31-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="52.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-588.38,270.66 -407.34,112.38"/>
                 <g class="nad-edge-infos" transform="translate(-563.92,249.27)">
                     <g class="nad-active nad-state-out">
@@ -722,7 +722,7 @@
         </g>
         <g id="55">
             <desc>L29-31-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="55.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-635.05,279.68 -821.49,214.53"/>
                 <g class="nad-edge-infos" transform="translate(-665.73,268.96)">
                     <g class="nad-active nad-state-out">
@@ -744,7 +744,7 @@
         </g>
         <g id="56">
             <desc>L31-32-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="56.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-599.51,314.54 -504.08,571.43"/>
                 <g class="nad-edge-infos" transform="translate(-588.19,345.00)">
                     <g class="nad-active nad-state-out">
@@ -763,7 +763,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="56.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-408.66,828.32 -504.08,571.43"/>
                 <g class="nad-edge-infos" transform="translate(-419.97,797.85)">
                     <g class="nad-active nad-state-out">
@@ -785,7 +785,7 @@
         </g>
         <g id="59">
             <desc>L35-37-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="59.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1102.38,-96.34 1048.86,100.04"/>
                 <g class="nad-edge-infos" transform="translate(1093.84,-64.99)">
                     <g class="nad-active nad-state-out">
@@ -807,7 +807,7 @@
         </g>
         <g id="62">
             <desc>L33-37-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="62.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1126.57,-101.23 1267.79,79.00"/>
                 <g class="nad-edge-infos" transform="translate(1146.62,-75.65)">
                     <g class="nad-active nad-state-out">
@@ -829,7 +829,7 @@
         </g>
         <g id="65">
             <desc>L34-37-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="65.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1082.13,-121.85 940.03,-116.57"/>
                 <g class="nad-edge-infos" transform="translate(1049.65,-120.65)">
                     <g class="nad-active nad-state-out">
@@ -851,7 +851,7 @@
         </g>
         <g id="68">
             <desc>L37-39-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="68.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1122.48,-147.18 1215.57,-323.09"/>
                 <g class="nad-edge-infos" transform="translate(1137.68,-175.91)">
                     <g class="nad-active nad-state-out">
@@ -873,7 +873,7 @@
         </g>
         <g id="71">
             <desc>L37-40-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="71.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1137.10,-123.74 1350.67,-130.46"/>
                 <g class="nad-edge-infos" transform="translate(1169.58,-124.76)">
                     <g class="nad-active nad-state-out">
@@ -895,7 +895,7 @@
         </g>
         <g id="72">
             <desc>T38-37-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="72.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="418.21,-471.68 724.85,-316.98"/>
                 <g class="nad-edge-infos" transform="translate(447.23,-457.04)">
                     <g class="nad-active nad-state-out">
@@ -915,7 +915,7 @@
                 </g>
                 <circle class="nad-winding" cx="742.71" cy="-307.97" r="20.00"/>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="72.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="1085.06,-135.26 778.42,-289.96"/>
                 <g class="nad-edge-infos" transform="translate(1056.04,-149.90)">
                     <g class="nad-active nad-state-out">
@@ -938,7 +938,7 @@
         </g>
         <g id="73">
             <desc>L38-65-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="73.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="370.08,-498.21 29.13,-702.76"/>
                 <g class="nad-edge-infos" transform="translate(342.21,-514.93)">
                     <g class="nad-active nad-state-out">
@@ -957,7 +957,7 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="73.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-311.82,-907.30 29.13,-702.76"/>
                 <g class="nad-edge-infos" transform="translate(-283.95,-890.58)">
                     <g class="nad-active nad-state-out">
@@ -979,7 +979,7 @@
         </g>
         <g id="76">
             <desc>L64-65-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="76.2" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-336.28,-948.94 -342.74,-1151.32"/>
                 <g class="nad-edge-infos" transform="translate(-337.32,-981.42)">
                     <g class="nad-active nad-state-out">
@@ -1001,7 +1001,7 @@
         </g>
         <g id="79">
             <desc>L65-68-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="79.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-359.51,-934.69 -551.17,-1039.95"/>
                 <g class="nad-edge-infos" transform="translate(-388.00,-950.33)">
                     <g class="nad-active nad-state-out">
@@ -1023,7 +1023,7 @@
         </g>
         <g id="82">
             <desc>T65-66-1</desc>
-            <g class="nad-vl120to180-line">
+            <g id="82.1" class="nad-vl120to180-line">
                 <polyline class="nad-edge-path" points="-359.27,-907.78 -495.05,-829.99"/>
                 <g class="nad-edge-infos" transform="translate(-387.47,-891.63)">
                     <g class="nad-active nad-state-out">
@@ -1043,25 +1043,25 @@
                 </g>
                 <circle class="nad-winding" cx="-512.41" cy="-820.05" r="20.00"/>
             </g>
-            <g class="nad-vl120to180-line">
+            <g id="82.2" class="nad-vl120to180-line">
                 <circle class="nad-winding" cx="-529.76" cy="-810.11" r="20.00"/>
             </g>
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_edge" points="-149.10,403.11 -78.77,392.56"/>
-        <polyline id="2_edge" points="-612.20,1400.02 -541.86,1389.47"/>
-        <polyline id="4_edge" points="125.40,1247.07 195.73,1236.53"/>
-        <polyline id="6_edge" points="-747.64,1068.08 -677.31,1057.53"/>
-        <polyline id="8_edge" points="188.56,-693.86 258.89,-704.41"/>
-        <polyline id="10_edge" points="-579.42,284.31 -509.09,273.76"/>
-        <polyline id="12_edge" points="-369.41,849.65 -299.08,839.10"/>
-        <polyline id="14_edge" points="1139.28,-127.33 1209.61,-137.88"/>
-        <polyline id="16_edge" points="423.33,-488.51 493.66,-499.06"/>
-        <polyline id="18_edge" points="-305.74,-925.90 -235.40,-936.45"/>
+        <polyline id="0-textedge" points="-149.10,403.11 -78.77,392.56"/>
+        <polyline id="2-textedge" points="-612.20,1400.02 -541.86,1389.47"/>
+        <polyline id="4-textedge" points="125.40,1247.07 195.73,1236.53"/>
+        <polyline id="6-textedge" points="-747.64,1068.08 -677.31,1057.53"/>
+        <polyline id="8-textedge" points="188.56,-693.86 258.89,-704.41"/>
+        <polyline id="10-textedge" points="-579.42,284.31 -509.09,273.76"/>
+        <polyline id="12-textedge" points="-369.41,849.65 -299.08,839.10"/>
+        <polyline id="14-textedge" points="1139.28,-127.33 1209.61,-137.88"/>
+        <polyline id="16-textedge" points="423.33,-488.51 493.66,-499.06"/>
+        <polyline id="18-textedge" points="-305.74,-925.90 -235.40,-936.45"/>
     </g>
     <g class="nad-text-nodes">
-        <foreignObject y="367.56" x="-78.77" height="1" width="1">
+        <foreignObject id="0-textnode" y="367.56" x="-78.77" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL113</div>
                 <table>
@@ -1074,7 +1074,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="1364.47" x="-541.86" height="1" width="1">
+        <foreignObject id="2-textnode" y="1364.47" x="-541.86" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL114</div>
                 <table>
@@ -1087,7 +1087,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="1211.53" x="195.73" height="1" width="1">
+        <foreignObject id="4-textnode" y="1211.53" x="195.73" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL23</div>
                 <table>
@@ -1100,7 +1100,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="1032.53" x="-677.31" height="1" width="1">
+        <foreignObject id="6-textnode" y="1032.53" x="-677.31" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL27</div>
                 <table>
@@ -1113,7 +1113,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="-729.41" x="258.89" height="1" width="1">
+        <foreignObject id="8-textnode" y="-729.41" x="258.89" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL30</div>
                 <table>
@@ -1126,7 +1126,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="248.76" x="-509.09" height="1" width="1">
+        <foreignObject id="10-textnode" y="248.76" x="-509.09" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL31</div>
                 <table>
@@ -1139,7 +1139,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="814.10" x="-299.08" height="1" width="1">
+        <foreignObject id="12-textnode" y="814.10" x="-299.08" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL32</div>
                 <table>
@@ -1152,7 +1152,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="-162.88" x="1209.61" height="1" width="1">
+        <foreignObject id="14-textnode" y="-162.88" x="1209.61" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL37</div>
                 <table>
@@ -1165,7 +1165,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="-524.06" x="493.66" height="1" width="1">
+        <foreignObject id="16-textnode" y="-524.06" x="493.66" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL38</div>
                 <table>
@@ -1178,7 +1178,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="-961.45" x="-235.40" height="1" width="1">
+        <foreignObject id="18-textnode" y="-961.45" x="-235.40" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL65</div>
                 <table>

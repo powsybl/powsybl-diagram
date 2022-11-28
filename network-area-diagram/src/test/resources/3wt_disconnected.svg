@@ -59,7 +59,7 @@
                 <nad:node svgId="5" equipmentId="3WT" x="72.67" y="53.08"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="8" equipmentId="3WT"/>
+                <nad:edge svgId="8" equipmentId="3WT" node1="4" node2="5"/>
             </nad:edges>
         </nad:nad>
     </metadata>
@@ -148,12 +148,12 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_edge" points="-169.11,-227.18 -98.78,-237.73"/>
-        <polyline id="2_edge" points="-150.28,354.69 -79.95,344.14"/>
-        <polyline id="4_edge" points="484.41,-69.84 554.74,-80.39"/>
+        <polyline id="0-textedge" points="-169.11,-227.18 -98.78,-237.73"/>
+        <polyline id="2-textedge" points="-150.28,354.69 -79.95,344.14"/>
+        <polyline id="4-textedge" points="484.41,-69.84 554.74,-80.39"/>
     </g>
     <g class="nad-text-nodes">
-        <foreignObject y="-262.73" x="-98.78" height="1" width="1">
+        <foreignObject id="0-textnode" y="-262.73" x="-98.78" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL_11</div>
                 <table>
@@ -166,7 +166,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="319.14" x="-79.95" height="1" width="1">
+        <foreignObject id="2-textnode" y="319.14" x="-79.95" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL_132</div>
                 <table>
@@ -179,7 +179,7 @@
                 </table>
             </div>
         </foreignObject>
-        <foreignObject y="-105.39" x="554.74" height="1" width="1">
+        <foreignObject id="4-textnode" y="-105.39" x="554.74" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL_33</div>
                 <table></table>

@@ -184,6 +184,7 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
         addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
@@ -539,6 +540,7 @@ public class SvgWriter {
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
 
@@ -594,6 +596,7 @@ public class SvgWriter {
 
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
@@ -851,7 +854,9 @@ public class SvgWriter {
         graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
-        graph.getEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId()));
+        graph.getEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+                getPrefixedId(graph.getNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getNode2(edge).getDiagramId())));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);

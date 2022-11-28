@@ -60,7 +60,7 @@
                 <nad:node svgId="7" equipmentId="VL_33" x="261.19" y="-298.22"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="9" equipmentId="3WT"/>
+                <nad:edge svgId="9" equipmentId="3WT" node1="7" node2="2"/>
             </nad:edges>
         </nad:nad>
     </metadata>
@@ -101,10 +101,10 @@
         </g>
     </g>
     <g class="nad-text-edges">
-        <polyline id="0_edge" points="-347.87,105.41 -277.54,94.86"/>
+        <polyline id="0-textedge" points="-347.87,105.41 -277.54,94.86"/>
     </g>
     <g class="nad-text-nodes">
-        <foreignObject y="69.86" x="-277.54" height="1" width="1">
+        <foreignObject id="0-textnode" y="69.86" x="-277.54" height="1" width="1">
             <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
                 <div>VL_11</div>
                 <table>

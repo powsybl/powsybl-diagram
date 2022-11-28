@@ -22,6 +22,10 @@ public class BranchEdge extends AbstractEdge {
         public Side getOpposite() {
             return this == ONE ? TWO : ONE;
         }
+
+        public int getNum() {
+            return ordinal() + 1;
+        }
     }
 
     public static final String TWO_WT_EDGE = "TwoWtEdge";
