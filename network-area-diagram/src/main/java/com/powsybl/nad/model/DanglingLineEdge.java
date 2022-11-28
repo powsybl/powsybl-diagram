@@ -56,4 +56,9 @@ public class DanglingLineEdge extends AbstractEdge {
         Objects.requireNonNull(side);
         return visible[side.ordinal()];
     }
+
+    public double getEdgeAngle(Side side) {
+        List<Point> points = side == Side.NETWORK ? pointsNetwork : pointsBoundary;
+        return points.get(0).getAngle(points.get(1));
+    }
 }

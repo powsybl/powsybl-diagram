@@ -326,6 +326,10 @@ public class Graph {
         return (BusNode) getBusGraphNode1(edge);
     }
 
+    public BusNode getBusGraphNetworkNode(DanglingLineEdge edge) {
+        return (BusNode) busGraph.getEdgeSource(edge);
+    }
+
     public Node getBusGraphNode1(Edge edge) {
         return busGraph.getEdgeSource(edge);
     }

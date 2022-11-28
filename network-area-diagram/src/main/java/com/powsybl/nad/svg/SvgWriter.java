@@ -217,14 +217,14 @@ public class SvgWriter {
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
             addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
-            drawDanglingLineHalfEdge(writer, edge, DanglingLineEdge.Side.NETWORK);
-            drawDanglingLineHalfEdge(writer, edge, DanglingLineEdge.Side.BOUNDARY);
+            drawDanglingLineHalfEdge(graph, writer, edge, DanglingLineEdge.Side.NETWORK);
+            drawDanglingLineHalfEdge(graph, writer, edge, DanglingLineEdge.Side.BOUNDARY);
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void drawDanglingLineHalfEdge(XMLStreamWriter writer, DanglingLineEdge edge, DanglingLineEdge.Side side) throws XMLStreamException {
+    private void drawDanglingLineHalfEdge(Graph graph, XMLStreamWriter writer, DanglingLineEdge edge, DanglingLineEdge.Side side) throws XMLStreamException {
         if (!edge.isVisible(side)) {
             return;
         }
@@ -234,7 +234,7 @@ public class SvgWriter {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
-        // TODO(Luma) drawDanglingLineEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
+        drawDanglingLineEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(edge, side));
         writer.writeEndElement();
     }
 
@@ -345,6 +345,15 @@ public class SvgWriter {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
         drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+    }
+
+    private void drawDanglingLineEdgeInfo(Graph graph, XMLStreamWriter writer, DanglingLineEdge edge, DanglingLineEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
+        if (side == DanglingLineEdge.Side.NETWORK) {
+            VoltageLevelNode vlNode = graph.getNetworkNode(edge);
+            BusNode busNode = graph.getBusGraphNetworkNode(edge);
+            drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeAngle(side));
+        }
+        // TODO (Luma) draw infos on boundary side
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
