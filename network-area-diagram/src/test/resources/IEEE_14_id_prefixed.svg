@@ -81,26 +81,26 @@
                 <nad:node svgId="test_26" equipmentId="VL9" x="-23.76" y="416.70"/>
             </nad:nodes>
             <nad:edges>
-                <nad:edge svgId="test_28" equipmentId="L1-2-1" node1="0" node2="12"/>
-                <nad:edge svgId="test_29" equipmentId="L1-5-1" node1="0" node2="18"/>
-                <nad:edge svgId="test_30" equipmentId="L9-10-1" node1="26" node2="2"/>
-                <nad:edge svgId="test_31" equipmentId="L10-11-1" node1="2" node2="4"/>
-                <nad:edge svgId="test_32" equipmentId="L6-11-1" node1="20" node2="4"/>
-                <nad:edge svgId="test_33" equipmentId="L6-12-1" node1="20" node2="6"/>
-                <nad:edge svgId="test_34" equipmentId="L12-13-1" node1="6" node2="8"/>
-                <nad:edge svgId="test_35" equipmentId="L6-13-1" node1="20" node2="8"/>
-                <nad:edge svgId="test_36" equipmentId="L13-14-1" node1="8" node2="10"/>
-                <nad:edge svgId="test_37" equipmentId="L9-14-1" node1="26" node2="10"/>
-                <nad:edge svgId="test_38" equipmentId="L2-3-1" node1="12" node2="14"/>
-                <nad:edge svgId="test_39" equipmentId="L2-4-1" node1="12" node2="16"/>
-                <nad:edge svgId="test_40" equipmentId="L2-5-1" node1="12" node2="18"/>
-                <nad:edge svgId="test_41" equipmentId="L3-4-1" node1="14" node2="16"/>
-                <nad:edge svgId="test_42" equipmentId="L4-5-1" node1="16" node2="18"/>
-                <nad:edge svgId="test_43" equipmentId="T4-7-1" node1="16" node2="22"/>
-                <nad:edge svgId="test_44" equipmentId="T4-9-1" node1="16" node2="26"/>
-                <nad:edge svgId="test_45" equipmentId="T5-6-1" node1="18" node2="20"/>
-                <nad:edge svgId="test_46" equipmentId="L7-8-1" node1="22" node2="24"/>
-                <nad:edge svgId="test_47" equipmentId="L7-9-1" node1="22" node2="26"/>
+                <nad:edge svgId="test_28" equipmentId="L1-2-1" node1="test_0" node2="test_12"/>
+                <nad:edge svgId="test_29" equipmentId="L1-5-1" node1="test_0" node2="test_18"/>
+                <nad:edge svgId="test_30" equipmentId="L9-10-1" node1="test_26" node2="test_2"/>
+                <nad:edge svgId="test_31" equipmentId="L10-11-1" node1="test_2" node2="test_4"/>
+                <nad:edge svgId="test_32" equipmentId="L6-11-1" node1="test_20" node2="test_4"/>
+                <nad:edge svgId="test_33" equipmentId="L6-12-1" node1="test_20" node2="test_6"/>
+                <nad:edge svgId="test_34" equipmentId="L12-13-1" node1="test_6" node2="test_8"/>
+                <nad:edge svgId="test_35" equipmentId="L6-13-1" node1="test_20" node2="test_8"/>
+                <nad:edge svgId="test_36" equipmentId="L13-14-1" node1="test_8" node2="test_10"/>
+                <nad:edge svgId="test_37" equipmentId="L9-14-1" node1="test_26" node2="test_10"/>
+                <nad:edge svgId="test_38" equipmentId="L2-3-1" node1="test_12" node2="test_14"/>
+                <nad:edge svgId="test_39" equipmentId="L2-4-1" node1="test_12" node2="test_16"/>
+                <nad:edge svgId="test_40" equipmentId="L2-5-1" node1="test_12" node2="test_18"/>
+                <nad:edge svgId="test_41" equipmentId="L3-4-1" node1="test_14" node2="test_16"/>
+                <nad:edge svgId="test_42" equipmentId="L4-5-1" node1="test_16" node2="test_18"/>
+                <nad:edge svgId="test_43" equipmentId="T4-7-1" node1="test_16" node2="test_22"/>
+                <nad:edge svgId="test_44" equipmentId="T4-9-1" node1="test_16" node2="test_26"/>
+                <nad:edge svgId="test_45" equipmentId="T5-6-1" node1="test_18" node2="test_20"/>
+                <nad:edge svgId="test_46" equipmentId="L7-8-1" node1="test_22" node2="test_24"/>
+                <nad:edge svgId="test_47" equipmentId="L7-9-1" node1="test_22" node2="test_26"/>
             </nad:edges>
         </nad:nad>
     </metadata>
