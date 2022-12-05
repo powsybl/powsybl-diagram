@@ -162,45 +162,45 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-474.24,-207.95)" id="0">
+        <g transform="translate(-474.24,-207.95)" id="0" class="nad-vl-node">
             <desc>BBE1AA1</desc>
             <circle r="27.50" id="1" class="nad-vl300to500-0 nad-busnode"/>
             <path d="M-10.013,56.621 A57.500,57.500 22.798 0 1 -31.170,48.318 L-14.794,28.938 A32.500,32.500 -11.300 0 0 -8.837,31.276 Z M-42.578,38.644 A57.500,57.500 27.309 0 1 -55.562,14.803 L-30.409,11.470 A32.500,32.500 -15.811 0 0 -26.133,19.322 Z M-57.500,-0.029 A57.500,57.500 265.053 1 1 4.930,57.288 L6.016,31.938 A32.500,32.500 -253.556 1 0 -32.335,-3.272 Z " id="2" class="nad-vl300to500-1 nad-busnode"/>
         </g>
-        <g transform="translate(-554.05,231.25)" id="3">
+        <g transform="translate(-554.05,231.25)" id="3" class="nad-vl-node">
             <desc>BBE2AA1</desc>
             <circle r="27.50" id="4" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(705.62,274.16)" id="5">
+        <g transform="translate(705.62,274.16)" id="5" class="nad-vl-node">
             <desc>DDE1AA1</desc>
             <circle r="27.50" id="6" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(450.15,0.62)" id="7">
+        <g transform="translate(450.15,0.62)" id="7" class="nad-vl-node">
             <desc>DDE2AA1</desc>
             <circle r="27.50" id="8" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(374.91,436.80)" id="9">
+        <g transform="translate(374.91,436.80)" id="9" class="nad-vl-node">
             <desc>DDE3AA1</desc>
             <circle r="27.50" id="10" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(36.39,731.65)" id="11">
+        <g transform="translate(36.39,731.65)" id="11" class="nad-vl-node">
             <desc>FFR1AA1</desc>
             <circle r="27.50" id="12" class="nad-vl300to500-0 nad-busnode"/>
             <path d="M-35.426,-45.291 A57.500,57.500 52.278 0 1 14.150,-55.732 L4.802,-32.143 A32.500,32.500 -40.780 0 0 -17.358,-27.476 Z M28.045,-50.197 A57.500,57.500 65.053 0 1 57.342,4.257 L32.489,-0.852 A32.500,32.500 -53.556 0 0 18.614,-26.641 Z M54.304,18.903 A57.500,57.500 197.829 1 1 -45.909,-34.621 L-27.778,-16.871 A32.500,32.500 -186.331 1 0 29.469,13.705 Z " id="13" class="nad-vl300to500-1 nad-busnode"/>
         </g>
-        <g transform="translate(-372.12,626.05)" id="14">
+        <g transform="translate(-372.12,626.05)" id="14" class="nad-vl-node">
             <desc>FFR3AA1</desc>
             <circle r="27.50" id="15" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(123.07,-803.45)" id="16">
+        <g transform="translate(123.07,-803.45)" id="16" class="nad-vl-node">
             <desc>NNL1AA1</desc>
             <circle r="27.50" id="17" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(-149.64,-534.70)" id="18">
+        <g transform="translate(-149.64,-534.70)" id="18" class="nad-vl-node">
             <desc>NNL2AA1</desc>
             <circle r="27.50" id="19" class="nad-vl300to500-0 nad-busnode"/>
         </g>
-        <g transform="translate(251.99,-442.28)" id="20">
+        <g transform="translate(251.99,-442.28)" id="20" class="nad-vl-node">
             <desc>NNL3AA1</desc>
             <circle r="27.50" id="21" class="nad-vl300to500-0 nad-busnode"/>
         </g>

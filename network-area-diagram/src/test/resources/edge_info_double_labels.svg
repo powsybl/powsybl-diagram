@@ -65,13 +65,13 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-198.78,-222.73)" id="0" class="nad-vl0to30">
+        <g transform="translate(-198.78,-222.73)" id="0" class="nad-vl0to30 nad-vl-node">
             <circle r="27.50" id="1" class="nad-busnode"/>
         </g>
-        <g transform="translate(-179.95,359.14)" id="2" class="nad-vl120to180">
+        <g transform="translate(-179.95,359.14)" id="2" class="nad-vl120to180 nad-vl-node">
             <circle r="27.50" id="3" class="nad-busnode"/>
         </g>
-        <g transform="translate(454.74,-65.39)" id="4" class="nad-vl30to50">
+        <g transform="translate(454.74,-65.39)" id="4" class="nad-vl30to50 nad-vl-node">
             <circle r="27.50" id="5" class="nad-busnode"/>
         </g>
     </g>

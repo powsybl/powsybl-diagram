@@ -62,11 +62,11 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(159.59,-88.93)" id="0" class="nad-vl300to500">
+        <g transform="translate(159.59,-88.93)" id="0" class="nad-vl300to500 nad-vl-node">
             <desc>VL1</desc>
             <circle r="27.50" id="1" class="nad-busnode"/>
         </g>
-        <g transform="translate(-84.74,167.62)" id="2" class="nad-vl300to500">
+        <g transform="translate(-84.74,167.62)" id="2" class="nad-vl300to500 nad-vl-node">
             <desc>VL2</desc>
             <circle r="27.50" id="3" class="nad-busnode"/>
         </g>

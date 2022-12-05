@@ -65,7 +65,7 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-377.54,109.86)" id="0" class="nad-vl0to30">
+        <g transform="translate(-377.54,109.86)" id="0" class="nad-vl0to30 nad-vl-node">
             <desc>VL_11</desc>
             <circle r="27.50" id="1" class="nad-busnode"/>
         </g>

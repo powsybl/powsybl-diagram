@@ -72,23 +72,23 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-572.51,61.14)" id="0" class="nad-vl180to300">
+        <g transform="translate(-572.51,61.14)" id="0" class="nad-vl180to300 nad-vl-node">
             <desc>S1VL1</desc>
             <circle r="27.50" id="1" class="nad-busnode"/>
         </g>
-        <g transform="translate(-168.80,45.83)" id="2" class="nad-vl300to500">
+        <g transform="translate(-168.80,45.83)" id="2" class="nad-vl300to500 nad-vl-node">
             <desc>S1VL2</desc>
             <circle r="27.50" id="3" class="nad-busnode"/>
         </g>
-        <g transform="translate(73.32,-219.74)" id="4" class="nad-vl300to500">
+        <g transform="translate(73.32,-219.74)" id="4" class="nad-vl300to500 nad-vl-node">
             <desc>S2VL1</desc>
             <circle r="27.50" id="5" class="nad-busnode"/>
         </g>
-        <g transform="translate(250.50,93.81)" id="6" class="nad-vl300to500">
+        <g transform="translate(250.50,93.81)" id="6" class="nad-vl300to500 nad-vl-node">
             <desc>S3VL1</desc>
             <circle r="27.50" id="7" class="nad-busnode"/>
         </g>
-        <g transform="translate(633.74,221.41)" id="8" class="nad-vl300to500">
+        <g transform="translate(633.74,221.41)" id="8" class="nad-vl300to500 nad-vl-node">
             <desc>S4VL1</desc>
             <circle r="27.50" id="9" class="nad-busnode"/>
         </g>

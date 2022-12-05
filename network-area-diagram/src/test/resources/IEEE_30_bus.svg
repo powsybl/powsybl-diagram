@@ -158,123 +158,123 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(565.06,-817.84)" id="0" class="nad-vl120to180">
+        <g transform="translate(565.06,-817.84)" id="0" class="nad-vl120to180 nad-vl-node">
             <desc>VL1</desc>
             <circle r="27.50" id="1" class="nad-busnode"/>
         </g>
-        <g transform="translate(210.04,69.85)" id="2" class="nad-vl30to50">
+        <g transform="translate(210.04,69.85)" id="2" class="nad-vl30to50 nad-vl-node">
             <desc>VL10</desc>
             <circle r="27.50" id="3" class="nad-busnode"/>
         </g>
-        <g transform="translate(-610.23,747.39)" id="4" class="nad-vl0to30">
+        <g transform="translate(-610.23,747.39)" id="4" class="nad-vl0to30 nad-vl-node">
             <desc>VL11</desc>
             <circle r="27.50" id="5" class="nad-busnode"/>
         </g>
-        <g transform="translate(1145.30,-81.29)" id="6" class="nad-vl30to50">
+        <g transform="translate(1145.30,-81.29)" id="6" class="nad-vl30to50 nad-vl-node">
             <desc>VL12</desc>
             <circle r="27.50" id="7" class="nad-busnode"/>
         </g>
-        <g transform="translate(1588.70,194.19)" id="8" class="nad-vl0to30">
+        <g transform="translate(1588.70,194.19)" id="8" class="nad-vl0to30 nad-vl-node">
             <desc>VL13</desc>
             <circle r="27.50" id="9" class="nad-busnode"/>
         </g>
-        <g transform="translate(913.52,122.69)" id="10" class="nad-vl30to50">
+        <g transform="translate(913.52,122.69)" id="10" class="nad-vl30to50 nad-vl-node">
             <desc>VL14</desc>
             <circle r="27.50" id="11" class="nad-busnode"/>
         </g>
-        <g transform="translate(487.32,-474.91)" id="12" class="nad-vl30to50">
+        <g transform="translate(487.32,-474.91)" id="12" class="nad-vl30to50 nad-vl-node">
             <desc>VL15</desc>
             <circle r="27.50" id="13" class="nad-busnode"/>
         </g>
-        <g transform="translate(1396.87,-367.51)" id="14" class="nad-vl30to50">
+        <g transform="translate(1396.87,-367.51)" id="14" class="nad-vl30to50 nad-vl-node">
             <desc>VL16</desc>
             <circle r="27.50" id="15" class="nad-busnode"/>
         </g>
-        <g transform="translate(921.96,-302.15)" id="16" class="nad-vl30to50">
+        <g transform="translate(921.96,-302.15)" id="16" class="nad-vl30to50 nad-vl-node">
             <desc>VL17</desc>
             <circle r="27.50" id="17" class="nad-busnode"/>
         </g>
-        <g transform="translate(290.45,-1130.66)" id="18" class="nad-vl30to50">
+        <g transform="translate(290.45,-1130.66)" id="18" class="nad-vl30to50 nad-vl-node">
             <desc>VL18</desc>
             <circle r="27.50" id="19" class="nad-busnode"/>
         </g>
-        <g transform="translate(-82.84,-1218.43)" id="20" class="nad-vl30to50">
+        <g transform="translate(-82.84,-1218.43)" id="20" class="nad-vl30to50 nad-vl-node">
             <desc>VL19</desc>
             <circle r="27.50" id="21" class="nad-busnode"/>
         </g>
-        <g transform="translate(180.70,-263.40)" id="22" class="nad-vl120to180">
+        <g transform="translate(180.70,-263.40)" id="22" class="nad-vl120to180 nad-vl-node">
             <desc>VL2</desc>
             <circle r="27.50" id="23" class="nad-busnode"/>
         </g>
-        <g transform="translate(-34.48,-735.42)" id="24" class="nad-vl30to50">
+        <g transform="translate(-34.48,-735.42)" id="24" class="nad-vl30to50 nad-vl-node">
             <desc>VL20</desc>
             <circle r="27.50" id="25" class="nad-busnode"/>
         </g>
-        <g transform="translate(387.95,405.49)" id="26" class="nad-vl30to50">
+        <g transform="translate(387.95,405.49)" id="26" class="nad-vl30to50 nad-vl-node">
             <desc>VL21</desc>
             <circle r="27.50" id="27" class="nad-busnode"/>
         </g>
-        <g transform="translate(-140.57,127.31)" id="28" class="nad-vl30to50">
+        <g transform="translate(-140.57,127.31)" id="28" class="nad-vl30to50 nad-vl-node">
             <desc>VL22</desc>
             <circle r="27.50" id="29" class="nad-busnode"/>
         </g>
-        <g transform="translate(-407.83,-535.70)" id="30" class="nad-vl30to50">
+        <g transform="translate(-407.83,-535.70)" id="30" class="nad-vl30to50 nad-vl-node">
             <desc>VL23</desc>
             <circle r="27.50" id="31" class="nad-busnode"/>
         </g>
-        <g transform="translate(-785.89,-44.13)" id="32" class="nad-vl30to50">
+        <g transform="translate(-785.89,-44.13)" id="32" class="nad-vl30to50 nad-vl-node">
             <desc>VL24</desc>
             <circle r="27.50" id="33" class="nad-busnode"/>
         </g>
-        <g transform="translate(-1136.46,521.59)" id="34" class="nad-vl30to50">
+        <g transform="translate(-1136.46,521.59)" id="34" class="nad-vl30to50 nad-vl-node">
             <desc>VL25</desc>
             <circle r="27.50" id="35" class="nad-busnode"/>
         </g>
-        <g transform="translate(-1561.04,399.29)" id="36" class="nad-vl30to50">
+        <g transform="translate(-1561.04,399.29)" id="36" class="nad-vl30to50 nad-vl-node">
             <desc>VL26</desc>
             <circle r="27.50" id="37" class="nad-busnode"/>
         </g>
-        <g transform="translate(-831.63,1168.73)" id="38" class="nad-vl30to50">
+        <g transform="translate(-831.63,1168.73)" id="38" class="nad-vl30to50 nad-vl-node">
             <desc>VL27</desc>
             <circle r="27.50" id="39" class="nad-busnode"/>
         </g>
-        <g transform="translate(-213.94,1050.08)" id="40" class="nad-vl120to180">
+        <g transform="translate(-213.94,1050.08)" id="40" class="nad-vl120to180 nad-vl-node">
             <desc>VL28</desc>
             <circle r="27.50" id="41" class="nad-busnode"/>
         </g>
-        <g transform="translate(-759.33,1607.48)" id="42" class="nad-vl30to50">
+        <g transform="translate(-759.33,1607.48)" id="42" class="nad-vl30to50 nad-vl-node">
             <desc>VL29</desc>
             <circle r="27.50" id="43" class="nad-busnode"/>
         </g>
-        <g transform="translate(901.51,-716.33)" id="44" class="nad-vl120to180">
+        <g transform="translate(901.51,-716.33)" id="44" class="nad-vl120to180 nad-vl-node">
             <desc>VL3</desc>
             <circle r="27.50" id="45" class="nad-busnode"/>
         </g>
-        <g transform="translate(-1075.65,1516.77)" id="46" class="nad-vl30to50">
+        <g transform="translate(-1075.65,1516.77)" id="46" class="nad-vl30to50 nad-vl-node">
             <desc>VL30</desc>
             <circle r="27.50" id="47" class="nad-busnode"/>
         </g>
-        <g transform="translate(605.40,-102.54)" id="48" class="nad-vl120to180">
+        <g transform="translate(605.40,-102.54)" id="48" class="nad-vl120to180 nad-vl-node">
             <desc>VL4</desc>
             <circle r="27.50" id="49" class="nad-busnode"/>
         </g>
-        <g transform="translate(-325.24,-198.83)" id="50" class="nad-vl120to180">
+        <g transform="translate(-325.24,-198.83)" id="50" class="nad-vl120to180 nad-vl-node">
             <desc>VL5</desc>
             <circle r="27.50" id="51" class="nad-busnode"/>
         </g>
-        <g transform="translate(71.61,428.90)" id="52" class="nad-vl120to180">
+        <g transform="translate(71.61,428.90)" id="52" class="nad-vl120to180 nad-vl-node">
             <desc>VL6</desc>
             <circle r="27.50" id="53" class="nad-busnode"/>
         </g>
-        <g transform="translate(-458.72,201.69)" id="54" class="nad-vl120to180">
+        <g transform="translate(-458.72,201.69)" id="54" class="nad-vl120to180 nad-vl-node">
             <desc>VL7</desc>
             <circle r="27.50" id="55" class="nad-busnode"/>
         </g>
-        <g transform="translate(173.93,995.43)" id="56" class="nad-vl120to180">
+        <g transform="translate(173.93,995.43)" id="56" class="nad-vl120to180 nad-vl-node">
             <desc>VL8</desc>
             <circle r="27.50" id="57" class="nad-busnode"/>
         </g>
-        <g transform="translate(-207.43,574.68)" id="58" class="nad-vl0to30">
+        <g transform="translate(-207.43,574.68)" id="58" class="nad-vl0to30 nad-vl-node">
             <desc>VL9</desc>
             <circle r="27.50" id="59" class="nad-busnode"/>
         </g>

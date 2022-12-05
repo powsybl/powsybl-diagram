@@ -69,14 +69,14 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(-34.81,-139.87)" id="0" class="nad-vl300to500">
+        <g transform="translate(-34.81,-139.87)" id="0" class="nad-vl300to500 nad-vl-node">
             <circle r="27.50" id="1" class="nad-busnode"/>
             <path d="M-43.666,37.411 A57.500,57.500 345.053 1 1 -32.539,47.407 L-15.615,28.503 A32.500,32.500 -333.556 1 0 -26.674,18.567 Z " id="2" class="nad-busnode"/>
         </g>
-        <g transform="translate(-106.06,197.12)" id="3" class="nad-vl300to500">
+        <g transform="translate(-106.06,197.12)" id="3" class="nad-vl300to500 nad-vl-node">
             <circle r="27.50" id="4" class="nad-busnode"/>
         </g>
-        <g transform="translate(232.52,76.75)" id="5" class="nad-vl180to300">
+        <g transform="translate(232.52,76.75)" id="5" class="nad-vl180to300 nad-vl-node">
             <circle r="27.50" id="6" class="nad-busnode"/>
             <path d="M-39.586,-41.704 A57.500,57.500 345.053 1 1 -49.003,-30.083 L-29.261,-14.143 A32.500,32.500 -333.556 1 0 -19.901,-25.694 Z " id="7" class="nad-busnode"/>
         </g>

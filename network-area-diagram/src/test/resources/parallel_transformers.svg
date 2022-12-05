@@ -64,11 +64,11 @@
         </nad:nad>
     </metadata>
     <g class="nad-vl-nodes">
-        <g transform="translate(159.59,-88.93)" id="0" class="nad-vl300to500">
+        <g transform="translate(159.59,-88.93)" id="0" class="nad-vl300to500 nad-vl-node">
             <circle r="27.50" id="1" class="nad-busnode"/>
             <path d="M-56.804,8.921 A57.500,57.500 345.053 1 1 -52.581,23.270 L-28.253,16.063 A32.500,32.500 -333.556 1 0 -32.450,1.801 Z " id="2" class="nad-busnode"/>
         </g>
-        <g transform="translate(-84.74,167.62)" id="3" class="nad-vl180to300">
+        <g transform="translate(-84.74,167.62)" id="3" class="nad-vl180to300 nad-vl-node">
             <circle r="27.50" id="4" class="nad-busnode"/>
         </g>
     </g>
