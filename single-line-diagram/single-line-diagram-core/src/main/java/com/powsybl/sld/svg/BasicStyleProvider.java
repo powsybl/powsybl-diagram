@@ -19,7 +19,10 @@ import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.model.nodes.*;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.svg.DiagramStyles.*;
@@ -104,7 +107,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getSvgNodeSubcomponentStyles(Graph graph, Node node, String subComponentName) {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 
     @Override
@@ -114,7 +117,7 @@ public class BasicStyleProvider implements DiagramStyleProvider {
 
     @Override
     public List<String> getCssFilenames() {
-        return Arrays.asList("tautologies.css");
+        return List.of("tautologies.css");
     }
 
     @Override
