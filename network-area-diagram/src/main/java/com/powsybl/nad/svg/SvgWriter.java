@@ -556,7 +556,9 @@ public class SvgWriter {
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(vlNode.getDiagramId()));
-        addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
+        List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(vlNode);
+        nodeStyleClasses.add(StyleProvider.VLNODE_CLASS);
+        writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", nodeStyleClasses));
         insertName(writer, vlNode::getName);
 
         double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
@@ -581,9 +583,9 @@ public class SvgWriter {
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
 
-            List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
-            nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
-            addStylesIfAny(writer, nodeStyleClasses);
+            List<String> busNodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
+            busNodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
+            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", busNodeStyleClasses));
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
