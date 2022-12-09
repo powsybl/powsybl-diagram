@@ -36,8 +36,11 @@ public final class NodeFactory {
 
     public static EquipmentNode createEquipmentNode(VoltageLevelGraph graph, NodeType type, String id, String name, String equipmentId, String componentType, boolean fictitious) {
         EquipmentNode node = new EquipmentNode(type, id, name, equipmentId, componentType, fictitious);
-        graph.addNode(node);
-        return node;
+        if (graph.getAllNodesStream().noneMatch(n -> n instanceof EquipmentNode && ((EquipmentNode) n).getEquipmentId().equals(equipmentId))) {
+            graph.addNode(node);
+            return node;
+        }
+        return null;
     }
 
     public static ConnectivityNode createConnectivityNode(VoltageLevelGraph graph, String id, String componentType) {
@@ -147,8 +150,10 @@ public final class NodeFactory {
         return createFeederTwtLegNode(graph, id, name, equipmentId, TWO_WINDINGS_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
-    public static FeederNode createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side) {
-        return createFeederTwtLegNode(graph, id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
+    public static Node createFeeder2WTLegNodeWithPhaseShifter(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side) {
+        return createEquipmentNode(graph, NodeType.INTERNAL, id, name, equipmentId, PHASE_SHIFT_TRANSFORMER, false);
+//        return createConnectivityNode(graph, id, PHASE_SHIFT_TRANSFORMER);
+//        return createFeederTwtLegNode(graph, id, name, equipmentId, PHASE_SHIFT_TRANSFORMER_LEG, side, graph.getVoltageLevelInfos(), FeederType.TWO_WINDINGS_TRANSFORMER_LEG);
     }
 
     public static FeederNode createFeeder3WTLegNodeForVoltageLevelDiagram(VoltageLevelGraph graph, String id, String name, String equipmentId, NodeSide side, VoltageLevelInfos otherSideVoltageLevelInfos) {

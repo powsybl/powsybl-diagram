@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.powsybl.sld.library.ComponentTypeName.*;
@@ -203,7 +204,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             this.graph = graph;
         }
 
-        protected abstract void addFeeder(FeederNode node, Terminal terminal);
+        protected abstract void addFeeder(Node node, Terminal terminal);
 
         protected abstract void add3wtFeeder(Middle3WTNode middleNode, FeederNode firstOtherLegNode,
                                              FeederNode secondOtherLegNode, Terminal terminal);
@@ -229,7 +230,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
                     .orElseGet(() -> NodeFactory.createVscConverterStationInjection(graph, hvdcStation.getId(), hvdcStation.getNameOrId()));
         }
 
-        private FeederNode createFeeder2wtNode(VoltageLevelGraph graph,
+        private Node createFeeder2wtNode(VoltageLevelGraph graph,
                                                TwoWindingsTransformer branch,
                                                Branch.Side side) {
             Objects.requireNonNull(graph);
@@ -358,7 +359,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         @Override
         public void visitTwoWindingsTransformer(TwoWindingsTransformer transformer,
                                                 Branch.Side side) {
-            addFeeder(createFeeder2wtNode(graph, transformer, side), transformer.getTerminal(side));
+            Node feeder2wtNode = createFeeder2wtNode(graph, transformer, side);
+            if (feeder2wtNode != null) {
+                addFeeder(feeder2wtNode, transformer.getTerminal(side));
+                if (transformer.hasPhaseTapChanger() && (isInternalToVoltageLevel(transformer) || !graph.isForVoltageLevelDiagram())) {
+                    addFeeder(feeder2wtNode, transformer.getTerminal(side == Branch.Side.ONE ? Branch.Side.TWO : Branch.Side.ONE));
+                }
+            }
         }
 
         @Override
@@ -420,7 +427,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             }
         }
 
-        protected void addFeeder(FeederNode node, Terminal terminal) {
+        protected void addFeeder(Node node, Terminal terminal) {
             ConnectablePosition.Feeder feeder = getFeeder(terminal);
             if (feeder != null) {
                 feeder.getOrder().ifPresent(node::setOrder);
@@ -474,7 +481,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
             graph.addEdge(nodesByBusId.get(busId), node);
         }
 
-        protected void addFeeder(FeederNode node, Terminal terminal) {
+        protected void addFeeder(Node node, Terminal terminal) {
             node.setOrder(order++);
             node.setDirection(order % 2 == 0 ? Direction.TOP : Direction.BOTTOM);
             connectToBus(node, terminal);
@@ -625,7 +632,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
     }
 
     private void add2wtEdges(BaseGraph graph, List<TwoWindingsTransformer> twoWindingsTransformers) {
-        twoWindingsTransformers.forEach(transfo -> {
+        twoWindingsTransformers.stream().filter(Predicate.not(TwoWindingsTransformer::hasPhaseTapChanger)).forEach(transfo -> {
             Terminal t1 = transfo.getTerminal1();
             Terminal t2 = transfo.getTerminal2();
 

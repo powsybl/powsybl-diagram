@@ -117,11 +117,6 @@ public class PositionFromExtension extends AbstractPositionFinder {
     }
 
     private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
-        graph.getNodes().stream().filter(node -> node.getDirection() != Direction.UNDEFINED && graph.getCell(node).isPresent()).forEach(node -> {
-            BusCell cell = (BusCell) graph.getCell(node).get();
-            cell.setDirection(node.getDirection());
-            node.getOrder().ifPresent(cell::setOrder);
-        });
         graph.getBusCellStream().forEach(bc -> {
             bc.getNodes().stream().map(Node::getOrder)
                     .filter(Optional::isPresent)
