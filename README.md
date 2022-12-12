@@ -22,70 +22,9 @@ Read more at https://www.powsybl.org!
 This project and everyone participating in it is governed by the [PowSyBl Code of Conduct](https://github.com/powsybl/.github/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to [powsybl-tsc@lists.lfenergy.org](mailto:powsybl-tsc@lists.lfenergy.org).
 
-## PowSyBl vs PowSyBl Single Line Diagram
+**PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams.**
 
-PowSyBl Single Line Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible 
-for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_diagram).
-
-The main features are:
- - Node/Breaker and bus/breaker topology.
- - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
- - Voltage level, substation and zone diagrams.
- - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
- - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
-
-![Diagram demo](.github/diagram-demo.svg)
-*The example above corresponds to a CGMES file from the ENTSO-E sample files.*
-*A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/single-line-diagram/svg-writing.html).*
-
-## Getting started
-
-To generate a SVG single line diagram from a voltage level, we first need to add a Maven dependency for the `Network` model 
-and additionally for this example two other ones: one for the `Network` test case, one for simple logging capabilities:
-
-```xml
-<dependency>
-    <groupId>com.powsybl</groupId>
-    <artifactId>powsybl-iidm-impl</artifactId>
-    <version>5.0.0</version>
-</dependency>
-<dependency>
-    <groupId>com.powsybl</groupId>
-    <artifactId>powsybl-iidm-test</artifactId>
-    <version>5.0.0</version>
-</dependency>
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-simple</artifactId>
-    <version>1.7.22</version>
-</dependency>
-```
-
-We can now load a node/breaker test `Network`:
-```java
-Network network = FictitiousSwitchFactory.create();
-```
-
-After adding the single line diagram core module dependency:
-```xml
-<dependency>
-    <groupId>com.powsybl</groupId>
-    <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>3.0.0</version>
-</dependency>
-```
-
-We can now generate a SVG for the voltage level `N` with the following simple unique code line:
-```java
-SingleLineDiagram.draw(network, "N", "/tmp/n.svg");
-```
-
-We obtain the SVG below.
-
-![Diagram demo](.github/example_n.svg)
-
-Note that a JSON file named `n_metadata.json` is also generated in the same folder, containing all the metadata needed to interact with the diagram.
-
+![Diagrams available](.github/nad-sld-diagrams.jpg)
 
 ## PowSyBl vs PowSyBl Network Area Diagram
 
@@ -97,7 +36,7 @@ PowSyBl Network Area Diagram is a component build on top of the `Network` model 
 A network area diagram emphasizes the electrical structure of the network, and may differ substantially from the network physical geography.
 It displays the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels.
 
-## Getting started
+### Getting started
 In order to generate a SVG from a given network, we need to add some Maven dependencies:
 - `powsybl-network-area-diagram` for the network area diagram itself
 - `powsybl-iidm-impl` for the network model
@@ -174,3 +113,70 @@ That is, the voltage levels between two voltage levels which are connected in th
 <p align="center">
 <img src=".github/partial_diagram_example_1_25.svg?sanitize=true" alt="Diagram IEEE30 partial network VL1-VL25" width="65%"/>
 </p>
+
+
+## PowSyBl vs PowSyBl Single Line Diagram
+
+PowSyBl Single Line Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible 
+for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_diagram).
+
+The main features are:
+ - Node/Breaker and bus/breaker topology.
+ - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
+ - Voltage-level, substation and zone diagrams.
+ - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
+ - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
+
+![Diagram demo](.github/diagram-demo.svg)
+*The example above corresponds to a CGMES file from the ENTSO-E sample files.*
+*A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/svg-writing.html).*
+
+### Getting started
+
+To generate a SVG single line diagram from a voltage level, we first need to add a Maven dependency for the `Network` model 
+and additionally for this example two other ones: one for the `Network` test case, one for simple logging capabilities:
+
+```xml
+<dependency>
+    <groupId>com.powsybl</groupId>
+    <artifactId>powsybl-iidm-impl</artifactId>
+    <version>5.0.0</version>
+</dependency>
+<dependency>
+    <groupId>com.powsybl</groupId>
+    <artifactId>powsybl-iidm-test</artifactId>
+    <version>5.0.0</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.22</version>
+</dependency>
+```
+
+We can now load a node/breaker test `Network`:
+```java
+Network network = FictitiousSwitchFactory.create();
+```
+
+After adding the single line diagram core module dependency:
+```xml
+<dependency>
+    <groupId>com.powsybl</groupId>
+    <artifactId>powsybl-single-line-diagram-core</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+We can now generate a SVG for the voltage level `N` with the following simple unique code line:
+```java
+SingleLineDiagram.draw(network, "N", "/tmp/n.svg");
+```
+
+We obtain the SVG below.
+
+![Diagram demo](.github/example_n.svg)
+
+Note that a JSON file named `n_metadata.json` is also generated in the same folder, containing all the metadata needed to interact with the diagram.
+
+
