@@ -23,7 +23,6 @@ public class DanglingLineEdge extends AbstractEdge {
 
     private List<Point> pointsNetwork = Collections.emptyList();
     private List<Point> pointsBoundary = Collections.emptyList();
-    private final boolean[] visible = new boolean[] {true, true};
 
     public DanglingLineEdge(String diagramId, String equipmentId, String nameOrId) {
         super(diagramId, equipmentId, nameOrId);
@@ -54,7 +53,8 @@ public class DanglingLineEdge extends AbstractEdge {
 
     public boolean isVisible(Side side) {
         Objects.requireNonNull(side);
-        return visible[side.ordinal()];
+        // Both sides always visible
+        return true;
     }
 
     public double getEdgeAngle(Side side) {
