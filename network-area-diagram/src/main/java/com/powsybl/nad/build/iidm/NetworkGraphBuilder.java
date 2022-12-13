@@ -107,8 +107,11 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
         BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
+        String busNodeId = "boundary-" + (dl.getUcteXnodeCode() != null ? dl.getUcteXnodeCode() : "dl-" + dl.getId());
+        BusNode boundaryBusNode = new BusNode(busNodeId, dl.getId());
+        boundaryNode.addBusNode(boundaryBusNode);
         graph.addNode(boundaryNode);
-        addDanglingLineEdge(graph, dl, boundaryNode);
+        addEdge(graph, dl, boundaryNode, boundaryBusNode);
     }
 
     private void visitHvdcConverterStation(HvdcConverterStation<?> converterStation, Graph graph) {
@@ -164,12 +167,13 @@ public class NetworkGraphBuilder implements GraphBuilder {
         graph.addEdge(vlNode, getBusNode(graph, terminal), tn, edge);
     }
 
-    private void addDanglingLineEdge(Graph graph, DanglingLine dl, BoundaryNode bn) {
+    private void addEdge(Graph graph, DanglingLine dl, BoundaryNode boundaryVlNode, BusNode boundaryBusNode) {
         Terminal terminal = dl.getTerminal();
-        VoltageLevelNode vlNode = getOrCreateInvisibleVoltageLevelNode(graph, terminal);
-        DanglingLineEdge edge = new DanglingLineEdge(idProvider.createId(dl),
-                dl.getId(), dl.getNameOrId());
-        graph.addEdge(vlNode, getBusNode(graph, terminal), bn, edge);
+        VoltageLevelNode vlNode = graph.getVoltageLevelNode(terminal.getVoltageLevel().getId())
+                .orElseThrow(() -> new PowsyblException("Cannot add edge, corresponding voltage level is unknown: '" + terminal.getVoltageLevel().getId() + "'"));
+        BranchEdge edge = new BranchEdge(idProvider.createId(dl),
+                dl.getId(), dl.getNameOrId(), BranchEdge.DANGLING_LINE_EDGE);
+        graph.addEdge(vlNode, getBusNode(graph, terminal), boundaryVlNode, boundaryBusNode, edge);
     }
 
     private BusNode getBusNode(Graph graph, Terminal terminal) {

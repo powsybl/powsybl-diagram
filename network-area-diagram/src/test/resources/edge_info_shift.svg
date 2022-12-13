@@ -8,7 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
-.nad-dangling-line-edges {stroke: var(--nad-vl-color, lightgrey); stroke-width: 5; fill: none}
+.nad-dangling-line-edge {fill: var(--nad-vl-color, lighgrey)}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
@@ -55,6 +55,7 @@
                 <nad:busNode svgId="4" equipmentId="vl2_0"/>
                 <nad:busNode svgId="6" equipmentId="vl3_0"/>
                 <nad:busNode svgId="7" equipmentId="vl3_1"/>
+                <nad:busNode svgId="boundary-dl-dl1" equipmentId="dl1"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="vl1" x="-246.57" y="221.93"/>
@@ -82,6 +83,9 @@
         <g transform="translate(-179.96,-113.09)" id="5" class="nad-vl180to300">
             <circle r="27.50" id="6" class="nad-busnode"/>
             <path d="M-18.453,54.459 A57.500,57.500 345.053 1 1 -3.783,57.375 L1.121,32.481 A32.500,32.500 -333.556 1 0 -13.461,29.581 Z " id="7" class="nad-busnode"/>
+        </g>
+        <g transform="translate(463.59,-80.38)" id="12" class="nad-boundary-node nad-vl300to500">
+            <circle r="12.50" id="boundary-dl-dl1" class="nad-boundary-busnode nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -249,16 +253,9 @@
                 <circle class="nad-winding" cx="-28.90" cy="-4.81" r="20.00"/>
             </g>
         </g>
-    </g>
-    <g class="nad-boundary-nodes">
-        <g transform="translate(463.59,-80.38)" id="12">
-            <circle r="15.00"/>
-        </g>
-    </g>
-    <g class="nad-dangling-line-edges">
-        <g id="13">
-            <g id="13.NETWORK">
-                <polyline class="nad-edge-path" points="138.53,85.18 294.38,5.80"/>
+        <g id="13" class="nad-dangling-line-edge">
+            <g id="13.1" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="138.53,85.18 295.49,5.24"/>
                 <g class="nad-edge-infos" transform="translate(158.58,74.96)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(63.01)">
@@ -276,8 +273,9 @@
                     </g>
                 </g>
             </g>
-            <g id="13.BOUNDARY">
-                <polyline class="nad-edge-path" points="450.23,-73.57 294.38,5.80"/>
+            <g id="13.2" class="nad-vl300to500">
+                <polyline class="nad-edge-path" points="452.45,-74.70 295.49,5.24"/>
+                <g class="nad-edge-infos" transform="translate(432.40,-64.49)"></g>
             </g>
         </g>
     </g>

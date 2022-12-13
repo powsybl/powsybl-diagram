@@ -16,10 +16,7 @@ import com.powsybl.nad.svg.AbstractStyleProvider;
 import com.powsybl.nad.svg.StyleProvider;
 import com.powsybl.nad.utils.iidm.IidmUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -43,12 +40,16 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
         }
         List<String> styles = new ArrayList<>();
-        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
-        if (b != null) {
-            if (b.getV() > b.getVoltageLevel().getHighVoltageLimit()) {
-                styles.add(StyleProvider.VL_OVERVOLTAGE_CLASS);
-            } else if (b.getV() < b.getVoltageLevel().getLowVoltageLimit()) {
-                styles.add(StyleProvider.VL_UNDERVOLTAGE_CLASS);
+        if (IidmUtils.isBoundary(busNode)) {
+            styles.add(BOUNDARY_BUSNODE_CLASS);
+        } else {
+            Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+            if (b != null) {
+                if (b.getV() > b.getVoltageLevel().getHighVoltageLimit()) {
+                    styles.add(StyleProvider.VL_OVERVOLTAGE_CLASS);
+                } else if (b.getV() < b.getVoltageLevel().getLowVoltageLimit()) {
+                    styles.add(StyleProvider.VL_UNDERVOLTAGE_CLASS);
+                }
             }
         }
         return styles;
@@ -57,7 +58,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
         List<String> styleClasses = new ArrayList<>(super.getEdgeStyleClasses(edge));
-        if (edge instanceof BranchEdge && !((BranchEdge) edge).getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
+        if (edge instanceof BranchEdge && IidmUtils.isIidmBranch((BranchEdge) edge)) {
             Branch<?> branch = network.getBranch(edge.getEquipmentId());
             if (branch.isOverloaded()) {
                 styleClasses.add(StyleProvider.LINE_OVERLOADED_CLASS);
@@ -89,8 +90,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected boolean isDisconnected(BranchEdge edge, BranchEdge.Side side) {
-        Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
-        return terminal == null || !terminal.isConnected();
+        return IidmUtils.isDisconnected(network, edge, side);
     }
 
     @Override
@@ -106,6 +106,8 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             String branchType = ((BranchEdge) edge).getType();
             if (branchType.equals(BranchEdge.HVDC_LINE_EDGE)) {
                 return Optional.of(HVDC_EDGE_CLASS);
+            } else if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE)) {
+                return Optional.of(DANGLING_LINE_EDGE_CLASS);
             }
         } else if (edge instanceof ThreeWtEdge) {
             Terminal terminal = network.getThreeWindingsTransformer(edge.getEquipmentId())
@@ -118,6 +120,10 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
 
     @Override
     protected Optional<String> getBaseVoltageStyle(BranchEdge edge, BranchEdge.Side side) {
+        String branchType = edge.getType();
+        if (branchType.equals(BranchEdge.DANGLING_LINE_EDGE) && side == BranchEdge.Side.TWO) {
+            return getBaseVoltageStyle(network.getDanglingLine(edge.getEquipmentId()).getBoundary().getVoltageLevel().getNominalV());
+        }
         Terminal terminal = IidmUtils.getTerminalFromEdge(network, edge, side);
         return getBaseVoltageStyle(terminal);
     }

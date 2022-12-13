@@ -10,10 +10,10 @@ package com.powsybl.nad.model;
 /**
  * @author Luma Zamarreño <zamarrenolm at aia.es>
  */
-public class BoundaryNode extends AbstractNode {
+public class BoundaryNode extends VoltageLevelNode {
 
     public BoundaryNode(String diagramId, String equipmentId, String nameOrId) {
-        super(diagramId, equipmentId, nameOrId);
+        super(diagramId, equipmentId, nameOrId, true);
     }
 
 }

@@ -29,6 +29,7 @@ public class FixedLayoutTest {
         Network network = NetworkTestFactory.createTwoVoltageLevels();
 
         Map<String, Point> expected = Map.of(
+                "dl1", new Point(0, 0),
                 "vl1", new Point(1, 0),
                 "vl2", new Point(2, 1));
         Graph graph = new NetworkGraphBuilder(network, VoltageLevelFilter.NO_FILTER).buildGraph();
