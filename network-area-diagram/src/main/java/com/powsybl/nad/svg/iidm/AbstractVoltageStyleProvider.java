@@ -40,7 +40,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
             return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
         }
         List<String> styles = new ArrayList<>();
-        if (IidmUtils.isBoundary(busNode)) {
+        if (busNode instanceof BoundaryBusNode) {
             styles.add(BOUNDARY_BUSNODE_CLASS);
         } else {
             Bus b = network.getBusView().getBus(busNode.getEquipmentId());
@@ -58,7 +58,7 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     @Override
     public List<String> getEdgeStyleClasses(Edge edge) {
         List<String> styleClasses = new ArrayList<>(super.getEdgeStyleClasses(edge));
-        if (edge instanceof BranchEdge && IidmUtils.isIidmBranch((BranchEdge) edge)) {
+        if (IidmUtils.isIidmBranch(edge)) {
             Branch<?> branch = network.getBranch(edge.getEquipmentId());
             if (branch.isOverloaded()) {
                 styleClasses.add(StyleProvider.LINE_OVERLOADED_CLASS);

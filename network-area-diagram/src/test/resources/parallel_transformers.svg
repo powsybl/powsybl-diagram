@@ -53,7 +53,7 @@
                 <nad:busNode svgId="1" equipmentId="vl1_0"/>
                 <nad:busNode svgId="2" equipmentId="vl1_1"/>
                 <nad:busNode svgId="4" equipmentId="vl2_0"/>
-                <nad:busNode svgId="boundary-dl-dl1" equipmentId="dl1"/>
+                <nad:busNode svgId="8" equipmentId="dl1"/>
             </nad:busNodes>
             <nad:nodes>
                 <nad:node svgId="0" equipmentId="vl1" x="-194.74" y="-186.19"/>
@@ -63,7 +63,7 @@
             <nad:edges>
                 <nad:edge svgId="5" equipmentId="tr1" node1="0" node2="3"/>
                 <nad:edge svgId="6" equipmentId="tr2" node1="0" node2="3"/>
-                <nad:edge svgId="8" equipmentId="dl1" node1="3" node2="7"/>
+                <nad:edge svgId="9" equipmentId="dl1" node1="3" node2="7"/>
             </nad:edges>
         </nad:nad>
     </metadata>
@@ -76,7 +76,7 @@
             <circle r="27.50" id="4" class="nad-busnode"/>
         </g>
         <g transform="translate(321.59,165.05)" id="7" class="nad-boundary-node nad-vl180to300">
-            <circle r="12.50" id="boundary-dl-dl1" class="nad-boundary-busnode nad-busnode"/>
+            <circle r="12.50" id="8" class="nad-boundary-busnode nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -164,8 +164,8 @@
                 <circle class="nad-winding" cx="-77.99" cy="-28.35" r="20.00"/>
             </g>
         </g>
-        <g id="8" class="nad-dangling-line-edge">
-            <g id="8.1" class="nad-vl180to300">
+        <g id="9" class="nad-dangling-line-edge">
+            <g id="9.1" class="nad-vl180to300">
                 <polyline class="nad-edge-path" points="-14.82,146.33 147.14,155.34"/>
                 <g class="nad-edge-infos" transform="translate(17.63,148.14)">
                     <g class="nad-active nad-state-out">
@@ -184,7 +184,7 @@
                     </g>
                 </g>
             </g>
-            <g id="8.2" class="nad-vl180to300">
+            <g id="9.2" class="nad-vl180to300">
                 <polyline class="nad-edge-path" points="309.11,164.35 147.14,155.34"/>
                 <g class="nad-edge-infos" transform="translate(276.66,162.55)"></g>
             </g>

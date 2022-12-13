@@ -107,8 +107,7 @@ public class NetworkGraphBuilder implements GraphBuilder {
 
     private void visitDanglingLine(DanglingLine dl, Graph graph) {
         BoundaryNode boundaryNode = new BoundaryNode(idProvider.createId(dl), dl.getId(), dl.getNameOrId());
-        String busNodeId = "boundary-" + (dl.getUcteXnodeCode() != null ? dl.getUcteXnodeCode() : "dl-" + dl.getId());
-        BusNode boundaryBusNode = new BusNode(busNodeId, dl.getId());
+        BusNode boundaryBusNode = new BoundaryBusNode(idProvider.createId(), dl.getId());
         boundaryNode.addBusNode(boundaryBusNode);
         graph.addNode(boundaryNode);
         addEdge(graph, dl, boundaryNode, boundaryBusNode);

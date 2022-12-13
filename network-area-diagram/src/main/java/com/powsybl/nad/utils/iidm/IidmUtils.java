@@ -2,7 +2,7 @@ package com.powsybl.nad.utils.iidm;
 
 import com.powsybl.iidm.network.*;
 import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
+import com.powsybl.nad.model.Edge;
 import com.powsybl.nad.model.ThreeWtEdge;
 
 import java.util.Objects;
@@ -81,12 +81,12 @@ public final class IidmUtils {
         return null;
     }
 
-    public static boolean isIidmBranch(BranchEdge edge) {
-        boolean special = edge.getType().equals(BranchEdge.HVDC_LINE_EDGE) || edge.getType().equals(BranchEdge.DANGLING_LINE_EDGE);
-        return !special;
-    }
-
-    public static boolean isBoundary(BusNode busNode) {
-        return busNode.getDiagramId().contains("boundary") || busNode.getEquipmentId().contains("boundary");
+    public static boolean isIidmBranch(Edge edge) {
+        if (edge instanceof BranchEdge) {
+            String edgeType = ((BranchEdge) edge).getType();
+            return !edgeType.equals(BranchEdge.HVDC_LINE_EDGE) &&
+                    !edgeType.equals(BranchEdge.DANGLING_LINE_EDGE);
+        }
+        return false;
     }
 }

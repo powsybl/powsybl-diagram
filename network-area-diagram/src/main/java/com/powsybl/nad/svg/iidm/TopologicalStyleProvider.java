@@ -10,11 +10,7 @@ import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Bus;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
-import com.powsybl.nad.model.BoundaryNode;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.BusNode;
-import com.powsybl.nad.model.Node;
-import com.powsybl.nad.utils.iidm.IidmUtils;
+import com.powsybl.nad.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +51,7 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
         List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
-        if (IidmUtils.isBoundary(busNode)) {
+        if (busNode instanceof BoundaryBusNode) {
             String dlId = busNode.getEquipmentId();
             getBaseVoltageStyle(network.getDanglingLine(dlId).getBoundary().getVoltageLevel().getNominalV())
                     .map(baseVoltageStyle -> baseVoltageStyle + "-" + busNode.getIndex())

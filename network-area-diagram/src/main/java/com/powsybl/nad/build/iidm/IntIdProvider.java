@@ -20,6 +20,11 @@ public class IntIdProvider implements IdProvider {
     }
 
     @Override
+    public String createId() {
+        return nextId();
+    }
+
+    @Override
     public String createId(Identifiable<?> identifiable) {
         return nextId();
     }

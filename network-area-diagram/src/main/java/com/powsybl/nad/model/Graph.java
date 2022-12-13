@@ -44,7 +44,7 @@ public class Graph {
                 busNodes.put(b.getEquipmentId(), b);
             });
         }
-        if (node instanceof ThreeWtNode || node instanceof BoundaryNode) {
+        if (node instanceof ThreeWtNode) {
             busGraph.addVertex(node);
         }
     }
@@ -106,10 +106,6 @@ public class Graph {
 
     public Stream<ThreeWtNode> getThreeWtNodesStream() {
         return nodes.values().stream().filter(ThreeWtNode.class::isInstance).map(ThreeWtNode.class::cast);
-    }
-
-    public Stream<BoundaryNode> getBoundaryNodesStream() {
-        return nodes.values().stream().filter(BoundaryNode.class::isInstance).map(BoundaryNode.class::cast);
     }
 
     public Stream<TextNode> getTextNodesStream() {

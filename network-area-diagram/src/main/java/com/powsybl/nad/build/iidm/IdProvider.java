@@ -14,8 +14,9 @@ import com.powsybl.iidm.network.ThreeWindingsTransformer;
  */
 public interface IdProvider {
 
+    String createId();
+
     String createId(Identifiable<?> identifiable);
 
     String createId(ThreeWindingsTransformer.Leg leg);
-
 }
