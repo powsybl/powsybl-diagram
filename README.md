@@ -1,5 +1,9 @@
 # PowSyBl Diagram
 
+PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams.
+
+## PowSyBl framework
+
 [![Actions Status](https://github.com/powsybl/powsybl-diagram/workflows/CI/badge.svg)](https://github.com/powsybl/powsybl-diagram/actions)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-diagram&metric=coverage)](https://sonarcloud.io/component_measures?id=com.powsybl%3Apowsybl-diagram&metric=coverage)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-diagram&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.powsybl%3Apowsybl-diagram)
@@ -22,21 +26,17 @@ Read more at https://www.powsybl.org!
 This project and everyone participating in it is governed by the [PowSyBl Code of Conduct](https://github.com/powsybl/.github/blob/main/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior to [powsybl-tsc@lists.lfenergy.org](mailto:powsybl-tsc@lists.lfenergy.org).
 
-**PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams.**
 
 ![Diagrams available](.github/nad-sld-diagrams.jpg)
 
-## PowSyBl vs PowSyBl Network Area Diagram
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/66690739/158350044-36293484-0b0b-4cca-91fa-e8037d4b76bb.png?sanitize=true" alt="Diagram example" width="50%"/>
-</p>
+## PowSyBl Network Area Diagram
 
 PowSyBl Network Area Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible for generating a concise diagram of the whole network or of a part of the network, showing in particular the interconnections between the different voltage levels.
 A network area diagram emphasizes the electrical structure of the network, and may differ substantially from the network physical geography.
 It displays the graph whose nodes are the network voltage levels, and whose edges are the lines and transformers between those voltage levels.
 
 ### Getting started
+
 In order to generate a SVG from a given network, we need to add some Maven dependencies:
 - `powsybl-network-area-diagram` for the network area diagram itself
 - `powsybl-iidm-impl` for the network model
@@ -115,7 +115,7 @@ That is, the voltage levels between two voltage levels which are connected in th
 </p>
 
 
-## PowSyBl vs PowSyBl Single Line Diagram
+## PowSyBl Single Line Diagram
 
 PowSyBl Single Line Diagram is a component build on top of the `Network` model available in the PowSyBl Core repository responsible 
 for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_diagram).
@@ -126,8 +126,7 @@ The main features are:
  - Voltage-level, substation and zone diagrams.
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
-
-![Diagram demo](.github/diagram-demo.svg)
+ 
 *The example above corresponds to a CGMES file from the ENTSO-E sample files.*
 *A guide to generate this diagram is available [here](https://www.powsybl.org/pages/documentation/developer/api_guide/svg-writing.html).*
 
