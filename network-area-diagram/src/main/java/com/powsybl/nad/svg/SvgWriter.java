@@ -129,28 +129,39 @@ public class SvgWriter {
 
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
-            if (edge.isTransformerEdge()) {
-                draw2Wt(writer, edge);
-            }
-
-            if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
-                drawConverterStation(writer, edge);
-            }
+            drawEdgeCenter(writer, edge);
 
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
 
-    private void draw2Wt(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+    private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        if (BranchEdge.LINE_EDGE.equals(edge.getType())) {
+            return;
+        }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.GLUED_CENTER_CLASS);
+        switch (edge.getType()) {
+            case BranchEdge.PST_EDGE:
+            case BranchEdge.TWO_WT_EDGE:
+                draw2Wt(writer, edge);
+                break;
+            case BranchEdge.HVDC_LINE_EDGE:
+                drawConverterStation(writer, edge);
+                break;
+            default:
+                // Should not happen as lines are discarded beforehand
+        }
+        writer.writeEndElement();
+    }
+
+    private void draw2Wt(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
         draw2WtWinding(writer, edge, BranchEdge.Side.ONE);
         draw2WtWinding(writer, edge, BranchEdge.Side.TWO);
         if (BranchEdge.PST_EDGE.equals(edge.getType())) {
             drawPstArrow(writer, edge);
         }
-        writer.writeEndElement();
     }
 
     private void drawConverterStation(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
