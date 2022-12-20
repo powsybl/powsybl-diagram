@@ -113,12 +113,8 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <g class="nad-vl300to500">
-                    <circle class="nad-winding" cx="15.36" cy="4.52" r="20.00"/>
-                </g>
-                <g class="nad-vl180to300">
-                    <circle class="nad-winding" cx="1.56" cy="19.00" r="20.00"/>
-                </g>
+                <circle class="nad-vl300to500 nad-winding" cx="15.36" cy="4.52" r="20.00"/>
+                <circle class="nad-vl180to300 nad-winding" cx="1.56" cy="19.00" r="20.00"/>
             </g>
         </g>
         <g id="6">
@@ -161,12 +157,8 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <g class="nad-vl300to500">
-                    <circle class="nad-winding" cx="73.29" cy="59.69" r="20.00"/>
-                </g>
-                <g class="nad-vl180to300">
-                    <circle class="nad-winding" cx="59.49" cy="74.17" r="20.00"/>
-                </g>
+                <circle class="nad-vl300to500 nad-winding" cx="73.29" cy="59.69" r="20.00"/>
+                <circle class="nad-vl180to300 nad-winding" cx="59.49" cy="74.17" r="20.00"/>
             </g>
         </g>
     </g>

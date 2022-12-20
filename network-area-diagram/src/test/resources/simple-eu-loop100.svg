@@ -411,14 +411,10 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <g class="nad-vl300to500-line">
-                    <circle class="nad-winding" cx="-379.08" cy="-134.16" r="20.00"/>
-                </g>
-                <g class="nad-vl300to500-line">
-                    <circle class="nad-winding" cx="-392.60" cy="-119.43" r="20.00"/>
-                </g>
+                <circle class="nad-vl300to500-line nad-winding" cx="-379.08" cy="-134.16" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-392.60" cy="-119.43" r="20.00"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.68,0.74,-0.74,-0.68,-343.45,-128.61)" class="nad-pst-arrow"/>
             </g>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(-0.68,0.74,-0.74,-0.68,-343.45,-128.61)" class="nad-pst-arrow nad-glued-center"/>
         </g>
         <g id="27">
             <desc>BBE2AA1  FFR3AA1  1</desc>
@@ -830,14 +826,10 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <g class="nad-vl300to500-line">
-                    <circle class="nad-winding" cx="-29.27" cy="630.71" r="20.00"/>
-                </g>
-                <g class="nad-vl300to500-line">
-                    <circle class="nad-winding" cx="-11.66" cy="621.24" r="20.00"/>
-                </g>
+                <circle class="nad-vl300to500-line nad-winding" cx="-29.27" cy="630.71" r="20.00"/>
+                <circle class="nad-vl300to500-line nad-winding" cx="-11.66" cy="621.24" r="20.00"/>
+                <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-61.10,613.77)" class="nad-pst-arrow"/>
             </g>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(0.88,-0.47,0.47,0.88,-61.10,613.77)" class="nad-pst-arrow nad-glued-center"/>
         </g>
         <g id="37">
             <desc>NNL1AA1  NNL2AA1  1</desc>

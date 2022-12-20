@@ -695,12 +695,8 @@
             </g>
             <g id="51.2" class="nad-vl120to180-line"></g>
             <g class="nad-glued-center">
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="-18.31" cy="-385.35" r="20.00"/>
-                </g>
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="-28.38" cy="-368.07" r="20.00"/>
-                </g>
+                <circle class="nad-vl120to180-line nad-winding" cx="-18.31" cy="-385.35" r="20.00"/>
+                <circle class="nad-vl120to180-line nad-winding" cx="-28.38" cy="-368.07" r="20.00"/>
             </g>
         </g>
         <g id="52">
@@ -939,12 +935,8 @@
                 </g>
             </g>
             <g class="nad-glued-center">
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="742.71" cy="-307.97" r="20.00"/>
-                </g>
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="760.56" cy="-298.97" r="20.00"/>
-                </g>
+                <circle class="nad-vl120to180-line nad-winding" cx="742.71" cy="-307.97" r="20.00"/>
+                <circle class="nad-vl120to180-line nad-winding" cx="760.56" cy="-298.97" r="20.00"/>
             </g>
         </g>
         <g id="73">
@@ -1055,12 +1047,8 @@
             </g>
             <g id="82.2" class="nad-vl120to180-line"></g>
             <g class="nad-glued-center">
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="-512.41" cy="-820.05" r="20.00"/>
-                </g>
-                <g class="nad-vl120to180-line">
-                    <circle class="nad-winding" cx="-529.76" cy="-810.11" r="20.00"/>
-                </g>
+                <circle class="nad-vl120to180-line nad-winding" cx="-512.41" cy="-820.05" r="20.00"/>
+                <circle class="nad-vl120to180-line nad-winding" cx="-529.76" cy="-810.11" r="20.00"/>
             </g>
         </g>
     </g>
