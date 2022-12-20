@@ -573,8 +573,14 @@ public class SvgWriter {
             double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
-                writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-                writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                if (busNode instanceof BoundaryBusNode) {
+                    // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
+                    double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
+                    drawBoundarySemicircle(writer, busOuterRadius, edgeStartAngle);
+                } else {
+                    writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                    writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                }
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
@@ -587,6 +593,13 @@ public class SvgWriter {
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
+    }
+
+    private void drawBoundarySemicircle(XMLStreamWriter writer, double radius, double edgeStartAngle) throws XMLStreamException {
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        double startAngle = -Math.PI / 2 + edgeStartAngle;
+        String semiCircle = "M" + getCirclePath(radius, startAngle, startAngle + Math.PI, true);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, semiCircle);
     }
 
     private String getFragmentedAnnulusPath(double innerRadius, double outerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode, BusNode busNode) {
