@@ -137,7 +137,7 @@ public class SvgWriter {
     }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-        if (BranchEdge.LINE_EDGE.equals(edge.getType())) {
+        if (BranchEdge.LINE_EDGE.equals(edge.getType()) || BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -602,20 +602,33 @@ public class SvgWriter {
             double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
-                writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-                writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                if (busNode instanceof BoundaryBusNode) {
+                    // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
+                    double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
+                    drawBoundarySemicircle(writer, busOuterRadius, edgeStartAngle);
+                } else {
+                    writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                    writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                }
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
 
-            List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
+            List<String> nodeStyleClasses = new ArrayList<>(styleProvider.getNodeStyleClasses(busNode));
             nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
             addStylesIfAny(writer, nodeStyleClasses);
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
+    }
+
+    private void drawBoundarySemicircle(XMLStreamWriter writer, double radius, double edgeStartAngle) throws XMLStreamException {
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        double startAngle = -Math.PI / 2 + edgeStartAngle;
+        String semiCircle = "M" + getCirclePath(radius, startAngle, startAngle + Math.PI, true);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, semiCircle);
     }
 
     private String getFragmentedAnnulusPath(double innerRadius, double outerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode, BusNode busNode) {
