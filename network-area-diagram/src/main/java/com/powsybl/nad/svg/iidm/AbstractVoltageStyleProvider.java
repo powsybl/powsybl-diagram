@@ -37,19 +37,18 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
     @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
         if (busNode == BusNode.UNKNOWN) {
-            return Collections.singletonList(UNKNOWN_BUSNODE_CLASS);
+            return List.of(UNKNOWN_BUSNODE_CLASS);
+        }
+        if (busNode instanceof BoundaryBusNode) {
+            return List.of(BOUNDARY_BUSNODE_CLASS);
         }
         List<String> styles = new ArrayList<>();
-        if (busNode instanceof BoundaryBusNode) {
-            styles.add(BOUNDARY_BUSNODE_CLASS);
-        } else {
-            Bus b = network.getBusView().getBus(busNode.getEquipmentId());
-            if (b != null) {
-                if (b.getV() > b.getVoltageLevel().getHighVoltageLimit()) {
-                    styles.add(StyleProvider.VL_OVERVOLTAGE_CLASS);
-                } else if (b.getV() < b.getVoltageLevel().getLowVoltageLimit()) {
-                    styles.add(StyleProvider.VL_UNDERVOLTAGE_CLASS);
-                }
+        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+        if (b != null) {
+            if (b.getV() > b.getVoltageLevel().getHighVoltageLimit()) {
+                styles.add(StyleProvider.VL_OVERVOLTAGE_CLASS);
+            } else if (b.getV() < b.getVoltageLevel().getLowVoltageLimit()) {
+                styles.add(StyleProvider.VL_UNDERVOLTAGE_CLASS);
             }
         }
         return styles;

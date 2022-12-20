@@ -616,7 +616,7 @@ public class SvgWriter {
             }
             writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
 
-            List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
+            List<String> nodeStyleClasses = new ArrayList<>(styleProvider.getNodeStyleClasses(busNode));
             nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
             addStylesIfAny(writer, nodeStyleClasses);
 
