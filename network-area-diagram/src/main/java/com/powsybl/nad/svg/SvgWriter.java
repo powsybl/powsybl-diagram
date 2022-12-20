@@ -274,26 +274,30 @@ public class SvgWriter {
     }
 
     private void drawLoopEdgeInfo(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
-        List<String> styles = Collections.singletonList(StyleProvider.EDGE_INFOS_CLASS);
-        drawEdgeInfo(writer, styles, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
+        drawEdgeInfo(writer, edgeInfos, edge.getPoints(side).get(1), edge.getEdgeStartAngle(side));
     }
 
     private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
         BusNode busNode = graph.getBusGraphNode(edge, side);
-        List<String> styles = List.of(StyleProvider.GLUED_CLASS + "-" + side.getNum(), StyleProvider.EDGE_INFOS_CLASS);
-        drawEdgeInfo(writer, styles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
+        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-" + side.getNum());
+        drawEdgeInfo(writer, additionalStyles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
     }
 
     private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
-        List<String> styles = Collections.singletonList(StyleProvider.EDGE_INFOS_CLASS);
-        drawEdgeInfo(writer, styles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
-    private void drawEdgeInfo(XMLStreamWriter writer, List<String> styles, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
+    private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
+        drawEdgeInfo(writer, Collections.emptyList(), edgeInfos, infoCenter, edgeAngle);
+    }
+
+    private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
+        List<String> styles = new ArrayList<>(additionalStyles);
+        styles.add(StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styles));
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         for (EdgeInfo info : edgeInfos) {
