@@ -412,10 +412,10 @@ public class SvgWriter {
     }
 
     private void draw2WtWinding(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
-        writer.writeStartElement(GROUP_ELEMENT_NAME);
-        addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.WINDING_CLASS);
+        List<String> styles = new ArrayList<>(styleProvider.getSideEdgeStyleClasses(edge, side));
+        styles.add(StyleProvider.WINDING_CLASS);
+        addStylesIfAny(writer, styles);
         List<Point> halfPoints = edge.getPoints(side);
         Point point1 = halfPoints.get(halfPoints.size() - 1); // point near 2wt
         Point point2 = halfPoints.get(halfPoints.size() - 2); // point near voltage level, or control point for loops
@@ -424,7 +424,6 @@ public class SvgWriter {
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(radius));
-        writer.writeEndElement();
     }
 
     private void drawPstArrow(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
@@ -439,7 +438,7 @@ public class SvgWriter {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
         writer.writeAttribute(PATH_D_ATTRIBUTE, getPstArrowPath(arrowSize));
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getMatrixString(matrix));
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.PST_ARROW_CLASS + " " + StyleProvider.GLUED_CENTER_CLASS);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.PST_ARROW_CLASS);
     }
 
     private String getPstArrowPath(double arrowSize) {
