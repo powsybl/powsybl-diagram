@@ -138,7 +138,7 @@
             <circle r="27.50" id="3" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(321.59,165.05)" id="5" class="nad-boundary-node">
-            <circle r="12.50" id="6" class="nad-boundary-busnode nad-vl300to500-0 nad-busnode"/>
+            <path d="M-1.528,27.458 A27.500,27.500 180.000 0 1 1.528,-27.458" id="6" class="nad-boundary-busnode nad-vl300to500-0 nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">
@@ -184,7 +184,7 @@
         </g>
         <g id="7" class="nad-dangling-line-edge">
             <g id="7.1" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path" points="-14.82,146.33 147.14,155.34"/>
+                <polyline class="nad-edge-path" points="-14.82,146.33 139.65,154.93"/>
                 <g class="nad-edge-infos" transform="translate(17.63,148.14)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(93.18)">
@@ -203,8 +203,8 @@
                 </g>
             </g>
             <g id="7.2" class="nad-vl300to500-line">
-                <polyline class="nad-edge-path" points="309.11,164.35 147.14,155.34"/>
-                <g class="nad-edge-infos" transform="translate(276.66,162.55)"></g>
+                <polyline class="nad-edge-path" points="294.13,163.52 139.65,154.93"/>
+                <g class="nad-edge-infos" transform="translate(261.68,161.72)"></g>
             </g>
         </g>
     </g>
