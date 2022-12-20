@@ -138,7 +138,7 @@
             <circle r="27.50" id="3" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(321.59,165.05)" id="5" class="nad-boundary-node">
-            <path d="M-1.528,27.458 A27.500,27.500 180.000 0 1 1.528,-27.458" id="6" class="nad-boundary-busnode nad-vl300to500-0 nad-busnode"/>
+            <path d="M-1.528,27.458 A27.500,27.500 180.000 0 1 1.528,-27.458" id="6" class="nad-vl300to500-0 nad-busnode"/>
         </g>
     </g>
     <g class="nad-branch-edges">

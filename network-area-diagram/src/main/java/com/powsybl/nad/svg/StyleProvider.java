@@ -30,9 +30,7 @@ public interface StyleProvider {
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
     String HVDC_CLASS = CLASSES_PREFIX + "hvdc";
-    String BOUNDARY_BUSNODE_CLASS = CLASSES_PREFIX + "boundary-busnode";
     String UNKNOWN_BUSNODE_CLASS = CLASSES_PREFIX + "unknown-busnode";
-    String TEXT_BACKGROUND_CLASS = CLASSES_PREFIX + "text-background";
     String LINE_OVERLOADED_CLASS = CLASSES_PREFIX + "overload";
     String VL_OVERVOLTAGE_CLASS = CLASSES_PREFIX + "overvoltage";
     String VL_UNDERVOLTAGE_CLASS = CLASSES_PREFIX + "undervoltage";

@@ -39,9 +39,6 @@ public abstract class AbstractVoltageStyleProvider extends AbstractStyleProvider
         if (busNode == BusNode.UNKNOWN) {
             return List.of(UNKNOWN_BUSNODE_CLASS);
         }
-        if (busNode instanceof BoundaryBusNode) {
-            return List.of(BOUNDARY_BUSNODE_CLASS);
-        }
         List<String> styles = new ArrayList<>();
         Bus b = network.getBusView().getBus(busNode.getEquipmentId());
         if (b != null) {
