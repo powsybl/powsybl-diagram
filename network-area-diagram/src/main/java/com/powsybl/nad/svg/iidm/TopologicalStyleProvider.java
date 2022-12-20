@@ -38,17 +38,6 @@ public class TopologicalStyleProvider extends AbstractVoltageStyleProvider {
     }
 
     @Override
-    public List<String> getNodeStyleClasses(Node node) {
-        if (node instanceof BoundaryNode) {
-            List<String> styles = new ArrayList<>();
-            styles.add(BOUNDARY_NODE_CLASS);
-            return styles;
-        } else {
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
     public List<String> getNodeStyleClasses(BusNode busNode) {
         List<String> styles = new ArrayList<>(super.getNodeStyleClasses(busNode));
         if (busNode instanceof BoundaryBusNode) {
