@@ -250,7 +250,7 @@ public class SvgWriter {
         addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+        writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS));
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
         drawThreeWtEdgeInfo(graph, writer, edge, labelProvider.getEdgeInfos(graph, edge));
         writer.writeEndElement();
@@ -266,6 +266,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
         for (ThreeWtNode threeWtNode : threeWtNodes) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(threeWtNode.getDiagramId()));
             addStylesIfAny(writer, styleProvider.getNodeStyleClasses(threeWtNode));
             List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
             for (ThreeWtEdge edge : edges) {
@@ -302,7 +303,8 @@ public class SvgWriter {
     private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-1");
+        drawEdgeInfo(writer, additionalStyles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
@@ -834,9 +836,22 @@ public class SvgWriter {
         graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
-        graph.getEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
-                getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                getPrefixedId(graph.getNode2(edge).getDiagramId())));
+        graph.getEdgesStream().forEach(edge -> {
+            // For 3wt transformers we have one equipmentId and three edges in the graph.
+            // When we get the stream of edges we are iterating through values in a map by equipmentId.
+            // Only one of the edges has been placed in the graph edges map,
+            // although three edges have been added to the graph.
+            // Here we simply ignore the 3wt edges
+            if (!(edge instanceof ThreeWtEdge)) {
+                metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+                        getPrefixedId(graph.getNode1(edge).getDiagramId()),
+                        getPrefixedId(graph.getNode2(edge).getDiagramId()));
+            }
+        });
+        // This stream contains all 3wt edges that have been added to the graph, not only the last one
+        graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+            getPrefixedId(graph.getNode1(edge).getDiagramId()),
+            getPrefixedId(graph.getNode2(edge).getDiagramId())));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
