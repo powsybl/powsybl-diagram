@@ -98,7 +98,7 @@
         <g id="10">
             <desc>TWT</desc>
             <g id="10.1" class="nad-vl180to300">
-                <polyline class="nad-edge-path nad-stretchable" points="-547.03,60.17 -400.64,54.62"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-547.03,60.17 -400.64,54.62"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-514.56,58.94)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(87.83)">
@@ -117,7 +117,7 @@
                 </g>
             </g>
             <g id="10.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-194.28,46.80 -340.68,52.35"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-194.28,46.80 -340.68,52.35"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-226.76,48.03)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-92.17)">
@@ -144,7 +144,7 @@
         <g id="11" class="nad-hvdc-edge">
             <desc>HVDC1</desc>
             <g id="11.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-151.62,26.99 -47.74,-86.96"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-151.62,26.99 -47.74,-86.96"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-129.73,2.97)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(42.36)">
@@ -163,7 +163,7 @@
                 </g>
             </g>
             <g id="11.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="56.14,-200.90 -47.74,-86.96"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="56.14,-200.90 -47.74,-86.96"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(34.25,-176.88)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(-137.64)">
@@ -188,7 +188,7 @@
         <g id="12" class="nad-hvdc-edge">
             <desc>HVDC2</desc>
             <g id="12.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-143.47,48.73 40.85,69.82"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-143.47,48.73 40.85,69.82"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-111.18,52.42)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(96.53)">
@@ -207,7 +207,7 @@
                 </g>
             </g>
             <g id="12.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="225.16,90.92 40.85,69.82"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="225.16,90.92 40.85,69.82"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(192.87,87.22)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(-83.47)">
@@ -232,7 +232,7 @@
         <g id="13">
             <desc>LINE_S2S3</desc>
             <g id="13.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="85.87,-197.54 161.91,-62.96"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="85.87,-197.54 161.91,-62.96"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(101.86,-169.24)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(150.53)">
@@ -251,7 +251,7 @@
                 </g>
             </g>
             <g id="13.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="237.95,71.61 161.91,-62.96"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="237.95,71.61 161.91,-62.96"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(221.96,43.32)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(-29.47)">
@@ -273,7 +273,7 @@
         <g id="14">
             <desc>LINE_S3S4</desc>
             <g id="14.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="274.69,101.87 442.12,157.61"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="274.69,101.87 442.12,157.61"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(305.53,112.14)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(108.41)">
@@ -292,7 +292,7 @@
                 </g>
             </g>
             <g id="14.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="609.55,213.35 442.12,157.61"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="609.55,213.35 442.12,157.61"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(578.71,203.09)">
                     <g class="nad-active nad-state-in">
                         <g transform="rotate(-71.59)">
