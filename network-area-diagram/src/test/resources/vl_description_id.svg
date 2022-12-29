@@ -98,6 +98,7 @@
 .nad-branch-edges .nad-overload .nad-edge-path {animation: line-blink 3s infinite}
 .nad-vl-nodes .nad-overvoltage {animation: node-over-blink 3s infinite}
 .nad-vl-nodes .nad-undervoltage {animation: node-under-blink 3s infinite}
+.nad-boundary-external {stroke-width: 3; stroke:gray; fill:none; stroke-dasharray: 3,3}
 
 @keyframes line-blink {
   0%, 80%, 100% {stroke: var(--nad-vl-color, black); stroke-width: 5}
@@ -138,7 +139,10 @@
             <circle r="27.50" id="3" class="nad-vl300to500-0 nad-busnode"/>
         </g>
         <g transform="translate(321.59,165.05)" id="5" class="nad-boundary-node">
-            <path d="M-1.528,27.458 A27.500,27.500 180.000 0 1 1.528,-27.458" id="6" class="nad-vl300to500-0 nad-busnode"/>
+            <g id="6" class="nad-vl300to500-0 nad-busnode">
+                <path class="nad-boundary-network" d="M-1.528,27.458 A27.500,27.500 180.000 0 1 1.528,-27.458"/>
+                <path class="nad-boundary-external" d="M1.528,-27.458 A27.500,27.500 180.000 0 1 -1.528,27.458"/>
+            </g>
         </g>
     </g>
     <g class="nad-branch-edges">

@@ -601,15 +601,12 @@ public class SvgWriter {
         for (BusNode busNode : vlNode.getBusNodes()) {
             double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
-            if (busInnerRadius == 0) {
-                if (busNode instanceof BoundaryBusNode) {
-                    // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
-                    double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
-                    drawBoundarySemicircle(writer, busOuterRadius, edgeStartAngle);
-                } else {
-                    writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-                    writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
-                }
+            if (busNode instanceof BoundaryBusNode) {
+                // Boundary nodes have a complex drawing, start the group here
+                writer.writeStartElement(GROUP_ELEMENT_NAME);
+            } else if (busInnerRadius == 0) {
+                writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
@@ -620,13 +617,22 @@ public class SvgWriter {
             nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
             addStylesIfAny(writer, nodeStyleClasses);
 
+            // Complete the drawing of boundary nodes
+            if (busNode instanceof BoundaryBusNode) {
+                // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
+                double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
+                drawBoundarySemicircle(writer, busOuterRadius, -Math.PI / 2 + edgeStartAngle, "nad-boundary-network");
+                drawBoundarySemicircle(writer, busOuterRadius, Math.PI / 2 + edgeStartAngle, "nad-boundary-external");
+                writer.writeEndElement();
+            }
+
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
     }
 
-    private void drawBoundarySemicircle(XMLStreamWriter writer, double radius, double edgeStartAngle) throws XMLStreamException {
+    private void drawBoundarySemicircle(XMLStreamWriter writer, double radius, double startAngle, String className) throws XMLStreamException {
         writer.writeEmptyElement(PATH_ELEMENT_NAME);
-        double startAngle = -Math.PI / 2 + edgeStartAngle;
+        writer.writeAttribute(CLASS_ATTRIBUTE, className);
         String semiCircle = "M" + getCirclePath(radius, startAngle, startAngle + Math.PI, true);
         writer.writeAttribute(PATH_D_ATTRIBUTE, semiCircle);
     }
