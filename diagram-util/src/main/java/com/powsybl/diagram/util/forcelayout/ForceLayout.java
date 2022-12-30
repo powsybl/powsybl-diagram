@@ -167,6 +167,33 @@ public class ForceLayout<V, E> {
         }
     }
 
+    enum Alternative {
+        SPRINGY_PLUS_EDGE_REPULSION_CENTER,
+        SPRINGY_PLUS_EDGE_REPULSION_PROJECTION,
+        FRUCHTERMAN_1991
+    }
+
+    // The alternatives should be "implementations" of the attraction/repulsion forces
+    Alternative alternative = Alternative.SPRINGY_PLUS_EDGE_REPULSION_CENTER;
+
+    private void applyForces() {
+        switch (alternative) {
+            case SPRINGY_PLUS_EDGE_REPULSION_CENTER:
+            case SPRINGY_PLUS_EDGE_REPULSION_PROJECTION:
+                applyCoulombsLawToPoints();
+                applyHookesLaw();
+                if (springRepulsionFactor != 0.0) {
+                    // Explicit call with current alternative
+                    applyCoulombsLawToSprings(alternative);
+                }
+                attractToCenter();
+                break;
+            case FRUCHTERMAN_1991:
+                applyFruchterman1991();
+                break;
+        }
+    }
+
     public void execute() {
         long start = System.nanoTime();
 
@@ -175,15 +202,21 @@ public class ForceLayout<V, E> {
 
         int i;
         for (i = 0; i < maxSteps; i++) {
-            applyCoulombsLawToPoints();
-            if (springRepulsionFactor != 0.0) {
-                applyCoulombsLawToSprings();
+            applyForces();
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("iteration {}, forces:", i);
+                for (Map.Entry<V, Point> p : points.entrySet()) {
+                    LOGGER.trace("   {} {}", p.getValue().getForces(), p.getKey());
+                }
             }
-            applyHookesLaw();
-            attractToCenter();
             updateVelocity();
             updatePosition();
-
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("iteration {}, points:", i);
+                for (Map.Entry<V, Point> p : points.entrySet()) {
+                    LOGGER.trace("   {} {}", p.getValue().getPosition(), p.getKey());
+                }
+            }
             if (isStable()) {
                 break;
             }
@@ -195,6 +228,43 @@ public class ForceLayout<V, E> {
 
         LOGGER.info("Number of steps: {}", i);
         LOGGER.info("Elapsed time: {}", elapsedTime / 1e9);
+    }
+
+    private void applyFruchterman1991() {
+        double width = 1; // Initial random positions give points in the interval [0,1]
+        double height = 1;
+        double area = width * height;
+        double c = 30;
+        int numNodes = points.size();
+        double k = c * Math.sqrt(area / numNodes);
+        // repulsive forces between nodes
+        for (Point point : points.values()) {
+            Vector v = point.getPosition();
+            for (Point otherPoint : points.values()) {
+                if (!point.equals(otherPoint)) {
+                    Vector u = otherPoint.getPosition();
+                    Vector distance = v.subtract(u);
+                    Vector direction = distance.normalize();
+                    double d = distance.magnitude();
+                    double fr = k * k / d;
+                    point.applyForce(direction.multiply(fr));
+                }
+            }
+        }
+        for (Spring spring : springs) {
+            Point point1 = spring.getNode1();
+            Point point2 = spring.getNode2();
+            Vector u = point1.getPosition();
+            Vector v = point2.getPosition();
+
+            Vector distance = v.subtract(u);
+            Vector direction = distance.normalize();
+            double d = distance.magnitude();
+            double fa = d * d / k;
+
+            point1.applyForce(direction.multiply(fa));
+            point2.applyForce(direction.multiply(-1 * fa));
+        }
     }
 
     private Vector coulombsForce(Vector p1, Vector p2, double repulsion) {
@@ -214,7 +284,22 @@ public class ForceLayout<V, E> {
         }
     }
 
-    private void applyCoulombsLawToSprings() {
+    private void applyCoulombsLawToSprings(Alternative alternative) {
+        applyCoulombsLawToPointsAgainstSprings(alternative);
+        applyCoulombsLawToSpringsAgainstSprings(alternative);
+    }
+
+    private Vector edgePointAlternative(Alternative alternative, Vector q1, Vector q2, Vector p) {
+        Vector r = null;
+        if (alternative == Alternative.SPRINGY_PLUS_EDGE_REPULSION_CENTER) {
+            r = q1.add(q2.subtract(q1).multiply(0.5));
+        } else if (alternative == Alternative.SPRINGY_PLUS_EDGE_REPULSION_PROJECTION) {
+            r = p.projectionOnSegment(q1, q2);
+        }
+        return r;
+    }
+
+    private void applyCoulombsLawToPointsAgainstSprings(Alternative alternative) {
         for (Point point : points.values()) {
             Vector p = point.getPosition();
             for (Spring spring : springs) {
@@ -223,31 +308,55 @@ public class ForceLayout<V, E> {
                 if (!n1.equals(point) && !n2.equals(point)) {
                     Vector q1 = spring.getNode1().getPosition();
                     Vector q2 = spring.getNode2().getPosition();
-                    Vector center = q1.add(q2.subtract(q1).multiply(0.5));
-                    Vector force = coulombsForce(p, center, repulsion * springRepulsionFactor);
-                    point.applyForce(force);
-                    n1.applyForce(force.multiply(-0.5));
-                    n2.applyForce(force.multiply(-0.5));
+                    Vector r = edgePointAlternative(alternative, q1, q2, p);
+                    if (r != null) {
+                        Vector force = coulombsForce(p, r, repulsion * springRepulsionFactor);
+                        point.applyForce(force);
+                        n1.applyForce(force.multiply(-0.5));
+                        n2.applyForce(force.multiply(-0.5));
+                    }
                 }
             }
         }
+    }
+
+    private Vector repulsionForceBetweenEdges(Alternative alternative, Vector p1, Vector p2, Vector op1, Vector op2) {
+        Vector force = null;
+        if (alternative == Alternative.SPRINGY_PLUS_EDGE_REPULSION_CENTER) {
+            // Compute the repulsion force between centers of the springs
+            Vector center = p1.add(p2.subtract(p1).multiply(0.5));
+            Vector otherCenter = op1.add(op2.subtract(op1).multiply(0.5));
+            force = coulombsForce(center, otherCenter, repulsion * springRepulsionFactor);
+        } else if (alternative == Alternative.SPRINGY_PLUS_EDGE_REPULSION_PROJECTION) {
+            Vector r;
+            r = p1.projectionOnSegment(op1, op2);
+            if (r != null) {
+                force = coulombsForce(p1, r, repulsion * springRepulsionFactor);
+            } else {
+                r = p2.projectionOnSegment(op1, op2);
+                if (r != null) {
+                    force = coulombsForce(p1, r, repulsion * springRepulsionFactor);
+                }
+            }
+        }
+        return force;
+    }
+
+    private void applyCoulombsLawToSpringsAgainstSprings(Alternative alternative) {
         for (Spring spring : springs) {
             Point n1 = spring.getNode1();
             Point n2 = spring.getNode2();
             Vector p1 = spring.getNode1().getPosition();
             Vector p2 = spring.getNode2().getPosition();
-            Vector center = p1.add(p2.subtract(p1).multiply(0.5));
             for (Spring otherSpring : springs) {
                 if (!spring.equals(otherSpring)) {
-                    // Compute the repulsion force between centers of the springs
                     Vector op1 = otherSpring.getNode1().getPosition();
                     Vector op2 = otherSpring.getNode2().getPosition();
-                    Vector otherCenter = op1.add(op2.subtract(op1).multiply(0.5));
-                    Vector force = coulombsForce(center, otherCenter, repulsion * springRepulsionFactor);
-
-                    // And apply it to both points of the spring
-                    n1.applyForce(force);
-                    n2.applyForce(force);
+                    Vector force = repulsionForceBetweenEdges(alternative, p1, p2, op1, op2);
+                    if (force != null) {
+                        n1.applyForce(force);
+                        n2.applyForce(force);
+                    }
                 }
             }
         }
