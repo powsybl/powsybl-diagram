@@ -7,6 +7,7 @@
 package com.powsybl.nad.svg;
 
 import java.util.Optional;
+import java.util.function.DoubleFunction;
 
 /**
  * @author Florian Dupuy <florian.dupuy at rte-france.com>
@@ -27,8 +28,8 @@ public class EdgeInfo {
         this.externalLabel = externalLabel;
     }
 
-    public EdgeInfo(String infoType, double value) {
-        this(infoType, value < 0 ? Direction.IN : Direction.OUT, null, String.valueOf(Math.round(value)));
+    public EdgeInfo(String infoType, double value, DoubleFunction<String> formatter) {
+        this(infoType, value < 0 ? Direction.IN : Direction.OUT, null, formatter.apply(value));
     }
 
     public String getInfoType() {

@@ -213,7 +213,41 @@
         <polyline id="2-textedge" points="-12.61,140.35 57.72,129.80"/>
     </g>
     <g class="nad-text-nodes">
-        <text id="0-textnode" y="-201.19" x="-94.74">vl1</text>
-        <text id="2-textnode" y="129.80" x="57.72">vl2</text>
+        <foreignObject id="0-textnode" y="-226.19" x="-94.74" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>Voltage level 1</div>
+                <div>Substation 1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>— kV / —°</td>
+                    </tr>
+                </table>
+                <div>0 loads</div>
+                <div>1 generators</div>
+                <div>0 batteries</div>
+                <div>0 dangling lines</div>
+            </div>
+        </foreignObject>
+        <foreignObject id="2-textnode" y="104.80" x="57.72" height="1" width="1">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="nad-label-box">
+                <div>Voltage level 2</div>
+                <div>Substation 1</div>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="nad-vl300to500-0 nad-legend-square"/>
+                        </td>
+                        <td>— kV / —°</td>
+                    </tr>
+                </table>
+                <div>0 loads</div>
+                <div>0 generators</div>
+                <div>0 batteries</div>
+                <div>1 dangling lines</div>
+            </div>
+        </foreignObject>
     </g>
 </svg>

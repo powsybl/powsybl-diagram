@@ -19,23 +19,30 @@ public interface StyleProvider {
     String VOLTAGE_LEVEL_NODES_CLASS = CLASSES_PREFIX + "vl-nodes";
     String TEXT_NODES_CLASS = CLASSES_PREFIX + "text-nodes";
     String THREE_WT_NODES_CLASS = CLASSES_PREFIX + "3wt-nodes";
+    String BOUNDARY_NODE_CLASS = CLASSES_PREFIX + "boundary-node";
     String DISCONNECTED_CLASS = CLASSES_PREFIX + "disconnected";
     String BRANCH_EDGES_CLASS = CLASSES_PREFIX + "branch-edges";
     String HVDC_EDGE_CLASS = CLASSES_PREFIX + "hvdc-edge";
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
+    String DANGLING_LINE_EDGE_CLASS = CLASSES_PREFIX + "dangling-line-edge";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
     String HVDC_CLASS = CLASSES_PREFIX + "hvdc";
     String UNKNOWN_BUSNODE_CLASS = CLASSES_PREFIX + "unknown-busnode";
-    String TEXT_BACKGROUND_CLASS = CLASSES_PREFIX + "text-background";
     String LINE_OVERLOADED_CLASS = CLASSES_PREFIX + "overload";
     String VL_OVERVOLTAGE_CLASS = CLASSES_PREFIX + "overvoltage";
     String VL_UNDERVOLTAGE_CLASS = CLASSES_PREFIX + "undervoltage";
     String EDGE_PATH_CLASS = CLASSES_PREFIX + "edge-path";
     String WINDING_CLASS = CLASSES_PREFIX + "winding";
     String BUSNODE_CLASS = CLASSES_PREFIX + "busnode";
+    String LABEL_BOX_CLASS = CLASSES_PREFIX + "label-box";
+    String LEGEND_SQUARE_CLASS = CLASSES_PREFIX + "legend-square";
+    String PST_ARROW_CLASS = CLASSES_PREFIX + "pst-arrow";
+    String STRETCHABLE_CLASS = CLASSES_PREFIX + "stretchable";
+    String GLUED_CLASS = CLASSES_PREFIX + "glued";
+    String GLUED_CENTER_CLASS = CLASSES_PREFIX + "glued-center";
 
     List<String> getCssFilenames();
 

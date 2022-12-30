@@ -6,6 +6,7 @@
  */
 package com.powsybl.sld.svg;
 
+import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.sld.layout.LayoutParameters;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.model.coordinate.Direction;
@@ -26,14 +27,14 @@ public abstract class AbstractDiagramLabelProvider implements DiagramLabelProvid
     private static final double LABEL_OFFSET = 5d;
     private static final double DECORATOR_OFFSET = 5d;
 
-    private final ComponentLibrary componentLibrary;
+    protected final ComponentLibrary componentLibrary;
     protected final LayoutParameters layoutParameters;
-    protected ValueFormatter valueFormatter;
+    protected final ValueFormatter valueFormatter;
 
     protected AbstractDiagramLabelProvider(ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         this.componentLibrary = Objects.requireNonNull(componentLibrary);
         this.layoutParameters = Objects.requireNonNull(layoutParameters);
-        this.valueFormatter = new ValueFormatter(layoutParameters);
+        this.valueFormatter = layoutParameters.createValueFormatter();
     }
 
     @Override

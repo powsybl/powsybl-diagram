@@ -4,9 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.powsybl.sld.svg;
-
-import com.powsybl.sld.layout.LayoutParameters;
+package com.powsybl.diagram.util;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -22,13 +20,17 @@ public class ValueFormatter {
     /** degree sign unicode for degree symbol */
     private static final String DEGREE_CHAR = "\u00b0";
 
-    private final LayoutParameters layoutParameters;
+    private final int powerValuePrecision;
+    private final int voltageValuePrecision;
+    private final int angleValuePrecision;
     private final DecimalFormat format;
 
-    public ValueFormatter(LayoutParameters layoutParameters) {
-        this.layoutParameters = layoutParameters;
+    public ValueFormatter(int powerValuePrecision, int voltageValuePrecision, int angleValuePrecision, Locale locale) {
+        this.powerValuePrecision = powerValuePrecision;
+        this.voltageValuePrecision = voltageValuePrecision;
+        this.angleValuePrecision = angleValuePrecision;
         this.format = new DecimalFormat();
-        format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.forLanguageTag(layoutParameters.getLanguageTag())));
+        format.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(locale));
     }
 
     public String formatVoltage(double voltage) {
@@ -36,7 +38,7 @@ public class ValueFormatter {
     }
 
     public String formatVoltage(double voltage, String unit) {
-        setFractionDigits(layoutParameters.getVoltageValuePrecision());
+        setFractionDigits(voltageValuePrecision);
         String valueFormatted = Double.isNaN(voltage) ? DASH_CHAR : format.format(voltage);
         return valueFormatted + " " + unit;
     }
@@ -46,13 +48,13 @@ public class ValueFormatter {
     }
 
     public String formatPower(double power, String unit) {
-        setFractionDigits(layoutParameters.getPowerValuePrecision());
+        setFractionDigits(powerValuePrecision);
         String valueFormatted = Double.isNaN(power) ? DASH_CHAR : format.format(power);
         return unit.isEmpty() ? valueFormatted : (valueFormatted + " " + unit);
     }
 
     public String formatAngleInDegrees(double angleInDegrees) {
-        setFractionDigits(layoutParameters.getAngleValuePrecision());
+        setFractionDigits(angleValuePrecision);
         String valueFormatted = Double.isNaN(angleInDegrees) ? DASH_CHAR : format.format(angleInDegrees);
         return valueFormatted + DEGREE_CHAR;
     }

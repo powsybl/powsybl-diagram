@@ -6,6 +6,9 @@
  */
 package com.powsybl.nad.svg;
 
+import com.powsybl.diagram.util.ValueFormatter;
+
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -35,13 +38,20 @@ public class SvgParameters {
     private double loopDistance = 120;
     private double loopEdgesAperture = Math.toRadians(60);
     private double loopControlDistance = 40;
-    private boolean textNodeBackground = true;
     private boolean edgeInfoAlongEdge = true;
     private double interAnnulusSpace = 5;
     private String svgPrefix = "";
     private boolean idDisplayed = false;
     private boolean substationDescriptionDisplayed;
     private double arrowHeight = 10;
+    private boolean busLegend = true;
+    private boolean voltageLevelDetails = false;
+    private double detailedTextNodeYShift = 25;
+    private String languageTag = "en";
+    private int voltageValuePrecision = 1;
+    private int powerValuePrecision = 0;
+    private int angleValuePrecision = 1;
+    private double pstArrowHeadSize = 8;
 
     public enum CssLocation {
         INSERTED_IN_SVG, EXTERNAL_IMPORTED, EXTERNAL_NO_IMPORT
@@ -77,13 +87,20 @@ public class SvgParameters {
         this.loopDistance = other.loopDistance;
         this.loopEdgesAperture = other.loopEdgesAperture;
         this.loopControlDistance = other.loopControlDistance;
-        this.textNodeBackground = other.textNodeBackground;
         this.edgeInfoAlongEdge = other.edgeInfoAlongEdge;
         this.interAnnulusSpace = other.interAnnulusSpace;
         this.svgPrefix = other.svgPrefix;
         this.idDisplayed = other.idDisplayed;
         this.substationDescriptionDisplayed = other.substationDescriptionDisplayed;
         this.arrowHeight = other.arrowHeight;
+        this.busLegend = other.busLegend;
+        this.voltageLevelDetails = other.voltageLevelDetails;
+        this.detailedTextNodeYShift = other.detailedTextNodeYShift;
+        this.languageTag = other.languageTag;
+        this.voltageValuePrecision = other.voltageValuePrecision;
+        this.powerValuePrecision = other.powerValuePrecision;
+        this.angleValuePrecision = other.angleValuePrecision;
+        this.pstArrowHeadSize = other.pstArrowHeadSize;
     }
 
     public Padding getDiagramPadding() {
@@ -287,15 +304,6 @@ public class SvgParameters {
         return this;
     }
 
-    public boolean isTextNodeBackground() {
-        return textNodeBackground;
-    }
-
-    public SvgParameters setTextNodeBackground(boolean textNodeBackground) {
-        this.textNodeBackground = textNodeBackground;
-        return this;
-    }
-
     public boolean isEdgeInfoAlongEdge() {
         return edgeInfoAlongEdge;
     }
@@ -347,6 +355,86 @@ public class SvgParameters {
 
     public SvgParameters setArrowHeight(double arrowHeight) {
         this.arrowHeight = arrowHeight;
+        return this;
+    }
+
+    public boolean isBusLegend() {
+        return busLegend;
+    }
+
+    public SvgParameters setBusLegend(boolean detailedNodeDescription) {
+        this.busLegend = detailedNodeDescription;
+        return this;
+    }
+
+    public boolean isVoltageLevelDetails() {
+        return voltageLevelDetails;
+    }
+
+    public SvgParameters setVoltageLevelDetails(boolean voltageLevelDetails) {
+        this.voltageLevelDetails = voltageLevelDetails;
+        return this;
+    }
+
+    public double getDetailedTextNodeYShift() {
+        return detailedTextNodeYShift;
+    }
+
+    public SvgParameters setDetailedTextNodeYShift(double detailedTextNodeYShift) {
+        this.detailedTextNodeYShift = detailedTextNodeYShift;
+        return this;
+    }
+
+    public String getLanguageTag() {
+        return languageTag;
+    }
+
+    /**
+     * Sets the language tag string. This is used to format the value displayed according to the corresponding standards.
+     * @param languageTag Specified IETF BCP 47 language tag string
+     */
+    public SvgParameters setLanguageTag(String languageTag) {
+        this.languageTag = languageTag;
+        return this;
+    }
+
+    public int getVoltageValuePrecision() {
+        return voltageValuePrecision;
+    }
+
+    public SvgParameters setVoltageValuePrecision(int voltageValuePrecision) {
+        this.voltageValuePrecision = voltageValuePrecision;
+        return this;
+    }
+
+    public int getPowerValuePrecision() {
+        return powerValuePrecision;
+    }
+
+    public SvgParameters setPowerValuePrecision(int powerValuePrecision) {
+        this.powerValuePrecision = powerValuePrecision;
+        return this;
+    }
+
+    public int getAngleValuePrecision() {
+        return angleValuePrecision;
+    }
+
+    public SvgParameters setAngleValuePrecision(int angleValuePrecision) {
+        this.angleValuePrecision = angleValuePrecision;
+        return this;
+    }
+
+    public ValueFormatter createValueFormatter() {
+        return new ValueFormatter(powerValuePrecision, voltageValuePrecision, angleValuePrecision, Locale.forLanguageTag(languageTag));
+    }
+
+    public double getPstArrowHeadSize() {
+        return pstArrowHeadSize;
+    }
+
+    public SvgParameters setPstArrowHeadSize(double pstArrowHeadSize) {
+        this.pstArrowHeadSize = pstArrowHeadSize;
         return this;
     }
 }

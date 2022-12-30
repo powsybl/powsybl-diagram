@@ -41,23 +41,18 @@ The main features are:
 ## Getting started
 
 To generate a SVG single line diagram from a voltage level, we first need to add a Maven dependency for the `Network` model 
-and additionally for this example three other ones: two for the `Network` test case, one for simple logging capabilities:
+and additionally for this example two other ones: one for the `Network` test case, one for simple logging capabilities:
 
 ```xml
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-impl</artifactId>
-    <version>4.10.0</version>
+    <version>5.0.0</version>
 </dependency>
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-iidm-test</artifactId>
-    <version>4.10.0</version>
-</dependency>
-<dependency>
-    <groupId>com.powsybl</groupId>
-    <artifactId>powsybl-config-test</artifactId>
-    <version>4.10.0</version>
+    <version>5.0.0</version>
 </dependency>
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -76,7 +71,7 @@ After adding the single line diagram core module dependency:
 <dependency>
     <groupId>com.powsybl</groupId>
     <artifactId>powsybl-single-line-diagram-core</artifactId>
-    <version>2.13.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -106,13 +101,13 @@ It displays the graph whose nodes are the network voltage levels, and whose edge
 In order to generate a SVG from a given network, we need to add some Maven dependencies:
 - `powsybl-network-area-diagram` for the network area diagram itself
 - `powsybl-iidm-impl` for the network model
-- `powsybl-config-test` and `powsybl-ieee-cdf-converter` to load the `Network` example
+- `powsybl-ieee-cdf-converter` to load the `Network` example
 - `slf4j-simple` for simple logging capabilities
 
 ```xml
 <properties>
-    <powsybl.nad.version>0.6.0</powsybl.nad.version>
-    <powsybl.core.version>4.10.0</powsybl.core.version>
+    <powsybl.nad.version>3.0.0</powsybl.nad.version>
+    <powsybl.core.version>5.0.0</powsybl.core.version>
     <slf4j.version>1.7.22</slf4j.version>
 </properties>
 
@@ -125,11 +120,6 @@ In order to generate a SVG from a given network, we need to add some Maven depen
     <dependency>
         <groupId>com.powsybl</groupId>
         <artifactId>powsybl-iidm-impl</artifactId>
-        <version>${powsybl.core.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>com.powsybl</groupId>
-        <artifactId>powsybl-config-test</artifactId>
         <version>${powsybl.core.version}</version>
     </dependency>
     <dependency>

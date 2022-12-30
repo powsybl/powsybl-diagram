@@ -34,7 +34,7 @@ public class DefaultDiagramLabelProvider extends AbstractDiagramLabelProvider {
     private static final String PLANNED_OUTAGE_BRANCH_NODE_DECORATOR = "LOCK";
     private static final String FORCED_OUTAGE_BRANCH_NODE_DECORATOR = "FLASH";
 
-    private final Network network;
+    protected final Network network;
 
     public DefaultDiagramLabelProvider(Network net, ComponentLibrary componentLibrary, LayoutParameters layoutParameters) {
         super(componentLibrary, layoutParameters);

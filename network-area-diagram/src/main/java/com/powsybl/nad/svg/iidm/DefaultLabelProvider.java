@@ -7,15 +7,15 @@
 package com.powsybl.nad.svg.iidm;
 
 import com.powsybl.commons.PowsyblException;
+import com.powsybl.diagram.util.ValueFormatter;
 import com.powsybl.iidm.network.*;
-import com.powsybl.nad.svg.SvgParameters;
-import com.powsybl.nad.utils.iidm.IidmUtils;
 import com.powsybl.nad.model.*;
 import com.powsybl.nad.svg.EdgeInfo;
 import com.powsybl.nad.svg.LabelProvider;
+import com.powsybl.nad.svg.SvgParameters;
+import com.powsybl.nad.utils.iidm.IidmUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,10 +25,12 @@ import java.util.List;
 public class DefaultLabelProvider implements LabelProvider {
     private final Network network;
     private final SvgParameters svgParameters;
+    private final ValueFormatter valueFormatter;
 
     public DefaultLabelProvider(Network network, SvgParameters svgParameters) {
         this.network = network;
         this.svgParameters = svgParameters;
+        this.valueFormatter = svgParameters.createValueFormatter();
     }
 
     @Override
@@ -51,8 +53,9 @@ public class DefaultLabelProvider implements LabelProvider {
         if (terminal == null) {
             return Collections.emptyList();
         }
-        return Arrays.asList(new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP()),
-                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ()));
+        return List.of(
+                new EdgeInfo(EdgeInfo.ACTIVE_POWER, terminal.getP(), valueFormatter::formatPower),
+                new EdgeInfo(EdgeInfo.REACTIVE_POWER, terminal.getQ(), valueFormatter::formatPower));
     }
 
     @Override
@@ -66,6 +69,19 @@ public class DefaultLabelProvider implements LabelProvider {
                     .ifPresent(description::add);
         }
         return description;
+    }
+
+    @Override
+    public String getBusDescription(BusNode busNode) {
+        Bus b = network.getBusView().getBus(busNode.getEquipmentId());
+        String voltage = valueFormatter.formatVoltage(b.getV(), "kV");
+        String angle = valueFormatter.formatAngleInDegrees(b.getAngle());
+        return voltage + " / " + angle;
+    }
+
+    @Override
+    public List<String> getVoltageLevelDetails(VoltageLevelNode vlNode) {
+        return Collections.emptyList();
     }
 
     @Override

@@ -1,8 +1,9 @@
 /**
- * Copyright (c) 2022, RTE (http://www.rte-france.com)
+ * Copyright (c) 2022, RTE (http://www.rte-france.com/)
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
  */
 package com.powsybl.nad.svg;
 
@@ -14,6 +15,7 @@ import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.TopologicalStyleProvider;
+import com.powsybl.nad.svg.metadata.DiagramMetadata;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,11 +34,12 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Thomas Adam <tadam at silicom.fr>
  */
-public class GraphMetadataTest extends AbstractTest {
+public class DiagramMetadataTest extends AbstractTest {
 
     private static final String INDENT = "    ";
-    private static final String METADATA_START_TOKEN = "<metadata";
-    private static final String METADATA_END_TOKEN = "</metadata>";
+    private static final String METADATA = "metadata";
+    private static final String METADATA_START_TOKEN = "<" + METADATA + ">";
+    private static final String METADATA_END_TOKEN = "</" + METADATA + ">";
 
     private FileSystem fileSystem;
     private Path tmpDir;
@@ -73,7 +76,7 @@ public class GraphMetadataTest extends AbstractTest {
         String reference = "/hvdc.svg";
         InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(reference));
         // Create Metadata from svg file
-        GraphMetadata metadata = GraphMetadata.parseXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readXml(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadata.xml");
         writeMetadata(metadata, outPath);
@@ -91,17 +94,19 @@ public class GraphMetadataTest extends AbstractTest {
     @Test
     public void testInvalid() throws XMLStreamException {
         // Referenced svg file
-        String reference = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
-                "        <nad:nodes>\n" +
-                "            <nad:edge diagramId=\"10\" equipmentId=\"TWT\"/>\n" +
-                "        </nad:nodes>\n" +
-                "        <nad:edges>\n" +
-                "            <nad:node diagramId=\"0\" equipmentId=\"S1VL1\"/>\n" +
-                "        </nad:edges>\n" +
+        String reference = "<metadata>\n" +
+                "        <nad:nad xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
+                "            <nad:nodes>\n" +
+                "                <nad:edge diagramId=\"10\" equipmentId=\"TWT\"/>\n" +
+                "            </nad:nodes>\n" +
+                "            <nad:edges>\n" +
+                "                <nad:node diagramId=\"0\" equipmentId=\"S1VL1\"/>\n" +
+                "            </nad:edges>\n" +
+                "        </nad:nad>\n" +
                 "    </metadata>";
         InputStream in = new ByteArrayInputStream(reference.getBytes(StandardCharsets.UTF_8));
         // Create Metadata from svg file
-        GraphMetadata metadata = GraphMetadata.parseXml(in);
+        DiagramMetadata metadata = DiagramMetadata.readXml(in);
         // Write Metadata as temporary xml file
         Path outPath = tmpDir.resolve("metadataInvalid.xml");
         writeMetadata(metadata, outPath);
@@ -110,19 +115,23 @@ public class GraphMetadataTest extends AbstractTest {
         // remove xml header (first line)
         actual = actual.substring(actual.indexOf(METADATA_START_TOKEN));
         // Keep only metadata from svg file
-        String expected = "<metadata xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">\n" +
-                "        <nad:busNodes/>\n" +
-                "        <nad:nodes/>\n" +
-                "        <nad:edges/>\n" +
+        String expected = "<metadata>\n" +
+                "        <nad:nad xmlns:nad=\"http://www.powsybl.org/schema/nad-metadata/1_0\">" +
+                "            <nad:busNodes/>\n" +
+                "            <nad:nodes/>\n" +
+                "            <nad:edges/>\n" +
+                "        </nad:nad>" +
                 "    </metadata>";
         // Checking
         assertEquals(removeWhiteSpaces(expected), removeWhiteSpaces(actual));
     }
 
-    private void writeMetadata(GraphMetadata metadata, Path outPath) throws XMLStreamException {
+    private void writeMetadata(DiagramMetadata metadata, Path outPath) throws XMLStreamException {
         try (OutputStream os = new BufferedOutputStream(Files.newOutputStream(outPath))) {
             XMLStreamWriter writer = XmlUtil.initializeWriter(true, INDENT, os);
+            writer.writeStartElement(METADATA);
             metadata.writeXml(writer);
+            writer.writeEndElement();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
