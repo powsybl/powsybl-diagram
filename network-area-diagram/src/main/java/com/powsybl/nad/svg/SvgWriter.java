@@ -836,22 +836,12 @@ public class SvgWriter {
         graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
-        graph.getEdgesStream().forEach(edge -> {
-            // For 3wt transformers we have one equipmentId and three edges in the graph.
-            // When we get the stream of edges we are iterating through values in a map by equipmentId.
-            // Only one of the edges has been placed in the graph edges map,
-            // although three edges have been added to the graph.
-            // Here we simply ignore the 3wt edges
-            if (!(edge instanceof ThreeWtEdge)) {
-                metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
-                        getPrefixedId(graph.getNode1(edge).getDiagramId()),
-                        getPrefixedId(graph.getNode2(edge).getDiagramId()));
-            }
-        });
-        // This stream contains all 3wt edges that have been added to the graph, not only the last one
+        graph.getBranchEdgeStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+                getPrefixedId(graph.getNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getNode2(edge).getDiagramId())));
         graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
-            getPrefixedId(graph.getNode1(edge).getDiagramId()),
-            getPrefixedId(graph.getNode2(edge).getDiagramId())));
+                getPrefixedId(graph.getNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getNode2(edge).getDiagramId())));
 
         writer.writeStartElement(METADATA_ELEMENT_NAME);
         metadata.writeXml(writer);
