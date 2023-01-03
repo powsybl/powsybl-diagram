@@ -123,7 +123,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
+            writeId(writer, edge);
             writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
 
@@ -246,7 +246,7 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
+        writeId(writer, edge);
         writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
 
@@ -269,7 +269,7 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
         for (ThreeWtNode threeWtNode : threeWtNodes) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(threeWtNode.getDiagramId()));
+            writeId(writer, threeWtNode);
             writeStyleClasses(writer, styleProvider.getNodeStyleClasses(threeWtNode));
             List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
             for (ThreeWtEdge edge : edges) {
@@ -506,7 +506,7 @@ public class SvgWriter {
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
+        writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
 
@@ -560,7 +560,7 @@ public class SvgWriter {
 
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
+        writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
@@ -581,7 +581,7 @@ public class SvgWriter {
     }
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(vlNode.getDiagramId()));
+        writeId(writer, vlNode);
         writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
@@ -611,7 +611,7 @@ public class SvgWriter {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
-            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
+            writeId(writer, busNode);
             writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.BUSNODE_CLASS);
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
@@ -732,7 +732,7 @@ public class SvgWriter {
 
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
+        writeId(writer, edge);
         writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         List<Point> points = edge.getPoints();
         shiftEdgeStart(points, vlNode);
@@ -753,6 +753,10 @@ public class SvgWriter {
         List<String> allClasses = new ArrayList<>(edgeStyleClasses);
         allClasses.addAll(Arrays.asList(additionalClasses));
         writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", allClasses));
+    }
+
+    private void writeId(XMLStreamWriter writer, Identifiable identifiable) throws XMLStreamException {
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(identifiable.getDiagramId()));
     }
 
     private void shiftEdgeStart(List<Point> points, VoltageLevelNode vlNode) {
