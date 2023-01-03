@@ -79,7 +79,7 @@
     <g class="nad-branch-edges">
         <g id="4">
             <g id="4.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-183.23,-161.22 -118.51,-20.70"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-183.23,-161.22 -118.51,-20.70"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-178.00,-149.86)">
                     <g class="nad-state-out">
                         <g transform="rotate(155.27)">
@@ -90,7 +90,7 @@
                 </g>
             </g>
             <g id="4.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-53.78,119.83 -118.51,-20.70"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-53.78,119.83 -118.51,-20.70"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(-59.01,108.47)">
                     <g class="nad-state-out">
                         <g transform="rotate(-24.73)">
@@ -103,7 +103,7 @@
         </g>
         <g id="7" class="nad-dangling-line-edge">
             <g id="7.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="-14.82,146.33 139.65,154.93"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="-14.82,146.33 139.65,154.93"/>
                 <g class="nad-glued-1 nad-edge-infos" transform="translate(-2.34,147.03)">
                     <g class="nad-state-out">
                         <g transform="rotate(93.18)">
@@ -114,7 +114,7 @@
                 </g>
             </g>
             <g id="7.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path nad-stretchable" points="294.13,163.52 139.65,154.93"/>
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="294.13,163.52 139.65,154.93"/>
                 <g class="nad-glued-2 nad-edge-infos" transform="translate(281.65,162.83)">
                     <g class="nad-state-out">
                         <g transform="rotate(-86.82)">

@@ -209,7 +209,7 @@ public class SvgWriter {
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
+                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
                 drawBranchEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             } else {
