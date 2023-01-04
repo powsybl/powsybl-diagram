@@ -132,14 +132,50 @@ public class SvgWriter {
             if (BranchEdge.PST_EDGE.equals(edge.getType())) {
                 drawPstArrow(writer, edge);
             }
-
             if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
                 drawConverterStation(writer, edge);
+            }
+            if (BranchEdge.LINE_EDGE.equals(edge.getType()) && svgParameters.isLineNameDisplayed()) {
+                drawLineLabel(writer, edge);
             }
 
             writer.writeEndElement();
         }
         writer.writeEndElement();
+    }
+
+    private void drawLineLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+
+        String lineName = edge.getEquipmentId();
+
+        if (lineName != null) {
+
+            double edgeAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
+            boolean textFlipped = Math.cos(edgeAngle) < 0;
+            double textAngle = textFlipped ? edgeAngle - Math.PI : edgeAngle;
+
+            List<Point> points1 = edge.getPoints1();
+            List<Point> points2 = edge.getPoints2();
+            Point anchorPoint = Point.createMiddlePoint(points1.get(points1.size() - 1), points2.get(points2.size() - 1));
+            String style = "text-anchor:middle";
+
+            if (!edge.isVisible(BranchEdge.Side.ONE)) {
+                edgeAngle = edge.getEdgeEndAngle(BranchEdge.Side.TWO);
+                textFlipped = Math.cos(edgeAngle) < 0;
+                style = textFlipped ? "text-anchor:end" : "text-anchor:start";
+            } else if (!edge.isVisible(BranchEdge.Side.TWO)) {
+                style = textFlipped ? "text-anchor:end" : "text-anchor:start";
+            }
+
+            writer.writeStartElement(GROUP_ELEMENT_NAME);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_ID_CLASS);
+            writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
+
+            drawLabel(writer, lineName, 0, style, textAngle, X_ATTRIBUTE);
+
+            writer.writeEndElement();
+        }
+
     }
 
     private void drawConverterStation(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {

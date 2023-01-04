@@ -25,6 +25,7 @@ public interface StyleProvider {
     String THREE_WT_EDGES_CLASS = CLASSES_PREFIX + "3wt-edges";
     String TEXT_EDGES_CLASS = CLASSES_PREFIX + "text-edges";
     String EDGE_INFOS_CLASS = CLASSES_PREFIX + "edge-infos";
+    String EDGE_ID_CLASS = CLASSES_PREFIX + "edge-id";
     String ARROW_IN_CLASS = CLASSES_PREFIX + "arrow-in";
     String ARROW_OUT_CLASS = CLASSES_PREFIX + "arrow-out";
     String HVDC_CLASS = CLASSES_PREFIX + "hvdc";
