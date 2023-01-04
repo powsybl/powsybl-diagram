@@ -9,6 +9,7 @@ package com.powsybl.nad.svg.iidm;
 import com.powsybl.commons.config.BaseVoltagesConfig;
 import com.powsybl.iidm.network.Network;
 import com.powsybl.iidm.network.Terminal;
+import com.powsybl.nad.model.BoundaryNode;
 import com.powsybl.nad.model.Node;
 import com.powsybl.nad.model.VoltageLevelNode;
 
@@ -38,7 +39,11 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
     @Override
     public List<String> getNodeStyleClasses(Node node) {
         List<String> styles = new ArrayList<>();
-        if (node instanceof VoltageLevelNode) {
+        if (node instanceof BoundaryNode) {
+            styles.add(BOUNDARY_NODE_CLASS);
+            double nominalV = network.getDanglingLine(node.getEquipmentId()).getBoundary().getVoltageLevel().getNominalV();
+            getBaseVoltageStyle(nominalV).ifPresent(styles::add);
+        } else if (node instanceof VoltageLevelNode) {
             double nominalV = network.getVoltageLevel(node.getEquipmentId()).getNominalV();
             getBaseVoltageStyle(nominalV).ifPresent(styles::add);
         }
