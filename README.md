@@ -1,11 +1,12 @@
 # PowSyBl Diagram
+
 [![Actions Status](https://github.com/powsybl/powsybl-diagram/workflows/CI/badge.svg)](https://github.com/powsybl/powsybl-diagram/actions)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-diagram&metric=coverage)](https://sonarcloud.io/component_measures?id=com.powsybl%3Apowsybl-diagram&metric=coverage)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.powsybl%3Apowsybl-diagram&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.powsybl%3Apowsybl-diagram)
 [![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Slack](https://img.shields.io/badge/slack-powsybl-blueviolet.svg?logo=slack)](https://join.slack.com/t/powsybl/shared_invite/zt-rzvbuzjk-nxi0boim1RKPS5PjieI0rA)
 
-PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams.
+PowSyBl diagram allows users to generate customizable network graph diagrams (denominated network-area diagrams in PowSyBl) and single-line diagrams in SVG format files.
 
 ![Diagrams available](.github/nad-sld-diagrams.jpg)
 
@@ -43,7 +44,7 @@ for generating a [single line diagram](https://en.wikipedia.org/wiki/One-line_di
 The main features are:
  - Node/Breaker and bus/breaker topology.
  - [SVG](https://fr.wikipedia.org/wiki/Scalable_Vector_Graphics) diagram to be used in various front-end technologies.
- - Voltage-level, substation and zone diagrams.
+ - Voltage level, substation and zone diagrams.
  - Highly customizable rendering using equipment component libraries, CSS and configurable labels (position and content).
  - Multiple layout modes: fully automatic, semi-automatic (using relative positions for busbar sections and feeders), CGMES DL.
 
