@@ -19,7 +19,7 @@
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos, .nad-edge-id text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -189,6 +189,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(-866.40,391.80)">
+                <text transform="rotate(15.22)" x="0.00" style="text-anchor:middle">A - B</text>
+            </g>
         </g>
         <g id="31">
             <g id="31.1" class="nad-vl300to500">
@@ -270,6 +273,9 @@
                         <text transform="rotate(-9.61)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(-392.94,405.86)">
+                <text transform="rotate(-9.61)" x="0.00" style="text-anchor:middle">B - C</text>
             </g>
         </g>
         <g id="33">
@@ -395,6 +401,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(793.31,75.87)">
+                <text transform="rotate(51.33)" x="0.00" style="text-anchor:middle">C - D</text>
+            </g>
         </g>
         <g id="36">
             <g id="36.1" class="nad-vl0to30">
@@ -434,6 +443,9 @@
                         <text transform="rotate(89.28)" x="19.00">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(391.55,-230.95)">
+                <text transform="rotate(-270.72)" x="0.00" style="text-anchor:middle">D - E</text>
             </g>
         </g>
         <g id="37">
@@ -475,6 +487,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(96.36,-118.51)">
+                <text transform="rotate(24.68)" x="0.00" style="text-anchor:middle">H - D</text>
+            </g>
         </g>
         <g id="38">
             <g id="38.1" class="nad-vl0to30">
@@ -514,6 +529,9 @@
                         <text transform="rotate(75.36)" x="19.00">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(462.91,279.75)">
+                <text transform="rotate(-284.64)" x="0.00" style="text-anchor:middle">K - D</text>
             </g>
         </g>
         <g id="39">
@@ -597,6 +615,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(207.73,-504.02)">
+                <text transform="rotate(-352.57)" x="0.00" style="text-anchor:middle">E - F</text>
+            </g>
         </g>
         <g id="41">
             <g id="41.1" class="nad-vl0to30">
@@ -636,6 +657,9 @@
                         <text transform="rotate(14.74)" x="19.00">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(-163.09,-577.62)">
+                <text transform="rotate(-345.26)" x="0.00" style="text-anchor:middle">F - G</text>
             </g>
         </g>
         <g id="42">
@@ -677,6 +701,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(32.02,-240.72)">
+                <text transform="rotate(89.01)" x="0.00" style="text-anchor:middle">F - I</text>
+            </g>
         </g>
         <g id="43">
             <g id="43.1" class="nad-vl0to30">
@@ -716,6 +743,9 @@
                         <text transform="rotate(-292.12)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(-277.62,-441.63)">
+                <text transform="rotate(67.88)" x="0.00" style="text-anchor:middle">G - H</text>
             </g>
         </g>
         <g id="44">
@@ -757,6 +787,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(117.06,317.59)">
+                <text transform="rotate(73.56)" x="0.00" style="text-anchor:middle">I - J</text>
+            </g>
         </g>
         <g id="45">
             <g id="45.1" class="nad-vl0to30">
@@ -796,6 +829,9 @@
                         <text transform="rotate(-8.20)" x="-19.00" style="text-anchor:end">—</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(364.13,564.99)">
+                <text transform="rotate(-8.20)" x="0.00" style="text-anchor:middle">J - K</text>
             </g>
         </g>
     </g>

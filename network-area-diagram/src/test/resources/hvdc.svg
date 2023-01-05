@@ -19,7 +19,7 @@
 .nad-text-nodes {font: 25px serif; fill: black; dominant-baseline: central}
 .nad-text-nodes foreignObject {overflow: visible; color: black}
 .nad-label-box {background-color: #6c6c6c20; width: max-content; padding: 10px; border-radius: 10px;}
-.nad-edge-infos text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
+.nad-edge-infos, .nad-edge-id text {font: 20px serif; dominant-baseline:middle; stroke: #FFFFFFAA; stroke-width: 10; stroke-linejoin:round; paint-order: stroke}
 .nad-edge-infos .nad-state-in text {fill: #b71c1c}
 .nad-edge-infos .nad-state-out text {fill: #2e7d32}
 .nad-vl0to30 {--nad-vl-color: #AFB42B}
@@ -262,6 +262,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(161.91,-62.96)">
+                <text transform="rotate(60.53)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+            </g>
         </g>
         <g id="14">
             <desc>LINE_S3S4</desc>
@@ -302,6 +305,9 @@
                         <text transform="rotate(-341.59)" x="-19.00" style="text-anchor:end">3</text>
                     </g>
                 </g>
+            </g>
+            <g class="nad-edge-id" transform="translate(442.12,157.61)">
+                <text transform="rotate(18.41)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
             </g>
         </g>
     </g>
