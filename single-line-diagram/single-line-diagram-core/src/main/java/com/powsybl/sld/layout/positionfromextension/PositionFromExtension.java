@@ -126,8 +126,8 @@ public class PositionFromExtension extends AbstractPositionFinder {
             bc.getNodes().stream().map(Node::getOrder)
                     .filter(Optional::isPresent)
                     .mapToInt(Optional::get)
-                    .average()
-                    .ifPresent(a -> bc.setOrder((int) Math.floor(a)));
+                    .min()
+                    .ifPresent(bc::setOrder);
             if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == EXTERN) {
                 bc.setDirection(DEFAULTDIRECTION);
             }
