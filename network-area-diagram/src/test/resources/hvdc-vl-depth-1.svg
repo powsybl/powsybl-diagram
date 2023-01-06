@@ -8,6 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-dangling-line-edge {fill: var(--nad-vl-color, lighgrey)}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
@@ -75,8 +76,8 @@
         <g id="4" class="nad-hvdc-edge">
             <desc>HVDC</desc>
             <g id="4.1" class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="140.62,-69.02 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(118.21,-45.48)">
+                <polyline class="nad-edge-path nad-stretchable nad-glued-1" points="140.62,-69.02 37.43,39.35"/>
+                <g class="nad-glued-1 nad-edge-infos" transform="translate(118.21,-45.48)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(-136.40)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -94,8 +95,8 @@
                 </g>
             </g>
             <g id="4.2" class="nad-vl300to500">
-                <polyline class="nad-edge-path" points="-65.77,147.71 37.43,39.35"/>
-                <g class="nad-edge-infos" transform="translate(-43.36,124.17)">
+                <polyline class="nad-edge-path nad-stretchable nad-glued-2" points="-65.77,147.71 37.43,39.35"/>
+                <g class="nad-glued-2 nad-edge-infos" transform="translate(-43.36,124.17)">
                     <g class="nad-active nad-state-out">
                         <g transform="rotate(43.60)">
                             <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -112,7 +113,9 @@
                     </g>
                 </g>
             </g>
-            <polyline points="58.11,17.62 16.74,61.07" class="nad-hvdc"/>
+            <g class="nad-glued-center">
+                <polyline points="58.11,17.62 16.74,61.07" class="nad-hvdc"/>
+            </g>
         </g>
     </g>
     <g class="nad-text-edges">

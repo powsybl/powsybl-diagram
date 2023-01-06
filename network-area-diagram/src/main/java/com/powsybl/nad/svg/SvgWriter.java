@@ -123,12 +123,13 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.BRANCH_EDGES_CLASS);
         for (BranchEdge edge : graph.getBranchEdges()) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
-            addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+            writeId(writer, edge);
+            writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
             insertName(writer, edge::getName);
 
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
+
             if (BranchEdge.PST_EDGE.equals(edge.getType())) {
                 drawPstArrow(writer, edge);
             }
@@ -139,10 +140,14 @@ public class SvgWriter {
                 drawLineLabel(writer, edge);
             }
 
+            drawEdgeCenter(writer, edge);
+
+
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
+
 
     private void drawLineLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
 
@@ -174,6 +179,33 @@ public class SvgWriter {
             drawLabel(writer, lineName, 0, style, textAngle, X_ATTRIBUTE);
 
             writer.writeEndElement();
+        }
+
+    private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        if (BranchEdge.LINE_EDGE.equals(edge.getType()) || BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
+            return;
+        }
+        writer.writeStartElement(GROUP_ELEMENT_NAME);
+        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.GLUED_CENTER_CLASS);
+        switch (edge.getType()) {
+            case BranchEdge.PST_EDGE:
+            case BranchEdge.TWO_WT_EDGE:
+                draw2Wt(writer, edge);
+                break;
+            case BranchEdge.HVDC_LINE_EDGE:
+                drawConverterStation(writer, edge);
+                break;
+            default:
+                // Should not happen as lines are discarded beforehand
+        }
+        writer.writeEndElement();
+    }
+
+    private void draw2Wt(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
+        draw2WtWinding(writer, edge, BranchEdge.Side.ONE);
+        draw2WtWinding(writer, edge, BranchEdge.Side.TWO);
+        if (BranchEdge.PST_EDGE.equals(edge.getType())) {
+            drawPstArrow(writer, edge);
         }
 
     }
@@ -219,11 +251,11 @@ public class SvgWriter {
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
         writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId() + "." + side.getNum()));
-        addStylesIfAny(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
+        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side));
         if (edge.isVisible(side)) {
             if (!graph.isLoop(edge)) {
                 writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-                writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+                writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS, StyleProvider.GLUED_CLASS + "-" + side.getNum());
                 writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge, side));
                 drawBranchEdgeInfo(graph, writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             } else {
@@ -232,9 +264,6 @@ public class SvgWriter {
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getLoopPathString(edge, side));
                 drawLoopEdgeInfo(writer, edge, side, labelProvider.getEdgeInfos(graph, edge, side));
             }
-        }
-        if (edge.isTransformerEdge()) {
-            draw2WtWinding(writer, edge.getPoints(side));
         }
         writer.writeEndElement();
     }
@@ -263,13 +292,16 @@ public class SvgWriter {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
-        addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+        writeId(writer, edge);
+        writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         insertName(writer, edge::getName);
+
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_PATH_CLASS);
+        writeStyleClasses(writer, StyleProvider.EDGE_PATH_CLASS, StyleProvider.STRETCHABLE_CLASS);
         writer.writeAttribute(POINTS_ATTRIBUTE, getPolylinePointsString(edge));
+
         drawThreeWtEdgeInfo(graph, writer, edge, labelProvider.getEdgeInfos(graph, edge));
+
         writer.writeEndElement();
     }
 
@@ -283,7 +315,8 @@ public class SvgWriter {
         writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.THREE_WT_NODES_CLASS);
         for (ThreeWtNode threeWtNode : threeWtNodes) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(threeWtNode));
+            writeId(writer, threeWtNode);
+            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(threeWtNode));
             List<ThreeWtEdge> edges = graph.getThreeWtEdgeStream(threeWtNode).collect(Collectors.toList());
             for (ThreeWtEdge edge : edges) {
                 draw3WtWinding(edge, threeWtNode, writer);
@@ -294,12 +327,10 @@ public class SvgWriter {
     }
 
     private void draw3WtWinding(ThreeWtEdge edge, ThreeWtNode threeWtNode, XMLStreamWriter writer) throws XMLStreamException {
-        List<String> styles = styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide());
-        styles.add(StyleProvider.WINDING_CLASS);
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = edge.getPoints().get(1).atDistance(radius, threeWtNode.getPosition());
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-        addStylesIfAny(writer, styles);
+        writeStyleClasses(writer, styleProvider.getThreeWtNodeStyle(threeWtNode, edge.getSide()), StyleProvider.WINDING_CLASS);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
         writer.writeAttribute("cy", getFormattedValue(circleCenter.getY()));
         writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(svgParameters.getTransformerCircleRadius()));
@@ -312,22 +343,28 @@ public class SvgWriter {
     private void drawBranchEdgeInfo(Graph graph, XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge, side);
         BusNode busNode = graph.getBusGraphNode(edge, side);
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
+        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-" + side.getNum());
+        drawEdgeInfo(writer, additionalStyles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints(side)), edge.getEdgeEndAngle(side));
     }
 
     private void drawThreeWtEdgeInfo(Graph graph, XMLStreamWriter writer, ThreeWtEdge edge, List<EdgeInfo> edgeInfos) throws XMLStreamException {
         VoltageLevelNode vlNode = graph.getVoltageLevelNode(edge);
         BusNode busNode = graph.getBusGraphNode(edge);
-        drawEdgeInfo(writer, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
+        List<String> additionalStyles = List.of(StyleProvider.GLUED_CLASS + "-1");
+        drawEdgeInfo(writer, additionalStyles, edgeInfos, getArrowCenter(vlNode, busNode, edge.getPoints()), edge.getEdgeAngle());
     }
 
     private void drawEdgeInfo(XMLStreamWriter writer, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
+        drawEdgeInfo(writer, Collections.emptyList(), edgeInfos, infoCenter, edgeAngle);
+    }
+
+    private void drawEdgeInfo(XMLStreamWriter writer, List<String> additionalStyles, List<EdgeInfo> edgeInfos, Point infoCenter, double edgeAngle) throws XMLStreamException {
         writer.writeStartElement(GROUP_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_INFOS_CLASS);
+        writeStyleClasses(writer, additionalStyles, StyleProvider.EDGE_INFOS_CLASS);
         writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(infoCenter));
         for (EdgeInfo info : edgeInfos) {
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            addStylesIfAny(writer, styleProvider.getEdgeInfoStyles(info));
+            writeStyleClasses(writer, styleProvider.getEdgeInfoStyles(info));
             drawInAndOutArrows(writer, edgeAngle);
             Optional<String> externalLabel = info.getExternalLabel();
             if (externalLabel.isPresent()) {
@@ -432,11 +469,12 @@ public class SvgWriter {
         return line.get(line.size() - 2).atDistance(shift, line.get(line.size() - 1));
     }
 
-    private void draw2WtWinding(XMLStreamWriter writer, List<Point> half) throws XMLStreamException {
+    private void draw2WtWinding(XMLStreamWriter writer, BranchEdge edge, BranchEdge.Side side) throws XMLStreamException {
         writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-        writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.WINDING_CLASS);
-        Point point1 = half.get(half.size() - 1); // point near 2wt
-        Point point2 = half.get(half.size() - 2); // point near voltage level, or control point for loops
+        writeStyleClasses(writer, styleProvider.getSideEdgeStyleClasses(edge, side), StyleProvider.WINDING_CLASS);
+        List<Point> halfPoints = edge.getPoints(side);
+        Point point1 = halfPoints.get(halfPoints.size() - 1); // point near 2wt
+        Point point2 = halfPoints.get(halfPoints.size() - 2); // point near voltage level, or control point for loops
         double radius = svgParameters.getTransformerCircleRadius();
         Point circleCenter = point1.atDistance(-radius, point2);
         writer.writeAttribute("cx", getFormattedValue(circleCenter.getX()));
@@ -514,7 +552,7 @@ public class SvgWriter {
 
     private void writeDetailedTextNode(XMLStreamWriter writer, TextNode textNode, VoltageLevelNode vlNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(FOREIGN_OBJECT_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
+        writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY() - svgParameters.getDetailedTextNodeYShift()));
         writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
 
@@ -556,9 +594,7 @@ public class SvgWriter {
             writer.writeStartElement(TABLE_ROW_ELEMENT_NAME);
             writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
             writer.writeEmptyElement(DIV_ELEMENT_NAME);
-            List<String> styles = styleProvider.getNodeStyleClasses(busNode);
-            styles.add(StyleProvider.LEGEND_SQUARE_CLASS);
-            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", styles));
+            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.LEGEND_SQUARE_CLASS);
             writer.writeEndElement();
             writer.writeStartElement(TABLE_DATA_ELEMENT_NAME);
             writer.writeCharacters(labelProvider.getBusDescription(busNode));
@@ -570,7 +606,7 @@ public class SvgWriter {
 
     private void writeSimpleTextNode(XMLStreamWriter writer, TextNode textNode, List<String> content) throws XMLStreamException {
         writer.writeStartElement(TEXT_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(textNode.getDiagramId()));
+        writeId(writer, textNode);
         writer.writeAttribute(Y_ATTRIBUTE, getFormattedValue(textNode.getY()));
         if (content.size() == 1) {
             writer.writeAttribute(X_ATTRIBUTE, getFormattedValue(textNode.getX()));
@@ -591,15 +627,15 @@ public class SvgWriter {
     }
 
     private void drawNode(Graph graph, XMLStreamWriter writer, VoltageLevelNode vlNode) throws XMLStreamException {
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(vlNode.getDiagramId()));
-        addStylesIfAny(writer, styleProvider.getNodeStyleClasses(vlNode));
+        writeId(writer, vlNode);
+        writeStyleClasses(writer, styleProvider.getNodeStyleClasses(vlNode));
         insertName(writer, vlNode::getName);
 
         double nodeOuterRadius = getVoltageLevelCircleRadius(vlNode);
 
         if (vlNode.hasUnknownBusNode()) {
             writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-            addStylesIfAny(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
+            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(BusNode.UNKNOWN));
             writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(nodeOuterRadius + svgParameters.getUnknownBusNodeExtraRadius()));
         }
 
@@ -609,20 +645,30 @@ public class SvgWriter {
             double busInnerRadius = getBusAnnulusInnerRadius(busNode, vlNode, svgParameters);
             double busOuterRadius = getBusAnnulusOuterRadius(busNode, vlNode, svgParameters);
             if (busInnerRadius == 0) {
-                writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
-                writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                if (busNode instanceof BoundaryBusNode) {
+                    // Boundary nodes are always at side two of a dangling line edge, dangling line is its only edge
+                    double edgeStartAngle = getEdgeStartAngle(graph.getBusEdges(busNode).iterator().next(), BranchEdge.Side.TWO);
+                    drawBoundarySemicircle(writer, busOuterRadius, edgeStartAngle);
+                } else {
+                    writer.writeEmptyElement(CIRCLE_ELEMENT_NAME);
+                    writer.writeAttribute(CIRCLE_RADIUS_ATTRIBUTE, getFormattedValue(busOuterRadius));
+                }
             } else {
                 writer.writeEmptyElement(PATH_ELEMENT_NAME);
                 writer.writeAttribute(PATH_D_ATTRIBUTE, getFragmentedAnnulusPath(busInnerRadius, busOuterRadius, traversingBusEdges, graph, vlNode, busNode));
             }
-            writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(busNode.getDiagramId()));
-
-            List<String> nodeStyleClasses = styleProvider.getNodeStyleClasses(busNode);
-            nodeStyleClasses.add(StyleProvider.BUSNODE_CLASS);
-            addStylesIfAny(writer, nodeStyleClasses);
+            writeId(writer, busNode);
+            writeStyleClasses(writer, styleProvider.getNodeStyleClasses(busNode), StyleProvider.BUSNODE_CLASS);
 
             traversingBusEdges.addAll(graph.getBusEdges(busNode));
         }
+    }
+
+    private void drawBoundarySemicircle(XMLStreamWriter writer, double radius, double edgeStartAngle) throws XMLStreamException {
+        writer.writeEmptyElement(PATH_ELEMENT_NAME);
+        double startAngle = -Math.PI / 2 + edgeStartAngle;
+        String semiCircle = "M" + getCirclePath(radius, startAngle, startAngle + Math.PI, true);
+        writer.writeAttribute(PATH_D_ATTRIBUTE, semiCircle);
     }
 
     private String getFragmentedAnnulusPath(double innerRadius, double outerRadius, List<Edge> traversingBusEdges, Graph graph, VoltageLevelNode vlNode, BusNode busNode) {
@@ -732,8 +778,8 @@ public class SvgWriter {
 
     private void drawTextEdge(XMLStreamWriter writer, TextEdge edge, VoltageLevelNode vlNode) throws XMLStreamException {
         writer.writeEmptyElement(POLYLINE_ELEMENT_NAME);
-        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(edge.getDiagramId()));
-        addStylesIfAny(writer, styleProvider.getEdgeStyleClasses(edge));
+        writeId(writer, edge);
+        writeStyleClasses(writer, styleProvider.getEdgeStyleClasses(edge));
         List<Point> points = edge.getPoints();
         shiftEdgeStart(points, vlNode);
         String lineFormatted1 = points.stream()
@@ -742,10 +788,21 @@ public class SvgWriter {
         writer.writeAttribute(POINTS_ATTRIBUTE, lineFormatted1);
     }
 
-    private void addStylesIfAny(XMLStreamWriter writer, List<String> edgeStyleClasses) throws XMLStreamException {
-        if (!edgeStyleClasses.isEmpty()) {
-            writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", edgeStyleClasses));
+    private void writeStyleClasses(XMLStreamWriter writer, String... additionalClasses) throws XMLStreamException {
+        writeStyleClasses(writer, Collections.emptyList(), additionalClasses);
+    }
+
+    private void writeStyleClasses(XMLStreamWriter writer, List<String> edgeStyleClasses, String... additionalClasses) throws XMLStreamException {
+        if (edgeStyleClasses.isEmpty() && additionalClasses.length == 0) {
+            return;
         }
+        List<String> allClasses = new ArrayList<>(edgeStyleClasses);
+        allClasses.addAll(Arrays.asList(additionalClasses));
+        writer.writeAttribute(CLASS_ATTRIBUTE, String.join(" ", allClasses));
+    }
+
+    private void writeId(XMLStreamWriter writer, Identifiable identifiable) throws XMLStreamException {
+        writer.writeAttribute(ID_ATTRIBUTE, getPrefixedId(identifiable.getDiagramId()));
     }
 
     private void shiftEdgeStart(List<Point> points, VoltageLevelNode vlNode) {
@@ -828,7 +885,10 @@ public class SvgWriter {
         graph.getBusNodesStream().forEach(busNode -> metadata.addBusNode(getPrefixedId(busNode.getDiagramId()), busNode.getEquipmentId()));
         graph.getNodesStream().forEach(node -> metadata.addNode(getPrefixedId(node.getDiagramId()), node.getEquipmentId(),
                 getFormattedValue(node.getX()), getFormattedValue(node.getY())));
-        graph.getEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+        graph.getBranchEdgeStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
+                getPrefixedId(graph.getNode1(edge).getDiagramId()),
+                getPrefixedId(graph.getNode2(edge).getDiagramId())));
+        graph.getThreeWtEdgesStream().forEach(edge -> metadata.addEdge(getPrefixedId(edge.getDiagramId()), edge.getEquipmentId(),
                 getPrefixedId(graph.getNode1(edge).getDiagramId()),
                 getPrefixedId(graph.getNode2(edge).getDiagramId())));
 
