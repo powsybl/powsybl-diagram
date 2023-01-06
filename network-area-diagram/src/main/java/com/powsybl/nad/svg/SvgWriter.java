@@ -142,12 +142,10 @@ public class SvgWriter {
 
             drawEdgeCenter(writer, edge);
 
-
             writer.writeEndElement();
         }
         writer.writeEndElement();
     }
-
 
     private void drawLineLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
 
@@ -180,6 +178,7 @@ public class SvgWriter {
 
             writer.writeEndElement();
         }
+    }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
         if (BranchEdge.LINE_EDGE.equals(edge.getType()) || BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {

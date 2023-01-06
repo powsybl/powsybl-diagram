@@ -104,6 +104,9 @@
                     </g>
                 </g>
             </g>
+            <g class="nad-edge-id" transform="translate(-118.51,-20.70)">
+                <text transform="rotate(65.27)" x="0.00" style="text-anchor:middle">l1</text>
+            </g>
         </g>
         <g id="7" class="nad-dangling-line-edge">
             <g id="7.1" class="nad-vl300to500">
@@ -131,9 +134,6 @@
                         <text transform="rotate(-86.82)" y="28.75" style="text-anchor:middle">int</text>
                     </g>
                 </g>
-            </g>
-            <g class="nad-edge-id" transform="translate(37.43,39.35)">
-                <text transform="rotate(-46.40)" x="0.00" style="text-anchor:middle">l1</text>
             </g>
         </g>
     </g>

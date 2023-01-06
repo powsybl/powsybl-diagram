@@ -7,19 +7,12 @@
 package com.powsybl.nad.svg;
 
 import com.powsybl.iidm.network.Network;
-import com.powsybl.iidm.network.test.ThreeWindingsTransformerNetworkFactory;
 import com.powsybl.nad.AbstractTest;
 import com.powsybl.nad.layout.LayoutParameters;
-import com.powsybl.nad.model.BranchEdge;
-import com.powsybl.nad.model.Graph;
-import com.powsybl.nad.model.ThreeWtEdge;
 import com.powsybl.nad.svg.iidm.DefaultLabelProvider;
 import com.powsybl.nad.svg.iidm.NominalVoltageStyleProvider;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
