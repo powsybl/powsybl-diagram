@@ -17,5 +17,4 @@ public interface IdProvider {
     String createId(Identifiable<?> identifiable);
 
     String createId(ThreeWindingsTransformer.Leg leg);
-
 }

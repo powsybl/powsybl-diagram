@@ -21,7 +21,7 @@ public class Graph {
 
     private final Map<String, Node> nodes = new LinkedHashMap<>();
     private final Map<String, BusNode> busNodes = new LinkedHashMap<>();
-    private final Map<String, Edge> edges = new LinkedHashMap<>();
+    private final Map<String, BranchEdge> branchEdges = new LinkedHashMap<>();
     private double minX = 0;
     private double minY = 0;
     private double maxX = 0;
@@ -58,6 +58,7 @@ public class Graph {
 
     public void addEdge(VoltageLevelNode node1, BusNode busNode1,
                         VoltageLevelNode node2, BusNode busNode2, BranchEdge edge) {
+        branchEdges.put(edge.getEquipmentId(), edge);
         addVoltageLevelsEdge(node1, node2, edge);
         addBusesEdge(busNode1, busNode2, edge);
     }
@@ -78,7 +79,6 @@ public class Graph {
         Objects.requireNonNull(node1);
         Objects.requireNonNull(node2);
         Objects.requireNonNull(edge);
-        edges.put(edge.getEquipmentId(), edge);
         voltageLevelGraph.addEdge(node1, node2, edge);
     }
 
@@ -116,8 +116,12 @@ public class Graph {
         return Collections.unmodifiableCollection(textEdges.values());
     }
 
-    public Stream<Edge> getEdgesStream() {
-        return edges.values().stream();
+    public Stream<BranchEdge> getBranchEdgeStream() {
+        return branchEdges.values().stream();
+    }
+
+    public Collection<BranchEdge> getBranchEdges() {
+        return Collections.unmodifiableCollection(branchEdges.values());
     }
 
     public Collection<Edge> getEdges() {
@@ -140,16 +144,6 @@ public class Graph {
 
     public Collection<Edge> getBusEdges(BusNode busNode) {
         return busGraph.edgesOf(busNode);
-    }
-
-    public Stream<BranchEdge> getBranchEdgeStream() {
-        return voltageLevelGraph.edgeSet().stream()
-                .filter(BranchEdge.class::isInstance)
-                .map(BranchEdge.class::cast);
-    }
-
-    public List<BranchEdge> getBranchEdges() {
-        return getBranchEdgeStream().collect(Collectors.toList());
     }
 
     public Stream<TextEdge> getTextEdgesStream() {
@@ -308,7 +302,7 @@ public class Graph {
     }
 
     public boolean containsEdge(String equipmentId) {
-        return edges.containsKey(equipmentId);
+        return branchEdges.containsKey(equipmentId);
     }
 
     public boolean containsNode(String equipmentId) {

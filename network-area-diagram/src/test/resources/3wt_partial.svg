@@ -8,6 +8,7 @@
 .nad-vl-nodes .nad-busnode {fill: var(--nad-vl-color, lightblue)}
 .nad-vl-nodes circle.nad-unknown-busnode {stroke: lightgrey; stroke-width: 5; stroke-dasharray: 5,5; fill: none}
 .nad-hvdc-edge polyline.nad-hvdc {stroke: grey; stroke-width: 20}
+.nad-dangling-line-edge {fill: var(--nad-vl-color, lighgrey)}
 .nad-pst-arrow {stroke: #6a6a6a; stroke-width: 4; stroke-linecap: round; fill: none}
 .nad-state-out .nad-arrow-in {visibility: hidden}
 .nad-state-in .nad-arrow-out {visibility: hidden}
@@ -60,6 +61,8 @@
                 <nad:node svgId="7" equipmentId="VL_33" x="261.19" y="-298.22"/>
             </nad:nodes>
             <nad:edges>
+                <nad:edge svgId="3" equipmentId="3WT" node1="0" node2="2"/>
+                <nad:edge svgId="6" equipmentId="3WT" node1="4" node2="2"/>
                 <nad:edge svgId="9" equipmentId="3WT" node1="7" node2="2"/>
             </nad:edges>
         </nad:nad>
@@ -74,8 +77,8 @@
     <g class="nad-3wt-edges">
         <g id="3" class="nad-vl0to30">
             <desc>3WT</desc>
-            <polyline class="nad-edge-path" points="-351.03,102.55 -24.91,12.69"/>
-            <g class="nad-edge-infos" transform="translate(-319.69,93.92)">
+            <polyline class="nad-edge-path nad-stretchable" points="-351.03,102.55 -24.91,12.69"/>
+            <g class="nad-glued-1 nad-edge-infos" transform="translate(-319.69,93.92)">
                 <g class="nad-active nad-state-out">
                     <g transform="rotate(74.59)">
                         <path class="nad-arrow-in" transform="scale(10.00)" d="M-1 -1 H1 L0 1z"/>
@@ -94,7 +97,7 @@
         </g>
     </g>
     <g class="nad-3wt-nodes">
-        <g>
+        <g id="2">
             <circle class="nad-vl0to30 nad-winding" cx="-5.63" cy="7.38" r="20.00"/>
             <circle class="nad-vl120to180 nad-winding" cx="14.49" cy="12.61" r="20.00"/>
             <circle class="nad-vl30to50 nad-winding" cx="8.97" cy="-7.42" r="20.00"/>
