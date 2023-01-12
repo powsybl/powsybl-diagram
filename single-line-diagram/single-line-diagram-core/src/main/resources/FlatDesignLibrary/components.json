@@ -37,6 +37,27 @@
       "styleClass": "sld-breaker"
     },
     {
+      "type": "DISCONNECTOR",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 8.0,
+        "height": 8.0
+      },
+      "subComponents": [
+        {
+          "name": "DISCONNECTOR",
+          "fileName": "disconnector.svg"
+        }
+      ],
+      "styleClass": "sld-disconnector"
+    },
+    {
       "type": "LOAD",
       "anchorPoints": [
         {
