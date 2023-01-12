@@ -14,9 +14,7 @@
 /* Stroke --sld-vl-color with fallback blue */
 .sld-load {fill: var(--sld-vl-color, blue)}
 .sld-generator {fill: var(--sld-vl-color, blue)}
-.sld-two-wt {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-three-wt {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-winding {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-winding {fill: var(--sld-vl-color, blue)}
 .sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-pst {stroke: var(--sld-vl-color, blue); fill: none}

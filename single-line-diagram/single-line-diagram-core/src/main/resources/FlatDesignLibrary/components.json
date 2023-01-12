@@ -113,6 +113,43 @@
       "styleClass": "sld-generator"
     },
     {
+      "type": "TWO_WINDINGS_TRANSFORMER",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -9.5,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 9.5,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 12.0,
+        "height": 19.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION",
+        "DOWN": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "WINDING1",
+          "fileName": "2-windings-transformer-winding1.svg",
+          "styleClass": "sld-winding"
+        },
+        {
+          "name": "WINDING2",
+          "fileName": "2-windings-transformer-winding2.svg",
+          "styleClass": "sld-winding"
+        }
+      ],
+      "styleClass": "sld-two-wt"
+    },
+    {
       "type": "BUSBAR_SECTION",
       "styleClass": "sld-busbar-section"
     },
