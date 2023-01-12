@@ -38,7 +38,7 @@
 .sld-feeder-info.sld-reactive-power {fill: #0277bd}
 .sld-frame {fill: var(--sld-background-color, transparent)}
 /* Stroke maroon for fictitious switch */
-.sld-breaker.sld-fictitious {stroke: maroon}
+.sld-breaker.sld-fictitious {stroke: maroon; stroke-width: 1.5}
 .sld-disconnector.sld-fictitious {stroke: maroon}
 .sld-load-break-switch.sld-fictitious {stroke: maroon}
 .sld-busbar-section.sld-fictitious {stroke: var(--sld-vl-color, #c80000); stroke-width: 1}

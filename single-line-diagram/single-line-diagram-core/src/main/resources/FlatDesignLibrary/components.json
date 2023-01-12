@@ -36,28 +36,61 @@
       ],
       "styleClass": "sld-breaker"
     },
-     {
-    "type" : "LOAD",
-    "anchorPoints" : [ {
-      "x" : 0.0,
-      "y" : -8,
-      "orientation" : "VERTICAL"
-    }, {
-      "x" : 0.0,
-      "y" : 8,
-      "orientation" : "VERTICAL"
-    } ],
-    "size" : {
-      "width" : 16.0,
-      "height" : 16.0
+    {
+      "type": "LOAD",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 8,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
+      },
+      "transformations": {
+        "DOWN": "FLIP"
+      },
+      "subComponents": [
+        {
+          "name": "LOAD",
+          "fileName": "load.svg"
+        }
+      ],
+      "styleClass": "sld-load"
     },
-    "transformations" : { "LEFT":"ROTATION", "RIGHT":"ROTATION" },
-    "subComponents" : [ {
-      "name" : "LOAD",
-      "fileName" : "load.svg"
-    } ],
-    "styleClass" : "sld-load"
-  },
+    {
+      "type": "GENERATOR",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 8.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
+      },
+      "subComponents": [
+        {
+          "name": "GENERATOR",
+          "fileName": "generator.svg"
+        }
+      ],
+      "styleClass": "sld-generator"
+    },
     {
       "type": "BUSBAR_SECTION",
       "styleClass": "sld-busbar-section"
@@ -67,10 +100,6 @@
       "size": {
         "width": 10.0,
         "height": 10.0
-      },
-      "transformations": {
-        "LEFT": "ROTATION",
-        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
@@ -91,10 +120,6 @@
       "size": {
         "width": 10.0,
         "height": 10.0
-      },
-      "transformations": {
-        "LEFT": "ROTATION",
-        "RIGHT": "ROTATION"
       },
       "subComponents": [
         {
