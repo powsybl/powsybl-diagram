@@ -15,6 +15,7 @@ import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
+import com.powsybl.sld.svg.SvgParameters;
 import org.apache.commons.io.output.NullWriter;
 
 import java.io.*;
@@ -127,8 +128,8 @@ public abstract class AbstractTestCase {
 
     public String toSVG(Graph graph, String filename, DiagramLabelProvider labelProvider, DiagramStyleProvider styleProvider) {
         try (StringWriter writer = new StringWriter()) {
-            SingleLineDiagram.draw(graph, writer, new NullWriter(), layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            SingleLineDiagram.draw(graph, writer, new NullWriter(), new SvgParameters(), layoutParameters, componentLibrary,
+                    labelProvider, styleProvider);
 
             if (debugSvgFiles) {
                 writeToFileInDebugDir(filename, writer);
@@ -153,8 +154,8 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             voltageLevelLayoutFactory.create(graph).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            SingleLineDiagram.draw(graph, writer, metadataWriter, new SvgParameters(), layoutParameters, componentLibrary,
+                    labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetadataName, metadataWriter);
@@ -184,8 +185,8 @@ public abstract class AbstractTestCase {
              StringWriter metadataWriter = new StringWriter()) {
 
             sLayoutFactory.create(graph, vlLayoutFactory).run(layoutParameters);
-            SingleLineDiagram.draw(graph, writer, metadataWriter, layoutParameters, componentLibrary,
-                    labelProvider, styleProvider, "");
+            SingleLineDiagram.draw(graph, writer, metadataWriter, new SvgParameters(), layoutParameters, componentLibrary,
+                    labelProvider, styleProvider);
 
             if (debugJsonFiles) {
                 writeToFileInDebugDir(refMetdataName, metadataWriter);

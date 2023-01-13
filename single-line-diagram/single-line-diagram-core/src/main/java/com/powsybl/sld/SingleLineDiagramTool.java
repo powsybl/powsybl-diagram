@@ -15,6 +15,7 @@ import com.powsybl.sld.layout.*;
 import com.powsybl.sld.library.ComponentLibrary;
 import com.powsybl.sld.library.ConvergenceComponentLibrary;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
+import com.powsybl.sld.svg.SvgParameters;
 import com.powsybl.sld.util.TopologicalStyleProvider;
 import com.powsybl.tools.Command;
 import com.powsybl.tools.Tool;
@@ -95,6 +96,8 @@ public class SingleLineDiagramTool implements Tool {
 
     static class SvgGenerationConfig {
 
+        SvgParameters svgParameters = new SvgParameters();
+
         ComponentLibrary componentLibrary = new ConvergenceComponentLibrary();
 
         LayoutParameters layoutParameters = new LayoutParameters();
@@ -113,11 +116,11 @@ public class SingleLineDiagramTool implements Tool {
         Path svgFile = getSvgFile(outputDir, vlOrSubstationId);
         context.getOutputStream().println("Generating '" + svgFile + "'");
         try {
-            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile,
+            SingleLineDiagram.draw(network, vlOrSubstationId, svgFile, generationConfig.svgParameters,
                     generationConfig.layoutParameters, generationConfig.componentLibrary,
                     generationConfig.substationLayoutFactory, generationConfig.voltageLevelLayoutFactory,
                     new DefaultDiagramLabelProvider(network, generationConfig.componentLibrary, generationConfig.layoutParameters),
-                    new TopologicalStyleProvider(network), "");
+                    new TopologicalStyleProvider(network));
         } catch (Exception e) {
             e.printStackTrace(context.getErrorStream());
         }
