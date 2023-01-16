@@ -58,6 +58,42 @@
       "styleClass": "sld-disconnector"
     },
     {
+      "type": "LOAD_BREAK_SWITCH",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 8.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "CLOSED",
+          "fileName": "load-break-switch-closed.svg",
+          "styleClass": "sld-sw-closed"
+        },
+        {
+          "name": "OPEN",
+          "fileName": "load-break-switch-open.svg",
+          "styleClass": "sld-sw-open"
+        }
+      ],
+      "styleClass": "sld-load-break-switch"
+    },
+    {
       "type": "LOAD",
       "anchorPoints": [
         {
