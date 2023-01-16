@@ -113,7 +113,7 @@
       "styleClass": "sld-generator"
     },
     {
-      "type": "INDUCTOR",
+      "type": "CAPACITOR",
       "anchorPoints": [
         {
           "x": 0.0,
@@ -130,9 +130,31 @@
         "width": 16.0,
         "height": 16.0
       },
-      "transformations": {
-        "LEFT": "ROTATION",
-        "RIGHT": "ROTATION"
+      "subComponents": [
+        {
+          "name": "CAPACITOR",
+          "fileName": "capacitor.svg"
+        }
+      ],
+      "styleClass": "sld-capacitor"
+    },
+    {
+      "type": "INDUCTOR",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 8.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
       },
       "subComponents": [
         {
