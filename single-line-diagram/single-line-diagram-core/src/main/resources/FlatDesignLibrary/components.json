@@ -202,6 +202,41 @@
       "styleClass": "sld-two-wt"
     },
     {
+      "type": "PHASE_SHIFT_TRANSFORMER",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -7.5,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 7.5,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 14.0,
+        "height": 15.0
+      },
+      "transformations": {
+        "DOWN": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "WINDING1",
+          "fileName": "phase-shifter-winding1.svg",
+          "styleClass": "sld-winding"
+        },
+        {
+          "name": "WINDING2",
+          "fileName": "phase-shifter-winding2.svg",
+          "styleClass": "sld-winding"
+        }
+      ],
+      "styleClass": "sld-pst"
+    },
+    {
       "type": "BUSBAR_SECTION",
       "styleClass": "sld-busbar-section"
     },
