@@ -113,6 +113,36 @@
       "styleClass": "sld-generator"
     },
     {
+      "type": "INDUCTOR",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 8.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION"
+      },
+      "subComponents": [
+        {
+          "name": "INDUCTOR",
+          "fileName": "inductor.svg"
+        }
+      ],
+      "styleClass": "sld-inductor"
+    },
+    {
       "type": "TWO_WINDINGS_TRANSFORMER",
       "anchorPoints": [
         {

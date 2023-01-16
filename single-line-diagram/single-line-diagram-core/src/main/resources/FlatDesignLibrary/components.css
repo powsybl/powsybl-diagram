@@ -16,7 +16,7 @@
 .sld-generator {fill: var(--sld-vl-color, blue)}
 .sld-winding {fill: var(--sld-vl-color, blue)}
 .sld-capacitor {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-inductor {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-inductor {fill: var(--sld-vl-color, blue)}
 .sld-pst {stroke: var(--sld-vl-color, blue); fill: none}
 .sld-pst-arrow {stroke: black; fill: none}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
