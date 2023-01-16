@@ -241,6 +241,48 @@
       "styleClass": "sld-busbar-section"
     },
     {
+      "type": "BUS_CONNECTION",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 8.0,
+        "height": 8.0
+      },
+      "subComponents": [
+        {
+          "name": "BUS_CONNECTION",
+          "fileName": "bus_connection.svg"
+        }
+      ],
+      "styleClass": "sld-bus-connection"
+    },
+    {
+      "type": "NODE",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "orientation": "NONE"
+        }
+      ],
+      "size": {
+        "width": 8.0,
+        "height": 8.0
+      },
+      "subComponents": [
+        {
+          "name": "NODE",
+          "fileName": "node.svg"
+        }
+      ],
+      "styleClass": "sld-node"
+    },
+    {
       "type": "ARROW_ACTIVE",
       "size": {
         "width": 10.0,
