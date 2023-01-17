@@ -118,11 +118,6 @@
       "anchorPoints": [
         {
           "x": 0.0,
-          "y": -8,
-          "orientation": "VERTICAL"
-        },
-        {
-          "x": 0.0,
           "y": 8,
           "orientation": "VERTICAL"
         }
@@ -323,6 +318,8 @@
         "height": 15.0
       },
       "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION",
         "DOWN": "ROTATION"
       },
       "subComponents": [
