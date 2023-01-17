@@ -12,7 +12,7 @@
 .sld-capacitor {fill: var(--sld-vl-color, blue)}
 .sld-inductor {fill: var(--sld-vl-color, blue)}
 .sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
-.sld-vsc {stroke: var(--sld-vl-color, blue); font-size: 7.43px; fill: none}
+.sld-vsc {fill: var(--sld-vl-color, blue)}
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-node {stroke: none; fill: black}
 .sld-flash {stroke: none; fill: black}
