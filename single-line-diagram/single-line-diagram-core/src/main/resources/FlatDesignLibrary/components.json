@@ -41,8 +41,28 @@
       "anchorPoints": [
         {
           "x": 0.0,
-          "y": 0.0,
+          "y": -4.0,
           "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 4.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "orientation": "NONE"
+        },
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "orientation": "HORIZONTAL"
+        },
+        {
+          "x": 4.0,
+          "y": 0.0,
+          "orientation": "HORIZONTAL"
         }
       ],
       "size": {
