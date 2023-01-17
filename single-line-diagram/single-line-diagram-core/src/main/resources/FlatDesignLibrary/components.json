@@ -238,6 +238,53 @@
       "styleClass": "sld-two-wt"
     },
     {
+      "type": "THREE_WINDINGS_TRANSFORMER",
+      "anchorPoints": [
+        {
+          "x": -9.5,
+          "y": -3.5,
+          "orientation": "HORIZONTAL"
+        },
+        {
+          "x": 9.5,
+          "y": -3.5,
+          "orientation": "HORIZONTAL"
+        },
+        {
+          "x": 0.0,
+          "y": 9.5,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 19.0,
+        "height": 19.0
+      },
+      "transformations": {
+        "LEFT": "ROTATION",
+        "RIGHT": "ROTATION",
+        "DOWN": "FLIP"
+      },
+      "subComponents": [
+        {
+          "name": "WINDING1",
+          "fileName": "3-windings-transformer-winding1.svg",
+          "styleClass": "sld-winding"
+        },
+        {
+          "name": "WINDING2",
+          "fileName": "3-windings-transformer-winding2.svg",
+          "styleClass": "sld-winding"
+        },
+        {
+          "name": "WINDING3",
+          "fileName": "3-windings-transformer-winding3.svg",
+          "styleClass": "sld-winding"
+        }
+      ],
+      "styleClass": "sld-three-wt"
+    },
+    {
       "type": "PHASE_SHIFT_TRANSFORMER",
       "anchorPoints": [
         {
