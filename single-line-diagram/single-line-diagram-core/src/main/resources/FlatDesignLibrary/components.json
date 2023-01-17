@@ -340,6 +340,32 @@
       "styleClass": "sld-pst"
     },
     {
+      "type": "STATIC_VAR_COMPENSATOR",
+      "anchorPoints": [
+        {
+          "x": 0.0,
+          "y": -8.0,
+          "orientation": "VERTICAL"
+        },
+        {
+          "x": 0,
+          "y": 6.0,
+          "orientation": "VERTICAL"
+        }
+      ],
+      "size": {
+        "width": 16.0,
+        "height": 16.0
+      },
+      "subComponents": [
+        {
+          "name": "STATIC_VAR_COMPENSATOR",
+          "fileName": "svc.svg"
+        }
+      ],
+      "styleClass": "sld-svc"
+    },
+    {
       "type": "VSC_CONVERTER_STATION",
       "anchorPoints": [
         {

@@ -11,7 +11,7 @@
 .sld-winding {fill: var(--sld-vl-color, blue)}
 .sld-capacitor {fill: var(--sld-vl-color, blue)}
 .sld-inductor {fill: var(--sld-vl-color, blue)}
-.sld-svc {stroke: var(--sld-vl-color, blue); fill: none}
+.sld-svc {fill: var(--sld-vl-color, blue)}
 .sld-vsc {fill: var(--sld-vl-color, blue)}
 .sld-node-infos {stroke: none; fill: var(--sld-vl-color, black)}
 .sld-node {stroke: none; fill: black}
