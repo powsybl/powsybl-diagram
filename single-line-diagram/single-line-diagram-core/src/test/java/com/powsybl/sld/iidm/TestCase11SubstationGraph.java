@@ -16,9 +16,7 @@ import com.powsybl.sld.layout.VerticalSubstationLayoutFactory;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
-import com.powsybl.sld.svg.DiagramStyleProvider;
 import com.powsybl.sld.util.NominalVoltageDiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -208,11 +206,6 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
                 35, 2, vl1.getId(), vlSubst2.getId(),
                 "line1", 7, ConnectablePosition.Direction.TOP,
                 "line1", 1, ConnectablePosition.Direction.TOP);
-    }
-
-    @Override
-    protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
     }
 
     @Test
