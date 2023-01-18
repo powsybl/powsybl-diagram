@@ -304,18 +304,18 @@
       "anchorPoints": [
         {
           "x": 0.0,
-          "y": -7.5,
+          "y": -9.5,
           "orientation": "VERTICAL"
         },
         {
           "x": 0.0,
-          "y": 7.5,
+          "y": 9.5,
           "orientation": "VERTICAL"
         }
       ],
       "size": {
-        "width": 14.0,
-        "height": 15.0
+        "width": 12.0,
+        "height": 19.0
       },
       "transformations": {
         "LEFT": "ROTATION",
