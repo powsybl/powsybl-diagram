@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
 public class TestAddExternalComponent extends AbstractTestCaseRaw {
-    private static final String PACMAN = "PACMAN";
+    private static final String CHEESE = "CHEESE";
 
     @Before
     public void setUp() {
@@ -33,24 +33,24 @@ public class TestAddExternalComponent extends AbstractTestCaseRaw {
         BusNode bbs = vlBuilder.createBusBarSection("bbs", 1, 1);
         FeederNode load = vlBuilder.createLoad("l", 0, TOP);
         SwitchNode d = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.DISCONNECTOR, "d", false, false);
-        Node pacMan = NodeFactory.createEquipmentNode(vlBuilder.getGraph(), Node.NodeType.INTERNAL, "pacMan", null, null, PACMAN, false);
+        Node cheese = NodeFactory.createEquipmentNode(vlBuilder.getGraph(), Node.NodeType.INTERNAL, "cheese", null, null, CHEESE, false);
         SwitchNode b = vlBuilder.createSwitchNode(SwitchNode.SwitchKind.BREAKER, "b", false, false);
         vlBuilder.connectNode(bbs, d);
         vlBuilder.connectNode(d, b);
-        vlBuilder.connectNode(b, pacMan);
-        vlBuilder.connectNode(pacMan, load);
+        vlBuilder.connectNode(b, cheese);
+        vlBuilder.connectNode(cheese, load);
     }
 
     @Override
     protected ResourcesComponentLibrary getResourcesComponentLibrary() {
-        return new ResourcesComponentLibrary("pacman", "/ConvergenceLibrary", "/PacmanLibrary");
+        return new ResourcesComponentLibrary("cheese", "/ConvergenceLibrary", "/CheeseLibrary");
     }
 
     @Test
     public void test() {
         VoltageLevelGraph g = rawGraphBuilder.buildVoltageLevelGraph("vl");
         voltageLevelGraphLayout(g);
-        assertEquals(toString("/TestPacman.svg"),
-                toSVG(g, "/TestPacman.svg", getRawLabelProvider(), new BasicStyleProvider()));
+        assertEquals(toString("/TestCheese.svg"),
+                toSVG(g, "/TestCheese.svg", getRawLabelProvider(), new BasicStyleProvider()));
     }
 }
