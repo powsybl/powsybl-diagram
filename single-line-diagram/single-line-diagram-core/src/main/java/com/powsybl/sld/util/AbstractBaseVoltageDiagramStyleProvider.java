@@ -230,7 +230,7 @@ public abstract class AbstractBaseVoltageDiagramStyleProvider extends BasicStyle
             case WINDING1: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_LEFT);
             case WINDING2: return node.getVoltageLevelInfos(Middle3WTNode.Winding.UPPER_RIGHT);
             case WINDING3: return node.getVoltageLevelInfos(Middle3WTNode.Winding.DOWN);
-            default: throw new IllegalStateException("Unexpected subComponent name: " + subComponentName);
+            default: return null; // for decorators
         }
     }
 
