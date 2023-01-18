@@ -18,10 +18,10 @@ import com.powsybl.sld.layout.SmartVoltageLevelLayoutFactory;
 import com.powsybl.sld.model.graphs.Graph;
 import com.powsybl.sld.model.graphs.SubstationGraph;
 import com.powsybl.sld.model.graphs.VoltageLevelGraph;
+import com.powsybl.sld.svg.BasicStyleProvider;
 import com.powsybl.sld.svg.DefaultDiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramLabelProvider;
 import com.powsybl.sld.svg.DiagramStyleProvider;
-import com.powsybl.sld.util.TopologicalStyleProvider;
 
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
@@ -46,7 +46,7 @@ public abstract class AbstractTestCaseIidm extends AbstractTestCase {
     }
 
     protected DiagramStyleProvider getDefaultDiagramStyleProvider() {
-        return new TopologicalStyleProvider(network);
+        return new BasicStyleProvider();
     }
 
     protected static Substation createSubstation(Network n, String id, String name, Country country) {
