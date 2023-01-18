@@ -12,7 +12,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_l",
@@ -26,7 +26,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 156.0,
+    "y" : 102.0,
     "name" : "b",
     "equipmentId" : "b",
     "open" : false,
@@ -37,7 +37,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "bbs",
     "equipmentId" : "bbs",
     "pxWidth" : 25.0,
@@ -55,7 +55,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "d",
     "equipmentId" : "d",
     "open" : false,
@@ -95,9 +95,9 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 156.0,
+        "y" : 102.0,
         "xSpan" : 50.0,
-        "ySpan" : 188.0
+        "ySpan" : 80.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -115,7 +115,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 250.0,
+          "y" : 142.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -136,9 +136,9 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "nodes" : [ "INTERNAL_vl_b", "b", "INTERNAL_vl_l" ]
       }, {

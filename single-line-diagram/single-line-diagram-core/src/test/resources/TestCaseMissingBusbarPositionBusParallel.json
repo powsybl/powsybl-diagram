@@ -12,14 +12,14 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 25.0,
-    "y" : 250.0
+    "y" : 142.0
   }, {
     "type" : "INTERNAL",
     "id" : "INTERNAL_vl_b2",
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 335.0,
+    "y" : 227.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -27,7 +27,7 @@
     "componentType" : "NODE",
     "fictitious" : true,
     "x" : 75.0,
-    "y" : 523.0,
+    "y" : 307.0,
     "orientation" : "DOWN"
   }, {
     "type" : "INTERNAL",
@@ -42,7 +42,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 156.0,
+    "y" : 102.0,
     "name" : "b1",
     "equipmentId" : "b1",
     "open" : false,
@@ -53,7 +53,7 @@
     "componentType" : "BREAKER",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 429.0,
+    "y" : 267.0,
     "orientation" : "DOWN",
     "name" : "b2",
     "equipmentId" : "b2",
@@ -65,7 +65,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 305.0,
+    "y" : 197.0,
     "name" : "bbs1",
     "equipmentId" : "bbs1",
     "pxWidth" : 75.0,
@@ -83,7 +83,7 @@
     "componentType" : "BUSBAR_SECTION",
     "fictitious" : false,
     "x" : 12.5,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "bbs2",
     "equipmentId" : "bbs2",
     "pxWidth" : 75.0,
@@ -101,7 +101,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 305.0,
+    "y" : 197.0,
     "name" : "d1",
     "equipmentId" : "d1",
     "open" : false,
@@ -112,7 +112,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 280.0,
+    "y" : 172.0,
     "orientation" : "DOWN",
     "name" : "d2",
     "equipmentId" : "d2",
@@ -124,7 +124,7 @@
     "componentType" : "DISCONNECTOR",
     "fictitious" : false,
     "x" : 25.0,
-    "y" : 280.0,
+    "y" : 172.0,
     "name" : "d2l",
     "equipmentId" : "d2l",
     "open" : false,
@@ -135,7 +135,7 @@
     "componentType" : "GENERATOR",
     "fictitious" : false,
     "x" : 75.0,
-    "y" : 585.0,
+    "y" : 369.0,
     "orientation" : "DOWN",
     "label" : "generator",
     "name" : "g",
@@ -178,9 +178,9 @@
       },
       "coord" : {
         "x" : 25.0,
-        "y" : 156.0,
+        "y" : 102.0,
         "xSpan" : 50.0,
-        "ySpan" : 188.0
+        "ySpan" : 80.0
       },
       "subBlocks" : [ {
         "type" : "LEGPARALLEL",
@@ -198,7 +198,7 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 250.0,
+          "y" : 142.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -218,7 +218,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -239,7 +239,7 @@
           },
           "coord" : {
             "x" : 25.0,
-            "y" : 250.0,
+            "y" : 142.0,
             "xSpan" : 50.0,
             "ySpan" : 0.0
           },
@@ -261,9 +261,9 @@
         },
         "coord" : {
           "x" : 25.0,
-          "y" : 156.0,
+          "y" : 102.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "nodes" : [ "INTERNAL_vl_1", "b1", "INTERNAL_vl_l" ]
       }, {
@@ -310,9 +310,9 @@
       },
       "coord" : {
         "x" : 75.0,
-        "y" : 429.0,
+        "y" : 267.0,
         "xSpan" : 50.0,
-        "ySpan" : 188.0
+        "ySpan" : 80.0
       },
       "subBlocks" : [ {
         "type" : "LEGPRIMARY",
@@ -330,7 +330,7 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 335.0,
+          "y" : 227.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
@@ -351,9 +351,9 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 429.0,
+          "y" : 267.0,
           "xSpan" : 50.0,
-          "ySpan" : 188.0
+          "ySpan" : 80.0
         },
         "nodes" : [ "INTERNAL_vl_b2", "b2", "INTERNAL_vl_g" ]
       }, {
@@ -372,7 +372,7 @@
         },
         "coord" : {
           "x" : 75.0,
-          "y" : 523.0,
+          "y" : 307.0,
           "xSpan" : 50.0,
           "ySpan" : 0.0
         },
