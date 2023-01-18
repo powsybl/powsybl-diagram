@@ -132,8 +132,7 @@ public class TestCase15GraphWithVoltageIndicator extends AbstractTestCaseIidm {
     }
 
     private void runTest(DiagramStyleProvider styleProvider, String filename, DiagramLabelProvider labelProvider) {
-        layoutParameters.setAdaptCellHeightToContent(true)
-                .setBusInfoMargin(5);
+        layoutParameters.setBusInfoMargin(5);
 
         // build graph
         VoltageLevelGraph g = graphBuilder.buildVoltageLevelGraph("vl1");

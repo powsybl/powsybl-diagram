@@ -43,15 +43,15 @@ public abstract class AbstractTestCase {
 
     private static LayoutParameters createDefaultLayoutParameters() {
         return new LayoutParameters()
-            .setAdaptCellHeightToContent(false)
+            .setAdaptCellHeightToContent(true)
             .setVerticalSpaceBus(25)
             .setHorizontalBusPadding(20)
             .setCellWidth(50)
             .setExternCellHeight(250)
             .setInternCellHeight(40)
             .setStackHeight(30)
-            .setShowGrid(true)
-            .setShowInternalNodes(true)
+            .setShowGrid(false)
+            .setShowInternalNodes(false)
             .setScaleFactor(1)
             .setFeederInfosOuterMargin(20)
             .setDrawStraightWires(false)

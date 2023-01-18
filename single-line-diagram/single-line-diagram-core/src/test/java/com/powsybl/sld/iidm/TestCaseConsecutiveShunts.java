@@ -30,10 +30,10 @@ public class TestCaseConsecutiveShunts extends AbstractTestCaseIidm {
 
     @Before
     public void setUp() {
+        layoutParameters.setShowInternalNodes(true);
         network = Network.read("consecutive_shunts.xiidm", getClass().getResourceAsStream("/consecutive_shunts.xiidm"));
         vl = network.getVoltageLevel("AU");
         graphBuilder = new NetworkGraphBuilder(network);
-        layoutParameters.setAdaptCellHeightToContent(true);
     }
 
     @Override

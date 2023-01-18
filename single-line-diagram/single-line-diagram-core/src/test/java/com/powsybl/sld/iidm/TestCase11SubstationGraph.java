@@ -241,8 +241,7 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
     }
 
     private void runHorizontalALignmentTest(LayoutParameters.Alignment alignment) {
-        layoutParameters.setAdaptCellHeightToContent(true)
-                .setBusbarsAlignment(alignment);
+        layoutParameters.setBusbarsAlignment(alignment);
 
         // build substation graph
         SubstationGraph g = graphBuilder.buildSubstationGraph(substation.getId());
