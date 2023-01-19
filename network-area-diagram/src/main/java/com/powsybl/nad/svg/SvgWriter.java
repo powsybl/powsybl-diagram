@@ -130,16 +130,6 @@ public class SvgWriter {
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.ONE);
             drawHalfEdge(graph, writer, edge, BranchEdge.Side.TWO);
 
-            if (BranchEdge.PST_EDGE.equals(edge.getType())) {
-                drawPstArrow(writer, edge);
-            }
-            if (edge.getType().equals(BranchEdge.HVDC_LINE_EDGE)) {
-                drawConverterStation(writer, edge);
-            }
-            if (BranchEdge.LINE_EDGE.equals(edge.getType()) && svgParameters.isLineNameDisplayed()) {
-                drawLineLabel(writer, edge);
-            }
-
             drawEdgeCenter(writer, edge);
 
             writer.writeEndElement();
@@ -149,9 +139,9 @@ public class SvgWriter {
 
     private void drawLineLabel(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
 
-        String lineName = edge.getEquipmentId();
+        String lineLabel = labelProvider.getLabel(edge);
 
-        if (lineName != null) {
+        if (lineLabel != null && !lineLabel.isEmpty()) {
 
             double edgeAngle = edge.getEdgeEndAngle(BranchEdge.Side.ONE);
             boolean textFlipped = Math.cos(edgeAngle) < 0;
@@ -171,17 +161,20 @@ public class SvgWriter {
             }
 
             writer.writeStartElement(GROUP_ELEMENT_NAME);
-            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_ID_CLASS);
+            writer.writeAttribute(CLASS_ATTRIBUTE, StyleProvider.EDGE_LABEL_CLASS);
+//            writeStyleClasses(writer, StyleProvider.EDGE_LABEL_CLASS, StyleProvider.GLUED_CENTER_CLASS);
             writer.writeAttribute(TRANSFORM_ATTRIBUTE, getTranslateString(anchorPoint));
 
-            drawLabel(writer, lineName, 0, style, textAngle, X_ATTRIBUTE);
+            drawLabel(writer, lineLabel, 0, style, textAngle, X_ATTRIBUTE);
 
             writer.writeEndElement();
+        } else {
+            return;
         }
     }
 
     private void drawEdgeCenter(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {
-        if (BranchEdge.LINE_EDGE.equals(edge.getType()) || BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
+        if (BranchEdge.DANGLING_LINE_EDGE.equals(edge.getType())) {
             return;
         }
         writer.writeStartElement(GROUP_ELEMENT_NAME);
@@ -194,8 +187,13 @@ public class SvgWriter {
             case BranchEdge.HVDC_LINE_EDGE:
                 drawConverterStation(writer, edge);
                 break;
+            case BranchEdge.LINE_EDGE:
+                if (svgParameters.isLineNameDisplayed()) {
+                    drawLineLabel(writer, edge);
+                }
+                break;
             default:
-                // Should not happen as lines are discarded beforehand
+                // Should not happen as dangling lines are discarded beforehand
         }
         writer.writeEndElement();
     }
@@ -206,7 +204,6 @@ public class SvgWriter {
         if (BranchEdge.PST_EDGE.equals(edge.getType())) {
             drawPstArrow(writer, edge);
         }
-
     }
 
     private void drawConverterStation(XMLStreamWriter writer, BranchEdge edge) throws XMLStreamException {

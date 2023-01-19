@@ -104,8 +104,10 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-edge-id" transform="translate(-118.51,-20.70)">
-                <text transform="rotate(65.27)" x="0.00" style="text-anchor:middle">l1</text>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(-118.51,-20.70)">
+                    <text transform="rotate(65.27)" x="0.00" style="text-anchor:middle">l1</text>
+                </g>
             </g>
         </g>
         <g id="7" class="nad-dangling-line-edge">

@@ -135,7 +135,6 @@
                     </g>
                 </g>
             </g>
-            <path d="M60.00,0 0,60.00 M52.00,0 60.00,0 60.00,8.00" transform="matrix(1.00,-0.04,0.04,1.00,-401.77,24.64)" class="nad-pst-arrow"/>
             <g class="nad-glued-center">
                 <circle class="nad-vl180to300 nad-winding" cx="-380.65" cy="53.86" r="20.00"/>
                 <circle class="nad-vl300to500 nad-winding" cx="-360.67" cy="53.11" r="20.00"/>
@@ -182,7 +181,6 @@
                     </g>
                 </g>
             </g>
-            <polyline points="-67.95,-64.79 -27.53,-109.12" class="nad-hvdc"/>
             <g class="nad-glued-center">
                 <polyline points="-67.95,-64.79 -27.53,-109.12" class="nad-hvdc"/>
             </g>
@@ -227,7 +225,6 @@
                     </g>
                 </g>
             </g>
-            <polyline points="11.04,66.41 70.65,73.23" class="nad-hvdc"/>
             <g class="nad-glued-center">
                 <polyline points="11.04,66.41 70.65,73.23" class="nad-hvdc"/>
             </g>
@@ -272,8 +269,10 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-edge-id" transform="translate(161.91,-62.96)">
-                <text transform="rotate(60.53)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(161.91,-62.96)">
+                    <text transform="rotate(60.53)" x="0.00" style="text-anchor:middle">LINE_S2S3</text>
+                </g>
             </g>
         </g>
         <g id="14">
@@ -316,8 +315,10 @@
                     </g>
                 </g>
             </g>
-            <g class="nad-edge-id" transform="translate(442.12,157.61)">
-                <text transform="rotate(18.41)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
+            <g class="nad-glued-center">
+                <g class="nad-edge-label" transform="translate(442.12,157.61)">
+                    <text transform="rotate(18.41)" x="0.00" style="text-anchor:middle">LINE_S3S4</text>
+                </g>
             </g>
         </g>
     </g>
