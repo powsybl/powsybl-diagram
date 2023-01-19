@@ -55,7 +55,7 @@ public abstract class AbstractStyleProvider implements StyleProvider {
 
     @Override
     public List<String> getNodeStyleClasses(Node node) {
-        return Collections.emptyList();
+        return node instanceof BoundaryNode ? Collections.singletonList(BOUNDARY_NODE_CLASS) : Collections.emptyList();
     }
 
     @Override
