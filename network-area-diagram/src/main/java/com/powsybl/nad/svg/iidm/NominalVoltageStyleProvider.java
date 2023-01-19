@@ -41,7 +41,7 @@ public class NominalVoltageStyleProvider extends AbstractVoltageStyleProvider {
         List<String> styles = new ArrayList<>();
         if (node instanceof BoundaryNode) {
             styles.add(BOUNDARY_NODE_CLASS);
-            double nominalV = network.getDanglingLine(node.getEquipmentId()).getBoundary().getVoltageLevel().getNominalV();
+            double nominalV = network.getDanglingLine(node.getEquipmentId()).getTerminal().getVoltageLevel().getNominalV();
             getBaseVoltageStyle(nominalV).ifPresent(styles::add);
         } else if (node instanceof VoltageLevelNode) {
             double nominalV = network.getVoltageLevel(node.getEquipmentId()).getNominalV();
