@@ -117,17 +117,26 @@ public class PositionFromExtension extends AbstractPositionFinder {
     }
 
     private void gatherLayoutExtensionInformation(VoltageLevelGraph graph) {
-        graph.getNodes().stream().filter(node -> node.getDirection() != Direction.UNDEFINED && graph.getCell(node).isPresent()).forEach(node -> {
-            BusCell cell = (BusCell) graph.getCell(node).get();
-            cell.setDirection(node.getDirection());
-            node.getOrder().ifPresent(cell::setOrder);
-        });
+
         graph.getBusCellStream().forEach(bc -> {
+            List<Direction> listOfDirectionsInsideCell = bc.getNodes().stream().map(Node::getDirection).distinct().collect(Collectors.toList());
+            int numberOfDirectionsInsideCell = listOfDirectionsInsideCell.size();
+            if (numberOfDirectionsInsideCell == 1) {
+                Direction direction = listOfDirectionsInsideCell.get(0);
+                if (direction != Direction.UNDEFINED) {
+                    bc.setDirection(direction);
+                }
+            } else if (numberOfDirectionsInsideCell > 1) {
+                bc.setDirection(listOfDirectionsInsideCell.get(numberOfDirectionsInsideCell - 1));
+                LOGGER.warn("Directions inside cell are not consistent: {} directions found instead of 1", numberOfDirectionsInsideCell);
+            }
+
             bc.getNodes().stream().map(Node::getOrder)
                     .filter(Optional::isPresent)
                     .mapToInt(Optional::get)
                     .min()
                     .ifPresent(bc::setOrder);
+
             if (bc.getDirection() == Direction.UNDEFINED && bc.getType() == EXTERN) {
                 bc.setDirection(DEFAULTDIRECTION);
             }
