@@ -24,8 +24,6 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author Benoit Jeanson <benoit.jeanson at rte-france.com>
  */
