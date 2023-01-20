@@ -46,13 +46,17 @@ public class TopologicalStyleProvider extends AbstractBaseVoltageDiagramStylePro
             return getLineEdgeStyle(graph, (BranchEdge) edge);
         } else {
             if (node1.getType() == NodeType.SWITCH && ((SwitchNode) node1).isOpen()) {
-                return graph.getVoltageLevelInfos(node2) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node2), node2) : Optional.empty();
+                return getSwitchEdgeStyle(graph, node2);
             }
             if (node2.getType() == NodeType.SWITCH && ((SwitchNode) node2).isOpen()) {
-                return graph.getVoltageLevelInfos(node1) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node1), node1) : Optional.empty();
+                return getSwitchEdgeStyle(graph, node1);
             }
             return super.getEdgeStyle(graph, edge);
         }
+    }
+
+    private Optional<String> getSwitchEdgeStyle(Graph graph, Node node) {
+        return graph.getVoltageLevelInfos(node) != null ? getVoltageLevelNodeStyle(graph.getVoltageLevelInfos(node), node) : Optional.empty();
     }
 
     private Optional<String> getLineEdgeStyle(Graph graph, BranchEdge edge) {

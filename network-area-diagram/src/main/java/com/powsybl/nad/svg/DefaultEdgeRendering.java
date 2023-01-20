@@ -159,7 +159,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
                 .sorted().boxed().collect(Collectors.toList());
 
         List<Double> loopAngles = new ArrayList<>();
-        if (anglesOtherEdges.size() > 0) {
+        if (!anglesOtherEdges.isEmpty()) {
             anglesOtherEdges.add(anglesOtherEdges.get(0) + 2 * Math.PI);
             double apertureWithMargin = svgParameters.getLoopEdgesAperture() * 1.2;
 
@@ -185,20 +185,7 @@ public class DefaultEdgeRendering implements EdgeRendering {
             } else if (nbLoops <= nbSharedSlots) {
                 // Place the maximum of loops in "slots" separated by non-loop edges, and put the excessive ones in the bigger "slots"
                 int nbExcessiveRemaining = nbLoops - nbSeparatedSlots;
-                for (int i = sortedIndices.size() - 1; i >= 0; i--) {
-                    int iSorted = sortedIndices.get(i);
-                    int nbAvailableSlots = (int) Math.floor(deltaAngles[iSorted] / apertureWithMargin);
-                    if (nbAvailableSlots == 0) {
-                        break;
-                    }
-                    int nbLoopsInDelta = Math.min(nbAvailableSlots, nbExcessiveRemaining + 1);
-                    double extraSpace = deltaAngles[iSorted] - svgParameters.getLoopEdgesAperture() * nbLoopsInDelta; // extra space without margins
-                    double intraSpace = extraSpace / (nbLoopsInDelta + 1); // space between two loops and between non-loop edges and first/last loop
-                    double angleStep = (anglesOtherEdges.get(iSorted + 1) - anglesOtherEdges.get(iSorted) - intraSpace) / nbLoopsInDelta;
-                    double startAngle = anglesOtherEdges.get(iSorted) + intraSpace / 2 + angleStep / 2;
-                    IntStream.range(0, nbLoopsInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(loopAngles::add);
-                    nbExcessiveRemaining -= nbLoopsInDelta - 1;
-                }
+                computeLoopAnglesWithExcessiveOne(nbExcessiveRemaining, sortedIndices, deltaAngles, apertureWithMargin, svgParameters, anglesOtherEdges, loopAngles);
             } else {
                 // Not enough place in the slots: dividing the circle in nbLoops, starting in the middle of the biggest slot
                 int iMaxDelta = sortedIndices.get(sortedIndices.size() - 1);
@@ -212,6 +199,27 @@ public class DefaultEdgeRendering implements EdgeRendering {
         }
 
         return loopAngles;
+    }
+
+    private void computeLoopAnglesWithExcessiveOne(int initNbExcessiveRemaining, List<Integer> sortedIndices,
+                                                   double[] deltaAngles, double apertureWithMargin,
+                                                   SvgParameters svgParameters, List<Double> anglesOtherEdges,
+                                                   List<Double> loopAngles) {
+        int nbExcessiveRemaining = initNbExcessiveRemaining;
+        for (int i = sortedIndices.size() - 1; i >= 0; i--) {
+            int iSorted = sortedIndices.get(i);
+            int nbAvailableSlots = (int) Math.floor(deltaAngles[iSorted] / apertureWithMargin);
+            if (nbAvailableSlots == 0) {
+                break;
+            }
+            int nbLoopsInDelta = Math.min(nbAvailableSlots, nbExcessiveRemaining + 1);
+            double extraSpace = deltaAngles[iSorted] - svgParameters.getLoopEdgesAperture() * nbLoopsInDelta; // extra space without margins
+            double intraSpace = extraSpace / (nbLoopsInDelta + 1); // space between two loops and between non-loop edges and first/last loop
+            double angleStep = (anglesOtherEdges.get(iSorted + 1) - anglesOtherEdges.get(iSorted) - intraSpace) / nbLoopsInDelta;
+            double startAngle = anglesOtherEdges.get(iSorted) + intraSpace / 2 + angleStep / 2;
+            IntStream.range(0, nbLoopsInDelta).mapToDouble(iLoop -> startAngle + iLoop * angleStep).forEach(loopAngles::add);
+            nbExcessiveRemaining -= nbLoopsInDelta - 1;
+        }
     }
 
     private double getAngle(BranchEdge edge, Graph graph, Node node) {

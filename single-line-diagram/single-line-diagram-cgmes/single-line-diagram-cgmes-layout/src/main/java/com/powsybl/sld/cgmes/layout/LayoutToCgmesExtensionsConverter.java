@@ -150,38 +150,7 @@ public class LayoutToCgmesExtensionsConverter {
                 staticVarCompensator.addExtension(InjectionDiagramData.class, svcDiagramData);
             });
 
-            vlGraph.getNodes().stream().filter(this::isLineNode).forEach(node -> {
-                switch (node.getComponentType()) {
-                    case LINE:
-                        FeederNode lineNode = (FeederNode) node;
-                        Line line = voltageLevel.getConnectable(lineNode.getEquipmentId(), Line.class);
-                        if (line != null) {
-                            LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
-                            int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;
-                            DiagramPoint linePoint = offsetPoint.newDiagramPoint(lineNode.getX(), lineNode.getY(), lineSeq);
-                            lineDiagramData.addPoint(diagramName, linePoint);
-
-                            LOG.debug("setting CGMES DL IIDM extensions for Line {} ({}), new point {}", line.getId(), line.getNameOrId(), linePoint);
-                            line.addExtension(LineDiagramData.class, lineDiagramData);
-                        }
-                        break;
-                    case DANGLING_LINE:
-                        FeederNode danglingLineNode = (FeederNode) node;
-                        DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
-                        if (danglingLine != null) {
-                            LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
-                            int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
-                            DiagramPoint danglingLinePoint = offsetPoint.newDiagramPoint(danglingLineNode.getX(), danglingLineNode.getY(), danglingLineSeq);
-                            danglingLineDiagramData.addPoint(diagramName, danglingLinePoint);
-
-                            LOG.debug("setting CGMES DL IIDM extensions for Dangling line {} ({}),  point {}", danglingLine.getId(), danglingLine.getNameOrId(), danglingLinePoint);
-                            danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            });
+            applyLayoutOnLines(vlGraph, voltageLevel, diagramName, offsetPoint);
 
             if (TopologyKind.BUS_BREAKER.equals(voltageLevel.getTopologyKind())) {
                 voltageLevel.getBusBreakerView().getBusStream().forEach(bus ->
@@ -239,6 +208,41 @@ public class LayoutToCgmesExtensionsConverter {
         );
 
         return subsBoundary;
+    }
+
+    private void applyLayoutOnLines(VoltageLevelGraph vlGraph, VoltageLevel voltageLevel, String diagramName, OffsetPoint offsetPoint) {
+        vlGraph.getNodes().stream().filter(this::isLineNode).forEach(node -> {
+            switch (node.getComponentType()) {
+                case LINE:
+                    FeederNode lineNode = (FeederNode) node;
+                    Line line = voltageLevel.getConnectable(lineNode.getEquipmentId(), Line.class);
+                    if (line != null) {
+                        LineDiagramData<Line> lineDiagramData = LineDiagramData.getOrCreateDiagramData(line);
+                        int lineSeq = getMaxSeq(lineDiagramData.getPoints(diagramName)) + 1;
+                        DiagramPoint linePoint = offsetPoint.newDiagramPoint(lineNode.getX(), lineNode.getY(), lineSeq);
+                        lineDiagramData.addPoint(diagramName, linePoint);
+
+                        LOG.debug("setting CGMES DL IIDM extensions for Line {} ({}), new point {}", line.getId(), line.getNameOrId(), linePoint);
+                        line.addExtension(LineDiagramData.class, lineDiagramData);
+                    }
+                    break;
+                case DANGLING_LINE:
+                    FeederNode danglingLineNode = (FeederNode) node;
+                    DanglingLine danglingLine = voltageLevel.getConnectable(danglingLineNode.getId(), DanglingLine.class);
+                    if (danglingLine != null) {
+                        LineDiagramData<DanglingLine> danglingLineDiagramData = LineDiagramData.getOrCreateDiagramData(danglingLine);
+                        int danglingLineSeq = getMaxSeq(danglingLineDiagramData.getPoints(diagramName)) + 1;
+                        DiagramPoint danglingLinePoint = offsetPoint.newDiagramPoint(danglingLineNode.getX(), danglingLineNode.getY(), danglingLineSeq);
+                        danglingLineDiagramData.addPoint(diagramName, danglingLinePoint);
+
+                        LOG.debug("setting CGMES DL IIDM extensions for Dangling line {} ({}),  point {}", danglingLine.getId(), danglingLine.getNameOrId(), danglingLinePoint);
+                        danglingLine.addExtension(LineDiagramData.class, danglingLineDiagramData);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     private boolean checkSwitchNode(Node swNode) {
