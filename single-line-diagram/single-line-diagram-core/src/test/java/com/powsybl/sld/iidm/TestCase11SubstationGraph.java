@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Franck Lecuyer <franck.lecuyer at rte-france.com>
@@ -318,11 +319,11 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph substationGraph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        compareMetadata(substationGraph, "/substDiag_metadata.json",
+        assertTrue(compareMetadata(substationGraph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new BasicStyleProvider());
+                new BasicStyleProvider()));
     }
 
     @Test
@@ -331,10 +332,10 @@ public class TestCase11SubstationGraph extends AbstractTestCaseIidm {
         // (with horizontal substation layout)
         SubstationGraph graph = graphBuilder.buildSubstationGraph(substation.getId());
 
-        compareMetadata(graph, "/substDiag_metadata.json",
+        assertTrue(compareMetadata(graph, "/substDiag_metadata.json",
                 new HorizontalSubstationLayoutFactory(),
                 new PositionVoltageLevelLayoutFactory(),
                 new DefaultDiagramLabelProvider(network, componentLibrary, layoutParameters),
-                new NominalVoltageDiagramStyleProvider(network));
+                new NominalVoltageDiagramStyleProvider(network)));
     }
 }
